@@ -47,6 +47,8 @@ type alias Config msg =
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
     , loadUrl : String -> msg
+    , login : msg
+    , logout : msg
     , reloadPage : msg
     , closeNotification : Session.Notification -> msg
     , activePage : ActivePage
@@ -295,8 +297,15 @@ pageHeader config =
                     , attribute "role" "navigation"
                     , attribute "aria-label" "Menu principal"
                     ]
-                    [ headerMenuLinks
+                    [ (headerMenuLinks
                         |> List.map (viewNavigationLink config.activePage)
+                      )
+                        ++ [ if Session.isAuthenticated config.session then
+                                button [ class "nav-link flex-fill text-end", onClick config.logout ] [ text "Déconnexion" ]
+
+                             else
+                                button [ class "nav-link flex-fill text-end", onClick config.login ] [ text "Connexion" ]
+                           ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
                 ]
@@ -349,6 +358,14 @@ notificationView { closeNotification } notification =
         Session.GenericError title message ->
             Alert.simple
                 { level = Alert.Danger
+                , title = Just title
+                , close = Just (closeNotification notification)
+                , content = [ text message ]
+                }
+
+        Session.GenericInfo title message ->
+            Alert.simple
+                { level = Alert.Info
                 , title = Just title
                 , close = Just (closeNotification notification)
                 , content = [ text message ]

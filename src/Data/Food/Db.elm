@@ -5,42 +5,35 @@ module Data.Food.Db exposing
     , updateWellKnownFromNewProcesses
     )
 
-import Data.Example exposing (Example)
+import Data.Example as Example exposing (Example)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
-import Data.Food.Query exposing (Query)
+import Data.Food.Query as Query exposing (Query)
 import Data.Food.WellKnown as WellKnown exposing (WellKnown)
-import Data.Impact.Definition exposing (Definitions)
+import Data.Impact as Impact
 import Json.Decode as Decode
-import Json.Decode.Extra as DE
 
 
 type alias Db =
-    { examples : List (Example Query)
-    , processes : List Process
+    { processes : List Process
+    , examples : List (Example Query)
     , ingredients : List Ingredient
     , wellKnown : WellKnown
     }
 
 
-buildFromJson : List (Example Query) -> Definitions -> String -> String -> Result String Db
-buildFromJson examples definitions processesJson ingredientsJson =
-    processesJson
-        |> Decode.decodeString (Process.decodeList definitions)
+buildFromJson : String -> String -> String -> Result String Db
+buildFromJson exampleProductsJson foodProcessesJson ingredientsJson =
+    foodProcessesJson
+        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
+        |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->
-                ingredientsJson
-                    |> Decode.decodeString
-                        (Ingredient.decodeIngredients processes
-                            |> Decode.andThen
-                                (\ingredients ->
-                                    WellKnown.load processes
-                                        |> Result.map (Db examples processes ingredients)
-                                        |> DE.fromResult
-                                )
-                        )
+                Result.map3 (Db processes)
+                    (exampleProductsJson |> Example.decodeListFromJsonString Query.decode)
+                    (ingredientsJson |> Decode.decodeString (Ingredient.decodeIngredients processes) |> Result.mapError Decode.errorToString)
+                    (WellKnown.load processes)
             )
-        |> Result.mapError Decode.errorToString
 
 
 updateIngredientsFromNewProcesses : List Process -> List Ingredient -> List Ingredient

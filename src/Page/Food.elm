@@ -144,7 +144,12 @@ init session trigram maybeQuery =
       , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
+      , comparisonType =
+            if Session.isAuthenticated session then
+                ComparatorView.Subscores
+
+            else
+                ComparatorView.Steps
       , editedExample = Nothing
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
@@ -1479,7 +1484,7 @@ sidebarView session model results =
         -- Impacts tabs
         , impactTabsConfig =
             SwitchImpactsTab
-                |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
+                |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
                 |> ImpactTabs.forFood results
 
         -- Bookmarks

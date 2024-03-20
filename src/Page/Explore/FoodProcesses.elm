@@ -30,8 +30,8 @@ table _ { detailed, scope } =
           , toCell = getDisplayName >> text
           }
         , { label = "Catégorie"
-          , toValue = Table.StringValue <| .category >> FoodProcess.categoryToString
-          , toCell = .category >> FoodProcess.categoryToString >> text
+          , toValue = Table.StringValue <| .category >> FoodProcess.categoryToLabel
+          , toCell = .category >> FoodProcess.categoryToLabel >> text
           }
         , { label = "Nom technique"
           , toValue = Table.StringValue <| .name >> FoodProcess.nameToString
