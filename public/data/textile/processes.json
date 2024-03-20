@@ -1076,6 +1076,10 @@
     "name": "Laine nouvelle filière",
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
     "unit": "kg",
+    "source": "Base Impacts 2.01",
+    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
+    "step_usage": "Matières, Filature",
+    "uuid": "8bb01460-217f-871c-be0a-e8fa1ceac2cc",
     "source": "Ecobalyse",
     "correctif": "",
     "step_usage": "Matières",
@@ -1100,8 +1104,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 460.875520458031,
-      "pef": 502.36175453936755
+      "ecs": 102.51808871332337,
+      "pef": 127.80667707701983
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
