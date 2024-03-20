@@ -53,6 +53,7 @@ encode v =
         , ( "impacts", Impact.encode v.impacts )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "transport", Transport.encode v.transport )
+        , ( "durability", v.durability |> Unit.durabilityToFloat |> Encode.float )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
@@ -127,7 +128,11 @@ compute db query =
         -- for the next step (spinning) would never be computed.
         |> next computeMaterialStepWaste
         --
-        -- CO2 SCORES
+        -- DURABILITY
+        --
+        |> next computeDurability
+        --
+        -- LIFECYCLE STEP IMPACTS
         --
         -- Compute Material step impacts
         |> nextIf Label.Material (computeMaterialImpacts db)
@@ -166,6 +171,41 @@ initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleSteps Label.all (Step.initMass inputs.mass)
+
+
+computeDurability : Simulator -> Simulator
+computeDurability ({ inputs } as simulator) =
+    let
+        materialOriginShares =
+            Inputs.getMaterialsOriginShares inputs.materials
+
+        durability =
+            Economics.computeDurabilityIndex materialOriginShares
+                { business =
+                    inputs.business
+                        |> Maybe.withDefault inputs.product.economics.business
+                , marketingDuration =
+                    inputs.marketingDuration
+                        |> Maybe.withDefault inputs.product.economics.marketingDuration
+                , numberOfReferences =
+                    inputs.numberOfReferences
+                        |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                , price =
+                    inputs.price
+                        |> Maybe.withDefault inputs.product.economics.price
+                , repairCost = inputs.product.economics.repairCost
+                , traceability =
+                    inputs.traceability
+                        |> Maybe.withDefault inputs.product.economics.traceability
+                }
+    in
+    { simulator
+        | durability = durability
+        , daysOfWear =
+            simulator.daysOfWear |> Quantity.multiplyBy (Unit.durabilityToFloat durability)
+        , useNbCycles =
+            round (toFloat simulator.useNbCycles * Unit.durabilityToFloat durability)
+    }
 
 
 computeEndOfLifeImpacts : Db -> Simulator -> Simulator
@@ -630,31 +670,8 @@ computeTotalTransportImpacts simulator =
 
 
 computeFinalImpacts : Simulator -> Simulator
-computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
+computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     let
-        materialOriginShares =
-            Inputs.getMaterialsOriginShares inputs.materials
-
-        durability =
-            Economics.computeDurabilityIndex materialOriginShares
-                { business =
-                    inputs.business
-                        |> Maybe.withDefault inputs.product.economics.business
-                , marketingDuration =
-                    inputs.marketingDuration
-                        |> Maybe.withDefault inputs.product.economics.marketingDuration
-                , numberOfReferences =
-                    inputs.numberOfReferences
-                        |> Maybe.withDefault inputs.product.economics.numberOfReferences
-                , price =
-                    inputs.price
-                        |> Maybe.withDefault inputs.product.economics.price
-                , repairCost = inputs.product.economics.repairCost
-                , traceability =
-                    inputs.traceability
-                        |> Maybe.withDefault inputs.product.economics.traceability
-                }
-
         complementsImpacts =
             lifeCycle
                 |> LifeCycle.sumComplementsImpacts
@@ -662,9 +679,6 @@ computeFinalImpacts ({ inputs, lifeCycle } as simulator) =
     in
     { simulator
         | complementsImpacts = complementsImpacts
-        , daysOfWear = simulator.daysOfWear |> Quantity.multiplyBy (Unit.durabilityToFloat durability)
-        , useNbCycles = round (toFloat simulator.useNbCycles * Unit.durabilityToFloat durability)
-        , durability = durability
         , impacts =
             lifeCycle
                 |> LifeCycle.computeFinalImpacts
