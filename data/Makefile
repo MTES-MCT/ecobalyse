@@ -37,9 +37,12 @@ delete_textile_method:
 export_food:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
                 $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py && \
-                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run format:json;\
+                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build && \
+                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run format:json; \
         else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py && \
+                $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build && \
                 $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run format:json; fi
+	
 
 #export_textile:
 #	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
