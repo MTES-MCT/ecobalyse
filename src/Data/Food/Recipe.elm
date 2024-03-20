@@ -232,8 +232,7 @@ compute db =
                             ]
 
                     totalImpacts =
-                        totalImpactsWithoutComplements
-                            |> addIngredientsComplements
+                        addIngredientsComplements totalImpactsWithoutComplements
 
                     -- Note: Product impacts per kg is computed against prepared
                     --       product mass at consumer, excluding packaging

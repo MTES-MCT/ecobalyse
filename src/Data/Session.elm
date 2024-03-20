@@ -7,7 +7,7 @@ module Data.Session exposing
     , closeNotification
     , deleteBookmark
     , deserializeStore
-    , isLoggedIn
+    , isAuthenticated
     , loggedIn
     , login
     , logout
@@ -347,8 +347,8 @@ logout ({ store } as session) =
                 |> notifyError "Impossible de recharger la db avec les procédés par défaut" err
 
 
-isLoggedIn : { a | store : Store } -> Bool
-isLoggedIn { store } =
+isAuthenticated : { a | store : Store } -> Bool
+isAuthenticated { store } =
     case store.auth of
         LoggedIn _ _ ->
             True

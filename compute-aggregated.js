@@ -10,8 +10,15 @@ const elmApp = Elm.ComputeAggregated.init({
   },
 });
 
-const exportJson = (filePath, json) => {
-  fs.writeFileSync(filePath, JSON.stringify(json, null, 2) + "\n");
+const exportJson = async (filepath, json) => {
+  // Using dynamic import to avoid jest runtime error
+  // eg. “A dynamic import callback was invoked without --experimental-vm-modules”
+  const prettier = require("prettier");
+
+  const jsonString = JSON.stringify(json, null, 2);
+  const formattedJson = await prettier.format(jsonString, { filepath });
+
+  fs.writeFileSync(filepath, formattedJson);
 };
 
 elmApp.ports.export.subscribe(

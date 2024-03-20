@@ -300,7 +300,7 @@ pageHeader config =
                     [ (headerMenuLinks
                         |> List.map (viewNavigationLink config.activePage)
                       )
-                        ++ [ if Session.isLoggedIn config.session then
+                        ++ [ if Session.isAuthenticated config.session then
                                 button [ class "nav-link flex-fill text-end", onClick config.logout ] [ text "Déconnexion" ]
 
                              else

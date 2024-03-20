@@ -48,44 +48,45 @@ keepOnlyAggregated processes =
             )
 
 
-init : Flags -> ( (), Cmd () )
-init { definitionsString, textileProcessesString, foodProcessesString } =
-    let
-        toExport =
-            definitionsString
-                |> Decode.decodeString Definition.decode
-                |> Result.andThen
-                    (\definitions ->
+toExport : Flags -> Result Decode.Error Encode.Value
+toExport { definitionsString, textileProcessesString, foodProcessesString } =
+    definitionsString
+        |> Decode.decodeString Definition.decode
+        |> Result.andThen
+            (\definitions ->
+                let
+                    textileProcessesResult =
+                        decodeProcesses (TextileProcess.decodeList Impact.decodeWithoutAggregated) definitions textileProcessesString
+
+                    foodProcessesResult =
+                        decodeProcesses (FoodProcess.decodeList Impact.decodeWithoutAggregated) definitions foodProcessesString
+                in
+                Result.map2
+                    (\textileProcesses foodProcesses ->
                         let
-                            textileProcessesResult =
-                                decodeProcesses (TextileProcess.decodeList Impact.decodeWithoutAggregated) definitions textileProcessesString
+                            textileProcessesOnlyAggregated =
+                                textileProcesses
+                                    |> keepOnlyAggregated
 
-                            foodProcessesResult =
-                                decodeProcesses (FoodProcess.decodeList Impact.decodeWithoutAggregated) definitions foodProcessesString
+                            foodProcessesOnlyAggregated =
+                                foodProcesses
+                                    |> keepOnlyAggregated
                         in
-                        Result.map2
-                            (\textileProcesses foodProcesses ->
-                                let
-                                    textileProcessesOnlyAggregated =
-                                        textileProcesses
-                                            |> keepOnlyAggregated
-
-                                    foodProcessesOnlyAggregated =
-                                        foodProcesses
-                                            |> keepOnlyAggregated
-                                in
-                                Encode.object
-                                    [ ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
-                                    , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
-                                    , ( "textileProcessesOnlyAggregated", Encode.list TextileProcess.encode textileProcessesOnlyAggregated )
-                                    , ( "foodProcessesOnlyAggregated", Encode.list FoodProcess.encode foodProcessesOnlyAggregated )
-                                    ]
-                            )
-                            textileProcessesResult
-                            foodProcessesResult
+                        Encode.object
+                            [ ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
+                            , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
+                            , ( "textileProcessesOnlyAggregated", Encode.list TextileProcess.encode textileProcessesOnlyAggregated )
+                            , ( "foodProcessesOnlyAggregated", Encode.list FoodProcess.encode foodProcessesOnlyAggregated )
+                            ]
                     )
-    in
-    case toExport of
+                    textileProcessesResult
+                    foodProcessesResult
+            )
+
+
+init : Flags -> ( (), Cmd () )
+init flags =
+    case toExport flags of
         Ok encodedValue ->
             ( ()
             , export encodedValue

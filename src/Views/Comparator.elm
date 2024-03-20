@@ -152,7 +152,7 @@ comparatorView config =
                     )
                 |> RE.combine
     in
-    [ ((if Session.isLoggedIn config.session then
+    [ ((if Session.isAuthenticated config.session then
             [ ( "Sous-scores", Subscores )
             , ( "Impacts", IndividualImpacts )
             ]

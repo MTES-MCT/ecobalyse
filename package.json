@@ -8,9 +8,9 @@
   "scripts": {
     "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/ && npm run db:build",
-    "computeAggregated": "elm make src/ComputeAggregated.elm --output=compute-aggregated-app.js && node compute-aggregated.js",
+    "processes:build": "elm make src/ComputeAggregated.elm --output=compute-aggregated-app.js && node compute-aggregated.js",
     "db:build": "./bin/build-db",
-    "db:buildFull": "TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json ./bin/build-db",
+    "db:build-full": "TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json ./bin/build-db",
     "format:json": "npx prettier@3.0.3 --write .",
     "format:check": "npx prettier@3.0.3 --check .",
     "prepare": "husky",

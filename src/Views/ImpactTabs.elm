@@ -46,7 +46,7 @@ view : Definitions -> Config msg -> Html msg
 view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, complementsImpact, onStepClick, scoring, stepsImpacts, session } =
     CardTabs.view
         { tabs =
-            (if impactDefinition.trigram == Definition.Ecs && Session.isLoggedIn session then
+            (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated session then
                 [ ( StepImpactsTab, "Étapes" )
                 , ( SubscoresTab, "Sous-scores" )
                 , ( DetailedImpactsTab, "Impacts" )
