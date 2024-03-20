@@ -9,6 +9,7 @@ import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
 import Page.Api as Api
+import Page.Auth as Auth
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Explore as Explore
@@ -34,6 +35,7 @@ type alias Flags =
 
 type Page
     = ApiPage Api.Model
+    | AuthPage Auth.Model
     | LoadingPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
@@ -61,6 +63,7 @@ type alias Model =
 
 type Msg
     = ApiMsg Api.Msg
+    | AuthMsg Auth.Msg
     | ChangelogMsg Changelog.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
@@ -69,9 +72,6 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
-    | LoggedIn (Result String Session.FullImpacts)
-    | Login
-    | Logout
     | OpenMobileNavigation
     | ReloadPage
     | StatsMsg Stats.Msg
@@ -155,6 +155,10 @@ setRoute url ( { state } as model, cmds ) =
                     Api.init session
                         |> toPage ApiPage ApiMsg
 
+                Just Route.Auth ->
+                    Auth.init session
+                        |> toPage AuthPage AuthMsg
+
                 Just Route.Changelog ->
                     Changelog.init session
                         |> toPage ChangelogPage ChangelogMsg
@@ -231,6 +235,10 @@ update rawMsg ({ state } as model) =
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
+
+                ( AuthMsg authMsg, AuthPage authModel ) ->
+                    Auth.update session authMsg authModel
+                        |> toPage AuthPage AuthMsg
 
                 ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
                     Changelog.update session changelogMsg changelogModel
@@ -314,57 +322,6 @@ update rawMsg ({ state } as model) =
                 ( VersionPoll, _ ) ->
                     ( model, Request.Version.loadVersion VersionReceived )
 
-                -- Login
-                ( LoggedIn (Ok newProcessesJson), _ ) ->
-                    let
-                        newSession =
-                            Session.loggedIn session newProcessesJson
-                                |> Session.notifyInfo "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux conditions" ""
-
-                        ( newModel, _, _ ) =
-                            Home.init newSession
-                    in
-                    ( { model
-                        | state =
-                            HomePage newModel |> Loaded newSession
-                      }
-                    , newSession.store |> Session.serializeStore |> Ports.saveStore
-                    )
-
-                ( LoggedIn (Err error), currentPage ) ->
-                    let
-                        newSession =
-                            session
-                                |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
-                    in
-                    ( { model
-                        | state =
-                            currentPage |> Loaded newSession
-                      }
-                    , Cmd.none
-                    )
-
-                ( Login, _ ) ->
-                    ( model
-                    , Session.login LoggedIn
-                    )
-
-                ( Logout, _ ) ->
-                    let
-                        newSession =
-                            Session.logout session
-                                |> Session.notifyInfo "Vous n'avez plus accès au détail des impacts" ""
-
-                        ( newModel, _, _ ) =
-                            Home.init newSession
-                    in
-                    ( { model
-                        | state =
-                            HomePage newModel |> Loaded newSession
-                      }
-                    , newSession.store |> Session.serializeStore |> Ports.saveStore
-                    )
-
                 -- Catch-all
                 ( _, NotFoundPage ) ->
                     ( { model | state = Loaded session NotFoundPage }, Cmd.none )
@@ -422,8 +379,6 @@ view { state, mobileNavigationOpened } =
                         CloseMobileNavigation
                         OpenMobileNavigation
                         LoadUrl
-                        Login
-                        Logout
                         ReloadPage
                         CloseNotification
 
@@ -440,6 +395,11 @@ view { state, mobileNavigationOpened } =
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
                         |> Page.frame (pageConfig Page.Api)
+
+                AuthPage authModel ->
+                    Auth.view session authModel
+                        |> mapMsg AuthMsg
+                        |> Page.frame (pageConfig Page.Auth)
 
                 ChangelogPage changelogModel ->
                     Changelog.view session changelogModel
