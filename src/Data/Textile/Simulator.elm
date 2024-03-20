@@ -15,7 +15,7 @@ import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
-import Data.Textile.Material exposing (Material)
+import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Product as Product exposing (Product)
@@ -365,9 +365,21 @@ computeBleachingImpacts { textile } simulator =
 
 
 stepMaterialImpacts : Db -> Material -> Step -> Impacts
-stepMaterialImpacts _ material step =
-    step.outputMass
-        |> Formula.pureMaterialImpacts step.impacts material.materialProcess
+stepMaterialImpacts { textile } material step =
+    case Material.getRecyclingData material textile.materials of
+        -- Non-recycled Material
+        Nothing ->
+            step.outputMass
+                |> Formula.pureMaterialImpacts step.impacts material.materialProcess
+
+        -- Recycled material: apply CFF
+        Just ( sourceMaterial, cffData ) ->
+            step.outputMass
+                |> Formula.recycledMaterialImpacts step.impacts
+                    { recycledProcess = material.materialProcess
+                    , nonRecycledProcess = sourceMaterial.materialProcess
+                    , cffData = cffData
+                    }
 
 
 computeMaterialImpacts : Db -> Simulator -> Simulator

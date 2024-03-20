@@ -3,6 +3,7 @@ module Page.Explore.TextileMaterials exposing (table)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
+import Data.Split as Split
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
@@ -13,6 +14,13 @@ import Route
 import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
+
+
+recycledToString : Maybe Material.Id -> String
+recycledToString maybeMaterialID =
+    maybeMaterialID
+        |> Maybe.map (always "oui")
+        |> Maybe.withDefault "non"
 
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
@@ -39,6 +47,10 @@ table db { detailed, scope } =
           , toValue = Table.StringValue <| .origin >> Origin.toLabel
           , toCell = .origin >> Origin.toLabel >> text
           }
+        , { label = "Recyclée ?"
+          , toValue = Table.StringValue <| .recycledFrom >> recycledToString
+          , toCell = .recycledFrom >> recycledToString >> text
+          }
         , { label = "Complément Microfibres"
           , toValue = Table.FloatValue <| .origin >> Origin.toMicrofibersComplement >> Unit.impactToFloat
           , toCell =
@@ -52,6 +64,10 @@ table db { detailed, scope } =
         , { label = "Procédé de fabrication du fil"
           , toValue = Table.StringValue <| .origin >> Origin.threadProcess
           , toCell = .origin >> Origin.threadProcess >> text
+          }
+        , { label = "Procédé de recyclage"
+          , toValue = Table.StringValue <| .recycledProcess >> Maybe.map .name >> Maybe.withDefault "N/A"
+          , toCell = .recycledProcess >> Maybe.map (.name >> text) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Origine géographique"
           , toValue = Table.StringValue .geographicOrigin
@@ -78,6 +94,38 @@ table db { detailed, scope } =
                                 , title = Nothing
                                 , content = [ text error ]
                                 }
+          }
+        , { label = "CFF: Coefficient d'allocation"
+          , toValue =
+                Table.FloatValue <|
+                    .cffData
+                        >> Maybe.map (.manufacturerAllocation >> Split.toFloat)
+                        >> Maybe.withDefault 0
+          , toCell =
+                \{ cffData } ->
+                    case cffData of
+                        Just { manufacturerAllocation } ->
+                            manufacturerAllocation
+                                |> Format.splitAsFloat 1
+
+                        Nothing ->
+                            text "N/A"
+          }
+        , { label = "CFF: Rapport de qualité"
+          , toValue =
+                Table.FloatValue <|
+                    .cffData
+                        >> Maybe.map (.recycledQualityRatio >> Split.toFloat)
+                        >> Maybe.withDefault 0
+          , toCell =
+                \{ cffData } ->
+                    case cffData of
+                        Just { recycledQualityRatio } ->
+                            recycledQualityRatio
+                                |> Format.splitAsFloat 1
+
+                        Nothing ->
+                            text "N/A"
           }
         ]
     }

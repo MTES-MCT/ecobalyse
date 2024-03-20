@@ -53,12 +53,19 @@ updateMaterialsFromNewProcesses : List Process -> List Material -> List Material
 updateMaterialsFromNewProcesses processes =
     List.map
         (\material ->
-            case Process.findByUuid material.materialProcess.uuid processes of
-                Ok process ->
-                    { material | materialProcess = process }
-
-                Err _ ->
-                    material
+            Result.map2
+                (\materialProcess maybeRecycledProcess ->
+                    { material
+                        | materialProcess = materialProcess
+                        , recycledProcess = maybeRecycledProcess
+                    }
+                )
+                (Process.findByUuid material.materialProcess.uuid processes)
+                (material.recycledProcess
+                    |> Maybe.map (\{ uuid } -> processes |> Process.findByUuid uuid |> Result.map Just)
+                    |> Maybe.withDefault (Ok Nothing)
+                )
+                |> Result.withDefault material
         )
 
 
