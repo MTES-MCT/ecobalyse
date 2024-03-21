@@ -301,11 +301,11 @@ pageHeader config =
                       )
                         ++ [ span [ class "flex-fill" ] [] -- Filler
                            , if Session.isAuthenticated config.session then
-                                Internal "Déconnexion" Route.Auth Auth
+                                Internal "Déconnexion" (Route.Auth { loggedIn = False }) Auth
                                     |> viewNavigationLink config.activePage
 
                              else
-                                Internal "Connexion" Route.Auth Auth
+                                Internal "Connexion" (Route.Auth { loggedIn = False }) Auth
                                     |> viewNavigationLink config.activePage
                            ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
