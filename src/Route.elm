@@ -20,6 +20,7 @@ import Url.Parser as Parser exposing ((</>), Parser)
 type Route
     = Home
     | Api
+    | Auth { loggedIn : Bool }
     | Changelog
     | Editorial String
     | Explore Scope Dataset
@@ -38,6 +39,8 @@ parser =
           --
           Parser.map Home Parser.top
         , Parser.map Api (Parser.s "api")
+        , Parser.map (Auth { loggedIn = True }) (Parser.s "auth" </> Parser.s "loggedIn")
+        , Parser.map (Auth { loggedIn = False }) (Parser.s "auth")
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Stats (Parser.s "stats")
@@ -153,6 +156,15 @@ toString route =
 
                 Api ->
                     [ "api" ]
+
+                Auth { loggedIn } ->
+                    [ "auth"
+                    , if loggedIn then
+                        "loggedIn"
+
+                      else
+                        ""
+                    ]
 
                 Changelog ->
                     [ "changelog" ]
