@@ -100,6 +100,8 @@ type Msg
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SelectAllBookmarks
+    | SelectNoBookmarks
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -147,7 +149,12 @@ init trigram maybeUrlQuery session =
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
+      , comparisonType =
+            if Session.isAuthenticated session then
+                ComparatorView.Subscores
+
+            else
+                ComparatorView.Steps
       , initialQuery = initialQuery
       , detailedStep = Nothing
       , impact = Definition.get trigram session.db.definitions
@@ -324,6 +331,12 @@ update ({ queries, navKey } as session) msg model =
                     }
             , Cmd.none
             )
+
+        SelectAllBookmarks ->
+            ( model, Session.selectAllBookmarks session, Cmd.none )
+
+        SelectNoBookmarks ->
+            ( model, Session.selectNoBookmarks session, Cmd.none )
 
         SetModal NoModal ->
             ( { model | modal = NoModal }
@@ -1062,7 +1075,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
-                        |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
+                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
                         |> ImpactTabs.forTextile session.db.definitions simulator
 
                 -- Bookmarks
@@ -1103,6 +1116,8 @@ view session model =
                                         { session = session
                                         , impact = model.impact
                                         , comparisonType = model.comparisonType
+                                        , selectAll = SelectAllBookmarks
+                                        , selectNone = SelectNoBookmarks
                                         , switchComparisonType = SwitchComparisonType
                                         , toggle = ToggleComparedSimulation
                                         }

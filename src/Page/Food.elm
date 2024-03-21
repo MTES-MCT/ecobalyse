@@ -104,6 +104,8 @@ type Msg
     | ResetDistribution
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SelectAllBookmarks
+    | SelectNoBookmarks
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -133,7 +135,12 @@ init session trigram maybeQuery =
       , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
+      , comparisonType =
+            if Session.isAuthenticated session then
+                ComparatorView.Subscores
+
+            else
+                ComparatorView.Steps
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
@@ -323,6 +330,12 @@ update ({ db, queries } as session) msg model =
                     }
             , Cmd.none
             )
+
+        SelectAllBookmarks ->
+            ( model, Session.selectAllBookmarks session, Cmd.none )
+
+        SelectNoBookmarks ->
+            ( model, Session.selectNoBookmarks session, Cmd.none )
 
         SetModal NoModal ->
             ( { model | modal = NoModal }
@@ -1383,7 +1396,7 @@ sidebarView session model results =
         -- Impacts tabs
         , impactTabsConfig =
             SwitchImpactsTab
-                |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
+                |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
                 |> ImpactTabs.forFood results
 
         -- Bookmarks
@@ -1502,6 +1515,8 @@ view session model =
                                 { session = session
                                 , impact = model.impact
                                 , comparisonType = model.comparisonType
+                                , selectAll = SelectAllBookmarks
+                                , selectNone = SelectNoBookmarks
                                 , switchComparisonType = SwitchComparisonType
                                 , toggle = ToggleComparedSimulation
                                 }

@@ -40,7 +40,7 @@ CONFIG = {
     "FEED_FILE": "ecosystemic_services/feed.json",
     "UGB_FILE": "ecosystemic_services/ugb.csv",
     "INGREDIENTS_FILE": "../../public/data/food/ingredients.json",
-    "PROCESSES_FILE": "../../public/data/food/processes.json",
+    "PROCESSES_FILE": "../../public/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
 }
 
