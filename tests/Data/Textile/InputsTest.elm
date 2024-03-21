@@ -15,7 +15,13 @@ import TestUtils exposing (asTest, suiteWithDb)
 sampleQuery : Query
 sampleQuery =
     { jupeCotonAsie
-        | materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
+        | materials =
+            [ { id = Material.Id "ei-pet"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Just (Country.Code "CN")
+              }
+            ]
     }
 
 
@@ -56,8 +62,8 @@ suite =
                     |> asTest "should compute OutOfEuropeEOL complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
-                        [ { id = Material.Id "coton", share = Split.half, spinning = Nothing, country = Nothing }
-                        , { id = Material.Id "pu", share = Split.half, spinning = Nothing, country = Nothing }
+                        [ { id = Material.Id "ei-coton", share = Split.half, spinning = Nothing, country = Nothing }
+                        , { id = Material.Id "ei-pp", share = Split.half, spinning = Nothing, country = Nothing }
                         ]
                   }
                     |> testComplementEqual -102.85
@@ -76,8 +82,8 @@ suite =
                     |> asTest "should compute Microfibers complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
-                        [ { id = Material.Id "coton", share = Split.half, spinning = Nothing, country = Nothing }
-                        , { id = Material.Id "pu", share = Split.half, spinning = Nothing, country = Nothing }
+                        [ { id = Material.Id "ei-coton", share = Split.half, spinning = Nothing, country = Nothing }
+                        , { id = Material.Id "ei-pp", share = Split.half, spinning = Nothing, country = Nothing }
                         ]
                   }
                     |> testComplementEqual -90.95
