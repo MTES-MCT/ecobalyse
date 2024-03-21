@@ -378,9 +378,14 @@ askForLogin email =
 
 getUserInfo : Cmd Msg
 getUserInfo =
-    Http.get
-        { url = backend_url ++ "/account"
+    Http.riskyRequest
+        { method = "GET"
+        , headers = []
+        , url = backend_url ++ "/account"
+        , body = Http.emptyBody
         , expect = Http.expectJson GotUserInfo decodeUserInfo
+        , timeout = Nothing
+        , tracker = Nothing
         }
 
 
