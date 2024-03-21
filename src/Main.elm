@@ -155,8 +155,8 @@ setRoute url ( { state } as model, cmds ) =
                     Api.init session
                         |> toPage ApiPage ApiMsg
 
-                Just Route.Auth ->
-                    Auth.init session
+                Just (Route.Auth data) ->
+                    Auth.init session data
                         |> toPage AuthPage AuthMsg
 
                 Just Route.Changelog ->

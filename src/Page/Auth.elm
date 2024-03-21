@@ -37,23 +37,19 @@ type alias Model =
     , lastname : String
     , cgu : Bool
     , action : Action
-    , token : Maybe Token
+    , loggedIn : Bool
     }
 
 
-emptyModel : Model
-emptyModel =
+emptyModel : { loggedIn : Bool } -> Model
+emptyModel { loggedIn } =
     { email = ""
     , firstname = ""
     , lastname = ""
     , cgu = False
     , action = Register
-    , token = Nothing
+    , loggedIn = loggedIn
     }
-
-
-type Token
-    = Token String
 
 
 type Action
@@ -68,15 +64,19 @@ type Msg
     | Logout
     | LoggedIn (Result String Session.FullImpacts)
     | TokenEmailSent (Result Http.Error String)
-    | TokenReceived Token
     | UpdateForm Model
 
 
-init : Session -> ( Model, Session, Cmd Msg )
-init session =
-    ( emptyModel
+init : Session -> { loggedIn : Bool } -> ( Model, Session, Cmd Msg )
+init session data =
+    ( emptyModel data
     , session
-    , Cmd.none
+    , if data.loggedIn then
+        Cmd.none
+        -- Query the user endpoint on the backend to validate that the user is connected
+
+      else
+        Cmd.none
     )
 
 
@@ -148,12 +148,6 @@ update session msg model =
             , Cmd.none
             )
 
-        TokenReceived token ->
-            ( { model | token = Just token }
-            , session
-            , Session.login LoggedIn
-            )
-
         UpdateForm newModel ->
             ( newModel
             , session
@@ -184,7 +178,10 @@ view session model =
                     ]
                 ]
             , div [ class "row d-flex justify-content-center" ]
-                [ if Session.isAuthenticated session then
+                [ if model.loggedIn then
+                    text "logged in"
+
+                  else if Session.isAuthenticated session then
                     button [ onClick Logout ] [ text "Déconnexion" ]
 
                   else
