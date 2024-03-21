@@ -38,13 +38,13 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    "authentication.apps.AuthenticationConfig",
     "mailauth",
     "mailauth.contrib.admin",
     # "mailauth.contrib.user",
+    "authentication.apps.AuthenticationConfig",
     "textile.apps.TextileConfig",
-    # "backend.apps.MyAdminConfig",
-    "django.contrib.admin",
+    "backend.apps.MyAdminConfig",
+    # "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
