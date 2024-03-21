@@ -920,6 +920,8 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                 StepView.view
                     { db = db
                     , current = current
+                    , daysOfWear = simulator.daysOfWear
+                    , useNbCycles = simulator.useNbCycles
                     , detailedStep = detailedStep
                     , index = index
                     , inputs = simulator.inputs
