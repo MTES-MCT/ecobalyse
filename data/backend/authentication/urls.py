@@ -1,12 +1,21 @@
-from django.urls import path, include
-from .views import register, RegistrationSuccessView
+from . import views
+from .views import register, RegistrationRequestedView
+from django.urls import include, path, re_path
+
+app_name = "authentication"
 
 urlpatterns = [
-    path("accounts/", include("mailauth.urls")),
-    path("accounts/register/", register, name="register"),
+    # to override a path, put the original after the modified one
+    path("", include("mailauth.urls")),
     path(
-        "accounts/register/success",
-        RegistrationSuccessView.as_view(),
-        name="registration-success",
+        "register/success/",
+        RegistrationRequestedView.as_view(),
+        name="registration-requested",
+    ),
+    path("register/", register, name="register"),
+    re_path(
+        "register/(?P<token>.*)$",
+        views.Activate.as_view(),
+        name="register-activate",
     ),
 ]

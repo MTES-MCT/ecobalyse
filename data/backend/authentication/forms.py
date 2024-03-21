@@ -1,9 +1,12 @@
 from django import forms
-from django.core.mail import EmailMultiAlternatives
-from django.template import TemplateDoesNotExist, loader
 from django.contrib.auth import get_user_model
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMultiAlternatives
 from django.db import connection
+from django.template import TemplateDoesNotExist, loader
+from django.urls import reverse
 from mailauth.forms import BaseLoginForm
+import urllib.parse
 
 
 class RegistrationForm(forms.ModelForm, BaseLoginForm):
@@ -29,6 +32,19 @@ class RegistrationForm(forms.ModelForm, BaseLoginForm):
             query = {"%s__iexact" % "email": email}
         return get_user_model()._default_manager.filter(**query).iterator()
 
+    def get_login_url(self, request, token, next=None):
+        """see mailauth.forms"""
+        protocol = "https" if request.is_secure() else "http"
+        current_site = get_current_site(request)
+        url = "{protocol}://{domain}{path}".format(
+            protocol=protocol,
+            domain=current_site.domain,
+            path=reverse("authentication:register-activate", kwargs={"token": token}),
+        )
+        if next is not None:
+            url += "?next=%s" % urllib.parse.quote(next)
+        return url
+
     def send_mail(self, to_email, context):
         """Send a django.core.mail.EmailMultiAlternatives to `to_email`."""
         subject = loader.render_to_string(self.subject_template_name, context)
@@ -47,7 +63,8 @@ class RegistrationForm(forms.ModelForm, BaseLoginForm):
             html_email = template.render(context, self.request)
             email_message.attach_alternative(html_email, "text/html")
 
-        email_message.send()
+        # email_message.send()
+        print(email_message.body)
 
     def save(self, commit=True):
         user = super().save(commit=False)
