@@ -176,7 +176,7 @@
   {
     "id": "ei-pet-r",
     "materialProcessUuid": "087896096b5bede914ef3ec1062b1c02",
-    "recycledProcessUuid": "087896096b5bede914ef3ec1062b1c02",
+    "recycledProcessUuid": null,
     "recycledFrom": "ei-pet",
     "name": "Polyester recyclé",
     "shortName": "Polyester recyclé",
@@ -185,7 +185,10 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 80,
-    "cff": null
+    "cff": {
+      "manufacturerAllocation": 0.5,
+      "recycledQualityRatio": 1
+    }
   },
   {
     "id": "ei-soie",
@@ -218,7 +221,7 @@
   {
     "id": "ei-viscose-r",
     "materialProcessUuid": "7e2fdd1e285fd01e8852977a584a9ae3",
-    "recycledProcessUuid": "7e2fdd1e285fd01e8852977a584a9ae3",
+    "recycledProcessUuid": null,
     "recycledFrom": "ei-viscose",
     "name": "Viscose recyclée",
     "shortName": "Viscose recyclée",
