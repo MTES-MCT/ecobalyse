@@ -12,6 +12,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Ports
 import Views.Alert as Alert
@@ -31,22 +32,34 @@ import Views.Markdown as Markdown
 --    - once the link in the email received is clicked, may not go through the login flow
 
 
+backend_url : String
+backend_url =
+    "https://example.com"
+
+
 type alias Model =
-    { email : String
-    , firstname : String
-    , lastname : String
-    , cgu : Bool
+    { user : User
     , action : Action
     , loggedIn : Bool
     }
 
 
+type alias User =
+    { email : String
+    , firstname : String
+    , lastname : String
+    , cgu : Bool
+    }
+
+
 emptyModel : { loggedIn : Bool } -> Model
 emptyModel { loggedIn } =
-    { email = ""
-    , firstname = ""
-    , lastname = ""
-    , cgu = False
+    { user =
+        { email = ""
+        , firstname = ""
+        , lastname = ""
+        , cgu = False
+        }
     , action = Register
     , loggedIn = loggedIn
     }
@@ -60,6 +73,7 @@ type Action
 type Msg
     = AskForLogin
     | ChangeAction Action
+    | GotUserInfo (Result Http.Error User)
     | Login
     | Logout
     | LoggedIn (Result String Session.FullImpacts)
@@ -72,8 +86,8 @@ init session data =
     ( emptyModel data
     , session
     , if data.loggedIn then
-        Cmd.none
         -- Query the user endpoint on the backend to validate that the user is connected
+        getUserInfo
 
       else
         Cmd.none
@@ -86,12 +100,25 @@ update session msg model =
         AskForLogin ->
             ( model
             , session
-            , askForToken model.email
+            , askForLogin model.user.email
             )
 
         ChangeAction action ->
             ( { model | action = action }
             , session
+            , Cmd.none
+            )
+
+        GotUserInfo (Ok user) ->
+            ( { model | user = user }
+            , session
+            , Session.login LoggedIn
+            )
+
+        GotUserInfo (Err _) ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur lors du login" ""
             , Cmd.none
             )
 
@@ -227,7 +254,7 @@ viewLoginRegisterForm model =
 
 
 viewLoginForm : Model -> Html Msg
-viewLoginForm model =
+viewLoginForm ({ user } as model) =
     div []
         [ div [ class "mb-3" ]
             [ label
@@ -241,15 +268,15 @@ viewLoginForm model =
                 , id "emailInput"
                 , placeholder "nom@example.com"
                 , required True
-                , value model.email
-                , onInput (\email -> UpdateForm { model | email = email })
+                , value user.email
+                , onInput (\email -> UpdateForm { model | user = { user | email = email } })
                 ]
                 []
             ]
         , button
             [ type_ "submit"
             , class "btn btn-primary mb-3"
-            , disabled <| String.isEmpty model.email
+            , disabled <| String.isEmpty user.email
             , onClick AskForLogin
             ]
             [ text "Connexion" ]
@@ -257,7 +284,7 @@ viewLoginForm model =
 
 
 viewRegisterForm : Model -> Html Msg
-viewRegisterForm model =
+viewRegisterForm ({ user } as model) =
     div []
         [ div [ class "mb-3" ]
             [ label
@@ -271,8 +298,8 @@ viewRegisterForm model =
                 , id "emailInput"
                 , placeholder "nom@example.com"
                 , required True
-                , value model.email
-                , onInput (\email -> UpdateForm { model | email = email })
+                , value user.email
+                , onInput (\email -> UpdateForm { model | user = { user | email = email } })
                 ]
                 []
             ]
@@ -288,8 +315,8 @@ viewRegisterForm model =
                 , id "firstnameInput"
                 , placeholder "Joséphine"
                 , required True
-                , value model.firstname
-                , onInput (\firstname -> UpdateForm { model | firstname = firstname })
+                , value user.firstname
+                , onInput (\firstname -> UpdateForm { model | user = { user | firstname = firstname } })
                 ]
                 []
             ]
@@ -305,8 +332,8 @@ viewRegisterForm model =
                 , id "lastnameInput"
                 , placeholder "Durand"
                 , required True
-                , value model.lastname
-                , onInput (\lastname -> UpdateForm { model | lastname = lastname })
+                , value user.lastname
+                , onInput (\lastname -> UpdateForm { model | user = { user | lastname = lastname } })
                 ]
                 []
             ]
@@ -320,8 +347,8 @@ viewRegisterForm model =
                     , class "form-check-input"
                     , id "cguInput"
                     , required True
-                    , checked model.cgu
-                    , onCheck (\isChecked -> UpdateForm { model | cgu = isChecked })
+                    , checked user.cgu
+                    , onCheck (\isChecked -> UpdateForm { model | user = { user | cgu = isChecked } })
                     ]
                     []
                 , text "Je m'engage à ne pas utiliser les données pour une utilisation commerciale."
@@ -340,12 +367,20 @@ viewRegisterForm model =
 ---- helpers
 
 
-askForToken : String -> Cmd Msg
-askForToken email =
+askForLogin : String -> Cmd Msg
+askForLogin email =
     Http.post
-        { url = "https://example.com"
+        { url = backend_url ++ "/login"
         , body = Http.jsonBody (encodeEmail email)
         , expect = Http.expectJson TokenEmailSent decodeTokenAsked
+        }
+
+
+getUserInfo : Cmd Msg
+getUserInfo =
+    Http.get
+        { url = backend_url ++ "/account"
+        , expect = Http.expectJson GotUserInfo decodeUserInfo
         }
 
 
@@ -353,11 +388,20 @@ askForToken email =
 ---- encoders/decoders
 
 
-encodeEmail : String -> Encode.Value
-encodeEmail =
-    Encode.string
-
-
 decodeTokenAsked : Decoder String
 decodeTokenAsked =
     Decode.field "message" Decode.string
+
+
+decodeUserInfo : Decoder User
+decodeUserInfo =
+    Decode.succeed User
+        |> Pipe.required "email" Decode.string
+        |> Pipe.required "firstname" Decode.string
+        |> Pipe.required "lastname" Decode.string
+        |> Pipe.required "cgu" Decode.bool
+
+
+encodeEmail : String -> Encode.Value
+encodeEmail =
+    Encode.string
