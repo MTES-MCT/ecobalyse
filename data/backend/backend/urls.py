@@ -19,5 +19,5 @@ from backend.admin import admin_site
 
 urlpatterns = [
     path("admin/", admin_site.urls),
-    path("accounts/", include("mailauth.urls")),
+    path("", include("authentication.urls")),
 ]
