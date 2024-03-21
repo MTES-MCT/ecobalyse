@@ -10,10 +10,25 @@ import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Http
+import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 import Ports
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Markdown as Markdown
+
+
+
+-- Auth flow:
+-- 1/ ask for login:
+--    - ask for a connection link via email: should receive an email with a login link
+--    - once the link in the email received is clicked, the backend will redirect to /#/auth/loggedIn
+--      - GET the user info (to make sure the user is connected)
+--      - load the full processes with impacts
+-- 2/ register:
+--    - ask for registration with email, firstname, lastname, cgu (company): should receive en email with a validation link
+--    - once the link in the email received is clicked, may not go through the login flow
 
 
 type alias Model =
@@ -22,6 +37,7 @@ type alias Model =
     , lastname : String
     , cgu : Bool
     , action : Action
+    , token : Maybe Token
     }
 
 
@@ -32,7 +48,12 @@ emptyModel =
     , lastname = ""
     , cgu = False
     , action = Register
+    , token = Nothing
     }
+
+
+type Token
+    = Token String
 
 
 type Action
@@ -41,10 +62,13 @@ type Action
 
 
 type Msg
-    = ChangeAction Action
+    = AskForLogin
+    | ChangeAction Action
     | Login
     | Logout
     | LoggedIn (Result String Session.FullImpacts)
+    | TokenEmailSent (Result Http.Error String)
+    | TokenReceived Token
     | UpdateForm Model
 
 
@@ -59,8 +83,20 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
+        AskForLogin ->
+            ( model
+            , session
+            , askForToken model.email
+            )
+
         ChangeAction action ->
             ( { model | action = action }
+            , session
+            , Cmd.none
+            )
+
+        Login ->
+            ( model
             , session
             , Cmd.none
             )
@@ -87,12 +123,6 @@ update session msg model =
             , Cmd.none
             )
 
-        Login ->
-            ( model
-            , session
-            , Session.login LoggedIn
-            )
-
         Logout ->
             let
                 newSession =
@@ -102,6 +132,26 @@ update session msg model =
             ( model
             , newSession
             , newSession.store |> Session.serializeStore |> Ports.saveStore
+            )
+
+        TokenEmailSent (Ok message) ->
+            ( model
+            , session
+                |> Session.notifyInfo "Un email vous a été envoyé avec un lien de connexion" message
+            , Cmd.none
+            )
+
+        TokenEmailSent (Err _) ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur lors du login" ""
+            , Cmd.none
+            )
+
+        TokenReceived token ->
+            ( { model | token = Just token }
+            , session
+            , Session.login LoggedIn
             )
 
         UpdateForm newModel ->
@@ -193,6 +243,7 @@ viewLoginForm model =
                 , class "form-control"
                 , id "emailInput"
                 , placeholder "nom@example.com"
+                , required True
                 , value model.email
                 , onInput (\email -> UpdateForm { model | email = email })
                 ]
@@ -201,7 +252,8 @@ viewLoginForm model =
         , button
             [ type_ "submit"
             , class "btn btn-primary mb-3"
-            , onClick Login
+            , disabled <| String.isEmpty model.email
+            , onClick AskForLogin
             ]
             [ text "Connexion" ]
         ]
@@ -221,6 +273,7 @@ viewRegisterForm model =
                 , class "form-control"
                 , id "emailInput"
                 , placeholder "nom@example.com"
+                , required True
                 , value model.email
                 , onInput (\email -> UpdateForm { model | email = email })
                 ]
@@ -237,6 +290,7 @@ viewRegisterForm model =
                 , class "form-control"
                 , id "firstnameInput"
                 , placeholder "Joséphine"
+                , required True
                 , value model.firstname
                 , onInput (\firstname -> UpdateForm { model | firstname = firstname })
                 ]
@@ -253,6 +307,7 @@ viewRegisterForm model =
                 , class "form-control"
                 , id "lastnameInput"
                 , placeholder "Durand"
+                , required True
                 , value model.lastname
                 , onInput (\lastname -> UpdateForm { model | lastname = lastname })
                 ]
@@ -267,6 +322,7 @@ viewRegisterForm model =
                     [ type_ "checkbox"
                     , class "form-check-input"
                     , id "cguInput"
+                    , required True
                     , checked model.cgu
                     , onCheck (\isChecked -> UpdateForm { model | cgu = isChecked })
                     ]
@@ -281,3 +337,30 @@ viewRegisterForm model =
             ]
             [ text "M'inscrire" ]
         ]
+
+
+
+---- helpers
+
+
+askForToken : String -> Cmd Msg
+askForToken email =
+    Http.post
+        { url = "https://example.com"
+        , body = Http.jsonBody (encodeEmail email)
+        , expect = Http.expectJson TokenEmailSent decodeTokenAsked
+        }
+
+
+
+---- encoders/decoders
+
+
+encodeEmail : String -> Encode.Value
+encodeEmail =
+    Encode.string
+
+
+decodeTokenAsked : Decoder String
+decodeTokenAsked =
+    Decode.field "message" Decode.string
