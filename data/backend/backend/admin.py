@@ -8,5 +8,5 @@ class MyAdminSite(admin.AdminSite):
     index_title = "Ecobalyse administration"
 
 
-admin_site = MyAdminSite(name="myadmin")
+admin_site = MyAdminSite(name="admin")
 admin_site.login = AdminLoginView.as_view(site=admin_site)
