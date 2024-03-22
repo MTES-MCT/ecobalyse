@@ -48,7 +48,7 @@ def init():
             "public",
             "data",
             "textile",
-            "processes.json",
+            "processes_impacts.json",
         )
     ) as f:
         processes = json.load(f)
