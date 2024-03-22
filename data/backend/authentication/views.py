@@ -1,11 +1,11 @@
 from .forms import RegistrationForm
 from django.conf import settings
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import response, JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import resolve_url
+from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from mailauth import signing
 from mailauth.views import LoginTokenView
@@ -84,4 +84,7 @@ def profile(request):
                 }
             )
         else:
-            return JsonResponse({"error": "Not authenticated"}, status=401)
+            return JsonResponse(
+                {"error": _("You must be authenticated to access this page")},
+                status=401,
+            )
