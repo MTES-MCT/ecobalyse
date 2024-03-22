@@ -24,7 +24,7 @@ def register(request):
         setattr(form, "request", request)
         if form.is_valid():
             form.save()
-            return redirect("authentication:registration-requested")
+            return redirect("registration-requested")
     else:
         form = RegistrationForm()
     return render(
