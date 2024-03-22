@@ -22,7 +22,6 @@ logger = logging.getLogger(__name__)
 def register(request):
     """render a form to provide an email to register"""
     if request.method == "POST":
-        breakpoint()
         if request.path.endswith(".json/"):
             try:
                 form = RegistrationForm(json.loads(request.body.decode("utf-8")))
@@ -113,7 +112,6 @@ class Activate(MailauthLoginTokenView):
             user.is_active = True
             user.save()
         except:
-            breakpoint()
             msg = _("Token has expired")
             logger.warning(msg, exc_info=True)
             raise PermissionDenied
