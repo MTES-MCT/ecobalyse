@@ -8,10 +8,12 @@ from django.shortcuts import resolve_url
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from mailauth import signing
+from mailauth.forms import EmailLoginForm
 from mailauth.views import (
     LoginTokenView as MailauthLoginTokenView,
     LoginView as MailauthLoginView,
 )
+import json
 import logging
 
 logger = logging.getLogger(__name__)
@@ -20,11 +22,25 @@ logger = logging.getLogger(__name__)
 def register(request):
     """render a form to provide an email to register"""
     if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        setattr(form, "request", request)
-        if form.is_valid():
-            form.save()
-            return redirect("registration-requested")
+        breakpoint()
+        if request.path.endswith(".json/"):
+            try:
+                form = RegistrationForm(json.loads(request.body.decode("utf-8")))
+                if form.is_valid():
+                    form.save()
+                    return JsonResponse(
+                        {"success": True, "msg": "You now need to validate your email"}
+                    )
+            except json.JSONDecodeError:
+                return JsonResponse(
+                    {"success": False, "msg": "Invalid json in the POST request"}
+                )
+        else:
+            form = RegistrationForm(request.POST)
+            setattr(form, "request", request)
+            if form.is_valid():
+                form.save()
+                return redirect("registration-requested")
     else:
         form = RegistrationForm()
     return render(
@@ -46,6 +62,27 @@ class LoginView(MailauthLoginView):
         "title": _("Login"),
     }
 
+    def post(self, request, *args, **kwargs):
+        if request.path.endswith(".json/"):
+            form = EmailLoginForm(
+                request=request, data=json.loads(request.body.decode("utf-8"))
+            )
+            if form.is_valid():
+                form.save()
+                return JsonResponse(
+                    {"success": True, "msg": _("You now need to validate your email")}
+                )
+            else:
+                return JsonResponse(
+                    {"success": False, "msg": _("You now need to validate your email")}
+                )
+        else:
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+
 
 class RegistrationRequestedView(generic.TemplateView):
     """confirmation that the email has beed stored"""
@@ -66,7 +103,7 @@ class Activate(MailauthLoginTokenView):
         # TODO redirect to profile instead, to give the occasion to fill in more details:
         return resolve_url(self.success_url)
 
-    def get(self, request, *_, **kwargs):
+    def get(self, request, *__, **kwargs):
         token = kwargs["token"]
 
         try:
@@ -76,7 +113,9 @@ class Activate(MailauthLoginTokenView):
             user.is_active = True
             user.save()
         except:
-            logger.warning("Token has expired.", exc_info=True)
+            breakpoint()
+            msg = _("Token has expired")
+            logger.warning(msg, exc_info=True)
             raise PermissionDenied
 
         user = authenticate(request, token=token)

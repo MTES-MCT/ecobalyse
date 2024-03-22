@@ -34,7 +34,7 @@ import Views.Markdown as Markdown
 
 login_url : String
 login_url =
-    "/accounts/login/"
+    "/accounts/login.json/"
 
 
 profile_url : String
@@ -413,5 +413,5 @@ decodeUserInfo =
 
 
 encodeEmail : String -> Encode.Value
-encodeEmail =
-    Encode.string
+encodeEmail email =
+    Encode.object [ ( "email", Encode.string email ) ]
