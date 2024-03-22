@@ -2,7 +2,6 @@ from .forms import RegistrationForm
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
-from backend.admin import admin_site
 from django.http import response, JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import resolve_url
