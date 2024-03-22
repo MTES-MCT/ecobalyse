@@ -1,8 +1,9 @@
 from .forms import RegistrationForm
 from django.conf import settings
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.http import response
+from django.http import response, JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import resolve_url
 from django.views import generic
@@ -67,3 +68,18 @@ class Activate(LoginTokenView):
             self.request.path.replace(token, "login-token")
 
         return response.HttpResponseRedirect(self.get_success_url())
+
+
+@login_required
+def profile(request):
+    if request.method == "GET":
+        u = request.user
+        return JsonResponse(
+            {
+                "email": u.email,
+                "first_name": u.first_name,
+                "last_name": u.last_name,
+                "company": u.company,
+                "terms_of_use": u.terms_of_use,
+            }
+        )
