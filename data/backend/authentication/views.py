@@ -67,14 +67,15 @@ class LoginView(MailauthLoginView):
                 request=request, data=json.loads(request.body.decode("utf-8"))
             )
             if form.is_valid():
-                form.save()
                 return JsonResponse(
-                    {"success": True, "msg": _("You now need to validate your email")}
+                    {
+                        "success": True,
+                        "msg": _("The link is valid for %s min")
+                        % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
+                    }
                 )
             else:
-                return JsonResponse(
-                    {"success": False, "msg": _("You now need to validate your email")}
-                )
+                return JsonResponse({"success": False, "msg": "Invalid form data"})
         else:
             form = self.get_form()
             if form.is_valid():
