@@ -2,13 +2,17 @@ from .forms import RegistrationForm
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
+from backend.admin import admin_site
 from django.http import response, JsonResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import resolve_url
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from mailauth import signing
-from mailauth.views import LoginTokenView
+from mailauth.views import (
+    LoginTokenView as MailauthLoginTokenView,
+    LoginView as MailauthLoginView,
+)
 import logging
 
 logger = logging.getLogger(__name__)
@@ -24,7 +28,24 @@ def register(request):
             return redirect("authentication:registration-requested")
     else:
         form = RegistrationForm()
-    return render(request, "registration/register.html", {"form": form})
+    return render(
+        request,
+        "registration/register.html",
+        {
+            "form": form,
+            "site_header": "Ecobalyse",
+            "site_title": "Ecobalyse",
+            "title": _("Register"),
+        },
+    )
+
+
+class LoginView(MailauthLoginView):
+    extra_context = {
+        "site_header": "Ecobalyse",
+        "site_title": "Ecobalyse",
+        "title": _("Login"),
+    }
 
 
 class RegistrationRequestedView(generic.TemplateView):
@@ -33,7 +54,7 @@ class RegistrationRequestedView(generic.TemplateView):
     template_name = "registration/registration_requested.html"
 
 
-class Activate(LoginTokenView):
+class Activate(MailauthLoginTokenView):
     """login and activate the disabled account"""
 
     signer = signing.UserSigner()
