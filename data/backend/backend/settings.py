@@ -146,6 +146,9 @@ STATIC_ROOT = "/app/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 EMAIL_HOST = "smtp.eu.mailgun.org"
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_PORT = 465
