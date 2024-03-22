@@ -32,9 +32,14 @@ import Views.Markdown as Markdown
 --    - once the link in the email received is clicked, may not go through the login flow
 
 
-backend_url : String
-backend_url =
-    "/accounts"
+login_url : String
+login_url =
+    "/accounts/login/"
+
+
+profile_url : String
+profile_url =
+    "/accounts/profile.json/"
 
 
 type alias Model =
@@ -370,7 +375,7 @@ viewRegisterForm ({ user } as model) =
 askForLogin : String -> Cmd Msg
 askForLogin email =
     Http.post
-        { url = backend_url ++ "/login/"
+        { url = login_url
         , body = Http.jsonBody (encodeEmail email)
         , expect = Http.expectJson TokenEmailSent decodeTokenAsked
         }
@@ -381,7 +386,7 @@ getUserInfo =
     Http.riskyRequest
         { method = "GET"
         , headers = []
-        , url = backend_url ++ "/profile.json/"
+        , url = profile_url
         , body = Http.emptyBody
         , expect = Http.expectJson GotUserInfo decodeUserInfo
         , timeout = Nothing
@@ -402,9 +407,9 @@ decodeUserInfo : Decoder User
 decodeUserInfo =
     Decode.succeed User
         |> Pipe.required "email" Decode.string
-        |> Pipe.required "firstname" Decode.string
-        |> Pipe.required "lastname" Decode.string
-        |> Pipe.required "cgu" Decode.bool
+        |> Pipe.required "first_name" Decode.string
+        |> Pipe.required "last_name" Decode.string
+        |> Pipe.required "terms_of_use" Decode.bool
 
 
 encodeEmail : String -> Encode.Value
