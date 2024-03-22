@@ -57,6 +57,11 @@ type alias User =
     }
 
 
+type Response
+    = Success String
+    | Error String
+
+
 emptyModel : { loggedIn : Bool } -> Model
 emptyModel { loggedIn } =
     { user =
@@ -82,7 +87,7 @@ type Msg
     | Login
     | Logout
     | LoggedIn (Result String Session.FullImpacts)
-    | TokenEmailSent (Result Http.Error String)
+    | TokenEmailSent (Result Http.Error Response)
     | UpdateForm Model
 
 
@@ -168,8 +173,18 @@ update session msg model =
 
         TokenEmailSent (Ok message) ->
             ( model
-            , session
-                |> Session.notifyInfo "Un email vous a été envoyé avec un lien de connexion" message
+            , case message of
+                Success info ->
+                    session
+                        |> Session.notifyInfo
+                            "Un email vous a été envoyé avec un lien de connexion"
+                            info
+
+                Error error ->
+                    session
+                        |> Session.notifyInfo
+                            "Quelque chose s'est mal passé à l'envoi du formulaire"
+                            error
             , Cmd.none
             )
 
@@ -398,9 +413,18 @@ getUserInfo =
 ---- encoders/decoders
 
 
-decodeTokenAsked : Decoder String
+decodeTokenAsked : Decoder Response
 decodeTokenAsked =
-    Decode.field "message" Decode.string
+    Decode.map2
+        (\success msg ->
+            if success then
+                Success msg
+
+            else
+                Error msg
+        )
+        (Decode.field "success" Decode.bool)
+        (Decode.field "msg" Decode.string)
 
 
 decodeUserInfo : Decoder User
