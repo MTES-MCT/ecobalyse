@@ -17,12 +17,12 @@ Including another URLconf
 from django.urls import path, re_path, include
 from backend.admin import admin_site
 from django.conf import settings
-from django.conf.urls.static import static
-from django.views.static import serve
 from .views import serve_directory
 
 urlpatterns = [
     path("admin/", admin_site.urls),
     path("accounts/", include("authentication.urls")),
-    re_path(r"^(?P<path>.*)$", serve_directory),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [re_path(r"^(?P<path>.*)$", serve_directory)]
