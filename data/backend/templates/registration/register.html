@@ -36,7 +36,7 @@
 {% endblocktrans %}
 </p>
 
-<form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+<form action="{{ app_path }}" method="post" id="login-form">
   <div class="form-row">
     {{ form.email.errors }}
     {{ form.email.label_tag }} {{ form.email }}
