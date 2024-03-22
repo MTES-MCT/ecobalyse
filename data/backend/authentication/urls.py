@@ -4,7 +4,7 @@ from django.urls import include, path, re_path
 
 
 urlpatterns = [
-    # to override a path, put the original after the modified one
+    path("login/", views.LoginView.as_view(), name="login"),
     path("", include("mailauth.urls")),
     path(
         "register/success/",
