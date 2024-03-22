@@ -34,7 +34,7 @@ import Views.Markdown as Markdown
 
 backend_url : String
 backend_url =
-    "https://example.com"
+    "/accounts"
 
 
 type alias Model =
@@ -370,7 +370,7 @@ viewRegisterForm ({ user } as model) =
 askForLogin : String -> Cmd Msg
 askForLogin email =
     Http.post
-        { url = backend_url ++ "/login"
+        { url = backend_url ++ "/login/"
         , body = Http.jsonBody (encodeEmail email)
         , expect = Http.expectJson TokenEmailSent decodeTokenAsked
         }
@@ -381,7 +381,7 @@ getUserInfo =
     Http.riskyRequest
         { method = "GET"
         , headers = []
-        , url = backend_url ++ "/account"
+        , url = backend_url ++ "/profile.json/"
         , body = Http.emptyBody
         , expect = Http.expectJson GotUserInfo decodeUserInfo
         , timeout = Nothing
