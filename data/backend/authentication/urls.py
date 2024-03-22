@@ -5,6 +5,7 @@ from django.urls import include, path, re_path
 
 urlpatterns = [
     path("login/", views.LoginView.as_view(), name="login"),
+    path("login.json/", views.LoginView.as_view(), name="login_json"),
     path("", include("mailauth.urls")),
     path(
         "register/success/",
@@ -12,6 +13,7 @@ urlpatterns = [
         name="registration-requested",
     ),
     path("register/", register, name="register"),
+    path("register.json/", register, name="register_json"),
     re_path(
         "register/(?P<token>.*)$",
         views.Activate.as_view(),
