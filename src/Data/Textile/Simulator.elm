@@ -25,6 +25,7 @@ import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
@@ -39,6 +40,7 @@ type alias Simulator =
     , complementsImpacts : Impact.ComplementsImpacts
     , durability : Unit.Durability
     , transport : Transport
+    , daysOfWear : Duration
     , useNbCycles : Int
     }
 
@@ -51,6 +53,8 @@ encode v =
         , ( "impacts", Impact.encode v.impacts )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "transport", Transport.encode v.transport )
+        , ( "durability", v.durability |> Unit.durabilityToFloat |> Encode.float )
+        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
@@ -73,6 +77,7 @@ init db =
                             , complementsImpacts = Impact.noComplementsImpacts
                             , durability = Unit.standardDurability
                             , transport = Transport.default defaultImpacts
+                            , daysOfWear = inputs.product.use.daysOfWear
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
                        )
@@ -123,7 +128,11 @@ compute db query =
         -- for the next step (spinning) would never be computed.
         |> next computeMaterialStepWaste
         --
-        -- CO2 SCORES
+        -- DURABILITY
+        --
+        |> next computeDurability
+        --
+        -- LIFECYCLE STEP IMPACTS
         --
         -- Compute Material step impacts
         |> nextIf Label.Material (computeMaterialImpacts db)
@@ -155,13 +164,48 @@ compute db query =
         --
         -- Final impacts
         --
-        |> nextWithDb computeFinalImpacts
+        |> next computeFinalImpacts
 
 
 initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleSteps Label.all (Step.initMass inputs.mass)
+
+
+computeDurability : Simulator -> Simulator
+computeDurability ({ inputs } as simulator) =
+    let
+        materialOriginShares =
+            Inputs.getMaterialsOriginShares inputs.materials
+
+        durability =
+            Economics.computeDurabilityIndex materialOriginShares
+                { business =
+                    inputs.business
+                        |> Maybe.withDefault inputs.product.economics.business
+                , marketingDuration =
+                    inputs.marketingDuration
+                        |> Maybe.withDefault inputs.product.economics.marketingDuration
+                , numberOfReferences =
+                    inputs.numberOfReferences
+                        |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                , price =
+                    inputs.price
+                        |> Maybe.withDefault inputs.product.economics.price
+                , repairCost = inputs.product.economics.repairCost
+                , traceability =
+                    inputs.traceability
+                        |> Maybe.withDefault inputs.product.economics.traceability
+                }
+    in
+    { simulator
+        | durability = durability
+        , daysOfWear =
+            simulator.daysOfWear |> Quantity.multiplyBy (Unit.durabilityToFloat durability)
+        , useNbCycles =
+            round (toFloat simulator.useNbCycles * Unit.durabilityToFloat durability)
+    }
 
 
 computeEndOfLifeImpacts : Db -> Simulator -> Simulator
@@ -625,32 +669,9 @@ computeTotalTransportImpacts simulator =
     }
 
 
-computeFinalImpacts : Db -> Simulator -> Simulator
-computeFinalImpacts { definitions } ({ inputs, lifeCycle } as simulator) =
+computeFinalImpacts : Simulator -> Simulator
+computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     let
-        materialOriginShares =
-            Inputs.getMaterialsOriginShares inputs.materials
-
-        durability =
-            Economics.computeDurabilityIndex materialOriginShares
-                { business =
-                    inputs.business
-                        |> Maybe.withDefault inputs.product.economics.business
-                , marketingDuration =
-                    inputs.marketingDuration
-                        |> Maybe.withDefault inputs.product.economics.marketingDuration
-                , numberOfReferences =
-                    inputs.numberOfReferences
-                        |> Maybe.withDefault inputs.product.economics.numberOfReferences
-                , price =
-                    inputs.price
-                        |> Maybe.withDefault inputs.product.economics.price
-                , repairCost = inputs.product.economics.repairCost
-                , traceability =
-                    inputs.traceability
-                        |> Maybe.withDefault inputs.product.economics.traceability
-                }
-
         complementsImpacts =
             lifeCycle
                 |> LifeCycle.sumComplementsImpacts
@@ -658,11 +679,9 @@ computeFinalImpacts { definitions } ({ inputs, lifeCycle } as simulator) =
     in
     { simulator
         | complementsImpacts = complementsImpacts
-        , durability = durability
         , impacts =
             lifeCycle
                 |> LifeCycle.computeFinalImpacts
-                |> Impact.updateAggregatedScores definitions
                 |> Impact.divideBy (Unit.durabilityToFloat durability)
                 |> Impact.impactsWithComplements complementsImpacts
     }

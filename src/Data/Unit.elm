@@ -17,6 +17,7 @@ module Data.Unit exposing
     , encodeDurability
     , encodeImpact
     , encodePickPerMeter
+    , encodeRatio
     , encodeSurfaceMass
     , encodeThreadDensity
     , encodeYarnSize
@@ -98,6 +99,11 @@ decodeRatio { percentage } =
                     Decode.succeed float
             )
         |> Decode.map ratio
+
+
+encodeRatio : Ratio -> Encode.Value
+encodeRatio =
+    ratioToFloat >> Encode.float
 
 
 

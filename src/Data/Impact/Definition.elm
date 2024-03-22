@@ -7,6 +7,7 @@ module Data.Impact.Definition exposing
     , Trigram(..)
     , Trigrams
     , decode
+    , decodeBase
     , decodeWithoutAggregated
     , encodeBase
     , filter
@@ -552,11 +553,16 @@ decodeWithoutAggregated decoder =
         |> Pipe.required "wtu" (decoder "wtu")
 
 
+decodeBase : (String -> Decoder a) -> Decoder (Trigrams a)
+decodeBase decoder =
+    decodeWithoutAggregated decoder
+        |> Pipe.required "ecs" (decoder "ecs")
+        |> Pipe.required "pef" (decoder "pef")
+
+
 decode : Decoder Definitions
 decode =
-    decodeWithoutAggregated decodeDefinition
-        |> Pipe.required "ecs" (decodeDefinition "ecs")
-        |> Pipe.required "pef" (decodeDefinition "pef")
+    decodeBase decodeDefinition
 
 
 decodeSource : Decoder Source

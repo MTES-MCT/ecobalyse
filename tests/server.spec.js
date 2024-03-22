@@ -43,8 +43,8 @@ describe("API", () => {
         "mass=0.17",
         "product=tshirt",
         "fabricProcess=knitting-mix",
-        "materials[]=coton;0.5",
-        "materials[]=acrylique;0.5",
+        "materials[]=ei-coton;0.5",
+        "materials[]=ei-pet;0.5",
         "countryFabric=CN",
         "countryDyeing=CN",
         "countryMaking=CN",
@@ -59,8 +59,8 @@ describe("API", () => {
     describe("/materials", () => {
       it("should render with materials list", async () => {
         await expectListResponseContains("/api/textile/materials", {
-          id: "coton",
-          name: "Fil de coton conventionnel, inventaire partiellement agrégé",
+          id: "ei-coton",
+          name: "Coton",
         });
       });
     });
@@ -278,7 +278,7 @@ describe("API", () => {
         it("should compute 21 impacts", async () => {
           const response = await makePostRequest("/api/textile/simulator", {
             mass: 0.17,
-            materials: [{ id: "coton", share: 1 }],
+            materials: [{ id: "ei-coton", share: 1 }],
             product: "tshirt",
             fabricProcess: "knitting-mix",
             countrySpinning: "BD",

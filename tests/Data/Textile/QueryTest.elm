@@ -18,7 +18,13 @@ import TestUtils exposing (asTest, suiteWithDb)
 sampleQuery : Query
 sampleQuery =
     { jupeCotonAsie
-        | materials = [ { id = Material.Id "acrylique", share = Split.full, spinning = Nothing, country = Just (Country.Code "CN") } ]
+        | materials =
+            [ { id = Material.Id "ei-pet"
+              , share = Split.full
+              , spinning = Nothing
+              , country = Just (Country.Code "CN")
+              }
+            ]
     }
 
 

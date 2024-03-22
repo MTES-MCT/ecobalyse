@@ -314,7 +314,13 @@ updateStepCountry label code query =
 default : Query
 default =
     { mass = Mass.kilograms 0.17
-    , materials = [ { id = Material.Id "coton", share = Split.full, spinning = Nothing, country = Nothing } ]
+    , materials =
+        [ { id = Material.Id "ei-coton"
+          , share = Split.full
+          , spinning = Nothing
+          , country = Nothing
+          }
+        ]
     , product = Product.Id "tshirt"
     , countrySpinning = Just (Country.Code "CN")
     , countryFabric = Country.Code "CN"

@@ -149,7 +149,12 @@ init trigram maybeUrlQuery session =
     ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
+      , comparisonType =
+            if Session.isAuthenticated session then
+                ComparatorView.Subscores
+
+            else
+                ComparatorView.Steps
       , initialQuery = initialQuery
       , detailedStep = Nothing
       , impact = Definition.get trigram session.db.definitions
@@ -915,6 +920,8 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                 StepView.view
                     { db = db
                     , current = current
+                    , daysOfWear = simulator.daysOfWear
+                    , useNbCycles = simulator.useNbCycles
                     , detailedStep = detailedStep
                     , index = index
                     , inputs = simulator.inputs
@@ -1070,7 +1077,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
-                        |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
+                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
                         |> ImpactTabs.forTextile session.db.definitions simulator
 
                 -- Bookmarks

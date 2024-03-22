@@ -68,6 +68,9 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
+    | LoggedIn (Result String Session.FullImpacts)
+    | Login
+    | Logout
     | OpenMobileNavigation
     | ReloadPage
     | StatsMsg Stats.Msg
@@ -83,7 +86,7 @@ init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url navKey =
     setRoute url
         ( { state =
-                case Static.db of
+                case Static.db Static.processes of
                     Ok db ->
                         Loaded
                             { db = db
@@ -295,6 +298,57 @@ update rawMsg ({ state } as model) =
                 ( VersionPoll, _ ) ->
                     ( model, Request.Version.loadVersion VersionReceived )
 
+                -- Login
+                ( LoggedIn (Ok newProcessesJson), _ ) ->
+                    let
+                        newSession =
+                            Session.loggedIn session newProcessesJson
+                                |> Session.notifyInfo "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux conditions" ""
+
+                        ( newModel, _, _ ) =
+                            Home.init newSession
+                    in
+                    ( { model
+                        | state =
+                            HomePage newModel |> Loaded newSession
+                      }
+                    , newSession.store |> Session.serializeStore |> Ports.saveStore
+                    )
+
+                ( LoggedIn (Err error), currentPage ) ->
+                    let
+                        newSession =
+                            session
+                                |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
+                    in
+                    ( { model
+                        | state =
+                            currentPage |> Loaded newSession
+                      }
+                    , Cmd.none
+                    )
+
+                ( Login, _ ) ->
+                    ( model
+                    , Session.login LoggedIn
+                    )
+
+                ( Logout, _ ) ->
+                    let
+                        newSession =
+                            Session.logout session
+                                |> Session.notifyInfo "Vous n'avez plus accès au détail des impacts" ""
+
+                        ( newModel, _, _ ) =
+                            Home.init newSession
+                    in
+                    ( { model
+                        | state =
+                            HomePage newModel |> Loaded newSession
+                      }
+                    , newSession.store |> Session.serializeStore |> Ports.saveStore
+                    )
+
                 -- Catch-all
                 ( _, NotFoundPage ) ->
                     ( { model | state = Loaded session NotFoundPage }, Cmd.none )
@@ -352,6 +406,8 @@ view { state, mobileNavigationOpened } =
                         CloseMobileNavigation
                         OpenMobileNavigation
                         LoadUrl
+                        Login
+                        Logout
                         ReloadPage
                         CloseNotification
 

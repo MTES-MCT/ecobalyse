@@ -37,7 +37,7 @@ CONFIG = {
     "ECOSYSTEMIC_FACTORS_FILE": "ecosystemic_services/ecosystemic_factors.csv",
     "ECS_PNG": "ecosystemic_services/ecs_transformations.png",
     "INGREDIENTS_FILE": "../../public/data/food/ingredients.json",
-    "PROCESSES_FILE": "../../public/data/food/processes.json",
+    "PROCESSES_FILE": "../../public/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
 }
 
