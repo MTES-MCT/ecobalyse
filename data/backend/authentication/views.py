@@ -70,16 +70,18 @@ class Activate(LoginTokenView):
         return response.HttpResponseRedirect(self.get_success_url())
 
 
-@login_required
 def profile(request):
     if request.method == "GET":
         u = request.user
-        return JsonResponse(
-            {
-                "email": u.email,
-                "first_name": u.first_name,
-                "last_name": u.last_name,
-                "company": u.company,
-                "terms_of_use": u.terms_of_use,
-            }
-        )
+        if u.is_authenticated:
+            return JsonResponse(
+                {
+                    "email": u.email,
+                    "first_name": u.first_name,
+                    "last_name": u.last_name,
+                    "company": u.company,
+                    "terms_of_use": u.terms_of_use,
+                }
+            )
+        else:
+            return JsonResponse({"error": "Not authenticated"}, status=401)
