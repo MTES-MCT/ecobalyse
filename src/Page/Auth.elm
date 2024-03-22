@@ -407,9 +407,9 @@ decodeUserInfo : Decoder User
 decodeUserInfo =
     Decode.succeed User
         |> Pipe.required "email" Decode.string
-        |> Pipe.required "firstname" Decode.string
-        |> Pipe.required "lastname" Decode.string
-        |> Pipe.required "cgu" Decode.bool
+        |> Pipe.required "first_name" Decode.string
+        |> Pipe.required "last_name" Decode.string
+        |> Pipe.required "terms_of_use" Decode.bool
 
 
 encodeEmail : String -> Encode.Value
