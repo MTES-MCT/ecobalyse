@@ -39,7 +39,7 @@ class RegistrationForm(forms.ModelForm, BaseLoginForm):
         url = "{protocol}://{domain}{path}".format(
             protocol=protocol,
             domain=current_site.domain,
-            path=reverse("authentication:register-activate", kwargs={"token": token}),
+            path=reverse("register-activate", kwargs={"token": token}),
         )
         if next is not None:
             url += "?next=%s" % urllib.parse.quote(next)
