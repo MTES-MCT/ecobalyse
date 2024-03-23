@@ -41,6 +41,16 @@ def register(request):
                         % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
                     }
                 )
+            else:
+                errors = {k: " ".join(v) for k, v in form.errors.items()}
+                return JsonResponse(
+                    {
+                        "success": False,
+                        "msg": "Your form has errors: "
+                        + " ".join([f"{k}: {v}" for k, v in errors.items()]),
+                        "errors": errors,
+                    }
+                )
         else:
             form = RegistrationForm(request.POST)
             setattr(form, "request", request)
