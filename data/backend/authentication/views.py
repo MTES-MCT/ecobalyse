@@ -4,11 +4,12 @@ from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
 from django.http import response, JsonResponse
 from django.shortcuts import render, redirect
-from django.shortcuts import resolve_url
+
+# from django.shortcuts import resolve_url
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from mailauth import signing
-from mailauth.forms import EmailLoginForm
+from .forms import EmailLoginForm
 from mailauth.views import (
     LoginTokenView as MailauthLoginTokenView,
     LoginView as MailauthLoginView,
@@ -61,7 +62,7 @@ class LoginView(MailauthLoginView):
         "title": _("Login"),
     }
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *a, **kw):
         if request.path.endswith(".json/"):
             form = EmailLoginForm(
                 request=request, data=json.loads(request.body.decode("utf-8"))
@@ -102,7 +103,7 @@ class Activate(MailauthLoginTokenView):
     def get_success_url(self):
         return "/"
         # TODO redirect to profile instead, to give the occasion to fill in more details:
-        return resolve_url(self.success_url)
+        # return resolve_url(self.success_url)
 
     def get(self, request, *__, **kwargs):
         token = kwargs["token"]
