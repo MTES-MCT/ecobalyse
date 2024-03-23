@@ -5,8 +5,15 @@ from django.core.mail import EmailMultiAlternatives
 from django.db import connection
 from django.template import TemplateDoesNotExist, loader
 from django.urls import reverse
-from mailauth.forms import BaseLoginForm
+from mailauth.forms import BaseLoginForm, EmailLoginForm as MailauthEmailLoginForm
 import urllib.parse
+
+
+class EmailLoginForm(MailauthEmailLoginForm):
+    def get_login_url(self, request, token, next=None):
+        return super(EmailLoginForm, self).get_login_url(
+            request, token, next=next or "/#/auth/loggedIn"
+        )
 
 
 class RegistrationForm(forms.ModelForm, BaseLoginForm):
@@ -34,6 +41,7 @@ class RegistrationForm(forms.ModelForm, BaseLoginForm):
 
     def get_login_url(self, request, token, next=None):
         """see mailauth.forms"""
+        breakpoint()
         protocol = "https" if request.is_secure() else "http"
         current_site = get_current_site(request)
         url = "{protocol}://{domain}{path}".format(
