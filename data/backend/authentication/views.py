@@ -67,6 +67,7 @@ class LoginView(MailauthLoginView):
                 request=request, data=json.loads(request.body.decode("utf-8"))
             )
             if form.is_valid():
+                form.save()
                 return JsonResponse(
                     {
                         "success": True,
