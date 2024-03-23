@@ -39,7 +39,6 @@ class RegistrationForm(MailauthEmailLoginForm, forms.ModelForm):
         )
 
     def save(self, commit=True):
-        breakpoint()
         user = forms.ModelForm.save(self, commit)
         MailauthEmailLoginForm.save(self)
         return user
