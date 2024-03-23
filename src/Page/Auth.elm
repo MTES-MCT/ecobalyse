@@ -10,7 +10,7 @@ import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http
+import Http exposing (Error(..))
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -104,6 +104,25 @@ init session data =
     )
 
 
+errorToString : Http.Error -> String
+errorToString error =
+    case error of
+        BadUrl str ->
+            "Bad URL: " ++ str
+
+        Timeout ->
+            "Timeout"
+
+        NetworkError ->
+            "Network error"
+
+        BadStatus n ->
+            "Bad status: " ++ String.fromInt n
+
+        BadBody str ->
+            "Bad body: " ++ str
+
+
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
@@ -188,10 +207,10 @@ update session msg model =
             , Cmd.none
             )
 
-        TokenEmailSent (Err _) ->
+        TokenEmailSent (Err error) ->
             ( model
             , session
-                |> Session.notifyError "Erreur lors du login" ""
+                |> Session.notifyError "Erreur lors du login" (errorToString error)
             , Cmd.none
             )
 
