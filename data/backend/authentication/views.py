@@ -25,15 +25,21 @@ def register(request):
     if request.method == "POST":
         if request.path.endswith(".json/"):
             try:
-                form = RegistrationForm(json.loads(request.body.decode("utf-8")))
-                if form.is_valid():
-                    form.save()
-                    return JsonResponse(
-                        {"success": True, "msg": "You now need to validate your email"}
-                    )
+                form = RegistrationForm(
+                    request=request, data=json.loads(request.body.decode("utf-8"))
+                )
             except json.JSONDecodeError:
                 return JsonResponse(
                     {"success": False, "msg": "Invalid json in the POST request"}
+                )
+            if form.is_valid():
+                form.save()
+                return JsonResponse(
+                    {
+                        "success": True,
+                        "msg": _("The link is valid for %s min")
+                        % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
+                    }
                 )
         else:
             form = RegistrationForm(request.POST)
@@ -42,7 +48,7 @@ def register(request):
                 form.save()
                 return redirect("registration-requested")
     else:
-        form = RegistrationForm()
+        form = RegistrationForm(request)
     return render(
         request,
         "registration/register.html",

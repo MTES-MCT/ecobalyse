@@ -37,6 +37,11 @@ login_url =
     "/accounts/login.json/"
 
 
+registration_url : String
+registration_url =
+    "/accounts/register.json/"
+
+
 profile_url : String
 profile_url =
     "/accounts/profile.json/"
@@ -53,6 +58,7 @@ type alias User =
     { email : String
     , firstname : String
     , lastname : String
+    , company : String
     , cgu : Bool
     }
 
@@ -68,6 +74,7 @@ emptyModel { loggedIn } =
         { email = ""
         , firstname = ""
         , lastname = ""
+        , company = ""
         , cgu = False
         }
     , action = Register
@@ -82,9 +89,9 @@ type Action
 
 type Msg
     = AskForLogin
+    | AskForRegistration
     | ChangeAction Action
     | GotUserInfo (Result Http.Error User)
-    | Login
     | Logout
     | LoggedIn (Result String Session.FullImpacts)
     | TokenEmailSent (Result Http.Error Response)
@@ -132,6 +139,12 @@ update session msg model =
             , askForLogin model.user.email
             )
 
+        AskForRegistration ->
+            ( model
+            , session
+            , askForRegistration model.user
+            )
+
         ChangeAction action ->
             ( { model | action = action }
             , session
@@ -148,12 +161,6 @@ update session msg model =
             ( model
             , session
                 |> Session.notifyError "Erreur lors du login" ""
-            , Cmd.none
-            )
-
-        Login ->
-            ( model
-            , session
             , Cmd.none
             )
 
@@ -210,7 +217,7 @@ update session msg model =
         TokenEmailSent (Err error) ->
             ( model
             , session
-                |> Session.notifyError "Erreur lors du login" (errorToString error)
+                |> Session.notifyError "Erreur lors du traitement" (errorToString error)
             , Cmd.none
             )
 
@@ -378,6 +385,23 @@ viewRegisterForm ({ user } as model) =
             ]
         , div [ class "mb-3" ]
             [ label
+                [ for "companyInput"
+                , class "form-label"
+                ]
+                [ text "Entreprise" ]
+            , input
+                [ type_ "text"
+                , class "form-control"
+                , id "companyInput"
+                , placeholder "ACME sarl"
+                , required True
+                , value user.company
+                , onInput (\company -> UpdateForm { model | user = { user | company = company } })
+                ]
+                []
+            ]
+        , div [ class "mb-3" ]
+            [ label
                 [ for "cguInput"
                 , class "form-check form-switch form-check-label pt-1"
                 ]
@@ -396,7 +420,7 @@ viewRegisterForm ({ user } as model) =
         , button
             [ type_ "submit"
             , class "btn btn-primary mb-3"
-            , onClick Login
+            , onClick AskForRegistration
             ]
             [ text "M'inscrire" ]
         ]
@@ -411,6 +435,15 @@ askForLogin email =
     Http.post
         { url = login_url
         , body = Http.jsonBody (encodeEmail email)
+        , expect = Http.expectJson TokenEmailSent decodeTokenAsked
+        }
+
+
+askForRegistration : User -> Cmd Msg
+askForRegistration user =
+    Http.post
+        { url = registration_url
+        , body = Http.jsonBody (encodeUser user)
         , expect = Http.expectJson TokenEmailSent decodeTokenAsked
         }
 
@@ -452,9 +485,21 @@ decodeUserInfo =
         |> Pipe.required "email" Decode.string
         |> Pipe.required "first_name" Decode.string
         |> Pipe.required "last_name" Decode.string
+        |> Pipe.required "company" Decode.string
         |> Pipe.required "terms_of_use" Decode.bool
 
 
 encodeEmail : String -> Encode.Value
 encodeEmail email =
     Encode.object [ ( "email", Encode.string email ) ]
+
+
+encodeUser : User -> Encode.Value
+encodeUser user =
+    Encode.object
+        [ ( "email", Encode.string user.email )
+        , ( "first_name", Encode.string user.firstname )
+        , ( "last_name", Encode.string user.lastname )
+        , ( "company", Encode.string user.company )
+        , ( "terms_of_use", Encode.bool user.cgu )
+        ]
