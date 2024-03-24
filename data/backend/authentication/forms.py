@@ -30,8 +30,8 @@ class RegistrationForm(MailauthEmailLoginForm, forms.ModelForm):
         fields = ["email", "first_name", "last_name", "company", "terms_of_use"]
 
     def __init__(self, request, *a, **kw):
-        MailauthEmailLoginForm.__init__(self, request)
-        forms.ModelForm.__init__(self, *a, **kw)
+        MailauthEmailLoginForm.__init__(self, request, *a, **kw)
+        forms.ModelForm.__init__(self, request, *a, **kw)
 
     def get_login_url(self, request, token, next=None):
         return super(MailauthEmailLoginForm, self).get_login_url(
