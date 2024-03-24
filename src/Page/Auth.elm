@@ -63,9 +63,26 @@ type alias User =
     }
 
 
+type alias Form a =
+    { a
+        | next : String
+    }
+
+
 type Response
     = Success String
     | Error String
+
+
+formFromUser : User -> Form User
+formFromUser user =
+    { email = user.email
+    , firstname = user.firstname
+    , lastname = user.lastname
+    , company = user.company
+    , cgu = user.cgu
+    , next = "/#/auth/loggedIn"
+    }
 
 
 emptyModel : { loggedIn : Bool } -> Model
@@ -142,7 +159,7 @@ update session msg model =
         AskForRegistration ->
             ( model
             , session
-            , askForRegistration model.user
+            , askForRegistration <| formFromUser model.user
             )
 
         ChangeAction action ->
@@ -416,6 +433,22 @@ viewRegisterForm ({ user } as model) =
                     []
                 , text "Je m'engage à ne pas utiliser les données pour une utilisation commerciale."
                 ]
+            , div [ class "mb-3" ]
+                [ label
+                    [ for "nextInput"
+                    , class "form-label"
+                    ]
+                    []
+                , input
+                    [ type_ "text"
+                    , class "form-control"
+                    , id "nextInput"
+                    , required True
+                    , value "/#/auth/loggedIn"
+                    , hidden True
+                    ]
+                    []
+                ]
             ]
         , button
             [ type_ "submit"
@@ -439,11 +472,11 @@ askForLogin email =
         }
 
 
-askForRegistration : User -> Cmd Msg
+askForRegistration : Form User -> Cmd Msg
 askForRegistration user =
     Http.post
         { url = registration_url
-        , body = Http.jsonBody (encodeUser user)
+        , body = Http.jsonBody (encodeUserForm user)
         , expect = Http.expectJson TokenEmailSent decodeTokenAsked
         }
 
@@ -494,12 +527,13 @@ encodeEmail email =
     Encode.object [ ( "email", Encode.string email ) ]
 
 
-encodeUser : User -> Encode.Value
-encodeUser user =
+encodeUserForm : Form User -> Encode.Value
+encodeUserForm user =
     Encode.object
         [ ( "email", Encode.string user.email )
         , ( "first_name", Encode.string user.firstname )
         , ( "last_name", Encode.string user.lastname )
         , ( "company", Encode.string user.company )
         , ( "terms_of_use", Encode.bool user.cgu )
+        , ( "next", Encode.string user.next )
         ]
