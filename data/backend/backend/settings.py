@@ -26,11 +26,12 @@ SITE_NAME = "Ecobalyse"
 SECRET_KEY = "django-insecure-6v9tk##n9+42jz-0uk694d&=ra5k^ch^=$z_2hov@+1p4hwyi$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DJANGO_DEBUG")
+DEBUG = config("DJANGO_DEBUG", cast=bool)
 
 ALLOWED_HOSTS = [
     "ecobalyse.beta.gouv.fr",
     "localhost",
+    "127.0.0.1",
     ".osc-fr1.scalingo.io",
     "ecobalyse-v2.osc-fr1.scalingo.io",
 ]
@@ -154,6 +155,6 @@ EMAIL_HOST = "smtp-relay.brevo.com"
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
-EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 LOGIN_URL_TIMEOUT = 900
