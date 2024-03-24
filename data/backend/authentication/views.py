@@ -42,7 +42,10 @@ def register(request):
                     }
                 )
             else:
-                errors = {k: " ".join(v) for k, v in form.errors.items()}
+                errors = {
+                    k: " ".join(v)
+                    for k, v in (form.errors.items() if form.errors else [])
+                }
                 return JsonResponse(
                     {
                         "success": False,
@@ -52,23 +55,33 @@ def register(request):
                     }
                 )
         else:
-            form = RegistrationForm(request.POST)
-            setattr(form, "request", request)
+            form = RegistrationForm(request)
             if form.is_valid():
                 form.save()
                 return redirect("registration-requested")
+            else:
+                return render(
+                    request,
+                    "registration/register.html",
+                    {
+                        "form": form,
+                        "site_header": "Ecobalyse",
+                        "site_title": "Ecobalyse",
+                        "title": _("Register"),
+                    },
+                )
     else:
-        form = RegistrationForm(request)
-    return render(
-        request,
-        "registration/register.html",
-        {
-            "form": form,
-            "site_header": "Ecobalyse",
-            "site_title": "Ecobalyse",
-            "title": _("Register"),
-        },
-    )
+        form = RegistrationForm()
+        return render(
+            request,
+            "registration/register.html",
+            {
+                "form": form,
+                "site_header": "Ecobalyse",
+                "site_title": "Ecobalyse",
+                "title": _("Register"),
+            },
+        )
 
 
 class LoginView(MailauthLoginView):
