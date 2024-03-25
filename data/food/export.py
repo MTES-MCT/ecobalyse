@@ -36,7 +36,7 @@ CONFIG = {
     "BIOSPHERE": "Agribalyse 3.1.1 biosphere",
     "ACTIVITIES_FILE": "activities.json",
     "IMPACTS_FILE": "../../public/data/impacts.json",
-    "ECOSYSTEMIC_FACTORS_FILE": "complements/ecosystemic_factors.csv",
+    "COMPLEMENTS_FACTORS_FILE": "complements/complements_factors.csv",
     "FEED_FILE": "complements/feed.json",
     "UGB_FILE": "complements/ugb.csv",
     "INGREDIENTS_FILE": "../../public/data/food/ingredients.json",
@@ -242,13 +242,13 @@ if __name__ == "__main__":
     activities_land_occ = compute_land_occupation(activities)
     ingredients = create_ingredient_list(activities_land_occ)
 
-    ecosystemic_factors = load_complements_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
-    ingredients_veg_es = compute_vegetal_complements(ingredients, ecosystemic_factors)
+    complements_factors = load_complements_dic(CONFIG["COMPLEMENTS_FACTORS_FILE"])
+    ingredients_veg_es = compute_vegetal_complements(ingredients, complements_factors)
 
     feed_file = load_json(CONFIG["FEED_FILE"])
     ugb = load_ugb_dic(CONFIG["UGB_FILE"])
     ingredients_animal_es = compute_animal_complements(
-        ingredients_veg_es, activities_land_occ, ecosystemic_factors, feed_file, ugb
+        ingredients_veg_es, activities_land_occ, complements_factors, feed_file, ugb
     )
 
     check_ids(ingredients_animal_es)
