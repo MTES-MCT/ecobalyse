@@ -132,26 +132,26 @@ L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci
 
 ### Scénarios proposés
 
-Ecobalyse propose 3 types de laine :&#x20;
+Ecobalyse propose 2 types de laine construites à partir du procédé  Ecoinvent "sheep production, for wool, US".&#x20;
+
+Du fait d'un faible niveau de qualité du procédé source Ecoinvent, Ecobalyse a procédé à des enrichissements suite à la mise en place de différents ateliers avec l'industrie lainière.
 
 <details>
 
 <summary>Laine (par défaut)</summary>
 
-Cette laine se base sur le procédé Ecoinvent "sheep production, for wool, RoW".&#x20;
+Afin de refléter des conditions d'élevage extensives pratiquées sur les principaux marchés approvisionnant le textile d'habillement (Australie et Nouvelle-Zélande) les enrichissements suivants ont été apportés :&#x20;
 
-Ce procédé se base sur des conditions d'élevage typiques aux Etats-Unis avec un modèle d'élevage majoritairement extensif (80% extensif).
+1\) Rations alimentaires\
+Scénario intial (kg / mouton / an) => Tourteaux de soja (c. 35) + maïs (c. 53) \
+Scénario final (kg / mouton / an) => <mark style="color:orange;">xxx</mark>
 
-Deux enrichissements ont été apportés par Ecobalyse :&#x20;
+2\) Type de prairies\
+Scénario initial (<mark style="color:orange;">xxx</mark>) => <mark style="color:orange;">xxx</mark>\
+Scénario final (<mark style="color:orange;">xxx</mark>) => <mark style="color:orange;">xxx</mark>
 
-* Rations alimentaires\
-  La laine utilisée dans le textile d'habillement sur le marché européen provenant majoritairement d'Australie et Nouvelle-Zélande, Ecobalyse a adapté les rations alimentaires afin de refléter les pratiques d'élevage sur ces géographies.\
-  \
-  Scénario intial (kg / mouton / an) => Tourteaux de soja (c. 35) + maïs (c. 53) \
-  Scénario final (kg / mouton / an) => \
-
-* Taux d'allocation : 37% \
-  Afin d'allouer l'impact du mouton au co-produit laine, une allocation économique basée sur le principal marché (Australie / année 2020) a été utilisée (source : MLA National Livestock Reporting Service Australian Wool Exchange).
+3\) Allocation économique\
+L'impact du "mouton Ecoinvent" a été reconstitué puis une allocation économique de 37% est appliquée. Cette allocation se base sur le principal marché de production de laine pour le textile d'habillement (Australie / année 2020) et sur les données MLA National Livestock Reporting Service Australian Wool Exchange transmises par Woolmark.
 
 </details>
 
@@ -159,23 +159,17 @@ Deux enrichissements ont été apportés par Ecobalyse :&#x20;
 
 <summary>Laine (nouvelle filière)</summary>
 
-Cette laine représente les marchés/géographies où la laine n'est pas valorisée (ex : filière laine française en 2022/2023).
+Cette laine représente les marchés où la laine n'est aujourd'hui pas/peu valorisée (ex : filière laine française en 2022/2023).
 
-Le procédé "Laine (par défaut)" est utilisé avec comme unique modification l'application d'un taux d'allocation de 4%. &#x20;
-
-</details>
-
-<details>
-
-<summary>Laine (100% prairie)</summary>
-
-Cette laine reflète des conditions d'élevage 100% extensives.&#x20;
-
-Le procédé "Laine (par défaut)" est utilisé avec comme unique modification la modification des rations alimentaires (0 intrants / 100% plaine).
+Le procédé "Laine (par défaut)" est alors utilisé avec comme unique modification l'application d'un taux d'allocation de 4%. &#x20;
 
 </details>
 
-<mark style="color:orange;">Intégrer graphe</mark>
+### Coût environnemental&#x20;
+
+Comparaison du coût environnemental des deux scénarios proposés avec le coût environnemental du procédé source Ecoinvent.
+
+<figure><img src="../../../.gitbook/assets/Coût environnemental de 1kg de laine (source _ Ecobalyse).png" alt=""><figcaption></figcaption></figure>
 
 [^1]: Textile Exchange (market report 2023)
 

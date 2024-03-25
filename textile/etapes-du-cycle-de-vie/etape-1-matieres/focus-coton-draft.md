@@ -58,7 +58,7 @@ Deux procédés sont sont disponibles dans Ecobalyse :&#x20;
 **Procédé Ecoinvent** \
 _Fibre production, cotton, ginning, RoW_
 
-Procédé basé sur une moyenne pondérée des trois principaux pays producteurs (Chine, Inde, Etats-Unis). 2kg de graines de coton sont nécessaires pour produire 1kg de fibre de coton.
+Procédé basé sur une moyenne pondérée des trois principaux pays producteurs (Chine, Inde, Etats-Unis).&#x20;
 
 </details>
 

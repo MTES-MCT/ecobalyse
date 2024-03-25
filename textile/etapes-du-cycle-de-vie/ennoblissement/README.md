@@ -80,9 +80,9 @@ Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebu
 Lorsque des procédés mobilisés dans la modélisation d'un vêtement font l'objet d'inventaires enrichis (ex : Blanchiment), l'impact de ces inventaires enrichis sont intégrés (plus d'info [ici](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/774/textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis)).&#x20;
 
 {% hint style="info" %}
-La modélisation des substances chimiques mobilisées sur les étapes d'ennoblissement (ainsi que leurs impacts) est aujourd'hui très difficile pour diverses raisons.
+La modélisation des substances chimiques mobilisées sur les étapes d'ennoblissement (ainsi que leurs impacts) est aujourd'hui très difficile via la méthode ACV[^1] pour diverses raisons.
 
-Ecobalyse propose de premiers scénarios précis et transparents afin de permettre aux acteurs Textile (industriels, fabricants de colorants, etc.)  et scientifiques (écotoxicologues, experts ACV, etc.) de collaborer pour plus de transparence.&#x20;
+Ecobalyse propose de premiers scénarios afin de permettre aux acteurs Textile (industriels, fabricants de colorants, etc.)  et scientifiques (écotoxicologues, experts ACV, etc.) de collaborer pour plus de transparence.&#x20;
 {% endhint %}
 
 ### Procédés mobilisés&#x20;
@@ -134,7 +134,11 @@ Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus su
 
 </details>
 
-### Hypothèses par défaut
+### Hypothèses par défaut&#x20;
+
+{% hint style="danger" %}
+La version actuelle de l'outil Ecobalyse n'intègre pas encore les pré-traitements mentionnés ci-dessous.&#x20;
+{% endhint %}
 
 #### Procédés de Pré-traitements <=> Type de fibres (synthétique, naturelle origine animale, etc.)
 
@@ -163,7 +167,7 @@ Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus su
 <table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,1</td><td>3,2</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,3</td><td>13,5</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,2</td><td>5,4</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>0,2</td><td>10,8</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,1</td><td>2,7</td></tr><tr><td>Teinture</td><td>Continu</td><td>0,8</td><td>16,2</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>1,2</td><td>32,4</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>1,27</td><td>7,25</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>1,45</td><td>8,72</td></tr><tr><td>Finition</td><td>Apprès chimiques (en continu)</td><td>0,6</td><td>13,5</td></tr></tbody></table>
 
 {% hint style="info" %}
-Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-1)[^1]\*.&#x20;
+Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-2)[^2]\*.&#x20;
 
 Une vingtaine de sites industriels ont pargé leurs consommations annuelles par procédé sur 3 années (2016, 2017, 2018).&#x20;
 
@@ -190,14 +194,6 @@ Après une série d'interviews auprès d'industriels et experts de l'ennoblissem
 
 Nous ne permettons donc pas de modifier la quantité d'énergie afin d'assurer une comparabilité des résultats.
 {% endhint %}
-
-#### Source de production de vapeur &#x20;
-
-L'utilisateur a la possibilité de préciser la source de production de vapeur utilisée sur le site industriel des étapes d'ennoblissement.&#x20;
-
-4 sources (gaz naturel, fuel lourd, fuel léger, charbon) et deux régions (Europe, Asie) sont disponibles.
-
-Par défaut, un mix régional est appliqué selon le pays (cf. section [Chaleur](https://fabrique-numerique.gitbook.io/ecobalyse/textile/parametres-transverses/chaleur)).&#x20;
 
 #### Impression <=> % étoffe &#x20;
 
@@ -297,4 +293,6 @@ Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimique
 
 Certains apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy care_ pour le coton) tandis que d'autres ont une application plus générale (ex : les adoucissants).
 
-[^1]: Best Available Techniques (BAT) Reference Document for the Textiles Industry \_ Joint Research Center.
+[^1]: Analyse du Cycle de Vie
+
+[^2]: Best Available Techniques (BAT) Reference Document for the Textiles Industry \_ Joint Research Center.
