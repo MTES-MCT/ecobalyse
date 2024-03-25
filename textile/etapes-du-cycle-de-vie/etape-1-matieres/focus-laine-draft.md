@@ -115,11 +115,9 @@ De manière générale et sur la base d'une revue bibliographique, la majorité 
 {% hint style="info" %}
 **Services écosystémiques**
 
-L'élevage extensif (paturages) propose des impacts positifs sur l'environnement tels que la limitation des feux de forêts grâce à l'entretien des prairies ou encore la limitation d'espèces végétales invasives.&#x20;
+L'élevage ovin extensif (pâturages) produit des externalités positives sur l'environnement : lutte contre les feux de forêts, maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, limitation de la prolifération d'espèces végétales invasives, etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], pour le cas de l'élevage extensif en Espagne par exemple).
 
-Dans l'étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], il est stipulé que l'élevage extensif des moutons en Espagne propose des bénéfices écosystémiques tels que la préservation de la biodiversité et des paysages.&#x20;
-
-Ces externalités positives ne sont généralement pas intégrées dans les inventaires de cycle de vie (ICV) actuellement disponibles sur le marché. Ecobalyse envisage d'enrichir les procédés avec de telles externalités.
+Ces externalités positives ne sont pas intégrées dans les inventaires de cycle de vie (ICV) actuellement disponibles. Ecobalyse pourrait enrichir les inventaires, à terme, avec des compléments permettant de prendre en compte ces externalités dans le calcul du coût environnemental.
 {% endhint %}
 
 ## Modélisation Ecobalyse
