@@ -847,8 +847,15 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "complements": {},
+    "complements": {
+      "hedges": 2.1478608,
+      "plotSize": 2.9896559999999996,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0,
+      "livestockDensity": -0.027132000000000003
+    },
     "land_occupation": 9.348404415,
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -862,8 +869,15 @@
     "density": 1,
     "inedible_part": 0,
     "transport_cooling": "always",
-    "complements": {},
+    "complements": {
+      "hedges": 7.5591904,
+      "plotSize": 7.9695025,
+      "cropDiversity": 0.0,
+      "permanentPasture": 5.13,
+      "livestockDensity": -0.027132000000000003
+    },
     "land_occupation": 19.32745302,
+    "scenario": "reference",
     "visible": true
   },
   {

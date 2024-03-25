@@ -144,5 +144,20 @@
     "barley-organic": 1.07,
     "triticale-organic": 1.56,
     "bean-organic": 1.46
+  },
+  "sausage-meat": {
+    "sweet-corn-fr": 0.92,
+    "soft-wheat-fr": 3.26,
+    "soybean-feed": 0.35,
+    "barley": 0.7
+  },
+  "sausage-toulouse": {
+    "sweet-corn-fr": 1.17,
+    "silage-maize-fr": 0.47,
+    "soft-wheat-fr": 4.32,
+    "soybean-feed": 0.52,
+    "barley": 0.9,
+    "grazed-grass-temporary": 0.69,
+    "grazed-grass-permanent": 5.13
   }
 }

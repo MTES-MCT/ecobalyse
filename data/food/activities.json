@@ -924,7 +924,11 @@
     "transport_cooling": "always",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 9.348404415
+    "land_occupation": 9.348404415,
+    "animal_group1": "pig",
+    "animal_group2": "pig",
+    "animal_product": "meat",
+    "scenario": "reference"
   },
   {
     "id": "sausage-toulouse",
@@ -939,7 +943,11 @@
     "transport_cooling": "always",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 19.32745302
+    "land_occupation": 19.32745302,
+    "animal_group1": "pig",
+    "animal_group2": "pig",
+    "animal_product": "meat",
+    "scenario": "reference"
   },
   {
     "id": "sausage-toulouse-cooked",
