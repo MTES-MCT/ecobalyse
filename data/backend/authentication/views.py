@@ -30,7 +30,7 @@ def register(request):
                 )
             except json.JSONDecodeError:
                 return JsonResponse(
-                    {"success": False, "msg": "Invalid json in the POST request"}
+                    {"success": False, "msg": _("Invalid json in the POST request")}
                 )
             if form.is_valid():
                 form.save()
@@ -49,7 +49,7 @@ def register(request):
                 return JsonResponse(
                     {
                         "success": False,
-                        "msg": "Your form has errors: "
+                        "msg": _("Your form has errors: ")
                         + " ".join([f"{k}: {v}" for k, v in errors.items()]),
                         "errors": errors,
                     }
@@ -106,7 +106,7 @@ class LoginView(MailauthLoginView):
                     }
                 )
             else:
-                return JsonResponse({"success": False, "msg": "Invalid form data"})
+                return JsonResponse({"success": False, "msg": _("Invalid form data")})
         else:
             form = self.get_form()
             if form.is_valid():
@@ -144,7 +144,7 @@ class Activate(MailauthLoginTokenView):
             user.is_active = True
             user.save()
         except:
-            msg = _("Token has expired")
+            msg = _("The token has expired")
             logger.warning(msg, exc_info=True)
             raise PermissionDenied
 
