@@ -132,7 +132,9 @@ mainMenuLinks : List MenuLink
 mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Textile" Route.TextileSimulatorHome TextileSimulator
-    , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
+
+    -- FIXME: all food-related stuff temporarily removed
+    -- , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
     , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api
     ]
@@ -188,7 +190,7 @@ pageFooter { currentVersion } =
                         [ text label ]
 
                 MailTo label email ->
-                    a [ class "text-decoration-none link-email", href <| "mailto:" ++ email ]
+                    a [ class "text-decoration-none", href <| "mailto:" ++ email ]
                         [ text label ]
     in
     footer [ class "Footer" ]

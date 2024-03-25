@@ -185,8 +185,8 @@ scopesMenuView model =
                     ]
             )
         |> (::) (strong [ class "d-block d-sm-inline" ] [ text "Secteur d'activité" ])
-        |> nav
-            []
+        -- FIXME: all food-related stuff temporarily hidden
+        |> nav [ class "d-none" ]
 
 
 detailsModal : Html Msg -> Html Msg
@@ -502,7 +502,7 @@ view session model =
     , [ Container.centered [ class "pb-3" ]
             [ div []
                 [ h1 [] [ text "Explorateur" ]
-                , div [ class "row d-flex align-items-stretch mt-5 mx-0" ]
+                , div [ class "row d-flex align-items-stretch mt-1 mx-0" ]
                     [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ] [ scopesMenuView model ]
                     , div [ class "col-12 col-lg-7 pe-0 me-0" ] [ datasetsMenuView model ]
                     ]
