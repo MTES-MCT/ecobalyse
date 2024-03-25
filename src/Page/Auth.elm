@@ -11,7 +11,7 @@ import Dict exposing (Dict)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http exposing (Error(..))
+import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -141,25 +141,6 @@ init session data =
     )
 
 
-errorToString : Http.Error -> String
-errorToString error =
-    case error of
-        BadUrl str ->
-            "Bad URL: " ++ str
-
-        Timeout ->
-            "Timeout"
-
-        NetworkError ->
-            "Network error"
-
-        BadStatus n ->
-            "Bad status: " ++ String.fromInt n
-
-        BadBody str ->
-            "Bad body: " ++ str
-
-
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
@@ -198,7 +179,6 @@ update session msg model =
             let
                 newSession =
                     Session.loggedIn session newProcessesJson
-                        |> Session.notifyInfo "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux conditions" ""
             in
             ( model
             , newSession
@@ -236,27 +216,9 @@ update session msg model =
                 ]
             )
 
-        TokenEmailSent (Ok response) ->
-            ( { model | response = Just response }
-            , case response of
-                Success info ->
-                    session
-                        |> Session.notifyInfo
-                            "Un email vous a été envoyé avec un lien de connexion"
-                            info
-
-                Error _ _ ->
-                    session
-                        |> Session.notifyError
-                            "Quelque chose s'est mal passé à l'envoi du formulaire"
-                            "Vérifiez les informations fournies ci-dessous"
-            , Cmd.none
-            )
-
-        TokenEmailSent (Err error) ->
-            ( model
+        TokenEmailSent response ->
+            ( { model | response = Result.toMaybe response }
             , session
-                |> Session.notifyError "Erreur lors du traitement" (errorToString error)
             , Cmd.none
             )
 
@@ -272,32 +234,36 @@ view session model =
     ( "Authentification"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Connexion / Inscription" ]
-            , div [ class "row" ]
-                [ div [ class "col-xl-12" ]
-                    [ Alert.simple
-                        { level = Alert.Info
-                        , close = Nothing
-                        , title = Nothing
-                        , content =
-                            [ div [ class "fs-7" ]
-                                [ """Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
-                                valider que vous êtes Français, et que vous n'utiliserez pas ces données à des fins
-                                commerciales."""
-                                    |> Markdown.simple []
-                                ]
-                            ]
-                        }
-                    ]
-                ]
-            , div [ class "row d-flex justify-content-center" ]
+            , div [ class "row justify-content-center" ]
                 [ if model.loggedIn then
-                    text "logged in"
+                    text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux conditions"
 
                   else if Session.isAuthenticated session then
-                    button [ onClick Logout ] [ text "Déconnexion" ]
+                    button
+                        [ onClick Logout
+                        , class "btn btn-link mb-3"
+                        ]
+                        [ text "Déconnexion" ]
 
                   else
-                    viewLoginRegisterForm model
+                    div [ class "row d-flex justify-content-center" ]
+                        [ div [ class "col-xl-12" ]
+                            [ Alert.simple
+                                { level = Alert.Info
+                                , close = Nothing
+                                , title = Nothing
+                                , content =
+                                    [ div [ class "fs-7" ]
+                                        [ """Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
+                                    valider que vous êtes Français, et que vous n'utiliserez pas ces données à des fins
+                                    commerciales."""
+                                            |> Markdown.simple []
+                                        ]
+                                    ]
+                                }
+                            ]
+                        , viewLoginRegisterForm model
+                        ]
                 ]
             ]
       ]
@@ -371,153 +337,169 @@ viewInput inputData maybeResponse =
 
 viewLoginForm : Model -> Html Msg
 viewLoginForm ({ user } as model) =
-    Html.form [ onSubmit AskForLogin ]
-        [ viewFormErrors model.response
-        , viewInput
-            { label = "Adresse e-mail"
-            , type_ = "text"
-            , id = "email"
-            , placeholder = "nom@example.com"
-            , required = True
-            , value = user.email
-            , onInput =
-                \email ->
-                    UpdateForm
-                        { model
-                            | user = { user | email = email }
-                            , response = removeError model.response
-                        }
-            }
-            model.response
-        , button
-            [ type_ "submit"
-            , class "btn btn-primary mb-3"
-            , disabled <| String.isEmpty user.email
-            ]
-            [ text "Connexion" ]
-        ]
+    case model.response of
+        Just (Success msg) ->
+            div []
+                [ p [] [ Html.text "Un email vous a été envoyé avec un lien de connexion." ]
+                , p [] [ Html.text msg ]
+                ]
+
+        _ ->
+            Html.form [ onSubmit AskForLogin ]
+                [ viewFormErrors model.response
+                , viewInput
+                    { label = "Adresse e-mail"
+                    , type_ = "text"
+                    , id = "email"
+                    , placeholder = "nom@example.com"
+                    , required = True
+                    , value = user.email
+                    , onInput =
+                        \email ->
+                            UpdateForm
+                                { model
+                                    | user = { user | email = email }
+                                    , response = removeError model.response
+                                }
+                    }
+                    model.response
+                , button
+                    [ type_ "submit"
+                    , class "btn btn-primary mb-3"
+                    , disabled <| String.isEmpty user.email
+                    ]
+                    [ text "Connexion" ]
+                ]
 
 
 viewRegisterForm : Model -> Html Msg
 viewRegisterForm ({ user } as model) =
-    Html.form [ onSubmit AskForRegistration ]
-        [ viewFormErrors model.response
-        , viewInput
-            { label = "Adresse e-mail"
-            , type_ = "text"
-            , id = "email"
-            , placeholder = "nom@example.com"
-            , required = True
-            , value = user.email
-            , onInput =
-                \email ->
-                    UpdateForm
-                        { model
-                            | user = { user | email = email }
-                            , response = removeError model.response
-                        }
-            }
-            model.response
-        , viewInput
-            { label = "Prénom"
-            , type_ = "text"
-            , id = "first_name"
-            , placeholder = "Joséphine"
-            , required = True
-            , value = user.firstname
-            , onInput =
-                \firstname ->
-                    UpdateForm
-                        { model
-                            | user = { user | firstname = firstname }
-                            , response = removeError model.response
-                        }
-            }
-            model.response
-        , viewInput
-            { label = "Nom"
-            , type_ = "text"
-            , id = "last_name"
-            , placeholder = "Durand"
-            , required = True
-            , value = user.lastname
-            , onInput =
-                \lastname ->
-                    UpdateForm
-                        { model
-                            | user = { user | lastname = lastname }
-                            , response = removeError model.response
-                        }
-            }
-            model.response
-        , viewInput
-            { label = "Entreprise"
-            , type_ = "text"
-            , id = "company"
-            , placeholder = "ACME SARL"
-            , required = True
-            , value = user.company
-            , onInput =
-                \company ->
-                    UpdateForm
-                        { model
-                            | user = { user | company = company }
-                            , response = removeError model.response
-                        }
-            }
-            model.response
-        , div [ class "mb-3" ]
-            [ label
-                [ for "terms_of_use"
-                , class "form-check form-switch form-check-label pt-1"
+    case model.response of
+        Just (Success msg) ->
+            div []
+                [ p [] [ Html.text "Un email vous a été envoyé avec un lien de validation." ]
+                , p [] [ Html.text msg ]
                 ]
-                [ input
-                    [ type_ "checkbox"
-                    , class "form-check-input"
-                    , classList [ ( "is-invalid", getFormInputError "terms_of_use" model.response /= Nothing ) ]
-                    , id "terms_of_use"
-                    , required True
-                    , checked user.cgu
-                    , onCheck
-                        (\isChecked ->
+
+        _ ->
+            Html.form [ onSubmit AskForRegistration ]
+                [ viewFormErrors model.response
+                , viewInput
+                    { label = "Adresse e-mail"
+                    , type_ = "text"
+                    , id = "email"
+                    , placeholder = "nom@example.com"
+                    , required = True
+                    , value = user.email
+                    , onInput =
+                        \email ->
                             UpdateForm
                                 { model
-                                    | user = { user | cgu = isChecked }
+                                    | user = { user | email = email }
                                     , response = removeError model.response
                                 }
-                        )
+                    }
+                    model.response
+                , viewInput
+                    { label = "Prénom"
+                    , type_ = "text"
+                    , id = "first_name"
+                    , placeholder = "Joséphine"
+                    , required = True
+                    , value = user.firstname
+                    , onInput =
+                        \firstname ->
+                            UpdateForm
+                                { model
+                                    | user = { user | firstname = firstname }
+                                    , response = removeError model.response
+                                }
+                    }
+                    model.response
+                , viewInput
+                    { label = "Nom"
+                    , type_ = "text"
+                    , id = "last_name"
+                    , placeholder = "Durand"
+                    , required = True
+                    , value = user.lastname
+                    , onInput =
+                        \lastname ->
+                            UpdateForm
+                                { model
+                                    | user = { user | lastname = lastname }
+                                    , response = removeError model.response
+                                }
+                    }
+                    model.response
+                , viewInput
+                    { label = "Entreprise"
+                    , type_ = "text"
+                    , id = "company"
+                    , placeholder = "ACME SARL"
+                    , required = True
+                    , value = user.company
+                    , onInput =
+                        \company ->
+                            UpdateForm
+                                { model
+                                    | user = { user | company = company }
+                                    , response = removeError model.response
+                                }
+                    }
+                    model.response
+                , div [ class "mb-3" ]
+                    [ label
+                        [ for "terms_of_use"
+                        , class "form-check form-switch form-check-label pt-1"
+                        ]
+                        [ input
+                            [ type_ "checkbox"
+                            , class "form-check-input"
+                            , classList [ ( "is-invalid", getFormInputError "terms_of_use" model.response /= Nothing ) ]
+                            , id "terms_of_use"
+                            , required True
+                            , checked user.cgu
+                            , onCheck
+                                (\isChecked ->
+                                    UpdateForm
+                                        { model
+                                            | user = { user | cgu = isChecked }
+                                            , response = removeError model.response
+                                        }
+                                )
+                            ]
+                            []
+                        , text "Je m'engage à ne pas utiliser les données pour une utilisation commerciale."
+                        , div [ class "text-danger" ]
+                            [ getFormInputError "terms_of_use" model.response
+                                |> Maybe.withDefault ""
+                                |> text
+                            ]
+                        ]
+                    , div [ class "mb-3" ]
+                        [ label
+                            [ for "nextInput"
+                            , class "form-label"
+                            ]
+                            []
+                        , input
+                            [ type_ "text"
+                            , class "form-control"
+                            , id "nextInput"
+                            , required True
+                            , value "/#/auth/loggedIn"
+                            , hidden True
+                            ]
+                            []
+                        ]
                     ]
-                    []
-                , text "Je m'engage à ne pas utiliser les données pour une utilisation commerciale."
-                , div [ class "text-danger" ]
-                    [ getFormInputError "terms_of_use" model.response
-                        |> Maybe.withDefault ""
-                        |> text
+                , button
+                    [ type_ "submit"
+                    , class "btn btn-primary mb-3"
                     ]
+                    [ text "M'inscrire" ]
                 ]
-            , div [ class "mb-3" ]
-                [ label
-                    [ for "nextInput"
-                    , class "form-label"
-                    ]
-                    []
-                , input
-                    [ type_ "text"
-                    , class "form-control"
-                    , id "nextInput"
-                    , required True
-                    , value "/#/auth/loggedIn"
-                    , hidden True
-                    ]
-                    []
-                ]
-            ]
-        , button
-            [ type_ "submit"
-            , class "btn btn-primary mb-3"
-            ]
-            [ text "M'inscrire" ]
-        ]
 
 
 viewFormErrors : Maybe Response -> Html Msg
