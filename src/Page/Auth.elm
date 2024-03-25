@@ -42,6 +42,11 @@ registration_url =
     "/accounts/register.json/"
 
 
+logout_url : String
+logout_url =
+    "/accounts/logout/"
+
+
 profile_url : String
 profile_url =
     "/accounts/profile.json/"
@@ -111,6 +116,7 @@ type Msg
     | GotUserInfo (Result Http.Error User)
     | Logout
     | LoggedIn (Result String Session.FullImpacts)
+    | LoggedOut (Result Http.Error ())
     | TokenEmailSent (Result Http.Error Response)
     | UpdateForm Model
 
@@ -203,6 +209,12 @@ update session msg model =
             , Cmd.none
             )
 
+        LoggedOut _ ->
+            ( model
+            , session
+            , Cmd.none
+            )
+
         Logout ->
             let
                 newSession =
@@ -211,7 +223,10 @@ update session msg model =
             in
             ( model
             , newSession
-            , newSession.store |> Session.serializeStore |> Ports.saveStore
+            , Cmd.batch
+                [ newSession.store |> Session.serializeStore |> Ports.saveStore
+                , logout
+                ]
             )
 
         TokenEmailSent (Ok message) ->
@@ -247,7 +262,7 @@ update session msg model =
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
-    ( "API"
+    ( "Authentification"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Connexion / Inscription" ]
             , div [ class "row" ]
@@ -489,6 +504,19 @@ getUserInfo =
         , url = profile_url
         , body = Http.emptyBody
         , expect = Http.expectJson GotUserInfo decodeUserInfo
+        , timeout = Nothing
+        , tracker = Nothing
+        }
+
+
+logout : Cmd Msg
+logout =
+    Http.riskyRequest
+        { method = "POST"
+        , headers = []
+        , url = logout_url
+        , body = Http.emptyBody
+        , expect = Http.expectWhatever LoggedOut
         , timeout = Nothing
         , tracker = Nothing
         }
