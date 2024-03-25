@@ -306,7 +306,9 @@ pageHeader config =
                                 button [ class "nav-link flex-fill text-end", onClick config.logout ] [ text "Déconnexion" ]
 
                              else
-                                button [ class "nav-link flex-fill text-end", onClick config.login ] [ text "Connexion" ]
+                                -- FIXME: login and out links are temprarily hidden by default
+                                -- button [ class "nav-link flex-fill text-end", onClick config.login ] [ text "Connexion" ]
+                                text ""
                            ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
