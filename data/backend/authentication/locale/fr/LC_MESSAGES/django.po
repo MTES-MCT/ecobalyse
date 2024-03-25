@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-25 11:33+0100\n"
+"PO-Revision-Date: 2024-03-25 11:41+0100\n"
+"Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: authentication/forms.py:24
+msgid "E-mail"
+msgstr "E-mail"
+
+#: authentication/forms.py:25
+msgid "First Name"
+msgstr "Prénom"
+
+#: authentication/forms.py:26
+msgid "Last Name"
+msgstr "Nom"
+
+#: authentication/forms.py:27 authentication/models.py:7
+msgid "Company"
+msgstr "Entreprise"
+
+#: authentication/forms.py:29
+msgid "I undertake not to use the data for commercial use"
+msgstr "Je m'engage à ne pas utiliser les données à des fins commerciales"
+
+#: authentication/forms.py:31
+msgid "Next url"
+msgstr "URL de redirection"
+
+#: authentication/views.py:40 authentication/views.py:104
+#, python-format
+msgid "The link is valid for %s min"
+msgstr "Le lien de connexion est valide pendant %s min"
+
+#: authentication/views.py:70 authentication/views.py:82
+msgid "Register"
+msgstr "S'inscrire"
+
+#: authentication/views.py:91
+msgid "Login"
+msgstr "Se connecter"
+
+#: authentication/views.py:147
+msgid "Token has expired"
+msgstr "Le token a expiré"
+
+#: authentication/views.py:177
+msgid "You must be authenticated to access this page"
+msgstr "Vous devez être authentifié(e) pour accéder à cette page"
