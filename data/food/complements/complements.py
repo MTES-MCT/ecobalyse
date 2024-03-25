@@ -7,10 +7,10 @@ THRESHOLD_HEDGES = 140  # ml/ha
 THRESHOLD_PLOTSIZE = 8  # ha
 THRESHOLD_CROPDIVERSITY = 7.5  # simpson number
 
-ecosystemic_services_list = ["hedges", "plotSize", "cropDiversity"]
+complements_list = ["hedges", "plotSize", "cropDiversity"]
 
 
-# For each eco_service, we associate a transformation function
+# For each complement, we associate a transformation function
 # to get a visual idea of the function, look at ecs_transformations.png
 TRANSFORM = {
     "hedges": (THRESHOLD_HEDGES, lambda x: x / THRESHOLD_HEDGES, lambda x: 1),
@@ -23,27 +23,27 @@ TRANSFORM = {
 }
 
 
-def ecs_transform(eco_service, value):
+def ecs_transform(complement, value):
     if value < 0:
-        raise ValueError(f"complement {eco_service} input value can't be lower than 0")
+        raise ValueError(f"complement {complement} input value can't be lower than 0")
 
-    if eco_service not in TRANSFORM:
-        raise ValueError(f"Unknown complement: {eco_service}")
+    if complement not in TRANSFORM:
+        raise ValueError(f"Unknown complement: {complement}")
 
-    threshold, func_below, func_above = TRANSFORM[eco_service]
+    threshold, func_below, func_above = TRANSFORM[complement]
     if value < threshold:
         return func_below(value)
     else:
         return func_above(value)
 
 
-def load_ecosystemic_dic(PATH):
-    """Load ecosystemic csv as dictionary"""
-    ecosystemic_factors_csv = pd.read_csv(PATH, sep=";")
-    ecosystemic_factors = {}
-    for _, row in ecosystemic_factors_csv.iterrows():
+def load_complements_dic(PATH):
+    """Load complement csv as dictionary"""
+    complements_factors_csv = pd.read_csv(PATH, sep=";")
+    complements_factors = {}
+    for _, row in complements_factors_csv.iterrows():
         cropGroup = row["group"]
-        ecosystemic_factors[cropGroup] = {
+        complements_factors[cropGroup] = {
             "hedges": {
                 "reference": row["hedges_reference"],
                 "organic": row["hedges_organic"],
@@ -65,7 +65,7 @@ def load_ecosystemic_dic(PATH):
                 "import": row["livestockDensity_import"],
             },
         }
-    return frozendict(ecosystemic_factors)
+    return frozendict(complements_factors)
 
 
 def load_ugb_dic(PATH):
@@ -80,29 +80,29 @@ def load_ugb_dic(PATH):
     return frozendict(ugb_dic)
 
 
-def compute_vegetal_ecosystemic_services(ingredients_tuple, ecosystemic_factors):
+def compute_vegetal_complements(ingredients_tuple, complements_factors):
     ingredients = list(ingredients_tuple)
     ingredients_updated = []
     for ingredient in ingredients:
         if all(
             ingredient.get(key) for key in ["land_occupation", "crop_group", "scenario"]
         ):
-            print(f"Computing ecosystemic services for {ingredient['id']}")
-            for eco_service in ecosystemic_services_list:
-                factor_raw = ecosystemic_factors[ingredient["crop_group"]][eco_service][
+            print(f"Computing complement services for {ingredient['id']}")
+            for complement in complements_list:
+                factor_raw = complements_factors[ingredient["crop_group"]][complement][
                     ingredient["scenario"]
                 ]
-                factor_transformed = ecs_transform(eco_service, factor_raw)
+                factor_transformed = ecs_transform(complement, factor_raw)
                 factor_final = factor_transformed * ingredient["land_occupation"]
-                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
+                ingredient.setdefault("complements", {})[complement] = float(
                     "{:.5g}".format(factor_final)
                 )
         ingredients_updated.append(ingredient)
     return tuple(ingredients_updated)
 
 
-def compute_animal_ecosystemic_services(
-    ingredients, activities, ecosystemic_factors, feed_file, ugb
+def compute_animal_complements(
+    ingredients, activities, complement_factors, feed_file, ugb
 ):
     activities_dic = {el["id"]: el for el in activities}
     ingredients_dic_updated = {el["id"]: el for el in ingredients}
@@ -111,42 +111,34 @@ def compute_animal_ecosystemic_services(
         hedges = 0
         plotSize = 0
         cropDiversity = 0
-        ecosystemicServices = ingredients_dic[animal_product].get("ecosystemicServices",{})
+        complements = ingredients_dic[animal_product].get("complements", {})
 
         for feed_name, quantity in feed_quantities.items():
             assert (
                 feed_name in ingredients_dic
             ), f"feed {feed_name} is not present in ingredients"
             feed_properties = ingredients_dic[feed_name]
-            hedges += quantity * feed_properties["ecosystemicServices"]["hedges"]
-            plotSize += quantity * feed_properties["ecosystemicServices"]["plotSize"]
-            cropDiversity += (
-                quantity * feed_properties["ecosystemicServices"]["cropDiversity"]
-            )
-        ecosystemicServices["hedges"] = hedges
-        ecosystemicServices["plotSize"] = plotSize
-        ecosystemicServices["cropDiversity"] = cropDiversity
+            hedges += quantity * feed_properties["complements"]["hedges"]
+            plotSize += quantity * feed_properties["complements"]["plotSize"]
+            cropDiversity += quantity * feed_properties["complements"]["cropDiversity"]
+        complements["hedges"] = hedges
+        complements["plotSize"] = plotSize
+        complements["cropDiversity"] = cropDiversity
 
-        ecosystemicServices["permanentPasture"] = feed_quantities.get(
-			"grazed-grass-permanent", 0
-			)
-
-        ecosystemicServices["livestockDensity"] = (
-            compute_livestockDensity_ecosystemic_service(
-                frozendict(activities_dic[animal_product]), ugb, ecosystemic_factors
-            )
+        complements["permanentPasture"] = feed_quantities.get(
+            "grazed-grass-permanent", 0
         )
-        ingredients_dic_updated[animal_product][
-            "ecosystemicServices"
-        ] = ecosystemicServices
+
+        complements["livestockDensity"] = compute_livestockDensity_complement(
+            frozendict(activities_dic[animal_product]), ugb, complement_factors
+        )
+        ingredients_dic_updated[animal_product]["complements"] = complements
     return tuple([v for k, v in ingredients_dic_updated.items()])
 
 
-def compute_livestockDensity_ecosystemic_service(
-    animal_properties, ugb, ecosystemic_factors
-):
+def compute_livestockDensity_complement(animal_properties, ugb, complement_factors):
     try:
-        livestockDensity_per_ugb = ecosystemic_factors[
+        livestockDensity_per_ugb = complement_factors[
             animal_properties["animal_group1"]
         ]["livestockDensity"][animal_properties["scenario"]]
         ugb_per_kg = ugb[animal_properties["animal_group2"]][
@@ -168,7 +160,7 @@ def plot_ecs_transformations(save_path=None):
         "cropDiversity": {"range": range(0, 30), "unit": "Simpson number"},
     }  # Adjust the range based on expected values
 
-    num_plots = len(ecosystemic_services_list)
+    num_plots = len(complements_list)
 
     # Create subplots
     fig, axes = plt.subplots(num_plots, 1, figsize=(10, 6 * num_plots))
@@ -179,19 +171,17 @@ def plot_ecs_transformations(save_path=None):
 
     # Add the title text at the top of the plot
     fig.suptitle(
-        "The greater the transformed value, the higher the ecosystemic service value, the lower the overall environmental impact",
+        "The greater the transformed value, the higher the complementservice value, the lower the overall environmental impact",
         fontsize=14,
     )
-    # Plotting the transformations for each ecosystemic service in a separate subplot
-    for index, eco_service in enumerate(ecosystemic_services_list):
-        value_range = plot_characteristic_dic[eco_service]["range"]
-        transformed_values = [
-            ecs_transform(eco_service, value) for value in value_range
-        ]
+    # Plotting the transformations for each complementservice in a separate subplot
+    for index, complement in enumerate(complements_list):
+        value_range = plot_characteristic_dic[complement]["range"]
+        transformed_values = [ecs_transform(complement, value) for value in value_range]
         ax = axes[index]
-        ax.plot(value_range, transformed_values, label=eco_service)
-        ax.set_title(f"{eco_service}")
-        ax.set_xlabel(plot_characteristic_dic[eco_service]["unit"])
+        ax.plot(value_range, transformed_values, label=complement)
+        ax.set_title(f"{complement}")
+        ax.set_xlabel(plot_characteristic_dic[complement]["unit"])
         ax.set_ylabel("Transformed Value")
         ax.legend()
         ax.grid(True)

@@ -15,12 +15,12 @@ from common.export import (
     with_corrected_impacts,
     with_subimpacts,
 )
-from food.ecosystemic_services.ecosystemic_services import (
-    load_ecosystemic_dic,
+from food.complements.complements import (
+    load_complements_dic,
     load_ugb_dic,
     plot_ecs_transformations,
-    compute_vegetal_ecosystemic_services,
-    compute_animal_ecosystemic_services,
+    compute_vegetal_complements,
+    compute_animal_complements,
 )
 import bw2calc
 import bw2data
@@ -36,9 +36,9 @@ CONFIG = {
     "BIOSPHERE": "Agribalyse 3.1.1 biosphere",
     "ACTIVITIES_FILE": "activities.json",
     "IMPACTS_FILE": "../../public/data/impacts.json",
-    "ECOSYSTEMIC_FACTORS_FILE": "ecosystemic_services/ecosystemic_factors.csv",
-    "FEED_FILE": "ecosystemic_services/feed.json",
-    "UGB_FILE": "ecosystemic_services/ugb.csv",
+    "ECOSYSTEMIC_FACTORS_FILE": "complements/ecosystemic_factors.csv",
+    "FEED_FILE": "complements/feed.json",
+    "UGB_FILE": "complements/ugb.csv",
     "INGREDIENTS_FILE": "../../public/data/food/ingredients.json",
     "PROCESSES_FILE": "../../public/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
@@ -80,7 +80,7 @@ def process_activity_for_ingredient(activity):
         "density": activity["density"],
         "inedible_part": activity["inedible_part"],
         "transport_cooling": activity["transport_cooling"],
-        "ecosystemicServices": activity.get("ecosystemicServices", {}),
+        "complements": activity.get("complements", {}),
         **(
             {"land_occupation": activity["land_occupation"]}
             if "land_occupation" in activity
@@ -229,7 +229,7 @@ def compute_impacts(processes_fd):
             if attribute in process:
                 del process[attribute]
 
-    return frozendict({k:frozendict(v) for k, v in processes.items()})
+    return frozendict({k: frozendict(v) for k, v in processes.items()})
 
 
 if __name__ == "__main__":
@@ -242,14 +242,12 @@ if __name__ == "__main__":
     activities_land_occ = compute_land_occupation(activities)
     ingredients = create_ingredient_list(activities_land_occ)
 
-    ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
-    ingredients_veg_es = compute_vegetal_ecosystemic_services(
-        ingredients, ecosystemic_factors
-    )
+    ecosystemic_factors = load_complements_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
+    ingredients_veg_es = compute_vegetal_complements(ingredients, ecosystemic_factors)
 
     feed_file = load_json(CONFIG["FEED_FILE"])
     ugb = load_ugb_dic(CONFIG["UGB_FILE"])
-    ingredients_animal_es = compute_animal_ecosystemic_services(
+    ingredients_animal_es = compute_animal_complements(
         ingredients_veg_es, activities_land_occ, ecosystemic_factors, feed_file, ugb
     )
 
