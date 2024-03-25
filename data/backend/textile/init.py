@@ -1,7 +1,8 @@
+from copy import deepcopy
 from decouple import config  # python-decouple to read in .env
 from django.contrib.auth import get_user_model
 from os.path import dirname, join, abspath
-from textile.models import Process, Material, Example, Product
+from textile.models import Process, Material, Example, Product, Share
 import json
 
 here = dirname(abspath(__file__))
@@ -33,9 +34,17 @@ def delchar(char, record):
 
 
 def delkey(key, record):
-    """remove key from dict"""
-    if key in record:
-        del record[key]
+    """remove key from dict. The key may be dotted to delete a subfield:
+    >>> delkey('a.b', {'a': {'b': 1, 'c': 2}})
+    'a': {'c': 2}}
+    """
+    k = key.split(".")[-1]
+    path = list(reversed(key.split(".")[:-1]))
+    d = record
+    while len(path):
+        d = d.get(path.pop())
+    if k in d:
+        del d[k]
     return record
 
 
@@ -54,7 +63,7 @@ def init():
         processes = json.load(f)
         Process.objects.bulk_create(
             [
-                Process(**delkey("bvi", delchar("-", flatten("impacts", p.copy()))))
+                Process(**delkey("bvi", delchar("-", flatten("impacts", deepcopy(p)))))
                 for p in processes
             ]
         )
@@ -70,12 +79,19 @@ def init():
         )
     ) as f:
         materials = json.load(f)
-        # all fields except the recursive recycledFrom foreignkey
+        # all fields except the foreignkeys
         Material.objects.bulk_create(
             [
                 Material(
                     **delkey(
-                        "recycledFrom", delkey("primary", flatten("cff", m.copy()))
+                        "recycledFrom",
+                        delkey(
+                            "materialProcessUuid",
+                            delkey(
+                                "recycledProcessUuid",
+                                delkey("primary", flatten("cff", deepcopy(m))),
+                            ),
+                        ),
                     )
                 )
                 for m in materials
@@ -84,13 +100,27 @@ def init():
         # update with recycledFrom
         mobjects = [Material.objects.get(pk=m["id"]) for m in materials]
         recycledFroms = {m["id"]: m.get("recycledFrom") for m in materials}
+        materialProcesses = {m["id"]: m.get("materialProcessUuid") for m in materials}
+        recycledProcesses = {m["id"]: m.get("recycledProcessUuid") for m in materials}
         for m in mobjects:
             m.recycledFrom = (
                 Material.objects.get(pk=recycledFroms[m.id])
                 if recycledFroms[m.id]
                 else None
             )
-        Material.objects.bulk_update(mobjects, ["recycledFrom"])
+            m.materialProcessUuid = (
+                Process.objects.get(pk=materialProcesses[m.id])
+                if materialProcesses[m.id]
+                else None
+            )
+            m.recycledProcessUuid = (
+                Process.objects.get(pk=recycledProcesses[m.id])
+                if recycledProcesses[m.id]
+                else None
+            )
+        Material.objects.bulk_update(
+            mobjects, ["recycledFrom", "materialProcessUuid", "recycledProcessUuid"]
+        )
 
     # PRODUCTS
     with open(
@@ -112,7 +142,18 @@ def init():
                             "use",
                             flatten(
                                 "making",
-                                flatten("dyeing", flatten("economics", p.copy())),
+                                flatten(
+                                    "dyeing",
+                                    flatten(
+                                        "economics",
+                                        delkey(
+                                            "use.nonIroningProcessUuid",
+                                            delkey(
+                                                "use.ironingProcessUuid", deepcopy(p)
+                                            ),
+                                        ),
+                                    ),
+                                ),
                             ),
                         ),
                     )
@@ -120,6 +161,15 @@ def init():
                 for p in products
             ]
         )
+    pobjects = [Product.objects.get(pk=p["id"]) for p in products]
+    ironingProcesses = {p["id"]: p["use"]["ironingProcessUuid"] for p in products}
+    nonIroningProcesses = {p["id"]: p["use"]["nonIroningProcessUuid"] for p in products}
+    for p in pobjects:
+        p.ironingProcessUuid = Process.objects.get(pk=ironingProcesses[p.id])
+        p.nonIroningProcessUuid = Process.objects.get(pk=nonIroningProcesses[p.id])
+    Product.objects.bulk_update(
+        pobjects, ["ironingProcessUuid", "nonIroningProcessUuid"]
+    )
 
     # EXAMPLES
     with open(
@@ -132,7 +182,7 @@ def init():
         )
     ) as f:
         examples = json.load(f)
-        # all fields except the recursive recycledFrom foreignkey
+        # all fields except the foreignkeys
         Example.objects.bulk_create(
             [
                 Example(
@@ -140,18 +190,26 @@ def init():
                         "materials",
                         delkey(
                             "fabricProcess",
-                            delkey("product", flatten("query", e.copy())),
+                            delkey("product", flatten("query", deepcopy(e))),
                         ),
                     )
                 )
                 for e in examples
             ]
         )
-        # update with product and fabricProcess
+        # update with product, materials and fabricProcess
         eobjects = [Example.objects.get(pk=m["id"]) for m in examples]
         products = {e["id"]: e["query"]["product"] for e in examples}
+        mobjects = [Material.objects.get(pk=m["id"]) for m in materials]
         fabricProcesses = {m["id"]: m["query"]["fabricProcess"] for m in examples}
         for e in eobjects:
             e.product = Product.objects.get(pk=products[e.id])
             e.fabricProcess = Process.objects.get(alias=fabricProcesses[e.id])
+        for example in examples:
+            for share in example["query"]["materials"]:
+                Share.objects.create(
+                    example=Example.objects.get(pk=example["id"]),
+                    material=Material.objects.get(pk=share["id"]),
+                    share=share["share"],
+                )
         Example.objects.bulk_update(eobjects, ["product", "fabricProcess"])
