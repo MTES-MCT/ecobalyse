@@ -20,3 +20,4 @@ pandas>=2.0, <2.1
 scipy>=1.11, <1.12
 uvicorn
 xlrd>=2.0, <2.1
+frozendict

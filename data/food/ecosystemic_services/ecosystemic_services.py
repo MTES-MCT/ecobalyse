@@ -1,5 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from frozendict import frozendict
+
 
 THRESHOLD_HEDGES = 140  # ml/ha
 THRESHOLD_PLOTSIZE = 8  # ha
@@ -35,8 +37,8 @@ def ecs_transform(eco_service, value):
         return func_above(value)
 
 
-# load ecosystemic csv as dictionary
 def load_ecosystemic_dic(PATH):
+    """Load ecosystemic csv as dictionary"""
     ecosystemic_factors_csv = pd.read_csv(PATH, sep=";")
     ecosystemic_factors = {}
     for _, row in ecosystemic_factors_csv.iterrows():
@@ -57,8 +59,105 @@ def load_ecosystemic_dic(PATH):
                 "organic": row["cropDiversity_organic"],
                 "import": row["cropDiversity_import"],
             },
+            "livestockDensity": {
+                "reference": row["livestockDensity_reference"],
+                "organic": row["livestockDensity_organic"],
+                "import": row["livestockDensity_import"],
+            },
         }
-    return ecosystemic_factors
+    return frozendict(ecosystemic_factors)
+
+
+def load_ugb_dic(PATH):
+    ugb_df = pd.read_csv(PATH, sep=";")
+    ugb_dic = {}
+    for _, row in ugb_df.iterrows():
+        group = row["animal_group2"]
+        if group not in ugb_dic:
+            ugb_dic[group] = {}
+        ugb_dic[group][row["animal_product"]] = row["value"]
+
+    return frozendict(ugb_dic)
+
+
+def compute_vegetal_ecosystemic_services(ingredients_tuple, ecosystemic_factors):
+    ingredients = list(ingredients_tuple)
+    ingredients_updated = []
+    for ingredient in ingredients:
+        if all(
+            ingredient.get(key) for key in ["land_occupation", "crop_group", "scenario"]
+        ):
+            print(f"Computing ecosystemic services for {ingredient['id']}")
+            for eco_service in ecosystemic_services_list:
+                factor_raw = ecosystemic_factors[ingredient["crop_group"]][eco_service][
+                    ingredient["scenario"]
+                ]
+                factor_transformed = ecs_transform(eco_service, factor_raw)
+                factor_final = factor_transformed * ingredient["land_occupation"]
+                ingredient.setdefault("ecosystemicServices", {})[eco_service] = float(
+                    "{:.5g}".format(factor_final)
+                )
+        ingredients_updated.append(ingredient)
+    return tuple(ingredients_updated)
+
+
+def compute_animal_ecosystemic_services(
+    ingredients, activities, ecosystemic_factors, feed_file, ugb
+):
+    activities_dic = {el["id"]: el for el in activities}
+    ingredients_dic_updated = {el["id"]: el for el in ingredients}
+    ingredients_dic = frozendict(ingredients_dic_updated)
+    for animal_product, feed_quantities in feed_file.items():
+        hedges = 0
+        plotSize = 0
+        cropDiversity = 0
+        ecosystemicServices = ingredients_dic[animal_product].get("ecosystemicServices",{})
+
+        for feed_name, quantity in feed_quantities.items():
+            assert (
+                feed_name in ingredients_dic
+            ), f"feed {feed_name} is not present in ingredients"
+            feed_properties = ingredients_dic[feed_name]
+            hedges += quantity * feed_properties["ecosystemicServices"]["hedges"]
+            plotSize += quantity * feed_properties["ecosystemicServices"]["plotSize"]
+            cropDiversity += (
+                quantity * feed_properties["ecosystemicServices"]["cropDiversity"]
+            )
+        ecosystemicServices["hedges"] = hedges
+        ecosystemicServices["plotSize"] = plotSize
+        ecosystemicServices["cropDiversity"] = cropDiversity
+
+        ecosystemicServices["permanentPasture"] = feed_quantities.get(
+			"grazed-grass-permanent", 0
+			)
+
+        ecosystemicServices["livestockDensity"] = (
+            compute_livestockDensity_ecosystemic_service(
+                frozendict(activities_dic[animal_product]), ugb, ecosystemic_factors
+            )
+        )
+        ingredients_dic_updated[animal_product][
+            "ecosystemicServices"
+        ] = ecosystemicServices
+    return tuple([v for k, v in ingredients_dic_updated.items()])
+
+
+def compute_livestockDensity_ecosystemic_service(
+    animal_properties, ugb, ecosystemic_factors
+):
+    try:
+        livestockDensity_per_ugb = ecosystemic_factors[
+            animal_properties["animal_group1"]
+        ]["livestockDensity"][animal_properties["scenario"]]
+        ugb_per_kg = ugb[animal_properties["animal_group2"]][
+            animal_properties["animal_product"]
+        ]
+        return livestockDensity_per_ugb * ugb_per_kg
+    except KeyError as e:
+        print(
+            f"Error processing animal with ID {animal_properties.get('id', 'Unknown')}: Missing key {e}"
+        )
+        raise
 
 
 def plot_ecs_transformations(save_path=None):
