@@ -57,10 +57,9 @@ parser =
         --
         -- Food specific routes
         --
-        , Parser.map FoodBuilderHome (Parser.s "food" </> Parser.s "build")
+        , Parser.map FoodBuilderHome (Parser.s "food")
         , Parser.map FoodBuilder
             (Parser.s "food"
-                </> Parser.s "build"
                 </> Impact.parseTrigram
                 </> FoodQuery.parseBase64Query
             )
