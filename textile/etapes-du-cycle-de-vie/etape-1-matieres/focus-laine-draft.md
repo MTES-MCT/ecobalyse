@@ -128,7 +128,7 @@ Ces externalités positives ne sont généralement pas intégrées dans les inve
 
 L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci-dessous. &#x20;
 
-<figure><img src="../../../.gitbook/assets/image (86).png" alt=""><figcaption><p>Illustration des étapes de fabrication de fibres de laine</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (86).png" alt=""><figcaption><p>Source : Food and Agriculture Organization of the UN (V1 GHG emissions and fossil energy use from small ruminant supply chains)</p></figcaption></figure>
 
 ### Scénarios proposés
 
