@@ -87,7 +87,7 @@ def compute_vegetal_complements(ingredients_tuple, complements_factors):
         if all(
             ingredient.get(key) for key in ["land_occupation", "crop_group", "scenario"]
         ):
-            print(f"Computing complement services for {ingredient['id']}")
+            print(f"Computing complement for {ingredient['id']}")
             for complement in complements_list:
                 factor_raw = complements_factors[ingredient["crop_group"]][complement][
                     ingredient["scenario"]
@@ -171,10 +171,10 @@ def plot_ecs_transformations(save_path=None):
 
     # Add the title text at the top of the plot
     fig.suptitle(
-        "The greater the transformed value, the higher the complementservice value, the lower the overall environmental impact",
+        "The greater the transformed value, the higher the complement value, the lower the overall environmental impact",
         fontsize=14,
     )
-    # Plotting the transformations for each complementservice in a separate subplot
+    # Plotting the transformations for each complement in a separate subplot
     for index, complement in enumerate(complements_list):
         value_range = plot_characteristic_dic[complement]["range"]
         transformed_values = [ecs_transform(complement, value) for value in value_range]
