@@ -66,6 +66,7 @@
 * [Compléments hors ACV](textile/complements-hors-acv/README.md)
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)
   * [🐠 Microfibres](textile/complements-hors-acv/microfibres.md)
+  * [⏳ Durabilité](textile/complements-hors-acv/durabilite.md)
 * [Etapes du cycle de vie](textile/etapes-du-cycle-de-vie/README.md)
   * [🐑 Etape 1 - Matières](textile/etapes-du-cycle-de-vie/etape-1-matieres/README.md)
     * [🤓 Calcul de l'impact matière : Circular Footprint Formula (CFF)](textile/etapes-du-cycle-de-vie/etape-1-matieres/calcul-de-limpact-matiere-circular-footprint-formula-cff/README.md)
