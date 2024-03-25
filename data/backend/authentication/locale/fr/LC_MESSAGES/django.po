@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-25 11:33+0100\n"
-"PO-Revision-Date: 2024-03-25 11:41+0100\n"
+"POT-Creation-Date: 2024-03-25 12:21+0100\n"
+"PO-Revision-Date: 2024-03-25 12:23+0100\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -42,10 +42,18 @@ msgstr "Je m'engage à ne pas utiliser les données à des fins commerciales"
 msgid "Next url"
 msgstr "URL de redirection"
 
+#: authentication/views.py:33
+msgid "Invalid json in the POST request"
+msgstr "Json invalide dans la requête POST"
+
 #: authentication/views.py:40 authentication/views.py:104
 #, python-format
 msgid "The link is valid for %s min"
 msgstr "Le lien de connexion est valide pendant %s min"
+
+#: authentication/views.py:52
+msgid "Your form has errors: "
+msgstr "Votre formulaire contient des erreurs : "
 
 #: authentication/views.py:70 authentication/views.py:82
 msgid "Register"
@@ -55,8 +63,12 @@ msgstr "S'inscrire"
 msgid "Login"
 msgstr "Se connecter"
 
+#: authentication/views.py:109
+msgid "Invalid form data"
+msgstr "Données de formulaire incorrectes"
+
 #: authentication/views.py:147
-msgid "Token has expired"
+msgid "The token has expired"
 msgstr "Le token a expiré"
 
 #: authentication/views.py:177
