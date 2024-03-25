@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from decouple import config  # python-decouple to read in .env
+from django.utils.translation import gettext_lazy as _
 from os.path import join
 from pathlib import Path
 
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     # "django.middleware.csrf.CsrfViewMiddleware",
     "backend.middle.DisableCSRFMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -126,14 +128,25 @@ LOGIN_TOKEN_SINGLE_USE = False
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "fr"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Paris"
 
 USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = [
+    ("fr", _("Français")),
+    ("en", _("English")),
+    # Add more languages here
+]
+LOCALE_PATHS = (
+    join(BASE_DIR, "locale"),
+    join("authentication", "locale"),
+    join("backend", "locale"),
+    join("textile", "locale"),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
