@@ -338,7 +338,7 @@ paths:
   #           application/json:
   #             schema:
   #               $ref: "#/components/schemas/PackagingListResponse"
-  # /food/recipe:
+  # /food:
   #   get:
   #     tags:
   #       - Alimentaire

@@ -48,7 +48,7 @@ foodEndpoints db =
         , testEndpoint db "GET" Encode.null "/food/packagings"
             |> Expect.equal (Just Route.GetFoodPackagingList)
             |> asTest "should map the /food/packagings endpoint"
-        , [ "/food/recipe?"
+        , [ "/food?"
           , "ingredients[]=flour;97"
           , "ingredients[]=tomato-paste;89"
           , "ingredients[]=mozzarella;70"
@@ -68,80 +68,80 @@ foodEndpoints db =
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
             |> Expect.equal (Just <| Route.GetFoodRecipe (Ok Fixtures.royalPizza))
-            |> asTest "should map the /food/recipe endpoint"
+            |> asTest "should map the /food endpoint"
         ]
     , describe "POST endpoints"
-        [ "/food/recipe"
+        [ "/food"
             |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.empty)
             |> Expect.equal (Just Route.PostFoodRecipe)
-            |> asTest "should map the POST /food/recipe endpoint"
-        , "/food/recipe"
+            |> asTest "should map the POST /food endpoint"
+        , "/food"
             |> testEndpoint db "POST" Encode.null
             |> Expect.equal (Just Route.PostFoodRecipe)
-            |> asTest "should map the POST /food/recipe endpoint whatever the request body is"
+            |> asTest "should map the POST /food endpoint whatever the request body is"
         ]
     , describe "validation"
-        [ testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3|0"
+        [ testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3|0"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Format d'ingrédient invalide : egg-indoor-code3|0.")
             |> asTest "should validate ingredient format"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=invalid;100"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=invalid;100"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Ingrédient introuvable par id : invalid")
             |> asTest "should validate that an ingredient id is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3;-1"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that an ingredient mass is greater than zero"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3;1;invalidCountry"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3;1;invalidCountry"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Code pays invalide: invalidCountry.")
             |> asTest "should validate that an ingredient country is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3;1;FR;byPlane"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3;1;FR;byPlane"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas.")
             |> asTest "should validate that an ingredient can be transported by plane"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3;1;BD"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3;1;BD"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Le code pays BD n'est pas utilisable dans un contexte Alimentaire.")
             |> asTest "should validate that an ingredient country scope is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?transform=AGRIBALU000000003103966;-1"
+        , testEndpoint db "GET" Encode.null "/food?transform=AGRIBALU000000003103966;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that a transform mass is greater than zero"
-        , testEndpoint db "GET" Encode.null "/food/recipe?transform=invalid;100"
+        , testEndpoint db "GET" Encode.null "/food?transform=invalid;100"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
             |> asTest "should validate that a transform code is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?packaging[]=AGRIBALU000000003104019;-1"
+        , testEndpoint db "GET" Encode.null "/food?packaging[]=AGRIBALU000000003104019;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "packaging")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that a packaging mass is greater than zero"
-        , testEndpoint db "GET" Encode.null "/food/recipe?packaging[]=invalid;100"
+        , testEndpoint db "GET" Encode.null "/food?packaging[]=invalid;100"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "packaging")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
             |> asTest "should validate that a packaging code is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?distribution=invalid"
+        , testEndpoint db "GET" Encode.null "/food?distribution=invalid"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "distribution")
             |> Expect.equal (Just "Choix invalide pour la distribution : invalid")
             |> asTest "should validate that a distribution is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?preparation[]=invalid"
+        , testEndpoint db "GET" Encode.null "/food?preparation[]=invalid"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "preparation")
             |> Expect.equal (Just "Préparation inconnue: invalid")
             |> asTest "should validate that a preparation list entry is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?preparation[]=freezing&preparation[]=frying&preparation[]=oven"
+        , testEndpoint db "GET" Encode.null "/food?preparation[]=freezing&preparation[]=frying&preparation[]=oven"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "preparation")
             |> Expect.equal (Just "Deux techniques de préparation maximum.")
