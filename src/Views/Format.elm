@@ -128,7 +128,7 @@ complement impact =
 
             else
                 formatted
-        , span [ class "fs-unit" ] [ text "\u{202F}µPts" ]
+        , span [ class "fs-unit" ] [ text "\u{202F}Pts" ]
         ]
 
 
