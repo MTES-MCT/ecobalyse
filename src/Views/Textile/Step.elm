@@ -601,7 +601,11 @@ simpleView c =
                                     text ""
                             ]
                         , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                            [ BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
+                            [ if List.member c.current.label [ Label.Distribution, Label.Use, Label.EndOfLife ] then
+                                text ""
+
+                              else
+                                BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
                             ]
                         ]
 
