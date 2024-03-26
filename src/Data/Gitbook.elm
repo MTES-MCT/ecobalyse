@@ -93,8 +93,7 @@ pathToString path =
             "textile/etapes-du-cycle-de-vie/distribution"
 
         TextileDurability ->
-            -- FIXME: this page doesn't exist, there is no docs for durability just yet
-            "textile/durabilite"
+            "textile/complements-hors-acv/durabilite"
 
         TextileElectricity ->
             "textile/parametres-transverses/electricite"
