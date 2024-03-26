@@ -924,7 +924,11 @@
     "transport_cooling": "always",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 9.348404415
+    "land_occupation": 9.348404415,
+    "animal_group1": "pig",
+    "animal_group2": "pig",
+    "animal_product": "meat",
+    "scenario": "reference"
   },
   {
     "id": "sausage-toulouse",
@@ -939,7 +943,11 @@
     "transport_cooling": "always",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 19.32745302
+    "land_occupation": 19.32745302,
+    "animal_group1": "pig",
+    "animal_group2": "pig",
+    "animal_product": "meat",
+    "scenario": "reference"
   },
   {
     "id": "sausage-toulouse-cooked",
@@ -4667,5 +4675,23 @@
     "crop_group": "PRAIRIES PERMANENTES",
     "scenario": "reference",
     "land_occupation": 1
+  },
+  {
+    "id": "chicken-breast-br",
+    "name": "Blanc de poulet (BR)",
+    "search": "Broiler, industrial system, live weight, at farm (WFLDB 3.5)/BR U",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.73,
+    "density": 1,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "database": "WFLDB",
+    "animal_group1": "poultry",
+    "animal_group2": "chicken",
+    "animal_product": "meat",
+    "scenario": "import"
   }
 ]
