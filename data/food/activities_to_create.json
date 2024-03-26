@@ -388,5 +388,21 @@
     "replace": {
       "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "soybean grain dried stored and transported processing FR"
     }
+  },
+  {
+    "id": "chicken-breast-br",
+    "search_in": "Agribalyse 3.1.1",
+    "search": "Meat without bone chicken for direct consumption",
+    "suffix": "[organic], constructed by Ecobalyse",
+    "subactivities": [
+      "Meat with bone, chicken, for direct consumption {FR} U",
+      "Broiler, live, for direct consumption {FR} U"
+    ],
+    "replace": {
+      "Broiler, conventional, at farm gate {FR} U": [
+        "WFLDB",
+        "Broiler, industrial system, live weight, at farm (WFLDB 3.5)/BR U"
+      ]
+    }
   }
 ]
