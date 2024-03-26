@@ -761,7 +761,7 @@ numberOfReferencesField numberOfReferences =
                 -- the `value` one MUST be set AFTER the `step` one.
                 , Attr.min <| String.fromInt <| Economics.minNumberOfReferences
                 , Attr.max <| String.fromInt <| Economics.maxNumberOfReferences
-                , step "100"
+                , step "1"
                 , value (String.fromInt numberOfReferences)
                 , onInput (String.toInt >> UpdateNumberOfReferences)
                 ]
@@ -880,8 +880,8 @@ massField massInput =
                 [ type_ "number"
                 , class "form-control"
                 , id "mass"
-                , Attr.min "0.05"
-                , step "0.05"
+                , Attr.min "0.01"
+                , step "0.01"
                 , value massInput
                 , onInput UpdateMassInput
                 ]
