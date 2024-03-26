@@ -115,9 +115,9 @@ De manière générale et sur la base d'une revue bibliographique, la majorité 
 {% hint style="info" %}
 **Services écosystémiques**
 
-L'élevage ovin extensif (pâturages) produit des externalités positives sur l'environnement : lutte contre les feux de forêts, maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, limitation de la prolifération d'espèces végétales invasives, etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], pour le cas de l'élevage extensif en Espagne par exemple).
+L'élevage ovin extensif (pâturages) produit des services tels que la lutte contre les feux de forêts, le maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, la limitation de la prolifération d'espèces végétales invasives, etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], pour le cas de l'élevage extensif en Espagne par exemple).
 
-Ces externalités positives ne sont pas intégrées dans les inventaires de cycle de vie (ICV) actuellement disponibles. Ecobalyse pourrait enrichir les inventaires, à terme, avec des compléments permettant de prendre en compte ces externalités dans le calcul du coût environnemental.
+Bien que des modifications aux inventaires soient proposées pour prendre en compte partiellement les externalités positives de ces modes de production extensifs (cf. détail [infra](focus-laine-draft.md#laine-par-defaut)), l'ensemble des services rendus par les pâtures n'est aujourd'hui pas intégré. Des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.
 {% endhint %}
 
 ## Modélisation Ecobalyse
@@ -130,7 +130,7 @@ L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci
 
 ### Scénarios proposés
 
-Ecobalyse propose 2 types de laine construites à partir du procédé  Ecoinvent "sheep production, for wool, US".&#x20;
+Ecobalyse propose 2 types de laine construites à partir du procédé  Ecoinvent "sheep production, for wool, US". <mark style="color:blue;">En effet, ce procédé est le procédé qui sert de base à la construction du procédé "sheep production, for wool, RoW"</mark>
 
 Du fait d'un faible niveau de qualité du procédé source Ecoinvent, Ecobalyse a procédé à des enrichissements suite à la mise en place de différents ateliers avec l'industrie lainière.
 
@@ -138,7 +138,27 @@ Du fait d'un faible niveau de qualité du procédé source Ecoinvent, Ecobalyse 
 
 <summary>Laine (par défaut)</summary>
 
-Afin de refléter des conditions d'élevage extensives pratiquées sur les principaux marchés approvisionnant le textile d'habillement (Australie et Nouvelle-Zélande) les enrichissements suivants ont été apportés :&#x20;
+Afin de refléter des conditions d'élevage pratiquées sur les principaux marchés approvisionnant le textile d'habillement (Australie et Nouvelle-Zélande), il est proposé de procéder aux modifications suivantes :&#x20;
+
+1\) Substitution d'une partie de la ration tourteau de soja + maïs par du pâturage.
+
+D'après Arvalis et les tables établies par [Inrae](https://feedtables.com), on substitue 0,31 kg de _soybean meal//\[RoW] market for soybean meal_ + 0,24 kg de _maize grain//\[RoW] market for maize grain_ par 1 kg de _grass, organic//\[RoW] grass production, permanent grassland, organic, extensive_ (procédé considéré comme correspondant aux prairies extensives NZ).&#x20;
+
+2\) Substitution des inputs \[US] par des inputs \[RoW] ou \[AU] si disponible, afin de mieux correspondre au système de production des régions de production de laine :
+
+* _irrigation//\[US] market for irrigation_ **=>** _irrigation//\[RoW] market for irrigation_
+
+<!---->
+
+* _inorganic phosphorus fertiliser, as P2O5//\[US] market for inorganic phosphorus fertiliser, as P2O5_ **=>** _inorganic phosphorus fertiliser, as P2O5//\[AU] market for inorganic phosphorus fertiliser, as P2O5_
+
+<!---->
+
+* _ammonium nitrate//\[RNA] market for ammonium nitrate_ **=>** _ammonium nitrate//\[RoW] market for ammonium nitrate_
+
+3\) Ajustement de l'indicateur Land Use.
+
+L'indicateur Land Use modélise l'impact lié à l'occupation des sols (anthropisation). Les prairies présentes notamment en Nouvelle-Zélande sont majoritairement naturelles&#x20;
 
 1\) Rations alimentaires\
 Scénario intial (kg / mouton / an) => Tourteaux de soja (c. 35) + maïs (c. 53) \
