@@ -1,7 +1,7 @@
 [
   {
     "id": "dffc6a19-794a-4d14-ad1a-bc3512359f22",
-    "name": "[EXEMPLE] Pull polyester (550g) - Asie - Mode \"ultra fast fashion\"",
+    "name": "Pull polyester (550g) - Asie - Mode \"ultra fast fashion\"",
     "category": "Pull / Couche intermédiaire",
     "query": {
       "mass": 0.55,
@@ -27,7 +27,7 @@
   },
   {
     "id": "f02b1029-0d04-4239-94d1-b384ab3316cb",
-    "name": "[EXEMPLE] Pull coton (550g) - Chine - Mode \"fast fashion\"",
+    "name": "Pull coton (550g) - Chine - Mode \"fast fashion\"",
     "category": "Pull / Couche intermédiaire",
     "query": {
       "mass": 0.55,
@@ -53,7 +53,7 @@
   },
   {
     "id": "c605e8cc-7f3e-42b6-afc1-9358bda9a633",
-    "name": "[EXEMPLE] Pull viscose (550g) - Chine - Mode \"fast fashion\"",
+    "name": "Pull viscose (550g) - Chine - Mode \"fast fashion\"",
     "category": "Pull / Couche intermédiaire",
     "query": {
       "mass": 0.55,
@@ -83,7 +83,7 @@
   },
   {
     "id": "9986e023-47f7-42c7-8c1b-4fe1371f2f59",
-    "name": "[EXEMPLE] Pull coton (550g) - Pakistan - Mode \"traditionnelle\"",
+    "name": "Pull coton (550g) - Pakistan - Mode \"traditionnelle\"",
     "category": "Pull / Couche intermédiaire",
     "query": {
       "mass": 0.55,
@@ -108,7 +108,7 @@
   },
   {
     "id": "dc4a1762-ac99-4d41-8ef6-1f4d647dec62",
-    "name": "[EXEMPLE] Pull coton bio (550g) - France - Mode \"traditionnelle\"",
+    "name": "Pull coton bio (550g) - France - Mode \"traditionnelle\"",
     "category": "Pull / Couche intermédiaire",
     "query": {
       "mass": 0.55,
@@ -133,7 +133,7 @@
   },
   {
     "id": "8a57688b-1da6-4fc4-85aa-a27c6cdf4a56",
-    "name": "[EXEMPLE] Pull laine (550g) - France - Mode \"éthique\"",
+    "name": "Pull laine (550g) - France - Mode \"éthique\"",
     "category": "Pull / Couche intermédiaire",
     "query": {
       "mass": 0.55,
@@ -158,7 +158,7 @@
   },
   {
     "id": "611fd763-8df3-40d1-a51a-e8073bb3aaf0",
-    "name": "[EXEMPLE] Pull laine paysane (550g) - France - Mode \"éthique\"",
+    "name": "Pull laine paysane (550g) - France - Mode \"éthique\"",
     "category": "Pull / Couche intermédiaire",
     "query": {
       "mass": 0.55,
@@ -184,7 +184,7 @@
   },
   {
     "id": "64ec2a97-5b87-4dc8-a9c2-96f3b50e9fe2",
-    "name": "[EXEMPLE] Tshirt synthétique (150g) - Asie - Mode \"ultra fast fashion\"",
+    "name": "Tshirt synthétique (150g) - Asie - Mode \"ultra fast fashion\"",
     "category": "Tshirt / Polo",
     "query": {
       "mass": 0.15,
@@ -214,7 +214,7 @@
   },
   {
     "id": "351d73dc-9c50-4aa8-858a-2bd5448d1f26",
-    "name": "[EXEMPLE] Tshirt coton (150g) - Chine - Mode \"fast fashion\"",
+    "name": "Tshirt coton (150g) - Chine - Mode \"fast fashion\"",
     "category": "Tshirt / Polo",
     "query": {
       "mass": 0.15,
@@ -244,7 +244,7 @@
   },
   {
     "id": "16c16705-3169-41bf-b1b2-6382b00c2118",
-    "name": "[EXEMPLE] Tshirt coton (150g) - Pakistan - Mode \"traditionnelle\"",
+    "name": "Tshirt coton (150g) - Pakistan - Mode \"traditionnelle\"",
     "category": "Tshirt / Polo",
     "query": {
       "mass": 0.15,
@@ -269,7 +269,7 @@
   },
   {
     "id": "5dbb2cfb-dc3a-48cc-bc7b-aaefbc3cc285",
-    "name": "[EXEMPLE] Tshirt coton (150g) - France - Mode \"traditionnelle\"",
+    "name": "Tshirt coton (150g) - France - Mode \"traditionnelle\"",
     "category": "Tshirt / Polo",
     "query": {
       "mass": 0.15,
@@ -294,7 +294,7 @@
   },
   {
     "id": "307b3586-41f4-4d93-833a-e03b5be137cc",
-    "name": "[DEFAUT] Jupe coton (300g)",
+    "name": "Jupe coton (300g) - Majorant par défaut",
     "category": "Jupe / Robe",
     "query": {
       "mass": 0.3,
@@ -318,7 +318,7 @@
   },
   {
     "id": "536e3785-039a-49d6-a119-3cfce485420c",
-    "name": "[DEFAUT] Chemise coton (250g)",
+    "name": "Chemise coton (250g) - Majorant par défaut",
     "category": "Chemise",
     "query": {
       "mass": 0.25,
@@ -342,7 +342,7 @@
   },
   {
     "id": "bf24fd40-9a2a-4489-935b-d82c339e5abe",
-    "name": "[DEFAUT] Jean coton (450g)",
+    "name": "Jean coton (450g) - Majorant par défaut",
     "category": "Jean",
     "query": {
       "mass": 0.45,
@@ -366,7 +366,7 @@
   },
   {
     "id": "f86835d3-7018-40fa-8144-2d1f6aa264b9",
-    "name": "[DEFAUT] Pantalon coton (450g)",
+    "name": "Pantalon coton (450g) - Majorant par défaut",
     "category": "Pantalon",
     "query": {
       "mass": 0.45,
@@ -390,7 +390,7 @@
   },
   {
     "id": "32c8973b-864f-4060-977d-a0738f6414c4",
-    "name": "[DEFAUT] Manteau coton (950g)",
+    "name": "Manteau coton (950g) - Majorant par défaut",
     "category": "Manteau / Veste",
     "query": {
       "mass": 0.95,
@@ -414,7 +414,7 @@
   },
   {
     "id": "f48d7a6b-68db-4d1c-9623-6ec0ab89cbdb",
-    "name": "[DEFAUT] Tshirt coton (150g)",
+    "name": "Tshirt coton (150g) - Majorant par défaut",
     "category": "Tshirt / Polo",
     "query": {
       "mass": 0.15,
@@ -440,7 +440,7 @@
   },
   {
     "id": "190ccaed-6883-4dd9-a70b-918878ccced6",
-    "name": "[DEFAUT] Pull coton (550g)",
+    "name": "Pull coton (550g) - Majorant par défaut",
     "category": "Pull / Couche intermédiaire",
     "query": {
       "mass": 0.55,
