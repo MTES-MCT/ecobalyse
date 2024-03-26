@@ -905,10 +905,13 @@ viewProcessInfo processName =
 
 daysOfWearInfo : Config msg modal -> Html msg
 daysOfWearInfo { daysOfWear, useNbCycles } =
-    small [ class "fs-7" ]
-        [ span [ class "pe-1" ] [ Icon.info ]
+    small
+        [ class "d-flex align-items-center fs-7 cursor-help"
+        , title "Nombre dépendant de la catégorie de vêtement et du coefficient de durabilité"
+        ]
+        [ span [ class "pe-1 text-muted" ] [ Icon.info ]
         , Format.days daysOfWear
-        , text " portés, "
+        , text "\u{00A0}portés, "
         , text <| String.fromInt useNbCycles
         , text <|
             " cycle"
