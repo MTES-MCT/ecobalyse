@@ -57,7 +57,7 @@ type alias Config msg a =
 
 frame : Config msg a -> ( String, List (Html msg) ) -> Document msg
 frame ({ activePage } as config) ( title, content ) =
-    { title = title ++ " | Ecobalyse v2"
+    { title = title ++ " | Ecobalyse"
     , body =
         [ stagingAlert config
         , newVersionAlert config
@@ -288,7 +288,7 @@ pageHeader config =
                 , class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5"
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
-                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse v2", sup [] [ text "beta" ] ]
+                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]
