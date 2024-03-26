@@ -71,8 +71,7 @@ frame ({ activePage } as config) ( title, content ) =
             [ div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0 fs-7" ]
                 [ Container.centered [ class "d-flex align-items-center gap-2 fw-bold" ]
                     [ span [ class "fs-5" ] [ Icon.info ]
-                    , text """Attention : l’outil est aujourd’hui en phase de construction.
-                              Les calculs qui sont proposés ne constituent pas un référentiel validé."""
+                    , text """L’outil présente un premier projet de référentiel technique soumis à concertation et non encore stabilisé"""
                     ]
                 ]
             , notificationListView config

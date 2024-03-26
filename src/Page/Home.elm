@@ -18,6 +18,7 @@ import Ports
 import Route
 import Views.Container as Container
 import Views.Link as Link
+import Views.Markdown as Markdown
 import Views.Modal as ModalView
 
 
@@ -67,9 +68,13 @@ viewHero modal =
     Container.centered [ class "pt-4 pb-5" ]
         [ div [ class "px-5" ]
             [ h2 [ class "h1" ]
-                [ text "Calculez l'impact écologique de vos produits" ]
+                [ text "Calculez le coût environnemental de vos produits" ]
             , div [ class "fs-5 mt-3 mb-5" ]
-                [ text "Ecobalyse permet de comprendre et de calculer les impacts écologiques des produits distribués en France." ]
+                [ """Ecobalyse permet de comprendre et de calculer le coût environnemental des produits
+                     distribués en France. La méthodologie présentée est soumise à [concertation]({url})."""
+                    |> String.replace "{url}" Env.communityUrl
+                    |> Markdown.simple []
+                ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
                 [ a
                     [ class "btn btn-lg btn-primary"
