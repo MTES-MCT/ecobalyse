@@ -28,6 +28,7 @@ module Data.Impact exposing
     , noComplementsImpacts
     , noStepsImpacts
     , parseTrigram
+    , per100grams
     , perKg
     , setEcotoxWeighting
     , stepsColors
@@ -368,6 +369,11 @@ mapImpacts fn (Impacts impacts) =
 multiplyBy : Float -> Impacts -> Impacts
 multiplyBy n =
     mapImpacts (\_ -> Quantity.multiplyBy n)
+
+
+per100grams : Mass -> Impacts -> Impacts
+per100grams totalMass =
+    perKg totalMass >> mapImpacts (\_ -> Quantity.divideBy 10)
 
 
 perKg : Mass -> Impacts -> Impacts

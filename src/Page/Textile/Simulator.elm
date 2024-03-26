@@ -970,7 +970,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView session model ({ inputs, impacts } as simulator) =
+simulatorView session model ({ durability, inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -1070,11 +1070,19 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 -- Score
                 , customScoreInfo =
                     Just
-                        (small []
-                            [ text "Hors modulation durabilité\u{00A0}: "
-                            , impacts
-                                |> Impact.multiplyBy (Unit.durabilityToFloat simulator.durability)
-                                |> Format.formatImpact model.impact
+                        (div [ class "fs-8" ]
+                            [ div []
+                                [ text "Hors modulation durabilité\u{00A0}: "
+                                , impacts
+                                    |> Impact.multiplyBy (Unit.durabilityToFloat durability)
+                                    |> Format.formatImpact model.impact
+                                ]
+                            , div []
+                                [ text "Pour 100g\u{00A0}:\u{00A0}"
+                                , impacts
+                                    |> Impact.per100grams inputs.mass
+                                    |> Format.formatImpact model.impact
+                                ]
                             ]
                         )
                 , productMass = inputs.mass
