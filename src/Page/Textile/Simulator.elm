@@ -691,16 +691,26 @@ exampleProductField exampleProducts query =
                 |> List.map .query
                 |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
     in
-    div []
+    div [ class "d-flex flex-column" ]
         [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
             [ text "Exemples" ]
-        , button
-            [ class "form-select ElementSelector text-start"
-            , id "selector-example"
-            , title "Les simulations proposées ici constituent des exemples. Elles doivent être adaptées pour chaque produit modélisé"
-            , onClick (SetModal (SelectExampleModal autocompleteState))
+        , div [ class "d-flex" ]
+            [ button
+                [ class "form-select ElementSelector text-start"
+                , id "selector-example"
+                , title "Les simulations proposées ici constituent des exemples. Elles doivent être adaptées pour chaque produit modélisé"
+                , onClick (SetModal (SelectExampleModal autocompleteState))
+                ]
+                [ text <| ExampleProduct.toName exampleProducts query ]
+            , span [ class "input-group-text" ]
+                [ a
+                    [ class "text-secondary text-decoration-none p-0"
+                    , href (Gitbook.publicUrlFromPath Gitbook.TextileExamples)
+                    , target "_blank"
+                    ]
+                    [ Icon.info ]
+                ]
             ]
-            [ text <| ExampleProduct.toName exampleProducts query ]
         ]
 
 
@@ -861,7 +871,7 @@ traceabilityField traceability =
 
 massField : String -> Html Msg
 massField massInput =
-    div []
+    div [ class "d-flex flex-column" ]
         [ label [ for "mass", class "form-label text-truncate" ]
             [ text "Masse du produit fini" ]
         , div
