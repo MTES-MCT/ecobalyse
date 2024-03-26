@@ -90,26 +90,6 @@
     "aquaticPollutionScenario": "Worst"
   },
   {
-    "code": "AU",
-    "name": "Australie",
-    "zone": "Oceania",
-    "electricityProcessUuid": "53c7378e585cf74cea4837819be6e631",
-    "heatProcessUuid": "heat-row",
-    "airTransportRatio": 0.33,
-    "scopes": ["textile"],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "AL",
-    "name": "Albanie",
-    "zone": "Europe",
-    "electricityProcessUuid": "d33cefdc558e3fe890174e6f1e205015",
-    "heatProcessUuid": "heat-row",
-    "airTransportRatio": 0,
-    "scopes": ["textile"],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
     "code": "BD",
     "name": "Bangladesh",
     "zone": "Asia",
@@ -140,34 +120,14 @@
     "aquaticPollutionScenario": "Average"
   },
   {
-    "code": "CZ",
-    "name": "Tchèquie",
-    "zone": "Europe",
-    "electricityProcessUuid": "2764d908c1a6fe88976d6eabf16295da",
-    "heatProcessUuid": "heat-europe",
-    "airTransportRatio": 0,
-    "scopes": ["textile"],
-    "aquaticPollutionScenario": "Best"
-  },
-  {
     "code": "ES",
     "name": "Espagne",
     "zone": "Europe",
     "electricityProcessUuid": "80ff4bc21a0e197ea3f69d809fd8d4f1",
     "heatProcessUuid": "heat-europe",
     "airTransportRatio": 0,
-    "scopes": ["food", "textile"],
+    "scopes": ["food"],
     "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "ET",
-    "name": "Ethiopie",
-    "zone": "Africa",
-    "electricityProcessUuid": "2c27aa8ba10e717c63b8508b487909bd",
-    "heatProcessUuid": "heat-row",
-    "airTransportRatio": 0,
-    "scopes": ["textile"],
-    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "FR",
@@ -196,7 +156,7 @@
     "electricityProcessUuid": "ae9240745e54987338d2228c3be2a5ec",
     "heatProcessUuid": "heat-europe",
     "airTransportRatio": 0,
-    "scopes": ["food", "textile"],
+    "scopes": ["food"],
     "aquaticPollutionScenario": "Best"
   },
   {
@@ -268,16 +228,6 @@
     "airTransportRatio": 0,
     "scopes": ["textile"],
     "aquaticPollutionScenario": "Best"
-  },
-  {
-    "code": "LK",
-    "name": "Sri Lanka",
-    "zone": "Asia",
-    "electricityProcessUuid": "e0f11b283ad36b3da097649bee199149",
-    "heatProcessUuid": "heat-row",
-    "airTransportRatio": 0.33,
-    "scopes": ["textile"],
-    "aquaticPollutionScenario": "Worst"
   },
   {
     "code": "TN",
