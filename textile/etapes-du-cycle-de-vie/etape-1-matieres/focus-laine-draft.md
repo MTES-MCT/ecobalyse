@@ -140,11 +140,11 @@ Du fait d'un faible niveau de qualité du procédé source Ecoinvent, Ecobalyse 
 
 Afin de refléter des conditions d'élevage pratiquées sur les principaux marchés approvisionnant le textile d'habillement (Australie et Nouvelle-Zélande), il est proposé de procéder aux modifications suivantes :&#x20;
 
-1\) Substitution d'une partie de la ration tourteau de soja + maïs par du pâturage.
+**(1) Substitution d'une partie de la ration tourteau de soja + maïs par du pâturage.**
 
 D'après Arvalis et les tables établies par [Inrae](https://feedtables.com), on substitue 0,31 kg de _soybean meal//\[RoW] market for soybean meal_ + 0,24 kg de _maize grain//\[RoW] market for maize grain_ par 1 kg de _grass, organic//\[RoW] grass production, permanent grassland, organic, extensive_ (procédé considéré comme correspondant aux prairies extensives NZ).&#x20;
 
-2\) Substitution des inputs \[US] par des inputs \[RoW] ou \[AU] si disponible, afin de mieux correspondre au système de production des régions de production de laine :
+**(2) Substitution des inputs \[US] par des inputs \[RoW] ou \[AU]** si disponible, afin de mieux correspondre au système de production des régions de production de laine :
 
 * _irrigation//\[US] market for irrigation_ **=>** _irrigation//\[RoW] market for irrigation_
 
@@ -156,20 +156,15 @@ D'après Arvalis et les tables établies par [Inrae](https://feedtables.com), on
 
 * _ammonium nitrate//\[RNA] market for ammonium nitrate_ **=>** _ammonium nitrate//\[RoW] market for ammonium nitrate_
 
-3\) Ajustement de l'indicateur Land Use.
+**(3) Ajustement de l'indicateur Land Use.**
 
-L'indicateur Land Use modélise l'impact lié à l'occupation des sols (anthropisation). Les prairies présentes notamment en Nouvelle-Zélande sont majoritairement naturelles&#x20;
+L'indicateur Land Use modélise l'impact lié à l'occupation des sols (anthropisation). Les zones de pâturage présentes notamment en Nouvelle-Zélande constituent en revanche des milieux peu anthropisés, qui peuvent justifier un ajustement de l'indicateur Land Use.&#x20;
 
-1\) Rations alimentaires\
-Scénario intial (kg / mouton / an) => Tourteaux de soja (c. 35) + maïs (c. 53) \
-Scénario final (kg / mouton / an) => <mark style="color:orange;">xxx</mark>
+En considérant que 80 % des surfaces de pâturage sont "naturelles" ou peu anthropisées, ceci revient à considérer la surface d'occupation du sol égale à _0,20\*119,4 = 23,8 m2a_, au lieu de 119,4 m2a qui correspond à l'occupation totale liée au pâturage (inventaire \[US] de base + modification (1) explicitée supra)
 
-2\) Type de prairies\
-Scénario initial (<mark style="color:orange;">xxx</mark>) => <mark style="color:orange;">xxx</mark>\
-Scénario final (<mark style="color:orange;">xxx</mark>) => <mark style="color:orange;">xxx</mark>
+**(4) Allocation économique de 37%.**
 
-3\) Allocation économique\
-L'impact du "mouton Ecoinvent" a été reconstitué puis une allocation économique de 37% est appliquée. Cette allocation se base sur le principal marché de production de laine pour le textile d'habillement (Australie / année 2020) et sur les données MLA National Livestock Reporting Service Australian Wool Exchange transmises par Woolmark.
+Au procédé construit à partir de l'inventaire "sheep production, for wool, US" et des modifications (1), (2) et (3), une allocation économique de 37% est appliquée. Cette allocation se base sur le principal marché de production de laine pour le textile d'habillement (Australie / année 2020) et sur les données MLA National Livestock Reporting Service Australian Wool Exchange transmises par Woolmark.
 
 </details>
 
@@ -179,7 +174,7 @@ L'impact du "mouton Ecoinvent" a été reconstitué puis une allocation économi
 
 Cette laine représente les marchés où la laine n'est aujourd'hui pas/peu valorisée (ex : filière laine française en 2022/2023).
 
-Le procédé "Laine (par défaut)" est alors utilisé avec comme unique modification l'application d'un taux d'allocation de 4%. &#x20;
+Le procédé ["Laine (par défaut)"](focus-laine-draft.md#laine-par-defaut) est alors utilisé avec comme unique modification l'application d'un taux d'allocation de **4%**. &#x20;
 
 </details>
 
