@@ -1,39 +1,5 @@
 [
   {
-    "id": "coton-rdpc",
-    "materialProcessUuid": "993955be-5888-6f39-137c-56af8c5187c1",
-    "recycledProcessUuid": null,
-    "recycledFrom": "ei-coton",
-    "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
-    "shortName": "Coton recyclé (déchets post-consommation)",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "geographicOrigin": "France",
-    "defaultCountry": "FR",
-    "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
-  },
-  {
-    "id": "coton-rdp",
-    "materialProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
-    "recycledProcessUuid": null,
-    "recycledFrom": "ei-coton",
-    "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
-    "shortName": "Coton recyclé (déchets de production)",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "geographicOrigin": "Espagne & France",
-    "defaultCountry": "FR",
-    "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
-  },
-  {
     "id": "ei-chanvre",
     "materialProcessUuid": "fa590941e8bbf72c8956b5c3ba793eb7",
     "recycledProcessUuid": null,
