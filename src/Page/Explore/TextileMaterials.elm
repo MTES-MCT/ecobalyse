@@ -58,7 +58,7 @@ table db { detailed, scope } =
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Origin.toMicrofibersComplement origin
                             |> Unit.impactToFloat
-                            |> Format.formatImpactFloat { unit = "\u{202F}µPts/kg", decimals = 2 }
+                            |> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
                         ]
           }
         , { label = "Procédé de fabrication du fil"

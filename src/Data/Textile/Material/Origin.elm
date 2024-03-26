@@ -80,7 +80,7 @@ toMicrofibersComplement : Origin -> Unit.Impact
 toMicrofibersComplement origin =
     -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/limites-methodologiques/old/microfibres#calcul-du-complement-microfibres
     -- Notes:
-    -- - this is a malus expressed as a negative µPts/kg impact
+    -- - this is a malus expressed as a negative Pts/kg impact
     -- - the float value corresponds to Ref(f) * 1000 to ease applying the formula
     case origin of
         ArtificialFromInorganic ->

@@ -56,7 +56,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias ComplementsImpacts =
-    -- Note: these are always expressed in ecoscore (ecs) µPt
+    -- Note: these are always expressed in ecoscore (ecs) Pts
     { -- Ecosystemic services impacts
       hedges : Unit.Impact
     , plotSize : Unit.Impact
