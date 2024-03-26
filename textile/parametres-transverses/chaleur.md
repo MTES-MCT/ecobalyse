@@ -4,8 +4,6 @@ description: Choix du procédé de chaleur en fonction du pays
 
 # 🔥 Chaleur
 
-## Modélisation Ecobalyse
-
 ### Généralités
 
 La consommation de chaleur s'exprime en mégajoules (MJ).
