@@ -57,7 +57,7 @@ type alias Config msg a =
 
 frame : Config msg a -> ( String, List (Html msg) ) -> Document msg
 frame ({ activePage } as config) ( title, content ) =
-    { title = title ++ " | Ecobalyse v2"
+    { title = title ++ " | Ecobalyse"
     , body =
         [ stagingAlert config
         , newVersionAlert config
@@ -71,8 +71,7 @@ frame ({ activePage } as config) ( title, content ) =
             [ div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0 fs-7" ]
                 [ Container.centered [ class "d-flex align-items-center gap-2 fw-bold" ]
                     [ span [ class "fs-5" ] [ Icon.info ]
-                    , text """Attention : l’outil est aujourd’hui en phase de construction.
-                              Les calculs qui sont proposés ne constituent pas un référentiel validé."""
+                    , text """L’outil présente un premier projet de référentiel technique soumis à concertation et non encore stabilisé"""
                     ]
                 ]
             , notificationListView config
@@ -289,7 +288,7 @@ pageHeader config =
                 , class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5"
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
-                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse v2", sup [] [ text "beta" ] ]
+                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]
