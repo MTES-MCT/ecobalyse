@@ -148,31 +148,34 @@ calculatorPickerModalContent =
 
 viewInfo : Html Msg
 viewInfo =
-    Container.centered [ id "decouvrir-ecobalyse", class "my-5" ]
-        [ div [ class "row" ]
-            [ div [ class "col-md-8 offset-md-2 d-flex flex-column gap-2" ]
-                [ h3 [ class "mb-1" ] [ text "Un coût environnemental pour informer les consommateurs" ]
-                , blockquote [ class "d-inline-block fw-bold fs-5 mx-5 mt-3 mb-2" ]
-                    [ p [ class "mb-0" ]
-                        [ text "«\u{00A0}74%\u{00A0}des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent.\u{00A0}»" ]
-                    , Html.cite [ class "fw-normal fs-7 text-muted mb-5" ]
-                        [ text "14ème baromètre de la consommation responsable Greenflex et ADEME - 2021" ]
-                    ]
-                , h3 [ class "my-3" ] [ text "Inscrit dans la loi Climat et Résilience de 2021" ]
-                , p [] [ text "“Un affichage destiné à apporter au consommateur une information relative aux impacts environnementaux (...) d'un bien, d'un service ou d'une catégorie de biens ou de services mis sur le marché national est rendu obligatoire” — Article L.541-9-11 du code de l’environnement" ]
-                , h3 [ class "my-3" ] [ text "Les secteurs Textile et Alimentaire, premiers concernés" ]
-                , """Un projet de méthodologie est élaboré à partir de **29 expérimentations** qui se sont tenues
+    Container.centered [ id "decouvrir-ecobalyse", class "overlappedImage" ]
+        [ img
+            [ src "img/illustration-score.png"
+            , alt "Une étiquette présentant différents scores d'impact environnemental"
+            ]
+            []
+        , div [ class "d-flex flex-column gap-2" ]
+            [ h3 [ class "mb-1" ] [ text "Un coût environnemental pour informer les consommateurs" ]
+            , blockquote [ class "d-inline-block fw-bold fs-5 mx-5 mt-3 mb-2" ]
+                [ p [ class "mb-0" ]
+                    [ text "«\u{00A0}74%\u{00A0}des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent.\u{00A0}»" ]
+                , Html.cite [ class "fw-normal fs-7 text-muted mb-5" ]
+                    [ text "14ème baromètre de la consommation responsable Greenflex et ADEME - 2021" ]
+                ]
+            , h3 [ class "my-3" ] [ text "Inscrit dans la loi Climat et Résilience de 2021" ]
+            , p [] [ text "“Un affichage destiné à apporter au consommateur une information relative aux impacts environnementaux (...) d'un bien, d'un service ou d'une catégorie de biens ou de services mis sur le marché national est rendu obligatoire” — Article L.541-9-11 du code de l’environnement" ]
+            , h3 [ class "my-3" ] [ text "Les secteurs Textile et Alimentaire, premiers concernés" ]
+            , """Un projet de méthodologie est élaboré à partir de **29 expérimentations** qui se sont tenues
                      en 2021 et 2022, des travaux d’un **conseil scientifique alimentaire** et d’un **comité d’experts
                      textile**, de nombreux échanges avec les parties prenantes depuis la mise en ligne d’Ecobalyse…"""
-                    |> Markdown.simple []
-                , """Pour le secteur textile, la méthodologie aujourd’hui présentée est un **premier projet de
+                |> Markdown.simple []
+            , """Pour le secteur textile, la méthodologie aujourd’hui présentée est un **premier projet de
                      référentiel technique**. Elle est soumise à concertation et **toute contribution est [la bienvenue]({url}).**"""
-                    |> String.replace "{url}" Env.communityUrl
-                    |> Markdown.simple []
-                , """Le projet de calculateur pour le produits alimentaires a été temporairement retiré, dans
+                |> String.replace "{url}" Env.communityUrl
+                |> Markdown.simple []
+            , """Le projet de calculateur pour le produits alimentaires a été temporairement retiré, dans
                      l’attente de la présentation d’une première proposition de méthode complète."""
-                    |> Markdown.simple []
-                ]
+                |> Markdown.simple []
             ]
         ]
 
