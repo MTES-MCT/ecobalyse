@@ -20,9 +20,9 @@ Dans ce cas précis, la quantité de chaleur nécessaire pour actionner le proc�
 
 La base de données Ecoinvent ne propose pas de mix chaleur industrielle par zone géographique (ex : France, Europe, Asie, etc.). En l'absence de tels mix régionaux, Ecobalyse reconstitue de tels mix régionaux sur la base de quatre procédés source :&#x20;
 
-* Consommation de chaleur produite à partir de gaz naturel (x2 régions : RER -Europe- et Global)\
+* Consommation de chaleur produite à partir de gaz naturel (x2 régions : RER -Europe- et Global -Monde-)\
   procédé = _Market group for heat, district or industrial, natural gas_
-* Consommation de chaleur produite à partir d'autres sources (x2 régions : RER -Europe- et Global)\
+* Consommation de chaleur produite à partir d'autres sources  (x2 régions : RER -Europe- et Global -Monde-)\
   procédé = _Market group for heat, district or industrial, other than natural gas_&#x20;
 
 ### Mix chaleurs (Europe x Monde)
@@ -35,25 +35,17 @@ En compilant pour chaque zone (Europe et Monde) les sources de chaleur (gaz natu
 
 La consommation de chaleur industrielle à l'échelle mondiale est significativement plus impactante que celle européenne (+73% en score d'impacts -uPts-).
 
-<div>
 
-<figure><img src="../../.gitbook/assets/Impact de 1MJ de chaleur par région (unité = uPts) (1).png" alt=""><figcaption></figcaption></figure>
 
- 
+### Coût environnemental
 
-<figure><img src="../../.gitbook/assets/Impact de 1MJ de chaleur par région (unité = kg CO2 eq.) (2).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<figure><img src="../../.gitbook/assets/Coût environnemental des mix chaleur disponibles dans Ecobalyse (uPts _ MJ)  (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Ces scénarios par défaut permettent de couvrir le Niveau 1 du dispositif d'affichage environnemental.&#x20;
 
 Les entreprises qui souhaitent préciser le mix chaleur de tout ou partie des étapes de production peut le faire dans le cadre des Niveaux 2 et 3.&#x20;
 {% endhint %}
-
-### Limites
-
-* Le mix chaleur World (Rest Of the World) est basé sur des données 2010.
 
 [^1]: Source : Etude Reuters : [https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/](https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/)
 
