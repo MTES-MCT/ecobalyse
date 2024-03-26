@@ -898,12 +898,10 @@ durabilityField durability =
             Unit.durabilityToFloat >> String.fromFloat
     in
     div [ class "d-flex justify-content-center gap-3" ]
-        [ label [ for "durability-field", class "form-label fw-bold text-truncate text-muted" ]
-            [ text "Indice de durabilité" ]
-        , input
+        [ input
             [ type_ "range"
             , id "durability-field"
-            , class "form-range w-auto"
+            , class "form-range form-range w-auto"
             , Attr.min (fromFloat Unit.minDurability)
             , Attr.max (fromFloat Unit.maxDurability)
 
@@ -914,12 +912,10 @@ durabilityField durability =
             , disabled True
             ]
             []
-        , span [ class "text-muted font-monospace" ]
-            [ durability
-                |> Unit.durabilityToFloat
-                |> Format.formatFloat 2
-                |> text
-            ]
+        , durability
+            |> Unit.durabilityToFloat
+            |> Format.formatFloat 2
+            |> text
         ]
 
 
@@ -985,17 +981,20 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
-            , div [ class "card shadow-sm mb-3" ]
+            , div [ class "card shadow-sm pb-2 mb-3" ]
                 [ div [ class "card-header d-flex justify-content-between align-items-center" ]
                     [ h2 [ class "h5 mb-1" ] [ text "Durabilité non-physique" ]
-                    , Button.docsPillLink
-                        [ class "bg-secondary"
-                        , style "height" "24px"
-                        , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
-                        , title "Documentation"
-                        , target "_blank"
+                    , div [ class "d-flex gap-2" ]
+                        [ durabilityField simulator.durability
+                        , Button.docsPillLink
+                            [ class "bg-secondary"
+                            , style "height" "24px"
+                            , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
+                            , title "Documentation"
+                            , target "_blank"
+                            ]
+                            [ Icon.question ]
                         ]
-                        [ Icon.question ]
                     ]
                 , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
@@ -1032,17 +1031,16 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                         ]
                     ]
                 , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ let
-                        mainMaterialOrigin =
-                            Inputs.getMaterialsOriginShares inputs.materials
+                    [ div [ class "col-md-2" ] [ text "Matières" ]
+                    , div [ class "col-md-10" ]
+                        [ div [ class "fw-bold" ]
+                            [ Inputs.getMaterialsOriginShares inputs.materials
                                 |> Economics.computeMaterialsOriginIndex
                                 |> Tuple.second
-                      in
-                      div [ class "col-md-6 fw-bold text-center text-muted text-truncate", title mainMaterialOrigin ]
-                        [ text mainMaterialOrigin
-                        ]
-                    , div [ class "col-md-6 text-center" ]
-                        [ durabilityField simulator.durability
+                                |> text
+                            ]
+                        , small [ class "text-muted fs-8 lh-sm" ]
+                            [ text "Le type de matière retenu dépend de la composition du vêtement détaillée ci-dessous" ]
                         ]
                     ]
                 ]
