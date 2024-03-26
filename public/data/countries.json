@@ -90,6 +90,16 @@
     "aquaticPollutionScenario": "Worst"
   },
   {
+    "code": "MM",
+    "name": "Myanmar",
+    "zone": "Asia",
+    "electricityProcessUuid": "4968e9f8cf72cb72700d94b242048db0",
+    "heatProcessUuid": "heat-row",
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"],
+    "aquaticPollutionScenario": "Worst"
+  },
+  {
     "code": "BD",
     "name": "Bangladesh",
     "zone": "Asia",
@@ -218,16 +228,6 @@
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
     "aquaticPollutionScenario": "Worst"
-  },
-  {
-    "code": "PT",
-    "name": "Portugal",
-    "zone": "Europe",
-    "electricityProcessUuid": "b5be40ddf8bb1f731bcaa3cdf9664a49",
-    "heatProcessUuid": "heat-europe",
-    "airTransportRatio": 0,
-    "scopes": ["textile"],
-    "aquaticPollutionScenario": "Best"
   },
   {
     "code": "TN",
