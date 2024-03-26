@@ -36,7 +36,7 @@ Le serveur local de développement se lance au moyen des deux commandes suivante
 
 Deux instances de développement sont alors accessibles :
 
-- [localhost:3000](http://localhost:3000/) sert le frontend et le backend (API) ;
+- [localhost:8001](http://localhost:8001/) sert le frontend et le backend (API) ;
 - [localhost:1234](http://localhost:1234/) sert seulement le frontend en mode _hot-reload_, permettant de mettre à jour en temps-réel l'interface Web à chaque modification du code frontend.
 
 ### Mode débogage
@@ -103,7 +103,7 @@ $ npm run build
 $ npm run server:start
 ```
 
-L'application est alors servie sur le port défini par la variable d'environnement `PORT` (par défaut: `3000`).
+L'application est alors servie sur le port défini par la variable d'environnement `PORT` (par défaut: `8001`).
 
 # Ecobalyse data
 
