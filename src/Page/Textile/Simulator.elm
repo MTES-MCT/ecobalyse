@@ -891,34 +891,6 @@ massField massInput =
         ]
 
 
-durabilityField : Unit.Durability -> Html Msg
-durabilityField durability =
-    let
-        fromFloat =
-            Unit.durabilityToFloat >> String.fromFloat
-    in
-    div [ class "d-flex justify-content-center gap-3" ]
-        [ input
-            [ type_ "range"
-            , id "durability-field"
-            , class "form-range form-range w-auto"
-            , Attr.min (fromFloat Unit.minDurability)
-            , Attr.max (fromFloat Unit.maxDurability)
-
-            -- WARNING: be careful when reordering attributes: for obscure reasons,
-            -- the `value` one MUST be set AFTER the `step` one.
-            , step "0.01"
-            , value (fromFloat durability)
-            , disabled True
-            ]
-            []
-        , durability
-            |> Unit.durabilityToFloat
-            |> Format.formatFloat 2
-            |> text
-        ]
-
-
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
 lifeCycleStepsView db { detailedStep, impact } simulator =
     simulator.lifeCycle
@@ -970,7 +942,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView session model ({ durability, inputs, impacts } as simulator) =
+simulatorView session model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -983,9 +955,13 @@ simulatorView session model ({ durability, inputs, impacts } as simulator) =
                 ]
             , div [ class "card shadow-sm pb-2 mb-3" ]
                 [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-                    [ h2 [ class "h5 mb-1" ] [ text "Durabilité non-physique" ]
-                    , div [ class "d-flex gap-2" ]
-                        [ durabilityField simulator.durability
+                    [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
+                    , div [ class "d-flex align-items-center gap-2" ]
+                        [ span [ class "d-none d-sm-flex" ] [ text "Coefficient de durabilité\u{00A0}:" ]
+                        , simulator.durability
+                            |> Unit.durabilityToFloat
+                            |> Format.formatFloat 2
+                            |> text
                         , Button.docsPillLink
                             [ class "bg-secondary"
                             , style "height" "24px"
@@ -1071,18 +1047,10 @@ simulatorView session model ({ durability, inputs, impacts } as simulator) =
                 , customScoreInfo =
                     Just
                         (div [ class "fs-8" ]
-                            [ div []
-                                [ text "Hors modulation durabilité\u{00A0}: "
-                                , impacts
-                                    |> Impact.multiplyBy (Unit.durabilityToFloat durability)
-                                    |> Format.formatImpact model.impact
-                                ]
-                            , div []
-                                [ text "Pour 100g\u{00A0}:\u{00A0}"
-                                , impacts
-                                    |> Impact.per100grams inputs.mass
-                                    |> Format.formatImpact model.impact
-                                ]
+                            [ text "Pour 100g\u{00A0}:\u{00A0}"
+                            , impacts
+                                |> Impact.per100grams inputs.mass
+                                |> Format.formatImpact model.impact
                             ]
                         )
                 , productMass = inputs.mass

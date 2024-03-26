@@ -24,7 +24,6 @@ module Data.Impact exposing
     , mapImpacts
     , maxEcotoxWeighting
     , minEcotoxWeighting
-    , multiplyBy
     , noComplementsImpacts
     , noStepsImpacts
     , parseTrigram
@@ -364,11 +363,6 @@ mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
 mapImpacts fn (Impacts impacts) =
     Definition.map fn impacts
         |> Impacts
-
-
-multiplyBy : Float -> Impacts -> Impacts
-multiplyBy n =
-    mapImpacts (\_ -> Quantity.multiplyBy n)
 
 
 per100grams : Mass -> Impacts -> Impacts
