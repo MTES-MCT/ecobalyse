@@ -693,10 +693,11 @@ exampleProductField exampleProducts query =
     in
     div []
         [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
-            [ text "Examples" ]
+            [ text "Exemples" ]
         , button
             [ class "form-select ElementSelector text-start"
             , id "selector-example"
+            , title "Les simulations proposées ici constituent des exemples. Elles doivent être adaptées pour chaque produit modélisé"
             , onClick (SetModal (SelectExampleModal autocompleteState))
             ]
             [ text <| ExampleProduct.toName exampleProducts query ]
