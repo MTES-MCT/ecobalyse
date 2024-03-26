@@ -1147,13 +1147,13 @@
     "alias": "dyeing-yarn"
   },
   {
-    "name": "Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO",
+    "name": "(EI) transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
     "info": "Transport > Maritime > Flotte moyenne",
     "unit": "t*km",
-    "source": "Base Impacts 2.01",
+    "source": "Ecoinvent 3.9.1",
     "correctif": "non applicable",
     "step_usage": "Transport",
-    "uuid": "8dc4ce62-ff0f-4680-897f-867c3b31a923",
+    "uuid": "86ac591e1e5c1d96a0d004ac830563d9",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1174,8 +1174,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 4.05522690611863,
-      "pef": 4.764471296551778
+      "ecs": 1.3073212835535144,
+      "pef": 1.4348607997381615
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -1184,13 +1184,13 @@
     "alias": "sea-transport"
   },
   {
-    "name": "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO",
+    "name": "(EI) transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
     "info": "Transport > Aérien > Flotte moyenne",
     "unit": "t*km",
-    "source": "Base Impacts 2.01",
+    "source": "Ecoinvent 3.9.1",
     "correctif": "non applicable",
     "step_usage": "Transport",
-    "uuid": "839b263d-5111-4318-9275-7026937e88b2",
+    "uuid": "d3130e7ed9686fcc4bbe980e0375ad88",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1211,8 +1211,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 70.07921434885071,
-      "pef": 79.60591025441806
+      "ecs": 59.49450536841945,
+      "pef": 57.313621957893034
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -1221,13 +1221,13 @@
     "alias": "air-transport"
   },
   {
-    "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO",
-    "info": "Transport > Routier > Flotte moyenne continentale",
+    "name": "transport, freight train//[GLO] market group for transport, freight train",
+    "info": "Transport > Train > Flotte moyenne",
     "unit": "t*km",
-    "source": "Base Impacts 2.01",
+    "source": "Ecoinvent 3.9.1",
     "correctif": "non applicable",
     "step_usage": "Transport",
-    "uuid": "cf6e9d81-358c-4f44-5ab7-0e7a89440576",
+    "uuid": "7037ea59d8d644fd35f80fd1982f9fe9",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1248,23 +1248,23 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 18.455426522859483,
-      "pef": 21.79540087704096
+      "ecs": 5.516681916688929,
+      "pef": 5.871039372042421
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
-    "alias": "road-transport-pre-making"
+    "alias": "train-transport"
   },
   {
-    "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER",
+    "name": "transport, freight, lorry, unspecified//[GLO] market group for transport, freight, lorry, unspecified",
     "info": "Transport > Routier > Flotte moyenne continentale",
     "unit": "t*km",
-    "source": "Base Impacts 2.01",
+    "source": "Ecoinvent 3.9.1",
     "correctif": "non applicable",
     "step_usage": "Transport",
-    "uuid": "c0397088-6a57-eea7-8950-1d6db2e6bfdb",
+    "uuid": "f37aba954435f9f158c19a9449d373b2",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1285,14 +1285,14 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 12.645061827216482,
-      "pef": 14.817276492777646
+      "ecs": 15.686304452119371,
+      "pef": 14.032282251508976
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
-    "alias": "road-transport-post-making"
+    "alias": "road-transport"
   },
   {
     "name": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
