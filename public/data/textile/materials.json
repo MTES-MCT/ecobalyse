@@ -219,20 +219,6 @@
     }
   },
   {
-    "id": "ei-soie",
-    "materialProcessUuid": "4646e2fbfb0669dd6e3215e441dffcbe",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "name": "Fil de soie",
-    "shortName": "Soie",
-    "origin": "NaturalFromAnimal",
-    "primary": false,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
-  },
-  {
     "id": "ei-viscose",
     "materialProcessUuid": "f89bba0c170190e003fa3f643591cca5",
     "recycledProcessUuid": "7e2fdd1e285fd01e8852977a584a9ae3",
