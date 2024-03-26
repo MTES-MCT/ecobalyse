@@ -53,7 +53,7 @@
     "code": "RME",
     "name": "Région - Moyen-Orient",
     "zone": "Middle_East",
-    "electricityProcessUuid": "elec-region-middle-east",
+    "electricityProcessUuid": "elec-medium-region-middle-east",
     "heatProcessUuid": "heat-row",
     "airTransportRatio": 0.33,
     "scopes": ["textile"],
