@@ -1,18 +1,12 @@
----
-description: >-
-  Acheminement des marchandises d'une étape de la chaîne de production à une
-  autre.
----
-
 # 🚢 Transport
 
 ## Vue d'ensemble
 
-Le transport considéré est la somme des transports à prévoir entre chaque étape du cycle de production.
+Le transport considéré correspond à l'ensemble des transports mobilisés sur la chaîne de valeur du vêtement.
 
 Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebut](pertes-et-rebus.md).
 
-<table><thead><tr><th width="102">#Etape</th><th width="169">De</th><th width="213">Vers</th><th>Masse de produit considéré</th></tr></thead><tbody><tr><td>1.</td><td><p>Matière</p><p>Pays défini par défaut dans <a href="broken-reference">Matière et filature</a></p></td><td><p>Filature</p><p>Pays défini par défaut dans <a href="broken-reference">Matière et filature</a></p></td><td>Matière première</td></tr><tr><td>2.</td><td><p>Filature</p><p>Pays défini par défaut dans <a href="broken-reference">Matière et filature</a></p></td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td>Fil</td></tr><tr><td>3.</td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td><p>Teinture</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>4.</td><td><p>Teinture</p><p>Pays*</p></td><td><p>Confection</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>5.</td><td><p>Confection</p><p>Pays*</p></td><td><p>Entrepôt</p><p>Pays : France</p></td><td>Vêtement</td></tr><tr><td>6.</td><td><p>Entrepôt</p><p>Pays : France</p></td><td><p>Magasin ou Point de retrait</p><p>Pays : France</p></td><td>Vêtement</td></tr></tbody></table>
+<table><thead><tr><th width="117">#Etape</th><th width="169">De</th><th width="213">Vers</th><th>Masse de produit considéré</th></tr></thead><tbody><tr><td>1.</td><td>Matière<br>Pays*</td><td>Filature<br>Pays*</td><td>Matière première</td></tr><tr><td>2.</td><td>Filature<br>Pays*</td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td>Fil</td></tr><tr><td>3.</td><td><p>Tissage/tricotage</p><p>Pays*</p></td><td><p>Teinture</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>4.</td><td><p>Teinture</p><p>Pays*</p></td><td><p>Confection</p><p>Pays*</p></td><td>Etoffe</td></tr><tr><td>5.</td><td><p>Confection</p><p>Pays*</p></td><td><p>Entrepôt</p><p>Pays : France</p></td><td>Vêtement</td></tr><tr><td>6.</td><td><p>Entrepôt</p><p>Pays : France</p></td><td><p>Magasin ou Point de retrait</p><p>Pays : France</p></td><td>Vêtement</td></tr></tbody></table>
 
 \*Pays paramétré directement dans le calculateur.
 
@@ -81,13 +75,6 @@ Si 2 étapes successives ont lieu dans un même pays, on fait l'hypothèse que l
 | Portugal | 0%      | 50%    | 90%     | 100%     |
 
 _"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fait de 25% de terrestre et de 75% de maritime"_
-
-#### Cas particulier des étapes 1 (Matière première --> Filature) et 2 (Filature --> Tricotage / Tissage)
-
-| Etape                                      | Distance terrestre                                                                                                                                 | Distance maritime                                                                                                                                  |
-| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Etape 1 (Matière première --> Filature)    | Non pris en compte. Distance internalisée dans le procédé unique                                                                                   | Non pris en compte. Distance internalisée dans le procédé unique                                                                                   |
-| Etape 2 (Filature --> Tricotage / Tissage) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](broken-reference)) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](broken-reference)) |
 
 ### Part du transport aérien
 
@@ -173,6 +160,10 @@ L'Inde est utilisé en arrière plan pour définir les distances et modes de tra
 
 ## Procédés
 
-Les procédés utilisés pour modéliser les impacts des différents modes de transport sont les suivants :
+Les procédés utilisés pour modéliser les impacts des différents modes de transport sont les suivants :&#x20;
 
-<table><thead><tr><th width="153">Type de transport</th><th width="252">Procédé</th><th>UUID</th></tr></thead><tbody><tr><td><p>Terrestre</p><p>Jusqu'à la confection</p></td><td>Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO</td><td>cf6e9d81-358c-4f44-5ab7-0e7a89440576</td></tr><tr><td><p>Terrestre</p><p>Confection - Entrepôt</p></td><td>Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER</td><td>c0397088-6a57-eea7-8950-1d6db2e6bfdb</td></tr><tr><td><p>Terrestre</p><p>Distribution</p></td><td>Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR</td><td>f49b27fa-f22e-c6e1-ab4b-e9f873e2e648</td></tr><tr><td>Maritime</td><td>Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO</td><td>8dc4ce62-ff0f-4680-897f-867c3b31a923</td></tr><tr><td>Aérien</td><td>Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO</td><td>839b263d-5111-4318-9275-7026937e88b2</td></tr></tbody></table>
+<table><thead><tr><th width="198">Type de transport</th><th>Procédé</th></tr></thead><tbody><tr><td>Terrestre</td><td>transport, freight, lorry, unspecified, RoW </td></tr><tr><td>Maritime</td><td>transport, freight, sea, container ship, GLO</td></tr><tr><td>Aérien</td><td>transport, freight, aircraft, long haul, GLO </td></tr><tr><td>Ferroviaire</td><td>transport, freight train, GLO</td></tr></tbody></table>
+
+## Coût environnemental
+
+<figure><img src="../../.gitbook/assets/Coût environnemental de différents modes de transport disponibles dans Ecobalyse (uPts _ tonne_km) .png" alt=""><figcaption></figcaption></figure>

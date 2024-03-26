@@ -46,7 +46,7 @@ Au total, 20 scénarios sont proposés dans Ecobalyse afin de répondre aux diff
 |                   | Bangladesh |
 |                   | Myanmar    |
 
-<figure><img src="../../.gitbook/assets/Coût environnemental des mix électriques mobilisés dans Ecobalyse (uPts _ kWh) (1).png" alt=""><figcaption><p>Mix électriques mobilisés dans Ecobalyse</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Coût environnemental des mix électriques mobilisés dans Ecobalyse (uPts _ kWh) (2).png" alt=""><figcaption><p>Mix électriques mobilisés dans Ecobalyse</p></figcaption></figure>
 
 {% hint style="info" %}
 Ces scénarios par défaut permettent de couvrir le Niveau 1 du dispositif d'affichage environnemental.&#x20;
