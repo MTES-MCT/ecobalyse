@@ -222,13 +222,13 @@
     "alias": null
   },
   {
-    "name": "(EI) Jute",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "(EI) Elastane (Lycra)",
+    "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières, Filature",
-    "uuid": "9df0524c7ee3b4f1f31067565192df9a",
+    "uuid": "ei-elastane-lycra",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -249,8 +249,82 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 103.29432941913788,
-      "pef": 105.56776640121973
+      "ecs": 1042.5934373602631,
+      "pef": 656.9997972762473
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0.270519,
+    "alias": null
+  },
+  {
+    "name": "(EI) polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
+    "info": "Textile > Matières > Matières synthétiques",
+    "unit": "kg",
+    "source": "Ecoinvent 3.9.1",
+    "correctif": "",
+    "step_usage": "Matières, Filature",
+    "uuid": "75b27555d86fe1c66686cdf4339efc89",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 500.2198125962985,
+      "pef": 557.5596780322377
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0.270519,
+    "alias": null
+  },
+  {
+    "name": "(EI) fibre, jute//[RoW] fibre production, jute, retting",
+    "info": "Textile > Matières > Matières naturelles",
+    "unit": "kg",
+    "source": "Ecoinvent 3.9.1",
+    "correctif": "",
+    "step_usage": "Matières, Filature",
+    "uuid": "4d81aa5f76872e1e4c0e1bb14b01e93b",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 907.2652271360823,
+      "pef": 806.6021678448908
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -471,8 +545,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 4373.691436160911,
-      "pef": 3588.6245792032782
+      "ecs": 39028.1618799885,
+      "pef": 34056.229324199325
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -481,13 +555,13 @@
     "alias": null
   },
   {
-    "name": "(EI) Lin",
+    "name": "(EI) market for fibre, flax, long, scutched",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières, Filature",
-    "uuid": "4bc515319f905a20243cb6d551748008",
+    "uuid": "european-flax",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -508,8 +582,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 256.2413887324208,
-      "pef": 257.40112460975047
+      "ecs": 253.05739163229265,
+      "pef": 190.55557481702274
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -545,8 +619,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 6069.160271979972,
-      "pef": 5432.862474299496
+      "ecs": 4263.098561863456,
+      "pef": 4646.846238265963
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -582,8 +656,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 656.1254348116769,
-      "pef": 587.3364837126115
+      "ecs": 460.875520458031,
+      "pef": 502.36175453936755
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -629,7 +703,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Coton bio (avec irrigation)",
+    "name": "(EI) fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning (Ecobalyse)",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecobalyse",
@@ -656,8 +730,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 576.9238739973662,
-      "pef": 683.4060043872406
+      "ecs": 618.962439739018,
+      "pef": 736.2192841211813
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
