@@ -54,7 +54,12 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "21 février 2024"
+    [ { date = "25 mars 2024"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md = "La documentation de l'API alimentaire est temporairement mise hors-ligne."
+      }
+    , { date = "21 février 2024"
       , level = "major"
       , domains = [ "Textile" ]
       , md =

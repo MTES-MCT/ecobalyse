@@ -290,160 +290,160 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
-  /food/countries:
-    get:
-      tags:
-        - Alimentaire
-      summary: Liste des pays utilisables pour les simulations alimentairess.
-      responses:
-        200:
-          description: Opération réussie
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CountryListResponse"
-  /food/ingredients:
-    get:
-      tags:
-        - Alimentaire
-      summary: Liste des ingrédients disponibles pour élaborer une recette
-      responses:
-        200:
-          description: Opération réussie
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/IngredientListResponse"
-  /food/transforms:
-    get:
-      tags:
-        - Alimentaire
-      summary: Liste des procédés de transformation alimentaire
-      responses:
-        200:
-          description: Opération réussie
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TransformListResponse"
-  /food/packagings:
-    get:
-      tags:
-        - Alimentaire
-      summary: Liste des emballages disponibles pour conditionner une recette
-      responses:
-        200:
-          description: Opération réussie
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PackagingListResponse"
-  /food/recipe:
-    get:
-      tags:
-        - Alimentaire
-      summary: Calcul des impacts environnementaux d'une recette alimentaire
-      parameters:
-        - $ref: "#/components/parameters/ingredientsParam"
-        - $ref: "#/components/parameters/transformParam"
-        - $ref: "#/components/parameters/packagingParam"
-        - $ref: "#/components/parameters/distributionParam"
-        - $ref: "#/components/parameters/preparationParam"
-      responses:
-        200:
-          description: Opération réussie
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RecipeResultsResponse"
-        400:
-          description: Paramètres invalides
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidParametersError"
-    post:
-      tags:
-        - Alimentaire
-      summary: Calcul des impacts environnementaux d'une recette alimentaire
-      requestBody:
-        description: Requête modélisant les éléments de la recette à évaluer
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/FoodQuery"
-            examples:
-              CarrotCake:
-                summary: "Carrot cake conventionnel"
-                value:
-                  ingredients:
-                  - id: egg
-                    mass: 120
-                  - id: wheat
-                    mass: 140
-                  - id: milk
-                    mass: 60
-                  - id: carrot
-                    mass: 225
-                  transform:
-                    code: AGRIBALU000000003103966
-                    mass: 545
-                  packaging:
-                  - code: AGRIBALU000000003104019
-                    mass: 105
-                  distribution: ambient
-                  preparation:
-                  - refrigeration
-              SpanishOrganicCarrotCake:
-                summary: "Carrot cake bio, origine Espagne"
-                value:
-                  ingredients:
-                  - id: egg-organic
-                    mass: 120
-                    country: ES
-                  - id: wheat-organic
-                    mass: 140
-                    country: ES
-                  - id: milk-organic
-                    mass: 60
-                    country: ES
-                  - id: carrot-organic
-                    mass: 225
-                    country: ES
-                  transform:
-                    code: AGRIBALU000000003103966
-                    mass: 545
-                  packaging:
-                  - code: AGRIBALU000000003104019
-                    mass: 105
-                  distribution: ambient
-                  preparation:
-                  - refrigeration
-              BrazilianMango:
-                summary: "Mangue du Brésil"
-                value:
-                  ingredients:
-                  - id: mango
-                    mass: 500
-                    country: BR
-                  transform: null
-                  packaging: []
-                  distribution: ambient
-                  preparation: []
-      responses:
-        200:
-          description: Opération réussie
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RecipeResultsResponse"
-        400:
-          description: Paramètres invalides
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidParametersError"
+  # /food/countries:
+  #   get:
+  #     tags:
+  #       - Alimentaire
+  #     summary: Liste des pays utilisables pour les simulations alimentairess.
+  #     responses:
+  #       200:
+  #         description: Opération réussie
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/CountryListResponse"
+  # /food/ingredients:
+  #   get:
+  #     tags:
+  #       - Alimentaire
+  #     summary: Liste des ingrédients disponibles pour élaborer une recette
+  #     responses:
+  #       200:
+  #         description: Opération réussie
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/IngredientListResponse"
+  # /food/transforms:
+  #   get:
+  #     tags:
+  #       - Alimentaire
+  #     summary: Liste des procédés de transformation alimentaire
+  #     responses:
+  #       200:
+  #         description: Opération réussie
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/TransformListResponse"
+  # /food/packagings:
+  #   get:
+  #     tags:
+  #       - Alimentaire
+  #     summary: Liste des emballages disponibles pour conditionner une recette
+  #     responses:
+  #       200:
+  #         description: Opération réussie
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/PackagingListResponse"
+  # /food/recipe:
+  #   get:
+  #     tags:
+  #       - Alimentaire
+  #     summary: Calcul des impacts environnementaux d'une recette alimentaire
+  #     parameters:
+  #       - $ref: "#/components/parameters/ingredientsParam"
+  #       - $ref: "#/components/parameters/transformParam"
+  #       - $ref: "#/components/parameters/packagingParam"
+  #       - $ref: "#/components/parameters/distributionParam"
+  #       - $ref: "#/components/parameters/preparationParam"
+  #     responses:
+  #       200:
+  #         description: Opération réussie
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/RecipeResultsResponse"
+  #       400:
+  #         description: Paramètres invalides
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/InvalidParametersError"
+  #   post:
+  #     tags:
+  #       - Alimentaire
+  #     summary: Calcul des impacts environnementaux d'une recette alimentaire
+  #     requestBody:
+  #       description: Requête modélisant les éléments de la recette à évaluer
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: "#/components/schemas/FoodQuery"
+  #           examples:
+  #             CarrotCake:
+  #               summary: "Carrot cake conventionnel"
+  #               value:
+  #                 ingredients:
+  #                 - id: egg
+  #                   mass: 120
+  #                 - id: wheat
+  #                   mass: 140
+  #                 - id: milk
+  #                   mass: 60
+  #                 - id: carrot
+  #                   mass: 225
+  #                 transform:
+  #                   code: AGRIBALU000000003103966
+  #                   mass: 545
+  #                 packaging:
+  #                 - code: AGRIBALU000000003104019
+  #                   mass: 105
+  #                 distribution: ambient
+  #                 preparation:
+  #                 - refrigeration
+  #             SpanishOrganicCarrotCake:
+  #               summary: "Carrot cake bio, origine Espagne"
+  #               value:
+  #                 ingredients:
+  #                 - id: egg-organic
+  #                   mass: 120
+  #                   country: ES
+  #                 - id: wheat-organic
+  #                   mass: 140
+  #                   country: ES
+  #                 - id: milk-organic
+  #                   mass: 60
+  #                   country: ES
+  #                 - id: carrot-organic
+  #                   mass: 225
+  #                   country: ES
+  #                 transform:
+  #                   code: AGRIBALU000000003103966
+  #                   mass: 545
+  #                 packaging:
+  #                 - code: AGRIBALU000000003104019
+  #                   mass: 105
+  #                 distribution: ambient
+  #                 preparation:
+  #                 - refrigeration
+  #             BrazilianMango:
+  #               summary: "Mangue du Brésil"
+  #               value:
+  #                 ingredients:
+  #                 - id: mango
+  #                   mass: 500
+  #                   country: BR
+  #                 transform: null
+  #                 packaging: []
+  #                 distribution: ambient
+  #                 preparation: []
+  #     responses:
+  #       200:
+  #         description: Opération réussie
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/RecipeResultsResponse"
+  #       400:
+  #         description: Paramètres invalides
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/InvalidParametersError"
 components:
   examples:
     tShirtFrance:
