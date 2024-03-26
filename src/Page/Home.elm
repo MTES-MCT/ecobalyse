@@ -71,9 +71,12 @@ viewHero modal =
             , div [ class "fs-5 mt-3 mb-5" ]
                 [ text "Ecobalyse permet de comprendre et de calculer les impacts écologiques des produits distribués en France." ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
-                [ button
+                [ a
                     [ class "btn btn-lg btn-primary"
-                    , onClick OpenCalculatorPickerModal
+
+                    -- FIXME: all food-related stuff temporarily removed
+                    --, onClick OpenCalculatorPickerModal
+                    , Route.href Route.TextileSimulatorHome
                     ]
                     [ text "Lancer le calculateur" ]
                 , button

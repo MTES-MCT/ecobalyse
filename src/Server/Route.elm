@@ -71,8 +71,8 @@ parser foodDb textile countries =
         , Parser.map GetFoodIngredientList (s "GET" </> s "food" </> s "ingredients")
         , Parser.map GetFoodTransformList (s "GET" </> s "food" </> s "transforms")
         , Parser.map GetFoodPackagingList (s "GET" </> s "food" </> s "packagings")
-        , Parser.map GetFoodRecipe (s "GET" </> s "food" </> s "recipe" <?> Query.parseFoodQuery countries foodDb)
-        , Parser.map PostFoodRecipe (s "POST" </> s "food" </> s "recipe")
+        , Parser.map GetFoodRecipe (s "GET" </> s "food" <?> Query.parseFoodQuery countries foodDb)
+        , Parser.map PostFoodRecipe (s "POST" </> s "food")
 
         -- Textile
         , Parser.map GetTextileCountryList (s "GET" </> s "textile" </> s "countries")
