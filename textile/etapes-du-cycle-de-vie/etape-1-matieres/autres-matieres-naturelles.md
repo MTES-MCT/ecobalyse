@@ -71,7 +71,7 @@ fibre production, flax, retting_, RoW_
 
 1. Culture et récolte du chanvre,
 2. Rouissage,\
-   (consiste à laisser le lin au sol afin de permettre la dissociation des parties fibreuses de la plante grâce à l'alternance de pluie et soleil)
+   (consiste à laisser le chanvre au sol afin de permettre la dissociation des parties fibreuses de la plante grâce à l'alternance de pluie et soleil)
 3. Teillage.\
    (consiste à extraire les fibres situées à l'extérieur de la tige de la chènevotte - la pulpe à l'intérieur de la tige -)
 
