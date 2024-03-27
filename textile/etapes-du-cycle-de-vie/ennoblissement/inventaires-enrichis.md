@@ -218,7 +218,7 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu.&#x20;
 
 <figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
@@ -320,7 +320,7 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
 
 <figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Flux entrant d'émissions</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
@@ -336,7 +336,7 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
 
 <figure><img src="../../../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -386,7 +386,7 @@ Impression pigmentaire.
 
 <figure><img src="../../../.gitbook/assets/image (19).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (4).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (1).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
