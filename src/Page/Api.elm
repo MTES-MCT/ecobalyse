@@ -10,6 +10,7 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Ports
+import Route
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Markdown as Markdown
@@ -477,6 +478,13 @@ view session _ =
                         , text " au format "
                         , a [ href "https://swagger.io/specification/", target "_blank" ] [ text "OpenAPI" ]
                         , text "."
+                        ]
+                    , p []
+                        [ text "Les requêtes non authentifiées à l'API retournent uniquement les impacts aggrégés."
+                        , "Pour avoir le détail des impacts, il est nécessaire de fournir un `TOKEN`, accessible dans votre "
+                            |> Markdown.simple []
+                        , a [ Route.href (Route.Auth { loggedIn = False }) ] [ text "compte utilisateur" ]
+                        , text " une fois connecté."
                         ]
                     , div [ class "height-auto" ] [ apiBrowser session ]
                     ]
