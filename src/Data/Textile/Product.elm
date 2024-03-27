@@ -34,7 +34,6 @@ type alias DyeingOptions =
 type alias MakingOptions =
     { pcrWaste : Split -- PCR product waste ratio
     , complexity : MakingComplexity -- How complex is this making
-    , durationInMinutes : Duration -- How long does it take
     }
 
 
@@ -109,7 +108,6 @@ decodeMakingOptions =
     Decode.succeed MakingOptions
         |> Pipe.required "pcrWaste" Split.decodeFloat
         |> Pipe.required "complexity" MakingComplexity.decode
-        |> Pipe.required "durationInMinutes" (Decode.int |> Decode.map toFloat |> Decode.map Duration.minutes)
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
@@ -157,7 +155,6 @@ encodeMakingOptions v =
     Encode.object
         [ ( "pcrWaste", Split.encodeFloat v.pcrWaste )
         , ( "complexity", Encode.string (MakingComplexity.toString v.complexity) )
-        , ( "durationInMinutes", Duration.inMinutes v.durationInMinutes |> round |> Encode.int )
         ]
 
 
