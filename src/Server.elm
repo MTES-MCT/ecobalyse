@@ -25,7 +25,7 @@ import Route as WebRoute
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db exposing (Db, db, processes)
+import Static.Db exposing (Db, db)
 
 
 type Msg
@@ -318,7 +318,7 @@ update : Msg -> Cmd Msg
 update msg =
     case msg of
         Received request ->
-            case db processes of
+            case db request.processes of
                 Ok db ->
                     cmdRequest db request
 

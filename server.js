@@ -108,11 +108,30 @@ const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
-api.all(/(.*)/, bodyParser.json(), (req, res) => {
+api.all(/(.*)/, bodyParser.json(), async (req, res) => {
+  let processesFilename;
+  if (req.headers.token) {
+    // The request is authentified.
+    processesFilename = "processes_impacts.json";
+  } else {
+    processesFilename = "processes.json";
+  }
+  let processes;
+  try {
+    const foodRes = await fetch(`http://${host}:${port}/data/food/${processesFilename}`);
+    const foodProcesses = await foodRes.json();
+    const textileRes = await fetch(`http://${host}:${port}/data/textile/${processesFilename}`);
+    const textileProcesses = await textileRes.json();
+    processes = {"foodProcesses": JSON.stringify(foodProcesses), "textileProcesses": JSON.stringify(textileProcesses)};
+  } catch (err) {
+    console.error(err.message);
+  }
+  
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
     body: req.body,
+    processes: processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
       res.status(status).send(body);
