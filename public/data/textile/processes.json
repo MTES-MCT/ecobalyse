@@ -1114,7 +1114,7 @@
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
+    "correctif": "",
     "step_usage": "Matières, Filature",
     "uuid": "wool-new",
     "impacts": {
