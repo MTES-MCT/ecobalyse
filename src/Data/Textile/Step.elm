@@ -157,7 +157,7 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
     materialInput
         |> Inputs.computeMaterialTransport distances country.code
         |> Formula.transportRatio Split.zero
-        |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransportPreMaking materialMass
+        |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
 {-| Computes step transport distances and impact regarding next step.
@@ -169,7 +169,7 @@ computeTransports : Db -> Inputs -> Step -> Step -> Step
 computeTransports db inputs next ({ processInfo } as current) =
     let
         roadTransportProcess =
-            getRoadTransportProcess db.textile.wellKnown current
+            db.textile.wellKnown.roadTransport
 
         transport =
             if current.label == Label.Material then
@@ -257,16 +257,6 @@ computeTransportSummary step transport =
             -- All other steps don't use air transport, force a 0 split
             transport
                 |> Formula.transportRatio Split.zero
-
-
-getRoadTransportProcess : WellKnown -> Step -> Process
-getRoadTransportProcess wellKnown { label } =
-    case label of
-        Label.Making ->
-            wellKnown.roadTransportPostMaking
-
-        _ ->
-            wellKnown.roadTransportPreMaking
 
 
 getInputSurface : Inputs -> Step -> Area
