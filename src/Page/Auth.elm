@@ -233,17 +233,28 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Authentification"
     , [ Container.centered [ class "pb-5" ]
-            [ h1 [ class "mb-3" ] [ text "Connexion / Inscription" ]
+            [ h1 [ class "mb-3" ]
+                [ text <|
+                    if Session.isAuthenticated session then
+                        "Compte"
+
+                    else
+                        "Connexion / Inscription"
+                ]
             , div [ class "row justify-content-center" ]
                 [ if model.loggedIn then
                     text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux conditions"
 
                   else if Session.isAuthenticated session then
-                    button
-                        [ onClick Logout
-                        , class "btn btn-link mb-3"
+                    div [ class "row d-flex justify-content-center" ]
+                        -- [ viewAccount model
+                        [ text "view account here with TOKEN"
+                        , button
+                            [ onClick Logout
+                            , class "btn btn-link mb-3"
+                            ]
+                            [ text "Déconnexion" ]
                         ]
-                        [ text "Déconnexion" ]
 
                   else
                     div [ class "row d-flex justify-content-center" ]
