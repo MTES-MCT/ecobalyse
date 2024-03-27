@@ -85,6 +85,11 @@
       "sea": 4815,
       "air": 1892
     },
+    "BD": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
     "REO": {
       "road": 27584,
       "sea": 13824,
@@ -207,6 +212,11 @@
       "sea": 20931,
       "air": 17869
     },
+    "BR": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
     "REO": {
       "road": null,
       "sea": 7695,
@@ -324,6 +334,11 @@
       "sea": 4704,
       "air": 2107
     },
+    "CN": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
     "REO": {
       "road": 9977,
       "sea": 20899,
@@ -436,6 +451,11 @@
       "sea": 16469,
       "air": 10499
     },
+    "ES": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
     "REO": {
       "road": 500,
       "sea": null,
@@ -543,6 +563,11 @@
       "sea": 17119,
       "air": 9787
     },
+    "FR": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
     "REO": {
       "road": 912,
       "sea": 1672,
@@ -585,806 +610,6 @@
     }
   },
   "IN": {
-    "IT": {
-      "road": 20303,
-      "sea": 8128,
-      "air": 6436
-    },
-    "KE": {
-      "road": null,
-      "sea": 5186,
-      "air": 4736
-    },
-    "KH": {
-      "road": 11851,
-      "sea": 6020,
-      "air": 3083
-    },
-    "MA": {
-      "road": null,
-      "sea": 9793,
-      "air": 8132
-    },
-    "MM": {
-      "road": 3109,
-      "sea": 4625,
-      "air": 2193
-    },
-    "NZ": {
-      "road": null,
-      "sea": 14067,
-      "air": 12016
-    },
-    "PE": {
-      "road": null,
-      "sea": 19978,
-      "air": 16929
-    },
-    "PK": {
-      "road": 2263,
-      "sea": 2181,
-      "air": 1313
-    },
-    "TN": {
-      "road": null,
-      "sea": 8049,
-      "air": 6806
-    },
-    "TR": {
-      "road": 15041,
-      "sea": 6670,
-      "air": 4531
-    },
-    "US": {
-      "road": null,
-      "sea": 19102,
-      "air": 13554
-    },
-    "VN": {
-      "road": 11470,
-      "sea": 6845,
-      "air": 3099
-    },
-    "REO": {
-      "road": 25614,
-      "sea": 11311,
-      "air": 7860
-    },
-    "REE": {
-      "road": 20861,
-      "sea": 8601,
-      "air": 6298
-    },
-    "RAS": {
-      "road": 4758,
-      "sea": 11274,
-      "air": 3210
-    },
-    "RAF": {
-      "road": null,
-      "sea": 3649,
-      "air": 4404
-    },
-    "RME": {
-      "road": 15041,
-      "sea": 6670,
-      "air": 4531
-    },
-    "RLA": {
-      "road": null,
-      "sea": 16189,
-      "air": 14772
-    },
-    "RNA": {
-      "road": null,
-      "sea": 19102,
-      "air": 13554
-    },
-    "ROC": {
-      "road": null,
-      "sea": 9770,
-      "air": 7969
-    }
-  },
-  "IT": {
-    "KE": {
-      "road": null,
-      "sea": 8012,
-      "air": 5269
-    },
-    "KH": {
-      "road": 30814,
-      "sea": 12462,
-      "air": 9214
-    },
-    "MA": {
-      "road": null,
-      "sea": 3152,
-      "air": 1977
-    },
-    "MM": {
-      "road": 27229,
-      "sea": 11104,
-      "air": 7999
-    },
-    "NZ": {
-      "road": null,
-      "sea": 20469,
-      "air": 18450
-    },
-    "PE": {
-      "road": null,
-      "sea": 13346,
-      "air": 10665
-    },
-    "PK": {
-      "road": 6283,
-      "sea": 8398,
-      "air": 5217
-    },
-    "TN": {
-      "road": null,
-      "sea": 1594,
-      "air": 1036
-    },
-    "TR": {
-      "road": 2527,
-      "sea": 2228,
-      "air": 1909
-    },
-    "US": {
-      "road": null,
-      "sea": 12465,
-      "air": 8599
-    },
-    "VN": {
-      "road": 30110,
-      "sea": 13286,
-      "air": 9070
-    },
-    "REO": {
-      "road": 1672,
-      "sea": 4669,
-      "air": 1439
-    },
-    "REE": {
-      "road": 1024,
-      "sea": 694,
-      "air": 796
-    },
-    "RAS": {
-      "road": 8870,
-      "sea": 17716,
-      "air": 7630
-    },
-    "RAF": {
-      "road": null,
-      "sea": 4687,
-      "air": 4577
-    },
-    "RME": {
-      "road": 2527,
-      "sea": 2228,
-      "air": 1909
-    },
-    "RLA": {
-      "road": null,
-      "sea": 9548,
-      "air": 9012
-    },
-    "RNA": {
-      "road": null,
-      "sea": 12465,
-      "air": 8599
-    },
-    "ROC": {
-      "road": null,
-      "sea": 15670,
-      "air": 14404
-    }
-  },
-  "KE": {
-    "KH": {
-      "road": null,
-      "sea": 8841,
-      "air": 7500
-    },
-    "MA": {
-      "road": 13755,
-      "sea": 9726,
-      "air": 5666
-    },
-    "MM": {
-      "road": null,
-      "sea": 7556,
-      "air": 6894
-    },
-    "NZ": {
-      "road": null,
-      "sea": 14149,
-      "air": 13760
-    },
-    "PE": {
-      "road": null,
-      "sea": 19703,
-      "air": 12668
-    },
-    "PK": {
-      "road": null,
-      "sea": 5622,
-      "air": 4664
-    },
-    "TN": {
-      "road": 6470,
-      "sea": 7964,
-      "air": 4740
-    },
-    "TR": {
-      "road": null,
-      "sea": 6539,
-      "air": 4219
-    },
-    "US": {
-      "road": null,
-      "sea": 18244,
-      "air": 13701
-    },
-    "VN": {
-      "road": null,
-      "sea": 9523,
-      "air": 7635
-    },
-    "REO": {
-      "road": null,
-      "sea": 11276,
-      "air": 6054
-    },
-    "REE": {
-      "road": null,
-      "sea": 8383,
-      "air": 5811
-    },
-    "RAS": {
-      "road": null,
-      "sea": 14016,
-      "air": 7866
-    },
-    "RAF": {
-      "road": 1025,
-      "sea": 3501,
-      "air": 774
-    },
-    "RME": {
-      "road": null,
-      "sea": 6539,
-      "air": 4219
-    },
-    "RLA": {
-      "road": null,
-      "sea": 14094,
-      "air": 10366
-    },
-    "RNA": {
-      "road": null,
-      "sea": 18244,
-      "air": 13701
-    },
-    "ROC": {
-      "road": null,
-      "sea": 10608,
-      "air": 10562
-    }
-  },
-  "KH": {
-    "MA": {
-      "road": null,
-      "sea": 14127,
-      "air": 11068
-    },
-    "MM": {
-      "road": 1909,
-      "sea": 4093,
-      "air": 1242
-    },
-    "NZ": {
-      "road": null,
-      "sea": 9625,
-      "air": 9258
-    },
-    "PE": {
-      "road": null,
-      "sea": 19933,
-      "air": 19657
-    },
-    "PK": {
-      "road": 15555,
-      "sea": 7489,
-      "air": 4062
-    },
-    "TN": {
-      "road": null,
-      "sea": 12382,
-      "air": 9757
-    },
-    "TR": {
-      "road": 25323,
-      "sea": 10934,
-      "air": 7389
-    },
-    "US": {
-      "road": null,
-      "sea": 23101,
-      "air": 13914
-    },
-    "VN": {
-      "road": 530,
-      "sea": 1333,
-      "air": 349
-    },
-    "REO": {
-      "road": 34608,
-      "sea": 15644,
-      "air": 10649
-    },
-    "REE": {
-      "road": 29303,
-      "sea": 13074,
-      "air": 8881
-    },
-    "RAS": {
-      "road": 3100,
-      "sea": 5771,
-      "air": 2437
-    },
-    "RAF": {
-      "road": null,
-      "sea": 7950,
-      "air": 7337
-    },
-    "RME": {
-      "road": 25323,
-      "sea": 10934,
-      "air": 7389
-    },
-    "RLA": {
-      "road": null,
-      "sea": 20106,
-      "air": 17829
-    },
-    "RNA": {
-      "road": null,
-      "sea": 23101,
-      "air": 13914
-    },
-    "ROC": {
-      "road": null,
-      "sea": 6964,
-      "air": 5361
-    }
-  },
-  "MA": {
-    "MM": {
-      "road": null,
-      "sea": 12769,
-      "air": 9886
-    },
-    "NZ": {
-      "road": null,
-      "sea": 22131,
-      "air": 19001
-    },
-    "PE": {
-      "road": null,
-      "sea": 10243,
-      "air": 8852
-    },
-    "PK": {
-      "road": null,
-      "sea": 10112,
-      "air": 7012
-    },
-    "TN": {
-      "road": 1910,
-      "sea": 2176,
-      "air": 1326
-    },
-    "TR": {
-      "road": null,
-      "sea": 3941,
-      "air": 3681
-    },
-    "US": {
-      "road": null,
-      "sea": 9509,
-      "air": 8064
-    },
-    "VN": {
-      "road": null,
-      "sea": 14952,
-      "air": 10957
-    },
-    "REO": {
-      "road": null,
-      "sea": 1891,
-      "air": 892
-    },
-    "REE": {
-      "road": null,
-      "sea": 3729,
-      "air": 2604
-    },
-    "RAS": {
-      "road": null,
-      "sea": 19381,
-      "air": 9604
-    },
-    "RAF": {
-      "road": 17569,
-      "sea": 6353,
-      "air": 5174
-    },
-    "RME": {
-      "road": null,
-      "sea": 3941,
-      "air": 3681
-    },
-    "RLA": {
-      "road": null,
-      "sea": 6422,
-      "air": 7061
-    },
-    "RNA": {
-      "road": null,
-      "sea": 9509,
-      "air": 8064
-    },
-    "ROC": {
-      "road": null,
-      "sea": 17336,
-      "air": 15943
-    }
-  },
-  "MM": {
-    "NZ": {
-      "road": null,
-      "sea": 12179,
-      "air": 10483
-    },
-    "PE": {
-      "road": null,
-      "sea": 22663,
-      "air": 18535
-    },
-    "PK": {
-      "road": 3795,
-      "sea": 6039,
-      "air": 2931
-    },
-    "TN": {
-      "road": null,
-      "sea": 11024,
-      "air": 8590
-    },
-    "TR": {
-      "road": 7455,
-      "sea": 9576,
-      "air": 6208
-    },
-    "US": {
-      "road": null,
-      "sea": 26435,
-      "air": 13181
-    },
-    "VN": {
-      "road": 1468,
-      "sea": 4918,
-      "air": 1072
-    },
-    "REO": {
-      "road": 31035,
-      "sea": 14286,
-      "air": 9430
-    },
-    "REE": {
-      "road": 25678,
-      "sea": 11661,
-      "air": 7645
-    },
-    "RAS": {
-      "road": 1983,
-      "sea": 9348,
-      "air": 1594
-    },
-    "RAF": {
-      "road": null,
-      "sea": 6592,
-      "air": 6596
-    },
-    "RME": {
-      "road": 7455,
-      "sea": 9576,
-      "air": 6208
-    },
-    "RLA": {
-      "road": null,
-      "sea": 19506,
-      "air": 16857
-    },
-    "RNA": {
-      "road": null,
-      "sea": 26435,
-      "air": 13181
-    },
-    "ROC": {
-      "road": null,
-      "sea": 8885,
-      "air": 6603
-    }
-  },
-  "NZ": {
-    "PE": {
-      "road": null,
-      "sea": 10704,
-      "air": 10917
-    },
-    "PK": {
-      "road": null,
-      "sea": 15659,
-      "air": 13234
-    },
-    "TN": {
-      "road": null,
-      "sea": 20389,
-      "air": 18485
-    },
-    "TR": {
-      "road": null,
-      "sea": 18942,
-      "air": 16547
-    },
-    "US": {
-      "road": null,
-      "sea": 15880,
-      "air": 12569
-    },
-    "VN": {
-      "road": null,
-      "sea": 9484,
-      "air": 9416
-    },
-    "REO": {
-      "road": null,
-      "sea": 23649,
-      "air": 19814
-    },
-    "REE": {
-      "road": null,
-      "sea": 19719,
-      "air": 18081
-    },
-    "RAS": {
-      "road": null,
-      "sea": 11949,
-      "air": 10977
-    },
-    "RAF": {
-      "road": null,
-      "sea": 15958,
-      "air": 14348
-    },
-    "RME": {
-      "road": null,
-      "sea": 18942,
-      "air": 16547
-    },
-    "RLA": {
-      "road": null,
-      "sea": 21910,
-      "air": 12462
-    },
-    "RNA": {
-      "road": null,
-      "sea": 15880,
-      "air": 12569
-    },
-    "ROC": {
-      "road": null,
-      "sea": 3897,
-      "air": 4049
-    }
-  },
-  "PE": {
-    "PK": {
-      "road": null,
-      "sea": 20542,
-      "air": 15861
-    },
-    "TN": {
-      "road": null,
-      "sea": 12370,
-      "air": 10173
-    },
-    "TR": {
-      "road": null,
-      "sea": 14093,
-      "air": 12519
-    },
-    "US": {
-      "road": null,
-      "sea": 6145,
-      "air": 5746
-    },
-    "VN": {
-      "road": null,
-      "sea": 19411,
-      "air": 19308
-    },
-    "REO": {
-      "road": null,
-      "sea": 11052,
-      "air": 9226
-    },
-    "REE": {
-      "road": null,
-      "sea": 13816,
-      "air": 10958
-    },
-    "RAS": {
-      "road": null,
-      "sea": 19362,
-      "air": 17233
-    },
-    "RAF": {
-      "road": null,
-      "sea": 16547,
-      "air": 12787
-    },
-    "RME": {
-      "road": null,
-      "sea": 14093,
-      "air": 12519
-    },
-    "RLA": {
-      "road": 3429,
-      "sea": 6907,
-      "air": 2302
-    },
-    "RNA": {
-      "road": null,
-      "sea": 6145,
-      "air": 5746
-    },
-    "ROC": {
-      "road": null,
-      "sea": 15097,
-      "air": 14861
-    }
-  },
-  "PK": {
-    "TN": {
-      "road": null,
-      "sea": 8350,
-      "air": 5696
-    },
-    "TR": {
-      "road": 3741,
-      "sea": 6925,
-      "air": 3342
-    },
-    "US": {
-      "road": null,
-      "sea": 18630,
-      "air": 12357
-    },
-    "VN": {
-      "road": 14986,
-      "sea": 8308,
-      "air": 3981
-    },
-    "REO": {
-      "road": 7520,
-      "sea": 11764,
-      "air": 6654
-    },
-    "REE": {
-      "road": 5936,
-      "sea": 8905,
-      "air": 5017
-    },
-    "RAS": {
-      "road": 4492,
-      "sea": 12627,
-      "air": 3318
-    },
-    "RAF": {
-      "road": null,
-      "sea": 3903,
-      "air": 4130
-    },
-    "RME": {
-      "road": 3741,
-      "sea": 6925,
-      "air": 3342
-    },
-    "RLA": {
-      "road": null,
-      "sea": 16457,
-      "air": 13927
-    },
-    "RNA": {
-      "road": null,
-      "sea": 18630,
-      "air": 12357
-    },
-    "ROC": {
-      "road": null,
-      "sea": 11173,
-      "air": 9206
-    }
-  },
-  "TN": {
-    "TR": {
-      "road": null,
-      "sea": 2276,
-      "air": 2386
-    },
-    "US": {
-      "road": null,
-      "sea": 11491,
-      "air": 8976
-    },
-    "VN": {
-      "road": null,
-      "sea": 13207,
-      "air": 9658
-    }
-  },
-  "TR": {
-    "US": {
-      "road": null,
-      "sea": 13255,
-      "air": 10173
-    },
-    "VN": {
-      "road": 24341,
-      "sea": 11743,
-      "air": 7278
-    }
-  },
-  "US": {
-    "VN": {
-      "road": null,
-      "sea": 22368,
-      "air": 13565
-    }
-  },
-  "VN": {},
-  "---": {
-    "BD": {
-      "road": 1503,
-      "sea": 4187,
-      "air": 1413
-    },
-    "BR": {
-      "road": null,
-      "sea": 16189,
-      "air": 14772
-    },
-    "CN": {
-      "road": 4758,
-      "sea": 11274,
-      "air": 3210
-    },
-    "ES": {
-      "road": 25614,
-      "sea": 11311,
-      "air": 7860
-    },
-    "FR": {
-      "road": 23612,
-      "sea": 11961,
-      "air": 7291
-    },
     "IT": {
       "road": 20303,
       "sea": 8128,
@@ -1491,6 +716,877 @@
       "air": 7969
     }
   },
+  "IT": {
+    "KE": {
+      "road": null,
+      "sea": 8012,
+      "air": 5269
+    },
+    "KH": {
+      "road": 30814,
+      "sea": 12462,
+      "air": 9214
+    },
+    "MA": {
+      "road": null,
+      "sea": 3152,
+      "air": 1977
+    },
+    "MM": {
+      "road": 27229,
+      "sea": 11104,
+      "air": 7999
+    },
+    "NZ": {
+      "road": null,
+      "sea": 20469,
+      "air": 18450
+    },
+    "PE": {
+      "road": null,
+      "sea": 13346,
+      "air": 10665
+    },
+    "PK": {
+      "road": 6283,
+      "sea": 8398,
+      "air": 5217
+    },
+    "TN": {
+      "road": null,
+      "sea": 1594,
+      "air": 1036
+    },
+    "TR": {
+      "road": 2527,
+      "sea": 2228,
+      "air": 1909
+    },
+    "US": {
+      "road": null,
+      "sea": 12465,
+      "air": 8599
+    },
+    "VN": {
+      "road": 30110,
+      "sea": 13286,
+      "air": 9070
+    },
+    "IT": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "REO": {
+      "road": 1672,
+      "sea": 4669,
+      "air": 1439
+    },
+    "REE": {
+      "road": 1024,
+      "sea": 694,
+      "air": 796
+    },
+    "RAS": {
+      "road": 8870,
+      "sea": 17716,
+      "air": 7630
+    },
+    "RAF": {
+      "road": null,
+      "sea": 4687,
+      "air": 4577
+    },
+    "RME": {
+      "road": 2527,
+      "sea": 2228,
+      "air": 1909
+    },
+    "RLA": {
+      "road": null,
+      "sea": 9548,
+      "air": 9012
+    },
+    "RNA": {
+      "road": null,
+      "sea": 12465,
+      "air": 8599
+    },
+    "ROC": {
+      "road": null,
+      "sea": 15670,
+      "air": 14404
+    }
+  },
+  "KE": {
+    "KH": {
+      "road": null,
+      "sea": 8841,
+      "air": 7500
+    },
+    "MA": {
+      "road": 13755,
+      "sea": 9726,
+      "air": 5666
+    },
+    "MM": {
+      "road": null,
+      "sea": 7556,
+      "air": 6894
+    },
+    "NZ": {
+      "road": null,
+      "sea": 14149,
+      "air": 13760
+    },
+    "PE": {
+      "road": null,
+      "sea": 19703,
+      "air": 12668
+    },
+    "PK": {
+      "road": null,
+      "sea": 5622,
+      "air": 4664
+    },
+    "TN": {
+      "road": 6470,
+      "sea": 7964,
+      "air": 4740
+    },
+    "TR": {
+      "road": null,
+      "sea": 6539,
+      "air": 4219
+    },
+    "US": {
+      "road": null,
+      "sea": 18244,
+      "air": 13701
+    },
+    "VN": {
+      "road": null,
+      "sea": 9523,
+      "air": 7635
+    },
+    "KE": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "REO": {
+      "road": null,
+      "sea": 11276,
+      "air": 6054
+    },
+    "REE": {
+      "road": null,
+      "sea": 8383,
+      "air": 5811
+    },
+    "RAS": {
+      "road": null,
+      "sea": 14016,
+      "air": 7866
+    },
+    "RAF": {
+      "road": 1025,
+      "sea": 3501,
+      "air": 774
+    },
+    "RME": {
+      "road": null,
+      "sea": 6539,
+      "air": 4219
+    },
+    "RLA": {
+      "road": null,
+      "sea": 14094,
+      "air": 10366
+    },
+    "RNA": {
+      "road": null,
+      "sea": 18244,
+      "air": 13701
+    },
+    "ROC": {
+      "road": null,
+      "sea": 10608,
+      "air": 10562
+    }
+  },
+  "KH": {
+    "MA": {
+      "road": null,
+      "sea": 14127,
+      "air": 11068
+    },
+    "MM": {
+      "road": 1909,
+      "sea": 4093,
+      "air": 1242
+    },
+    "NZ": {
+      "road": null,
+      "sea": 9625,
+      "air": 9258
+    },
+    "PE": {
+      "road": null,
+      "sea": 19933,
+      "air": 19657
+    },
+    "PK": {
+      "road": 15555,
+      "sea": 7489,
+      "air": 4062
+    },
+    "TN": {
+      "road": null,
+      "sea": 12382,
+      "air": 9757
+    },
+    "TR": {
+      "road": 25323,
+      "sea": 10934,
+      "air": 7389
+    },
+    "US": {
+      "road": null,
+      "sea": 23101,
+      "air": 13914
+    },
+    "VN": {
+      "road": 530,
+      "sea": 1333,
+      "air": 349
+    },
+    "KH": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "REO": {
+      "road": 34608,
+      "sea": 15644,
+      "air": 10649
+    },
+    "REE": {
+      "road": 29303,
+      "sea": 13074,
+      "air": 8881
+    },
+    "RAS": {
+      "road": 3100,
+      "sea": 5771,
+      "air": 2437
+    },
+    "RAF": {
+      "road": null,
+      "sea": 7950,
+      "air": 7337
+    },
+    "RME": {
+      "road": 25323,
+      "sea": 10934,
+      "air": 7389
+    },
+    "RLA": {
+      "road": null,
+      "sea": 20106,
+      "air": 17829
+    },
+    "RNA": {
+      "road": null,
+      "sea": 23101,
+      "air": 13914
+    },
+    "ROC": {
+      "road": null,
+      "sea": 6964,
+      "air": 5361
+    }
+  },
+  "MA": {
+    "MM": {
+      "road": null,
+      "sea": 12769,
+      "air": 9886
+    },
+    "NZ": {
+      "road": null,
+      "sea": 22131,
+      "air": 19001
+    },
+    "PE": {
+      "road": null,
+      "sea": 10243,
+      "air": 8852
+    },
+    "PK": {
+      "road": null,
+      "sea": 10112,
+      "air": 7012
+    },
+    "TN": {
+      "road": 1910,
+      "sea": 2176,
+      "air": 1326
+    },
+    "TR": {
+      "road": null,
+      "sea": 3941,
+      "air": 3681
+    },
+    "US": {
+      "road": null,
+      "sea": 9509,
+      "air": 8064
+    },
+    "VN": {
+      "road": null,
+      "sea": 14952,
+      "air": 10957
+    },
+    "MA": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "REO": {
+      "road": null,
+      "sea": 1891,
+      "air": 892
+    },
+    "REE": {
+      "road": null,
+      "sea": 3729,
+      "air": 2604
+    },
+    "RAS": {
+      "road": null,
+      "sea": 19381,
+      "air": 9604
+    },
+    "RAF": {
+      "road": 17569,
+      "sea": 6353,
+      "air": 5174
+    },
+    "RME": {
+      "road": null,
+      "sea": 3941,
+      "air": 3681
+    },
+    "RLA": {
+      "road": null,
+      "sea": 6422,
+      "air": 7061
+    },
+    "RNA": {
+      "road": null,
+      "sea": 9509,
+      "air": 8064
+    },
+    "ROC": {
+      "road": null,
+      "sea": 17336,
+      "air": 15943
+    }
+  },
+  "MM": {
+    "NZ": {
+      "road": null,
+      "sea": 12179,
+      "air": 10483
+    },
+    "PE": {
+      "road": null,
+      "sea": 22663,
+      "air": 18535
+    },
+    "PK": {
+      "road": 3795,
+      "sea": 6039,
+      "air": 2931
+    },
+    "TN": {
+      "road": null,
+      "sea": 11024,
+      "air": 8590
+    },
+    "TR": {
+      "road": 7455,
+      "sea": 9576,
+      "air": 6208
+    },
+    "US": {
+      "road": null,
+      "sea": 26435,
+      "air": 13181
+    },
+    "VN": {
+      "road": 1468,
+      "sea": 4918,
+      "air": 1072
+    },
+    "MM": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "REO": {
+      "road": 31035,
+      "sea": 14286,
+      "air": 9430
+    },
+    "REE": {
+      "road": 25678,
+      "sea": 11661,
+      "air": 7645
+    },
+    "RAS": {
+      "road": 1983,
+      "sea": 9348,
+      "air": 1594
+    },
+    "RAF": {
+      "road": null,
+      "sea": 6592,
+      "air": 6596
+    },
+    "RME": {
+      "road": 7455,
+      "sea": 9576,
+      "air": 6208
+    },
+    "RLA": {
+      "road": null,
+      "sea": 19506,
+      "air": 16857
+    },
+    "RNA": {
+      "road": null,
+      "sea": 26435,
+      "air": 13181
+    },
+    "ROC": {
+      "road": null,
+      "sea": 8885,
+      "air": 6603
+    }
+  },
+  "NZ": {
+    "PE": {
+      "road": null,
+      "sea": 10704,
+      "air": 10917
+    },
+    "PK": {
+      "road": null,
+      "sea": 15659,
+      "air": 13234
+    },
+    "TN": {
+      "road": null,
+      "sea": 20389,
+      "air": 18485
+    },
+    "TR": {
+      "road": null,
+      "sea": 18942,
+      "air": 16547
+    },
+    "US": {
+      "road": null,
+      "sea": 15880,
+      "air": 12569
+    },
+    "VN": {
+      "road": null,
+      "sea": 9484,
+      "air": 9416
+    },
+    "NZ": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "REO": {
+      "road": null,
+      "sea": 23649,
+      "air": 19814
+    },
+    "REE": {
+      "road": null,
+      "sea": 19719,
+      "air": 18081
+    },
+    "RAS": {
+      "road": null,
+      "sea": 11949,
+      "air": 10977
+    },
+    "RAF": {
+      "road": null,
+      "sea": 15958,
+      "air": 14348
+    },
+    "RME": {
+      "road": null,
+      "sea": 18942,
+      "air": 16547
+    },
+    "RLA": {
+      "road": null,
+      "sea": 21910,
+      "air": 12462
+    },
+    "RNA": {
+      "road": null,
+      "sea": 15880,
+      "air": 12569
+    },
+    "ROC": {
+      "road": null,
+      "sea": 3897,
+      "air": 4049
+    }
+  },
+  "PE": {
+    "PK": {
+      "road": null,
+      "sea": 20542,
+      "air": 15861
+    },
+    "TN": {
+      "road": null,
+      "sea": 12370,
+      "air": 10173
+    },
+    "TR": {
+      "road": null,
+      "sea": 14093,
+      "air": 12519
+    },
+    "US": {
+      "road": null,
+      "sea": 6145,
+      "air": 5746
+    },
+    "VN": {
+      "road": null,
+      "sea": 19411,
+      "air": 19308
+    },
+    "PE": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "REO": {
+      "road": null,
+      "sea": 11052,
+      "air": 9226
+    },
+    "REE": {
+      "road": null,
+      "sea": 13816,
+      "air": 10958
+    },
+    "RAS": {
+      "road": null,
+      "sea": 19362,
+      "air": 17233
+    },
+    "RAF": {
+      "road": null,
+      "sea": 16547,
+      "air": 12787
+    },
+    "RME": {
+      "road": null,
+      "sea": 14093,
+      "air": 12519
+    },
+    "RLA": {
+      "road": 3429,
+      "sea": 6907,
+      "air": 2302
+    },
+    "RNA": {
+      "road": null,
+      "sea": 6145,
+      "air": 5746
+    },
+    "ROC": {
+      "road": null,
+      "sea": 15097,
+      "air": 14861
+    }
+  },
+  "PK": {
+    "TN": {
+      "road": null,
+      "sea": 8350,
+      "air": 5696
+    },
+    "TR": {
+      "road": 3741,
+      "sea": 6925,
+      "air": 3342
+    },
+    "US": {
+      "road": null,
+      "sea": 18630,
+      "air": 12357
+    },
+    "VN": {
+      "road": 14986,
+      "sea": 8308,
+      "air": 3981
+    },
+    "PK": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "REO": {
+      "road": 7520,
+      "sea": 11764,
+      "air": 6654
+    },
+    "REE": {
+      "road": 5936,
+      "sea": 8905,
+      "air": 5017
+    },
+    "RAS": {
+      "road": 4492,
+      "sea": 12627,
+      "air": 3318
+    },
+    "RAF": {
+      "road": null,
+      "sea": 3903,
+      "air": 4130
+    },
+    "RME": {
+      "road": 3741,
+      "sea": 6925,
+      "air": 3342
+    },
+    "RLA": {
+      "road": null,
+      "sea": 16457,
+      "air": 13927
+    },
+    "RNA": {
+      "road": null,
+      "sea": 18630,
+      "air": 12357
+    },
+    "ROC": {
+      "road": null,
+      "sea": 11173,
+      "air": 9206
+    }
+  },
+  "TN": {
+    "TR": {
+      "road": null,
+      "sea": 2276,
+      "air": 2386
+    },
+    "US": {
+      "road": null,
+      "sea": 11491,
+      "air": 8976
+    },
+    "VN": {
+      "road": null,
+      "sea": 13207,
+      "air": 9658
+    },
+    "TN": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    }
+  },
+  "TR": {
+    "US": {
+      "road": null,
+      "sea": 13255,
+      "air": 10173
+    },
+    "VN": {
+      "road": 24341,
+      "sea": 11743,
+      "air": 7278
+    },
+    "TR": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    }
+  },
+  "US": {
+    "VN": {
+      "road": null,
+      "sea": 22368,
+      "air": 13565
+    },
+    "US": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    }
+  },
+  "VN": {
+    "VN": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    }
+  },
+  "---": {
+    "BD": {
+      "road": 1503,
+      "sea": 4187,
+      "air": 1413
+    },
+    "BR": {
+      "road": null,
+      "sea": 16189,
+      "air": 14772
+    },
+    "CN": {
+      "road": 4758,
+      "sea": 11274,
+      "air": 3210
+    },
+    "ES": {
+      "road": 25614,
+      "sea": 11311,
+      "air": 7860
+    },
+    "FR": {
+      "road": 23612,
+      "sea": 11961,
+      "air": 7291
+    },
+    "IT": {
+      "road": 20303,
+      "sea": 8128,
+      "air": 6436
+    },
+    "KE": {
+      "road": null,
+      "sea": 5186,
+      "air": 4736
+    },
+    "KH": {
+      "road": 11851,
+      "sea": 6020,
+      "air": 3083
+    },
+    "MA": {
+      "road": null,
+      "sea": 9793,
+      "air": 8132
+    },
+    "MM": {
+      "road": 3109,
+      "sea": 4625,
+      "air": 2193
+    },
+    "NZ": {
+      "road": null,
+      "sea": 14067,
+      "air": 12016
+    },
+    "PE": {
+      "road": null,
+      "sea": 19978,
+      "air": 16929
+    },
+    "PK": {
+      "road": 2263,
+      "sea": 2181,
+      "air": 1313
+    },
+    "TN": {
+      "road": null,
+      "sea": 8049,
+      "air": 6806
+    },
+    "TR": {
+      "road": 15041,
+      "sea": 6670,
+      "air": 4531
+    },
+    "US": {
+      "road": null,
+      "sea": 19102,
+      "air": 13554
+    },
+    "VN": {
+      "road": 11470,
+      "sea": 6845,
+      "air": 3099
+    },
+    "IN": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "---": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
+    "REO": {
+      "road": 25614,
+      "sea": 11311,
+      "air": 7860
+    },
+    "REE": {
+      "road": 20861,
+      "sea": 8601,
+      "air": 6298
+    },
+    "RAS": {
+      "road": 4758,
+      "sea": 11274,
+      "air": 3210
+    },
+    "RAF": {
+      "road": null,
+      "sea": 3649,
+      "air": 4404
+    },
+    "RME": {
+      "road": 15041,
+      "sea": 6670,
+      "air": 4531
+    },
+    "RLA": {
+      "road": null,
+      "sea": 16189,
+      "air": 14772
+    },
+    "RNA": {
+      "road": null,
+      "sea": 19102,
+      "air": 13554
+    },
+    "ROC": {
+      "road": null,
+      "sea": 9770,
+      "air": 7969
+    }
+  },
   "REO": {
     "TN": {
       "road": null,
@@ -1511,6 +1607,11 @@
       "road": 33893,
       "sea": 16469,
       "air": 10499
+    },
+    "REO": {
+      "road": 500,
+      "sea": null,
+      "air": 500
     },
     "RME": {
       "road": 3773,
@@ -1558,6 +1659,11 @@
       "road": 2133,
       "sea": 5124,
       "air": 1875
+    },
+    "REE": {
+      "road": 500,
+      "sea": null,
+      "air": 500
     },
     "RME": {
       "road": 2176,
@@ -1610,6 +1716,11 @@
       "road": 7931,
       "sea": 18166,
       "air": 7105
+    },
+    "RAS": {
+      "road": 500,
+      "sea": null,
+      "air": 500
     },
     "RME": {
       "road": 7258,
@@ -1668,6 +1779,11 @@
       "sea": 13204,
       "air": 7413
     },
+    "RAF": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
     "RME": {
       "road": null,
       "sea": 3203,
@@ -1710,6 +1826,11 @@
       "sea": null,
       "air": 500
     },
+    "RME": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
     "RNA": {
       "road": null,
       "sea": 13255,
@@ -1747,6 +1868,11 @@
       "sea": 10337,
       "air": 10704
     },
+    "RLA": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
     "RNA": {
       "road": null,
       "sea": 7499,
@@ -1779,6 +1905,11 @@
       "sea": null,
       "air": 500
     },
+    "RNA": {
+      "road": 500,
+      "sea": null,
+      "air": 500
+    },
     "ROC": {
       "road": null,
       "sea": 25624,
@@ -1805,6 +1936,11 @@
       "road": null,
       "sea": 7676,
       "air": 5581
+    },
+    "ROC": {
+      "road": 500,
+      "sea": null,
+      "air": 500
     }
   }
 }

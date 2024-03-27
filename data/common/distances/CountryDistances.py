@@ -1,6 +1,14 @@
 class CountryDistances:
     def __init__(self, distances):
         self.distances = self._convert_distances(distances)
+        self._all_countries = set()
+        self._update_all_countries()
+
+    self_distance = {
+        "road": 500,
+        "sea": None,
+        "air": 500,
+    }
 
     def _convert_distances(self, distances):
         """
@@ -12,6 +20,15 @@ class CountryDistances:
                 key = "|".join(sorted([countryA, countryB]))
                 flat_distances[key] = distance
         return flat_distances
+
+    def _update_all_countries(self):
+        """
+        Returns a set of all countries for which distances are defined.
+        """
+        countries = set()
+        for key in self.distances.keys():
+            countries.update(key.split("|"))
+        self._all_countries = countries
 
     def get(self, countryA, countryB):
         """
@@ -25,17 +42,14 @@ class CountryDistances:
         Validates that each country has a distance defined for all other countries in the dataset.
         Returns True if validation passes, otherwise raises a ValueError with details.
         """
-        countries = set()
-        for key in self.distances.keys():
-            countries.update(key.split("|"))
+        countries = self._all_countries
 
         missing_pairs = set()
         for countryA in countries:
             for countryB in countries:
-                if countryA != countryB:
-                    key = "|".join(sorted([countryA, countryB]))
-                    if key not in self.distances:
-                        missing_pairs.add(key)
+                key = "|".join(sorted([countryA, countryB]))
+                if key not in self.distances:
+                    missing_pairs.add(key)
 
         if missing_pairs:
             raise ValueError(f"Missing distances for country pairs: {missing_pairs}")
@@ -50,7 +64,8 @@ class CountryDistances:
             if country in key:
                 # Extract the other country's name and map the distance
                 other_country = key.replace(country, "").replace("|", "")
-                country_distances[other_country] = distance
+                if other_country:
+                    country_distances[other_country] = distance
         return country_distances
 
     def add_country(self, country, distances):
@@ -58,11 +73,10 @@ class CountryDistances:
         Adds a new country and its distances to other countries.
         """
         for countryB, distance in distances.items():
-            # Ensure we add distances in both directions
             self.distances["|".join(sorted([country, countryB]))] = distance
-            if country != countryB:  # Avoid adding self distance if not necessary
-                self.distances["|".join(sorted([countryB, country]))] = distance
+
         self.validate()
+        self._update_all_countries()
 
     def export_to_nested_dict(self):
         """
@@ -84,12 +98,10 @@ class CountryDistances:
         )
         new_region_distances = self.extract_distances_for_country(corresponding_country)
         # We have to add the distance from the new_region to its corresponding country manually
-        new_region_distances[corresponding_country] = {
-            "road": 500,
-            "sea": None,
-            "air": 500,
-        }
+        new_region_distances[corresponding_country] = self.self_distance
+        new_region_distances[new_region] = self.self_distance
         self.add_country(new_region, new_region_distances)
+        self._update_all_countries()
 
     def delete_country(self, country):
         """
@@ -98,13 +110,13 @@ class CountryDistances:
         keys_to_delete = [key for key in self.distances if country in key.split("|")]
         for key in keys_to_delete:
             del self.distances[key]
-        self.validate()
+        self._update_all_countries()
 
-    def get_all_countries(self):
+    def add_self_distances(self):
         """
-        Returns a set of all countries for which distances are defined.
+        Adds a self-referential distance of 500 for each country.
         """
-        countries = set()
-        for key in self.distances.keys():
-            countries.update(key.split("|"))
-        return countries
+        for country in self._all_countries:
+            self.distances[f"{country}|{country}"] = self.self_distance
+
+        self._update_all_countries()

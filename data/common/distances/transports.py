@@ -25,11 +25,12 @@ if __name__ == "__main__":
     distances = load_json(INPUT_DISTANCES)
     country_distances = CountryDistances(distances)
 
-    countries_official_list = set([c["code"] for c in load_json(COUNTRIES_OFFICIAL)])
-    countries_all = country_distances.get_all_countries()
+    # add self distances
+    country_distances.add_self_distances()
 
+    countries_official_list = set([c["code"] for c in load_json(COUNTRIES_OFFICIAL)])
     # delete countries that are not needed
-    for country in countries_all:
+    for country in country_distances._all_countries:
         if (
             country not in countries_official_list
             and country not in placeholder_countries
@@ -42,9 +43,7 @@ if __name__ == "__main__":
     for country in placeholder_countries:
         country_distances.delete_country(country)
 
-    if (
-        countries_real := country_distances.get_all_countries()
-    ) != countries_official_list:
+    if (countries_real := country_distances._all_countries) != countries_official_list:
         missing_countries = countries_official_list - countries_real
         surplus_countries = countries_real - countries_official_list
         raise ValueError(
