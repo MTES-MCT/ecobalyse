@@ -170,6 +170,7 @@ def profile(request):
                     "last_name": u.last_name,
                     "company": u.company,
                     "terms_of_use": u.terms_of_use,
+                    "token": u.token,
                 }
             )
         else:

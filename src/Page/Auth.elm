@@ -67,6 +67,7 @@ type alias User =
     , lastname : String
     , company : String
     , cgu : Bool
+    , token : String
     }
 
 
@@ -92,6 +93,7 @@ formFromUser user =
     , lastname = user.lastname
     , company = user.company
     , cgu = user.cgu
+    , token = ""
     , next = "/#/auth/loggedIn"
     }
 
@@ -104,6 +106,7 @@ emptyModel { loggedIn } =
         , lastname = ""
         , company = ""
         , cgu = False
+        , token = ""
         }
     , response = Nothing
     , action = Register
@@ -304,7 +307,7 @@ viewAccount model =
             , dt []
                 [ text "TOKEN : " ]
             , dd []
-                [ text "to be done" ]
+                [ text model.user.token ]
             ]
         ]
 
@@ -662,6 +665,7 @@ decodeUserInfo =
         |> Pipe.required "last_name" Decode.string
         |> Pipe.required "company" Decode.string
         |> Pipe.required "terms_of_use" Decode.bool
+        |> Pipe.required "token" Decode.string
 
 
 encodeEmail : String -> Encode.Value
