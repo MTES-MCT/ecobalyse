@@ -168,9 +168,6 @@ Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 computeTransports : Db -> Inputs -> Step -> Step -> Step
 computeTransports db inputs next ({ processInfo } as current) =
     let
-        roadTransportProcess =
-            db.textile.wellKnown.roadTransport
-
         transport =
             if current.label == Label.Material then
                 inputs.materials
@@ -186,13 +183,13 @@ computeTransports db inputs next ({ processInfo } as current) =
                     |> computeTransportSummary current
                     |> computeTransportImpacts current.transport.impacts
                         db.textile.wellKnown
-                        roadTransportProcess
+                        db.textile.wellKnown.roadTransport
                         (getTransportedMass inputs current)
     in
     { current
         | processInfo =
             { processInfo
-                | roadTransport = Just roadTransportProcess.name
+                | roadTransport = Just db.textile.wellKnown.roadTransport.name
                 , seaTransport = Just db.textile.wellKnown.seaTransport.name
                 , airTransport = Just db.textile.wellKnown.airTransport.name
             }
