@@ -2,6 +2,7 @@ module Data.Textile.ExampleProduct exposing
     ( ExampleProduct
     , Uuid
     , decodeListFromJsonString
+    , findByQuery
     , findByUuid
     , toCategory
     , toName
@@ -45,6 +46,13 @@ findByUuid id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Exemple introuvable pour l'uuid " ++ uuidToString id)
+
+
+findByQuery : Query -> List ExampleProduct -> Result String ExampleProduct
+findByQuery query =
+    List.filter (.query >> (==) query)
+        >> List.head
+        >> Result.fromMaybe "Exemple introuvable "
 
 
 toCategory : List ExampleProduct -> Query -> String
