@@ -4,6 +4,7 @@ module Data.Country exposing
     , Country
     , codeFromString
     , codeToString
+    , convertRegion
     , decodeCode
     , decodeList
     , encode
@@ -42,6 +43,41 @@ type alias Country =
     , scopes : List Scope
     , aquaticPollutionScenario : AquaticPollutionScenario
     }
+
+
+convertRegion : Code -> Code
+convertRegion region =
+    -- replace the region with the corresponding country
+    case region of
+        Code "---" ->
+            Code "IN"
+
+        Code "REO" ->
+            Code "ES"
+
+        Code "REE" ->
+            Code "CZ"
+
+        Code "RAS" ->
+            Code "IN"
+
+        Code "RAF" ->
+            Code "ET"
+
+        Code "RME" ->
+            Code "TR"
+
+        Code "RLA" ->
+            Code "BR"
+
+        Code "RNA" ->
+            Code "US"
+
+        Code "ROC" ->
+            Code "AU"
+
+        _ ->
+            region
 
 
 codeFromString : String -> Code
