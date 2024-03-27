@@ -147,7 +147,7 @@ init trigram maybeUrlQuery session =
                 |> Simulator.compute session.db
     in
     ( { simulator = simulator
-      , bookmarkName = initialQuery |> findExistingBookmarkName session
+      , bookmarkName = initialQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
             if Session.isAuthenticated session then
@@ -183,24 +183,39 @@ init trigram maybeUrlQuery session =
     )
 
 
-findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { db, store } query =
-    store.bookmarks
-        |> Bookmark.findByTextileQuery query
-        |> Maybe.map .name
-        |> Maybe.withDefault
-            (query
+suggestBookmarkName : Session -> Query -> String
+suggestBookmarkName { db, store } query =
+    let
+        -- Existing user bookmark?
+        userBookmark =
+            store.bookmarks
+                |> Bookmark.findByTextileQuery query
+
+        -- Matching product example name?
+        exampleName =
+            db.textile.exampleProducts
+                |> ExampleProduct.findByQuery query
+                |> Result.toMaybe
+    in
+    case ( userBookmark, exampleName ) of
+        ( Just { name }, _ ) ->
+            name
+
+        ( _, Just { name } ) ->
+            name
+
+        _ ->
+            query
                 |> Inputs.fromQuery db
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
-            )
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
     ( { model
         | simulator = query |> Simulator.compute session.db
-        , bookmarkName = query |> findExistingBookmarkName session
+        , bookmarkName = query |> suggestBookmarkName session
       }
     , session |> Session.updateTextileQuery query
     , commands
