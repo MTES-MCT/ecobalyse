@@ -14,6 +14,7 @@ from mailauth.views import (
     LoginTokenView as MailauthLoginTokenView,
     LoginView as MailauthLoginView,
 )
+from authentication.models import EcobalyseUser
 import json
 import logging
 
@@ -176,5 +177,22 @@ def profile(request):
         else:
             return JsonResponse(
                 {"error": _("You must be authenticated to access this page")},
+                status=401,
+            )
+
+
+def check_token(request):
+    if request.method == "GET":
+        token = request.headers.get("token")
+        print("Token provided", token)
+        if EcobalyseUser.objects.filter(token=token):
+            return JsonResponse(
+                {
+                    "success": _("Token is verified"),
+                }
+            )
+        else:
+            return JsonResponse(
+                {"error": _("This token isn't valid")},
                 status=401,
             )
