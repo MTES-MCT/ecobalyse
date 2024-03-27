@@ -111,6 +111,8 @@ api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${clean
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   let processesFilename = "processes.json";
   if (req.headers.token) {
+    // TODO: there is no proxy in dev, so it needs to be the django's url
+    // const checkTokenUrl = `http://127.0.0.1:8000/accounts/check_token/`;
     const checkTokenUrl = `http://${host}:${port}/accounts/check_token/`;
     const isTokenValidRes = await fetch(
       checkTokenUrl,
@@ -119,6 +121,8 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
     if (isTokenValid) {
       // The request is authentified.
       processesFilename = "processes_impacts.json";
+    } else {
+      return res.status(401).send(JSON.stringify({"error": "Token is invalid"}));
     }
   }
   let processes;
