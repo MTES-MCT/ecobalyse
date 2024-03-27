@@ -2,7 +2,7 @@
 description: Cette page est un brouillon
 ---
 
-# Focus coton (draft)
+# Focus coton
 
 ## Généralités
 
@@ -49,7 +49,7 @@ Le production de fibres de coton consiste principalement à : \
 1\) produire les graines de coton (seed-cotton production),\
 2\) égrener (fibre production, cotton, ginning).
 
-Deux procédés sont sont disponibles dans Ecobalyse :&#x20;
+Quatre procédés sont disponibles dans Ecobalyse :&#x20;
 
 <details>
 
@@ -73,7 +73,23 @@ Ecobalyse a enrichi ce procédé avec une consommation d'eau liée à une irriga
 
 </details>
 
-<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts) de 1kg de coton (organique vs conventionnel) dans Ecobalyse .png" alt=""><figcaption><p>Coût environnemental de 1kg de coton dans Ecobalyse (conventionnel vs organique)</p></figcaption></figure>
+<details>
+
+<summary>Coton recyclé (déchets post-consommation)</summary>
+
+Ce procédé est issu de la Base Impacts (ADEME) car Ecoinvent ne propose pas de coton recyclé dans sa base de données.
+
+</details>
+
+<details>
+
+<summary>Coton recyclé (déchets de production)</summary>
+
+Ce procédé est issu de la Base Impacts (ADEME) car Ecoinvent ne propose pas de coton recyclé dans sa base de données.
+
+</details>
+
+<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts _ kg) des différents types de coton disponibles dans Ecobalyse.png" alt=""><figcaption><p>Coût environnemental de 1kg de différents coton dans Ecobalyse</p></figcaption></figure>
 
 [^1]: Market report 2023 \_ Textile Exchange
 

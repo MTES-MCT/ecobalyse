@@ -8,7 +8,7 @@ Les fibres acrycliques sont réservées aux matières formées de polymères con
 
 **Procédé Ecoinvent**
 
-Methyl methacrylate production, RoW
+polymethyl methacrylate production, beads, ReR
 
 </details>
 
@@ -26,7 +26,7 @@ Polypropylene production, granulate, RoW
 
 <details>
 
-<summary>Polyamide / Nylon</summary>
+<summary>Polyamide (nylon)</summary>
 
 Les fibres polyamides proviennent généralement de la transformation chimique de la houille ou du pétrole. Les polyamides les plus connus dans l'industrie Textile sont le Nylon (PA 6.6), le Perlon (PA 6) et le Rilsan (PA 11).
 
@@ -37,5 +37,25 @@ Deux procédés permettent de produire du polyamide sous forme de résine : la p
 **Procédé Ecoinvent**
 
 Nylon 6.6 production, RoW
+
+</details>
+
+<details>
+
+<summary>Elastane (lycra)</summary>
+
+Cette fibre synthétique est dérivée du polyuréthane et est généralement connue sous le nom _Lycra_. Cette fibre a notamment remplacé le caoutchouc naturel dans le textile pour rendre les vêtements plus extensibles.
+
+**Principales étapes de production**
+
+1\) Le polyuréthane est dissous dans un solvant,
+
+2\) La fibre d'elastane est filée à sec (procédé d'extrusion).&#x20;
+
+**Procédé Ecoinvent**
+
+Cette matière n'étant pas disponible dans Ecoinvent, un procédé a été créé par Ecobalyse en utilisant deux procédés Ecoinvent : \
+90% = market for polyurethane, flexible foam, RoW\
+10% = market for dimethylacetamide, GLO
 
 </details>

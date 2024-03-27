@@ -1,4 +1,4 @@
-# Focus laine (draft)
+# Focus laine
 
 ### Généralités
 
@@ -117,7 +117,7 @@ De manière générale et sur la base d'une revue bibliographique, la majorité 
 
 L'élevage ovin extensif (pâturages) produit des services tels que la lutte contre les feux de forêts, le maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, la limitation de la prolifération d'espèces végétales invasives, etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], pour le cas de l'élevage extensif en Espagne par exemple).
 
-Bien que des modifications aux inventaires soient proposées pour prendre en compte partiellement les externalités positives de ces modes de production extensifs (cf. détail [infra](focus-laine-draft.md#laine-par-defaut)), l'ensemble des services rendus par les pâtures n'est aujourd'hui pas intégré. Des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.
+Bien que des modifications aux inventaires soient proposées pour prendre en compte partiellement les externalités positives de ces modes de production extensifs (cf. détail [infra](focus-laine.md#laine-par-defaut)), l'ensemble des services rendus par les pâtures n'est aujourd'hui pas intégré. Des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.
 {% endhint %}
 
 ## Modélisation Ecobalyse
@@ -174,7 +174,7 @@ Au procédé construit à partir de l'inventaire "sheep production, for wool, US
 
 Cette laine représente les marchés où la laine n'est aujourd'hui pas/peu valorisée (ex : filière laine française en 2022/2023).
 
-Le procédé ["Laine (par défaut)"](focus-laine-draft.md#laine-par-defaut) est alors utilisé avec comme unique modification l'application d'un taux d'allocation de **4%**. &#x20;
+Le procédé ["Laine (par défaut)"](focus-laine.md#laine-par-defaut) est alors utilisé avec comme unique modification l'application d'un taux d'allocation de **4%**. &#x20;
 
 </details>
 

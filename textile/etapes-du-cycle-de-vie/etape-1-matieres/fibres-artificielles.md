@@ -17,20 +17,6 @@ La viscose est une matières chimique artificielle fabriquée à partir de cellu
 
 **Procédé Ecoinvent**
 
-Fibre production, viscose, GLO
-
-:warning: Le procédé Ecoinvent inclu l'étape de filage.
-
-</details>
-
-<details>
-
-<summary>Acetate (de cellulose)</summary>
-
-L'acétate de cellulose est un dérivé du cellulose (et non de la cellulose regénérée telle que la viscose). Cette fibre est fabriquée à partir de cellulose et d'acide acétique grâce au procédé d'estérification.&#x20;
-
-**Procédé Ecoinvent**
-
-Ethylene vinyl acetate copolymer production, RoW
+Market for fibre, viscose, GLO
 
 </details>
