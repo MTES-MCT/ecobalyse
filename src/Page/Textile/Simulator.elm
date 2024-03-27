@@ -688,6 +688,7 @@ exampleProductField exampleProducts query =
     let
         autocompleteState =
             exampleProducts
+                |> List.sortBy .name
                 |> List.map .query
                 |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
     in
