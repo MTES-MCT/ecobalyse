@@ -106,7 +106,7 @@ Ecobalyse propose ainsi en première approche une évaluation semi-quantitative 
 * Coton (avec teinture) : 74% après 112 jours à 10°C (compartiment = eau)
 * Chanvre (sans teinture) : 79% après 112 jours à 10°C (compartiment = eau)
 * Lyocell (sans teinture) : 81% après 112 jours à 10°C (compartiment = eau)
-* Laine Merino : 23% après 90 jours à 30°C (compartiment = eau)
+* Laine Merinos : 23% après 90 jours à 30°C (compartiment = eau)
 * Polyester : 1% après 90 jours à 30°C (compartiment = eau)
 * Polyester (avec teinture) : 0% après 161 jours à 30°C (compartiment = eau)
 * Nylon : 1% après 90 jours à 30°C (compartiment = eau)
