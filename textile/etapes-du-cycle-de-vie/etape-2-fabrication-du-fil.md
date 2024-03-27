@@ -113,7 +113,7 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 La filature peut être cardée ("carded") ou peignée ("worsted/combed") selon la longueur des fibres souhaitée dans le fil. Dans le second cas, une étape additionnel (peignage) est mise en place pour éliminer les fibres les plus courtes, optimiser leurs alignement et éliminer les impuretés.&#x20;
 
-Les fibres courtes et longues peuvent être peignées. Cependant, le titrage du fil impact aussi le choix d'ajouter une étape de peignage. Plus le fil est fin, plus la préparation des fibres est poussée, plus l'étape de peignage est nécessaire.
+Les fibres courtes et longues peuvent être peignées. Cependant, le titrage du fil impacte aussi le choix d'ajouter une étape de peignage. Plus le fil est fin, plus la préparation des fibres est poussée, plus l'étape de peignage est nécessaire.
 
 Ecobalyse ne permet pas de préciser ce paramètre car il n'est pas discriminant dans une logique d'impact environnemental produit. De plus, les marques ne maîtrisent généralement pas ce paramètre.
 
