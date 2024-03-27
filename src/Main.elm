@@ -98,7 +98,12 @@ init flags url navKey =
                             , notifications = []
                             , queries =
                                 { food = FoodQuery.empty
-                                , textile = TextileQuery.default
+                                , textile =
+                                    db.textile.exampleProducts
+                                        |> List.filter (.name >> (==) "Tshirt coton (150g) - Majorant par défaut")
+                                        |> List.head
+                                        |> Maybe.map .query
+                                        |> Maybe.withDefault TextileQuery.default
                                 }
                             }
                             LoadingPage
