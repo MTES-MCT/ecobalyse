@@ -19,8 +19,8 @@ type alias WellKnown =
     { airTransport : Process
     , bleaching : Process
     , seaTransport : Process
-    , roadTransportPreMaking : Process
-    , roadTransportPostMaking : Process
+    , roadTransport : Process
+    , trainTransport : Process
     , distribution : Process
     , dyeingYarn : Process
     , dyeingFabric : Process
@@ -88,8 +88,8 @@ load processes =
             { airTransport = "air-transport"
             , bleaching = "bleaching"
             , seaTransport = "sea-transport"
-            , roadTransportPreMaking = "road-transport"
-            , roadTransportPostMaking = "train-transport"
+            , roadTransport = "road-transport"
+            , trainTransport = "train-transport"
             , distribution = "distribution"
             , dyeingYarn = "dyeing-yarn"
             , dyeingFabric = "dyeing-fabric"
@@ -121,8 +121,8 @@ load processes =
         |> find .airTransport
         |> find .bleaching
         |> find .seaTransport
-        |> find .roadTransportPreMaking
-        |> find .roadTransportPostMaking
+        |> find .roadTransport
+        |> find .trainTransport
         |> find .distribution
         |> find .dyeingYarn
         |> find .dyeingFabric
@@ -152,8 +152,8 @@ map update wellKnown =
     { airTransport = update wellKnown.airTransport
     , bleaching = update wellKnown.bleaching
     , seaTransport = update wellKnown.seaTransport
-    , roadTransportPreMaking = update wellKnown.roadTransportPreMaking
-    , roadTransportPostMaking = update wellKnown.roadTransportPostMaking
+    , roadTransport = update wellKnown.roadTransport
+    , trainTransport = update wellKnown.trainTransport
     , distribution = update wellKnown.distribution
     , dyeingYarn = update wellKnown.dyeingYarn
     , dyeingFabric = update wellKnown.dyeingFabric
