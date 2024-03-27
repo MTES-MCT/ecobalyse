@@ -109,12 +109,17 @@ api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${clean
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
-  let processesFilename;
+  let processesFilename = "processes.json";
   if (req.headers.token) {
-    // The request is authentified.
-    processesFilename = "processes_impacts.json";
-  } else {
-    processesFilename = "processes.json";
+    const checkTokenUrl = `http://${host}:${port}/accounts/check_token/`;
+    const isTokenValidRes = await fetch(
+      checkTokenUrl,
+      { headers: { "token": req.headers.token }});
+    const isTokenValid = isTokenValidRes.status == 200;
+    if (isTokenValid) {
+      // The request is authentified.
+      processesFilename = "processes_impacts.json";
+    }
   }
   let processes;
   try {
