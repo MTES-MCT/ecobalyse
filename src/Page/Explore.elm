@@ -11,18 +11,23 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
-import Data.Food.ExampleProduct as FoodExampleProduct
+import Data.Example as Example exposing (Example)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
+import Data.Food.Recipe as Recipe
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
-import Data.Textile.ExampleProduct as TextileExampleProduct
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query as TextileQuery
+import Data.Textile.Simulator as Simulator
+import Data.Unit as Unit
+import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -129,16 +134,22 @@ update session msg model =
             ( { model | scope = scope }
             , session
             , (case model.dataset of
-                -- When changing scopes, if we were on a tab that is common between both scopes, don't "reset" the selected tab.
-                -- Only the "impacts" and "countries" tabs are common at the moment, and the "impacts" tab is the one by default,
-                -- so in effect this check makes sure that if we selected the "countries" tab and we change the scope, the
-                -- selected tab isn't changed back automatically to the "impacts" tab.
+                -- Try selecting the most appropriate tab when switching scope.
                 Dataset.Countries _ ->
-                    Route.Explore scope (Dataset.Countries Nothing)
+                    Dataset.Countries Nothing
+
+                Dataset.Impacts _ ->
+                    Dataset.Impacts Nothing
 
                 _ ->
-                    Route.Explore scope (Dataset.Impacts Nothing)
+                    case scope of
+                        Scope.Food ->
+                            Dataset.FoodExamples Nothing
+
+                        Scope.Textile ->
+                            Dataset.TextileExamples Nothing
               )
+                |> Route.Explore scope
                 |> Route.toString
                 |> Nav.pushUrl session.navKey
             )
@@ -264,22 +275,53 @@ impactsExplorer definitions tableConfig tableState scope maybeTrigram =
 
 foodExamplesExplorer :
     Db
-    -> Table.Config FoodExampleProduct.ExampleProduct Msg
+    -> Table.Config ( Example FoodQuery.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
-    -> Maybe FoodExampleProduct.Uuid
+    -> Maybe Uuid
     -> List (Html Msg)
 foodExamplesExplorer db tableConfig tableState maybeId =
-    [ db.food.exampleProducts
-        |> List.filter (.query >> (/=) FoodQuery.empty)
-        |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table db)
+    let
+        scoredExamples =
+            db.food.examples
+                |> List.map
+                    (\example ->
+                        ( example
+                        , { score = getFoodScore db example
+                          , per100g = getFoodScorePer100g db example
+                          }
+                        )
+                    )
+                |> List.sortBy (Tuple.first >> .name)
+
+        max =
+            { maxScore =
+                scoredExamples
+                    |> List.map (Tuple.second >> .score)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            , maxPer100g =
+                scoredExamples
+                    |> List.map (Tuple.second >> .per100g)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            }
+    in
+    [ scoredExamples
+        |> List.filter (Tuple.first >> .query >> (/=) FoodQuery.empty)
+        |> List.sortBy (Tuple.first >> .name)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
-                (case FoodExampleProduct.findByUuid id db.food.exampleProducts of
+                (case Example.findByUuid id db.food.examples of
                     Ok example ->
-                        example
-                            |> Table.viewDetails Scope.Food (FoodExamples.table db)
+                        Table.viewDetails Scope.Food
+                            (FoodExamples.table max)
+                            ( example
+                            , { score = getFoodScore db example
+                              , per100g = getFoodScorePer100g db example
+                              }
+                            )
 
                     Err error ->
                         alert error
@@ -346,21 +388,32 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
 
 textileExamplesExplorer :
     Db
-    -> Table.Config TextileExampleProduct.ExampleProduct Msg
+    -> Table.Config ( Example TextileQuery.Query, Float ) Msg
     -> SortableTable.State
-    -> Maybe TextileExampleProduct.Uuid
+    -> Maybe Uuid
     -> List (Html Msg)
 textileExamplesExplorer db tableConfig tableState maybeId =
-    [ db.textile.exampleProducts
-        |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table db)
+    let
+        scoredExamples =
+            db.textile.examples
+                |> List.map (\example -> ( example, getTextileScore db example ))
+                |> List.sortBy (Tuple.first >> .name)
+
+        maxScore =
+            scoredExamples
+                |> List.map Tuple.second
+                |> List.maximum
+                |> Maybe.withDefault 0
+    in
+    [ scoredExamples
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table maxScore)
     , case maybeId of
         Just id ->
             detailsModal
-                (case TextileExampleProduct.findByUuid id db.textile.exampleProducts of
+                (case Example.findByUuid id db.textile.examples of
                     Ok example ->
-                        example
-                            |> Table.viewDetails Scope.Food (TextileExamples.table db)
+                        ( example, getTextileScore db example )
+                            |> Table.viewDetails Scope.Food (TextileExamples.table maxScore)
 
                     Err error ->
                         alert error
@@ -448,12 +501,43 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
     ]
 
 
-explore : Session -> Model -> List (Html Msg)
-explore session { scope, dataset, tableState } =
-    let
-        db =
-            session.db
+getFoodScore : Db -> Example FoodQuery.Query -> Float
+getFoodScore db =
+    .query
+        >> Recipe.compute db
+        >> Result.map
+            (Tuple.second
+                >> .total
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.impactToFloat
+            )
+        >> Result.withDefault 0
 
+
+getFoodScorePer100g : Db -> Example FoodQuery.Query -> Float
+getFoodScorePer100g db =
+    .query
+        >> Recipe.compute db
+        >> Result.map
+            (Tuple.second
+                >> .perKg
+                >> Impact.getImpact Definition.Ecs
+                >> (\x -> Unit.impactToFloat x / 10)
+            )
+        >> Result.withDefault 0
+
+
+getTextileScore : Db -> Example TextileQuery.Query -> Float
+getTextileScore db =
+    .query
+        >> Simulator.compute db
+        >> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+        >> Result.withDefault 0
+
+
+explore : Session -> Model -> List (Html Msg)
+explore { db } { scope, dataset, tableState } =
+    let
         defaultCustomizations =
             SortableTable.defaultCustomizations
 
@@ -501,7 +585,7 @@ view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
             [ div []
-                [ h1 [] [ text "Explorateur" ]
+                [ h1 [ class "mb-0" ] [ text "Explorateur" ]
                 , div [ class "row d-flex align-items-stretch mt-1 mx-0" ]
                     [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ] [ scopesMenuView model ]
                     , div [ class "col-12 col-lg-7 pe-0 me-0" ] [ datasetsMenuView model ]

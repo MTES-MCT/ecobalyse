@@ -2,6 +2,7 @@ module Page.Food exposing
     ( Model
     , Msg(..)
     , init
+    , initFromExample
     , subscriptions
     , update
     , view
@@ -14,8 +15,8 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
+import Data.Example as Example
 import Data.Food.EcosystemicServices as EcosystemicServices
-import Data.Food.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -31,6 +32,7 @@ import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -54,6 +56,7 @@ import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
 import Views.Component.StepsBorder as StepsBorder
 import Views.Container as Container
+import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
@@ -151,6 +154,31 @@ init session trigram maybeQuery =
 
         Just _ ->
             Cmd.none
+    )
+
+
+initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample session uuid =
+    let
+        example =
+            session.db.food.examples
+                |> Example.findByUuid uuid
+
+        query =
+            example
+                |> Result.map .query
+                |> Result.withDefault Query.empty
+    in
+    ( { impact = session.db.definitions |> Definition.get Definition.Ecs
+      , initialQuery = query
+      , bookmarkName = query |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
+      , modal = NoModal
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
+      }
+    , session |> Session.updateFoodQuery query
+    , Ports.scrollTo { x = 0, y = 0 }
     )
 
 
@@ -1295,8 +1323,8 @@ consumptionView db selectedImpact recipe results =
     ]
 
 
-mainView : Db -> Session -> Model -> Html Msg
-mainView db session model =
+mainView : Session -> Model -> Html Msg
+mainView ({ db } as session) model =
     let
         computed =
             session.queries.food
@@ -1304,7 +1332,18 @@ mainView db session model =
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ menuView db.food.exampleProducts session.queries.food
+            [ ExampleView.view
+                { currentQuery = session.queries.food
+                , emptyQuery = Query.empty
+                , examples = db.food.examples
+                , helpUrl = Nothing
+                , onOpen = SelectExampleModal >> SetModal
+                , routes =
+                    { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                    , load = Route.FoodBuilderExample
+                    , scopeHome = Route.FoodBuilderHome
+                    }
+                }
             , case computed of
                 Ok ( recipe, results ) ->
                     stepListView db session model recipe results
@@ -1321,31 +1360,6 @@ mainView db session model =
 
                 Err error ->
                     errorView error
-            ]
-        ]
-
-
-menuView : List ExampleProduct -> Query -> Html Msg
-menuView exampleProducts query =
-    let
-        autocompleteState =
-            exampleProducts
-                |> List.map .query
-                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
-    in
-    div []
-        [ label
-            [ for "selector-example"
-            , class "form-label fw-bold"
-            ]
-            [ text "Produit" ]
-        , button
-            [ class "form-select ElementSelector text-start"
-            , id "selector-example"
-            , onClick (SetModal (SelectExampleModal autocompleteState))
-            ]
-            [ span []
-                [ text <| ExampleProduct.toName exampleProducts query ]
             ]
         ]
 
@@ -1497,7 +1511,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
-            [ mainView session.db session model
+            [ mainView session model
             , case model.modal of
                 NoModal ->
                     text ""
@@ -1550,8 +1564,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = ExampleProduct.toName session.db.food.exampleProducts
-                        , toCategory = ExampleProduct.toCategory session.db.food.exampleProducts
+                        , toLabel = Example.toName session.db.food.examples
+                        , toCategory = Example.toCategory session.db.food.examples
                         }
             ]
       ]

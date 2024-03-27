@@ -3,7 +3,7 @@ module Data.Scope exposing
     , decode
     , encode
     , only
-    , parseSlug
+    , parse
     , toLabel
     , toString
     )
@@ -48,8 +48,8 @@ only scope =
     List.filter (.scopes >> List.member scope)
 
 
-parseSlug : Parser (Scope -> a) a
-parseSlug =
+parse : Parser (Scope -> a) a
+parse =
     Parser.custom "SCOPE" <|
         (fromString >> Result.toMaybe)
 
