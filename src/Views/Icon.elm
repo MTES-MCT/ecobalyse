@@ -36,6 +36,11 @@ busCooled =
         [ snow ]
 
 
+train : Html msg
+train =
+    icon "rail"
+
+
 check : Html msg
 check =
     icon "check"
