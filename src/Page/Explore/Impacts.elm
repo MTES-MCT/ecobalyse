@@ -9,7 +9,6 @@ import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
 import Views.Format as Format
-import Views.Impact as ImpactView
 import Views.Markdown as Markdown
 
 
@@ -78,41 +77,6 @@ table { detailed, scope } =
                         >> Maybe.map (.weighting >> Unit.ratioToFloat)
                         >> Maybe.withDefault 0
           , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
-          }
-        , { label = "Niveau de qualité"
-          , toValue =
-                Table.IntValue <|
-                    \def ->
-                        case def.quality of
-                            Definition.NotFinished ->
-                                0
-
-                            Definition.GoodQuality ->
-                                4
-
-                            Definition.AverageQuality ->
-                                3
-
-                            Definition.BadQuality ->
-                                2
-
-                            Definition.UnknownQuality ->
-                                1
-          , toCell =
-                \def ->
-                    def.quality
-                        |> ImpactView.impactQuality
-                        |> div [ classList [ ( "text-center", not detailed ) ] ]
-          }
-        , { label = "Source"
-          , toValue = Table.StringValue <| .source >> .label
-          , toCell =
-                \def ->
-                    a
-                        [ href def.source.url
-                        , target "_blank"
-                        ]
-                        [ text def.source.label ]
           }
         , { label = "Description"
           , toValue = Table.StringValue .description
