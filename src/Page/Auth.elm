@@ -132,12 +132,7 @@ init : Session -> { loggedIn : Bool } -> ( Model, Session, Cmd Msg )
 init session data =
     ( emptyModel data
     , session
-    , if data.loggedIn then
-        -- Query the user endpoint on the backend to validate that the user is connected
-        getUserInfo
-
-      else
-        Cmd.none
+    , getUserInfo
     )
 
 
@@ -169,9 +164,15 @@ update session msg model =
             )
 
         GotUserInfo (Err _) ->
-            ( model
-            , session
-                |> Session.notifyError "Erreur lors du login" ""
+            ( { model | loggedIn = False }
+            , if model.loggedIn then
+                -- We're here following a click on a login link in an email. If we failed, notify the user.
+                session
+                    |> Session.notifyError "Erreur lors du login" ""
+
+              else
+                session
+                    |> Session.logout
             , Cmd.none
             )
 
@@ -247,8 +248,7 @@ view session model =
 
                   else if Session.isAuthenticated session then
                     div [ class "row d-flex justify-content-center" ]
-                        -- [ viewAccount model
-                        [ text "view account here with TOKEN"
+                        [ viewAccount model
                         , button
                             [ onClick Logout
                             , class "btn btn-link mb-3"
@@ -279,6 +279,34 @@ view session model =
             ]
       ]
     )
+
+
+viewAccount : Model -> Html Msg
+viewAccount model =
+    div [ class "card shadow-sm col-sm-6" ]
+        [ dl []
+            [ dt []
+                [ text "Email : " ]
+            , dd []
+                [ text model.user.email ]
+            , dt []
+                [ text "Nom : " ]
+            , dd []
+                [ text model.user.lastname ]
+            , dt []
+                [ text "Prénom : " ]
+            , dd []
+                [ text model.user.firstname ]
+            , dt []
+                [ text "Entreprise : " ]
+            , dd []
+                [ text model.user.company ]
+            , dt []
+                [ text "TOKEN : " ]
+            , dd []
+                [ text "to be done" ]
+            ]
+        ]
 
 
 viewLoginRegisterForm : Model -> Html Msg
