@@ -25,6 +25,7 @@ class EcobalyseUserAdmin(AnonymizableAdminMixin, admin.ModelAdmin):
                     ("email", "is_active"),
                     ("first_name", "last_name"),
                     ("company", "terms_of_use"),
+                    ("token"),
                 )
             },
         ),
@@ -42,6 +43,8 @@ class EcobalyseUserAdmin(AnonymizableAdminMixin, admin.ModelAdmin):
             },
         ),
     )
+
+    readonly_fields = ("token",)
 
 
 admin_site.register(EcobalyseUser, EcobalyseUserAdmin)
