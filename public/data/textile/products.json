@@ -186,7 +186,7 @@
   },
   {
     "id": "pull",
-    "name": "Pull / Couche intermédiaire",
+    "name": "Pull",
     "mass": 0.5,
     "surfaceMass": 250,
     "yarnSize": 35,

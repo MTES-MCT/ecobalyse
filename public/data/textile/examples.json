@@ -2,7 +2,7 @@
   {
     "id": "dffc6a19-794a-4d14-ad1a-bc3512359f22",
     "name": "Pull polyester (550g) - Asie - Mode \"ultra fast fashion\"",
-    "category": "Pull / Couche intermédiaire",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
@@ -28,7 +28,7 @@
   {
     "id": "f02b1029-0d04-4239-94d1-b384ab3316cb",
     "name": "Pull coton (550g) - Chine - Mode \"fast fashion\"",
-    "category": "Pull / Couche intermédiaire",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
@@ -54,7 +54,7 @@
   {
     "id": "c605e8cc-7f3e-42b6-afc1-9358bda9a633",
     "name": "Pull viscose (550g) - Chine - Mode \"fast fashion\"",
-    "category": "Pull / Couche intermédiaire",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
@@ -84,7 +84,7 @@
   {
     "id": "9986e023-47f7-42c7-8c1b-4fe1371f2f59",
     "name": "Pull coton (550g) - Pakistan - Mode \"traditionnelle\"",
-    "category": "Pull / Couche intermédiaire",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
@@ -109,7 +109,7 @@
   {
     "id": "dc4a1762-ac99-4d41-8ef6-1f4d647dec62",
     "name": "Pull coton bio (550g) - France - Mode \"traditionnelle\"",
-    "category": "Pull / Couche intermédiaire",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
@@ -134,7 +134,7 @@
   {
     "id": "8a57688b-1da6-4fc4-85aa-a27c6cdf4a56",
     "name": "Pull laine (550g) - France - Mode \"éthique\"",
-    "category": "Pull / Couche intermédiaire",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
@@ -159,7 +159,7 @@
   {
     "id": "611fd763-8df3-40d1-a51a-e8073bb3aaf0",
     "name": "Pull laine paysane (550g) - France - Mode \"éthique\"",
-    "category": "Pull / Couche intermédiaire",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
@@ -441,7 +441,7 @@
   {
     "id": "190ccaed-6883-4dd9-a70b-918878ccced6",
     "name": "Pull coton (550g) - Majorant par défaut",
-    "category": "Pull / Couche intermédiaire",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
