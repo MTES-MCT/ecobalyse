@@ -182,7 +182,14 @@ getTransportBetween :
     -> Country.Code
     -> Distances
     -> Transport
-getTransportBetween scope impacts cA cB distances =
+getTransportBetween scope impacts rcA rcB distances =
+    let
+        cA =
+            Country.convertRegion rcA
+
+        cB =
+            Country.convertRegion rcB
+    in
     if cA == cB then
         defaultInland scope impacts
 
