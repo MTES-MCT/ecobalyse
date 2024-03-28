@@ -23,11 +23,14 @@ SITE_NAME = "Ecobalyse"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("DJANGO_SECRET_KEY")
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DJANGO_DEBUG", cast=bool)
+
+# SECURITY WARNING: keep the secret key used in production secret!
+if DEBUG:
+    SECRET_KEY = "dev_not_so_secret_key"
+else:
+    SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = [
     "ecobalyse.beta.gouv.fr",
