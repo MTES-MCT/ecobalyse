@@ -56,6 +56,19 @@ default impacts =
     }
 
 
+erroneous : Impacts -> Transport
+erroneous impacts =
+    -- FIXME temporary data to display something weird instead of zero, until
+    -- we use of a Result String Transport in the transport computations
+    { road = Quantity.infinity
+    , roadCooled = Quantity.infinity
+    , sea = Quantity.infinity
+    , seaCooled = Quantity.infinity
+    , air = Quantity.infinity
+    , impacts = impacts
+    }
+
+
 add : Transport -> Transport -> Transport
 add a b =
     { b
@@ -163,19 +176,19 @@ getTransportBetween :
     -> Distances
     -> Transport
 getTransportBetween impacts cA cB distances =
-    distances
-        |> Dict.get cA
-        |> Maybe.map
-            (\countries ->
-                case Dict.get cB countries of
-                    Just transport ->
-                        { transport | impacts = impacts }
+    case
+        ( distances |> Dict.get cA |> Maybe.andThen (Dict.get cB)
+        , distances |> Dict.get cB |> Maybe.andThen (Dict.get cA)
+        )
+    of
+        ( Just transport, _ ) ->
+            { transport | impacts = impacts }
 
-                    Nothing ->
-                        -- reverse query source dict
-                        getTransportBetween impacts cB cA distances
-            )
-        |> Maybe.withDefault (default impacts)
+        ( _, Just transport ) ->
+            { transport | impacts = impacts }
+
+        ( Nothing, Nothing ) ->
+            erroneous impacts
 
 
 decodeKm : Decoder Length
