@@ -15,7 +15,7 @@ import Page.Explore as Explore
 import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Stats as Stats
-import Page.Textile.Simulator as TextileSimulator
+import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
 import Request.Version
