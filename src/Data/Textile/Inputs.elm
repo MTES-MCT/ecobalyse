@@ -467,6 +467,7 @@ computeMaterialTransport distances nextCountryCode { material, country, share } 
         in
         distances
             |> Transport.getTransportBetween
+                False
                 Scope.Textile
                 emptyImpacts
                 countryCode

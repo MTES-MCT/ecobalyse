@@ -176,7 +176,8 @@ computeTransports db inputs next ({ processInfo } as current) =
 
             else
                 db.distances
-                    |> Transport.getTransportBetween Scope.Textile
+                    |> Transport.getTransportBetween False
+                        Scope.Textile
                         current.transport.impacts
                         current.country.code
                         next.country.code

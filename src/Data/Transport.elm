@@ -58,6 +58,19 @@ default impacts =
     }
 
 
+erroneous : Impacts -> Transport
+erroneous impacts =
+    -- FIXME temporary data to display something weird instead of zero, until
+    -- we use of a Result String Transport in the transport computations
+    { road = Quantity.infinity
+    , roadCooled = Quantity.infinity
+    , sea = Quantity.infinity
+    , seaCooled = Quantity.infinity
+    , air = Quantity.infinity
+    , impacts = impacts
+    }
+
+
 defaultInland : Scope -> Impacts -> Transport
 defaultInland scope impacts =
     { road =
@@ -176,13 +189,14 @@ roadSeaTransportRatio { road, sea } =
 
 
 getTransportBetween :
-    Scope
+    Bool
+    -> Scope
     -> Impacts
     -> Country.Code
     -> Country.Code
     -> Distances
     -> Transport
-getTransportBetween scope impacts cA cB distances =
+getTransportBetween stopRecursion scope impacts cA cB distances =
     if cA == cB then
         defaultInland scope impacts
 
@@ -197,9 +211,19 @@ getTransportBetween scope impacts cA cB distances =
 
                         Nothing ->
                             -- reverse query source dict
-                            getTransportBetween scope impacts cB cA distances
+                            if stopRecursion then
+                                erroneous impacts
+
+                            else
+                                getTransportBetween True scope impacts cB cA distances
                 )
-            |> Maybe.withDefault (default impacts)
+            |> Maybe.withDefault
+                (if stopRecursion then
+                    erroneous impacts
+
+                 else
+                    getTransportBetween True scope impacts cB cA distances
+                )
 
 
 decodeKm : Decoder Length

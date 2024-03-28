@@ -356,7 +356,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                         -- In case a custom country is provided, compute the distances to it from France
                         Just { code } ->
                             db.distances
-                                |> Transport.getTransportBetween Scope.Food emptyImpacts code france
+                                |> Transport.getTransportBetween False Scope.Food emptyImpacts code france
                                 |> Formula.transportRatio planeRatio
 
                         -- Otherwise retrieve ingredient's default origin transport data
