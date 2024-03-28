@@ -3,10 +3,12 @@ module Data.TransportTest exposing (..)
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport as Transport exposing (Transport, getTransportBetween)
 import Dict.Any as AnyDict
 import Expect
 import Length
+import List.Extra as LE
+import Quantity
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
@@ -53,6 +55,32 @@ suite =
                     |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "FR") (Country.Code "FR")
                     |> Expect.equal (Transport.defaultInland Scope.Textile Impact.empty)
                     |> asTest "should apply default inland transport when country is the same"
+                , let
+                    testAllCountriesCoveredFor scope =
+                        db.countries
+                            |> List.map .code
+                            |> LE.uniquePairs
+                            |> List.map
+                                (\( cA, cB ) ->
+                                    db.distances
+                                        |> getTransportBetween scope Impact.empty cA cB
+                                )
+                            |> List.filter
+                                (\{ road, sea, air } ->
+                                    not <|
+                                        Quantity.greaterThanZero road
+                                            || Quantity.greaterThanZero sea
+                                            || Quantity.greaterThanZero air
+                                )
+                            |> List.length
+                            |> Expect.equal 0
+                  in
+                  describe "Data coverage exhaustivity checks"
+                    [ testAllCountriesCoveredFor Scope.Food
+                        |> asTest "should always give a distance greater than 0 between two food countries"
+                    , testAllCountriesCoveredFor Scope.Textile
+                        |> asTest "should always give a distance greater than 0 between two textile countries"
+                    ]
                 ]
             ]
         )
