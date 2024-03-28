@@ -70,7 +70,10 @@ formatFloat decimals float =
             FormatNumber.format { frenchLocale | decimals = Exact dc }
                 >> String.replace "−" "-"
     in
-    if float == 0 then
+    if isNaN float then
+        "NaN"
+
+    else if float == 0 then
         "0"
 
     else if abs float >= 100 then
