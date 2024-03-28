@@ -49,6 +49,12 @@ Pour la **pondération**, la méthode de l'affichage environnemental établit qu
 Cette règle est une des deux options introduites dans le rapport du Conseil scientifique.
 {% endhint %}
 
+## Unité du coût environnemental
+
+Le coût environnemental est exprimé en _**points d'impacts**_.&#x20;
+
+Ce _**point d'impact**_ provient du "micro-point PEF". Le point PEF correspond à l’impact environnemental annuel d'un habitant européen.&#x20;
+
 ## Correctifs sur la toxicité et d'écotoxicité
 
 ### Exclusion temporaire des catégories d'impact "toxicité humaine cancer" et "toxicité humaine non cancer"
