@@ -1,7 +1,8 @@
-module Page.Textile.Simulator exposing
+module Page.Textile exposing
     ( Model
     , Msg(..)
     , init
+    , initFromExample
     , subscriptions
     , update
     , view
@@ -15,6 +16,8 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
+import Data.Dataset as Dataset
+import Data.Example as Example
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -25,7 +28,6 @@ import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
-import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
@@ -39,6 +41,7 @@ import Data.Textile.Query as Query exposing (MaterialQuery, Query)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
 import Data.Unit as Unit
+import Data.Uuid exposing (Uuid)
 import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -56,6 +59,7 @@ import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
+import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
@@ -147,7 +151,7 @@ init trigram maybeUrlQuery session =
                 |> Simulator.compute session.db
     in
     ( { simulator = simulator
-      , bookmarkName = initialQuery |> findExistingBookmarkName session
+      , bookmarkName = initialQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
             if Session.isAuthenticated session then
@@ -183,24 +187,78 @@ init trigram maybeUrlQuery session =
     )
 
 
-findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { db, store } query =
-    store.bookmarks
-        |> Bookmark.findByTextileQuery query
-        |> Maybe.map .name
-        |> Maybe.withDefault
-            (query
+initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample session uuid =
+    let
+        example =
+            session.db.textile.examples
+                |> Example.findByUuid uuid
+
+        exampleQuery =
+            example
+                |> Result.map .query
+                |> Result.withDefault session.queries.textile
+
+        simulator =
+            exampleQuery
+                |> Simulator.compute session.db
+    in
+    ( { simulator = simulator
+      , bookmarkName = exampleQuery |> suggestBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
+      , initialQuery = exampleQuery
+      , detailedStep = Nothing
+      , impact = Definition.get Definition.Ecs session.db.definitions
+      , modal = NoModal
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
+      }
+    , session
+        |> Session.updateTextileQuery exampleQuery
+        |> (case simulator of
+                Err error ->
+                    Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+
+                Ok _ ->
+                    identity
+           )
+    , Ports.scrollTo { x = 0, y = 0 }
+    )
+
+
+suggestBookmarkName : Session -> Query -> String
+suggestBookmarkName { db, store } query =
+    let
+        -- Existing user bookmark?
+        userBookmark =
+            store.bookmarks
+                |> Bookmark.findByTextileQuery query
+
+        -- Matching product example name?
+        exampleName =
+            db.textile.examples
+                |> Example.findByQuery query
+                |> Result.toMaybe
+    in
+    case ( userBookmark, exampleName ) of
+        ( Just { name }, _ ) ->
+            name
+
+        ( _, Just { name } ) ->
+            name
+
+        _ ->
+            query
                 |> Inputs.fromQuery db
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
-            )
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
     ( { model
         | simulator = query |> Simulator.compute session.db
-        , bookmarkName = query |> findExistingBookmarkName session
+        , bookmarkName = query |> suggestBookmarkName session
       }
     , session |> Session.updateTextileQuery query
     , commands
@@ -683,38 +741,6 @@ selectMaterial autocompleteState ( model, session, _ ) =
     update session msg model
 
 
-exampleProductField : List ExampleProduct -> Query -> Html Msg
-exampleProductField exampleProducts query =
-    let
-        autocompleteState =
-            exampleProducts
-                |> List.sortBy .name
-                |> List.map .query
-                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
-    in
-    div [ class "d-flex flex-column" ]
-        [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
-            [ text "Exemples" ]
-        , div [ class "d-flex" ]
-            [ button
-                [ class "form-select ElementSelector text-start"
-                , id "selector-example"
-                , title "Les simulations proposées ici constituent des exemples. Elles doivent être adaptées pour chaque produit modélisé"
-                , onClick (SetModal (SelectExampleModal autocompleteState))
-                ]
-                [ text <| ExampleProduct.toName exampleProducts query ]
-            , span [ class "input-group-text" ]
-                [ a
-                    [ class "text-secondary text-decoration-none p-0"
-                    , href (Gitbook.publicUrlFromPath Gitbook.TextileExamples)
-                    , target "_blank"
-                    ]
-                    [ Icon.info ]
-                ]
-            ]
-        ]
-
-
 productCategoryField : TextileDb.Db -> Query -> Html Msg
 productCategoryField { products } query =
     let
@@ -949,8 +975,20 @@ simulatorView session model ({ inputs, impacts } as simulator) =
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "row align-items-start flex-md-columns mb-3" ]
                 [ div [ class "col-md-9" ]
-                    [ Inputs.toQuery inputs
-                        |> exampleProductField session.db.textile.exampleProducts
+                    [ -- Inputs.toQuery inputs
+                      -- |> exampleProductField session.db.textile.exampleProducts
+                      ExampleView.view
+                        { currentQuery = session.queries.textile
+                        , emptyQuery = Query.default
+                        , examples = session.db.textile.examples
+                        , helpUrl = Just Gitbook.TextileExamples
+                        , onOpen = SelectExampleModal >> SetModal
+                        , routes =
+                            { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                            , load = Route.TextileSimulatorExample
+                            , scopeHome = Route.TextileSimulatorHome
+                            }
+                        }
                     ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
@@ -1135,8 +1173,8 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom du produit pour le rechercher"
                                 , title = "Sélectionnez un produit"
-                                , toLabel = ExampleProduct.toName session.db.textile.exampleProducts
-                                , toCategory = ExampleProduct.toCategory session.db.textile.exampleProducts
+                                , toLabel = Example.toName session.db.textile.examples
+                                , toCategory = Example.toCategory session.db.textile.examples
                                 }
 
                         SelectProductModal autocompleteState ->

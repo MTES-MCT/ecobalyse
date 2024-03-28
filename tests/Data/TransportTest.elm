@@ -2,11 +2,12 @@ module Data.TransportTest exposing (..)
 
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
-import Data.Scope as Scope
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport as Transport exposing (Transport, getTransportBetween)
 import Dict.Any as AnyDict
 import Expect
 import Length
+import List.Extra as LE
+import Quantity
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
@@ -42,17 +43,28 @@ suite =
                 |> describe "transports data availability checks"
             , describe "getTransportBetween"
                 [ db.distances
-                    |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "FR") (Country.Code "CN")
+                    |> Transport.getTransportBetween Impact.empty (Country.Code "FR") (Country.Code "CN")
                     |> Expect.equal (franceChina Impact.empty)
                     |> asTest "should retrieve distance between two countries"
                 , db.distances
-                    |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "CN") (Country.Code "FR")
+                    |> Transport.getTransportBetween Impact.empty (Country.Code "CN") (Country.Code "FR")
                     |> Expect.equal (franceChina Impact.empty)
                     |> asTest "should retrieve distance between two swapped countries"
-                , db.distances
-                    |> Transport.getTransportBetween Scope.Textile Impact.empty (Country.Code "FR") (Country.Code "FR")
-                    |> Expect.equal (Transport.defaultInland Scope.Textile Impact.empty)
-                    |> asTest "should apply default inland transport when country is the same"
+                , db.countries
+                    |> List.map .code
+                    |> LE.uniquePairs
+                    |> List.map
+                        (\( cA, cB ) ->
+                            db.distances
+                                |> getTransportBetween Impact.empty cA cB
+                        )
+                    |> List.filter
+                        (\{ road, sea, air } ->
+                            Quantity.sum [ road, sea, air ] == Quantity.zero
+                        )
+                    |> List.length
+                    |> Expect.equal 0
+                    |> asTest "should always give a distance greater than 0 between two countries"
                 ]
             ]
         )

@@ -22,7 +22,6 @@ module Data.Textile.Step exposing
 import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
@@ -176,11 +175,7 @@ computeTransports db inputs next ({ processInfo } as current) =
 
             else
                 db.distances
-                    |> Transport.getTransportBetween False
-                        Scope.Textile
-                        current.transport.impacts
-                        current.country.code
-                        next.country.code
+                    |> Transport.getTransportBetween current.transport.impacts current.country.code next.country.code
                     |> computeTransportSummary current
                     |> computeTransportImpacts current.transport.impacts
                         db.textile.wellKnown
@@ -226,7 +221,7 @@ computeTransportSummary step transport =
     let
         ( noTransports, defaultInland ) =
             ( Transport.default step.transport.impacts
-            , Transport.defaultInland Scope.Textile step.transport.impacts
+            , Transport.default step.transport.impacts
             )
     in
     case step.label of

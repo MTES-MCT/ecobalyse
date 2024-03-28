@@ -7,7 +7,6 @@ module Data.Transport exposing
     , computeImpacts
     , decodeDistances
     , default
-    , defaultInland
     , encode
     , getTransportBetween
     , roadSeaTransportRatio
@@ -18,7 +17,6 @@ module Data.Transport exposing
 import Data.Country as Country
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
@@ -50,36 +48,6 @@ type alias Transport =
 default : Impacts -> Transport
 default impacts =
     { road = Quantity.zero
-    , roadCooled = Quantity.zero
-    , sea = Quantity.zero
-    , seaCooled = Quantity.zero
-    , air = Quantity.zero
-    , impacts = impacts
-    }
-
-
-erroneous : Impacts -> Transport
-erroneous impacts =
-    -- FIXME temporary data to display something weird instead of zero, until
-    -- we use of a Result String Transport in the transport computations
-    { road = Quantity.infinity
-    , roadCooled = Quantity.infinity
-    , sea = Quantity.infinity
-    , seaCooled = Quantity.infinity
-    , air = Quantity.infinity
-    , impacts = impacts
-    }
-
-
-defaultInland : Scope -> Impacts -> Transport
-defaultInland scope impacts =
-    { road =
-        case scope of
-            Scope.Food ->
-                Length.kilometers 0
-
-            Scope.Textile ->
-                Length.kilometers 500
     , roadCooled = Quantity.zero
     , sea = Quantity.zero
     , seaCooled = Quantity.zero
@@ -189,41 +157,25 @@ roadSeaTransportRatio { road, sea } =
 
 
 getTransportBetween :
-    Bool
-    -> Scope
-    -> Impacts
+    Impacts
     -> Country.Code
     -> Country.Code
     -> Distances
     -> Transport
-getTransportBetween stopRecursion scope impacts cA cB distances =
-    if cA == cB then
-        defaultInland scope impacts
+getTransportBetween impacts cA cB distances =
+    distances
+        |> Dict.get cA
+        |> Maybe.map
+            (\countries ->
+                case Dict.get cB countries of
+                    Just transport ->
+                        { transport | impacts = impacts }
 
-    else
-        distances
-            |> Dict.get cA
-            |> Maybe.map
-                (\countries ->
-                    case Dict.get cB countries of
-                        Just transport ->
-                            { transport | impacts = impacts }
-
-                        Nothing ->
-                            -- reverse query source dict
-                            if stopRecursion then
-                                erroneous impacts
-
-                            else
-                                getTransportBetween True scope impacts cB cA distances
-                )
-            |> Maybe.withDefault
-                (if stopRecursion then
-                    erroneous impacts
-
-                 else
-                    getTransportBetween True scope impacts cB cA distances
-                )
+                    Nothing ->
+                        -- reverse query source dict
+                        getTransportBetween impacts cB cA distances
+            )
+        |> Maybe.withDefault (default impacts)
 
 
 decodeKm : Decoder Length

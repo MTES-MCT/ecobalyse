@@ -11,15 +11,14 @@ module Data.Dataset exposing
     )
 
 import Data.Country as Country
-import Data.Food.ExampleProduct as FoodExample
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
-import Data.Textile.ExampleProduct as TextileExample
 import Data.Textile.Material as Material
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product
+import Data.Uuid as Uuid exposing (Uuid)
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -31,10 +30,10 @@ It's used by Page.Explore and related routes.
 type Dataset
     = Countries (Maybe Country.Code)
     | Impacts (Maybe Definition.Trigram)
-    | FoodExamples (Maybe FoodExample.Uuid)
+    | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe FoodProcess.Identifier)
-    | TextileExamples (Maybe TextileExample.Uuid)
+    | TextileExamples (Maybe Uuid)
     | TextileProducts (Maybe Product.Id)
     | TextileMaterials (Maybe Material.Id)
     | TextileProcesses (Maybe Process.Uuid)
@@ -42,22 +41,23 @@ type Dataset
 
 datasets : Scope -> List Dataset
 datasets scope =
-    Impacts Nothing
-        :: Countries Nothing
-        :: (case scope of
-                Scope.Food ->
-                    [ FoodIngredients Nothing
-                    , FoodProcesses Nothing
-                    , FoodExamples Nothing
-                    ]
+    case scope of
+        Scope.Food ->
+            [ FoodExamples Nothing
+            , Impacts Nothing
+            , FoodIngredients Nothing
+            , Countries Nothing
+            , FoodProcesses Nothing
+            ]
 
-                Scope.Textile ->
-                    [ TextileProducts Nothing
-                    , TextileMaterials Nothing
-                    , TextileProcesses Nothing
-                    , TextileExamples Nothing
-                    ]
-           )
+        Scope.Textile ->
+            [ TextileExamples Nothing
+            , Impacts Nothing
+            , TextileMaterials Nothing
+            , Countries Nothing
+            , TextileProcesses Nothing
+            , TextileProducts Nothing
+            ]
 
 
 fromSlug : String -> Dataset
@@ -65,6 +65,9 @@ fromSlug string =
     case string of
         "countries" ->
             Countries Nothing
+
+        "impacts" ->
+            Impacts Nothing
 
         "food-examples" ->
             FoodExamples Nothing
@@ -84,11 +87,8 @@ fromSlug string =
         "processes" ->
             TextileProcesses Nothing
 
-        "textile-examples" ->
-            TextileExamples Nothing
-
         _ ->
-            Impacts Nothing
+            TextileExamples Nothing
 
 
 isDetailed : Dataset -> Bool
@@ -210,7 +210,7 @@ setIdFromString idString dataset =
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
         FoodExamples _ ->
-            FoodExamples (Just (FoodExample.uuidFromString idString))
+            FoodExamples (Uuid.fromString idString)
 
         FoodIngredients _ ->
             FoodIngredients (Just (Ingredient.idFromString idString))
@@ -219,7 +219,7 @@ setIdFromString idString dataset =
             FoodProcesses (Just (FoodProcess.codeFromString idString))
 
         TextileExamples _ ->
-            TextileExamples (Just (TextileExample.uuidFromString idString))
+            TextileExamples (Uuid.fromString idString)
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -280,7 +280,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         FoodExamples (Just id) ->
-            [ slug dataset, FoodExample.uuidToString id ]
+            [ slug dataset, Uuid.toString id ]
 
         FoodIngredients Nothing ->
             [ slug dataset ]
@@ -295,7 +295,7 @@ toRoutePath dataset =
             [ slug dataset, FoodProcess.codeToString id ]
 
         Impacts Nothing ->
-            []
+            [ slug dataset ]
 
         Impacts (Just trigram) ->
             [ slug dataset, Definition.toString trigram ]
@@ -304,7 +304,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         TextileExamples (Just id) ->
-            [ slug dataset, TextileExample.uuidToString id ]
+            [ slug dataset, Uuid.toString id ]
 
         TextileProducts Nothing ->
             [ slug dataset ]
