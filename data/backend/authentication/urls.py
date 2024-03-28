@@ -1,5 +1,5 @@
 from . import views
-from .views import register, RegistrationRequestedView, profile, check_token
+from .views import register, RegistrationRequestedView, profile
 from django.urls import include, path, re_path
 
 
@@ -20,5 +20,4 @@ urlpatterns = [
         name="register-activate",
     ),
     path("profile.json/", profile, name="profile"),
-    path("check_token/", check_token, name="check_token"),
 ]
