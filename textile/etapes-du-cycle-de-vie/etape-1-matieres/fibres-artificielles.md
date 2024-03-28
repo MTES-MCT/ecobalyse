@@ -6,7 +6,9 @@ Les fibres artificielles sont formées à partir de molécules naturelles ayant 
 
 <summary>Viscose</summary>
 
-La viscose est une matières chimique artificielle fabriquée à partir de cellulose végétale (pâte à bois ou coton principalement). La viscose est parfois appelée "soie artificielle" ou Lyocell (nom d'un procédé de fabrication innovant et plus sobre).&#x20;
+La viscose est une matière chimique artificielle fabriquée à partir de cellulose végétale (pâte à bois ou coton principalement). La viscose est parfois appelée "soie artificielle".&#x20;
+
+Une société autrichienne a développé un procédé innovant et plus sobre: le Lyocell.
 
 **Principales étapes de production**
 
