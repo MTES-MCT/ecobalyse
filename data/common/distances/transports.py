@@ -1,5 +1,7 @@
 from common.export import load_json, export_json
 from common.distances.CountryDistances import CountryDistances
+import json
+
 
 INPUT_DISTANCES = "distances_raw.json"
 COUNTRIES_OFFICIAL = "../../../public/data/countries.json"
@@ -50,4 +52,10 @@ if __name__ == "__main__":
             f"There's a mismatch between countries_official_list and the countries we have distances. missing countries : {missing_countries}. excess_countries : {surplus_countries}"
         )
     country_distances.validate()
-    export_json(country_distances.export_to_nested_dict(), OUTPUT)
+
+    with open(OUTPUT, "w", encoding="utf-8") as file:
+        json.dump(
+            country_distances.export_to_nested_dict(),
+            file,
+            ensure_ascii=False,
+        )
