@@ -13,8 +13,11 @@ import Route
 import Views.Icon as Icon
 
 
-table : Float -> { detailed : Bool, scope : Scope } -> Table ( Example Query, Float ) String msg
-table maxScore { detailed, scope } =
+table :
+    { maxScore : Float, maxPer100g : Float }
+    -> { detailed : Bool, scope : Scope }
+    -> Table ( Example Query, { score : Float, per100g : Float } ) String msg
+table { maxScore, maxPer100g } { detailed, scope } =
     { toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
     , columns =
@@ -27,10 +30,16 @@ table maxScore { detailed, scope } =
           , toCell = Tuple.first >> .category >> text
           }
         , { label = "Coût Environnemental"
-          , toValue = Table.FloatValue Tuple.second
+          , toValue = Table.FloatValue (Tuple.second >> .score)
           , toCell =
-                \( _, score ) ->
+                \( _, { score } ) ->
                     Common.impactBarGraph detailed maxScore score
+          }
+        , { label = "Coût Environnemental/100g"
+          , toValue = Table.FloatValue (Tuple.second >> .per100g)
+          , toCell =
+                \( _, { per100g } ) ->
+                    Common.impactBarGraph detailed maxPer100g per100g
           }
         , { label = ""
           , toValue = Table.NoValue
