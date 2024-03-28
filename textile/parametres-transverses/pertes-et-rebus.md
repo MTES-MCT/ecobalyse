@@ -2,16 +2,17 @@
 description: Vision d'ensemble de la gestion des pertes et rebut dans l'outil
 ---
 
-# 🗑 Pertes et rebut
+# 🗑️ Pertes et rebut
 
 A chaque étape de la production, des pertes et rebut sont pris en compte. Les formules de calcul sont développées dans chaque page dédiée au procédé en question (cf. tableau ci-après) :
 
-| Masse entrante   | Masse sortante | Procédé                                                               |
-| ---------------- | -------------- | --------------------------------------------------------------------- |
-| Matière première | Fil            | [Matière et filature](broken-reference)                               |
-| Fil              | Etoffe         | [Tricotage / Tissage](../etapes-du-cycle-de-vie/tricotage-tissage.md) |
-| Etoffe           | Tissu          | [Teinture](../etapes-du-cycle-de-vie/ennoblissement/)                 |
-| Tissu            | Habit          | [Confection](../etapes-du-cycle-de-vie/confection.md)                 |
-| Habit            | Habit          | [Distribution](../etapes-du-cycle-de-vie/distribution.md)             |
+| Masse entrante | Masse sortante | Procédé                                                                                                               |
+| -------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Non applicable | Matière        | [Matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-1-matieres)            |
+| Matière        | Fil            | [Filature](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil) |
+| Fil            | Etoffe         | [Tricotage / Tissage](../etapes-du-cycle-de-vie/tricotage-tissage.md)                                                 |
+| Etoffe         | Tissu          | [Teinture](../etapes-du-cycle-de-vie/ennoblissement/)                                                                 |
+| Tissu          | Habit          | [Confection](../etapes-du-cycle-de-vie/confection.md)                                                                 |
+| Habit          | Habit          | [Distribution](../etapes-du-cycle-de-vie/distribution.md)                                                             |
 
-Le paramètre proposé dans le paramétrage du calculateur en ligne est la masse d'habit, donc la masse à la fin des différentes étapes. Le calcul des masses se fait donc **en remontant la chaîne de production** : d'abord la masse de tissu, puis la masse d'étoffe, puis la masse de fil, puis la masse de matière première.
+Le paramètre proposé dans le paramétrage du calculateur en ligne est la masse du vêtement, donc la masse à la fin des différentes étapes. Le calcul des masses se fait donc **en remontant la chaîne de production** : d'abord la masse du vêtement, puis la masse d'étoffe, puis la masse de fil, puis la masse de matière première.

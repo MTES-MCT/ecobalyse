@@ -37,7 +37,6 @@
 * [Paramètres transverses](textile/parametres-transverses/README.md)
   * [⚡ Electricité](textile/parametres-transverses/electricite.md)
   * [🔥 Chaleur](textile/parametres-transverses/chaleur.md)
-  * [🔵 Eaux usées](textile/parametres-transverses/eaux-usees.md)
   * [🗑️ Pertes et rebut](textile/parametres-transverses/pertes-et-rebus.md)
   * [🤯 Circular Footpring Formula (CFF)](textile/parametres-transverses/circular-footpring-formula-cff.md)
   * [🚢 Transport](textile/parametres-transverses/transport.md)
