@@ -13,6 +13,8 @@ const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
 const port = 8001;
+const django_port = process.env.PORT || 8000;
+console.log("django_port", django_port);
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -111,9 +113,7 @@ api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${clean
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   let processesFilename = "processes.json";
   if (req.headers.token) {
-    // TODO: there is no proxy in dev, so it needs to be the django's url
-    // const checkTokenUrl = `http://127.0.0.1:8000/accounts/check_token/`;
-    const checkTokenUrl = `http://${host}:${port}/accounts/check_token/`;
+    const checkTokenUrl = `http://localhost:${django_port}/accounts/check_token/`;
     const isTokenValidRes = await fetch(
       checkTokenUrl,
       { headers: { "token": req.headers.token }});
