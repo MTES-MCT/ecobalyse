@@ -3,7 +3,6 @@
 * [🇫🇷 Ecobalyse](README.md)
 * [🤝 Communauté](communaute.md)
 * [📝 Approche méthodologique globale](impacts-consideres.md)
-* [📊 Visualisation et comparaison des impacts dans l'outil Ecobalyse](impacts-consideres-1.md)
 
 ## 👕 Textile
 
@@ -95,7 +94,7 @@
     * [Visualisation et comparaison des impacts dans l'outil Ecobalyse](alimentaire/old/transverse/impacts-consideres-1.md)
     * [Niveaux de calcul ?](alimentaire/old/transverse/niveaux-de-calcul.md)
   * [Pages textiles old](alimentaire/old/pages-textiles-old/README.md)
-    * [Indicateurs environnementaux - old](alimentaire/old/pages-textiles-old/impacts-consideres.md)
+    * [Indicateurs environnementaux - old](textile/impacts-consideres.md)
   * [🍒 Alimentaire](alimentaire/old/alimentaire/README.md)
     * [Données ACV mobilisées](alimentaire/old/alimentaire/donnees-acv-mobilisees.md)
     * [Choix des inventaires](alimentaire/old/alimentaire/choix-des-inventaires.md)
