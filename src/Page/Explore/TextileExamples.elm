@@ -1,55 +1,47 @@
 module Page.Explore.TextileExamples exposing (table)
 
 import Data.Dataset as Dataset
-import Data.Impact as Impact
-import Data.Impact.Definition as Definition
+import Data.Example exposing (Example)
 import Data.Scope exposing (Scope)
-import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
-import Data.Textile.Simulator as Simulator
-import Data.Unit as Unit
+import Data.Textile.Query exposing (Query)
+import Data.Uuid as Uuid
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Static.Db exposing (Db)
+import Views.Icon as Icon
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table ExampleProduct String msg
-table db { detailed, scope } =
-    { toId = .id >> ExampleProduct.uuidToString
-    , toRoute = .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
+table : Float -> { detailed : Bool, scope : Scope } -> Table ( Example Query, Float ) String msg
+table maxScore { detailed, scope } =
+    { toId = Tuple.first >> .id >> Uuid.toString
+    , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
     , columns =
         [ { label = "Nom"
-          , toValue = Table.StringValue .name
-          , toCell = .name >> text
+          , toValue = Table.StringValue (Tuple.first >> .name)
+          , toCell = Tuple.first >> .name >> text
           }
         , { label = "Catégorie"
-          , toValue = Table.StringValue .category
-          , toCell = .category >> text
+          , toValue = Table.StringValue (Tuple.first >> .category)
+          , toCell = Tuple.first >> .category >> text
           }
         , { label = "Coût Environnemental"
-          , toValue = Table.FloatValue <| getScore db >> Unit.impactToFloat
+          , toValue = Table.FloatValue Tuple.second
           , toCell =
-                \example ->
-                    let
-                        score =
-                            getScore db example |> Unit.impactToFloat
-
-                        max =
-                            db.textile.exampleProducts
-                                |> List.map (getScore db >> Unit.impactToFloat)
-                                |> List.maximum
-                                |> Maybe.withDefault 0
-                    in
-                    Common.impactBarGraph detailed max score
+                \( _, score ) ->
+                    Common.impactBarGraph detailed maxScore score
+          }
+        , { label = ""
+          , toValue = Table.NoValue
+          , toCell =
+                \( { id, name }, _ ) ->
+                    a
+                        [ class "btn btn-light btn-sm w-100"
+                        , Route.href <| Route.TextileSimulatorExample id
+                        , title <| "Charger " ++ name
+                        ]
+                        [ Icon.search ]
           }
         ]
     }
-
-
-getScore : Db -> ExampleProduct -> Unit.Impact
-getScore db =
-    .query
-        >> Simulator.compute db
-        >> Result.map (.impacts >> Impact.getImpact Definition.Ecs)
-        >> Result.withDefault (Unit.impact 0)

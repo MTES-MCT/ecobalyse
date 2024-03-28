@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
+import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
@@ -14,7 +15,7 @@ import Page.Explore as Explore
 import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Stats as Stats
-import Page.Textile.Simulator as TextileSimulator
+import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
 import Request.Version
@@ -99,11 +100,10 @@ init flags url navKey =
                             , queries =
                                 { food = FoodQuery.empty
                                 , textile =
-                                    db.textile.exampleProducts
-                                        |> List.filter (.name >> (==) "Tshirt coton (150g) - Majorant par défaut")
-                                        |> List.head
-                                        |> Maybe.map .query
-                                        |> Maybe.withDefault TextileQuery.default
+                                    db.textile.examples
+                                        |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
+                                        |> Result.map .query
+                                        |> Result.withDefault TextileQuery.default
                                 }
                             }
                             LoadingPage
@@ -178,6 +178,10 @@ setRoute url ( { state } as model, cmds ) =
                 Just Route.Login ->
                     ( model, Session.login LoggedIn )
 
+                Just (Route.FoodBuilderExample uuid) ->
+                    FoodBuilder.initFromExample session uuid
+                        |> toPage FoodBuilderPage FoodBuilderMsg
+
                 Just Route.Stats ->
                     Stats.init session
                         |> toPage StatsPage StatsMsg
@@ -188,6 +192,10 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just (Route.TextileSimulator trigram maybeQuery) ->
                     TextileSimulator.init trigram maybeQuery session
+                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+
+                Just (Route.TextileSimulatorExample uuid) ->
+                    TextileSimulator.initFromExample session uuid
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
         Errored _ ->
