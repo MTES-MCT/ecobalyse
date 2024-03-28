@@ -2,7 +2,7 @@
 
 * [🇫🇷 Ecobalyse](README.md)
 * [🤝 Communauté](communaute.md)
-* [📝 Approche méthodologique globale](impacts-consideres.md)
+* [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres.md)
 
 ## 👕 Textile
 

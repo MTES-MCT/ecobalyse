@@ -1,10 +1,4 @@
----
-description: Proposition de page commune alim & textile
----
-
-# 📝 Approche méthodologique globale
-
-## Approche globale : le coût environnemental&#x20;
+# 📝 Le coût environnemental : approche méthodologique globale
 
 Le coût environnemental est le résultat du calcul d'impacts selon la méthode de l'Etat français. Cette méthode s'appuie sur le socle européen PEF (Product Environmental Footprint), auxquels s'ajoutent des compléments relatifs aux dimensions aujourd'hui mal couvertes par l'analyse de cycle de vie.
 
@@ -16,7 +10,7 @@ $$
 
 Le coût environnemental est exprimé en _**points d'impacts**_.&#x20;
 
-Ce _**point d'impact**_ provient du "micro-point PEF". Le point PEF correspond à l’impact environnemental annuel d'un habitant européen.Partie ACV&#x20;
+Ce _**point d'impact**_ provient du "micro-point PEF". Le point PEF correspond à l’impact environnemental annuel d'un habitant européen.
 
 ## Indicateurs ACV et correctifs&#x20;
 
