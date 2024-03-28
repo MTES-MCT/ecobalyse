@@ -35,7 +35,7 @@ Dans un premier temps, le coefficient de durabilité introduit dans la modélisa
 
 ## Calcul du coût environnemental
 
-Pour chaque vêtement, un **coefficient de durabilité** est établi. Sa valeur est comprise entre 0,5, pour les produits les moins durables, et 1,5 pour les produits les plus durables.
+Pour chaque vêtement, un **coefficient de durabilité** est établi. Sa valeur est comprise entre 0.5, pour les produits les moins durables, et 1.5 pour les produits les plus durables.
 
 Le coût environnemental est établi comme suit :&#x20;
 
@@ -48,27 +48,36 @@ Avec :&#x20;
 * SommedesImpacts : Somme des impacts du vêtement considéré sur l'ensemble de son cycle de vie. Pour la phase d'utilisation, on considère un nombre de portés et un nombre de cycles d'utilisation proportionnels au coefficient de durabilité. Plus un vêtement est durable, plus il est porté, plus il est entretenu, plus la somme des impacts qu'il génère est importante (sur une durée d'utilisation plus longue).
 * Coût environnemental : Le coût environnemental ainsi considéré revient à considérer une unité fonctionnelle "utilisation du vêtement sur une durée de X jours", où X est la durée moyenne d'utilisation considérée pour la catégorie de vêtement considérée (cf. nombre de portés et d'utilisation avant lavage spécifiés dans l'[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products), en s'appuyant sur les données du projet de PEFCR Apparel & Footwear lorsqu'elles sont disponibles).
 
+Exemple :&#x20;
+
+* Pour un vêtement avec un coefficient de durabilité de 0.5, le coût environnemental est multiplié par 2 (+100%)
+* Pour un vêtement avec un coefficient de durabilité de 1.5, le coût environnemental est divisé par 1.5 (-33%)
+
 ## Calcul du coefficient de durabilité
 
-Le coefficient de durabilité est établi à partir de 5 critères pondérés comme suit :&#x20;
+Le coefficient de durabilité est établi à partir de 5 critères avec les $$Poids_{critère}$$ comme suit :&#x20;
 
-* Largeur de gamme -> 20%
-* Durée de commercialisation -> 20%
-* Incitation à la réparation -> 30%
-* Matières -> 15%
-* Affichage de la traçabilité -> 15%
+<table><thead><tr><th width="374">Critère</th><th>Poids_{critère}</th></tr></thead><tbody><tr><td>Incitation à la réparation</td><td>30%</td></tr><tr><td>Largeur de gamme</td><td>20%</td></tr><tr><td>Durée de commercialisation</td><td>20%</td></tr><tr><td>Matières</td><td>15%</td></tr><tr><td>Affichage de la traçabilité</td><td>15%</td></tr></tbody></table>
+
+
 
 {% hint style="info" %}
 Chacun des 5 critères, pris indépendamment, ne suffit pas à qualifier la durabilité non physique d'un vêtement et peut présenter des effets de bord. En revanche, la prise en compte des 5 critères ensemble permet de qualifier un positionnement marque/produit avec une incidence sur le nombre d'utilisation des vêtements, donc leur durabilité.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption><p>Pondération des 5 composantes du coefficient de durabilité</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4).png" alt="" width="375"><figcaption><p>Pondération des 5 composantes du coefficient de durabilité</p></figcaption></figure>
 
-Chacune des 5 composantes s'exprime à travers un indice (I) compris entre 0 et 1 et pouvant donc être exprimé en pourcentage (%). En intégrant les pondérations mentionnées ci-dessus, et les valeurs minimale (0,5) et maximale (1,5) du coefficient de durabilité, la formule permettant de l'établir est :&#x20;
+Chacune des 5 composantes s'exprime à travers un indice (I) compris entre 0 et 1 et pouvant donc être exprimé en pourcentage (%). En intégrant les pondérations mentionnées ci-dessus, et les valeurs minimale (0.5) et maximale (1.5) du coefficient de durabilité $$C_{durabilité}$$ , la formule permettant de l'établir est :&#x20;
 
 $$
-CoefDurabilité = 0,5 + (1,5-0,5)*0,2*Ilargeurdegamme + 0,2*Iduréecommercialisation + ...
+C_{Durabilité} = 0.5 + \sum_{critère}^{} Poids_{critère}*I_{critère}
 $$
+
+Ou aussi&#x20;
+
+$$C_{Durabilité} = 0.5 +  0.3*I_{incitation réparation} +  0.2*I_{largeur de gamme} + 0.2*I_{durée commercialisation} + 0.15*I_{matière}  + 0.15*I_{affichage tracabilité}$$
+
+
 
 La définition et la modélisation de chaque indice sont détaillées ci-après.
 
@@ -95,7 +104,7 @@ L'indice "largeur de gamme" prend les valeurs suivantes :&#x20;
 * 0% lorsque le nombre de références est supérieur à 12000
 * Entre ces différents points, l'évolution de l'indice est linéaire (cf. schéma ci-après)
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Indice "largeur de gamme" en fonction du nombre de références commercialisées</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image.png" alt="" width="375"><figcaption><p>Indice "largeur de gamme" en fonction du nombre de références commercialisées</p></figcaption></figure>
 
 {% hint style="info" %}
 En première approche, une unique formule est appliquée quelle que soit la marque ou la plateforme qui commercialise le produit considéré. Au besoin, l'introduction d'échelles différenciées pourra être envisagée pour distinguer les marques qui ne couvriraient qu'une partie du marché (vêtements pour hommes, vêtements pour femme, vêtements pour enfants, vêtements de sport...).
@@ -195,7 +204,7 @@ La partie 2/2 prend les valeurs suivantes :&#x20;
 Formule résultante, lorsqu'un vêtement est commercialisé par une grande entreprise :&#x20;
 
 $$
-Iincitationréparation = 0,66 * I1/2 + 0,33 * I2/2
+I_{incitationréparation} = 0,66 * I_{1/2} + 0,33 * I_{2/2}
 $$
 
 ## Matières
