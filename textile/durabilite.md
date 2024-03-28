@@ -35,25 +35,25 @@ Dans un premier temps, le coefficient de durabilité introduit dans la modélisa
 
 ## Calcul du coût environnemental
 
-Pour chaque vêtement, un **coefficient de durabilité** est établi. Sa valeur est comprise entre 0.5, pour les produits les moins durables, et 1.5 pour les produits les plus durables.
+Pour chaque vêtement, un **coefficient de durabilité** $$C_{Durabilité}$$ est établi. Sa valeur est comprise entre 0.5, pour les produits les moins durables, et 1.5 pour les produits les plus durables.
 
 Le coût environnemental est établi comme suit :&#x20;
 
 $$
-CoûtEnvironnemental = Somme des Impacts / CoefficientDurabilité
+CoûtEnvironnemental = \frac{Somme des Impacts}{C_{Durabilité}}
 $$
 
 Avec :&#x20;
 
-* SommedesImpacts : Somme des impacts du vêtement considéré sur l'ensemble de son cycle de vie. Pour la phase d'utilisation, on considère un nombre de portés et un nombre de cycles d'utilisation proportionnels au coefficient de durabilité. Plus un vêtement est durable, plus il est porté, plus il est entretenu, plus la somme des impacts qu'il génère est importante (sur une durée d'utilisation plus longue).
-* Coût environnemental : Le coût environnemental ainsi considéré revient à considérer une unité fonctionnelle "utilisation du vêtement sur une durée de X jours", où X est la durée moyenne d'utilisation considérée pour la catégorie de vêtement considérée (cf. nombre de portés et d'utilisation avant lavage spécifiés dans l'[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products), en s'appuyant sur les données du projet de PEFCR Apparel & Footwear lorsqu'elles sont disponibles).
+* $$SommedesImpacts$$ : Somme des impacts du vêtement considéré sur l'ensemble de son cycle de vie. Pour la phase d'utilisation, on considère un nombre de portés et un nombre de cycles d'utilisation proportionnels au coefficient de durabilité. Plus un vêtement est durable, plus il est porté, plus il est entretenu, plus la somme des impacts qu'il génère est importante (sur une durée d'utilisation plus longue).
+* $$Coût environnemental$$ : Le coût environnemental ainsi considéré revient à considérer une unité fonctionnelle "utilisation du vêtement sur une durée de X jours", où X est la durée moyenne d'utilisation considérée pour la catégorie de vêtement considérée (cf. nombre de portés et d'utilisation avant lavage spécifiés dans l'[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products), en s'appuyant sur les données du projet de PEFCR Apparel & Footwear lorsqu'elles sont disponibles).
 
 Exemple :&#x20;
 
 * Pour un vêtement avec un coefficient de durabilité de 0.5, le coût environnemental est multiplié par 2 (+100%)
 * Pour un vêtement avec un coefficient de durabilité de 1.5, le coût environnemental est divisé par 1.5 (-33%)
 
-## Calcul du coefficient de durabilité
+## Calcul du coefficient de durabilité $$C_{Durabilité}$$
 
 Le coefficient de durabilité est établi à partir de 5 critères avec les $$Poids_{critère}$$ comme suit :&#x20;
 
