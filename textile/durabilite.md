@@ -131,7 +131,7 @@ L'indice "durée de commercialisation" prend les valeurs suivantes :&#x20;
 * 100% lorsque la durée moyenne de commercialisation est de 180 jours ou plus
 * &#x20;Entre ces deux points, l'évolution de l'indice est linéaire (cf. schéma ci-après)
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption><p>Indice "durée de commercialisation" en fonction du nombre moyen de jours de commercialisation</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt="" width="563"><figcaption><p>Indice "durée de commercialisation" en fonction du nombre moyen de jours de commercialisation</p></figcaption></figure>
 
 ## Incitation à la réparation (1/2)
 
@@ -171,7 +171,7 @@ L'indice "incitation à la réparation", pour sa première composante, prend les
 
 Application au cas du Tshirt, avec un coût moyen de réparation de 10€ :&#x20;
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption><p>Indice "incitation à la réparation" (partie 1/2) en fonction du prix de vente d'un Tshirt</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt="" width="563"><figcaption><p>Indice "incitation à la réparation" (partie 1/2) en fonction du prix de vente d'un Tshirt</p></figcaption></figure>
 
 ## Incitation à la réparation (2/2)
 
