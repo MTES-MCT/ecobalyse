@@ -1,5 +1,55 @@
 [
   {
+    "id": "c0500a78-8b40-4e92-88df-c2a39e1a08c3",
+    "name": "Tshirt lin (150g) - France - Mode \"éthique\"",
+    "category": "Tshirt / Polo",
+    "query": {
+      "mass": 0.15,
+      "materials": [
+        {
+          "id": "ei-lin",
+          "share": 1
+        }
+      ],
+      "product": "tshirt",
+      "countrySpinning": "TR",
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "fabricProcess": "knitting-mix",
+      "business": "small-business",
+      "marketingDuration": 300,
+      "numberOfReferences": 200,
+      "price": 30,
+      "traceability": true
+    }
+  },
+  {
+    "id": "b9dc9be5-ba32-4b8c-9190-b93098cf1d0d",
+    "name": "Tshirt coton bio (150g) - France - Mode \"éthique\"",
+    "category": "Tshirt / Polo",
+    "query": {
+      "mass": 0.15,
+      "materials": [
+        {
+          "id": "ei-coton-organic",
+          "share": 1
+        }
+      ],
+      "product": "tshirt",
+      "countrySpinning": "TR",
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "fabricProcess": "knitting-mix",
+      "business": "small-business",
+      "marketingDuration": 300,
+      "numberOfReferences": 200,
+      "price": 30,
+      "traceability": true
+    }
+  },
+  {
     "id": "dffc6a19-794a-4d14-ad1a-bc3512359f22",
     "name": "Pull polyester (550g) - Asie - Mode \"ultra fast fashion\"",
     "category": "Pull",
@@ -308,7 +358,7 @@
       "countrySpinning": "---",
       "countryFabric": "---",
       "countryDyeing": "---",
-      "countryMaking": "CN",
+      "countryMaking": "---",
       "airTransportRatio": 1,
       "fabricProcess": "weaving",
       "marketingDuration": 65,
@@ -332,7 +382,7 @@
       "countrySpinning": "---",
       "countryFabric": "---",
       "countryDyeing": "---",
-      "countryMaking": "CN",
+      "countryMaking": "---",
       "airTransportRatio": 1,
       "fabricProcess": "weaving",
       "marketingDuration": 65,
@@ -380,7 +430,7 @@
       "countrySpinning": "---",
       "countryFabric": "---",
       "countryDyeing": "---",
-      "countryMaking": "CN",
+      "countryMaking": "---",
       "airTransportRatio": 1,
       "fabricProcess": "weaving",
       "marketingDuration": 65,
@@ -404,7 +454,7 @@
       "countrySpinning": "---",
       "countryFabric": "---",
       "countryDyeing": "---",
-      "countryMaking": "CN",
+      "countryMaking": "---",
       "airTransportRatio": 1,
       "fabricProcess": "weaving",
       "marketingDuration": 65,
@@ -425,10 +475,10 @@
         }
       ],
       "product": "tshirt",
-      "countrySpinning": "IN",
-      "countryFabric": "IN",
-      "countryDyeing": "IN",
-      "countryMaking": "IN",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
       "airTransportRatio": 1,
       "fabricProcess": "knitting-mix",
       "business": "large-business-without-services",
@@ -454,13 +504,117 @@
       "countrySpinning": "---",
       "countryFabric": "---",
       "countryDyeing": "---",
-      "countryMaking": "PK",
+      "countryMaking": "---",
       "airTransportRatio": 1,
       "fabricProcess": "knitting-mix",
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 20,
+      "traceability": false
+    }
+  },
+  {
+    "id": "47f8d396-9f57-4a1d-8d24-b2fc3439e75f",
+    "name": "Chaussettes coton (40g) - Majorant par défaut",
+    "category": "Chaussettes",
+    "query": {
+      "mass": 0.04,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "chaussettes",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-fully-fashioned",
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 4,
+      "traceability": false
+    }
+  },
+  {
+    "id": "3f3be8b2-115b-41b4-b925-5656aa7d8c87",
+    "name": "Caleçon coton (40g) - Majorant par défaut",
+    "category": "Caleçon (tissé)",
+    "query": {
+      "mass": 0.04,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "calecon",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "weaving",
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 4,
+      "traceability": false
+    }
+  },
+  {
+    "id": "69a21510-b23b-4910-9bd9-23507c8f5a59",
+    "name": "Slip coton (30g) - Majorant par défaut",
+    "category": "Boxer / slip (tricoté)",
+    "query": {
+      "mass": 0.03,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "slip",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 4,
+      "traceability": false
+    }
+  },
+  {
+    "id": "9d382f50-f77a-44cd-b26f-702c4a2ceb50",
+    "name": "Maillot de bain polyester (100g) - Majorant par défaut",
+    "category": "Boxer / slip (tricoté)",
+    "query": {
+      "mass": 0.1,
+      "materials": [
+        {
+          "id": "ei-pet",
+          "share": 1
+        }
+      ],
+      "product": "maillot-de-bain",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 15,
       "traceability": false
     }
   }
