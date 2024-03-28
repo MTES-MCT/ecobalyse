@@ -222,7 +222,13 @@ update session msg model =
 
         TokenEmailSent response ->
             ( { model | response = Result.toMaybe response }
-            , session
+            , case response of
+                Ok _ ->
+                    session
+
+                Err _ ->
+                    session
+                        |> Session.notifyError "Erreur lors de la connexion" ""
             , Cmd.none
             )
 
