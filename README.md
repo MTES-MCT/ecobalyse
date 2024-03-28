@@ -31,22 +31,13 @@ En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mette
 
 Le serveur local de développement se lance au moyen des deux commandes suivantes :
 
-    & npm run db:build
     $ npm start
 
-Deux instances de développement sont alors accessibles :
+Trois instances de développement sont alors accessibles :
 
+- [localhost:8000](http://localhost:8000/) sert le backend django utilisé pour l'authentification, et sert aussi les fichiers statiques de elm
 - [localhost:8001](http://localhost:8001/) sert le frontend et le backend (API) ;
 - [localhost:1234](http://localhost:1234/) sert seulement le frontend en mode _hot-reload_, permettant de mettre à jour en temps-réel l'interface Web à chaque modification du code frontend.
-
-### Mode débogage
-
-Pour lancer le serveur de développement en mode de débogage:
-
-    & npm run db:build
-    $ npm run start:dev
-
-Un server frontend de débogage est alors disponible sur [localhost:1234](http://localhost:1234/).
 
 ### Hooks Git avec Husky et Formatage de Code avec Prettier
 
