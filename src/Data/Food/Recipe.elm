@@ -34,7 +34,6 @@ import Data.Food.Query as BuilderQuery exposing (Query)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
-import Data.Scope as Scope
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
 import Data.Textile.Formula as Formula
@@ -356,7 +355,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                         -- In case a custom country is provided, compute the distances to it from France
                         Just { code } ->
                             db.distances
-                                |> Transport.getTransportBetween Scope.Food emptyImpacts code france
+                                |> Transport.getTransportBetween emptyImpacts code france
                                 |> Formula.transportRatio planeRatio
 
                         -- Otherwise retrieve ingredient's default origin transport data
