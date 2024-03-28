@@ -132,7 +132,6 @@ addToComparison session label query =
                         , stepsImpacts =
                             simulator
                                 |> Simulator.toStepsImpacts Definition.Ecs
-                                |> Impact.divideStepsImpactsBy (Unit.durabilityToFloat simulator.durability)
                         }
                     )
 
