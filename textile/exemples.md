@@ -19,7 +19,7 @@ Deux types d'exemples sont proposés :&#x20;
 
 ## Exemples "par défaut"
 
-Pour les exemples "par défaut", seul les champs devant impérativement être complétés le sont :&#x20;
+Pour les exemples "par défaut", seul les champs devant impérativement être complétés sont :&#x20;
 
 * masse&#x20;
 * catégorie&#x20;
