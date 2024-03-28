@@ -50,8 +50,8 @@ Avec :&#x20;
 
 Exemple :&#x20;
 
-* Pour un vêtement avec un coefficient de durabilité de 0.5, le coût environnemental est multiplié par 2 (+100%)
-* Pour un vêtement avec un coefficient de durabilité de 1.5, le coût environnemental est divisé par 1.5 (-33%)
+* Si $$C_{Durabilité} = 0.5$$, le coût environnemental est multiplié par 2 (+100%)
+* Si $$C_{Durabilité} = 1.5$$, le coût environnemental est divisé par 1.5 (-33%)
 
 ## Calcul du coefficient de durabilité $$C_{Durabilité}$$
 
