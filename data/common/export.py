@@ -2,14 +2,50 @@
 import functools
 import bw2data
 from bw2io.utils import activity_hash
-from peewee import IntegrityError
 import logging
+import json
+from frozendict import frozendict
 
 logging.basicConfig(level=logging.ERROR)
 
 
+def spproject(activity):
+    """return the current simapro project for an activity"""
+    match activity.get("database"):
+        case "Ginko":
+            return "Ginko"
+        case "Ecobalyse":
+            return "EcobalyseIsNotASimaProProject"
+        case _:
+            return "AGB3.1.1 2023-03-06"
+
+
+def export_json(data, filename):
+    """
+    Export data to a JSON file, with added newline at the end.
+    """
+    with open(filename, "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=2, ensure_ascii=False)
+        file.write("\n")  # Add a newline at the end of the file
+    print(f"\nExported {len(data)} elements to {filename}")
+
+
+def load_json(filename):
+    """
+    Load JSON data from a file.
+    """
+    with open(filename, "r") as file:
+        return json.load(file)
+
+
+def progress_bar(index, total):
+    print(f"Export in progress: {str(index)}/{total}", end="\r")
+
+
 def with_subimpacts(process):
     """compute subimpacts in the process"""
+    if not process["impacts"]:
+        return process
     # etf-o = etf-o1 + etf-o2
     process["impacts"]["etf-o"] = (
         process["impacts"]["etf-o1"] + process["impacts"]["etf-o2"]
@@ -36,13 +72,14 @@ def search(dbname, name, excluded_term=None):
     return results[0]
 
 
-def with_corrected_impacts(impacts_ecobalyse, processes):
+def with_corrected_impacts(impacts_ecobalyse, processes_fd):
     """Add corrected impacts to the processes"""
     corrections = {
         k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
     }
-
-    for process in processes.values():
+    processes = dict(processes_fd)
+    processes_updated = {}
+    for key, process in processes.items():
         # compute corrected impacts
         for impact_to_correct, correction in corrections.items():
             corrected_impact = 0
@@ -53,7 +90,8 @@ def with_corrected_impacts(impacts_ecobalyse, processes):
                     corrected_impact += sub_impact * correction_item["weighting"]
                     del process["impacts"][sub_impact_name]
             process["impacts"][impact_to_correct] = corrected_impact
-    return processes
+        processes_updated[key] = process
+    return frozendict(processes_updated)
 
 
 def display_changes(key, oldprocesses, processes):

@@ -6,11 +6,13 @@ module Route exposing
     )
 
 import Data.Dataset as Dataset exposing (Dataset)
+import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope exposing (Scope)
-import Data.Textile.Inputs as TextileQuery
+import Data.Textile.Query as TextileQuery
+import Data.Uuid as Uuid exposing (Uuid)
 import Html exposing (Attribute)
 import Html.Attributes as Attr
 import Url exposing (Url)
@@ -23,10 +25,13 @@ type Route
     | Changelog
     | Editorial String
     | Explore Scope Dataset
-    | FoodBuilderHome
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
+    | FoodBuilderHome
+    | FoodBuilderExample Uuid
+    | Login
     | TextileSimulatorHome
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
+    | TextileSimulatorExample Uuid
     | Stats
 
 
@@ -42,29 +47,51 @@ parser =
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Stats (Parser.s "stats")
 
+        -- Login (FIXME: this is a temporary route, remove after launch)
+        , Parser.map Login (Parser.s "login")
+
         --  Explorer
-        , Parser.map (\scope -> Explore scope (Dataset.Impacts Nothing))
-            (Parser.s "explore" </> Scope.parseSlug)
+        , (Parser.s "explore" </> Scope.parse)
+            |> Parser.map
+                (\scope ->
+                    Explore scope
+                        (case scope of
+                            Scope.Food ->
+                                Dataset.FoodExamples Nothing
+
+                            Scope.Textile ->
+                                Dataset.TextileExamples Nothing
+                        )
+                )
         , Parser.map Explore
-            (Parser.s "explore" </> Scope.parseSlug </> Dataset.parseSlug)
+            (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
         , Parser.map toExploreWithId
-            (Parser.s "explore" </> Scope.parseSlug </> Dataset.parseSlug </> Parser.string)
+            (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug </> Parser.string)
 
         --
         -- Food specific routes
         --
-        , Parser.map FoodBuilderHome (Parser.s "food" </> Parser.s "build")
+        , Parser.map FoodBuilderHome (Parser.s "food")
         , Parser.map FoodBuilder
             (Parser.s "food"
-                </> Parser.s "build"
                 </> Impact.parseTrigram
                 </> FoodQuery.parseBase64Query
+            )
+        , Parser.map FoodBuilderExample
+            (Parser.s "food"
+                </> Parser.s "edit-example"
+                </> Example.parseUuid
             )
 
         -- Textile specific routes
         , Parser.map TextileSimulatorHome
             (Parser.s "textile" </> Parser.s "simulator")
         , parseTextileSimulator
+        , Parser.map TextileSimulatorExample
+            (Parser.s "textile"
+                </> Parser.s "edit-example"
+                </> Example.parseUuid
+            )
         ]
 
 
@@ -72,12 +99,11 @@ parseTextileSimulator : Parser (Route -> a) a
 parseTextileSimulator =
     Parser.oneOf
         [ deprecatedTextileRouteParser
-        , (Parser.s "textile"
-            </> Parser.s "simulator"
-            </> Impact.parseTrigram
-            </> TextileQuery.parseBase64Query
-          )
-            |> Parser.map TextileSimulator
+        , Parser.map TextileSimulator <|
+            Parser.s "textile"
+                </> Parser.s "simulator"
+                </> Impact.parseTrigram
+                </> TextileQuery.parseBase64Query
         ]
 
 
@@ -86,16 +112,15 @@ deprecatedTextileRouteParser =
     -- We keep this parser for backwards compatible reasons: we used to have the choice
     -- for a view mode between `simple` and `detailed`, but now it's only `simple`,
     -- and we used to have a functional unit parameter
-    (Parser.s "textile"
-        </> Parser.s "simulator"
-        </> Impact.parseTrigram
-        -- This is the unused "functional unit" parameter
-        </> Parser.string
-        -- This is the unused "viewmode" parameter
-        </> Parser.string
-        </> TextileQuery.parseBase64Query
-    )
-        |> Parser.map (\trigram _ _ query -> TextileSimulator trigram query)
+    Parser.map (\trigram _ _ query -> TextileSimulator trigram query) <|
+        Parser.s "textile"
+            </> Parser.s "simulator"
+            </> Impact.parseTrigram
+            -- This is the unused "functional unit" parameter
+            </> Parser.string
+            -- This is the unused "viewmode" parameter
+            </> Parser.string
+            </> TextileQuery.parseBase64Query
 
 
 toExploreWithId : Scope -> Dataset -> String -> Route
@@ -160,8 +185,11 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
-                Explore Scope.Food (Dataset.Impacts Nothing) ->
+                Explore Scope.Food (Dataset.FoodExamples Nothing) ->
                     [ "explore", "food" ]
+
+                Explore Scope.Textile (Dataset.TextileExamples Nothing) ->
+                    [ "explore", "textile" ]
 
                 Explore scope dataset ->
                     "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
@@ -174,6 +202,12 @@ toString route =
 
                 FoodBuilder trigram (Just query) ->
                     [ "food", "build", Definition.toString trigram, FoodQuery.b64encode query ]
+
+                FoodBuilderExample uuid ->
+                    [ "food", "edit-example", Uuid.toString uuid ]
+
+                Login ->
+                    [ "login" ]
 
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]
@@ -190,6 +224,9 @@ toString route =
                     , "simulator"
                     , Definition.toString trigram
                     ]
+
+                TextileSimulatorExample uuid ->
+                    [ "textile", "edit-example", Uuid.toString uuid ]
 
                 Stats ->
                     [ "stats" ]

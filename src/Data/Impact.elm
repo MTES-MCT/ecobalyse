@@ -6,7 +6,11 @@ module Data.Impact exposing
     , applyComplements
     , complementsImpactAsChartEntries
     , decodeImpacts
+    , decodeWithoutAggregated
     , default
+    , divideBy
+    , divideComplementsImpactsBy
+    , divideStepsImpactsBy
     , empty
     , encode
     , encodeAggregatedScoreChartEntry
@@ -16,21 +20,28 @@ module Data.Impact exposing
     , getImpact
     , getTotalComplementsImpacts
     , impactsWithComplements
+    , mapComplementsImpacts
     , mapImpacts
+    , maxEcotoxWeighting
+    , minEcotoxWeighting
     , noComplementsImpacts
     , noStepsImpacts
     , parseTrigram
+    , per100grams
     , perKg
+    , setEcotoxWeighting
     , stepsColors
     , stepsImpactsAsChartEntries
+    , sumEcosystemicImpacts
     , sumImpacts
     , toProtectionAreas
     , totalComplementsImpactAsChartEntry
+    , updateAggregatedScores
     , updateImpact
     )
 
 import Data.Color as Color
-import Data.Impact.Definition as Definition exposing (Base, Definition, Definitions, Trigram)
+import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram, Trigrams)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -45,10 +56,15 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias ComplementsImpacts =
-    -- Note: these are always expressed in ecoscore (ecs) µPt
-    { agroDiversity : Unit.Impact
-    , agroEcology : Unit.Impact
-    , animalWelfare : Unit.Impact
+    -- Note: these are always expressed in ecoscore (ecs) Pts
+    { -- Ecosystemic services impacts
+      hedges : Unit.Impact
+    , plotSize : Unit.Impact
+    , cropDiversity : Unit.Impact
+    , permanentPasture : Unit.Impact
+    , livestockDensity : Unit.Impact
+
+    -- Other impacts
     , microfibers : Unit.Impact
     , outOfEuropeEOL : Unit.Impact
     }
@@ -56,9 +72,14 @@ type alias ComplementsImpacts =
 
 addComplementsImpacts : ComplementsImpacts -> ComplementsImpacts -> ComplementsImpacts
 addComplementsImpacts a b =
-    { agroDiversity = Quantity.plus a.agroDiversity b.agroDiversity
-    , agroEcology = Quantity.plus a.agroEcology b.agroEcology
-    , animalWelfare = Quantity.plus a.animalWelfare b.animalWelfare
+    { -- Ecosystemic services impacts
+      hedges = Quantity.plus a.hedges b.hedges
+    , plotSize = Quantity.plus a.plotSize b.plotSize
+    , cropDiversity = Quantity.plus a.cropDiversity b.cropDiversity
+    , permanentPasture = Quantity.plus a.permanentPasture b.permanentPasture
+    , livestockDensity = Quantity.plus a.livestockDensity b.livestockDensity
+
+    -- Other impacts
     , microfibers = Quantity.plus a.microfibers b.microfibers
     , outOfEuropeEOL = Quantity.plus a.outOfEuropeEOL b.outOfEuropeEOL
     }
@@ -75,11 +96,30 @@ applyComplements complement impacts =
             (Quantity.difference ecoScore complement)
 
 
+divideComplementsImpactsBy : Float -> ComplementsImpacts -> ComplementsImpacts
+divideComplementsImpactsBy n =
+    mapComplementsImpacts (Quantity.divideBy n)
+
+
+mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
+mapComplementsImpacts fn ci =
+    { hedges = fn ci.hedges
+    , plotSize = fn ci.plotSize
+    , cropDiversity = fn ci.cropDiversity
+    , permanentPasture = fn ci.permanentPasture
+    , livestockDensity = fn ci.livestockDensity
+    , microfibers = fn ci.microfibers
+    , outOfEuropeEOL = fn ci.outOfEuropeEOL
+    }
+
+
 noComplementsImpacts : ComplementsImpacts
 noComplementsImpacts =
-    { agroDiversity = Unit.impact 0
-    , agroEcology = Unit.impact 0
-    , animalWelfare = Unit.impact 0
+    { hedges = Unit.impact 0
+    , plotSize = Unit.impact 0
+    , cropDiversity = Unit.impact 0
+    , permanentPasture = Unit.impact 0
+    , livestockDensity = Unit.impact 0
     , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
     }
@@ -88,9 +128,11 @@ noComplementsImpacts =
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
 getTotalComplementsImpacts complementsImpacts =
     Quantity.sum
-        [ complementsImpacts.agroDiversity
-        , complementsImpacts.agroEcology
-        , complementsImpacts.animalWelfare
+        [ complementsImpacts.hedges
+        , complementsImpacts.plotSize
+        , complementsImpacts.cropDiversity
+        , complementsImpacts.permanentPasture
+        , complementsImpacts.livestockDensity
         , complementsImpacts.microfibers
         , complementsImpacts.outOfEuropeEOL
         ]
@@ -111,14 +153,25 @@ impactsWithComplements complementsImpacts impacts =
         |> insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
 
 
+sumEcosystemicImpacts : ComplementsImpacts -> Unit.Impact
+sumEcosystemicImpacts c =
+    Quantity.sum
+        [ c.hedges
+        , c.plotSize
+        , c.cropDiversity
+        , c.permanentPasture
+        , c.livestockDensity
+        ]
+
+
 complementsImpactAsChartEntries : ComplementsImpacts -> List { name : String, value : Float, color : String }
-complementsImpactAsChartEntries { agroDiversity, agroEcology, animalWelfare, microfibers, outOfEuropeEOL } =
-    -- We want those complements/bonuses to appear as negative values on the chart
-    [ { name = "Complément diversité agricole", value = -(Unit.impactToFloat agroDiversity), color = "#606060" }
-    , { name = "Complément infrastructures agro-écologiques", value = -(Unit.impactToFloat agroEcology), color = "#808080" }
-    , { name = "Complément conditions d'élevage", value = -(Unit.impactToFloat animalWelfare), color = "#a0a0a0" }
-    , { name = "Complément microfibres", value = -(Unit.impactToFloat microfibers), color = "#c0c0c0" }
-    , { name = "Complément export hors-Europe", value = -(Unit.impactToFloat outOfEuropeEOL), color = "#e0e0e0" }
+complementsImpactAsChartEntries c =
+    -- Notes:
+    -- - We want those complements/bonuses to appear as negative values on the chart
+    -- - We want to sum ecosystemic service components impacts to only have a single entry in the charts
+    [ { name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)), color = "#606060" }
+    , { name = "Complément microfibres", value = -(Unit.impactToFloat c.microfibers), color = "#c0c0c0" }
+    , { name = "Complément export hors-Europe", value = -(Unit.impactToFloat c.outOfEuropeEOL), color = "#e0e0e0" }
     ]
 
 
@@ -150,6 +203,18 @@ type alias StepsImpacts =
     Steps (Maybe Unit.Impact)
 
 
+mapSteps : (a -> a) -> Steps a -> Steps a
+mapSteps fn steps =
+    { materials = fn steps.materials
+    , transform = fn steps.transform
+    , packaging = fn steps.packaging
+    , transports = fn steps.transports
+    , distribution = fn steps.distribution
+    , usage = fn steps.usage
+    , endOfLife = fn steps.endOfLife
+    }
+
+
 noStepsImpacts : StepsImpacts
 noStepsImpacts =
     { materials = Nothing
@@ -160,6 +225,11 @@ noStepsImpacts =
     , usage = Nothing
     , endOfLife = Nothing
     }
+
+
+divideStepsImpactsBy : Float -> StepsImpacts -> StepsImpacts
+divideStepsImpactsBy n =
+    mapSteps (Maybe.map (Quantity.divideBy n))
 
 
 type alias StepsColors =
@@ -260,12 +330,17 @@ toProtectionAreas definitions (Impacts impactsPerKgWithoutComplements) =
 
 
 type Impacts
-    = Impacts (Base Unit.Impact)
+    = Impacts (Trigrams Unit.Impact)
 
 
 default : Definition.Trigram
 default =
     Definition.Ecs
+
+
+divideBy : Float -> Impacts -> Impacts
+divideBy n =
+    mapImpacts (\_ -> Quantity.divideBy n)
 
 
 empty : Impacts
@@ -288,6 +363,11 @@ mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
 mapImpacts fn (Impacts impacts) =
     Definition.map fn impacts
         |> Impacts
+
+
+per100grams : Mass -> Impacts -> Impacts
+per100grams totalMass =
+    perKg totalMass >> mapImpacts (\_ -> Quantity.divideBy 10)
 
 
 perKg : Mass -> Impacts -> Impacts
@@ -313,24 +393,31 @@ updateImpact definitions trigram value =
         >> updateAggregatedScores definitions
 
 
-decodeImpacts : Definitions -> Decoder Impacts
-decodeImpacts definitions =
-    Definition.decodeWithoutAggregated (always Unit.decodeImpact)
-        |> Pipe.hardcoded (Unit.impact 0)
-        |> Pipe.hardcoded (Unit.impact 0)
+decodeImpacts : Decoder Impacts
+decodeImpacts =
+    Definition.decodeBase (always Unit.decodeImpact)
         |> Decode.map Impacts
-        -- Update the aggregated scores as soon as the impacts are decoded, then we never need to compute them again.
-        |> Decode.map (updateAggregatedScores definitions)
+
+
+decodeWithoutAggregated : Decoder Impacts
+decodeWithoutAggregated =
+    Definition.decodeWithoutAggregated (always Unit.decodeImpact)
+        -- Those aggregated impacts will have to be computed after the decoding
+        |> Pipe.hardcoded Quantity.zero
+        |> Pipe.hardcoded Quantity.zero
+        |> Decode.map Impacts
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
-encodeComplementsImpacts { agroDiversity, agroEcology, animalWelfare, microfibers, outOfEuropeEOL } =
+encodeComplementsImpacts c =
     Encode.object
-        [ ( "agroDiversity", Unit.impactToFloat agroDiversity |> Encode.float )
-        , ( "agroEcology", Unit.impactToFloat agroEcology |> Encode.float )
-        , ( "animalWelfare", Unit.impactToFloat animalWelfare |> Encode.float )
-        , ( "microfibers", Unit.impactToFloat microfibers |> Encode.float )
-        , ( "outOfEuropeEOL", Unit.impactToFloat outOfEuropeEOL |> Encode.float )
+        [ ( "hedges", Unit.encodeImpact c.hedges )
+        , ( "plotSize", Unit.encodeImpact c.plotSize )
+        , ( "cropDiversity", Unit.encodeImpact c.cropDiversity )
+        , ( "permanentPasture", Unit.encodeImpact c.permanentPasture )
+        , ( "livestockDensity", Unit.encodeImpact c.livestockDensity )
+        , ( "microfibers", Unit.encodeImpact c.microfibers )
+        , ( "outOfEuropeEOL", Unit.encodeImpact c.outOfEuropeEOL )
         ]
 
 
@@ -416,6 +503,81 @@ computeAggregatedScore definitions getter (Impacts impacts) =
                     |> Maybe.withDefault Quantity.zero
             )
         |> Definition.foldl (\_ -> Quantity.plus) Quantity.zero
+
+
+minEcotoxWeighting : Unit.Ratio
+minEcotoxWeighting =
+    Unit.ratio 0
+
+
+maxEcotoxWeighting : Unit.Ratio
+maxEcotoxWeighting =
+    Unit.ratio 0.25
+
+
+{-| Set the ecotoxicity weighting (EtfC) then redistribute other Ecoscore weightings
+accordingly. The methodology and formulas are described in this card:
+<https://www.notion.so/Rendre-param-trable-la-pond-ration-de-l-cotox-894d42e217c6448a883346203dff8db4>
+FIXME: ensure the card contents are moved to the public documentation eventually
+-}
+setEcotoxWeighting : Unit.Ratio -> Definitions -> Definitions
+setEcotoxWeighting (Unit.Ratio weighting) definitions =
+    let
+        defsToUpdate =
+            [ Definition.Acd
+            , Definition.Fru
+            , Definition.Fwe
+            , Definition.Ior
+            , Definition.Ldu
+            , Definition.Mru
+            , Definition.Ozd
+            , Definition.Pco
+            , Definition.Pma
+            , Definition.Swe
+            , Definition.Tre
+            , Definition.Wtu
+            ]
+
+        cleanWeighting =
+            weighting
+                |> clamp (Unit.ratioToFloat minEcotoxWeighting) (Unit.ratioToFloat maxEcotoxWeighting)
+    in
+    definitions
+        -- Start with updating EtfC with the provided ratio
+        |> Definition.update Definition.EtfC
+            (\({ ecoscoreData } as definition) ->
+                { definition
+                    | ecoscoreData =
+                        ecoscoreData
+                            |> Maybe.map (\data -> { data | weighting = Unit.ratio cleanWeighting })
+                }
+            )
+        -- Then redistribute the other weightings accordingly
+        |> Definition.map
+            (\trg def ->
+                if List.member trg defsToUpdate then
+                    let
+                        pefWeighting =
+                            def.pefData
+                                |> Maybe.map .weighting
+                                |> Maybe.withDefault (Unit.ratio 0)
+                                |> Unit.ratioToFloat
+                    in
+                    { def
+                        | ecoscoreData =
+                            def.ecoscoreData
+                                |> Maybe.map
+                                    (\ecoscoreData ->
+                                        { ecoscoreData
+                                          -- = (PEF weighting for this trigram) * (78.94% - custom weighting) / 73.05%
+                                            | weighting = Unit.ratio (pefWeighting * (0.7894 - cleanWeighting) / 0.7305)
+                                        }
+                                    )
+                    }
+
+                else
+                    def
+            )
 
 
 

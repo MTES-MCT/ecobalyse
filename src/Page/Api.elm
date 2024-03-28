@@ -54,7 +54,43 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "21 décembre 2023"
+    [ { date = "25 mars 2024"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md = "La documentation de l'API alimentaire est temporairement mise hors-ligne."
+      }
+    , { date = "21 février 2024"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `ennoblingHeatSourceParam` est supprimé. La source
+            de chaleur est donnée par la zone France, Europe ou World,
+            calculée depuis le pays."""
+      }
+    , { date = "31 janvier 2024"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le paramètre `durability` récemment introduit est remplacé par 5 nouveaux
+            paramètres permettant de calculer cet indice\u{00A0}: `business`, `marketingDuration`,
+            `numberOfReferences`, `price`, `repairCost` et `traceability`."""
+      }
+    , { date = "16 janvier 2024"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Les paramètres permettant de spécifier des compléments (ou bonus)
+            personnalisés par ingrédient ont été retirés, il sont remplacés par la
+            gestion automatisée des services écosystémiques."""
+      }
+    , { date = "15 janvier 2024"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Les paramètres `quality` et `reparability` on été supprimés. Il sont
+            remplacés par le champ `durability`."""
+      }
+    , { date = "21 décembre 2023"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =
@@ -88,7 +124,7 @@ changelog =
       , level = "minor"
       , domains = [ "Alimentaire", "Textile" ]
       , md =
-            """La liste des matières premières textiles et des ingrédients 
+            """La liste des matières premières textiles et des ingrédients
             alimentaires peuvent maintenant être vides."""
       }
     , { date = "24 octobre 2023"

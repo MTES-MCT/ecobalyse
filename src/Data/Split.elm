@@ -4,10 +4,8 @@ module Data.Split exposing
     , applyToQuantity
     , complement
     , decodeFloat
-    , decodePercent
     , divideBy
     , encodeFloat
-    , encodePercent
     , fifteen
     , fourty
     , fromFloat
@@ -32,13 +30,15 @@ module Data.Split exposing
 
 -}
 
+import FormatNumber
+import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Quantity exposing (Quantity)
 
 
 type Split
-    = Split Int
+    = Split Float
 
 
 zero : Split
@@ -94,28 +94,27 @@ fromFloat float =
     else
         float
             |> (*) 100
-            |> round
             |> Split
             |> Ok
 
 
-fromPercent : Int -> Result String Split
-fromPercent int =
-    if int < 0 || int > 100 then
-        Err ("Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici: " ++ String.fromInt int ++ ")")
+fromPercent : Float -> Result String Split
+fromPercent float =
+    if float < 0 || float > 100 then
+        Err ("Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici: " ++ String.fromFloat float ++ ")")
 
     else
-        Ok (Split int)
+        Ok (Split float)
 
 
 toFloat : Split -> Float
-toFloat (Split int) =
-    Basics.toFloat int / 100
+toFloat (Split float) =
+    float / 100
 
 
-toPercent : Split -> Int
-toPercent (Split int) =
-    int
+toPercent : Split -> Float
+toPercent (Split float) =
+    float
 
 
 toFloatString : Split -> String
@@ -123,14 +122,15 @@ toFloatString =
     toFloat >> String.fromFloat
 
 
-toPercentString : Split -> String
-toPercentString (Split int) =
-    String.fromInt int
+toPercentString : Int -> Split -> String
+toPercentString decimals (Split float) =
+    float
+        |> FormatNumber.format { frenchLocale | decimals = Exact decimals }
 
 
 complement : Split -> Split
-complement (Split int) =
-    Split (100 - int)
+complement (Split float) =
+    Split (100 - float)
 
 
 apply : Float -> Split -> Float
@@ -163,26 +163,6 @@ decodeFloat =
             )
 
 
-decodePercent : Decoder Split
-decodePercent =
-    Decode.int
-        |> Decode.map fromPercent
-        |> Decode.andThen
-            (\result ->
-                case result of
-                    Ok split ->
-                        Decode.succeed split
-
-                    Err error ->
-                        Decode.fail error
-            )
-
-
 encodeFloat : Split -> Encode.Value
 encodeFloat =
     toFloat >> Encode.float
-
-
-encodePercent : Split -> Encode.Value
-encodePercent =
-    toPercent >> Encode.int

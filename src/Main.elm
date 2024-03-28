@@ -2,10 +2,11 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
+import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
-import Data.Textile.Inputs as TextileInputs
+import Data.Textile.Query as TextileQuery
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
@@ -14,12 +15,12 @@ import Page.Explore as Explore
 import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Stats as Stats
-import Page.Textile.Simulator as TextileSimulator
+import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
 import Request.Version
 import Route
-import Static.Db as StaticDb
+import Static.Db as Static
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -33,7 +34,7 @@ type alias Flags =
 
 type Page
     = ApiPage Api.Model
-    | BlankPage
+    | LoadingPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
@@ -68,6 +69,9 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
+    | LoggedIn (Result String Session.FullImpacts)
+    | Login
+    | Logout
     | OpenMobileNavigation
     | ReloadPage
     | StatsMsg Stats.Msg
@@ -83,23 +87,26 @@ init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url navKey =
     setRoute url
         ( { state =
-                case StaticDb.db of
+                case Static.db Static.processes of
                     Ok db ->
                         Loaded
-                            { clientUrl = flags.clientUrl
+                            { db = db
+                            , clientUrl = flags.clientUrl
                             , navKey = navKey
                             , store = Session.deserializeStore flags.rawStore
                             , currentVersion = Request.Version.Unknown
                             , matomo = flags.matomo
-                            , foodDb = db.foodDb
-                            , textileDb = db.textileDb
                             , notifications = []
                             , queries =
-                                { food = FoodQuery.carrotCake
-                                , textile = TextileInputs.defaultQuery
+                                { food = FoodQuery.empty
+                                , textile =
+                                    db.textile.examples
+                                        |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
+                                        |> Result.map .query
+                                        |> Result.withDefault TextileQuery.default
                                 }
                             }
-                            BlankPage
+                            LoadingPage
 
                     Err err ->
                         Errored err
@@ -157,7 +164,7 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
-                    Explore.init session.foodDb scope dataset session
+                    Explore.init scope dataset session
                         |> toPage ExplorePage ExploreMsg
 
                 Just Route.FoodBuilderHome ->
@@ -166,6 +173,13 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     FoodBuilder.init session trigram maybeQuery
+                        |> toPage FoodBuilderPage FoodBuilderMsg
+
+                Just Route.Login ->
+                    ( model, Session.login LoggedIn )
+
+                Just (Route.FoodBuilderExample uuid) ->
+                    FoodBuilder.initFromExample session uuid
                         |> toPage FoodBuilderPage FoodBuilderMsg
 
                 Just Route.Stats ->
@@ -178,6 +192,10 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just (Route.TextileSimulator trigram maybeQuery) ->
                     TextileSimulator.init trigram maybeQuery session
+                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+
+                Just (Route.TextileSimulatorExample uuid) ->
+                    TextileSimulator.initFromExample session uuid
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
         Errored _ ->
@@ -210,8 +228,8 @@ update rawMsg ({ state } as model) =
                     Home.update session homeMsg homeModel
                         |> toPage HomePage HomeMsg
 
-                ( ApiMsg changelogMsg, ApiPage changelogModel ) ->
-                    Api.update session changelogMsg changelogModel
+                ( ApiMsg apiMsg, ApiPage apiModel ) ->
+                    Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
 
                 ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
@@ -296,6 +314,57 @@ update rawMsg ({ state } as model) =
                 ( VersionPoll, _ ) ->
                     ( model, Request.Version.loadVersion VersionReceived )
 
+                -- Login
+                ( LoggedIn (Ok newProcessesJson), _ ) ->
+                    let
+                        newSession =
+                            Session.loggedIn session newProcessesJson
+                                |> Session.notifyInfo "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux conditions" ""
+
+                        ( newModel, _, _ ) =
+                            Home.init newSession
+                    in
+                    ( { model
+                        | state =
+                            HomePage newModel |> Loaded newSession
+                      }
+                    , newSession.store |> Session.serializeStore |> Ports.saveStore
+                    )
+
+                ( LoggedIn (Err error), currentPage ) ->
+                    let
+                        newSession =
+                            session
+                                |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
+                    in
+                    ( { model
+                        | state =
+                            currentPage |> Loaded newSession
+                      }
+                    , Cmd.none
+                    )
+
+                ( Login, _ ) ->
+                    ( model
+                    , Session.login LoggedIn
+                    )
+
+                ( Logout, _ ) ->
+                    let
+                        newSession =
+                            Session.logout session
+                                |> Session.notifyInfo "Vous n'avez plus accès au détail des impacts" ""
+
+                        ( newModel, _, _ ) =
+                            Home.init newSession
+                    in
+                    ( { model
+                        | state =
+                            HomePage newModel |> Loaded newSession
+                      }
+                    , newSession.store |> Session.serializeStore |> Ports.saveStore
+                    )
+
                 -- Catch-all
                 ( _, NotFoundPage ) ->
                     ( { model | state = Loaded session NotFoundPage }, Cmd.none )
@@ -353,6 +422,8 @@ view { state, mobileNavigationOpened } =
                         CloseMobileNavigation
                         OpenMobileNavigation
                         LoadUrl
+                        Login
+                        Logout
                         ReloadPage
                         CloseNotification
 
@@ -404,7 +475,7 @@ view { state, mobileNavigationOpened } =
                     ( "Page manquante", [ Page.notFound ] )
                         |> Page.frame (pageConfig Page.Other)
 
-                BlankPage ->
+                LoadingPage ->
                     ( "Chargement…", [ Page.loading ] )
                         |> Page.frame (pageConfig Page.Other)
 

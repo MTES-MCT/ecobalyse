@@ -1,12 +1,11 @@
 module Data.Impact.Definition exposing
     ( AggregatedScoreData
-    , Base
     , Definition
     , Definitions
-    , Quality(..)
-    , Source
     , Trigram(..)
+    , Trigrams
     , decode
+    , decodeBase
     , decodeWithoutAggregated
     , encodeBase
     , filter
@@ -31,18 +30,6 @@ import Json.Encode as Encode
 
 
 ---- Types
-
-
-type alias Source =
-    { label : String, url : String }
-
-
-type Quality
-    = AverageQuality
-    | BadQuality
-    | GoodQuality
-    | NotFinished
-    | UnknownQuality
 
 
 type alias AggregatedScoreData =
@@ -79,18 +66,16 @@ type Trigram
 
 type alias Definition =
     { trigram : Trigram
-    , source : Source
     , label : String
     , description : String
     , unit : String
     , decimals : Int
-    , quality : Quality
     , pefData : Maybe AggregatedScoreData
     , ecoscoreData : Maybe AggregatedScoreData
     }
 
 
-type alias Base a =
+type alias Trigrams a =
     {- We use a type variable here because this type is used for both
        * impact definitions (Definition.Definition)
        * processes impacts (Data.Impacts)
@@ -122,14 +107,14 @@ type alias Base a =
 
 
 type alias Definitions =
-    Base Definition
+    Trigrams Definition
 
 
 
 ---- Helpers
 
 
-init : a -> Base a
+init : a -> Trigrams a
 init a =
     { acd = a
     , cch = a
@@ -157,7 +142,7 @@ init a =
     }
 
 
-update : Trigram -> (a -> a) -> Base a -> Base a
+update : Trigram -> (a -> a) -> Trigrams a -> Trigrams a
 update trigram updateFunc definitions =
     case trigram of
         Acd ->
@@ -259,7 +244,7 @@ toList definitions =
         |> List.map (\trigram -> get trigram definitions)
 
 
-get : Trigram -> Base a -> a
+get : Trigram -> Trigrams a -> a
 get trigram definitions =
     case trigram of
         Acd ->
@@ -327,7 +312,7 @@ get trigram definitions =
             definitions.pef
 
 
-map : (Trigram -> a -> b) -> Base a -> Base b
+map : (Trigram -> a -> b) -> Trigrams a -> Trigrams b
 map func definitions =
     { acd = func Acd definitions.acd
     , cch = func Cch definitions.cch
@@ -355,7 +340,7 @@ map func definitions =
     }
 
 
-filter : (Trigram -> Bool) -> (a -> a) -> Base a -> Base a
+filter : (Trigram -> Bool) -> (a -> a) -> Trigrams a -> Trigrams a
 filter func zero base =
     -- Use the "zero-ing" function to "filter out" the fields that don't return True
     trigrams
@@ -370,7 +355,7 @@ filter func zero base =
             base
 
 
-foldl : (Trigram -> a -> b -> b) -> b -> Base a -> b
+foldl : (Trigram -> a -> b -> b) -> b -> Trigrams a -> b
 foldl func acc base =
     trigrams
         |> List.foldl
@@ -528,9 +513,9 @@ isAggregate trigram =
 ---- Decoders
 
 
-decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> a -> Base a)
+decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> a -> Trigrams a)
 decodeWithoutAggregated decoder =
-    Decode.succeed Base
+    Decode.succeed Trigrams
         |> Pipe.required "acd" (decoder "acd")
         |> Pipe.required "cch" (decoder "cch")
         |> Pipe.required "etf" (decoder "etf")
@@ -552,18 +537,16 @@ decodeWithoutAggregated decoder =
         |> Pipe.required "wtu" (decoder "wtu")
 
 
+decodeBase : (String -> Decoder a) -> Decoder (Trigrams a)
+decodeBase decoder =
+    decodeWithoutAggregated decoder
+        |> Pipe.required "ecs" (decoder "ecs")
+        |> Pipe.required "pef" (decoder "pef")
+
+
 decode : Decoder Definitions
 decode =
-    decodeWithoutAggregated decodeDefinition
-        |> Pipe.required "ecs" (decodeDefinition "ecs")
-        |> Pipe.required "pef" (decodeDefinition "pef")
-
-
-decodeSource : Decoder Source
-decodeSource =
-    Decode.map2 Source
-        (Decode.field "label" Decode.string)
-        (Decode.field "url" Decode.string)
+    decodeBase decodeDefinition
 
 
 decodeAggregatedScoreData : Decoder AggregatedScoreData
@@ -574,39 +557,14 @@ decodeAggregatedScoreData =
         (Decode.field "weighting" (Unit.decodeRatio { percentage = True }))
 
 
-decodeQuality : Decoder Quality
-decodeQuality =
-    Decode.maybe Decode.int
-        |> Decode.andThen
-            (\maybeInt ->
-                case maybeInt of
-                    Just 0 ->
-                        Decode.succeed NotFinished
-
-                    Just 1 ->
-                        Decode.succeed GoodQuality
-
-                    Just 2 ->
-                        Decode.succeed AverageQuality
-
-                    Just 3 ->
-                        Decode.succeed BadQuality
-
-                    _ ->
-                        Decode.succeed UnknownQuality
-            )
-
-
 decodeDefinition : String -> Decoder Definition
 decodeDefinition trigram =
     Decode.succeed Definition
         |> Pipe.custom (toTrigram trigram |> DE.fromResult)
-        |> Pipe.required "source" decodeSource
         |> Pipe.required "label_fr" Decode.string
         |> Pipe.required "description_fr" Decode.string
         |> Pipe.required "short_unit" Decode.string
         |> Pipe.required "decimals" Decode.int
-        |> Pipe.required "quality" decodeQuality
         |> Pipe.required "pef" (Decode.maybe decodeAggregatedScoreData)
         |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
 
@@ -615,7 +573,7 @@ decodeDefinition trigram =
 ---- Encoders
 
 
-encodeBase : (a -> Encode.Value) -> Base a -> Encode.Value
+encodeBase : (a -> Encode.Value) -> Trigrams a -> Encode.Value
 encodeBase encoder base =
     trigrams
         |> List.map

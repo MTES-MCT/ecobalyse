@@ -15,6 +15,7 @@ module Views.Format exposing
     , minutes
     , percent
     , picking
+    , priceInEUR
     , ratio
     , splitAsFloat
     , splitAsPercentage
@@ -28,6 +29,7 @@ import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Split as Split exposing (Split)
+import Data.Textile.Economics as Economics
 import Data.Unit as Unit
 import Decimal
 import Duration exposing (Duration)
@@ -126,7 +128,7 @@ complement impact =
 
             else
                 formatted
-        , span [ class "fs-unit" ] [ text "\u{202F}µPts" ]
+        , span [ class "fs-unit" ] [ text "\u{202F}Pts" ]
         ]
 
 
@@ -164,6 +166,11 @@ megajoules =
 percent : Float -> Html msg
 percent =
     formatRichFloat 2 "%"
+
+
+priceInEUR : Economics.Price -> Html msg
+priceInEUR =
+    Economics.priceToFloat >> formatRichFloat 2 "€"
 
 
 squareMeters : Area -> Html msg
@@ -209,9 +216,9 @@ splitAsFloat int value =
         |> text
 
 
-splitAsPercentage : Split -> Html msg
-splitAsPercentage value =
-    Split.toPercentString value
+splitAsPercentage : Int -> Split -> Html msg
+splitAsPercentage decimals value =
+    Split.toPercentString decimals value
         ++ "\u{202F}%"
         |> Html.text
 

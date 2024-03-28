@@ -1,15 +1,12 @@
 module Data.Food.Ingredient exposing
-    ( Complements
-    , Id(..)
+    ( Id(..)
     , Ingredient
     , PlaneTransport(..)
     , TransportCooling(..)
     , byPlaneAllowed
     , byPlaneByDefault
-    , decodeComplements
     , decodeId
     , decodeIngredients
-    , encodeComplements
     , encodeId
     , encodePlaneTransport
     , findByID
@@ -18,6 +15,7 @@ module Data.Food.Ingredient exposing
     , idToString
     )
 
+import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin exposing (Origin)
 import Data.Food.Process as Process exposing (Process)
@@ -45,14 +43,7 @@ type alias Ingredient =
     , density : Density
     , transportCooling : TransportCooling
     , visible : Bool
-    , complements : Complements
-    }
-
-
-type alias Complements =
-    { agroDiversity : Split
-    , agroEcology : Split
-    , animalWelfare : Split
+    , ecosystemicServices : EcosystemicServices
     }
 
 
@@ -101,15 +92,6 @@ decodeId =
         |> Decode.map idFromString
 
 
-encodeComplements : Complements -> Encode.Value
-encodeComplements v =
-    Encode.object
-        [ ( "agro-diversity", Split.encodePercent v.agroDiversity )
-        , ( "agro-ecology", Split.encodePercent v.agroEcology )
-        , ( "animal-welfare", Split.encodePercent v.animalWelfare )
-        ]
-
-
 encodeId : Id -> Encode.Value
 encodeId (Id str) =
     Encode.string str
@@ -138,14 +120,6 @@ idToString (Id str) =
     str
 
 
-decodeComplements : Decoder Complements
-decodeComplements =
-    Decode.succeed Complements
-        |> Pipe.required "agro-diversity" Split.decodePercent
-        |> Pipe.required "agro-ecology" Split.decodePercent
-        |> Pipe.optional "animal-welfare" Split.decodePercent Split.zero
-
-
 decodeIngredients : List Process -> Decoder (List Ingredient)
 decodeIngredients processes =
     processes
@@ -170,7 +144,7 @@ decodeIngredient processes =
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
         |> Pipe.required "transport_cooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
-        |> Pipe.required "complements" decodeComplements
+        |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
 
 
 decodeTransportCooling : Decoder TransportCooling

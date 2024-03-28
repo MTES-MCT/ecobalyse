@@ -6,30 +6,31 @@ module Data.Textile.Simulator exposing
     , toStepsImpacts
     )
 
-import Data.Country exposing (Country)
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Split as Split
-import Data.Textile.Db as TextileDb
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
-import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
-import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query exposing (Query)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport exposing (Transport)
+import Data.Unit as Unit
 import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
 import Quantity
+import Static.Db exposing (Db)
 
 
 type alias Simulator =
@@ -37,6 +38,7 @@ type alias Simulator =
     , lifeCycle : LifeCycle
     , impacts : Impacts
     , complementsImpacts : Impact.ComplementsImpacts
+    , durability : Unit.Durability
     , transport : Transport
     , daysOfWear : Duration
     , useNbCycles : Int
@@ -51,12 +53,13 @@ encode v =
         , ( "impacts", Impact.encode v.impacts )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "transport", Transport.encode v.transport )
-        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
+        , ( "durability", v.durability |> Unit.durabilityToFloat |> Encode.float )
+        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
 
-init : TextileDb.Db -> Inputs.Query -> Result String Simulator
+init : Db -> Query -> Result String Simulator
 init db =
     let
         defaultImpacts =
@@ -64,30 +67,26 @@ init db =
     in
     Inputs.fromQuery db
         >> Result.map
-            (\({ product, quality, reparability } as inputs) ->
+            (\({ product } as inputs) ->
                 inputs
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
-                            let
-                                { daysOfWear, useNbCycles } =
-                                    product.use
-                                        |> Product.customDaysOfWear quality reparability
-                            in
                             { inputs = inputs
                             , lifeCycle = lifeCycle
                             , impacts = defaultImpacts
                             , complementsImpacts = Impact.noComplementsImpacts
+                            , durability = Unit.standardDurability
                             , transport = Transport.default defaultImpacts
-                            , daysOfWear = daysOfWear
-                            , useNbCycles = useNbCycles
+                            , daysOfWear = inputs.product.use.daysOfWear
+                            , useNbCycles = Product.customDaysOfWear product.use
                             }
                        )
             )
 
 
-{-| Computes a single impact.
+{-| Computes simulation impacts.
 -}
-compute : TextileDb.Db -> Inputs.Query -> Result String Simulator
+compute : Db -> Query -> Result String Simulator
 compute db query =
     let
         next fn =
@@ -129,7 +128,11 @@ compute db query =
         -- for the next step (spinning) would never be computed.
         |> next computeMaterialStepWaste
         --
-        -- CO2 SCORES
+        -- DURABILITY
+        --
+        |> next computeDurability
+        --
+        -- LIFECYCLE STEP IMPACTS
         --
         -- Compute Material step impacts
         |> nextIf Label.Material (computeMaterialImpacts db)
@@ -170,8 +173,43 @@ initializeFinalMass ({ inputs } as simulator) =
         |> updateLifeCycleSteps Label.all (Step.initMass inputs.mass)
 
 
-computeEndOfLifeImpacts : TextileDb.Db -> Simulator -> Simulator
-computeEndOfLifeImpacts { wellKnown } simulator =
+computeDurability : Simulator -> Simulator
+computeDurability ({ inputs } as simulator) =
+    let
+        materialOriginShares =
+            Inputs.getMaterialsOriginShares inputs.materials
+
+        durability =
+            Economics.computeDurabilityIndex materialOriginShares
+                { business =
+                    inputs.business
+                        |> Maybe.withDefault inputs.product.economics.business
+                , marketingDuration =
+                    inputs.marketingDuration
+                        |> Maybe.withDefault inputs.product.economics.marketingDuration
+                , numberOfReferences =
+                    inputs.numberOfReferences
+                        |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                , price =
+                    inputs.price
+                        |> Maybe.withDefault inputs.product.economics.price
+                , repairCost = inputs.product.economics.repairCost
+                , traceability =
+                    inputs.traceability
+                        |> Maybe.withDefault inputs.product.economics.traceability
+                }
+    in
+    { simulator
+        | durability = durability
+        , daysOfWear =
+            simulator.daysOfWear |> Quantity.multiplyBy (Unit.durabilityToFloat durability)
+        , useNbCycles =
+            round (toFloat simulator.useNbCycles * Unit.durabilityToFloat durability)
+    }
+
+
+computeEndOfLifeImpacts : Db -> Simulator -> Simulator
+computeEndOfLifeImpacts { textile } simulator =
     simulator
         |> updateLifeCycleStep Label.EndOfLife
             (\({ country } as step) ->
@@ -180,8 +218,8 @@ computeEndOfLifeImpacts { wellKnown } simulator =
                         step.outputMass
                             |> Formula.endOfLifeImpacts step.impacts
                                 { volume = simulator.inputs.product.endOfLife.volume
-                                , passengerCar = wellKnown.passengerCar
-                                , endOfLife = wellKnown.endOfLife
+                                , passengerCar = textile.wellKnown.passengerCar
+                                , endOfLife = textile.wellKnown.endOfLife
                                 , countryElecProcess = country.electricityProcess
                                 , heatProcess = country.heatProcess
                                 }
@@ -213,8 +251,8 @@ computeUseImpacts ({ inputs, useNbCycles } as simulator) =
             )
 
 
-computeMakingImpacts : TextileDb.Db -> Simulator -> Simulator
-computeMakingImpacts { wellKnown } ({ inputs } as simulator) =
+computeMakingImpacts : Db -> Simulator -> Simulator
+computeMakingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Making
             (\({ country } as step) ->
@@ -226,7 +264,7 @@ computeMakingImpacts { wellKnown } ({ inputs } as simulator) =
                                 , fadingProcess =
                                     -- Note: in the future, we may have distinct fading processes per countries
                                     if Inputs.isFaded inputs then
-                                        Just wellKnown.fading
+                                        Just textile.wellKnown.fading
 
                                     else
                                         Nothing
@@ -238,29 +276,22 @@ computeMakingImpacts { wellKnown } ({ inputs } as simulator) =
             )
 
 
-getEnnoblingHeatProcess : Country -> Process.WellKnown -> Maybe HeatSource -> Process
-getEnnoblingHeatProcess country wellKnown =
-    Maybe.map (Process.getEnnoblingHeatProcess wellKnown country.zone)
-        >> Maybe.withDefault country.heatProcess
-
-
-computeDyeingImpacts : TextileDb.Db -> Simulator -> Simulator
-computeDyeingImpacts db ({ inputs } as simulator) =
+computeDyeingImpacts : Db -> Simulator -> Simulator
+computeDyeingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\({ country, dyeingMedium } as step) ->
                 let
                     heatProcess =
-                        inputs.ennoblingHeatSource
-                            |> getEnnoblingHeatProcess country db.wellKnown
+                        WellKnown.getEnnoblingHeatProcess textile.wellKnown country
 
                     productDefaultMedium =
                         dyeingMedium
                             |> Maybe.withDefault inputs.product.dyeing.defaultMedium
 
                     dyeingProcess =
-                        db.wellKnown
-                            |> Process.getDyeingProcess productDefaultMedium
+                        textile.wellKnown
+                            |> WellKnown.getDyeingProcess productDefaultMedium
 
                     dyeingToxicity =
                         inputs.materials
@@ -269,10 +300,10 @@ computeDyeingImpacts db ({ inputs } as simulator) =
                                     Formula.materialDyeingToxicityImpacts step.impacts
                                         { dyeingToxicityProcess =
                                             if Origin.isSynthetic material.origin then
-                                                db.wellKnown.dyeingSynthetic
+                                                textile.wellKnown.dyeingSynthetic
 
                                             else
-                                                db.wellKnown.dyeingCellulosic
+                                                textile.wellKnown.dyeingCellulosic
                                         , aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                         }
                                         step.outputMass
@@ -295,8 +326,8 @@ computeDyeingImpacts db ({ inputs } as simulator) =
             )
 
 
-computePrintingImpacts : TextileDb.Db -> Simulator -> Simulator
-computePrintingImpacts db ({ inputs } as simulator) =
+computePrintingImpacts : Db -> Simulator -> Simulator
+computePrintingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\({ country } as step) ->
@@ -304,13 +335,13 @@ computePrintingImpacts db ({ inputs } as simulator) =
                     Just { kind, ratio } ->
                         let
                             { printingProcess, printingToxicityProcess } =
-                                Process.getPrintingProcess kind db.wellKnown
+                                WellKnown.getPrintingProcess kind textile.wellKnown
 
                             { heat, kwh, impacts } =
                                 step.outputMass
                                     |> Formula.printingImpacts step.impacts
                                         { printingProcess = printingProcess
-                                        , heatProcess = getEnnoblingHeatProcess country db.wellKnown inputs.ennoblingHeatSource
+                                        , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
                                         , elecProcess = country.electricityProcess
                                         , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
                                         , ratio = ratio
@@ -336,8 +367,8 @@ computePrintingImpacts db ({ inputs } as simulator) =
             )
 
 
-computeFinishingImpacts : TextileDb.Db -> Simulator -> Simulator
-computeFinishingImpacts db ({ inputs } as simulator) =
+computeFinishingImpacts : Db -> Simulator -> Simulator
+computeFinishingImpacts { textile } simulator =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\({ country } as step) ->
@@ -345,8 +376,8 @@ computeFinishingImpacts db ({ inputs } as simulator) =
                     { heat, kwh, impacts } =
                         step.outputMass
                             |> Formula.finishingImpacts step.impacts
-                                { finishingProcess = db.wellKnown.finishing
-                                , heatProcess = getEnnoblingHeatProcess country db.wellKnown inputs.ennoblingHeatSource
+                                { finishingProcess = textile.wellKnown.finishing
+                                , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
                                 , elecProcess = country.electricityProcess
                                 }
                 in
@@ -358,8 +389,8 @@ computeFinishingImpacts db ({ inputs } as simulator) =
             )
 
 
-computeBleachingImpacts : TextileDb.Db -> Simulator -> Simulator
-computeBleachingImpacts db simulator =
+computeBleachingImpacts : Db -> Simulator -> Simulator
+computeBleachingImpacts { textile } simulator =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
@@ -367,7 +398,7 @@ computeBleachingImpacts db simulator =
                     impacts =
                         step.outputMass
                             |> Formula.bleachingImpacts step.impacts
-                                { bleachingProcess = db.wellKnown.bleaching
+                                { bleachingProcess = textile.wellKnown.bleaching
                                 , aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                 }
                 in
@@ -377,9 +408,9 @@ computeBleachingImpacts db simulator =
             )
 
 
-stepMaterialImpacts : TextileDb.Db -> Material -> Step -> Impacts
-stepMaterialImpacts db material step =
-    case Material.getRecyclingData material db.materials of
+stepMaterialImpacts : Db -> Material -> Step -> Impacts
+stepMaterialImpacts { textile } material step =
+    case Material.getRecyclingData material textile.materials of
         -- Non-recycled Material
         Nothing ->
             step.outputMass
@@ -395,7 +426,7 @@ stepMaterialImpacts db material step =
                     }
 
 
-computeMaterialImpacts : TextileDb.Db -> Simulator -> Simulator
+computeMaterialImpacts : Db -> Simulator -> Simulator
 computeMaterialImpacts db ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Material
@@ -466,8 +497,8 @@ computeSpinningImpacts ({ inputs } as simulator) =
             )
 
 
-computeFabricImpacts : TextileDb.Db -> Simulator -> Simulator
-computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
+computeFabricImpacts : Db -> Simulator -> Simulator
+computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
     let
         fabricOutputMass =
             lifeCycle
@@ -479,7 +510,7 @@ computeFabricImpacts db ({ inputs, lifeCycle } as simulator) =
                 let
                     process =
                         inputs.fabricProcess
-                            |> Fabric.getProcess db.wellKnown
+                            |> Fabric.getProcess textile.wellKnown
 
                     { kwh, threadDensity, picking, impacts } =
                         if Fabric.isKnitted inputs.fabricProcess then
@@ -536,13 +567,13 @@ computeMakingStepDeadStock ({ inputs, lifeCycle } as simulator) =
             (Step.initMass mass)
 
 
-computeFabricStepWaste : TextileDb.Db -> Simulator -> Simulator
-computeFabricStepWaste { wellKnown } ({ inputs, lifeCycle } as simulator) =
+computeFabricStepWaste : Db -> Simulator -> Simulator
+computeFabricStepWaste { textile } ({ inputs, lifeCycle } as simulator) =
     let
         { mass, waste } =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
-                |> Formula.genericWaste (Fabric.getProcess wellKnown inputs.product.fabric |> .waste)
+                |> Formula.genericWaste (Fabric.getProcess textile.wellKnown inputs.product.fabric |> .waste)
     in
     simulator
         |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
@@ -603,10 +634,13 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                                             -- Formula : inputMass - inputMass * waste = outputMass
                                             -- => inputMass * (1 - waste) = outputMass
                                             -- => inputMass = outputMass / (1 - waste)
-                                            Split.divideBy (Mass.inKilograms outputMaterialMass) (Split.complement processWaste)
+                                            Split.complement processWaste
+                                                |> Split.divideBy (Mass.inKilograms outputMaterialMass)
                                                 |> Mass.kilograms
                                     in
-                                    { waste = Quantity.difference inputMaterialMass outputMaterialMass, mass = inputMaterialMass }
+                                    { waste = Quantity.difference inputMaterialMass outputMaterialMass
+                                    , mass = inputMaterialMass
+                                    }
                                 )
                             |> List.foldl
                                 (\curr acc ->
@@ -621,7 +655,7 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
         |> updateLifeCycleStep Label.Spinning (Step.updateWaste waste mass)
 
 
-computeStepsTransport : TextileDb.Db -> Simulator -> Simulator
+computeStepsTransport : Db -> Simulator -> Simulator
 computeStepsTransport db simulator =
     simulator |> updateLifeCycle (LifeCycle.computeStepsTransport db simulator.inputs)
 
@@ -636,15 +670,19 @@ computeTotalTransportImpacts simulator =
 
 
 computeFinalImpacts : Simulator -> Simulator
-computeFinalImpacts ({ lifeCycle } as simulator) =
+computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     let
         complementsImpacts =
-            LifeCycle.sumComplementsImpacts lifeCycle
+            lifeCycle
+                |> LifeCycle.sumComplementsImpacts
+                |> Impact.divideComplementsImpactsBy (Unit.durabilityToFloat durability)
     in
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
-            LifeCycle.computeFinalImpacts lifeCycle
+            lifeCycle
+                |> LifeCycle.computeFinalImpacts
+                |> Impact.divideBy (Unit.durabilityToFloat durability)
                 |> Impact.impactsWithComplements complementsImpacts
     }
 
@@ -678,7 +716,12 @@ toStepsImpacts trigram simulator =
 
         applyComplement complementImpact =
             if trigram == Definition.Ecs then
-                Maybe.map (Quantity.minus complementImpact)
+                Maybe.map
+                    (Quantity.minus
+                        (complementImpact
+                            |> Quantity.multiplyBy (Unit.durabilityToFloat simulator.durability)
+                        )
+                    )
 
             else
                 identity
@@ -704,3 +747,4 @@ toStepsImpacts trigram simulator =
             |> getImpact
             |> applyComplement simulator.complementsImpacts.outOfEuropeEOL
     }
+        |> Impact.divideStepsImpactsBy (Unit.durabilityToFloat simulator.durability)

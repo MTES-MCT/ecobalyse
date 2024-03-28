@@ -666,7 +666,7 @@ q {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          max-width: 320px;
+          max-width: 242px;
           vertical-align: middle;
         }
       }
@@ -1201,6 +1201,10 @@ q {
     justify-items: center;
     width: 22px;
     height: 22px;
+  }
+
+  &Header {
+    min-height: 43px;
   }
 }
 

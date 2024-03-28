@@ -1,6 +1,8 @@
 module Data.Textile.Material.Origin exposing
     ( Origin(..)
+    , Shares
     , decode
+    , defaultShares
     , isSynthetic
     , threadProcess
     , toLabel
@@ -8,6 +10,7 @@ module Data.Textile.Material.Origin exposing
     , toString
     )
 
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -21,10 +24,29 @@ type Origin
     | Synthetic
 
 
+type alias Shares =
+    { artificialFromInorganic : Split
+    , artificialFromOrganic : Split
+    , naturalFromAnimal : Split
+    , naturalFromVegetal : Split
+    , synthetic : Split
+    }
+
+
 decode : Decoder Origin
 decode =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
+
+
+defaultShares : Shares
+defaultShares =
+    { artificialFromInorganic = Split.zero
+    , artificialFromOrganic = Split.zero
+    , naturalFromAnimal = Split.zero
+    , naturalFromVegetal = Split.zero
+    , synthetic = Split.zero
+    }
 
 
 fromString : String -> Result String Origin
@@ -58,23 +80,23 @@ toMicrofibersComplement : Origin -> Unit.Impact
 toMicrofibersComplement origin =
     -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/limites-methodologiques/old/microfibres#calcul-du-complement-microfibres
     -- Notes:
-    -- - this is a malus expressed as a negative µPts/kg impact
+    -- - this is a malus expressed as a negative Pts/kg impact
     -- - the float value corresponds to Ref(f) * 1000 to ease applying the formula
     case origin of
         ArtificialFromInorganic ->
-            Unit.impact -850
+            Unit.impact -820
 
         ArtificialFromOrganic ->
-            Unit.impact -360
+            Unit.impact -330
 
         NaturalFromAnimal ->
-            Unit.impact -570
+            Unit.impact -390
 
         NaturalFromVegetal ->
-            Unit.impact -420
+            Unit.impact -250
 
         Synthetic ->
-            Unit.impact -790
+            Unit.impact -820
 
 
 toLabel : Origin -> String

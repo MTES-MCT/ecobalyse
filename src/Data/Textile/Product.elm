@@ -13,6 +13,7 @@ module Data.Textile.Product exposing
 
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Economics as Economics exposing (Economics)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Process as Process exposing (Process)
@@ -22,7 +23,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
-import Quantity
 import Volume exposing (Volume)
 
 
@@ -34,7 +34,6 @@ type alias DyeingOptions =
 type alias MakingOptions =
     { pcrWaste : Split -- PCR product waste ratio
     , complexity : MakingComplexity -- How complex is this making
-    , durationInMinutes : Duration -- How long does it take
     }
 
 
@@ -46,7 +45,7 @@ type alias UseOptions =
     , ratioDryer : Split -- Ratio de séchage électrique (not used in computations)
     , ratioIroning : Split -- Ratio de repassage (not used in computations)
     , timeIroning : Duration -- Temps de repassage (not used in computations)
-    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0) (not used in computations)
+    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (not used in computations)
     }
 
 
@@ -62,6 +61,7 @@ type alias Product =
     , surfaceMass : Unit.SurfaceMass
     , yarnSize : Unit.YarnSize
     , fabric : Fabric
+    , economics : Economics
     , dyeing : DyeingOptions
     , making : MakingOptions
     , use : UseOptions
@@ -108,7 +108,6 @@ decodeMakingOptions =
     Decode.succeed MakingOptions
         |> Pipe.required "pcrWaste" Split.decodeFloat
         |> Pipe.required "complexity" MakingComplexity.decode
-        |> Pipe.required "durationInMinutes" (Decode.int |> Decode.map toFloat |> Decode.map Duration.minutes)
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
@@ -139,6 +138,7 @@ decode processes =
         |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
         |> Pipe.required "yarnSize" Unit.decodeYarnSize
         |> Pipe.required "fabric" Fabric.decode
+        |> Pipe.required "economics" Economics.decode
         |> Pipe.required "dyeing" decodeDyeingOptions
         |> Pipe.required "making" decodeMakingOptions
         |> Pipe.required "use" (decodeUseOptions processes)
@@ -155,7 +155,6 @@ encodeMakingOptions v =
     Encode.object
         [ ( "pcrWaste", Split.encodeFloat v.pcrWaste )
         , ( "complexity", Encode.string (MakingComplexity.toString v.complexity) )
-        , ( "durationInMinutes", Duration.inMinutes v.durationInMinutes |> round |> Encode.int )
         ]
 
 
@@ -197,29 +196,10 @@ encodeId =
     idToString >> Encode.string
 
 
-{-| Computes the number of wears and the number of maintainance cycles against
-quality and reparability coefficients.
+{-| Computes the number of maintainance cycles.
 -}
-customDaysOfWear :
-    Maybe Unit.Quality
-    -> Maybe Unit.Reparability
-    -> { productOptions | daysOfWear : Duration, wearsPerCycle : Int }
-    -> { daysOfWear : Duration, useNbCycles : Int }
-customDaysOfWear maybeQuality maybeReparability { daysOfWear, wearsPerCycle } =
-    let
-        ( quality, reparability ) =
-            ( maybeQuality |> Maybe.withDefault Unit.standardQuality
-            , maybeReparability |> Maybe.withDefault Unit.standardReparability
-            )
-
-        newDaysOfWear =
-            daysOfWear
-                |> Quantity.multiplyBy (Unit.qualityToFloat quality)
-                |> Quantity.multiplyBy (Unit.reparabilityToFloat reparability)
-    in
-    { daysOfWear = newDaysOfWear
-    , useNbCycles =
-        Duration.inDays newDaysOfWear
-            / toFloat (clamp 1 wearsPerCycle wearsPerCycle)
-            |> round
-    }
+customDaysOfWear : { productOptions | daysOfWear : Duration, wearsPerCycle : Int } -> Int
+customDaysOfWear { daysOfWear, wearsPerCycle } =
+    Duration.inDays daysOfWear
+        / toFloat (clamp 1 wearsPerCycle wearsPerCycle)
+        |> round

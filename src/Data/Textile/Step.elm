@@ -12,8 +12,6 @@ module Data.Textile.Step exposing
     , initMass
     , makingDeadStockToString
     , makingWasteToString
-    , qualityToString
-    , reparabilityToString
     , surfaceMassToString
     , updateDeadStock
     , updateFromInputs
@@ -24,9 +22,8 @@ module Data.Textile.Step exposing
 import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db as TextileDb
+import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
@@ -35,12 +32,14 @@ import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import Static.Db exposing (Db)
 
 
 type alias Step =
@@ -59,8 +58,7 @@ type alias Step =
     , kwh : Energy
     , processInfo : ProcessInfo
     , airTransportRatio : Split -- FIXME: why not Maybe?
-    , quality : Unit.Quality
-    , reparability : Unit.Reparability
+    , durability : Unit.Durability
     , makingComplexity : Maybe MakingComplexity
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
@@ -114,8 +112,7 @@ create { label, editable, country, enabled } =
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
     , airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
-    , quality = Unit.standardQuality
-    , reparability = Unit.standardReparability
+    , durability = Unit.standardDurability
     , makingComplexity = Nothing
     , makingWaste = Nothing
     , makingDeadStock = Nothing
@@ -149,17 +146,17 @@ defaultProcessInfo =
     }
 
 
-computeMaterialTransportAndImpact : TextileDb.Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
-computeMaterialTransportAndImpact db country outputMass materialInput =
+computeMaterialTransportAndImpact : Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
+computeMaterialTransportAndImpact { distances, textile } country outputMass materialInput =
     let
         materialMass =
             materialInput.share
                 |> Split.applyToQuantity outputMass
     in
     materialInput
-        |> Inputs.computeMaterialTransport db country.code
+        |> Inputs.computeMaterialTransport distances country.code
         |> Formula.transportRatio Split.zero
-        |> computeTransportImpacts Impact.empty db.wellKnown db.wellKnown.roadTransportPreMaking materialMass
+        |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
 {-| Computes step transport distances and impact regarding next step.
@@ -167,12 +164,9 @@ computeMaterialTransportAndImpact db country outputMass materialInput =
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : TextileDb.Db -> Inputs -> Step -> Step -> Step
+computeTransports : Db -> Inputs -> Step -> Step -> Step
 computeTransports db inputs next ({ processInfo } as current) =
     let
-        roadTransportProcess =
-            getRoadTransportProcess db.wellKnown current
-
         transport =
             if current.label == Label.Material then
                 inputs.materials
@@ -180,29 +174,26 @@ computeTransports db inputs next ({ processInfo } as current) =
                     |> Transport.sum
 
             else
-                db.transports
-                    |> Transport.getTransportBetween Scope.Textile
-                        current.transport.impacts
-                        current.country.code
-                        next.country.code
+                db.distances
+                    |> Transport.getTransportBetween current.transport.impacts current.country.code next.country.code
                     |> computeTransportSummary current
                     |> computeTransportImpacts current.transport.impacts
-                        db.wellKnown
-                        roadTransportProcess
+                        db.textile.wellKnown
+                        db.textile.wellKnown.roadTransport
                         (getTransportedMass inputs current)
     in
     { current
         | processInfo =
             { processInfo
-                | roadTransport = Just roadTransportProcess.name
-                , seaTransport = Just db.wellKnown.seaTransport.name
-                , airTransport = Just db.wellKnown.airTransport.name
+                | roadTransport = Just db.textile.wellKnown.roadTransport.name
+                , seaTransport = Just db.textile.wellKnown.seaTransport.name
+                , airTransport = Just db.textile.wellKnown.airTransport.name
             }
         , transport = transport
     }
 
 
-computeTransportImpacts : Impacts -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts : Impacts -> WellKnown -> Process -> Mass -> Transport -> Transport
 computeTransportImpacts impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     { road = road
     , roadCooled = Quantity.zero
@@ -230,19 +221,10 @@ computeTransportSummary step transport =
     let
         ( noTransports, defaultInland ) =
             ( Transport.default step.transport.impacts
-            , Transport.defaultInland Scope.Textile step.transport.impacts
+            , Transport.default step.transport.impacts
             )
     in
     case step.label of
-        Label.Ennobling ->
-            transport
-                -- Note: no air transport ratio at the Dyeing step
-                |> Formula.transportRatio Split.zero
-                -- Added intermediary inland transport distances to materialize
-                -- "processing" + "dyeing" steps (see Excel)
-                -- Also ensure we don't add unnecessary air transport
-                |> Transport.add { defaultInland | air = Quantity.zero }
-
         Label.Making ->
             -- Air transport only applies between the Making and the Distribution steps
             transport
@@ -270,16 +252,6 @@ computeTransportSummary step transport =
                 |> Formula.transportRatio Split.zero
 
 
-getRoadTransportProcess : Process.WellKnown -> Step -> Process
-getRoadTransportProcess wellKnown { label } =
-    case label of
-        Label.Making ->
-            wellKnown.roadTransportPostMaking
-
-        _ ->
-            wellKnown.roadTransportPreMaking
-
-
 getInputSurface : Inputs -> Step -> Area
 getInputSurface { product, surfaceMass } { inputMass } =
     let
@@ -304,10 +276,10 @@ getTransportedMass inputs { label, outputMass } =
         outputMass
 
 
-updateFromInputs : TextileDb.Db -> Inputs -> Step -> Step
+updateFromInputs : Textile.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
-        { airTransportRatio, quality, reparability, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
+        { airTransportRatio, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -354,7 +326,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                         , countryElec = Just country.electricityProcess.name
                         , dyeing =
                             wellKnown
-                                |> Process.getDyeingProcess
+                                |> WellKnown.getDyeingProcess
                                     (dyeingMedium
                                         |> Maybe.withDefault inputs.product.dyeing.defaultMedium
                                     )
@@ -364,7 +336,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                             printing
                                 |> Maybe.map
                                     (\{ kind } ->
-                                        Process.getPrintingProcess kind wellKnown |> .printingProcess |> .name
+                                        WellKnown.getPrintingProcess kind wellKnown |> .printingProcess |> .name
                                     )
                     }
             }
@@ -395,11 +367,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
 
         Label.Use ->
             { step
-                | quality =
-                    quality |> Maybe.withDefault Unit.standardQuality
-                , reparability =
-                    reparability |> Maybe.withDefault Unit.standardReparability
-                , processInfo =
+                | processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , useIroning = Just inputs.product.use.ironingProcess.name
@@ -458,22 +426,12 @@ airTransportDisabled { enabled, label, country } =
 
 airTransportRatioToString : Split -> String
 airTransportRatioToString percentage =
-    case Split.toPercent percentage of
+    case Split.toPercent percentage |> round of
         0 ->
             "Aucun transport aérien"
 
         _ ->
-            Split.toPercentString percentage ++ "% de transport aérien"
-
-
-qualityToString : Unit.Quality -> String
-qualityToString (Unit.Quality float) =
-    "Qualité intrinsèque\u{00A0}: " ++ String.fromFloat float
-
-
-reparabilityToString : Unit.Reparability -> String
-reparabilityToString (Unit.Reparability float) =
-    "Réparabilité\u{00A0}: " ++ String.fromFloat float
+            Split.toPercentString 0 percentage ++ "% de transport aérien"
 
 
 surfaceMassToString : Unit.SurfaceMass -> String
@@ -487,7 +445,7 @@ makingWasteToString makingWaste =
         "Aucune perte en confection"
 
     else
-        Split.toPercentString makingWaste ++ "% de pertes"
+        Split.toPercentString 0 makingWaste ++ "% de pertes"
 
 
 makingDeadStockToString : Split -> String
@@ -496,7 +454,7 @@ makingDeadStockToString makingDeadStock =
         "Aucun stock dormant"
 
     else
-        Split.toPercentString makingDeadStock ++ "% de stocks dormants"
+        Split.toPercentString 0 makingDeadStock ++ "% de stocks dormants"
 
 
 yarnSizeToString : Unit.YarnSize -> String
@@ -526,8 +484,7 @@ encode v =
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
-        , ( "quality", Unit.encodeQuality v.quality )
-        , ( "reparability", Unit.encodeReparability v.reparability )
+        , ( "durability", Unit.encodeDurability v.durability )
         , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )

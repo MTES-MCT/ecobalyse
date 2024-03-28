@@ -3,27 +3,26 @@ module Data.Food.Process exposing
     , Identifier
     , Process
     , ProcessName
-    , WellKnown
-    , categoryToString
+    , categoryToLabel
     , codeFromString
     , codeToString
     , decodeIdentifier
     , decodeList
+    , encode
     , encodeIdentifier
+    , findById
     , findByIdentifier
     , getDisplayName
     , listByCategory
-    , loadWellKnown
     , nameToString
     )
 
-import Data.Impact as Impact
-import Data.Impact.Definition exposing (Definitions)
+import Data.Impact as Impact exposing (Impacts)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import Result.Extra as RE
+import Json.Encode.Extra as EncodeExtra
 
 
 {-| Process
@@ -33,7 +32,7 @@ various other data like categories, code, unit...
 type alias Process =
     { name : ProcessName
     , displayName : Maybe String
-    , impacts : Impact.Impacts
+    , impacts : Impacts
     , unit : String
     , code : Identifier
     , category : Category
@@ -60,18 +59,6 @@ type Identifier
 
 type ProcessName
     = ProcessName String
-
-
-type alias WellKnown =
-    { lorryTransport : Process
-    , boatTransport : Process
-    , planeTransport : Process
-    , lorryCoolingTransport : Process
-    , boatCoolingTransport : Process
-    , water : Process
-    , lowVoltageElectricity : Process
-    , domesticGasHeat : Process
-    }
 
 
 categoryFromString : String -> Result String Category
@@ -107,6 +94,34 @@ categoryFromString string =
 
 categoryToString : Category -> String
 categoryToString category =
+    case category of
+        Energy ->
+            "energy"
+
+        Ingredient ->
+            "ingredient"
+
+        Material ->
+            "material"
+
+        Packaging ->
+            "packaging"
+
+        Processing ->
+            "processing"
+
+        Transform ->
+            "transformation"
+
+        Transport ->
+            "transport"
+
+        WasteTreatment ->
+            "waste treatment"
+
+
+categoryToLabel : Category -> String
+categoryToLabel category =
     case category of
         Energy ->
             "Énergie"
@@ -159,12 +174,17 @@ decodeCategory =
         |> Decode.andThen (categoryFromString >> DE.fromResult)
 
 
-decodeProcess : Definitions -> Decoder Process
-decodeProcess definitions =
+encodeCategory : Category -> Encode.Value
+encodeCategory =
+    categoryToString >> Encode.string
+
+
+decodeProcess : Decoder Impact.Impacts -> Decoder Process
+decodeProcess impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "name" (Decode.map nameFromString Decode.string)
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
-        |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
+        |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "unit" decodeStringUnit
         |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "category" decodeCategory
@@ -173,15 +193,30 @@ decodeProcess definitions =
         |> Pipe.required "id" Decode.string
 
 
+encode : Process -> Encode.Value
+encode process =
+    Encode.object
+        [ ( "name", Encode.string (nameToString process.name) )
+        , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
+        , ( "impacts", Impact.encode process.impacts )
+        , ( "unit", encodeStringUnit process.unit )
+        , ( "identifier", encodeIdentifier process.code )
+        , ( "category", encodeCategory process.category )
+        , ( "system_description", Encode.string process.systemDescription )
+        , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        , ( "id", Encode.string process.id_ )
+        ]
+
+
 decodeIdentifier : Decoder Identifier
 decodeIdentifier =
     Decode.string
         |> Decode.map codeFromString
 
 
-decodeList : Definitions -> Decoder (List Process)
-decodeList definitions =
-    Decode.list (decodeProcess definitions)
+decodeList : Decoder Impact.Impacts -> Decoder (List Process)
+decodeList impactsDecoder =
+    Decode.list (decodeProcess impactsDecoder)
 
 
 encodeIdentifier : Identifier -> Encode.Value
@@ -238,6 +273,34 @@ decodeStringUnit =
             )
 
 
+encodeStringUnit : String -> Encode.Value
+encodeStringUnit unit =
+    case unit of
+        "m³" ->
+            Encode.string "cubic meter"
+
+        "kg" ->
+            Encode.string "kilogram"
+
+        "km" ->
+            Encode.string "kilometer"
+
+        "kWh" ->
+            Encode.string "kilowatt hour"
+
+        "l" ->
+            Encode.string "litre"
+
+        "MJ" ->
+            Encode.string "megajoule"
+
+        "ton.km" ->
+            Encode.string "ton kilometer"
+
+        _ ->
+            Encode.string "Could not decode unit"
+
+
 getDisplayName : Process -> String
 getDisplayName process =
     case process.displayName of
@@ -251,20 +314,3 @@ getDisplayName process =
 listByCategory : Category -> List Process -> List Process
 listByCategory category =
     List.filter (.category >> (==) category)
-
-
-loadWellKnown : List Process -> Result String WellKnown
-loadWellKnown processes =
-    let
-        resolve id_ =
-            RE.andMap (findById processes id_)
-    in
-    Ok WellKnown
-        |> resolve "lorry"
-        |> resolve "boat"
-        |> resolve "plane"
-        |> resolve "lorry-cooling"
-        |> resolve "boat-cooling"
-        |> resolve "tap-water"
-        |> resolve "low-voltage-electricity"
-        |> resolve "domestic-gas-heat"

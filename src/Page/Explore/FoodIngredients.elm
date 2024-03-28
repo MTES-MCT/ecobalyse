@@ -2,6 +2,7 @@ module Page.Explore.FoodIngredients exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
+import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -12,7 +13,7 @@ import Data.Split as Split
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table as Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Icon as Icon
@@ -23,9 +24,9 @@ table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient Stri
 table _ { detailed, scope } =
     { toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
-    , rows =
+    , columns =
         [ { label = "Identifiant"
-          , toValue = .id >> Ingredient.idToString
+          , toValue = Table.StringValue <| .id >> Ingredient.idToString
           , toCell =
                 \ingredient ->
                     if detailed then
@@ -36,25 +37,24 @@ table _ { detailed, scope } =
                             [ code [] [ text (Ingredient.idToString ingredient.id) ] ]
           }
         , { label = "Nom"
-          , toValue = .name
+          , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
         , { label = "Catégories"
-          , toValue = .categories >> List.map IngredientCategory.toLabel >> String.join ","
+          , toValue = Table.StringValue <| .categories >> List.map IngredientCategory.toLabel >> String.join ","
           , toCell = .categories >> List.map (\c -> li [] [ text (IngredientCategory.toLabel c) ]) >> ul [ class "mb-0" ]
           }
         , { label = "Origine par défaut"
-          , toValue = .defaultOrigin >> Origin.toLabel
+          , toValue = Table.StringValue <| .defaultOrigin >> Origin.toLabel
           , toCell = .defaultOrigin >> Origin.toLabel >> text
           }
         , { label = "Part non-comestible"
-          , toValue = .inediblePart >> Split.toPercentString
+          , toValue = Table.FloatValue <| .inediblePart >> Split.toPercent
           , toCell =
                 \{ inediblePart } ->
                     div [ classList [ ( "text-end", not detailed ) ] ]
                         [ inediblePart
                             |> Split.toPercent
-                            |> toFloat
                             |> Format.percent
                         , Link.smallPillExternal
                             [ href (Gitbook.publicUrlFromPath Gitbook.FoodInediblePart) ]
@@ -62,7 +62,7 @@ table _ { detailed, scope } =
                         ]
           }
         , { label = "Rapport cru/cuit"
-          , toValue = .rawToCookedRatio >> Unit.ratioToFloat >> String.fromFloat
+          , toValue = Table.FloatValue <| .rawToCookedRatio >> Unit.ratioToFloat
           , toCell =
                 \{ rawToCookedRatio } ->
                     div [ classList [ ( "text-end", not detailed ) ] ]
@@ -76,7 +76,7 @@ table _ { detailed, scope } =
                         ]
           }
         , { label = "Procédé"
-          , toValue = .default >> .name >> Process.nameToString
+          , toValue = Table.StringValue <| .default >> .name >> Process.nameToString
           , toCell =
                 \{ default } ->
                     div []
@@ -91,25 +91,24 @@ table _ { detailed, scope } =
                                 text ""
                         ]
           }
-        , { label = "Compléments"
-          , toValue = always "N/A"
+        , { label = "Services écosystémiques"
+          , toValue = Table.StringValue <| always "N/A"
           , toCell =
-                \ingredient ->
+                \{ ecosystemicServices } ->
                     div [ class "overflow-scroll" ]
-                        [ [ ( "Bonus agro-diversité", .agroDiversity )
-                          , ( "Bonus agro-ecologie", .agroEcology )
-                          , ( "Bonus conditions d'élevage", .animalWelfare )
+                        [ [ ( EcosystemicServices.labels.hedges, ecosystemicServices.hedges )
+                          , ( EcosystemicServices.labels.plotSize, ecosystemicServices.plotSize )
+                          , ( EcosystemicServices.labels.cropDiversity, ecosystemicServices.cropDiversity )
+                          , ( EcosystemicServices.labels.permanentPasture, ecosystemicServices.permanentPasture )
+                          , ( EcosystemicServices.labels.livestockDensity, ecosystemicServices.livestockDensity )
                           ]
                             |> List.map
-                                (\( label, getter ) ->
-                                    ingredient.complements
-                                        |> getter
-                                        |> (\split ->
-                                                span []
-                                                    [ text <| label ++ ": "
-                                                    , Format.splitAsPercentage split
-                                                    ]
-                                           )
+                                (\( label, impact ) ->
+                                    span []
+                                        [ text <| label ++ ": "
+                                        , Unit.impactToFloat impact
+                                            |> Format.formatImpactFloat { unit = "Pts/kg", decimals = 2 }
+                                        ]
                                 )
                             |> div [ class "d-flex gap-2" ]
                         ]

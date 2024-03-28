@@ -36,8 +36,13 @@ delete_textile_method:
 
 export_food:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py; fi
+                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py && \
+                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build && \
+                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run format:json; \
+        else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py && \
+                $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build && \
+                $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run format:json; fi
+	
 
 #export_textile:
 #	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
@@ -74,10 +79,12 @@ start_notebook:
 	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make jupyter_password` before starting to change the jupyter password.'
 
 stop_notebook:
-	$(DOCKEREXEC) $(NAME) bash -c "pkill jupyter"
-	@while [ `docker container inspect -f '{{.State.Running}}' $(NAME) ` = "true" ]; do \
-		echo "stopping jupyter"; sleep 1; \
-	done
+	@echo "Stopping Jupyter notebook and container..."
+	@# Kill the Jupyter process inside the container (if specifically needed)
+	-@$(DOCKEREXEC) $(NAME) bash -c "pkill jupyter" || true
+	@# Stop the container explicitly
+	-docker stop $(NAME) || echo "Container $(NAME) not running or already stopped."
+	@echo "Container $(NAME) has been stopped."
 
 start_bwapi:
 	echo starting the Brightway API on port 8000...

@@ -1,15 +1,15 @@
 module Server.RouteTest exposing (..)
 
 import Data.Country as Country
+import Data.Food.Fixtures as Fixtures
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
-import Data.Textile.Inputs as Inputs exposing (Query, tShirtCotonFrance)
 import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning
+import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Step.Label as Label
-import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
 import Json.Encode as Encode
@@ -48,106 +48,100 @@ foodEndpoints db =
         , testEndpoint db "GET" Encode.null "/food/packagings"
             |> Expect.equal (Just Route.GetFoodPackagingList)
             |> asTest "should map the /food/packagings endpoint"
-        , [ "/food/recipe?"
-
-          -- Here goes our "famous" carrot cake…
-          , "ingredients[]=egg-indoor-code3;120"
-          , "ingredients[]=wheat;140"
-          , "ingredients[]=milk;60"
-          , "ingredients[]=carrot;225"
-          , "transform=AGRIBALU000000003103966;545"
-          , "packaging[]=AGRIBALU000000003104019;105"
-          , "distribution=ambient"
-          , "preparation[]=refrigeration"
+        , [ "/food?"
+          , "ingredients[]=flour;97"
+          , "ingredients[]=tomato-paste;89"
+          , "ingredients[]=mozzarella;70"
+          , "ingredients[]=cooked-ham;16"
+          , "ingredients[]=sugar;5"
+          , "ingredients[]=mushroom-eu;31"
+          , "ingredients[]=rapeseed-oil;16"
+          , "ingredients[]=black-pepper;1"
+          , "ingredients[]=tap-water;22"
+          , "transform=AGRIBALU000000003103966;363"
+          , "packaging[]=AGRIBALU000000003104019;100"
+          , "distribution=frozen"
+          , "preparation[]=freezing"
+          , "preparation[]=oven"
           , "category=cakes"
           ]
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok FoodQuery.carrotCake))
-            |> asTest "should map the /food/recipe endpoint"
+            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok Fixtures.royalPizza))
+            |> asTest "should map the /food endpoint"
         ]
     , describe "POST endpoints"
-        [ "/food/recipe"
-            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.carrotCake)
+        [ "/food"
+            |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.empty)
             |> Expect.equal (Just Route.PostFoodRecipe)
-            |> asTest "should map the POST /food/recipe endpoint"
-        , "/food/recipe"
+            |> asTest "should map the POST /food endpoint"
+        , "/food"
             |> testEndpoint db "POST" Encode.null
             |> Expect.equal (Just Route.PostFoodRecipe)
-            |> asTest "should map the POST /food/recipe endpoint whatever the request body is"
+            |> asTest "should map the POST /food endpoint whatever the request body is"
         ]
     , describe "validation"
-        [ testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3|0"
+        [ testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3|0"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Format d'ingrédient invalide : egg-indoor-code3|0.")
             |> asTest "should validate ingredient format"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=invalid;100"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=invalid;100"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Ingrédient introuvable par id : invalid")
             |> asTest "should validate that an ingredient id is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3;-1"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that an ingredient mass is greater than zero"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3;1;invalidCountry"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3;1;invalidCountry"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Code pays invalide: invalidCountry.")
             |> asTest "should validate that an ingredient country is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3;1;FR;byPlane"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3;1;FR;byPlane"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas.")
             |> asTest "should validate that an ingredient can be transported by plane"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=egg-indoor-code3;1;BD"
+        , testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3;1;BD"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Le code pays BD n'est pas utilisable dans un contexte Alimentaire.")
             |> asTest "should validate that an ingredient country scope is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=carrot;1;ES;;10:10:10"
-            |> Maybe.andThen extractFoodErrors
-            |> Maybe.andThen (Dict.get "ingredients")
-            |> Expect.equal (Just "L'ingrédient Carotte (sortie de ferme) ne permet pas l'application d'un bonus sur les conditions d'élevage.")
-            |> asTest "should validate that an ingredient bonuses are valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?ingredients[]=carrot;1;ES;;100:110"
-            |> Maybe.andThen extractFoodErrors
-            |> Maybe.andThen (Dict.get "ingredients")
-            |> Expect.equal (Just "Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici: 110)")
-            |> asTest "should validate that an ingredient bonuses splits are valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?transform=AGRIBALU000000003103966;-1"
+        , testEndpoint db "GET" Encode.null "/food?transform=AGRIBALU000000003103966;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that a transform mass is greater than zero"
-        , testEndpoint db "GET" Encode.null "/food/recipe?transform=invalid;100"
+        , testEndpoint db "GET" Encode.null "/food?transform=invalid;100"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
             |> asTest "should validate that a transform code is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?packaging[]=AGRIBALU000000003104019;-1"
+        , testEndpoint db "GET" Encode.null "/food?packaging[]=AGRIBALU000000003104019;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "packaging")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that a packaging mass is greater than zero"
-        , testEndpoint db "GET" Encode.null "/food/recipe?packaging[]=invalid;100"
+        , testEndpoint db "GET" Encode.null "/food?packaging[]=invalid;100"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "packaging")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
             |> asTest "should validate that a packaging code is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?distribution=invalid"
+        , testEndpoint db "GET" Encode.null "/food?distribution=invalid"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "distribution")
             |> Expect.equal (Just "Choix invalide pour la distribution : invalid")
             |> asTest "should validate that a distribution is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?preparation[]=invalid"
+        , testEndpoint db "GET" Encode.null "/food?preparation[]=invalid"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "preparation")
             |> Expect.equal (Just "Préparation inconnue: invalid")
             |> asTest "should validate that a preparation list entry is valid"
-        , testEndpoint db "GET" Encode.null "/food/recipe?preparation[]=freezing&preparation[]=frying&preparation[]=oven"
+        , testEndpoint db "GET" Encode.null "/food?preparation[]=freezing&preparation[]=frying&preparation[]=oven"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "preparation")
             |> Expect.equal (Just "Deux techniques de préparation maximum.")
@@ -163,7 +157,7 @@ textileEndpoints db =
             [ "/textile/simulator?mass=0.17"
             , "product=tshirt"
             , "fabricProcess=knitting-mix"
-            , "materials[]=coton;1"
+            , "materials[]=ei-coton;1"
             , "countryFabric=FR"
             , "countryDyeing=FR"
             , "countryMaking=FR"
@@ -174,24 +168,7 @@ textileEndpoints db =
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "fabricProcess=knitting-mix"
-          , "materials[]=coton;1"
-          , "countryFabric=FR"
-          , "countryDyeing=FR"
-          , "countryMaking=FR"
-          , "quality=1.2"
-          ]
-            |> String.join "&"
-            |> testEndpoint db "GET" Encode.null
-            |> Expect.equal
-                (Just <|
-                    Route.GetTextileSimulator <|
-                        Ok { sampleQuery | quality = Just (Unit.quality 1.2) }
-                )
-            |> asTest "should map the /textile/simulator endpoint with the quality parameter set"
-        , [ "/textile/simulator?mass=0.17"
-          , "product=tshirt"
-          , "fabricProcess=knitting-mix"
-          , "materials[]=coton;1"
+          , "materials[]=ei-coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
@@ -208,7 +185,7 @@ textileEndpoints db =
         , [ "/textile/simulator/fwe?mass=0.17"
           , "product=tshirt"
           , "fabricProcess=knitting-mix"
-          , "materials[]=coton;1"
+          , "materials[]=ei-coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
@@ -224,7 +201,7 @@ textileEndpoints db =
         , [ "/textile/simulator/detailed?mass=0.17"
           , "product=tshirt"
           , "fabricProcess=knitting-mix"
-          , "materials[]=coton;1"
+          , "materials[]=ei-coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
@@ -240,7 +217,7 @@ textileEndpoints db =
         ]
     , describe "POST endpoints"
         [ "/textile/simulator"
-            |> testEndpoint db "POST" (Inputs.encodeQuery tShirtCotonFrance)
+            |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
             |> Expect.equal (Just Route.PostTextileSimulator)
             |> asTest "should map the POST /textile/simulator endpoint"
         , "/textile/simulator"
@@ -253,7 +230,7 @@ textileEndpoints db =
             results =
                 Result.map2
                     (\thirty fourty ->
-                        [ { id = Material.Id "coton"
+                        [ { id = Material.Id "ei-coton"
                           , share = thirty
                           , spinning = Nothing
                           , country = Just (Country.Code "FR")
@@ -263,7 +240,7 @@ textileEndpoints db =
                           , spinning = Just Spinning.Unconventional
                           , country = Nothing
                           }
-                        , { id = Material.Id "acrylique"
+                        , { id = Material.Id "ei-pet"
                           , share = fourty
                           , spinning = Nothing
                           , country = Nothing
@@ -277,9 +254,9 @@ textileEndpoints db =
           [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "fabricProcess=knitting-mix"
-          , "materials[]=coton;0.3;;FR"
+          , "materials[]=ei-coton;0.3;;FR"
           , "materials[]=coton-rdp;0.3;UnconventionalSpinning"
-          , "materials[]=acrylique;0.4"
+          , "materials[]=ei-pet;0.4"
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
@@ -300,46 +277,47 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just "Format de matière invalide : notAnID.")
             |> asTest "should validate invalid material format"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=coton"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=ei-coton"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
-            |> Expect.equal (Just "Format de matière invalide : coton.")
+            |> Expect.equal (Just "Format de matière invalide : ei-coton.")
             |> asTest "should validate invalid material format even when valid material id"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=coton;12"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=ei-coton;12"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just "Une part (en nombre flottant) doit être comprise entre 0 et 1 inclus (ici: 12)")
             |> asTest "should validate invalid material ratios"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=coton;0.3;PasUnProcedeDeFilature"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=ei-coton;1;PasUnProcedeDeFilature"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal
                 (Just <|
                     "Un procédé de filature/filage doit être choisi parmi ("
-                        ++ (Spinning.getAvailableProcesses Origin.NaturalFromVegetal |> List.map Spinning.toString |> String.join "|")
+                        ++ (Spinning.getAvailableProcesses Origin.NaturalFromVegetal
+                                |> List.map Spinning.toString
+                                |> String.join "|"
+                           )
                         ++ ") (ici: PasUnProcedeDeFilature)"
                 )
             |> asTest "should validate invalid material spinning for natural/artificial threads"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=neoprene;0.3;UnconventionalSpinning"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=ei-coton;1;SyntheticSpinning"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal
                 (Just <|
                     "Un procédé de filature/filage doit être choisi parmi ("
-                        ++ (Spinning.getAvailableProcesses Origin.Synthetic |> List.map Spinning.toString |> String.join "|")
-                        ++ ") (ici: UnconventionalSpinning)"
+                        ++ (Spinning.getAvailableProcesses Origin.NaturalFromVegetal
+                                |> List.map Spinning.toString
+                                |> String.join "|"
+                           )
+                        ++ ") (ici: SyntheticSpinning)"
                 )
             |> asTest "should validate invalid material spinning for synthetic threads"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=neoprene;0.3;UnconventionalSpinning;NotACountryCode"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]=ei-coton;1;UnconventionalSpinning;NotACountryCode"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
-            |> Expect.equal (Just <| "Un procédé de filature/filage doit être choisi parmi (" ++ (Spinning.getAvailableProcesses Origin.Synthetic |> List.map Spinning.toString |> String.join "|") ++ ") (ici: UnconventionalSpinning)")
+            |> Expect.equal (Just "Code pays invalide: NotACountryCode.")
             |> asTest "should validate invalid material country code"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?ennoblingHeatSource=bonk"
-            |> Maybe.andThen extractTextileErrors
-            |> Maybe.andThen (Dict.get "ennoblingHeatSource")
-            |> Expect.equal (Just "Source de production de vapeur inconnue: bonk")
-            |> asTest "should validate invalid ennoblingHeatSource identifier"
         , testEndpoint db "GET" Encode.null "/textile/simulator?printing=plop"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "printing")
@@ -384,7 +362,6 @@ textileEndpoints db =
           , "fading=untrue"
           , "dyeingMedium=yolo"
           , "printing=yolo"
-          , "ennoblingHeatSource=yolo"
           , "yarnSize=0"
           ]
             |> String.join "&"
@@ -404,7 +381,6 @@ textileEndpoints db =
                     , ( "fading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
-                    , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )
                     , ( "yarnSize", "Le titrage (yarnSize) doit être compris entre 9 et 200 Nm (entre 50 et 1111 Dtex)" )
                     ]
                     |> Just
@@ -424,7 +400,7 @@ testEndpoint dbs method body url =
         }
 
 
-extractQuery : Route.Route -> Maybe Inputs.Query
+extractQuery : Route.Route -> Maybe Query
 extractQuery route =
     case route of
         Route.GetTextileSimulator (Ok query) ->

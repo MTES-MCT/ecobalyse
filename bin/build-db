@@ -6,49 +6,35 @@
  * is impossible in an Elm test environment.
  */
 const fs = require("fs");
+const textileProcesses = process.env.TEXTILE_PROCESSES || "public/data/textile/processes.json";
+const foodProcesses = process.env.FOOD_PROCESSES || "public/data/food/processes.json";
 
 function getJson(path) {
-  return JSON.parse(fs.readFileSync(path).toString());
+  const raw = JSON.parse(fs.readFileSync(path).toString());
+  // Adapts a standard JSON string to what is expected to be the format
+  // used in Elm's template strings (`"""{}"""`).
+  return JSON.stringify(raw).replaceAll("\\", "\\\\");
 }
 
-/**
- * Adapts a standard JSON string to what is expected to be the format
- * used in Elm's template strings (`"""{}"""`).
- */
-function serializeForElmTemplateString(toStringify) {
-  return JSON.stringify(toStringify).replaceAll("\\", "\\\\");
-}
-
-function buildTextileJsonDb(basePath = "public/data") {
-  return serializeForElmTemplateString({
-    // common data
-    countries: getJson(`${basePath}/countries.json`),
-    impacts: getJson(`${basePath}/impacts.json`),
-    transports: getJson(`${basePath}/transports.json`),
-    // textile data
-    materials: getJson(`${basePath}/textile/materials.json`),
-    processes: getJson(`${basePath}/textile/processes.json`),
-    products: getJson(`${basePath}/textile/products.json`),
-  });
-}
-
-function buildFoodProcessesJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/processes.json`));
-}
-
-function buildFoodIngredientsJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/ingredients.json`));
-}
-
-const targetDbFile = "src/Static/Db.elm";
+const targetDbFile = "src/Static/Json.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
-  .replace("%textileJson%", buildTextileJsonDb())
-  .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
-  .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb());
+  // Transverse JSON data
+  .replace("%countriesJson%", getJson("public/data/countries.json"))
+  .replace("%impactsJson%", getJson("public/data/impacts.json"))
+  .replace("%transportsJson%", getJson("public/data/transports.json"))
+  // Food JSON data
+  .replace("%foodIngredientsJson%", getJson("public/data/food/ingredients.json"))
+  .replace("%foodProcessesJson%", getJson(foodProcesses))
+  .replace("%foodProductExamplesJson%", getJson("public/data/food/examples.json"))
+  // Textile JSON data
+  .replace("%textileMaterialsJson%", getJson("public/data/textile/materials.json"))
+  .replace("%textileProcessesJson%", getJson(textileProcesses))
+  .replace("%textileProductExamplesJson%", getJson("public/data/textile/examples.json"))
+  .replace("%textileProductsJson%", getJson("public/data/textile/products.json"));
 
 const header =
-  "---- THIS FILE WAS GENERATED FROM THE FILE `Db.elm-template` BY THE `/bin/build-db` SCRIPT";
+  "---- THIS FILE WAS GENERATED FROM THE FILE `Json.elm-template` BY THE `/bin/build-db` SCRIPT";
 
 try {
   fs.writeFileSync(targetDbFile, `${header}\n\n${elmWithFixtures}`);

@@ -13,6 +13,7 @@ if (process.env.SENTRY_DSN) {
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
       /^https:\/\/ecobalyse\.osc-fr1\.scalingo\.io/,
       /^https:\/\/ecobalyse-pr(\d+)\.osc-fr1\.scalingo\.io/,
+      /^https:\/\/ecobalyse-v2\.osc-fr1\.scalingo\.io/,
     ],
     ignoreErrors: [
       // Most often due to DOM-aggressive browser extensions

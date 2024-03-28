@@ -10,7 +10,7 @@ module Data.Food.Preparation exposing
     , unused
     )
 
-import Data.Food.Db as FoodDb
+import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -82,8 +82,8 @@ all =
     ]
 
 
-apply : FoodDb.Db -> Mass -> Preparation -> Impacts
-apply { wellKnown } mass preparation =
+apply : WellKnown -> Mass -> Preparation -> Impacts
+apply wellKnown mass preparation =
     Impact.sumImpacts
         [ wellKnown.lowVoltageElectricity.impacts
             |> Impact.mapImpacts

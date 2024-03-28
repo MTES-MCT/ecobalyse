@@ -6,7 +6,7 @@ import json
 
 projects.create_project("textile", activate=True, exist_ok=True)
 
-with open("../../public/data/textile/processes.json") as f:
+with open("../../public/data/textile/processes_impacts.json") as f:
     processes = json.loads(f.read())
 with open("../../public/data/textile/materials.json") as f:
     materials = {m["name"]: m for m in json.loads(f.read())}

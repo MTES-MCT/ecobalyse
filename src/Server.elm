@@ -6,7 +6,6 @@ port module Server exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
 import Data.Food.Process as FoodProcess
@@ -15,10 +14,10 @@ import Data.Food.Recipe as BuilderRecipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope
-import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
+import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Json.Decode as Decode
 import Json.Encode as Encode
@@ -26,7 +25,7 @@ import Route as WebRoute
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db as StaticDb
+import Static.Db exposing (Db, db, processes)
 
 
 type Msg
@@ -83,7 +82,7 @@ toAllImpactsSimple { inputs, impacts } =
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
         , ( "impacts", Impact.encode impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
-        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
         ]
 
 
@@ -109,7 +108,7 @@ toSingleImpactSimple trigram { inputs, impacts } =
           , Impact.encodeSingleImpact impacts trigram
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
-        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
         ]
 
 
@@ -123,16 +122,16 @@ toFoodResults query results =
         ]
 
 
-executeFoodQuery : FoodDb.Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
-executeFoodQuery foodDb encoder =
-    BuilderRecipe.compute foodDb
+executeFoodQuery : Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
+executeFoodQuery db encoder =
+    BuilderRecipe.compute db
         >> Result.map (Tuple.second >> encoder)
         >> toResponse
 
 
-executeTextileQuery : TextileDb.Db -> (Simulator -> Encode.Value) -> Inputs.Query -> JsonResponse
-executeTextileQuery textileDb encoder =
-    Simulator.compute textileDb
+executeTextileQuery : Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
+executeTextileQuery db encoder =
+    Simulator.compute db
         >> Result.map encoder
         >> toResponse
 
@@ -188,11 +187,11 @@ encodeIngredients ingredients =
     Encode.list encodeIngredient ingredients
 
 
-cmdRequest : StaticDb.Db -> Request -> Cmd Msg
-cmdRequest dbs request =
+cmdRequest : Db -> Request -> Cmd Msg
+cmdRequest db request =
     let
         ( code, responseBody ) =
-            handleRequest dbs request
+            handleRequest db request
     in
     sendResponse code request responseBody
 
@@ -202,60 +201,60 @@ respondWith =
     Tuple.pair
 
 
-handleRequest : StaticDb.Db -> Request -> JsonResponse
-handleRequest ({ foodDb, textileDb } as dbs) request =
-    case Route.endpoint dbs request of
+handleRequest : Db -> Request -> JsonResponse
+handleRequest db request =
+    case Route.endpoint db request of
         -- GET routes
         Just Route.GetFoodCountryList ->
-            foodDb.countries
+            db.countries
                 |> Scope.only Scope.Food
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
         Just Route.GetFoodIngredientList ->
-            foodDb.ingredients
+            db.food.ingredients
                 |> encodeIngredients
                 |> respondWith 200
 
         Just Route.GetFoodPackagingList ->
-            foodDb.processes
+            db.food.processes
                 |> List.filter (.category >> (==) FoodProcess.Packaging)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
         Just Route.GetFoodTransformList ->
-            foodDb.processes
+            db.food.processes
                 |> List.filter (.category >> (==) FoodProcess.Transform)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
         Just (Route.GetFoodRecipe (Ok query)) ->
             query
-                |> executeFoodQuery foodDb (toFoodResults query)
+                |> executeFoodQuery db (toFoodResults query)
 
         Just (Route.GetFoodRecipe (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
 
         Just Route.GetTextileCountryList ->
-            textileDb.countries
+            db.countries
                 |> Scope.only Scope.Textile
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
         Just Route.GetTextileMaterialList ->
-            textileDb.materials
+            db.textile.materials
                 |> Encode.list encodeMaterial
                 |> respondWith 200
 
         Just Route.GetTextileProductList ->
-            textileDb.products
+            db.textile.products
                 |> Encode.list encodeProduct
                 |> respondWith 200
 
         Just (Route.GetTextileSimulator (Ok query)) ->
             query
-                |> executeTextileQuery textileDb toAllImpactsSimple
+                |> executeTextileQuery db toAllImpactsSimple
 
         Just (Route.GetTextileSimulator (Err errors)) ->
             Query.encodeErrors errors
@@ -263,7 +262,7 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
 
         Just (Route.GetTextileSimulatorDetailed (Ok query)) ->
             query
-                |> executeTextileQuery textileDb Simulator.encode
+                |> executeTextileQuery db Simulator.encode
 
         Just (Route.GetTextileSimulatorDetailed (Err errors)) ->
             Query.encodeErrors errors
@@ -271,7 +270,7 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
 
         Just (Route.GetTextileSimulatorSingle trigram (Ok query)) ->
             query
-                |> executeTextileQuery textileDb (toSingleImpactSimple trigram)
+                |> executeTextileQuery db (toSingleImpactSimple trigram)
 
         Just (Route.GetTextileSimulatorSingle _ (Err errors)) ->
             Query.encodeErrors errors
@@ -282,24 +281,23 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
             request.body
                 |> handleDecodeBody BuilderQuery.decode
                     (\query ->
-                        query
-                            |> executeFoodQuery foodDb (toFoodResults query)
+                        executeFoodQuery db (toFoodResults query) query
                     )
 
         Just Route.PostTextileSimulator ->
             request.body
-                |> handleDecodeBody Inputs.decodeQuery
-                    (executeTextileQuery textileDb toAllImpactsSimple)
+                |> handleDecodeBody TextileQuery.decode
+                    (executeTextileQuery db toAllImpactsSimple)
 
         Just Route.PostTextileSimulatorDetailed ->
             request.body
-                |> handleDecodeBody Inputs.decodeQuery
-                    (executeTextileQuery textileDb Simulator.encode)
+                |> handleDecodeBody TextileQuery.decode
+                    (executeTextileQuery db Simulator.encode)
 
         Just (Route.PostTextileSimulatorSingle trigram) ->
             request.body
-                |> handleDecodeBody Inputs.decodeQuery
-                    (executeTextileQuery textileDb (toSingleImpactSimple trigram))
+                |> handleDecodeBody TextileQuery.decode
+                    (executeTextileQuery db (toSingleImpactSimple trigram))
 
         Nothing ->
             encodeStringError "Endpoint doesn't exist"
@@ -320,12 +318,12 @@ update : Msg -> Cmd Msg
 update msg =
     case msg of
         Received request ->
-            case StaticDb.db of
-                Err dbError ->
-                    encodeStringError dbError |> sendResponse 503 request
-
+            case db processes of
                 Ok db ->
                     cmdRequest db request
+
+                Err error ->
+                    encodeStringError error |> sendResponse 503 request
 
 
 main : Program () () Msg

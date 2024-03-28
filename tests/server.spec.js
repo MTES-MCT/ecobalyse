@@ -1,8 +1,6 @@
 const fs = require("fs");
 const request = require("supertest");
-const superagent = require("superagent");
 const app = require("../server");
-const ingredients = require("../public/data/food/ingredients.json");
 
 const e2eOutput = { food: [], textile: [] };
 
@@ -45,8 +43,8 @@ describe("API", () => {
         "mass=0.17",
         "product=tshirt",
         "fabricProcess=knitting-mix",
-        "materials[]=coton;0.5",
-        "materials[]=acrylique;0.5",
+        "materials[]=ei-coton;0.5",
+        "materials[]=ei-pet;0.5",
         "countryFabric=CN",
         "countryDyeing=CN",
         "countryMaking=CN",
@@ -61,8 +59,8 @@ describe("API", () => {
     describe("/materials", () => {
       it("should render with materials list", async () => {
         await expectListResponseContains("/api/textile/materials", {
-          id: "coton",
-          name: "Fil de coton conventionnel, inventaire partiellement agrégé",
+          id: "ei-coton",
+          name: "Coton",
         });
       });
     });
@@ -274,29 +272,21 @@ describe("API", () => {
             /Format de type et surface d'impression invalide: bonk/,
           );
         });
-
-        it("should validate the ennoblingHeatSource param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["ennoblingHeatSource=bonk"]),
-            "ennoblingHeatSource",
-            /Source de production de vapeur inconnue: bonk/,
-          );
-        });
       });
 
       describe("POST", () => {
         it("should compute 21 impacts", async () => {
           const response = await makePostRequest("/api/textile/simulator", {
             mass: 0.17,
-            materials: [{ id: "coton", share: 1 }],
+            materials: [{ id: "ei-coton", share: 1 }],
             product: "tshirt",
             fabricProcess: "knitting-mix",
             countrySpinning: "BD",
-            countryFabric: "PT",
-            countryDyeing: "PT",
-            countryMaking: "ES",
+            countryFabric: "TR",
+            countryDyeing: "TR",
+            countryMaking: "BD",
             airTransportRatio: 0.5,
-            quality: 1.2,
+            durability: 1.2,
             reparability: 1.2,
             makingWaste: null,
             makingComplexity: null,
@@ -330,7 +320,7 @@ describe("API", () => {
     });
 
     describe("End to end textile simulations", () => {
-      const e2eTextile = JSON.parse(fs.readFileSync(`${__dirname}/e2e-textile.json`).toString());
+      const e2eTextile = require(`${__dirname}/e2e-textile.json`);
 
       for (const { name, query, impacts } of e2eTextile) {
         it(name, async () => {
@@ -342,6 +332,18 @@ describe("API", () => {
             impacts: response.body.impacts,
           });
           expect(response.body.impacts).toEqual(impacts);
+        });
+      }
+    });
+
+    describe("Textile product examples checks", () => {
+      const textileExamples = require(`${__dirname}/../public/data/textile/examples.json`);
+
+      for (const { name, query } of textileExamples) {
+        it(name, async () => {
+          const response = await makePostRequest("/api/textile/simulator", query);
+          expect(response.body.error).toBeUndefined();
+          expectStatus(response, 200);
         });
       }
     });
@@ -358,7 +360,7 @@ describe("API", () => {
       it("should render with ingredients list", async () => {
         await expectListResponseContains("/api/food/ingredients", {
           id: "milk",
-          name: "Lait (sortie de ferme)",
+          name: "Lait",
           defaultOrigin: "Europe et Maghreb",
         });
       });
@@ -373,11 +375,11 @@ describe("API", () => {
       });
     });
 
-    describe("/food/recipe", () => {
+    describe("/food", () => {
       describe("GET", () => {
         it("should compute 21 impacts for food", async () => {
-          const response = await makeRequest("/api/food/recipe", [
-            "ingredients[]=carrot;268",
+          const response = await makeRequest("/api/food", [
+            "ingredients[]=carrot-fr;268",
             "transform=AGRIBALU000000003103966;1050",
             "distribution=ambient",
           ]);
@@ -388,7 +390,7 @@ describe("API", () => {
 
         it("should validate an ingredient id", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=invalid;268"]),
+            await makeRequest("/api/food", ["ingredients[]=invalid;268"]),
             "ingredients",
             /Ingrédient introuvable par id : invalid/,
           );
@@ -396,7 +398,7 @@ describe("API", () => {
 
         it("should validate an ingredient mass", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;-1"]),
+            await makeRequest("/api/food", ["ingredients[]=carrot-fr;-1"]),
             "ingredients",
             /masse doit être supérieure ou égale à zéro/,
           );
@@ -404,7 +406,7 @@ describe("API", () => {
 
         it("should validate an ingredient country code", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BadCountryCode"]),
+            await makeRequest("/api/food", ["ingredients[]=carrot-fr;123;BadCountryCode"]),
             "ingredients",
             /Code pays invalide: BadCountryCode/,
           );
@@ -412,7 +414,7 @@ describe("API", () => {
 
         it("should validate an ingredient transport by plane value", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=mango;123;BR;badValue"]),
+            await makeRequest("/api/food", ["ingredients[]=mango-non-eu;123;BR;badValue"]),
             "ingredients",
             /La valeur ne peut être que parmi les choix suivants: '', 'byPlane', 'noPlane'./,
           );
@@ -420,39 +422,15 @@ describe("API", () => {
 
         it("should validate an ingredient transport by plane", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;byPlane"]),
+            await makeRequest("/api/food", ["ingredients[]=carrot-fr;123;BR;byPlane"]),
             "ingredients",
             /Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas./,
           );
         });
 
-        it("should validate an ingredient bonuses format", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;;invalid"]),
-            "ingredients",
-            /Format de bonus d'ingrédient invalide: invalid./,
-          );
-        });
-
-        it("should validate an ingredient bonus boundaries", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;;110:100"]),
-            "ingredients",
-            /comprise entre 0 et 100/,
-          );
-        });
-
-        it("should validate an ingredient bonus applicability", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BR;;100:100:100"]),
-            "ingredients",
-            /Carotte \(sortie de ferme\) ne permet pas l'application d'un bonus sur les conditions d'élevage/,
-          );
-        });
-
         it("should validate a transform code", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["transform=invalid;268"]),
+            await makeRequest("/api/food", ["transform=invalid;268"]),
             "transform",
             /Procédé introuvable par code : invalid/,
           );
@@ -460,7 +438,7 @@ describe("API", () => {
 
         it("should validate a transform mass", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["transform=AGRIBALU000000003103966;-1"]),
+            await makeRequest("/api/food", ["transform=AGRIBALU000000003103966;-1"]),
             "transform",
             /masse doit être supérieure ou égale à zéro/,
           );
@@ -468,7 +446,7 @@ describe("API", () => {
 
         it("should validate a packaging code", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["packaging[]=invalid;268"]),
+            await makeRequest("/api/food", ["packaging[]=invalid;268"]),
             "packaging",
             /Procédé introuvable par code : invalid/,
           );
@@ -476,7 +454,7 @@ describe("API", () => {
 
         it("should validate a packaging mass", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["packaging[]=AGRIBALU000000003104019;-1"]),
+            await makeRequest("/api/food", ["packaging[]=AGRIBALU000000003104019;-1"]),
             "packaging",
             /masse doit être supérieure ou égale à zéro/,
           );
@@ -484,7 +462,7 @@ describe("API", () => {
 
         it("should validate a distribution storage type", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["distribution=invalid"]),
+            await makeRequest("/api/food", ["distribution=invalid"]),
             "distribution",
             /Choix invalide pour la distribution : invalid/,
           );
@@ -492,7 +470,7 @@ describe("API", () => {
 
         it("should validate a consumption preparation technique id", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food/recipe", ["preparation[]=invalid"]),
+            await makeRequest("/api/food", ["preparation[]=invalid"]),
             "preparation",
             /Préparation inconnue: invalid/,
           );
@@ -501,12 +479,12 @@ describe("API", () => {
 
       describe("POST", () => {
         it("should compute 21 impacts", async () => {
-          const response = await makePostRequest("/api/food/recipe", {
+          const response = await makePostRequest("/api/food", {
             ingredients: [
               { id: "egg-indoor-code3", mass: 0.12 },
-              { id: "wheat", mass: 0.14 },
+              { id: "soft-wheat-fr", mass: 0.14 },
               { id: "milk", mass: 0.06 },
-              { id: "carrot", mass: 0.225 },
+              { id: "carrot-fr", mass: 0.225 },
             ],
             transform: {
               code: "AGRIBALU000000003103966",
@@ -529,11 +507,11 @@ describe("API", () => {
     });
 
     describe("End to end food simulations", () => {
-      const e2eFood = JSON.parse(fs.readFileSync(`${__dirname}/e2e-food.json`).toString());
+      const e2eFood = require(`${__dirname}/e2e-food.json`);
 
       for (const { name, query, impacts, scoring } of e2eFood) {
         it(name, async () => {
-          const response = await makeRequest("/api/food/recipe", query);
+          const response = await makeRequest("/api/food", query);
           expectStatus(response, 200);
           e2eOutput.food.push({
             name,
@@ -547,52 +525,16 @@ describe("API", () => {
       }
     });
 
-    describe("Food ingredients ecoscore deviation", () => {
-      async function requestDev(path, body) {
-        return await request(app).post(path).send(body);
-      }
+    describe("Food product examples checks", () => {
+      const foodExamples = require(`${__dirname}/../public/data/food/examples.json`);
 
-      async function requestProd(path, body) {
-        return await superagent
-          .post(`https://ecobalyse.beta.gouv.fr${path}`)
-          .send(body)
-          .set("accept", "json");
+      for (const { name, query } of foodExamples) {
+        it(name, async () => {
+          const response = await makePostRequest("/api/food", query);
+          expect(response.body.error).toBeUndefined();
+          expectStatus(response, 200);
+        });
       }
-
-      // The purpose of these checks is to ensure we don't inadvertandly introduce
-      // unoticed large deviations for ingredients impacts.
-      // Procedure in case of test failure:
-      // - check if the large deviation is legit or not
-      // - if it's not, fix it
-      // - if it's intended, comment the test below, commit, push
-      // - merge your branch onto master
-      // - uncomment this test on master, commit, push
-      // - done.
-      //for (const { id } of ingredients.filter(({ visible }) => visible)) {
-      //  it(`${id} should not have ecoscore deviating with production more than 5%`, async () => {
-      //    const path = "/api/food/recipe";
-      //    const query = { ingredients: [{ id, mass: 0.1 }] };
-      //    try {
-      //      const dev = await requestDev(path, query);
-      //      const prod = await requestProd(path, query);
-      //      const devEcs = dev.body.results.total.ecs;
-      //      const prodEcs = prod.body.results.total.ecs;
-      //      const deviation = 100 - (devEcs / prodEcs) * 100;
-      //      expect(deviation).toBeLessThan(5);
-      //    } catch (err) {
-      //      // Check for an HTTP error
-      //      if (err.status && err.response && err.response.text) {
-      //        // Only process ingredients existing in production, skip otherwise
-      //        if (!err.response.text.includes(`Ingrédient introuvable par id : ${id}`)) {
-      //          throw `${err.status} ${err.message}: ${err.response.text}`;
-      //        }
-      //      } else {
-      //        // Not an HTTP error, re-raise
-      //        throw err;
-      //      }
-      //    }
-      //  });
-      //}
     });
   });
 });
