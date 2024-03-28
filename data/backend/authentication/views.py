@@ -181,18 +181,5 @@ def profile(request):
             )
 
 
-def check_token(request):
-    if request.method == "GET":
-        token = request.headers.get("token")
-        print("Token provided", token)
-        if EcobalyseUser.objects.filter(token=token):
-            return JsonResponse(
-                {
-                    "success": _("Token is verified"),
-                }
-            )
-        else:
-            return JsonResponse(
-                {"error": _("This token isn't valid")},
-                status=401,
-            )
+def is_token_valid(token):
+    return EcobalyseUser.objects.filter(token=token)

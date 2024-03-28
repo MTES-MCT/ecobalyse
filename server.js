@@ -14,7 +14,6 @@ const api = express(); // api app
 const host = "0.0.0.0";
 const port = 8001;
 const django_port = process.env.PORT || 8000;
-console.log("django_port", django_port);
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -111,27 +110,18 @@ api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${clean
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
-  let processesFilename = "processes.json";
+  let headers = {};
   if (req.headers.token) {
-    const checkTokenUrl = `http://localhost:${django_port}/accounts/check_token/`;
-    const isTokenValidRes = await fetch(
-      checkTokenUrl,
-      { headers: { "token": req.headers.token }});
-    const isTokenValid = isTokenValidRes.status == 200;
-    if (isTokenValid) {
-      // The request is authentified.
-      processesFilename = "processes_impacts.json";
-    } else {
-      return res.status(401).send(JSON.stringify({"error": "Token is invalid"}));
-    }
+    headers["token"] = req.headers.token;
   }
   let processes;
   try {
-    const foodRes = await fetch(`http://${host}:${port}/data/food/${processesFilename}`);
-    const foodProcesses = await foodRes.json();
-    const textileRes = await fetch(`http://${host}:${port}/data/textile/${processesFilename}`);
-    const textileProcesses = await textileRes.json();
-    processes = {"foodProcesses": JSON.stringify(foodProcesses), "textileProcesses": JSON.stringify(textileProcesses)};
+    const processesUrl = `http://localhost:${django_port}/processes/processes.json`;
+    const processesRes = await fetch(processesUrl, { headers: headers});
+    processes = await processesRes.json();
+    if (processesRes.status != 200) {
+      return res.status(processesRes.status).send(processes);
+    }
   } catch (err) {
     console.error(err.message);
   }
