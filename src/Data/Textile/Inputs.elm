@@ -17,7 +17,6 @@ module Data.Textile.Inputs exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
-import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
@@ -466,11 +465,7 @@ computeMaterialTransport distances nextCountryCode { material, country, share } 
                     |> Maybe.withDefault material.defaultCountry
         in
         distances
-            |> Transport.getTransportBetween
-                Scope.Textile
-                emptyImpacts
-                countryCode
-                nextCountryCode
+            |> Transport.getTransportBetween emptyImpacts countryCode nextCountryCode
 
     else
         Transport.default Impact.empty
