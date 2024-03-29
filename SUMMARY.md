@@ -6,7 +6,7 @@
 
 ## 👕 Textile
 
-* [Points de méthode spécifiques aux produits textiles](textile/demarche.md)
+* [🪡 Points de méthode spécifiques aux produits textiles](textile/demarche.md)
 * [Exemples](textile/exemples.md)
 * [Etapes du cycle de vie](textile/etapes-du-cycle-de-vie/README.md)
   * [🐑 Etape 1 - Matières](textile/etapes-du-cycle-de-vie/etape-1-matieres/README.md)
