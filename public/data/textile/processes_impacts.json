@@ -703,13 +703,13 @@
     "alias": null
   },
   {
-    "name": "Elastane (Lycra)",
+    "name": "Elasthane (Lycra)",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
-    "source": "Ecoinvent 3.9.1",
+    "source": "Ecobalyse",
     "correctif": "",
     "step_usage": "Matières, Filature",
-    "uuid": "ei-elastane-lycra",
+    "uuid": "elasthane-lycra",
     "impacts": {
       "acd": 0.0275292,
       "cch": 5.23468,
@@ -740,7 +740,7 @@
     "alias": null
   },
   {
-    "name": "polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
+    "name": "polymethyl methacrylate production, beads [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -777,7 +777,7 @@
     "alias": null
   },
   {
-    "name": "fibre, jute//[RoW] fibre production, jute, retting",
+    "name": "fibre production, jute, retting [RoW]",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -814,7 +814,7 @@
     "alias": null
   },
   {
-    "name": "Filament de polypropylène",
+    "name": "polypropylene production, granulate [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -851,7 +851,7 @@
     "alias": null
   },
   {
-    "name": "polyethylene terephthalate production, granulate",
+    "name": "polyethylene terephthalate production, granulate, amorphous [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -888,7 +888,7 @@
     "alias": null
   },
   {
-    "name": "polyethylene terephthalate production, granulate RoW, recycled",
+    "name": "polyethylene terephthalate production, granulate, amorphous, recycled [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -925,7 +925,7 @@
     "alias": null
   },
   {
-    "name": "Nylon",
+    "name": "nylon 6-6 production [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -962,7 +962,7 @@
     "alias": null
   },
   {
-    "name": "Fil de viscose recyclé",
+    "name": "viscose fibre, recycled, post-consumer, production [GLO]",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -999,72 +999,33 @@
     "alias": null
   },
   {
-    "name": "Soie",
+    "name": "fibre production, flax, retting [RoW]",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières, Filature",
-    "uuid": "4646e2fbfb0669dd6e3215e441dffcbe",
+    "uuid": "cf76c9e1872effbd04d49aec742e7952",
     "impacts": {
-      "acd": 2.4298,
-      "cch": 144.908,
-      "etf": 3935.46,
-      "etf-c": 6360.86,
-      "fru": 1112.02,
-      "fwe": 0.0566909,
-      "htc": 6.90604e-7,
-      "htc-c": 6.05977e-7,
-      "htn": 0.00000630817,
-      "htn-c": 4.78978e-7,
-      "ior": 4.29629,
-      "ldu": 7998.02,
-      "mru": 0.0010325,
-      "ozd": 0.00000300873,
-      "pco": 0.836786,
-      "pma": 0.0000368209,
-      "swe": 0.635444,
-      "tre": 10.2547,
-      "wtu": 1363.5,
-      "ecs": 39028.1618799885,
-      "pef": 34056.229324199325
-    },
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 7.08976,
-    "alias": null
-  },
-  {
-    "name": "market for fibre, flax, long, scutched",
-    "info": "Textile > Matières > Matières naturelles",
-    "unit": "kg",
-    "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières, Filature",
-    "uuid": "european-flax",
-    "impacts": {
-      "acd": 0.016063,
-      "cch": 1.0746,
-      "etf": 31.388,
-      "etf-c": 55.8277,
-      "fru": 9.7942,
-      "fwe": 0.00061315,
-      "htc": 6.8369e-9,
-      "htc-c": 1.37722e-8,
-      "htn": 7.847e-8,
-      "htn-c": 2.44e-9,
-      "ior": 0.043209,
-      "ldu": 317.6,
-      "mru": 0.0000059864,
-      "ozd": 4.5179e-8,
-      "pco": 0.0066805,
-      "pma": 9.39e-8,
-      "swe": 0.010244,
-      "tre": 0.048698,
-      "wtu": 0.41036,
-      "ecs": 253.05739163229265,
-      "pef": 190.55557481702274
+      "acd": 3.182644e-2,
+      "cch": 1.15631,
+      "etf": 1.977492e1,
+      "etf-c": 2.464033e1,
+      "fru": 9.046821,
+      "fwe": 3.0e-4,
+      "htc": 1.92e-9,
+      "htc-c": 3.84416e-9,
+      "htn": 1.22e-9,
+      "htn-c": 2.35956e-9,
+      "ior": 4.66038e-2,
+      "ldu": 1.838536e1,
+      "mru": 7.41e-6,
+      "ozd": 2.07e-8,
+      "pco": 6.056171e-3,
+      "pma": 4.14e-7,
+      "swe": 1.892135e-2,
+      "tre": 1.365807e-1,
+      "wtu": 3.468878
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -1184,7 +1145,7 @@
     "alias": null
   },
   {
-    "name": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning (Ecobalyse)",
+    "name": "fibre production, cotton, organic, ginning [RoW] (Ecobalyse)",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecobalyse",
@@ -1221,7 +1182,7 @@
     "alias": null
   },
   {
-    "name": "Fil de chanvre",
+    "name": "sunn hemp production [RoW]",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -1258,7 +1219,7 @@
     "alias": null
   },
   {
-    "name": "Filament de viscose",
+    "name": "market for fibre, viscose [GLO]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -1295,7 +1256,7 @@
     "alias": null
   },
   {
-    "name": "Coton recyclé (déchets post-consommation)",
+    "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "unit": "kg",
     "source": "Base Impacts 2.01",
@@ -1332,7 +1293,7 @@
     "alias": null
   },
   {
-    "name": "Coton recyclé (déchets de production)",
+    "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
     "unit": "kg",
     "source": "Base Impacts 2.01",
