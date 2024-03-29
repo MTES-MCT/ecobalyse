@@ -65,7 +65,7 @@ La modélisation des impacts de toxicité humaine (toxicité humaine cancer et t
 
 En revanche, l'indicateur d'écotoxicité (écotoxicité eau douce), est lui considéré comme plus robuste par la communauté scientifique, bien que partiel puisque ne prend pas en compte l'ensemble des impacts écotoxiques, notamment sur les milieux terrestres. Par ailleurs, l'absence d'un indicateur de "biodiversité locale" dans le cadre ACV actuellement justifie de considérer temporairement cet indicateur d'écotoxicité comme un "proxy" de la biodiversité locale. Il est donc proposé de réhausser sa pondération à hauteur de 21%, c'est-à-dire au même niveau que l'impact changement climatique.
 
-Pour les produits textiles, il est également proposé d'enrichir les inventaires de l'étape [Ennoblissement](textile/etapes-du-cycle-de-vie/ennoblissement/) afin de mieux prendre en compte l'impact des substances chimiques mobilisées lors du traitement des fibres (plus de détails dans la [partie dédiée](textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis.md)).
+Pour les produits textiles, il est également proposé d'enrichir les inventaires de l'étape [Ennoblissement](textile/cycle-de-vie-des-produits-textiles/ennoblissement/) afin de mieux prendre en compte l'impact des substances chimiques mobilisées lors du traitement des fibres (plus de détails dans la [partie dédiée](textile/cycle-de-vie-des-produits-textiles/ennoblissement/inventaires-enrichis.md)).
 
 ### Correctif sur l'indicateur "consommation d'eau"
 
