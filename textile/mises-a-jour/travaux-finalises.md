@@ -4,7 +4,37 @@ description: L'objectif est de finaliser la méthode d'ici fin 2023.
 
 # Travaux finalisés
 
-## Enjeux Tox/Ecotox (novembre 2023)
+## Base de données (mars 2024)
+
+<details>
+
+<summary>Eléments de contexte</summary>
+
+Les données Base Impacts (Ademe) ont été remplacées par des données Ecoinvent dans le cadre de la mise en place de la Base Empreinte (Ademe).&#x20;
+
+</details>
+
+## Durabilité (mars 2024)
+
+<details>
+
+<summary>Eléments de contexte</summary>
+
+Intégration d'un coefficient de durabilité afin de préciser la durée de vie des vêtements sur la base de critères non-physiques.&#x20;
+
+</details>
+
+## Matières (mars 2024)
+
+<details>
+
+<summary>Eléments de contexte</summary>
+
+Suite à la mise en place de données Ecoinvent, certaines modélisations de matières ont été enrichies (ex : ajout d'eau d'irrigation dans le procédé "coton organique" qui n'en comprenait pas). Plus d'info dans la section [Matières](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-1-matieres).
+
+</details>
+
+## Inventaires enrichis (toxicité) (novembre 2023)
 
 <details>
 

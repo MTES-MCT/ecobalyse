@@ -1,34 +1,12 @@
----
-description: L'objectif est de finaliser la méthode d'ici fin 2023.
----
-
 # Travaux en cours
 
-## Nouvelle base de données
+La méthodologie V1 a été mise en ligne début avril 2024.&#x20;
 
-Objectif = remplacer la Base Impacts par une base données enrichie et spécifique au Textile (ce chantier rejoint les travaux de la Base Empreinte pilotés par l'ADEME).
+Une phase de concertation s'ouvre alors afin de prendre en compte un maximum de retours pour enrichir la méthode.&#x20;
 
-L'utilisation telle quelle de la base de données européenne PEF n'est malheureusement pas possible car les conditions d'utilisation de cette base de données n'incluent pas un cadre national d'affichage environnemental.&#x20;
+Les prochaines évolutions méthodologiques seront communiquées en temps voulu.
 
-## Prise en compte de la durabilité des vêtements
-
-Objectif = mieux intégrer les enjeux liés à durée de vie des vêtements.
-
-L'industrie décline généralement la durabilité d'un vêtement entre sa dimension intrinsèque (durabilité physique) et extrinsèque (incitations à l'achat). Différents travaux sont actuellement en cours dans l'industrie sur ces sujets (ex : projet Durhabi porté par l'IFTH et le référentiel européen PEFCR A\&F).
-
-
-
-## Matière (à venir)
-
-Objectif = enrichir et préciser les matières disponibles dans le calculateur.
-
-Ce chantier est directement lié à la mise en place de la nouvelle base de données et des travaux/correctifs apportés par la méthode en construction pour le secteur Alimentaire.
-
-## Synthèse des travaux (mai 2023)&#x20;
-
-Un webinaire technique sur les avancées du dispositif d'affichage environnemental Textile en construction c'est tenu le 12 mai 2023. Cet évènement synthétise l'avancée de nos travaux/réflexions/orientations à date.\
-Webinaire accessible [ici](https://ademecloud-my.sharepoint.com/personal/fabien\_fougeroux\_ademe\_fr/\_layouts/15/stream.aspx?id=%2Fpersonal%2Ffabien%5Ffougeroux%5Fademe%5Ffr%2FDocuments%2FPartage%2FAffichage%20Environnemental%20Textile%2Emp4\&ga=1)\
-Slides accessibles [ici](https://docs.google.com/presentation/d/1xhv6oYeVitYJT9dsPYXUtv1xjIW7MVR\_Fe8eaE1e8FU/edit?usp=sharing)
-
-
-
+{% hint style="info" %}
+Un webinaire de présentation de la méthodologie V1 a été tenu en mars 2023. \
+Le replay est disponbile sur le site de l'ADEME ([ici](https://affichage-environnemental.ademe.fr/)).
+{% endhint %}
