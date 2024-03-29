@@ -1,6 +1,6 @@
 [
   {
-    "name": "(EI) market group for electricity, medium voltage, RAS",
+    "name": "market group for electricity, medium voltage, RAS",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -37,7 +37,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, RAF",
+    "name": "market group for electricity, medium voltage, RAF",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -74,7 +74,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, RME",
+    "name": "market group for electricity, medium voltage, RME",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -111,7 +111,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, RLA",
+    "name": "market group for electricity, medium voltage, RLA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -148,7 +148,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, RNA",
+    "name": "market group for electricity, medium voltage, RNA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -185,7 +185,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, AU",
+    "name": "market for electricity, medium voltage, AU",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -222,7 +222,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, CN",
+    "name": "market group for electricity, medium voltage, CN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -259,7 +259,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, AL",
+    "name": "market for electricity, medium voltage, AL",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -296,7 +296,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, PE",
+    "name": "market for electricity, medium voltage, PE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -333,7 +333,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, NZ",
+    "name": "market for electricity, medium voltage, NZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -370,7 +370,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, MA",
+    "name": "market for electricity, medium voltage, MA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -407,7 +407,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, KE",
+    "name": "market for electricity, medium voltage, KE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -444,7 +444,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, IT",
+    "name": "market for electricity, medium voltage, IT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -481,7 +481,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, RER",
+    "name": "market for electricity, medium voltage, RER",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -518,7 +518,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, ES",
+    "name": "market for electricity, medium voltage, ES",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -555,7 +555,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, FR",
+    "name": "market for electricity, medium voltage, FR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -592,7 +592,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, MM",
+    "name": "market group for electricity, medium voltage, MM",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -629,7 +629,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, IN",
+    "name": "market group for electricity, medium voltage, IN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -666,7 +666,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, PT",
+    "name": "market for electricity, medium voltage, PT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -703,7 +703,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Elastane (Lycra)",
+    "name": "Elastane (Lycra)",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -740,7 +740,7 @@
     "alias": null
   },
   {
-    "name": "(EI) polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
+    "name": "polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -777,7 +777,7 @@
     "alias": null
   },
   {
-    "name": "(EI) fibre, jute//[RoW] fibre production, jute, retting",
+    "name": "fibre, jute//[RoW] fibre production, jute, retting",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -814,7 +814,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Filament de polypropylène",
+    "name": "Filament de polypropylène",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -851,7 +851,7 @@
     "alias": null
   },
   {
-    "name": "(EI) polyethylene terephthalate production, granulate",
+    "name": "polyethylene terephthalate production, granulate",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -888,7 +888,7 @@
     "alias": null
   },
   {
-    "name": "(EI) polyethylene terephthalate production, granulate RoW, recycled",
+    "name": "polyethylene terephthalate production, granulate RoW, recycled",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -925,7 +925,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Nylon",
+    "name": "Nylon",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -962,7 +962,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Fil de viscose recyclé",
+    "name": "Fil de viscose recyclé",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -999,7 +999,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Soie",
+    "name": "Soie",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -1036,7 +1036,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for fibre, flax, long, scutched",
+    "name": "market for fibre, flax, long, scutched",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -1073,7 +1073,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Laine par défaut",
+    "name": "Laine par défaut",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecobalyse",
@@ -1110,7 +1110,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Laine nouvelle filière",
+    "name": "Laine nouvelle filière",
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
     "unit": "kg",
     "source": "Ecobalyse",
@@ -1147,7 +1147,7 @@
     "alias": null
   },
   {
-    "name": "(EI) fibre production, cotton, ginning, RoW",
+    "name": "fibre production, cotton, ginning, RoW",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -1184,7 +1184,7 @@
     "alias": null
   },
   {
-    "name": "(EI) fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning (Ecobalyse)",
+    "name": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning (Ecobalyse)",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecobalyse",
@@ -1221,7 +1221,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Fil de chanvre",
+    "name": "Fil de chanvre",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -1258,7 +1258,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Filament de viscose",
+    "name": "Filament de viscose",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
@@ -1628,7 +1628,7 @@
     "alias": "dyeing-yarn"
   },
   {
-    "name": "(EI) transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
+    "name": "transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
     "info": "Transport > Maritime > Flotte moyenne",
     "unit": "t*km",
     "source": "Ecoinvent 3.9.1",
@@ -1665,7 +1665,7 @@
     "alias": "sea-transport"
   },
   {
-    "name": "(EI) transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
+    "name": "transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
     "info": "Transport > Aérien > Flotte moyenne",
     "unit": "t*km",
     "source": "Ecoinvent 3.9.1",
@@ -1813,7 +1813,7 @@
     "alias": "distribution"
   },
   {
-    "name": "(EI) market for electricity, medium voltage, TN",
+    "name": "market for electricity, medium voltage, TN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1850,7 +1850,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, TR",
+    "name": "market for electricity, medium voltage, TR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1887,7 +1887,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, BD",
+    "name": "market for electricity, medium voltage, BD",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1924,7 +1924,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, BR",
+    "name": "market group for electricity, medium voltage, BR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1961,7 +1961,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, CZ",
+    "name": "market for electricity, medium voltage, CZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1998,7 +1998,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, ET",
+    "name": "market for electricity, medium voltage, ET",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2035,7 +2035,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, KH",
+    "name": "market for electricity, medium voltage, KH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2072,7 +2072,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, LK",
+    "name": "market for electricity, medium voltage, LK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2109,7 +2109,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, PK",
+    "name": "market for electricity, medium voltage, PK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2146,7 +2146,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage US",
+    "name": "market group for electricity, medium voltage US",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2183,7 +2183,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, VN",
+    "name": "market for electricity, medium voltage, VN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2220,7 +2220,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Heat mix (Europe)",
+    "name": "Heat mix (Europe)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -2257,7 +2257,7 @@
     "alias": "heat-europe"
   },
   {
-    "name": "(EI) Heat mix (World)",
+    "name": "Heat mix (World)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -3737,7 +3737,7 @@
     "alias": "dyeing-cellulosic-fiber"
   },
   {
-    "name": "(EI) Blanchiment",
+    "name": "Blanchiment",
     "info": "Textile > Ennoblissement > Blanchiment",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
