@@ -34,22 +34,33 @@ with open(
         "r") as f:
     textile_processes_detailed = f.read()
 
+processes = {
+    "foodProcesses": food_processes,
+    "textileProcesses": textile_processes,
+}
+
+processes_detailed = {
+    "foodProcesses": food_processes_detailed,
+    "textileProcesses": textile_processes_detailed,
+}
+
 
 def processes(request):
     token = request.headers.get("token")
     if token:
+        # Token auth
         if is_token_valid(token):
-            return JsonResponse({
-                "foodProcesses": food_processes_detailed,
-                "textileProcesses": textile_processes_detailed,
-            })
+            return JsonResponse(processes_detailed)
         else:
             return JsonResponse(
                 {"error": _("This token isn't valid")},
                 status=401,
             )
     else:
-        return JsonResponse({
-            "foodProcesses": food_processes,
-            "textileProcesses": textile_processes,
-        })
+        u = request.user
+        if u.is_authenticated:
+            # Cookie auth
+            return JsonResponse(processes_detailed)
+        else:
+            # No auth
+            return JsonResponse(processes)
