@@ -708,7 +708,7 @@
     "unit": "kg",
     "source": "Ecobalyse",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "elasthane-lycra",
     "impacts": {
       "acd": 0.0275292,
@@ -745,7 +745,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "75b27555d86fe1c66686cdf4339efc89",
     "impacts": {
       "acd": 0.0471325,
@@ -782,7 +782,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "4d81aa5f76872e1e4c0e1bb14b01e93b",
     "impacts": {
       "acd": 0.07726583,
@@ -819,7 +819,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "6e442b958af0d26f85ecacce2eeb23d0",
     "impacts": {
       "acd": 0.0093801735,
@@ -856,7 +856,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "f32024fc5e736e01fa14321363900581",
     "impacts": {
       "acd": 0.013581187,
@@ -893,7 +893,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "087896096b5bede914ef3ec1062b1c02",
     "impacts": {
       "acd": 0.0069602432,
@@ -930,7 +930,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "88a1395a1c61be31b0bc692e977dd10b",
     "impacts": {
       "acd": 0.0355,
@@ -967,7 +967,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "7e2fdd1e285fd01e8852977a584a9ae3",
     "impacts": {
       "acd": 0.0037289605,
@@ -1004,7 +1004,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "cf76c9e1872effbd04d49aec742e7952",
     "impacts": {
       "acd": 3.182644e-2,
@@ -1039,7 +1039,7 @@
     "unit": "kg",
     "source": "Ecobalyse",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "wool-default",
     "impacts": {
       "acd": 0.949051,
@@ -1076,7 +1076,7 @@
     "unit": "kg",
     "source": "Ecobalyse",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "wool-new",
     "impacts": {
       "acd": 0.1026,
@@ -1113,7 +1113,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "a211822aabe83653a6079b9d5677daed",
     "impacts": {
       "acd": 0.050004554,
@@ -1150,7 +1150,7 @@
     "unit": "kg",
     "source": "Ecobalyse",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "coton-bio",
     "impacts": {
       "acd": 0.0306797,
@@ -1187,7 +1187,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "fa590941e8bbf72c8956b5c3ba793eb7",
     "impacts": {
       "acd": 0.00106,
@@ -1224,7 +1224,7 @@
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "f89bba0c170190e003fa3f643591cca5",
     "impacts": {
       "acd": 0.029972269,
@@ -1261,7 +1261,7 @@
     "unit": "kg",
     "source": "Base Impacts 2.01",
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "impacts": {
       "acd": 0.00243829,
@@ -1298,7 +1298,7 @@
     "unit": "kg",
     "source": "Base Impacts 2.01",
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "impacts": {
       "acd": 0.00316343,
