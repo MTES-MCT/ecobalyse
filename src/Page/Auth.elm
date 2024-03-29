@@ -125,7 +125,7 @@ type Msg
     | ChangeAction Action
     | GotUserInfo (Result Http.Error User)
     | Logout
-    | LoggedIn (Result String Session.FullImpacts)
+    | LoggedIn (Result String Session.AllProcessesJson)
     | LoggedOut
     | TokenEmailSent (Result Http.Error Response)
     | UpdateForm Model
