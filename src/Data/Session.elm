@@ -1,5 +1,5 @@
 module Data.Session exposing
-    ( FullImpacts
+    ( AllProcessesJson
     , Notification(..)
     , Session
     , Store
@@ -221,6 +221,13 @@ decodeAuth =
         |> JDP.required "foodProcesses" (FoodProcess.decodeList Impact.decodeImpacts)
 
 
+decodeAllProcessesJson : Decoder AllProcessesJson
+decodeAllProcessesJson =
+    Decode.succeed AllProcessesJson
+        |> JDP.required "textileProcesses" Decode.string
+        |> JDP.required "foodProcesses" Decode.string
+
+
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
@@ -275,7 +282,7 @@ updateStore update session =
     { session | store = update session.store }
 
 
-loggedIn : Session -> FullImpacts -> Session
+loggedIn : Session -> AllProcessesJson -> Session
 loggedIn ({ store } as session) { textileProcessesJson, foodProcessesJson } =
     let
         originalProcesses =
@@ -299,20 +306,17 @@ loggedIn ({ store } as session) { textileProcessesJson, foodProcessesJson } =
                 |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 
 
-type alias FullImpacts =
+type alias AllProcessesJson =
     { textileProcessesJson : String, foodProcessesJson : String }
 
 
-login : (Result String FullImpacts -> msg) -> Cmd msg
+login : (Result String AllProcessesJson -> msg) -> Cmd msg
 login event =
     Task.attempt event
-        (Task.map2 FullImpacts
-            (getProcesses "data/textile/processes_impacts.json")
-            (getProcesses "data/food/processes_impacts.json")
-        )
+        (getProcesses "processes/processes.json")
 
 
-getProcesses : String -> Task.Task String String
+getProcesses : String -> Task.Task String AllProcessesJson
 getProcesses url =
     Http.task
         { method = "GET"
@@ -324,7 +328,8 @@ getProcesses url =
                 (\response ->
                     case response of
                         Http.GoodStatus_ _ stringBody ->
-                            Ok stringBody
+                            Decode.decodeString decodeAllProcessesJson stringBody
+                                |> Result.mapError Decode.errorToString
 
                         _ ->
                             Err "Couldn't get the processes"
