@@ -40,6 +40,10 @@ table db { detailed, scope } =
                             [ code [] [ text (Material.idToString material.id) ] ]
           }
         , { label = "Nom"
+          , toValue = Table.StringValue <| .shortName
+          , toCell = .shortName >> text
+          }
+        , { label = "Procédé"
           , toValue = Table.StringValue <| .materialProcess >> .name
           , toCell = .materialProcess >> .name >> text
           }

@@ -1,6 +1,6 @@
 [
   {
-    "name": "(EI) market group for electricity, medium voltage, RAS",
+    "name": "market group for electricity, medium voltage, RAS",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -37,7 +37,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, RAF",
+    "name": "market group for electricity, medium voltage, RAF",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -74,7 +74,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, RME",
+    "name": "market group for electricity, medium voltage, RME",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -111,7 +111,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, RLA",
+    "name": "market group for electricity, medium voltage, RLA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -148,7 +148,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, RNA",
+    "name": "market group for electricity, medium voltage, RNA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -185,7 +185,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, AU",
+    "name": "market for electricity, medium voltage, AU",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -222,7 +222,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, CN",
+    "name": "market group for electricity, medium voltage, CN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -259,7 +259,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, AL",
+    "name": "market for electricity, medium voltage, AL",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -296,7 +296,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, PE",
+    "name": "market for electricity, medium voltage, PE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -333,7 +333,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, NZ",
+    "name": "market for electricity, medium voltage, NZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -370,7 +370,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, MA",
+    "name": "market for electricity, medium voltage, MA",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -407,7 +407,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, KE",
+    "name": "market for electricity, medium voltage, KE",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -444,7 +444,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, IT",
+    "name": "market for electricity, medium voltage, IT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -481,7 +481,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, RER",
+    "name": "market for electricity, medium voltage, RER",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -518,7 +518,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, ES",
+    "name": "market for electricity, medium voltage, ES",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -555,7 +555,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, FR",
+    "name": "market for electricity, medium voltage, FR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -592,7 +592,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, MM",
+    "name": "market group for electricity, medium voltage, MM",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -629,7 +629,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, IN",
+    "name": "market group for electricity, medium voltage, IN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -666,7 +666,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, PT",
+    "name": "market for electricity, medium voltage, PT",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -703,13 +703,13 @@
     "alias": null
   },
   {
-    "name": "(EI) Elastane (Lycra)",
+    "name": "Elasthane (Lycra)",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
-    "source": "Ecoinvent 3.9.1",
+    "source": "Ecobalyse",
     "correctif": "",
-    "step_usage": "Matières, Filature",
-    "uuid": "ei-elastane-lycra",
+    "step_usage": "Matières",
+    "uuid": "elasthane-lycra",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -740,12 +740,12 @@
     "alias": null
   },
   {
-    "name": "(EI) polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
+    "name": "polymethyl methacrylate production, beads [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "75b27555d86fe1c66686cdf4339efc89",
     "impacts": {
       "acd": 0,
@@ -777,12 +777,12 @@
     "alias": null
   },
   {
-    "name": "(EI) fibre, jute//[RoW] fibre production, jute, retting",
+    "name": "fibre production, jute, retting [RoW]",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "4d81aa5f76872e1e4c0e1bb14b01e93b",
     "impacts": {
       "acd": 0,
@@ -814,12 +814,12 @@
     "alias": null
   },
   {
-    "name": "(EI) Filament de polypropylène",
+    "name": "polypropylene production, granulate [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "6e442b958af0d26f85ecacce2eeb23d0",
     "impacts": {
       "acd": 0,
@@ -851,12 +851,12 @@
     "alias": null
   },
   {
-    "name": "(EI) polyethylene terephthalate production, granulate",
+    "name": "polyethylene terephthalate production, granulate, amorphous [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "f32024fc5e736e01fa14321363900581",
     "impacts": {
       "acd": 0,
@@ -888,12 +888,12 @@
     "alias": null
   },
   {
-    "name": "(EI) polyethylene terephthalate production, granulate RoW, recycled",
+    "name": "polyethylene terephthalate production, granulate, amorphous, recycled [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "087896096b5bede914ef3ec1062b1c02",
     "impacts": {
       "acd": 0,
@@ -925,12 +925,12 @@
     "alias": null
   },
   {
-    "name": "(EI) Nylon",
+    "name": "nylon 6-6 production [RoW]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "88a1395a1c61be31b0bc692e977dd10b",
     "impacts": {
       "acd": 0,
@@ -962,12 +962,12 @@
     "alias": null
   },
   {
-    "name": "(EI) Fil de viscose recyclé",
+    "name": "viscose fibre, recycled, post-consumer, production [GLO]",
     "info": "Textile > Matières > Matières recyclées",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "7e2fdd1e285fd01e8852977a584a9ae3",
     "impacts": {
       "acd": 0,
@@ -999,13 +999,13 @@
     "alias": null
   },
   {
-    "name": "(EI) Soie",
+    "name": "fibre production, flax, retting [RoW]",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
-    "uuid": "4646e2fbfb0669dd6e3215e441dffcbe",
+    "step_usage": "Matières",
+    "uuid": "cf76c9e1872effbd04d49aec742e7952",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1026,45 +1026,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 39028.1618799885,
-      "pef": 34056.229324199325
-    },
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 7.08976,
-    "alias": null
-  },
-  {
-    "name": "(EI) market for fibre, flax, long, scutched",
-    "info": "Textile > Matières > Matières naturelles",
-    "unit": "kg",
-    "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières, Filature",
-    "uuid": "european-flax",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "ecs": 253.05739163229265,
-      "pef": 190.55557481702274
+      "ecs": 256.24140650160166,
+      "pef": 257.4011497575117
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -1073,12 +1036,12 @@
     "alias": null
   },
   {
-    "name": "(EI) Laine par défaut",
+    "name": "Laine par défaut",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecobalyse",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "wool-default",
     "impacts": {
       "acd": 0,
@@ -1110,12 +1073,12 @@
     "alias": null
   },
   {
-    "name": "(EI) Laine nouvelle filière",
+    "name": "Laine nouvelle filière",
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
     "unit": "kg",
     "source": "Ecobalyse",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "wool-new",
     "impacts": {
       "acd": 0,
@@ -1147,12 +1110,12 @@
     "alias": null
   },
   {
-    "name": "(EI) fibre production, cotton, ginning, RoW",
+    "name": "fibre production, cotton, ginning, RoW",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "a211822aabe83653a6079b9d5677daed",
     "impacts": {
       "acd": 0,
@@ -1184,12 +1147,12 @@
     "alias": null
   },
   {
-    "name": "(EI) fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning (Ecobalyse)",
+    "name": "fibre production, cotton, organic, ginning [RoW] (Ecobalyse)",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecobalyse",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "coton-bio",
     "impacts": {
       "acd": 0,
@@ -1221,12 +1184,12 @@
     "alias": null
   },
   {
-    "name": "(EI) Fil de chanvre",
+    "name": "sunn hemp production [RoW]",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "fa590941e8bbf72c8956b5c3ba793eb7",
     "impacts": {
       "acd": 0,
@@ -1258,12 +1221,12 @@
     "alias": null
   },
   {
-    "name": "(EI) Filament de viscose",
+    "name": "market for fibre, viscose [GLO]",
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "f89bba0c170190e003fa3f643591cca5",
     "impacts": {
       "acd": 0,
@@ -1295,12 +1258,12 @@
     "alias": null
   },
   {
-    "name": "Coton recyclé (déchets post-consommation)",
+    "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "unit": "kg",
     "source": "Base Impacts 2.01",
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "impacts": {
       "acd": 0,
@@ -1332,12 +1295,12 @@
     "alias": null
   },
   {
-    "name": "Coton recyclé (déchets de production)",
+    "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
     "unit": "kg",
     "source": "Base Impacts 2.01",
     "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
-    "step_usage": "Matières, Filature",
+    "step_usage": "Matières",
     "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "impacts": {
       "acd": 0,
@@ -1628,7 +1591,7 @@
     "alias": "dyeing-yarn"
   },
   {
-    "name": "(EI) transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
+    "name": "transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
     "info": "Transport > Maritime > Flotte moyenne",
     "unit": "t*km",
     "source": "Ecoinvent 3.9.1",
@@ -1665,7 +1628,7 @@
     "alias": "sea-transport"
   },
   {
-    "name": "(EI) transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
+    "name": "transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
     "info": "Transport > Aérien > Flotte moyenne",
     "unit": "t*km",
     "source": "Ecoinvent 3.9.1",
@@ -1813,7 +1776,7 @@
     "alias": "distribution"
   },
   {
-    "name": "(EI) market for electricity, medium voltage, TN",
+    "name": "market for electricity, medium voltage, TN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1850,7 +1813,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, TR",
+    "name": "market for electricity, medium voltage, TR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1887,7 +1850,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, BD",
+    "name": "market for electricity, medium voltage, BD",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1924,7 +1887,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage, BR",
+    "name": "market group for electricity, medium voltage, BR",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1961,7 +1924,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, CZ",
+    "name": "market for electricity, medium voltage, CZ",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -1998,7 +1961,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, ET",
+    "name": "market for electricity, medium voltage, ET",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2035,7 +1998,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, KH",
+    "name": "market for electricity, medium voltage, KH",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2072,7 +2035,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, LK",
+    "name": "market for electricity, medium voltage, LK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2109,7 +2072,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, PK",
+    "name": "market for electricity, medium voltage, PK",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2146,7 +2109,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market group for electricity, medium voltage US",
+    "name": "market group for electricity, medium voltage US",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2183,7 +2146,7 @@
     "alias": null
   },
   {
-    "name": "(EI) market for electricity, medium voltage, VN",
+    "name": "market for electricity, medium voltage, VN",
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
@@ -2220,7 +2183,7 @@
     "alias": null
   },
   {
-    "name": "(EI) Heat mix (Europe)",
+    "name": "Heat mix (Europe)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -2257,7 +2220,7 @@
     "alias": "heat-europe"
   },
   {
-    "name": "(EI) Heat mix (World)",
+    "name": "Heat mix (World)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Ecoinvent 3.9.1",
@@ -2297,7 +2260,7 @@
     "name": "Utilisation : Repassage - Ironing (Cape)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "b877ae15-96e0-43aa-bafa-a6abcfedbca3",
@@ -2334,7 +2297,7 @@
     "name": "Utilisation : Repassage - Ironing (Châle)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "70067861-aa8d-4ddb-9921-c045012b7c76",
@@ -2371,7 +2334,7 @@
     "name": "Utilisation : Repassage - Ironing (Chemisier)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "33773966-2704-4420-8663-ea4231a12040",
@@ -2408,7 +2371,7 @@
     "name": "Utilisation : Repassage - Ironing (Débardeur)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "fcb8c240-1c4e-4413-925f-0b6a7465e5dd",
@@ -2445,7 +2408,7 @@
     "name": "Utilisation : Repassage - Ironing (Echarpe)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "6efbbe3c-2ad2-47d4-9d8d-2bcbf5b19ada",
@@ -2482,7 +2445,7 @@
     "name": "Utilisation : Repassage - Ironing (Gilet)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "c47a19ae-3d49-41aa-b38d-b8eef6ee8d8e",
@@ -2519,7 +2482,7 @@
     "name": "Utilisation : Repassage - Ironing (Jean)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "6d71fdef-b7a8-4a67-81e9-dc0e3f01a007",
@@ -2556,7 +2519,7 @@
     "name": "Utilisation : Repassage - Ironing (Jupe)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "2de2f5e5-79fb-4a4a-8399-a722012e82dc",
@@ -2593,7 +2556,7 @@
     "name": "Utilisation : Repassage - Ironing (Manteau)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "60147175-ca20-49aa-8991-9ed6f172c47b",
@@ -2630,7 +2593,7 @@
     "name": "Utilisation : Repassage - Ironing (Pantalon)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "f6b685ed-d5bd-40a0-af16-7c30838f3627",
@@ -2667,7 +2630,7 @@
     "name": "Utilisation : Repassage - Ironing (Pull)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
@@ -2704,7 +2667,7 @@
     "name": "Utilisation : Repassage - Ironing (Robe)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "ce224ffa-3d46-4eb9-b624-2e34d4b5a419",
@@ -2741,7 +2704,7 @@
     "name": "Utilisation : Repassage - Ironing (T-shirt)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "974659b8-4635-43ba-86c5-73a186ea6f21",
@@ -2778,7 +2741,7 @@
     "name": "Utilisation : Repassage - Ironing (Veste)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts 2.01",
+    "source": "Ecobalyse",
     "correctif": "non applicable",
     "step_usage": "Utilisation",
     "uuid": "12a83d8f-24e4-414f-9087-a7d37fefce91",
@@ -2816,7 +2779,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "86db560b-d31f-4745-a01e-ec74be00f865",
     "impacts": {
@@ -2853,7 +2816,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6",
     "impacts": {
@@ -2890,7 +2853,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "406d1f98-1052-458d-8f50-1901853d896d",
     "impacts": {
@@ -2927,7 +2890,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44",
     "impacts": {
@@ -2964,7 +2927,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b",
     "impacts": {
@@ -3001,7 +2964,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b",
     "impacts": {
@@ -3038,7 +3001,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
     "impacts": {
@@ -3075,7 +3038,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
     "impacts": {
@@ -3112,7 +3075,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
     "impacts": {
@@ -3149,7 +3112,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
     "impacts": {
@@ -3186,7 +3149,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
     "impacts": {
@@ -3223,7 +3186,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
     "impacts": {
@@ -3260,7 +3223,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "7f76529e-521d-4795-bb36-ff896c4692da",
     "impacts": {
@@ -3297,7 +3260,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Ecobalyse",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
+    "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "493c32d2-506d-48c1-b8d7-0646fba88571",
     "impacts": {
@@ -3737,7 +3700,7 @@
     "alias": "dyeing-cellulosic-fiber"
   },
   {
-    "name": "(EI) Blanchiment",
+    "name": "Blanchiment",
     "info": "Textile > Ennoblissement > Blanchiment",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
