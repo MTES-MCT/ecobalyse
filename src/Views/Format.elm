@@ -70,7 +70,22 @@ formatFloat decimals float =
             FormatNumber.format { frenchLocale | decimals = Exact dc }
                 >> String.replace "−" "-"
     in
-    if float == 0 then
+    if isNaN float then
+        -- FIXME: this is a temporary workaround for when distances were missing
+        --        during computation of a score and we fallback to using Infinity
+        -- @see https://www.notion.so/e3866a56500d4dfd9c2fc1d3d44c58a1
+        "N/A"
+
+    else if isInfinite float then
+        (if float < 0 then
+            "-"
+
+         else
+            ""
+        )
+            ++ "∞"
+
+    else if float == 0 then
         "0"
 
     else if abs float >= 100 then
