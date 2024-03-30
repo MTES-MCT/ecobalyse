@@ -43,6 +43,14 @@ suite =
                     |> Expect.equal (Unit.impact 2)
                     |> asTest "should map impacts"
                 ]
+            , describe "per100grams"
+                [ defaultImpacts
+                    |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 1)
+                    |> Impact.per100grams (Mass.kilograms 2)
+                    |> Impact.getImpact Definition.Cch
+                    |> Expect.equal (Unit.impact 0.05)
+                    |> asTest "should compute impacts per 100g of product"
+                ]
             , describe "perKg"
                 [ defaultImpacts
                     |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 1)

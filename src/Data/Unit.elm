@@ -399,7 +399,7 @@ impactAggregateScore : Impact -> Ratio -> Impact -> Impact
 impactAggregateScore normalization weighting =
     Quantity.divideBy (impactToFloat normalization)
         >> Quantity.multiplyBy (ratioToFloat weighting)
-        -- Raw aggregate scores like PEF are expressed in Pt (points); we want µPt (micropoints)
+        -- Raw aggregate scores like PEF are expressed in Pt (points); we want Pts (micropoints)
         >> Quantity.multiplyBy 1000000
 
 

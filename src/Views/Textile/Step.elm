@@ -27,6 +27,7 @@ import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -52,6 +53,8 @@ type alias Config msg modal =
     { db : Db
     , addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
     , current : Step
+    , daysOfWear : Duration
+    , useNbCycles : Int
     , deleteMaterial : Material -> msg
     , detailedStep : Maybe Int
     , index : Int
@@ -591,14 +594,18 @@ simpleView c =
 
                                 Label.Use ->
                                     div [ class "mt-2" ]
-                                        [ daysOfWearInfo c.inputs
+                                        [ daysOfWearInfo c
                                         ]
 
                                 _ ->
                                     text ""
                             ]
                         , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                            [ BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
+                            [ if List.member c.current.label [ Label.Distribution, Label.Use, Label.EndOfLife ] then
+                                text ""
+
+                              else
+                                BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
                             ]
                         ]
 
@@ -900,16 +907,15 @@ viewProcessInfo processName =
             text ""
 
 
-daysOfWearInfo : Inputs -> Html msg
-daysOfWearInfo inputs =
-    let
-        useNbCycles =
-            Product.customDaysOfWear inputs.product.use
-    in
-    small [ class "fs-7" ]
-        [ span [ class "pe-1" ] [ Icon.info ]
-        , Format.days inputs.product.use.daysOfWear
-        , text " portés, "
+daysOfWearInfo : Config msg modal -> Html msg
+daysOfWearInfo { daysOfWear, useNbCycles } =
+    small
+        [ class "d-flex align-items-center fs-7 cursor-help"
+        , title "Nombre dépendant de la catégorie de vêtement et du coefficient de durabilité"
+        ]
+        [ span [ class "pe-1 text-muted" ] [ Icon.info ]
+        , Format.days daysOfWear
+        , text "\u{00A0}portés, "
         , text <| String.fromInt useNbCycles
         , text <|
             " cycle"
@@ -1017,7 +1023,7 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                                     ]
 
                             Label.Use ->
-                                [ daysOfWearInfo inputs
+                                [ daysOfWearInfo config
                                 ]
 
                             _ ->

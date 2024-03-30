@@ -1,12 +1,10 @@
 module Views.Icon exposing
     ( boat
     , boatCooled
-    , build
     , bus
     , busCooled
     , cancel
     , check
-    , checkCircle
     , clipboard
     , copy
     , exclamation
@@ -48,11 +46,6 @@ boatCooled =
         [ snow ]
 
 
-build : Html msg
-build =
-    icon "build"
-
-
 bus : Html msg
 bus =
     icon "truck"
@@ -72,11 +65,6 @@ cancel =
 check : Html msg
 check =
     icon "check"
-
-
-checkCircle : Html msg
-checkCircle =
-    icon "check-circle"
 
 
 clipboard : Html msg

@@ -28,6 +28,7 @@ type Route
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderHome
     | FoodBuilderExample Uuid
+    | Login
     | TextileSimulatorHome
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | TextileSimulatorExample Uuid
@@ -45,6 +46,9 @@ parser =
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Stats (Parser.s "stats")
+
+        -- Login (FIXME: this is a temporary route, remove after launch)
+        , Parser.map Login (Parser.s "login")
 
         --  Explorer
         , (Parser.s "explore" </> Scope.parse)
@@ -67,10 +71,9 @@ parser =
         --
         -- Food specific routes
         --
-        , Parser.map FoodBuilderHome (Parser.s "food" </> Parser.s "build")
+        , Parser.map FoodBuilderHome (Parser.s "food")
         , Parser.map FoodBuilder
             (Parser.s "food"
-                </> Parser.s "build"
                 </> Impact.parseTrigram
                 </> FoodQuery.parseBase64Query
             )
@@ -96,12 +99,11 @@ parseTextileSimulator : Parser (Route -> a) a
 parseTextileSimulator =
     Parser.oneOf
         [ deprecatedTextileRouteParser
-        , (Parser.s "textile"
-            </> Parser.s "simulator"
-            </> Impact.parseTrigram
-            </> TextileQuery.parseBase64Query
-          )
-            |> Parser.map TextileSimulator
+        , Parser.map TextileSimulator <|
+            Parser.s "textile"
+                </> Parser.s "simulator"
+                </> Impact.parseTrigram
+                </> TextileQuery.parseBase64Query
         ]
 
 
@@ -110,16 +112,15 @@ deprecatedTextileRouteParser =
     -- We keep this parser for backwards compatible reasons: we used to have the choice
     -- for a view mode between `simple` and `detailed`, but now it's only `simple`,
     -- and we used to have a functional unit parameter
-    (Parser.s "textile"
-        </> Parser.s "simulator"
-        </> Impact.parseTrigram
-        -- This is the unused "functional unit" parameter
-        </> Parser.string
-        -- This is the unused "viewmode" parameter
-        </> Parser.string
-        </> TextileQuery.parseBase64Query
-    )
-        |> Parser.map (\trigram _ _ query -> TextileSimulator trigram query)
+    Parser.map (\trigram _ _ query -> TextileSimulator trigram query) <|
+        Parser.s "textile"
+            </> Parser.s "simulator"
+            </> Impact.parseTrigram
+            -- This is the unused "functional unit" parameter
+            </> Parser.string
+            -- This is the unused "viewmode" parameter
+            </> Parser.string
+            </> TextileQuery.parseBase64Query
 
 
 toExploreWithId : Scope -> Dataset -> String -> Route
@@ -204,6 +205,9 @@ toString route =
 
                 FoodBuilderExample uuid ->
                     [ "food", "edit-example", Uuid.toString uuid ]
+
+                Login ->
+                    [ "login" ]
 
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]

@@ -31,13 +31,13 @@ suite =
                     |> asTest "should catch invalid endpoints"
 
                 -- GET queries
-                , "/food/recipe?ingredients[]=invalid"
+                , "/food?ingredients[]=invalid"
                     |> request "GET" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
                     |> asTest "should reject an invalid GET query"
-                , "/food/recipe?ingredients[]=egg-indoor-code3;120"
+                , "/food?ingredients[]=egg-indoor-code3;120"
                     |> request "GET" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first
@@ -45,13 +45,13 @@ suite =
                     |> asTest "should accept a valid GET query"
 
                 -- POST queries
-                , "/food/recipe"
+                , "/food"
                     |> request "POST" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
                     |> asTest "should reject an invalid POST query"
-                , "/food/recipe"
+                , "/food"
                     |> request "POST" (FoodQuery.encode FoodQuery.empty)
                     |> Server.handleRequest dbs
                     |> Tuple.first

@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
+import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
@@ -101,7 +102,11 @@ init flags url navKey =
                             , notifications = []
                             , queries =
                                 { food = FoodQuery.empty
-                                , textile = TextileQuery.default
+                                , textile =
+                                    db.textile.examples
+                                        |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
+                                        |> Result.map .query
+                                        |> Result.withDefault TextileQuery.default
                                 }
                             }
                             LoadingPage
@@ -172,6 +177,9 @@ setRoute url ( { state } as model, cmds ) =
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     FoodBuilder.init session trigram maybeQuery
                         |> toPage FoodBuilderPage FoodBuilderMsg
+
+                Just Route.Login ->
+                    ( model, Session.login LoggedIn )
 
                 Just (Route.FoodBuilderExample uuid) ->
                     FoodBuilder.initFromExample session uuid

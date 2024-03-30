@@ -24,10 +24,10 @@ module Data.Impact exposing
     , mapImpacts
     , maxEcotoxWeighting
     , minEcotoxWeighting
-    , multiplyBy
     , noComplementsImpacts
     , noStepsImpacts
     , parseTrigram
+    , per100grams
     , perKg
     , setEcotoxWeighting
     , stepsColors
@@ -56,7 +56,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias ComplementsImpacts =
-    -- Note: these are always expressed in ecoscore (ecs) µPt
+    -- Note: these are always expressed in ecoscore (ecs) Pts
     { -- Ecosystemic services impacts
       hedges : Unit.Impact
     , plotSize : Unit.Impact
@@ -365,9 +365,9 @@ mapImpacts fn (Impacts impacts) =
         |> Impacts
 
 
-multiplyBy : Float -> Impacts -> Impacts
-multiplyBy n =
-    mapImpacts (\_ -> Quantity.multiplyBy n)
+per100grams : Mass -> Impacts -> Impacts
+per100grams totalMass =
+    perKg totalMass >> mapImpacts (\_ -> Quantity.divideBy 10)
 
 
 perKg : Mass -> Impacts -> Impacts

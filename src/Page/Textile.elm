@@ -157,7 +157,7 @@ init trigram maybeUrlQuery session =
                 |> Simulator.compute session.db
     in
     ( { simulator = simulator
-      , bookmarkName = initialQuery |> findExistingBookmarkName session
+      , bookmarkName = initialQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
             if Session.isAuthenticated session then
@@ -211,7 +211,7 @@ initFromExample session uuid =
                 |> Simulator.compute session.db
     in
     ( { simulator = simulator
-      , bookmarkName = exampleQuery |> findExistingBookmarkName session
+      , bookmarkName = exampleQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , editedExample = example |> Result.map (\ex -> { initial = ex, current = ex }) |> Result.toMaybe
@@ -234,24 +234,39 @@ initFromExample session uuid =
     )
 
 
-findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { db, store } query =
-    store.bookmarks
-        |> Bookmark.findByTextileQuery query
-        |> Maybe.map .name
-        |> Maybe.withDefault
-            (query
+suggestBookmarkName : Session -> Query -> String
+suggestBookmarkName { db, store } query =
+    let
+        -- Existing user bookmark?
+        userBookmark =
+            store.bookmarks
+                |> Bookmark.findByTextileQuery query
+
+        -- Matching product example name?
+        exampleName =
+            db.textile.examples
+                |> Example.findByQuery query
+                |> Result.toMaybe
+    in
+    case ( userBookmark, exampleName ) of
+        ( Just { name }, _ ) ->
+            name
+
+        ( _, Just { name } ) ->
+            name
+
+        _ ->
+            query
                 |> Inputs.fromQuery db
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
-            )
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
     ( { model
         | simulator = query |> Simulator.compute session.db
-        , bookmarkName = query |> findExistingBookmarkName session
+        , bookmarkName = query |> suggestBookmarkName session
       }
     , session |> Session.updateTextileQuery query
     , commands
@@ -840,7 +855,7 @@ numberOfReferencesField numberOfReferences =
                 -- the `value` one MUST be set AFTER the `step` one.
                 , Attr.min <| String.fromInt <| Economics.minNumberOfReferences
                 , Attr.max <| String.fromInt <| Economics.maxNumberOfReferences
-                , step "100"
+                , step "1"
                 , value (String.fromInt numberOfReferences)
                 , onInput (String.toInt >> UpdateNumberOfReferences)
                 ]
@@ -959,45 +974,13 @@ massField massInput =
                 [ type_ "number"
                 , class "form-control"
                 , id "mass"
-                , Attr.min "0.05"
-                , step "0.05"
+                , Attr.min "0.01"
+                , step "0.01"
                 , value massInput
                 , onInput UpdateMassInput
                 ]
                 []
             , span [ class "input-group-text" ] [ text "kg" ]
-            ]
-        ]
-
-
-durabilityField : Unit.Durability -> Html Msg
-durabilityField durability =
-    let
-        fromFloat =
-            Unit.durabilityToFloat >> String.fromFloat
-    in
-    div [ class "d-flex justify-content-center gap-3" ]
-        [ label [ for "durability-field", class "form-label fw-bold text-truncate text-muted" ]
-            [ text "Indice de durabilité" ]
-        , input
-            [ type_ "range"
-            , id "durability-field"
-            , class "form-range w-auto"
-            , Attr.min (fromFloat Unit.minDurability)
-            , Attr.max (fromFloat Unit.maxDurability)
-
-            -- WARNING: be careful when reordering attributes: for obscure reasons,
-            -- the `value` one MUST be set AFTER the `step` one.
-            , step "0.01"
-            , value (fromFloat durability)
-            , disabled True
-            ]
-            []
-        , span [ class "text-muted font-monospace" ]
-            [ durability
-                |> Unit.durabilityToFloat
-                |> Format.formatFloat 2
-                |> text
             ]
         ]
 
@@ -1010,6 +993,8 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                 StepView.view
                     { db = db
                     , current = current
+                    , daysOfWear = simulator.daysOfWear
+                    , useNbCycles = simulator.useNbCycles
                     , detailedStep = detailedStep
                     , index = index
                     , inputs = simulator.inputs
@@ -1064,6 +1049,7 @@ simulatorView ({ db } as session) model ({ inputs, impacts } as simulator) =
                             , duplicate = DuplicateExample
                             , emptyQuery = Query.default
                             , examples = db.textile.examples
+                            , helpUrl = Just Gitbook.TextileExamples
                             , onOpen = SelectExampleModal >> SetModal
                             , routes =
                                 { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
@@ -1077,17 +1063,24 @@ simulatorView ({ db } as session) model ({ inputs, impacts } as simulator) =
                 , div [ class "col-md-3" ]
                     [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
-            , div [ class "card shadow-sm mb-3" ]
+            , div [ class "card shadow-sm pb-2 mb-3" ]
                 [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-                    [ h2 [ class "h5 mb-1" ] [ text "Durabilité non-physique" ]
-                    , Button.docsPillLink
-                        [ class "bg-secondary"
-                        , style "height" "24px"
-                        , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
-                        , title "Documentation"
-                        , target "_blank"
+                    [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
+                    , div [ class "d-flex align-items-center gap-2" ]
+                        [ span [ class "d-none d-sm-flex" ] [ text "Coefficient de durabilité\u{00A0}:" ]
+                        , simulator.durability
+                            |> Unit.durabilityToFloat
+                            |> Format.formatFloat 2
+                            |> text
+                        , Button.docsPillLink
+                            [ class "bg-secondary"
+                            , style "height" "24px"
+                            , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
+                            , title "Documentation"
+                            , target "_blank"
+                            ]
+                            [ Icon.question ]
                         ]
-                        [ Icon.question ]
                     ]
                 , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
@@ -1124,17 +1117,16 @@ simulatorView ({ db } as session) model ({ inputs, impacts } as simulator) =
                         ]
                     ]
                 , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ let
-                        mainMaterialOrigin =
-                            Inputs.getMaterialsOriginShares inputs.materials
+                    [ div [ class "col-md-2" ] [ text "Matières" ]
+                    , div [ class "col-md-10" ]
+                        [ div [ class "fw-bold" ]
+                            [ Inputs.getMaterialsOriginShares inputs.materials
                                 |> Economics.computeMaterialsOriginIndex
                                 |> Tuple.second
-                      in
-                      div [ class "col-md-6 fw-bold text-center text-muted text-truncate", title mainMaterialOrigin ]
-                        [ text mainMaterialOrigin
-                        ]
-                    , div [ class "col-md-6 text-center" ]
-                        [ durabilityField simulator.durability
+                                |> text
+                            ]
+                        , small [ class "text-muted fs-8 lh-sm" ]
+                            [ text "Le type de matière retenu dépend de la composition du vêtement détaillée ci-dessous" ]
                         ]
                     ]
                 ]
@@ -1164,10 +1156,10 @@ simulatorView ({ db } as session) model ({ inputs, impacts } as simulator) =
                 -- Score
                 , customScoreInfo =
                     Just
-                        (small []
-                            [ text "Hors modulation durabilité\u{00A0}: "
+                        (div [ class "fs-8" ]
+                            [ text "Pour 100g\u{00A0}:\u{00A0}"
                             , impacts
-                                |> Impact.multiplyBy (Unit.durabilityToFloat simulator.durability)
+                                |> Impact.per100grams inputs.mass
                                 |> Format.formatImpact model.impact
                             ]
                         )

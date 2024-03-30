@@ -1409,6 +1409,7 @@ mainView ({ db } as session) model =
                     , duplicate = DuplicateExample
                     , emptyQuery = Query.empty
                     , examples = db.food.examples
+                    , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> SetModal
                     , routes =
                         { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)

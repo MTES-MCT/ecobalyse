@@ -44,19 +44,19 @@ datasets scope =
     case scope of
         Scope.Food ->
             [ FoodExamples Nothing
-            , Countries Nothing
             , Impacts Nothing
             , FoodIngredients Nothing
+            , Countries Nothing
             , FoodProcesses Nothing
             ]
 
         Scope.Textile ->
             [ TextileExamples Nothing
-            , Countries Nothing
             , Impacts Nothing
-            , TextileProducts Nothing
             , TextileMaterials Nothing
+            , Countries Nothing
             , TextileProcesses Nothing
+            , TextileProducts Nothing
             ]
 
 

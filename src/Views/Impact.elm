@@ -1,78 +1,9 @@
-module Views.Impact exposing
-    ( impactQuality
-    , selector
-    )
+module Views.Impact exposing (selector)
 
-import Data.Gitbook as Gitbook
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-import Views.Button as Button
-import Views.Icon as Icon
-
-
-qualityDocumentationUrl : String
-qualityDocumentationUrl =
-    Gitbook.publicUrlFromPath Gitbook.ImpactQuality
-
-
-impactQuality : Definition.Quality -> List (Html msg)
-impactQuality quality =
-    let
-        maybeInfo =
-            case quality of
-                Definition.NotFinished ->
-                    Just
-                        { cls = "btn-danger"
-                        , icon = Icon.build
-                        , label = "N/A"
-                        , help = "Impact en cours de construction"
-                        }
-
-                Definition.GoodQuality ->
-                    Just
-                        { cls = "btn-success"
-                        , icon = Icon.checkCircle
-                        , label = "I"
-                        , help = "Qualité satisfaisante"
-                        }
-
-                Definition.AverageQuality ->
-                    Just
-                        { cls = "bg-info text-white"
-                        , icon = Icon.info
-                        , label = "II"
-                        , help = "Qualité satisfaisante mais nécessitant des améliorations"
-                        }
-
-                Definition.BadQuality ->
-                    Just
-                        { cls = "btn-warning"
-                        , icon = Icon.warning
-                        , label = "III"
-                        , help = "Donnée incomplète à utiliser avec prudence"
-                        }
-
-                Definition.UnknownQuality ->
-                    Nothing
-    in
-    case maybeInfo of
-        Just { cls, icon, label, help } ->
-            [ a
-                [ class <| Button.pillClasses ++ " fs-7 py-0 " ++ cls
-                , target "_blank"
-                , href qualityDocumentationUrl
-                , title help
-                ]
-                [ icon
-                , text "Qualité\u{00A0}: "
-                , strong [] [ text label ]
-                ]
-            ]
-
-        Nothing ->
-            []
 
 
 type alias SelectorConfig msg =

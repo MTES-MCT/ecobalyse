@@ -280,8 +280,8 @@ scopesMenuView model =
                     ]
             )
         |> (::) (strong [ class "d-block d-sm-inline" ] [ text "Secteur d'activité" ])
-        |> nav
-            []
+        -- FIXME: all food-related stuff temporarily hidden
+        |> nav [ class "d-none" ]
 
 
 detailsModal : Html Msg -> Html Msg
@@ -472,7 +472,7 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
 
 textileExamplesExplorer :
     Db
-    -> Table.Config ( Example TextileQuery.Query, Float ) Msg
+    -> Table.Config ( Example TextileQuery.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
     -> Maybe Uuid
     -> List (Html Msg)
@@ -480,24 +480,44 @@ textileExamplesExplorer db tableConfig tableState maybeId =
     let
         scoredExamples =
             db.textile.examples
-                |> List.map (\example -> ( example, getTextileScore db example ))
+                |> List.map
+                    (\example ->
+                        ( example
+                        , { score = getTextileScore db example
+                          , per100g = getTextileScorePer100g db example
+                          }
+                        )
+                    )
                 |> List.sortBy (Tuple.first >> .name)
 
-        maxScore =
-            scoredExamples
-                |> List.map Tuple.second
-                |> List.maximum
-                |> Maybe.withDefault 0
+        max =
+            { maxScore =
+                scoredExamples
+                    |> List.map (Tuple.second >> .score)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            , maxPer100g =
+                scoredExamples
+                    |> List.map (Tuple.second >> .per100g)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            }
     in
     [ scoredExamples
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table maxScore)
+        |> List.sortBy (Tuple.first >> .name)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
                 (case Example.findByUuid id db.textile.examples of
                     Ok example ->
-                        ( example, getTextileScore db example )
-                            |> Table.viewDetails Scope.Food (TextileExamples.table maxScore)
+                        Table.viewDetails Scope.Textile
+                            (TextileExamples.table max)
+                            ( example
+                            , { score = getTextileScore db example
+                              , per100g = getTextileScorePer100g db example
+                              }
+                            )
 
                     Err error ->
                         alert error
@@ -617,6 +637,19 @@ getTextileScore db =
         >> Simulator.compute db
         >> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
         >> Result.withDefault 0
+
+
+getTextileScorePer100g : Db -> Example TextileQuery.Query -> Float
+getTextileScorePer100g db { query } =
+    query
+        |> Simulator.compute db
+        |> Result.map
+            (.impacts
+                >> Impact.per100grams query.mass
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.impactToFloat
+            )
+        |> Result.withDefault 0
 
 
 explore : Session -> Model -> List (Html Msg)
@@ -759,8 +792,8 @@ view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
             [ div []
-                [ h1 [] [ text "Explorateur" ]
-                , div [ class "row d-flex align-items-stretch mt-5 mx-0" ]
+                [ h1 [ class "mb-0" ] [ text "Explorateur" ]
+                , div [ class "row d-flex align-items-stretch mt-1 mx-0" ]
                     [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ] [ scopesMenuView model ]
                     , div [ class "col-12 col-lg-7 pe-0 me-0" ] [ datasetsMenuView model ]
                     ]

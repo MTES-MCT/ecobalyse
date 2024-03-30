@@ -162,7 +162,7 @@ computeMaterialsOriginIndex { naturalFromAnimal, naturalFromVegetal } =
             ( Unit.ratio 0.5, "Matières naturelles" )
 
     else
-        ( Unit.ratio 0, "" )
+        ( Unit.ratio 0, "Autres matières" )
 
 
 computeRepairCostIndex : Business -> Price -> Price -> Unit.Ratio
