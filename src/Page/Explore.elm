@@ -16,11 +16,12 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
+import Data.Github as Github
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Scope as Scope exposing (Scope)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
@@ -42,6 +43,9 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
+import RemoteData exposing (WebData)
+import Request.Common
+import Request.Github as GithubApi
 import Route exposing (Route)
 import Static.Db exposing (Db)
 import Table as SortableTable
@@ -52,17 +56,31 @@ import Views.Modal as ModalView
 
 type alias Model =
     { dataset : Dataset
+    , pullRequest : PullRequestState
     , scope : Scope
     , tableState : SortableTable.State
+    }
+
+
+type alias PullRequestState =
+    { name : String
+    , email : String
+    , description : String
+    , request : WebData Github.PullRequest
     }
 
 
 type Msg
     = NoOp
     | CloseModal
+    | SendFoodExamplesPr
+    | SentFoodExamplesPr (WebData Github.PullRequest)
+    | SendTextileExamplesPr
+    | SentTextileExamplesPr (WebData Github.PullRequest)
     | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
+    | UpdatePullRequest PullRequestState
 
 
 init : Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
@@ -98,6 +116,12 @@ init scope dataset session =
                     "Nom"
     in
     ( { dataset = dataset
+      , pullRequest =
+            { name = ""
+            , email = ""
+            , description = ""
+            , request = RemoteData.NotAsked
+            }
       , scope = scope
       , tableState = SortableTable.initialSort initialSort
       }
@@ -107,10 +131,64 @@ init scope dataset session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg model =
+update session msg ({ pullRequest } as model) =
     case msg of
         NoOp ->
             ( model, session, Cmd.none )
+
+        SendFoodExamplesPr ->
+            ( { model | pullRequest = { pullRequest | request = RemoteData.Loading } }
+            , session
+            , GithubApi.createFoodExamplesPR SentFoodExamplesPr
+                { examples = session.db.food.examples
+                , name = pullRequest.name
+                , email = pullRequest.email
+                , description = pullRequest.description
+                }
+            )
+
+        SentFoodExamplesPr ((RemoteData.Failure error) as state) ->
+            ( { model | pullRequest = { pullRequest | request = state } }
+            , session
+                |> Session.notifyError "Erreur serveur" (Request.Common.errorToString error)
+            , Cmd.none
+            )
+
+        SentFoodExamplesPr ((RemoteData.Success { html_url }) as state) ->
+            ( { model | pullRequest = { pullRequest | request = state } }
+            , session
+            , Nav.load html_url
+            )
+
+        SentFoodExamplesPr state ->
+            ( { model | pullRequest = { pullRequest | request = state } }, session, Cmd.none )
+
+        SendTextileExamplesPr ->
+            ( { model | pullRequest = { pullRequest | request = RemoteData.Loading } }
+            , session
+            , GithubApi.createTextileExamplesPR SentTextileExamplesPr
+                { examples = session.db.textile.examples
+                , name = pullRequest.name
+                , email = pullRequest.email
+                , description = pullRequest.description
+                }
+            )
+
+        SentTextileExamplesPr ((RemoteData.Failure error) as state) ->
+            ( { model | pullRequest = { pullRequest | request = state } }
+            , session
+                |> Session.notifyError "Erreur serveur" (Request.Common.errorToString error)
+            , Cmd.none
+            )
+
+        SentTextileExamplesPr ((RemoteData.Success { html_url }) as state) ->
+            ( { model | pullRequest = { pullRequest | request = state } }
+            , session
+            , Nav.load html_url
+            )
+
+        SentTextileExamplesPr state ->
+            ( { model | pullRequest = { pullRequest | request = state } }, session, Cmd.none )
 
         CloseModal ->
             ( model
@@ -156,6 +234,12 @@ update session msg model =
 
         SetTableState tableState ->
             ( { model | tableState = tableState }
+            , session
+            , Cmd.none
+            )
+
+        UpdatePullRequest pullRequestState ->
+            ( { model | pullRequest = pullRequestState }
             , session
             , Cmd.none
             )
@@ -569,7 +653,7 @@ getTextileScorePer100g db { query } =
 
 
 explore : Session -> Model -> List (Html Msg)
-explore { db } { scope, dataset, tableState } =
+explore { db, initialDb } ({ scope, dataset, tableState } as model) =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -592,7 +676,13 @@ explore { db } { scope, dataset, tableState } =
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.FoodExamples maybeId ->
-            foodExamplesExplorer db tableConfig tableState maybeId
+            [ div [] (foodExamplesExplorer db tableConfig tableState maybeId)
+            , if db.food.examples /= initialDb.food.examples then
+                pullRequestForm SendFoodExamplesPr model
+
+              else
+                text ""
+            ]
 
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
@@ -601,7 +691,13 @@ explore { db } { scope, dataset, tableState } =
             foodProcessesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
-            textileExamplesExplorer db tableConfig tableState maybeId
+            [ div [] (textileExamplesExplorer db tableConfig tableState maybeId)
+            , if db.textile.examples /= initialDb.textile.examples then
+                pullRequestForm SendTextileExamplesPr model
+
+              else
+                text ""
+            ]
 
         Dataset.TextileMaterials maybeId ->
             textileMaterialsExplorer db tableConfig tableState maybeId
@@ -611,6 +707,84 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.TextileProcesses maybeId ->
             textileProcessesExplorer db tableConfig tableState maybeId
+
+
+pullRequestButton : Msg -> WebData Github.PullRequest -> Html Msg
+pullRequestButton event pullRequest =
+    let
+        ( loading, btnClass ) =
+            case pullRequest of
+                RemoteData.Loading ->
+                    ( True, "btn-primary" )
+
+                RemoteData.NotAsked ->
+                    ( False, "btn-primary" )
+
+                RemoteData.Failure _ ->
+                    ( False, "btn-danger" )
+
+                RemoteData.Success _ ->
+                    ( False, "btn-success" )
+    in
+    div [ class "text-center mt-3" ]
+        [ button [ class <| "btn " ++ btnClass, onClick event, disabled loading ]
+            [ span [ classList [ ( "spinner-border spinner-border-sm", loading ) ] ] []
+            , text "\u{00A0}Proposer mes changements"
+            ]
+        ]
+
+
+pullRequestForm : Msg -> Model -> Html Msg
+pullRequestForm sendEvent ({ pullRequest } as model) =
+    div [ class "row justify-content-center" ]
+        [ div [ class "offset-lg-3" ] []
+        , div [ class "col-lg-6" ]
+            [ div [ class "card mt-3 m-auto mt-4 mb-3 shadow-sm" ]
+                [ div [ class "card-body" ]
+                    [ div [ class "d-flex flex-column gap-2" ]
+                        [ text "Vous avez mis à jour certains exemples, vous pouvez proposer ces modifications à la communauté."
+                        , div [ class "row" ]
+                            [ div [ class "col-sm-6" ]
+                                [ label [ for "nom" ] [ text "Nom" ]
+                                , input
+                                    [ type_ "text"
+                                    , id "nom"
+                                    , class "form-control"
+                                    , value pullRequest.name
+                                    , onInput (\name -> UpdatePullRequest { pullRequest | name = name })
+                                    ]
+                                    []
+                                ]
+                            , div [ class "col-sm-6" ]
+                                [ label [ for "email" ] [ text "Email" ]
+                                , input
+                                    [ type_ "email"
+                                    , id "email"
+                                    , class "form-control"
+                                    , value pullRequest.email
+                                    , onInput (\email -> UpdatePullRequest { pullRequest | email = email })
+                                    ]
+                                    []
+                                ]
+                            ]
+                        , div []
+                            [ label [ for "description" ] [ text "Description" ]
+                            , textarea
+                                [ id "description"
+                                , class "form-control"
+                                , value pullRequest.description
+                                , onInput (\description -> UpdatePullRequest { pullRequest | description = description })
+                                ]
+                                []
+                            ]
+                        , model.pullRequest.request
+                            |> pullRequestButton sendEvent
+                        ]
+                    ]
+                ]
+            ]
+        , div [ class "offset-lg-3" ] []
+        ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

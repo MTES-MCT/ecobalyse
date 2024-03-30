@@ -1,8 +1,17 @@
-module Data.Github exposing (Commit, decodeCommit)
+module Data.Github exposing
+    ( Commit
+    , PullRequest
+    , PullRequestBody
+    , decodeCommit
+    , decodePullRequest
+    , encodePullRequestBody
+    )
 
+import Data.Example as Example exposing (Example)
 import Iso8601
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
+import Json.Encode as Encode
 import Time exposing (Posix)
 
 
@@ -14,6 +23,33 @@ type alias Commit =
     , authorLogin : String
     , authorAvatar : Maybe String
     }
+
+
+type alias PullRequest =
+    { status : Int
+    , html_url : String
+    , diff_url : String
+    , additions : Int
+    , deletions : Int
+    }
+
+
+type alias PullRequestBody query =
+    { examples : List (Example query)
+    , name : String
+    , email : String
+    , description : String
+    }
+
+
+encodePullRequestBody : (query -> Encode.Value) -> PullRequestBody query -> Encode.Value
+encodePullRequestBody encodeQuery { examples, name, email, description } =
+    Encode.object
+        [ ( "name", Encode.string name )
+        , ( "email", Encode.string email )
+        , ( "description", Encode.string description )
+        , ( "examples", Example.encodeList encodeQuery examples )
+        ]
 
 
 decodeCommit : Decoder Commit
@@ -35,3 +71,13 @@ decodeCommit =
                         commit
                     )
             )
+
+
+decodePullRequest : Decoder PullRequest
+decodePullRequest =
+    Decode.succeed PullRequest
+        |> Pipe.required "status" Decode.int
+        |> Pipe.required "html_url" Decode.string
+        |> Pipe.required "diff_url" Decode.string
+        |> Pipe.required "additions" Decode.int
+        |> Pipe.required "deletions" Decode.int

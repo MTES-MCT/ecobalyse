@@ -1,6 +1,7 @@
 module Data.Example exposing
     ( Example
     , decodeListFromJsonString
+    , encodeList
     , findByName
     , findByQuery
     , findByUuid
@@ -11,6 +12,7 @@ module Data.Example exposing
 
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -35,6 +37,21 @@ decodeListFromJsonString : Decoder query -> String -> Result String (List (Examp
 decodeListFromJsonString decodeQuery =
     Decode.decodeString (Decode.list (decode decodeQuery))
         >> Result.mapError Decode.errorToString
+
+
+encode : (query -> Encode.Value) -> Example query -> Encode.Value
+encode encodeQuery example =
+    Encode.object
+        [ ( "id", Uuid.encode example.id )
+        , ( "name", Encode.string example.name )
+        , ( "category", Encode.string example.category )
+        , ( "query", encodeQuery example.query )
+        ]
+
+
+encodeList : (query -> Encode.Value) -> List (Example query) -> Encode.Value
+encodeList encodeQuery =
+    Encode.list (encode encodeQuery)
 
 
 findByName : String -> List (Example query) -> Result String (Example query)

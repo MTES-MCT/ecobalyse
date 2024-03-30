@@ -5,6 +5,7 @@
     "dependencies": {
         "direct": {
             "NoRedInk/elm-json-decode-pipeline": "1.0.1",
+            "NoRedInk/elm-random-pcg-extended": "1.0.0",
             "NoRedInk/elm-sortable-table": "1.0.0",
             "NoRedInk/elm-uuid": "2.0.0",
             "chain-partners/elm-bignum": "1.0.1",
@@ -35,7 +36,6 @@
         },
         "indirect": {
             "NoRedInk/elm-random-general": "1.0.0",
-            "NoRedInk/elm-random-pcg-extended": "1.0.0",
             "elm/bytes": "1.0.8",
             "elm/file": "1.0.5",
             "elm/parser": "1.1.0",

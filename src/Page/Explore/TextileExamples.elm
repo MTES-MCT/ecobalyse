@@ -50,7 +50,7 @@ table { maxScore, maxPer100g } { detailed, scope } =
                         , Route.href <| Route.TextileSimulatorExample id
                         , title <| "Charger " ++ name
                         ]
-                        [ Icon.search ]
+                        [ Icon.pencil ]
           }
         ]
     }
