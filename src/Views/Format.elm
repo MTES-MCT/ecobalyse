@@ -71,7 +71,19 @@ formatFloat decimals float =
                 >> String.replace "−" "-"
     in
     if isNaN float then
-        "NaN"
+        -- FIXME: this is a temporary workaround for when distances were missing
+        --        during computation of a score and we fallback to using Infinity
+        -- @see https://www.notion.so/e3866a56500d4dfd9c2fc1d3d44c58a1
+        "---"
+
+    else if isInfinite float then
+        (if float < 0 then
+            "-"
+
+         else
+            ""
+        )
+            ++ "∞"
 
     else if float == 0 then
         "0"
