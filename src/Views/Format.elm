@@ -74,7 +74,7 @@ formatFloat decimals float =
         -- FIXME: this is a temporary workaround for when distances were missing
         --        during computation of a score and we fallback to using Infinity
         -- @see https://www.notion.so/e3866a56500d4dfd9c2fc1d3d44c58a1
-        "---"
+        "N/A"
 
     else if isInfinite float then
         (if float < 0 then

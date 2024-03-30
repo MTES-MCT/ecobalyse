@@ -73,7 +73,7 @@ suite =
                 |> Quantity.multiplyBy 0
                 |> Quantity.toFloat
                 |> Format.formatFloat 2
-                |> Expect.equal "---"
+                |> Expect.equal "N/A"
                 |> asTest "should format NaN"
             ]
         , describe "Format.percentage"
