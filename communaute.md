@@ -1,14 +1,14 @@
 # 🤝 Communauté
 
-Ecobalyse propose aux acteurs des filières Alimentaire et Textile qui le souhaient de rejoindre [son instance Mattermost](https://chat.ecobalyse.fr) afin de s'informer, échanger et participer à la co-construction de la méthodologie d'évaluation des impacts environnementaux.
+**Ecobalyse propose aux acteurs des filières Alimentaire et Textile qui le souhaitent de rejoindre** [**son instance Mattermost**](https://chat.ecobalyse.fr) **afin de s'informer, échanger et participer à la co-construction de la méthodologie d'évaluation des impacts environnementaux.**
 
 Toutes questions, contributions ou critiques constructives y sont bienvenues !
 
 {% hint style="info" %}
-Pour vous inscrire sur cet espace d'échange, [merci de nous contacter](textile/nous-contacter.md) afin que nous puissions vous envoyer un lien d'inscription.
+Pour participer, vous devez au préalable [créer un compte sur la plateforme](https://chat.ecobalyse.fr/signup\_user\_complete).
 {% endhint %}
 
-Une fois inscrit :
+Une fois inscrit et connecté :
 
 1. [**Présentez-vous sur le canal “0\_Bienvenue”**](https://chat.ecobalyse.fr/ecobalyse/channels/00\_bienvenue) : en quelques mots, votre activité, organisation, intérêts pour l’affichage environnemental
 2.  **Rejoignez les autres canaux de discussion :**
