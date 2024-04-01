@@ -38,6 +38,7 @@
 * [Durabilité](textile/durabilite.md)
 * [Cas particuliers](textile/cas-particuliers.md)
 * [Paramètres transverses](textile/parametres-transverses.md)
+* [Paramétrage](textile/parametrage.md)
 * [Exemples](textile/exemples.md)
 * [Mises à jour](textile/mises-a-jour.md)
   * [Travaux en cours](textile/travaux-en-cours.md)
