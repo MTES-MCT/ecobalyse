@@ -36,17 +36,14 @@ Toute modélisation doit impérativement commencer par le choix d'un exemple de 
 
 L'ensemble des autres paramètres exposés dans le calculateur Ecobalyse sont, par défaut, fixés sur une valeur majorante. C'est en particulier le cas pour :&#x20;
 
-* Les paramètres permettant d'établir le coefficient de durabilité (cf. paramétrages proposés pour le cas "mode ultra fast fashion" dans le tableau ci-après)
+* Les paramètres permettant d'établir le coefficient de durabilité (cf. paramétrages proposés pour le cas "mode ultra fast fashion" dans le [tableau ci-après](exemples.md#parametres-mobilises-dans-les-exemples-pour-etablir-le-coefficient-de-durabilite))
 * L'origine géographique des différentes étapes de transformation (filature, tissage/tricotage, ennoblissement, confection) qui est fixée à "Inconnu (par défaut)".
+* La part de transport aérien depuis l'atelier qui, par défaut, est fixée à 100%
 
+De fait, les exemples "par défaut" vont généralement présenter un coût environnemental majorant par rapport au coût environnemental qui peut être modéliser en mobilisant des paramètres plus précis. Deux exception toutefois :&#x20;
 
-
-Pour l'ensemble des autres paramètres, les valeurs appliquées sont des valeurs par défaut. Par défaut, ces valeurs sont majorantes pour :&#x20;
-
-* l'ensemble des paramètres permettant d'établir le coefficient de durabilité (hormis la matière)
-* le pays (ou la région) dans laquelle sont réalisées les autres étapes de transformation
-
-De fait, les exemples "par défaut" vont généralement présenter un coût environnemental majorant par rapport au coût environnemental qui peut être modéliser en mobilisant des paramètres plus précis.
+* Le délavage (étape de confection) qui n'est pas sélectionné par défaut, hormis pour le jean
+* L'impression (étape d'ennoblissement) qui n'est pas sélectionné par défaut
 
 {% hint style="info" %}
 En partant d'un exemple paramétré de façon "majorante par défaut", toute modification du paramétrage (hormi les matières et la masse évoqués précédemment) conduit à baisser le coût environnemental modélisé.
@@ -69,6 +66,7 @@ Par rapport aux exemples paramétrés de façon "majorante par défaut" (cf. [su
 
 * des choix de matières plus complexes correspondant à des produits considérés en 2022 (exemple : 75% de coton primaire et 25% de coton recyclé pour le _Tshirt coton (150g) - Chine - Mode "fast fashion" ;_
 * des origines géographiques plus précises proposées pour chaque étape de transformation (attention : seule une information géographique est présentée dans le nom de l'exemple, pour accéder à l'ensemble des hypothèses, il faut regarder chaque étape de la simulation) ;
+* une parte de transport par avion depuis l'atelier de confection fixé à 100% pour les exemples relevant d'une mode "fasst fashion" ou "ultra fast fashion" et à 33% pour les autres (lorsque le payse de confection est hors Europe ou Maghreb - cf. [documentation transport](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport)) ;
 * des paramètres spécifiques pour le calcul du coefficient de durabilité (cf. ci-après).
 
 ## Paramètres mobilisés dans les exemples pour établir le coefficient de durabilité
