@@ -267,7 +267,7 @@ _Illustration pour un T-shirt composé à 50/50 de fils de polyester/coton :_&#x
 
 Des taux de perte par défaut sont appliqués sur la base de données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).
 
-Pour les matrières recyclées, le taux de pertes de la matière vierge est appliqué.&#x20;
+Pour les matières recyclées, le taux de perte de la matière vierge est appliqué.&#x20;
 
 Pour les vêtements composés de plusieurs matières, le même raisonnement que celui présenté dans la rubrique _Hypothèses par défaut_ => _Consommation d'électricité_ est applicable.
 

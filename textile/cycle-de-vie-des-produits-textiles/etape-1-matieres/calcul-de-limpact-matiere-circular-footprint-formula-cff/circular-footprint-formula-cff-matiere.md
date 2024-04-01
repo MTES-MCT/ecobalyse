@@ -19,7 +19,7 @@ $$
 * **Erec** - Impacts (émissions et ressources consommées) correspondant à la matière recyclée utilisée mobilisée.
 
 {% hint style="danger" %}
-Les impacts Ev et Erec sont considérés pour les étapes de "Matière" et de "Filature" considérées ensemble. En toute rigueur, la formule devrait seulement s'appliquer à l'étape "Matière", ce qui pourra être fait lorsque les étapes de "Matière" et de "Filature" seront séparées.
+Les impacts Ev et Erec pour les étapes de "Matière" et de "Filature" sont considérés ensemble. En toute rigueur, la formule devrait seulement s'appliquer à l'étape "Matière", ce qui pourra être fait lorsque les étapes de "Matière" et de "Filature" seront séparées.
 
 L'impact sur le résultat reste limité. Il est même nul lorsque Qsin/Qp = 1.
 {% endhint %}
