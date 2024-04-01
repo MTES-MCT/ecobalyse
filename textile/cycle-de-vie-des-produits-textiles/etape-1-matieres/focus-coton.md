@@ -24,7 +24,7 @@ Les principaux pays producteurs sont la Chine, l'Inde et les Etats-Unis. Une vin
   Près de 25% de la production mondiale de coton est engagée dans des [programmes ](#user-content-fn-2)[^2]\(non certifiés) visant à rendre les pratiques plus soutenables.
 * coton biologique certifié (1,4%)\
   Il n'existe pas de définition claire du coton bio/organique. Le périmètre de ces pratiques est flou et se caractérise par les labels et certifications internationales (ex : GOTS, Oeko-Tex, etc.). \
-  Ces pratiques consistent principalement à ne pas traiter ni modifier génétiquement les graines de coton tout en utilisant du compost naturel (remplaçant les engrais chimiques) et des pesticides naturels (remplaçant les pesticides de synthèse).
+  Ces pratiques consistent principalement à ne pas modifier génétiquement les graines de coton tout en utilisant du compost naturel (remplaçant les engrais chimiques) et des pesticides naturels (remplaçant les pesticides de synthèse).
 * coton recyclé (1%\* de la production mondiale)\
   Réutiliser des fibres existantes permet d'économiser les pesticides, engrais et eau nécessaires pour la production de la même quantité de matière vierge. \
   \
@@ -38,10 +38,10 @@ Les principaux enjeux environnementaux liés à la production de coton sont :&#x
   Environ 14% des insecticides et 6% des pesticides mondiaux sont utilisés pour le coton\
   (alors que la culture du coton ne représente que 2 à 3% des terres cultivées).
 * la consommation d'eau,\
-  Il faut entre 4,000 et 8,000 litres d'eau pour produire 1kg de fibre de coton; cette quantité varie fortement selon les régions et est à appréciser selon l'origine de l'eau (_blue_ vs _green_ water). Près de 3% de l'eau utilisée en agriculture est utilisée pour le coton tandis que 73% de la production mondiale est irriguée.&#x20;
+  Il faut entre 4,000 et 8,000 litres d'eau pour produire 1kg de fibre de coton; cette quantité varie fortement selon les régions et est à préciser selon l'origine de l'eau (_blue_ vs _green_ water). Près de 3% de l'eau utilisée en agriculture est utilisée pour le coton tandis que 73% de la production mondiale est irriguée.&#x20;
 * le changement climatique,\
   L'utilisation d'engrais, de pesticides/insecticides et de machines agricoles contribuent aux émissions de gaz à effet de serre.&#x20;
-* la détérioritation des sols et de la biodiversité.&#x20;
+* la dégradation des sols et de la biodiversité.&#x20;
 
 ## Modélisation Ecobalyse
 
