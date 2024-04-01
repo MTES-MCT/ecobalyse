@@ -130,9 +130,9 @@ L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci
 
 ### Scénarios proposés
 
-Ecobalyse propose 2 types de laine construites à partir du procédé  Ecoinvent "sheep production, for wool, US". <mark style="color:blue;">En effet, ce procédé est le procédé qui sert de base à la construction du procédé "sheep production, for wool, RoW"</mark>
+Ecobalyse propose 2 types de laine construites à partir du procédé  Ecoinvent "sheep production, for wool, US". En effet, ce procédé est le procédé qui sert de base à la construction du procédé "sheep production, for wool, RoW"
 
-Du fait d'un faible niveau de qualité du procédé source Ecoinvent, Ecobalyse a procédé à des enrichissements suite à la mise en place de différents ateliers avec l'industrie lainière.
+Du fait d'un faible niveau de qualité du procédé source Ecoinvent, Ecobalyse a procédé à des enrichissements suite à la mise en place de différents ateliers avec la filière laine.
 
 <details>
 
