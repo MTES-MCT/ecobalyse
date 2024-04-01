@@ -76,7 +76,7 @@ Si 2 étapes successives ont lieu dans un même pays, on fait l'hypothèse que l
 
 _"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fait de 25% de terrestre et de 75% de maritime"_
 
-### Part du transport aérien
+### Part du transport aérien (old)
 
 Une part de transport aérien est considérée :
 
@@ -88,6 +88,35 @@ La part de **transport aérien (`a`)**, par rapport au transport "aérien + terr
 | a      | Pays X (hors Europe - Turquie) |
 | ------ | ------------------------------ |
 | France | 33%                            |
+
+{% hint style="info" %}
+Curseur permettant d'ajuster la part du transport aérien en sortie de confection
+
+Le curseur "part du transport aérien", proposé sous l'étape "confection" permet d'ajuster le paramètre `a`, en partant de l'hypothèse par défaut : 33% en provenance d'un pays hors Europe (ou Turquie), 0% sinon.
+{% endhint %}
+
+### Part du transport aérien (new - non encore implémenté)
+
+Une part de transport aérien est considérée :
+
+* Seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
+* Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](distribution.md))
+
+La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit : &#x20;
+
+**Si le coefficient de durabilité est > 1**
+
+| a      | Pays X (hors Europe - Turquie) |
+| ------ | ------------------------------ |
+| France | 33%                            |
+
+**Si le coefficient de durabilité est < 1**
+
+
+
+| a      | Pays X (hors Europe - Turquie) |
+| ------ | ------------------------------ |
+| France | 100%                           |
 
 {% hint style="info" %}
 Curseur permettant d'ajuster la part du transport aérien en sortie de confection

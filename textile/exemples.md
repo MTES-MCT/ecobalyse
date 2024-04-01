@@ -66,7 +66,7 @@ Par rapport aux exemples paramétrés de façon "majorante par défaut" (cf. [su
 
 * des choix de matières plus complexes correspondant à des produits considérés en 2022 (exemple : 75% de coton primaire et 25% de coton recyclé pour le _Tshirt coton (150g) - Chine - Mode "fast fashion" ;_
 * des origines géographiques plus précises proposées pour chaque étape de transformation (attention : seule une information géographique est présentée dans le nom de l'exemple, pour accéder à l'ensemble des hypothèses, il faut regarder chaque étape de la simulation) ;
-* une parte de transport par avion depuis l'atelier de confection fixé à 100% pour les exemples relevant d'une mode "fasst fashion" ou "ultra fast fashion" et à 33% pour les autres (lorsque le payse de confection est hors Europe ou Maghreb - cf. [documentation transport](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport)) ;
+* une parte de transport par avion depuis l'atelier de confection fixé à 100% pour les exemples relevant d'une mode "fast fashion" ou "ultra fast fashion" et à 33% pour les autres (lorsque le payse de confection est hors Europe ou Turquie - cf. [documentation transport](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport)) ;
 * des paramètres spécifiques pour le calcul du coefficient de durabilité (cf. ci-après).
 
 ## Paramètres mobilisés dans les exemples pour établir le coefficient de durabilité
