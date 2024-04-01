@@ -1,4 +1,4 @@
-# 🪡 Points de méthode spécifiques aux produits textiles
+# Points de méthode spécifiques aux produits textiles
 
 Le simulateur et les exemples qui en découlent sont des outils de travail en phase de construction.&#x20;
 

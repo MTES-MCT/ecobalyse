@@ -4,7 +4,7 @@ description: >-
   de calcul
 ---
 
-# ⏳ Durabilité
+# Durabilité
 
 {% hint style="info" %}
 Plus un vêtement est porté, plus son impact est faible

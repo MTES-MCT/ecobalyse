@@ -14,8 +14,6 @@ Ecobalyse permet **d’estimer rapidement les impacts environnementaux** d’un 
 
 Deux secteurs sont actuellement couverts : le **Textile** et l'**Alimentaire**. L'ouverture à de nouveaux secteurs est envisagée.&#x20;
 
-Le positionnement d'Ecobalyse correspond à l’[approche semi-spécifique](https://expertises.ademe.fr/economie-circulaire/consommer-autrement/passer-a-laction/reconnaitre-produit-plus-respectueux-lenvironnement/dossier/laffichage-environnemental/affichage-environnemental-secteur-alimentaire-experimentation-20202021) proposée par le conseil scientifique sur l’alimentation.
-
 ### Un commun numérique
 
 Le calculateur est développé en **open-source** et son utilisation est gratuite.&#x20;
@@ -23,13 +21,15 @@ Le calculateur est développé en **open-source** et son utilisation est gratuit
 Ce positionnement a une double vocation :
 
 * Rendre accessible au plus grand nombre les bases de **l'évaluation environnementale** ;
-* Catalyser les débats techniques entre acteurs spécialisés afin de proposer des **référentiels communs**.
+* Catalyser les débats techniques entre acteurs spécialisés afin de proposer un **référentiel technique sur lequel pourra s'appuyer le cadre réglementaire** à définir en application de l'[article 2 de la loi climat et résilience](https://www.legifrance.gouv.fr/loda/article\_lc/LEGIARTI000043957692?init=true\&page=1\&query=loi+climat+et+r%C3%A9silience\&searchField=ALL\&tab\_selection=all) sur l'affichage environnemental.
 
 Les entreprises souhaitant aller plus loin pourront se tourner vers les acteurs spécialisés (bureaux d'étude, startups, conseils spécialisés, etc.).&#x20;
 
 ### Un outil **pédagogique**
 
-En décomposant chaque étape du cycle de vie et en calculant leur impact en fonction du paramétrage, Ecobalyse facilite l'appréhension des **méthodes de référence** (PEFCR Apparel & Footwear, socle technique ADEME, etc.).
+En décomposant chaque étape du cycle de vie et en calculant leur impact en fonction du paramétrage, Ecobalyse facilite l'appréhension de la modélisation par analye du cycle de vie, complétée sur certains aspects (services écosystémiques, export hors Europe...).
+
+La méthodologie exposée mobilise les **méthodes de référence pré-existantes** (socle technique Ademe 2018) ou en construction ([PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/)).
 
 Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) et à l’[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile) doit en outre permettre d’expliciter et de partager les orientations prises dans le but de simplifier les calculs.
 
@@ -53,14 +53,6 @@ Ecobalyse n'a pas vocation à concurrencer les spécialistes de l'évaluation en
 \=> la mise à disposition de valeurs de référence,\
 \=> un [accès en API au calculateur](https://ecobalyse.beta.gouv.fr/#/api),\
 \=> une collaboration sur des sujets spécifiques (enrichissement de la base de données, modification de paramètres, etc.)&#x20;
-
-### Un **concurrent des méthodologies de référence**
-
-Ecobalyse s’appuie au maximum sur les méthodes de référence : PEFCR Apparel & Footwear, socle technique ADEME.
-
-Si des choix méthodologiques doivent être faits, c’est toujours en complément du cadre de référence et dans le but de faciliter les calculs.&#x20;
-
-Tous ces choix sont explicités dans la [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) et sur l’[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile).
 
 ### Un outil d'information pour le **grand public**
 

@@ -6,8 +6,6 @@
 
 ## 👕 Textile
 
-* [Points de méthode spécifiques aux produits textiles](textile/demarche.md)
-* [Exemples](textile/exemples.md)
 * [Cycle de vie des produits textiles](textile/cycle-de-vie-des-produits-textiles/README.md)
   * [🐑 Etape 1 - Matières](textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/README.md)
     * [Focus coton](textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/focus-coton.md)
@@ -40,8 +38,7 @@
 * [Durabilité](textile/durabilite.md)
 * [Cas particuliers](textile/cas-particuliers.md)
 * [Paramètres transverses](textile/parametres-transverses.md)
-* [Limites méthodologiques](textile/limites-methodologiques/README.md)
-  * [OLD](textile/limites-methodologiques/old.md)
+* [Exemples](textile/exemples.md)
 * [Mises à jour](textile/mises-a-jour.md)
   * [Travaux en cours](textile/travaux-en-cours.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
@@ -95,6 +92,9 @@
     * [Niveaux de calcul ?](alimentaire-draft/old/transverse/niveaux-de-calcul.md)
   * [Pages textiles old](alimentaire-draft/old/pages-textiles-old/README.md)
     * [Indicateurs environnementaux - old](alimentaire-draft/old/pages-textiles-old/impacts-consideres.md)
+    * [Points de méthode spécifiques aux produits textiles](alimentaire-draft/old/pages-textiles-old/demarche.md)
+    * [Limites méthodologiques](alimentaire-draft/old/pages-textiles-old/limites-methodologiques/README.md)
+      * [OLD](alimentaire-draft/old/pages-textiles-old/limites-methodologiques/old.md)
   * [🍒 Alimentaire](alimentaire-draft/old/alimentaire/README.md)
     * [Données ACV mobilisées](alimentaire-draft/old/alimentaire/donnees-acv-mobilisees.md)
     * [Choix des inventaires](alimentaire-draft/old/alimentaire/choix-des-inventaires.md)
