@@ -117,7 +117,7 @@ De manière générale et sur la base d'une revue bibliographique, la majorité 
 
 L'élevage ovin extensif (pâturages) produit des services tels que la lutte contre les feux de forêts, le maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, la limitation de la prolifération d'espèces végétales invasives, etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], pour le cas de l'élevage extensif en Espagne par exemple).
 
-Bien que des modifications aux inventaires soient proposées pour prendre en compte partiellement les externalités positives de ces modes de production extensifs (cf. détail [infra](focus-laine.md#laine-par-defaut)), l'ensemble des services rendus par les pâtures n'est aujourd'hui pas intégré. Des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.
+Bien que des modifications des inventaires soient proposées pour prendre en compte partiellement les externalités positives de ces modes de production extensifs (cf. détail [infra](focus-laine.md#laine-par-defaut)), l'ensemble des services rendus par les pâtures n'est aujourd'hui pas intégré. Des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.
 {% endhint %}
 
 ## Modélisation Ecobalyse
