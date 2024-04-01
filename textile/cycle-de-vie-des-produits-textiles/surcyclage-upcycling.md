@@ -1,4 +1,4 @@
-# Surcyclage / Upcycling
+# 🧥 Surcyclage / Upcycling
 
 ## Définition & Contexte
 

@@ -1,4 +1,4 @@
-# Stocks dormants / Deadstock
+# 👘 Stocks dormants / Deadstock
 
 ## Définition & Contexte
 

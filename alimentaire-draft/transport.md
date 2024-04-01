@@ -58,7 +58,7 @@ $$
 ImpactTransport = ImpactTransportIngrédient_1 + ImpactTransportIngrédient_2 ...
 $$
 
-Pour chaque ingrédient, l'impact est calculé comme suit, avec les procédés de transport introduits [ci-après](<transport (1).md#undefined>) :&#x20;
+Pour chaque ingrédient, l'impact est calculé comme suit, avec les procédés de transport introduits [ci-après](transport.md#undefined) :&#x20;
 
 $$
 ImpactTransport = MasseIngrédient (tonnes) * Distance (km) *  ImpactProcédéTransport
