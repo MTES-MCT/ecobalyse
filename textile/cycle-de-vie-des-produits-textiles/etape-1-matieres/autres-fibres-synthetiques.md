@@ -4,11 +4,11 @@
 
 <summary>Acrylique</summary>
 
-Les fibres acrycliques sont réservées aux matières formées de polymères contenant au moins 85% de motif acrylonitrille. Un procédé de polyaddition permet d'obtenir ce matériau.
+Les fibres acryliques sont réservées aux matières formées de polymères contenant au moins 85% de motif acrylonitrille. Un procédé de polyaddition permet d'obtenir ce matériau.
 
 **Procédé Ecoinvent**
 
-polymethyl methacrylate production, beads, ReR
+_polymethyl methacrylate production, beads, ReR_
 
 </details>
 
@@ -20,7 +20,7 @@ Le polypropylène est fabriqué à partir de propylène qui est un gaz sous-prod
 
 **Procédé Ecoinvent**
 
-Polypropylene production, granulate, RoW
+_Polypropylene production, granulate, RoW_
 
 </details>
 
@@ -36,7 +36,7 @@ Deux procédés permettent de produire du polyamide sous forme de résine : la p
 
 **Procédé Ecoinvent**
 
-Nylon 6.6 production, RoW
+_Nylon 6.6 production, RoW_
 
 </details>
 
@@ -55,7 +55,7 @@ Cette fibre synthétique est dérivée du polyuréthane et est généralement co
 **Procédé Ecoinvent**
 
 Cette matière n'étant pas disponible dans Ecoinvent, un procédé a été créé par Ecobalyse en utilisant deux procédés Ecoinvent : \
-90% = market for polyurethane, flexible foam, RoW\
-10% = market for dimethylacetamide, GLO
+90% = _market for polyurethane, flexible foam, RoW_\
+10% = _market for dimethylacetamide, GLO_
 
 </details>
