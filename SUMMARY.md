@@ -36,11 +36,16 @@
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)
   * [🐠 Microfibres](textile/complements-hors-acv/microfibres.md)
 * [Durabilité](textile/durabilite.md)
+* [Cas particuliers](textile/cas-particuliers.md)
+* [Paramètres transverses](textile/parametres-transverses.md)
+* [Paramétrage](textile/parametrage.md)
+* [Exemples](textile/exemples.md)
 * [Mises à jour](textile/mises-a-jour.md)
   * [Travaux en cours](textile/travaux-en-cours.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
   * [Contribuer aux travaux](textile/contribuer-aux-travaux.md)
 * [Nous contacter](textile/nous-contacter.md)
+* [Echelle comparative](textile/echelle-comparative.md)
 * [FAQ](textile/faq.md)
 
 ## 🍕 Alimentaire - /!\ DRAFT
