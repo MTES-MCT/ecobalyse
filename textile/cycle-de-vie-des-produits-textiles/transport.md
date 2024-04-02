@@ -76,26 +76,27 @@ Si 2 étapes successives ont lieu dans un même pays, on fait l'hypothèse que l
 
 _"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fait de 25% de terrestre et de 75% de maritime"_
 
-### Part du transport aérien (old)
+### Part du transport aérien
+
+<details>
+
+<summary>Actuel</summary>
 
 Une part de transport aérien est considérée :
 
 * Seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
 * Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](distribution.md))
 
-La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit :
+La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est de :&#x20;
 
-| a      | Pays X (hors Europe - Turquie) |
-| ------ | ------------------------------ |
-| France | 33%                            |
+* 0% pour les pays situés en Europe ou Afrique,
+* 33% pour les autres pays.
 
-{% hint style="info" %}
-Curseur permettant d'ajuster la part du transport aérien en sortie de confection
+</details>
 
-Le curseur "part du transport aérien", proposé sous l'étape "confection" permet d'ajuster le paramètre `a`, en partant de l'hypothèse par défaut : 33% en provenance d'un pays hors Europe (ou Turquie), 0% sinon.
-{% endhint %}
+<details>
 
-### Part du transport aérien (new - non encore implémenté)
+<summary>Prochainement (à valider)</summary>
 
 Une part de transport aérien est considérée :
 
@@ -106,22 +107,35 @@ La part de **transport aérien (`a`)**, par rapport au transport "aérien + terr
 
 **Si le coefficient de durabilité est > 1**
 
-| a      | Pays X (hors Europe - Turquie) |
-| ------ | ------------------------------ |
-| France | 33%                            |
+* 0% pour les pays situés en Europe ou Afrique,
+* 33% pour les autres pays.
 
 **Si le coefficient de durabilité est < 1**
 
+* 0% pour les pays situés en Europe ou Afrique,
+* 100% pour les autres pays.
 
-
-| a      | Pays X (hors Europe - Turquie) |
-| ------ | ------------------------------ |
-| France | 100%                           |
+</details>
 
 {% hint style="info" %}
-Curseur permettant d'ajuster la part du transport aérien en sortie de confection
+Un curseur permettant d'ajuster la part du transport aérien en sortie de confection est proposé dans Ecobalyse
 
-Le curseur "part du transport aérien", proposé sous l'étape "confection" permet d'ajuster le paramètre `a`, en partant de l'hypothèse par défaut : 33% en provenance d'un pays hors Europe (ou Turquie), 0% sinon.
+Le curseur "part du transport aérien", proposé sous l'étape "confection" permet d'ajuster le paramètre `a`, en partant de l'hypothèse par défaut : 33% en provenance d'un pays hors Europe et hors-Afrique, 0% sinon.
+{% endhint %}
+
+{% hint style="info" %}
+**L'aérien est-il un mode de transport privilégié pour les acteurs Textile ?**
+
+Une récente étude de l'ONG suisse "Public Eye" parue fin 2023 met en lumière l'importance du secteur Textile dans le fret aérien. De manière générale, peu de données précises sont disponibles sur ces pratiques car les entreprises Textile sont discrètes à ce sujet.
+
+Quelques enseignements clés de l'étude :&#x20;
+
+* le fret aérien est utilisé au sein même de l'UE alors que l'avantage en termes de temps reste faible (c. 42,658 tonnes de vêtements transportées par avion au sein de l'UE en 2022 d'après les estimations de l'étude),
+* Shein a signé un partenariat stratégique avec China Southern Airlines afin d'optimiser ses flux logistiques aériens,
+* Le groupe espagnol Inditex (propriétaire de Zara) affrète près de 1,600 vols par an depuis l'aéroport de Saragosse,
+* Même au sein de l’UE, où le fret aérien n’offre qu’un faible avantage en termes de temps, des vêtements sont tout de même transportés par avion (en 2022, il s’agissait d’au moins 42 658 tonnes).
+
+L'article complet est accessible ici => [https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique](https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique)
 {% endhint %}
 
 ## Distances
