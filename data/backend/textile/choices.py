@@ -1,4 +1,6 @@
-import json, os
+from django.conf import settings
+from os.path import join
+import json
 
 FABRICS = {
     "weaving": "Tissage",
@@ -30,8 +32,7 @@ ORIGINS = {
     "Synthetic": "Matière synthétique",
 }
 COUNTRIES = {}
-here = os.path.dirname(os.path.abspath(__file__))
-with open(os.path.join(here, "../../../public/data/countries.json")) as f:
+with open(join(settings.GITROOT, "public", "data", "countries.json")) as f:
     COUNTRIES = {c["code"]: c["name"] for c in json.load(f)}
 
 UNITS = {"kWh": "kWh", "kg": "kg", "m2": "m²", "MJ": "MJ", "t*km": "t*km"}

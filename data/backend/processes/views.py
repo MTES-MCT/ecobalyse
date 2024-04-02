@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
 from django.http import response, JsonResponse
 from django.shortcuts import render, redirect
+from os.path import join, dirname
 
 # from django.shortcuts import resolve_url
 from django.utils.translation import gettext_lazy as _
@@ -13,25 +14,20 @@ import os
 
 # logger = logging.getLogger(__name__)
 
-
-PUBLIC_FOLDER = "public/data/"
+PUBLIC_FOLDER = join(settings.GITROOT, "public", "data")
 
 
 # Pre-load processes files.
-with open(os.path.join(PUBLIC_FOLDER, "food/processes.json"), "r") as f:
+with open(join(PUBLIC_FOLDER, "food", "processes.json"), "r") as f:
     food_processes = f.read()
 
-with open(os.path.join(PUBLIC_FOLDER, "textile/processes.json"), "r") as f:
+with open(join(PUBLIC_FOLDER, "textile", "processes.json"), "r") as f:
     textile_processes = f.read()
 
-with open(
-        os.path.join(PUBLIC_FOLDER, "food/processes_impacts.json"),
-        "r") as f:
+with open(join(PUBLIC_FOLDER, "food", "processes_impacts.json"), "r") as f:
     food_processes_detailed = f.read()
 
-with open(
-        os.path.join(PUBLIC_FOLDER, "textile/processes_impacts.json"),
-        "r") as f:
+with open(join(PUBLIC_FOLDER, "textile", "processes_impacts.json"), "r") as f:
     textile_processes_detailed = f.read()
 
 processes = {
