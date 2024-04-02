@@ -117,7 +117,7 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   let processes;
   try {
     const processesUrl = `http://localhost:${django_port}/processes/processes.json`;
-    const processesRes = await fetch(processesUrl, { headers: headers});
+    const processesRes = await fetch(processesUrl, { headers: headers });
     processes = await processesRes.json();
     if (processesRes.status != 200) {
       return res.status(processesRes.status).send(processes);
@@ -125,7 +125,7 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   } catch (err) {
     console.error(err.message);
   }
-  
+
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
