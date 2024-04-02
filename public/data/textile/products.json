@@ -8,9 +8,9 @@
     "fabric": "weaving",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 20,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 15,
       "repairCost": 10,
       "traceability": false
     },
@@ -44,9 +44,9 @@
     "fabric": "weaving",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 28,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 20,
       "repairCost": 14,
       "traceability": false
     },
@@ -80,9 +80,9 @@
     "fabric": "weaving",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 18,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 15,
       "repairCost": 9,
       "traceability": false
     },
@@ -116,9 +116,9 @@
     "fabric": "weaving",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 62,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 40,
       "repairCost": 31,
       "traceability": false
     },
@@ -152,9 +152,9 @@
     "fabric": "weaving",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 28,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 20,
       "repairCost": 14,
       "traceability": false
     },
@@ -188,9 +188,9 @@
     "fabric": "knitting-mix",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 30,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 20,
       "repairCost": 15,
       "traceability": false
     },
@@ -224,9 +224,9 @@
     "fabric": "knitting-mix",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 20,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 10,
       "repairCost": 10,
       "traceability": false
     },
@@ -260,9 +260,9 @@
     "fabric": "knitting-fully-fashioned",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 7,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 4,
       "repairCost": 9,
       "traceability": false
     },
@@ -296,9 +296,9 @@
     "fabric": "weaving",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 10,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 4,
       "repairCost": 9,
       "traceability": false
     },
@@ -332,9 +332,9 @@
     "fabric": "knitting-mix",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 10,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 4,
       "repairCost": 9,
       "traceability": false
     },
@@ -368,9 +368,9 @@
     "fabric": "knitting-mix",
     "economics": {
       "business": "large-business-without-services",
-      "marketingDuration": 60,
-      "numberOfReferences": 8000,
-      "price": 35,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 15,
       "repairCost": 9,
       "traceability": false
     },
