@@ -8,6 +8,18 @@ description: >-
 
 <details>
 
+<summary>Janvier - mars 2024</summary>
+
+* Développement de l'outil dans une version "offline" dans l'attente d'un feu vert politique
+* Principaux enrichissements apportés
+  * Prise en compte de la durabilité à travers un coefficient de durabilité
+  * Remplacement de la Base Impacts (ADEME) par des procédés Ecoinvent
+  * Enrichissements de procédés Matières&#x20;
+
+</details>
+
+<details>
+
 <summary>Décembre 2023</summary>
 
 * Intégration stocks dormants (deadstocks)\

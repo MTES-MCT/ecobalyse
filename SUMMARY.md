@@ -36,17 +36,12 @@
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)
   * [🐠 Microfibres](textile/complements-hors-acv/microfibres.md)
 * [Durabilité](textile/durabilite.md)
-* [Cas particuliers](textile/cas-particuliers.md)
-* [Paramètres transverses](textile/parametres-transverses.md)
 * [Paramétrage](textile/parametrage.md)
 * [Exemples](textile/exemples.md)
 * [Mises à jour](textile/mises-a-jour.md)
   * [Travaux en cours](textile/travaux-en-cours.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
-  * [Contribuer aux travaux](textile/contribuer-aux-travaux.md)
 * [Nous contacter](textile/nous-contacter.md)
-* [Echelle comparative](textile/echelle-comparative.md)
-* [FAQ](textile/faq.md)
 
 ## 🍕 Alimentaire - /!\ DRAFT
 
@@ -92,6 +87,8 @@
     * [Visualisation et comparaison des impacts dans l'outil Ecobalyse](alimentaire-draft/old/transverse/impacts-consideres-1.md)
     * [Niveaux de calcul ?](alimentaire-draft/old/transverse/niveaux-de-calcul.md)
   * [Pages textiles old](alimentaire-draft/old/pages-textiles-old/README.md)
+    * [FAQ](alimentaire-draft/old/pages-textiles-old/faq.md)
+    * [Echelle comparative](alimentaire-draft/old/pages-textiles-old/echelle-comparative.md)
     * [Indicateurs environnementaux - old](alimentaire-draft/old/pages-textiles-old/impacts-consideres.md)
     * [Points de méthode spécifiques aux produits textiles](alimentaire-draft/old/pages-textiles-old/demarche.md)
     * [Limites méthodologiques](alimentaire-draft/old/pages-textiles-old/limites-methodologiques/README.md)
