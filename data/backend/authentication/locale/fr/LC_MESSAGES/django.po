@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-25 12:21+0100\n"
+"POT-Creation-Date: 2024-04-02 17:14+0200\n"
 "PO-Revision-Date: 2024-03-25 12:23+0100\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
@@ -30,7 +30,7 @@ msgstr "Prénom"
 msgid "Last Name"
 msgstr "Nom"
 
-#: authentication/forms.py:27 authentication/models.py:7
+#: authentication/forms.py:27 authentication/models.py:8
 msgid "Company"
 msgstr "Entreprise"
 
@@ -42,35 +42,39 @@ msgstr "Je m'engage à ne pas utiliser les données à des fins commerciales"
 msgid "Next url"
 msgstr "URL de redirection"
 
-#: authentication/views.py:33
+#: authentication/models.py:11
+msgid "TOKEN"
+msgstr ""
+
+#: authentication/views.py:35
 msgid "Invalid json in the POST request"
 msgstr "Json invalide dans la requête POST"
 
-#: authentication/views.py:40 authentication/views.py:104
+#: authentication/views.py:42 authentication/views.py:108
 #, python-format
 msgid "The link is valid for %s min"
 msgstr "Le lien de connexion est valide pendant %s min"
 
-#: authentication/views.py:52
+#: authentication/views.py:54
 msgid "Your form has errors: "
 msgstr "Votre formulaire contient des erreurs : "
 
-#: authentication/views.py:70 authentication/views.py:82
+#: authentication/views.py:73 authentication/views.py:86
 msgid "Register"
 msgstr "S'inscrire"
 
-#: authentication/views.py:91
+#: authentication/views.py:95
 msgid "Login"
 msgstr "Se connecter"
 
-#: authentication/views.py:109
+#: authentication/views.py:113
 msgid "Invalid form data"
 msgstr "Données de formulaire incorrectes"
 
-#: authentication/views.py:147
+#: authentication/views.py:151
 msgid "The token has expired"
 msgstr "Le token a expiré"
 
-#: authentication/views.py:177
+#: authentication/views.py:182
 msgid "You must be authenticated to access this page"
 msgstr "Vous devez être authentifié(e) pour accéder à cette page"
