@@ -10,41 +10,34 @@ Si vous avez d'autres interrogations, vous pouvez également nous les adresser p
 
 ### Certains vêtements ne sont pas représentés
 
-Les vêtements proposés en première approche sont ceux qui sont introduits dans le socle technique de l'ADEME.
+Les vêtements facilement modélisables dans Ecobalyse sont listés dans l'[Explorateur Produit](https://ecobalyse.beta.gouv.fr/#/explore/textile/products).&#x20;
 
-Il est possible d'ajouter de nouvelles catégories si leur cycle de vie est maîtrisé (cf. les paramètres mobilisés au sein de chacune des étapes du cycle de vie).&#x20;
+Pour faciliter l'ajout de nouveaux vêtements, vous pouvez nous transmettre des exemples de modélisation précisant les données produit mobilisées dans Ecobalyse (ex : poids, grammage, étoffe tissée/tricotée, etc.).&#x20;
 
-Dans ce cas, merci de :&#x20;
-
-* nous contacter (alban.fournier@beta.gouv.fr),
-* nous transmettre un maximum de Fiche Produit (cf. la page [Contribuer](https://fabrique-numerique.gitbook.io/ecobalyse/textile/mises-a-jour/contribuer-aux-travaux)),
-* nous transmettre toute documentation (ACV, cahier des charges, etc.) permettant de mieux appréhender le cycle de vie de la catégorie/vêtement à ajouter.
-
-### L'indicateur qui m'intéresse n'est pas pris en compte
-
-Vous avez l'œil ! \
-Certains indicateurs (ex : ecotoxicité aquatique) ne sont pas encore modélisables faute d'un socle technique/scientifique suffisamment avancé. \
-Nous sommes en relation avec les fournisseurs de données (référentiel européen PEF, ADEME, Ecoinvent, etc.) pour palier cette limite. \
-Cf. page méthodo sur ce sujet : [impacts considérés](../alimentaire-draft/old/pages-textiles-old/impacts-consideres.md)
+:information\_source: Certains vêtements (ex : soutien-gorge) nécessitent des enrichissements dans Ecobalyse qui seront prochainement intégrés (ex : intégration des accessoires, possibilité de modéliser des vêtements multi-composants). &#x20;
 
 ### Le résultat de ma simulation a changé entre deux visites !
 
 C'est normal, nous enrichissons notre référentiel et affinons nos calculs au fil de l'eau. Il se peut donc que les résultats évoluent (à la marge) en fonction de ces évolutions. C'est plutôt une bonne chose, si on y réfléchit !
 
-### Je ne trouve pas une matière spécifique (ex : cuir)&#x20;
+### Je ne trouve pas une matière spécifique (ex : cuir) &#x20;
 
-Le socle technique actuellement utilisé (Base Impacts) est relativement limité concernant la modélisation des matières. Une nouvelle base de données sera mise en place courant 2023 et permettra d'enrichir la modélisation de l'étape Matière.&#x20;
+Ecobalyse a vocation à proposer les principales matières utilisées dans le textile d'habillement.&#x20;
 
-N'hésitez pas à nous partager toute ACV/ICV/études que vous auriez réalisée sur des matières afin d'enrichir nos prochains travaux.&#x20;
-
-On y travaille !
+Si certaines matières sont manquantes, n'hésitez pas à contacter l'équipe ADEME (mail = _affichage-environnemental@ademe.fr_) en charge de la base de données. Vos contributions sont par ailleurs apprécisées (ex : partage d'un ICV créé par votre filière, partage de paramètres de modélisation, etc.).
 
 ### Comment s'articule votre méthodologie avec le PEFCR A\&F développé par la Commission Européenne ?&#x20;
 
-Nous participons aux travaux du PEFCR A\&F et souhaitons une harmonisation entre les cadres européen et français. La principale différence concerne le calendrier : le référentiel européen est en construction et ne sera pas finalisé/exploitable avant 2025 alors que le dispositif français devrait être finalisé fin 2023.
+La méthode utilisée par le dispositif français d'affichage environnemental se base sur le socle PEF et la version actuelle du projet de référentiel textile (PEFCR Apparel & Footwear).&#x20;
 
-Dès lors, Ecobalyse participe à enrichir les réflexions/travaux en cours, tant au niveau européen que français.&#x20;
+L'ADEME et le Ministère de la Transition Ecologique participent par ailleurs au travaux du PEFCR A\&F  afin d'harmoniser au mieux les cadres européen et français.&#x20;
+
+La principale différence concerne le calendrier : le référentiel européen est en construction et ne sera pas finalisé/exploitable avant 2025 alors que le dispositif français propose une première version début 2024.&#x20;
+
+Dès lors, la méthode française propose des enrichissements méthodologiques permettant de couvrir certains enjeux non intégrés dans le score PEF (ex : impact des microfibres). &#x20;
 
 {% hint style="info" %}
-Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:ecobalyse@beta.gouv.fr).
+Si vous avez d'autres interrogations, vous pouvez également nous les adresser[ par email](#user-content-fn-1)[^1].
 {% endhint %}
+
+[^1]: affichage-environnemental@ademe.fr
