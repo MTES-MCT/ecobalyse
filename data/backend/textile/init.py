@@ -1,11 +1,11 @@
 from copy import deepcopy
 from decouple import config  # python-decouple to read in .env
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from os.path import dirname, join, abspath
+from os.path import join
 from textile.models import Process, Material, Example, Product, Share
 import json
 
-here = dirname(abspath(__file__))
 
 # create initial admins given by an env var. Mails separated by comma
 for email in [m.strip() for m in str(config("BACKEND_ADMINS")).split(",")]:
@@ -53,7 +53,7 @@ def init():
     # PROCESSES
     with open(
         join(
-            dirname(dirname(dirname(here))),
+            settings.GITROOT,
             "public",
             "data",
             "textile",
@@ -71,7 +71,7 @@ def init():
     # MATERIALS
     with open(
         join(
-            dirname(dirname(dirname(here))),
+            settings.GITROOT,
             "public",
             "data",
             "textile",
@@ -125,7 +125,7 @@ def init():
     # PRODUCTS
     with open(
         join(
-            dirname(dirname(dirname(here))),
+            settings.GITROOT,
             "public",
             "data",
             "textile",
@@ -174,7 +174,7 @@ def init():
     # EXAMPLES
     with open(
         join(
-            dirname(dirname(dirname(here))),
+            settings.GITROOT,
             "public",
             "data",
             "textile",
