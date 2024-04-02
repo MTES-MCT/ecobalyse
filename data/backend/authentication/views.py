@@ -25,6 +25,7 @@ def register(request):
     """render a form to provide an email to register"""
     if request.method == "POST":
         if request.path.endswith(".json/"):
+            # endpoint ending in ".json" are for elm
             try:
                 form = RegistrationForm(
                     request=request, data=json.loads(request.body.decode("utf-8"))
@@ -56,6 +57,7 @@ def register(request):
                     }
                 )
         else:
+            # registration in pure django (without elm)
             form = RegistrationForm(request)
             if form.is_valid():
                 form.save()
@@ -72,6 +74,7 @@ def register(request):
                     },
                 )
     else:
+        # registration form in pure django (without elm)
         form = RegistrationForm()
         return render(
             request,
