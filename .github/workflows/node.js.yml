@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ v2 ]
+    branches: [ master ]
   pull_request:
-    branches: [ v2 ]
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
 
     steps:
     - uses: actions/checkout@v2
