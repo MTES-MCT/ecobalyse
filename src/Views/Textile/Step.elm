@@ -104,7 +104,7 @@ countryField cfg =
             div [ class "fs-6 text-muted d-flex align-items-center gap-2 " ]
                 [ span
                     [ class "cursor-help"
-                    , title "Le pays n'est pas modifiable à cet étape"
+                    , title "Le pays n'est pas modifiable à cette étape"
                     ]
                     [ Icon.lock ]
                 , text cfg.current.country.name
