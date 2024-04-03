@@ -22,9 +22,11 @@ import Views.Container as Container
 
 
 type alias Config msg =
-    { session : Session
+    { comparisonType : ComparisonType
     , impact : Definition
-    , comparisonType : ComparisonType
+    , selectAll : msg
+    , selectNone : msg
+    , session : Session
     , switchComparisonType : ComparisonType -> msg
     , toggle : Bookmark -> Bool -> msg
     }
@@ -58,11 +60,13 @@ view config =
 
 
 sidebarView : Config msg -> List (Html msg)
-sidebarView { session, toggle } =
-    [ p [ class "p-2 ps-3 pb-1 mb-0 text-muted" ]
-        [ text "Sélectionnez jusqu'à "
-        , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
-        , text " simulations pour les comparer\u{00A0}:"
+sidebarView { session, toggle, selectAll, selectNone } =
+    [ div [ class "p-2 ps-3 mb-0 text-muted" ]
+        [ text "Sélectionnez des simulations pour les comparer"
+        ]
+    , div [ class "text-center" ]
+        [ button [ class "btn btn-sm btn-link pt-0", onClick selectAll ] [ text "tout sélectionner" ]
+        , button [ class "btn btn-sm btn-link pt-0", onClick selectNone ] [ text "tout désélectionner" ]
         ]
     , session.store.bookmarks
         |> List.map
@@ -70,8 +74,7 @@ sidebarView { session, toggle } =
                 let
                     ( description, isCompared ) =
                         ( bookmark
-                            |> Bookmark.toQueryDescription
-                                { foodDb = session.foodDb, textileDb = session.textileDb }
+                            |> Bookmark.toQueryDescription session.db
                         , session.store.comparedSimulations
                             |> Set.member (Bookmark.toId bookmark)
                         )
@@ -85,11 +88,6 @@ sidebarView { session, toggle } =
                         , class "form-check-input"
                         , onCheck (toggle bookmark)
                         , checked isCompared
-                        , disabled
-                            (not isCompared
-                                && Set.size session.store.comparedSimulations
-                                >= Session.maxComparedSimulations
-                            )
                         ]
                         []
                     , span [ class "ps-2" ]
@@ -111,7 +109,7 @@ addToComparison session label query =
     case query of
         Bookmark.Food foodQuery ->
             foodQuery
-                |> Recipe.compute session.foodDb
+                |> Recipe.compute session.db
                 |> Result.map
                     (\( _, { recipe, total } as results ) ->
                         { label = label
@@ -125,7 +123,7 @@ addToComparison session label query =
 
         Bookmark.Textile textileQuery ->
             textileQuery
-                |> Simulator.compute session.textileDb
+                |> Simulator.compute session.db
                 |> Result.map
                     (\simulator ->
                         { label = label
@@ -139,32 +137,39 @@ addToComparison session label query =
 
 
 comparatorView : Config msg -> List (Html msg)
-comparatorView { session, comparisonType, switchComparisonType } =
+comparatorView config =
     let
         charts =
-            session.store.bookmarks
+            config.session.store.bookmarks
                 |> List.filterMap
                     (\bookmark ->
-                        if Set.member (Bookmark.toId bookmark) session.store.comparedSimulations then
-                            Just (addToComparison session bookmark.name bookmark.query)
+                        if Set.member (Bookmark.toId bookmark) config.session.store.comparedSimulations then
+                            Just (addToComparison config.session bookmark.name bookmark.query)
 
                         else
                             Nothing
                     )
                 |> RE.combine
     in
-    [ [ ( "Sous-scores", Subscores )
-      , ( "Impacts", IndividualImpacts )
-      , ( "Étapes", Steps )
-      , ( "Total", Total )
-      ]
+    [ ((if Session.isAuthenticated config.session then
+            [ ( "Sous-scores", Subscores )
+            , ( "Impacts", IndividualImpacts )
+            ]
+
+        else
+            []
+       )
+        ++ [ ( "Étapes", Steps )
+           , ( "Total", Total )
+           ]
+      )
         |> List.map
             (\( label, toComparisonType ) ->
-                li [ class "TabsTab nav-item", classList [ ( "active", comparisonType == toComparisonType ) ] ]
+                li [ class "TabsTab nav-item", classList [ ( "active", config.comparisonType == toComparisonType ) ] ]
                     [ button
                         [ class "nav-link no-outline border-top-0 py-1"
-                        , classList [ ( "active", comparisonType == toComparisonType ) ]
-                        , onClick (switchComparisonType toComparisonType)
+                        , classList [ ( "active", config.comparisonType == toComparisonType ) ]
+                        , onClick (config.switchComparisonType toComparisonType)
                         ]
                         [ text label ]
                     ]
@@ -178,12 +183,12 @@ comparatorView { session, comparisonType, switchComparisonType } =
         Ok chartsData ->
             let
                 data =
-                    case comparisonType of
+                    case config.comparisonType of
                         IndividualImpacts ->
-                            dataForIndividualImpacts session.foodDb.impactDefinitions chartsData
+                            dataForIndividualImpacts config.session.db.definitions chartsData
 
                         Subscores ->
-                            dataForSubscoresImpacts session.foodDb.impactDefinitions chartsData
+                            dataForSubscoresImpacts config.session.db.definitions chartsData
 
                         Steps ->
                             dataForSteps chartsData
@@ -194,7 +199,7 @@ comparatorView { session, comparisonType, switchComparisonType } =
             div
                 [ class "h-100"
                 , class
-                    (case comparisonType of
+                    (case config.comparisonType of
                         IndividualImpacts ->
                             "individual-impacts"
 

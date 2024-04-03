@@ -3,6 +3,7 @@ module Views.FormatTest exposing (..)
 import Data.Split as Split
 import Expect
 import Html exposing (text)
+import Quantity
 import Test exposing (..)
 import TestUtils exposing (asTest)
 import Views.Format as Format
@@ -60,11 +61,25 @@ suite =
                 |> Format.formatFloat 2
                 |> Expect.equal "105"
                 |> asTest "should not format a number > 100 to provided decimal precision"
+            , (1 / 0)
+                |> Format.formatFloat 2
+                |> Expect.equal "∞"
+                |> asTest "should format positive Infinity"
+            , (-1 / 0)
+                |> Format.formatFloat 2
+                |> Expect.equal "-∞"
+                |> asTest "should format negative Infinity"
+            , Quantity.infinity
+                |> Quantity.multiplyBy 0
+                |> Quantity.toFloat
+                |> Format.formatFloat 2
+                |> Expect.equal "N/A"
+                |> asTest "should format NaN"
             ]
         , describe "Format.percentage"
             [ 0.12
                 |> Split.fromFloat
-                |> Result.map Format.splitAsPercentage
+                |> Result.map (Format.splitAsPercentage 0)
                 |> Expect.equal (Ok (text "12\u{202F}%"))
                 |> asTest "should properly format a Split as percentage"
             , 0.12

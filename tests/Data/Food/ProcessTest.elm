@@ -9,9 +9,9 @@ import TestUtils exposing (asTest, suiteWithDb)
 suite : Test
 suite =
     suiteWithDb "Data.Food.Process"
-        (\{ foodDb } ->
+        (\{ food } ->
             [ describe "findByCode"
-                [ foodDb.processes
+                [ food.processes
                     |> Process.findByIdentifier (Process.codeFromString "AGRIBALU000000003102592")
                     |> Result.map (.name >> Process.nameToString)
                     |> Expect.equal (Ok "Carrot, conventional, national average, at farm gate {FR} U")

@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ v2 ]
   pull_request:
-    branches: [ master ]
+    branches: [ v2 ]
   workflow_dispatch:
 
 jobs:
@@ -48,7 +48,7 @@ jobs:
       run: npm run build --if-present
 
     - name: Build Elm static Db
-      run: npm run db:build
+      run: TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run db:build
 
     - name: Run prettier formatting check
       run: npm run format:check
@@ -57,7 +57,7 @@ jobs:
       run: npm run test:review
 
     - name: Run client tests
-      run: npm run test:client
+      run: TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run test:client
 
     - name: Run server tests
-      run: npm run test:server
+      run: TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run test:server

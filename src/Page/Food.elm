@@ -2,6 +2,7 @@ module Page.Food exposing
     ( Model
     , Msg(..)
     , init
+    , initFromExample
     , subscriptions
     , update
     , view
@@ -14,7 +15,8 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
-import Data.Food.Db as FoodDb
+import Data.Example as Example
+import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
@@ -29,10 +31,10 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
-import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
+import Data.Uuid exposing (Uuid)
 import Html exposing (..)
-import Html.Attributes as Attr exposing (..)
+import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
@@ -40,6 +42,7 @@ import Mass exposing (Mass)
 import Ports
 import Quantity
 import Route
+import Static.Db as Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -53,6 +56,7 @@ import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
 import Views.Component.StepsBorder as StepsBorder
 import Views.Container as Container
+import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
@@ -63,8 +67,7 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    { db : FoodDb.Db
-    , impact : Definition
+    { impact : Definition
     , initialQuery : Query
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -104,6 +107,8 @@ type Msg
     | ResetDistribution
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SelectAllBookmarks
+    | SelectNoBookmarks
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -111,6 +116,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -119,21 +125,25 @@ type Msg
 
 
 init : Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init ({ foodDb, queries } as session) trigram maybeQuery =
+init session trigram maybeQuery =
     let
         impact =
-            Definition.get trigram foodDb.impactDefinitions
+            Definition.get trigram session.db.definitions
 
         query =
             maybeQuery
-                |> Maybe.withDefault queries.food
+                |> Maybe.withDefault session.queries.food
     in
-    ( { db = foodDb
-      , impact = impact
+    ( { impact = impact
       , initialQuery = query
       , bookmarkName = query |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
+      , comparisonType =
+            if Session.isAuthenticated session then
+                ComparatorView.Subscores
+
+            else
+                ComparatorView.Steps
       , modal = NoModal
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
@@ -147,8 +157,33 @@ init ({ foodDb, queries } as session) trigram maybeQuery =
     )
 
 
+initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample session uuid =
+    let
+        example =
+            session.db.food.examples
+                |> Example.findByUuid uuid
+
+        query =
+            example
+                |> Result.map .query
+                |> Result.withDefault Query.empty
+    in
+    ( { impact = session.db.definitions |> Definition.get Definition.Ecs
+      , initialQuery = query
+      , bookmarkName = query |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
+      , modal = NoModal
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
+      }
+    , session |> Session.updateFoodQuery query
+    , Ports.scrollTo { x = 0, y = 0 }
+    )
+
+
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries } as session) msg model =
+update ({ db, queries } as session) msg model =
     let
         query =
             queries.food
@@ -162,15 +197,12 @@ update ({ queries } as session) msg model =
     case msg of
         AddIngredient ingredient ->
             update session (SetModal NoModal) model
-                |> updateQuery
-                    (query
-                        |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient)
-                    )
+                |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
         AddPackaging ->
             let
                 firstPackaging =
-                    model.db.processes
+                    db.food.processes
                         |> Recipe.availablePackagings (List.map .code query.packaging)
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -195,7 +227,7 @@ update ({ queries } as session) msg model =
                     query.ingredients |> List.map .mass |> Quantity.sum
 
                 firstTransform =
-                    model.db.processes
+                    db.food.processes
                         |> Process.listByCategory Process.Transform
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -327,6 +359,12 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
+        SelectAllBookmarks ->
+            ( model, Session.selectAllBookmarks session, Cmd.none )
+
+        SelectNoBookmarks ->
+            ( model, Session.selectNoBookmarks session, Cmd.none )
+
         SetModal NoModal ->
             ( { model | modal = NoModal }
             , session
@@ -402,6 +440,14 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateDistribution newDistribution query)
 
+        UpdateEcotoxWeighting (Just ratio) ->
+            ( model, { session | db = Db.updateEcotoxWeighting db ratio }, Cmd.none )
+                -- triggers recompute
+                |> updateQuery query
+
+        UpdateEcotoxWeighting Nothing ->
+            ( model, session, Cmd.none )
+
         UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
@@ -466,9 +512,6 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
             , mass = oldRecipeIngredient.mass
             , country = Nothing
             , planeTransport = Ingredient.byPlaneByDefault newIngredient
-
-            -- We always update the complements to be the new ones because we're here on an ingredient change
-            , complements = Just newIngredient.complements
             }
     in
     model
@@ -513,13 +556,13 @@ focusNode node ( model, session, commands ) =
 
 
 findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { foodDb, store } query =
+findExistingBookmarkName { db, store } query =
     store.bookmarks
         |> Bookmark.findByFoodQuery query
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Recipe.fromQuery foodDb
+                |> Recipe.fromQuery db
                 |> Result.map Recipe.toString
                 |> Result.withDefault ""
             )
@@ -530,7 +573,7 @@ selectExample autocompleteState ( model, session, _ ) =
     let
         example =
             Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Query.emptyQuery
+                |> Maybe.withDefault Query.empty
 
         msg =
             LoadQuery example
@@ -621,7 +664,6 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
 
 type alias UpdateIngredientConfig =
     { excluded : List Ingredient.Id
-    , db : FoodDb.Db
     , recipeIngredient : Recipe.RecipeIngredient
     , impact : Impact.Impacts
     , selectedImpact : Definition
@@ -629,8 +671,8 @@ type alias UpdateIngredientConfig =
     }
 
 
-createElementSelectorConfig : Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
-createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, impact, selectedImpact } =
+createElementSelectorConfig : Db -> Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
+createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, impact, selectedImpact } =
     let
         baseElement =
             { element = recipeIngredient.ingredient
@@ -641,17 +683,17 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
     { allowEmptyList = True
     , baseElement = baseElement
     , db =
-        { elements = db.ingredients
+        { elements = db.food.ingredients
         , countries =
             db.countries
                 |> Scope.only Scope.Food
                 |> List.sortBy .name
-        , definitions = db.impactDefinitions
+        , definitions = db.definitions
         }
     , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
     , delete = \element -> DeleteIngredient element.id
     , excluded =
-        db.ingredients
+        db.food.ingredients
             |> List.filter (\ingredient -> List.member ingredient.id excluded)
     , impact = impact
     , quantityView =
@@ -675,8 +717,8 @@ createElementSelectorConfig ingredientQuery { excluded, db, recipeIngredient, im
     }
 
 
-updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transportImpact } as updateIngredientConfig) =
+updateIngredientFormView : Db -> UpdateIngredientConfig -> Html Msg
+updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact } as updateIngredientConfig) =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -684,7 +726,6 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
             , mass = recipeIngredient.mass
             , country = recipeIngredient.country |> Maybe.map .code
             , planeTransport = recipeIngredient.planeTransport
-            , complements = Just recipeIngredient.complements
             }
 
         event =
@@ -692,55 +733,62 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
 
         config : BaseElement.Config Ingredient Mass Msg
         config =
-            createElementSelectorConfig ingredientQuery updateIngredientConfig
+            createElementSelectorConfig db ingredientQuery updateIngredientConfig
     in
     li [ class "ElementFormWrapper list-group-item" ]
         (BaseElement.view config
             ++ [ if selectedImpact.trigram == Definition.Ecs then
                     let
-                        { complements, ingredient } =
+                        { ingredient } =
                             recipeIngredient
 
                         complementsImpacts =
-                            impact
-                                |> Recipe.computeIngredientComplementsImpacts db.impactDefinitions complements
+                            recipeIngredient.mass
+                                |> Recipe.computeIngredientComplementsImpacts ingredient.ecosystemicServices
                     in
-                    ComplementsDetails.view { complementsImpacts = complementsImpacts }
-                        [ ingredientComplementsView
-                            { name = "Diversité agricole"
-                            , title = Nothing
-                            , domId = "agroDiversity_" ++ Ingredient.idToString ingredientQuery.id
-                            , complementImpact = complementsImpacts.agroDiversity
-                            , complementSplit = complements.agroDiversity
-                            , updateEvent =
-                                \split ->
-                                    event { ingredientQuery | complements = Just { complements | agroDiversity = split } }
+                    [ { name = EcosystemicServices.labels.hedges
+                      , computedImpact = complementsImpacts.hedges
+                      }
+                    , { name = EcosystemicServices.labels.plotSize
+                      , computedImpact = complementsImpacts.plotSize
+                      }
+                    , { name = EcosystemicServices.labels.cropDiversity
+                      , computedImpact = complementsImpacts.cropDiversity
+                      }
+                    , { name = EcosystemicServices.labels.permanentPasture
+                      , computedImpact = complementsImpacts.permanentPasture
+                      }
+                    , { name = EcosystemicServices.labels.livestockDensity
+                      , computedImpact = complementsImpacts.livestockDensity
+                      }
+                    ]
+                        |> List.map
+                            (\{ name, computedImpact } ->
+                                div
+                                    [ class "ElementComplement"
+                                    , title name
+                                    ]
+                                    [ span [ class "ComplementName d-flex align-items-center text-nowrap text-muted" ]
+                                        [ text name
+                                        , Button.smallPillLink
+                                            [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
+                                            , target "_blank"
+                                            ]
+                                            [ Icon.question ]
+                                        ]
+                                    , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
+                                        []
+                                    , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
+                                        [ text "("
+                                        , Format.complement computedImpact
+                                        , text ")"
+                                        ]
+                                    ]
+                            )
+                        |> ComplementsDetails.view
+                            { complementsImpacts = complementsImpacts
+                            , label = "Services ecosystémiques"
                             }
-                        , ingredientComplementsView
-                            { name = "Infra. agro-éco."
-                            , title = Just "Infrastructures agro-écologiques"
-                            , domId = "agroEcology_" ++ Ingredient.idToString ingredientQuery.id
-                            , complementImpact = complementsImpacts.agroEcology
-                            , complementSplit = complements.agroEcology
-                            , updateEvent =
-                                \split ->
-                                    event { ingredientQuery | complements = Just { complements | agroEcology = split } }
-                            }
-                        , if IngredientCategory.fromAnimalOrigin ingredient.categories then
-                            ingredientComplementsView
-                                { name = "Cond. d'élevage"
-                                , title = Nothing
-                                , domId = "animalWelfare_" ++ Ingredient.idToString ingredientQuery.id
-                                , complementImpact = complementsImpacts.animalWelfare
-                                , complementSplit = complements.animalWelfare
-                                , updateEvent =
-                                    \split ->
-                                        event { ingredientQuery | complements = Just { complements | animalWelfare = split } }
-                                }
-
-                          else
-                            text ""
-                        ]
 
                  else
                     text ""
@@ -757,60 +805,7 @@ updateIngredientFormView ({ db, recipeIngredient, impact, selectedImpact, transp
         )
 
 
-type alias ComplementsViewConfig msg =
-    { complementImpact : Unit.Impact
-    , complementSplit : Split
-    , domId : String
-    , name : String
-    , title : Maybe String
-    , updateEvent : Split -> msg
-    }
-
-
-ingredientComplementsView : ComplementsViewConfig Msg -> Html Msg
-ingredientComplementsView { name, complementImpact, complementSplit, domId, title, updateEvent } =
-    div
-        [ class "ElementComplement"
-        , title |> Maybe.withDefault name |> Attr.title
-        ]
-        [ label
-            [ for domId
-            , class "ComplementName text-nowrap text-muted"
-            ]
-            [ text name ]
-        , input
-            [ type_ "range"
-            , id domId
-            , class "ComplementRange form-range"
-            , Attr.min "0"
-            , Attr.max "100"
-            , step "1"
-            , Attr.value <| Split.toPercentString complementSplit
-            , onInput
-                (String.toInt
-                    >> Maybe.andThen (Split.fromPercent >> Result.toMaybe)
-                    >> Maybe.withDefault Split.zero
-                    >> updateEvent
-                )
-            ]
-            []
-        , div [ class "ComplementValue d-flex justify-content-end align-items-center text-muted" ]
-            [ Format.splitAsPercentage complementSplit
-            , Button.smallPillLink
-                [ href (Gitbook.publicUrlFromPath Gitbook.FoodComplements)
-                , target "_blank"
-                ]
-                [ Icon.question ]
-            ]
-        , div [ class "ComplementImpact text-black-50 text-muted text-end" ]
-            [ text "("
-            , Format.complement complementImpact
-            , text ")"
-            ]
-        ]
-
-
-displayTransportDistances : FoodDb.Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
+displayTransportDistances : Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
 displayTransportDistances db ingredient ingredientQuery event =
     span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
         (if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
@@ -888,7 +883,7 @@ displayTransportDistances db ingredient ingredientQuery event =
         )
 
 
-debugQueryView : FoodDb.Db -> Query -> Html Msg
+debugQueryView : Db -> Query -> Html Msg
 debugQueryView db query =
     let
         debugView =
@@ -923,11 +918,11 @@ errorView error =
         }
 
 
-ingredientListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     let
         availableIngredients =
-            db.ingredients
+            db.food.ingredients
                 |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
                 |> List.sortBy .name
 
@@ -970,9 +965,8 @@ ingredientListView db selectedImpact recipe results =
             recipe.ingredients
                 |> List.map
                     (\ingredient ->
-                        updateIngredientFormView
+                        updateIngredientFormView db
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
-                            , db = db
                             , recipeIngredient = ingredient
                             , impact =
                                 results.recipe.ingredients
@@ -1007,11 +1001,11 @@ ingredientListView db selectedImpact recipe results =
     ]
 
 
-packagingListView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact recipe results =
     let
         availablePackagings =
-            Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.processes
+            Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.food.processes
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1044,7 +1038,7 @@ packagingListView db selectedImpact recipe results =
                     (\packaging ->
                         updateProcessFormView
                             { processes =
-                                db.processes
+                                db.food.processes
                                     |> Process.listByCategory Process.Packaging
                             , excluded = recipe.packaging |> List.map (.process >> .code)
                             , processQuery = { code = packaging.process.code, mass = packaging.mass }
@@ -1263,7 +1257,7 @@ distributionView selectedImpact recipe results =
     ]
 
 
-consumptionView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1312,7 +1306,7 @@ consumptionView db selectedImpact recipe results =
                                     ]
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
-                                    |> Preparation.apply db results.recipe.transformedMass
+                                    |> Preparation.apply db.food.wellKnown results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
                             , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
@@ -1330,23 +1324,34 @@ consumptionView db selectedImpact recipe results =
 
 
 mainView : Session -> Model -> Html Msg
-mainView session model =
+mainView ({ db } as session) model =
     let
         computed =
             session.queries.food
-                |> Recipe.compute model.db
+                |> Recipe.compute db
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ menuView session.queries.food
+            [ ExampleView.view
+                { currentQuery = session.queries.food
+                , emptyQuery = Query.empty
+                , examples = db.food.examples
+                , helpUrl = Nothing
+                , onOpen = SelectExampleModal >> SetModal
+                , routes =
+                    { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                    , load = Route.FoodBuilderExample
+                    , scopeHome = Route.FoodBuilderHome
+                    }
+                }
             , case computed of
                 Ok ( recipe, results ) ->
-                    stepListView session model recipe results
+                    stepListView db session model recipe results
 
                 Err error ->
                     errorView error
             , session.queries.food
-                |> debugQueryView model.db
+                |> debugQueryView db
             ]
         , div [ class "col-lg-4 d-flex flex-column gap-3" ]
             [ case computed of
@@ -1355,30 +1360,6 @@ mainView session model =
 
                 Err error ->
                     errorView error
-            ]
-        ]
-
-
-menuView : Query -> Html Msg
-menuView query =
-    let
-        autocompleteState =
-            AutocompleteSelector.init Query.toString Query.recipes
-    in
-    div []
-        [ label
-            [ for "selector-example"
-            , class "form-label fw-bold"
-            ]
-            [ text "Produit" ]
-        , button
-            [ class "form-select ElementSelector text-start"
-            , id "selector-example"
-            , onClick (SetModal (SelectExampleModal autocompleteState))
-            ]
-            [ span
-                []
-                [ text <| Query.toString query ]
             ]
         ]
 
@@ -1419,13 +1400,17 @@ sidebarView session model results =
         , switchImpact = SwitchImpact
 
         -- Score
+        , customScoreInfo = Nothing
         , productMass = results.preparedMass
         , totalImpacts = results.total
+
+        -- Ecotox weighting customization
+        , updateEcotoxWeighting = UpdateEcotoxWeighting
 
         -- Impacts tabs
         , impactTabsConfig =
             SwitchImpactsTab
-                |> ImpactTabs.createConfig model.impact model.activeImpactsTab OnStepClick
+                |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
                 |> ImpactTabs.forFood results
 
         -- Bookmarks
@@ -1440,8 +1425,8 @@ sidebarView session model results =
         }
 
 
-stepListView : Session -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView session { db, impact, initialQuery } recipe results =
+stepListView : Db -> Session -> Model -> Recipe -> Recipe.Results -> Html Msg
+stepListView db session { impact, initialQuery } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
@@ -1471,7 +1456,7 @@ stepListView session { db, impact, initialQuery } recipe results =
         ]
 
 
-transformView : FoodDb.Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 transformView db selectedImpact recipe results =
     let
         impact =
@@ -1503,7 +1488,7 @@ transformView db selectedImpact recipe results =
             Just transform ->
                 updateProcessFormView
                     { processes =
-                        db.processes
+                        db.food.processes
                             |> Process.listByCategory Process.Transform
                     , excluded = [ transform.process.code ]
                     , processQuery = { code = transform.process.code, mass = transform.mass }
@@ -1544,6 +1529,8 @@ view session model =
                                 { session = session
                                 , impact = model.impact
                                 , comparisonType = model.comparisonType
+                                , selectAll = SelectAllBookmarks
+                                , selectNone = SelectNoBookmarks
                                 , switchComparisonType = SwitchComparisonType
                                 , toggle = ToggleComparedSimulation
                                 }
@@ -1577,8 +1564,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = Query.toString
-                        , toCategory = Query.toCategory
+                        , toLabel = Example.toName session.db.food.examples
+                        , toCategory = Example.toCategory session.db.food.examples
                         }
             ]
       ]

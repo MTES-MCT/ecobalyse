@@ -1,7 +1,7 @@
 /.env
 /dist
 elm-stuff
-elm-stuff
+/compute-aggregated-app.js
 /node_modules
 /public/app.js
 /public/icomoon/*.txt
@@ -12,7 +12,7 @@ elm-stuff
 /public/main.css
 /public/main.css.map
 /server-app.js
-/src/Static/Db.elm
+/src/Static/Json.elm
 /xls
 /public/version.json
 /.parcel-cache/
@@ -28,7 +28,8 @@ processes-no-impacts.json
 /data/Dockerfile
 /data/ecobalyse_data.egg-info/
 /data/ECOINVENT3.9.1/*
+data/trtrpastoeco/*
 /data/AGB3.1.1.20230306.CSV
 /data/Environmental Footprint 3.1 (adapted) patch wtu.CSV
 /data/Environmental Footprint 3.1 (adapted).CSV
-/data/venv/
+venv

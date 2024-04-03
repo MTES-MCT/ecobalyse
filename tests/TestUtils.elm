@@ -5,10 +5,10 @@ module TestUtils exposing
     )
 
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition exposing (Base)
+import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Unit as Unit
 import Expect exposing (Expectation)
-import Static.Db as StaticDb
+import Static.Db exposing (Db, db, processes)
 import Test exposing (..)
 
 
@@ -17,9 +17,9 @@ asTest label =
     always >> test label
 
 
-suiteWithDb : String -> (StaticDb.Db -> List Test) -> Test
+suiteWithDb : String -> (Db -> List Test) -> Test
 suiteWithDb name suite =
-    case StaticDb.db of
+    case db processes of
         Ok db ->
             describe name (suite db)
 
@@ -30,7 +30,7 @@ suiteWithDb name suite =
                 ]
 
 
-expectImpactsEqual : Base (Float -> Expectation) -> Impacts -> Expectation
+expectImpactsEqual : Trigrams (Float -> Expectation) -> Impacts -> Expectation
 expectImpactsEqual impacts subject =
     Definition.trigrams
         |> List.map

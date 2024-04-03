@@ -4,14 +4,14 @@ import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
 import Data.Split as Split
-import Data.Textile.Db as TextileDb
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Table exposing (Table)
+import Page.Explore.Table as Table exposing (Table)
 import Route
+import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
 
@@ -23,13 +23,13 @@ recycledToString maybeMaterialID =
         |> Maybe.withDefault "non"
 
 
-table : TextileDb.Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
-table { countries } { detailed, scope } =
+table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
+table db { detailed, scope } =
     { toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
-    , rows =
+    , columns =
         [ { label = "Identifiant"
-          , toValue = .id >> Material.idToString
+          , toValue = Table.StringValue <| .id >> Material.idToString
           , toCell =
                 \material ->
                     if detailed then
@@ -40,53 +40,54 @@ table { countries } { detailed, scope } =
                             [ code [] [ text (Material.idToString material.id) ] ]
           }
         , { label = "Nom"
-          , toValue = .name
-          , toCell = .name >> text
+          , toValue = Table.StringValue <| .shortName
+          , toCell = .shortName >> text
+          }
+        , { label = "Procédé"
+          , toValue = Table.StringValue <| .materialProcess >> .name
+          , toCell = .materialProcess >> .name >> text
           }
         , { label = "Origine"
-          , toValue = .origin >> Origin.toLabel
+          , toValue = Table.StringValue <| .origin >> Origin.toLabel
           , toCell = .origin >> Origin.toLabel >> text
           }
         , { label = "Recyclée ?"
-          , toValue = .recycledFrom >> recycledToString
+          , toValue = Table.StringValue <| .recycledFrom >> recycledToString
           , toCell = .recycledFrom >> recycledToString >> text
           }
         , { label = "Complément Microfibres"
-          , toValue = .origin >> Origin.toMicrofibersComplement >> Unit.impactToFloat >> String.fromFloat
+          , toValue = Table.FloatValue <| .origin >> Origin.toMicrofibersComplement >> Unit.impactToFloat
           , toCell =
                 \{ origin } ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Origin.toMicrofibersComplement origin
                             |> Unit.impactToFloat
-                            |> Format.formatImpactFloat { unit = "\u{202F}µPts/kg", decimals = 2 }
+                            |> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
                         ]
           }
-        , { label = "Procédé"
-          , toValue = .materialProcess >> .name
-          , toCell = .materialProcess >> .name >> text
-          }
         , { label = "Procédé de fabrication du fil"
-          , toValue = .origin >> Origin.threadProcess
+          , toValue = Table.StringValue <| .origin >> Origin.threadProcess
           , toCell = .origin >> Origin.threadProcess >> text
           }
         , { label = "Procédé de recyclage"
-          , toValue = .recycledProcess >> Maybe.map .name >> Maybe.withDefault "N/A"
+          , toValue = Table.StringValue <| .recycledProcess >> Maybe.map .name >> Maybe.withDefault "N/A"
           , toCell = .recycledProcess >> Maybe.map (.name >> text) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Origine géographique"
-          , toValue = .geographicOrigin
+          , toValue = Table.StringValue .geographicOrigin
           , toCell = .geographicOrigin >> text
           }
         , { label = "Pays de production et de filature par défaut"
           , toValue =
-                .defaultCountry
-                    >> (\maybeCountry -> Country.findByCode maybeCountry countries)
-                    >> Result.map .name
-                    >> Result.toMaybe
-                    >> Maybe.withDefault "error"
+                Table.StringValue <|
+                    .defaultCountry
+                        >> (\maybeCountry -> Country.findByCode maybeCountry db.countries)
+                        >> Result.map .name
+                        >> Result.toMaybe
+                        >> Maybe.withDefault "error"
           , toCell =
                 \material ->
-                    case Country.findByCode material.defaultCountry countries of
+                    case Country.findByCode material.defaultCountry db.countries of
                         Ok country ->
                             text country.name
 
@@ -99,7 +100,11 @@ table { countries } { detailed, scope } =
                                 }
           }
         , { label = "CFF: Coefficient d'allocation"
-          , toValue = .cffData >> Maybe.map (.manufacturerAllocation >> Split.toFloatString) >> Maybe.withDefault "N/A"
+          , toValue =
+                Table.FloatValue <|
+                    .cffData
+                        >> Maybe.map (.manufacturerAllocation >> Split.toFloat)
+                        >> Maybe.withDefault 0
           , toCell =
                 \{ cffData } ->
                     case cffData of
@@ -111,7 +116,11 @@ table { countries } { detailed, scope } =
                             text "N/A"
           }
         , { label = "CFF: Rapport de qualité"
-          , toValue = .cffData >> Maybe.map (.recycledQualityRatio >> Split.toFloatString) >> Maybe.withDefault "N/A"
+          , toValue =
+                Table.FloatValue <|
+                    .cffData
+                        >> Maybe.map (.recycledQualityRatio >> Split.toFloat)
+                        >> Maybe.withDefault 0
           , toCell =
                 \{ cffData } ->
                     case cffData of

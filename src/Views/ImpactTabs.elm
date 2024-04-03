@@ -12,6 +12,7 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scoring as Scoring exposing (Scoring)
+import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -37,14 +38,15 @@ type alias Config msg =
     , stepsImpacts : Impact.StepsImpacts
     , switchImpactsTab : Tab -> msg
     , total : Impacts
+    , session : Session
     }
 
 
 view : Definitions -> Config msg -> Html msg
-view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, complementsImpact, onStepClick, scoring, stepsImpacts } =
+view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, complementsImpact, onStepClick, scoring, stepsImpacts, session } =
     CardTabs.view
         { tabs =
-            (if impactDefinition.trigram == Definition.Ecs then
+            (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated session then
                 [ ( StepImpactsTab, "Étapes" )
                 , ( SubscoresTab, "Sous-scores" )
                 , ( DetailedImpactsTab, "Impacts" )
@@ -67,17 +69,9 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
                         |> Impact.getAggregatedScoreData definitions .ecoscoreData
                         |> List.map (\{ name, value } -> { name = name, value = value, entryAttributes = [] })
                         |> (++)
-                            [ -- Food complements
-                              { name = "Bonus de diversité agricole"
-                              , value = -(Unit.impactToFloat complementsImpact.agroDiversity)
-                              , entryAttributes = []
-                              }
-                            , { name = "Bonus d'infrastructures agro-écologiques"
-                              , value = -(Unit.impactToFloat complementsImpact.agroEcology)
-                              , entryAttributes = []
-                              }
-                            , { name = "Bonus conditions d'élevage"
-                              , value = -(Unit.impactToFloat complementsImpact.animalWelfare)
+                            [ -- Food ecosystemic services
+                              { name = "Services écosystémiques"
+                              , value = -(Unit.impactToFloat (Impact.sumEcosystemicImpacts complementsImpact))
                               , entryAttributes = []
                               }
 
@@ -170,8 +164,8 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
         }
 
 
-createConfig : Definition -> Tab -> (String -> msg) -> (Tab -> msg) -> Config msg
-createConfig impactDefinition activeImpactsTab onStepClick switchImpactsTab =
+createConfig : Session -> Definition -> Tab -> (String -> msg) -> (Tab -> msg) -> Config msg
+createConfig session impactDefinition activeImpactsTab onStepClick switchImpactsTab =
     { activeImpactsTab = activeImpactsTab
     , complementsImpact = Impact.noComplementsImpacts
     , impactDefinition = impactDefinition
@@ -180,6 +174,7 @@ createConfig impactDefinition activeImpactsTab onStepClick switchImpactsTab =
     , stepsImpacts = Impact.noStepsImpacts
     , switchImpactsTab = switchImpactsTab
     , total = Impact.empty
+    , session = session
     }
 
 

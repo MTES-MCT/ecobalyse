@@ -1,0 +1,91 @@
+module Static.Json exposing
+    ( Processes
+    , countriesJson
+    , db
+    , impactsJson
+    , processes
+    , transportsJson
+    )
+
+
+import Data.Food.Db as FoodDb
+import Data.Textile.Db as TextileDb
+
+
+type alias Db =
+    { foodDb : FoodDb.Db,  textileDb : TextileDb.Db }
+
+
+type alias Processes = { foodProcesses : String, textileProcesses: String }
+
+
+impactsJson : String
+impactsJson =
+    """%impactsJson%"""
+
+
+textileProductExamplesJson : String
+textileProductExamplesJson =
+    """%textileProductExamplesJson%"""
+
+
+textileMaterialsJson : String
+textileMaterialsJson =
+    """%textileMaterialsJson%"""
+
+
+textileProcessesJson : String
+textileProcessesJson =
+    """%textileProcessesJson%"""
+
+
+textileProductsJson : String
+textileProductsJson =
+    """%textileProductsJson%"""
+
+
+textileDb : String -> Result String TextileDb.Db
+textileDb textileProcesses =
+    TextileDb.buildFromJson textileProductExamplesJson textileMaterialsJson textileProductsJson textileProcesses
+
+
+foodProductExamplesJson : String
+foodProductExamplesJson =
+    """%foodProductExamplesJson%"""
+
+
+foodProcessesJson : String
+foodProcessesJson =
+    """%foodProcessesJson%"""
+
+
+foodIngredientsJson : String
+foodIngredientsJson =
+    """%foodIngredientsJson%"""
+
+
+foodDb : String -> Result String FoodDb.Db
+foodDb foodProcesses =
+    FoodDb.buildFromJson foodProductExamplesJson foodProcesses foodIngredientsJson
+
+
+countriesJson : String
+countriesJson =
+    """%countriesJson%"""
+
+
+transportsJson : String
+transportsJson =
+    """%transportsJson%"""
+
+
+processes : Processes
+processes = 
+    { foodProcesses = foodProcessesJson
+    , textileProcesses = textileProcessesJson
+    }
+
+
+db : Processes -> Result String Db
+db { foodProcesses, textileProcesses } =
+    Result.map2 Db (foodDb foodProcesses) (textileDb textileProcesses)

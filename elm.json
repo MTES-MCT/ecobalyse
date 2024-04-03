@@ -6,6 +6,7 @@
         "direct": {
             "NoRedInk/elm-json-decode-pipeline": "1.0.1",
             "NoRedInk/elm-sortable-table": "1.0.0",
+            "NoRedInk/elm-uuid": "2.0.0",
             "chain-partners/elm-bignum": "1.0.1",
             "cuducos/elm-format-number": "8.1.4",
             "dillonkearns/elm-markdown": "7.0.1",
@@ -24,15 +25,17 @@
             "f0i/debug-to-json": "1.0.6",
             "futureworkz/elm-autocomplete": "1.0.2",
             "gingko/time-distance": "2.4.0",
-            "ianmackenzie/elm-units": "2.9.0",
+            "ianmackenzie/elm-units": "2.10.0",
             "krisajenkins/remotedata": "6.0.1",
-            "kuon/elm-string-normalize": "1.0.5",
+            "kuon/elm-string-normalize": "1.0.6",
             "ohanhi/remotedata-http": "4.0.0",
             "rtfeldman/elm-iso8601-date-strings": "1.1.4",
             "truqu/elm-base64": "2.0.4",
             "turboMaCk/any-dict": "2.6.0"
         },
         "indirect": {
+            "NoRedInk/elm-random-general": "1.0.0",
+            "NoRedInk/elm-random-pcg-extended": "1.0.0",
             "elm/bytes": "1.0.8",
             "elm/file": "1.0.5",
             "elm/parser": "1.1.0",
@@ -46,7 +49,7 @@
     },
     "test-dependencies": {
         "direct": {
-            "elm-explorations/test": "2.1.1"
+            "elm-explorations/test": "2.2.0"
         },
         "indirect": {
             "elm/random": "1.0.0"

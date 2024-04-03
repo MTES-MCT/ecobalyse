@@ -21,7 +21,7 @@ ACTIVITIES = "activities.json"
 IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
 # Output
 MATERIALS = "../../public/data/textile/materials.json"
-PROCESSES = "../../public/data/textile/processes.json"
+PROCESSES = "../../public/data/textile/processes_impacts.json"
 
 projects.set_current(PROJECT)
 # projects.activate_project(PROJECT)
@@ -63,13 +63,9 @@ if __name__ == "__main__":
     materials = [
         {
             "id": activity["id"],
-            "materialAndSpinningProcessUuid": uuidOrSearch(
-                activity["materialAndSpinningProcessUuid"]
-            ),
             "materialProcessUuid": uuidOrSearch(activity["materialProcessUuid"]),
             "recycledProcessUuid": uuidOrSearch(activity["recycledProcessUuid"]),
             "recycledFrom": activity["recycledFrom"],
-            "search": activity["search"] if "search" in activity else "",
             "name": activity["name"],
             "shortName": activity["shortName"],
             "origin": activity["origin"],
@@ -86,7 +82,6 @@ if __name__ == "__main__":
     print("Creating process list...")
     processes = {
         activity["name"]: {
-            "search": activity["search"] if "search" in activity else "",
             "name": activity["name"],
             "info": activity["info"],
             "unit": activity["unit"],

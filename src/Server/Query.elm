@@ -7,28 +7,28 @@ module Server.Query exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
-import Data.Food.Db as FoodDb
+import Data.Food.Db as Food
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as BuilderQuery
 import Data.Food.Retail as Retail exposing (Distribution)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db as TextileDb
+import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
-import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
-import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Query as TextileQuery
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Dict exposing (Dict)
+import Duration exposing (Duration)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -64,27 +64,27 @@ succeed =
     always >> Query.custom ""
 
 
-parseFoodQuery : FoodDb.Db -> Parser (Result Errors BuilderQuery.Query)
-parseFoodQuery foodDb =
+parseFoodQuery : List Country -> Food.Db -> Parser (Result Errors BuilderQuery.Query)
+parseFoodQuery countries food =
     succeed (Ok BuilderQuery.Query)
-        |> apply (ingredientListParser "ingredients" foodDb)
-        |> apply (maybeTransformParser "transform" foodDb.processes)
-        |> apply (packagingListParser "packaging" foodDb.processes)
+        |> apply (ingredientListParser "ingredients" countries food)
+        |> apply (maybeTransformParser "transform" food.processes)
+        |> apply (packagingListParser "packaging" food.processes)
         |> apply (distributionParser "distribution")
         |> apply (preparationListParser "preparation")
 
 
-ingredientListParser : String -> FoodDb.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
-ingredientListParser key foodDb =
+ingredientListParser : String -> List Country -> Food.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
+ingredientListParser key countries food =
     Query.custom (key ++ "[]")
-        (List.map (ingredientParser foodDb)
+        (List.map (ingredientParser countries food)
             >> RE.combine
             >> Result.mapError (\err -> ( key, err ))
         )
 
 
-ingredientParser : FoodDb.Db -> String -> Result String BuilderQuery.IngredientQuery
-ingredientParser { countries, ingredients } string =
+ingredientParser : List Country -> Food.Db -> String -> Result String BuilderQuery.IngredientQuery
+ingredientParser countries food string =
     let
         byPlaneParser byPlane ingredient =
             ingredient
@@ -95,7 +95,7 @@ ingredientParser { countries, ingredients } string =
         [ id, mass ] ->
             let
                 ingredient =
-                    ingredients
+                    food.ingredients
                         |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
@@ -103,12 +103,11 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
-                |> RE.andMap (Ok Nothing)
 
         [ id, mass, countryCode ] ->
             let
                 ingredient =
-                    ingredients
+                    food.ingredients
                         |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
@@ -116,12 +115,11 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
-                |> RE.andMap (Ok Nothing)
 
         [ id, mass, countryCode, byPlane ] ->
             let
                 ingredient =
-                    ingredients
+                    food.ingredients
                         |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
@@ -129,65 +127,12 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
-                |> RE.andMap (Ok Nothing)
-
-        [ id, mass, countryCode, byPlane, complements ] ->
-            let
-                ingredient =
-                    ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
-            in
-            Ok BuilderQuery.IngredientQuery
-                |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (countryParser countries Scope.Food countryCode)
-                |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
-                |> RE.andMap (ingredient |> Result.andThen (complementsParser complements))
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."
 
         _ ->
             Err <| "Format d'ingrédient invalide : " ++ string ++ "."
-
-
-complementsParser : String -> Ingredient -> Result String (Maybe Ingredient.Complements)
-complementsParser string { name, categories } =
-    let
-        parseComplement : String -> Result String Split
-        parseComplement str =
-            case String.toInt str of
-                Just int ->
-                    Split.fromPercent int
-
-                Nothing ->
-                    Err <| "Valeur de bonus invalide : " ++ str ++ "."
-    in
-    -- Format is either x:y (vegetables) or x:y:z (from animal origin, z being the welfare bonus)
-    case String.split ":" string of
-        [ a, b ] ->
-            Ok Ingredient.Complements
-                |> RE.andMap (parseComplement a)
-                |> RE.andMap (parseComplement b)
-                |> RE.andMap (Ok Split.zero)
-                |> Result.map Just
-
-        [ a, b, c ] ->
-            if not (List.member IngredientCategory.AnimalProduct categories) then
-                Err <| "L'ingrédient " ++ name ++ " ne permet pas l'application d'un bonus sur les conditions d'élevage."
-
-            else
-                Ok Ingredient.Complements
-                    |> RE.andMap (parseComplement a)
-                    |> RE.andMap (parseComplement b)
-                    |> RE.andMap (parseComplement c)
-                    |> Result.map Just
-
-        [ "" ] ->
-            Ok Nothing
-
-        _ ->
-            Err <| "Format de bonus d'ingrédient invalide: " ++ string ++ "."
 
 
 countryParser : List Country -> Scope -> String -> Result String (Maybe Country.Code)
@@ -327,12 +272,69 @@ maybeTransformParser key transforms =
             )
 
 
+maybePriceParser : String -> Parser (ParseResult (Maybe Economics.Price))
+maybePriceParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (String.toFloat
+                    >> Maybe.map Economics.priceFromFloat
+                    >> Result.fromMaybe "Ce prix est invalide"
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
 distributionParser : String -> Parser (ParseResult (Maybe Distribution))
 distributionParser key =
     Query.string key
         |> Query.map
             (Maybe.map
                 (Retail.fromString
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeDurationParser : String -> Parser (ParseResult (Maybe Duration))
+maybeDurationParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (String.toFloat
+                    >> Maybe.map Duration.days
+                    >> Result.fromMaybe "Cette durée en jours est invalide"
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeBusiness : String -> Parser (ParseResult (Maybe Economics.Business))
+maybeBusiness key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (Economics.businessFromString
+                    >> Result.map Just
+                    >> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeIntParser : String -> Parser (ParseResult (Maybe Int))
+maybeIntParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (String.toInt
+                    >> Result.fromMaybe "Nombre entier invalide"
                     >> Result.map Just
                     >> Result.mapError (\err -> ( key, err ))
                 )
@@ -355,19 +357,17 @@ parseTransform_ transforms string =
             Err <| "Format de procédé de transformation invalide : " ++ string ++ "."
 
 
-parseTextileQuery : TextileDb.Db -> Parser (Result Errors Inputs.Query)
-parseTextileQuery textileDb =
-    succeed (Ok Inputs.Query)
+parseTextileQuery : List Country -> Textile.Db -> Parser (Result Errors TextileQuery.Query)
+parseTextileQuery countries textile =
+    succeed (Ok TextileQuery.Query)
         |> apply (massParserInKilograms "mass")
-        |> apply (materialListParser "materials" textileDb.materials textileDb.countries)
-        |> apply (productParser "product" textileDb.products)
-        |> apply (maybeTextileCountryParser "countrySpinning" textileDb.countries)
-        |> apply (textileCountryParser "countryFabric" textileDb.countries)
-        |> apply (textileCountryParser "countryDyeing" textileDb.countries)
-        |> apply (textileCountryParser "countryMaking" textileDb.countries)
+        |> apply (materialListParser "materials" textile.materials countries)
+        |> apply (productParser "product" textile.products)
+        |> apply (maybeTextileCountryParser "countrySpinning" countries)
+        |> apply (textileCountryParser "countryFabric" countries)
+        |> apply (textileCountryParser "countryDyeing" countries)
+        |> apply (textileCountryParser "countryMaking" countries)
         |> apply (maybeSplitParser "airTransportRatio")
-        |> apply (maybeQualityParser "quality")
-        |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (maybeMakingDeadStockParser "makingDeadStock")
         |> apply (maybeMakingComplexityParser "makingComplexity")
@@ -378,7 +378,11 @@ parseTextileQuery textileDb =
         |> apply (maybeBoolParser "fading")
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybePrinting "printing")
-        |> apply (maybeEnnoblingHeatSource "ennoblingHeatSource")
+        |> apply (maybeBusiness "business")
+        |> apply (maybeDurationParser "marketingDuration")
+        |> apply (maybeIntParser "numberOfReferences")
+        |> apply (maybePriceParser "price")
+        |> apply (maybeBoolParser "traceability")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -460,7 +464,7 @@ productParser key products =
             )
 
 
-materialListParser : String -> List Material -> List Country -> Parser (ParseResult (List Inputs.MaterialQuery))
+materialListParser : String -> List Material -> List Country -> Parser (ParseResult (List TextileQuery.MaterialQuery))
 materialListParser key materials countries =
     Query.custom (key ++ "[]")
         (List.map (parseMaterial_ materials countries)
@@ -470,7 +474,7 @@ materialListParser key materials countries =
         )
 
 
-parseMaterial_ : List Material -> List Country -> String -> Result String Inputs.MaterialQuery
+parseMaterial_ : List Material -> List Country -> String -> Result String TextileQuery.MaterialQuery
 parseMaterial_ materials countries string =
     case String.split ";" string of
         [ id, share, spinningString, countryCode ] ->
@@ -478,7 +482,7 @@ parseMaterial_ materials countries string =
                 |> Material.findById (Material.Id id)
                 |> Result.andThen
                     (\material ->
-                        Ok Inputs.MaterialQuery
+                        Ok TextileQuery.MaterialQuery
                             |> RE.andMap (Ok material.id)
                             |> RE.andMap (parseSplit share)
                             |> RE.andMap (parseSpinning material spinningString)
@@ -490,7 +494,7 @@ parseMaterial_ materials countries string =
                 |> Material.findById (Material.Id id)
                 |> Result.andThen
                     (\material ->
-                        Ok Inputs.MaterialQuery
+                        Ok TextileQuery.MaterialQuery
                             |> RE.andMap (Ok material.id)
                             |> RE.andMap (parseSplit share)
                             |> RE.andMap (parseSpinning material spinningString)
@@ -498,7 +502,7 @@ parseMaterial_ materials countries string =
                     )
 
         [ id, share ] ->
-            Ok Inputs.MaterialQuery
+            Ok TextileQuery.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
                 |> RE.andMap (parseSplit share)
                 |> Result.map (\partiallyApplied -> partiallyApplied Nothing Nothing)
@@ -554,7 +558,7 @@ parseSpinning material spinningString =
                 )
 
 
-validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)
+validateMaterialList : List TextileQuery.MaterialQuery -> Result String (List TextileQuery.MaterialQuery)
 validateMaterialList list =
     if list == [] then
         Ok []
@@ -618,23 +622,6 @@ maybeDyeingMedium key =
             )
 
 
-maybeEnnoblingHeatSource : String -> Parser (ParseResult (Maybe HeatSource))
-maybeEnnoblingHeatSource key =
-    Query.string key
-        |> Query.map
-            (Maybe.map
-                (\str ->
-                    case HeatSource.fromString str of
-                        Ok heatSource ->
-                            Ok (Just heatSource)
-
-                        Err err ->
-                            Err ( key, err )
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
-
-
 maybePrinting : String -> Parser (ParseResult (Maybe Printing))
 maybePrinting key =
     Query.string key
@@ -663,64 +650,6 @@ maybeSplitParser key =
 
                     else
                         Ok (Result.toMaybe (Split.fromFloat float))
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
-
-
-maybeQualityParser : String -> Parser (ParseResult (Maybe Unit.Quality))
-maybeQualityParser key =
-    floatParser key
-        |> Query.map
-            (Maybe.map
-                (\float ->
-                    let
-                        ( min, max ) =
-                            ( Unit.qualityToFloat Unit.minQuality
-                            , Unit.qualityToFloat Unit.maxQuality
-                            )
-                    in
-                    if float < min || float > max then
-                        Err
-                            ( key
-                            , "Le coefficient de qualité intrinsèque doit être compris entre "
-                                ++ String.fromFloat min
-                                ++ " et "
-                                ++ String.fromFloat max
-                                ++ "."
-                            )
-
-                    else
-                        Ok (Just (Unit.quality float))
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
-
-
-maybeReparabilityParser : String -> Parser (ParseResult (Maybe Unit.Reparability))
-maybeReparabilityParser key =
-    floatParser key
-        |> Query.map
-            (Maybe.map
-                (\float ->
-                    let
-                        ( min, max ) =
-                            ( Unit.reparabilityToFloat Unit.minReparability
-                            , Unit.reparabilityToFloat Unit.maxReparability
-                            )
-                    in
-                    if float < min || float > max then
-                        Err
-                            ( key
-                            , "Le coefficient de réparabilité doit être compris entre "
-                                ++ String.fromFloat min
-                                ++ " et "
-                                ++ String.fromFloat max
-                                ++ "."
-                            )
-
-                    else
-                        Ok (Just (Unit.reparability float))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

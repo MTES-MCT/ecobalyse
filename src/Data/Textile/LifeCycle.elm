@@ -16,21 +16,22 @@ module Data.Textile.LifeCycle exposing
 
 import Array exposing (Array)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs exposing (Inputs)
+import Data.Textile.Query exposing (Query)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
 import List.Extra as LE
 import Quantity
+import Static.Db exposing (Db)
 
 
 type alias LifeCycle =
     Array Step
 
 
-computeStepsTransport : TextileDb.Db -> Inputs -> LifeCycle -> LifeCycle
+computeStepsTransport : Db -> Inputs -> LifeCycle -> LifeCycle
 computeStepsTransport db inputs lifeCycle =
     lifeCycle
         |> Array.map
@@ -118,13 +119,13 @@ getStepProp label prop default =
     getStep label >> Maybe.map prop >> Maybe.withDefault default
 
 
-fromQuery : TextileDb.Db -> Inputs.Query -> Result String LifeCycle
+fromQuery : Db -> Query -> Result String LifeCycle
 fromQuery db =
     Inputs.fromQuery db >> Result.map (init db)
 
 
-init : TextileDb.Db -> Inputs -> LifeCycle
-init db inputs =
+init : Db -> Inputs -> LifeCycle
+init { textile } inputs =
     Inputs.countryList inputs
         |> List.map2
             (\( label, editable ) country ->
@@ -144,7 +145,7 @@ init db inputs =
             , ( Label.Use, False )
             , ( Label.EndOfLife, False )
             ]
-        |> List.map (Step.updateFromInputs db inputs)
+        |> List.map (Step.updateFromInputs textile inputs)
         |> Array.fromList
 
 

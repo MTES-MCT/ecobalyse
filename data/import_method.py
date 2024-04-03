@@ -8,7 +8,7 @@ import os
 import sys
 from bw2io.strategies import (
     drop_unspecified_subcategories,
-    #    fix_localized_water_flows,
+    fix_localized_water_flows,
     link_iterable_by_fields,
     match_subcategories,
     migrate_exchanges,
@@ -32,7 +32,7 @@ EXCLUDED_FOOD = [
     "normalize_simapro_biosphere_names",
     "normalize_biosphere_names",
     "fix_localized_water_flows",
-    "simapro-water",
+    # "simapro-water",
 ]
 
 
@@ -63,18 +63,19 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     if project == "food":
         ef.strategies = [
             s for s in ef.strategies if not any([e in repr(s) for e in EXCLUDED_FOOD])
-        ]
+        ]  # + [fix_localized_water_flows]
     if project == "textile":
         ef.strategies = [
             normalize_units,
             set_biosphere_type,
             # fix_localized_water_flows,  # adding it leads to 60m3
             drop_unspecified_subcategories,
-            functools.partial(normalize_biosphere_categories, lcia=True),
-            functools.partial(normalize_biosphere_names, lcia=True),
-            functools.partial(migrate_exchanges, migration="simapro-water"),
+            # functools.partial(normalize_biosphere_categories, lcia=True),
+            functools.partial(normalize_simapro_biosphere_names),
+            functools.partial(normalize_biosphere_names),
+            # functools.partial(migrate_exchanges, migration="simapro-water"),
             normalize_simapro_biosphere_categories,
-            normalize_simapro_biosphere_names,  # removing avoid multiple CFs
+            # normalize_simapro_biosphere_names,  # removing avoid multiple CFs
             functools.partial(
                 link_iterable_by_fields,
                 other=(

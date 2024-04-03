@@ -15,6 +15,7 @@ module Views.Format exposing
     , minutes
     , percent
     , picking
+    , priceInEUR
     , ratio
     , splitAsFloat
     , splitAsPercentage
@@ -28,6 +29,7 @@ import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Split as Split exposing (Split)
+import Data.Textile.Economics as Economics
 import Data.Unit as Unit
 import Decimal
 import Duration exposing (Duration)
@@ -68,7 +70,22 @@ formatFloat decimals float =
             FormatNumber.format { frenchLocale | decimals = Exact dc }
                 >> String.replace "−" "-"
     in
-    if float == 0 then
+    if isNaN float then
+        -- FIXME: this is a temporary workaround for when distances were missing
+        --        during computation of a score and we fallback to using Infinity
+        -- @see https://www.notion.so/e3866a56500d4dfd9c2fc1d3d44c58a1
+        "N/A"
+
+    else if isInfinite float then
+        (if float < 0 then
+            "-"
+
+         else
+            ""
+        )
+            ++ "∞"
+
+    else if float == 0 then
         "0"
 
     else if abs float >= 100 then
@@ -126,7 +143,7 @@ complement impact =
 
             else
                 formatted
-        , span [ class "fs-unit" ] [ text "\u{202F}µPts" ]
+        , span [ class "fs-unit" ] [ text "\u{202F}Pts" ]
         ]
 
 
@@ -164,6 +181,11 @@ megajoules =
 percent : Float -> Html msg
 percent =
     formatRichFloat 2 "%"
+
+
+priceInEUR : Economics.Price -> Html msg
+priceInEUR =
+    Economics.priceToFloat >> formatRichFloat 2 "€"
 
 
 squareMeters : Area -> Html msg
@@ -209,9 +231,9 @@ splitAsFloat int value =
         |> text
 
 
-splitAsPercentage : Split -> Html msg
-splitAsPercentage value =
-    Split.toPercentString value
+splitAsPercentage : Int -> Split -> Html msg
+splitAsPercentage decimals value =
+    Split.toPercentString decimals value
         ++ "\u{202F}%"
         |> Html.text
 

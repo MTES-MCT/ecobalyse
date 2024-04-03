@@ -23,6 +23,7 @@ The number of routes is n(n-1)/2 with n the number of countries.
 
 countries = [
     "AL",
+    "AU",
     "BD",
     "BE",
     "BR",
@@ -220,7 +221,7 @@ if __name__ == "__main__":
 
     compute_distances(countries, intermediarySave=True)
 
-    with open("distances.json", "w") as outfile:
+    with open("distances_raw.json", "w") as outfile:
         json.dump(distances, outfile)
     timeObj = str(datetime.now().time())
     print(timeObj + " finished writing output to distances.json")

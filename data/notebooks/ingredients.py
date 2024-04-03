@@ -17,8 +17,10 @@ import ipywidgets
 import json
 import pandas
 import pandas.io.formats.style
+import requests
 import shutil
 import subprocess
+import urllib.parse
 
 
 os.chdir("/home/jovyan/ecobalyse/data")
@@ -26,6 +28,42 @@ PROJECT = "food"
 ACTIVITIES = "/home/jovyan/ecobalyse/data/food/activities.json"
 ACTIVITIES_TEMP = "/home/jovyan/activities.%s.json"
 AGRIBALYSE = "Agribalyse 3.1.1"
+CROP_GROUPS = [
+    "BLE TENDRE",
+    "MAIS GRAIN ET ENSILAGE",
+    "ORGE",
+    "AUTRES CEREALES",
+    "COLZA",
+    "TOURNESOL",
+    "AUTRES OLEAGINEUX",
+    "PROTEAGINEUX",
+    "PLANTES A FIBRES",
+    "SEMENCES",
+    "GEL (surfaces gelées sans production)",
+    "GEL INDUSTRIEL",
+    "AUTRES GELS",
+    "RIZ",
+    "LEGUMINEUSES A GRAIN",
+    "FOURRAGE",
+    "ESTIVES LANDES",
+    "PRAIRIES PERMANENTES",
+    "PRAIRIES TEMPORAIRES",
+    "VERGERS",
+    "VIGNES",
+    "FRUITS A COQUES",
+    "OLIVIERS",
+    "AUTRES CULTURES INDUSTRIELLES",
+    "LEGUMES-FLEURS",
+    "CANNE A SUCRE",
+    "ARBORICULTURE",
+    "DIVERS",
+    "BOVINS VIANDE",
+    "BOVINS LAIT",
+    "OVINS VIANDE",
+    "OVINS LAIT",
+    "VOLAILLES",
+    "PORCINS",
+]
 
 projects.set_current(PROJECT)
 # projects.create_project(PROJECT, activate=True, exist_ok=True)
@@ -43,6 +81,16 @@ pandas.set_option("notebook_repr_html", True)
 pandas.set_option("max_colwidth", 15)
 
 
+def spproject(activity):
+    match activity.get("database"):
+        case "Ginko":
+            return "Ginko"
+        case "Ecobalyse":
+            return "Ecobalyse"
+        case _:
+            return "AGB3.1.1 2023-03-06"
+
+
 def dbsearch(db, term, **kw):
     return bw2data.Database(db).search(term, **kw)
 
@@ -50,13 +98,6 @@ def dbsearch(db, term, **kw):
 def cleanup_json(activities):
     """consistency of the json file"""
     for i, a in enumerate(activities):
-        # remove animal-welfare for non animal products
-        if (
-            "animal_product" not in a.get("categories", {})
-            and "dairy_product" not in a.get("categories", {})
-            and "animal-welfare" in a.get("complements", {})
-        ):
-            del activities[i]["complements"]["animal-welfare"]
         # remove categories for non-ingredients
         if a["category"] != "ingredient":
             for x in (
@@ -118,10 +159,16 @@ FIELDS = {
     "transport_cooling": "Transport réfrigéré",
     "visible": "Visible",
     "explain": "Commentaires",
-    # complements
-    "complements.agro-diversity": "Biodiversité territoriale",
-    "complements.agro-ecology": "Résilience territoriale",
-    "complements.animal-welfare": "Conditions d'élevage",
+    # EcosystemicServices for animal products
+    "ecosystemicServices.hedges": "Haies",
+    "ecosystemicServices.plotSize": "Taille de parcelles",
+    "ecosystemicServices.cropDiversity": "Diversité culturale",
+    "ecosystemicServices.permanentPasture": "Prairies permanentes",
+    "ecosystemicServices.livestockDensity": "Chargement territorial",
+    # EcosystemicServices for other products
+    "crop_group": "Groupe de culture",
+    "land_occupation": "Empreinte terrestre (m²a)",
+    "scenario": "Scenario",
 }
 
 
@@ -232,18 +279,18 @@ w_category = ipywidgets.Dropdown(
 )
 w_categories = ipywidgets.TagsInput(
     allowed_tags=[
-        ("animal_product"),
-        ("dairy_product"),
-        ("grain_raw"),
-        ("grain_processed"),
-        ("nut_oilseed_raw"),
-        ("nut_oilseed_processed"),
-        ("misc"),
-        ("spice_condiment_additive"),
-        ("vegetable_fresh"),
-        ("vegetable_processed"),
-        ("organic"),
-        ("bleublanccoeur"),
+        "animal_product",
+        "dairy_product",
+        "grain_raw",
+        "grain_processed",
+        "nut_oilseed_raw",
+        "nut_oilseed_processed",
+        "misc",
+        "spice_condiment_additive",
+        "vegetable_fresh",
+        "vegetable_processed",
+        "organic",
+        "bleublanccoeur",
     ],
     style=style,
     allow_duplicates=False,
@@ -350,25 +397,16 @@ w_explain = ipywidgets.Textarea(
 
 ## COMPLEMENTS
 
-# default coef for the complement indicators
-w_complement_agrodiv = ipywidgets.IntSlider(
-    style=style,
-    min=0,
-    max=100,
-    step=5,
-)
-w_complement_agroeco = ipywidgets.IntSlider(
-    min=0,
-    max=100,
-    step=5,
-    style=style,
-)
-w_complement_animal_welfare = ipywidgets.IntSlider(
-    min=0,
-    max=100,
-    step=5,
-    style=style,
-)
+# default coef for the ecosystemic services indicators
+w_ecosys_hedges = ipywidgets.FloatText(style=style, step=0.01)
+w_ecosys_plotSize = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_cropDiversity = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_permanentPasture = ipywidgets.FloatText(step=0.01, style=style)
+w_ecosys_livestockDensity = ipywidgets.FloatText(step=0.01, style=style)
+# parameters used to compute ecosystemicServices
+w_cropGroup = ipywidgets.Dropdown(options=CROP_GROUPS, style=style, value=None)
+w_landFootprint = ipywidgets.FloatText()
+w_scenario = ipywidgets.Dropdown(options=["reference", "organic", "import"], value=None)
 
 # buttons
 savebutton = ipywidgets.Button(
@@ -478,10 +516,14 @@ def clear_form():
     w_inedible.value = 1
     w_cooling.value = "none"
     w_visible.value = True
-    w_complement_agrodiv.value = 0
-    w_complement_agroeco.value = 0
-    w_complement_animal_welfare.disabled = False
-    w_complement_animal_welfare.value = 0
+    w_ecosys_hedges.value = 0
+    w_ecosys_plotSize.value = 0
+    w_ecosys_cropDiversity.value = 0
+    w_ecosys_permanentPasture.value = 0
+    w_ecosys_livestockDensity.value = 0
+    w_cropGroup.value = None
+    w_landFootprint.value = 0
+    w_scenario.value = None
 
 
 def set_field(field, value, default):
@@ -499,7 +541,7 @@ def display_of(activity):
     return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
 
 
-def change_contributor(change):
+def change_contributor(_):
     list_activities(w_filter.value)
 
 
@@ -507,13 +549,7 @@ w_contributor.observe(change_contributor, names="value")
 
 
 def change_categories(_):
-    w_complement_animal_welfare.disabled = (
-        False
-        if "animal_product" in w_categories.value
-        or "dairy_product" in w_categories.value
-        or not w_categories.value
-        else True
-    )
+    pass
 
 
 w_categories.observe(change_categories, names="value")
@@ -540,6 +576,7 @@ def change_id(change):
         i.get("default_origin"),
         "EuropeAndMaghreb",
     )
+    set_field(w_explain, i.get("explain"), "")
     set_field(w_category, i.get("category"), "")
     set_field(w_categories, i.get("categories"), [])
     set_field(w_raw_to_cooked_ratio, i.get("raw_to_cooked_ratio"), 1)
@@ -547,13 +584,18 @@ def change_id(change):
     set_field(w_inedible, i.get("inedible_part"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
     set_field(w_visible, i.get("visible"), True)
-    set_field(w_complement_agrodiv, i.get("complements.agro-diversity"), 0)
-    set_field(w_complement_agroeco, i.get("complements.agro-ecology"), 0)
+    set_field(w_ecosys_hedges, i.get("ecosystemicServices.hedges"), 0)
+    set_field(w_ecosys_plotSize, i.get("ecosystemicServices.plotSize"), 0)
+    set_field(w_ecosys_cropDiversity, i.get("ecosystemicServices.cropDiversity"), 0)
     set_field(
-        w_complement_animal_welfare,
-        i.get("complements.animal-welfare"),
-        0,
+        w_ecosys_permanentPasture, i.get("ecosystemicServices.permanentPasture"), 0
     )
+    set_field(
+        w_ecosys_livestockDensity, i.get("ecosystemicServices.livestockDensity"), 0
+    )
+    set_field(w_scenario, i.get("scenario"), None)
+    set_field(w_cropGroup, i.get("crop_group"), None)
+    set_field(w_landFootprint, i.get("land_occupation"), 0)
 
 
 w_id.observe(change_id, names="value")
@@ -599,9 +641,9 @@ w_filter.observe(change_filter, names="value")
 def add_activity(_):
     activity = {
         "id": w_id.value,
-        "name": w_name.value,
+        "name": w_name.value.strip(),
         "database": w_database.value,
-        "search": w_search.value,
+        "search": w_search.value.strip(),
         "category": w_category.value,
         "categories": w_categories.value,
         "default_origin": w_default_origin.value,
@@ -610,11 +652,24 @@ def add_activity(_):
         "inedible_part": w_inedible.value,
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
-        "explain": w_explain.value,
-        "complements.agro-diversity": w_complement_agrodiv.value,
-        "complements.agro-ecology": w_complement_agroeco.value,
-        "complements.animal-welfare": w_complement_animal_welfare.value,
+        "explain": w_explain.value.strip(),
     }
+    activity.update(
+        {
+            "ecosystemicServices.hedges": w_ecosys_hedges.value,
+            "ecosystemicServices.plotSize": w_ecosys_plotSize.value,
+            "ecosystemicServices.cropDiversity": w_ecosys_cropDiversity.value,
+            "ecosystemicServices.permanentPasture": w_ecosys_permanentPasture.value,
+            "ecosystemicServices.livestockDensity": w_ecosys_livestockDensity.value,
+        }
+        if "animal_product" in w_categories.value
+        or "dairy_product" in w_categories.value
+        else {
+            "crop_group": w_cropGroup.value,
+            "scenario": w_scenario.value,
+            "land_occupation": w_landFootprint.value,
+        }
+    )
     activity = {k: v for k, v in activity.items() if v != ""}
     activities = read_activities()
     if "id" not in activity:
@@ -722,22 +777,43 @@ def reset_branch():
 @surface_output.capture()
 def display_surface(activity):
     surface_output.clear_output()
-    display(ipywidgets.HTML("Computing surface..."))
+    display(ipywidgets.HTML("Computing surface... (please wait at least 15s)"))
     lca = bw2calc.LCA({activity: 1})
     method = ("selected LCI results", "resource", "land occupation")
     try:
         lca.lci()
         lca.switch_method(method)
         lca.lcia()
-        surface_output.clear_output()
-        display(
-            ipywidgets.HTML(
-                f"{lca.score} {bw2data.methods[method].get('unit', '(no unit)')}"
-            )
-        )
+        bwsurface = lca.score
+        bwoutput = str(bwsurface)
     except Exception as e:
-        display(ipywidgets.HTML("Impossible de calculer la surface mobilisée:"))
-        display(e)
+        bwsurface = 0
+        bwoutput = repr(e)
+    try:
+        process = urllib.parse.quote(activity["name"], encoding=None, errors=None)
+        project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
+        method = urllib.parse.quote("Selected LCI results", encoding=None, errors=None)
+        spsurface = (
+            json.loads(
+                requests.get(
+                    f"http://simapro.ecobalyse.fr:8000/impact?process={process}&project={project}&method={method}"
+                ).content
+            )
+            .get("Land occupation", {})
+            .get("amount", 0)
+        )
+        spoutput = str(spsurface)
+        spsurface = float(spsurface)
+    except Exception as e:
+        spsurface = 0
+        spoutput = repr(e)
+    w_landFootprint.value = spsurface or bwsurface
+    surface_output.clear_output()
+    display(
+        ipywidgets.HTML(
+            "<ul>" f"<li>Brightway: {bwoutput}" f"<li>SimaPro: {spoutput}" "</ul>"
+        )
+    )
 
 
 @reset_output.capture()
@@ -898,23 +974,23 @@ sur le bouton vert « Réinitialiser ». </li>
                         """
                         """
 <li><b>Étape 3)</b> Ajouter un ingrédient :</li>
-Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
+Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
 de l’ingrédient à ajouter. <div style="padding-left: 50px">En utilisant
 l'explorateur depuis un autre onglet, il faut d'abord identifier l'ICV
 correspondant à l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par
-exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
+exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
 adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
 vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
 Technosphere de l'explorateur permet de vérifier les procédés qui entrent dans
-la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
-du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
+la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
+du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
 annexed plant | Cut-off, S - Copied from Écoinvent U {RoW} ».</div> Après
-chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
+chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
 cette étape pour chaque ingrédient.
                         """
                         """
-<li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
-« Publier », et cliquez sur le bouton rouge une fois l’ensemble des
+<li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
+« Publier », et cliquez sur le bouton rouge une fois l’ensemble des
 modifications faites et les ingrédients ajoutés. Vos modifications arrivent sur
 la branche indiquée et pourra être vérifiée et intégrée en production dans
 Ecobalyse</li></ul>
@@ -1117,39 +1193,103 @@ Ecobalyse</li></ul>
                                         ),
                                     ),
                                     ipywidgets.HTML(
-                                        """<hr/>Pour les compléments hors ACV, voir
-                                        la <a style="color:blue"
-                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
-                                        """
+                                        """<hr/>Pour les services écosystémiques, voir
+                                            la <a style="color:blue"
+                                            href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
+                                            (TODO: mettre à jour le lien)
+                                            """
                                     ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["complements.agro-diversity"],
+                                    ipywidgets.Accordion(
+                                        titles=[
+                                            "Services écosystémiques : Ingrédients d'origine animale",
+                                            "Services écosystémiques : Autres ingrédients",
+                                        ],
+                                        children=[
+                                            ipywidgets.VBox(
+                                                [
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.hedges"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_hedges,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.plotSize"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_plotSize,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.cropDiversity"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_cropDiversity,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.permanentPasture"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_permanentPasture,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "ecosystemicServices.livestockDensity"
+                                                                ],
+                                                            ),
+                                                            w_ecosys_livestockDensity,
+                                                        ),
+                                                    ),
+                                                ]
                                             ),
-                                            w_complement_agrodiv,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["complements.agro-ecology"],
+                                            ipywidgets.VBox(
+                                                [
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS["crop_group"],
+                                                            ),
+                                                            w_cropGroup,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS["scenario"],
+                                                            ),
+                                                            w_scenario,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS[
+                                                                    "land_occupation"
+                                                                ],
+                                                            ),
+                                                            w_landFootprint,
+                                                        ),
+                                                    ),
+                                                ]
                                             ),
-                                            w_complement_agroeco,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """Les conditions d'élevage ne sont exportées que si
-                                        l'ingrédient est dans la catégorie <i>animal_product</i> ou
-                                        <i>dairy_product</i>."""
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["complements.animal-welfare"],
-                                            ),
-                                            w_complement_animal_welfare,
-                                        ),
+                                        ],
                                     ),
                                 ),
                             ),

@@ -7,7 +7,6 @@ module Data.Transport exposing
     , computeImpacts
     , decodeDistances
     , default
-    , defaultInland
     , encode
     , getTransportBetween
     , roadSeaTransportRatio
@@ -16,9 +15,8 @@ module Data.Transport exposing
     )
 
 import Data.Country as Country
-import Data.Food.Process as Process
+import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
@@ -58,19 +56,15 @@ default impacts =
     }
 
 
-defaultInland : Scope -> Impacts -> Transport
-defaultInland scope impacts =
-    { road =
-        case scope of
-            Scope.Food ->
-                Length.kilometers 0
-
-            Scope.Textile ->
-                Length.kilometers 500
-    , roadCooled = Quantity.zero
-    , sea = Quantity.zero
-    , seaCooled = Quantity.zero
-    , air = Quantity.zero
+erroneous : Impacts -> Transport
+erroneous impacts =
+    -- FIXME temporary data to display something weird instead of zero, until
+    -- we use of a Result String Transport in the transport computations
+    { road = Quantity.infinity
+    , roadCooled = Quantity.infinity
+    , sea = Quantity.infinity
+    , seaCooled = Quantity.infinity
+    , air = Quantity.infinity
     , impacts = impacts
     }
 
@@ -93,7 +87,7 @@ addRoadWithCooling distance withCooling transport =
         { transport | road = transport.road |> Quantity.plus distance }
 
 
-computeImpacts : { a | wellKnown : Process.WellKnown } -> Mass -> Transport -> Transport
+computeImpacts : { a | wellKnown : WellKnown } -> Mass -> Transport -> Transport
 computeImpacts { wellKnown } mass transport =
     let
         transportImpacts =
@@ -176,30 +170,25 @@ roadSeaTransportRatio { road, sea } =
 
 
 getTransportBetween :
-    Scope
-    -> Impacts
+    Impacts
     -> Country.Code
     -> Country.Code
     -> Distances
     -> Transport
-getTransportBetween scope impacts cA cB distances =
-    if cA == cB then
-        defaultInland scope impacts
+getTransportBetween impacts cA cB distances =
+    case
+        ( distances |> Dict.get cA |> Maybe.andThen (Dict.get cB)
+        , distances |> Dict.get cB |> Maybe.andThen (Dict.get cA)
+        )
+    of
+        ( Just transport, _ ) ->
+            { transport | impacts = impacts }
 
-    else
-        distances
-            |> Dict.get cA
-            |> Maybe.map
-                (\countries ->
-                    case Dict.get cB countries of
-                        Just transport ->
-                            { transport | impacts = impacts }
+        ( _, Just transport ) ->
+            { transport | impacts = impacts }
 
-                        Nothing ->
-                            -- reverse query source dict
-                            getTransportBetween scope impacts cB cA distances
-                )
-            |> Maybe.withDefault (default impacts)
+        ( Nothing, Nothing ) ->
+            erroneous impacts
 
 
 decodeKm : Decoder Length

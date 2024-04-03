@@ -42,11 +42,13 @@ type MenuLink
 
 
 type alias Config msg a =
-    { session : { a | clientUrl : String, notifications : List Session.Notification, currentVersion : Version }
+    { session : { a | clientUrl : String, notifications : List Session.Notification, currentVersion : Version, store : Session.Store }
     , mobileNavigationOpened : Bool
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
     , loadUrl : String -> msg
+    , login : msg
+    , logout : msg
     , reloadPage : msg
     , closeNotification : Session.Notification -> msg
     , activePage : ActivePage
@@ -69,7 +71,7 @@ frame ({ activePage } as config) ( title, content ) =
             [ div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0 fs-7" ]
                 [ Container.centered [ class "d-flex align-items-center gap-2 fw-bold" ]
                     [ span [ class "fs-5" ] [ Icon.info ]
-                    , text "L'outil doit évoluer prochainement pour l'ouverture d'une phase de concertation."
+                    , text """L’outil présente un premier projet de référentiel technique soumis à concertation et non encore stabilisé"""
                     ]
                 ]
             , notificationListView config
@@ -129,8 +131,10 @@ mainMenuLinks : List MenuLink
 mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Textile" Route.TextileSimulatorHome TextileSimulator
-    , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
-    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
+
+    -- FIXME: all food-related stuff temporarily removed
+    -- , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
+    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
     , Internal "API" Route.Api Api
     ]
 
@@ -185,7 +189,7 @@ pageFooter { currentVersion } =
                         [ text label ]
 
                 MailTo label email ->
-                    a [ class "text-decoration-none link-email", href <| "mailto:" ++ email ]
+                    a [ class "text-decoration-none", href <| "mailto:" ++ email ]
                         [ text label ]
     in
     footer [ class "Footer" ]
@@ -294,8 +298,17 @@ pageHeader config =
                     , attribute "role" "navigation"
                     , attribute "aria-label" "Menu principal"
                     ]
-                    [ headerMenuLinks
+                    [ (headerMenuLinks
                         |> List.map (viewNavigationLink config.activePage)
+                      )
+                        ++ [ if Session.isAuthenticated config.session then
+                                button [ class "nav-link flex-fill text-end", onClick config.logout ] [ text "Déconnexion" ]
+
+                             else
+                                -- FIXME: login and out links are temprarily hidden by default
+                                -- button [ class "nav-link flex-fill text-end", onClick config.login ] [ text "Connexion" ]
+                                text ""
+                           ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
                 ]
@@ -348,6 +361,14 @@ notificationView { closeNotification } notification =
         Session.GenericError title message ->
             Alert.simple
                 { level = Alert.Danger
+                , title = Just title
+                , close = Just (closeNotification notification)
+                , content = [ text message ]
+                }
+
+        Session.GenericInfo title message ->
+            Alert.simple
+                { level = Alert.Info
                 , title = Just title
                 , close = Just (closeNotification notification)
                 , content = [ text message ]
