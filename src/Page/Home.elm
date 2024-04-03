@@ -31,11 +31,13 @@ type Msg
     = CloseModal
     | NoOp
     | OpenCalculatorPickerModal
+    | OpenPresentationVideoModal
     | ScrollIntoView String
 
 
 type Modal
     = CalculatorPickerModal
+    | PresentationVideoModal
     | NoModal
 
 
@@ -58,6 +60,9 @@ update session msg model =
 
         OpenCalculatorPickerModal ->
             ( { model | modal = CalculatorPickerModal }, session, Cmd.none )
+
+        OpenPresentationVideoModal ->
+            ( { model | modal = PresentationVideoModal }, session, Cmd.none )
 
         ScrollIntoView nodeId ->
             ( model, session, Ports.scrollIntoView nodeId )
@@ -86,9 +91,14 @@ viewHero modal =
                     [ text "Lancer le calculateur" ]
                 , button
                     [ class "btn btn-lg btn-outline-primary"
+                    , onClick OpenPresentationVideoModal
+                    ]
+                    [ text "Découvrir en vidéo" ]
+                , button
+                    [ class "btn btn-lg btn-outline-primary"
                     , onClick <| ScrollIntoView "decouvrir-ecobalyse"
                     ]
-                    [ text "Découvrir Écobalyse ↓" ]
+                    [ text "En savoir plus" ]
                 ]
             ]
         , case modal of
@@ -104,6 +114,38 @@ viewHero modal =
                     , subTitle = Nothing
                     , formAction = Nothing
                     , content = [ calculatorPickerModalContent ]
+                    , footer = []
+                    }
+
+            PresentationVideoModal ->
+                ModalView.view
+                    { size = ModalView.ExtraLarge
+                    , close = CloseModal
+                    , noOp = NoOp
+                    , title = "Sélectionnez le secteur concerné"
+                    , subTitle = Nothing
+                    , formAction = Nothing
+                    , content =
+                        [ div
+                            [ style "position" "relative"
+                            , style "padding-bottom" "38.33333333333333%"
+                            , style "height" "0"
+                            ]
+                            [ iframe
+                                [ src "https://www.loom.com/embed/3370423207d8425f849e5c7089e1095d?sid=55b7c957-21cb-4553-b5cc-ba6b81c5c641"
+                                , attribute "frameborder" "0"
+                                , attribute "webkitallowfullscreen" ""
+                                , attribute "mozallowfullscreen" ""
+                                , attribute "allowfullscreen" ""
+                                , style "position" "absolute"
+                                , style "top" "0"
+                                , style "left" "0"
+                                , style "width" "100%"
+                                , style "height" "100%"
+                                ]
+                                []
+                            ]
+                        ]
                     , footer = []
                     }
         ]
