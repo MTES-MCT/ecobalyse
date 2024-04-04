@@ -11,18 +11,63 @@ class DjangoAuthenticationTests(TestCase):
         self.assertContains(response, "Veuillez vous inscrire")
 
     def test_register_post(self):
+        # invalid mail
+        response = self.client.post(
+            reverse("register"),
+            {
+                "email": "test@@example.com",
+                "first_name": "John",
+                "last_name": "Doe",
+                "organization": "ACME",
+                "terms_of_use": True,
+                "next": "/",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Saisissez une adresse de courriel valide")
+
+        # missing first name
+        response = self.client.post(
+            reverse("register"),
+            {
+                "email": "test@example.com",
+                "first_name": "",
+                "last_name": "Doe",
+                "organization": "ACME",
+                "terms_of_use": True,
+                "next": "/",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Ce champ est obligatoire")
+
+        # missing last name
         response = self.client.post(
             reverse("register"),
             {
                 "email": "test@example.com",
                 "first_name": "John",
-                "last_name": "doe",
-                "company": "ACME",
+                "last_name": "",
+                "organization": "ACME",
                 "terms_of_use": True,
                 "next": "/",
             },
         )
-        # check we redirect to the confirmation page
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Ce champ est obligatoire")
+
+        # missing organization is OK
+        response = self.client.post(
+            reverse("register"),
+            {
+                "email": "test@example.com",
+                "first_name": "John",
+                "last_name": "Doe",
+                "organization": "",
+                "terms_of_use": True,
+                "next": "/",
+            },
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(
             response.headers["Location"], reverse("registration-requested")
