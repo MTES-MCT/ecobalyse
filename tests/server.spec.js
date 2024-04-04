@@ -577,6 +577,9 @@ async function expectListResponseContains(path, object) {
 }
 
 function expectStatus(response, code, type = "application/json") {
+  if (response.status === 400 && code != 400) {
+    expect(response.body).toHaveProperty("errors", "");
+  }
   expect(response.type).toBe(type);
   expect(response.statusCode).toBe(code);
 }
