@@ -24,7 +24,7 @@ class EcobalyseUserAdmin(AnonymizableAdminMixin, admin.ModelAdmin):
                 "fields": (
                     ("email", "is_active"),
                     ("first_name", "last_name"),
-                    ("company", "terms_of_use"),
+                    ("organization", "terms_of_use"),
                     ("token"),
                 )
             },
