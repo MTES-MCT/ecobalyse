@@ -172,7 +172,7 @@ def profile(request):
                     "email": u.email,
                     "first_name": u.first_name,
                     "last_name": u.last_name,
-                    "company": u.company,
+                    "organization": u.organization,
                     "terms_of_use": u.terms_of_use,
                     "token": u.token,
                 }
