@@ -485,7 +485,7 @@ viewRegisterForm ({ user } as model) =
                     , type_ = "text"
                     , id = "company"
                     , placeholder = "ACME SARL"
-                    , required = True
+                    , required = False
                     , value = user.company
                     , onInput =
                         \company ->
@@ -669,7 +669,7 @@ decodeUserInfo =
         |> Pipe.required "email" Decode.string
         |> Pipe.required "first_name" Decode.string
         |> Pipe.required "last_name" Decode.string
-        |> Pipe.required "company" Decode.string
+        |> Pipe.required "organization" Decode.string
         |> Pipe.required "terms_of_use" Decode.bool
         |> Pipe.required "token" Decode.string
 
@@ -685,7 +685,7 @@ encodeUserForm user =
         [ ( "email", Encode.string user.email )
         , ( "first_name", Encode.string user.firstname )
         , ( "last_name", Encode.string user.lastname )
-        , ( "company", Encode.string user.company )
+        , ( "organization", Encode.string user.company )
         , ( "terms_of_use", Encode.bool user.cgu )
         , ( "next", Encode.string user.next )
         ]
