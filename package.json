@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "auth:init": "DJANGO_DEBUG=True pipenv run data/backend/reinit.sh",
+    "auth:init": "cd data/backend && DJANGO_DEBUG=True pipenv run ./reinit.sh",
     "auth:migrate": "DJANGO_DEBUG=True pipenv run data/backend/manage.py migrate",
     "auth:serve": "DJANGO_DEBUG=True pipenv run data/backend/manage.py runserver",
     "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
