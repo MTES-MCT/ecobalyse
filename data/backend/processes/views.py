@@ -30,7 +30,7 @@ with open(join(PUBLIC_FOLDER, "food", "processes_impacts.json"), "r") as f:
 with open(join(PUBLIC_FOLDER, "textile", "processes_impacts.json"), "r") as f:
     textile_processes_detailed = f.read()
 
-processes = {
+processes_not_detailed = {
     "foodProcesses": food_processes,
     "textileProcesses": textile_processes,
 }
@@ -59,4 +59,4 @@ def processes(request):
             return JsonResponse(processes_detailed)
         else:
             # No auth
-            return JsonResponse(processes)
+            return JsonResponse(processes_not_detailed)
