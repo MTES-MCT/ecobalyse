@@ -24,7 +24,7 @@ class RegistrationForm(ModelForm):
     email = forms.CharField(label=_("E-mail"), max_length=30)
     first_name = forms.CharField(label=_("First Name"), max_length=30)
     last_name = forms.CharField(label=_("Last Name"), max_length=30)
-    company = forms.CharField(label=_("Company"), max_length=100)
+    organization = forms.CharField(label=_("Company"), max_length=100, required=False)
     terms_of_use = forms.BooleanField(
         label=_("I undertake not to use the data for commercial use")
     )
@@ -32,7 +32,14 @@ class RegistrationForm(ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ["email", "first_name", "last_name", "company", "terms_of_use", "next"]
+        fields = [
+            "email",
+            "first_name",
+            "last_name",
+            "organization",
+            "terms_of_use",
+            "next",
+        ]
 
     def __init__(self, request=None, *a, **kw):
         if request:
