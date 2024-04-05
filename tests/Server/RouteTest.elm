@@ -2,12 +2,14 @@ module Server.RouteTest exposing (..)
 
 import Data.Country as Country
 import Data.Food.Fixtures as Fixtures
+import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning
+import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Step.Label as Label
 import Dict exposing (Dict)
@@ -396,6 +398,7 @@ testEndpoint dbs method body url =
         { method = method
         , url = url
         , body = body
+        , processes = { foodProcesses = Encode.list FoodProcess.encode dbs.food.processes |> Encode.encode 0, textileProcesses = Encode.list TextileProcess.encode dbs.textile.processes |> Encode.encode 0 }
         , jsResponseHandler = Encode.null
         }
 
