@@ -325,12 +325,12 @@ describe("API", () => {
       for (const { name, query, impacts } of e2eTextile) {
         it(name, async () => {
           const response = await makeRequest("/api/textile/simulator", query);
-          expectStatus(response, 200);
           e2eOutput.textile.push({
             name,
             query,
-            impacts: response.body.impacts,
+            impacts: response.status === 200 ? response.body.impacts : {},
           });
+          expectStatus(response, 200);
           expect(response.body.impacts).toEqual(impacts);
         });
       }
@@ -512,13 +512,13 @@ describe("API", () => {
       for (const { name, query, impacts, scoring } of e2eFood) {
         it(name, async () => {
           const response = await makeRequest("/api/food", query);
-          expectStatus(response, 200);
           e2eOutput.food.push({
             name,
             query,
-            impacts: response.body.results.total,
-            scoring: response.body.results.scoring,
+            impacts: response.status === 200 ? response.body.results.total : {},
+            scoring: response.status === 200 ? response.body.results.scoring : {},
           });
+          expectStatus(response, 200);
           expect(response.body.results.total).toEqual(impacts);
           expect(response.body.results.scoring).toEqual(scoring);
         });
