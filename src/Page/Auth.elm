@@ -6,6 +6,7 @@ module Page.Auth exposing
     , view
     )
 
+import Data.Env as Env
 import Data.Session as Session exposing (Session)
 import Dict exposing (Dict)
 import Html exposing (..)
@@ -155,7 +156,7 @@ update session msg model =
             )
 
         ChangeAction action ->
-            ( { model | action = action }
+            ( { model | action = action, response = Nothing }
             , session
             , Cmd.none
             )
@@ -252,12 +253,18 @@ view session model =
                         "Connexion / Inscription"
                 ]
             , div [ class "row justify-content-center" ]
-                [ if model.loggedIn then
-                    text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux conditions"
-
-                  else if Session.isAuthenticated session then
+                [ if Session.isAuthenticated session then
                     div [ class "row d-flex justify-content-center" ]
-                        [ viewAccount model
+                        [ if model.loggedIn then
+                            p [ class "text-center" ]
+                                [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
+                                , a [ href Env.gitbookUrl ] [ text "conditions" ]
+                                , text "."
+                                ]
+
+                          else
+                            text ""
+                        , viewAccount model
                         , button
                             [ onClick Logout
                             , class "btn btn-link mb-3"
@@ -307,7 +314,7 @@ viewAccount model =
             , dd []
                 [ text model.user.firstname ]
             , dt []
-                [ text "Entreprise : " ]
+                [ text "Organisation : " ]
             , dd []
                 [ text model.user.company ]
             , dt []
@@ -481,7 +488,7 @@ viewRegisterForm ({ user } as model) =
                     }
                     model.response
                 , viewInput
-                    { label = "Entreprise"
+                    { label = "Organisation"
                     , type_ = "text"
                     , id = "company"
                     , placeholder = "ACME SARL"
