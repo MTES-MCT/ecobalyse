@@ -544,8 +544,12 @@ afterAll(() => {
   // with their contents.
   function writeE2eResult(key) {
     const target = `${__dirname}/e2e-${key}-output.json`;
-    fs.writeFileSync(target, JSON.stringify(e2eOutput[key], null, 2) + "\n");
-    console.info(`E2e ${key} tests output written to ${target}.`);
+    if (e2eOutput[key].length === 0) {
+      console.error(`Not writing ${target} since it's empty`);
+    } else {
+      fs.writeFileSync(target, JSON.stringify(e2eOutput[key], null, 2) + "\n");
+      console.info(`E2e ${key} tests output written to ${target}.`);
+    }
   }
 
   writeE2eResult("textile");
