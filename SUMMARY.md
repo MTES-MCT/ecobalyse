@@ -1,9 +1,9 @@
 # Table of contents
 
 * [🇫🇷 Ecobalyse](README.md)
-  * [Conditions d'utilisation](readme/conditions-dutilisation.md)
 * [🤝 Communauté](communaute.md)
 * [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres.md)
+* [Conditions d'utilisation](conditions-dutilisation.md)
 
 ## 👕 Textile
 
