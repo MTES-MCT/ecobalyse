@@ -80,7 +80,7 @@ describe("API", () => {
           const response = await makeRequest("/api/textile/simulator", successQuery);
 
           expectStatus(response, 200);
-          expect(response.body.impacts.cch).toBeGreaterThan(0);
+          expect(response.body.impacts.ecs).toBeGreaterThan(0);
         });
 
         it("should validate the mass param", async () => {
@@ -301,12 +301,12 @@ describe("API", () => {
       });
     });
 
-    describe("/simulator/fwe", () => {
+    describe("/simulator/ecs", () => {
       it("should accept a valid query", async () => {
-        const response = await makeRequest("/api/textile/simulator/fwe", successQuery);
+        const response = await makeRequest("/api/textile/simulator/ecs", successQuery);
 
         expectStatus(response, 200);
-        expect(response.body.impacts.fwe).toBeGreaterThan(0);
+        expect(response.body.impacts.ecs).toBeGreaterThan(0);
       });
     });
 
