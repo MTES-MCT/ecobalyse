@@ -1,13 +1,11 @@
 from django.test import TestCase
 from django.urls import reverse
-from authentication.views import register
-from django.test import Client
 
 
 class DjangoAuthenticationTests(TestCase):
     def test_display_register_form(self):
         response = self.client.get(reverse("register"))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(getattr(response, "status_code"), 200)
         self.assertContains(response, "Veuillez vous inscrire")
 
     def test_register_post(self):
@@ -23,7 +21,7 @@ class DjangoAuthenticationTests(TestCase):
                 "next": "/",
             },
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(getattr(response, "status_code"), 200)
         self.assertContains(response, "Saisissez une adresse de courriel valide")
 
         # missing first name
@@ -38,7 +36,7 @@ class DjangoAuthenticationTests(TestCase):
                 "next": "/",
             },
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(getattr(response, "status_code"), 200)
         self.assertContains(response, "Ce champ est obligatoire")
 
         # missing last name
@@ -53,7 +51,7 @@ class DjangoAuthenticationTests(TestCase):
                 "next": "/",
             },
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(getattr(response, "status_code"), 200)
         self.assertContains(response, "Ce champ est obligatoire")
 
         # missing organization is OK
@@ -68,12 +66,12 @@ class DjangoAuthenticationTests(TestCase):
                 "next": "/",
             },
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(getattr(response, "status_code"), 302)
         self.assertEqual(
-            response.headers["Location"], reverse("registration-requested")
+            getattr(response, "headers")["Location"], reverse("registration-requested")
         )
 
     def test_registration_confirmation(self):
         response = self.client.get(reverse("registration-requested"))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(getattr(response, "status_code"), 200)
         self.assertContains(response, "Vérifiez votre boîte e-mail")
