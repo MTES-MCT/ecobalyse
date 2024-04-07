@@ -50,7 +50,7 @@ app.use(
           "https://sentry.incubateur.net",
           "*.gouv.fr",
         ],
-        "frame-src": ["'self'", `https://${process.env.MATOMO_HOST}`],
+        "frame-src": ["'self'", `https://${process.env.MATOMO_HOST}`, "https://www.loom.com"],
         "img-src": [
           "'self'",
           "data:",

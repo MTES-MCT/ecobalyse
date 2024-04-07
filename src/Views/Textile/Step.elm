@@ -104,7 +104,7 @@ countryField cfg =
             div [ class "fs-6 text-muted d-flex align-items-center gap-2 " ]
                 [ span
                     [ class "cursor-help"
-                    , title "Le pays n'est pas modifiable à cet étape"
+                    , title "Le pays n'est pas modifiable à cette étape"
                     ]
                     [ Icon.lock ]
                 , text cfg.current.country.name
@@ -601,7 +601,11 @@ simpleView c =
                                     text ""
                             ]
                         , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                            [ BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
+                            [ if List.member c.current.label [ Label.Distribution, Label.Use, Label.EndOfLife ] then
+                                text ""
+
+                              else
+                                BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
                             ]
                         ]
 
@@ -905,10 +909,13 @@ viewProcessInfo processName =
 
 daysOfWearInfo : Config msg modal -> Html msg
 daysOfWearInfo { daysOfWear, useNbCycles } =
-    small [ class "fs-7" ]
-        [ span [ class "pe-1" ] [ Icon.info ]
+    small
+        [ class "d-flex align-items-center fs-7 cursor-help"
+        , title "Nombre dépendant de la catégorie de vêtement et du coefficient de durabilité"
+        ]
+        [ span [ class "pe-1 text-muted" ] [ Icon.info ]
         , Format.days daysOfWear
-        , text " portés, "
+        , text "\u{00A0}portés, "
         , text <| String.fromInt useNbCycles
         , text <|
             " cycle"

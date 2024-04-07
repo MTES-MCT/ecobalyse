@@ -34,6 +34,7 @@ type Value comparable data
     = FloatValue (data -> Float)
     | IntValue (data -> Int)
     | StringValue (data -> String)
+    | NoValue
 
 
 type alias Config data msg =
@@ -100,6 +101,9 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
 
                                                 IntValue getInt ->
                                                     SortableTable.increasingOrDecreasingBy getInt
+
+                                                NoValue ->
+                                                    SortableTable.unsortable
 
                                                 StringValue getString ->
                                                     SortableTable.increasingOrDecreasingBy getString

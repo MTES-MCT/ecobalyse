@@ -747,3 +747,4 @@ toStepsImpacts trigram simulator =
             |> getImpact
             |> applyComplement simulator.complementsImpacts.outOfEuropeEOL
     }
+        |> Impact.divideStepsImpactsBy (Unit.durabilityToFloat simulator.durability)

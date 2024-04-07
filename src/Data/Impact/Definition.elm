@@ -2,8 +2,6 @@ module Data.Impact.Definition exposing
     ( AggregatedScoreData
     , Definition
     , Definitions
-    , Quality(..)
-    , Source
     , Trigram(..)
     , Trigrams
     , decode
@@ -32,18 +30,6 @@ import Json.Encode as Encode
 
 
 ---- Types
-
-
-type alias Source =
-    { label : String, url : String }
-
-
-type Quality
-    = AverageQuality
-    | BadQuality
-    | GoodQuality
-    | NotFinished
-    | UnknownQuality
 
 
 type alias AggregatedScoreData =
@@ -80,12 +66,10 @@ type Trigram
 
 type alias Definition =
     { trigram : Trigram
-    , source : Source
     , label : String
     , description : String
     , unit : String
     , decimals : Int
-    , quality : Quality
     , pefData : Maybe AggregatedScoreData
     , ecoscoreData : Maybe AggregatedScoreData
     }
@@ -565,13 +549,6 @@ decode =
     decodeBase decodeDefinition
 
 
-decodeSource : Decoder Source
-decodeSource =
-    Decode.map2 Source
-        (Decode.field "label" Decode.string)
-        (Decode.field "url" Decode.string)
-
-
 decodeAggregatedScoreData : Decoder AggregatedScoreData
 decodeAggregatedScoreData =
     Decode.map3 AggregatedScoreData
@@ -580,39 +557,14 @@ decodeAggregatedScoreData =
         (Decode.field "weighting" (Unit.decodeRatio { percentage = True }))
 
 
-decodeQuality : Decoder Quality
-decodeQuality =
-    Decode.maybe Decode.int
-        |> Decode.andThen
-            (\maybeInt ->
-                case maybeInt of
-                    Just 0 ->
-                        Decode.succeed NotFinished
-
-                    Just 1 ->
-                        Decode.succeed GoodQuality
-
-                    Just 2 ->
-                        Decode.succeed AverageQuality
-
-                    Just 3 ->
-                        Decode.succeed BadQuality
-
-                    _ ->
-                        Decode.succeed UnknownQuality
-            )
-
-
 decodeDefinition : String -> Decoder Definition
 decodeDefinition trigram =
     Decode.succeed Definition
         |> Pipe.custom (toTrigram trigram |> DE.fromResult)
-        |> Pipe.required "source" decodeSource
         |> Pipe.required "label_fr" Decode.string
         |> Pipe.required "description_fr" Decode.string
         |> Pipe.required "short_unit" Decode.string
         |> Pipe.required "decimals" Decode.int
-        |> Pipe.required "quality" decodeQuality
         |> Pipe.required "pef" (Decode.maybe decodeAggregatedScoreData)
         |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
 

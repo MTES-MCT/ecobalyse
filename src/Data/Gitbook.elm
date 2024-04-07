@@ -26,7 +26,6 @@ type Path
     | FoodTransformation -- Transformation des ingrédients
     | FoodTransport -- Transport entre étapes
     | FoodUse -- Consommation
-    | ImpactQuality -- Niveau de qualité d'impact
     | TextileAerialTransport -- Part du transport aérien textile
     | TextileComplementMicrofibers -- Complément textile microfibres
     | TextileDistribution -- Distribution textile
@@ -37,6 +36,7 @@ type Path
     | TextileEnnobling -- Ennoblissement textile
     | TextileEnnoblingCountriesAquaticPollution -- Pollution aquatique lors de l'ennoblissement par pays
     | TextileEnnoblingToxicity -- Inventaires enrichis pour le blanchiment, la teinture et l'impression
+    | TextileExamples -- Exemples de produits textile
     | TextileFabric -- Tissage/Tricotage textile
     | TextileHeat -- Chaleur textile
     | TextileMaterial -- Matière textile
@@ -79,9 +79,6 @@ pathToString path =
         FoodUse ->
             "alimentaire/etapes-du-cycles-de-vie/consommation"
 
-        ImpactQuality ->
-            "textile/impacts-consideres#niveaux-de-recommandation"
-
         TextileAerialTransport ->
             "textile/parametres-transverses/transport#part-du-transport-aerien"
 
@@ -92,8 +89,7 @@ pathToString path =
             "textile/etapes-du-cycle-de-vie/distribution"
 
         TextileDurability ->
-            -- FIXME: this page doesn't exist, there is no docs for durability just yet
-            "textile/durabilite"
+            "textile/complements-hors-acv/durabilite"
 
         TextileElectricity ->
             "textile/parametres-transverses/electricite"
@@ -112,6 +108,9 @@ pathToString path =
 
         TextileEnnoblingCountriesAquaticPollution ->
             "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis#pays-less-than-greater-than-taux-de-pollution-aquatique"
+
+        TextileExamples ->
+            "textile/exemples"
 
         TextileFabric ->
             "textile/etapes-du-cycle-de-vie/tricotage-tissage"

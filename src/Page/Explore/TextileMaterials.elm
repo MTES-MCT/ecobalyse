@@ -40,6 +40,10 @@ table db { detailed, scope } =
                             [ code [] [ text (Material.idToString material.id) ] ]
           }
         , { label = "Nom"
+          , toValue = Table.StringValue <| .shortName
+          , toCell = .shortName >> text
+          }
+        , { label = "Procédé"
           , toValue = Table.StringValue <| .materialProcess >> .name
           , toCell = .materialProcess >> .name >> text
           }
@@ -58,7 +62,7 @@ table db { detailed, scope } =
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Origin.toMicrofibersComplement origin
                             |> Unit.impactToFloat
-                            |> Format.formatImpactFloat { unit = "\u{202F}µPts/kg", decimals = 2 }
+                            |> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
                         ]
           }
         , { label = "Procédé de fabrication du fil"

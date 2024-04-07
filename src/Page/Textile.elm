@@ -1,7 +1,8 @@
-module Page.Textile.Simulator exposing
+module Page.Textile exposing
     ( Model
     , Msg(..)
     , init
+    , initFromExample
     , subscriptions
     , update
     , view
@@ -15,6 +16,8 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
+import Data.Dataset as Dataset
+import Data.Example as Example
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -25,7 +28,6 @@ import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
-import Data.Textile.ExampleProduct as ExampleProduct exposing (ExampleProduct)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
@@ -39,6 +41,7 @@ import Data.Textile.Query as Query exposing (MaterialQuery, Query)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
 import Data.Unit as Unit
+import Data.Uuid exposing (Uuid)
 import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -56,6 +59,7 @@ import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
+import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
@@ -147,7 +151,7 @@ init trigram maybeUrlQuery session =
                 |> Simulator.compute session.db
     in
     ( { simulator = simulator
-      , bookmarkName = initialQuery |> findExistingBookmarkName session
+      , bookmarkName = initialQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
             if Session.isAuthenticated session then
@@ -183,24 +187,78 @@ init trigram maybeUrlQuery session =
     )
 
 
-findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { db, store } query =
-    store.bookmarks
-        |> Bookmark.findByTextileQuery query
-        |> Maybe.map .name
-        |> Maybe.withDefault
-            (query
+initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample session uuid =
+    let
+        example =
+            session.db.textile.examples
+                |> Example.findByUuid uuid
+
+        exampleQuery =
+            example
+                |> Result.map .query
+                |> Result.withDefault session.queries.textile
+
+        simulator =
+            exampleQuery
+                |> Simulator.compute session.db
+    in
+    ( { simulator = simulator
+      , bookmarkName = exampleQuery |> suggestBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
+      , initialQuery = exampleQuery
+      , detailedStep = Nothing
+      , impact = Definition.get Definition.Ecs session.db.definitions
+      , modal = NoModal
+      , activeImpactsTab = ImpactTabs.StepImpactsTab
+      }
+    , session
+        |> Session.updateTextileQuery exampleQuery
+        |> (case simulator of
+                Err error ->
+                    Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+
+                Ok _ ->
+                    identity
+           )
+    , Ports.scrollTo { x = 0, y = 0 }
+    )
+
+
+suggestBookmarkName : Session -> Query -> String
+suggestBookmarkName { db, store } query =
+    let
+        -- Existing user bookmark?
+        userBookmark =
+            store.bookmarks
+                |> Bookmark.findByTextileQuery query
+
+        -- Matching product example name?
+        exampleName =
+            db.textile.examples
+                |> Example.findByQuery query
+                |> Result.toMaybe
+    in
+    case ( userBookmark, exampleName ) of
+        ( Just { name }, _ ) ->
+            name
+
+        ( _, Just { name } ) ->
+            name
+
+        _ ->
+            query
                 |> Inputs.fromQuery db
                 |> Result.map Inputs.toString
                 |> Result.withDefault ""
-            )
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
     ( { model
         | simulator = query |> Simulator.compute session.db
-        , bookmarkName = query |> findExistingBookmarkName session
+        , bookmarkName = query |> suggestBookmarkName session
       }
     , session |> Session.updateTextileQuery query
     , commands
@@ -683,26 +741,6 @@ selectMaterial autocompleteState ( model, session, _ ) =
     update session msg model
 
 
-exampleProductField : List ExampleProduct -> Query -> Html Msg
-exampleProductField exampleProducts query =
-    let
-        autocompleteState =
-            exampleProducts
-                |> List.map .query
-                |> AutocompleteSelector.init (ExampleProduct.toName exampleProducts)
-    in
-    div []
-        [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
-            [ text "Examples" ]
-        , button
-            [ class "form-select ElementSelector text-start"
-            , id "selector-example"
-            , onClick (SetModal (SelectExampleModal autocompleteState))
-            ]
-            [ text <| ExampleProduct.toName exampleProducts query ]
-        ]
-
-
 productCategoryField : TextileDb.Db -> Query -> Html Msg
 productCategoryField { products } query =
     let
@@ -750,7 +788,7 @@ numberOfReferencesField numberOfReferences =
                 -- the `value` one MUST be set AFTER the `step` one.
                 , Attr.min <| String.fromInt <| Economics.minNumberOfReferences
                 , Attr.max <| String.fromInt <| Economics.maxNumberOfReferences
-                , step "100"
+                , step "1"
                 , value (String.fromInt numberOfReferences)
                 , onInput (String.toInt >> UpdateNumberOfReferences)
                 ]
@@ -860,7 +898,7 @@ traceabilityField traceability =
 
 massField : String -> Html Msg
 massField massInput =
-    div []
+    div [ class "d-flex flex-column" ]
         [ label [ for "mass", class "form-label text-truncate" ]
             [ text "Masse du produit fini" ]
         , div
@@ -869,45 +907,13 @@ massField massInput =
                 [ type_ "number"
                 , class "form-control"
                 , id "mass"
-                , Attr.min "0.05"
-                , step "0.05"
+                , Attr.min "0.01"
+                , step "0.01"
                 , value massInput
                 , onInput UpdateMassInput
                 ]
                 []
             , span [ class "input-group-text" ] [ text "kg" ]
-            ]
-        ]
-
-
-durabilityField : Unit.Durability -> Html Msg
-durabilityField durability =
-    let
-        fromFloat =
-            Unit.durabilityToFloat >> String.fromFloat
-    in
-    div [ class "d-flex justify-content-center gap-3" ]
-        [ label [ for "durability-field", class "form-label fw-bold text-truncate text-muted" ]
-            [ text "Indice de durabilité" ]
-        , input
-            [ type_ "range"
-            , id "durability-field"
-            , class "form-range w-auto"
-            , Attr.min (fromFloat Unit.minDurability)
-            , Attr.max (fromFloat Unit.maxDurability)
-
-            -- WARNING: be careful when reordering attributes: for obscure reasons,
-            -- the `value` one MUST be set AFTER the `step` one.
-            , step "0.01"
-            , value (fromFloat durability)
-            , disabled True
-            ]
-            []
-        , span [ class "text-muted font-monospace" ]
-            [ durability
-                |> Unit.durabilityToFloat
-                |> Format.formatFloat 2
-                |> text
             ]
         ]
 
@@ -969,22 +975,41 @@ simulatorView session model ({ inputs, impacts } as simulator) =
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "row align-items-start flex-md-columns mb-3" ]
                 [ div [ class "col-md-9" ]
-                    [ Inputs.toQuery inputs
-                        |> exampleProductField session.db.textile.exampleProducts
+                    [ -- Inputs.toQuery inputs
+                      -- |> exampleProductField session.db.textile.exampleProducts
+                      ExampleView.view
+                        { currentQuery = session.queries.textile
+                        , emptyQuery = Query.default
+                        , examples = session.db.textile.examples
+                        , helpUrl = Just Gitbook.TextileExamples
+                        , onOpen = SelectExampleModal >> SetModal
+                        , routes =
+                            { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                            , load = Route.TextileSimulatorExample
+                            , scopeHome = Route.TextileSimulatorHome
+                            }
+                        }
                     ]
                 , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
                 ]
-            , div [ class "card shadow-sm mb-3" ]
+            , div [ class "card shadow-sm pb-2 mb-3" ]
                 [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-                    [ h2 [ class "h5 mb-1" ] [ text "Durabilité non-physique" ]
-                    , Button.docsPillLink
-                        [ class "bg-secondary"
-                        , style "height" "24px"
-                        , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
-                        , title "Documentation"
-                        , target "_blank"
+                    [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
+                    , div [ class "d-flex align-items-center gap-2" ]
+                        [ span [ class "d-none d-sm-flex" ] [ text "Coefficient de durabilité\u{00A0}:" ]
+                        , simulator.durability
+                            |> Unit.durabilityToFloat
+                            |> Format.formatFloat 2
+                            |> text
+                        , Button.docsPillLink
+                            [ class "bg-secondary"
+                            , style "height" "24px"
+                            , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
+                            , title "Documentation"
+                            , target "_blank"
+                            ]
+                            [ Icon.question ]
                         ]
-                        [ Icon.question ]
                     ]
                 , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-6" ]
@@ -1021,17 +1046,16 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                         ]
                     ]
                 , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ let
-                        mainMaterialOrigin =
-                            Inputs.getMaterialsOriginShares inputs.materials
+                    [ div [ class "col-md-2" ] [ text "Matières" ]
+                    , div [ class "col-md-10" ]
+                        [ div [ class "fw-bold" ]
+                            [ Inputs.getMaterialsOriginShares inputs.materials
                                 |> Economics.computeMaterialsOriginIndex
                                 |> Tuple.second
-                      in
-                      div [ class "col-md-6 fw-bold text-center text-muted text-truncate", title mainMaterialOrigin ]
-                        [ text mainMaterialOrigin
-                        ]
-                    , div [ class "col-md-6 text-center" ]
-                        [ durabilityField simulator.durability
+                                |> text
+                            ]
+                        , small [ class "text-muted fs-8 lh-sm" ]
+                            [ text "Le type de matière retenu dépend de la composition du vêtement détaillée ci-dessous" ]
                         ]
                     ]
                 ]
@@ -1061,10 +1085,10 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 -- Score
                 , customScoreInfo =
                     Just
-                        (small []
-                            [ text "Hors modulation durabilité\u{00A0}: "
+                        (div [ class "fs-8" ]
+                            [ text "Pour 100g\u{00A0}:\u{00A0}"
                             , impacts
-                                |> Impact.multiplyBy (Unit.durabilityToFloat simulator.durability)
+                                |> Impact.per100grams inputs.mass
                                 |> Format.formatImpact model.impact
                             ]
                         )
@@ -1149,8 +1173,8 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom du produit pour le rechercher"
                                 , title = "Sélectionnez un produit"
-                                , toLabel = ExampleProduct.toName session.db.textile.exampleProducts
-                                , toCategory = ExampleProduct.toCategory session.db.textile.exampleProducts
+                                , toLabel = Example.toName session.db.textile.examples
+                                , toCategory = Example.toCategory session.db.textile.examples
                                 }
 
                         SelectProductModal autocompleteState ->

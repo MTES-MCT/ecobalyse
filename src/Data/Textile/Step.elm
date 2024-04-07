@@ -22,7 +22,6 @@ module Data.Textile.Step exposing
 import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
@@ -157,7 +156,7 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
     materialInput
         |> Inputs.computeMaterialTransport distances country.code
         |> Formula.transportRatio Split.zero
-        |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransportPreMaking materialMass
+        |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
 {-| Computes step transport distances and impact regarding next step.
@@ -168,9 +167,6 @@ Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 computeTransports : Db -> Inputs -> Step -> Step -> Step
 computeTransports db inputs next ({ processInfo } as current) =
     let
-        roadTransportProcess =
-            getRoadTransportProcess db.textile.wellKnown current
-
         transport =
             if current.label == Label.Material then
                 inputs.materials
@@ -179,20 +175,17 @@ computeTransports db inputs next ({ processInfo } as current) =
 
             else
                 db.distances
-                    |> Transport.getTransportBetween Scope.Textile
-                        current.transport.impacts
-                        current.country.code
-                        next.country.code
+                    |> Transport.getTransportBetween current.transport.impacts current.country.code next.country.code
                     |> computeTransportSummary current
                     |> computeTransportImpacts current.transport.impacts
                         db.textile.wellKnown
-                        roadTransportProcess
+                        db.textile.wellKnown.roadTransport
                         (getTransportedMass inputs current)
     in
     { current
         | processInfo =
             { processInfo
-                | roadTransport = Just roadTransportProcess.name
+                | roadTransport = Just db.textile.wellKnown.roadTransport.name
                 , seaTransport = Just db.textile.wellKnown.seaTransport.name
                 , airTransport = Just db.textile.wellKnown.airTransport.name
             }
@@ -228,7 +221,7 @@ computeTransportSummary step transport =
     let
         ( noTransports, defaultInland ) =
             ( Transport.default step.transport.impacts
-            , Transport.defaultInland Scope.Textile step.transport.impacts
+            , Transport.default step.transport.impacts
             )
     in
     case step.label of
@@ -257,16 +250,6 @@ computeTransportSummary step transport =
             -- All other steps don't use air transport, force a 0 split
             transport
                 |> Formula.transportRatio Split.zero
-
-
-getRoadTransportProcess : WellKnown -> Step -> Process
-getRoadTransportProcess wellKnown { label } =
-    case label of
-        Label.Making ->
-            wellKnown.roadTransportPostMaking
-
-        _ ->
-            wellKnown.roadTransportPreMaking
 
 
 getInputSurface : Inputs -> Step -> Area

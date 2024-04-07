@@ -1,251 +1,32 @@
 [
   {
-    "id": "c4143a5b-8b18-40d7-95cb-8419b1ccbcab",
-    "name": "Jupe 100% coton Asie (300g)",
-    "category": "Jupe / Robe",
+    "id": "c0500a78-8b40-4e92-88df-c2a39e1a08c3",
+    "name": "Tshirt lin (150g) - France - Mode \"éthique\"",
+    "category": "Tshirt / Polo",
     "query": {
-      "mass": 0.3,
+      "mass": 0.15,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "ei-lin",
           "share": 1
         }
       ],
-      "product": "jupe",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "9d81e654-e185-404e-80d1-463142c58a08",
-    "name": "Chemise 100% coton Asie (250g)",
-    "category": "Chemise",
-    "query": {
-      "mass": 0.25,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "chemise",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "408d5aba-ef51-457e-bc5e-3f8e552c6371",
-    "name": "Jean 100% coton Asie (450g)",
-    "category": "Jean",
-    "query": {
-      "mass": 0.45,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "jean",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "81a03a81-d1ca-44e3-9abe-29759010a41c",
-    "name": "Manteau 100% coton Asie (950g)",
-    "category": "Manteau / Veste",
-    "query": {
-      "mass": 0.95,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "manteau",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "16ddfe94-bfe8-416e-a9f8-f01782368d0b",
-    "name": "Pantalon 100% coton Asie (450g)",
-    "category": "Pantalon / Short",
-    "query": {
-      "mass": 0.45,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "pantalon",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "831c4b0e-b87c-46c2-b225-877a96595629",
-    "name": "Jupe 100% coton France (300g)",
-    "category": "Jupe / Robe",
-    "query": {
-      "mass": 0.3,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "jupe",
-      "countrySpinning": "FR",
+      "product": "tshirt",
+      "countrySpinning": "TR",
       "countryFabric": "FR",
       "countryDyeing": "FR",
       "countryMaking": "FR",
-      "fabricProcess": "weaving"
+      "fabricProcess": "knitting-mix",
+      "business": "small-business",
+      "marketingDuration": 300,
+      "numberOfReferences": 200,
+      "price": 30,
+      "traceability": true
     }
   },
   {
-    "id": "cec73800-dcc3-4818-9332-95cdc899a714",
-    "name": "Chemise 100% coton France (250g)",
-    "category": "Chemise",
-    "query": {
-      "mass": 0.25,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "chemise",
-      "countrySpinning": "FR",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "2a584143-a76d-4dfe-a156-b49323822f06",
-    "name": "Jean 100% coton France (450g)",
-    "category": "Jean",
-    "query": {
-      "mass": 0.45,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "jean",
-      "countrySpinning": "FR",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "1f64f159-1e4f-4679-9da9-bbb9358f32e6",
-    "name": "Manteau 100% coton France (950g)",
-    "category": "Manteau / Veste",
-    "query": {
-      "mass": 0.95,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "manteau",
-      "countrySpinning": "FR",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "9e78434a-5593-4034-a2b9-4f40a4c5cbc4",
-    "name": "Pantalon 100% coton France (450g)",
-    "category": "Pantalon / Short",
-    "query": {
-      "mass": 0.45,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "pantalon",
-      "countrySpinning": "FR",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "72ccc7af-0e76-4a47-adee-8464912a3527",
-    "name": "Jupe 100% polyester Asie (300g)",
-    "category": "Jupe / Robe",
-    "query": {
-      "mass": 0.3,
-      "materials": [
-        {
-          "id": "ei-pet",
-          "share": 1
-        }
-      ],
-      "product": "jupe",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "6d31b594-0a70-4e4c-8979-81a83957033e",
-    "name": "Manteau 50% polyester 50% coton Asie (950g)",
-    "category": "Manteau / Veste",
-    "query": {
-      "mass": 0.95,
-      "materials": [
-        {
-          "id": "ei-pet",
-          "share": 0.5
-        },
-        {
-          "id": "ei-coton",
-          "share": 0.5
-        }
-      ],
-      "product": "manteau",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "fabricProcess": "weaving"
-    }
-  },
-  {
-    "id": "39001a36-3472-405d-9b5d-e9cd27472158",
-    "name": "Tshirt coton bio France marque éthique (150g)",
+    "id": "b9dc9be5-ba32-4b8c-9190-b93098cf1d0d",
+    "name": "Tshirt coton bio (150g) - France - Mode \"éthique\"",
     "category": "Tshirt / Polo",
     "query": {
       "mass": 0.15,
@@ -269,76 +50,100 @@
     }
   },
   {
-    "id": "fe8e400e-592f-4c4f-a73f-0e109221be35",
-    "name": "Tshirt synthétique Chine ultra fast fashion (150g)",
-    "category": "Tshirt / Polo",
+    "id": "dffc6a19-794a-4d14-ad1a-bc3512359f22",
+    "name": "Pull polyester (550g) - Asie - Mode \"ultra fast fashion\"",
+    "category": "Pull",
     "query": {
-      "mass": 0.15,
+      "mass": 0.55,
       "materials": [
         {
           "id": "ei-pet",
-          "share": 0.95
-        },
-        {
-          "id": "ei-pp",
-          "share": 0.05
+          "share": 1
         }
       ],
-      "product": "tshirt",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
+      "product": "pull",
+      "countrySpinning": "RAS",
+      "countryFabric": "RAS",
+      "countryDyeing": "RAS",
+      "countryMaking": "RAS",
+      "airTransportRatio": 1,
       "fabricProcess": "knitting-mix",
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
-      "price": 10,
+      "price": 20,
       "traceability": false
     }
   },
   {
-    "id": "90993bb8-d0f7-404e-8ddb-252a87f3078c",
-    "name": "Tshirt coton Asie fast fashion (150g)",
-    "category": "Tshirt / Polo",
+    "id": "f02b1029-0d04-4239-94d1-b384ab3316cb",
+    "name": "Pull coton (550g) - Chine - Mode \"fast fashion\"",
+    "category": "Pull",
     "query": {
-      "mass": 0.15,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 0.75
-        },
-        {
-          "id": "coton-rdp",
-          "share": 0.25
-        }
-      ],
-      "product": "tshirt",
-      "countrySpinning": "IN",
-      "countryFabric": "IN",
-      "countryDyeing": "IN",
-      "countryMaking": "IN",
-      "fabricProcess": "knitting-mix",
-      "business": "large-business-without-services",
-      "marketingDuration": 115,
-      "numberOfReferences": 12000,
-      "price": 10,
-      "traceability": false
-    }
-  },
-  {
-    "id": "859674df-5ebb-452e-aca6-a912d013a73c",
-    "name": "Tshirt coton Pakistan marque traditionnelle (150g)",
-    "category": "Tshirt / Polo",
-    "query": {
-      "mass": 0.15,
+      "mass": 0.55,
       "materials": [
         {
           "id": "ei-coton",
           "share": 1
         }
       ],
-      "product": "tshirt",
+      "product": "pull",
+      "countrySpinning": "CN",
+      "countryFabric": "CN",
+      "countryDyeing": "CN",
+      "countryMaking": "CN",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-without-services",
+      "marketingDuration": 115,
+      "numberOfReferences": 12000,
+      "price": 30,
+      "traceability": false
+    }
+  },
+  {
+    "id": "c605e8cc-7f3e-42b6-afc1-9358bda9a633",
+    "name": "Pull viscose (550g) - Chine - Mode \"fast fashion\"",
+    "category": "Pull",
+    "query": {
+      "mass": 0.55,
+      "materials": [
+        {
+          "id": "ei-viscose",
+          "share": 0.7
+        },
+        {
+          "id": "ei-pet",
+          "share": 0.3
+        }
+      ],
+      "product": "pull",
+      "countrySpinning": "CN",
+      "countryFabric": "CN",
+      "countryDyeing": "CN",
+      "countryMaking": "CN",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-without-services",
+      "marketingDuration": 115,
+      "numberOfReferences": 12000,
+      "price": 30,
+      "traceability": false
+    }
+  },
+  {
+    "id": "9986e023-47f7-42c7-8c1b-4fe1371f2f59",
+    "name": "Pull coton (550g) - Pakistan - Mode \"traditionnelle\"",
+    "category": "Pull",
+    "query": {
+      "mass": 0.55,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "pull",
       "countrySpinning": "PK",
       "countryFabric": "PK",
       "countryDyeing": "PK",
@@ -347,24 +152,24 @@
       "business": "large-business-with-services",
       "marketingDuration": 115,
       "numberOfReferences": 2500,
-      "price": 40,
+      "price": 70,
       "traceability": false
     }
   },
   {
-    "id": "84871d06-c1bd-455b-ae43-f4685609c4f8",
-    "name": "Tshirt coton France marque traditionnelle (150g)",
-    "category": "Tshirt / Polo",
+    "id": "dc4a1762-ac99-4d41-8ef6-1f4d647dec62",
+    "name": "Pull coton bio (550g) - France - Mode \"traditionnelle\"",
+    "category": "Pull",
     "query": {
-      "mass": 0.15,
+      "mass": 0.55,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "ei-coton-organic",
           "share": 1
         }
       ],
-      "product": "tshirt",
-      "countrySpinning": "TR",
+      "product": "pull",
+      "countrySpinning": "IN",
       "countryFabric": "FR",
       "countryDyeing": "FR",
       "countryMaking": "FR",
@@ -372,40 +177,14 @@
       "business": "large-business-with-services",
       "marketingDuration": 115,
       "numberOfReferences": 2500,
-      "price": 40,
-      "traceability": false
-    }
-  },
-  {
-    "id": "fb6bd648-4f81-4b14-987a-62c75691955c",
-    "name": "Tshirt lin France (100%) marque éthique (150g)",
-    "category": "Tshirt / Polo",
-    "query": {
-      "mass": 0.15,
-      "materials": [
-        {
-          "id": "ei-lin",
-          "share": 1,
-          "country": "FR"
-        }
-      ],
-      "product": "tshirt",
-      "countrySpinning": "FR",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "fabricProcess": "knitting-mix",
-      "business": "small-business",
-      "marketingDuration": 300,
-      "numberOfReferences": 200,
-      "price": 30,
+      "price": 70,
       "traceability": true
     }
   },
   {
-    "id": "776248bc-07f6-4b8b-887e-2a6a8140b5dc",
-    "name": "Pull laine France marque éthique (550g) [A CONSOLIDER]",
-    "category": "Pull / Couche intermédiaire",
+    "id": "8a57688b-1da6-4fc4-85aa-a27c6cdf4a56",
+    "name": "Pull laine (550g) - France - Mode \"éthique\"",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
@@ -428,9 +207,9 @@
     }
   },
   {
-    "id": "efb89ade-5b67-4c34-b488-fad3505dc5f8",
-    "name": "Pull laine paysanne France (100%) marque éthique (550g) [A CONSOLIDER]",
-    "category": "Pull / Couche intermédiaire",
+    "id": "611fd763-8df3-40d1-a51a-e8073bb3aaf0",
+    "name": "Pull laine paysane (550g) - France - Mode \"éthique\"",
+    "category": "Pull",
     "query": {
       "mass": 0.55,
       "materials": [
@@ -454,22 +233,279 @@
     }
   },
   {
-    "id": "863fd59f-37a5-4d1e-92b9-1146640b883a",
-    "name": "Pull polyester Chine ultra fast fashion (500g)",
-    "category": "Pull / Couche intermédiaire",
+    "id": "64ec2a97-5b87-4dc8-a9c2-96f3b50e9fe2",
+    "name": "Tshirt synthétique (150g) - Asie - Mode \"ultra fast fashion\"",
+    "category": "Tshirt / Polo",
     "query": {
-      "mass": 0.5,
+      "mass": 0.15,
       "materials": [
         {
           "id": "ei-pet",
-          "share": 1
+          "share": 0.95
+        },
+        {
+          "id": "ei-pp",
+          "share": 0.05
         }
       ],
-      "product": "pull",
+      "product": "tshirt",
+      "countrySpinning": "RAS",
+      "countryFabric": "RAS",
+      "countryDyeing": "RAS",
+      "countryMaking": "RAS",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 10,
+      "traceability": false
+    }
+  },
+  {
+    "id": "351d73dc-9c50-4aa8-858a-2bd5448d1f26",
+    "name": "Tshirt coton (150g) - Chine - Mode \"fast fashion\"",
+    "category": "Tshirt / Polo",
+    "query": {
+      "mass": 0.15,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 0.75
+        },
+        {
+          "id": "coton-rdp",
+          "share": 0.25
+        }
+      ],
+      "product": "tshirt",
       "countrySpinning": "CN",
       "countryFabric": "CN",
       "countryDyeing": "CN",
       "countryMaking": "CN",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-without-services",
+      "marketingDuration": 115,
+      "numberOfReferences": 12000,
+      "price": 20,
+      "traceability": false
+    }
+  },
+  {
+    "id": "16c16705-3169-41bf-b1b2-6382b00c2118",
+    "name": "Tshirt coton (150g) - Pakistan - Mode \"traditionnelle\"",
+    "category": "Tshirt / Polo",
+    "query": {
+      "mass": 0.15,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "tshirt",
+      "countrySpinning": "PK",
+      "countryFabric": "PK",
+      "countryDyeing": "PK",
+      "countryMaking": "PK",
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-with-services",
+      "marketingDuration": 115,
+      "numberOfReferences": 2500,
+      "price": 30,
+      "traceability": false
+    }
+  },
+  {
+    "id": "5dbb2cfb-dc3a-48cc-bc7b-aaefbc3cc285",
+    "name": "Tshirt coton (150g) - France - Mode \"traditionnelle\"",
+    "category": "Tshirt / Polo",
+    "query": {
+      "mass": 0.15,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "tshirt",
+      "countrySpinning": "TR",
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-with-services",
+      "marketingDuration": 115,
+      "numberOfReferences": 2500,
+      "price": 30,
+      "traceability": false
+    }
+  },
+  {
+    "id": "307b3586-41f4-4d93-833a-e03b5be137cc",
+    "name": "Jupe coton (300g) - Majorant par défaut",
+    "category": "Jupe / Robe",
+    "query": {
+      "mass": 0.3,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "jupe",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "weaving",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 15
+    }
+  },
+  {
+    "id": "536e3785-039a-49d6-a119-3cfce485420c",
+    "name": "Chemise coton (250g) - Majorant par défaut",
+    "category": "Chemise",
+    "query": {
+      "mass": 0.25,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "chemise",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "weaving",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 15
+    }
+  },
+  {
+    "id": "bf24fd40-9a2a-4489-935b-d82c339e5abe",
+    "name": "Jean coton (450g) - Majorant par défaut",
+    "category": "Jean",
+    "query": {
+      "mass": 0.45,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "jean",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "weaving",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 20
+    }
+  },
+  {
+    "id": "f86835d3-7018-40fa-8144-2d1f6aa264b9",
+    "name": "Pantalon coton (450g) - Majorant par défaut",
+    "category": "Pantalon",
+    "query": {
+      "mass": 0.45,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "pantalon",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "weaving",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 20
+    }
+  },
+  {
+    "id": "32c8973b-864f-4060-977d-a0738f6414c4",
+    "name": "Manteau coton (950g) - Majorant par défaut",
+    "category": "Manteau / Veste",
+    "query": {
+      "mass": 0.95,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "manteau",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "weaving",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 40
+    }
+  },
+  {
+    "id": "f48d7a6b-68db-4d1c-9623-6ec0ab89cbdb",
+    "name": "Tshirt coton (150g) - Majorant par défaut",
+    "category": "Tshirt / Polo",
+    "query": {
+      "mass": 0.15,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "tshirt",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 10,
+      "traceability": false
+    }
+  },
+  {
+    "id": "190ccaed-6883-4dd9-a70b-918878ccced6",
+    "name": "Pull coton (550g) - Majorant par défaut",
+    "category": "Pull",
+    "query": {
+      "mass": 0.55,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "pull",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
       "fabricProcess": "knitting-mix",
       "business": "large-business-without-services",
       "marketingDuration": 65,
@@ -479,106 +515,106 @@
     }
   },
   {
-    "id": "e718102e-6c69-47a7-86eb-87da0f0cca06",
-    "name": "Pull viscose Chine fast fashion (500g)",
-    "category": "Pull / Couche intermédiaire",
+    "id": "47f8d396-9f57-4a1d-8d24-b2fc3439e75f",
+    "name": "Chaussettes coton (40g) - Majorant par défaut",
+    "category": "Chaussettes",
     "query": {
-      "mass": 0.5,
+      "mass": 0.04,
       "materials": [
         {
-          "id": "ei-viscose",
-          "share": 0.7
-        },
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "chaussettes",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-fully-fashioned",
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 4,
+      "traceability": false
+    }
+  },
+  {
+    "id": "3f3be8b2-115b-41b4-b925-5656aa7d8c87",
+    "name": "Caleçon coton (40g) - Majorant par défaut",
+    "category": "Caleçon (tissé)",
+    "query": {
+      "mass": 0.04,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "calecon",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "weaving",
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 4,
+      "traceability": false
+    }
+  },
+  {
+    "id": "69a21510-b23b-4910-9bd9-23507c8f5a59",
+    "name": "Slip coton (30g) - Majorant par défaut",
+    "category": "Boxer / slip (tricoté)",
+    "query": {
+      "mass": 0.03,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "slip",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "fabricProcess": "knitting-mix",
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 4,
+      "traceability": false
+    }
+  },
+  {
+    "id": "9d382f50-f77a-44cd-b26f-702c4a2ceb50",
+    "name": "Maillot de bain polyester (100g) - Majorant par défaut",
+    "category": "Maillot de bain",
+    "query": {
+      "mass": 0.1,
+      "materials": [
         {
           "id": "ei-pet",
-          "share": 0.3
+          "share": 1
         }
       ],
-      "product": "pull",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
+      "product": "maillot-de-bain",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
       "fabricProcess": "knitting-mix",
       "business": "large-business-without-services",
-      "marketingDuration": 115,
-      "numberOfReferences": 12000,
-      "price": 20,
-      "traceability": false
-    }
-  },
-  {
-    "id": "f29228e2-2ec7-4f64-88b4-cfc09176d6cf",
-    "name": "Pull coton Pakistan marque traditionnelle (500g)",
-    "category": "Pull / Couche intermédiaire",
-    "query": {
-      "mass": 0.5,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "pull",
-      "countrySpinning": "PK",
-      "countryFabric": "PK",
-      "countryDyeing": "PK",
-      "countryMaking": "PK",
-      "fabricProcess": "knitting-mix",
-      "business": "large-business-with-services",
-      "marketingDuration": 115,
-      "numberOfReferences": 2500,
-      "price": 70,
-      "traceability": false
-    }
-  },
-  {
-    "id": "3f32a0e5-d47d-45b7-9b60-633db75bdc95",
-    "name": "Pull coton bio France marque traditionnelle (500g)",
-    "category": "Pull / Couche intermédiaire",
-    "query": {
-      "mass": 0.5,
-      "materials": [
-        {
-          "id": "ei-coton-organic",
-          "share": 1
-        }
-      ],
-      "product": "pull",
-      "countrySpinning": "IN",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "fabricProcess": "knitting-mix",
-      "business": "large-business-with-services",
-      "marketingDuration": 115,
-      "numberOfReferences": 2500,
-      "price": 70,
-      "traceability": true
-    }
-  },
-  {
-    "id": "89a8c96d-fc9d-427d-bbfd-0b321a551888",
-    "name": "Pull coton Asie fast fashion (500g)",
-    "category": "Pull / Couche intermédiaire",
-    "query": {
-      "mass": 0.5,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "pull",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "fabricProcess": "knitting-mix",
-      "business": "large-business-without-services",
-      "marketingDuration": 115,
-      "numberOfReferences": 12000,
-      "price": 20,
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 15,
       "traceability": false
     }
   }

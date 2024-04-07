@@ -25,7 +25,6 @@ import Views.Spinner as Spinner
 
 type ActivePage
     = Api
-    | Auth
     | Changelog
     | Editorial String
     | Explore
@@ -48,6 +47,8 @@ type alias Config msg a =
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
     , loadUrl : String -> msg
+    , login : msg
+    , logout : msg
     , reloadPage : msg
     , closeNotification : Session.Notification -> msg
     , activePage : ActivePage
@@ -56,7 +57,7 @@ type alias Config msg a =
 
 frame : Config msg a -> ( String, List (Html msg) ) -> Document msg
 frame ({ activePage } as config) ( title, content ) =
-    { title = title ++ " | Ecobalyse v2"
+    { title = title ++ " | Ecobalyse"
     , body =
         [ stagingAlert config
         , newVersionAlert config
@@ -70,8 +71,7 @@ frame ({ activePage } as config) ( title, content ) =
             [ div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0 fs-7" ]
                 [ Container.centered [ class "d-flex align-items-center gap-2 fw-bold" ]
                     [ span [ class "fs-5" ] [ Icon.info ]
-                    , text """Attention : l’outil est aujourd’hui en phase de construction.
-                              Les calculs qui sont proposés ne constituent pas un référentiel validé."""
+                    , text """L’outil présente un premier projet de référentiel technique soumis à concertation et non encore stabilisé"""
                     ]
                 ]
             , notificationListView config
@@ -131,8 +131,10 @@ mainMenuLinks : List MenuLink
 mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Textile" Route.TextileSimulatorHome TextileSimulator
-    , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
-    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
+
+    -- FIXME: all food-related stuff temporarily removed
+    -- , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
+    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
     , Internal "API" Route.Api Api
     ]
 
@@ -187,7 +189,7 @@ pageFooter { currentVersion } =
                         [ text label ]
 
                 MailTo label email ->
-                    a [ class "text-decoration-none link-email", href <| "mailto:" ++ email ]
+                    a [ class "text-decoration-none", href <| "mailto:" ++ email ]
                         [ text label ]
     in
     footer [ class "Footer" ]
@@ -286,7 +288,7 @@ pageHeader config =
                 , class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5"
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
-                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse v2", sup [] [ text "beta" ] ]
+                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]
@@ -299,17 +301,13 @@ pageHeader config =
                     [ (headerMenuLinks
                         |> List.map (viewNavigationLink config.activePage)
                       )
-                        ++ [ span [ class "flex-fill" ] [] -- Filler
-                           , let
-                                label =
-                                    if Session.isAuthenticated config.session then
-                                        "Compte"
+                        ++ [ if Session.isAuthenticated config.session then
+                                button [ class "nav-link flex-fill text-end", onClick config.logout ] [ text "Déconnexion" ]
 
-                                    else
-                                        "Connexion"
-                             in
-                             Internal label (Route.Auth { loggedIn = False }) Auth
-                                |> viewNavigationLink config.activePage
+                             else
+                                -- FIXME: login and out links are temprarily hidden by default
+                                -- button [ class "nav-link flex-fill text-end", onClick config.login ] [ text "Connexion" ]
+                                text ""
                            ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]

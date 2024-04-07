@@ -1,0 +1,10 @@
+﻿animal_group1;animal_group2;animal_product;value;unit
+cattle;cow;meat;0.0030;UGB/kg viande
+sheep;sheep;meat;0.0100;UGB/kg viande
+sheep;lamb;meat;0.0120;UGB/kg viande
+poultry;chicken;meat;0.0055;UGB/kg viande
+cattle;cow;milk;0.0002;UGB/L lait
+sheep;sheep;meat;0.0007;UGB/L lait
+goat;goat;goat;0.0003;UGB/L lait
+poultry;chicken;egg;0.0028;UGB/kg œuf
+pig;pig;meat;0.0051;UGB/kg viande

@@ -18,6 +18,7 @@ import Ports
 import Route
 import Views.Container as Container
 import Views.Link as Link
+import Views.Markdown as Markdown
 import Views.Modal as ModalView
 
 
@@ -30,11 +31,13 @@ type Msg
     = CloseModal
     | NoOp
     | OpenCalculatorPickerModal
+    | OpenPresentationVideoModal
     | ScrollIntoView String
 
 
 type Modal
     = CalculatorPickerModal
+    | PresentationVideoModal
     | NoModal
 
 
@@ -58,6 +61,9 @@ update session msg model =
         OpenCalculatorPickerModal ->
             ( { model | modal = CalculatorPickerModal }, session, Cmd.none )
 
+        OpenPresentationVideoModal ->
+            ( { model | modal = PresentationVideoModal }, session, Cmd.none )
+
         ScrollIntoView nodeId ->
             ( model, session, Ports.scrollIntoView nodeId )
 
@@ -67,20 +73,32 @@ viewHero modal =
     Container.centered [ class "pt-4 pb-5" ]
         [ div [ class "px-5" ]
             [ h2 [ class "h1" ]
-                [ text "Calculez l'impact écologique de vos produits" ]
+                [ text "Calculez le coût environnemental de vos produits" ]
             , div [ class "fs-5 mt-3 mb-5" ]
-                [ text "Ecobalyse permet de comprendre et de calculer les impacts écologiques des produits distribués en France." ]
+                [ """Ecobalyse permet de comprendre et de calculer le coût environnemental des produits
+                     distribués en France. La méthodologie présentée est soumise à [concertation]({url})."""
+                    |> String.replace "{url}" Env.communityUrl
+                    |> Markdown.simple []
+                ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
-                [ button
+                [ a
                     [ class "btn btn-lg btn-primary"
-                    , onClick OpenCalculatorPickerModal
+
+                    -- FIXME: all food-related stuff temporarily removed
+                    --, onClick OpenCalculatorPickerModal
+                    , Route.href Route.TextileSimulatorHome
                     ]
                     [ text "Lancer le calculateur" ]
                 , button
                     [ class "btn btn-lg btn-outline-primary"
+                    , onClick OpenPresentationVideoModal
+                    ]
+                    [ text "Découvrir en vidéo" ]
+                , button
+                    [ class "btn btn-lg btn-outline-primary"
                     , onClick <| ScrollIntoView "decouvrir-ecobalyse"
                     ]
-                    [ text "Découvrir Écobalyse ↓" ]
+                    [ text "En savoir plus" ]
                 ]
             ]
         , case modal of
@@ -96,6 +114,38 @@ viewHero modal =
                     , subTitle = Nothing
                     , formAction = Nothing
                     , content = [ calculatorPickerModalContent ]
+                    , footer = []
+                    }
+
+            PresentationVideoModal ->
+                ModalView.view
+                    { size = ModalView.ExtraLarge
+                    , close = CloseModal
+                    , noOp = NoOp
+                    , title = "Présentation de l'outil en vidéo"
+                    , subTitle = Nothing
+                    , formAction = Nothing
+                    , content =
+                        [ div
+                            [ style "position" "relative"
+                            , style "padding-bottom" "38.33333333333333%"
+                            , style "height" "0"
+                            ]
+                            [ iframe
+                                [ src "https://www.loom.com/embed/3370423207d8425f849e5c7089e1095d?sid=55b7c957-21cb-4553-b5cc-ba6b81c5c641"
+                                , attribute "frameborder" "0"
+                                , attribute "webkitallowfullscreen" ""
+                                , attribute "mozallowfullscreen" ""
+                                , attribute "allowfullscreen" ""
+                                , style "position" "absolute"
+                                , style "top" "0"
+                                , style "left" "0"
+                                , style "width" "100%"
+                                , style "height" "100%"
+                                ]
+                                []
+                            ]
+                        ]
                     , footer = []
                     }
         ]
@@ -147,8 +197,8 @@ viewInfo =
             ]
             []
         , div [ class "d-flex flex-column gap-2" ]
-            [ h2 [] [ text "Un eco-score pour informer les consommateurs" ]
-            , blockquote [ class "d-inline-block fw-bold mx-5 mt-3 mb-2" ]
+            [ h3 [ class "mb-1" ] [ text "Un coût environnemental pour informer les consommateurs" ]
+            , blockquote [ class "d-inline-block fw-bold fs-5 mx-5 mt-3 mb-2" ]
                 [ p [ class "mb-0" ]
                     [ text "«\u{00A0}74%\u{00A0}des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent.\u{00A0}»" ]
                 , Html.cite [ class "fw-normal fs-7 text-muted mb-5" ]
@@ -157,8 +207,17 @@ viewInfo =
             , h3 [ class "my-3" ] [ text "Inscrit dans la loi Climat et Résilience de 2021" ]
             , p [] [ text "“Un affichage destiné à apporter au consommateur une information relative aux impacts environnementaux (...) d'un bien, d'un service ou d'une catégorie de biens ou de services mis sur le marché national est rendu obligatoire” — Article L.541-9-11 du code de l’environnement" ]
             , h3 [ class "my-3" ] [ text "Les secteurs Textile et Alimentaire, premiers concernés" ]
-            , p [] [ text "Les méthodologies de calcul doivent être définies d’ici fin 2023 pour les produits alimentaires et textiles. Les travaux pour aider à définir une méthodologie de calcul réglementaire sont en cours." ]
-            , p [] [ text "Nous publions les mises à jour et le calendrier pour les secteurs Textile et Alimentaire. D’autres secteurs suivront dans les années à venir." ]
+            , """Un projet de méthodologie est élaboré à partir de **29 expérimentations** qui se sont tenues
+                     en 2021 et 2022, des travaux d’un **conseil scientifique alimentaire** et d’un **comité d’experts
+                     textile**, de nombreux échanges avec les parties prenantes depuis la mise en ligne d’Ecobalyse…"""
+                |> Markdown.simple []
+            , """Pour le secteur textile, la méthodologie aujourd’hui présentée est un **premier projet de
+                     référentiel technique**. Elle est soumise à concertation et **toute contribution est [la bienvenue]({url}).**"""
+                |> String.replace "{url}" Env.communityUrl
+                |> Markdown.simple []
+            , """Le projet de calculateur pour le produits alimentaires a été temporairement retiré, dans
+                     l’attente de la présentation d’une première proposition de méthode complète."""
+                |> Markdown.simple []
             ]
         ]
 
@@ -188,8 +247,10 @@ viewTools =
                         ]
                         []
                     , div [ class "card-body p-4 pb-0 fs-7" ]
-                        [ h3 [ class "h5 fw-bold" ] [ text "Calculateur d’impacts écologiques" ]
-                        , text "Un calculateur gratuit qui permet d’obtenir les impacts d’un produit sur la base de critères simples et accessibles aux marques."
+                        [ h3 [ class "h5 fw-bold" ] [ text "Calculateur de coût environnemental" ]
+                        , """Un calculateur gratuit qui permet de modéliser le coût environnemental d’un produit, et
+                             donc ses différents impacts, sur la base de critères simples et accessibles aux marques."""
+                            |> Markdown.simple []
                         ]
                     , div [ class "card-footer bg-white border-top-0 text-end fw-bold fs-5 px-4" ] [ text "→" ]
                     ]
@@ -257,24 +318,35 @@ viewContribution =
                     , alt "Picto d'une bulle de conversation"
                     ]
                     []
-                , p [] [ q [] [ text "Tiens, ce chiffre me parait étonnant…" ] ]
-                , p [] [ q [] [ text "Et si on utilisait la surface du tissu plutôt que la masse du vêtement\u{00A0}?" ] ]
-                , p [] [ q [] [ text "Pourquoi l’impact diminue lorsque la production se fait au Myanmar\u{00A0}?" ] ]
+                , p [] [ q [] [ text "Lorsque j’applique la méthode sur mes produits, je suis surpris du résultat\u{00A0}!" ] ]
+                , p [] [ q [] [ text "Comment pourrait-on prendre en compte les labels dont je bénéficie\u{00A0}?" ] ]
+                , p [] [ q [] [ text "Comment dois-je calculer ma largeur de gamme si je suis distribué sur une plateforme\u{00A0}?" ] ]
                 ]
-            , div [ class "col-sm-8 bg-light mt-5 mb-5 p-5" ]
-                [ h3 [ class "h5 fw-bold" ] [ text "Contribuez à améliorer le calcul d’impacts écologiques" ]
-                , p [] [ text "La définition de la méthode de calcul et la mise en œuvre de l’éco-score nécessitent un travail collectif au long cours en relation avec les acteurs de chaque filière." ]
-                , p [] [ text "Vous êtes une marque, un producteur, un bureau d’étude ou un distributeur\u{00A0}:" ]
-                , ul [ class "mb-5" ]
-                    [ li [] [ text "Partagez les données d’impact de votre production," ]
-                    , li [] [ text "Suggérez une amélioration de la méthodologie ou du calculateur," ]
-                    , li [] [ text "Proposez votre participation aux travaux collectifs. " ]
+            , div [ class "col-sm-8 flex-columns gap-5 bg-light mt-5 mb-5 p-5" ]
+                [ h3 [ class "h5 fw-bold mb-3" ] [ text "Contribuez à la concertation en cours sur la méthode de calcul du coût environnemental" ]
+                , """La méthode présentée aujourd’hui dans Ecobalyse est [soumise à concertation]({url}).
+                     Les retours de chacun, positifs ou critiques, seront utiles\u{00A0}!
+
+                     Vous êtes une **marque**, un **producteur**, un **bureau d’étude** ou un **distributeur**\u{00A0}:
+
+- **Faites préciser** les aspects qui devraient l’être
+- **Partagez** les résultats de calcul appliqués à vos produits
+- **Suggérez** une amélioration de la méthodologie ou du calculateur
+                 """
+                    |> String.replace "{url}" Env.communityUrl
+                    |> Markdown.simple []
+                , div [ class "d-flex justify-content-center mt-4 gap-3" ]
+                    [ Link.external
+                        [ class "btn btn-primary"
+                        , href <| Env.communityUrl
+                        ]
+                        [ text "Rejoignez la communauté" ]
+                    , Link.external
+                        [ class "btn btn-outline-primary"
+                        , href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter"
+                        ]
+                        [ text "Contactez l’équipe Écobalyse" ]
                     ]
-                , Link.external
-                    [ class "btn btn-primary"
-                    , href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter"
-                    ]
-                    [ text "Contactez l’équipe Écobalyse" ]
                 ]
             ]
         ]
@@ -286,8 +358,7 @@ view _ { modal } =
     , [ div [ class "d-flex flex-column" ]
             [ div [ class "bg-light pt-5" ]
                 [ viewHero modal ]
-            , div [ class "pt-5" ]
-                [ viewInfo ]
+            , viewInfo
             , div [ class "bg-light pt-5" ]
                 [ viewTools ]
             , div [ class "pt-5" ]
