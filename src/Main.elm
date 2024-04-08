@@ -72,6 +72,7 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
+    | LoggedIn (Result String Session.AllProcessesJson)
     | OpenMobileNavigation
     | ReloadPage
     | StatsMsg Stats.Msg
