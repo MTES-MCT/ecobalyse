@@ -56,7 +56,7 @@ type alias Config msg a =
 
 frame : Config msg a -> ( String, List (Html msg) ) -> Document msg
 frame ({ activePage } as config) ( title, content ) =
-    { title = title ++ " | Ecobalyse"
+    { title = title ++ " | Ecobalyse v2"
     , body =
         [ stagingAlert config
         , newVersionAlert config
@@ -70,7 +70,8 @@ frame ({ activePage } as config) ( title, content ) =
             [ div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0 fs-7" ]
                 [ Container.centered [ class "d-flex align-items-center gap-2 fw-bold" ]
                     [ span [ class "fs-5" ] [ Icon.info ]
-                    , text """L’outil présente un premier projet de référentiel technique soumis à concertation et non encore stabilisé"""
+                    , text """Attention : l’outil est aujourd’hui en phase de construction.
+                              Les calculs qui sont proposés ne constituent pas un référentiel validé."""
                     ]
                 ]
             , notificationListView config
@@ -130,10 +131,8 @@ mainMenuLinks : List MenuLink
 mainMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Textile" Route.TextileSimulatorHome TextileSimulator
-
-    -- FIXME: all food-related stuff temporarily removed
-    -- , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
-    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
+    , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
+    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api
     ]
 
@@ -188,7 +187,7 @@ pageFooter { currentVersion } =
                         [ text label ]
 
                 MailTo label email ->
-                    a [ class "text-decoration-none", href <| "mailto:" ++ email ]
+                    a [ class "text-decoration-none link-email", href <| "mailto:" ++ email ]
                         [ text label ]
     in
     footer [ class "Footer" ]
@@ -287,7 +286,7 @@ pageHeader config =
                 , class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5"
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
-                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
+                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse v2", sup [] [ text "beta" ] ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]
