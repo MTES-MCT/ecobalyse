@@ -325,12 +325,12 @@ describe("API", () => {
       for (const { name, query, impacts } of e2eTextile) {
         it(name, async () => {
           const response = await makeRequest("/api/textile/simulator", query);
-          expectStatus(response, 200);
           e2eOutput.textile.push({
             name,
             query,
-            impacts: response.body.impacts,
+            impacts: response.status === 200 ? response.body.impacts : {},
           });
+          expectStatus(response, 200);
           expect(response.body.impacts).toEqual(impacts);
         });
       }
@@ -512,13 +512,13 @@ describe("API", () => {
       for (const { name, query, impacts, scoring } of e2eFood) {
         it(name, async () => {
           const response = await makeRequest("/api/food", query);
-          expectStatus(response, 200);
           e2eOutput.food.push({
             name,
             query,
-            impacts: response.body.results.total,
-            scoring: response.body.results.scoring,
+            impacts: response.status === 200 ? response.body.results.total : {},
+            scoring: response.status === 200 ? response.body.results.scoring : {},
           });
+          expectStatus(response, 200);
           expect(response.body.results.total).toEqual(impacts);
           expect(response.body.results.scoring).toEqual(scoring);
         });
@@ -544,8 +544,12 @@ afterAll(() => {
   // with their contents.
   function writeE2eResult(key) {
     const target = `${__dirname}/e2e-${key}-output.json`;
-    fs.writeFileSync(target, JSON.stringify(e2eOutput[key], null, 2) + "\n");
-    console.info(`E2e ${key} tests output written to ${target}.`);
+    if (e2eOutput[key].length === 0) {
+      console.error(`Not writing ${target} since it's empty`);
+    } else {
+      fs.writeFileSync(target, JSON.stringify(e2eOutput[key], null, 2) + "\n");
+      console.info(`E2e ${key} tests output written to ${target}.`);
+    }
   }
 
   writeE2eResult("textile");
@@ -576,9 +580,12 @@ async function expectListResponseContains(path, object) {
   expect(response.body).toContainObject(object);
 }
 
-function expectStatus(response, code, type = "application/json") {
+function expectStatus(response, expectedCode, type = "application/json") {
+  if (response.status === 400 && expectedCode != 400) {
+    expect(response.body).toHaveProperty("errors", "");
+  }
   expect(response.type).toBe(type);
-  expect(response.statusCode).toBe(code);
+  expect(response.statusCode).toBe(expectedCode);
 }
 
 // https://medium.com/@andrei.pfeiffer/jest-matching-objects-in-array-50fe2f4d6b98
