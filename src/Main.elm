@@ -72,7 +72,7 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
-    | LoggedIn (Result String Session.FullImpacts)
+    | LoggedIn (Result String Session.AllProcessesJson)
     | Login
     | Logout
     | OpenMobileNavigation
