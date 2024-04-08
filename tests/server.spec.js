@@ -580,12 +580,12 @@ async function expectListResponseContains(path, object) {
   expect(response.body).toContainObject(object);
 }
 
-function expectStatus(response, code, type = "application/json") {
-  if (response.status === 400 && code != 400) {
+function expectStatus(response, expectedCode, type = "application/json") {
+  if (response.status === 400 && expectedCode != 400) {
     expect(response.body).toHaveProperty("errors", "");
   }
   expect(response.type).toBe(type);
-  expect(response.statusCode).toBe(code);
+  expect(response.statusCode).toBe(expectedCode);
 }
 
 // https://medium.com/@andrei.pfeiffer/jest-matching-objects-in-array-50fe2f4d6b98
