@@ -9,6 +9,7 @@ import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
 import Page.Api as Api
+import Page.Auth as Auth
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Explore as Explore
@@ -34,6 +35,7 @@ type alias Flags =
 
 type Page
     = ApiPage Api.Model
+    | AuthPage Auth.Model
     | LoadingPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
@@ -61,6 +63,7 @@ type alias Model =
 
 type Msg
     = ApiMsg Api.Msg
+    | AuthMsg Auth.Msg
     | ChangelogMsg Changelog.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
@@ -69,7 +72,6 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
-    | LoggedIn (Result String Session.AllProcessesJson)
     | OpenMobileNavigation
     | ReloadPage
     | StatsMsg Stats.Msg
@@ -153,6 +155,10 @@ setRoute url ( { state } as model, cmds ) =
                     Api.init session
                         |> toPage ApiPage ApiMsg
 
+                Just (Route.Auth data) ->
+                    Auth.init session data
+                        |> toPage AuthPage AuthMsg
+
                 Just Route.Changelog ->
                     Changelog.init session
                         |> toPage ChangelogPage ChangelogMsg
@@ -172,9 +178,6 @@ setRoute url ( { state } as model, cmds ) =
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     FoodBuilder.init session trigram maybeQuery
                         |> toPage FoodBuilderPage FoodBuilderMsg
-
-                Just Route.Login ->
-                    ( model, Session.login LoggedIn )
 
                 Just (Route.FoodBuilderExample uuid) ->
                     FoodBuilder.initFromExample session uuid
@@ -229,6 +232,10 @@ update rawMsg ({ state } as model) =
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
+
+                ( AuthMsg authMsg, AuthPage authModel ) ->
+                    Auth.update session authMsg authModel
+                        |> toPage AuthPage AuthMsg
 
                 ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
                     Changelog.update session changelogMsg changelogModel
@@ -385,6 +392,11 @@ view { state, mobileNavigationOpened } =
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
                         |> Page.frame (pageConfig Page.Api)
+
+                AuthPage authModel ->
+                    Auth.view session authModel
+                        |> mapMsg AuthMsg
+                        |> Page.frame (pageConfig Page.Auth)
 
                 ChangelogPage changelogModel ->
                     Changelog.view session changelogModel

@@ -29,7 +29,6 @@ type Route
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderHome
     | FoodBuilderExample Uuid
-    | Login
     | TextileSimulatorHome
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | TextileSimulatorExample Uuid
@@ -49,9 +48,6 @@ parser =
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Stats (Parser.s "stats")
-
-        -- Login (FIXME: this is a temporary route, remove after launch)
-        , Parser.map Login (Parser.s "login")
 
         --  Explorer
         , (Parser.s "explore" </> Scope.parse)
@@ -217,9 +213,6 @@ toString route =
 
                 FoodBuilderExample uuid ->
                     [ "food", "edit-example", Uuid.toString uuid ]
-
-                Login ->
-                    [ "login" ]
 
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]
