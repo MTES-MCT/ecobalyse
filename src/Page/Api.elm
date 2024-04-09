@@ -54,7 +54,14 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "25 mars 2024"
+    [ { date = "9 avril 2024"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """En mode détaillé, le coût environnemental d'une étape du cycle de vie textile
+               inclut désormais l'impact des compléments associés."""
+      }
+    , { date = "25 mars 2024"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md = "La documentation de l'API alimentaire est temporairement mise hors-ligne."
