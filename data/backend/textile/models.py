@@ -119,7 +119,6 @@ class Product(models.Model):
     # making
     pcrWaste = models.FloatField()
     complexity = models.CharField(max_length=50, choices=MAXKINGCOMPLEXITIES)
-    durationInMinutes = models.FloatField()
     # use
     ironingProcessUuid = models.ForeignKey(
         Process, on_delete=models.SET_NULL, null=True, related_name="productsIroning"
@@ -248,6 +247,7 @@ class Example(models.Model):
     price = models.FloatField(null=True)
     repairCost = models.FloatField(null=True, blank=True)
     traceability = models.BooleanField(null=True)
+    airTransportRatio = models.FloatField(null=True)
 
     countrySpinning = models.CharField(max_length=50, choices=COUNTRIES)
     countryFabric = models.CharField(max_length=50, choices=COUNTRIES)
