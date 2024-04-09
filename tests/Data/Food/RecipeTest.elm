@@ -105,7 +105,7 @@ suite =
                     |> asTest "should return an Err for an invalid 'planeTransport' value for an ingredient without a default origin by plane"
                 ]
             , describe "compute"
-                [ describe "standard carrot cake"
+                [ describe "standard royal pizza"
                     (let
                         royalPizzaResults =
                             royalPizza
@@ -196,7 +196,7 @@ suite =
                      ]
                     )
                 , describe "raw-to-cooked checks"
-                    [ -- Carrot cake is cooked at plant, let's apply oven cooking at consumer: the
+                    [ -- Royal pizza is cooked at plant, let's apply oven cooking at consumer: the
                       -- raw-to-cooked ratio should have been applied to resulting mass just once.
                       let
                         withPreps preps =
