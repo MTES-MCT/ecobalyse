@@ -1,2 +1,5 @@
-paths-ignore:
+version: 2
+max-commits-for-hook: 500
+secret:
+  ignored-paths:
     - 'data/backend/authentication/migrations/0003_alter_ecobalyseuser_token.py'
