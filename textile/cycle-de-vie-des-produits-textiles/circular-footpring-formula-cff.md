@@ -12,7 +12,7 @@ Les deux premiers termes de la ligne "Material" permettent de modéliser l'impac
 
 ![Projet de PEFCR - v1.2 - ligne 1157](../../.gitbook/assets/CaptureCFFMaterial.PNG)
 
-Ils sont introduits dans la [section relative à la CFF de la page "Matière et filature"](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/filature#work-in-progress-circular-footprint-formula-cff).
+Ils sont introduits dans la section relative à la CFF de la page "[Matières](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/calcul-de-limpact-matiere-circular-footprint-formula-cff)".
 
 ## Fin de vie
 
