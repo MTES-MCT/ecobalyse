@@ -1,6 +1,7 @@
 module Server.Request exposing (Request)
 
 import Json.Encode as Encode
+import Static.Json as StaticJson
 
 
 type alias Request =
@@ -12,5 +13,6 @@ type alias Request =
     { method : String
     , url : String
     , body : Encode.Value
+    , processes : StaticJson.Processes
     , jsResponseHandler : Encode.Value
     }
