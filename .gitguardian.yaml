@@ -1,3 +1,6 @@
 secret:
-  ignored-paths:
-    - 'data/backend/authentication/migrations/0003_alter_ecobalyseuser_token.py'
+  ignored-matches:
+    - name:
+      match: 6d9bbfb0f9b73bc23c49353e7659aef2f41a4b4f
+    - name:
+      match: 2bb45208779b8b9dca682e526508171c67700522
