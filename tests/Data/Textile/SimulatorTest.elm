@@ -34,9 +34,9 @@ expectImpact db trigram value query =
             Expect.fail error
 
 
-cch : Definition.Trigram
-cch =
-    Definition.Cch
+ecs : Definition.Trigram
+ecs =
+    Definition.Ecs
 
 
 suite : Test
@@ -47,8 +47,8 @@ suite =
                 [ { tShirtCotonFrance
                     | countrySpinning = Nothing
                   }
-                    |> expectImpact db cch 6.907701975525644
-                    |> asTest "should compute a simulation cch impact"
+                    |> expectImpact db ecs 1668.06283770339
+                    |> asTest "should compute a simulation ecs impact"
                 , describe "disabled steps"
                     [ { tShirtCotonFrance | disabledSteps = [ Label.Ennobling ] }
                         |> Simulator.compute db
@@ -57,8 +57,8 @@ suite =
                         |> asTest "should be handled from passed query"
                     , asTest "should handle disabled steps"
                         (case
-                            ( getImpact db cch tShirtCotonFrance
-                            , getImpact db cch { tShirtCotonFrance | disabledSteps = [ Label.Ennobling ] }
+                            ( getImpact db ecs tShirtCotonFrance
+                            , getImpact db ecs { tShirtCotonFrance | disabledSteps = [ Label.Ennobling ] }
                             )
                          of
                             ( Ok full, Ok partial ) ->
@@ -69,8 +69,8 @@ suite =
                         )
                     , asTest "should allow disabling steps"
                         (case
-                            ( getImpact db cch tShirtCotonFrance
-                            , getImpact db cch { tShirtCotonFrance | disabledSteps = [ Label.Ennobling ] }
+                            ( getImpact db ecs tShirtCotonFrance
+                            , getImpact db ecs { tShirtCotonFrance | disabledSteps = [ Label.Ennobling ] }
                             )
                          of
                             ( Ok full, Ok partial ) ->
