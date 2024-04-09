@@ -1,3 +1,3 @@
-iac:
+secret:
   ignored_paths:
-    - 'data/backend/authentication/migrations/'
+    - 'data/backend/authentication/migrations/0003_alter_ecobalyseuser_token.py'
