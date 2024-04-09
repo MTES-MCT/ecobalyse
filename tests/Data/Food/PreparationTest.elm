@@ -24,9 +24,9 @@ suite =
                   , applyRawToCookedRatio = False
                   }
                     |> Preparation.apply food.wellKnown (Mass.kilograms 1)
-                    |> Impact.getImpact Definition.Cch
+                    |> Impact.getImpact Definition.Ecs
                     |> Unit.impactToFloat
-                    |> Expect.within (Expect.Absolute 0.001) 0.08
+                    |> Expect.within (Expect.Absolute 0.001) 15.163296295980121
                     |> asTest "compute impacts from applying a consumption preparation technique"
                 ]
             ]
