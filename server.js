@@ -13,7 +13,7 @@ const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
 const port = 8001;
-const django_port = process.env.PORT || 8000;
+const django_port = process.env.PORT || 8002;
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -116,7 +116,7 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   }
   let processes;
   try {
-    const processesUrl = `http://localhost:${django_port}/processes/processes.json`;
+    const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
     const processesRes = await fetch(processesUrl, { headers: headers });
     processes = await processesRes.json();
     if (processesRes.status != 200) {
