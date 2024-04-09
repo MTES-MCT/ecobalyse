@@ -1,3 +1,6 @@
+version: 2
+verbose: true
+max-commits-for-hook: 500
 secret:
   ignored-paths:
-    - 'data/backend/authentication/migratons/*'
+    - 'data/backend/authentication/migrations/*'
