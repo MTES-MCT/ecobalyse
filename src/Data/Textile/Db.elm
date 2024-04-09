@@ -74,17 +74,8 @@ updateProductsFromNewProcesses : List Process -> List Product -> List Product
 updateProductsFromNewProcesses processes =
     List.map
         (\({ use } as product) ->
-            Result.map2
-                (\ironingProcess nonIroningProcess ->
-                    { product
-                        | use =
-                            { use
-                                | ironingProcess = ironingProcess
-                                , nonIroningProcess = nonIroningProcess
-                            }
-                    }
-                )
-                (Process.findByUuid product.use.ironingProcess.uuid processes)
-                (Process.findByUuid product.use.nonIroningProcess.uuid processes)
+            processes
+                |> Process.findByUuid product.use.nonIroningProcess.uuid
+                |> Result.map (\p -> { product | use = { use | nonIroningProcess = p } })
                 |> Result.withDefault product
         )

@@ -17,6 +17,7 @@ import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Duration
+import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass
@@ -204,9 +205,11 @@ table db { detailed, scope } =
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ text <| String.fromInt product.use.defaultNbCycles ]
           }
-        , { label = "Procédé de repassage"
-          , toValue = Table.StringValue <| .use >> .ironingProcess >> .name
-          , toCell = .use >> .ironingProcess >> .name >> withTitle
+        , { label = "Repassage"
+
+          -- Note: Much better expressing electricity consumption in kWh than in MJ
+          , toValue = Table.FloatValue <| .use >> .ironingElec >> Energy.inKilowattHours
+          , toCell = .use >> .ironingElec >> Format.kilowattHours
           }
         , { label = "Procédé d'utilisation hors-repassage"
           , toValue = Table.StringValue <| .use >> .nonIroningProcess >> .name

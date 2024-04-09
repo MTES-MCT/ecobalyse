@@ -242,7 +242,7 @@ computeUseImpacts ({ inputs, useNbCycles } as simulator) =
                         step.outputMass
                             |> Formula.useImpacts step.impacts
                                 { useNbCycles = useNbCycles
-                                , ironingProcess = inputs.product.use.ironingProcess
+                                , ironingElec = inputs.product.use.ironingElec
                                 , nonIroningProcess = inputs.product.use.nonIroningProcess
                                 , countryElecProcess = country.electricityProcess
                                 }
