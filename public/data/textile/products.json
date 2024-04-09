@@ -22,7 +22,7 @@
       "complexity": "low"
     },
     "use": {
-      "ironingProcessUuid": "33773966-2704-4420-8663-ea4231a12040",
+      "ironingElecInMJ": 0.1638,
       "nonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d",
       "daysOfWear": 40,
       "defaultNbCycles": 20,
@@ -58,7 +58,7 @@
       "complexity": "medium"
     },
     "use": {
-      "ironingProcessUuid": "6d71fdef-b7a8-4a67-81e9-dc0e3f01a007",
+      "ironingElecInMJ": 0.24381,
       "nonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
       "daysOfWear": 70,
       "defaultNbCycles": 23,
@@ -94,7 +94,7 @@
       "complexity": "low"
     },
     "use": {
-      "ironingProcessUuid": "2de2f5e5-79fb-4a4a-8399-a722012e82dc",
+      "ironingElecInMJ": 0.0729,
       "nonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
       "daysOfWear": 70,
       "defaultNbCycles": 23,
@@ -130,7 +130,7 @@
       "complexity": "high"
     },
     "use": {
-      "ironingProcessUuid": "60147175-ca20-49aa-8991-9ed6f172c47b",
+      "ironingElecInMJ": 0.018,
       "nonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
       "daysOfWear": 100,
       "defaultNbCycles": 5,
@@ -166,7 +166,7 @@
       "complexity": "medium"
     },
     "use": {
-      "ironingProcessUuid": "f6b685ed-d5bd-40a0-af16-7c30838f3627",
+      "ironingElecInMJ": 0.24381,
       "nonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
       "daysOfWear": 70,
       "defaultNbCycles": 23,
@@ -202,7 +202,7 @@
       "complexity": "low"
     },
     "use": {
-      "ironingProcessUuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
+      "ironingElecInMJ": 0,
       "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "daysOfWear": 85,
       "defaultNbCycles": 17,
@@ -238,7 +238,7 @@
       "complexity": "low"
     },
     "use": {
-      "ironingProcessUuid": "974659b8-4635-43ba-86c5-73a186ea6f21",
+      "ironingElecInMJ": 0.0936,
       "nonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da",
       "daysOfWear": 45,
       "defaultNbCycles": 45,
@@ -274,7 +274,7 @@
       "complexity": "very-low"
     },
     "use": {
-      "ironingProcessUuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
+      "ironingElecInMJ": 0,
       "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "daysOfWear": 50,
       "defaultNbCycles": 25,
@@ -310,7 +310,7 @@
       "complexity": "low"
     },
     "use": {
-      "ironingProcessUuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
+      "ironingElecInMJ": 0,
       "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "daysOfWear": 60,
       "defaultNbCycles": 60,
@@ -346,7 +346,7 @@
       "complexity": "low"
     },
     "use": {
-      "ironingProcessUuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
+      "ironingElecInMJ": 0,
       "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "daysOfWear": 60,
       "defaultNbCycles": 60,
@@ -382,7 +382,7 @@
       "complexity": "low"
     },
     "use": {
-      "ironingProcessUuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
+      "ironingElecInMJ": 0,
       "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "daysOfWear": 30,
       "defaultNbCycles": 30,

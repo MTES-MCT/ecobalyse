@@ -40,6 +40,7 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Static.Db exposing (Db)
+import Views.Format as Format
 
 
 type alias Step =
@@ -370,7 +371,13 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 | processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , useIroning = Just inputs.product.use.ironingProcess.name
+                        , useIroning =
+                            -- Note: Much better expressing electricity consumption in kWh than in MJ
+                            inputs.product.use.ironingElec
+                                |> Energy.inKilowattHours
+                                |> Format.formatFloat 4
+                                |> (\x -> "Repassage\u{00A0}: " ++ x ++ "\u{00A0}kWh")
+                                |> Just
                         , useNonIroning = Just inputs.product.use.nonIroningProcess.name
                     }
             }

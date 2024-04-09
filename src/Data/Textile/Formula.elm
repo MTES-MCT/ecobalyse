@@ -489,17 +489,17 @@ useImpacts :
     Impacts
     ->
         { useNbCycles : Int
-        , ironingProcess : Process
+        , ironingElec : Energy
         , nonIroningProcess : Process
         , countryElecProcess : Process
         }
     -> Mass
     -> { kwh : Energy, impacts : Impacts }
-useImpacts impacts { useNbCycles, ironingProcess, nonIroningProcess, countryElecProcess } baseMass =
+useImpacts impacts { useNbCycles, ironingElec, nonIroningProcess, countryElecProcess } baseMass =
     let
         totalEnergy =
             -- Note: Ironing is expressed per-item, non-ironing is mass-depdendent
-            [ ironingProcess.elec
+            [ ironingElec
             , nonIroningProcess.elec
                 |> Quantity.multiplyBy (Mass.inKilograms baseMass)
             ]
@@ -514,8 +514,6 @@ useImpacts impacts { useNbCycles, ironingProcess, nonIroningProcess, countryElec
                     Quantity.sum
                         [ totalEnergy
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-                        , Process.getImpact trigram ironingProcess
-                            |> Quantity.multiplyBy (toFloat useNbCycles)
                         , baseMass
                             |> Unit.forKg (Process.getImpact trigram nonIroningProcess)
                             |> Quantity.multiplyBy (toFloat useNbCycles)

@@ -19,6 +19,7 @@ import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplex
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
+import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -38,7 +39,7 @@ type alias MakingOptions =
 
 
 type alias UseOptions =
-    { ironingProcess : Process -- Procédé de repassage
+    { ironingElec : Energy -- Quantitié d'éléctricité mobilisée pour repasser une pièce
     , nonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
     , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
     , defaultNbCycles : Int -- Nombre par défaut de cycles d'entretien (not used in computations)
@@ -113,7 +114,7 @@ decodeMakingOptions =
 decodeUseOptions : List Process -> Decoder UseOptions
 decodeUseOptions processes =
     Decode.succeed UseOptions
-        |> Pipe.required "ironingProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "ironingElecInMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "nonIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "wearsPerCycle" Decode.int
         |> Pipe.required "defaultNbCycles" Decode.int
@@ -161,8 +162,7 @@ encodeMakingOptions v =
 encodeUseOptions : UseOptions -> Encode.Value
 encodeUseOptions v =
     Encode.object
-        [ ( "ironingProcessUuid", Process.encodeUuid v.ironingProcess.uuid )
-        , ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.uuid )
+        [ ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.uuid )
         , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
         , ( "defaultNbCycles", Encode.int v.defaultNbCycles )
         , ( "ratioDryer", Split.encodeFloat v.ratioDryer )
