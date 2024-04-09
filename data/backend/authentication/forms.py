@@ -1,10 +1,12 @@
 from django import forms
-import json
 from django.contrib.auth import get_user_model
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 from mailauth.backends import MailAuthBackend
 from mailauth.forms import EmailLoginForm as MailauthEmailLoginForm
+import json
+import os
+import sys
 
 
 class EmailLoginForm(MailauthEmailLoginForm):
@@ -63,9 +65,12 @@ class RegistrationForm(ModelForm):
         return MailAuthBackend.get_token(user=user)
 
     def save(self, commit=True):
-        user = super().save(commit)
+        super().save(commit)
         email = self.cleaned_data["email"]
         for user in EmailLoginForm.get_users(self, email):
             context = EmailLoginForm.get_mail_context(self, self.request, user)
             EmailLoginForm.send_mail(self, email, context)
+            if "test" in sys.argv:
+                # hack to pass the login url to the test suite
+                os.environ["login_url"] = context["login_url"]
         return user

@@ -25,7 +25,7 @@ SITE_NAME = "Ecobalyse"
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DJANGO_DEBUG", cast=bool)
+DEBUG = config("DJANGO_DEBUG", cast=bool, default=True)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if DEBUG:

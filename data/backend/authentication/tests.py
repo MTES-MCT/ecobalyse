@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 import json
+import os
 
 
 class DjangoAuthenticationTests(TestCase):
@@ -9,7 +10,7 @@ class DjangoAuthenticationTests(TestCase):
         self.assertEqual(getattr(response, "status_code"), 200)
         self.assertContains(response, "Veuillez vous inscrire")
 
-    def test_register_post_on_standard_form(self):
+    def test_register_login_on_standard_form(self):
         # invalid mail
         response = self.client.post(
             reverse("register"),
@@ -71,6 +72,18 @@ class DjangoAuthenticationTests(TestCase):
         self.assertEqual(
             getattr(response, "headers")["Location"], reverse("registration-requested")
         )
+
+        # wrong standard login url
+        response = self.client.get(
+            "/accounts/login/1::1ru4fl:Z3XQ1tyORtolai5tycqK99BjUgzefc7o-mfui0DQFa0?next=/"
+        )
+        self.assertEqual(getattr(response, "status_code"), 403)
+
+        # right standard login url
+        login_url = "/" + "/".join(os.environ["login_url"].split("/")[3:])
+        response = self.client.get(login_url)
+        self.assertEqual(getattr(response, "status_code"), 302)
+        self.assertEqual(getattr(response, "url"), "/")
 
     def test_registration_confirmation(self):
         response = self.client.get(reverse("registration-requested"))
@@ -141,3 +154,15 @@ class DjangoAuthenticationTests(TestCase):
         )
         self.assertEqual(getattr(response, "status_code"), 200)
         self.assertEqual(json.loads(getattr(response, "content")).get("success"), True)
+
+        # wrong json login url
+        response = self.client.get(
+            "/accounts/login.json/1::1ru4fl:Z3XQ1tyORtolai5tycqK99BjUgzefc7o-mfui0DQFa0?next=/"
+        )
+        self.assertEqual(getattr(response, "status_code"), 404)
+
+        # right json login url
+        login_url = "/" + "/".join(os.environ["login_url"].split("/")[3:])
+        response = self.client.get(login_url)
+        self.assertEqual(getattr(response, "status_code"), 302)
+        self.assertEqual(getattr(response, "url"), "/")
