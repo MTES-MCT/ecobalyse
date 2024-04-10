@@ -1,3 +1,0 @@
-secret:
-  ignored_paths:
-    - 'data/backend/authentication/migrations/*'
