@@ -31,9 +31,6 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install pipenv
-      run: pip install pipenv
-
     - name: Cache node_modules
       id: cache-node_modules
       uses: actions/cache@v4
@@ -52,8 +49,11 @@ jobs:
     - name: Install Node dependencies
       run: npm ci --prefer-offline --no-audit
 
+    - name: Install pipenv
+      run: pip install pipenv
+
     - name: Install Python dependencies
-      run: python
+      run: pipenv install
 
     - name: Build app
       run: npm run build --if-present
