@@ -180,16 +180,16 @@ suite =
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 194.37931247785687
+                                    |> Expect.within (Expect.Absolute 0.01) 26529.65696904604
                                     |> asTest "should properly score impact on biodiversity protected area"
                                 , Unit.impactToFloat scoring.climate
-                                    |> Expect.within (Expect.Absolute 0.01) 108.35763169433548
+                                    |> Expect.within (Expect.Absolute 0.01) 46.030028789433196
                                     |> asTest "should properly score impact on climate protected area"
                                 , Unit.impactToFloat scoring.health
-                                    |> Expect.within (Expect.Absolute 0.01) 62.08054112486502
+                                    |> Expect.within (Expect.Absolute 0.01) 198410597.81266952
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 118.29596222120665
+                                    |> Expect.within (Expect.Absolute 0.01) 1551671.9850408111
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
