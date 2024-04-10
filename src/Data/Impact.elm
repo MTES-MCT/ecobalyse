@@ -101,28 +101,24 @@ divideComplementsImpactsBy n =
     mapComplementsImpacts (Quantity.divideBy n)
 
 
-mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
-mapComplementsImpacts fn ci =
-    { hedges = fn ci.hedges
-    , plotSize = fn ci.plotSize
-    , cropDiversity = fn ci.cropDiversity
-    , permanentPasture = fn ci.permanentPasture
-    , livestockDensity = fn ci.livestockDensity
-    , microfibers = fn ci.microfibers
-    , outOfEuropeEOL = fn ci.outOfEuropeEOL
-    }
+encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
+encodeComplementsImpacts complementsImpact =
+    let
+        negated =
+            negateComplementsImpacts complementsImpact
+    in
+    Encode.object
+        -- Ecosystemic services
+        [ ( "hedges", Unit.encodeImpact negated.hedges )
+        , ( "plotSize", Unit.encodeImpact negated.plotSize )
+        , ( "cropDiversity", Unit.encodeImpact negated.cropDiversity )
+        , ( "permanentPasture", Unit.encodeImpact negated.permanentPasture )
+        , ( "livestockDensity", Unit.encodeImpact negated.livestockDensity )
 
-
-noComplementsImpacts : ComplementsImpacts
-noComplementsImpacts =
-    { hedges = Unit.impact 0
-    , plotSize = Unit.impact 0
-    , cropDiversity = Unit.impact 0
-    , permanentPasture = Unit.impact 0
-    , livestockDensity = Unit.impact 0
-    , microfibers = Unit.impact 0
-    , outOfEuropeEOL = Unit.impact 0
-    }
+        -- Textile complements
+        , ( "microfibers", Unit.encodeImpact negated.microfibers )
+        , ( "outOfEuropeEOL", Unit.encodeImpact negated.outOfEuropeEOL )
+        ]
 
 
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
@@ -136,6 +132,35 @@ getTotalComplementsImpacts complementsImpacts =
         , complementsImpacts.microfibers
         , complementsImpacts.outOfEuropeEOL
         ]
+
+
+mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
+mapComplementsImpacts fn ci =
+    { hedges = fn ci.hedges
+    , plotSize = fn ci.plotSize
+    , cropDiversity = fn ci.cropDiversity
+    , permanentPasture = fn ci.permanentPasture
+    , livestockDensity = fn ci.livestockDensity
+    , microfibers = fn ci.microfibers
+    , outOfEuropeEOL = fn ci.outOfEuropeEOL
+    }
+
+
+negateComplementsImpacts : ComplementsImpacts -> ComplementsImpacts
+negateComplementsImpacts =
+    mapComplementsImpacts (Unit.impactToFloat >> negate >> Unit.impact)
+
+
+noComplementsImpacts : ComplementsImpacts
+noComplementsImpacts =
+    { hedges = Unit.impact 0
+    , plotSize = Unit.impact 0
+    , cropDiversity = Unit.impact 0
+    , permanentPasture = Unit.impact 0
+    , livestockDensity = Unit.impact 0
+    , microfibers = Unit.impact 0
+    , outOfEuropeEOL = Unit.impact 0
+    }
 
 
 impactsWithComplements : ComplementsImpacts -> Impacts -> Impacts
@@ -408,24 +433,10 @@ decodeWithoutAggregated =
         |> Decode.map Impacts
 
 
-encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
-encodeComplementsImpacts c =
-    Encode.object
-        [ ( "hedges", Unit.encodeImpact c.hedges )
-        , ( "plotSize", Unit.encodeImpact c.plotSize )
-        , ( "cropDiversity", Unit.encodeImpact c.cropDiversity )
-        , ( "permanentPasture", Unit.encodeImpact c.permanentPasture )
-        , ( "livestockDensity", Unit.encodeImpact c.livestockDensity )
-        , ( "microfibers", Unit.encodeImpact c.microfibers )
-        , ( "outOfEuropeEOL", Unit.encodeImpact c.outOfEuropeEOL )
-        ]
-
-
 encode : Impacts -> Encode.Value
 encode (Impacts impacts) =
-    Definition.encodeBase
-        Unit.encodeImpact
-        impacts
+    impacts
+        |> Definition.encodeBase Unit.encodeImpact
 
 
 encodeSingleImpact : Impacts -> Trigram -> Encode.Value
