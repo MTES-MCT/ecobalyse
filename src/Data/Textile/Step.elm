@@ -486,7 +486,12 @@ encode v =
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "transport", Transport.encode v.transport )
-        , ( "impacts", Impact.encode v.impacts )
+        , ( "impacts"
+          , v.impacts
+                |> Impact.applyComplements (Impact.getTotalComplementsImpacts v.complementsImpacts)
+                |> Impact.encode
+          )
+        , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
