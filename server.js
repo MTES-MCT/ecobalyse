@@ -13,7 +13,7 @@ const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
 const port = 8001;
-const django_port = process.env.PORT || 8002;
+const django_port = 8002;
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
