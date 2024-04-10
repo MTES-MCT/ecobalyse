@@ -12,7 +12,7 @@ const lib = require("./lib");
 const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
-const port = 8001;
+const express_port = 8001;
 const django_port = 8002;
 
 // Env vars
@@ -147,8 +147,8 @@ if (SENTRY_DSN) {
   app.use(Sentry.Handlers.errorHandler());
 }
 
-const server = app.listen(port, host, () => {
-  console.log(`Server listening at http://${host}:${port}`);
+const server = app.listen(express_port, host, () => {
+  console.log(`Server listening at http://${host}:${express_port}`);
 });
 
 module.exports = server;
