@@ -1,6 +1,6 @@
 # Calcul des compléments animaux
 
-Avant de commencer le calcul des compléments pour les animaux, il est nécessaire que les compléments relatifs aux végétaux – haie, taille de parcelle, et diversité – aient été préalablement calculés.
+Avant de commencer le calcul des compléments pour les animaux, il est nécessaire que les [compléments relatifs aux végétaux](calcul-des-complements-vegetaux.md) – haie, taille de parcelle, et diversité – aient été préalablement calculés.
 
 ## Haies, taille de parcelle et diversité
 
