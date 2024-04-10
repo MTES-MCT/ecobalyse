@@ -28,7 +28,7 @@
     "test:client": "npx elm-test",
     "test:review": "npx elm-review",
     "test:server": "npm run server:build && jest",
-    "test": "TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run db:build && npm run test:review && npm run test:client && npm run auth:test && TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run server:build && concurrently -k -s first -n \"django,test\" \"npm run auth:serve\" \"jest\""
+    "test": "TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run db:build && npm run test:review && npm run test:client && npm run auth:test && concurrently -k -s first -n \"django,test\" \"npm run auth:serve\" \"TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run test:server\""
   },
   "dependencies": {
     "@parcel/transformer-elm": "^2.12.0",
