@@ -94,7 +94,7 @@ $ npm run build
 $ npm run server:start
 ```
 
-L'application est alors servie sur le port défini par la variable d'environnement `PORT` (par défaut: `8001`).
+L'application est alors servie sur le port 8001.
 
 # Ecobalyse data
 
