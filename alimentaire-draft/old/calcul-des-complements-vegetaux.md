@@ -8,4 +8,4 @@ Le schéma suivant résume la manière dont sont fait le calculs de ces complém
 
 
 
-<figure><img src="../../.gitbook/assets/image (90).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (90).png" alt=""><figcaption><p>schéma de calcul des compléments végétaux</p></figcaption></figure>
