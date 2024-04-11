@@ -8,6 +8,7 @@ django = "*"
 gunicorn = "*"
 django-mail-auth = "*"
 python-decouple = "*"
+psycopg = "*"
 
 [dev-packages]
 
