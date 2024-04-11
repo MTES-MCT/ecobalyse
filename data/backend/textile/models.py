@@ -120,9 +120,7 @@ class Product(models.Model):
     pcrWaste = models.FloatField()
     complexity = models.CharField(max_length=50, choices=MAXKINGCOMPLEXITIES)
     # use
-    ironingProcessUuid = models.ForeignKey(
-        Process, on_delete=models.SET_NULL, null=True, related_name="productsIroning"
-    )
+    ironingElecInMJ = models.FloatField()
     nonIroningProcessUuid = models.ForeignKey(
         Process, on_delete=models.SET_NULL, null=True, related_name="productsNonIroning"
     )
@@ -164,7 +162,7 @@ class Product(models.Model):
                         "durationInMinutes": product.durationInMinutes,
                     },
                     "use": {
-                        "ironingProcessUuid": product.ironingProcessUuid,
+                        "ironingElecInMJ": product.ironingElecInMJ,
                         "nonIroningProcessUuid": product.nonIroningProcessUuid,
                         "daysOfWear": product.daysOfWear,
                         "defaultNbCycles": product.defaultNbCycles,
@@ -176,7 +174,7 @@ class Product(models.Model):
                     "endOfLife": {"volume": product.volume},
                 }
                 for product in cls.objects.select_related(
-                    "ironingProcessUuid", "nonIroningProcessUuid"
+                    "nonIroningProcessUuid",
                 ).all()
             ]
         )
