@@ -115,6 +115,9 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
     headers["token"] = req.headers.token;
   }
   let processes;
+  if (process.env.NODE_ENV == "test") {
+    headers["fakeDetails"] = "true";
+  }
   try {
     const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
     const processesRes = await fetch(processesUrl, { headers: headers });

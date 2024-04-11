@@ -4,8 +4,9 @@ module TestUtils exposing
     , suiteWithDb
     )
 
+import ComputeAggregated exposing (fakeDetails)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition exposing (Trigram, Trigrams)
+import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Static.Db exposing (Db, db, processes)
@@ -51,22 +52,3 @@ expectImpactsEqual impacts subject =
         |> (\expectations ->
                 Expect.all expectations subject
            )
-
-
-fakeImpact : Trigram -> Unit.Impact -> Unit.Impact
-fakeImpact trigram impact =
-    if Definition.isAggregate trigram then
-        impact
-
-    else
-        -- Random value that's non zero so the e2e tests can help us spot changes in the computations of impacts
-        Unit.impact 1.2
-
-
-fakeDetails : List { a | impacts : Impacts } -> List { a | impacts : Impacts }
-fakeDetails processes =
-    processes
-        |> List.map
-            (\process ->
-                { process | impacts = Impact.mapImpacts fakeImpact process.impacts }
-            )
