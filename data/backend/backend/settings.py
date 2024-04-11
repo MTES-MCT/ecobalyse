@@ -14,6 +14,7 @@ from decouple import config  # python-decouple to read in .env
 from django.utils.translation import gettext_lazy as _
 from os.path import join, dirname
 from pathlib import Path
+import re
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -95,12 +96,34 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+# parse the SCALINGO_POSTGRESQL_URL env variable to extract Django connection parameters
+# if they fit we use postgres, otherwise sqlite3
+pattern: re.Pattern = re.compile(
+    r"postgres://"
+    r"(?P<user>[^:]+):"
+    r"(?P<password>[^@]+)@"
+    r"(?P<host>[^:]+):"
+    r"(?P<port>\d+)/"
+    r"(?P<database>[^\?]+)"
+)
+if match := pattern.search(config("SCALINGO_POSTGRESQL_URL", "")):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "HOST": match.group("host"),
+            "NAME": match.group("database"),
+            "USER": match.group("user"),
+            "PASSWORD": match.group("password"),
+            "PORT": match.group("port"),
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation
