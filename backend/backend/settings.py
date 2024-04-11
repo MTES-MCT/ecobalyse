@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 GITROOT = dirname(BASE_DIR)
 
 SITE_NAME = "Ecobalyse"
+HOSTNAME = "ecobalyse.beta.gouv.fr"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -36,7 +37,7 @@ else:
     SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = [
-    "ecobalyse.beta.gouv.fr",
+    HOSTNAME,
     "localhost",
     "127.0.0.1",
     ".osc-fr1.scalingo.io",
@@ -99,8 +100,6 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# parse the SCALINGO_POSTGRESQL_URL env variable to extract Django connection parameters
-# if they fit we use postgres, otherwise sqlite3
 pattern: re.Pattern = re.compile(
     r"postgres://"
     r"(?P<user>[^:]+):"
