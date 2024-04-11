@@ -147,10 +147,7 @@ def init():
                                     flatten(
                                         "economics",
                                         delkey(
-                                            "use.nonIroningProcessUuid",
-                                            delkey(
-                                                "use.ironingProcessUuid", deepcopy(p)
-                                            ),
+                                            "use.nonIroningProcessUuid", deepcopy(p)
                                         ),
                                     ),
                                 ),
@@ -162,14 +159,10 @@ def init():
             ]
         )
     pobjects = [Product.objects.get(pk=p["id"]) for p in products]
-    ironingProcesses = {p["id"]: p["use"]["ironingProcessUuid"] for p in products}
     nonIroningProcesses = {p["id"]: p["use"]["nonIroningProcessUuid"] for p in products}
     for p in pobjects:
-        p.ironingProcessUuid = Process.objects.get(pk=ironingProcesses[p.id])
         p.nonIroningProcessUuid = Process.objects.get(pk=nonIroningProcesses[p.id])
-    Product.objects.bulk_update(
-        pobjects, ["ironingProcessUuid", "nonIroningProcessUuid"]
-    )
+    Product.objects.bulk_update(pobjects, ["nonIroningProcessUuid"])
 
     # EXAMPLES
     with open(
