@@ -30,6 +30,12 @@ with open(join(PUBLIC_FOLDER, "food", "processes_impacts.json"), "r") as f:
 with open(join(PUBLIC_FOLDER, "textile", "processes_impacts.json"), "r") as f:
     textile_processes_detailed = f.read()
 
+with open(join(PUBLIC_FOLDER, "food", "processes_impacts_fake.json"), "r") as f:
+    food_processes_detailed_fake = f.read()
+
+with open(join(PUBLIC_FOLDER, "textile", "processes_impacts_fake.json"), "r") as f:
+    textile_processes_detailed_fake = f.read()
+
 processes_not_detailed = {
     "foodProcesses": food_processes,
     "textileProcesses": textile_processes,
@@ -40,9 +46,15 @@ processes_detailed = {
     "textileProcesses": textile_processes_detailed,
 }
 
+processes_detailed_fake = {
+    "foodProcesses": food_processes_detailed_fake,
+    "textileProcesses": textile_processes_detailed_fake,
+}
+
 
 def processes(request):
     token = request.headers.get("token")
+    fakeDetails = request.headers.get("fakeDetails")
     if token:
         # Token auth
         if is_token_valid(token):
@@ -57,6 +69,8 @@ def processes(request):
         if u.is_authenticated:
             # Cookie auth
             return JsonResponse(processes_detailed)
+        elif fakeDetails:
+            return JsonResponse(processes_detailed_fake)
         else:
             # No auth
             return JsonResponse(processes_not_detailed)
