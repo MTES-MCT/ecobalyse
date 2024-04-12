@@ -1,27 +1,30 @@
 """
 This file is `explore` Jupyter Notebook
 """
+
 print("Please wait")
-from IPython.core.display import display, Markdown
-import sys
 import os
+import sys
+
+from IPython.core.display import Markdown, display
 
 sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
 
 sys.stdout = sys.__stdout__
-from bw2data.utils import get_activity
 import base64
+import csv
+import io
+import json
+import os
+
 import bw2analyzer
 import bw2calc
 import bw2data
-import csv
-import io
 import ipywidgets
-import json
-import os
 import pandas
 import pandas.io.formats.style
+from bw2data.utils import get_activity
 
 Illustration = open("/home/jovyan/ecobalyse/data/notebooks/bw2.svg").read()
 BIOSPHERE = "biosphere3"

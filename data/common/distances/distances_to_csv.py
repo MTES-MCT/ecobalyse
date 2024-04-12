@@ -1,6 +1,7 @@
-import json
-import pandas as pd
 import gettext
+import json
+
+import pandas as pd
 
 """Convert distances.json to distances.csv, countries.csv to use it in excel
 """

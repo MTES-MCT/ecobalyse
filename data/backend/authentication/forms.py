@@ -1,12 +1,13 @@
+import json
+import os
+import sys
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 from mailauth.backends import MailAuthBackend
 from mailauth.forms import EmailLoginForm as MailauthEmailLoginForm
-import json
-import os
-import sys
 
 
 class EmailLoginForm(MailauthEmailLoginForm):

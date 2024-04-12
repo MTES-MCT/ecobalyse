@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # from pprint import pprint
-from bw2data.project import projects
-import bw2data
 import json
+
+import bw2data
+from bw2data.project import projects
 
 projects.create_project("textile", activate=True, exist_ok=True)
 

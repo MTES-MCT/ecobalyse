@@ -1,4 +1,5 @@
 import os
+
 from django.http import Http404
 from django.views.static import serve
 

@@ -1,27 +1,28 @@
 """
 This file is the ingredient/activity editor Jupyter Notebook
 """
+
 print("Please wait")
-import sys
 import os
+import sys
 
 # don"t display bw2data startup output
 sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
 
 sys.stdout = sys.__stdout__
-from flatdict import FlatDict
-import bw2calc
-import bw2data
-import ipywidgets
 import json
-import pandas
-import pandas.io.formats.style
-import requests
 import shutil
 import subprocess
 import urllib.parse
 
+import bw2calc
+import bw2data
+import ipywidgets
+import pandas
+import pandas.io.formats.style
+import requests
+from flatdict import FlatDict
 
 os.chdir("/home/jovyan/ecobalyse/data")
 PROJECT = "food"

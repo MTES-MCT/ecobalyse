@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-from bw2data.project import projects
-from zipfile import ZipFile
-import bw2data
-import bw2io
 import functools
 import os
 import sys
+from zipfile import ZipFile
+
+import bw2data
+import bw2io
+from bw2data.project import projects
 from bw2io.strategies import (
     drop_unspecified_subcategories,
     fix_localized_water_flows,
@@ -19,7 +20,6 @@ from bw2io.strategies import (
     normalize_units,
     set_biosphere_type,
 )
-
 
 PROJECT = sys.argv[1]
 # Agribalyse
@@ -53,7 +53,7 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     ef = bw2io.importers.SimaProLCIACSVImporter(
         unzipped,
         biosphere=biosphere,
-        normalize_biosphere=False if project == "textile" else True
+        normalize_biosphere=False if project == "textile" else True,
         # normalize_biosphere to align the categories between LCI and LCIA
     )
     os.unlink(unzipped)
