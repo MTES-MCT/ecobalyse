@@ -309,7 +309,7 @@ pageHeader config =
                                     else
                                         "Connexion"
                              in
-                             Internal label (Route.Auth { loggedIn = False }) Auth
+                             Internal label (Route.Auth { authenticated = False }) Auth
                                 |> viewNavigationLink config.activePage
                            ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]

@@ -13,7 +13,7 @@ from mailauth.forms import EmailLoginForm as MailauthEmailLoginForm
 class EmailLoginForm(MailauthEmailLoginForm):
     def get_login_url(self, request, token, next=None):
         return super(EmailLoginForm, self).get_login_url(
-            request, token, next=next or "/#/auth/loggedIn"
+            request, token, next=next or "/#/auth/authenticated"
         )
 
 
@@ -58,7 +58,7 @@ class RegistrationForm(ModelForm):
 
     def get_login_url(self, request, token, next=None):
         return MailauthEmailLoginForm.get_login_url(
-            self, request, token, next=next or "/#/auth/loggedIn"
+            self, request, token, next=next or "/#/auth/authenticated"
         )
 
     def get_token(self, user):
