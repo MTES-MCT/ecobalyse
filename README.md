@@ -8,11 +8,16 @@ L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/)
 
 ## Socle technique et prérequis
 
-Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm` sur votre machine.
+Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`, ainsi que d'un environnement [python](https://www.python.org/) >=3.10 et [pipenv](https://pipenv.pypa.io/) sur votre machine :
 
 ## Installation
 
     $ npm install
+    $ pipenv install
+
+Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :
+
+    $ npm run auth:init
 
 ## Configuration
 
