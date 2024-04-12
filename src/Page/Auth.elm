@@ -17,6 +17,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Ports
+import Request.Common as RequestCommon
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Markdown as Markdown
@@ -26,7 +27,7 @@ import Views.Markdown as Markdown
 -- Auth flow:
 -- 1/ ask for login:
 --    - ask for a connection link via email: should receive an email with a login link
---    - once the link in the email received is clicked, the backend will redirect to /#/auth/loggedIn
+--    - once the link in the email received is clicked, the backend will redirect to /#/auth/authenticated
 --      - GET the user info (to make sure the user is connected)
 --      - load the full processes with impacts
 -- 2/ register:
@@ -58,7 +59,7 @@ type alias Model =
     { user : User
     , response : Maybe Response
     , action : Action
-    , loggedIn : Bool
+    , authenticated : Bool
     }
 
 
@@ -95,12 +96,12 @@ formFromUser user =
     , company = user.company
     , cgu = user.cgu
     , token = ""
-    , next = "/#/auth/loggedIn"
+    , next = "/#/auth/authenticated"
     }
 
 
-emptyModel : { loggedIn : Bool } -> Model
-emptyModel { loggedIn } =
+emptyModel : { authenticated : Bool } -> Model
+emptyModel { authenticated } =
     { user =
         { email = ""
         , firstname = ""
@@ -111,7 +112,7 @@ emptyModel { loggedIn } =
         }
     , response = Nothing
     , action = Register
-    , loggedIn = loggedIn
+    , authenticated = authenticated
     }
 
 
@@ -121,18 +122,18 @@ type Action
 
 
 type Msg
-    = AskForLogin
+    = Login
     | AskForRegistration
     | ChangeAction Action
     | GotUserInfo (Result Http.Error User)
     | Logout
-    | LoggedIn (Result String Session.AllProcessesJson)
+    | Authenticated (Result String Session.AllProcessesJson)
     | LoggedOut
     | TokenEmailSent (Result Http.Error Response)
     | UpdateForm Model
 
 
-init : Session -> { loggedIn : Bool } -> ( Model, Session, Cmd Msg )
+init : Session -> { authenticated : Bool } -> ( Model, Session, Cmd Msg )
 init session data =
     ( emptyModel data
     , session
@@ -143,16 +144,24 @@ init session data =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        AskForLogin ->
+        Login ->
             ( model
             , session
-            , askForLogin model.user.email
+            , Http.post
+                { url = login_url
+                , body = Http.jsonBody (encodeEmail model.user.email)
+                , expect = Http.expectJson TokenEmailSent decodeResponse
+                }
             )
 
         AskForRegistration ->
             ( model
             , session
-            , askForRegistration <| formFromUser model.user
+            , Http.post
+                { url = registration_url
+                , body = Http.jsonBody (encodeUserForm (formFromUser model.user))
+                , expect = Http.expectJson TokenEmailSent decodeResponse
+                }
             )
 
         ChangeAction action ->
@@ -164,15 +173,15 @@ update session msg model =
         GotUserInfo (Ok user) ->
             ( { model | user = user }
             , session
-            , Session.login LoggedIn
+            , Session.login Authenticated
             )
 
-        GotUserInfo (Err _) ->
-            ( { model | loggedIn = False }
-            , if model.loggedIn then
+        GotUserInfo (Err err) ->
+            ( { model | authenticated = False }
+            , if model.authenticated then
                 -- We're here following a click on a login link in an email. If we failed, notify the user.
                 session
-                    |> Session.notifyError "Erreur lors du login" ""
+                    |> Session.notifyError "Erreur lors du login" (RequestCommon.errorToString err)
 
               else
                 session
@@ -180,17 +189,17 @@ update session msg model =
             , Cmd.none
             )
 
-        LoggedIn (Ok newProcessesJson) ->
+        Authenticated (Ok newProcessesJson) ->
             let
                 newSession =
-                    Session.loggedIn session newProcessesJson
+                    Session.authenticated session newProcessesJson
             in
             ( model
             , newSession
             , newSession.store |> Session.serializeStore |> Ports.saveStore
             )
 
-        LoggedIn (Err error) ->
+        Authenticated (Err error) ->
             let
                 newSession =
                     session
@@ -211,7 +220,7 @@ update session msg model =
             let
                 newSession =
                     Session.logout session
-                        |> Session.notifyInfo "Vous n'avez plus accès au détail des impacts" ""
+                        |> Session.notifyInfo "Vous êtes désormais déconnecté" "Vous n'avez plus accès au détail des impacts."
             in
             ( model
             , newSession
@@ -255,10 +264,10 @@ view session model =
             , div [ class "row justify-content-center" ]
                 [ if Session.isAuthenticated session then
                     div [ class "row d-flex justify-content-center" ]
-                        [ if model.loggedIn then
+                        [ if model.authenticated then
                             p [ class "text-center" ]
                                 [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
-                                , a [ href Env.gitbookUrl ] [ text "conditions" ]
+                                , a [ href Env.gitbookUrl ] [ text "conditions d'utilisation des données" ]
                                 , text "."
                                 ]
 
@@ -391,7 +400,7 @@ viewLoginForm ({ user } as model) =
                 ]
 
         _ ->
-            Html.form [ onSubmit AskForLogin ]
+            Html.form [ onSubmit Login ]
                 [ viewFormErrors model.response
                 , viewInput
                     { label = "Adresse e-mail"
@@ -534,7 +543,7 @@ viewRegisterForm ({ user } as model) =
                             , class "form-control"
                             , id "nextInput"
                             , required True
-                            , value "/#/auth/loggedIn"
+                            , value "/#/auth/authenticated"
                             , hidden True
                             ]
                             []
@@ -563,24 +572,6 @@ viewFormErrors maybeResponse =
 
 
 ---- helpers
-
-
-askForLogin : String -> Cmd Msg
-askForLogin email =
-    Http.post
-        { url = login_url
-        , body = Http.jsonBody (encodeEmail email)
-        , expect = Http.expectJson TokenEmailSent decodeResponse
-        }
-
-
-askForRegistration : Form User -> Cmd Msg
-askForRegistration user =
-    Http.post
-        { url = registration_url
-        , body = Http.jsonBody (encodeUserForm user)
-        , expect = Http.expectJson TokenEmailSent decodeResponse
-        }
 
 
 getUserInfo : Cmd Msg
