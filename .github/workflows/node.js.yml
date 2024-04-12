@@ -71,4 +71,4 @@ jobs:
       run: npm run test:client
 
     - name: Run server tests
-      run: npm run test:server
+      run: npm run test:server-ci
