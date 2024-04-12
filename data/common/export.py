@@ -1,9 +1,10 @@
 # Only pure functions here
 import functools
+import json
+import logging
+
 import bw2data
 from bw2io.utils import activity_hash
-import logging
-import json
 from frozendict import frozendict
 
 logging.basicConfig(level=logging.ERROR)

@@ -8,5 +8,6 @@ django = ">=5"
 gunicorn = "*"
 django-mail-auth = "*"
 python-decouple = "*"
+ruff = "*"
 
 [dev-packages]

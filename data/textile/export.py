@@ -3,16 +3,17 @@
 
 """Export des matières et procédés du textile"""
 
+import json
+
+import bw2calc
 from bw2data.project import projects
 from common.export import (
-    with_subimpacts,
     cached_search,
-    with_corrected_impacts,
     display_changes,
+    with_corrected_impacts,
+    with_subimpacts,
 )
 from common.impacts import impacts as impacts_definition
-import bw2calc
-import json
 
 # Input
 PROJECT = "textile"

@@ -1,22 +1,26 @@
-from .forms import RegistrationForm
+import json
+import logging
+
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
-from django.http import response, JsonResponse
-from django.shortcuts import render, redirect
+from django.http import JsonResponse, response
+from django.shortcuts import redirect, render
 
 # from django.shortcuts import resolve_url
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from mailauth import signing
-from .forms import EmailLoginForm
 from mailauth.views import (
     LoginTokenView as MailauthLoginTokenView,
+)
+from mailauth.views import (
     LoginView as MailauthLoginView,
 )
+
 from authentication.models import EcobalyseUser
-import json
-import logging
+
+from .forms import EmailLoginForm, RegistrationForm
 
 logger = logging.getLogger(__name__)
 

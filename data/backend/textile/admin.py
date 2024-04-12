@@ -1,6 +1,7 @@
-from django.contrib import admin
-from textile.models import Process, Material, Product, Example
 from backend.admin import admin_site
+from django.contrib import admin
+
+from textile.models import Example, Material, Process, Product
 
 
 class ProductAdmin(admin.ModelAdmin):

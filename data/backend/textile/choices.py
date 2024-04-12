@@ -1,6 +1,7 @@
-from django.conf import settings
-from os.path import join
 import json
+from os.path import join
+
+from django.conf import settings
 
 FABRICS = {
     "weaving": "Tissage",
