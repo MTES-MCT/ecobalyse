@@ -298,30 +298,21 @@ view session model =
 
 
 viewAccount : Model -> Html Msg
-viewAccount model =
+viewAccount { user } =
     div [ class "card shadow-sm col-sm-6" ]
-        [ dl []
-            [ dt []
-                [ text "Email : " ]
-            , dd []
-                [ text model.user.email ]
-            , dt []
-                [ text "Nom : " ]
-            , dd []
-                [ text model.user.lastname ]
-            , dt []
-                [ text "Prénom : " ]
-            , dd []
-                [ text model.user.firstname ]
-            , dt []
-                [ text "Organisation : " ]
-            , dd []
-                [ text model.user.company ]
-            , dt []
-                [ text "TOKEN : " ]
-            , dd []
-                [ text model.user.token ]
-            ]
+        [ [ ( "Email", user.email )
+          , ( "Nom", user.lastname )
+          , ( "Prénom", user.firstname )
+          , ( "Organisation", user.company )
+          , ( "Jeton d'API", user.token )
+          ]
+            |> List.concatMap
+                (\( label, value ) ->
+                    [ dt [] [ text <| label ++ " : " ]
+                    , dd [] [ text value ]
+                    ]
+                )
+            |> dl []
         ]
 
 
