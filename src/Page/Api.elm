@@ -483,7 +483,7 @@ view session _ =
                         [ text "Les requêtes non authentifiées à l'API retournent uniquement les impacts aggrégés."
                         , "Pour avoir le détail des impacts, il est nécessaire de fournir un `TOKEN`, accessible dans votre "
                             |> Markdown.simple []
-                        , a [ Route.href (Route.Auth { loggedIn = False }) ] [ text "compte utilisateur" ]
+                        , a [ Route.href (Route.Auth { authenticated = False }) ] [ text "compte utilisateur" ]
                         , text " une fois connecté."
                         ]
                     , div [ class "height-auto" ] [ apiBrowser session ]

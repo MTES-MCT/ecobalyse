@@ -3,12 +3,12 @@ module Data.Session exposing
     , Notification(..)
     , Session
     , Store
+    , authenticated
     , checkComparedSimulations
     , closeNotification
     , deleteBookmark
     , deserializeStore
     , isAuthenticated
-    , loggedIn
     , login
     , logout
     , notifyError
@@ -194,15 +194,15 @@ type alias Store =
 
 
 type Auth
-    = NotLoggedIn
-    | LoggedIn (List TextileProcess.Process) (List FoodProcess.Process)
+    = NotAuthenticated
+    | Authenticated (List TextileProcess.Process) (List FoodProcess.Process)
 
 
 defaultStore : Store
 defaultStore =
     { comparedSimulations = Set.empty
     , bookmarks = []
-    , auth = NotLoggedIn
+    , auth = NotAuthenticated
     }
 
 
@@ -211,12 +211,12 @@ decodeStore =
     Decode.succeed Store
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
-        |> JDP.optional "auth" decodeAuth NotLoggedIn
+        |> JDP.optional "auth" decodeAuth NotAuthenticated
 
 
 decodeAuth : Decoder Auth
 decodeAuth =
-    Decode.succeed LoggedIn
+    Decode.succeed Authenticated
         |> JDP.required "textileProcesses" (TextileProcess.decodeList Impact.decodeImpacts)
         |> JDP.required "foodProcesses" (FoodProcess.decodeList Impact.decodeImpacts)
 
@@ -240,10 +240,10 @@ encodeStore store =
 encodeAuth : Auth -> Encode.Value
 encodeAuth auth =
     case auth of
-        NotLoggedIn ->
+        NotAuthenticated ->
             Encode.null
 
-        LoggedIn textileProcesses foodProcesses ->
+        Authenticated textileProcesses foodProcesses ->
             Encode.object
                 [ ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
                 , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
@@ -282,8 +282,8 @@ updateStore update session =
     { session | store = update session.store }
 
 
-loggedIn : Session -> AllProcessesJson -> Session
-loggedIn ({ store } as session) { textileProcessesJson, foodProcessesJson } =
+authenticated : Session -> AllProcessesJson -> Session
+authenticated ({ store } as session) { textileProcessesJson, foodProcessesJson } =
     let
         originalProcesses =
             StaticDb.processes
@@ -297,7 +297,7 @@ loggedIn ({ store } as session) { textileProcessesJson, foodProcessesJson } =
     case StaticDb.db newProcesses of
         Ok db ->
             { session
-                | store = { store | auth = LoggedIn db.textile.processes db.food.processes }
+                | store = { store | auth = Authenticated db.textile.processes db.food.processes }
                 , db = db
             }
 
@@ -343,19 +343,19 @@ logout ({ store } as session) =
     case StaticDb.db StaticDb.processes of
         Ok db ->
             { session
-                | store = { store | auth = NotLoggedIn }
+                | store = { store | auth = NotAuthenticated }
                 , db = db
             }
 
         Err err ->
-            { session | store = { store | auth = NotLoggedIn } }
+            { session | store = { store | auth = NotAuthenticated } }
                 |> notifyError "Impossible de recharger la db avec les procédés par défaut" err
 
 
 isAuthenticated : { a | store : Store } -> Bool
 isAuthenticated { store } =
     case store.auth of
-        LoggedIn _ _ ->
+        Authenticated _ _ ->
             True
 
         _ ->

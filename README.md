@@ -40,7 +40,7 @@ Le serveur local de développement se lance au moyen des deux commandes suivante
 
 Trois instances de développement sont alors accessibles :
 
-- [localhost:8000](http://localhost:8000/) sert le backend django utilisé pour l'authentification, et sert aussi les fichiers statiques de elm
+- [localhost:8002](http://localhost:8002/) sert le backend django utilisé pour l'authentification, et sert aussi les fichiers statiques de elm. Sert aussi [l'admin django](http://localhost:8002/admin/)
 - [localhost:8001](http://localhost:8001/) sert le frontend et le backend (API) ;
 - [localhost:1234](http://localhost:1234/) sert seulement le frontend en mode _hot-reload_, permettant de mettre à jour en temps-réel l'interface Web à chaque modification du code frontend.
 
