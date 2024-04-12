@@ -1,7 +1,6 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 from frozendict import frozendict
-
 
 THRESHOLD_HEDGES = 140  # ml/ha
 THRESHOLD_PLOTSIZE = 8  # ha
@@ -111,7 +110,9 @@ def compute_animal_ecosystemic_services(
         hedges = 0
         plotSize = 0
         cropDiversity = 0
-        ecosystemicServices = ingredients_dic[animal_product].get("ecosystemicServices",{})
+        ecosystemicServices = ingredients_dic[animal_product].get(
+            "ecosystemicServices", {}
+        )
 
         for feed_name, quantity in feed_quantities.items():
             assert (
@@ -128,17 +129,17 @@ def compute_animal_ecosystemic_services(
         ecosystemicServices["cropDiversity"] = cropDiversity
 
         ecosystemicServices["permanentPasture"] = feed_quantities.get(
-			"grazed-grass-permanent", 0
-			)
+            "grazed-grass-permanent", 0
+        )
 
         ecosystemicServices["livestockDensity"] = (
             compute_livestockDensity_ecosystemic_service(
                 frozendict(activities_dic[animal_product]), ugb, ecosystemic_factors
             )
         )
-        ingredients_dic_updated[animal_product][
-            "ecosystemicServices"
-        ] = ecosystemicServices
+        ingredients_dic_updated[animal_product]["ecosystemicServices"] = (
+            ecosystemicServices
+        )
     return tuple([v for k, v in ingredients_dic_updated.items()])
 
 

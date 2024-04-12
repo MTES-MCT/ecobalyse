@@ -10,10 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from os.path import dirname, join
+from pathlib import Path
+
 from decouple import config  # python-decouple to read in .env
 from django.utils.translation import gettext_lazy as _
-from os.path import join, dirname
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

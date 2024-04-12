@@ -1,7 +1,7 @@
-from . import views
-from .views import register, RegistrationRequestedView, profile
 from django.urls import include, path, re_path
 
+from . import views
+from .views import RegistrationRequestedView, profile, register
 
 urlpatterns = [
     path("login/", views.LoginView.as_view(), name="login"),

@@ -1,4 +1,10 @@
-import json, csv, pandas, io, ipywidgets, base64
+import base64
+import csv
+import io
+import json
+
+import ipywidgets
+import pandas
 from matplotlib import pyplot
 
 print("Please wait...")

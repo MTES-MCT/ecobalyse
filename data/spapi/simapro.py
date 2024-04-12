@@ -1,9 +1,10 @@
 # encoding: utf-8
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
 import json
 import os.path
+
 import win32com.client
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 
 server = win32com.client.Dispatch("SimaPro.SimaProServer")
 server.Server = "local server"

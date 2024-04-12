@@ -1,11 +1,11 @@
 import json
-import requests
-import pandas as pd
-import geopy.distance
 import random
 import time
 from datetime import datetime
 
+import geopy.distance
+import pandas as pd
+import requests
 
 """Script to get the distances between countries for a list of countries. To identify countries we use the 2 letters code (France->FR).
 
@@ -77,7 +77,6 @@ def getSearatesDistance(route_type, route, headers):
 
     for i in range(retries):
         try:
-
             response = requests.get(
                 url,
                 headers=headers,

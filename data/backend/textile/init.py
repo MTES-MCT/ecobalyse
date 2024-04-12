@@ -1,11 +1,12 @@
+import json
 from copy import deepcopy
+from os.path import join
+
 from decouple import config  # python-decouple to read in .env
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from os.path import join
-from textile.models import Process, Material, Example, Product, Share
-import json
 
+from textile.models import Example, Material, Process, Product, Share
 
 # create initial admins given by an env var. Mails separated by comma
 for email in [m.strip() for m in str(config("BACKEND_ADMINS")).split(",")]:

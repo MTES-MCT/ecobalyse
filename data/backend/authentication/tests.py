@@ -1,7 +1,8 @@
-from django.test import TestCase
-from django.urls import reverse
 import json
 import os
+
+from django.test import TestCase
+from django.urls import reverse
 
 
 class DjangoAuthenticationTests(TestCase):
