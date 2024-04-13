@@ -20,6 +20,7 @@ import Ports
 import Request.Common as RequestCommon
 import Views.Alert as Alert
 import Views.Container as Container
+import Views.Icon as Icon
 import Views.Markdown as Markdown
 
 
@@ -290,10 +291,10 @@ view session model =
                                 , title = Nothing
                                 , content =
                                     [ div [ class "fs-7" ]
-                                        [ """Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
+                                        [ Icon.info
+                                        , text """\u{00A0}Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
                                     valider que vous êtes Français, et que vous n'utiliserez pas ces données à des fins
                                     commerciales."""
-                                            |> Markdown.simple []
                                         ]
                                     ]
                                 }
@@ -327,7 +328,7 @@ viewAccount { user } =
 
 viewLoginRegisterForm : Model -> Html Msg
 viewLoginRegisterForm model =
-    div [ class "card shadow-sm col-sm-6" ]
+    div [ class "card shadow-sm mt-2 px-0 col-sm-6" ]
         [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
             [ ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
                 ([ ( "Inscription", Register )
@@ -340,7 +341,8 @@ viewLoginRegisterForm model =
                                 , classList [ ( "active", model.action == action ) ]
                                 ]
                                 [ button
-                                    [ class "nav-link no-outline border-top-0 active"
+                                    [ class "nav-link no-outline border-top-0"
+                                    , classList [ ( "active", model.action == action ) ]
                                     , onClick (ChangeAction action)
                                     ]
                                     [ text label ]
@@ -503,7 +505,7 @@ viewRegisterForm ({ user } as model) =
                                 }
                     }
                     model.response
-                , div [ class "mb-3" ]
+                , div []
                     [ label
                         [ for "terms_of_use"
                         , class "form-check form-switch form-check-label pt-1"
@@ -532,12 +534,8 @@ viewRegisterForm ({ user } as model) =
                                 |> text
                             ]
                         ]
-                    , div [ class "mb-3" ]
-                        [ label
-                            [ for "nextInput"
-                            , class "form-label"
-                            ]
-                            []
+                    , div [ class "d-none" ]
+                        [ label [ for "nextInput", class "form-label" ] []
                         , input
                             [ type_ "text"
                             , class "form-control"
@@ -549,11 +547,13 @@ viewRegisterForm ({ user } as model) =
                             []
                         ]
                     ]
-                , button
-                    [ type_ "submit"
-                    , class "btn btn-primary mb-3"
+                , div [ class "text-center mt-2" ]
+                    [ button
+                        [ type_ "submit"
+                        , class "btn btn-primary"
+                        ]
+                        [ text "Créer mon compte" ]
                     ]
-                    [ text "M'inscrire" ]
                 ]
 
 
