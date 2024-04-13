@@ -21,7 +21,6 @@ import Request.Common as RequestCommon
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
-import Views.Markdown as Markdown
 
 
 
