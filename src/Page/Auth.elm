@@ -37,12 +37,12 @@ import Views.Icon as Icon
 
 login_url : String
 login_url =
-    "/accounts/login.json/"
+    "/accounts/login/"
 
 
 registration_url : String
 registration_url =
-    "/accounts/register.json/"
+    "/accounts/register/"
 
 
 logout_url : String
@@ -52,7 +52,7 @@ logout_url =
 
 profile_url : String
 profile_url =
-    "/accounts/profile.json/"
+    "/accounts/profile/"
 
 
 type alias Model =
