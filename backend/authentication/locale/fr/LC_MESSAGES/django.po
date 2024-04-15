@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-15 15:53+0200\n"
+"POT-Creation-Date: 2024-04-15 17:50+0200\n"
 "PO-Revision-Date: 2024-03-25 12:23+0100\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
@@ -67,11 +67,11 @@ msgstr "Se connecter"
 msgid "Invalid form data"
 msgstr "Données de formulaire incorrectes"
 
-#: authentication/views.py:114
+#: authentication/views.py:112
 msgid "The token has expired"
 msgstr "Le token a expiré"
 
-#: authentication/views.py:145
+#: authentication/views.py:143
 msgid "You must be authenticated to access this page"
 msgstr "Vous devez être authentifié(e) pour accéder à cette page"
 
