@@ -1,0 +1,22 @@
+name: Score History Update
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  update_score_history:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - name: Install dependencies
+        run: pip install pandas requests
+      - name: Update Score History
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: python /data/common/score_history/compute_score_history.py
