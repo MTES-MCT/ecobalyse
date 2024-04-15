@@ -4,10 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = ">=5"
-gunicorn = "*"
-django-mail-auth = "*"
-python-decouple = "*"
+django = ">=5,<6"
+gunicorn = ">=21,<22"
+django-mail-auth = ">=3.2,<3.3"
+python-decouple = ">=3,<4"
 ruff = "*"
 
 [dev-packages]
