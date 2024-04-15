@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-02 17:14+0200\n"
+"POT-Creation-Date: 2024-04-15 15:53+0200\n"
 "PO-Revision-Date: 2024-04-02 17:16+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
@@ -18,38 +18,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: processes/views.py:52
+#: processes/views.py:65
 msgid "This token isn't valid"
 msgstr "Ce token n'est pas valable"
-
-#: templates/registration/logged_out.html:12
-msgid "You are now logged out from Ecobalyse."
-msgstr "Vous êtes maintenant déconnecté d'Ecobalyse."
-
-#: templates/registration/login.html:10 templates/registration/register.html:10
-msgid "Please correct the error below."
-msgstr "Veuillez corriger l'erreur ci-dessous."
-
-#: templates/registration/login.html:10 templates/registration/register.html:10
-msgid "Please correct the errors below."
-msgstr "Veuillez corriger les erreurs ci-dessous."
-
-#: templates/registration/login.html:26 templates/registration/register.html:26
-#, python-format
-msgid "You are already authenticated as %(user)s."
-msgstr "Vous êtes déjà authentifié(e) en tant que %(user)s."
-
-#: templates/registration/login.html:34
-msgid ""
-"Login to have access to the details of the impacts. You will receive an "
-"email with a connection link."
-msgstr ""
-"Connectez-vous pour accéder au détail des impacts. Vous recevrez un e-mail "
-"avec un lien de connexion."
-
-#: templates/registration/login.html:62
-msgid "Login"
-msgstr "Connexion"
 
 #: templates/registration/login_email.html:2
 #: templates/registration/login_email.txt:2
@@ -83,30 +54,11 @@ msgstr "Merci d'utiliser notre site !"
 msgid "The %(site_name)s team"
 msgstr "L'équipe %(site_name)s"
 
-#: templates/registration/login_requested.html:12
-msgid ""
-"Please check your inbox, you should have received an email with a connection "
-"link."
-msgstr ""
-"Vérifiez votre boite e-mail, vous devriez avoir reçu un lien de connexion."
-
 #: templates/registration/login_subject.txt:2
 #: templates/registration/registration_subject.txt:2
 #, python-format
 msgid "Login link for %(site_name)s"
 msgstr "Lien de connexion pour %(site_name)s"
-
-#: templates/registration/register.html:34
-msgid ""
-"Please register to have access to the details of the impacts. You will "
-"receive an email with a connection link."
-msgstr ""
-"Veuillez vous inscrire pour avoir accès au détail des impacts. Vous allez "
-"recevoir un e-mail avec un lien de connexion."
-
-#: templates/registration/register.html:62
-msgid "Register"
-msgstr "S'inscrire"
 
 #: templates/registration/registration_email.html:2
 #: templates/registration/registration_email.txt:2
@@ -117,10 +69,48 @@ msgid ""
 msgstr ""
 "Vous avez reçu cet email car vous vous êtes inscrit(e) sur %(site_name)s."
 
-#: templates/registration/registration_requested.html:12
-msgid ""
-"<h1>Please check your inbox, you should have received an email with a "
-"connection link.</h1>"
-msgstr ""
-"<h1>Vérifiez votre boîte e-mail, vous devriez avoir reçu un lien de "
-"connexion.</h1>"
+#~ msgid "You are now logged out from Ecobalyse."
+#~ msgstr "Vous êtes maintenant déconnecté d'Ecobalyse."
+
+#~ msgid "Please correct the error below."
+#~ msgstr "Veuillez corriger l'erreur ci-dessous."
+
+#~ msgid "Please correct the errors below."
+#~ msgstr "Veuillez corriger les erreurs ci-dessous."
+
+#, python-format
+#~ msgid "You are already authenticated as %(user)s."
+#~ msgstr "Vous êtes déjà authentifié(e) en tant que %(user)s."
+
+#~ msgid ""
+#~ "Login to have access to the details of the impacts. You will receive an "
+#~ "email with a connection link."
+#~ msgstr ""
+#~ "Connectez-vous pour accéder au détail des impacts. Vous recevrez un e-"
+#~ "mail avec un lien de connexion."
+
+#~ msgid "Login"
+#~ msgstr "Connexion"
+
+#~ msgid ""
+#~ "Please check your inbox, you should have received an email with a "
+#~ "connection link."
+#~ msgstr ""
+#~ "Vérifiez votre boite e-mail, vous devriez avoir reçu un lien de connexion."
+
+#~ msgid ""
+#~ "Please register to have access to the details of the impacts. You will "
+#~ "receive an email with a connection link."
+#~ msgstr ""
+#~ "Veuillez vous inscrire pour avoir accès au détail des impacts. Vous allez "
+#~ "recevoir un e-mail avec un lien de connexion."
+
+#~ msgid "Register"
+#~ msgstr "S'inscrire"
+
+#~ msgid ""
+#~ "<h1>Please check your inbox, you should have received an email with a "
+#~ "connection link.</h1>"
+#~ msgstr ""
+#~ "<h1>Vérifiez votre boîte e-mail, vous devriez avoir reçu un lien de "
+#~ "connexion.</h1>"
