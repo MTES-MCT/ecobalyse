@@ -4,10 +4,7 @@ import logging
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
-from django.http import JsonResponse, response
-from django.shortcuts import redirect, render
-
-# from django.shortcuts import resolve_url
+from django.http import Http404, JsonResponse, response
 from django.utils.translation import gettext_lazy as _
 from django.views import generic
 from mailauth import signing
@@ -28,68 +25,37 @@ logger = logging.getLogger(__name__)
 def register(request):
     """render a form to provide an email to register"""
     if request.method == "POST":
-        if request.path.endswith(".json/"):
-            # endpoint ending in ".json" are for elm
-            try:
-                form = RegistrationForm(
-                    request=request, data=json.loads(request.body.decode("utf-8"))
-                )
-            except json.JSONDecodeError:
-                return JsonResponse(
-                    {"success": False, "msg": _("Invalid json in the POST request")}
-                )
-            if form.is_valid():
-                form.save()
-                return JsonResponse(
-                    {
-                        "success": True,
-                        "msg": _("The link is valid for %s min")
-                        % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
-                    }
-                )
-            else:
-                errors = {
-                    k: " ".join(v)
-                    for k, v in (form.errors.items() if form.errors else [])
+        try:
+            form = RegistrationForm(
+                request=request, data=json.loads(request.body.decode("utf-8"))
+            )
+        except json.JSONDecodeError:
+            return JsonResponse(
+                {"success": False, "msg": _("Invalid json in the POST request")}
+            )
+        if form.is_valid():
+            form.save()
+            return JsonResponse(
+                {
+                    "success": True,
+                    "msg": _("The link is valid for %s min")
+                    % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
                 }
-                return JsonResponse(
-                    {
-                        "success": False,
-                        "msg": _("Your form has errors: ")
-                        + " ".join([f"{k}: {v}" for k, v in errors.items()]),
-                        "errors": errors,
-                    }
-                )
+            )
         else:
-            # registration in pure django (without elm)
-            form = RegistrationForm(request)
-            if form.is_valid():
-                form.save()
-                return redirect("registration-requested")
-            else:
-                return render(
-                    request,
-                    "registration/register.html",
-                    {
-                        "form": form,
-                        "site_header": "Ecobalyse",
-                        "site_title": "Ecobalyse",
-                        "title": _("Register"),
-                    },
-                )
+            errors = {
+                k: " ".join(v) for k, v in (form.errors.items() if form.errors else [])
+            }
+            return JsonResponse(
+                {
+                    "success": False,
+                    "msg": _("Your form has errors: ")
+                    + " ".join([f"{k}: {v}" for k, v in errors.items()]),
+                    "errors": errors,
+                }
+            )
     else:
-        # registration form in pure django (without elm)
-        form = RegistrationForm()
-        return render(
-            request,
-            "registration/register.html",
-            {
-                "form": form,
-                "site_header": "Ecobalyse",
-                "site_title": "Ecobalyse",
-                "title": _("Register"),
-            },
-        )
+        raise Http404("Only POST here")
 
 
 class LoginView(MailauthLoginView):
@@ -100,27 +66,20 @@ class LoginView(MailauthLoginView):
     }
 
     def post(self, request, *a, **kw):
-        if request.path.endswith(".json/"):
-            form = EmailLoginForm(
-                request=request, data=json.loads(request.body.decode("utf-8"))
+        form = EmailLoginForm(
+            request=request, data=json.loads(request.body.decode("utf-8"))
+        )
+        if form.is_valid():
+            form.save()
+            return JsonResponse(
+                {
+                    "success": True,
+                    "msg": _("The link is valid for %s min")
+                    % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
+                }
             )
-            if form.is_valid():
-                form.save()
-                return JsonResponse(
-                    {
-                        "success": True,
-                        "msg": _("The link is valid for %s min")
-                        % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
-                    }
-                )
-            else:
-                return JsonResponse({"success": False, "msg": _("Invalid form data")})
         else:
-            form = self.get_form()
-            if form.is_valid():
-                return self.form_valid(form)
-            else:
-                return self.form_invalid(form)
+            return JsonResponse({"success": False, "msg": _("Invalid form data")})
 
 
 class RegistrationRequestedView(generic.TemplateView):

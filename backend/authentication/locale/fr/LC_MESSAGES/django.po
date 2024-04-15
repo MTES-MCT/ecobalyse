@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-02 17:14+0200\n"
+"POT-Creation-Date: 2024-04-15 15:53+0200\n"
 "PO-Revision-Date: 2024-03-25 12:23+0100\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
@@ -18,63 +18,62 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: authentication/forms.py:24
+#: authentication/forms.py:27
 msgid "E-mail"
 msgstr "E-mail"
 
-#: authentication/forms.py:25
+#: authentication/forms.py:28
 msgid "First Name"
 msgstr "Prénom"
 
-#: authentication/forms.py:26
+#: authentication/forms.py:29
 msgid "Last Name"
 msgstr "Nom"
 
-#: authentication/forms.py:27 authentication/models.py:8
+#: authentication/forms.py:30 authentication/models.py:9
 msgid "Company"
 msgstr "Entreprise"
 
-#: authentication/forms.py:29
+#: authentication/forms.py:32
 msgid "I undertake not to use the data for commercial use"
 msgstr "Je m'engage à ne pas utiliser les données à des fins commerciales"
 
-#: authentication/forms.py:31
+#: authentication/forms.py:34
 msgid "Next url"
 msgstr "URL de redirection"
 
-#: authentication/models.py:11
+#: authentication/models.py:12
 msgid "TOKEN"
 msgstr ""
 
-#: authentication/views.py:35
+#: authentication/views.py:34
 msgid "Invalid json in the POST request"
 msgstr "Json invalide dans la requête POST"
 
-#: authentication/views.py:42 authentication/views.py:108
+#: authentication/views.py:41 authentication/views.py:77
 #, python-format
 msgid "The link is valid for %s min"
 msgstr "Le lien de connexion est valide pendant %s min"
 
-#: authentication/views.py:54
+#: authentication/views.py:52
 msgid "Your form has errors: "
 msgstr "Votre formulaire contient des erreurs : "
 
-#: authentication/views.py:73 authentication/views.py:86
-msgid "Register"
-msgstr "S'inscrire"
-
-#: authentication/views.py:95
+#: authentication/views.py:65
 msgid "Login"
 msgstr "Se connecter"
 
-#: authentication/views.py:113
+#: authentication/views.py:82
 msgid "Invalid form data"
 msgstr "Données de formulaire incorrectes"
 
-#: authentication/views.py:151
+#: authentication/views.py:114
 msgid "The token has expired"
 msgstr "Le token a expiré"
 
-#: authentication/views.py:182
+#: authentication/views.py:145
 msgid "You must be authenticated to access this page"
 msgstr "Vous devez être authentifié(e) pour accéder à cette page"
+
+#~ msgid "Register"
+#~ msgstr "S'inscrire"
