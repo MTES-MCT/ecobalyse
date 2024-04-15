@@ -186,10 +186,13 @@ STATIC_ROOT = "/app/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = (
+    "django.core.mail.backends.console.EmailBackend"
+    if DEBUG
+    else "django.core.mail.backends.smtp.EmailBackend"
+)
 
-EMAIL_HOST = "smtp-relay.brevo.com"
+EMAIL_HOST = config("EMAIL_HOST", "smtp-relay.brevo.com")
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", "test@example.com")
 EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", "xxx")
