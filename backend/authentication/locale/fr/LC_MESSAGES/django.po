@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-15 17:50+0200\n"
-"PO-Revision-Date: 2024-04-15 17:57+0200\n"
+"PO-Revision-Date: 2024-04-15 17:59+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -69,7 +69,7 @@ msgstr "Données de formulaire incorrectes"
 
 #: authentication/views.py:112
 msgid "The token has expired"
-msgstr "Le token a expiré"
+msgstr "Le jeton a expiré"
 
 #: authentication/views.py:143
 msgid "You must be authenticated to access this page"
