@@ -41,8 +41,8 @@ Le serveur local de développement se lance au moyen des deux commandes suivante
 Trois instances de développement sont alors accessibles :
 
 - [localhost:8002](http://localhost:8002/) sert le backend django utilisé pour l'authentification, et sert aussi les fichiers statiques de elm. Sert aussi [l'admin django](http://localhost:8002/admin/)
-- [localhost:8001](http://localhost:8001/) sert le frontend et le backend (API) ;
-- [localhost:1234](http://localhost:1234/) sert seulement le frontend en mode _hot-reload_, permettant de mettre à jour en temps-réel l'interface Web à chaque modification du code frontend.
+- [localhost:8001](http://localhost:8001/) sert l'API ;
+- [localhost:1234](http://localhost:1234/) est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc`). Le frontend est servi en mode _hot-reload_, pour recharger! l'interface Web à chaque modification du code frontend.
 
 ### Hooks Git avec Husky et Formatage de Code avec Prettier
 
@@ -99,7 +99,7 @@ $ npm run build
 $ npm run server:start
 ```
 
-L'application est alors servie sur le port 8001.
+L'application est alors servie sur le port 1234.
 
 # Ecobalyse data
 
