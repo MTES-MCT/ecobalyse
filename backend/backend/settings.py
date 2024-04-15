@@ -38,7 +38,6 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     ".osc-fr1.scalingo.io",
-    "ecobalyse-v2.osc-fr1.scalingo.io",
 ]
 
 
