@@ -98,8 +98,6 @@ class Activate(MailauthLoginTokenView):
 
     def get_success_url(self):
         return "/"
-        # TODO redirect to profile instead, to give the occasion to fill in more details:
-        # return resolve_url(self.success_url)
 
     def get(self, request, *__, **kwargs):
         token = kwargs["token"]
