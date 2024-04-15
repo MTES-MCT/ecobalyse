@@ -10,7 +10,7 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Scope as Scope
-import Data.Session as Session
+import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -42,8 +42,8 @@ type MenuLink
     | MailTo String String
 
 
-type alias Config msg a =
-    { session : { a | clientUrl : String, notifications : List Session.Notification, currentVersion : Version, store : Session.Store }
+type alias Config msg =
+    { session : Session
     , mobileNavigationOpened : Bool
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
@@ -54,7 +54,7 @@ type alias Config msg a =
     }
 
 
-frame : Config msg a -> ( String, List (Html msg) ) -> Document msg
+frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame ({ activePage } as config) ( title, content ) =
     { title = title ++ " | Ecobalyse"
     , body =
@@ -88,11 +88,11 @@ frame ({ activePage } as config) ( title, content ) =
     }
 
 
-stagingAlert : Config msg a -> Html msg
+stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
     if
         String.contains "ecobalyse-pr" session.clientUrl
-            || String.contains "wikicarbone-pr" session.clientUrl
+            || String.contains "ecobalyse-staging" session.clientUrl
     then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
@@ -108,7 +108,7 @@ stagingAlert { session, loadUrl } =
         text ""
 
 
-newVersionAlert : Config msg a -> Html msg
+newVersionAlert : Config msg -> Html msg
 newVersionAlert { session, reloadPage } =
     case session.currentVersion of
         Version.NewerVersion ->
@@ -267,7 +267,7 @@ pageFooter { currentVersion } =
         ]
 
 
-pageHeader : Config msg a -> Html msg
+pageHeader : Config msg -> Html msg
 pageHeader config =
     header [ class "Header shadow-sm", attribute "role" "banner" ]
         [ div [ class "MobileMenuButton" ]
@@ -344,7 +344,7 @@ viewNavigationLink activePage link =
             a [ class "nav-link", href <| "mailto:" ++ email ] [ text label ]
 
 
-notificationListView : Config msg a -> Html msg
+notificationListView : Config msg -> Html msg
 notificationListView ({ session } as config) =
     case session.notifications of
         [] ->
@@ -356,7 +356,7 @@ notificationListView ({ session } as config) =
                 |> Container.centered [ class "bg-white pt-3" ]
 
 
-notificationView : Config msg a -> Session.Notification -> Html msg
+notificationView : Config msg -> Session.Notification -> Html msg
 notificationView { closeNotification } notification =
     -- TODO:
     -- - absolute positionning
@@ -394,7 +394,7 @@ loading =
         ]
 
 
-mobileNavigation : Config msg a -> Html msg
+mobileNavigation : Config msg -> Html msg
 mobileNavigation { activePage, closeMobileNavigation } =
     div []
         [ div
