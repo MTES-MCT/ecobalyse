@@ -1,12 +1,14 @@
-from authentication.models import EcobalyseUser
+import json
+import sys
 from copy import deepcopy
+from os.path import join
+
+from authentication.models import EcobalyseUser
 from decouple import config  # python-decouple to read in .env
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from os.path import join
+
 from textile.models import Example, Material, Process, Product, Share
-import json
-import sys
 
 
 def flatten(field, record):
