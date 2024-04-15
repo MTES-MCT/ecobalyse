@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-15 15:53+0200\n"
-"PO-Revision-Date: 2024-04-02 17:16+0200\n"
+"POT-Creation-Date: 2024-04-15 17:53+0200\n"
+"PO-Revision-Date: 2024-04-15 17:53+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -43,8 +43,8 @@ msgstr "Veuillez cliquer sur le lien suivant pour vous connecter :"
 #: templates/registration/login_email.txt:7
 #: templates/registration/registration_email.html:7
 #: templates/registration/registration_email.txt:7
-msgid "Thanks for using our site!"
-msgstr "Merci d'utiliser notre site !"
+msgid "Thanks for using Ecobalyse!"
+msgstr "Merci d'utiliser le service Ecobalyse !"
 
 #: templates/registration/login_email.html:9
 #: templates/registration/login_email.txt:9
@@ -68,6 +68,9 @@ msgid ""
 "%(site_name)s."
 msgstr ""
 "Vous avez reçu cet email car vous vous êtes inscrit(e) sur %(site_name)s."
+
+#~ msgid "Thanks for using our site!"
+#~ msgstr "Merci d'utiliser notre site !"
 
 #~ msgid "You are now logged out from Ecobalyse."
 #~ msgstr "Vous êtes maintenant déconnecté d'Ecobalyse."
