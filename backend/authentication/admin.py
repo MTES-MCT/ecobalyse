@@ -1,11 +1,10 @@
-from backend.admin import admin_site
 from django.contrib import admin
 from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.models import Group, Permission
-from django.utils.translation import gettext_lazy as _
 from mailauth.contrib.user.admin import AnonymizableAdminMixin
 
 from authentication.models import EcobalyseUser
+from backend.admin import admin_site
 
 
 class EcobalyseUserAdmin(AnonymizableAdminMixin, admin.ModelAdmin):
