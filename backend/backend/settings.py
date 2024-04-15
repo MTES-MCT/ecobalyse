@@ -48,11 +48,13 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     "mailauth",
     "mailauth.contrib.admin",
+    # # don't use the provided mailauth user, it's redefined in the authentication module
     # "mailauth.contrib.user",
     "authentication.apps.AuthenticationConfig",
     "textile.apps.TextileConfig",
-    "backend.apps.MyAdminConfig",
+    # #  the original admin config is replaced by MyAdminConfig
     # "django.contrib.admin",
+    "backend.apps.MyAdminConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
