@@ -18,7 +18,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-GITROOT = dirname(dirname(BASE_DIR))
+GITROOT = dirname(BASE_DIR)
 
 SITE_NAME = "Ecobalyse"
 
