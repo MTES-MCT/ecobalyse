@@ -8,7 +8,7 @@ L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/)
 
 ## Socle technique et prérequis
 
-Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`, ainsi que d'un environnement [python](https://www.python.org/) >=3.10 et [pipenv](https://pipenv.pypa.io/) sur votre machine :
+Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`, ainsi que d'un environnement [python](https://www.python.org/) >=3.11 et [pipenv](https://pipenv.pypa.io/) sur votre machine :
 
 ## Installation
 
@@ -27,6 +27,17 @@ Les variables d'environnement suivantes doivent être définies :
 - `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
 - `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
 - `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
+- `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule
+
+Variables additionnelles facultatives (obligatoires pour la prod) :
+
+- `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
+- `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut False)
+- `DJANGO_SECRET_KEY` : la clé secrète de Django (par défaut `dev_not_so_secret_key`)
+- `EMAIL_HOST` : le host SMTP pour envoyer les mail liés à l'authentification
+- `EMAIL_HOST_USER`: l'utilisateur du compte SMTP
+- `EMAIL_HOST_PASSWORD` : le mot de passe du compte SMTP pour envoyer les mail liés à l'authentification
+- `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.
 
 En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
 

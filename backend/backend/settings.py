@@ -28,7 +28,7 @@ HOSTNAME = "ecobalyse.beta.gouv.fr"
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DJANGO_DEBUG", cast=bool, default=True)
+DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("DJANGO_SECRET_KEY", "dev_not_so_secret_key")
@@ -194,5 +194,5 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER", "test@example.com")
 EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", "xxx")
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", "noreply@example.com")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", "ecobalyse@beta.gouv.fr")
 LOGIN_URL_TIMEOUT = 900
