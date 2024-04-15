@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-15 17:50+0200\n"
-"PO-Revision-Date: 2024-03-25 12:23+0100\n"
+"PO-Revision-Date: 2024-04-15 17:57+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -36,7 +36,7 @@ msgstr "Entreprise"
 
 #: authentication/forms.py:32
 msgid "I undertake not to use the data for commercial use"
-msgstr "Je m'engage à ne pas utiliser les données à des fins commerciales"
+msgstr "Je m'engage à ne pas exploiter les données à des fins commerciales"
 
 #: authentication/forms.py:34
 msgid "Next url"
