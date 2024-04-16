@@ -38,7 +38,7 @@ def register(request):
             return JsonResponse(
                 {
                     "success": True,
-                    "msg": _("The link is valid for %s min")
+                    "msg": _("The link is valid for %d min")
                     % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
                 }
             )
@@ -74,7 +74,7 @@ class LoginView(MailauthLoginView):
             return JsonResponse(
                 {
                     "success": True,
-                    "msg": _("The link is valid for %s min")
+                    "msg": _("The link is valid for %d min")
                     % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
                 }
             )
