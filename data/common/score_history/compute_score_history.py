@@ -241,7 +241,7 @@ def compute_branches_to_score(score_history_df, branches_last_commit):
     """Determine which branches need their scores computed."""
     branches_to_compute = []
     for branch, last_commit in branches_last_commit.items():
-        if score_history_df["commit"].isin([last_commit]).any():
+        if not score_history_df["commit"].isin([last_commit]).any():
             branches_to_compute.append(branch)
     return branches_to_compute
 
@@ -254,11 +254,12 @@ if __name__ == "__main__":
     branches_to_compute = compute_branches_to_score(
         score_history_df, branches_last_commit
     )
-
-    score_new_df = compute_score_new(examples_textile, branches_to_compute)
-    score_history_updated_df = pd.concat(
-        [score_history_df, score_new_df], ignore_index=True
-    )
-    score_history_updated_df.to_csv(
-        SCORE_HISTORY_PATH, index=False, encoding="utf-8-sig"
-    )
+    logging.info(f"computing score for branches_to_compute : {branches_to_compute}")
+    if branches_to_compute:
+        score_new_df = compute_score_new(examples_textile, branches_to_compute)
+        score_history_updated_df = pd.concat(
+            [score_history_df, score_new_df], ignore_index=True
+        )
+        score_history_updated_df.to_csv(
+            SCORE_HISTORY_PATH, index=False, encoding="utf-8-sig"
+        )
