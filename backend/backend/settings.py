@@ -150,6 +150,7 @@ AUTHENTICATION_BACKENDS = (
 )
 AUTH_USER_MODEL = "authentication.EcobalyseUser"
 LOGIN_TOKEN_SINGLE_USE = False
+LOGIN_URL_TIMEOUT = None
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -199,4 +200,3 @@ EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", "xxx")
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", "ecobalyse@beta.gouv.fr")
-LOGIN_URL_TIMEOUT = 900
