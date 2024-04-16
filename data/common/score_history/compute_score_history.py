@@ -6,9 +6,11 @@ import subprocess
 import time
 from datetime import datetime
 
-# Constants
+
 SCORE_HISTORY_PATH = "./data/common/score_history/score_history.csv"
-TEST_BRANCH = {"name": "backend-authentication", "pr_number": 531}
+
+# TODO : find a way to retrieve this automatically
+TEST_BRANCH = {"name": "score-evolution-tracking", "pr_number": 566}
 
 BRANCHES = ["master", TEST_BRANCH["name"]]
 BRANCH_URL_DIC = {
