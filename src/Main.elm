@@ -28,6 +28,7 @@ import Views.Page as Page
 
 type alias Flags =
     { clientUrl : String
+    , enableFoodSection : Bool
     , matomo : { host : String, siteId : String }
     , rawStore : String
     }
@@ -92,6 +93,7 @@ init flags url navKey =
                         Loaded
                             { db = db
                             , clientUrl = flags.clientUrl
+                            , enableFoodSection = flags.enableFoodSection
                             , navKey = navKey
                             , store = Session.deserializeStore flags.rawStore
                             , currentVersion = Request.Version.Unknown

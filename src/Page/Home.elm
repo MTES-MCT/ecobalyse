@@ -68,8 +68,8 @@ update session msg model =
             ( model, session, Ports.scrollIntoView nodeId )
 
 
-viewHero : Modal -> Html Msg
-viewHero modal =
+viewHero : Session -> Modal -> Html Msg
+viewHero { enableFoodSection } modal =
     Container.centered [ class "pt-4 pb-5" ]
         [ div [ class "px-5" ]
             [ h2 [ class "h1" ]
@@ -81,14 +81,13 @@ viewHero modal =
                     |> Markdown.simple []
                 ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
-                [ a
-                    [ class "btn btn-lg btn-primary"
+                [ if enableFoodSection then
+                    button [ class "btn btn-lg btn-primary", onClick OpenCalculatorPickerModal ]
+                        [ text "Lancer le calculateur" ]
 
-                    -- FIXME: all food-related stuff temporarily removed
-                    --, onClick OpenCalculatorPickerModal
-                    , Route.href Route.TextileSimulatorHome
-                    ]
-                    [ text "Lancer le calculateur" ]
+                  else
+                    a [ class "btn btn-lg btn-primary", Route.href Route.TextileSimulatorHome ]
+                        [ text "Lancer le calculateur" ]
                 , button
                     [ class "btn btn-lg btn-outline-primary"
                     , onClick OpenPresentationVideoModal
@@ -235,7 +234,7 @@ viewTools =
                 [ div
                     [ class "card d-flex flex-warp align-content-between text-decoration-none h-100"
                     , attribute "role" "button"
-                    , onClick <| OpenCalculatorPickerModal
+                    , onClick OpenCalculatorPickerModal
                     ]
                     [ img
                         [ class "w-100"
@@ -353,11 +352,11 @@ viewContribution =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ { modal } =
+view session { modal } =
     ( "Accueil"
     , [ div [ class "d-flex flex-column" ]
             [ div [ class "bg-light pt-5" ]
-                [ viewHero modal ]
+                [ viewHero session modal ]
             , viewInfo
             , div [ class "bg-light pt-5" ]
                 [ viewTools ]
