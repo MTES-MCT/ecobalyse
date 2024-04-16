@@ -7,8 +7,7 @@ import time
 from datetime import datetime
 
 # Constants
-SCORE_HISTORY_PATH = "score_history.csv"
-SCORE_HISTORY_OUTPUT_PATH = "score_history.csv"
+SCORE_HISTORY_PATH = "/data/common/score_history/score_history.csv"
 TEST_BRANCH = {"name": "backend-authentication", "pr_number": 531}
 
 BRANCHES = ["master", TEST_BRANCH["name"]]
