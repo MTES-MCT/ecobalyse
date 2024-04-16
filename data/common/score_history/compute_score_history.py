@@ -231,7 +231,6 @@ def get_branch_commits():
         branches_last_commit[current_branch] = get_last_commit_id(
             current_branch, fetch=True
         )
-        branches_last_commit["master"] = get_last_commit_id("master", fetch=True)
     except subprocess.CalledProcessError as e:
         logging.error(f"Error determining the current branch: {e.stderr}")
         raise
