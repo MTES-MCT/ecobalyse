@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-15 17:50+0200\n"
-"PO-Revision-Date: 2024-04-15 18:01+0200\n"
+"POT-Creation-Date: 2024-04-16 17:35+0200\n"
+"PO-Revision-Date: 2024-04-16 17:36+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -50,28 +50,32 @@ msgstr "Jeton d'accès à l'API"
 msgid "Invalid json in the POST request"
 msgstr "Json invalide dans la requête POST"
 
-#: authentication/views.py:41 authentication/views.py:77
+#: authentication/views.py:42 authentication/views.py:80
 #, python-format
-msgid "The link is valid for %s min"
-msgstr "Le lien de connexion est valide pendant %s min"
+msgid "The link is valid for %d min"
+msgstr "Le lien de connexion est valide pendant %d min"
 
-#: authentication/views.py:52
+#: authentication/views.py:44 authentication/views.py:82
+msgid "The link does not expire"
+msgstr "Le lien n'a pas de date d'expiration"
+
+#: authentication/views.py:54
 msgid "Your form has errors: "
 msgstr "Votre formulaire contient des erreurs : "
 
-#: authentication/views.py:65
+#: authentication/views.py:67
 msgid "Login"
 msgstr "Se connecter"
 
-#: authentication/views.py:82
+#: authentication/views.py:86
 msgid "Invalid form data"
 msgstr "Données de formulaire incorrectes"
 
-#: authentication/views.py:112
+#: authentication/views.py:116
 msgid "The token has expired"
 msgstr "Le jeton a expiré"
 
-#: authentication/views.py:143
+#: authentication/views.py:147
 msgid "You must be authenticated to access this page"
 msgstr "Vous devez être authentifié(e) pour accéder à cette page"
 
