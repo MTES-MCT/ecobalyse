@@ -49,11 +49,8 @@ jobs:
     - name: Install Node dependencies
       run: npm ci --prefer-offline --no-audit
 
-    - name: Install pipenv
-      run: pip install pipenv
-
     - name: Install Python dependencies
-      run: pipenv install
+      run: pip install pipenv && pipenv install
 
     - name: Build app
       run: npm run build --if-present
