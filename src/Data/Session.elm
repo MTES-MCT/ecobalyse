@@ -43,6 +43,7 @@ type alias Session =
     { db : Db
     , navKey : Nav.Key
     , clientUrl : String
+    , enableFoodSection : Bool
     , store : Store
     , currentVersion : Version
     , matomo : { host : String, siteId : String }

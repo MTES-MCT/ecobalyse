@@ -10,11 +10,11 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Scope as Scope
-import Data.Session as Session
+import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Request.Version as Version exposing (Version)
+import Request.Version as Version
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -42,8 +42,8 @@ type MenuLink
     | MailTo String String
 
 
-type alias Config msg a =
-    { session : { a | clientUrl : String, notifications : List Session.Notification, currentVersion : Version, store : Session.Store }
+type alias Config msg =
+    { session : Session
     , mobileNavigationOpened : Bool
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
@@ -54,7 +54,7 @@ type alias Config msg a =
     }
 
 
-frame : Config msg a -> ( String, List (Html msg) ) -> Document msg
+frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame ({ activePage } as config) ( title, content ) =
     { title = title ++ " | Ecobalyse"
     , body =
@@ -88,11 +88,11 @@ frame ({ activePage } as config) ( title, content ) =
     }
 
 
-stagingAlert : Config msg a -> Html msg
+stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
     if
         String.contains "ecobalyse-pr" session.clientUrl
-            || String.contains "wikicarbone-pr" session.clientUrl
+            || String.contains "staging-ecobalyse" session.clientUrl
     then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
@@ -108,7 +108,7 @@ stagingAlert { session, loadUrl } =
         text ""
 
 
-newVersionAlert : Config msg a -> Html msg
+newVersionAlert : Config msg -> Html msg
 newVersionAlert { session, reloadPage } =
     case session.currentVersion of
         Version.NewerVersion ->
@@ -126,16 +126,19 @@ newVersionAlert { session, reloadPage } =
             text ""
 
 
-mainMenuLinks : List MenuLink
-mainMenuLinks =
-    [ Internal "Accueil" Route.Home Home
-    , Internal "Textile" Route.TextileSimulatorHome TextileSimulator
+mainMenuLinks : Session -> List MenuLink
+mainMenuLinks { enableFoodSection } =
+    List.filterMap identity
+        [ Just <| Internal "Accueil" Route.Home Home
+        , Just <| Internal "Textile" Route.TextileSimulatorHome TextileSimulator
+        , if enableFoodSection then
+            Just <| Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
 
-    -- FIXME: all food-related stuff temporarily removed
-    --    , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
-    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
-    , Internal "API" Route.Api Api
-    ]
+          else
+            Nothing
+        , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
+        , Just <| Internal "API" Route.Api Api
+        ]
 
 
 secondaryMenuLinks : List MenuLink
@@ -149,20 +152,25 @@ secondaryMenuLinks =
     ]
 
 
-headerMenuLinks : List MenuLink
-headerMenuLinks =
-    mainMenuLinks
+headerMenuLinks : Session -> List MenuLink
+headerMenuLinks session =
+    mainMenuLinks session
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            ]
 
 
-footerMenuLinks : List MenuLink
-footerMenuLinks =
-    mainMenuLinks
+footerMenuLinks : Session -> List MenuLink
+footerMenuLinks session =
+    mainMenuLinks session
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
+           , if Session.isAuthenticated session then
+                Internal "Mon compte" (Route.Auth { authenticated = True }) Auth
+
+             else
+                Internal "Connexion ou inscription" (Route.Auth { authenticated = False }) Auth
            ]
 
 
@@ -174,8 +182,8 @@ legalMenuLinks =
     ]
 
 
-pageFooter : { a | currentVersion : Version } -> Html msg
-pageFooter { currentVersion } =
+pageFooter : Session -> Html msg
+pageFooter session =
     let
         makeLink link =
             case link of
@@ -196,7 +204,7 @@ pageFooter { currentVersion } =
             [ Container.centered []
                 [ div [ class "row" ]
                     [ div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
-                        [ mainMenuLinks
+                        [ mainMenuLinks session
                             |> List.map makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]
@@ -251,7 +259,7 @@ pageFooter { currentVersion } =
                 |> List.map (List.singleton >> li [])
                 |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
-            , case Version.toString currentVersion of
+            , case Version.toString session.currentVersion of
                 Just hash ->
                     p [ class "fs-9 text-muted" ]
                         [ Link.external
@@ -267,7 +275,7 @@ pageFooter { currentVersion } =
         ]
 
 
-pageHeader : Config msg a -> Html msg
+pageHeader : Config msg -> Html msg
 pageHeader config =
     header [ class "Header shadow-sm", attribute "role" "banner" ]
         [ div [ class "MobileMenuButton" ]
@@ -280,14 +288,23 @@ pageHeader config =
                 ]
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
-        , Container.centered []
+        , Container.centered [ class "d-flex justify-content-between align-items-center" ]
             [ a
-                [ href "/"
-                , title "Écobalyse"
-                , class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5"
+                [ class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5 pe-3"
+                , href "/"
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
+                ]
+            , a
+                [ class "HeaderAuthLink d-none d-sm-block"
+                , Route.href (Route.Auth { authenticated = False })
+                ]
+                [ if Session.isAuthenticated config.session then
+                    text "Mon compte"
+
+                  else
+                    text "Connexion ou inscription"
                 ]
             ]
         , Container.fluid [ class "border-top" ]
@@ -297,21 +314,8 @@ pageHeader config =
                     , attribute "role" "navigation"
                     , attribute "aria-label" "Menu principal"
                     ]
-                    [ (headerMenuLinks
+                    [ headerMenuLinks config.session
                         |> List.map (viewNavigationLink config.activePage)
-                      )
-                        ++ [ span [ class "flex-fill" ] [] -- Filler
-                           , let
-                                label =
-                                    if Session.isAuthenticated config.session then
-                                        "Compte"
-
-                                    else
-                                        "Connexion"
-                             in
-                             Internal label (Route.Auth { authenticated = False }) Auth
-                                |> viewNavigationLink config.activePage
-                           ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
                 ]
@@ -344,7 +348,7 @@ viewNavigationLink activePage link =
             a [ class "nav-link", href <| "mailto:" ++ email ] [ text label ]
 
 
-notificationListView : Config msg a -> Html msg
+notificationListView : Config msg -> Html msg
 notificationListView ({ session } as config) =
     case session.notifications of
         [] ->
@@ -356,7 +360,7 @@ notificationListView ({ session } as config) =
                 |> Container.centered [ class "bg-white pt-3" ]
 
 
-notificationView : Config msg a -> Session.Notification -> Html msg
+notificationView : Config msg -> Session.Notification -> Html msg
 notificationView { closeNotification } notification =
     -- TODO:
     -- - absolute positionning
@@ -394,8 +398,8 @@ loading =
         ]
 
 
-mobileNavigation : Config msg a -> Html msg
-mobileNavigation { activePage, closeMobileNavigation } =
+mobileNavigation : Config msg -> Html msg
+mobileNavigation { activePage, closeMobileNavigation, session } =
     div []
         [ div
             [ class "offcanvas offcanvas-start show"
@@ -418,7 +422,7 @@ mobileNavigation { activePage, closeMobileNavigation } =
                     []
                 ]
             , div [ class "offcanvas-body" ]
-                [ footerMenuLinks
+                [ footerMenuLinks session
                     |> List.map (viewNavigationLink activePage)
                     |> div [ class "nav nav-pills flex-column" ]
                 ]
