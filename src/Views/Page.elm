@@ -291,6 +291,10 @@ pageHeader config =
         , Container.centered [ class "d-flex justify-content-between align-items-center" ]
             [ a
                 [ class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5 pe-3"
+
+                -- Note: this class makes Dashlord understand DSFR guidelines are implemented
+                -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
+                , class "fr-header__brand"
                 , href "/"
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
