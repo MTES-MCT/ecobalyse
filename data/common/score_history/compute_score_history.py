@@ -76,11 +76,6 @@ def get_last_commit_id(branch_name, fetch=False):
         raise Exception(f"Error getting last commit ID: {result.stderr}")
 
 
-def load_json(file):
-    with open(file, "r") as f:
-        return json.load(f)
-
-
 def get_impacts_weights(branch):
     return fetch_json(
         f"https://raw.githubusercontent.com/MTES-MCT/ecobalyse/{branch}/public/data/impacts.json"
