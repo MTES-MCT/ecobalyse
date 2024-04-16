@@ -19,4 +19,4 @@ jobs:
       - name: Update Score History
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
-        run: python /data/common/score_history/compute_score_history.py
+        run: python ./data/common/score_history/compute_score_history.py

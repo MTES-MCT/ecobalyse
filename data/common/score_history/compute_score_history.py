@@ -227,54 +227,6 @@ def create_df(
     return df
 
 
-def update_score_history(score_history, score_new):
-    """
-    Optimized function to merge two DataFrames based on specific conditions.
-    New branches are appended directly. Existing branches are only appended if the
-    commit hash is different and the datetime is older than the oldest datetime of
-    that branch in the score_history.
-
-    Parameters:
-    - score_history: DataFrame containing the historical scores.
-    - new_scores: DataFrame with new scores to be added.
-
-    Returns:
-    - DataFrame: Updated DataFrame with new_scores merged based on conditions.
-    """
-    # Convert 'datetime' columns to datetime objects with error coercion
-    score_history["datetime"] = pd.to_datetime(
-        score_history["datetime"], format="%Y-%m-%d %H:%M", errors="coerce"
-    )
-    score_new["datetime"] = pd.to_datetime(
-        score_new["datetime"], format="%Y-%m-%d %H:%M", errors="coerce"
-    )
-
-    # Remove entries with invalid 'datetime'
-    score_history = score_history.dropna(subset=["datetime"])
-    score_new = score_new.dropna(subset=["datetime"])
-
-    # Append new branches directly
-    new_branches = score_new[~score_new["branch"].isin(score_history["branch"])]
-    merged_df = pd.concat([score_history, new_branches], ignore_index=True)
-
-    # Filter new_scores for branches existing in score_history to optimize merging
-    existing_branches = score_new[score_new["branch"].isin(score_history["branch"])]
-
-    # Group by 'branch' to avoid repetitive operations
-    grouped_history = score_history.groupby("branch")
-    for branch, group in existing_branches.groupby("branch"):
-        # Identify the oldest datetime for the branch in score_history
-        oldest_datetime = grouped_history.get_group(branch)["datetime"].min()
-        # Filter new entries based on commit uniqueness and datetime
-        new_entries = group[
-            (~group["commit"].isin(score_history["commit"]))
-            & (group["datetime"] > oldest_datetime)
-        ]
-        merged_df = pd.concat([merged_df, new_entries], ignore_index=True)
-
-    return merged_df
-
-
 def get_branch_commits():
     """Retrieve the last commit IDs for the current and master branches."""
     current_branch_command = ["git", "branch", "--show-current"]
