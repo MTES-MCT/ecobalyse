@@ -35,11 +35,13 @@ def register(request):
             )
         if form.is_valid():
             form.save()
+            timeout = settings.LOGIN_URL_TIMEOUT
             return JsonResponse(
                 {
                     "success": True,
-                    "msg": _("The link is valid for %d min")
-                    % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
+                    "msg": _("The link is valid for %d min") % (timeout / 60)
+                    if timeout is not None
+                    else _("The link does not expire"),
                 }
             )
         else:
@@ -71,11 +73,13 @@ class LoginView(MailauthLoginView):
         )
         if form.is_valid():
             form.save()
+            timeout = settings.LOGIN_URL_TIMEOUT
             return JsonResponse(
                 {
                     "success": True,
-                    "msg": _("The link is valid for %d min")
-                    % (getattr(settings, "LOGIN_URL_TIMEOUT", 900) / 60),
+                    "msg": (_("The link is valid for %d min") % (timeout / 60))
+                    if timeout is not None
+                    else _("The link does not expire"),
                 }
             )
         else:
@@ -92,9 +96,9 @@ class Activate(MailauthLoginTokenView):
     """login and activate the disabled account"""
 
     signer = signing.UserSigner()
-    max_age = getattr(settings, "LOGIN_URL_TIMEOUT", 60 * 15)
-    single_use = getattr(settings, "LOGIN_TOKEN_SINGLE_USE", True)
-    success_url = getattr(settings, "LOGIN_REDIRECT_URL", "authentication:profile")
+    max_age = settings.LOGIN_URL_TIMEOUT
+    single_use = settings.LOGIN_TOKEN_SINGLE_USE
+    success_url = "authentication:profile"
 
     def get_success_url(self):
         return "/"
@@ -108,7 +112,7 @@ class Activate(MailauthLoginTokenView):
             )
             user.is_active = True
             user.save()
-        except:
+        except Exception:
             msg = _("The token has expired")
             logger.warning(msg, exc_info=True)
             raise PermissionDenied
