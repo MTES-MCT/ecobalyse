@@ -25,7 +25,7 @@
     "test:client": "npx elm-test",
     "test:review": "npx elm-review",
     "test:server": "npm run server:build && jest",
-    "test:server-ci": "concurrently -k -s first -n \"django,test\" \"npm run backend:start\" \"npm run server:build && jest\"",
+    "test:server-ci": "concurrently -k -s first -n \"django,test\" \"npm run backend:start\" \"while ! lsof -i:8002; do sleep 1; done && npm run server:build && jest\"",
     "test": "npm run db:build && npm run test:review && npm run test:client && npm run backend:test && npm run test:server"
   },
   "dependencies": {

@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, staging ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, staging ]
   workflow_dispatch:
 
 jobs:
@@ -46,6 +46,14 @@ jobs:
         key: elm-cache-${{ hashFiles('elm.json') }}
         restore-keys: elm-cache-
 
+    - name: Cache pipenv virtualenv
+      uses: actions/cache@v4
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-${{ matrix.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pipenv-
+
     - name: Install Node dependencies
       run: npm ci --prefer-offline --no-audit
 
@@ -68,4 +76,4 @@ jobs:
       run: npm run test:client
 
     - name: Run server tests
-      run: npm run test:server-ci
+      run: pipenv run backend/update.sh && npm run test:server-ci

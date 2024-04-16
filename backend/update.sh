@@ -4,7 +4,7 @@ pushd $( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # this script is used at startup on scalingo (see start.sh)
 
 # update the l10n and DB
-django-admin compilemessages
+which gettext && django-admin compilemessages # commit mo files
 python manage.py makemigrations mailauth authentication #textile
 python manage.py migrate
 
