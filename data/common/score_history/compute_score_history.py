@@ -18,11 +18,9 @@ BRANCH_URL_DIC = {
     ]: f"https://ecobalyse-pr{TEST_BRANCH['pr_number']}.osc-fr1.scalingo.io/api/textile/simulator/detailed",
 }
 
-EXPORT_PATH = "output/"
-TODAY_STR = datetime.today().strftime("%Y-%m-%d")
 TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M")
-IMPACTS_JSON_PATH = "../../../public/data/impacts.json"
-EXAMPLES_TEXTILE_PATH = "../../../public/data/textile/examples.json"
+IMPACTS_JSON_PATH = "./public/data/impacts.json"
+EXAMPLES_TEXTILE_PATH = "./public/data/textile/examples.json"
 
 
 def load_json(file):
