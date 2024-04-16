@@ -51,9 +51,9 @@ INSTALLED_APPS = [
     "authentication.apps.AuthenticationConfig",
     # # disable textile for now
     # "textile.apps.TextileConfig",
-    # #  the original admin config is replaced by MyAdminConfig
+    # #  the original admin config is replaced by custom AdminConfig
     # "django.contrib.admin",
-    "backend.apps.MyAdminConfig",
+    "backend.apps.AdminConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
