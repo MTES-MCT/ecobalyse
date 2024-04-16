@@ -3,10 +3,7 @@ import sys
 from copy import deepcopy
 from os.path import join
 
-from authentication.models import EcobalyseUser
-from decouple import config  # python-decouple to read in .env
 from django.conf import settings
-from django.contrib.auth import get_user_model
 
 from textile.models import Example, Material, Process, Product, Share
 
@@ -53,15 +50,11 @@ def init():
     # stop if the database is not sqlite3 or is already populated (just check the number of users)
     if (
         "sqlite3" not in settings.DATABASES.get("default", {}).get("ENGINE", "")
-        or EcobalyseUser.objects.count() <= 1
+        or Process.objects.count() <= 0
     ):
         sys.exit()
 
-    # create initial admins given by an env var. Mails separated by comma
-    for email in [m.strip() for m in str(config("BACKEND_ADMINS")).split(",")]:
-        get_user_model().objects.create_superuser(email)
-
-    return  # FIXME don't load textile data yet
+    # return  # FIXME don't load textile data yet
 
     # PROCESSES
     with open(
