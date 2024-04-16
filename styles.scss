@@ -889,9 +889,15 @@ q {
 }
 
 .Header {
+  &AuthLink {
+    font-size: 0.975em;
+    text-decoration: none;
+  }
+
   &Brand {
     padding: .25em 0;
     margin: .5em 0;
+
     &:hover {
       background-color: #f6f6f6;
     }
@@ -925,6 +931,10 @@ q {
     color: $text-dark;
     font-size: 1.25rem;
     font-weight: 700;
+    a {
+      color: $dark;
+      text-decoration: none;
+    }
   }
 }
 

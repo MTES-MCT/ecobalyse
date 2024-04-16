@@ -166,6 +166,11 @@ footerMenuLinks session =
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
+           , if Session.isAuthenticated session then
+                Internal "Mon compte" (Route.Auth { authenticated = True }) Auth
+
+             else
+                Internal "Connexion ou inscription" (Route.Auth { authenticated = False }) Auth
            ]
 
 
@@ -283,14 +288,23 @@ pageHeader config =
                 ]
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
-        , Container.centered []
+        , Container.centered [ class "d-flex justify-content-between align-items-center" ]
             [ a
-                [ href "/"
-                , title "Écobalyse"
-                , class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5"
+                [ class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5 pe-3"
+                , href "/"
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
+                ]
+            , a
+                [ class "HeaderAuthLink d-none d-sm-block"
+                , Route.href (Route.Auth { authenticated = False })
+                ]
+                [ if Session.isAuthenticated config.session then
+                    text "Mon compte"
+
+                  else
+                    text "Connexion ou inscription"
                 ]
             ]
         , Container.fluid [ class "border-top" ]
@@ -300,21 +314,8 @@ pageHeader config =
                     , attribute "role" "navigation"
                     , attribute "aria-label" "Menu principal"
                     ]
-                    [ (headerMenuLinks config.session
+                    [ headerMenuLinks config.session
                         |> List.map (viewNavigationLink config.activePage)
-                      )
-                        ++ [ span [ class "flex-fill" ] [] -- Filler
-                           , let
-                                label =
-                                    if Session.isAuthenticated config.session then
-                                        "Compte"
-
-                                    else
-                                        "Connexion"
-                             in
-                             Internal label (Route.Auth { authenticated = False }) Auth
-                                |> viewNavigationLink config.activePage
-                           ]
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
                 ]
