@@ -1,10 +1,13 @@
 #!/bin/bash
+pushd $( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # this script is used at startup on scalingo (see start.sh)
 
-# Create the DB structure
-python manage.py makemigrations mailauth authentication textile
+# update the l10n and DB
+django-admin compilemessages
+python manage.py makemigrations mailauth authentication #textile
 python manage.py migrate
 
-# Populate the DB (if empty or is sqlite3)
-# TODO to be removed after switching to prod
-python manage.py shell -c "from textile.init import init; init()"
+# Populate the DB
+python manage.py shell -c "from authentication.init import init; init()"
+#python manage.py shell -c "from textile.init import init; init()"

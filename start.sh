@@ -6,8 +6,8 @@
 npm run server:start &
 
 # django
-pushd data/backend
-./reinit.sh # warning: temporary reinit of the application with a local sqlite
+pushd backend
+./update.sh
 python manage.py collectstatic --noinput
 gunicorn -b 127.0.0.1:8002 backend.wsgi &
 popd
