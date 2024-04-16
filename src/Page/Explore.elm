@@ -178,8 +178,8 @@ datasetsMenuView { scope, dataset } =
             ]
 
 
-scopesMenuView : Model -> Html Msg
-scopesMenuView model =
+scopesMenuView : Session -> Model -> Html Msg
+scopesMenuView { enableFoodSection } model =
     [ Scope.Food, Scope.Textile ]
         |> List.map
             (\scope ->
@@ -196,8 +196,13 @@ scopesMenuView model =
                     ]
             )
         |> (::) (strong [ class "d-block d-sm-inline" ] [ text "Secteur d'activité" ])
-        -- FIXME: all food-related stuff temporarily hidden
-        |> nav [ class "d-none" ]
+        |> nav
+            (if enableFoodSection then
+                []
+
+             else
+                [ class "d-none" ]
+            )
 
 
 detailsModal : Html Msg -> Html Msg
@@ -620,8 +625,10 @@ view session model =
             [ div []
                 [ h1 [ class "mb-0" ] [ text "Explorateur" ]
                 , div [ class "row d-flex align-items-stretch mt-1 mx-0" ]
-                    [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ] [ scopesMenuView model ]
-                    , div [ class "col-12 col-lg-7 pe-0 me-0" ] [ datasetsMenuView model ]
+                    [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ]
+                        [ scopesMenuView session model ]
+                    , div [ class "col-12 col-lg-7 pe-0 me-0" ]
+                        [ datasetsMenuView model ]
                     ]
                 ]
             , explore session model

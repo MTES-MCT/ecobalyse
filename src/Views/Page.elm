@@ -14,7 +14,7 @@ import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Request.Version as Version exposing (Version)
+import Request.Version as Version
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -126,16 +126,19 @@ newVersionAlert { session, reloadPage } =
             text ""
 
 
-mainMenuLinks : List MenuLink
-mainMenuLinks =
-    [ Internal "Accueil" Route.Home Home
-    , Internal "Textile" Route.TextileSimulatorHome TextileSimulator
+mainMenuLinks : Session -> List MenuLink
+mainMenuLinks { enableFoodSection } =
+    List.filterMap identity
+        [ Just <| Internal "Accueil" Route.Home Home
+        , Just <| Internal "Textile" Route.TextileSimulatorHome TextileSimulator
+        , if enableFoodSection then
+            Just <| Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
 
-    -- FIXME: all food-related stuff temporarily removed
-    --    , Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
-    , Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
-    , Internal "API" Route.Api Api
-    ]
+          else
+            Nothing
+        , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
+        , Just <| Internal "API" Route.Api Api
+        ]
 
 
 secondaryMenuLinks : List MenuLink
@@ -149,17 +152,17 @@ secondaryMenuLinks =
     ]
 
 
-headerMenuLinks : List MenuLink
-headerMenuLinks =
-    mainMenuLinks
+headerMenuLinks : Session -> List MenuLink
+headerMenuLinks session =
+    mainMenuLinks session
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            ]
 
 
-footerMenuLinks : List MenuLink
-footerMenuLinks =
-    mainMenuLinks
+footerMenuLinks : Session -> List MenuLink
+footerMenuLinks session =
+    mainMenuLinks session
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
@@ -174,8 +177,8 @@ legalMenuLinks =
     ]
 
 
-pageFooter : { a | currentVersion : Version } -> Html msg
-pageFooter { currentVersion } =
+pageFooter : Session -> Html msg
+pageFooter session =
     let
         makeLink link =
             case link of
@@ -196,7 +199,7 @@ pageFooter { currentVersion } =
             [ Container.centered []
                 [ div [ class "row" ]
                     [ div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
-                        [ mainMenuLinks
+                        [ mainMenuLinks session
                             |> List.map makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]
@@ -251,7 +254,7 @@ pageFooter { currentVersion } =
                 |> List.map (List.singleton >> li [])
                 |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
-            , case Version.toString currentVersion of
+            , case Version.toString session.currentVersion of
                 Just hash ->
                     p [ class "fs-9 text-muted" ]
                         [ Link.external
@@ -297,7 +300,7 @@ pageHeader config =
                     , attribute "role" "navigation"
                     , attribute "aria-label" "Menu principal"
                     ]
-                    [ (headerMenuLinks
+                    [ (headerMenuLinks config.session
                         |> List.map (viewNavigationLink config.activePage)
                       )
                         ++ [ span [ class "flex-fill" ] [] -- Filler
@@ -395,7 +398,7 @@ loading =
 
 
 mobileNavigation : Config msg -> Html msg
-mobileNavigation { activePage, closeMobileNavigation } =
+mobileNavigation { activePage, closeMobileNavigation, session } =
     div []
         [ div
             [ class "offcanvas offcanvas-start show"
@@ -418,7 +421,7 @@ mobileNavigation { activePage, closeMobileNavigation } =
                     []
                 ]
             , div [ class "offcanvas-body" ]
-                [ footerMenuLinks
+                [ footerMenuLinks session
                     |> List.map (viewNavigationLink activePage)
                     |> div [ class "nav nav-pills flex-column" ]
                 ]

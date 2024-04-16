@@ -68,8 +68,8 @@ update session msg model =
             ( model, session, Ports.scrollIntoView nodeId )
 
 
-viewHero : Modal -> Html Msg
-viewHero modal =
+viewHero : Session -> Modal -> Html Msg
+viewHero { enableFoodSection } modal =
     Container.centered [ class "pt-4 pb-5" ]
         [ div [ class "px-5" ]
             [ h2 [ class "h1" ]
@@ -83,10 +83,11 @@ viewHero modal =
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
                 [ a
                     [ class "btn btn-lg btn-primary"
+                    , if enableFoodSection then
+                        onClick OpenCalculatorPickerModal
 
-                    -- FIXME: all food-related stuff temporarily removed
-                    --, onClick OpenCalculatorPickerModal
-                    , Route.href Route.TextileSimulatorHome
+                      else
+                        Route.href Route.TextileSimulatorHome
                     ]
                     [ text "Lancer le calculateur" ]
                 , button
@@ -353,11 +354,11 @@ viewContribution =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ { modal } =
+view session { modal } =
     ( "Accueil"
     , [ div [ class "d-flex flex-column" ]
             [ div [ class "bg-light pt-5" ]
-                [ viewHero modal ]
+                [ viewHero session modal ]
             , viewInfo
             , div [ class "bg-light pt-5" ]
                 [ viewTools ]
