@@ -228,8 +228,10 @@ def get_branch_commits():
             current_branch_command, check=True, capture_output=True, text=True
         )
         current_branch = current_branch_result.stdout.strip()
-        branches_last_commit[current_branch] = get_last_commit_id(current_branch)
-        branches_last_commit["master"] = get_last_commit_id("master")
+        branches_last_commit[current_branch] = get_last_commit_id(
+            current_branch, fetch=True
+        )
+        branches_last_commit["master"] = get_last_commit_id("master", fetch=True)
     except subprocess.CalledProcessError as e:
         logging.error(f"Error determining the current branch: {e.stderr}")
         raise
