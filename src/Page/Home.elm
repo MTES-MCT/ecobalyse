@@ -81,15 +81,13 @@ viewHero { enableFoodSection } modal =
                     |> Markdown.simple []
                 ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
-                [ a
-                    [ class "btn btn-lg btn-primary"
-                    , if enableFoodSection then
-                        onClick OpenCalculatorPickerModal
+                [ if enableFoodSection then
+                    button [ class "btn btn-lg btn-primary", onClick OpenCalculatorPickerModal ]
+                        [ text "Lancer le calculateur" ]
 
-                      else
-                        Route.href Route.TextileSimulatorHome
-                    ]
-                    [ text "Lancer le calculateur" ]
+                  else
+                    a [ class "btn btn-lg btn-primary", Route.href Route.TextileSimulatorHome ]
+                        [ text "Lancer le calculateur" ]
                 , button
                     [ class "btn btn-lg btn-outline-primary"
                     , onClick OpenPresentationVideoModal
@@ -236,7 +234,7 @@ viewTools =
                 [ div
                     [ class "card d-flex flex-warp align-content-between text-decoration-none h-100"
                     , attribute "role" "button"
-                    , onClick <| OpenCalculatorPickerModal
+                    , onClick OpenCalculatorPickerModal
                     ]
                     [ img
                         [ class "w-100"
