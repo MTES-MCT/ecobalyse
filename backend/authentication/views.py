@@ -146,4 +146,4 @@ def profile(request):
 
 
 def is_token_valid(token):
-    return EcobalyseUser.objects.filter(token=token)
+    return EcobalyseUser.objects.filter(token=token).count() > 0
