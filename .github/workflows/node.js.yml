@@ -68,4 +68,4 @@ jobs:
       run: npm run test:client
 
     - name: Run server tests
-      run: npm run test:server-ci
+      run: pipenv run backend/update.sh && npm run test:server-ci
