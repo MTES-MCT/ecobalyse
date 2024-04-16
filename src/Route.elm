@@ -203,7 +203,7 @@ toString route =
                     "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
 
                 FoodBuilderHome ->
-                    [ "food", "build" ]
+                    [ "food" ]
 
                 FoodBuilder trigram Nothing ->
                     [ "food", "build", Definition.toString trigram ]

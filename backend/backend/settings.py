@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     ".osc-fr1.scalingo.io",
+    "staging-ecobalyse.incubateur.net",
 ]
 
 

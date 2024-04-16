@@ -11,9 +11,7 @@ if (process.env.SENTRY_DSN) {
     tracesSampleRate: 0,
     allowUrls: [
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
-      /^https:\/\/ecobalyse\.osc-fr1\.scalingo\.io/,
-      /^https:\/\/ecobalyse-pr(\d+)\.osc-fr1\.scalingo\.io/,
-      /^https:\/\/ecobalyse-v2\.osc-fr1\.scalingo\.io/,
+      /^https:\/\/staging-ecobalyse\.incubateur\.net/,
     ],
     ignoreErrors: [
       // Most often due to DOM-aggressive browser extensions
@@ -37,6 +35,7 @@ const storeKey = "store";
 const app = Elm.Main.init({
   flags: {
     clientUrl: location.origin + location.pathname,
+    enableFoodSection: process.env.ENABLE_FOOD_SECTION === "True",
     rawStore: localStorage[storeKey] || "",
     matomo: {
       host: process.env.MATOMO_HOST || "",
