@@ -12,12 +12,14 @@ Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez dispos
 
 ## Installation
 
+Ensure having a PostgreSQL >=16 server running locally.
+
     $ npm install
     $ pipenv install
 
 Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :
 
-    $ npm run auth:init
+    $ npm run backend:start
 
 ## Configuration
 
