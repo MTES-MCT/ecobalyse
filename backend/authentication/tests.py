@@ -75,7 +75,7 @@ class DjangoAuthenticationTests(TestCase):
         response = self.client.get(
             "/accounts/login/1::1ru4fl:Z3XQ1tyORtolai5tycqK99BjUgzefc7o-mfui0DQFa0?next=/"
         )
-        self.assertEqual(getattr(response, "status_code"), 404)
+        self.assertEqual(getattr(response, "status_code"), 403)
 
         # right json login url
         login_url = "/" + "/".join(os.environ["login_url"].split("/")[3:])
