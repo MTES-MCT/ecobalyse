@@ -92,7 +92,7 @@ stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
     if
         String.contains "ecobalyse-pr" session.clientUrl
-            || String.contains "ecobalyse-staging" session.clientUrl
+            || String.contains "staging-ecobalyse" session.clientUrl
     then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
