@@ -11,8 +11,6 @@ if (process.env.SENTRY_DSN) {
     tracesSampleRate: 0,
     allowUrls: [
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
-      /^https:\/\/ecobalyse\.osc-fr1\.scalingo\.io/,
-      /^https:\/\/ecobalyse-pr(\d+)\.osc-fr1\.scalingo\.io/,
       /^https:\/\/staging-ecobalyse\.incubateur\.net/,
     ],
     ignoreErrors: [
