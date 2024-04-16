@@ -12,6 +12,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # Fetches all history for all branches and tags
+          persist-credentials: true # Allows Git commands to use the built-in token
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -25,3 +26,17 @@ jobs:
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
         run: python ./data/common/score_history/compute_score_history.py
+
+      - name: Check for changes
+        id: file-check
+        run: |
+          git diff --name-only | grep 'score_history.csv' && echo "::set-output name=modified::true" || echo "::set-output name=modified::false"
+
+      - name: Commit and push if changed
+        if: steps.file-check.outputs.modified == 'true'
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add data/common/score_history/score_history.csv
+          git commit -m "Automatically update score history"
+          git push
