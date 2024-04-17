@@ -16,6 +16,16 @@ class EmailLoginForm(MailauthEmailLoginForm):
             request, token, next=next or "/#/auth/authenticated"
         )
 
+    def save(self):
+        """redefine just to transmit the login_url in test mode"""
+        email = self.cleaned_data["email"]
+        for user in self.get_users(email):
+            context = self.get_mail_context(self.request, user)
+            self.send_mail(email, context)
+            if "test" in sys.argv or "backend:test" in sys.argv:
+                # hack to pass the login url to the test suite
+                os.environ["login_url"] = context["login_url"]
+
 
 class RegistrationForm(ModelForm):
     subject_template_name = "registration/registration_subject.txt"
@@ -66,12 +76,13 @@ class RegistrationForm(ModelForm):
         return MailAuthBackend.get_token(user=user)
 
     def save(self, commit=True):
+        """redefine just to transmit the login_url in test mode"""
         super().save(commit)
         email = self.cleaned_data["email"]
-        for user in EmailLoginForm.get_users(self, email):
-            context = EmailLoginForm.get_mail_context(self, self.request, user)
-            EmailLoginForm.send_mail(self, email, context)
-            if "test" in sys.argv:
+        for user in MailauthEmailLoginForm.get_users(self, email):
+            context = MailauthEmailLoginForm.get_mail_context(self, self.request, user)
+            MailauthEmailLoginForm.send_mail(self, email, context)
+            if "test" in sys.argv or "backend:test" in sys.argv:
                 # hack to pass the login url to the test suite
                 os.environ["login_url"] = context["login_url"]
-        return user
+            return user
