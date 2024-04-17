@@ -58,7 +58,7 @@
   },
   {
     "id": "carrot-organic",
-    "name": "Carotte bio (sortie de ferme)",
+    "name": "Carotte bio",
     "database": "Ginko",
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -109,7 +109,7 @@
   },
   {
     "id": "sunflower-organic",
-    "name": "Tournesol bio (sortie de ferme)",
+    "name": "Tournesol bio",
     "database": "Ginko",
     "search": "Sunflower grain, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
@@ -143,7 +143,7 @@
   },
   {
     "id": "rapeseed-organic",
-    "name": "Colza bio (sortie de ferme)",
+    "name": "Colza bio",
     "database": "Agribalyse 3.1.1",
     "search": "Winter rapeseed, organic, at farm gate {FR}",
     "category": "ingredient",
@@ -408,7 +408,7 @@
   },
   {
     "id": "zucchini-organic",
-    "name": "Courgette bio (sortie de ferme)",
+    "name": "Courgette bio",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, organic, at farm gate {FR}",
     "category": "ingredient",
@@ -425,7 +425,7 @@
   },
   {
     "id": "peach-organic",
-    "name": "Pêche bio (sortie de ferme)",
+    "name": "Pêche bio",
     "database": "Agribalyse 3.1.1",
     "search": "Peach, organic, national average, at orchard {FR} U",
     "category": "ingredient",
@@ -442,7 +442,7 @@
   },
   {
     "id": "melon-organic",
-    "name": "Melon bio (sortie de ferme)",
+    "name": "Melon bio",
     "database": "Agribalyse 3.1.1",
     "search": "Melon, organic, at farm gate FR",
     "category": "ingredient",
@@ -741,7 +741,7 @@
   },
   {
     "id": "beetroot-organic",
-    "name": "Betterave rouge bio (sortie de ferme)",
+    "name": "Betterave rouge bio",
     "database": "Ginko",
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -759,7 +759,7 @@
   },
   {
     "id": "celeriac-organic",
-    "name": "Céleri-rave bio (sortie de ferme)",
+    "name": "Céleri-rave bio",
     "database": "Ginko",
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -777,7 +777,7 @@
   },
   {
     "id": "turnip-organic",
-    "name": "Navet bio (sortie de ferme)",
+    "name": "Navet bio",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, organic, Lower Normandy, at farm gate",
     "category": "ingredient",
@@ -794,7 +794,7 @@
   },
   {
     "id": "chickpea-organic",
-    "name": "Pois chiche bio (sortie de ferme)",
+    "name": "Pois chiche bio",
     "database": "Agribalyse 3.1.1",
     "search": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "category": "ingredient",
@@ -1286,7 +1286,7 @@
   },
   {
     "id": "egg-indoor-code2",
-    "name": "Oeuf conventionnel (code 2-sortie de ferme)",
+    "name": "Oeuf conventionnel (code 2)",
     "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -1305,7 +1305,7 @@
   },
   {
     "id": "egg-indoor-code3",
-    "name": "Oeuf conventionnel (code 3-sortie de ferme)",
+    "name": "Oeuf conventionnel (code 3)",
     "search": "Egg indoor cage",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -1324,7 +1324,7 @@
   },
   {
     "id": "egg-outdoor-code1",
-    "name": "Oeuf plein air (code 1-sortie de ferme)",
+    "name": "Oeuf plein air (code 1)",
     "search": "Egg, conventional, outdoor system, at farm gate/FR U :",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -1416,7 +1416,7 @@
   },
   {
     "id": "pear-organic",
-    "name": "Poire bio (sortie de ferme)",
+    "name": "Poire bio",
     "database": "Ginko",
     "search": "Pear, consumption mix, organic 2023 {FR} U",
     "category": "ingredient",
@@ -1434,7 +1434,7 @@
   },
   {
     "id": "carrot-fr",
-    "name": "Carotte FR (sortie de ferme)",
+    "name": "Carotte FR",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
@@ -1451,7 +1451,7 @@
   },
   {
     "id": "carrot-eu",
-    "name": "Carotte UE par défaut (sortie de ferme)",
+    "name": "Carotte UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -1468,7 +1468,7 @@
   },
   {
     "id": "carrot-non-ue",
-    "name": "Carotte hors UE par défaut (sortie de ferme)",
+    "name": "Carotte hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "category": "ingredient",
@@ -1485,7 +1485,7 @@
   },
   {
     "id": "zucchini-fr",
-    "name": "Courgette FR (sortie de ferme)",
+    "name": "Courgette FR",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "category": "ingredient",
@@ -1502,7 +1502,7 @@
   },
   {
     "id": "zucchini-eu",
-    "name": "Courgette UE par défaut (sortie de ferme)",
+    "name": "Courgette UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
@@ -1519,7 +1519,7 @@
   },
   {
     "id": "pear-fr",
-    "name": "Poire FR (sortie de ferme)",
+    "name": "Poire FR",
     "database": "Agribalyse 3.1.1",
     "search": "Pear, conventional, at orchard {FR} U",
     "category": "ingredient",
@@ -1536,7 +1536,7 @@
   },
   {
     "id": "pear-eu",
-    "name": "Poire UE par défaut (sortie de ferme)",
+    "name": "Poire UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U {BE}",
     "category": "ingredient",
@@ -1553,7 +1553,7 @@
   },
   {
     "id": "peach-fr",
-    "name": "Pêche FR (sortie de ferme)",
+    "name": "Pêche FR",
     "database": "Agribalyse 3.1.1",
     "search": "Peach, production mix, national average, at orchard {FR} U",
     "category": "ingredient",
@@ -1570,7 +1570,7 @@
   },
   {
     "id": "peach-eu",
-    "name": "Pêche UE par défaut (sortie de ferme)",
+    "name": "Pêche UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -1587,7 +1587,7 @@
   },
   {
     "id": "melon-fr",
-    "name": "Melon FR (sortie de ferme)",
+    "name": "Melon FR",
     "database": "Agribalyse 3.1.1",
     "search": "Melon, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
@@ -1604,7 +1604,7 @@
   },
   {
     "id": "melon-eu",
-    "name": "Melon UE par défaut (sortie de ferme)",
+    "name": "Melon UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Melon, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
@@ -1622,7 +1622,7 @@
   },
   {
     "id": "potato-industry-fr",
-    "name": "Pomme de terre industrie FR (sortie de ferme)",
+    "name": "Pomme de terre industrie FR",
     "database": "Agribalyse 3.1.1",
     "search": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
     "category": "ingredient",
@@ -1639,7 +1639,7 @@
   },
   {
     "id": "potato-table-fr",
-    "name": "Pomme de terre de table FR (sortie de ferme)",
+    "name": "Pomme de terre de table FR",
     "database": "Agribalyse 3.1.1",
     "search": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
     "category": "ingredient",
@@ -1690,7 +1690,7 @@
   },
   {
     "id": "onion-fr",
-    "name": "Oignon FR (sortie de ferme)",
+    "name": "Oignon FR",
     "database": "Agribalyse 3.1.1",
     "search": "Onion, national average, at farm FR",
     "category": "ingredient",
@@ -1707,7 +1707,7 @@
   },
   {
     "id": "onion-eu",
-    "name": "Oignon UE par défaut (sortie de ferme)",
+    "name": "Oignon UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": " \tOnion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -1725,7 +1725,7 @@
   },
   {
     "id": "onion-non-ue",
-    "name": "Oignon hors UE par défaut (sortie de ferme)",
+    "name": "Oignon hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
     "category": "ingredient",
@@ -1742,7 +1742,7 @@
   },
   {
     "id": "eggplant-fr",
-    "name": "Aubergine FR (sortie de ferme)",
+    "name": "Aubergine FR",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "category": "ingredient",
@@ -1759,7 +1759,7 @@
   },
   {
     "id": "eggplant-eu",
-    "name": "Aubergine UE par défaut (sortie de ferme)",
+    "name": "Aubergine UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "category": "ingredient",
@@ -1777,7 +1777,7 @@
   },
   {
     "id": "french-bean-fr",
-    "name": "Haricot vert FR (sortie de ferme)",
+    "name": "Haricot vert FR",
     "database": "Agribalyse 3.1.1",
     "search": "French bean, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
@@ -1794,7 +1794,7 @@
   },
   {
     "id": "french-bean-eu",
-    "name": "Haricot vert UE par défaut (sortie de ferme)",
+    "name": "Haricot vert UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -1812,7 +1812,7 @@
   },
   {
     "id": "french-bean-non-eu",
-    "name": "Haricot vert hors UE par défaut (sortie de ferme)",
+    "name": "Haricot vert hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -1830,7 +1830,7 @@
   },
   {
     "id": "lettuce-fr",
-    "name": "Laitue FR (sortie de ferme)",
+    "name": "Laitue FR",
     "database": "Agribalyse 3.1.1",
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -1847,7 +1847,7 @@
   },
   {
     "id": "lettuce-eu",
-    "name": "Laitue UE par défaut (sortie de ferme)",
+    "name": "Laitue UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -1865,7 +1865,7 @@
   },
   {
     "id": "lettuce-non-eu",
-    "name": "Laitue hors UE par défaut (sortie de ferme)",
+    "name": "Laitue hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -1883,7 +1883,7 @@
   },
   {
     "id": "garden-peas-fr",
-    "name": "Petit pois FR (sortie de ferme)",
+    "name": "Petit pois FR",
     "database": "Agribalyse 3.1.1",
     "search": "annual vining pea conventional",
     "category": "ingredient",
@@ -1900,7 +1900,7 @@
   },
   {
     "id": "garden-peas-eu",
-    "name": "Petit pois UE par défaut (sortie de ferme)",
+    "name": "Petit pois UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "annual vining pea conventional",
     "category": "ingredient",
@@ -1918,7 +1918,7 @@
   },
   {
     "id": "cherry-fr",
-    "name": "Cerise FR (sortie de ferme)",
+    "name": "Cerise FR",
     "database": "Agribalyse 3.1.1",
     "search": "Cherry, conventional, national average, at orchard {FR}",
     "category": "ingredient",
@@ -1935,7 +1935,7 @@
   },
   {
     "id": "lemon-eu",
-    "name": "Citron UE par défaut (sortie de ferme)",
+    "name": "Citron UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -1953,7 +1953,7 @@
   },
   {
     "id": "plum-fr",
-    "name": "Prune FR (sortie de ferme)",
+    "name": "Prune FR",
     "database": "Agribalyse 3.1.1",
     "search": "Cherry, conventional, national average, at orchard ",
     "category": "ingredient",
@@ -1970,7 +1970,7 @@
   },
   {
     "id": "squash-fr",
-    "name": "Courge FR (sortie de ferme)",
+    "name": "Courge FR",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "category": "ingredient",
@@ -1987,7 +1987,7 @@
   },
   {
     "id": "squash-eu",
-    "name": "Courge UE par défaut (sortie de ferme)",
+    "name": "Courge UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
@@ -2004,7 +2004,7 @@
   },
   {
     "id": "squash-organic",
-    "name": "Courge bio (sortie de ferme)",
+    "name": "Courge bio",
     "database": "Agribalyse 3.1.1",
     "search": " \tZucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "category": "ingredient",
@@ -2038,7 +2038,7 @@
   },
   {
     "id": "tomato-greenhouse-fr",
-    "name": "Tomate sous serre non chauffée FR (sortie de ferme)",
+    "name": "Tomate sous serre non chauffée FR",
     "database": "Agribalyse 3.1.1",
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "category": "ingredient",
@@ -2055,7 +2055,7 @@
   },
   {
     "id": "tomato-greenhouse-eu",
-    "name": "Tomate UE par défaut (sortie de ferme)",
+    "name": "Tomate UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
     "category": "ingredient",
@@ -2073,7 +2073,7 @@
   },
   {
     "id": "apricot-fr",
-    "name": "Abricot FR (sortie de ferme)",
+    "name": "Abricot FR",
     "database": "Agribalyse 3.1.1",
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -2090,7 +2090,7 @@
   },
   {
     "id": "apricot-eu",
-    "name": "Abricot UE par défaut (sortie de ferme)",
+    "name": "Abricot UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -2107,7 +2107,7 @@
   },
   {
     "id": "hazelnut-non-eu",
-    "name": "Noisette hors UE avec coque (sortie de ferme)",
+    "name": "Noisette hors UE avec coque",
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "category": "ingredient",
@@ -2125,7 +2125,7 @@
   },
   {
     "id": "hazelnut-eu",
-    "name": "Noisette UE avec coque (sortie de ferme)",
+    "name": "Noisette UE avec coque",
     "database": "Agribalyse 3.1.1",
     "search": " \tHazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
     "category": "ingredient",
@@ -2179,7 +2179,7 @@
   },
   {
     "id": "artichoke-fr",
-    "name": "Artichaut FR (sortie de ferme)",
+    "name": "Artichaut FR",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
@@ -2196,7 +2196,7 @@
   },
   {
     "id": "artichoke-organic",
-    "name": "Artichaut bio (sortie de ferme)",
+    "name": "Artichaut bio",
     "database": "Ginko",
     "search": "Cauliflower, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -2213,7 +2213,7 @@
   },
   {
     "id": "cauliflower-organic",
-    "name": "Chou-fleur bio (sortie de ferme)",
+    "name": "Chou-fleur bio",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "category": "ingredient",
@@ -2230,7 +2230,7 @@
   },
   {
     "id": "cauliflower-fr",
-    "name": "Chou-fleur FR (sortie de ferme)",
+    "name": "Chou-fleur FR",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "category": "ingredient",
@@ -2247,7 +2247,7 @@
   },
   {
     "id": "leek-fr",
-    "name": "Poireau FR (sortie de ferme)",
+    "name": "Poireau FR",
     "database": "Agribalyse 3.1.1",
     "search": "Leek, national average, at plant {FR} U",
     "category": "ingredient",
@@ -2264,7 +2264,7 @@
   },
   {
     "id": "beetroot-fr",
-    "name": "Betterave rouge FR (sortie de ferme)",
+    "name": "Betterave rouge FR",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR} U \t",
     "category": "ingredient",
@@ -2281,7 +2281,7 @@
   },
   {
     "id": "turnip-fr",
-    "name": "Navet FR (sortie de ferme)",
+    "name": "Navet FR",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -2298,7 +2298,7 @@
   },
   {
     "id": "turnip-eu",
-    "name": "Navet UE par défaut (sortie de ferme)",
+    "name": "Navet UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -2315,7 +2315,7 @@
   },
   {
     "id": "turnip-non-eu",
-    "name": "Navet hors UE par défaut (sortie de ferme)",
+    "name": "Navet hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U ",
     "category": "ingredient",
@@ -2333,7 +2333,7 @@
   },
   {
     "id": "chinese-cabbage-fr",
-    "name": "Chou chinois FR (sortie de ferme)",
+    "name": "Chou chinois FR",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR}",
     "category": "ingredient",
@@ -2350,7 +2350,7 @@
   },
   {
     "id": "chinese-cabbage-organic",
-    "name": "Chou chinois bio (sortie de ferme)",
+    "name": "Chou chinois bio",
     "database": "Ginko",
     "search": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR}",
     "category": "ingredient",
@@ -2368,7 +2368,7 @@
   },
   {
     "id": "white-cabbage-non-eu",
-    "name": "Chou blanc hors UE par défaut (sortie de ferme)",
+    "name": "Chou blanc hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Cabbage white {RoW}| cabbage white production",
     "category": "ingredient",
@@ -2386,7 +2386,7 @@
   },
   {
     "id": "green-cabbage-fr",
-    "name": "Chou vert FR (sortie de ferme)",
+    "name": "Chou vert FR",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate",
     "category": "ingredient",
@@ -2404,7 +2404,7 @@
   },
   {
     "id": "green-cabbage-organic",
-    "name": "Chou vert bio (sortie de ferme)",
+    "name": "Chou vert bio",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate",
     "category": "ingredient",
@@ -2421,7 +2421,7 @@
   },
   {
     "id": "red-cabbage-non-eu",
-    "name": "Chou rouge UE par défaut (sortie de ferme)",
+    "name": "Chou rouge UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
@@ -2439,7 +2439,7 @@
   },
   {
     "id": "shallot-fr",
-    "name": "Echalote FR (sortie de ferme)",
+    "name": "Echalote FR",
     "database": "Agribalyse 3.1.1",
     "search": "Onion, national average, at farm {FR} U",
     "category": "ingredient",
@@ -2456,7 +2456,7 @@
   },
   {
     "id": "orange-eu",
-    "name": "Orange UE par défaut (sortie de ferme)",
+    "name": "Orange UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Orange, fresh grade, at farm {ES}",
     "category": "ingredient",
@@ -2474,7 +2474,7 @@
   },
   {
     "id": "orange-non-eu",
-    "name": "Orange hors UE par défaut (sortie de ferme)",
+    "name": "Orange hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Orange, fresh grade {ZA}| orange production, fresh grade",
     "category": "ingredient",
@@ -2492,7 +2492,7 @@
   },
   {
     "id": "olive-eu",
-    "name": "Olive UE par défaut (sortie de ferme)",
+    "name": "Olive UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Olive {ES}| olive production | Cut-off, U",
     "category": "ingredient",
@@ -2510,7 +2510,7 @@
   },
   {
     "id": "rapeseed-fr",
-    "name": "Colza FR (sortie de ferme)",
+    "name": "Colza FR",
     "database": "Agribalyse 3.1.1",
     "search": "Rape seed {FR}| production",
     "category": "ingredient",
@@ -2527,7 +2527,7 @@
   },
   {
     "id": "rapeseed-eu",
-    "name": "Colza UE par défaut (sortie de ferme)",
+    "name": "Colza UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Rapeseed, at farm {GLO}",
     "category": "ingredient",
@@ -2545,7 +2545,7 @@
   },
   {
     "id": "rapeseed-non-eu",
-    "name": "Colza hors UE par défaut (sortie de ferme)",
+    "name": "Colza hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Rapeseed, at farm {CA}",
     "category": "ingredient",
@@ -2563,7 +2563,7 @@
   },
   {
     "id": "pistachio-non-eu",
-    "name": "Pistache avec coque (sortie de ferme)",
+    "name": "Pistache avec coque",
     "database": "Agribalyse 3.1.1",
     "search": "Peanut {CN}| peanut production",
     "category": "ingredient",
@@ -2581,7 +2581,7 @@
   },
   {
     "id": "peanut-non-eu",
-    "name": "Arachide avec coque hors UE (sortie de ferme)",
+    "name": "Arachide avec coque hors UE",
     "database": "Agribalyse 3.1.1",
     "search": "Peanut {IN}| peanut production",
     "category": "ingredient",
@@ -2616,7 +2616,7 @@
   },
   {
     "id": "avocado-non-eu",
-    "name": "Avocat UE ou hors UE (sortie de ferme)",
+    "name": "Avocat UE ou hors UE",
     "database": "Agribalyse 3.1.1",
     "search": "Avocado {GLO}| production",
     "category": "ingredient",
@@ -2634,7 +2634,7 @@
   },
   {
     "id": "chickpea-fr",
-    "name": "Pois chiche FR (sortie de ferme)",
+    "name": "Pois chiche FR",
     "database": "Agribalyse 3.1.1",
     "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} ",
     "category": "ingredient",
@@ -2651,7 +2651,7 @@
   },
   {
     "id": "sunflower-fr",
-    "name": "Tournesol FR (sortie de ferme)",
+    "name": "Tournesol FR",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower at farm FR",
     "category": "ingredient",
@@ -2669,7 +2669,7 @@
   },
   {
     "id": "sunflower-eu",
-    "name": "Tournesol UE par défaut (sortie de ferme)",
+    "name": "Tournesol UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower, at farm {HU}",
     "category": "ingredient",
@@ -2687,7 +2687,7 @@
   },
   {
     "id": "sunflower-non-eu",
-    "name": "Tournesol hors UE par défaut (sortie de ferme)",
+    "name": "Tournesol hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower, at farm {Glo}",
     "category": "ingredient",
@@ -2705,7 +2705,7 @@
   },
   {
     "id": "kiwi-fr",
-    "name": "Kiwi FR (sortie de ferme)",
+    "name": "Kiwi FR",
     "database": "Agribalyse 3.1.1",
     "search": "Kiwi FR, conventional, national average, at orchard {FR}",
     "category": "ingredient",
@@ -2722,7 +2722,7 @@
   },
   {
     "id": "kiwi-eu",
-    "name": "Kiwi UE par défaut (sortie de ferme)",
+    "name": "Kiwi UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Kiwi {GLO}| production",
     "category": "ingredient",
@@ -2739,7 +2739,7 @@
   },
   {
     "id": "kiwi-non-eu",
-    "name": "Kiwi hors UE par défaut (sortie de ferme)",
+    "name": "Kiwi hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Kiwi {GLO}| production",
     "category": "ingredient",
@@ -2757,7 +2757,7 @@
   },
   {
     "id": "mango-non-eu",
-    "name": "Mangue hors UE par défaut (sortie de ferme)",
+    "name": "Mangue hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Mango conventional Val de San Francisco at orchard",
     "category": "ingredient",
@@ -2774,7 +2774,7 @@
   },
   {
     "id": "spinach-non-eu",
-    "name": "Epinard hors UE par défaut (sortie de ferme)",
+    "name": "Epinard hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Spinach {GLO}| production |",
     "category": "ingredient",
@@ -2792,7 +2792,7 @@
   },
   {
     "id": "fennel-fr",
-    "name": "Fenouil FR (sortie de ferme)",
+    "name": "Fenouil FR",
     "database": "Agribalyse 3.1.1",
     "search": "Fennel {GLO}| production",
     "category": "ingredient",
@@ -2810,7 +2810,7 @@
   },
   {
     "id": "fennel-eu",
-    "name": "Fenouil UE par défaut (sortie de ferme)",
+    "name": "Fenouil UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Fennel {GLO}| production",
     "category": "ingredient",
@@ -2828,7 +2828,7 @@
   },
   {
     "id": "broccoli-eu",
-    "name": "Brocoli UE par défaut (sortie de ferme)",
+    "name": "Brocoli UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Broccoli {GLO}| production",
     "category": "ingredient",
@@ -2846,7 +2846,7 @@
   },
   {
     "id": "blueberry-non-eu",
-    "name": "Myrtille hors UE par défaut (sortie de ferme)",
+    "name": "Myrtille hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "category": "ingredient",
@@ -2864,7 +2864,7 @@
   },
   {
     "id": "raspberry-eu",
-    "name": "Framboise UE par défaut (sortie de ferme)",
+    "name": "Framboise UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "category": "ingredient",
@@ -2882,7 +2882,7 @@
   },
   {
     "id": "strawberry-eu",
-    "name": "Fraise UE par défaut (sortie de ferme)",
+    "name": "Fraise UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry for processing, open field, conventional, at farm gate {ES}",
     "category": "ingredient",
@@ -2900,7 +2900,7 @@
   },
   {
     "id": "strawberry-non-eu",
-    "name": "Fraise hors UE par défaut (sortie de ferme)",
+    "name": "Fraise hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry for processing, open field, conventional, at farm gate {MA}",
     "category": "ingredient",
@@ -2918,7 +2918,7 @@
   },
   {
     "id": "banana-wi",
-    "name": "Banane Antilles (sortie de ferme)",
+    "name": "Banane Antilles",
     "database": "Agribalyse 3.1.1",
     "search": "Banana, mixed production, West Indies, at farm gate {WI}",
     "category": "ingredient",
@@ -2936,7 +2936,7 @@
   },
   {
     "id": "banana-non-eu",
-    "name": "Banane hors UE par défaut (sortie de ferme)",
+    "name": "Banane hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Banana, at farm {GLO}",
     "category": "ingredient",
@@ -2954,7 +2954,7 @@
   },
   {
     "id": "cucumber-fr-inseason",
-    "name": "Concombre FR de saison (sortie de ferme)",
+    "name": "Concombre FR de saison",
     "database": "Agribalyse 3.1.1",
     "search": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
     "category": "ingredient",
@@ -2972,7 +2972,7 @@
   },
   {
     "id": "cucumber-fr-offseason",
-    "name": "Concombre FR hors saison (sortie de ferme)",
+    "name": "Concombre FR hors saison",
     "database": "Agribalyse 3.1.1",
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
     "category": "ingredient",
@@ -2990,7 +2990,7 @@
   },
   {
     "id": "cucumber-eu",
-    "name": "Concombre UE hors saison (sortie de ferme)",
+    "name": "Concombre UE hors saison",
     "database": "Agribalyse 3.1.1",
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
     "category": "ingredient",
@@ -3008,7 +3008,7 @@
   },
   {
     "id": "strawberry-fr-inseason",
-    "name": "Fraise FR de saison (sortie de ferme)",
+    "name": "Fraise FR de saison",
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry, open field, conventional, at farm gate {FR} U",
     "category": "ingredient",
@@ -3026,7 +3026,7 @@
   },
   {
     "id": "strawberry-fr-offseason",
-    "name": "Fraise FR hors saison (sortie de ferme)",
+    "name": "Fraise FR hors saison",
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR}",
     "category": "ingredient",
@@ -3044,7 +3044,7 @@
   },
   {
     "id": "celery-fr",
-    "name": "Céleri branche FR (sortie de ferme)",
+    "name": "Céleri branche FR",
     "database": "Agribalyse 3.1.1",
     "search": "Celery {GLO}| 675 production",
     "category": "ingredient",
@@ -3062,7 +3062,7 @@
   },
   {
     "id": "celery-eu",
-    "name": "Céleri branche UE par défaut (sortie de ferme)",
+    "name": "Céleri branche UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Celery {GLO}| 675 production",
     "category": "ingredient",
@@ -3080,7 +3080,7 @@
   },
   {
     "id": "celeriac-fr",
-    "name": "Céleri-rave FR (sortie de ferme)",
+    "name": "Céleri-rave FR",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -3098,7 +3098,7 @@
   },
   {
     "id": "celeriac-eu",
-    "name": "Céleri-rave UE par défaut (sortie de ferme)",
+    "name": "Céleri-rave UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {NL}| carrot production | Cut-off, U",
     "category": "ingredient",
@@ -3116,7 +3116,7 @@
   },
   {
     "id": "celeriac-non-eu",
-    "name": "Céleri-rave hors UE par défaut (sortie de ferme)",
+    "name": "Céleri-rave hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {RoW}| carrot production | Cut-off, U",
     "category": "ingredient",
@@ -3134,7 +3134,7 @@
   },
   {
     "id": "walnut-inshell-fr",
-    "name": "Noix avec coque FR (sortie de ferme)",
+    "name": "Noix avec coque FR",
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "category": "ingredient",
@@ -3187,7 +3187,7 @@
   },
   {
     "id": "chestnut-inshell-fr",
-    "name": "Châtaigne avec coque FR (sortie de ferme)",
+    "name": "Châtaigne avec coque FR",
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -3204,7 +3204,7 @@
   },
   {
     "id": "mandarin-eu",
-    "name": "Mandarine UE par défaut (sortie de ferme)",
+    "name": "Mandarine UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Mandarin {ES}| mandarin production",
     "category": "ingredient",
@@ -3240,7 +3240,7 @@
   },
   {
     "id": "brussels-sprout-fr",
-    "name": "Chou de Bruxelles FR (sortie de ferme)",
+    "name": "Chou de Bruxelles FR",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR}",
     "category": "ingredient",
@@ -3257,7 +3257,7 @@
   },
   {
     "id": "brussels-sprout-organic",
-    "name": "Chou de Bruxelles bio (sortie de ferme)",
+    "name": "Chou de Bruxelles bio",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "category": "ingredient",
@@ -3274,7 +3274,7 @@
   },
   {
     "id": "lentils-uncooked-fr",
-    "name": "Lentilles FR (sortie de ferme)",
+    "name": "Lentilles FR",
     "database": "Agribalyse 3.1.1",
     "search": "Winter pea, conventional, 15% moisture, at farm gate",
     "category": "ingredient",
@@ -3291,7 +3291,7 @@
   },
   {
     "id": "curly-kale-fr",
-    "name": "Chou frisé FR (sortie de ferme)",
+    "name": "Chou frisé FR",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR}",
     "category": "ingredient",
@@ -3309,7 +3309,7 @@
   },
   {
     "id": "curly-kale-organic",
-    "name": "Chou frisé bio (sortie de ferme)",
+    "name": "Chou frisé bio",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR}",
     "category": "ingredient",
@@ -3327,7 +3327,7 @@
   },
   {
     "id": "pumpkin-fr",
-    "name": "Citrouille FR (sortie de ferme)",
+    "name": "Citrouille FR",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -3345,7 +3345,7 @@
   },
   {
     "id": "clementine-non-eu",
-    "name": "Clémentine hors UE par défaut (sortie de ferme)",
+    "name": "Clémentine hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Clementine, export quality, Souss, at orchard {MA}",
     "category": "ingredient",
@@ -3363,7 +3363,7 @@
   },
   {
     "id": "endive-fr",
-    "name": "Endive FR (sortie de ferme)",
+    "name": "Endive FR",
     "database": "Agribalyse 3.1.1",
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -3381,7 +3381,7 @@
   },
   {
     "id": "endive-eu",
-    "name": "Endive UE par défaut (sortie de ferme)",
+    "name": "Endive UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production |",
     "category": "ingredient",
@@ -3416,7 +3416,7 @@
   },
   {
     "id": "lambs-lettuce-fr",
-    "name": "Mâche FR (sortie de ferme)",
+    "name": "Mâche FR",
     "database": "Agribalyse 3.1.1",
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -3433,7 +3433,7 @@
   },
   {
     "id": "lambs-lettuce-eu",
-    "name": "Mâche UE par défaut (sortie de ferme)",
+    "name": "Mâche UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production",
     "category": "ingredient",
@@ -3450,7 +3450,7 @@
   },
   {
     "id": "sweet-corn-fr",
-    "name": "Maïs doux FR (sortie de ferme)",
+    "name": "Maïs doux FR",
     "database": "Agribalyse 3.1.1",
     "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate",
     "category": "ingredient",
@@ -3468,7 +3468,7 @@
   },
   {
     "id": "sweet-corn-organic-fr",
-    "name": "Maïs doux FR bio (sortie de ferme)",
+    "name": "Maïs doux FR bio",
     "database": "Agribalyse 3.1.1",
     "search": "Grain maize, organic, animal feed, at farm gate {FR}",
     "category": "ingredient",
@@ -3486,7 +3486,7 @@
   },
   {
     "id": "sweet-corn-br",
-    "name": "Maïs doux BR (sortie de ferme)",
+    "name": "Maïs doux BR",
     "database": "Agribalyse 3.1.1",
     "search": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
     "category": "ingredient",
@@ -3504,7 +3504,7 @@
   },
   {
     "id": "pineapple-non-eu",
-    "name": "Ananas hors UE par défaut (sortie de ferme)",
+    "name": "Ananas hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Pineapple, at farm {CR} - Adapted from WFLDB U",
     "category": "ingredient",
@@ -3522,7 +3522,7 @@
   },
   {
     "id": "broad-beans-eu",
-    "name": "Fève UE par défaut (sortie de ferme)",
+    "name": "Fève UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
@@ -3540,7 +3540,7 @@
   },
   {
     "id": "broad-beans-fr",
-    "name": "Fève FR (sortie de ferme)",
+    "name": "Fève FR",
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
@@ -3558,7 +3558,7 @@
   },
   {
     "id": "swiss-chard-eu",
-    "name": "Blette UE par défaut (sortie de ferme)",
+    "name": "Blette UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Spinach GLO production",
     "category": "ingredient",
@@ -3576,7 +3576,7 @@
   },
   {
     "id": "swiss-chard-fr",
-    "name": "Blette FR (sortie de ferme)",
+    "name": "Blette FR",
     "database": "Agribalyse 3.1.1",
     "search": "Spinach GLO production",
     "category": "ingredient",
@@ -3594,7 +3594,7 @@
   },
   {
     "id": "flageolet-bean-eu",
-    "name": "Haricot flageolet UE par défaut (sortie de ferme)",
+    "name": "Haricot flageolet UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
@@ -3612,7 +3612,7 @@
   },
   {
     "id": "flageolet-bean-fr",
-    "name": "Haricot flageolet FR (sortie de ferme)",
+    "name": "Haricot flageolet FR",
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
@@ -3630,7 +3630,7 @@
   },
   {
     "id": "rice-basmati-non-eu",
-    "name": "Riz basmati hors UE par défaut (sortie de ferme)",
+    "name": "Riz basmati hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent",
     "category": "ingredient",
@@ -3648,7 +3648,7 @@
   },
   {
     "id": "soft-wheat-organic",
-    "name": "Blé tendre bio (sortie de ferme)",
+    "name": "Blé tendre bio",
     "database": "Ecobalyse",
     "search": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "category": "ingredient",
@@ -3665,7 +3665,7 @@
   },
   {
     "id": "soft-wheat-fr",
-    "name": "Blé tendre FR (sortie de ferme)",
+    "name": "Blé tendre FR",
     "database": "Agribalyse 3.1.1",
     "search": "Soft wheat grain conventional national average animal feed at farm gate production",
     "category": "ingredient",
@@ -3682,7 +3682,7 @@
   },
   {
     "id": "soft-wheat-non-eu",
-    "name": "Blé tendre hors UE par défaut (sortie de ferme)",
+    "name": "Blé tendre hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "category": "ingredient",
@@ -3700,7 +3700,7 @@
   },
   {
     "id": "durum-wheat-fr",
-    "name": "Blé dur FR (sortie de ferme)",
+    "name": "Blé dur FR",
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -3717,7 +3717,7 @@
   },
   {
     "id": "durum-wheat-eu",
-    "name": "Blé dur UE par défaut (sortie de ferme)",
+    "name": "Blé dur UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
     "category": "ingredient",
@@ -3735,7 +3735,7 @@
   },
   {
     "id": "durum-wheat-non-eu",
-    "name": "Blé dur hors UE par défaut (sortie de ferme)",
+    "name": "Blé dur hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
     "category": "ingredient",
@@ -3753,7 +3753,7 @@
   },
   {
     "id": "apple-organic",
-    "name": "Pomme bio (sortie de ferme)",
+    "name": "Pomme bio",
     "database": "Ginko",
     "search": "Table apple, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
@@ -3771,7 +3771,7 @@
   },
   {
     "id": "apple-fr",
-    "name": "Pomme FR (sortie de ferme)",
+    "name": "Pomme FR",
     "database": "Agribalyse 3.1.1",
     "search": "Apple, conventional, national average, at orchard {FR} U",
     "category": "ingredient",
@@ -3788,7 +3788,7 @@
   },
   {
     "id": "potato-table-organic",
-    "name": "Pomme de terre de table bio (sortie de ferme)",
+    "name": "Pomme de terre de table bio",
     "database": "Ginko",
     "search": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -3806,7 +3806,7 @@
   },
   {
     "id": "potato-industry-organic",
-    "name": "Pomme de terre industrie bio (sortie de ferme)",
+    "name": "Pomme de terre industrie bio",
     "database": "Ginko",
     "search": "Ware potato, organic 2023, for industrial use, at farm gate {FR}",
     "category": "ingredient",
@@ -3823,7 +3823,7 @@
   },
   {
     "id": "kiwi-organic",
-    "name": "Kiwi bio (sortie de ferme)",
+    "name": "Kiwi bio",
     "database": "Ginko",
     "search": "Kiwi, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
@@ -3841,7 +3841,7 @@
   },
   {
     "id": "red-cabbage-organic",
-    "name": "Chou rouge bio (sortie de ferme)",
+    "name": "Chou rouge bio",
     "database": "Ginko",
     "search": "Red Cabbage, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
@@ -3859,7 +3859,7 @@
   },
   {
     "id": "sugar-beet-organic",
-    "name": "Betterave sucrière bio (sortie de ferme)",
+    "name": "Betterave sucrière bio",
     "database": "Ginko",
     "search": "Sugar beet, organic 2023 {FR}| sugar beet production",
     "category": "ingredient",
@@ -3876,7 +3876,7 @@
   },
   {
     "id": "papaya-organic",
-    "name": "Papaye bio (sortie de ferme)",
+    "name": "Papaye bio",
     "database": "Ginko",
     "search": "Papaya, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
@@ -3894,7 +3894,7 @@
   },
   {
     "id": "tomato-organic",
-    "name": "Tomate bio (sortie de ferme)",
+    "name": "Tomate bio",
     "database": "Ginko",
     "search": "Fresh tomato, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
@@ -3912,7 +3912,7 @@
   },
   {
     "id": "pineapple-organic",
-    "name": "Ananas bio (sortie de ferme)",
+    "name": "Ananas bio",
     "database": "Ginko",
     "search": "Pineapple, organic 2023 {GLO}| production",
     "category": "ingredient",
@@ -3930,7 +3930,7 @@
   },
   {
     "id": "garden-peas-organic",
-    "name": "Petit pois bio (sortie de ferme)",
+    "name": "Petit pois bio",
     "database": "Ginko",
     "search": "Garden peas, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
@@ -3947,7 +3947,7 @@
   },
   {
     "id": "almond-inshell-organic",
-    "name": "Amandes bio en coque (sortie de ferme)",
+    "name": "Amandes bio en coque",
     "database": "Ginko",
     "search": "Almonds, in shell, at farm, organic 2023 {CN}",
     "category": "ingredient",
@@ -3965,7 +3965,7 @@
   },
   {
     "id": "lettuce-organic",
-    "name": "Laitue bio (sortie de ferme)",
+    "name": "Laitue bio",
     "database": "Ginko",
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -3983,7 +3983,7 @@
   },
   {
     "id": "mango-organic",
-    "name": "Mangue bio (sortie de ferme)",
+    "name": "Mangue bio",
     "database": "Ginko",
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR}",
     "category": "ingredient",
@@ -4001,7 +4001,7 @@
   },
   {
     "id": "lychee-organic",
-    "name": "Litchi bio (sortie de ferme)",
+    "name": "Litchi bio",
     "database": "Ginko",
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR}",
     "category": "ingredient",
@@ -4019,7 +4019,7 @@
   },
   {
     "id": "lychee-non-eu",
-    "name": "Litchi hors UE par défaut (sortie de ferme)",
+    "name": "Litchi hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Mango conventional Val de San Francisco at orchard",
     "category": "ingredient",
@@ -4105,7 +4105,7 @@
   },
   {
     "id": "banana-organic",
-    "name": "Banane bio (sortie de ferme)",
+    "name": "Banane bio",
     "database": "Ginko",
     "search": "Banana, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
@@ -4123,7 +4123,7 @@
   },
   {
     "id": "orange-organic",
-    "name": "Orange bio (sortie de ferme)",
+    "name": "Orange bio",
     "database": "Ginko",
     "search": "Orange, fresh grade, at farm, organic 2023 {ES}",
     "category": "ingredient",
@@ -4141,7 +4141,7 @@
   },
   {
     "id": "lemon-organic",
-    "name": "Citron bio (sortie de ferme)",
+    "name": "Citron bio",
     "database": "Ginko",
     "search": "Lemon, organic 2023 {ES}| lemon production",
     "category": "ingredient",
@@ -4159,7 +4159,7 @@
   },
   {
     "id": "celery-organic",
-    "name": "Céleri branche bio (sortie de ferme)",
+    "name": "Céleri branche bio",
     "database": "Ginko",
     "search": "Celery, organic 2023 {GLO}| 675 production",
     "category": "ingredient",
@@ -4176,7 +4176,7 @@
   },
   {
     "id": "olive-organic",
-    "name": "Olive bio (sortie de ferme)",
+    "name": "Olive bio",
     "database": "Ginko",
     "search": "Olive, organic 2023 {ES}| olive production",
     "category": "ingredient",
@@ -4194,7 +4194,7 @@
   },
   {
     "id": "peanut-organic",
-    "name": "Arachide avec coque bio (sortie de ferme)",
+    "name": "Arachide avec coque bio",
     "database": "Ginko",
     "search": "Peanut, organic 2023 {RoW}| peanut production",
     "category": "ingredient",
@@ -4212,7 +4212,7 @@
   },
   {
     "id": "raspberry-organic",
-    "name": "Framboisee bio (sortie de ferme)",
+    "name": "Framboisee bio",
     "database": "Ginko",
     "search": "Raspberry, at farm, organic 2023 {RS}",
     "category": "ingredient",
@@ -4230,7 +4230,7 @@
   },
   {
     "id": "lambs-lettuce-organic",
-    "name": "Mâche bio (sortie de ferme)",
+    "name": "Mâche bio",
     "database": "Ginko",
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -4248,7 +4248,7 @@
   },
   {
     "id": "endive-organic",
-    "name": "Endive bio (sortie de ferme)",
+    "name": "Endive bio",
     "database": "Ginko",
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -4266,7 +4266,7 @@
   },
   {
     "id": "durum-wheat-organic",
-    "name": "Blé dur bio (sortie de ferme)",
+    "name": "Blé dur bio",
     "database": "Ginko",
     "search": "Durum wheat grain, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -4284,7 +4284,7 @@
   },
   {
     "id": "onion-organic",
-    "name": "Oignon bio (sortie de ferme)",
+    "name": "Oignon bio",
     "database": "Ginko",
     "search": "Onion, national average, at farm, organic 2023 {FR} U",
     "category": "ingredient",
@@ -4301,7 +4301,7 @@
   },
   {
     "id": "rice-basmati-organic",
-    "name": "Riz basmati bio (sortie de ferme)",
+    "name": "Riz basmati bio",
     "database": "Ginko",
     "search": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati",
     "category": "ingredient",
@@ -4403,7 +4403,7 @@
   },
   {
     "id": "radish-organic",
-    "name": "Radis bio (sortie de ferme)",
+    "name": "Radis bio",
     "database": "Ginko",
     "search": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse",
     "category": "ingredient",
@@ -4421,7 +4421,7 @@
   },
   {
     "id": "lentils-uncooked-organic",
-    "name": "Lentilles bio (sortie de ferme)",
+    "name": "Lentilles bio",
     "database": "Ginko",
     "search": "Lentil, organic 2023 {RoW}",
     "category": "ingredient",
@@ -4439,7 +4439,7 @@
   },
   {
     "id": "apricot-organic",
-    "name": "Abricot bio (sortie de ferme)",
+    "name": "Abricot bio",
     "database": "Ginko",
     "search": "Apricot, organic 2023 {FR}| apricot production",
     "category": "ingredient",
@@ -4457,7 +4457,7 @@
   },
   {
     "id": "leek-organic",
-    "name": "Poireau bio (sortie de ferme)",
+    "name": "Poireau bio",
     "database": "Ginko",
     "search": "Leek, national average, at plant, organic 2023 {FR}",
     "category": "ingredient",
@@ -4475,7 +4475,7 @@
   },
   {
     "id": "cherry-organic",
-    "name": "Cerise bio (sortie de ferme)",
+    "name": "Cerise bio",
     "database": "Ginko",
     "search": "Cherry, organic 2023, national average, at orchard {FR}",
     "category": "ingredient",
@@ -4493,7 +4493,7 @@
   },
   {
     "id": "plum-organic",
-    "name": "Prune bio (sortie de ferme)",
+    "name": "Prune bio",
     "database": "Ginko",
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
     "category": "ingredient",
@@ -4511,7 +4511,7 @@
   },
   {
     "id": "shallot-organic",
-    "name": "Echalote bio (sortie de ferme)",
+    "name": "Echalote bio",
     "database": "Ginko",
     "search": "Onion, national average, at farm, organic 2023 {FR}",
     "category": "ingredient",
@@ -4529,7 +4529,7 @@
   },
   {
     "id": "blueberry-organic",
-    "name": "Myrtille bio (sortie de ferme)",
+    "name": "Myrtille bio",
     "database": "Ginko",
     "search": "Blueberry, at farm, organic 2023 {CA}",
     "category": "ingredient",
@@ -4547,7 +4547,7 @@
   },
   {
     "id": "spinach-organic",
-    "name": "Epinard bio (sortie de ferme)",
+    "name": "Epinard bio",
     "database": "Ginko",
     "search": "Spinach, organic 2023 {GLO}",
     "category": "ingredient",
@@ -4565,7 +4565,7 @@
   },
   {
     "id": "watermelon-organic",
-    "name": "Pastèque bio (sortie de ferme)",
+    "name": "Pastèque bio",
     "database": "Ginko",
     "search": "Melon, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
@@ -4583,7 +4583,7 @@
   },
   {
     "id": "silage-maize-fr",
-    "name": "Ensilage maïs FR (sortie de ferme)",
+    "name": "Ensilage maïs FR",
     "database": "Agribalyse 3.1.1",
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "category": "ingredient",
@@ -4601,7 +4601,7 @@
   },
   {
     "id": "silage-maize-organic",
-    "name": "Ensilage maïs organic (sortie de ferme)",
+    "name": "Ensilage maïs organic",
     "database": "Agribalyse 3.1.1",
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "category": "ingredient",
