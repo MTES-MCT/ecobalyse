@@ -61,6 +61,14 @@ type Response
     | Error String (Maybe Errors)
 
 
+init : Session -> { authenticated : Bool } -> ( Model, Session, Cmd Msg )
+init session data =
+    ( emptyModel data
+    , session
+    , getUserInfo GotUserInfo
+    )
+
+
 
 -- Auth flow:
 -- 1/ ask for login:
@@ -71,26 +79,6 @@ type Response
 -- 2/ register:
 --    - ask for registration with email, firstname, lastname, cgu (company): should receive en email with a validation link
 --    - once the link in the email received is clicked, may not go through the login flow
-
-
-login_url : String
-login_url =
-    "/accounts/login/"
-
-
-registration_url : String
-registration_url =
-    "/accounts/register/"
-
-
-logout_url : String
-logout_url =
-    "/accounts/logout/"
-
-
-profile_url : String
-profile_url =
-    "/accounts/profile/"
 
 
 formFromUser : User -> Form User
@@ -121,14 +109,6 @@ emptyModel { authenticated } =
     }
 
 
-init : Session -> { authenticated : Bool } -> ( Model, Session, Cmd Msg )
-init session data =
-    ( emptyModel data
-    , session
-    , getUserInfo
-    )
-
-
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
@@ -136,7 +116,7 @@ update session msg model =
             ( model
             , session
             , Http.post
-                { url = registration_url
+                { url = "/accounts/register/"
                 , body = Http.jsonBody (encodeUserForm (formFromUser model.user))
                 , expect = Http.expectJson TokenEmailSent decodeResponse
                 }
@@ -189,7 +169,7 @@ update session msg model =
             ( model
             , session
             , Http.post
-                { url = login_url
+                { url = "/accounts/login/"
                 , body = Http.jsonBody (encodeEmail model.user.email)
                 , expect = Http.expectJson TokenEmailSent decodeResponse
                 }
@@ -445,120 +425,134 @@ viewRegisterForm ({ user } as model) =
                 ]
 
         _ ->
-            Html.form [ onSubmit AskForRegistration ]
+            div []
                 [ viewFormErrors model.response
-                , viewInput
-                    { label = "Adresse e-mail"
-                    , type_ = "text"
-                    , id = "email"
-                    , placeholder = "nom@example.com"
-                    , required = True
-                    , value = user.email
-                    , onInput =
-                        \email ->
-                            UpdateForm
-                                { model
-                                    | user = { user | email = email }
-                                    , response = removeError model.response
+                , Html.form [ onSubmit AskForRegistration ]
+                    [ div [ class "row" ]
+                        [ div [ class "col-sm-6" ]
+                            [ viewInput
+                                { label = "Adresse e-mail"
+                                , type_ = "text"
+                                , id = "email"
+                                , placeholder = "nom@example.com"
+                                , required = True
+                                , value = user.email
+                                , onInput =
+                                    \email ->
+                                        UpdateForm
+                                            { model
+                                                | user = { user | email = email }
+                                                , response = removeError model.response
+                                            }
                                 }
-                    }
-                    model.response
-                , viewInput
-                    { label = "Prénom"
-                    , type_ = "text"
-                    , id = "first_name"
-                    , placeholder = "Joséphine"
-                    , required = True
-                    , value = user.firstname
-                    , onInput =
-                        \firstname ->
-                            UpdateForm
-                                { model
-                                    | user = { user | firstname = firstname }
-                                    , response = removeError model.response
-                                }
-                    }
-                    model.response
-                , viewInput
-                    { label = "Nom"
-                    , type_ = "text"
-                    , id = "last_name"
-                    , placeholder = "Durand"
-                    , required = True
-                    , value = user.lastname
-                    , onInput =
-                        \lastname ->
-                            UpdateForm
-                                { model
-                                    | user = { user | lastname = lastname }
-                                    , response = removeError model.response
-                                }
-                    }
-                    model.response
-                , viewInput
-                    { label = "Organisation"
-                    , type_ = "text"
-                    , id = "company"
-                    , placeholder = "ACME SARL"
-                    , required = False
-                    , value = user.company
-                    , onInput =
-                        \company ->
-                            UpdateForm
-                                { model
-                                    | user = { user | company = company }
-                                    , response = removeError model.response
-                                }
-                    }
-                    model.response
-                , div []
-                    [ label
-                        [ for "terms_of_use"
-                        , class "form-check form-switch form-check-label pt-1"
-                        ]
-                        [ input
-                            [ type_ "checkbox"
-                            , class "form-check-input"
-                            , classList [ ( "is-invalid", getFormInputError "terms_of_use" model.response /= Nothing ) ]
-                            , id "terms_of_use"
-                            , required True
-                            , checked user.cgu
-                            , onCheck
-                                (\isChecked ->
-                                    UpdateForm
-                                        { model
-                                            | user = { user | cgu = isChecked }
-                                            , response = removeError model.response
-                                        }
-                                )
+                                model.response
                             ]
-                            []
-                        , text "Je m'engage à ne pas utiliser les données pour une utilisation commerciale."
-                        , div [ class "text-danger" ]
-                            [ getFormInputError "terms_of_use" model.response
-                                |> Maybe.withDefault ""
-                                |> text
+                        , div [ class "col-sm-6" ]
+                            [ viewInput
+                                { label = "Organisation"
+                                , type_ = "text"
+                                , id = "company"
+                                , placeholder = "ACME SARL"
+                                , required = False
+                                , value = user.company
+                                , onInput =
+                                    \company ->
+                                        UpdateForm
+                                            { model
+                                                | user = { user | company = company }
+                                                , response = removeError model.response
+                                            }
+                                }
+                                model.response
                             ]
                         ]
-                    , div [ class "d-none" ]
-                        [ label [ for "nextInput", class "form-label" ] []
-                        , input
-                            [ type_ "text"
-                            , class "form-control"
-                            , id "nextInput"
-                            , required True
-                            , value "/#/auth/authenticated"
-                            , hidden True
+                    , div [ class "row" ]
+                        [ div [ class "col-sm-6" ]
+                            [ viewInput
+                                { label = "Prénom"
+                                , type_ = "text"
+                                , id = "first_name"
+                                , placeholder = "Joséphine"
+                                , required = True
+                                , value = user.firstname
+                                , onInput =
+                                    \firstname ->
+                                        UpdateForm
+                                            { model
+                                                | user = { user | firstname = firstname }
+                                                , response = removeError model.response
+                                            }
+                                }
+                                model.response
                             ]
-                            []
+                        , div [ class "col-sm-6" ]
+                            [ viewInput
+                                { label = "Nom"
+                                , type_ = "text"
+                                , id = "last_name"
+                                , placeholder = "Durand"
+                                , required = True
+                                , value = user.lastname
+                                , onInput =
+                                    \lastname ->
+                                        UpdateForm
+                                            { model
+                                                | user = { user | lastname = lastname }
+                                                , response = removeError model.response
+                                            }
+                                }
+                                model.response
+                            ]
                         ]
-                    ]
-                , div [ class "text-center mt-2" ]
-                    [ button
-                        [ type_ "submit"
-                        , class "btn btn-primary"
+                    , div []
+                        [ label
+                            [ for "terms_of_use"
+                            , class "form-check form-switch form-check-label pt-1"
+                            ]
+                            [ input
+                                [ type_ "checkbox"
+                                , class "form-check-input"
+                                , classList [ ( "is-invalid", getFormInputError "terms_of_use" model.response /= Nothing ) ]
+                                , id "terms_of_use"
+                                , required True
+                                , checked user.cgu
+                                , onCheck
+                                    (\isChecked ->
+                                        UpdateForm
+                                            { model
+                                                | user = { user | cgu = isChecked }
+                                                , response = removeError model.response
+                                            }
+                                    )
+                                ]
+                                []
+                            , text "Je m'engage à ne pas exploiter les données pour une utilisation commerciale."
+                            , div [ class "text-danger" ]
+                                [ getFormInputError "terms_of_use" model.response
+                                    |> Maybe.withDefault ""
+                                    |> text
+                                ]
+                            ]
+                        , div [ class "d-none" ]
+                            [ label [ for "nextInput", class "form-label" ] []
+                            , input
+                                [ type_ "text"
+                                , class "form-control"
+                                , id "nextInput"
+                                , required True
+                                , value "/#/auth/authenticated"
+                                , hidden True
+                                ]
+                                []
+                            ]
                         ]
-                        [ text "Créer mon compte" ]
+                    , div [ class "text-center mt-3" ]
+                        [ button
+                            [ type_ "submit"
+                            , class "btn btn-primary"
+                            ]
+                            [ text "Créer mon compte" ]
+                        ]
                     ]
                 ]
 
@@ -580,14 +574,14 @@ viewFormErrors maybeResponse =
 ---- helpers
 
 
-getUserInfo : Cmd Msg
-getUserInfo =
+getUserInfo : (Result Http.Error User -> Msg) -> Cmd Msg
+getUserInfo event =
     Http.riskyRequest
         { method = "GET"
         , headers = []
-        , url = profile_url
+        , url = "/accounts/profile/"
         , body = Http.emptyBody
-        , expect = Http.expectJson GotUserInfo User.decode
+        , expect = Http.expectJson event User.decode
         , timeout = Nothing
         , tracker = Nothing
         }
@@ -598,7 +592,7 @@ logout =
     Http.riskyRequest
         { method = "POST"
         , headers = []
-        , url = logout_url
+        , url = "/accounts/logout/"
         , body = Http.emptyBody
         , expect = Http.expectWhatever (always LoggedOut)
         , timeout = Nothing
