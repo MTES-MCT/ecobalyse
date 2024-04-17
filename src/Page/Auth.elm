@@ -16,7 +16,6 @@ import Html.Events exposing (..)
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
-import Ports
 import Request.Common as RequestCommon
 import Route
 import Views.Alert as Alert
@@ -204,10 +203,7 @@ update session msg model =
             in
             ( model
             , newSession
-            , Cmd.batch
-                [ newSession.store |> Session.serializeStore |> Ports.saveStore
-                , logout
-                ]
+            , logout
             )
 
         TokenEmailSent response ->
@@ -233,55 +229,62 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Authentification"
     , [ Container.centered [ class "pb-5" ]
-            [ h1 [ class "mb-3" ]
-                [ text <|
-                    if Session.isAuthenticated session then
-                        "Compte"
+            [ div [ class "row" ]
+                [ div [ class "col-sm-8 offset-sm-2 d-flex flex-column gap-3" ]
+                    [ h1 []
+                        [ text <|
+                            if Session.isAuthenticated session then
+                                "Compte"
 
-                    else
-                        "Connexion / Inscription"
-                ]
-            , div [ class "" ]
-                [ case Session.getUser session of
-                    Just user ->
-                        div []
-                            [ if model.authenticated then
-                                p [ class "text-center" ]
-                                    [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
-                                    , a [ href Env.gitbookUrl ] [ text "conditions d'utilisation des données" ]
-                                    , text "."
+                            else
+                                "Connexion / Inscription"
+                        ]
+                    , case Session.getUser session of
+                        Just user ->
+                            div []
+                                [ if model.authenticated then
+                                    Alert.simple
+                                        { level = Alert.Success
+                                        , close = Nothing
+                                        , title = Nothing
+                                        , content =
+                                            [ div [ class "fs-7" ]
+                                                [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
+                                                , a [ href Env.gitbookUrl ] [ text "conditions d'utilisation des données" ]
+                                                , text "."
+                                                ]
+                                            ]
+                                        }
+
+                                  else
+                                    text ""
+                                , viewAccount user
+                                , div [ class "d-flex justify-content-center align-items-center gap-3" ]
+                                    [ a [ Route.href Route.Home ]
+                                        [ text "Retour à l'accueil" ]
+                                    , button [ class "btn btn-primary my-3", onClick Logout ]
+                                        [ text "Déconnexion" ]
                                     ]
-
-                              else
-                                text ""
-                            , div [ class "row" ]
-                                [ div [ class "col-lg-6 offset-lg-3" ] [ viewAccount user ]
                                 ]
-                            , div [ class "d-flex justify-content-center align-items-center gap-3" ]
-                                [ a [ Route.href Route.Home ]
-                                    [ text "Retour à l'accueil" ]
-                                , button [ class "btn btn-primary my-3", onClick Logout ]
-                                    [ text "Déconnexion" ]
-                                ]
-                            ]
 
-                    Nothing ->
-                        div [ class "d-flex justify-content-center" ]
-                            [ Alert.simple
-                                { level = Alert.Info
-                                , close = Nothing
-                                , title = Nothing
-                                , content =
-                                    [ div [ class "fs-7" ]
-                                        [ Icon.info
-                                        , text """\u{00A0}Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
+                        Nothing ->
+                            div []
+                                [ Alert.simple
+                                    { level = Alert.Info
+                                    , close = Nothing
+                                    , title = Nothing
+                                    , content =
+                                        [ div [ class "fs-7" ]
+                                            [ Icon.info
+                                            , text """\u{00A0}Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
                                         valider que vous êtes Français, et que vous n'utiliserez pas ces données à des fins
                                         commerciales."""
+                                            ]
                                         ]
-                                    ]
-                                }
-                            , viewLoginRegisterForm model
-                            ]
+                                    }
+                                , viewLoginRegisterForm model
+                                ]
+                    ]
                 ]
             ]
       ]
@@ -290,35 +293,38 @@ view session model =
 
 viewAccount : User -> Html Msg
 viewAccount user =
-    div [ class "card shadow-sm" ]
-        [ [ ( "Email", text user.email )
-          , ( "Nom", text user.lastname )
-          , ( "Prénom", text user.firstname )
-          , ( "Organisation", text user.company )
-          , ( "Jeton d'API"
-            , div []
-                [ code [] [ text user.token ]
-                , br [] []
-                , small [ class "text-muted" ]
-                    [ text "Nécessaire pour obtenir les impacts détaillés dans "
-                    , a [ Route.href Route.Api ] [ text "l'API" ]
-                    ]
-                ]
-            )
-          ]
-            |> List.concatMap
-                (\( label, htmlValue ) ->
-                    [ dt [] [ text <| label ++ " : " ]
-                    , dd [] [ htmlValue ]
+    div [ class "table-responsive border shadow-sm" ]
+        [ table [ class "table table-striped mb-0" ]
+            [ [ ( "Email", text user.email )
+              , ( "Nom", text user.lastname )
+              , ( "Prénom", text user.firstname )
+              , ( "Organisation", text user.company )
+              , ( "Jeton d'API"
+                , div []
+                    [ code [] [ text user.token ]
+                    , br [] []
+                    , small [ class "text-muted" ]
+                        [ text "Nécessaire pour obtenir les impacts détaillés dans "
+                        , a [ Route.href Route.Api ] [ text "l'API" ]
+                        ]
                     ]
                 )
-            |> dl [ class "card-body pb-0" ]
+              ]
+                |> List.map
+                    (\( label, htmlValue ) ->
+                        tr []
+                            [ th [] [ text <| label ++ " : " ]
+                            , td [] [ htmlValue ]
+                            ]
+                    )
+                |> tbody []
+            ]
         ]
 
 
 viewLoginRegisterForm : Model -> Html Msg
 viewLoginRegisterForm model =
-    div [ class "card shadow-sm mt-2 px-0 col-sm-6" ]
+    div [ class "card shadow-sm px-0" ]
         [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
             [ ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
                 ([ ( "Inscription", Register )
