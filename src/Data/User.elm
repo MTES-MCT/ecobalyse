@@ -25,7 +25,7 @@ decode =
         |> Pipe.required "email" Decode.string
         |> Pipe.required "first_name" Decode.string
         |> Pipe.required "last_name" Decode.string
-        |> Pipe.required "organization" Decode.string
+        |> Pipe.optional "organization" Decode.string ""
         |> Pipe.required "terms_of_use" Decode.bool
         |> Pipe.required "token" Decode.string
 
