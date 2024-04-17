@@ -486,7 +486,7 @@ view session _ =
                             [ """Cette API est **expérimentale** et n’offre à ce stade **aucune garantie de disponibilité ni de
              stabilité** du service, le contrat d’interface restant susceptible de changer à tout moment en
              fonction des retours et demandes d’évolutions. **Il est vivement déconseillé de vous reposer sur
-             cette API en production et/ou sur des missions critiques.**"""
+             cette API en production et/ou pour des missions critiques.**"""
                                 |> Markdown.simple [ class "fs-7" ]
                             ]
                         }

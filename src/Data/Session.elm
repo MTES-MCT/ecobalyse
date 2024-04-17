@@ -1,5 +1,6 @@
 module Data.Session exposing
     ( AllProcessesJson
+    , Auth(..)
     , Notification(..)
     , Session
     , Store
