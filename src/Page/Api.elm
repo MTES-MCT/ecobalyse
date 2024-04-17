@@ -474,16 +474,23 @@ view session _ =
                         , a [ href "https://swagger.io/specification/", target "_blank" ] [ text "OpenAPI" ]
                         , text "."
                         ]
-                    , Alert.simple
-                        { level = Alert.Info
-                        , close = Nothing
-                        , title = Nothing
-                        , content = [ apiDocumentationNotice session ]
-                        }
+                    , apiDocumentationNotice session
                     , div [ class "height-auto" ] [ apiBrowser session ]
                     ]
                 , div [ class "col-xl-4" ]
-                    [ div [ class "card" ]
+                    [ Alert.simple
+                        { level = Alert.Info
+                        , close = Nothing
+                        , title = Just "Avertissement"
+                        , content =
+                            [ """Cette API est **expérimentale** et n’offre à ce stade **aucune garantie de disponibilité ni de
+             stabilité** du service, le contrat d’interface restant susceptible de changer à tout moment en
+             fonction des retours et demandes d’évolutions. **Il est vivement déconseillé de vous reposer sur
+             cette API en production et/ou sur des missions critiques.**"""
+                                |> Markdown.simple [ class "fs-7" ]
+                            ]
+                        }
+                    , div [ class "card" ]
                         [ div [ class "card-header" ] [ text "Dernières mises à jour" ]
                         , changelog
                             |> List.map
@@ -522,23 +529,25 @@ view session _ =
 
 apiDocumentationNotice : Session -> Html msg
 apiDocumentationNotice session =
-    div [ class "fs-7" ]
-        [ """Cette API est **expérimentale** et n’offre à ce stade **aucune garantie de disponibilité ni de
-             stabilité** du service, le contrat d’interface restant susceptible de changer à tout moment en
-             fonction des retours et demandes d’évolutions. **Il est vivement déconseillé de vous reposer sur
-             cette API en production et/ou sur des missions critiques.**"""
-            |> Markdown.simple [ class "mb-3" ]
-        , case Session.getUser session of
-            Just user ->
-                """Vous êtes connecté, votre jeton d'API est `{token}`. Il sera automatiquement
-                   utilisé dans les exemples interactifs ci-dessous."""
-                    |> String.replace "{token}" user.token
-                    |> Markdown.simple []
+    let
+        alert level md =
+            Alert.simple
+                { level = level
+                , close = Nothing
+                , title = Nothing
+                , content = [ Markdown.simple [ class "fs-7" ] md ]
+                }
+    in
+    case Session.getUser session of
+        Just user ->
+            """Vous êtes connecté, votre jeton d'API est `{token}`. Il sera automatiquement utilisé
+               dans les exemples interactifs ci-dessous pour exposer les impacts détaillés."""
+                |> String.replace "{token}" user.token
+                |> alert Alert.Success
 
-            Nothing ->
-                """Les requêtes non authentifiées à l'API retournent uniquement les impacts agrégés.
-                   **Pour accéder au détail des impacts, il est nécessaire de fournir un jeton d'API**,
-                   accessible dans votre [compte utilisateur]({route}) une fois connecté."""
-                    |> String.replace "{route}" (Route.toString <| Route.Auth { authenticated = False })
-                    |> Markdown.simple []
-        ]
+        Nothing ->
+            """Les requêtes non authentifiées à l'API retournent uniquement les impacts agrégés.
+               **Pour accéder au détail des impacts, il est nécessaire de fournir un jeton d'API**,
+               accessible dans votre [compte utilisateur]({route}) une fois connecté."""
+                |> String.replace "{route}" (Route.toString <| Route.Auth { authenticated = False })
+                |> alert Alert.Info

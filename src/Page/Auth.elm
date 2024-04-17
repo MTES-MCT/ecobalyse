@@ -303,7 +303,16 @@ viewAccount { user } =
           , ( "Nom", text user.lastname )
           , ( "Prénom", text user.firstname )
           , ( "Organisation", text user.company )
-          , ( "Jeton d'API", code [] [ text user.token ] )
+          , ( "Jeton d'API"
+            , div []
+                [ code [] [ text user.token ]
+                , br [] []
+                , small [ class "text-muted" ]
+                    [ text "Nécessaire pour obtenir les impacts détaillés dans "
+                    , a [ Route.href Route.Api ] [ text "l'API" ]
+                    ]
+                ]
+            )
           ]
             |> List.concatMap
                 (\( label, htmlValue ) ->
