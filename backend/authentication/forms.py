@@ -1,6 +1,4 @@
 import json
-import os
-import sys
 
 from django import forms
 from django.contrib.auth import get_user_model
@@ -22,9 +20,6 @@ class EmailLoginForm(MailauthEmailLoginForm):
         for user in self.get_users(email):
             context = self.get_mail_context(self.request, user)
             self.send_mail(email, context)
-            if "test" in sys.argv or "backend:test" in sys.argv:
-                # hack to pass the login url to the test suite
-                os.environ["login_url"] = context["login_url"]
 
 
 class RegistrationForm(ModelForm):
@@ -82,7 +77,4 @@ class RegistrationForm(ModelForm):
         for user in MailauthEmailLoginForm.get_users(self, email):
             context = MailauthEmailLoginForm.get_mail_context(self, self.request, user)
             MailauthEmailLoginForm.send_mail(self, email, context)
-            if "test" in sys.argv or "backend:test" in sys.argv:
-                # hack to pass the login url to the test suite
-                os.environ["login_url"] = context["login_url"]
             return user

@@ -1,7 +1,7 @@
 import json
-import os
 
 from django.contrib.auth import get_user_model
+from django.core import mail
 from django.test import TestCase
 from django.urls import reverse
 
@@ -95,7 +95,12 @@ class DjangoAuthenticationTests(TestCase):
         self.assertEqual(response.status_code, 403)
 
         # right json login url (it's transmitted through environ in test mode)
-        login_url = "/" + "/".join(os.environ["login_url"].split("/")[3:])
+        self.assertEqual(len(mail.outbox), 1)
+        login_url = "/" + "/".join(
+            [x for x in mail.outbox[0].body.split("\n") if "http" in x][0].split("/")[
+                3:
+            ]
+        )
         response = self.client.get(login_url)
         # a successful login should redirect to the "next" url
         self.assertEqual(response.status_code, 302)
@@ -112,7 +117,11 @@ class DjangoAuthenticationTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.content).get("success"), True)
-        login_url = "/" + "/".join(os.environ["login_url"].split("/")[3:])
+        login_url = "/" + "/".join(
+            [x for x in mail.outbox[0].body.split("\n") if "http" in x][0].split("/")[
+                3:
+            ]
+        )
         response = self.client.get(login_url)
         # a successful login should redirect to the "next" url
         self.assertEqual(response.status_code, 302)
@@ -152,7 +161,11 @@ class DjangoAuthenticationTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.content).get("success"), True)
-        login_url = "/" + "/".join(os.environ["login_url"].split("/")[3:])
+        login_url = "/" + "/".join(
+            [x for x in mail.outbox[0].body.split("\n") if "http" in x][0].split("/")[
+                3:
+            ]
+        )
         response = self.client.get(login_url)
         # a successful login should redirect to the "next" url
         self.assertEqual(response.status_code, 302)
