@@ -32,6 +32,23 @@ type alias Model =
     }
 
 
+type Msg
+    = AskForRegistration
+    | Authenticated User (Result String Session.AllProcessesJson)
+    | ChangeAction Action
+    | GotUserInfo (Result Http.Error User)
+    | LoggedOut
+    | Login
+    | Logout
+    | TokenEmailSent (Result Http.Error Response)
+    | UpdateForm Model
+
+
+type Action
+    = Register
+    | Authenticate
+
+
 type alias Errors =
     Dict String String
 
@@ -105,23 +122,6 @@ emptyModel { authenticated } =
     }
 
 
-type Action
-    = Register
-    | Authenticate
-
-
-type Msg
-    = AskForRegistration
-    | Authenticated User (Result String Session.AllProcessesJson)
-    | ChangeAction Action
-    | GotUserInfo (Result Http.Error User)
-    | LoggedOut
-    | Login
-    | Logout
-    | TokenEmailSent (Result Http.Error Response)
-    | UpdateForm Model
-
-
 init : Session -> { authenticated : Bool } -> ( Model, Session, Cmd Msg )
 init session data =
     ( emptyModel data
@@ -144,23 +144,14 @@ update session msg model =
             )
 
         Authenticated user (Ok newProcessesJson) ->
-            let
-                newSession =
-                    Session.authenticated session user newProcessesJson
-            in
             ( model
-            , newSession
-            , newSession.store |> Session.serializeStore |> Ports.saveStore
+            , Session.authenticated session user newProcessesJson
+            , Cmd.none
             )
 
         Authenticated _ (Err error) ->
-            let
-                newSession =
-                    session
-                        |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
-            in
             ( model
-            , newSession
+            , session |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
             , Cmd.none
             )
 
@@ -251,53 +242,54 @@ view session model =
                         "Connexion / Inscription"
                 ]
             , div [ class "" ]
-                [ if Session.isAuthenticated session then
-                    div []
-                        [ if model.authenticated then
-                            p [ class "text-center" ]
-                                [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
-                                , a [ href Env.gitbookUrl ] [ text "conditions d'utilisation des données" ]
-                                , text "."
-                                ]
-
-                          else
-                            text ""
-                        , div [ class "row" ]
-                            [ div [ class "col-lg-6 offset-lg-3" ] [ viewAccount model ]
-                            ]
-                        , div [ class "d-flex justify-content-center align-items-center gap-3" ]
-                            [ a [ Route.href Route.Home ]
-                                [ text "Retour à l'accueil" ]
-                            , button [ class "btn btn-primary my-3", onClick Logout ]
-                                [ text "Déconnexion" ]
-                            ]
-                        ]
-
-                  else
-                    div [ class "d-flex justify-content-center" ]
-                        [ Alert.simple
-                            { level = Alert.Info
-                            , close = Nothing
-                            , title = Nothing
-                            , content =
-                                [ div [ class "fs-7" ]
-                                    [ Icon.info
-                                    , text """\u{00A0}Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
-                                    valider que vous êtes Français, et que vous n'utiliserez pas ces données à des fins
-                                    commerciales."""
+                [ case Session.getUser session of
+                    Just user ->
+                        div []
+                            [ if model.authenticated then
+                                p [ class "text-center" ]
+                                    [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
+                                    , a [ href Env.gitbookUrl ] [ text "conditions d'utilisation des données" ]
+                                    , text "."
                                     ]
+
+                              else
+                                text ""
+                            , div [ class "row" ]
+                                [ div [ class "col-lg-6 offset-lg-3" ] [ viewAccount user ]
                                 ]
-                            }
-                        , viewLoginRegisterForm model
-                        ]
+                            , div [ class "d-flex justify-content-center align-items-center gap-3" ]
+                                [ a [ Route.href Route.Home ]
+                                    [ text "Retour à l'accueil" ]
+                                , button [ class "btn btn-primary my-3", onClick Logout ]
+                                    [ text "Déconnexion" ]
+                                ]
+                            ]
+
+                    Nothing ->
+                        div [ class "d-flex justify-content-center" ]
+                            [ Alert.simple
+                                { level = Alert.Info
+                                , close = Nothing
+                                , title = Nothing
+                                , content =
+                                    [ div [ class "fs-7" ]
+                                        [ Icon.info
+                                        , text """\u{00A0}Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
+                                        valider que vous êtes Français, et que vous n'utiliserez pas ces données à des fins
+                                        commerciales."""
+                                        ]
+                                    ]
+                                }
+                            , viewLoginRegisterForm model
+                            ]
                 ]
             ]
       ]
     )
 
 
-viewAccount : Model -> Html Msg
-viewAccount { user } =
+viewAccount : User -> Html Msg
+viewAccount user =
     div [ class "card shadow-sm" ]
         [ [ ( "Email", text user.email )
           , ( "Nom", text user.lastname )
