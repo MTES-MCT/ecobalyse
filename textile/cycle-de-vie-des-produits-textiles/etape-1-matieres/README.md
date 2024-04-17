@@ -1,6 +1,6 @@
 # 🐑 Etape 1 - Matières
 
-Les matières disponibles dans Ecobalyse sont issues de la base de données Ecoinvent et sont présentées dans l'[Explorateur Matières](https://ecobalyse-v2.osc-fr1.scalingo.io/#/explore/textile/materials).&#x20;
+Les matières disponibles dans Ecobalyse sont issues de la base de données Ecoinvent et sont présentées dans l'[Explorateur Matières](https://ecobalyse.beta.gouv.fr/#/explore/textile/materials).&#x20;
 
 Certaines matières ont fait l'objet d'enrichissements méthodologiques (ex : ajout de m3 d'eau pour l'irrigation du coton organique) afin de proposer des modélisations cohérentes avec les réalités du marché.&#x20;
 
