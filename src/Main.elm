@@ -21,7 +21,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Version
 import Route
-import Static.Db as Static
+import Static.Db as Static exposing (Db)
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -90,25 +90,7 @@ init flags url navKey =
         ( { state =
                 case Static.db Static.processes of
                     Ok db ->
-                        Loaded
-                            { db = db
-                            , clientUrl = flags.clientUrl
-                            , enableFoodSection = flags.enableFoodSection
-                            , navKey = navKey
-                            , store = Session.deserializeStore flags.rawStore
-                            , currentVersion = Request.Version.Unknown
-                            , matomo = flags.matomo
-                            , notifications = []
-                            , queries =
-                                { food = FoodQuery.empty
-                                , textile =
-                                    db.textile.examples
-                                        |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
-                                        |> Result.map .query
-                                        |> Result.withDefault TextileQuery.default
-                                }
-                            }
-                            LoadingPage
+                        Loaded (setupSession navKey flags db) LoadingPage
 
                     Err err ->
                         Errored err
@@ -120,6 +102,37 @@ init flags url navKey =
             , Request.Version.loadVersion VersionReceived
             ]
         )
+
+
+setupSession : Nav.Key -> Flags -> Db -> Session
+setupSession navKey flags db =
+    let
+        store =
+            Session.deserializeStore flags.rawStore
+    in
+    { db =
+        case store.auth of
+            Session.Authenticated _ textileProcesses foodProcesses ->
+                db |> Static.updateProcesses foodProcesses textileProcesses
+
+            Session.NotAuthenticated ->
+                db
+    , clientUrl = flags.clientUrl
+    , enableFoodSection = flags.enableFoodSection
+    , navKey = navKey
+    , store = store
+    , currentVersion = Request.Version.Unknown
+    , matomo = flags.matomo
+    , notifications = []
+    , queries =
+        { food = FoodQuery.empty
+        , textile =
+            db.textile.examples
+                |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
+                |> Result.map .query
+                |> Result.withDefault TextileQuery.default
+        }
+    }
 
 
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
