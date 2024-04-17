@@ -210,7 +210,7 @@ view session model =
     ( "Authentification"
     , [ Container.centered [ class "pb-5" ]
             [ div [ class "row" ]
-                [ div [ class "col-sm-8 offset-sm-2 d-flex flex-column gap-3" ]
+                [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
                     [ h1 []
                         [ text <|
                             if Session.isAuthenticated session then
