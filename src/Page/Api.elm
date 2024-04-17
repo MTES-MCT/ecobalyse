@@ -445,6 +445,9 @@ apiBrowser session =
         , attribute "allow-authentication" "false"
         , attribute "allow-server-selection" "false"
         , attribute "allow-api-list-style-selection" "false"
+        , attribute "api-key-name" "token"
+        , attribute "api-key-location" "header"
+        , attribute "api-key-value" "-"
         ]
         []
 
