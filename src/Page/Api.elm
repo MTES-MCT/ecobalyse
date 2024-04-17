@@ -471,18 +471,22 @@ view session _ =
                             [ div [ class "fs-7" ]
                                 [ """Cette API est en version *alpha*, l'implémentation et le contrat d'interface sont susceptibles
                              de changer à tout moment. Vous êtes vivement invité à **ne pas exploiter cette API en production**."""
-                                    |> Markdown.simple []
-                                , if Session.isAuthenticated session then
-                                    text ""
+                                    |> Markdown.simple [ class "mb-3" ]
+                                , case Session.getUser session of
+                                    Just user ->
+                                        p [ class "mb-0" ]
+                                            [ text "Vous êtes connecté, votre jeton d'API est "
+                                            , code [] [ text user.token ]
+                                            , text ". Il sera automatiquement utilisé dans les exemples interactifs ci-dessous."
+                                            ]
 
-                                  else
-                                    div []
-                                        [ text "Les requêtes non authentifiées à l'API retournent uniquement les impacts aggrégés."
-                                        , "Pour avoir le détail des impacts, il est nécessaire de fournir un `TOKEN`, accessible dans votre "
-                                            |> Markdown.simple []
-                                        , a [ Route.href (Route.Auth { authenticated = False }) ] [ text "compte utilisateur" ]
-                                        , text " une fois connecté."
-                                        ]
+                                    Nothing ->
+                                        p [ class "mb-0" ]
+                                            [ text "Les requêtes non authentifiées à l'API retournent uniquement les impacts aggrégés. "
+                                            , text "Pour avoir le détail des impacts, il est nécessaire de fournir un jeton d'API, accessible dans votre "
+                                            , a [ Route.href (Route.Auth { authenticated = False }) ] [ text "compte utilisateur" ]
+                                            , text " une fois connecté."
+                                            ]
                                 ]
                             ]
                         }

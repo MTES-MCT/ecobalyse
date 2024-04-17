@@ -367,7 +367,7 @@ logout ({ store } as session) =
                 |> notifyError "Impossible de recharger la db avec les procédés par défaut" err
 
 
-isAuthenticated : { a | store : Store } -> Bool
+isAuthenticated : Session -> Bool
 isAuthenticated { store } =
     case store.auth of
         Authenticated _ _ _ ->
