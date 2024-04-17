@@ -121,8 +121,15 @@ class DjangoAuthenticationTests(TestCase):
         response = self.client.get(reverse("profile"))
         jsonresp = json.loads(response.content)
         self.assertEqual(
-            list(jsonresp.keys())[:5],
-            ["email", "first_name", "last_name", "organization", "terms_of_use"],
+            list(jsonresp.keys()),
+            [
+                "email",
+                "first_name",
+                "last_name",
+                "organization",
+                "terms_of_use",
+                "token",
+            ],
         )
         self.assertEqual(
             list(jsonresp.values())[:5], ["test@example.com", "John", "Doe", "", True]
@@ -154,8 +161,15 @@ class DjangoAuthenticationTests(TestCase):
         response = self.client.get(reverse("profile"))
         jsonresp = json.loads(response.content)
         self.assertEqual(
-            list(jsonresp.keys())[:5],
-            ["email", "first_name", "last_name", "organization", "terms_of_use"],
+            list(jsonresp.keys()),
+            [
+                "email",
+                "first_name",
+                "last_name",
+                "organization",
+                "terms_of_use",
+                "token",
+            ],
         )
         self.assertEqual(
             list(jsonresp.values())[:5], ["admin@example.com", "", "", "", True]
