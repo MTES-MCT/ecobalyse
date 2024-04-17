@@ -1,5 +1,6 @@
 module Data.Session exposing
     ( AllProcessesJson
+    , Auth(..)
     , Notification(..)
     , Session
     , Store
@@ -8,6 +9,7 @@ module Data.Session exposing
     , closeNotification
     , deleteBookmark
     , deserializeStore
+    , getUserApiToken
     , isAuthenticated
     , login
     , logout
@@ -29,6 +31,7 @@ import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
+import Data.User as User exposing (User)
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -196,7 +199,7 @@ type alias Store =
 
 type Auth
     = NotAuthenticated
-    | Authenticated (List TextileProcess.Process) (List FoodProcess.Process)
+    | Authenticated User (List TextileProcess.Process) (List FoodProcess.Process)
 
 
 defaultStore : Store
@@ -218,6 +221,7 @@ decodeStore =
 decodeAuth : Decoder Auth
 decodeAuth =
     Decode.succeed Authenticated
+        |> JDP.required "user" User.decode
         |> JDP.required "textileProcesses" (TextileProcess.decodeList Impact.decodeImpacts)
         |> JDP.required "foodProcesses" (FoodProcess.decodeList Impact.decodeImpacts)
 
@@ -244,11 +248,22 @@ encodeAuth auth =
         NotAuthenticated ->
             Encode.null
 
-        Authenticated textileProcesses foodProcesses ->
+        Authenticated user textileProcesses foodProcesses ->
             Encode.object
-                [ ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
+                [ ( "user", User.encode user )
+                , ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
                 , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
                 ]
+
+
+getUserApiToken : Session -> Maybe String
+getUserApiToken session =
+    case session.store.auth of
+        Authenticated user _ _ ->
+            Just user.token
+
+        NotAuthenticated ->
+            Nothing
 
 
 deserializeStore : String -> Store
@@ -283,8 +298,8 @@ updateStore update session =
     { session | store = update session.store }
 
 
-authenticated : Session -> AllProcessesJson -> Session
-authenticated ({ store } as session) { textileProcessesJson, foodProcessesJson } =
+authenticated : Session -> User -> AllProcessesJson -> Session
+authenticated ({ store } as session) user { textileProcessesJson, foodProcessesJson } =
     let
         originalProcesses =
             StaticDb.processes
@@ -298,8 +313,8 @@ authenticated ({ store } as session) { textileProcessesJson, foodProcessesJson }
     case StaticDb.db newProcesses of
         Ok db ->
             { session
-                | store = { store | auth = Authenticated db.textile.processes db.food.processes }
-                , db = db
+                | db = db
+                , store = { store | auth = Authenticated user db.textile.processes db.food.processes }
             }
 
         Err err ->
@@ -356,7 +371,7 @@ logout ({ store } as session) =
 isAuthenticated : { a | store : Store } -> Bool
 isAuthenticated { store } =
     case store.auth of
-        Authenticated _ _ ->
+        Authenticated _ _ _ ->
             True
 
         _ ->

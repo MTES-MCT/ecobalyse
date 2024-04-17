@@ -6,7 +6,7 @@ module Page.Api exposing
     , view
     )
 
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Ports
@@ -447,7 +447,7 @@ apiBrowser session =
         , attribute "allow-api-list-style-selection" "false"
         , attribute "api-key-name" "token"
         , attribute "api-key-location" "header"
-        , attribute "api-key-value" "-"
+        , attribute "api-key-value" (Session.getUserApiToken session |> Maybe.withDefault "-")
         ]
         []
 

@@ -1,10 +1,12 @@
 module Data.User exposing
     ( User
     , decode
+    , encode
     )
 
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
+import Json.Encode as Encode
 
 
 type alias User =
@@ -26,3 +28,14 @@ decode =
         |> Pipe.optional "organization" Decode.string ""
         |> Pipe.required "terms_of_use" Decode.bool
         |> Pipe.required "token" Decode.string
+
+
+encode : User -> Encode.Value
+encode user =
+    Encode.object
+        [ ( "email", Encode.string user.email )
+        , ( "first_name", Encode.string user.firstname )
+        , ( "last_name", Encode.string user.lastname )
+        , ( "organization", Encode.string user.company )
+        , ( "terms_of_use", Encode.bool user.cgu )
+        ]

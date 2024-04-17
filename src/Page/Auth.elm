@@ -112,7 +112,7 @@ type Action
 
 type Msg
     = AskForRegistration
-    | Authenticated (Result String Session.AllProcessesJson)
+    | Authenticated User (Result String Session.AllProcessesJson)
     | ChangeAction Action
     | GotUserInfo (Result Http.Error User)
     | LoggedOut
@@ -143,17 +143,17 @@ update session msg model =
                 }
             )
 
-        Authenticated (Ok newProcessesJson) ->
+        Authenticated user (Ok newProcessesJson) ->
             let
                 newSession =
-                    Session.authenticated session newProcessesJson
+                    Session.authenticated session user newProcessesJson
             in
             ( model
             , newSession
             , newSession.store |> Session.serializeStore |> Ports.saveStore
             )
 
-        Authenticated (Err error) ->
+        Authenticated _ (Err error) ->
             let
                 newSession =
                     session
@@ -173,7 +173,7 @@ update session msg model =
         GotUserInfo (Ok user) ->
             ( { model | user = user }
             , session
-            , Session.login Authenticated
+            , Session.login (Authenticated user)
             )
 
         GotUserInfo (Err err) ->
