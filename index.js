@@ -36,7 +36,7 @@ const app = Elm.Main.init({
   flags: {
     clientUrl: location.origin + location.pathname,
     enableFoodSection: process.env.ENABLE_FOOD_SECTION === "True",
-    rawStore: localStorage[storeKey] || "",
+    rawStore: localStorage[storeKey] || "null",
     matomo: {
       host: process.env.MATOMO_HOST || "",
       siteId: process.env.MATOMO_SITE_ID || "",
