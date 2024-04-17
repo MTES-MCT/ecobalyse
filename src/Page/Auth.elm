@@ -8,19 +8,41 @@ module Page.Auth exposing
 
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
+import Data.User as User exposing (User)
 import Dict exposing (Dict)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Ports
 import Request.Common as RequestCommon
+import Route
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
+
+
+type alias Model =
+    { user : User
+    , response : Maybe Response
+    , action : Action
+    , authenticated : Bool
+    }
+
+
+type alias Errors =
+    Dict String String
+
+
+type alias Form a =
+    { a | next : String }
+
+
+type Response
+    = Success String
+    | Error String (Maybe Errors)
 
 
 
@@ -53,39 +75,6 @@ logout_url =
 profile_url : String
 profile_url =
     "/accounts/profile/"
-
-
-type alias Model =
-    { user : User
-    , response : Maybe Response
-    , action : Action
-    , authenticated : Bool
-    }
-
-
-type alias User =
-    { email : String
-    , firstname : String
-    , lastname : String
-    , company : String
-    , cgu : Bool
-    , token : String
-    }
-
-
-type alias Form a =
-    { a
-        | next : String
-    }
-
-
-type Response
-    = Success String
-    | Error String (Maybe Errors)
-
-
-type alias Errors =
-    Dict String String
 
 
 formFromUser : User -> Form User
@@ -122,13 +111,13 @@ type Action
 
 
 type Msg
-    = Login
-    | AskForRegistration
+    = AskForRegistration
+    | Authenticated (Result String Session.AllProcessesJson)
     | ChangeAction Action
     | GotUserInfo (Result Http.Error User)
-    | Logout
-    | Authenticated (Result String Session.AllProcessesJson)
     | LoggedOut
+    | Login
+    | Logout
     | TokenEmailSent (Result Http.Error Response)
     | UpdateForm Model
 
@@ -144,16 +133,6 @@ init session data =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        Login ->
-            ( model
-            , session
-            , Http.post
-                { url = login_url
-                , body = Http.jsonBody (encodeEmail model.user.email)
-                , expect = Http.expectJson TokenEmailSent decodeResponse
-                }
-            )
-
         AskForRegistration ->
             ( model
             , session
@@ -162,6 +141,27 @@ update session msg model =
                 , body = Http.jsonBody (encodeUserForm (formFromUser model.user))
                 , expect = Http.expectJson TokenEmailSent decodeResponse
                 }
+            )
+
+        Authenticated (Ok newProcessesJson) ->
+            let
+                newSession =
+                    Session.authenticated session newProcessesJson
+            in
+            ( model
+            , newSession
+            , newSession.store |> Session.serializeStore |> Ports.saveStore
+            )
+
+        Authenticated (Err error) ->
+            let
+                newSession =
+                    session
+                        |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
+            in
+            ( model
+            , newSession
+            , Cmd.none
             )
 
         ChangeAction action ->
@@ -189,31 +189,20 @@ update session msg model =
             , Cmd.none
             )
 
-        Authenticated (Ok newProcessesJson) ->
-            let
-                newSession =
-                    Session.authenticated session newProcessesJson
-            in
-            ( model
-            , newSession
-            , newSession.store |> Session.serializeStore |> Ports.saveStore
-            )
-
-        Authenticated (Err error) ->
-            let
-                newSession =
-                    session
-                        |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
-            in
-            ( model
-            , newSession
-            , Cmd.none
-            )
-
         LoggedOut ->
             ( { model | response = Nothing }
             , session
             , Cmd.none
+            )
+
+        Login ->
+            ( model
+            , session
+            , Http.post
+                { url = login_url
+                , body = Http.jsonBody (encodeEmail model.user.email)
+                , expect = Http.expectJson TokenEmailSent decodeResponse
+                }
             )
 
         Logout ->
@@ -261,9 +250,9 @@ view session model =
                     else
                         "Connexion / Inscription"
                 ]
-            , div [ class "row justify-content-center" ]
+            , div [ class "" ]
                 [ if Session.isAuthenticated session then
-                    div [ class "row d-flex justify-content-center" ]
+                    div []
                         [ if model.authenticated then
                             p [ class "text-center" ]
                                 [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
@@ -273,31 +262,32 @@ view session model =
 
                           else
                             text ""
-                        , viewAccount model
-                        , button
-                            [ onClick Logout
-                            , class "btn btn-link mb-3"
+                        , div [ class "row" ]
+                            [ div [ class "col-lg-6 offset-lg-3" ] [ viewAccount model ]
                             ]
-                            [ text "Déconnexion" ]
+                        , div [ class "d-flex justify-content-center align-items-center gap-3" ]
+                            [ a [ Route.href Route.Home ]
+                                [ text "Retour à l'accueil" ]
+                            , button [ class "btn btn-primary my-3", onClick Logout ]
+                                [ text "Déconnexion" ]
+                            ]
                         ]
 
                   else
-                    div [ class "row d-flex justify-content-center" ]
-                        [ div [ class "col-xl-12" ]
-                            [ Alert.simple
-                                { level = Alert.Info
-                                , close = Nothing
-                                , title = Nothing
-                                , content =
-                                    [ div [ class "fs-7" ]
-                                        [ Icon.info
-                                        , text """\u{00A0}Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
+                    div [ class "d-flex justify-content-center" ]
+                        [ Alert.simple
+                            { level = Alert.Info
+                            , close = Nothing
+                            , title = Nothing
+                            , content =
+                                [ div [ class "fs-7" ]
+                                    [ Icon.info
+                                    , text """\u{00A0}Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
                                     valider que vous êtes Français, et que vous n'utiliserez pas ces données à des fins
                                     commerciales."""
-                                        ]
                                     ]
-                                }
-                            ]
+                                ]
+                            }
                         , viewLoginRegisterForm model
                         ]
                 ]
@@ -308,20 +298,20 @@ view session model =
 
 viewAccount : Model -> Html Msg
 viewAccount { user } =
-    div [ class "card shadow-sm col-sm-6" ]
-        [ [ ( "Email", user.email )
-          , ( "Nom", user.lastname )
-          , ( "Prénom", user.firstname )
-          , ( "Organisation", user.company )
-          , ( "Jeton d'API", user.token )
+    div [ class "card shadow-sm" ]
+        [ [ ( "Email", text user.email )
+          , ( "Nom", text user.lastname )
+          , ( "Prénom", text user.firstname )
+          , ( "Organisation", text user.company )
+          , ( "Jeton d'API", code [] [ text user.token ] )
           ]
             |> List.concatMap
-                (\( label, value ) ->
+                (\( label, htmlValue ) ->
                     [ dt [] [ text <| label ++ " : " ]
-                    , dd [] [ text value ]
+                    , dd [] [ htmlValue ]
                     ]
                 )
-            |> dl []
+            |> dl [ class "card-body pb-0" ]
         ]
 
 
@@ -360,7 +350,17 @@ viewLoginRegisterForm model =
         ]
 
 
-viewInput : { label : String, type_ : String, id : String, placeholder : String, required : Bool, value : String, onInput : String -> Msg } -> Maybe Response -> Html Msg
+viewInput :
+    { label : String
+    , type_ : String
+    , id : String
+    , placeholder : String
+    , required : Bool
+    , value : String
+    , onInput : String -> Msg
+    }
+    -> Maybe Response
+    -> Html Msg
 viewInput inputData maybeResponse =
     let
         error =
@@ -580,7 +580,7 @@ getUserInfo =
         , headers = []
         , url = profile_url
         , body = Http.emptyBody
-        , expect = Http.expectJson GotUserInfo decodeUserInfo
+        , expect = Http.expectJson GotUserInfo User.decode
         , timeout = Nothing
         , tracker = Nothing
         }
@@ -600,35 +600,32 @@ logout =
 
 
 getFormInputError : String -> Maybe Response -> Maybe String
-getFormInputError inputId maybeResponse =
-    maybeResponse
-        |> Maybe.andThen
-            (\response ->
-                case response of
-                    Success _ ->
-                        Nothing
+getFormInputError inputId =
+    Maybe.andThen
+        (\response ->
+            case response of
+                Success _ ->
+                    Nothing
 
-                    Error _ maybeErrors ->
-                        Maybe.andThen
-                            (Dict.get inputId)
-                            maybeErrors
-            )
+                Error _ maybeErrors ->
+                    maybeErrors
+                        |> Maybe.andThen (Dict.get inputId)
+        )
 
 
 removeError : Maybe Response -> Maybe Response
-removeError maybeResponse =
-    maybeResponse
-        |> Maybe.map
-            (\response ->
-                case response of
-                    Success _ ->
-                        response
+removeError =
+    Maybe.map
+        (\response ->
+            case response of
+                Success _ ->
+                    response
 
-                    Error errorMsg maybeErrors ->
-                        maybeErrors
-                            |> Maybe.map (Dict.remove "email")
-                            |> Error errorMsg
-            )
+                Error errorMsg maybeErrors ->
+                    maybeErrors
+                        |> Maybe.map (Dict.remove "email")
+                        |> Error errorMsg
+        )
 
 
 
@@ -649,17 +646,6 @@ decodeResponse =
                         (Decode.field "msg" Decode.string)
                         (Decode.maybe (Decode.field "errors" (Decode.dict Decode.string)))
             )
-
-
-decodeUserInfo : Decoder User
-decodeUserInfo =
-    Decode.succeed User
-        |> Pipe.required "email" Decode.string
-        |> Pipe.required "first_name" Decode.string
-        |> Pipe.required "last_name" Decode.string
-        |> Pipe.required "organization" Decode.string
-        |> Pipe.required "terms_of_use" Decode.bool
-        |> Pipe.required "token" Decode.string
 
 
 encodeEmail : String -> Encode.Value
