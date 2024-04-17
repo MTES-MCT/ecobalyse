@@ -181,17 +181,13 @@ input[type="number"].no-arrows {
 }
 
 .form-select {
-  min-height: 37px;
-  line-height: initial;
-  &-sm {
-    min-height: 31px;
-  }
   &:disabled {
     opacity: 0.65;
   }
 }
 
 .form-select, .form-control, .input-group-text {
+  line-height: initial;
   border: 0 !important;
   box-shadow: inset 0 -2px 0 0 #3a3a3a;
 }
@@ -893,9 +889,15 @@ q {
 }
 
 .Header {
+  &AuthLink {
+    font-size: 0.975em;
+    text-decoration: none;
+  }
+
   &Brand {
     padding: .25em 0;
     margin: .5em 0;
+
     &:hover {
       background-color: #f6f6f6;
     }
@@ -929,6 +931,10 @@ q {
     color: $text-dark;
     font-size: 1.25rem;
     font-weight: 700;
+    a {
+      color: $dark;
+      text-decoration: none;
+    }
   }
 }
 

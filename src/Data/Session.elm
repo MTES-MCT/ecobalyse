@@ -1,14 +1,16 @@
 module Data.Session exposing
-    ( FullImpacts
+    ( AllProcessesJson
+    , Auth(..)
     , Notification(..)
     , Session
     , Store
+    , authenticated
     , checkComparedSimulations
     , closeNotification
     , deleteBookmark
     , deserializeStore
+    , getUser
     , isAuthenticated
-    , loggedIn
     , login
     , logout
     , notifyError
@@ -29,6 +31,7 @@ import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
+import Data.User as User exposing (User)
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -43,6 +46,7 @@ type alias Session =
     { db : Db
     , navKey : Nav.Key
     , clientUrl : String
+    , enableFoodSection : Bool
     , store : Store
     , currentVersion : Version
     , matomo : { host : String, siteId : String }
@@ -194,15 +198,15 @@ type alias Store =
 
 
 type Auth
-    = NotLoggedIn
-    | LoggedIn (List TextileProcess.Process) (List FoodProcess.Process)
+    = NotAuthenticated
+    | Authenticated User (List TextileProcess.Process) (List FoodProcess.Process)
 
 
 defaultStore : Store
 defaultStore =
     { comparedSimulations = Set.empty
     , bookmarks = []
-    , auth = NotLoggedIn
+    , auth = NotAuthenticated
     }
 
 
@@ -211,14 +215,22 @@ decodeStore =
     Decode.succeed Store
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
-        |> JDP.optional "auth" decodeAuth NotLoggedIn
+        |> JDP.optional "auth" decodeAuth NotAuthenticated
 
 
 decodeAuth : Decoder Auth
 decodeAuth =
-    Decode.succeed LoggedIn
+    Decode.succeed Authenticated
+        |> JDP.required "user" User.decode
         |> JDP.required "textileProcesses" (TextileProcess.decodeList Impact.decodeImpacts)
         |> JDP.required "foodProcesses" (FoodProcess.decodeList Impact.decodeImpacts)
+
+
+decodeAllProcessesJson : Decoder AllProcessesJson
+decodeAllProcessesJson =
+    Decode.succeed AllProcessesJson
+        |> JDP.required "textileProcesses" Decode.string
+        |> JDP.required "foodProcesses" Decode.string
 
 
 encodeStore : Store -> Encode.Value
@@ -233,14 +245,25 @@ encodeStore store =
 encodeAuth : Auth -> Encode.Value
 encodeAuth auth =
     case auth of
-        NotLoggedIn ->
+        NotAuthenticated ->
             Encode.null
 
-        LoggedIn textileProcesses foodProcesses ->
+        Authenticated user textileProcesses foodProcesses ->
             Encode.object
-                [ ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
+                [ ( "user", User.encode user )
+                , ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
                 , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
                 ]
+
+
+getUser : Session -> Maybe User
+getUser { store } =
+    case store.auth of
+        Authenticated user _ _ ->
+            Just user
+
+        NotAuthenticated ->
+            Nothing
 
 
 deserializeStore : String -> Store
@@ -275,8 +298,8 @@ updateStore update session =
     { session | store = update session.store }
 
 
-loggedIn : Session -> FullImpacts -> Session
-loggedIn ({ store } as session) { textileProcessesJson, foodProcessesJson } =
+authenticated : Session -> User -> AllProcessesJson -> Session
+authenticated ({ store } as session) user { textileProcessesJson, foodProcessesJson } =
     let
         originalProcesses =
             StaticDb.processes
@@ -290,8 +313,8 @@ loggedIn ({ store } as session) { textileProcessesJson, foodProcessesJson } =
     case StaticDb.db newProcesses of
         Ok db ->
             { session
-                | store = { store | auth = LoggedIn db.textile.processes db.food.processes }
-                , db = db
+                | db = db
+                , store = { store | auth = Authenticated user db.textile.processes db.food.processes }
             }
 
         Err err ->
@@ -299,20 +322,17 @@ loggedIn ({ store } as session) { textileProcessesJson, foodProcessesJson } =
                 |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 
 
-type alias FullImpacts =
+type alias AllProcessesJson =
     { textileProcessesJson : String, foodProcessesJson : String }
 
 
-login : (Result String FullImpacts -> msg) -> Cmd msg
+login : (Result String AllProcessesJson -> msg) -> Cmd msg
 login event =
     Task.attempt event
-        (Task.map2 FullImpacts
-            (getProcesses "data/textile/processes_impacts.json")
-            (getProcesses "data/food/processes_impacts.json")
-        )
+        (getProcesses "processes/processes.json")
 
 
-getProcesses : String -> Task.Task String String
+getProcesses : String -> Task.Task String AllProcessesJson
 getProcesses url =
     Http.task
         { method = "GET"
@@ -324,7 +344,8 @@ getProcesses url =
                 (\response ->
                     case response of
                         Http.GoodStatus_ _ stringBody ->
-                            Ok stringBody
+                            Decode.decodeString decodeAllProcessesJson stringBody
+                                |> Result.mapError Decode.errorToString
 
                         _ ->
                             Err "Couldn't get the processes"
@@ -338,19 +359,19 @@ logout ({ store } as session) =
     case StaticDb.db StaticDb.processes of
         Ok db ->
             { session
-                | store = { store | auth = NotLoggedIn }
+                | store = { store | auth = NotAuthenticated }
                 , db = db
             }
 
         Err err ->
-            { session | store = { store | auth = NotLoggedIn } }
+            { session | store = { store | auth = NotAuthenticated } }
                 |> notifyError "Impossible de recharger la db avec les procédés par défaut" err
 
 
-isAuthenticated : { a | store : Store } -> Bool
+isAuthenticated : Session -> Bool
 isAuthenticated { store } =
     case store.auth of
-        LoggedIn _ _ ->
+        Authenticated _ _ _ ->
             True
 
         _ ->

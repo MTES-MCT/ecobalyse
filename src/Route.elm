@@ -22,13 +22,13 @@ import Url.Parser as Parser exposing ((</>), Parser)
 type Route
     = Home
     | Api
+    | Auth { authenticated : Bool }
     | Changelog
     | Editorial String
     | Explore Scope Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderHome
     | FoodBuilderExample Uuid
-    | Login
     | TextileSimulatorHome
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | TextileSimulatorExample Uuid
@@ -43,12 +43,11 @@ parser =
           --
           Parser.map Home Parser.top
         , Parser.map Api (Parser.s "api")
+        , Parser.map (Auth { authenticated = True }) (Parser.s "auth" </> Parser.s "authenticated")
+        , Parser.map (Auth { authenticated = False }) (Parser.s "auth")
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Stats (Parser.s "stats")
-
-        -- Login (FIXME: this is a temporary route, remove after launch)
-        , Parser.map Login (Parser.s "login")
 
         --  Explorer
         , (Parser.s "explore" </> Scope.parse)
@@ -179,6 +178,15 @@ toString route =
                 Api ->
                     [ "api" ]
 
+                Auth { authenticated } ->
+                    [ "auth"
+                    , if authenticated then
+                        "authenticated"
+
+                      else
+                        ""
+                    ]
+
                 Changelog ->
                     [ "changelog" ]
 
@@ -195,7 +203,7 @@ toString route =
                     "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
 
                 FoodBuilderHome ->
-                    [ "food", "build" ]
+                    [ "food" ]
 
                 FoodBuilder trigram Nothing ->
                     [ "food", "build", Definition.toString trigram ]
@@ -205,9 +213,6 @@ toString route =
 
                 FoodBuilderExample uuid ->
                     [ "food", "edit-example", Uuid.toString uuid ]
-
-                Login ->
-                    [ "login" ]
 
                 TextileSimulatorHome ->
                     [ "textile", "simulator" ]

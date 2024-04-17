@@ -9,6 +9,7 @@ import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
 import Page.Api as Api
+import Page.Auth as Auth
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Explore as Explore
@@ -20,13 +21,14 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Version
 import Route
-import Static.Db as Static
+import Static.Db as Static exposing (Db)
 import Url exposing (Url)
 import Views.Page as Page
 
 
 type alias Flags =
     { clientUrl : String
+    , enableFoodSection : Bool
     , matomo : { host : String, siteId : String }
     , rawStore : String
     }
@@ -34,6 +36,7 @@ type alias Flags =
 
 type Page
     = ApiPage Api.Model
+    | AuthPage Auth.Model
     | LoadingPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
@@ -61,6 +64,7 @@ type alias Model =
 
 type Msg
     = ApiMsg Api.Msg
+    | AuthMsg Auth.Msg
     | ChangelogMsg Changelog.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
@@ -69,9 +73,6 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
-    | LoggedIn (Result String Session.FullImpacts)
-    | Login
-    | Logout
     | OpenMobileNavigation
     | ReloadPage
     | StatsMsg Stats.Msg
@@ -89,24 +90,7 @@ init flags url navKey =
         ( { state =
                 case Static.db Static.processes of
                     Ok db ->
-                        Loaded
-                            { db = db
-                            , clientUrl = flags.clientUrl
-                            , navKey = navKey
-                            , store = Session.deserializeStore flags.rawStore
-                            , currentVersion = Request.Version.Unknown
-                            , matomo = flags.matomo
-                            , notifications = []
-                            , queries =
-                                { food = FoodQuery.empty
-                                , textile =
-                                    db.textile.examples
-                                        |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
-                                        |> Result.map .query
-                                        |> Result.withDefault TextileQuery.default
-                                }
-                            }
-                            LoadingPage
+                        Loaded (setupSession navKey flags db) LoadingPage
 
                     Err err ->
                         Errored err
@@ -118,6 +102,37 @@ init flags url navKey =
             , Request.Version.loadVersion VersionReceived
             ]
         )
+
+
+setupSession : Nav.Key -> Flags -> Db -> Session
+setupSession navKey flags db =
+    let
+        store =
+            Session.deserializeStore flags.rawStore
+    in
+    { db =
+        case store.auth of
+            Session.Authenticated _ textileProcesses foodProcesses ->
+                db |> Static.updateProcesses foodProcesses textileProcesses
+
+            Session.NotAuthenticated ->
+                db
+    , clientUrl = flags.clientUrl
+    , enableFoodSection = flags.enableFoodSection
+    , navKey = navKey
+    , store = store
+    , currentVersion = Request.Version.Unknown
+    , matomo = flags.matomo
+    , notifications = []
+    , queries =
+        { food = FoodQuery.empty
+        , textile =
+            db.textile.examples
+                |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
+                |> Result.map .query
+                |> Result.withDefault TextileQuery.default
+        }
+    }
 
 
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
@@ -155,6 +170,10 @@ setRoute url ( { state } as model, cmds ) =
                     Api.init session
                         |> toPage ApiPage ApiMsg
 
+                Just (Route.Auth data) ->
+                    Auth.init session data
+                        |> toPage AuthPage AuthMsg
+
                 Just Route.Changelog ->
                     Changelog.init session
                         |> toPage ChangelogPage ChangelogMsg
@@ -174,9 +193,6 @@ setRoute url ( { state } as model, cmds ) =
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     FoodBuilder.init session trigram maybeQuery
                         |> toPage FoodBuilderPage FoodBuilderMsg
-
-                Just Route.Login ->
-                    ( model, Session.login LoggedIn )
 
                 Just (Route.FoodBuilderExample uuid) ->
                     FoodBuilder.initFromExample session uuid
@@ -231,6 +247,10 @@ update rawMsg ({ state } as model) =
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
+
+                ( AuthMsg authMsg, AuthPage authModel ) ->
+                    Auth.update session authMsg authModel
+                        |> toPage AuthPage AuthMsg
 
                 ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
                     Changelog.update session changelogMsg changelogModel
@@ -314,57 +334,6 @@ update rawMsg ({ state } as model) =
                 ( VersionPoll, _ ) ->
                     ( model, Request.Version.loadVersion VersionReceived )
 
-                -- Login
-                ( LoggedIn (Ok newProcessesJson), _ ) ->
-                    let
-                        newSession =
-                            Session.loggedIn session newProcessesJson
-                                |> Session.notifyInfo "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux conditions" ""
-
-                        ( newModel, _, _ ) =
-                            Home.init newSession
-                    in
-                    ( { model
-                        | state =
-                            HomePage newModel |> Loaded newSession
-                      }
-                    , newSession.store |> Session.serializeStore |> Ports.saveStore
-                    )
-
-                ( LoggedIn (Err error), currentPage ) ->
-                    let
-                        newSession =
-                            session
-                                |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
-                    in
-                    ( { model
-                        | state =
-                            currentPage |> Loaded newSession
-                      }
-                    , Cmd.none
-                    )
-
-                ( Login, _ ) ->
-                    ( model
-                    , Session.login LoggedIn
-                    )
-
-                ( Logout, _ ) ->
-                    let
-                        newSession =
-                            Session.logout session
-                                |> Session.notifyInfo "Vous n'avez plus accès au détail des impacts" ""
-
-                        ( newModel, _, _ ) =
-                            Home.init newSession
-                    in
-                    ( { model
-                        | state =
-                            HomePage newModel |> Loaded newSession
-                      }
-                    , newSession.store |> Session.serializeStore |> Ports.saveStore
-                    )
-
                 -- Catch-all
                 ( _, NotFoundPage ) ->
                     ( { model | state = Loaded session NotFoundPage }, Cmd.none )
@@ -422,8 +391,6 @@ view { state, mobileNavigationOpened } =
                         CloseMobileNavigation
                         OpenMobileNavigation
                         LoadUrl
-                        Login
-                        Logout
                         ReloadPage
                         CloseNotification
 
@@ -440,6 +407,11 @@ view { state, mobileNavigationOpened } =
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
                         |> Page.frame (pageConfig Page.Api)
+
+                AuthPage authModel ->
+                    Auth.view session authModel
+                        |> mapMsg AuthMsg
+                        |> Page.frame (pageConfig Page.Auth)
 
                 ChangelogPage changelogModel ->
                     Changelog.view session changelogModel

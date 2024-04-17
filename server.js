@@ -12,7 +12,8 @@ const lib = require("./lib");
 const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
-const port = process.env.PORT || 3000;
+const express_port = 8001;
+const django_port = 8002;
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -108,11 +109,31 @@ const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
-api.all(/(.*)/, bodyParser.json(), (req, res) => {
+api.all(/(.*)/, bodyParser.json(), async (req, res) => {
+  let headers = {};
+  if (req.headers.token) {
+    headers["token"] = req.headers.token;
+  }
+  let processes;
+  if (process.env.NODE_ENV == "test") {
+    headers["fakeDetails"] = "true";
+  }
+  try {
+    const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
+    const processesRes = await fetch(processesUrl, { headers: headers });
+    processes = await processesRes.json();
+    if (processesRes.status != 200) {
+      return res.status(processesRes.status).send(processes);
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
     body: req.body,
+    processes: processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
       res.status(status).send(body);
@@ -129,8 +150,8 @@ if (SENTRY_DSN) {
   app.use(Sentry.Handlers.errorHandler());
 }
 
-const server = app.listen(port, host, () => {
-  console.log(`Server listening at http://${host}:${port}`);
+const server = app.listen(express_port, host, () => {
+  console.log(`Server listening at http://${host}:${express_port}`);
 });
 
 module.exports = server;

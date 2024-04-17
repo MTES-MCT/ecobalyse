@@ -1,10 +1,11 @@
+from typing import Union
+
+import bw2calc
+import bw2data
 from bw2data.project import projects
 from bw2data.utils import get_activity
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from typing import Union
-import bw2calc
-import bw2data
 
 api = FastAPI()
 

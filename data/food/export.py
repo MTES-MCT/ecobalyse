@@ -3,8 +3,13 @@
 
 """Export des ingrédients et des processes de l'alimentaire"""
 
+import json
+import urllib.parse
+
+import bw2calc
+import bw2data
+import requests
 from bw2data.project import projects
-from common.impacts import impacts as definitions, main_method, bytrigram
 from common.export import (
     cached_search,
     display_changes,
@@ -15,19 +20,17 @@ from common.export import (
     with_corrected_impacts,
     with_subimpacts,
 )
+from common.impacts import bytrigram, main_method
+from common.impacts import impacts as definitions
+from frozendict import frozendict
+
 from food.ecosystemic_services.ecosystemic_services import (
+    compute_animal_ecosystemic_services,
+    compute_vegetal_ecosystemic_services,
     load_ecosystemic_dic,
     load_ugb_dic,
     plot_ecs_transformations,
-    compute_vegetal_ecosystemic_services,
-    compute_animal_ecosystemic_services,
 )
-import bw2calc
-import bw2data
-import json
-import requests
-import urllib.parse
-from frozendict import frozendict
 
 # Configuration
 CONFIG = {
@@ -229,7 +232,7 @@ def compute_impacts(processes_fd):
             if attribute in process:
                 del process[attribute]
 
-    return frozendict({k:frozendict(v) for k, v in processes.items()})
+    return frozendict({k: frozendict(v) for k, v in processes.items()})
 
 
 if __name__ == "__main__":

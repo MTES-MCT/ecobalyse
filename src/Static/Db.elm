@@ -3,15 +3,17 @@ module Static.Db exposing
     , db
     , processes
     , updateEcotoxWeighting
+    , updateProcesses
     )
 
 import Data.Common.Db as Common
 import Data.Country exposing (Country)
 import Data.Food.Db as FoodDb
+import Data.Food.Process as FoodProcess
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
-import Data.Textile.Process as Textile
+import Data.Textile.Process as TextileProcess
 import Data.Transport exposing (Distances)
 import Data.Unit as Unit
 import Static.Json as StaticJson
@@ -69,34 +71,41 @@ updateEcotoxWeighting db_ weighting =
 {-| Update database with new definitions and recompute processes aggregated impacts accordingly.
 -}
 updateImpactDefinitions : Db -> Definitions -> Db
-updateImpactDefinitions ({ textile, food } as db_) definitions =
+updateImpactDefinitions db_ definitions =
     let
         updatedFoodProcesses =
             Common.updateProcessesFromNewDefinitions definitions db_.food.processes
 
         updatedTextileProcesses =
             Common.updateProcessesFromNewDefinitions definitions db_.textile.processes
+
+        updatedDb =
+            db_ |> updateProcesses updatedFoodProcesses updatedTextileProcesses
     in
+    { updatedDb | definitions = definitions }
+
+
+updateProcesses : List FoodProcess.Process -> List TextileProcess.Process -> Db -> Db
+updateProcesses foodProcesses textileProcesses ({ textile, food } as db_) =
     { db_
-        | definitions = definitions
-        , countries = db_.countries |> updateCountriesFromNewProcesses updatedTextileProcesses
+        | countries = db_.countries |> updateCountriesFromNewProcesses textileProcesses
         , textile =
             { textile
-                | processes = updatedTextileProcesses
-                , materials = TextileDb.updateMaterialsFromNewProcesses updatedTextileProcesses textile.materials
-                , products = TextileDb.updateProductsFromNewProcesses updatedTextileProcesses textile.products
-                , wellKnown = TextileDb.updateWellKnownFromNewProcesses updatedTextileProcesses textile.wellKnown
+                | processes = textileProcesses
+                , materials = TextileDb.updateMaterialsFromNewProcesses textileProcesses textile.materials
+                , products = TextileDb.updateProductsFromNewProcesses textileProcesses textile.products
+                , wellKnown = TextileDb.updateWellKnownFromNewProcesses textileProcesses textile.wellKnown
             }
         , food =
             { food
-                | processes = updatedFoodProcesses
-                , ingredients = FoodDb.updateIngredientsFromNewProcesses updatedFoodProcesses db_.food.ingredients
-                , wellKnown = FoodDb.updateWellKnownFromNewProcesses updatedFoodProcesses food.wellKnown
+                | processes = foodProcesses
+                , ingredients = FoodDb.updateIngredientsFromNewProcesses foodProcesses db_.food.ingredients
+                , wellKnown = FoodDb.updateWellKnownFromNewProcesses foodProcesses food.wellKnown
             }
     }
 
 
-updateCountriesFromNewProcesses : List Textile.Process -> List Country -> List Country
+updateCountriesFromNewProcesses : List TextileProcess.Process -> List Country -> List Country
 updateCountriesFromNewProcesses processList =
     List.map
         (\country ->
@@ -107,7 +116,7 @@ updateCountriesFromNewProcesses processList =
                         , heatProcess = heatProcess
                     }
                 )
-                (Textile.findByUuid country.electricityProcess.uuid processList)
-                (Textile.findByUuid country.heatProcess.uuid processList)
+                (TextileProcess.findByUuid country.electricityProcess.uuid processList)
+                (TextileProcess.findByUuid country.heatProcess.uuid processList)
                 |> Result.withDefault country
         )

@@ -27,6 +27,8 @@ tags:
     externalDocs:
       description: À propos
       url: https://fabrique-numerique.gitbook.io/ecobalyse
+security:
+  - token: []
 paths:
   /:
     get:
@@ -445,6 +447,15 @@ paths:
   #             schema:
   #               $ref: "#/components/schemas/InvalidParametersError"
 components:
+  securitySchemes:
+    token:
+      description: >
+        Ce token d'API, permettant d'obtenir les impacts détaillés des calculs effectués,
+        peut être obtenu après [inscription préalable](https://ecobalyse.beta.gouv.fr/#/auth)
+        sur le site Ecobalyse. Vous trouverez le token dans la section *Mon compte*.
+      type: apiKey
+      name: token
+      in: header
   examples:
     tShirtFrance:
       summary: "T-Shirt France 100% Coton"

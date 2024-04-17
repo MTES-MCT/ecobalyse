@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, staging ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, staging ]
   workflow_dispatch:
 
 jobs:
@@ -16,39 +16,55 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+        python-version: [3.11]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
     - name: Cache node_modules
       id: cache-node_modules
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: node_modules
         key: node_modules-${{ hashFiles('package.json', 'package-lock.json') }}
 
     - name: Cache ~/.elm
       # see https://docs.microsoft.com/en-us/answers/questions/510640/deploy-elm-app-to-azure-static-website-from-github.html
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: ~/.elm
         key: elm-cache-${{ hashFiles('elm.json') }}
         restore-keys: elm-cache-
 
-    - name: Install dependencies
+    - name: Cache pipenv virtualenv
+      uses: actions/cache@v4
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-${{ matrix.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pipenv-
+
+    - name: Install Node dependencies
       run: npm ci --prefer-offline --no-audit
+
+    - name: Install Python dependencies
+      run: pip install pipenv && pipenv install
 
     - name: Build app
       run: npm run build --if-present
 
     - name: Build Elm static Db
-      run: TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run db:build
+      run: npm run db:build
 
     - name: Run prettier formatting check
       run: npm run format:check
@@ -57,7 +73,7 @@ jobs:
       run: npm run test:review
 
     - name: Run client tests
-      run: TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run test:client
+      run: npm run test:client
 
     - name: Run server tests
-      run: TEXTILE_PROCESSES=public/data/textile/processes_impacts.json FOOD_PROCESSES=public/data/food/processes_impacts.json npm run test:server
+      run: pipenv run backend/update.sh && npm run test:server-ci

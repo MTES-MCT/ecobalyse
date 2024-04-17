@@ -6,10 +6,11 @@ module Page.Api exposing
     , view
     )
 
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Ports
+import Route
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Markdown as Markdown
@@ -444,6 +445,13 @@ apiBrowser session =
         , attribute "allow-authentication" "false"
         , attribute "allow-server-selection" "false"
         , attribute "allow-api-list-style-selection" "false"
+        , attribute "api-key-name" "token"
+        , attribute "api-key-location" "header"
+        , session
+            |> Session.getUser
+            |> Maybe.map .token
+            |> Maybe.withDefault "-"
+            |> attribute "api-key-value"
         ]
         []
 
@@ -455,19 +463,7 @@ view session _ =
             [ h1 [ class "mb-3" ] [ text "API Ecobalyse" ]
             , div [ class "row" ]
                 [ div [ class "col-xl-8" ]
-                    [ Alert.simple
-                        { level = Alert.Info
-                        , close = Nothing
-                        , title = Nothing
-                        , content =
-                            [ div [ class "fs-7" ]
-                                [ """Cette API est en version *alpha*, l'implémentation et le contrat d'interface sont susceptibles
-                             de changer à tout moment. Vous êtes vivement invité à **ne pas exploiter cette API en production**."""
-                                    |> Markdown.simple []
-                                ]
-                            ]
-                        }
-                    , p [ class "fw-bold" ]
+                    [ p [ class "fw-bold" ]
                         [ text "L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles et alimentaires." ]
                     , p []
                         [ text "Elle est accessible à l'adresse "
@@ -478,10 +474,23 @@ view session _ =
                         , a [ href "https://swagger.io/specification/", target "_blank" ] [ text "OpenAPI" ]
                         , text "."
                         ]
+                    , apiDocumentationNotice session
                     , div [ class "height-auto" ] [ apiBrowser session ]
                     ]
                 , div [ class "col-xl-4" ]
-                    [ div [ class "card" ]
+                    [ Alert.simple
+                        { level = Alert.Info
+                        , close = Nothing
+                        , title = Just "Avertissement"
+                        , content =
+                            [ """Cette API est **expérimentale** et n’offre à ce stade **aucune garantie de disponibilité ni de
+             stabilité** du service, le contrat d’interface restant susceptible de changer à tout moment en
+             fonction des retours et demandes d’évolutions. **Il est vivement déconseillé de vous reposer sur
+             cette API en production et/ou pour des missions critiques.**"""
+                                |> Markdown.simple [ class "fs-7" ]
+                            ]
+                        }
+                    , div [ class "card" ]
                         [ div [ class "card-header" ] [ text "Dernières mises à jour" ]
                         , changelog
                             |> List.map
@@ -516,3 +525,29 @@ view session _ =
             ]
       ]
     )
+
+
+apiDocumentationNotice : Session -> Html msg
+apiDocumentationNotice session =
+    let
+        alert level md =
+            Alert.simple
+                { level = level
+                , close = Nothing
+                , title = Nothing
+                , content = [ Markdown.simple [ class "fs-7" ] md ]
+                }
+    in
+    case Session.getUser session of
+        Just user ->
+            """Vous êtes connecté, votre jeton d'API est `{token}`. Il sera automatiquement utilisé
+               dans les exemples interactifs ci-dessous pour exposer les impacts détaillés."""
+                |> String.replace "{token}" user.token
+                |> alert Alert.Success
+
+        Nothing ->
+            """Les requêtes non authentifiées à l'API retournent uniquement les impacts agrégés.
+               **Pour accéder au détail des impacts, il est nécessaire de fournir un jeton d'API**,
+               accessible dans votre [compte utilisateur]({route}) une fois connecté."""
+                |> String.replace "{route}" (Route.toString <| Route.Auth { authenticated = False })
+                |> alert Alert.Info

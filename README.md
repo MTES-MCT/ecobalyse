@@ -8,20 +8,36 @@ L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/)
 
 ## Socle technique et prérequis
 
-Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm` sur votre machine.
+Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`, ainsi que d'un environnement [python](https://www.python.org/) >=3.11 et [pipenv](https://pipenv.pypa.io/) sur votre machine :
 
 ## Installation
 
+Ensure having a PostgreSQL >=16 server running locally.
+
     $ npm install
+    $ pipenv install
+
+Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :
+
+    $ npm run backend:start
 
 ## Configuration
 
 Les variables d'environnement suivantes doivent être définies :
 
-- `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
+- `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule
+- `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
+- `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `False`)
+- `DJANGO_SECRET_KEY` : la [clé secrète de Django](https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY)
+- `EMAIL_HOST` : le host SMTP pour envoyer les mail liés à l'authentification
+- `EMAIL_HOST_USER`: l'utilisateur du compte SMTP
+- `EMAIL_HOST_PASSWORD` : le mot de passe du compte SMTP pour envoyer les mail liés à l'authentification
 - `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
 - `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
 - `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
+- `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `production`)
+- `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.
+- `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
 
 En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
 
@@ -31,22 +47,13 @@ En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mette
 
 Le serveur local de développement se lance au moyen des deux commandes suivantes :
 
-    & npm run db:build
     $ npm start
 
-Deux instances de développement sont alors accessibles :
+Trois instances de développement sont alors accessibles :
 
-- [localhost:3000](http://localhost:3000/) sert le frontend et le backend (API) ;
-- [localhost:1234](http://localhost:1234/) sert seulement le frontend en mode _hot-reload_, permettant de mettre à jour en temps-réel l'interface Web à chaque modification du code frontend.
-
-### Mode débogage
-
-Pour lancer le serveur de développement en mode de débogage:
-
-    & npm run db:build
-    $ npm run start:dev
-
-Un server frontend de débogage est alors disponible sur [localhost:1234](http://localhost:1234/).
+- [localhost:8002](http://localhost:8002/) sert le backend django utilisé pour l'authentification, et sert aussi les fichiers statiques de elm. Sert aussi [l'admin django](http://localhost:8002/admin/)
+- [localhost:8001](http://localhost:8001/) sert l'API ;
+- [localhost:1234](http://localhost:1234/) est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc`). Le frontend est servi en mode _hot-reload_, pour recharger! l'interface Web à chaque modification du code frontend.
 
 ### Hooks Git avec Husky et Formatage de Code avec Prettier
 
@@ -103,7 +110,7 @@ $ npm run build
 $ npm run server:start
 ```
 
-L'application est alors servie sur le port défini par la variable d'environnement `PORT` (par défaut: `3000`).
+L'application est alors servie sur le port 1234.
 
 # Ecobalyse data
 

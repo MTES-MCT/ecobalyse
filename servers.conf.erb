@@ -1,0 +1,39 @@
+# ERB templated nginx configuration
+# see https://doc.scalingo.com/platform/deployment/buildpacks/nginx
+
+server {
+
+	listen <%= ENV["PORT"] %>;
+	server_name _;
+  root /app/;
+  # static files of django
+  location /static/ {
+    autoindex off;
+  }
+  # express
+	location / {
+		proxy_pass http://localhost:8001;
+    proxy_set_header Host $host ;
+    proxy_set_header X-Real-IP $remote_addr ;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for ;
+	}
+  # django
+	location /admin {
+		proxy_pass http://localhost:8002;
+    proxy_set_header Host $host ;
+    proxy_set_header X-Real-IP $remote_addr ;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for ;
+	}
+	location /accounts {
+		proxy_pass http://localhost:8002;
+    proxy_set_header Host $host ;
+    proxy_set_header X-Real-IP $remote_addr ;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for ;
+	}
+	location /processes {
+		proxy_pass http://localhost:8002;
+    proxy_set_header Host $host ;
+    proxy_set_header X-Real-IP $remote_addr ;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for ;
+	}
+}
