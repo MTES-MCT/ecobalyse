@@ -1,6 +1,5 @@
 module Data.Session exposing
     ( AllProcessesJson
-    , Auth(..)
     , Notification(..)
     , Session
     , Store
@@ -9,7 +8,7 @@ module Data.Session exposing
     , closeNotification
     , deleteBookmark
     , deserializeStore
-    , getUserApiToken
+    , getUser
     , isAuthenticated
     , login
     , logout
@@ -256,11 +255,11 @@ encodeAuth auth =
                 ]
 
 
-getUserApiToken : Session -> Maybe String
-getUserApiToken session =
-    case session.store.auth of
+getUser : Session -> Maybe User
+getUser { store } =
+    case store.auth of
         Authenticated user _ _ ->
-            Just user.token
+            Just user
 
         NotAuthenticated ->
             Nothing

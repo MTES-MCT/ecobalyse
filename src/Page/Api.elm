@@ -447,7 +447,11 @@ apiBrowser session =
         , attribute "allow-api-list-style-selection" "false"
         , attribute "api-key-name" "token"
         , attribute "api-key-location" "header"
-        , attribute "api-key-value" (Session.getUserApiToken session |> Maybe.withDefault "-")
+        , session
+            |> Session.getUser
+            |> Maybe.map .token
+            |> Maybe.withDefault "-"
+            |> attribute "api-key-value"
         ]
         []
 
@@ -468,6 +472,17 @@ view session _ =
                                 [ """Cette API est en version *alpha*, l'implémentation et le contrat d'interface sont susceptibles
                              de changer à tout moment. Vous êtes vivement invité à **ne pas exploiter cette API en production**."""
                                     |> Markdown.simple []
+                                , if Session.isAuthenticated session then
+                                    text ""
+
+                                  else
+                                    div []
+                                        [ text "Les requêtes non authentifiées à l'API retournent uniquement les impacts aggrégés."
+                                        , "Pour avoir le détail des impacts, il est nécessaire de fournir un `TOKEN`, accessible dans votre "
+                                            |> Markdown.simple []
+                                        , a [ Route.href (Route.Auth { authenticated = False }) ] [ text "compte utilisateur" ]
+                                        , text " une fois connecté."
+                                        ]
                                 ]
                             ]
                         }
@@ -481,13 +496,6 @@ view session _ =
                         , text " au format "
                         , a [ href "https://swagger.io/specification/", target "_blank" ] [ text "OpenAPI" ]
                         , text "."
-                        ]
-                    , p []
-                        [ text "Les requêtes non authentifiées à l'API retournent uniquement les impacts aggrégés."
-                        , "Pour avoir le détail des impacts, il est nécessaire de fournir un `TOKEN`, accessible dans votre "
-                            |> Markdown.simple []
-                        , a [ Route.href (Route.Auth { authenticated = False }) ] [ text "compte utilisateur" ]
-                        , text " une fois connecté."
                         ]
                     , div [ class "height-auto" ] [ apiBrowser session ]
                     ]
