@@ -2,59 +2,65 @@
   {
     "id": "egg-bleublanccoeur",
     "name": "Oeuf Bleu-Blanc-Cœur",
+    "database": "Agribalyse 3.1.1",
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "category": "ingredient",
     "categories": ["animal_product", "bleublanccoeur"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.974,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 4.46757635,
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "egg",
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "milk",
-    "name": "Lait",
+    "name": "Lait FR",
+    "database": "Agribalyse 3.1.1",
     "search": "Cow milk national average at farm gate",
     "category": "ingredient",
     "categories": ["dairy_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 1.391110637,
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "milk",
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "milk-organic",
     "name": "Lait bio",
-    "search": "cow milk organic national average",
     "database": "Ecobalyse",
+    "search": "cow milk organic national average",
     "category": "ingredient",
     "categories": ["dairy_product", "organic"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "land_occupation": 1.75061187,
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "milk",
-    "scenario": "organic"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "carrot-organic",
@@ -139,7 +145,8 @@
     "visible": false,
     "crop_group": "TOURNESOL",
     "scenario": "organic",
-    "land_occupation": 6.069033284
+    "land_occupation": 6.069033284,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "rapeseed-organic",
@@ -160,183 +167,200 @@
   },
   {
     "id": "ground-beef",
-    "name": "Boeuf haché (cru)",
+    "name": "Boeuf haché FR (cru)",
+    "database": "Agribalyse 3.1.1",
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 53.2806594,
-    "scenario": "reference",
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "meat"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "ground-beef-organic",
     "name": "Boeuf haché bio (cru)",
-    "search": "Ground beef fresh case ready for direct consumption at plant organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
+    "search": "Ground beef fresh case ready for direct consumption at plant organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "land_occupation": 48.10660048,
-    "scenario": "organic",
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "meat"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "cull-cow-organic",
     "name": "Vache de réforme bio",
     "category": "material",
-    "categories": [],
     "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 28.82249325
   },
   {
     "id": "ground-beef-feedlot",
-    "name": "Boeuf haché Feedlot (cru)",
-    "search": "Ground beef fresh case ready for direct consumption at plant feedlot, constructed by Ecobalyse",
+    "name": "Boeuf haché hors UE par défaut (cru)",
     "database": "Ecobalyse",
+    "search": "Ground beef fresh case ready for direct consumption at plant feedlot, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "land_occupation": 52.4624274,
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "meat",
-    "scenario": "import"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "cooked-ham",
-    "name": "Jambon cuit",
+    "name": "Jambon cuit FR",
+    "database": "Agribalyse 3.1.1",
     "search": "Cooked ham case ready at plant",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 6.558046439,
-    "animal_group1": "pig",
-    "animal_group2": "pig",
-    "animal_product": "meat",
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "cooked-ham-organic",
-    "name": "Jambon cuit bio cuit",
-    "search": "Cooked ham case ready at plant organic, constructed by Ecobalyse",
+    "name": "Jambon cuit bio",
     "database": "Ecobalyse",
+    "search": "Cooked ham case ready at plant organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "land_occupation": 24.05215563,
-    "animal_group1": "pig",
-    "animal_group2": "pig",
-    "animal_product": "meat",
-    "scenario": "organic"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "cooked-ham-fr",
-    "name": "Jambon, nourri avec des aliments FR (cuit)",
-    "search": "Cooked ham case ready at plant fr, constructed by Ecobalyse",
+    "name": "Jambon cuit FR (alim. ani. 100%FR)",
     "database": "Ecobalyse",
+    "search": "Cooked ham case ready at plant fr, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "land_occupation": 7.438570311,
-    "animal_group1": "pig",
-    "animal_group2": "pig",
-    "animal_product": "meat",
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "chicken-breast",
-    "name": "Blanc de poulet (cru)",
+    "name": "Blanc de poulet FR (cru)",
+    "database": "Agribalyse 3.1.1",
     "search": "Meat without bone chicken for direct consumption",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.73,
-    "density": 1,
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.755,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 6.039436164,
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "meat",
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "chicken-breast-organic",
     "name": "Blanc de poulet bio (cru)",
-    "search": "Meat without bone chicken for direct consumption organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
+    "search": "Meat without bone chicken for direct consumption organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.73,
-    "density": 1,
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.755,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "land_occupation": 15.82110984,
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "meat",
-    "scenario": "organic"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "chicken-breast-fr-organic",
-    "name": "Blanc de poulet bio (nourri avec des aliments FR)",
-    "search": "Meat without bone chicken for direct consumption \"fr-organic\" constructed by Ecobalyse",
+    "name": "Blanc de poulet bio (alim. ani. 100%FR)",
     "database": "Ecobalyse",
+    "search": "Meat without bone chicken for direct consumption \"fr-organic\" constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.73,
-    "density": 1,
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.755,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "land_occupation": 18.52244428,
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "meat",
-    "scenario": "organic"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "rapeseed-oil",
@@ -413,7 +437,7 @@
     "search": "Zucchini, springtime, under tunnel, organic, at farm gate {FR}",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
@@ -459,39 +483,50 @@
   },
   {
     "id": "butter",
-    "name": "Beurre",
+    "name": "Beurre FR",
+    "database": "Agribalyse 3.1.1",
     "search": "Butter, 82% fat, unsalted, at dairy {FR}",
-    "default_origin": "France",
     "category": "ingredient",
     "categories": ["dairy_product"],
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 9.167676909
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "butter-organic",
     "name": "Beurre bio",
-    "search": "Butter, 82% fat, unsalted, at dairy {FR} organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
-    "default_origin": "France",
+    "search": "Butter, 82% fat, unsalted, at dairy {FR} organic, constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["dairy_product", "organic"],
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "land_occupation": 11.53376237
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "steel",
     "name": "Acier",
     "category": "packaging",
-    "categories": [],
     "search": "Steel unalloyed {RER} steel production converter unalloyed",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.04564122948
@@ -500,7 +535,6 @@
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "category": "packaging",
-    "categories": [],
     "search": "Packaging film low density polyethylene {RER} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.2292804427
@@ -509,7 +543,6 @@
     "id": "ps",
     "name": "Polystyrène",
     "category": "packaging",
-    "categories": [],
     "search": "Polystyrene expandable {RER} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.000610793334
@@ -518,7 +551,6 @@
     "id": "glass",
     "name": "Verre",
     "category": "packaging",
-    "categories": [],
     "search": "Packaging glass white {RER} w/o CH+DE production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.211062261
@@ -527,7 +559,6 @@
     "id": "pp",
     "name": "Polypropylène",
     "category": "packaging",
-    "categories": [],
     "search": "Polypropylene granulate {RER}| production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.03011341585
@@ -536,7 +567,6 @@
     "id": "cardboard",
     "name": "Carton",
     "category": "packaging",
-    "categories": [],
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 1.113967426
@@ -545,7 +575,6 @@
     "id": "paper",
     "name": "Papier",
     "category": "packaging",
-    "categories": [],
     "search": "Kraft paper production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 5.741060888
@@ -554,7 +583,6 @@
     "id": "pvc",
     "name": "PVC",
     "category": "packaging",
-    "categories": [],
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.08960342165
@@ -563,7 +591,6 @@
     "id": "pet",
     "name": "PET",
     "category": "packaging",
-    "categories": [],
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.079813952
@@ -572,7 +599,6 @@
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "category": "packaging",
-    "categories": [],
     "search": "Polyethylene high density granulate {RER} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.03500785459
@@ -581,7 +607,6 @@
     "id": "aluminium",
     "name": "Aluminium",
     "category": "packaging",
-    "categories": [],
     "search": "Aluminium primary ingot {RoW} production",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.4286118448
@@ -590,7 +615,6 @@
     "id": "canning",
     "name": "Mise en conserve",
     "category": "transformation",
-    "categories": [],
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.01180912862
@@ -599,7 +623,6 @@
     "id": "mixing",
     "name": "Mélange",
     "category": "transformation",
-    "categories": [],
     "search": "Mixing processing dummy",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.0
@@ -608,7 +631,6 @@
     "id": "cooking",
     "name": "Cuisson",
     "category": "transformation",
-    "categories": [],
     "search": "Cooking industrial 1kg of cooked product FR",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.1056149549
@@ -617,7 +639,6 @@
     "id": "lorry",
     "name": "Camion",
     "category": "transport",
-    "categories": [],
     "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.01022983599
@@ -626,7 +647,6 @@
     "id": "boat",
     "name": "Bateau",
     "category": "transport",
-    "categories": [],
     "search": "Transport freight sea ship",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 6.245968834e-5
@@ -635,7 +655,6 @@
     "id": "plane",
     "name": "Avion",
     "category": "transport",
-    "categories": [],
     "search": "Transport freight aircraft",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.00268767529
@@ -644,7 +663,6 @@
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
     "category": "transport",
-    "categories": [],
     "search": "Transport freight sea ship reefer",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.0001605949799
@@ -652,7 +670,6 @@
   {
     "id": "lorry-cooling",
     "category": "transport",
-    "categories": [],
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}",
     "database": "Agribalyse 3.1.1",
@@ -662,7 +679,6 @@
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "category": "energy",
-    "categories": [],
     "search": "Electricity low voltage {FR} market",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.009591199223
@@ -686,7 +702,6 @@
     "id": "domestic-gas-heat",
     "name": "Gaz de ville",
     "category": "energy",
-    "categories": [],
     "search": "Heat central or small-scale natural gas Europe market",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.0002758175609
@@ -710,18 +725,24 @@
   {
     "id": "emmental",
     "name": "Emmental",
+    "database": "Agribalyse 3.1.1",
     "search": "code:3d72c918ca829647072bab92542bb70e",
     "category": "ingredient",
     "categories": ["dairy_product"],
     "default_origin": "France",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 6.640954284
+    "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges.",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "mozzarella",
@@ -909,52 +930,71 @@
     "visible": false,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "reference",
-    "land_occupation": 4.020943175
+    "land_occupation": 4.020943175,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "sausage-meat",
-    "name": "Chair à saucisse (crue)",
+    "name": "Chair à saucisse FR (crue)",
+    "database": "Agribalyse 3.1.1",
     "search": "Sausage meat, raw, at plant {FR} U",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 9.348404415
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "sausage-toulouse",
     "name": "Saucisse de Toulouse (crue)",
+    "database": "Agribalyse 3.1.1",
     "search": "Toulouse sausage, raw, at plant {FR} U",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 19.32745302
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "sausage-toulouse-cooked",
     "name": "Saucisse de Toulouse (cuite)",
+    "database": "Agribalyse 3.1.1",
     "search": "Toulouse sausage, cooked, at plant {FR} U",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 19.43306797
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "sausage-tofu",
@@ -1007,41 +1047,45 @@
   },
   {
     "id": "beef-with-bone",
-    "name": "Viande de boeuf avec os (crue)",
+    "name": "Viande de boeuf avec os FR (crue)",
+    "database": "Agribalyse 3.1.1",
     "search": "Meat with bone, beef, for direct consumption",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "meat",
-    "land_occupation": 34.73183225,
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "beef-without-bone",
-    "name": "Viande de boeuf sans os (crue)",
+    "name": "Viande de boeuf sans os FR (crue)",
+    "database": "Agribalyse 3.1.1",
     "search": "Meat without bone, beef, for direct consumption",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "meat",
-    "land_occupation": 43.41602331,
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "beef-without-bone-organic",
@@ -1056,9 +1100,6 @@
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "meat",
     "land_occupation": 39.19859355,
     "scenario": "organic"
   },
@@ -1114,43 +1155,47 @@
   },
   {
     "id": "chicken-breast-br-max",
-    "name": "Blanc de poulet (importé nourri avec des aliments BR)",
-    "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
+    "name": "Blanc de poulet hors UE (alim. ani. 100%BR)",
     "database": "Ecobalyse",
+    "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product"],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.755,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "explain": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)",
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "meat",
-    "scenario": "import",
-    "land_occupation": 9.35109173
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "chicken-breast-fr",
-    "name": "Blanc de poulet (nourri avec des aliments FR)",
-    "search": "Meat without bone chicken for direct consumption fr constructed by Ecobalyse",
+    "name": "Blanc de poulet FR (alim. ani. 100%FR)",
     "database": "Ecobalyse",
+    "search": "Meat without bone chicken for direct consumption fr constructed by Ecobalyse",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.755,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
     "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "meat",
-    "scenario": "reference",
-    "land_occupation": 7.297867846
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "cane-sugar",
@@ -1255,7 +1300,8 @@
   },
   {
     "id": "fresh-shrimps",
-    "name": " Crevettes fraîches",
+    "name": "Crevettes fraîches hors UE",
+    "database": "Agribalyse 3.1.1",
     "search": "Fresh shrimps, China production/FR U :",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -1265,8 +1311,13 @@
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 1.85501141
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "large-trout",
@@ -1287,6 +1338,7 @@
   {
     "id": "egg-indoor-code2",
     "name": "Oeuf conventionnel (code 2)",
+    "database": "Agribalyse 3.1.1",
     "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
     "category": "ingredient",
     "categories": ["animal_product"],
@@ -1296,31 +1348,34 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 3.718097733,
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "egg",
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "egg-indoor-code3",
     "name": "Oeuf conventionnel (code 3)",
+    "database": "Agribalyse 3.1.1",
     "search": "Egg indoor cage",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.974,
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 3.069579193,
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "egg",
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "egg-outdoor-code1",
@@ -1336,28 +1391,28 @@
     "visible": true,
     "scenario": "reference",
     "land_occupation": 4.268467591,
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "egg"
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "egg-organic-code0",
     "name": "Oeuf bio",
+    "database": "Agribalyse 3.1.1",
     "search": "Egg organic at farm gate",
     "category": "ingredient",
     "categories": ["animal_product", "organic"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.974,
     "density": 1.0,
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 6.778933314,
-    "animal_group1": "poultry",
-    "animal_group2": "chicken",
-    "animal_product": "egg",
-    "scenario": "organic"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "wine-grape-organic",
@@ -1378,41 +1433,45 @@
   },
   {
     "id": "lamb-meat-without-bone",
-    "name": "Viande d'agneau (désossée)",
+    "name": "Viande d'agneau FR (désossée)",
+    "database": "Agribalyse 3.1.1",
     "search": "Meat without bone lamb",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 96.54788709,
-    "animal_group1": "sheep",
-    "animal_group2": "sheep",
-    "animal_product": "meat",
-    "scenario": "reference"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "lamb-meat-without-bone-organic",
     "name": "Viande d'agneau bio (désossée)",
-    "search": "lamb organic",
     "database": "Ecobalyse",
+    "search": "lamb organic",
     "category": "ingredient",
     "categories": ["animal_product"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
-    "density": 1,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "always",
     "visible": true,
-    "land_occupation": 206.0803103,
-    "animal_group1": "sheep",
-    "animal_group2": "sheep",
-    "animal_product": "meat",
-    "scenario": "organic"
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0,
+      "permanentPasture": 0.0,
+      "livestockDensity": 0.0
+    }
   },
   {
     "id": "pear-organic",
@@ -1490,11 +1549,11 @@
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
-    "transport_cooling": "none",
+    "transport_cooling": "always",
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
@@ -1511,7 +1570,7 @@
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.1,
-    "transport_cooling": "none",
+    "transport_cooling": "always",
     "visible": true,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
@@ -4050,7 +4109,8 @@
     "scenario": "import",
     "visible": false,
     "explain": "",
-    "land_occupation": 1.758672374
+    "land_occupation": 1.758672374,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "oats-organic",
@@ -4067,7 +4127,8 @@
     "scenario": "organic",
     "visible": false,
     "explain": "",
-    "land_occupation": 2.367630827
+    "land_occupation": 2.367630827,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "barley",
@@ -4084,7 +4145,8 @@
     "scenario": "reference",
     "visible": false,
     "explain": "",
-    "land_occupation": 1.496487505
+    "land_occupation": 1.496487505,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "barley-organic",
@@ -4101,7 +4163,8 @@
     "scenario": "organic",
     "visible": false,
     "explain": "",
-    "land_occupation": 2.894604758
+    "land_occupation": 2.894604758,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "banana-organic",
@@ -4332,7 +4395,8 @@
     "scenario": "import",
     "visible": false,
     "explain": "",
-    "land_occupation": 1.358825431
+    "land_occupation": 1.358825431,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "triticale-organic",
@@ -4349,7 +4413,8 @@
     "scenario": "organic",
     "visible": false,
     "explain": "",
-    "land_occupation": 3.166417803
+    "land_occupation": 3.166417803,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "bean",
@@ -4366,7 +4431,8 @@
     "scenario": "reference",
     "visible": false,
     "explain": "",
-    "land_occupation": 2.089788637
+    "land_occupation": 2.089788637,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "bean-organic",
@@ -4383,7 +4449,8 @@
     "scenario": "organic",
     "visible": false,
     "explain": "",
-    "land_occupation": 2.822956957
+    "land_occupation": 2.822956957,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "alfalfa-organic",
@@ -4399,7 +4466,8 @@
     "crop_group": "AUTRES CEREALES",
     "scenario": "organic",
     "visible": false,
-    "land_occupation": 1.504183421
+    "land_occupation": 1.504183421,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "radish-organic",
@@ -4649,7 +4717,8 @@
     "explain": "Hypothèse : 1 kg = 1 m2a pour simplifier les calculs",
     "crop_group": "PRAIRIES TEMPORAIRES",
     "scenario": "reference",
-    "land_occupation": 1
+    "land_occupation": 1,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "grazed-grass-permanent",
@@ -4666,7 +4735,8 @@
     "explain": "Hypothèse : 1 kg = 1 m2a pour simplifier les calculs",
     "crop_group": "PRAIRIES PERMANENTES",
     "scenario": "reference",
-    "land_occupation": 1
+    "land_occupation": 1,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "refined-palm-oil",
