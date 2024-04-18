@@ -869,13 +869,16 @@ def commit_activities(_):
         return
     shutil.copy(ACTIVITIES_TEMP % w_contributor.value, ACTIVITIES)
     display(ipywidgets.HTML("Veuillez patienter quelques secondes..."))
-    if (
-        subprocess.run(["npm", "run", "format:json"], capture_output=True).returncode
-        != 0
-    ):
+    prettier = [
+        "npx",
+        "prettier@3.0.3",
+        "--write",
+        ACTIVITIES_TEMP % w_contributor.value,
+    ]
+    if subprocess.run(prettier, capture_output=True).returncode != 0:
         display(
             ipywidgets.HTML(
-                "<pre style='color: red'>ÉCHEC de la commande: npm run format:json"
+                "<pre style='color: red'>ÉCHEC de la commande: " + " ".join(prettier)
             )
         )
         reset_branch()
@@ -891,6 +894,7 @@ def commit_activities(_):
             [
                 "git",
                 "commit",
+                "--no-verify",
                 "-m",
                 f"Changed ingredients (contributed by {w_contributor.value})",
             ],
