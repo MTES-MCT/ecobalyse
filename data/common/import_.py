@@ -97,12 +97,13 @@ def replace_activities(activity_variant, activity_data, dbname):
         else:
             searchdb = dbname
         activity_old = search(dbname, old)
-        activity_new = search(searchdb, new)
-        new_exchange(
-            activity_variant,
-            activity_new,
-            activity_to_copy_from=activity_old,
-        )
+        if new:
+            activity_new = search(searchdb, new)
+            new_exchange(
+                activity_variant,
+                activity_new,
+                activity_to_copy_from=activity_old,
+            )
         delete_exchange(activity_variant, activity_old)
 
 
