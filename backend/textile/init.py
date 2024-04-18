@@ -54,8 +54,6 @@ def init():
     ):
         sys.exit()
 
-    # return  # FIXME don't load textile data yet
-
     # PROCESSES
     with open(
         join(
