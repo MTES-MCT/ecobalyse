@@ -47,166 +47,179 @@ def delkey(key, record):
 def init():
     """populate the db with initial admins and public json data"""
 
-    # stop if the database is not sqlite3 or is already populated (just check the number of users)
-    if (
-        "sqlite3" not in settings.DATABASES.get("default", {}).get("ENGINE", "")
-        or Process.objects.count() <= 0
-    ):
-        sys.exit()
-
     # PROCESSES
-    with open(
-        join(
-            settings.GITROOT,
-            "public",
-            "data",
-            "textile",
-            "processes_impacts.json",
-        )
-    ) as f:
-        processes = json.load(f)
-        Process.objects.bulk_create(
-            [
-                Process(**delkey("bvi", delchar("-", flatten("impacts", deepcopy(p)))))
-                for p in processes
-            ]
-        )
+    if Process.objects.count() == 0:
+        with open(
+            join(
+                settings.GITROOT,
+                "public",
+                "data",
+                "textile",
+                "processes_impacts.json",
+            )
+        ) as f:
+            processes = json.load(f)
+            Process.objects.bulk_create(
+                [
+                    Process(
+                        **delkey("bvi", delchar("-", flatten("impacts", deepcopy(p))))
+                    )
+                    for p in processes
+                ]
+            )
+    else:
+        print("Processes already loaded")
 
     # MATERIALS
-    with open(
-        join(
-            settings.GITROOT,
-            "public",
-            "data",
-            "textile",
-            "materials.json",
-        )
-    ) as f:
-        materials = json.load(f)
-        # all fields except the foreignkeys
-        Material.objects.bulk_create(
-            [
-                Material(
-                    **delkey(
-                        "recycledFrom",
-                        delkey(
-                            "materialProcessUuid",
+    if Material.objects.count() == 0:
+        with open(
+            join(
+                settings.GITROOT,
+                "public",
+                "data",
+                "textile",
+                "materials.json",
+            )
+        ) as f:
+            materials = json.load(f)
+            # all fields except the foreignkeys
+            Material.objects.bulk_create(
+                [
+                    Material(
+                        **delkey(
+                            "recycledFrom",
                             delkey(
-                                "recycledProcessUuid",
-                                delkey("primary", flatten("cff", deepcopy(m))),
+                                "materialProcessUuid",
+                                delkey(
+                                    "recycledProcessUuid",
+                                    delkey("primary", flatten("cff", deepcopy(m))),
+                                ),
                             ),
-                        ),
+                        )
                     )
+                    for m in materials
+                ]
+            )
+            # update with recycledFrom
+            mobjects = [Material.objects.get(pk=m["id"]) for m in materials]
+            recycledFroms = {m["id"]: m.get("recycledFrom") for m in materials}
+            materialProcesses = {
+                m["id"]: m.get("materialProcessUuid") for m in materials
+            }
+            recycledProcesses = {
+                m["id"]: m.get("recycledProcessUuid") for m in materials
+            }
+            for m in mobjects:
+                m.recycledFrom = (
+                    Material.objects.get(pk=recycledFroms[m.id])
+                    if recycledFroms[m.id]
+                    else None
                 )
-                for m in materials
-            ]
-        )
-        # update with recycledFrom
-        mobjects = [Material.objects.get(pk=m["id"]) for m in materials]
-        recycledFroms = {m["id"]: m.get("recycledFrom") for m in materials}
-        materialProcesses = {m["id"]: m.get("materialProcessUuid") for m in materials}
-        recycledProcesses = {m["id"]: m.get("recycledProcessUuid") for m in materials}
-        for m in mobjects:
-            m.recycledFrom = (
-                Material.objects.get(pk=recycledFroms[m.id])
-                if recycledFroms[m.id]
-                else None
+                m.materialProcessUuid = (
+                    Process.objects.get(pk=materialProcesses[m.id])
+                    if materialProcesses[m.id]
+                    else None
+                )
+                m.recycledProcessUuid = (
+                    Process.objects.get(pk=recycledProcesses[m.id])
+                    if recycledProcesses[m.id]
+                    else None
+                )
+            Material.objects.bulk_update(
+                mobjects, ["recycledFrom", "materialProcessUuid", "recycledProcessUuid"]
             )
-            m.materialProcessUuid = (
-                Process.objects.get(pk=materialProcesses[m.id])
-                if materialProcesses[m.id]
-                else None
-            )
-            m.recycledProcessUuid = (
-                Process.objects.get(pk=recycledProcesses[m.id])
-                if recycledProcesses[m.id]
-                else None
-            )
-        Material.objects.bulk_update(
-            mobjects, ["recycledFrom", "materialProcessUuid", "recycledProcessUuid"]
-        )
+    else:
+        print("Materials already loaded")
 
     # PRODUCTS
-    with open(
-        join(
-            settings.GITROOT,
-            "public",
-            "data",
-            "textile",
-            "products.json",
-        )
-    ) as f:
-        products = json.load(f)
-        Product.objects.bulk_create(
-            [
-                Product(
-                    **flatten(
-                        "endOfLife",
-                        flatten(
-                            "use",
+    if Product.objects.count() == 0:
+        with open(
+            join(
+                settings.GITROOT,
+                "public",
+                "data",
+                "textile",
+                "products.json",
+            )
+        ) as f:
+            products = json.load(f)
+            Product.objects.bulk_create(
+                [
+                    Product(
+                        **flatten(
+                            "endOfLife",
                             flatten(
-                                "making",
+                                "use",
                                 flatten(
-                                    "dyeing",
+                                    "making",
                                     flatten(
-                                        "economics",
-                                        delkey(
-                                            "use.nonIroningProcessUuid", deepcopy(p)
+                                        "dyeing",
+                                        flatten(
+                                            "economics",
+                                            delkey(
+                                                "use.nonIroningProcessUuid", deepcopy(p)
+                                            ),
                                         ),
                                     ),
                                 ),
                             ),
-                        ),
+                        )
                     )
-                )
-                for p in products
-            ]
-        )
-    pobjects = [Product.objects.get(pk=p["id"]) for p in products]
-    nonIroningProcesses = {p["id"]: p["use"]["nonIroningProcessUuid"] for p in products}
-    for p in pobjects:
-        p.nonIroningProcessUuid = Process.objects.get(pk=nonIroningProcesses[p.id])
-    Product.objects.bulk_update(pobjects, ["nonIroningProcessUuid"])
+                    for p in products
+                ]
+            )
+        pobjects = [Product.objects.get(pk=p["id"]) for p in products]
+        nonIroningProcesses = {
+            p["id"]: p["use"]["nonIroningProcessUuid"] for p in products
+        }
+        for p in pobjects:
+            p.nonIroningProcessUuid = Process.objects.get(pk=nonIroningProcesses[p.id])
+        Product.objects.bulk_update(pobjects, ["nonIroningProcessUuid"])
+    else:
+        print("Products already loaded")
 
     # EXAMPLES
-    with open(
-        join(
-            settings.GITROOT,
-            "public",
-            "data",
-            "textile",
-            "examples.json",
-        )
-    ) as f:
-        examples = json.load(f)
-        # all fields except the foreignkeys
-        Example.objects.bulk_create(
-            [
-                Example(
-                    **delkey(
-                        "materials",
-                        delkey(
-                            "fabricProcess",
-                            delkey("product", flatten("query", deepcopy(e))),
-                        ),
+    if Example.objects.count() == 0:
+        with open(
+            join(
+                settings.GITROOT,
+                "public",
+                "data",
+                "textile",
+                "examples.json",
+            )
+        ) as f:
+            examples = json.load(f)
+            # all fields except the foreignkeys
+            Example.objects.bulk_create(
+                [
+                    Example(
+                        **delkey(
+                            "materials",
+                            delkey(
+                                "fabricProcess",
+                                delkey("product", flatten("query", deepcopy(e))),
+                            ),
+                        )
                     )
-                )
-                for e in examples
-            ]
-        )
-        # update with product, materials and fabricProcess
-        eobjects = [Example.objects.get(pk=m["id"]) for m in examples]
-        products = {e["id"]: e["query"]["product"] for e in examples}
-        mobjects = [Material.objects.get(pk=m["id"]) for m in materials]
-        fabricProcesses = {m["id"]: m["query"]["fabricProcess"] for m in examples}
-        for e in eobjects:
-            e.product = Product.objects.get(pk=products[e.id])
-            e.fabricProcess = Process.objects.get(alias=fabricProcesses[e.id])
-        for example in examples:
-            for share in example["query"]["materials"]:
-                Share.objects.create(
-                    example=Example.objects.get(pk=example["id"]),
-                    material=Material.objects.get(pk=share["id"]),
-                    share=share["share"],
-                )
-        Example.objects.bulk_update(eobjects, ["product", "fabricProcess"])
+                    for e in examples
+                ]
+            )
+            # update with product, materials and fabricProcess
+            eobjects = [Example.objects.get(pk=m["id"]) for m in examples]
+            products = {e["id"]: e["query"]["product"] for e in examples}
+            mobjects = [Material.objects.get(pk=m["id"]) for m in materials]
+            fabricProcesses = {m["id"]: m["query"]["fabricProcess"] for m in examples}
+            for e in eobjects:
+                e.product = Product.objects.get(pk=products[e.id])
+                e.fabricProcess = Process.objects.get(alias=fabricProcesses[e.id])
+            for example in examples:
+                for share in example["query"]["materials"]:
+                    Share.objects.create(
+                        example=Example.objects.get(pk=example["id"]),
+                        material=Material.objects.get(pk=share["id"]),
+                        share=share["share"],
+                    )
+            Example.objects.bulk_update(eobjects, ["product", "fabricProcess"])
+    else:
+        print("Examples already loaded")
