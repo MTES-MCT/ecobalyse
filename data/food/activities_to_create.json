@@ -388,5 +388,15 @@
     "replace": {
       "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "soybean grain dried stored and transported processing FR"
     }
+  },
+  {
+    "id": "cherry-without-aza",
+    "search_in": "Ginko",
+    "search": "Cherry, organic 2023, national average, at orchard {FR} U",
+    "suffix": "[without-aza]",
+    "subactivities": ["Cherry, full production, organic 2023, national average, at orchard {FR} U"],
+    "replace": {
+      "Azadirachtin, at plant - {GLO}": ""
+    }
   }
 ]
