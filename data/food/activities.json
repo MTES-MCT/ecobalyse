@@ -4477,7 +4477,7 @@
     "id": "cherry-organic",
     "name": "Cerise bio (sortie de ferme)",
     "database": "Ginko",
-    "search": "Cherry, organic 2023, national average, at orchard {FR}",
+    "search": "Cherry, organic 2023, national average, at orchard without AZA",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
     "default_origin": "France",
