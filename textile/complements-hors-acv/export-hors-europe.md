@@ -118,7 +118,7 @@ Les valeurs ProbaDéchet par type de fibre sont calculés sur la base de 3 hypot
 
 2\) Les vêtements exportés hors Europe se composent à 61% de vêtements composés de fibres synthétiques vs 39% de vêtements composés d'autres matières (Source[^4] = marché mondial des fibres textile),
 
-3\) les vêtements composés de matières synthétiques ont 60% de chance de ne pas être réutilisés (dont la probabilité des vêtements composés de matières non synthétiques d'être non réutilisés est de 34% afin de retrouver une probabilité moyenne de 50%). &#x20;
+3\) les vêtements composés de matières synthétiques ont 60% de chance de ne pas être réutilisés (donc la probabilité des vêtements composés de matières non synthétiques d'être non réutilisés est de 34% afin de retrouver une probabilité moyenne de 50%). &#x20;
 {% endhint %}
 
 ## Calcul du complément "Export hors Europe"
