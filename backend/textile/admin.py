@@ -23,7 +23,6 @@ class MaterialsInline(admin.TabularInline):
 class MaterialAdmin(admin.ModelAdmin):
     save_on_top = True
     search_fields = ["name"]
-    # inlines = [MaterialsInline]
 
 
 class ProcessAdmin(admin.ModelAdmin):
@@ -44,6 +43,62 @@ class ExampleAdmin(admin.ModelAdmin):
     inlines = [MaterialsInline]
     change_list_template = "admin/textile/example/change_list.html"
     save_on_top = True
+    fieldsets = [
+        (None, {"fields": ["id", "name", "mass"]}),
+        (
+            "Durabilité non-physique",
+            {
+                "fields": [
+                    "product",
+                    "numberOfReferences",
+                    "price",
+                    "marketingDuration",
+                    "business",
+                    "traceability",
+                    "repairCost",
+                ],
+                "description": "Paramètres de durabilité non-physique. Voir la <a href='https://fabrique-numerique.gitbook.io/ecobalyse/textile/durabilite'>Documentation</a>",
+            },
+        ),
+        (
+            "Filature",
+            {
+                "fields": [
+                    "countrySpinning",
+                ],
+                "description": "<a href='https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new'>Documentation</a>",
+            },
+        ),
+        (
+            "Fabrication",
+            {
+                "fields": [
+                    "fabricProcess",
+                    "countryFabric",
+                ],
+                "description": "<a href='https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/etape-2-fabrication-du-fil'>Documentation</a>",
+            },
+        ),
+        (
+            "Confection",
+            {
+                "fields": [
+                    "airTransportRatio",
+                    "countryMaking",
+                ],
+                "description": "<a href='https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/confection'>Documentation</a>",
+            },
+        ),
+        (
+            "Ennoblissement",
+            {
+                "fields": [
+                    "countryDyeing",
+                ],
+                "description": "<a href='https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/ennoblissement'>Documentation</a>",
+            },
+        ),
+    ]
 
     def get_urls(self):
         return [

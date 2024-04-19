@@ -2,6 +2,7 @@ import json
 from copy import deepcopy
 
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from .choices import (
     BUSINESSES,
@@ -342,21 +343,42 @@ class Example(models.Model):
 
     mass = models.FloatField()
     materials = models.ManyToManyField(Material, through="Share")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
-    # fields of products (?)
-    business = models.CharField(max_length=50, choices=BUSINESSES)
-    marketingDuration = models.FloatField(null=True)
-    numberOfReferences = models.IntegerField(null=True)
-    price = models.FloatField(null=True)
-    repairCost = models.FloatField(null=True, blank=True)
-    traceability = models.BooleanField(null=True)
-    airTransportRatio = models.FloatField(null=True)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, null=True, verbose_name=_("Category")
+    )
+    business = models.CharField(
+        max_length=50, choices=BUSINESSES, verbose_name=_("Company type")
+    )
+    marketingDuration = models.FloatField(
+        null=True, verbose_name=_("Marketing Duration")
+    )
+    numberOfReferences = models.IntegerField(
+        null=True, verbose_name=_("Number Of References")
+    )
+    price = models.FloatField(null=True, verbose_name=_("Price"))
+    repairCost = models.FloatField(null=True, blank=True, verbose_name=_("Repair Cost"))
+    traceability = models.BooleanField(
+        null=True, verbose_name=_("Traceability Displayed?")
+    )
+    airTransportRatio = models.FloatField(
+        null=True, verbose_name=_("Air Transport Ratio")
+    )
 
-    countrySpinning = models.CharField(max_length=50, choices=COUNTRIES)
-    countryFabric = models.CharField(max_length=50, choices=COUNTRIES)
-    countryDyeing = models.CharField(max_length=50, choices=COUNTRIES)
-    countryMaking = models.CharField(max_length=50, choices=COUNTRIES)
-    fabricProcess = models.ForeignKey(Process, on_delete=models.CASCADE, null=True)
+    countrySpinning = models.CharField(
+        max_length=50, choices=COUNTRIES, verbose_name=_("Spinning Country")
+    )
+    countryFabric = models.CharField(
+        max_length=50, choices=COUNTRIES, verbose_name=_("Fabric Country")
+    )
+    countryDyeing = models.CharField(
+        max_length=50, choices=COUNTRIES, verbose_name=_("Country Of Dyeing")
+    )
+    countryMaking = models.CharField(
+        max_length=50, choices=COUNTRIES, verbose_name=_("Country Of Manufacture")
+    )
+    fabricProcess = models.ForeignKey(
+        Process, on_delete=models.CASCADE, null=True, verbose_name=_("Fabric Process")
+    )
 
     def __str__(self):
         return self.name
@@ -447,6 +469,9 @@ class Example(models.Model):
 
 class Share(models.Model):
     """m2m relation of Example with an extra field"""
+
+    class Meta:
+        verbose_name_plural = _("Materials")
 
     example = models.ForeignKey(Example, on_delete=models.CASCADE)
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
