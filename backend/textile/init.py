@@ -1,5 +1,4 @@
 import json
-from copy import deepcopy
 from os.path import join
 
 from django.conf import settings
@@ -9,9 +8,6 @@ from textile.models import (
     Material,
     Process,
     Product,
-    delchar,
-    delkey,
-    flatten,
 )
 
 TEXTILE_PATH = join(settings.GITROOT, "public", "data", "textile")
@@ -23,15 +19,7 @@ def init():
     # PROCESSES
     if Process.objects.count() == 0:
         with open(join(TEXTILE_PATH, "processes_impacts.json")) as f:
-            processes = json.load(f)
-            Process.objects.bulk_create(
-                [
-                    Process(
-                        **delkey("bvi", delchar("-", flatten("impacts", deepcopy(p))))
-                    )
-                    for p in processes
-                ]
-            )
+            Process.objects.bulk_create([Process._fromJSON(p) for p in json.load(f)])
     else:
         print("Processes already loaded")
 
@@ -39,52 +27,13 @@ def init():
     if Material.objects.count() == 0:
         with open(join(TEXTILE_PATH, "materials.json")) as f:
             materials = json.load(f)
-            # all fields except the foreignkeys
-            Material.objects.bulk_create(
-                [
-                    Material(
-                        **delkey(
-                            "recycledFrom",
-                            delkey(
-                                "materialProcessUuid",
-                                delkey(
-                                    "recycledProcessUuid",
-                                    delkey("primary", flatten("cff", deepcopy(m))),
-                                ),
-                            ),
-                        )
-                    )
-                    for m in materials
-                ]
-            )
-            # update with recycledFrom
-            mobjects = [Material.objects.get(pk=m["id"]) for m in materials]
-            recycledFroms = {m["id"]: m.get("recycledFrom") for m in materials}
-            materialProcesses = {
-                m["id"]: m.get("materialProcessUuid") for m in materials
-            }
-            recycledProcesses = {
-                m["id"]: m.get("recycledProcessUuid") for m in materials
-            }
-            for m in mobjects:
-                m.recycledFrom = (
-                    Material.objects.get(pk=recycledFroms[m.id])
-                    if recycledFroms[m.id]
-                    else None
-                )
-                m.materialProcessUuid = (
-                    Process.objects.get(pk=materialProcesses[m.id])
-                    if materialProcesses[m.id]
-                    else None
-                )
-                m.recycledProcessUuid = (
-                    Process.objects.get(pk=recycledProcesses[m.id])
-                    if recycledProcesses[m.id]
-                    else None
-                )
-            Material.objects.bulk_update(
-                mobjects, ["recycledFrom", "materialProcessUuid", "recycledProcessUuid"]
-            )
+            Material.objects.bulk_create([Material._fromJSON(m) for m in materials])
+            # update with recursive FKs
+            for material in materials:
+                if material["recycledFrom"]:
+                    m = Material.objects.get(pk=material["id"])
+                    m.recycledFrom = Material.objects.get(pk=material["recycledFrom"])
+                m.save()
     else:
         print("Materials already loaded")
 

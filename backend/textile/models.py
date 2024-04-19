@@ -95,6 +95,13 @@ class Process(models.Model):
         return self.name
 
     @classmethod
+    def _fromJSON(self, process):
+        """Takes a json of a process, returns a Process instance"""
+        return Process(
+            **delkey("bvi", delchar("-", flatten("impacts", deepcopy(process))))
+        )
+
+    @classmethod
     def allToJSON(cls):
         return json.dumps(
             [
@@ -270,6 +277,33 @@ class Material(models.Model):
 
     def __str__(self):
         return self.name
+
+    @classmethod
+    def _fromJSON(self, material):
+        """takes a json of a material, returns a Material instance, without recursive FK"""
+        m = Material(
+            **delkey(
+                "recycledFrom",
+                delkey(
+                    "materialProcessUuid",
+                    delkey(
+                        "recycledProcessUuid",
+                        delkey("primary", flatten("cff", deepcopy(material))),
+                    ),
+                ),
+            )
+        )
+        if material["materialProcessUuid"]:
+            m.materialProcessUuid = Process.objects.get(
+                pk=material["materialProcessUuid"]
+            )
+        if material["recycledProcessUuid"]:
+            m.recycledProcessUuid = Process.objects.get(
+                pk=material["recycledProcessUuid"]
+            )
+        # if material["recycledFrom"]:
+        #    m.recycledFrom = Material.objects.get(pk=material["recycledFrom"])
+        return m
 
     @classmethod
     def allToJSON(cls):
