@@ -1,5 +1,6 @@
 import json
 
+from backend.admin import admin_site
 from django import forms
 from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
@@ -7,7 +8,6 @@ from django.shortcuts import render
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
-from backend.admin import admin_site
 from textile.models import Example, Material, Process, Product
 
 
@@ -43,7 +43,11 @@ class ExampleAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         return [
-            path("from-json/", self.from_json, name="from-json")
+            path(
+                "from-json/",
+                self.admin_site.admin_view(self.from_json),
+                name="from-json",
+            )
         ] + super().get_urls()
 
     def from_json(self, request):
