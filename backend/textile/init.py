@@ -1,47 +1,18 @@
 import json
-import sys
 from copy import deepcopy
 from os.path import join
 
 from django.conf import settings
 
-from textile.models import Example, Material, Process, Product, Share
-
-
-def flatten(field, record):
-    """take a record and flatten the given fields
-    >>> flatten('b', {a: 1, b: {c: 2, d: 3}})
-    {a: 1, c: 2, d: 3}
-    """
-    if field in record:
-        if record.get(field):
-            record.update(record[field])
-        del record[field]
-
-    return record
-
-
-def delchar(char, record):
-    """remove invalid char from dict keys
-    >>> delchar('-', {htn-c: 0, htc-c: 0})
-    {htnc: 0, htcc: 0}
-    """
-    return {k.replace(char, ""): v for k, v in record.items()}
-
-
-def delkey(key, record):
-    """remove key from dict. The key may be dotted to delete a subfield:
-    >>> delkey('a.b', {'a': {'b': 1, 'c': 2}})
-    'a': {'c': 2}}
-    """
-    k = key.split(".")[-1]
-    path = list(reversed(key.split(".")[:-1]))
-    d = record
-    while len(path):
-        d = d.get(path.pop())
-    if k in d:
-        del d[k]
-    return record
+from textile.models import (
+    Example,
+    Material,
+    Process,
+    Product,
+    delchar,
+    delkey,
+    flatten,
+)
 
 
 def init():
@@ -190,36 +161,12 @@ def init():
             )
         ) as f:
             examples = json.load(f)
-            # all fields except the foreignkeys
-            Example.objects.bulk_create(
-                [
-                    Example(
-                        **delkey(
-                            "materials",
-                            delkey(
-                                "fabricProcess",
-                                delkey("product", flatten("query", deepcopy(e))),
-                            ),
-                        )
-                    )
-                    for e in examples
-                ]
-            )
-            # update with product, materials and fabricProcess
-            eobjects = [Example.objects.get(pk=m["id"]) for m in examples]
-            products = {e["id"]: e["query"]["product"] for e in examples}
-            mobjects = [Material.objects.get(pk=m["id"]) for m in materials]
-            fabricProcesses = {m["id"]: m["query"]["fabricProcess"] for m in examples}
-            for e in eobjects:
-                e.product = Product.objects.get(pk=products[e.id])
-                e.fabricProcess = Process.objects.get(alias=fabricProcesses[e.id])
-            for example in examples:
-                for share in example["query"]["materials"]:
-                    Share.objects.create(
-                        example=Example.objects.get(pk=example["id"]),
-                        material=Material.objects.get(pk=share["id"]),
-                        share=share["share"],
-                    )
-            Example.objects.bulk_update(eobjects, ["product", "fabricProcess"])
+            # all fields except the m2m
+            Example.objects.bulk_create([Example._fromJSON(e) for e in examples])
+            # create the m2m intermediary records
+            for e in examples:
+                for s in e["query"]["materials"]:
+                    Example.objects.get(pk=e["id"]).add_material(s)
+            Example
     else:
         print("Examples already loaded")

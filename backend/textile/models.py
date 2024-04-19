@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 
 from django.db import models
 
@@ -13,6 +14,43 @@ from .choices import (
     STEPUSAGES,
     UNITS,
 )
+
+
+def flatten(field, record):
+    """take a record and flatten the given fields
+    >>> flatten('b', {a: 1, b: {c: 2, d: 3}})
+    {a: 1, c: 2, d: 3}
+    """
+    if field in record:
+        if record.get(field):
+            record.update(record[field])
+        del record[field]
+
+    return record
+
+
+def delchar(char, record):
+    """remove invalid char from dict keys
+    >>> delchar('-', {htn-c: 0, htc-c: 0})
+    {htnc: 0, htcc: 0}
+    """
+    return {k.replace(char, ""): v for k, v in record.items()}
+
+
+def delkey(key, record):
+    """remove key from dict. The key may be dotted to delete a subfield:
+    >>> delkey('a.b', {'a': {'b': 1, 'c': 2}})
+    'a': {'c': 2}}
+    """
+    k = key.split(".")[-1]
+    path = list(reversed(key.split(".")[:-1]))
+    d = record
+    while len(path):
+        d = d.get(path.pop())
+    if k in d:
+        del d[k]
+    return record
+
 
 # textile
 
@@ -57,7 +95,7 @@ class Process(models.Model):
         return self.name
 
     @classmethod
-    def toJson(cls):
+    def allToJSON(cls):
         return json.dumps(
             [
                 {
@@ -139,7 +177,7 @@ class Product(models.Model):
         return self.name
 
     @classmethod
-    def toJson(cls):
+    def allToJSON(cls):
         return json.dumps(
             [
                 {
@@ -207,7 +245,7 @@ class Material(models.Model):
         return self.name
 
     @classmethod
-    def toJson(cls):
+    def allToJSON(cls):
         return json.dumps(
             [
                 {
@@ -259,7 +297,32 @@ class Example(models.Model):
         return self.name
 
     @classmethod
-    def toJson(cls):
+    def _fromJSON(self, example):
+        """takes a json of an example, return an instance of Example"""
+        # all fields except the foreignkeys
+        e = Example(
+            **delkey(
+                "materials",
+                delkey(
+                    "fabricProcess",
+                    delkey("product", flatten("query", deepcopy(example))),
+                ),
+            )
+        )
+        e.product = Product.objects.get(pk=example["query"]["product"])
+        e.fabricProcess = Process.objects.get(alias=example["query"]["fabricProcess"])
+        return e
+
+    def add_material(self, share):
+        """Add a Material to the example"""
+        Share.objects.create(
+            material=Material.objects.get(pk=share["id"]),
+            share=share["share"],
+            example=self,
+        )
+
+    @classmethod
+    def allToJSON(cls):
         examples = (
             cls.objects.all()
             .prefetch_related("materials")
