@@ -31,8 +31,12 @@ class ProcessAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
-class ExampleJSONForm(forms.Form):
-    example = forms.JSONField()
+class ExampleJSONForm(forms.ModelForm):
+    class Meta:
+        model = Example
+        fields = ["id", "name", "category"]
+
+    query = forms.JSONField()
 
 
 class ExampleAdmin(admin.ModelAdmin):
@@ -55,7 +59,12 @@ class ExampleAdmin(admin.ModelAdmin):
         if request.method == "POST":
             form = ExampleJSONForm(request.POST)
             if form.is_valid():
-                json_example = json.loads(request.POST["example"])
+                json_example = {
+                    "id": request.POST["id"],
+                    "name": request.POST["name"],
+                    "category": request.POST["category"],
+                    "query": json.loads(request.POST["query"]),
+                }
                 try:
                     example = Example._fromJSON(json_example)
                     example.save()
