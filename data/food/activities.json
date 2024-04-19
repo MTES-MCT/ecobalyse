@@ -5,7 +5,10 @@
     "database": "Agribalyse 3.1.1",
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "category": "ingredient",
-    "categories": ["animal_product", "bleublanccoeur"],
+    "categories": [
+      "animal_product",
+      "bleublanccoeur"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.974,
     "density": 1.0,
@@ -26,7 +29,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cow milk national average at farm gate",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -47,7 +52,10 @@
     "database": "Ecobalyse",
     "search": "cow milk organic national average",
     "category": "ingredient",
-    "categories": ["dairy_product", "organic"],
+    "categories": [
+      "dairy_product",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -68,7 +76,10 @@
     "database": "Ginko",
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -84,7 +95,9 @@
     "name": "Farine",
     "search": "Wheat flour at industrial mill",
     "category": "ingredient",
-    "categories": ["grain_processed"],
+    "categories": [
+      "grain_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -102,7 +115,10 @@
     "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
     "category": "ingredient",
-    "categories": ["grain_processed", "organic"],
+    "categories": [
+      "grain_processed",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -119,7 +135,10 @@
     "database": "Ginko",
     "search": "Sunflower grain, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -136,7 +155,10 @@
     "name": "Tournesol bio",
     "search": "Sunflower, organic, animal feed, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -154,7 +176,10 @@
     "database": "Agribalyse 3.1.1",
     "search": "Winter rapeseed, organic, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -171,7 +196,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
     "density": 1.0,
@@ -192,7 +219,10 @@
     "database": "Ecobalyse",
     "search": "Ground beef fresh case ready for direct consumption at plant organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product", "organic"],
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
     "density": 1.0,
@@ -221,7 +251,9 @@
     "database": "Ecobalyse",
     "search": "Ground beef fresh case ready for direct consumption at plant feedlot, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1.0,
@@ -242,7 +274,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cooked ham case ready at plant",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -263,7 +297,10 @@
     "database": "Ecobalyse",
     "search": "Cooked ham case ready at plant organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product", "organic"],
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -284,7 +321,9 @@
     "database": "Ecobalyse",
     "search": "Cooked ham case ready at plant fr, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -305,7 +344,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Meat without bone chicken for direct consumption",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.755,
     "density": 1.0,
@@ -326,7 +367,10 @@
     "database": "Ecobalyse",
     "search": "Meat without bone chicken for direct consumption organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product", "organic"],
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.755,
     "density": 1.0,
@@ -347,7 +391,10 @@
     "database": "Ecobalyse",
     "search": "Meat without bone chicken for direct consumption \"fr-organic\" constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product", "organic"],
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.755,
     "density": 1.0,
@@ -367,7 +414,9 @@
     "name": "Huile de colza",
     "search": "Rapeseed oil mill {GLO}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -385,7 +434,10 @@
     "search": "Rapeseed oil mill {GLO} organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed", "organic"],
+    "categories": [
+      "nut_oilseed_processed",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -401,7 +453,9 @@
     "name": "Huile de tournesol",
     "search": "sunflower oil at mill {glo}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -419,7 +473,10 @@
     "search": "sunflower oil at mill {glo} organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed", "organic"],
+    "categories": [
+      "nut_oilseed_processed",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -436,7 +493,10 @@
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, organic, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -453,7 +513,10 @@
     "database": "Agribalyse 3.1.1",
     "search": "Peach, organic, national average, at orchard {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -470,7 +533,10 @@
     "database": "Agribalyse 3.1.1",
     "search": "Melon, organic, at farm gate FR",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -487,7 +553,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Butter, 82% fat, unsalted, at dairy {FR}",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -508,7 +576,10 @@
     "database": "Ecobalyse",
     "search": "Butter, 82% fat, unsalted, at dairy {FR} organic, constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["dairy_product", "organic"],
+    "categories": [
+      "dairy_product",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -649,7 +720,7 @@
     "category": "transport",
     "search": "Transport freight sea ship",
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 6.245968834e-5
+    "land_occupation": 6.245968834e-05
   },
   {
     "id": "plane",
@@ -696,7 +767,7 @@
     "transport_cooling": "none",
     "visible": true,
     "database": "Agribalyse 3.1.1",
-    "land_occupation": 2.10364488e-5
+    "land_occupation": 2.10364488e-05
   },
   {
     "id": "domestic-gas-heat",
@@ -711,7 +782,9 @@
     "name": "Comté AOP",
     "search": "code:b9b650a42442d76be26feb783620f123",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -728,7 +801,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "code:3d72c918ca829647072bab92542bb70e",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -749,7 +824,9 @@
     "name": "Mozzarella",
     "search": "code:5f9448ee99cd739447359929e9c869d3",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -766,7 +843,10 @@
     "database": "Ginko",
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -784,7 +864,10 @@
     "database": "Ginko",
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -802,7 +885,10 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, organic, Lower Normandy, at farm gate",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -819,7 +905,10 @@
     "database": "Agribalyse 3.1.1",
     "search": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -836,7 +925,9 @@
     "name": "Poivron sous serre non chauffée",
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.295,
@@ -853,7 +944,9 @@
     "name": "Soja FR",
     "search": "Soybean, national average, animal feed, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -870,7 +963,10 @@
     "name": "Soja FR bio",
     "search": "soybean organic animal {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -884,27 +980,31 @@
   },
   {
     "id": "soybean-br-no-deforestation",
-    "name": "Soja BR non déforestant",
-    "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent \t",
+    "name": "Soja BR (non déforestant)",
+    "database": "Agribalyse 3.1.1",
+    "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 2.475542131,
     "crop_group": "AUTRES OLEAGINEUX",
-    "scenario": "import"
+    "scenario": "import",
+    "land_occupation": 2.475542131
   },
   {
     "id": "soybean-br-deforestation",
     "name": "Soja BR déforestant",
     "search": "Soybean {BR}| market for soybean | Cut-off, U copied from Ecoinvent",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -921,7 +1021,9 @@
     "name": "Soja feed",
     "search": "Soybean grain dried, stored and transported, processing {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -939,7 +1041,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Sausage meat, raw, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
     "density": 1.0,
@@ -960,7 +1064,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Toulouse sausage, raw, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
     "density": 1.0,
@@ -981,7 +1087,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Toulouse sausage, cooked, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1016,7 +1124,9 @@
     "name": "Purée de tomates",
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -1033,7 +1143,9 @@
     "name": "Concentré de tomates",
     "search": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO}",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "density": 1,
@@ -1051,7 +1163,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Meat with bone, beef, for direct consumption",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
     "density": 1.0,
@@ -1072,7 +1186,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Meat without bone, beef, for direct consumption",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
     "density": 1.0,
@@ -1093,7 +1209,9 @@
     "search": "Meat without bone, beef, for direct consumption organic constructed",
     "database": "Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "density": 1,
@@ -1108,7 +1226,9 @@
     "name": "Semoule de blé dur",
     "search": "Durum wheat, semolina, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["grain_processed"],
+    "categories": [
+      "grain_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -1125,7 +1245,9 @@
     "name": "Sucre de betterave",
     "search": "sugar",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1142,7 +1264,9 @@
     "name": "Chocolat noir",
     "search": "chocolate dark",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1159,7 +1283,9 @@
     "database": "Ecobalyse",
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.755,
     "density": 1.0,
@@ -1181,7 +1307,9 @@
     "database": "Ecobalyse",
     "search": "Meat without bone chicken for direct consumption fr constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.755,
     "density": 1.0,
@@ -1202,7 +1330,9 @@
     "name": "Sucre de canne",
     "search": "brown sugar",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1219,7 +1349,9 @@
     "name": "Thé (feuilles)",
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
     "category": "ingredient",
-    "categories": ["misc"],
+    "categories": [
+      "misc"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1236,7 +1368,9 @@
     "name": "Café (moulu)",
     "search": "Coffee, roast and ground, at plant",
     "category": "ingredient",
-    "categories": ["misc"],
+    "categories": [
+      "misc"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1253,7 +1387,9 @@
     "name": "Poivre noir ",
     "search": "Black pepper, dried, consumption mix",
     "category": "ingredient",
-    "categories": ["spice_condiment_additive"],
+    "categories": [
+      "spice_condiment_additive"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1271,7 +1407,9 @@
     "name": "Poudre de lait écrémé",
     "search": "Milk, powder, skimmed, non rehydrated, at plant {FR} ",
     "category": "ingredient",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1286,7 +1424,9 @@
     "name": "Vin rouge",
     "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine PGi",
     "category": "ingredient",
-    "categories": ["misc"],
+    "categories": [
+      "misc"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1304,7 +1444,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Fresh shrimps, China production/FR U :",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.819,
     "density": 1.0,
@@ -1324,7 +1466,9 @@
     "name": "Truite d'élevage",
     "search": "Large trout, 2-4kg, conventional, at farm gate/FR U :",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.819,
     "density": 1.0,
@@ -1341,7 +1485,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.974,
     "density": 1.0,
@@ -1362,7 +1508,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Egg indoor cage",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.974,
     "density": 1.0,
@@ -1382,7 +1530,9 @@
     "name": "Oeuf plein air (code 1)",
     "search": "Egg, conventional, outdoor system, at farm gate/FR U :",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.974,
     "density": 1.0,
@@ -1399,7 +1549,10 @@
     "database": "Agribalyse 3.1.1",
     "search": "Egg organic at farm gate",
     "category": "ingredient",
-    "categories": ["animal_product", "organic"],
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.974,
     "density": 1.0,
@@ -1420,7 +1573,10 @@
     "database": "Ginko",
     "search": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1437,7 +1593,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Meat without bone lamb",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
     "density": 1.0,
@@ -1458,7 +1616,9 @@
     "database": "Ecobalyse",
     "search": "lamb organic",
     "category": "ingredient",
-    "categories": ["animal_product"],
+    "categories": [
+      "animal_product"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.792,
     "density": 1.0,
@@ -1479,7 +1639,10 @@
     "database": "Ginko",
     "search": "Pear, consumption mix, organic 2023 {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1497,7 +1660,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1514,7 +1679,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1531,7 +1698,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1548,7 +1717,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1565,7 +1736,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1582,7 +1755,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Pear, conventional, at orchard {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1599,7 +1774,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U {BE}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1616,7 +1793,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Peach, production mix, national average, at orchard {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1633,7 +1812,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1650,7 +1831,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Melon, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1667,7 +1850,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Melon, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1685,7 +1870,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1702,7 +1889,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -1719,7 +1908,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -1736,7 +1927,9 @@
     "search": "Wheat grain, feed {GLO}| market for | Cut-off",
     "database": "Agribalyse 3.1.1",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1.0,
@@ -1753,7 +1946,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Onion, national average, at farm FR",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -1770,7 +1965,9 @@
     "database": "Agribalyse 3.1.1",
     "search": " \tOnion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -1788,7 +1985,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -1805,7 +2004,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
@@ -1822,7 +2023,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.398,
@@ -1840,7 +2043,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "French bean, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
@@ -1857,7 +2062,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
@@ -1875,7 +2082,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.271,
@@ -1893,7 +2102,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1910,7 +2121,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1928,7 +2141,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -1946,7 +2161,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "annual vining pea conventional",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -1963,7 +2180,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "annual vining pea conventional",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -1981,7 +2200,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cherry, conventional, national average, at orchard {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1998,7 +2219,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -2016,7 +2239,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cherry, conventional, national average, at orchard ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2033,7 +2258,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2050,7 +2277,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2067,7 +2296,9 @@
     "database": "Agribalyse 3.1.1",
     "search": " \tZucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2084,7 +2315,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "code:b489582f34edd951efb90bb7e7225503",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2101,7 +2334,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2118,7 +2353,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2136,7 +2373,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2153,13 +2392,16 @@
     "database": "Agribalyse 3.1.1",
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.2,
     "transport_cooling": "always",
     "visible": true,
+    "explain": "ICV UE = ICV FR",
     "crop_group": "VERGERS",
     "scenario": "import",
     "land_occupation": 0.5918090797657374
@@ -2170,7 +2412,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -2188,7 +2432,9 @@
     "database": "Agribalyse 3.1.1",
     "search": " \tHazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -2206,7 +2452,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut, unshelled, at plant {IT} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -2224,7 +2472,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut, unshelled, at plant {TR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -2242,7 +2492,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2259,7 +2511,9 @@
     "database": "Ginko",
     "search": "Cauliflower, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2276,7 +2530,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.2355,
@@ -2293,7 +2549,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.2355,
@@ -2310,7 +2568,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Leek, national average, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -2327,7 +2587,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR} U \t",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -2344,7 +2606,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -2361,7 +2625,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -2378,7 +2644,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U ",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -2396,7 +2664,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2413,7 +2683,9 @@
     "database": "Ginko",
     "search": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2431,7 +2703,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cabbage white {RoW}| cabbage white production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2449,7 +2723,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2467,7 +2743,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2484,7 +2762,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2502,7 +2782,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Onion, national average, at farm {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -2519,7 +2801,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Orange, fresh grade, at farm {ES}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -2537,7 +2821,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Orange, fresh grade {ZA}| orange production, fresh grade",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -2555,7 +2841,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Olive {ES}| olive production | Cut-off, U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.447,
@@ -2573,7 +2861,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Rape seed {FR}| production",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2590,7 +2880,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Rapeseed, at farm {GLO}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2608,7 +2900,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Rapeseed, at farm {CA}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2622,11 +2916,13 @@
   },
   {
     "id": "pistachio-non-eu",
-    "name": "Pistache avec coque",
+    "name": "Pistache avec coque hors UE par défaut",
     "database": "Agribalyse 3.1.1",
     "search": "Peanut {CN}| peanut production",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -2644,7 +2940,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Peanut {IN}| peanut production",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -2662,7 +2960,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Extra Virgin Olive Oil consumption",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2679,7 +2979,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Avocado {GLO}| production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -2697,7 +2999,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} ",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -2714,7 +3018,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower at farm FR",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2732,7 +3038,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower, at farm {HU}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2750,7 +3058,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower, at farm {Glo}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -2768,7 +3078,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Kiwi FR, conventional, national average, at orchard {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2785,7 +3097,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Kiwi {GLO}| production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2802,7 +3116,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Kiwi {GLO}| production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2820,7 +3136,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Mango conventional Val de San Francisco at orchard",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2837,7 +3155,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Spinach {GLO}| production |",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -2855,7 +3175,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Fennel {GLO}| production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -2873,7 +3195,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Fennel {GLO}| production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -2891,7 +3215,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Broccoli {GLO}| production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.2355,
@@ -2909,7 +3235,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2927,7 +3255,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2945,7 +3275,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry for processing, open field, conventional, at farm gate {ES}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2963,7 +3295,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry for processing, open field, conventional, at farm gate {MA}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2981,7 +3315,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Banana, mixed production, West Indies, at farm gate {WI}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -2999,7 +3335,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Banana, at farm {GLO}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3017,7 +3355,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3035,7 +3375,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3053,7 +3395,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3071,7 +3415,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry, open field, conventional, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3089,7 +3435,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3107,7 +3455,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Celery {GLO}| 675 production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3125,7 +3475,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Celery {GLO}| 675 production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3143,7 +3495,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -3161,7 +3515,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {NL}| carrot production | Cut-off, U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -3179,7 +3535,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {RoW}| carrot production | Cut-off, U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -3197,7 +3555,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -3214,7 +3574,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -3232,7 +3594,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -3250,7 +3614,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -3267,7 +3633,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Mandarin {ES}| mandarin production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -3285,7 +3653,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -3303,7 +3673,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -3320,7 +3692,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -3337,7 +3711,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Winter pea, conventional, 15% moisture, at farm gate",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -3354,7 +3730,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -3372,7 +3750,10 @@
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["organic", "vegetable_fresh"],
+    "categories": [
+      "organic",
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -3390,7 +3771,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -3408,7 +3791,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Clementine, export quality, Souss, at orchard {MA}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -3426,7 +3811,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -3444,7 +3831,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production |",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -3462,7 +3851,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3479,7 +3870,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -3496,7 +3889,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -3513,7 +3908,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -3531,7 +3928,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Grain maize, organic, animal feed, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -3549,7 +3948,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -3567,7 +3968,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Pineapple, at farm {CR} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -3585,7 +3988,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -3603,7 +4008,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -3621,7 +4028,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Spinach GLO production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -3639,7 +4048,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Spinach GLO production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -3657,7 +4068,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -3675,7 +4088,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -3693,7 +4108,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -3711,7 +4128,10 @@
     "database": "Ecobalyse",
     "search": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "category": "ingredient",
-    "categories": ["grain_raw", "organic"],
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 1.0,
@@ -3728,7 +4148,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Soft wheat grain conventional national average animal feed at farm gate production",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 1.0,
@@ -3745,7 +4167,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1.0,
@@ -3763,7 +4187,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -3780,7 +4206,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -3798,7 +4226,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -3816,7 +4246,10 @@
     "database": "Ginko",
     "search": "Table apple, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["organic", "vegetable_fresh"],
+    "categories": [
+      "organic",
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3834,7 +4267,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Apple, conventional, national average, at orchard {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3851,7 +4286,10 @@
     "database": "Ginko",
     "search": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -3869,7 +4307,10 @@
     "database": "Ginko",
     "search": "Ware potato, organic 2023, for industrial use, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -3886,7 +4327,10 @@
     "database": "Ginko",
     "search": "Kiwi, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3904,7 +4348,10 @@
     "database": "Ginko",
     "search": "Red Cabbage, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -3922,7 +4369,10 @@
     "database": "Ginko",
     "search": "Sugar beet, organic 2023 {FR}| sugar beet production",
     "category": "ingredient",
-    "categories": ["vegetable_processed", "organic"],
+    "categories": [
+      "vegetable_processed",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -3939,7 +4389,10 @@
     "database": "Ginko",
     "search": "Papaya, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.447,
@@ -3957,7 +4410,10 @@
     "database": "Ginko",
     "search": "Fresh tomato, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -3975,7 +4431,9 @@
     "database": "Ginko",
     "search": "Pineapple, organic 2023 {GLO}| production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -3993,7 +4451,10 @@
     "database": "Ginko",
     "search": "Garden peas, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -4010,7 +4471,10 @@
     "database": "Ginko",
     "search": "Almonds, in shell, at farm, organic 2023 {CN}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -4028,7 +4492,10 @@
     "database": "Ginko",
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -4046,7 +4513,10 @@
     "database": "Ginko",
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4064,7 +4534,10 @@
     "database": "Ginko",
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4082,7 +4555,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Mango conventional Val de San Francisco at orchard",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4099,7 +4574,9 @@
     "name": "Avoine (GLO)",
     "search": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -4117,7 +4594,9 @@
     "name": "Avoine bio",
     "search": "Spring oats, organic, national average, at feed plant {FR}",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -4135,7 +4614,9 @@
     "name": "Orge",
     "search": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -4153,7 +4634,9 @@
     "name": "Orge bio",
     "search": "Barley, organic, animal feed, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -4172,7 +4655,9 @@
     "database": "Ginko",
     "search": "Banana, consumption mix, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4190,7 +4675,10 @@
     "database": "Ginko",
     "search": "Orange, fresh grade, at farm, organic 2023 {ES}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -4208,7 +4696,9 @@
     "database": "Ginko",
     "search": "Lemon, organic 2023 {ES}| lemon production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -4226,7 +4716,9 @@
     "database": "Ginko",
     "search": "Celery, organic 2023 {GLO}| 675 production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4243,7 +4735,10 @@
     "database": "Ginko",
     "search": "Olive, organic 2023 {ES}| olive production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.447,
@@ -4261,7 +4756,9 @@
     "database": "Ginko",
     "search": "Peanut, organic 2023 {RoW}| peanut production",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -4275,20 +4772,22 @@
   },
   {
     "id": "raspberry-organic",
-    "name": "Framboisee bio",
-    "database": "Ginko",
+    "name": "Framboise bio",
+    "database": "Agribalyse 3.1.1",
     "search": "Raspberry, at farm, organic 2023 {RS}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
     "inedible_part": 0.03,
     "transport_cooling": "always",
     "visible": true,
-    "explain": "icv bio = icv RS ginko + transport UE car pas de conv FR",
+    "explain": "icv bio = icv RS Gingko",
     "crop_group": "LEGUMES-FLEURS",
-    "scenario": "organic",
+    "scenario": "import",
     "land_occupation": 3.228532152901265
   },
   {
@@ -4297,7 +4796,10 @@
     "database": "Ginko",
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -4315,7 +4817,10 @@
     "database": "Ginko",
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -4333,7 +4838,10 @@
     "database": "Ginko",
     "search": "Durum wheat grain, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["grain_raw", "organic"],
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -4351,7 +4859,10 @@
     "database": "Ginko",
     "search": "Onion, national average, at farm, organic 2023 {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -4368,7 +4879,10 @@
     "database": "Ginko",
     "search": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati",
     "category": "ingredient",
-    "categories": ["grain_raw", "organic"],
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -4385,7 +4899,9 @@
     "name": "Orge (DE)",
     "search": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -4403,7 +4919,10 @@
     "name": "Triricale bio",
     "search": "Triticale, organic, animal feed, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["grain_raw", "organic"],
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -4421,7 +4940,9 @@
     "name": "Pois",
     "search": "Faba bean, grain stored and transported, processing {FR} U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -4439,7 +4960,10 @@
     "name": "Pois bio",
     "search": "Pea, organic, animal feed, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["grain_raw", "organic"],
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -4457,7 +4981,10 @@
     "name": "Luzerne bio",
     "search": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
     "category": "ingredient",
-    "categories": ["grain_raw", "organic"],
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1,
@@ -4475,7 +5002,10 @@
     "database": "Ginko",
     "search": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.6375,
@@ -4493,7 +5023,10 @@
     "database": "Ginko",
     "search": "Lentil, organic 2023 {RoW}",
     "category": "ingredient",
-    "categories": ["nut_oilseed_raw", "organic"],
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -4511,7 +5044,10 @@
     "database": "Ginko",
     "search": "Apricot, organic 2023 {FR}| apricot production",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4529,7 +5065,10 @@
     "database": "Ginko",
     "search": "Leek, national average, at plant, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -4547,7 +5086,10 @@
     "database": "Ginko",
     "search": "Cherry, organic 2023, national average, at orchard {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4565,7 +5107,10 @@
     "database": "Ginko",
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4583,7 +5128,10 @@
     "database": "Ginko",
     "search": "Onion, national average, at farm, organic 2023 {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -4601,7 +5149,10 @@
     "database": "Ginko",
     "search": "Blueberry, at farm, organic 2023 {CA}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4619,7 +5170,10 @@
     "database": "Ginko",
     "search": "Spinach, organic 2023 {GLO}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -4637,7 +5191,10 @@
     "database": "Ginko",
     "search": "Melon, organic 2023, national average, at farm gate {FR}",
     "category": "ingredient",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4655,7 +5212,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -4673,7 +5232,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -4690,7 +5251,9 @@
     "name": "Soja FR",
     "search": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB",
     "category": "ingredient",
-    "categories": ["grain_raw"],
+    "categories": [
+      "grain_raw"
+    ],
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -4744,7 +5307,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Palm oil, refined, processed in EU, at plant {RER} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0,
@@ -4762,7 +5327,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Linseed oil, refined, at oil mill { FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0,
@@ -4780,7 +5347,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Grapeseed oil, refined at plant {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0,
@@ -4798,7 +5367,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Soybean oil, refined, at plant  {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0,
@@ -4816,7 +5387,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut oil, crude, at plant {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0,
@@ -4834,7 +5407,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Peanut oil, at oil mill {SN} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0,
@@ -4852,7 +5427,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower oil, refined, low dehulling at plant {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0,
@@ -4870,7 +5447,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Rapeseed oil, refined, at oil mill {FR} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0,
@@ -4888,7 +5467,9 @@
     "database": "Agribalyse 3.1.1",
     "search": "Extra Virgin Olive Oil, at plant {ES} U",
     "category": "ingredient",
-    "categories": ["nut_oilseed_processed"],
+    "categories": [
+      "nut_oilseed_processed"
+    ],
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0,
