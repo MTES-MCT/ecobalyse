@@ -57,15 +57,3 @@ STEPUSAGES = {
         "Utilisation",
     ]
 }
-CATEGORIES = {
-    k: k
-    for k in [
-        "Chemise",
-        "Jean",
-        "Jupe / Robe",
-        "Manteau / Veste",
-        "Pantalon / Short",
-        "Pull / Couche intermédiaire",
-        "Tshirt / Polo",
-    ]
-}

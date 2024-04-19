@@ -34,7 +34,7 @@ class ProcessAdmin(admin.ModelAdmin):
 class ExampleJSONForm(forms.ModelForm):
     class Meta:
         model = Example
-        fields = ["id", "name", "category"]
+        fields = ["id", "name"]
 
     query = forms.JSONField()
 

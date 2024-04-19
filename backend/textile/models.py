@@ -5,7 +5,6 @@ from django.db import models
 
 from .choices import (
     BUSINESSES,
-    CATEGORIES,
     COUNTRIES,
     DYEINGMEDIA,
     FABRICS,
@@ -336,11 +335,13 @@ class Material(models.Model):
 class Example(models.Model):
     id = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=200)
-    category = models.CharField(max_length=50, choices=CATEGORIES)
+
+    @property
+    def category(self):
+        return self.product.name
+
     mass = models.FloatField()
-    materials = models.ManyToManyField(
-        Material, through="Share", related_name="examples"
-    )
+    materials = models.ManyToManyField(Material, through="Share")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     # fields of products (?)
     business = models.CharField(max_length=50, choices=BUSINESSES)
@@ -363,13 +364,19 @@ class Example(models.Model):
     @classmethod
     def _fromJSON(self, example):
         """takes a json of an example, return an instance of Example"""
-        # all fields except the foreignkeys
+        # all fields except some
         e = Example(
             **delkey(
-                "materials",
+                "materials",  # handled by add_material
                 delkey(
-                    "fabricProcess",
-                    delkey("product", flatten("query", deepcopy(example))),
+                    "category",  # computed from product
+                    delkey(
+                        "fabricProcess",  # added below
+                        delkey(
+                            "product",  # added below
+                            flatten("query", deepcopy(example)),
+                        ),
+                    ),
                 ),
             )
         )
