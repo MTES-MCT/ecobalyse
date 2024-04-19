@@ -177,6 +177,33 @@ class Product(models.Model):
         return self.name
 
     @classmethod
+    def _fromJSON(self, product):
+        """takes a json of a product, return an instance of Product"""
+        # all fields except the foreignkeys
+        p = Product(
+            **flatten(
+                "endOfLife",
+                flatten(
+                    "use",
+                    flatten(
+                        "making",
+                        flatten(
+                            "dyeing",
+                            flatten(
+                                "economics",
+                                delkey("use.nonIroningProcessUuid", deepcopy(product)),
+                            ),
+                        ),
+                    ),
+                ),
+            )
+        )
+        p.nonIroningProcessUuid = Process.objects.get(
+            pk=product["use"]["nonIroningProcessUuid"]
+        )
+        return p
+
+    @classmethod
     def allToJSON(cls):
         return json.dumps(
             [

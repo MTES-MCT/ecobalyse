@@ -1,6 +1,5 @@
 import json
 
-from backend.admin import admin_site
 from django import forms
 from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
@@ -8,6 +7,7 @@ from django.shortcuts import render
 from django.urls import path
 from django.utils.translation import gettext_lazy as _
 
+from backend.admin import admin_site
 from textile.models import Example, Material, Process, Product
 
 

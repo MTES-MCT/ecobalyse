@@ -14,21 +14,15 @@ from textile.models import (
     flatten,
 )
 
+TEXTILE_PATH = join(settings.GITROOT, "public", "data", "textile")
+
 
 def init():
     """populate the db with initial admins and public json data"""
 
     # PROCESSES
     if Process.objects.count() == 0:
-        with open(
-            join(
-                settings.GITROOT,
-                "public",
-                "data",
-                "textile",
-                "processes_impacts.json",
-            )
-        ) as f:
+        with open(join(TEXTILE_PATH, "processes_impacts.json")) as f:
             processes = json.load(f)
             Process.objects.bulk_create(
                 [
@@ -43,15 +37,7 @@ def init():
 
     # MATERIALS
     if Material.objects.count() == 0:
-        with open(
-            join(
-                settings.GITROOT,
-                "public",
-                "data",
-                "textile",
-                "materials.json",
-            )
-        ) as f:
+        with open(join(TEXTILE_PATH, "materials.json")) as f:
             materials = json.load(f)
             # all fields except the foreignkeys
             Material.objects.bulk_create(
@@ -104,62 +90,21 @@ def init():
 
     # PRODUCTS
     if Product.objects.count() == 0:
-        with open(
-            join(
-                settings.GITROOT,
-                "public",
-                "data",
-                "textile",
-                "products.json",
-            )
-        ) as f:
+        with open(join(TEXTILE_PATH, "products.json")) as f:
             products = json.load(f)
-            Product.objects.bulk_create(
-                [
-                    Product(
-                        **flatten(
-                            "endOfLife",
-                            flatten(
-                                "use",
-                                flatten(
-                                    "making",
-                                    flatten(
-                                        "dyeing",
-                                        flatten(
-                                            "economics",
-                                            delkey(
-                                                "use.nonIroningProcessUuid", deepcopy(p)
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                        )
-                    )
-                    for p in products
-                ]
+            # product without FK
+            Product.objects.bulk_create([Product._fromJSON(p) for p in products])
+        for p in products:
+            # update with FK
+            Product.objects.get(pk=p["id"]).nonIroningProcessUuid = Process.objects.get(
+                pk=p["use"]["nonIroningProcessUuid"]
             )
-        pobjects = [Product.objects.get(pk=p["id"]) for p in products]
-        nonIroningProcesses = {
-            p["id"]: p["use"]["nonIroningProcessUuid"] for p in products
-        }
-        for p in pobjects:
-            p.nonIroningProcessUuid = Process.objects.get(pk=nonIroningProcesses[p.id])
-        Product.objects.bulk_update(pobjects, ["nonIroningProcessUuid"])
     else:
         print("Products already loaded")
 
     # EXAMPLES
     if Example.objects.count() == 0:
-        with open(
-            join(
-                settings.GITROOT,
-                "public",
-                "data",
-                "textile",
-                "examples.json",
-            )
-        ) as f:
+        with open(join(TEXTILE_PATH, "examples.json")) as f:
             examples = json.load(f)
             # all fields except the m2m
             Example.objects.bulk_create([Example._fromJSON(e) for e in examples])
