@@ -81,7 +81,7 @@
   },
   {
     "id": "flour",
-    "name": "Farine (sortie de moulin)",
+    "name": "Farine",
     "search": "Wheat flour at industrial mill",
     "category": "ingredient",
     "categories": ["grain_processed"],
@@ -98,7 +98,7 @@
   },
   {
     "id": "flour-organic",
-    "name": "Farine bio (sortie de moulin)",
+    "name": "Farine bio",
     "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
     "category": "ingredient",
@@ -364,7 +364,7 @@
   },
   {
     "id": "rapeseed-oil",
-    "name": "Huile de colza (sortie de moulin)",
+    "name": "Huile de colza",
     "search": "Rapeseed oil mill {GLO}",
     "category": "ingredient",
     "categories": ["nut_oilseed_processed"],
@@ -381,7 +381,7 @@
   },
   {
     "id": "rapeseed-oil-organic",
-    "name": "Huile de colza bio (sortie de moulin)",
+    "name": "Huile de colza bio",
     "search": "Rapeseed oil mill {GLO} organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
     "category": "ingredient",
@@ -398,7 +398,7 @@
   },
   {
     "id": "sunflower-oil",
-    "name": "Huile de tournesol (sortie de moulin)",
+    "name": "Huile de tournesol",
     "search": "sunflower oil at mill {glo}",
     "category": "ingredient",
     "categories": ["nut_oilseed_processed"],
@@ -415,7 +415,7 @@
   },
   {
     "id": "sunflower-oil-organic",
-    "name": "Huile de tournesol bio (sortie de moulin)",
+    "name": "Huile de tournesol bio",
     "search": "sunflower oil at mill {glo} organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
     "category": "ingredient",
@@ -1416,7 +1416,7 @@
   },
   {
     "id": "wine-grape-organic",
-    "name": "Raisin de cuve bio (sortie de vignoble)",
+    "name": "Raisin de cuve bio",
     "database": "Ginko",
     "search": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "category": "ingredient",
@@ -3458,7 +3458,7 @@
   },
   {
     "id": "wine-grape-fr",
-    "name": "Raisin de cuve FR (sortie de vignoble)",
+    "name": "Raisin de cuve FR",
     "database": "Agribalyse 3.1.1",
     "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
     "category": "ingredient",
