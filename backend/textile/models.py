@@ -56,6 +56,9 @@ def delkey(key, record):
 
 
 class Process(models.Model):
+    class Meta:
+        verbose_name_plural = "Processes"
+
     search = models.CharField(max_length=200, blank=True)
     name = models.CharField(max_length=200)
     source = models.CharField(max_length=200)
