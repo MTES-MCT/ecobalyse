@@ -5,6 +5,7 @@ from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import path
+from django.utils.translation import gettext_lazy as _
 
 from backend.admin import admin_site
 from textile.models import Example, Material, Process, Product
@@ -57,11 +58,13 @@ class ExampleAdmin(admin.ModelAdmin):
 
                     for share in json_example["query"]["materials"]:
                         example.add_material(share)
-                    self.message_user(request, "Your Example has been recorded")
+                    self.message_user(request, _("Your Example has been recorded"))
                     return HttpResponseRedirect("..")
                 except TypeError:
                     self.message_user(
-                        request, "Your JSON doesn't seem valid", level=messages.ERROR
+                        request,
+                        _("Your JSON doesn't look like a valid example"),
+                        level=messages.ERROR,
                     )
         else:
             form = ExampleJSONForm()
