@@ -271,7 +271,7 @@ bleachingImpacts :
         }
     -> Mass
     -> Impacts
-bleachingImpacts impacts { bleachingProcess, countryElecProcess, countryHeatProcess } baseMass =
+bleachingImpacts impacts { bleachingProcess, aquaticPollutionScenario, countryElecProcess, countryHeatProcess } baseMass =
     impacts
         |> Impact.mapImpacts
             (\trigram _ ->
@@ -282,13 +282,9 @@ bleachingImpacts impacts { bleachingProcess, countryElecProcess, countryHeatProc
                     , bleachingProcess.heat
                         |> Quantity.multiplyBy (Mass.inKilograms baseMass)
                         |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
-
-                    -- FIXME: What to do with this now we don't have bleaching impacts anymore?
-                    --        How should we use aquaticPollutionScenario now?
-                    --        Maybe we should still apply the ratio to the resulting impacts?
-                    -- , baseMass
-                    --     |> Unit.forKg (Process.getImpact trigram bleachingProcess)
-                    --     |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
+                    , baseMass
+                        |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+                        |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
                     ]
             )
 
