@@ -4,7 +4,7 @@ DOCKERRUN := docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(NAME):
 DOCKEREXEC := docker exec -u jovyan -it
 JUPYTER_PORT ?= 8888
 
-json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food
+json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food format
 
 image:
 	docker build -t $(NAME) docker
@@ -37,12 +37,14 @@ delete_textile_method:
 export_food:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
                 $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py && \
-                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build && \
-                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run format:json; \
+                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build; \
         else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py && \
-                $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build && \
-                $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run format:json; fi
-	
+                $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build; fi
+
+format:
+	npm run format:json
+
+
 
 #export_textile:
 #	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
