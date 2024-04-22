@@ -390,7 +390,7 @@ computeFinishingImpacts { textile } simulator =
 
 
 computeBleachingImpacts : Db -> Simulator -> Simulator
-computeBleachingImpacts { textile } simulator =
+computeBleachingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
@@ -400,6 +400,8 @@ computeBleachingImpacts { textile } simulator =
                             |> Formula.bleachingImpacts step.impacts
                                 { bleachingProcess = textile.wellKnown.bleaching
                                 , aquaticPollutionScenario = step.country.aquaticPollutionScenario
+                                , countryElecProcess = inputs.countryDyeing.electricityProcess
+                                , countryHeatProcess = inputs.countryDyeing.heatProcess
                                 }
                 in
                 { step

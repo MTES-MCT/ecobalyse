@@ -827,6 +827,8 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                     |> Formula.bleachingImpacts current.impacts
                         { bleachingProcess = db.textile.wellKnown.bleaching
                         , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
                         }
 
             dyeingToxicity =

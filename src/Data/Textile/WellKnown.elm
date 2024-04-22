@@ -43,6 +43,10 @@ type alias WellKnown =
     , heatEurope : Process
     , heatRoW : Process
     , weaving : Process
+    , scouring : Process
+    , mercerising : Process
+    , washing : Process
+    , desizing : Process
     }
 
 
@@ -112,6 +116,10 @@ load processes =
             , knittingCircular = "knitting-circular"
             , knittingStraight = "knitting-straight"
             , weaving = "weaving"
+            , scouring = "scouring"
+            , mercerising = "mercerising"
+            , washing = "washing"
+            , desizing = "desizing"
             }
 
         find get =
@@ -145,6 +153,10 @@ load processes =
         |> find .heatEurope
         |> find .heatRoW
         |> find .weaving
+        |> find .scouring
+        |> find .mercerising
+        |> find .washing
+        |> find .desizing
 
 
 map : (Process -> Process) -> WellKnown -> WellKnown
@@ -176,4 +188,8 @@ map update wellKnown =
     , knittingCircular = update wellKnown.knittingCircular
     , knittingStraight = update wellKnown.knittingStraight
     , weaving = update wellKnown.weaving
+    , scouring = update wellKnown.scouring
+    , mercerising = update wellKnown.mercerising
+    , washing = update wellKnown.washing
+    , desizing = update wellKnown.desizing
     }
