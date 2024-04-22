@@ -644,6 +644,8 @@ def add_activity(_):
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
         "explain": w_explain.value.strip(),
+        "scenario": w_scenario.value,
+        "land_occupation": w_landFootprint.value,
     }
     activity.update(
         {
@@ -655,8 +657,6 @@ def add_activity(_):
         or "dairy_product" in w_categories.value
         else {
             "crop_group": w_cropGroup.value,
-            "scenario": w_scenario.value,
-            "land_occupation": w_landFootprint.value,
         }
     )
     activity = {k: v for k, v in activity.items() if v != ""}
@@ -1200,6 +1200,14 @@ Ecobalyse</li></ul>
                                             w_landFootprint,
                                         ),
                                     ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["scenario"],
+                                            ),
+                                            w_scenario,
+                                        ),
+                                    ),
                                     ipywidgets.Accordion(
                                         titles=[
                                             "Services écosystémiques : Ingrédients d'origine animale",
@@ -1244,14 +1252,6 @@ Ecobalyse</li></ul>
                                                                 FIELDS["crop_group"],
                                                             ),
                                                             w_cropGroup,
-                                                        ),
-                                                    ),
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS["scenario"],
-                                                            ),
-                                                            w_scenario,
                                                         ),
                                                     ),
                                                 ]
