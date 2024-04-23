@@ -299,7 +299,7 @@ Les quantité d'électricité proposées par défaut ont été reprises des donn
 
 #### Grammage (g/m2)
 
-Un grammage par défaut (g/m2) est appliqué par type de vêtement (cf. onglet [Explorateur](https://ecobalyse.beta.gouv.fr/#/textile/explore/products)).&#x20;
+Un grammage par défaut (g/m2) est appliqué par type de vêtement (cf. onglet [Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products)).&#x20;
 
 L'utilisateur a la possibilité de modifier cette valeur entre deux bornes : \
 \- minimum : 80 g/m2\

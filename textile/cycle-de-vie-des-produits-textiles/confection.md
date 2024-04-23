@@ -113,9 +113,9 @@ Les accessoires (boutons, fermeture éclair, étiquettes, etc.) ne sont pas mod�
 
 #### Taux de perte (%)&#x20;
 
-Un taux de perte est appliqué par défaut à chaque vêtement sur la base du socle technique ADEME et de retours métiers (cf. ci-dessous). L'utilisateur a la possibilité de modifier le taux de perte directement dans le calculateur entre une borne min (0%) et max (40%).
+Un taux de perte est appliqué par défaut à chaque vêtement sur la base du socle technique ADEME et de retours métiers. L'utilisateur a la possibilité de modifier le taux de perte directement dans le calculateur entre une borne min (0%) et max (40%).
 
-<table><thead><tr><th width="285.5">Vêtement</th><th align="center">Taux de perte (%)</th><th data-hidden></th></tr></thead><tbody><tr><td>Chemise</td><td align="center">20%</td><td></td></tr><tr><td>Jean</td><td align="center">22%</td><td></td></tr><tr><td>Jupe / Robe</td><td align="center">20%</td><td></td></tr><tr><td>Manteau / Veste</td><td align="center">20%</td><td></td></tr><tr><td>Pantalon / Short </td><td align="center">20%</td><td></td></tr><tr><td>Pull / Couche intermédiaire</td><td align="center">20%</td><td></td></tr><tr><td>T-shirt / Polo</td><td align="center">15%</td><td></td></tr></tbody></table>
+Les taux de pertes par défaut sont spécifiques à chaque vêtement (ex : 20% pour une chemise); cf. [Explorateur Produit](https://ecobalyse.beta.gouv.fr/#/explore/textile/products).&#x20;
 
 {% hint style="warning" %}
 Deux exceptions existent pour les taux de pertes:&#x20;
