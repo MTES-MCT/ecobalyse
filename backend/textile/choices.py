@@ -17,7 +17,7 @@ BUSINESSES = {
     "large-business-without-services": "Grande entreprise ne proposant pas de service de réparation ou de garantie",
 }
 DYEINGMEDIA = {"article": "Article", "fabric": "Tissu", "yarn": "Fil"}
-MAXKINGCOMPLEXITIES = {
+MAKINGCOMPLEXITIES = {
     "very-high": "Très élevée",
     "high": "Élevée",
     "medium": "Moyenne",

@@ -19,7 +19,7 @@ from .choices import (
     COUNTRIES,
     DYEINGMEDIA,
     FABRICS,
-    MAXKINGCOMPLEXITIES,
+    MAKINGCOMPLEXITIES,
     ORIGINS,
     STEPUSAGES,
     UNITS,
@@ -178,7 +178,7 @@ class Product(Model):
     defaultMedium = CharField(50, choices=DYEINGMEDIA)
     # making
     pcrWaste = FloatField()
-    complexity = CharField(50, choices=MAXKINGCOMPLEXITIES)
+    complexity = CharField(50, choices=MAKINGCOMPLEXITIES)
     # use
     ironingElecInMJ = FloatField()
     nonIroningProcessUuid = ForeignKey(
