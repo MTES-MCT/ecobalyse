@@ -149,7 +149,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 132.53791738069046) result
+                                expectImpactEqual (Unit.impact 131.4597376039304) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                         (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -168,28 +168,28 @@ suite =
 
                             Ok scoring ->
                                 [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 484.3239828902635
+                                    |> Expect.within (Expect.Absolute 0.01) 476.9896797841208
                                     |> asTest "should properly score total impact"
                                 , Unit.impactToFloat scoring.allWithoutComplements
-                                    |> Expect.within (Expect.Absolute 0.01) 483.11174570602225
+                                    |> Expect.within (Expect.Absolute 0.01) 475.7893123682146
                                     |> asTest "should properly score total impact without complements"
                                 , Unit.impactToFloat scoring.complements
-                                    |> Expect.within (Expect.Absolute 0.01) -1.2122371842412405
+                                    |> Expect.within (Expect.Absolute 0.01) -1.2003674159062077
                                     |> asTest "should properly score complement impact"
                                 , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                     |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                     |> asTest "should expose coherent scoring"
                                 , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 26529.65696904604
+                                    |> Expect.within (Expect.Absolute 0.01) 26269.888595064378
                                     |> asTest "should properly score impact on biodiversity protected area"
                                 , Unit.impactToFloat scoring.climate
-                                    |> Expect.within (Expect.Absolute 0.01) 46.030028789433196
+                                    |> Expect.within (Expect.Absolute 0.01) 45.579320144880754
                                     |> asTest "should properly score impact on climate protected area"
                                 , Unit.impactToFloat scoring.health
-                                    |> Expect.within (Expect.Absolute 0.01) 198410597.81266952
+                                    |> Expect.within (Expect.Absolute 0.01) 196467836.22948498
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 1551671.9850408111
+                                    |> Expect.within (Expect.Absolute 0.01) 1536478.5994279757
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
@@ -235,7 +235,7 @@ suite =
                 , royalPizza
                     |> Recipe.compute db
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
-                    |> Expect.equal (Ok (Mass.kilograms 0.4365544000000001))
+                    |> Expect.equal (Ok (Mass.kilograms 0.4398824000000001))
                     |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
                 ]
             , let
@@ -251,7 +251,7 @@ suite =
               in
               describe "getTransformedIngredientsMass"
                 [ royalPizzaWithPackaging
-                    |> Expect.equal (Ok (Mass.kilograms 0.3365544000000001))
+                    |> Expect.equal (Ok (Mass.kilograms 0.3398824000000001))
                     |> asTest "should compute recipe treansformed ingredients mass excluding packaging one"
                 , royalPizzaWithPackaging
                     |> Expect.equal royalPizzaWithNoPackaging

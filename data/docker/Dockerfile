@@ -30,6 +30,7 @@ RUN apt update \
     && apt install -y gosu vim \
     && pip install -r /home/$NB_USER/requirements.txt \
     && rm /home/$NB_USER/requirements.txt \
+    && git config --global --add safe.directory /home/$NB_USER/ecobalyse \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
 
 COPY simapro-biosphere.json /opt/conda/lib/python3.11/site-packages/bw2io/data/
