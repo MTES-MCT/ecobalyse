@@ -1,6 +1,9 @@
 import json
 import logging
 import pandas as pd
+import numpy as np
+from pandas.api.types import is_numeric_dtype
+
 import requests
 import subprocess
 import time
@@ -13,7 +16,7 @@ SCORE_HISTORY_PATH = "./data/common/score_history/score_history.csv"
 TEST_BRANCH = {"name": "score-evolution-tracking", "pr_number": 566}
 
 BRANCHES = ["master", TEST_BRANCH["name"]]
-BRANCH_URL_DIC = {
+BRANCH_URLS = {
     "master": "https://ecobalyse.beta.gouv.fr/api/textile/simulator/detailed",
     TEST_BRANCH[
         "name"
@@ -31,6 +34,7 @@ def load_json(file):
 
 
 def fetch_remote_branches(retries=3, delay=2):
+    """Fetch all Git branches, retrying with exponential backoff on failure."""
     command = ["git", "fetch", "--all"]
     attempt = 0
     while attempt < retries:
@@ -84,23 +88,22 @@ def get_impacts_weights(branch):
     )
 
 
-def compute_score_new(examples, branches):
+def compute_new_score(examples, current_branch):
     simulations = []
-    for branch_name in branches:
-        branch_url = BRANCH_URL_DIC.get(branch_name, "")
-        normalization_factors = compute_normalization_factors(branch_name)
-        for example in examples:
-            if example["name"] == "Produit vide":
-                continue
-            try:
-                simulation_result = simulate_example(
-                    branch_name, branch_url, example, normalization_factors
-                )
-                simulations.append(simulation_result)
-            except Exception as e:
-                logging.error(
-                    f"Error simulating example {example['name']} on branch {branch_name}: {e}"
-                )
+    branch_url = BRANCH_URLS.get(current_branch, "")
+    normalization_factors = compute_normalization_factors(current_branch)
+    for example in examples:
+        if example["name"] == "Produit vide":
+            continue
+        try:
+            simulation_result = simulate_example(
+                current_branch, branch_url, example, normalization_factors
+            )
+            simulations.append(simulation_result)
+        except Exception as e:
+            logging.error(
+                f"Error simulating example {example['name']} on branch {current_branch}: {e}"
+            )
     return pd.concat(simulations, axis=0, ignore_index=True)
 
 
@@ -221,47 +224,92 @@ def create_df(
     return df
 
 
-def get_branch_commits():
-    """Retrieve the last commit IDs for the current and master branches."""
+def get_last_commit():
+    """Retrieve the last commit IDs for the current branch"""
     current_branch_command = ["git", "branch", "--show-current"]
-    branches_last_commit = {}
+    last_commit = {}
     try:
         current_branch_result = subprocess.run(
             current_branch_command, check=True, capture_output=True, text=True
         )
         current_branch = current_branch_result.stdout.strip()
-        branches_last_commit[current_branch] = get_last_commit_id(
-            current_branch, fetch=True
-        )
+        last_commit = get_last_commit_id(current_branch, fetch=True)
     except subprocess.CalledProcessError as e:
         logging.error(f"Error determining the current branch: {e.stderr}")
         raise
-    return branches_last_commit
+    return current_branch, last_commit
 
 
-def compute_branches_to_score(score_history_df, branches_last_commit):
-    """Determine which branches need their scores computed."""
-    branches_to_compute = []
-    for branch, last_commit in branches_last_commit.items():
-        if not score_history_df["commit"].isin([last_commit]).any():
-            branches_to_compute.append(branch)
-    return branches_to_compute
+def is_new_commit(score_history_df, last_commit):
+    """if the last commit is not in the score history, we add this to the"""
+    if not score_history_df["commit"].isin([last_commit]).any():
+        return True
+    else:
+        return False
+
+
+def compare_scores_with_tolerance(df1, df2, tolerance=0.0001):
+    """
+    Compare two dataframes with a tolerance for numerical values.
+
+    Args:
+    - df1 (pd.DataFrame): First dataframe to compare.
+    - df2 (pd.DataFrame): Second dataframe to compare.
+    - tolerance (float): Relative tolerance for numerical comparison, default is 0.01%.
+
+    Returns:
+    - bool: True if dataframes are identical within the tolerance, False otherwise.
+    """
+
+    df1 = df1.drop(["datetime", "commit"], axis=1)
+    df2 = df2.drop(["datetime", "commit"], axis=1)
+
+    df1 = df1.reset_index(drop=True)
+    df2 = df2.reset_index(drop=True)
+
+    # Initial comparison using pandas compare
+    diff = df1.compare(df2)
+    if diff.empty:
+        return False  # DataFrames are identical
+
+    # Check for numerical differences within the tolerance
+    for column in diff.columns.get_level_values(0).unique():
+        if is_numeric_dtype(df1[column]):
+            # Check only the differences in the numerical columns
+            diff_subset = diff[column].dropna()
+            # Extracting the 'self' and 'other' parts of the differences
+            self_values = diff_subset["self"]
+            other_values = diff_subset["other"]
+            # Check if the differences are within the tolerance
+            if not np.all(np.isclose(self_values, other_values, rtol=tolerance)):
+                return True
+    return False
 
 
 if __name__ == "__main__":
 
     score_history_df = pd.read_csv(SCORE_HISTORY_PATH, sep=",")
     examples_textile = load_json(EXAMPLES_TEXTILE_PATH)
-    branches_last_commit = get_branch_commits()
-    branches_to_compute = compute_branches_to_score(
-        score_history_df, branches_last_commit
-    )
-    logging.info(f"computing score for branches_to_compute : {branches_to_compute}")
-    if branches_to_compute:
-        score_new_df = compute_score_new(examples_textile, branches_to_compute)
-        score_history_updated_df = pd.concat(
-            [score_history_df, score_new_df], ignore_index=True
+    current_branch, last_commit = get_last_commit()
+    commit_is_new = is_new_commit(score_history_df, last_commit)
+
+    if commit_is_new:
+        logging.info(f"computing score for {current_branch}")
+        new_score_df = compute_new_score(examples_textile, commit_is_new)
+
+        score_previous_df = score_history_df[score_history_df["commit"] == last_commit]
+        score_is_different = compare_scores_with_tolerance(
+            score_previous_df, new_score_df
         )
-        score_history_updated_df.to_csv(
-            SCORE_HISTORY_PATH, index=False, encoding="utf-8-sig"
-        )
+
+        if score_is_different:
+            score_history_updated_df = pd.concat(
+                [score_history_df, new_score_df], ignore_index=True
+            )
+            score_history_updated_df.to_csv(
+                SCORE_HISTORY_PATH, index=False, encoding="utf-8-sig"
+            )
+        else:
+            print(
+                "New score is the identical to old score. Nothing was added to score history"
+            )
