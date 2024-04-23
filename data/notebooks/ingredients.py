@@ -65,6 +65,9 @@ CROP_GROUPS = [
     "VOLAILLES",
     "PORCINS",
 ]
+ANIMAL_GROUP1 = ["cattle", "pig", "poultry", "sheep"]
+ANIMAL_GROUP2 = ["cow", "pig", "chicken", "sheep"]
+ANIMAL_PRODUCT = ["egg", "milk", "meat"]
 
 projects.set_current(PROJECT)
 # projects.create_project(PROJECT, activate=True, exist_ok=True)
@@ -161,11 +164,9 @@ FIELDS = {
     "visible": "Visible",
     "explain": "Commentaires",
     # EcosystemicServices for animal products
-    "ecosystemicServices.hedges": "Haies",
-    "ecosystemicServices.plotSize": "Taille de parcelles",
-    "ecosystemicServices.cropDiversity": "Diversité culturale",
-    "ecosystemicServices.permanentPasture": "Prairies permanentes",
-    "ecosystemicServices.livestockDensity": "Chargement territorial",
+    "animal_group1": "Groupe d'élevage 1",
+    "animal_group2": "Groupe d'élevage 2",
+    "animal_product": "Produit animal",
     # EcosystemicServices for other products
     "crop_group": "Groupe de culture",
     "land_occupation": "Empreinte terrestre (m²a)",
@@ -398,13 +399,10 @@ w_explain = ipywidgets.Textarea(
 
 ## COMPLEMENTS
 
-# default coef for the ecosystemic services indicators
-w_ecosys_hedges = ipywidgets.FloatText(style=style, step=0.01)
-w_ecosys_plotSize = ipywidgets.FloatText(step=0.01, style=style)
-w_ecosys_cropDiversity = ipywidgets.FloatText(step=0.01, style=style)
-w_ecosys_permanentPasture = ipywidgets.FloatText(step=0.01, style=style)
-w_ecosys_livestockDensity = ipywidgets.FloatText(step=0.01, style=style)
 # parameters used to compute ecosystemicServices
+w_animal_group1 = ipywidgets.Dropdown(options=ANIMAL_GROUP1, value=None)
+w_animal_group2 = ipywidgets.Dropdown(options=ANIMAL_GROUP2, value=None)
+w_animal_product = ipywidgets.Dropdown(options=ANIMAL_PRODUCT, value=None)
 w_cropGroup = ipywidgets.Dropdown(options=CROP_GROUPS, style=style, value=None)
 w_landFootprint = ipywidgets.FloatText()
 w_scenario = ipywidgets.Dropdown(options=["reference", "organic", "import"], value=None)
@@ -517,11 +515,9 @@ def clear_form():
     w_inedible.value = 1
     w_cooling.value = "none"
     w_visible.value = True
-    w_ecosys_hedges.value = 0
-    w_ecosys_plotSize.value = 0
-    w_ecosys_cropDiversity.value = 0
-    w_ecosys_permanentPasture.value = 0
-    w_ecosys_livestockDensity.value = 0
+    w_animal_group1.value = None
+    w_animal_group2.value = None
+    w_animal_product.value = None
     w_cropGroup.value = None
     w_landFootprint.value = 0
     w_scenario.value = None
@@ -585,16 +581,10 @@ def change_id(change):
     set_field(w_inedible, i.get("inedible_part"), 0)
     set_field(w_cooling, i.get("transport_cooling"), "none")
     set_field(w_visible, i.get("visible"), True)
-    set_field(w_ecosys_hedges, i.get("ecosystemicServices.hedges"), 0)
-    set_field(w_ecosys_plotSize, i.get("ecosystemicServices.plotSize"), 0)
-    set_field(w_ecosys_cropDiversity, i.get("ecosystemicServices.cropDiversity"), 0)
-    set_field(
-        w_ecosys_permanentPasture, i.get("ecosystemicServices.permanentPasture"), 0
-    )
-    set_field(
-        w_ecosys_livestockDensity, i.get("ecosystemicServices.livestockDensity"), 0
-    )
     set_field(w_scenario, i.get("scenario"), None)
+    set_field(w_animal_group1, i.get("animal_group1"), None)
+    set_field(w_animal_group2, i.get("animal_group2"), None)
+    set_field(w_animal_product, i.get("animal_product"), None)
     set_field(w_cropGroup, i.get("crop_group"), None)
     set_field(w_landFootprint, i.get("land_occupation"), 0)
 
@@ -654,21 +644,19 @@ def add_activity(_):
         "transport_cooling": w_cooling.value,
         "visible": w_visible.value,
         "explain": w_explain.value.strip(),
+        "scenario": w_scenario.value,
+        "land_occupation": w_landFootprint.value,
     }
     activity.update(
         {
-            "ecosystemicServices.hedges": w_ecosys_hedges.value,
-            "ecosystemicServices.plotSize": w_ecosys_plotSize.value,
-            "ecosystemicServices.cropDiversity": w_ecosys_cropDiversity.value,
-            "ecosystemicServices.permanentPasture": w_ecosys_permanentPasture.value,
-            "ecosystemicServices.livestockDensity": w_ecosys_livestockDensity.value,
+            "animal_group1": w_animal_group1.value,
+            "animal_group2": w_animal_group2.value,
+            "animal_product": w_animal_product.value,
         }
         if "animal_product" in w_categories.value
         or "dairy_product" in w_categories.value
         else {
             "crop_group": w_cropGroup.value,
-            "scenario": w_scenario.value,
-            "land_occupation": w_landFootprint.value,
         }
     )
     activity = {k: v for k, v in activity.items() if v != ""}
@@ -869,13 +857,16 @@ def commit_activities(_):
         return
     shutil.copy(ACTIVITIES_TEMP % w_contributor.value, ACTIVITIES)
     display(ipywidgets.HTML("Veuillez patienter quelques secondes..."))
-    if (
-        subprocess.run(["npm", "run", "format:json"], capture_output=True).returncode
-        != 0
-    ):
+    prettier = [
+        "npx",
+        "prettier@3.0.3",
+        "--write",
+        ACTIVITIES_TEMP % w_contributor.value,
+    ]
+    if subprocess.run(prettier, capture_output=True).returncode != 0:
         display(
             ipywidgets.HTML(
-                "<pre style='color: red'>ÉCHEC de la commande: npm run format:json"
+                "<pre style='color: red'>ÉCHEC de la commande: " + " ".join(prettier)
             )
         )
         reset_branch()
@@ -891,6 +882,7 @@ def commit_activities(_):
             [
                 "git",
                 "commit",
+                "--no-verify",
                 "-m",
                 f"Changed ingredients (contributed by {w_contributor.value})",
             ],
@@ -1200,6 +1192,22 @@ Ecobalyse</li></ul>
                                             (TODO: mettre à jour le lien)
                                             """
                                     ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["land_occupation"],
+                                            ),
+                                            w_landFootprint,
+                                        ),
+                                    ),
+                                    ipywidgets.HBox(
+                                        (
+                                            ipywidgets.Label(
+                                                FIELDS["scenario"],
+                                            ),
+                                            w_scenario,
+                                        ),
+                                    ),
                                     ipywidgets.Accordion(
                                         titles=[
                                             "Services écosystémiques : Ingrédients d'origine animale",
@@ -1211,51 +1219,27 @@ Ecobalyse</li></ul>
                                                     ipywidgets.HBox(
                                                         (
                                                             ipywidgets.Label(
-                                                                FIELDS[
-                                                                    "ecosystemicServices.hedges"
-                                                                ],
+                                                                FIELDS["animal_group1"],
                                                             ),
-                                                            w_ecosys_hedges,
+                                                            w_animal_group1,
+                                                        ),
+                                                    ),
+                                                    ipywidgets.HBox(
+                                                        (
+                                                            ipywidgets.Label(
+                                                                FIELDS["animal_group2"],
+                                                            ),
+                                                            w_animal_group2,
                                                         ),
                                                     ),
                                                     ipywidgets.HBox(
                                                         (
                                                             ipywidgets.Label(
                                                                 FIELDS[
-                                                                    "ecosystemicServices.plotSize"
+                                                                    "animal_product"
                                                                 ],
                                                             ),
-                                                            w_ecosys_plotSize,
-                                                        ),
-                                                    ),
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS[
-                                                                    "ecosystemicServices.cropDiversity"
-                                                                ],
-                                                            ),
-                                                            w_ecosys_cropDiversity,
-                                                        ),
-                                                    ),
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS[
-                                                                    "ecosystemicServices.permanentPasture"
-                                                                ],
-                                                            ),
-                                                            w_ecosys_permanentPasture,
-                                                        ),
-                                                    ),
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS[
-                                                                    "ecosystemicServices.livestockDensity"
-                                                                ],
-                                                            ),
-                                                            w_ecosys_livestockDensity,
+                                                            w_animal_product,
                                                         ),
                                                     ),
                                                 ]
@@ -1268,24 +1252,6 @@ Ecobalyse</li></ul>
                                                                 FIELDS["crop_group"],
                                                             ),
                                                             w_cropGroup,
-                                                        ),
-                                                    ),
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS["scenario"],
-                                                            ),
-                                                            w_scenario,
-                                                        ),
-                                                    ),
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS[
-                                                                    "land_occupation"
-                                                                ],
-                                                            ),
-                                                            w_landFootprint,
                                                         ),
                                                     ),
                                                 ]
