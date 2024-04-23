@@ -34,7 +34,7 @@
   },
   {
     "name": "Cow milk, national average, at farm gate {FR} U",
-    "displayName": "Lait",
+    "displayName": "Lait FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -100,7 +100,7 @@
   },
   {
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Carotte bio (sortie de ferme)",
+    "displayName": "Carotte bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -133,7 +133,7 @@
   },
   {
     "name": "Wheat flour, at industrial mill {FR} U",
-    "displayName": "Farine (sortie de moulin)",
+    "displayName": "Farine",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -166,7 +166,7 @@
   },
   {
     "name": "Wheat flour, at industrial mill {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Farine bio (sortie de moulin)",
+    "displayName": "Farine bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -199,7 +199,7 @@
   },
   {
     "name": "Sunflower grain, consumption mix, organic 2023 {FR} U",
-    "displayName": "Tournesol bio (sortie de ferme)",
+    "displayName": "Tournesol bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -265,7 +265,7 @@
   },
   {
     "name": "Winter rapeseed, organic, at farm gate {FR} U",
-    "displayName": "Colza bio (sortie de ferme)",
+    "displayName": "Colza bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -298,7 +298,7 @@
   },
   {
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
-    "displayName": "Boeuf haché (cru)",
+    "displayName": "Boeuf haché FR (cru)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -352,8 +352,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 2423.465638706463,
-      "pef": 2809.416054232443
+      "ecs": 2186.0104454838856,
+      "pef": 2532.5378885785976
     },
     "unit": "kilogram",
     "identifier": "67f1a99d8093f1b2b3e4e7f8b292953c",
@@ -397,7 +397,7 @@
   },
   {
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [feedlot], constructed by Ecobalyse",
-    "displayName": "Boeuf haché Feedlot (cru)",
+    "displayName": "Boeuf haché hors UE par défaut (cru)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -430,7 +430,7 @@
   },
   {
     "name": "Cooked ham, case ready, at plant {FR} U",
-    "displayName": "Jambon cuit",
+    "displayName": "Jambon cuit FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -463,7 +463,7 @@
   },
   {
     "name": "Cooked ham, case ready, at plant {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Jambon cuit bio cuit",
+    "displayName": "Jambon cuit bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -496,7 +496,7 @@
   },
   {
     "name": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
-    "displayName": "Jambon, nourri avec des aliments FR (cuit)",
+    "displayName": "Jambon cuit FR (alim. ani. 100%FR)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -529,7 +529,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U",
-    "displayName": "Blanc de poulet (cru)",
+    "displayName": "Blanc de poulet FR (cru)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -595,7 +595,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse [fr-organic]",
-    "displayName": "Blanc de poulet bio (nourri avec des aliments FR)",
+    "displayName": "Blanc de poulet bio (alim. ani. 100%FR)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -628,7 +628,7 @@
   },
   {
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "displayName": "Huile de colza (sortie de moulin)",
+    "displayName": "Huile de colza",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -661,7 +661,7 @@
   },
   {
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
-    "displayName": "Huile de colza bio (sortie de moulin)",
+    "displayName": "Huile de colza bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -694,7 +694,7 @@
   },
   {
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "displayName": "Huile de tournesol (sortie de moulin)",
+    "displayName": "Huile de tournesol",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -727,7 +727,7 @@
   },
   {
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
-    "displayName": "Huile de tournesol bio (sortie de moulin)",
+    "displayName": "Huile de tournesol bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -760,7 +760,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
-    "displayName": "Courgette bio (sortie de ferme)",
+    "displayName": "Courgette bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -793,7 +793,7 @@
   },
   {
     "name": "Peach, organic, national average, at orchard {FR} U",
-    "displayName": "Pêche bio (sortie de ferme)",
+    "displayName": "Pêche bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -826,7 +826,7 @@
   },
   {
     "name": "Melon, organic, at farm gate {FR} U",
-    "displayName": "Melon bio (sortie de ferme)",
+    "displayName": "Melon bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -859,7 +859,7 @@
   },
   {
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
-    "displayName": "Beurre",
+    "displayName": "Beurre FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1750,7 +1750,7 @@
   },
   {
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Betterave rouge bio (sortie de ferme)",
+    "displayName": "Betterave rouge bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1783,7 +1783,7 @@
   },
   {
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Céleri-rave bio (sortie de ferme)",
+    "displayName": "Céleri-rave bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1816,7 +1816,7 @@
   },
   {
     "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
-    "displayName": "Navet bio (sortie de ferme)",
+    "displayName": "Navet bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1849,7 +1849,7 @@
   },
   {
     "name": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
-    "displayName": "Pois chiche bio (sortie de ferme)",
+    "displayName": "Pois chiche bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1981,7 +1981,7 @@
   },
   {
     "name": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
-    "displayName": "Soja BR non déforestant",
+    "displayName": "Soja BR (non déforestant)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2080,7 +2080,7 @@
   },
   {
     "name": "Sausage meat, raw, at plant {FR} U",
-    "displayName": "Chair à saucisse (crue)",
+    "displayName": "Chair à saucisse FR (crue)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2278,7 +2278,7 @@
   },
   {
     "name": "Meat with bone, beef, for direct consumption {FR} U",
-    "displayName": "Viande de boeuf avec os (crue)",
+    "displayName": "Viande de boeuf avec os FR (crue)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2311,7 +2311,7 @@
   },
   {
     "name": "Meat without bone, beef, for direct consumption {FR} U",
-    "displayName": "Viande de boeuf sans os (crue)",
+    "displayName": "Viande de boeuf sans os FR (crue)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2365,8 +2365,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1956.6522284266964,
-      "pef": 2265.525824415107
+      "ecs": 1763.1000072607678,
+      "pef": 2039.8395245174752
     },
     "unit": "kilogram",
     "identifier": "f66ba18359adc61e5988ed8a7cf24b3e",
@@ -2476,7 +2476,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U [br-max], constructed by Ecobalyse",
-    "displayName": "Blanc de poulet (importé nourri avec des aliments BR)",
+    "displayName": "Blanc de poulet hors UE (alim. ani. 100%BR)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2509,7 +2509,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
-    "displayName": "Blanc de poulet (nourri avec des aliments FR)",
+    "displayName": "Blanc de poulet FR (alim. ani. 100%FR)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2740,7 +2740,7 @@
   },
   {
     "name": "Fresh shrimps, China production {FR} U",
-    "displayName": " Crevettes fraîches",
+    "displayName": "Crevettes fraîches hors UE",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2806,7 +2806,7 @@
   },
   {
     "name": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
-    "displayName": "Oeuf conventionnel (code 2-sortie de ferme)",
+    "displayName": "Oeuf conventionnel (code 2)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2839,7 +2839,7 @@
   },
   {
     "name": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
-    "displayName": "Oeuf conventionnel (code 3-sortie de ferme)",
+    "displayName": "Oeuf conventionnel (code 3)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2872,7 +2872,7 @@
   },
   {
     "name": "Egg, conventional, outdoor system, at farm gate {FR} U",
-    "displayName": "Oeuf plein air (code 1-sortie de ferme)",
+    "displayName": "Oeuf plein air (code 1)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2938,7 +2938,7 @@
   },
   {
     "name": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
-    "displayName": "Raisin de cuve bio (sortie de vignoble)",
+    "displayName": "Raisin de cuve bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2971,7 +2971,7 @@
   },
   {
     "name": "Meat without bone, lamb {FR} U",
-    "displayName": "Viande d'agneau (désossée)",
+    "displayName": "Viande d'agneau FR (désossée)",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3037,7 +3037,7 @@
   },
   {
     "name": "Pear, consumption mix, organic 2023 {FR} U",
-    "displayName": "Poire bio (sortie de ferme)",
+    "displayName": "Poire bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3070,7 +3070,7 @@
   },
   {
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Carotte FR (sortie de ferme)",
+    "displayName": "Carotte FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3103,7 +3103,7 @@
   },
   {
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Carotte UE par défaut (sortie de ferme)",
+    "displayName": "Carotte UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3136,7 +3136,7 @@
   },
   {
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Carotte hors UE par défaut (sortie de ferme)",
+    "displayName": "Carotte hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3169,7 +3169,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "displayName": "Courgette FR (sortie de ferme)",
+    "displayName": "Courgette FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3202,7 +3202,7 @@
   },
   {
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "displayName": "Courgette UE par défaut (sortie de ferme)",
+    "displayName": "Courgette UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3235,7 +3235,7 @@
   },
   {
     "name": "Pear, conventional, at orchard {FR} U",
-    "displayName": "Poire FR (sortie de ferme)",
+    "displayName": "Poire FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3268,7 +3268,7 @@
   },
   {
     "name": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Poire UE par défaut (sortie de ferme)",
+    "displayName": "Poire UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3301,7 +3301,7 @@
   },
   {
     "name": "Peach, production mix, national average, at orchard {FR} U",
-    "displayName": "Pêche FR (sortie de ferme)",
+    "displayName": "Pêche FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3334,7 +3334,7 @@
   },
   {
     "name": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Pêche UE par défaut (sortie de ferme)",
+    "displayName": "Pêche UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3367,7 +3367,7 @@
   },
   {
     "name": "Melon, conventional, national average, at farm gate {FR} U",
-    "displayName": "Melon FR (sortie de ferme)",
+    "displayName": "Melon FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3400,7 +3400,7 @@
   },
   {
     "name": "Melon, conventional, national average, at farm gate {FR} U",
-    "displayName": "Melon UE par défaut (sortie de ferme)",
+    "displayName": "Melon UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3433,7 +3433,7 @@
   },
   {
     "name": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
-    "displayName": "Pomme de terre industrie FR (sortie de ferme)",
+    "displayName": "Pomme de terre industrie FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3466,7 +3466,7 @@
   },
   {
     "name": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
-    "displayName": "Pomme de terre de table FR (sortie de ferme)",
+    "displayName": "Pomme de terre de table FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3565,7 +3565,7 @@
   },
   {
     "name": "Onion, national average, at farm {FR} U",
-    "displayName": "Oignon FR (sortie de ferme)",
+    "displayName": "Oignon FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3598,7 +3598,7 @@
   },
   {
     "name": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Oignon UE par défaut (sortie de ferme)",
+    "displayName": "Oignon UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3631,7 +3631,7 @@
   },
   {
     "name": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Oignon hors UE par défaut (sortie de ferme)",
+    "displayName": "Oignon hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3664,7 +3664,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "displayName": "Aubergine FR (sortie de ferme)",
+    "displayName": "Aubergine FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3697,7 +3697,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "displayName": "Aubergine UE par défaut (sortie de ferme)",
+    "displayName": "Aubergine UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3730,7 +3730,7 @@
   },
   {
     "name": "French bean, conventional, national average, at farm gate {FR} U",
-    "displayName": "Haricot vert FR (sortie de ferme)",
+    "displayName": "Haricot vert FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3763,7 +3763,7 @@
   },
   {
     "name": "French bean, conventional, national average, at farm gate {FR} U",
-    "displayName": "Haricot vert UE par défaut (sortie de ferme)",
+    "displayName": "Haricot vert UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3796,7 +3796,7 @@
   },
   {
     "name": "French bean, conventional, national average, at farm gate {FR} U",
-    "displayName": "Haricot vert hors UE par défaut (sortie de ferme)",
+    "displayName": "Haricot vert hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3829,7 +3829,7 @@
   },
   {
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "displayName": "Laitue FR (sortie de ferme)",
+    "displayName": "Laitue FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3862,7 +3862,7 @@
   },
   {
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Laitue UE par défaut (sortie de ferme)",
+    "displayName": "Laitue UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3895,7 +3895,7 @@
   },
   {
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Laitue hors UE par défaut (sortie de ferme)",
+    "displayName": "Laitue hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3928,7 +3928,7 @@
   },
   {
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
-    "displayName": "Petit pois FR (sortie de ferme)",
+    "displayName": "Petit pois FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3961,7 +3961,7 @@
   },
   {
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
-    "displayName": "Petit pois UE par défaut (sortie de ferme)",
+    "displayName": "Petit pois UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3994,7 +3994,7 @@
   },
   {
     "name": "Cherry, conventional, national average, at orchard {FR} U",
-    "displayName": "Cerise FR (sortie de ferme)",
+    "displayName": "Cerise FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4027,7 +4027,7 @@
   },
   {
     "name": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Citron UE par défaut (sortie de ferme)",
+    "displayName": "Citron UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4060,7 +4060,7 @@
   },
   {
     "name": "Cherry, conventional, national average, at orchard {FR} U",
-    "displayName": "Prune FR (sortie de ferme)",
+    "displayName": "Prune FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4093,7 +4093,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "displayName": "Courge FR (sortie de ferme)",
+    "displayName": "Courge FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4126,7 +4126,7 @@
   },
   {
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "displayName": "Courge UE par défaut (sortie de ferme)",
+    "displayName": "Courge UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4159,7 +4159,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
-    "displayName": "Courge bio (sortie de ferme)",
+    "displayName": "Courge bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4225,7 +4225,7 @@
   },
   {
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "displayName": "Tomate sous serre non chauffée FR (sortie de ferme)",
+    "displayName": "Tomate sous serre non chauffée FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4258,7 +4258,7 @@
   },
   {
     "name": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Tomate UE par défaut (sortie de ferme)",
+    "displayName": "Tomate UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4291,7 +4291,7 @@
   },
   {
     "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Abricot FR (sortie de ferme)",
+    "displayName": "Abricot FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4324,7 +4324,7 @@
   },
   {
     "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Abricot UE par défaut (sortie de ferme)",
+    "displayName": "Abricot UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4357,7 +4357,7 @@
   },
   {
     "name": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
-    "displayName": "Noisette hors UE avec coque (sortie de ferme)",
+    "displayName": "Noisette hors UE avec coque",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4390,7 +4390,7 @@
   },
   {
     "name": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
-    "displayName": "Noisette UE avec coque (sortie de ferme)",
+    "displayName": "Noisette UE avec coque",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4489,7 +4489,7 @@
   },
   {
     "name": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "displayName": "Artichaut FR (sortie de ferme)",
+    "displayName": "Artichaut FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4522,7 +4522,7 @@
   },
   {
     "name": "Cauliflower, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Artichaut bio (sortie de ferme)",
+    "displayName": "Artichaut bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4555,7 +4555,7 @@
   },
   {
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "displayName": "Chou-fleur bio (sortie de ferme)",
+    "displayName": "Chou-fleur bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4588,7 +4588,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou-fleur FR (sortie de ferme)",
+    "displayName": "Chou-fleur FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4621,7 +4621,7 @@
   },
   {
     "name": "Leek, national average, at plant {FR} U",
-    "displayName": "Poireau FR (sortie de ferme)",
+    "displayName": "Poireau FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4654,7 +4654,7 @@
   },
   {
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Betterave rouge FR (sortie de ferme)",
+    "displayName": "Betterave rouge FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4687,7 +4687,7 @@
   },
   {
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Navet FR (sortie de ferme)",
+    "displayName": "Navet FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4720,7 +4720,7 @@
   },
   {
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Navet UE par défaut (sortie de ferme)",
+    "displayName": "Navet UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4753,7 +4753,7 @@
   },
   {
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Navet hors UE par défaut (sortie de ferme)",
+    "displayName": "Navet hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4786,7 +4786,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou chinois FR (sortie de ferme)",
+    "displayName": "Chou chinois FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4819,7 +4819,7 @@
   },
   {
     "name": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR} U",
-    "displayName": "Chou chinois bio (sortie de ferme)",
+    "displayName": "Chou chinois bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4852,7 +4852,7 @@
   },
   {
     "name": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Chou blanc hors UE par défaut (sortie de ferme)",
+    "displayName": "Chou blanc hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4885,7 +4885,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou vert FR (sortie de ferme)",
+    "displayName": "Chou vert FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4918,7 +4918,7 @@
   },
   {
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "displayName": "Chou vert bio (sortie de ferme)",
+    "displayName": "Chou vert bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4951,7 +4951,7 @@
   },
   {
     "name": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Chou rouge UE par défaut (sortie de ferme)",
+    "displayName": "Chou rouge UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4984,7 +4984,7 @@
   },
   {
     "name": "Onion, national average, at farm {FR} U",
-    "displayName": "Echalote FR (sortie de ferme)",
+    "displayName": "Echalote FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5017,7 +5017,7 @@
   },
   {
     "name": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
-    "displayName": "Orange UE par défaut (sortie de ferme)",
+    "displayName": "Orange UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5050,7 +5050,7 @@
   },
   {
     "name": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Orange hors UE par défaut (sortie de ferme)",
+    "displayName": "Orange hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5083,7 +5083,7 @@
   },
   {
     "name": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Olive UE par défaut (sortie de ferme)",
+    "displayName": "Olive UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5116,7 +5116,7 @@
   },
   {
     "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Colza FR (sortie de ferme)",
+    "displayName": "Colza FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5149,7 +5149,7 @@
   },
   {
     "name": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Colza UE par défaut (sortie de ferme)",
+    "displayName": "Colza UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5182,7 +5182,7 @@
   },
   {
     "name": "Rapeseed, at farm {CA} - Adapted from WFLDB U",
-    "displayName": "Colza hors UE par défaut (sortie de ferme)",
+    "displayName": "Colza hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5215,7 +5215,7 @@
   },
   {
     "name": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Pistache avec coque (sortie de ferme)",
+    "displayName": "Pistache avec coque hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5248,7 +5248,7 @@
   },
   {
     "name": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Arachide avec coque hors UE (sortie de ferme)",
+    "displayName": "Arachide avec coque hors UE",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5314,7 +5314,7 @@
   },
   {
     "name": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Avocat UE ou hors UE (sortie de ferme)",
+    "displayName": "Avocat UE ou hors UE",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5347,7 +5347,7 @@
   },
   {
     "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "displayName": "Pois chiche FR (sortie de ferme)",
+    "displayName": "Pois chiche FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5380,7 +5380,7 @@
   },
   {
     "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
-    "displayName": "Tournesol FR (sortie de ferme)",
+    "displayName": "Tournesol FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5413,7 +5413,7 @@
   },
   {
     "name": "Sunflower, at farm {HU} - Adapted from WFLDB U",
-    "displayName": "Tournesol UE par défaut (sortie de ferme)",
+    "displayName": "Tournesol UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5446,7 +5446,7 @@
   },
   {
     "name": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Tournesol hors UE par défaut (sortie de ferme)",
+    "displayName": "Tournesol hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5479,7 +5479,7 @@
   },
   {
     "name": "Kiwi FR, conventional, national average, at orchard {FR} U",
-    "displayName": "Kiwi FR (sortie de ferme)",
+    "displayName": "Kiwi FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5512,7 +5512,7 @@
   },
   {
     "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Kiwi UE par défaut (sortie de ferme)",
+    "displayName": "Kiwi UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5545,7 +5545,7 @@
   },
   {
     "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Kiwi hors UE par défaut (sortie de ferme)",
+    "displayName": "Kiwi hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5578,7 +5578,7 @@
   },
   {
     "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Mangue hors UE par défaut (sortie de ferme)",
+    "displayName": "Mangue hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5611,7 +5611,7 @@
   },
   {
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Epinard hors UE par défaut (sortie de ferme)",
+    "displayName": "Epinard hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5644,7 +5644,7 @@
   },
   {
     "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Fenouil FR (sortie de ferme)",
+    "displayName": "Fenouil FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5677,7 +5677,7 @@
   },
   {
     "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Fenouil UE par défaut (sortie de ferme)",
+    "displayName": "Fenouil UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5710,7 +5710,7 @@
   },
   {
     "name": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Brocoli UE par défaut (sortie de ferme)",
+    "displayName": "Brocoli UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5743,7 +5743,7 @@
   },
   {
     "name": "Blueberry, at farm {CA} - Adapted from WFLDB U",
-    "displayName": "Myrtille hors UE par défaut (sortie de ferme)",
+    "displayName": "Myrtille hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5776,7 +5776,7 @@
   },
   {
     "name": "Raspberry, at farm {RS} - Adapted from WFLDB U",
-    "displayName": "Framboise UE par défaut (sortie de ferme)",
+    "displayName": "Framboise UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5809,7 +5809,7 @@
   },
   {
     "name": "Strawberry for processing, open field, conventional, at farm gate {ES} U",
-    "displayName": "Fraise UE par défaut (sortie de ferme)",
+    "displayName": "Fraise UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5842,7 +5842,7 @@
   },
   {
     "name": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
-    "displayName": "Fraise hors UE par défaut (sortie de ferme)",
+    "displayName": "Fraise hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5875,7 +5875,7 @@
   },
   {
     "name": "Banana, mixed production, West Indies, at farm gate {WI} U",
-    "displayName": "Banane Antilles (sortie de ferme)",
+    "displayName": "Banane Antilles",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5908,7 +5908,7 @@
   },
   {
     "name": "Banana, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Banane hors UE par défaut (sortie de ferme)",
+    "displayName": "Banane hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5941,7 +5941,7 @@
   },
   {
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "displayName": "Concombre FR de saison (sortie de ferme)",
+    "displayName": "Concombre FR de saison",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5974,7 +5974,7 @@
   },
   {
     "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Concombre FR hors saison (sortie de ferme)",
+    "displayName": "Concombre FR hors saison",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6007,7 +6007,7 @@
   },
   {
     "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Concombre UE hors saison (sortie de ferme)",
+    "displayName": "Concombre UE hors saison",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6040,7 +6040,7 @@
   },
   {
     "name": "Strawberry, open field, conventional, at farm gate {FR} U",
-    "displayName": "Fraise FR de saison (sortie de ferme)",
+    "displayName": "Fraise FR de saison",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6073,7 +6073,7 @@
   },
   {
     "name": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
-    "displayName": "Fraise FR hors saison (sortie de ferme)",
+    "displayName": "Fraise FR hors saison",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6106,7 +6106,7 @@
   },
   {
     "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Céleri branche FR (sortie de ferme)",
+    "displayName": "Céleri branche FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6139,7 +6139,7 @@
   },
   {
     "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Céleri branche UE par défaut (sortie de ferme)",
+    "displayName": "Céleri branche UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6172,7 +6172,7 @@
   },
   {
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Céleri-rave FR (sortie de ferme)",
+    "displayName": "Céleri-rave FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6205,7 +6205,7 @@
   },
   {
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Céleri-rave UE par défaut (sortie de ferme)",
+    "displayName": "Céleri-rave UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6238,7 +6238,7 @@
   },
   {
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Céleri-rave hors UE par défaut (sortie de ferme)",
+    "displayName": "Céleri-rave hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6271,7 +6271,7 @@
   },
   {
     "name": "Walnut, dried inshell, national average, at farm gate {FR} U",
-    "displayName": "Noix avec coque FR (sortie de ferme)",
+    "displayName": "Noix avec coque FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6370,7 +6370,7 @@
   },
   {
     "name": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "displayName": "Châtaigne avec coque FR (sortie de ferme)",
+    "displayName": "Châtaigne avec coque FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6403,7 +6403,7 @@
   },
   {
     "name": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Mandarine UE par défaut (sortie de ferme)",
+    "displayName": "Mandarine UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6469,7 +6469,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou de Bruxelles FR (sortie de ferme)",
+    "displayName": "Chou de Bruxelles FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6502,7 +6502,7 @@
   },
   {
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "displayName": "Chou de Bruxelles bio (sortie de ferme)",
+    "displayName": "Chou de Bruxelles bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6535,7 +6535,7 @@
   },
   {
     "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "displayName": "Lentilles FR (sortie de ferme)",
+    "displayName": "Lentilles FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6568,7 +6568,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou frisé FR (sortie de ferme)",
+    "displayName": "Chou frisé FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6601,7 +6601,7 @@
   },
   {
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "displayName": "Chou frisé bio (sortie de ferme)",
+    "displayName": "Chou frisé bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6634,7 +6634,7 @@
   },
   {
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "displayName": "Citrouille FR (sortie de ferme)",
+    "displayName": "Citrouille FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6667,7 +6667,7 @@
   },
   {
     "name": "Clementine, export quality, Souss, at orchard {MA} U",
-    "displayName": "Clémentine hors UE par défaut (sortie de ferme)",
+    "displayName": "Clémentine hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6700,7 +6700,7 @@
   },
   {
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "displayName": "Endive FR (sortie de ferme)",
+    "displayName": "Endive FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6733,7 +6733,7 @@
   },
   {
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Endive UE par défaut (sortie de ferme)",
+    "displayName": "Endive UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6766,7 +6766,7 @@
   },
   {
     "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
-    "displayName": "Raisin de cuve FR (sortie de vignoble)",
+    "displayName": "Raisin de cuve FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6799,7 +6799,7 @@
   },
   {
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "displayName": "Mâche FR (sortie de ferme)",
+    "displayName": "Mâche FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6832,7 +6832,7 @@
   },
   {
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Mâche UE par défaut (sortie de ferme)",
+    "displayName": "Mâche UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6865,7 +6865,7 @@
   },
   {
     "name": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
-    "displayName": "Maïs doux FR (sortie de ferme)",
+    "displayName": "Maïs doux FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6898,7 +6898,7 @@
   },
   {
     "name": "Grain maize, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Maïs doux FR bio (sortie de ferme)",
+    "displayName": "Maïs doux FR bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6931,7 +6931,7 @@
   },
   {
     "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
-    "displayName": "Maïs doux BR (sortie de ferme)",
+    "displayName": "Maïs doux BR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6964,7 +6964,7 @@
   },
   {
     "name": "Pineapple, at farm {CR} - Adapted from WFLDB U",
-    "displayName": "Ananas hors UE par défaut (sortie de ferme)",
+    "displayName": "Ananas hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6997,7 +6997,7 @@
   },
   {
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Fève UE par défaut (sortie de ferme)",
+    "displayName": "Fève UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7030,7 +7030,7 @@
   },
   {
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Fève FR (sortie de ferme)",
+    "displayName": "Fève FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7063,7 +7063,7 @@
   },
   {
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Blette UE par défaut (sortie de ferme)",
+    "displayName": "Blette UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7096,7 +7096,7 @@
   },
   {
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Blette FR (sortie de ferme)",
+    "displayName": "Blette FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7129,7 +7129,7 @@
   },
   {
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Haricot flageolet UE par défaut (sortie de ferme)",
+    "displayName": "Haricot flageolet UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7162,7 +7162,7 @@
   },
   {
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Haricot flageolet FR (sortie de ferme)",
+    "displayName": "Haricot flageolet FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7195,7 +7195,7 @@
   },
   {
     "name": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Riz basmati hors UE par défaut (sortie de ferme)",
+    "displayName": "Riz basmati hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7228,7 +7228,7 @@
   },
   {
     "name": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
-    "displayName": "Blé tendre bio (sortie de ferme)",
+    "displayName": "Blé tendre bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7261,7 +7261,7 @@
   },
   {
     "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "displayName": "Blé tendre FR (sortie de ferme)",
+    "displayName": "Blé tendre FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7294,7 +7294,7 @@
   },
   {
     "name": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Blé tendre hors UE par défaut (sortie de ferme)",
+    "displayName": "Blé tendre hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7327,7 +7327,7 @@
   },
   {
     "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
-    "displayName": "Blé dur FR (sortie de ferme)",
+    "displayName": "Blé dur FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7360,7 +7360,7 @@
   },
   {
     "name": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
-    "displayName": "Blé dur UE par défaut (sortie de ferme)",
+    "displayName": "Blé dur UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7393,7 +7393,7 @@
   },
   {
     "name": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
-    "displayName": "Blé dur hors UE par défaut (sortie de ferme)",
+    "displayName": "Blé dur hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7426,7 +7426,7 @@
   },
   {
     "name": "Table apple, consumption mix, organic 2023 {FR} U",
-    "displayName": "Pomme bio (sortie de ferme)",
+    "displayName": "Pomme bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7459,7 +7459,7 @@
   },
   {
     "name": "Apple, conventional, national average, at orchard {FR} U",
-    "displayName": "Pomme FR (sortie de ferme)",
+    "displayName": "Pomme FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7492,7 +7492,7 @@
   },
   {
     "name": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR} U",
-    "displayName": "Pomme de terre de table bio (sortie de ferme)",
+    "displayName": "Pomme de terre de table bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7525,7 +7525,7 @@
   },
   {
     "name": "Ware potato, organic 2023, for industrial use, at farm gate {FR} U",
-    "displayName": "Pomme de terre industrie bio (sortie de ferme)",
+    "displayName": "Pomme de terre industrie bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7558,7 +7558,7 @@
   },
   {
     "name": "Kiwi, consumption mix, organic 2023 {FR} U",
-    "displayName": "Kiwi bio (sortie de ferme)",
+    "displayName": "Kiwi bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7591,7 +7591,7 @@
   },
   {
     "name": "Red Cabbage, consumption mix, organic 2023 {FR} U",
-    "displayName": "Chou rouge bio (sortie de ferme)",
+    "displayName": "Chou rouge bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7624,7 +7624,7 @@
   },
   {
     "name": "Sugar beet, organic 2023 {FR}| sugar beet production | Cut-off, U",
-    "displayName": "Betterave sucrière bio (sortie de ferme)",
+    "displayName": "Betterave sucrière bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7657,7 +7657,7 @@
   },
   {
     "name": "Papaya, consumption mix, organic 2023 {FR} U",
-    "displayName": "Papaye bio (sortie de ferme)",
+    "displayName": "Papaye bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7690,7 +7690,7 @@
   },
   {
     "name": "Fresh tomato, consumption mix, organic 2023 {FR} U",
-    "displayName": "Tomate bio (sortie de ferme)",
+    "displayName": "Tomate bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7723,7 +7723,7 @@
   },
   {
     "name": "Pineapple, organic 2023 {GLO}| production | Cut-off, U",
-    "displayName": "Ananas bio (sortie de ferme)",
+    "displayName": "Ananas bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7756,7 +7756,7 @@
   },
   {
     "name": "Garden peas, consumption mix, organic 2023 {FR} U",
-    "displayName": "Petit pois bio (sortie de ferme)",
+    "displayName": "Petit pois bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7789,7 +7789,7 @@
   },
   {
     "name": "Almonds, in shell, at farm, organic 2023 {CN}",
-    "displayName": "Amandes bio en coque (sortie de ferme)",
+    "displayName": "Amandes bio en coque",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7822,7 +7822,7 @@
   },
   {
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Laitue bio (sortie de ferme)",
+    "displayName": "Laitue bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7855,7 +7855,7 @@
   },
   {
     "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Mangue bio (sortie de ferme)",
+    "displayName": "Mangue bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7888,7 +7888,7 @@
   },
   {
     "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Litchi bio (sortie de ferme)",
+    "displayName": "Litchi bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7921,7 +7921,7 @@
   },
   {
     "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Litchi hors UE par défaut (sortie de ferme)",
+    "displayName": "Litchi hors UE par défaut",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8086,7 +8086,7 @@
   },
   {
     "name": "Banana, consumption mix, organic 2023 {FR} U",
-    "displayName": "Banane bio (sortie de ferme)",
+    "displayName": "Banane bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8119,7 +8119,7 @@
   },
   {
     "name": "Orange, fresh grade, at farm, organic 2023 {ES}",
-    "displayName": "Orange bio (sortie de ferme)",
+    "displayName": "Orange bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8152,7 +8152,7 @@
   },
   {
     "name": "Lemon, organic 2023 {ES}| lemon production | Cut-off, U",
-    "displayName": "Citron bio (sortie de ferme)",
+    "displayName": "Citron bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8185,7 +8185,7 @@
   },
   {
     "name": "Celery, organic 2023 {GLO}| 675 production | Cut-off, U",
-    "displayName": "Céleri branche bio (sortie de ferme)",
+    "displayName": "Céleri branche bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8218,7 +8218,7 @@
   },
   {
     "name": "Olive, organic 2023 {ES}| olive production | Cut-off, U",
-    "displayName": "Olive bio (sortie de ferme)",
+    "displayName": "Olive bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8251,7 +8251,7 @@
   },
   {
     "name": "Peanut, organic 2023 {RoW}| peanut production | Cut-off, U",
-    "displayName": "Arachide avec coque bio (sortie de ferme)",
+    "displayName": "Arachide avec coque bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8284,7 +8284,7 @@
   },
   {
     "name": "Raspberry, at farm, organic 2023 {RS}",
-    "displayName": "Framboisee bio (sortie de ferme)",
+    "displayName": "Framboise bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8317,7 +8317,7 @@
   },
   {
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Mâche bio (sortie de ferme)",
+    "displayName": "Mâche bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8350,7 +8350,7 @@
   },
   {
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Endive bio (sortie de ferme)",
+    "displayName": "Endive bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8383,7 +8383,7 @@
   },
   {
     "name": "Durum wheat grain, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Blé dur bio (sortie de ferme)",
+    "displayName": "Blé dur bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8416,7 +8416,7 @@
   },
   {
     "name": "Onion, national average, at farm, organic 2023 {FR} U",
-    "displayName": "Oignon bio (sortie de ferme)",
+    "displayName": "Oignon bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8449,7 +8449,7 @@
   },
   {
     "name": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati | Cut-off, U",
-    "displayName": "Riz basmati bio (sortie de ferme)",
+    "displayName": "Riz basmati bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8647,7 +8647,7 @@
   },
   {
     "name": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse | Cut-off, U",
-    "displayName": "Radis bio (sortie de ferme)",
+    "displayName": "Radis bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8680,7 +8680,7 @@
   },
   {
     "name": "Lentil, organic 2023 {RoW}| lentil production | Cut-off, U",
-    "displayName": "Lentilles bio (sortie de ferme)",
+    "displayName": "Lentilles bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8713,7 +8713,7 @@
   },
   {
     "name": "Apricot, organic 2023 {FR}| apricot production | Cut-off, U",
-    "displayName": "Abricot bio (sortie de ferme)",
+    "displayName": "Abricot bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8746,7 +8746,7 @@
   },
   {
     "name": "Leek, national average, at plant, organic 2023 {FR} U",
-    "displayName": "Poireau bio (sortie de ferme)",
+    "displayName": "Poireau bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8779,7 +8779,7 @@
   },
   {
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
-    "displayName": "Cerise bio (sortie de ferme)",
+    "displayName": "Cerise bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8812,7 +8812,7 @@
   },
   {
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
-    "displayName": "Prune bio (sortie de ferme)",
+    "displayName": "Prune bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8845,7 +8845,7 @@
   },
   {
     "name": "Onion, national average, at farm, organic 2023 {FR} U",
-    "displayName": "Echalote bio (sortie de ferme)",
+    "displayName": "Echalote bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8878,7 +8878,7 @@
   },
   {
     "name": "Blueberry, at farm, organic 2023 {CA}",
-    "displayName": "Myrtille bio (sortie de ferme)",
+    "displayName": "Myrtille bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8911,7 +8911,7 @@
   },
   {
     "name": "Spinach, organic 2023 {GLO}| production | Cut-off, U",
-    "displayName": "Epinard bio (sortie de ferme)",
+    "displayName": "Epinard bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8944,7 +8944,7 @@
   },
   {
     "name": "Melon, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Pastèque bio (sortie de ferme)",
+    "displayName": "Pastèque bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8977,7 +8977,7 @@
   },
   {
     "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "displayName": "Ensilage maïs FR (sortie de ferme)",
+    "displayName": "Ensilage maïs FR",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9010,7 +9010,7 @@
   },
   {
     "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "displayName": "Ensilage maïs organic (sortie de ferme)",
+    "displayName": "Ensilage maïs organic",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9139,5 +9139,302 @@
     "system_description": "AGRIBALYSE",
     "comment": "",
     "id": "grazed-grass-permanent"
+  },
+  {
+    "name": "Palm oil, refined, processed in EU, at plant {RER} U",
+    "displayName": "Huile de palme (raffinée)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 407.5721772670124,
+      "pef": 383.3875068031456
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003105775",
+    "category": "ingredient",
+    "system_description": "AGRIBALYSE",
+    "comment": "Modification : ITERGIncluded processes: This process includes the refining of crude palm oil, in Europe. Transport of inputs are considered. System boundary is at the oil mill.Remark: Inventory refers to the production of 1 kg refined palm oil, respectively 0,07 kg of Fatty Acids Distallates.   Economic allocation : Economic Allocation between refined palm oil and palm oil fatty acids distillatesPalm oil : 803/T",
+    "id": "refined-palm-oil"
+  },
+  {
+    "name": "Linseed oil, refined, at oil mill { FR} U",
+    "displayName": "Huile de lin (raffinée)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 548.2282130945532,
+      "pef": 551.880203118828
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003108737",
+    "category": "ingredient",
+    "system_description": "",
+    "comment": "Dataset of the production of refined linseed oil in France. It includes crushing of linseed grain, representative of French consumption mix, and refining of crude oil. 3,36 kg of linseed are needed for the production of 1kg of refined Linseed oil and Linseed oil cake.Economic allocation is made between oil, cake and refining co-productsPrice for 1 kg Linseed oil = 1,49 /kg ; price for 1 kg Linseed oil cake = 0,286/kg, according to WFLDB economic value. Price for soap stocks and deodorization condensates were approximated from the economic values of rapeseed co-products: 0,2179 /kg Linseed soap stock, 0,2179 /kg Linseed deodorisation condensates.Including consumptions at crushing and refiningData for crushing come from AGRIBALYSE 1.4 datateset  \"Flaxseed crushing, processing/FR U\", from AGRIBALYSE 1.4, based on expert informations. Data from crude Linseed oil refining are based on industrial data for 2013, representative of refining step for linseed oil in France.",
+    "id": "refined-linseed-oil"
+  },
+  {
+    "name": "Grapeseed oil, refined at plant {FR} U",
+    "displayName": "Huile de pépin de raisin (raffinée)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 113.41314745319481,
+      "pef": 127.20421480060833
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003106915",
+    "category": "ingredient",
+    "system_description": "",
+    "comment": "Data are representative of refined grapeseed oil production from dry grapeseed. 7,18kg of dry grapeseed are needed to produce 1kg of refined grapeseed oil and 5,87 of grapeseed oil meal. Data source : Data source : industrial data, representative for crushing and refining of grapeseed oil in France.Economic AllocationEconomic value from AGECO report : 1,71/kg of refined grapeseed oil, 0,212/kg of grapeseed oil meal, 0,21792/kg of grapeseed soap stock, 0,21792/kg of grapeseed deodorization condensateData source : industrial data, representative for grapeseed drying. Reference year : 2014",
+    "id": "refined-grapeseed-oil"
+  },
+  {
+    "name": "Soybean oil, refined, at plant  {FR} U",
+    "displayName": "Huile de soja (raffinée)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 726.1918471255068,
+      "pef": 314.1037015439759
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003114609",
+    "category": "ingredient",
+    "system_description": "",
+    "comment": "Data are representative of refined soybean oil production from soybean seeds. 5,4k g of soybean seeds are needed to produce 1 kg of refined soybean oil and 4,24 kg of soybean oil cake. Data source : industrial data, representative for crushing and refining of soybean oil in Europe. Data from FEDIOL, 2013. Life cycle assessment of EU Oilseed Crushing and Vegetable oil refining. Final report 59 pagesEconomic AllocationEconomic value from FEDIOL report : 0,809/kg of refined soybean oil, 0,297/kg of soybean oil meal, 0,6/kg of soybean lecithin, 0,35/kg of soybean soap stockThe consumption mix of soybean oil in France was determined with importation and production data from FAOSTAT (average 2015-2019). The average conusmption mix (2015-2019) was : France, 70%, Spain, 12%, others origins (mainly UE countries)  : 18%. Only French  origin are considered in this datasets, representing 70% of market mix",
+    "id": "refined-soybean-oil"
+  },
+  {
+    "name": "Hazelnut oil, crude, at plant {FR} U",
+    "displayName": "Huile de noisette (vierge)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 1934.5404492223076,
+      "pef": 1505.4431245216037
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003107299",
+    "category": "ingredient",
+    "system_description": "AGRIBALYSE",
+    "comment": "Dataset of the production of crude hazelnut oil in France. It includes crushing of unshelled hazelnut kernel, by mechanical cold pressing. 2,5 kg of unshelled hazelnut are needed for the production of 1 kg of crude hazelnut oil and 1,5 of hazelnut oil cake. Economic allocation is made between oil and cakePrice for 1 kg crude Hazelnut  oil = 4  TL/ kg (0,4/kg)  Price for 1 kg Hazelnut oil  cake = 1 TL/kg ( 0,10/kg). Source : Turkish Grain Board (TMO)Data from ITERG, based on cold pressing for rapeseed seeds",
+    "id": "virgin-hazelnut-oil"
+  },
+  {
+    "name": "Peanut oil, at oil mill {SN} U",
+    "displayName": "Huile d'arachide (raffinée)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 1062.23288426755,
+      "pef": 921.4117461887155
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003110968",
+    "category": "ingredient",
+    "system_description": "",
+    "comment": "Production of 1kg refined peanut oil in SenegalSource : Schmidt, J. H. (2015). Life cycle assessment of five vegetable oilsAllocation is based on the price ratio of cake : oil = 0.10Economic allocation is applied. Price for 1 kg Peanut oil = 0.51 US $/pound; price for 1 kg Peanut oil cake = 0.05 US $/pound.",
+    "id": "refined-peanut-oil"
+  },
+  {
+    "name": "Sunflower oil, refined, low dehulling at plant {FR} U",
+    "displayName": "Huile de tournesol (raffinée)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 475.26606721012996,
+      "pef": 318.71916478927307
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003115161",
+    "category": "ingredient",
+    "system_description": "",
+    "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.Economic AllocationEconomic value from AGECO report : 0,9517/kg of refined sunflower oil",
+    "id": "refined-sunflower-oil"
+  },
+  {
+    "name": "Rapeseed oil, refined, at oil mill {FR} U",
+    "displayName": "Huile de colza (raffinée)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 380.3900012747494,
+      "pef": 276.4928867752055
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003112440",
+    "category": "ingredient",
+    "system_description": "",
+    "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.Economic AllocationEconomic value from AGECO report : 0,9192/kg of refined rapeseed oil",
+    "id": "refined-rapeseed-oil"
+  },
+  {
+    "name": "Extra Virgin Olive Oil, at plant {ES} U",
+    "displayName": "Huile d'olive (extra vierge)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 503.14942261453183,
+      "pef": 487.1034904691177
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003105717",
+    "category": "ingredient",
+    "system_description": "",
+    "comment": "This dataset represents the virgin oil extraction in Spain from olive produced in Spain. Included processes: This process includes the production of olive in Spain, cleaning and rinsing of harvest olives and Extra Virgin Olive Oil extraction from two phases process. Remark : Inventory refers to the production of 1kg of Extra Virgin Olive Oil and 4,46 kg of pomace from 5,83 kg of harvest olives. System boundary is at Spain mill. Electricity, water consumption and extraction Yield_ are based on default value proposed by PEFCR for Olive rules (3rd Draft, 2016). Economic Allocation is applied between Extra Virgin Olive Oil and pomace, based on price proposed in PEFCR : Extra Virgin Olive Oil : 1,88/kg and Pomace : 0,01/kgGeography: Extra Virgin Olive Oil production in SpainTechnology: Extra Virgin Olive Oil extraction two phases, representative of extraction process in Spain. Time period: Data from PEFCR Olive Oil, 2016,",
+    "id": "extra-virgin-olive-oil"
   }
 ]
