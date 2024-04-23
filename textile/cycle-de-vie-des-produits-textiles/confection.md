@@ -107,9 +107,9 @@ Il existe différents procédés de délavage dans le socle technique actuelleme
 
 Pour l'instant nous ne prenons que le procédé par défaut qui est le plus impactant (chimique, majorant, traitement des eaux inefficace).
 
-#### Accessoires : sont considérés comme non significatifs
+#### Accessoires : non pris en compte (à date)
 
-Les accessoires (boutons, fermeture éclair, étiquettes, etc.) ne sont pas modélisés dans Ecobalyse car leur contribution à l'impact environnemental global des vêtements est considérée comme non significative. Une analyse de sensibilité sur l'impact carbone (kg CO2 eq.) d'un jean a été réalisée et est disponible [ici](https://docs.google.com/presentation/d/1FGudBZK\_3sD\_8VqYwb6tdbpgB-TOKXhfQmMxEdiUCpg/edit?usp=sharing).&#x20;
+Les accessoires (boutons, fermeture éclair, étiquettes, etc.) ne sont pas modélisés dans Ecobalyse à date (leur contribution sur le coût environnemental des premiers vêtements proposés dans l'outil - ex : t-shirt - est considérée comme non-significative car inférieure à 5% dans la majorité des cas).&#x20;
 
 #### Taux de perte (%)&#x20;
 
