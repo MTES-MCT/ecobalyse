@@ -255,7 +255,7 @@ _Illustration pour un T-shirt composé à 50/50 de fils de polyester/coton :_&#x
 
 #### Taux de pertes (%)
 
-Des taux de perte par défaut sont appliqués sur la base de données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).
+Des taux de perte par défaut sont appliqués sur la base de données industrielles.
 
 Pour les matières recyclées, le taux de perte de la matière vierge est appliqué.&#x20;
 
