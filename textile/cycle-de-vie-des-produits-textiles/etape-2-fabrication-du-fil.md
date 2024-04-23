@@ -129,14 +129,6 @@ _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#
 
 <details>
 
-<summary>Blanchiment</summary>
-
-Un procédé de blanchiment est appliqué par défaut selon la nature des fibres constituant le fil.
-
-</details>
-
-<details>
-
 <summary>Fabrication du fil (filature vs filage)</summary>
 
 Un fil peut être fabriqué selon deux procédés : la filature ou le filage.&#x20;
@@ -189,15 +181,13 @@ Avec :&#x20;
 
 <details>
 
-<summary>Fabrication du fil (filature vs filage) et Blanchiment</summary>
+<summary>Fabrication du fil (filature vs filage)</summary>
 
 La **filature** est utilisée par défaut pour les fils composés fibres naturelles ou artificielles.
 
 Le **filage** est utilisé par défaut pour les fils composés de filaments (matières synthétiques).
 
 :warning: Ecobalyse ne permet pas de modéliser des fils multi-fibres (ex : fil composé à 50% de coton et 50% de polyester). Si un vêtement est composé de plusieurs matières, Ecobalyse considère que différents fils sont assemblés lors de la fabrication de l'étoffe.
-
-Une étape de **Blanchiment** est appliquée par défaut pour les procédés de filature (fibres naturelles et artificielles). &#x20;
 
 </details>
 
@@ -272,20 +262,4 @@ Pour les matières recyclées, le taux de perte de la matière vierge est appliq
 Pour les vêtements composés de plusieurs matières, le même raisonnement que celui présenté dans la rubrique _Hypothèses par défaut_ => _Consommation d'électricité_ est applicable.
 
 <table><thead><tr><th width="246.33333333333331">Fibres</th><th>Taux de pertes (%)</th></tr></thead><tbody><tr><td>Naturelles ou Artificielles</td><td>12%</td></tr><tr><td>Synthétiques</td><td>3%</td></tr></tbody></table>
-
-## Limites
-
-<details>
-
-<summary>Agents de préparation </summary>
-
-Différents agents de préparation (ex : lubrifiants) sont appliqués sur les fibres tout au long des étapes de la fabrication d'un fil afin d'optimiser les étapes. L'inventaire de ces flux de substances chimiques ainsi que leurs caractérisation est aujourd'hui difficile à évaluer.&#x20;
-
-&#x20;
-
-**Illustration de paramètres modélisables :**&#x20;
-
-![](<../../.gitbook/assets/image (12) (2).png>)
-
-</details>
 
