@@ -5304,10 +5304,14 @@
     "density": 0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 2.135572826524261,
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -5321,10 +5325,14 @@
     "density": 0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.9966,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 13.975966404900435,
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "PLANTES A FIBRES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -5338,10 +5346,14 @@
     "density": 0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.31333,
+      "plotSize": 1.0966,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 1.25330761869874,
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "VIGNES",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -5355,10 +5367,14 @@
     "density": 0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 7.45490623164265,
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "PROTEAGINEUX",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -5372,10 +5388,14 @@
     "density": 0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 28.71674041547803,
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -5389,10 +5409,14 @@
     "density": 0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 15.04314086568664,
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "PROTEAGINEUX",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -5406,10 +5430,14 @@
     "density": 0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 10.412865598592001,
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "TOURNESOL",
+    "scenario": "import",
     "visible": true
   },
   {
@@ -5423,10 +5451,14 @@
     "density": 0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 1.0753,
+      "plotSize": 1.1761,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 4.704300146119007,
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "COLZA",
+    "scenario": "reference",
     "visible": true
   },
   {
@@ -5440,10 +5472,14 @@
     "density": 0,
     "inedible_part": 0,
     "transport_cooling": "none",
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
     "land_occupation": 11.545842285430188,
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "OLIVIERS",
+    "scenario": "import",
     "visible": true
   }
 ]

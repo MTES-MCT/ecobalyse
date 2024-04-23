@@ -4675,8 +4675,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Cet ICV correspond à la production de l'huile de palme, de la culture jusqu'aux portes de l'usine. Un mix d'importation de l'huile de palme brute est considéré (origines Indonésie, Thailande, Malaysie et transport jusqu'en europe inclus). L'étape de raffinage de l'huile de palme est représentative du raffinage Européen. Le transport en aval de l'huile de palme raffinée n'est pas inclus dans cet ICV. \nCet ICV est appelé dans des ICV de produits alimentaires de la base Agribalyse tels que margarines, bouillon, muesli...\nL'origine par défaut devrait être Europe car le transport en amont du raffinage (ayant lieu en Europe) est déjà comptabilisé. \nLa densité de l'huile de palme est de 0,895. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales",
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
+    "scenario": "import",
     "land_occupation": 2.135572826524261
   },
   {
@@ -4693,8 +4693,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Cet ICV correspond à la production de l'huile de lin, de la culture jusqu'aux portes de l'usine. Un mix d'importation des graines de lin est considéré (origines France, Belgique et Royamme-Uni et transport inclus). La trituration et le raffinage sont représentatifs de la production en France. Le transport aval de l'huile de lin n'est pas inclus dans cet ICV.\nSelon le mix de consommation français de l'huile de lin, l'origine par défaut devrait être Europe. \nLa densité de l'huile de lin est de 0,930. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "PLANTES A FIBRES",
+    "scenario": "reference",
     "land_occupation": 13.975966404900435
   },
   {
@@ -4711,8 +4711,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Cet ICV correspond à la production de l'huile de pépins de raisin, de la collecte jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production en France. Le transport des pépins et de l'huile brute est inclus dans cet ICV. Le transport aval de l'huile de pépins de raisin raffinée n'est pas inclus dans cet ICV. \nLa densité de l'huile de pépins de raisin est de 0,923.\nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "VIGNES",
+    "scenario": "reference",
     "land_occupation": 1.25330761869874
   },
   {
@@ -4729,8 +4729,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Cet ICV correspond à la production de l'huile de soja, de la culture jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production en France. Un mix d'importation des graines de soja est considéré (origines France, Brésil, Etats-Unis, Canada, et transport inclus). Le transport aval de l'huile de soja n'est pas inclus dans cet ICV.\nSelon le mix de consommation français de l'huile de soja, l'origine par défaut devrait être Hors Europe. \nLa densité de l'huile de soja est de 0,922.  \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "PROTEAGINEUX",
+    "scenario": "import",
     "land_occupation": 7.45490623164265
   },
   {
@@ -4747,8 +4747,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Cet ICV correspond à production de l'huile vierge de noisette, de la culture jusqu'aux portes de l'usine. La trituration est représentative de la production d'huile vierge de noisette en France. Un mix d'importation des noisettes est considéré (origines Turquie, Italie et transport inclus). Le transport aval de l'huile de noisette n'est pas inclus dans cet ICV. \nL'origine par défaut Europe est proposée à partir de l'origine des noisettes (Turquie plus grand producteur). \nLa densité de l'huile de noisette est de 0,904. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "import",
     "land_occupation": 28.71674041547803
   },
   {
@@ -4765,8 +4765,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Cet ICV correspond à la production de l'huile d'arachide, de la culture jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production au Sénégal. Cet ICV est l'ICV majoritaire du mix de consommation d'huile d'arachide en France. Le transport des arachides est inclus mais le transport aval de l'huile d'arachide n'est pas inclus dans cet ICV. \nSelon le mix de consommation français de l'huile d'arachide, l'origine par défaut devrait être Hors Europe. \nLa densité de l'huile d'arachide est de 0,915. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "PROTEAGINEUX",
+    "scenario": "import",
     "land_occupation": 15.04314086568664
   },
   {
@@ -4783,8 +4783,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Cet ICV correspond à la production de l'huile de tournesol, de la culture jusqu'aux portes de l'usine. Un mix d'importation des graines de tournesol est considéré (origines France,  Roumanie, Bulgarie, Argentine et transport inclus). La trituration et le raffinage sont représentatifs de la production en France. Cet ICV est l'ICV majoritaire du mix de consommation d'huile de tournesol en France. Le transport aval de l'huile de tournesol n'est pas inclus dans cet ICV. \nCet ICV se retrouve dans de nombreux autres produits Agribalyse contenant de l'huile de tournesol. \nSelon le mix de consommation français de l'huile de tournesol, l'origine par défaut devrait être Europe. \nLa densité de l'huile de tournesol est de 0,920. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.\n\nRemarque : l'ICV \"\"Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U\"\" correspond à la donnée huile de tournesol de Agribalyse 3.0. Cette donnée n'est pas spécifique à la  production française. Cet ICV n'est pas utilisé dans les autres produits Agribalyse.",
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "TOURNESOL",
+    "scenario": "import",
     "land_occupation": 10.412865598592001
   },
   {
@@ -4801,8 +4801,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Cet ICV correspond à la production de l'huile de colza, de la culture jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production en France pour un usage alimentaire. Le transport des graines de colza est inclus mais le transport aval de l'huile de colza n'est pas inclus dans cet ICV. \nCet ICV se retrouve dans de nombreux autres produits Agribalyse contenant de l'huile de colza. \nSelon le mix de consommation français de l'huile de colza, l'origine par défaut devrait être Europe. \nLa densité de l'huile de colza est de 0,915. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.\n\nRemarque : l'ICV \"\"Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U\"\" correspond à la donnée huile de colza de Agribalyse 3.0. Cette donnée n'est pas spécifique à la production française. Cet ICV n'est pas utilisé dans les autres produits Agribalyse.",
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "COLZA",
+    "scenario": "reference",
     "land_occupation": 4.704300146119007
   },
   {
@@ -4819,8 +4819,8 @@
     "transport_cooling": "none",
     "visible": true,
     "explain": "Cet ICV correspond à la production de l'huile d'olive extra vierge, de la culture jusqu'aux portes de l'usine. La trituration est représentative de la production en Espagne. Cet ICV est l'ICV majoritaire du mix de consommation d'huile d'olive en France. Le transport aval de l'huile d'olive n'est pas inclus dans cet ICV.\nSelon le mix de consommation français de l'huile d'olive, l'origine par défaut devrait être Europe ou Maghreb. \nLa densité de l'huile d'olive est de 0,914. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
-    "crop_group": null,
-    "scenario": null,
+    "crop_group": "OLIVIERS",
+    "scenario": "import",
     "land_occupation": 11.545842285430188
   }
 ]
