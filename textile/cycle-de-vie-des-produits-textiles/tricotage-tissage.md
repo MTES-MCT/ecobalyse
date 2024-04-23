@@ -177,7 +177,7 @@ L'utilisateur a la possibilité de préciser la technique de tricotage utilisée
 * tricotage circulaire
 * tricotage fully-fashioned / seamless = tricotage pièce par pièce\
   (permet de limiter les coutures et pertes en confection)
-* tricotage intégral (whole garment) = tricotage du vêtement en entier
+* tricotage intégral (whole garment) = tricotage du vêtement en entier en utilisant la technologie 3D
 
 :bulb: L'utilisation d'un tricotage _fully-fashioned/seamless_ ou _intégral_ réduit considérablement l'impact de l'étape de confection car les taux de perte et le temps de confection sont réduits (tricotage _fully-fashioned/seamless_) ou disparaissent (tricotage _intégral/whole garment_).&#x20;
 
@@ -286,7 +286,7 @@ Procédés disponibles :\
 \- tricotage rectiligne : 1,2 kWh/kg\
 \- tricotage circulaire 1,2 kWh/kg\
 \- tricotage fully-fashioned / seamless : 1,7 kWh/kg\
-\- tricotage intégral : 3,7 kWh/kg\
+\- tricotage intégral / whole garment (3D) : 3,7 kWh/kg\
 \- tricotage moyen (par défaut) : 2,4 kWh/kg&#x20;
 
 Les quantité d'électricité proposées par défaut ont été reprises des données Base Impacts. Une revue bibliographique ainsi que de nombreuses interviews avec les industriels ont été menés en 2023 afin de préciser ces données. Cependant, peu de données fiables par type de procédé ont été remontés.
