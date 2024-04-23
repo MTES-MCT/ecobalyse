@@ -1,7 +1,17 @@
 import json
 from copy import deepcopy
 
-from django.db import models
+from django.db.models import (
+    CASCADE,
+    SET_NULL,
+    BooleanField,
+    CharField,
+    FloatField,
+    ForeignKey,
+    IntegerField,
+    ManyToManyField,
+    Model,
+)
 from django.utils.translation import gettext_lazy as _
 
 from .choices import (
@@ -55,50 +65,50 @@ def delkey(key, record):
 # textile
 
 
-class Process(models.Model):
+class Process(Model):
     class Meta:
         verbose_name_plural = "Processes"
 
-    search = models.CharField(max_length=200, blank=True)
-    name = models.CharField(max_length=200)
-    source = models.CharField(max_length=200)
-    info = models.CharField(max_length=200)
-    unit = models.CharField(max_length=50, choices=UNITS)
-    uuid = models.CharField(max_length=50, primary_key=True)
-    acd = models.FloatField()
-    cch = models.FloatField()
-    etf = models.FloatField()
-    etfc = models.FloatField()
-    fru = models.FloatField()
-    fwe = models.FloatField()
-    htc = models.FloatField()
-    htcc = models.FloatField()
-    htn = models.FloatField()
-    htnc = models.FloatField()
-    ior = models.FloatField()
-    ldu = models.FloatField()
-    mru = models.FloatField()
-    ozd = models.FloatField()
-    pco = models.FloatField()
-    pma = models.FloatField()
-    swe = models.FloatField()
-    tre = models.FloatField()
-    wtu = models.FloatField()
-    pef = models.FloatField()
-    ecs = models.FloatField()
-    heat_MJ = models.FloatField(default=0)
-    elec_pppm = models.FloatField()
-    elec_MJ = models.FloatField()
-    waste = models.FloatField()
-    alias = models.CharField(max_length=50, null=True)
-    step_usage = models.CharField(max_length=50, choices=STEPUSAGES)
-    correctif = models.CharField(max_length=200)
+    search = CharField(200, blank=True)
+    name = CharField(200)
+    source = CharField(200)
+    info = CharField(200)
+    unit = CharField(50, choices=UNITS)
+    uuid = CharField(50, primary_key=True)
+    acd = FloatField()
+    cch = FloatField()
+    etf = FloatField()
+    etfc = FloatField()
+    fru = FloatField()
+    fwe = FloatField()
+    htc = FloatField()
+    htcc = FloatField()
+    htn = FloatField()
+    htnc = FloatField()
+    ior = FloatField()
+    ldu = FloatField()
+    mru = FloatField()
+    ozd = FloatField()
+    pco = FloatField()
+    pma = FloatField()
+    swe = FloatField()
+    tre = FloatField()
+    wtu = FloatField()
+    pef = FloatField()
+    ecs = FloatField()
+    heat_MJ = FloatField(default=0)
+    elec_pppm = FloatField()
+    elec_MJ = FloatField()
+    waste = FloatField()
+    alias = CharField(50, null=True)
+    step_usage = CharField(50, choices=STEPUSAGES)
+    correctif = CharField(200)
 
     def __str__(self):
         return self.name
 
     @classmethod
-    def _fromJSON(self, process):
+    def _fromJSON(cls, process):
         """Takes a json of a process, returns a Process instance"""
         return Process(
             **delkey("bvi", delchar("-", flatten("impacts", deepcopy(process))))
@@ -150,44 +160,44 @@ class Process(models.Model):
         )
 
 
-class Product(models.Model):
-    id = models.CharField(max_length=50, primary_key=True)
-    name = models.CharField(max_length=200)
-    mass = models.FloatField()
-    surfaceMass = models.FloatField()
-    yarnSize = models.FloatField()
-    fabric = models.CharField(max_length=50, choices=FABRICS)
+class Product(Model):
+    id = CharField(50, primary_key=True)
+    name = CharField(200)
+    mass = FloatField()
+    surfaceMass = FloatField()
+    yarnSize = FloatField()
+    fabric = CharField(50, choices=FABRICS)
     # economics
-    business = models.CharField(max_length=50, choices=BUSINESSES)
-    marketingDuration = models.FloatField()
-    numberOfReferences = models.IntegerField()
-    price = models.FloatField()
-    repairCost = models.FloatField()
-    traceability = models.BooleanField()
+    business = CharField(50, choices=BUSINESSES)
+    marketingDuration = FloatField()
+    numberOfReferences = IntegerField()
+    price = FloatField()
+    repairCost = FloatField()
+    traceability = BooleanField()
     # dyeing
-    defaultMedium = models.CharField(max_length=50, choices=DYEINGMEDIA)
+    defaultMedium = CharField(50, choices=DYEINGMEDIA)
     # making
-    pcrWaste = models.FloatField()
-    complexity = models.CharField(max_length=50, choices=MAXKINGCOMPLEXITIES)
+    pcrWaste = FloatField()
+    complexity = CharField(50, choices=MAXKINGCOMPLEXITIES)
     # use
-    ironingElecInMJ = models.FloatField()
-    nonIroningProcessUuid = models.ForeignKey(
-        Process, on_delete=models.SET_NULL, null=True, related_name="productsNonIroning"
+    ironingElecInMJ = FloatField()
+    nonIroningProcessUuid = ForeignKey(
+        Process, SET_NULL, null=True, related_name="productsNonIroning"
     )
-    daysOfWear = models.IntegerField()
-    defaultNbCycles = models.IntegerField()
-    ratioDryer = models.FloatField()
-    ratioIroning = models.FloatField()
-    timeIroning = models.FloatField()
-    wearsPerCycle = models.FloatField()
+    daysOfWear = IntegerField()
+    defaultNbCycles = IntegerField()
+    ratioDryer = FloatField()
+    ratioIroning = FloatField()
+    timeIroning = FloatField()
+    wearsPerCycle = FloatField()
     # enf of life
-    volume = models.FloatField()
+    volume = FloatField()
 
     def __str__(self):
         return self.name
 
     @classmethod
-    def _fromJSON(self, product):
+    def _fromJSON(cls, product):
         """takes a json of a product, return an instance of Product"""
         # all fields except the foreignkeys
         p = Product(
@@ -257,32 +267,30 @@ class Product(models.Model):
         )
 
 
-class Material(models.Model):
-    id = models.CharField(max_length=50, primary_key=True)
-    materialProcessUuid = models.ForeignKey(
-        Process, on_delete=models.SET_NULL, null=True, related_name="materials"
+class Material(Model):
+    id = CharField(50, primary_key=True)
+    materialProcessUuid = ForeignKey(
+        Process, SET_NULL, null=True, related_name="materials"
     )
-    recycledProcessUuid = models.ForeignKey(
-        Process, on_delete=models.SET_NULL, null=True, related_name="recycledMaterials"
+    recycledProcessUuid = ForeignKey(
+        Process, SET_NULL, null=True, related_name="recycledMaterials"
     )
-    recycledFrom = models.ForeignKey(
-        "self", null=True, on_delete=models.SET_NULL, blank=True
-    )
-    name = models.CharField(max_length=200)
-    shortName = models.CharField(max_length=50)
-    origin = models.CharField(max_length=50, choices=ORIGINS)
-    geographicOrigin = models.CharField(max_length=200)
-    defaultCountry = models.CharField(max_length=3, choices=COUNTRIES)
-    priority = models.IntegerField()
+    recycledFrom = ForeignKey("self", SET_NULL, null=True, blank=True)
+    name = CharField(200)
+    shortName = CharField(50)
+    origin = CharField(50, choices=ORIGINS)
+    geographicOrigin = CharField(200)
+    defaultCountry = CharField(3, choices=COUNTRIES)
+    priority = IntegerField()
     # cff
-    manufacturerAllocation = models.FloatField(null=True, blank=True)
-    recycledQualityRatio = models.FloatField(null=True, blank=True)
+    manufacturerAllocation = FloatField(null=True, blank=True)
+    recycledQualityRatio = FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.name
 
     @classmethod
-    def _fromJSON(self, material):
+    def _fromJSON(cls, material):
         """takes a json of a material, returns a Material instance, without recursive FK"""
         m = Material(
             **delkey(
@@ -333,58 +341,48 @@ class Material(models.Model):
         )
 
 
-class Example(models.Model):
-    id = models.CharField(max_length=50, primary_key=True)
-    name = models.CharField(max_length=200)
+class Example(Model):
+    id = CharField(50, primary_key=True)
+    name = CharField(200)
 
     @property
     def category(self):
         return self.product.name
 
-    mass = models.FloatField()
-    materials = models.ManyToManyField(Material, through="Share")
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, null=True, verbose_name=_("Category")
-    )
-    business = models.CharField(
+    mass = FloatField()
+    materials = ManyToManyField(Material, through="Share")
+    product = ForeignKey(Product, CASCADE, null=True, verbose_name=_("Category"))
+    business = CharField(
         max_length=50, choices=BUSINESSES, verbose_name=_("Company type")
     )
-    marketingDuration = models.FloatField(
-        null=True, verbose_name=_("Marketing Duration")
-    )
-    numberOfReferences = models.IntegerField(
-        null=True, verbose_name=_("Number Of References")
-    )
-    price = models.FloatField(null=True, verbose_name=_("Price"))
-    repairCost = models.FloatField(null=True, blank=True, verbose_name=_("Repair Cost"))
-    traceability = models.BooleanField(
-        null=True, verbose_name=_("Traceability Displayed?")
-    )
-    airTransportRatio = models.FloatField(
-        null=True, verbose_name=_("Air Transport Ratio")
-    )
+    marketingDuration = FloatField(null=True, verbose_name=_("Marketing Duration"))
+    numberOfReferences = IntegerField(null=True, verbose_name=_("Number Of References"))
+    price = FloatField(null=True, verbose_name=_("Price"))
+    repairCost = FloatField(null=True, blank=True, verbose_name=_("Repair Cost"))
+    traceability = BooleanField(null=True, verbose_name=_("Traceability Displayed?"))
+    airTransportRatio = FloatField(null=True, verbose_name=_("Air Transport Ratio"))
 
-    countrySpinning = models.CharField(
+    countrySpinning = CharField(
         max_length=50, choices=COUNTRIES, verbose_name=_("Spinning Country")
     )
-    countryFabric = models.CharField(
+    countryFabric = CharField(
         max_length=50, choices=COUNTRIES, verbose_name=_("Fabric Country")
     )
-    countryDyeing = models.CharField(
+    countryDyeing = CharField(
         max_length=50, choices=COUNTRIES, verbose_name=_("Country Of Dyeing")
     )
-    countryMaking = models.CharField(
+    countryMaking = CharField(
         max_length=50, choices=COUNTRIES, verbose_name=_("Country Of Manufacture")
     )
-    fabricProcess = models.ForeignKey(
-        Process, on_delete=models.CASCADE, null=True, verbose_name=_("Fabric Process")
+    fabricProcess = ForeignKey(
+        Process, CASCADE, null=True, verbose_name=_("Fabric Process")
     )
 
     def __str__(self):
         return self.name
 
     @classmethod
-    def _fromJSON(self, example):
+    def _fromJSON(cls, example):
         """takes a json of an example, return an instance of Example"""
         # all fields except some
         e = Example(
@@ -467,12 +465,12 @@ class Example(models.Model):
         return json.dumps(output)
 
 
-class Share(models.Model):
+class Share(Model):
     """m2m relation of Example with an extra field"""
 
     class Meta:
         verbose_name_plural = _("Materials")
 
-    example = models.ForeignKey(Example, on_delete=models.CASCADE)
-    material = models.ForeignKey(Material, on_delete=models.CASCADE)
-    share = models.FloatField()
+    example = ForeignKey(Example, CASCADE)
+    material = ForeignKey(Material, CASCADE)
+    share = FloatField()
