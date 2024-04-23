@@ -42,7 +42,7 @@ Une contexture est formulée comme suit : 30 x 27 Nm 56/50 :&#x20;
 
 <details>
 
-<summary>Principales étapes du  tissage</summary>
+<summary>Principales étapes du tissage</summary>
 
 1. **Préparation au tissage**\
    \
@@ -179,7 +179,7 @@ L'utilisateur a la possibilité de préciser la technique de tricotage utilisée
   (permet de limiter les coutures et pertes en confection)
 * tricotage intégral (whole garment) = tricotage du vêtement en entier
 
-:bulb: L'utilisation d'un tricotage fully-fashioned ou seamless réduit considérablement l'impact de l'étape de confection car les taux de perte et le temps de confection sont réduits (tricotage fully-fashioned) ou disparaissent (tricotage seamless).&#x20;
+:bulb: L'utilisation d'un tricotage _fully-fashioned/seamless_ ou _intégral_ réduit considérablement l'impact de l'étape de confection car les taux de perte et le temps de confection sont réduits (tricotage _fully-fashioned/seamless_) ou disparaissent (tricotage _intégral/whole garment_).&#x20;
 
 </details>
 
@@ -312,7 +312,7 @@ Cette valeur correspond au grammage de l'étoffe constaté sur le produit fini.
 <summary>Vous souhaitez modifier le grammage du vêtement ?</summary>
 
 Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénario incohérent. \
-En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la quantité d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
+En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la surface d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
 
 ![](<../../.gitbook/assets/image (4) (3) (3).png>)
 
@@ -324,7 +324,7 @@ En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/
   En l'absence de précision de la part de l'utilisateur, un procédé par défaut est appliqué afin d'estimer la consommation d'électricité (valeur par défaut = 2,4 kWh / kg étoffe).&#x20;
 * Cas particuliers
   * _Tricotage fully-fashioned / seamless_ (optionnel)\
-    Dans le cas où l'utilisateur sélectionne l'un de ces procédés, les paramètres de la confection sont modifiés en conséquence et figés. \
+    Dans le cas où l'utilisateur sélectionne ce procédé, les paramètres de la confection sont modifiés en conséquence et figés. \
     Complexité = Très faible\
     Taux de pertes = 2%
   * _Tricotage intégral / whole garment (_optionnel)\
