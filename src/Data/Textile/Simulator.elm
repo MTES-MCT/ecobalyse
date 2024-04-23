@@ -140,14 +140,14 @@ compute db query =
         |> nextIf Label.Spinning computeSpinningImpacts
         -- Compute Weaving & Knitting step impacts
         |> nextWithDbIf Label.Fabric computeFabricImpacts
+        -- Compute Ennobling step bleaching impacts
+        |> nextWithDbIf Label.Ennobling computeBleachingImpacts
         -- Compute Ennobling step Dyeing impacts
         |> nextWithDbIf Label.Ennobling computeDyeingImpacts
         -- Compute Ennobling step Printing impacts
         |> nextWithDbIf Label.Ennobling computePrintingImpacts
         -- Compute Ennobling step Finishing impacts
         |> nextWithDbIf Label.Ennobling computeFinishingImpacts
-        -- Compute Ennobling step bleaching impacts
-        |> nextWithDbIf Label.Ennobling computeBleachingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
@@ -384,7 +384,7 @@ computeFinishingImpacts { textile } simulator =
                 { step
                     | heat = step.heat |> Quantity.plus heat
                     , kwh = step.kwh |> Quantity.plus kwh
-                    , impacts = Impact.sumImpacts [ step.impacts, impacts ]
+                    , impacts = step.impacts |> Impact.addImpacts impacts
                 }
             )
 
@@ -394,18 +394,25 @@ computeBleachingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
+                -- Note: bleaching only applies to non-synthetic materials
                 let
-                    impacts =
+                    nonSyntheticMaterialsShare =
+                        inputs.materials
+                            |> List.filter (\{ material } -> material.origin /= Origin.Synthetic)
+                            |> List.map (.share >> Split.toFloat)
+                            |> List.sum
+                in
+                { step
+                    | impacts =
                         step.outputMass
+                            |> Quantity.multiplyBy nonSyntheticMaterialsShare
                             |> Formula.bleachingImpacts step.impacts
                                 { bleachingProcess = textile.wellKnown.bleaching
                                 , aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
                                 , countryHeatProcess = inputs.countryDyeing.heatProcess
                                 }
-                in
-                { step
-                    | impacts = Impact.sumImpacts [ step.impacts, impacts ]
+                            |> Impact.addImpacts step.impacts
                 }
             )
 
