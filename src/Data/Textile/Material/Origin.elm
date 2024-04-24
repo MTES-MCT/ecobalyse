@@ -4,6 +4,9 @@ module Data.Textile.Material.Origin exposing
     , decode
     , defaultShares
     , isSynthetic
+    , natural
+    , nonSynthetic
+    , syntheticAndArtificial
     , threadProcess
     , toLabel
     , toMicrofibersComplement
@@ -74,6 +77,30 @@ fromString origin =
 isSynthetic : Origin -> Bool
 isSynthetic origin =
     origin == Synthetic
+
+
+natural : List Origin
+natural =
+    [ NaturalFromAnimal
+    , NaturalFromVegetal
+    ]
+
+
+nonSynthetic : List Origin
+nonSynthetic =
+    [ ArtificialFromInorganic
+    , ArtificialFromOrganic
+    , NaturalFromAnimal
+    , NaturalFromVegetal
+    ]
+
+
+syntheticAndArtificial : List Origin
+syntheticAndArtificial =
+    [ ArtificialFromInorganic
+    , ArtificialFromOrganic
+    , Synthetic
+    ]
 
 
 toMicrofibersComplement : Origin -> Unit.Impact

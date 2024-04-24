@@ -5,8 +5,10 @@ module Data.Textile.Inputs exposing
     , countryList
     , encode
     , fromQuery
+    , getCottonShare
     , getMaterialMicrofibersComplement
     , getMaterialsOriginShares
+    , getMaterialsShareForOrigin
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
     , getTotalMicrofibersComplement
@@ -380,6 +382,17 @@ countryList inputs =
     ]
 
 
+getCottonShare : List MaterialInput -> Float
+getCottonShare =
+    List.filter
+        (\{ material } ->
+            [ "ei-coton", "ei-coton-organic" ]
+                |> List.member (Material.idToString material.id)
+        )
+        >> List.map (.share >> Split.toFloat)
+        >> List.sum
+
+
 getMaterialMicrofibersComplement : Mass -> MaterialInput -> Unit.Impact
 getMaterialMicrofibersComplement finalProductMass { material, share } =
     -- Note: Impact is computed against the final product mass, because microfibers
@@ -409,6 +422,14 @@ getMaterialsOriginShares materialInputs =
     , naturalFromVegetal = materialInputs |> getMaterialCategoryShare Origin.NaturalFromVegetal
     , synthetic = materialInputs |> getMaterialCategoryShare Origin.Synthetic
     }
+
+
+getMaterialsShareForOrigin : List Origin -> List MaterialInput -> Float
+getMaterialsShareForOrigin origins =
+    List.filter
+        (\{ material } -> List.member material.origin origins)
+        >> List.map (.share >> Split.toFloat)
+        >> List.sum
 
 
 getMaterialCategoryShare : Origin -> List MaterialInput -> Split
