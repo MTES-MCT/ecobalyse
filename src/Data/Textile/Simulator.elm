@@ -148,6 +148,8 @@ compute db query =
         |> nextWithDbIf Label.Ennobling computeScouringImpacts
         -- Compute Ennobling step mercerising impacts
         |> nextWithDbIf Label.Ennobling computeMercerisingImpacts
+        -- Compute Ennobling step washing impacts
+        |> nextWithDbIf Label.Ennobling computeWashingImpacts
         -- Compute Ennobling step Dyeing impacts
         |> nextWithDbIf Label.Ennobling computeDyeingImpacts
         -- Compute Ennobling step Printing impacts
@@ -433,8 +435,8 @@ computeDesizingImpacts { textile } ({ inputs } as simulator) =
                     { step
                         | impacts =
                             step.outputMass
-                                |> Formula.desizingImpacts step.impacts
-                                    { desizingProcess = textile.wellKnown.desizing
+                                |> Formula.genericImpacts step.impacts
+                                    { process = textile.wellKnown.desizing
                                     , countryElecProcess = inputs.countryDyeing.electricityProcess
                                     , countryHeatProcess = inputs.countryDyeing.heatProcess
                                     }
@@ -451,7 +453,7 @@ computeScouringImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                -- Note: desizing only applies to natural materials
+                -- Note: scouring only applies to natural materials
                 let
                     naturalMaterialsShare =
                         inputs.materials
@@ -466,8 +468,8 @@ computeScouringImpacts { textile } ({ inputs } as simulator) =
                     | impacts =
                         step.outputMass
                             |> Quantity.multiplyBy naturalMaterialsShare
-                            |> Formula.scouringImpacts step.impacts
-                                { scouringProcess = textile.wellKnown.scouring
+                            |> Formula.genericImpacts step.impacts
+                                { process = textile.wellKnown.scouring
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
                                 , countryHeatProcess = inputs.countryDyeing.heatProcess
                                 }
@@ -499,6 +501,40 @@ computeMercerisingImpacts { textile } ({ inputs } as simulator) =
                             |> Quantity.multiplyBy cottonShare
                             |> Formula.mercerisingImpacts step.impacts
                                 { mercerisingProcess = textile.wellKnown.mercerising
+                                , countryElecProcess = inputs.countryDyeing.electricityProcess
+                                , countryHeatProcess = inputs.countryDyeing.heatProcess
+                                }
+                            |> Impact.addImpacts step.impacts
+                }
+            )
+
+
+computeWashingImpacts : Db -> Simulator -> Simulator
+computeWashingImpacts { textile } ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\step ->
+                -- Note: washing only applies to synthetic and artificial materials
+                let
+                    syntheticAndArtificialMaterialsShare =
+                        inputs.materials
+                            |> List.filter
+                                (\{ material } ->
+                                    List.member material.origin
+                                        [ Origin.ArtificialFromInorganic
+                                        , Origin.ArtificialFromOrganic
+                                        , Origin.Synthetic
+                                        ]
+                                )
+                            |> List.map (.share >> Split.toFloat)
+                            |> List.sum
+                in
+                { step
+                    | impacts =
+                        step.outputMass
+                            |> Quantity.multiplyBy syntheticAndArtificialMaterialsShare
+                            |> Formula.genericImpacts step.impacts
+                                { process = textile.wellKnown.washing
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
                                 , countryHeatProcess = inputs.countryDyeing.heatProcess
                                 }
