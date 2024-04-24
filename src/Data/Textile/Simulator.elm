@@ -146,6 +146,8 @@ compute db query =
         |> nextWithDbIf Label.Ennobling computeDesizingImpacts
         -- Compute Ennobling step scouring impacts
         |> nextWithDbIf Label.Ennobling computeScouringImpacts
+        -- Compute Ennobling step mercerising impacts
+        |> nextWithDbIf Label.Ennobling computeMercerisingImpacts
         -- Compute Ennobling step Dyeing impacts
         |> nextWithDbIf Label.Ennobling computeDyeingImpacts
         -- Compute Ennobling step Printing impacts
@@ -466,6 +468,37 @@ computeScouringImpacts { textile } ({ inputs } as simulator) =
                             |> Quantity.multiplyBy naturalMaterialsShare
                             |> Formula.scouringImpacts step.impacts
                                 { scouringProcess = textile.wellKnown.scouring
+                                , countryElecProcess = inputs.countryDyeing.electricityProcess
+                                , countryHeatProcess = inputs.countryDyeing.heatProcess
+                                }
+                            |> Impact.addImpacts step.impacts
+                }
+            )
+
+
+computeMercerisingImpacts : Db -> Simulator -> Simulator
+computeMercerisingImpacts { textile } ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\step ->
+                -- Note: mercerising only applies to cotton (conventional and organic)
+                let
+                    cottonShare =
+                        inputs.materials
+                            |> List.filter
+                                (\{ material } ->
+                                    [ "ei-coton", "ei-coton-organic" ]
+                                        |> List.member (Material.idToString material.id)
+                                )
+                            |> List.map (.share >> Split.toFloat)
+                            |> List.sum
+                in
+                { step
+                    | impacts =
+                        step.outputMass
+                            |> Quantity.multiplyBy cottonShare
+                            |> Formula.mercerisingImpacts step.impacts
+                                { mercerisingProcess = textile.wellKnown.mercerising
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
                                 , countryHeatProcess = inputs.countryDyeing.heatProcess
                                 }
