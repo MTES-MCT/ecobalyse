@@ -272,45 +272,56 @@ bleachingImpacts :
         , countryHeatProcess : Process
         }
     -> Mass
-    -> Impacts
+    -> { heat : Energy, kwh : Energy, impacts : Impacts }
 bleachingImpacts impacts { bleachingProcess, aquaticPollutionScenario, countryElecProcess, countryHeatProcess } baseMass =
-    impacts
-        |> Impact.mapImpacts
-            (\trigram _ ->
-                Quantity.sum
-                    [ bleachingProcess.elec
-                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-                    , bleachingProcess.heat
-                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-                        |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
-                    , baseMass
-                        |> Unit.forKg (Process.getImpact trigram bleachingProcess)
-                        |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
-                    ]
+    let
+        ( elec, heat ) =
+            ( bleachingProcess.elec |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+            , bleachingProcess.heat |> Quantity.multiplyBy (Mass.inKilograms baseMass)
             )
+    in
+    { kwh = elec
+    , heat = heat
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    Quantity.sum
+                        [ elec |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                        , heat |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
+                        , baseMass
+                            |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+                            |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
+                        ]
+                )
+    }
 
 
 genericImpacts :
     Impacts
     -> { process : Process, countryElecProcess : Process, countryHeatProcess : Process }
     -> Mass
-    -> Impacts
+    -> { heat : Energy, kwh : Energy, impacts : Impacts }
 genericImpacts impacts { process, countryElecProcess, countryHeatProcess } baseMass =
-    impacts
-        |> Impact.mapImpacts
-            (\trigram _ ->
-                Quantity.sum
-                    [ process.elec
-                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-                    , process.heat
-                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-                        |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
-                    , baseMass
-                        |> Unit.forKg (Process.getImpact trigram process)
-                    ]
+    let
+        ( elec, heat ) =
+            ( process.elec |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+            , process.heat |> Quantity.multiplyBy (Mass.inKilograms baseMass)
             )
+    in
+    { kwh = elec
+    , heat = heat
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    Quantity.sum
+                        [ elec |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                        , heat |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
+                        , baseMass |> Unit.forKg (Process.getImpact trigram process)
+                        ]
+                )
+    }
 
 
 mercerisingImpacts :
