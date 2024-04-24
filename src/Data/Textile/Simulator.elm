@@ -144,6 +144,8 @@ compute db query =
         |> nextWithDbIf Label.Ennobling computeBleachingImpacts
         -- Compute Ennobling step desizing impacts
         |> nextWithDbIf Label.Ennobling computeDesizingImpacts
+        -- Compute Ennobling step scouring impacts
+        |> nextWithDbIf Label.Ennobling computeScouringImpacts
         -- Compute Ennobling step Dyeing impacts
         |> nextWithDbIf Label.Ennobling computeDyeingImpacts
         -- Compute Ennobling step Printing impacts
@@ -439,6 +441,36 @@ computeDesizingImpacts { textile } ({ inputs } as simulator) =
 
                 else
                     step
+            )
+
+
+computeScouringImpacts : Db -> Simulator -> Simulator
+computeScouringImpacts { textile } ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\step ->
+                -- Note: desizing only applies to natural materials
+                let
+                    naturalMaterialsShare =
+                        inputs.materials
+                            |> List.filter
+                                (\{ material } ->
+                                    List.member material.origin [ Origin.NaturalFromAnimal, Origin.NaturalFromVegetal ]
+                                )
+                            |> List.map (.share >> Split.toFloat)
+                            |> List.sum
+                in
+                { step
+                    | impacts =
+                        step.outputMass
+                            |> Quantity.multiplyBy naturalMaterialsShare
+                            |> Formula.scouringImpacts step.impacts
+                                { scouringProcess = textile.wellKnown.scouring
+                                , countryElecProcess = inputs.countryDyeing.electricityProcess
+                                , countryHeatProcess = inputs.countryDyeing.heatProcess
+                                }
+                            |> Impact.addImpacts step.impacts
+                }
             )
 
 
