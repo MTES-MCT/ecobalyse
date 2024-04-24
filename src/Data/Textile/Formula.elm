@@ -2,10 +2,10 @@ module Data.Textile.Formula exposing
     ( bleachingImpacts
     , computePicking
     , computeThreadDensity
-    , desizingImpacts
     , dyeingImpacts
     , endOfLifeImpacts
     , finishingImpacts
+    , genericImpacts
     , genericWaste
     , knittingImpacts
     , makingDeadStock
@@ -17,7 +17,6 @@ module Data.Textile.Formula exposing
     , printingImpacts
     , pureMaterialImpacts
     , recycledMaterialImpacts
-    , scouringImpacts
     , spinningImpacts
     , transportRatio
     , useImpacts
@@ -292,54 +291,24 @@ bleachingImpacts impacts { bleachingProcess, aquaticPollutionScenario, countryEl
             )
 
 
-desizingImpacts :
+genericImpacts :
     Impacts
-    ->
-        { desizingProcess : Process -- Inbound: Bleaching process
-        , countryElecProcess : Process
-        , countryHeatProcess : Process
-        }
+    -> { process : Process, countryElecProcess : Process, countryHeatProcess : Process }
     -> Mass
     -> Impacts
-desizingImpacts impacts { desizingProcess, countryElecProcess, countryHeatProcess } baseMass =
+genericImpacts impacts { process, countryElecProcess, countryHeatProcess } baseMass =
     impacts
         |> Impact.mapImpacts
             (\trigram _ ->
                 Quantity.sum
-                    [ desizingProcess.elec
+                    [ process.elec
                         |> Quantity.multiplyBy (Mass.inKilograms baseMass)
                         |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-                    , desizingProcess.heat
+                    , process.heat
                         |> Quantity.multiplyBy (Mass.inKilograms baseMass)
                         |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
                     , baseMass
-                        |> Unit.forKg (Process.getImpact trigram desizingProcess)
-                    ]
-            )
-
-
-scouringImpacts :
-    Impacts
-    ->
-        { scouringProcess : Process -- Inbound: scouring process
-        , countryElecProcess : Process
-        , countryHeatProcess : Process
-        }
-    -> Mass
-    -> Impacts
-scouringImpacts impacts { scouringProcess, countryElecProcess, countryHeatProcess } baseMass =
-    impacts
-        |> Impact.mapImpacts
-            (\trigram _ ->
-                Quantity.sum
-                    [ scouringProcess.elec
-                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-                    , scouringProcess.heat
-                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-                        |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
-                    , baseMass
-                        |> Unit.forKg (Process.getImpact trigram scouringProcess)
+                        |> Unit.forKg (Process.getImpact trigram process)
                     ]
             )
 
