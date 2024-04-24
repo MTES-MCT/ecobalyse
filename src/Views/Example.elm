@@ -35,8 +35,8 @@ view config =
                 |> List.map .query
                 |> AutocompleteSelector.init (Example.toName config.examples)
     in
-    div []
-        [ label [ for "selector-example", class "form-label fw-bold text-truncate mb-0" ]
+    div [ class "d-flex flex-column" ]
+        [ label [ for "selector-example", class "form-label fw-bold text-truncate" ]
             [ text "Exemples" ]
         , div [ class "d-flex justify-content-between align-items-center" ]
             [ button
