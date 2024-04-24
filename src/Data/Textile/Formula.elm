@@ -16,6 +16,7 @@ module Data.Textile.Formula exposing
     , printingImpacts
     , pureMaterialImpacts
     , recycledMaterialImpacts
+    , scouringImpacts
     , spinningImpacts
     , transportRatio
     , useImpacts
@@ -312,6 +313,32 @@ desizingImpacts impacts { desizingProcess, countryElecProcess, countryHeatProces
                         |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
                     , baseMass
                         |> Unit.forKg (Process.getImpact trigram desizingProcess)
+                    ]
+            )
+
+
+scouringImpacts :
+    Impacts
+    ->
+        { scouringProcess : Process -- Inbound: scouring process
+        , countryElecProcess : Process
+        , countryHeatProcess : Process
+        }
+    -> Mass
+    -> Impacts
+scouringImpacts impacts { scouringProcess, countryElecProcess, countryHeatProcess } baseMass =
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                Quantity.sum
+                    [ scouringProcess.elec
+                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                    , scouringProcess.heat
+                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+                        |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
+                    , baseMass
+                        |> Unit.forKg (Process.getImpact trigram scouringProcess)
                     ]
             )
 
