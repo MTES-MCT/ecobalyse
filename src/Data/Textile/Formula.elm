@@ -2,6 +2,7 @@ module Data.Textile.Formula exposing
     ( bleachingImpacts
     , computePicking
     , computeThreadDensity
+    , desizingImpacts
     , dyeingImpacts
     , endOfLifeImpacts
     , finishingImpacts
@@ -285,6 +286,32 @@ bleachingImpacts impacts { bleachingProcess, aquaticPollutionScenario, countryEl
                     , baseMass
                         |> Unit.forKg (Process.getImpact trigram bleachingProcess)
                         |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
+                    ]
+            )
+
+
+desizingImpacts :
+    Impacts
+    ->
+        { desizingProcess : Process -- Inbound: Bleaching process
+        , countryElecProcess : Process
+        , countryHeatProcess : Process
+        }
+    -> Mass
+    -> Impacts
+desizingImpacts impacts { desizingProcess, countryElecProcess, countryHeatProcess } baseMass =
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                Quantity.sum
+                    [ desizingProcess.elec
+                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                    , desizingProcess.heat
+                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+                        |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
+                    , baseMass
+                        |> Unit.forKg (Process.getImpact trigram desizingProcess)
                     ]
             )
 
