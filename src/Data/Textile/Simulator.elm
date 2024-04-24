@@ -142,6 +142,8 @@ compute db query =
         |> nextWithDbIf Label.Fabric computeFabricImpacts
         -- Compute Ennobling step bleaching impacts
         |> nextWithDbIf Label.Ennobling computeBleachingImpacts
+        -- Compute Ennobling step desizing impacts
+        |> nextWithDbIf Label.Ennobling computeDesizingImpacts
         -- Compute Ennobling step Dyeing impacts
         |> nextWithDbIf Label.Ennobling computeDyeingImpacts
         -- Compute Ennobling step Printing impacts
@@ -414,6 +416,29 @@ computeBleachingImpacts { textile } ({ inputs } as simulator) =
                                 }
                             |> Impact.addImpacts step.impacts
                 }
+            )
+
+
+computeDesizingImpacts : Db -> Simulator -> Simulator
+computeDesizingImpacts { textile } ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\step ->
+                -- Note: desizing only applies to weaved products
+                if inputs.product.fabric == Fabric.Weaving then
+                    { step
+                        | impacts =
+                            step.outputMass
+                                |> Formula.desizingImpacts step.impacts
+                                    { desizingProcess = textile.wellKnown.desizing
+                                    , countryElecProcess = inputs.countryDyeing.electricityProcess
+                                    , countryHeatProcess = inputs.countryDyeing.heatProcess
+                                    }
+                                |> Impact.addImpacts step.impacts
+                    }
+
+                else
+                    step
             )
 
 
