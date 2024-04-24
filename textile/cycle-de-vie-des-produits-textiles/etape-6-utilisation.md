@@ -26,7 +26,7 @@ Par exemple, pour un t-shirt avec une durabilité élevée (coefficient de x1,35
 
 ## Impacts pris en compte
 
-Les impacts de la phase d'utilisation concernent l'entretien du vêtelent. Conformément à la documentation textile de la [base Impacts](http://www.base-impacts.ademe.fr) nous prenons en compte les impacts suivants :
+Les impacts de la phase d'utilisation concernent l'entretien du vêtement. Conformément à la documentation textile de la [base Impacts](http://www.base-impacts.ademe.fr) nous prenons en compte les impacts suivants :
 
 * Lavage - Électricité
 * Lavage - Lessive
