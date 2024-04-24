@@ -13,7 +13,6 @@ module Data.Textile.Formula exposing
     , makingWaste
     , materialDyeingToxicityImpacts
     , materialPrintingToxicityImpacts
-    , mercerisingImpacts
     , printingImpacts
     , pureMaterialImpacts
     , recycledMaterialImpacts
@@ -322,32 +321,6 @@ genericImpacts impacts { process, countryElecProcess, countryHeatProcess } baseM
                         ]
                 )
     }
-
-
-mercerisingImpacts :
-    Impacts
-    ->
-        { mercerisingProcess : Process -- Inbound: mercerising process
-        , countryElecProcess : Process
-        , countryHeatProcess : Process
-        }
-    -> Mass
-    -> Impacts
-mercerisingImpacts impacts { mercerisingProcess, countryElecProcess, countryHeatProcess } baseMass =
-    impacts
-        |> Impact.mapImpacts
-            (\trigram _ ->
-                Quantity.sum
-                    [ mercerisingProcess.elec
-                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-                    , mercerisingProcess.heat
-                        |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-                        |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
-                    , baseMass
-                        |> Unit.forKg (Process.getImpact trigram mercerisingProcess)
-                    ]
-            )
 
 
 materialDyeingToxicityImpacts :

@@ -181,6 +181,15 @@ initializeFinalMass ({ inputs } as simulator) =
         |> updateLifeCycleSteps Label.all (Step.initMass inputs.mass)
 
 
+addFormulaResultToStep : Step -> { heat : Energy, kwh : Energy, impacts : Impacts } -> Step
+addFormulaResultToStep step { kwh, impacts, heat } =
+    { step
+        | impacts = impacts |> Impact.addImpacts step.impacts
+        , kwh = kwh |> Quantity.plus step.kwh
+        , heat = heat |> Quantity.plus step.heat
+    }
+
+
 computeDurability : Simulator -> Simulator
 computeDurability ({ inputs } as simulator) =
     let
@@ -380,20 +389,13 @@ computeFinishingImpacts { textile } simulator =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\({ country } as step) ->
-                let
-                    { heat, kwh, impacts } =
-                        step.outputMass
-                            |> Formula.finishingImpacts step.impacts
-                                { finishingProcess = textile.wellKnown.finishing
-                                , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
-                                , elecProcess = country.electricityProcess
-                                }
-                in
-                { step
-                    | heat = step.heat |> Quantity.plus heat
-                    , kwh = step.kwh |> Quantity.plus kwh
-                    , impacts = step.impacts |> Impact.addImpacts impacts
-                }
+                step.outputMass
+                    |> Formula.finishingImpacts step.impacts
+                        { finishingProcess = textile.wellKnown.finishing
+                        , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
+                        , elecProcess = country.electricityProcess
+                        }
+                    |> addFormulaResultToStep step
             )
 
 
@@ -402,23 +404,16 @@ computeBleachingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                let
-                    { kwh, impacts, heat } =
-                        step.outputMass
-                            -- Note: bleaching only applies to non-synthetic materials
-                            |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.nonSynthetic inputs.materials)
-                            |> Formula.bleachingImpacts step.impacts
-                                { bleachingProcess = textile.wellKnown.bleaching
-                                , aquaticPollutionScenario = step.country.aquaticPollutionScenario
-                                , countryElecProcess = inputs.countryDyeing.electricityProcess
-                                , countryHeatProcess = inputs.countryDyeing.heatProcess
-                                }
-                in
-                { step
-                    | impacts = impacts |> Impact.addImpacts step.impacts
-                    , kwh = kwh |> Quantity.plus step.kwh
-                    , heat = heat |> Quantity.plus step.heat
-                }
+                step.outputMass
+                    -- Note: bleaching only applies to non-synthetic materials
+                    |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.nonSynthetic inputs.materials)
+                    |> Formula.bleachingImpacts step.impacts
+                        { bleachingProcess = textile.wellKnown.bleaching
+                        , aquaticPollutionScenario = step.country.aquaticPollutionScenario
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
+                        }
+                    |> addFormulaResultToStep step
             )
 
 
@@ -429,20 +424,13 @@ computeDesizingImpacts { textile } ({ inputs } as simulator) =
             (\step ->
                 -- Note: desizing only applies to weaved products
                 if inputs.product.fabric == Fabric.Weaving then
-                    let
-                        { kwh, impacts, heat } =
-                            step.outputMass
-                                |> Formula.genericImpacts step.impacts
-                                    { process = textile.wellKnown.desizing
-                                    , countryElecProcess = inputs.countryDyeing.electricityProcess
-                                    , countryHeatProcess = inputs.countryDyeing.heatProcess
-                                    }
-                    in
-                    { step
-                        | impacts = impacts |> Impact.addImpacts step.impacts
-                        , kwh = kwh |> Quantity.plus step.kwh
-                        , heat = heat |> Quantity.plus step.heat
-                    }
+                    step.outputMass
+                        |> Formula.genericImpacts step.impacts
+                            { process = textile.wellKnown.desizing
+                            , countryElecProcess = inputs.countryDyeing.electricityProcess
+                            , countryHeatProcess = inputs.countryDyeing.heatProcess
+                            }
+                        |> addFormulaResultToStep step
 
                 else
                     step
@@ -454,22 +442,15 @@ computeScouringImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                let
-                    { kwh, impacts, heat } =
-                        step.outputMass
-                            -- Note: scouring only applies to natural materials
-                            |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.natural inputs.materials)
-                            |> Formula.genericImpacts step.impacts
-                                { process = textile.wellKnown.scouring
-                                , countryElecProcess = inputs.countryDyeing.electricityProcess
-                                , countryHeatProcess = inputs.countryDyeing.heatProcess
-                                }
-                in
-                { step
-                    | impacts = impacts |> Impact.addImpacts step.impacts
-                    , kwh = kwh |> Quantity.plus step.kwh
-                    , heat = heat |> Quantity.plus step.heat
-                }
+                step.outputMass
+                    -- Note: scouring only applies to natural materials
+                    |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.natural inputs.materials)
+                    |> Formula.genericImpacts step.impacts
+                        { process = textile.wellKnown.scouring
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
+                        }
+                    |> addFormulaResultToStep step
             )
 
 
@@ -478,18 +459,15 @@ computeMercerisingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                { step
-                    | impacts =
-                        step.outputMass
-                            -- Note: mercerising only applies to cotton (conventional and organic)
-                            |> Quantity.multiplyBy (Inputs.getCottonShare inputs.materials)
-                            |> Formula.mercerisingImpacts step.impacts
-                                { mercerisingProcess = textile.wellKnown.mercerising
-                                , countryElecProcess = inputs.countryDyeing.electricityProcess
-                                , countryHeatProcess = inputs.countryDyeing.heatProcess
-                                }
-                            |> Impact.addImpacts step.impacts
-                }
+                step.outputMass
+                    -- Note: mercerising only applies to cotton (conventional and organic)
+                    |> Quantity.multiplyBy (Inputs.getCottonShare inputs.materials)
+                    |> Formula.genericImpacts step.impacts
+                        { process = textile.wellKnown.mercerising
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
+                        }
+                    |> addFormulaResultToStep step
             )
 
 
@@ -498,22 +476,15 @@ computeWashingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                let
-                    { kwh, impacts, heat } =
-                        step.outputMass
-                            -- Note: washing only applies to synthetic and artificial materials
-                            |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.syntheticAndArtificial inputs.materials)
-                            |> Formula.genericImpacts step.impacts
-                                { process = textile.wellKnown.washing
-                                , countryElecProcess = inputs.countryDyeing.electricityProcess
-                                , countryHeatProcess = inputs.countryDyeing.heatProcess
-                                }
-                in
-                { step
-                    | impacts = impacts |> Impact.addImpacts step.impacts
-                    , kwh = kwh |> Quantity.plus step.kwh
-                    , heat = heat |> Quantity.plus step.heat
-                }
+                step.outputMass
+                    -- Note: washing only applies to synthetic and artificial materials
+                    |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.syntheticAndArtificial inputs.materials)
+                    |> Formula.genericImpacts step.impacts
+                        { process = textile.wellKnown.washing
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
+                        }
+                    |> addFormulaResultToStep step
             )
 
 
