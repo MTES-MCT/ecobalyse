@@ -33,62 +33,13 @@ def load_json(file):
         return json.load(f)
 
 
-def fetch_remote_branches(retries=3, delay=2):
-    """Fetch all Git branches, retrying with exponential backoff on failure."""
-    command = ["git", "fetch", "--all"]
-    attempt = 0
-    while attempt < retries:
-        try:
-            result = subprocess.run(command, check=True, capture_output=True, text=True)
-            logging.info(f"Successfully fetched remote branches: {result.stdout}")
-            return
-        except subprocess.CalledProcessError as e:
-            logging.warning(f"Attempt {attempt + 1} failed: {e.stderr}")
-            time.sleep(delay)
-            delay *= 2  # Exponential backoff
-        attempt += 1
-    logging.error(f"Failed to fetch remote branches after {retries} attempts.")
-    raise Exception("Failed to fetch remote branches.")
-
-
-def get_last_commit_id(branch_name, fetch=False):
-    if fetch:
-        fetch_remote_branches()
-
-    subprocess_options = {"capture_output": True, "text": True}
-
-    # Check if the branch exists locally or remotely
-    check_branch = subprocess.run(
-        ["git", "show-ref", "--verify", "--quiet", f"refs/heads/{branch_name}"],
-        **subprocess_options,
-    )
-    if check_branch.returncode != 0:
-        # Branch not found locally; let's try fetching and checking again if fetch was true
-        if not fetch:
-            raise Exception(
-                f"Branch '{branch_name}' not found. Consider setting fetch=True to fetch remote branches."
-            )
-        else:
-            # Branch still not found after fetching; it may not exist
-            raise Exception(
-                f"Branch '{branch_name}' not found even after fetching. Ensure the branch exists."
-            )
-
-    # Get the last commit ID
-    result = subprocess.run(["git", "rev-parse", branch_name], **subprocess_options)
-    if result.returncode == 0:
-        return result.stdout.strip()[:7]
-    else:
-        raise Exception(f"Error getting last commit ID: {result.stderr}")
-
-
 def get_impacts_weights(branch):
     return fetch_json(
         f"https://raw.githubusercontent.com/MTES-MCT/ecobalyse/{branch}/public/data/impacts.json"
     )
 
 
-def compute_new_score(examples, current_branch):
+def compute_new_score(examples, current_branch, last_commit):
     simulations = []
     branch_url = BRANCH_URLS.get(current_branch, "")
     normalization_factors = compute_normalization_factors(current_branch)
@@ -97,7 +48,7 @@ def compute_new_score(examples, current_branch):
             continue
         try:
             simulation_result = simulate_example(
-                current_branch, branch_url, example, normalization_factors
+                current_branch, branch_url, example, normalization_factors, last_commit
             )
             simulations.append(simulation_result)
         except Exception as e:
@@ -134,14 +85,18 @@ def fetch_json(url, method="GET", json=None):
         raise
 
 
-def simulate_example(branch_name, branch_url, example, normalization_factors):
+def simulate_example(
+    branch_name, branch_url, example, normalization_factors, last_commit
+):
     response = fetch_json(branch_url, json=example["query"], method="POST")
     return process_simulation_response(
-        branch_name, example, response, normalization_factors
+        branch_name, example, response, normalization_factors, last_commit
     )
 
 
-def process_simulation_response(branch_name, example, response, normalization_factors):
+def process_simulation_response(
+    branch_name, example, response, normalization_factors, last_commit
+):
     """
     Processes the simulation response for a given example, transforming it into a structured DataFrame.
 
@@ -155,7 +110,7 @@ def process_simulation_response(branch_name, example, response, normalization_fa
     - DataFrame: A pandas DataFrame containing the structured results of the simulation.
     """
     # Initial preparation for DataFrame creation
-    last_commit_id = get_last_commit_id(branch_name, fetch=True)[:7]
+
     query = example["query"]
     domain = "textile"  # This can be dynamic based on the simulation type
 
@@ -164,7 +119,7 @@ def process_simulation_response(branch_name, example, response, normalization_fa
     results_per_life_cycle = [
         create_df(
             branch_name,
-            last_commit_id,
+            last_commit,
             domain,
             example,
             query,
@@ -179,7 +134,7 @@ def process_simulation_response(branch_name, example, response, normalization_fa
     if transport_info:
         transport_df = create_df(
             branch_name,
-            last_commit_id,
+            last_commit,
             domain,
             example,
             query,
@@ -222,22 +177,6 @@ def create_df(
     df = pd.DataFrame(data)
     df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
     return df
-
-
-def get_last_commit():
-    """Retrieve the last commit IDs for the current branch"""
-    current_branch_command = ["git", "branch", "--show-current"]
-    last_commit = {}
-    try:
-        current_branch_result = subprocess.run(
-            current_branch_command, check=True, capture_output=True, text=True
-        )
-        current_branch = current_branch_result.stdout.strip()
-        last_commit = get_last_commit_id(current_branch, fetch=True)
-    except subprocess.CalledProcessError as e:
-        logging.error(f"Error determining the current branch: {e.stderr}")
-        raise
-    return current_branch, last_commit
 
 
 def is_new_commit(score_history_df, last_commit):
@@ -286,6 +225,32 @@ def compare_scores_with_tolerance(df1, df2, tolerance=0.0001):
     return False
 
 
+def get_last_commit():
+    """
+    Retrieve the last commit ID of the current branch without fetching remote branches.
+    """
+    # Command to get the current branch name
+    current_branch_command = ["git", "branch", "--show-current"]
+    try:
+        # Get the current branch name
+        current_branch_result = subprocess.run(
+            current_branch_command, check=True, capture_output=True, text=True
+        )
+        current_branch = current_branch_result.stdout.strip()
+
+        # Get the last commit ID on the current branch
+        last_commit_id_command = ["git", "rev-parse", current_branch]
+        last_commit_result = subprocess.run(
+            last_commit_id_command, check=True, capture_output=True, text=True
+        )
+        last_commit = last_commit_result.stdout.strip()[:7]
+
+        return current_branch, last_commit
+    except subprocess.CalledProcessError as e:
+        logging.error(f"Error in Git command: {e.stderr}")
+        raise Exception(f"Git command failed: {e.stderr}")
+
+
 if __name__ == "__main__":
 
     score_history_df = pd.read_csv(SCORE_HISTORY_PATH, sep=",")
@@ -295,7 +260,7 @@ if __name__ == "__main__":
 
     if commit_is_new:
         logging.info(f"computing score for {current_branch}")
-        new_score_df = compute_new_score(examples_textile, commit_is_new)
+        new_score_df = compute_new_score(examples_textile, current_branch, last_commit)
 
         score_previous_df = score_history_df[score_history_df["commit"] == last_commit]
         score_is_different = compare_scores_with_tolerance(
