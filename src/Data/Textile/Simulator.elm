@@ -402,9 +402,8 @@ computeBleachingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                -- Note: bleaching only applies to non-synthetic materials
-                { step
-                    | impacts =
+                let
+                    { kwh, impacts, heat } =
                         step.outputMass
                             -- Note: bleaching only applies to non-synthetic materials
                             |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.nonSynthetic inputs.materials)
@@ -414,7 +413,11 @@ computeBleachingImpacts { textile } ({ inputs } as simulator) =
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
                                 , countryHeatProcess = inputs.countryDyeing.heatProcess
                                 }
-                            |> Impact.addImpacts step.impacts
+                in
+                { step
+                    | impacts = impacts |> Impact.addImpacts step.impacts
+                    , kwh = kwh |> Quantity.plus step.kwh
+                    , heat = heat |> Quantity.plus step.heat
                 }
             )
 
@@ -426,15 +429,19 @@ computeDesizingImpacts { textile } ({ inputs } as simulator) =
             (\step ->
                 -- Note: desizing only applies to weaved products
                 if inputs.product.fabric == Fabric.Weaving then
-                    { step
-                        | impacts =
+                    let
+                        { kwh, impacts, heat } =
                             step.outputMass
                                 |> Formula.genericImpacts step.impacts
                                     { process = textile.wellKnown.desizing
                                     , countryElecProcess = inputs.countryDyeing.electricityProcess
                                     , countryHeatProcess = inputs.countryDyeing.heatProcess
                                     }
-                                |> Impact.addImpacts step.impacts
+                    in
+                    { step
+                        | impacts = impacts |> Impact.addImpacts step.impacts
+                        , kwh = kwh |> Quantity.plus step.kwh
+                        , heat = heat |> Quantity.plus step.heat
                     }
 
                 else
@@ -447,8 +454,8 @@ computeScouringImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                { step
-                    | impacts =
+                let
+                    { kwh, impacts, heat } =
                         step.outputMass
                             -- Note: scouring only applies to natural materials
                             |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.natural inputs.materials)
@@ -457,7 +464,11 @@ computeScouringImpacts { textile } ({ inputs } as simulator) =
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
                                 , countryHeatProcess = inputs.countryDyeing.heatProcess
                                 }
-                            |> Impact.addImpacts step.impacts
+                in
+                { step
+                    | impacts = impacts |> Impact.addImpacts step.impacts
+                    , kwh = kwh |> Quantity.plus step.kwh
+                    , heat = heat |> Quantity.plus step.heat
                 }
             )
 
@@ -487,8 +498,8 @@ computeWashingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                { step
-                    | impacts =
+                let
+                    { kwh, impacts, heat } =
                         step.outputMass
                             -- Note: washing only applies to synthetic and artificial materials
                             |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.syntheticAndArtificial inputs.materials)
@@ -497,7 +508,11 @@ computeWashingImpacts { textile } ({ inputs } as simulator) =
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
                                 , countryHeatProcess = inputs.countryDyeing.heatProcess
                                 }
-                            |> Impact.addImpacts step.impacts
+                in
+                { step
+                    | impacts = impacts |> Impact.addImpacts step.impacts
+                    , kwh = kwh |> Quantity.plus step.kwh
+                    , heat = heat |> Quantity.plus step.heat
                 }
             )
 

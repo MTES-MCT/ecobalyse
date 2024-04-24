@@ -868,7 +868,11 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                         Impact.empty
 
             toxicity =
-                Impact.sumImpacts [ bleachingToxicity, dyeingToxicity, printingToxicity ]
+                Impact.sumImpacts
+                    [ bleachingToxicity.impacts
+                    , dyeingToxicity
+                    , printingToxicity
+                    ]
         in
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
@@ -1074,7 +1078,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
 
                         Label.Ennobling ->
                             [ div [ class "mb-2" ]
-                                [ text "Pré-traitement\u{00A0}: non applicable" ]
+                                [ text "Pré-traitement\u{00A0}: TODO" ]
                             , ennoblingGenericFields config
                             , div [ class "mt-2" ]
                                 [ text "Finition\u{00A0}: apprêt chimique" ]
