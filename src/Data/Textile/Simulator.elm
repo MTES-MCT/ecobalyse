@@ -403,17 +403,11 @@ computeBleachingImpacts { textile } ({ inputs } as simulator) =
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
                 -- Note: bleaching only applies to non-synthetic materials
-                let
-                    nonSyntheticMaterialsShare =
-                        inputs.materials
-                            |> List.filter (\{ material } -> material.origin /= Origin.Synthetic)
-                            |> List.map (.share >> Split.toFloat)
-                            |> List.sum
-                in
                 { step
                     | impacts =
                         step.outputMass
-                            |> Quantity.multiplyBy nonSyntheticMaterialsShare
+                            -- Note: bleaching only applies to non-synthetic materials
+                            |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.nonSynthetic inputs.materials)
                             |> Formula.bleachingImpacts step.impacts
                                 { bleachingProcess = textile.wellKnown.bleaching
                                 , aquaticPollutionScenario = step.country.aquaticPollutionScenario
@@ -453,21 +447,11 @@ computeScouringImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                -- Note: scouring only applies to natural materials
-                let
-                    naturalMaterialsShare =
-                        inputs.materials
-                            |> List.filter
-                                (\{ material } ->
-                                    List.member material.origin [ Origin.NaturalFromAnimal, Origin.NaturalFromVegetal ]
-                                )
-                            |> List.map (.share >> Split.toFloat)
-                            |> List.sum
-                in
                 { step
                     | impacts =
                         step.outputMass
-                            |> Quantity.multiplyBy naturalMaterialsShare
+                            -- Note: scouring only applies to natural materials
+                            |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.natural inputs.materials)
                             |> Formula.genericImpacts step.impacts
                                 { process = textile.wellKnown.scouring
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
@@ -483,22 +467,11 @@ computeMercerisingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                -- Note: mercerising only applies to cotton (conventional and organic)
-                let
-                    cottonShare =
-                        inputs.materials
-                            |> List.filter
-                                (\{ material } ->
-                                    [ "ei-coton", "ei-coton-organic" ]
-                                        |> List.member (Material.idToString material.id)
-                                )
-                            |> List.map (.share >> Split.toFloat)
-                            |> List.sum
-                in
                 { step
                     | impacts =
                         step.outputMass
-                            |> Quantity.multiplyBy cottonShare
+                            -- Note: mercerising only applies to cotton (conventional and organic)
+                            |> Quantity.multiplyBy (Inputs.getCottonShare inputs.materials)
                             |> Formula.mercerisingImpacts step.impacts
                                 { mercerisingProcess = textile.wellKnown.mercerising
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
@@ -514,25 +487,11 @@ computeWashingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                -- Note: washing only applies to synthetic and artificial materials
-                let
-                    syntheticAndArtificialMaterialsShare =
-                        inputs.materials
-                            |> List.filter
-                                (\{ material } ->
-                                    List.member material.origin
-                                        [ Origin.ArtificialFromInorganic
-                                        , Origin.ArtificialFromOrganic
-                                        , Origin.Synthetic
-                                        ]
-                                )
-                            |> List.map (.share >> Split.toFloat)
-                            |> List.sum
-                in
                 { step
                     | impacts =
                         step.outputMass
-                            |> Quantity.multiplyBy syntheticAndArtificialMaterialsShare
+                            -- Note: washing only applies to synthetic and artificial materials
+                            |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.syntheticAndArtificial inputs.materials)
                             |> Formula.genericImpacts step.impacts
                                 { process = textile.wellKnown.washing
                                 , countryElecProcess = inputs.countryDyeing.electricityProcess
