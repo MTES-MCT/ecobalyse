@@ -1,7 +1,7 @@
-import pygwalker as pyg
 import pandas as pd
-import streamlit.components.v1 as components
+import pygwalker as pyg
 import streamlit as st
+import streamlit.components.v1 as components
 
 # Adjust the width of the Streamlit page
 st.set_page_config(page_title="Ecobalyse - Suivi des scores", layout="wide")

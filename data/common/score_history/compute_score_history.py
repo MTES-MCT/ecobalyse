@@ -1,14 +1,13 @@
 import json
 import logging
-import pandas as pd
-import numpy as np
-from pandas.api.types import is_numeric_dtype
-
-import requests
 import subprocess
 import time
 from datetime import datetime
 
+import numpy as np
+import pandas as pd
+import requests
+from pandas.api.types import is_numeric_dtype
 
 SCORE_HISTORY_PATH = "./data/common/score_history/score_history.csv"
 
@@ -252,7 +251,6 @@ def get_last_commit():
 
 
 if __name__ == "__main__":
-
     score_history_df = pd.read_csv(SCORE_HISTORY_PATH, sep=",")
     examples_textile = load_json(EXAMPLES_TEXTILE_PATH)
     current_branch, last_commit = get_last_commit()
