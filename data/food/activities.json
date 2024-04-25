@@ -4467,7 +4467,7 @@
   {
     "id": "cherry-organic",
     "name": "Cerise bio",
-    "database": "Ginko",
+    "database": "Ecobalyse",
     "search": "Cherry, organic 2023, national average, at orchard without AZA",
     "category": "ingredient",
     "categories": ["vegetable_fresh", "organic"],
