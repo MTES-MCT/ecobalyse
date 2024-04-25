@@ -45,15 +45,15 @@ def compute_new_score(examples, current_branch, last_commit):
     for example in examples:
         if example["name"] == "Produit vide":
             continue
-        try:
-            simulation_result = simulate_example(
-                current_branch, branch_url, example, normalization_factors, last_commit
-            )
-            simulations.append(simulation_result)
-        except Exception as e:
+
+        simulation_result = simulate_example(
+            current_branch, branch_url, example, normalization_factors, last_commit
+        )
+        simulations.append(simulation_result)
+        """ except Exception as e:
             logging.error(
                 f"Error simulating example {example['name']} on branch {current_branch}: {e}"
-            )
+            ) """
     return pd.concat(simulations, axis=0, ignore_index=True)
 
 
@@ -168,8 +168,12 @@ def create_df(
         "commit": commit_id,
         "domain": domain,
         "product_name": example["name"],
+        "id": example["id"],
         "query": json.dumps(query),
+        "mass": query["mass"],
+        "elements": json.dumps(query["materials"]),
         "lifeCycleStep": "Transport" if is_transport else step["label"],
+        "lifeCycleStepCountry": step.get("country", {}).get("code", ""),
         "impact": impacts.index.tolist(),
         "value": impacts.values.tolist(),
     }
