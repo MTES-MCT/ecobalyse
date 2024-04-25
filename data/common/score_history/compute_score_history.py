@@ -71,10 +71,10 @@ def compute_normalization_factors(branch):
     return normalization_factors
 
 
-def fetch_json(url, method="GET", json=None):
+def fetch_json(url, method="GET", payload=None):
     try:
         if method.upper() == "POST":
-            response = requests.post(url, json=json)
+            response = requests.post(url, json=payload)
         else:
             response = requests.get(url)
         response.raise_for_status()  # Raises HTTPError for bad responses
@@ -87,7 +87,7 @@ def fetch_json(url, method="GET", json=None):
 def simulate_example(
     branch_name, branch_url, example, normalization_factors, last_commit
 ):
-    response = fetch_json(branch_url, json=example["query"], method="POST")
+    response = fetch_json(branch_url, payload=example["query"], method="POST")
     return process_simulation_response(
         branch_name, example, response, normalization_factors, last_commit
     )
@@ -250,6 +250,39 @@ def get_last_commit():
         raise Exception(f"Git command failed: {e.stderr}")
 
 
+def get_previous_score(score_history_df, current_branch):
+    """
+    Retrieves the most recent score from the score history dataframe for a specific branch.
+
+    Args:
+    score_history_df (DataFrame): The DataFrame containing the score history with 'datetime' and 'branch' columns.
+    current_branch (str): The branch for which to retrieve the most recent score.
+
+    Returns:
+    tuple:
+        - bool indicating if there is no previous score on the branch.
+        - DataFrame with the most recent score details for the branch.
+    """
+    # Convert 'datetime' to datetime format only if it's not already converted
+    if not pd.api.types.is_datetime64_any_dtype(score_history_df["datetime"]):
+        score_history_df["datetime"] = pd.to_datetime(score_history_df["datetime"])
+
+    # Filter DataFrame for the current branch
+    previous_score_df = score_history_df[score_history_df["branch"] == current_branch]
+
+    # Check if there are any scores for the branch
+    if previous_score_df.empty:
+        return True, previous_score_df
+
+    # Get the most recent datetime and filter the DataFrame to this datetime
+    latest_datetime = previous_score_df["datetime"].max()
+    previous_score_df = previous_score_df[
+        previous_score_df["datetime"] == latest_datetime
+    ]
+
+    return False, previous_score_df
+
+
 if __name__ == "__main__":
     score_history_df = pd.read_csv(SCORE_HISTORY_PATH, sep=",")
     examples_textile = load_json(EXAMPLES_TEXTILE_PATH)
@@ -260,9 +293,11 @@ if __name__ == "__main__":
         logging.info(f"computing score for {current_branch}")
         new_score_df = compute_new_score(examples_textile, current_branch, last_commit)
 
-        score_previous_df = score_history_df[score_history_df["commit"] == last_commit]
+        no_previou_score, previous_score_df = get_previous_score(
+            score_history_df, current_branch
+        )
         score_is_different = compare_scores_with_tolerance(
-            score_previous_df, new_score_df
+            previous_score_df, new_score_df
         )
 
         if score_is_different:
