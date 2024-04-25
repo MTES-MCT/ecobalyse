@@ -22,7 +22,7 @@ BRANCH_URLS = {
     ]: f"https://ecobalyse-pr{TEST_BRANCH['pr_number']}.osc-fr1.scalingo.io/api/textile/simulator/detailed",
 }
 
-TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M")
+TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 IMPACTS_JSON_PATH = "./public/data/impacts.json"
 EXAMPLES_TEXTILE_PATH = "./public/data/textile/examples.json"
 
@@ -293,14 +293,14 @@ if __name__ == "__main__":
         logging.info(f"computing score for {current_branch}")
         new_score_df = compute_new_score(examples_textile, current_branch, last_commit)
 
-        no_previou_score, previous_score_df = get_previous_score(
+        no_previous_score, previous_score_df = get_previous_score(
             score_history_df, current_branch
         )
         score_is_different = compare_scores_with_tolerance(
             previous_score_df, new_score_df
         )
 
-        if score_is_different:
+        if score_is_different or no_previous_score:
             score_history_updated_df = pd.concat(
                 [score_history_df, new_score_df], ignore_index=True
             )
