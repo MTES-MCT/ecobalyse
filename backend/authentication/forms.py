@@ -1,6 +1,4 @@
 import json
-import os
-import sys
 
 from django import forms
 from django.contrib.auth import get_user_model
@@ -15,6 +13,13 @@ class EmailLoginForm(MailauthEmailLoginForm):
         return super(EmailLoginForm, self).get_login_url(
             request, token, next=next or "/#/auth/authenticated"
         )
+
+    def save(self):
+        """redefine just to transmit the login_url in test mode"""
+        email = self.cleaned_data["email"]
+        for user in self.get_users(email):
+            context = self.get_mail_context(self.request, user)
+            self.send_mail(email, context)
 
 
 class RegistrationForm(ModelForm):
@@ -66,12 +71,10 @@ class RegistrationForm(ModelForm):
         return MailAuthBackend.get_token(user=user)
 
     def save(self, commit=True):
+        """redefine just to transmit the login_url in test mode"""
         super().save(commit)
         email = self.cleaned_data["email"]
-        for user in EmailLoginForm.get_users(self, email):
-            context = EmailLoginForm.get_mail_context(self, self.request, user)
-            EmailLoginForm.send_mail(self, email, context)
-            if "test" in sys.argv:
-                # hack to pass the login url to the test suite
-                os.environ["login_url"] = context["login_url"]
-        return user
+        for user in MailauthEmailLoginForm.get_users(self, email):
+            context = MailauthEmailLoginForm.get_mail_context(self, self.request, user)
+            MailauthEmailLoginForm.send_mail(self, email, context)
+            return user

@@ -383,7 +383,7 @@ viewLoginForm ({ user } as model) =
     case model.response of
         Just (Success msg) ->
             div []
-                [ p [] [ Html.text "Un email vous a été envoyé avec un lien de connexion." ]
+                [ p [] [ Html.text "Si vous êtes inscrit(e), un email vous a été envoyé avec un lien de connexion." ]
                 , p [] [ Html.text msg ]
                 ]
 
