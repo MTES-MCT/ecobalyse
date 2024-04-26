@@ -16,7 +16,13 @@ def spproject(activity):
         case "Ginko":
             return "Ginko"
         case "Ecobalyse":
-            return "EcobalyseIsNotASimaProProject"
+            if (
+                "Cherry, organic 2023, national average, at orchard {FR} U"
+                in activity["name"]
+            ):
+                return "Ginko"
+            else:
+                return "EcobalyseIsNotASimaProProject"
         case _:
             return "AGB3.1.1 2023-03-06"
 

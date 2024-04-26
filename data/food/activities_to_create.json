@@ -393,7 +393,7 @@
     "id": "cherry-without-aza",
     "search_in": "Ginko",
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
-    "suffix": "[without-aza]",
+    "suffix": "without AZA",
     "subactivities": ["Cherry, full production, organic 2023, national average, at orchard {FR} U"],
     "replace": {
       "Azadirachtin, at plant - {GLO}": ""
