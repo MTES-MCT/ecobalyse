@@ -8,12 +8,14 @@ const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
+const memoize = require("fast-memoize");
 
 const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
 const express_port = 8001;
 const django_port = 8002;
+const max_memoize_age = 1000 * 60 * 24; // 24 hours memoization
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -108,32 +110,40 @@ api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
-// Note: Text/JSON request body parser (JSON is decoded in Elm)
-api.all(/(.*)/, bodyParser.json(), async (req, res) => {
+const getProcesses = async (token) => {
   let headers = {};
-  if (req.headers.token) {
-    headers["token"] = req.headers.token;
+  if (token) {
+    headers["token"] = token;
   }
-  let processes;
   if (process.env.NODE_ENV == "test") {
     headers["fakeDetails"] = "true";
   }
+  const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
+  const processesRes = await fetch(processesUrl, { headers: headers });
+  const processes = await processesRes.json();
+  return { processes: processes, status: processesRes.status };
+};
+
+const memoizedGetProcesses = memoize(getProcesses, { maxAge: max_memoize_age });
+
+// Note: Text/JSON request body parser (JSON is decoded in Elm)
+api.all(/(.*)/, bodyParser.json(), async (req, res) => {
+  let result;
   try {
-    const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
-    const processesRes = await fetch(processesUrl, { headers: headers });
-    processes = await processesRes.json();
-    if (processesRes.status != 200) {
-      return res.status(processesRes.status).send(processes);
+    result = await memoizedGetProcesses(req.headers.token);
+    if (result.status != 200) {
+      return res.status(result.status).send(result.processes);
     }
   } catch (err) {
     console.error(err.message);
+    return res.status(500).send("Error while retrieving the processes");
   }
 
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
     body: req.body,
-    processes: processes,
+    processes: result.processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
       res.status(status).send(body);
