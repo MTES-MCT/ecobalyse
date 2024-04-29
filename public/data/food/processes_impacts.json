@@ -9141,6 +9141,39 @@
     "id": "grazed-grass-permanent"
   },
   {
+    "name": "Cherry, at farm (WFLDB)",
+    "displayName": "Cerise hors UE par défaut",
+    "impacts": {
+      "acd": 0.03010438487,
+      "cch": 1.175226332,
+      "etf": 185.38545593999999,
+      "etf-c": 367.274634124,
+      "fru": 11.31671234,
+      "fwe": 0.0005836388507,
+      "htc": 3.397126297e-9,
+      "htc-c": 6.794252594e-9,
+      "htn": 1.114568611e-8,
+      "htn-c": 2.220965692e-8,
+      "ior": 0.03643799888,
+      "ldu": 89.62914368,
+      "mru": 0.000003661938506,
+      "ozd": 8.049864328e-8,
+      "pco": 0.005472696618,
+      "pma": 2.016111638e-7,
+      "swe": 0.01003867672,
+      "tre": 0.1252635627,
+      "wtu": 19.60340205,
+      "ecs": 1055.1748133055262,
+      "pef": 396.812784387594
+    },
+    "unit": "kilogram",
+    "identifier": "WFLDBQUA000001234500334",
+    "category": "ingredient",
+    "system_description": "",
+    "comment": "Average yield for sweet and sour cherries according to faostat data from 2012 to 2016.",
+    "id": "cherry-tr"
+  },
+  {
     "name": "Palm oil, refined, processed in EU, at plant {RER} U",
     "displayName": "Huile de palme (raffinée)",
     "impacts": {

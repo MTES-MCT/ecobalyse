@@ -5294,6 +5294,27 @@
     "visible": false
   },
   {
+    "id": "cherry-tr",
+    "name": "Cerise hors UE par défaut",
+    "categories": ["vegetable_fresh"],
+    "search": "Cherry, at farm (WFLDB)/TR",
+    "default": "WFLDBQUA000001234500334",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 14.06,
+    "crop_group": "VERGERS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
     "id": "refined-palm-oil",
     "name": "Huile de palme (raffinée)",
     "categories": ["nut_oilseed_processed"],
