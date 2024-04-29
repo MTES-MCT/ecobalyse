@@ -136,6 +136,7 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
     }
   } catch (err) {
     console.error(err.message);
+    return res.status(500).send("Error while retrieving the processes");
   }
 
   elmApp.ports.input.send({
