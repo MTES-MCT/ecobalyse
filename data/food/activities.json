@@ -4663,8 +4663,8 @@
   {
     "id": "cherry-tr",
     "name": "Cerise hors UE par défaut",
-    "database": "Agribalyse 3.1.1",
-    "search": "Cherry, at farm (WFLDB)/TR U",
+    "database": "WFLDB",
+    "search": "Cherry, at farm (WFLDB)/TR",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "OutOfEuropeAndMaghreb",
