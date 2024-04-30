@@ -8778,7 +8778,7 @@
     "id": "leek-organic"
   },
   {
-    "name": "Cherry, organic 2023, national average, at orchard {FR} U",
+    "name": "Cherry, organic 2023, national average, at orchard {FR} U without AZA, constructed by Ecobalyse",
     "displayName": "Cerise bio",
     "impacts": {
       "acd": 0,
@@ -8800,13 +8800,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1229.6689623684201,
-      "pef": 617.8665043557643
+      "ecs": 998.3824536783874,
+      "pef": 365.3563896971168
     },
     "unit": "kilogram",
-    "identifier": "cherry-organic",
+    "identifier": "4edf03faa616038665d380fb29236dcd",
     "category": "ingredient",
-    "system_description": "",
+    "system_description": "Ecobalyse",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "id": "cherry-organic"
   },
