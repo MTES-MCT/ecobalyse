@@ -1078,7 +1078,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
 
                         Label.Ennobling ->
                             [ div [ class "mb-2" ]
-                                [ text "Pré-traitement\u{00A0}: TODO" ]
+                                [ viewProcessInfo current.processInfo.preTreatments ]
                             , ennoblingGenericFields config
                             , div [ class "mt-2" ]
                                 [ text "Finition\u{00A0}: apprêt chimique" ]

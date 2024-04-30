@@ -485,6 +485,14 @@ computeWashingImpacts { textile } ({ inputs } as simulator) =
                         , countryHeatProcess = inputs.countryDyeing.heatProcess
                         }
                     |> addFormulaResultToStep step
+                    |> Step.updateStepProcessInfo
+                        (\processInfo ->
+                            { processInfo
+                                | preTreatments =
+                                    processInfo.preTreatments
+                                        |> Maybe.map (\preTreatments -> preTreatments ++ ", " ++ textile.wellKnown.washing.name)
+                            }
+                        )
             )
 
 
