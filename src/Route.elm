@@ -206,10 +206,10 @@ toString route =
                     [ "food" ]
 
                 FoodBuilder trigram Nothing ->
-                    [ "food", "build", Definition.toString trigram ]
+                    [ "food", Definition.toString trigram ]
 
                 FoodBuilder trigram (Just query) ->
-                    [ "food", "build", Definition.toString trigram, FoodQuery.b64encode query ]
+                    [ "food", Definition.toString trigram, FoodQuery.b64encode query ]
 
                 FoodBuilderExample uuid ->
                     [ "food", "edit-example", Uuid.toString uuid ]
