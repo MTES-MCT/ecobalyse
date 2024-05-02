@@ -429,6 +429,39 @@
     "id": "ground-beef-feedlot"
   },
   {
+    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [grass-fed], constructed by Ecobalyse",
+    "displayName": "Boeuf haché FR - élevage 100% herbe (cru)",
+    "impacts": {
+      "acd": 0.1602021458,
+      "cch": 20.50115101,
+      "etf": 7.343104232,
+      "etf-c": 7.66664075754,
+      "fru": 16.32862408,
+      "fwe": 0.0000502637695,
+      "htc": 1.941729209e-10,
+      "htc-c": 2.000238252e-10,
+      "htn": 3.604164504e-8,
+      "htn-c": 6.811963586e-8,
+      "ior": 0.6758069547,
+      "ldu": 1.33743048,
+      "mru": 0.000001465056823,
+      "ozd": 2.755343773e-8,
+      "pco": 0.009063082279,
+      "pma": 0.000001112493748,
+      "swe": 0.005549674478,
+      "tre": 0.7138807411,
+      "wtu": 0.2822635199,
+      "ecs": 1022.8928544825391,
+      "pef": 1128.3099123709333
+    },
+    "unit": "kilogram",
+    "identifier": "51c8f8e74c9ade89850e7b4b8a4efc59",
+    "category": "ingredient",
+    "system_description": "Ecobalyse",
+    "comment": "",
+    "id": "ground-beef-grass-fed"
+  },
+  {
     "name": "Cooked ham, case ready, at plant {FR} U",
     "displayName": "Jambon cuit FR",
     "impacts": {

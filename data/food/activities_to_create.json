@@ -149,6 +149,7 @@
     ],
     "replace": {
       "Beef cattle national average at farm gate": [
+        "PastoEco",
         "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U"
       ]
     }
