@@ -240,7 +240,8 @@
     "animal_group1": "cattle",
     "animal_group2": "cow",
     "animal_product": "meat",
-    "scenario": "organic"
+    "scenario": "organic",
+    "land_occupation": 0.02228578
   },
   {
     "id": "cooked-ham",
