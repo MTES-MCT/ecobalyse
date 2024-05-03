@@ -40,8 +40,7 @@ updateIngredientsFromNewProcesses : List Process -> List Ingredient -> List Ingr
 updateIngredientsFromNewProcesses processes =
     List.map
         (\ingredient ->
-            processes
-                |> Process.findByIdentifier (Process.codeFromString ingredient.default.id_)
+            Process.findById processes ingredient.default.id_
                 |> Result.map (\default -> { ingredient | default = default })
                 |> Result.withDefault ingredient
         )
