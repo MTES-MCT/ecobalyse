@@ -259,7 +259,7 @@
   },
   {
     "id": "ground-beef-grass-fed",
-    "name": "Boeuf haché FR - élevage 100% herbe (cru)",
+    "name": "Boeuf haché FR (cru) - v. de réforme 100% herbe",
     "categories": ["animal_product", "organic"],
     "search": "Ground beef fresh case ready for direct consumption at plant [grass-fed], constructed by Ecobalyse",
     "default": "51c8f8e74c9ade89850e7b4b8a4efc59",
