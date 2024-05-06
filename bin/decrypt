@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+const { decryptFile } = require("../lib/crypto");
+
+const path = `${__dirname}/../${process.argv[2]}`;
+console.log(`Decrypting ${path}…`);
+
+try {
+  decryptFile(path);
+  console.log("Done.");
+} catch (err) {
+  console.error(`Couldn't decrypt ${path}:\n> ${err}\nWas it encoded?`);
+  process.exit(1);
+}
