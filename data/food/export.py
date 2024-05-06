@@ -54,9 +54,7 @@ def setup_environment():
 
 
 def find_id(dbname, activity):
-    return cached_search(dbname, activity["search"]).get(
-        "Process identifier", activity["id"]
-    )
+    return get_metadata(activity).get("Process identifier", activity["id"])
 
 
 def create_ingredient_list(activities_tuple):
@@ -145,34 +143,34 @@ def process_activity_for_processes(activity):
     AGRIBALYSE = CONFIG["AGRIBALYSE"]
     return {
         "id": activity["id"],
-        "name": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
-            "name"
-        ],
+        "name": get_metadata(activity).get("name", activity["search"]),
         "displayName": activity["name"],
-        "unit": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
-            "unit"
-        ],
+        "unit": get_metadata(activity).get("unit", ""),
         "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
-        "system_description": cached_search(
-            activity.get("database", AGRIBALYSE), activity["search"]
-        )["System description"],
+        "system_description": "",
         "category": activity.get("category"),
         "categories": activity.get("categories"),
-        "comment": (
-            prod[0]["comment"]
-            if (
-                prod := list(
-                    cached_search(
-                        activity.get("database", AGRIBALYSE), activity["search"]
-                    ).production()
-                )
-            )
-            else activity.get("comment", "")
-        ),
+        "comment": " ".join(get_metadata(activity).get("comments", [""])),
         # those are removed at the end:
         "database": activity.get("database", AGRIBALYSE),
         "search": activity["search"],
     }
+
+
+def get_metadata(activity):
+    strprocess = strprocess = urllib.parse.quote(
+        activity["search"], encoding=None, errors=None
+    )
+    strproject = urllib.parse.quote(
+        activity.get("database", "Agribalyse 3.1.1"), encoding=None, errors=None
+    )
+    url = f"http://simapro.ecobalyse.fr:8000/process?process={strprocess}project={strproject}&ptype=material"
+    results = json.loads(requests.get(url)).content
+    if type(results) is dict and results:
+        print(f"got metadata from simapro for activity {activity['search']}")
+    else:
+        print(f"simapro failed")
+    return results
 
 
 def compute_impacts(processes_fd):
