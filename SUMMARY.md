@@ -94,6 +94,7 @@
     * [Points de méthode spécifiques aux produits textiles](textile/demarche.md)
     * [Limites méthodologiques](alimentaire-draft/old/pages-textiles-old/limites-methodologiques/README.md)
       * [OLD](alimentaire-draft/old/pages-textiles-old/limites-methodologiques/old.md)
+    * [📃 Conditions d'utilisation](alimentaire-draft/old/pages-textiles-old/conditions-dutilisation.md)
   * [🍒 Alimentaire](alimentaire-draft/old/alimentaire/README.md)
     * [Données ACV mobilisées](alimentaire-draft/old/alimentaire/donnees-acv-mobilisees.md)
     * [Choix des inventaires](alimentaire-draft/old/alimentaire/choix-des-inventaires.md)
