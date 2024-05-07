@@ -42,6 +42,9 @@
     "grazed-grass-temporary": 10.35,
     "grazed-grass-permanent": 34.68
   },
+  "ground-beef-grass-fed": {
+    "grazed-grass-permanent": 51.73
+  },
   "ground-beef-feedlot": {
     "oilseed-feed": 6.1,
     "barley-de": 6.33,

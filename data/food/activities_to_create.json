@@ -138,6 +138,23 @@
     }
   },
   {
+    "id": "ground-beef-grass-fed",
+    "search_in": "Agribalyse 3.1.1",
+    "search": "Ground beef fresh case ready for direct consumption at plant",
+    "suffix": "[grass-fed], constructed by Ecobalyse",
+    "subactivities": [
+      "Fresh ground beef production, industrial production, French production mix, at plant, 1 kg of fresh ground beef (PDi) {FR} U",
+      "Slaughtering and chilling, of beef, industrial production, French production mix, 1 kg of beef quarter {FR} U",
+      "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
+    ],
+    "replace": {
+      "Beef cattle national average at farm gate": [
+        "PastoEco",
+        "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U"
+      ]
+    }
+  },
+  {
     "id": "meat-beef-organic",
     "search_in": "Agribalyse 3.1.1",
     "search": "Meat without bone beef for direct consumption",
