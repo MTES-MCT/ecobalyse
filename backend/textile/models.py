@@ -69,12 +69,12 @@ class Process(Model):
     class Meta:
         verbose_name_plural = "Processes"
 
-    search = CharField(200, blank=True)
-    name = CharField(200)
-    source = CharField(200)
-    info = CharField(200)
-    unit = CharField(50, choices=UNITS)
-    uuid = CharField(50, primary_key=True)
+    search = CharField(_("Search term"), max_length=200, blank=True)
+    name = CharField(_("Name"), max_length=200)
+    source = CharField(_("Source Database"), max_length=200)
+    info = CharField(_("Informations"), max_length=200)
+    unit = CharField(_("Unit"), max_length=50, choices=UNITS)
+    uuid = CharField("UUID", max_length=50, primary_key=True)
     acd = FloatField()
     cch = FloatField()
     etf = FloatField()
@@ -100,9 +100,9 @@ class Process(Model):
     elec_pppm = FloatField()
     elec_MJ = FloatField()
     waste = FloatField()
-    alias = CharField(50, null=True)
-    step_usage = CharField(50, choices=STEPUSAGES)
-    correctif = CharField(200)
+    alias = CharField(_("Alias"), max_length=50, null=True)
+    step_usage = CharField(_("Step Usage"), max_length=50, choices=STEPUSAGES)
+    correctif = CharField(_("Correction"), max_length=200)
 
     def __str__(self):
         return self.name
@@ -161,24 +161,24 @@ class Process(Model):
 
 
 class Product(Model):
-    id = CharField(50, primary_key=True)
-    name = CharField(200)
+    id = CharField("ID", max_length=50, primary_key=True)
+    name = CharField(_("Name"), max_length=200)
     mass = FloatField()
     surfaceMass = FloatField()
     yarnSize = FloatField()
-    fabric = CharField(50, choices=FABRICS)
+    fabric = CharField(_("Fabric"), max_length=50, choices=FABRICS)
     # economics
-    business = CharField(50, choices=BUSINESSES)
+    business = CharField(_("Business Type"), max_length=50, choices=BUSINESSES)
     marketingDuration = FloatField()
     numberOfReferences = IntegerField()
     price = FloatField()
     repairCost = FloatField()
     traceability = BooleanField()
     # dyeing
-    defaultMedium = CharField(50, choices=DYEINGMEDIA)
+    defaultMedium = CharField(_("Default Medium"), max_length=50, choices=DYEINGMEDIA)
     # making
     pcrWaste = FloatField()
-    complexity = CharField(50, choices=MAKINGCOMPLEXITIES)
+    complexity = CharField(_("Complexity"), max_length=50, choices=MAKINGCOMPLEXITIES)
     # use
     ironingElecInMJ = FloatField()
     nonIroningProcessUuid = ForeignKey(
@@ -268,7 +268,7 @@ class Product(Model):
 
 
 class Material(Model):
-    id = CharField(50, primary_key=True)
+    id = CharField("ID", max_length=50, primary_key=True)
     materialProcessUuid = ForeignKey(
         Process, SET_NULL, null=True, related_name="materials"
     )
@@ -276,11 +276,11 @@ class Material(Model):
         Process, SET_NULL, null=True, related_name="recycledMaterials"
     )
     recycledFrom = ForeignKey("self", SET_NULL, null=True, blank=True)
-    name = CharField(200)
-    shortName = CharField(50)
-    origin = CharField(50, choices=ORIGINS)
-    geographicOrigin = CharField(200)
-    defaultCountry = CharField(3, choices=COUNTRIES)
+    name = CharField(_("Name"), max_length=200)
+    shortName = CharField(_("Short Name"), max_length=50)
+    origin = CharField(_("Origin"), max_length=50, choices=ORIGINS)
+    geographicOrigin = CharField(_("Geographic Origin"), max_length=200)
+    defaultCountry = CharField(_("Default Country"), max_length=3, choices=COUNTRIES)
     priority = IntegerField()
     # cff
     manufacturerAllocation = FloatField(null=True, blank=True)
@@ -342,8 +342,8 @@ class Material(Model):
 
 
 class Example(Model):
-    id = CharField(50, primary_key=True)
-    name = CharField(200)
+    id = CharField("ID", max_length=50, primary_key=True)
+    name = CharField(_("Name"), max_length=200)
 
     @property
     def category(self):
@@ -352,30 +352,22 @@ class Example(Model):
     mass = FloatField()
     materials = ManyToManyField(Material, through="Share")
     product = ForeignKey(Product, CASCADE, null=True, verbose_name=_("Category"))
-    business = CharField(
-        max_length=50, choices=BUSINESSES, verbose_name=_("Company type")
-    )
-    marketingDuration = FloatField(null=True, verbose_name=_("Marketing Duration"))
-    numberOfReferences = IntegerField(null=True, verbose_name=_("Number Of References"))
-    price = FloatField(null=True, verbose_name=_("Price"))
-    repairCost = FloatField(null=True, blank=True, verbose_name=_("Repair Cost"))
-    traceability = BooleanField(null=True, verbose_name=_("Traceability Displayed?"))
-    airTransportRatio = FloatField(null=True, verbose_name=_("Air Transport Ratio"))
+    business = CharField(_("Company type"), max_length=50, choices=BUSINESSES)
+    marketingDuration = FloatField(_("Marketing Duration"), null=True)
+    numberOfReferences = IntegerField(_("Number Of References"), null=True)
+    price = FloatField(_("Price"), null=True)
+    repairCost = FloatField(_("Repair Cost"), null=True, blank=True)
+    traceability = BooleanField(_("Traceability Displayed?"), null=True)
+    airTransportRatio = FloatField(_("Air Transport Ratio"), null=True)
 
-    countrySpinning = CharField(
-        max_length=50, choices=COUNTRIES, verbose_name=_("Spinning Country")
-    )
-    countryFabric = CharField(
-        max_length=50, choices=COUNTRIES, verbose_name=_("Fabric Country")
-    )
-    countryDyeing = CharField(
-        max_length=50, choices=COUNTRIES, verbose_name=_("Country Of Dyeing")
-    )
+    countrySpinning = CharField(_("Spinning Country"), max_length=50, choices=COUNTRIES)
+    countryFabric = CharField(_("Fabric Country"), max_length=50, choices=COUNTRIES)
+    countryDyeing = CharField(_("Country Of Dyeing"), max_length=50, choices=COUNTRIES)
     countryMaking = CharField(
-        max_length=50, choices=COUNTRIES, verbose_name=_("Country Of Manufacture")
+        _("Country Of Manufacture"), max_length=50, choices=COUNTRIES
     )
     fabricProcess = ForeignKey(
-        Process, CASCADE, null=True, verbose_name=_("Fabric Process")
+        Process, CASCADE, verbose_name=_("Fabric Process"), null=True
     )
 
     def __str__(self):
