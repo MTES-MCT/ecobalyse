@@ -69,37 +69,37 @@ class Process(Model):
     class Meta:
         verbose_name_plural = "Processes"
 
-    search = CharField(_("Search term"), max_length=200, blank=True)
+    search = CharField(_("Brightway Search term"), max_length=200, blank=True)
     name = CharField(_("Name"), max_length=200)
     source = CharField(_("Source Database"), max_length=200)
     info = CharField(_("Informations"), max_length=200)
     unit = CharField(_("Unit"), max_length=50, choices=UNITS)
     uuid = CharField("UUID", max_length=50, primary_key=True)
-    acd = FloatField()
-    cch = FloatField()
-    etf = FloatField()
-    etfc = FloatField()
-    fru = FloatField()
-    fwe = FloatField()
-    htc = FloatField()
-    htcc = FloatField()
-    htn = FloatField()
-    htnc = FloatField()
-    ior = FloatField()
-    ldu = FloatField()
-    mru = FloatField()
-    ozd = FloatField()
-    pco = FloatField()
-    pma = FloatField()
-    swe = FloatField()
-    tre = FloatField()
-    wtu = FloatField()
-    pef = FloatField()
-    ecs = FloatField()
-    heat_MJ = FloatField(default=0)
-    elec_pppm = FloatField()
-    elec_MJ = FloatField()
-    waste = FloatField()
+    acd = FloatField(_("Acidification (acd)"))
+    cch = FloatField(_("Climate Change (cch)"))
+    etf = FloatField(_("Ecotoxicity, freshwater (etf)"))
+    etfc = FloatField(_("Ecotoxicity, freshwater, corrected (etf-c)"))
+    fru = FloatField(_("Resource use, fossils (fru)"))
+    fwe = FloatField(_("Eutrophication, freshwater (fwe)"))
+    htc = FloatField(_("Human toxicity, cancer (htc)"))
+    htcc = FloatField(_("Human toxicity, cancer, corrected (htc-c)"))
+    htn = FloatField(_("Human toxicity, non-cancer (htn)"))
+    htnc = FloatField(_("Human toxicity, non-cancer, corrected (htn-c)"))
+    ior = FloatField(_("Ionising radiation (ior)"))
+    ldu = FloatField(_("Land use (ldu)"))
+    mru = FloatField(_("Resource use, minerals and metals (mru)"))
+    ozd = FloatField(_("Ozone depletion (ozd)"))
+    pco = FloatField(_("Photochemical ozone formation (pco)"))
+    pma = FloatField(_("Particulate matter (pma)"))
+    swe = FloatField(_("Eutrophication, marine (swe)"))
+    tre = FloatField(_("Eutrophication, terrestrial (tre)"))
+    wtu = FloatField(_("Water use"))
+    pef = FloatField(_("PEF Score"))
+    ecs = FloatField(_("Environmental Cost"))
+    heat_MJ = FloatField(_("Heat MJ"), default=0)
+    elec_pppm = FloatField(_("Elec pppm"))
+    elec_MJ = FloatField(_("Elec MJ"))
+    waste = FloatField(_("Waste"))
     alias = CharField(_("Alias"), max_length=50, null=True)
     step_usage = CharField(_("Step Usage"), max_length=50, choices=STEPUSAGES)
     correctif = CharField(_("Correction"), max_length=200)
@@ -163,33 +163,33 @@ class Process(Model):
 class Product(Model):
     id = CharField("ID", max_length=50, primary_key=True)
     name = CharField(_("Name"), max_length=200)
-    mass = FloatField()
-    surfaceMass = FloatField()
-    yarnSize = FloatField()
+    mass = FloatField(_("Mass"))
+    surfaceMass = FloatField(_("Surface Mass"))
+    yarnSize = FloatField(_("Yarn Size"))
     fabric = CharField(_("Fabric"), max_length=50, choices=FABRICS)
     # economics
     business = CharField(_("Business Type"), max_length=50, choices=BUSINESSES)
-    marketingDuration = FloatField()
-    numberOfReferences = IntegerField()
-    price = FloatField()
-    repairCost = FloatField()
-    traceability = BooleanField()
+    marketingDuration = FloatField(_("Marketing Duration"))
+    numberOfReferences = IntegerField(_("Nb Of Recerences"))
+    price = FloatField(_("Price"))
+    repairCost = FloatField(_("Repair Cost"))
+    traceability = BooleanField(_("Traceability"))
     # dyeing
     defaultMedium = CharField(_("Default Medium"), max_length=50, choices=DYEINGMEDIA)
     # making
-    pcrWaste = FloatField()
+    pcrWaste = FloatField(_("PCR Waste"))
     complexity = CharField(_("Complexity"), max_length=50, choices=MAKINGCOMPLEXITIES)
     # use
-    ironingElecInMJ = FloatField()
+    ironingElecInMJ = FloatField(_("Ironing Elec in MJ"))
     nonIroningProcessUuid = ForeignKey(
         Process, SET_NULL, null=True, related_name="productsNonIroning"
     )
-    daysOfWear = IntegerField()
-    defaultNbCycles = IntegerField()
-    ratioDryer = FloatField()
-    ratioIroning = FloatField()
-    timeIroning = FloatField()
-    wearsPerCycle = FloatField()
+    daysOfWear = IntegerField(_("Days Of Wear"))
+    defaultNbCycles = IntegerField(_("Default Nb Of Cycles"))
+    ratioDryer = FloatField(_("Ratio Dryer"))
+    ratioIroning = FloatField(_("Ratio Ironing"))
+    timeIroning = FloatField(_("Time Ironing"))
+    wearsPerCycle = FloatField(_("Wears Per Cycle"))
     # enf of life
     volume = FloatField()
 
@@ -270,12 +270,22 @@ class Product(Model):
 class Material(Model):
     id = CharField("ID", max_length=50, primary_key=True)
     materialProcessUuid = ForeignKey(
-        Process, SET_NULL, null=True, related_name="materials"
+        Process,
+        SET_NULL,
+        null=True,
+        related_name="materials",
+        verbose_name=_("Process"),
     )
     recycledProcessUuid = ForeignKey(
-        Process, SET_NULL, null=True, related_name="recycledMaterials"
+        Process,
+        SET_NULL,
+        null=True,
+        related_name="recycledMaterials",
+        verbose_name=_("Recycled Process"),
     )
-    recycledFrom = ForeignKey("self", SET_NULL, null=True, blank=True)
+    recycledFrom = ForeignKey(
+        "self", SET_NULL, null=True, blank=True, verbose_name=_("Recycled From")
+    )
     name = CharField(_("Name"), max_length=200)
     shortName = CharField(_("Short Name"), max_length=50)
     origin = CharField(_("Origin"), max_length=50, choices=ORIGINS)
@@ -283,8 +293,12 @@ class Material(Model):
     defaultCountry = CharField(_("Default Country"), max_length=3, choices=COUNTRIES)
     priority = IntegerField()
     # cff
-    manufacturerAllocation = FloatField(null=True, blank=True)
-    recycledQualityRatio = FloatField(null=True, blank=True)
+    manufacturerAllocation = FloatField(
+        _("Manufacturer Allocation"), null=True, blank=True
+    )
+    recycledQualityRatio = FloatField(
+        _("Recycled Quality Ratio"), null=True, blank=True
+    )
 
     def __str__(self):
         return self.name
