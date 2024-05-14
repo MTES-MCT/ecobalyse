@@ -35,11 +35,11 @@ percentageTable impactDefinition data =
 
         ( total, minimum, maximum ) =
             ( List.sum values
-            , values |> List.maximum |> Maybe.withDefault 0
+            , values |> List.minimum |> Maybe.withDefault 0
             , values |> List.maximum |> Maybe.withDefault 0
             )
     in
-    if total == 0 || maximum == 0 then
+    if total == 0 && maximum == 0 && minimum == 0 then
         text ""
 
     else
