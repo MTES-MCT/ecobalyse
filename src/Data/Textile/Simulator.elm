@@ -574,7 +574,10 @@ computeFabricStepWaste { textile } ({ inputs, lifeCycle } as simulator) =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
                 |> Formula.genericWaste
-                    (inputs.fabricProcess
+                    -- FIXME: we should rather use inputs.fabricProcess here, but we must
+                    --        avoid updating results in production until next milestone.
+                    --        @see https://github.com/MTES-MCT/ecobalyse/pull/577
+                    (inputs.product.fabric
                         |> Fabric.getProcess textile.wellKnown
                         |> .waste
                     )
