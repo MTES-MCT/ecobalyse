@@ -573,11 +573,7 @@ computeFabricStepWaste { textile } ({ inputs, lifeCycle } as simulator) =
         { mass, waste } =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
-                |> Formula.genericWaste
-                    (inputs.fabricProcess
-                        |> Fabric.getProcess textile.wellKnown
-                        |> .waste
-                    )
+                |> Formula.genericWaste (Fabric.getProcess textile.wellKnown inputs.product.fabric |> .waste)
     in
     simulator
         |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
