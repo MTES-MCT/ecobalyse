@@ -21,6 +21,7 @@ import Route
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
+import Views.Markdown as Markdown
 
 
 type alias Model =
@@ -229,9 +230,10 @@ view session model =
                                         , title = Nothing
                                         , content =
                                             [ div [ class "fs-7" ]
-                                                [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
-                                                , a [ href Env.cguUrl ] [ text "conditions d'utilisation des données" ]
-                                                , text "."
+                                                [ """Vous avez maintenant accès au détail des impacts, à utiliser conformément aux
+                                                [conditions d'utilisation des données]({url})."""
+                                                    |> String.replace "{url}" Env.cguUrl
+                                                    |> Markdown.simple []
                                                 ]
                                             ]
                                         }
@@ -526,10 +528,11 @@ viewRegisterForm ({ user } as model) =
                                     )
                                 ]
                                 []
-                            , text "Je m’engage à respecter les conditions d’utilisation (cf. "
-                            , a [ href Env.cguUrl ]
-                                [ text "conditions d'utilisation" ]
-                            , text ")"
+                            , div []
+                                [ """Je m’engage à respecter les conditions d’utilisation (cf. [conditions d'utilisation]({url}))"""
+                                    |> String.replace "{url}" Env.cguUrl
+                                    |> Markdown.simple []
+                                ]
                             , div [ class "text-danger" ]
                                 [ getFormInputError "terms_of_use" model.response
                                     |> Maybe.withDefault ""
