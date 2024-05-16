@@ -1,5 +1,6 @@
 module Data.Env exposing
     ( betagouvUrl
+    , cguUrl
     , communityUrl
     , contactEmail
     , defaultDeadStock
@@ -19,6 +20,11 @@ import Data.Split as Split exposing (Split)
 betagouvUrl : String
 betagouvUrl =
     "https://beta.gouv.fr/startups/ecobalyse.html"
+
+
+cguUrl : String
+cguUrl =
+    "https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire-draft/old/pages-textiles-old/conditions-dutilisation"
 
 
 communityUrl : String

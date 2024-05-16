@@ -230,7 +230,7 @@ view session model =
                                         , content =
                                             [ div [ class "fs-7" ]
                                                 [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
-                                                , a [ href Env.gitbookUrl ] [ text "conditions d'utilisation des données" ]
+                                                , a [ href Env.cguUrl ] [ text "conditions d'utilisation des données" ]
                                                 , text "."
                                                 ]
                                             ]
@@ -526,7 +526,10 @@ viewRegisterForm ({ user } as model) =
                                     )
                                 ]
                                 []
-                            , text "Je m'engage à ne pas exploiter les données pour une utilisation commerciale."
+                            , text "Je m’engage à respecter les conditions d’utilisation (cf. "
+                            , a [ href Env.cguUrl ]
+                                [ text "conditions d'utilisation" ]
+                            , text ")"
                             , div [ class "text-danger" ]
                                 [ getFormInputError "terms_of_use" model.response
                                     |> Maybe.withDefault ""
