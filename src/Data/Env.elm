@@ -24,7 +24,7 @@ betagouvUrl =
 
 cguUrl : String
 cguUrl =
-    "https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire-draft/old/pages-textiles-old/conditions-dutilisation"
+    "https://fabrique-numerique.gitbook.io/ecobalyse/conditions-dutilisation"
 
 
 communityUrl : String
