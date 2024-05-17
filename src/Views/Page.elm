@@ -148,6 +148,7 @@ secondaryMenuLinks =
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
+    , External "CGU" Env.cguUrl
     , MailTo "Contact" Env.contactEmail
     ]
 
