@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-19 15:57+0200\n"
-"PO-Revision-Date: 2024-05-19 16:01+0200\n"
+"POT-Creation-Date: 2024-05-19 16:44+0200\n"
+"PO-Revision-Date: 2024-05-19 16:44+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -30,7 +30,7 @@ msgstr "Prénom"
 msgid "Last Name"
 msgstr "Nom"
 
-#: authentication/forms.py:35 authentication/models.py:10
+#: authentication/forms.py:35
 msgid "Company"
 msgstr "Organisation"
 
@@ -41,6 +41,10 @@ msgstr "Je m'engage à respecter les conditions d'utilisation"
 #: authentication/forms.py:37
 msgid "Next url"
 msgstr "URL de redirection"
+
+#: authentication/models.py:10
+msgid "Organization"
+msgstr "Organisation"
 
 #: authentication/models.py:14
 msgid "TOKEN"
