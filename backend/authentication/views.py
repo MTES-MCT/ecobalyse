@@ -4,9 +4,9 @@ import logging
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
+from django.db import IntegrityError
 from django.http import Http404, JsonResponse, response
 from django.utils.translation import gettext_lazy as _
-from django.views import generic
 from mailauth import signing
 from mailauth.views import (
     LoginTokenView as MailauthLoginTokenView,
@@ -48,6 +48,13 @@ def register(request):
             errors = {
                 k: " ".join(v) for k, v in (form.errors.items() if form.errors else [])
             }
+            if (
+                errors.get("email")
+                == "Un objet Utilisateur avec ce champ Adresse électronique existe déjà."
+            ):
+                errors["email"] = _(
+                    "Vous semblez déjà inscrit. Essayez d'utiliser l'onglet Connexion."
+                )
             return JsonResponse(
                 {
                     "success": False,
@@ -84,12 +91,6 @@ class LoginView(MailauthLoginView):
             )
         else:
             return JsonResponse({"success": False, "msg": _("Invalid form data")})
-
-
-class RegistrationRequestedView(generic.TemplateView):
-    """confirmation that the email has beed stored"""
-
-    template_name = "registration/registration_requested.html"
 
 
 class Activate(MailauthLoginTokenView):
