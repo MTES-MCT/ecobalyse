@@ -53,7 +53,7 @@ def register(request):
                 == "Un objet Utilisateur avec ce champ Adresse électronique existe déjà."
             ):
                 errors["email"] = _(
-                    "Vous semblez déjà inscrit. Essayez d'utiliser l'onglet Connexion."
+                    "Vous semblez déjà inscrit(e). Essayez d'utiliser l'onglet Connexion."
                 )
             return JsonResponse(
                 {
