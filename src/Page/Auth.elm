@@ -529,7 +529,7 @@ viewRegisterForm ({ user } as model) =
                                 ]
                                 []
                             , div []
-                                [ """Je m’engage à respecter les conditions d’utilisation (cf. [conditions d'utilisation]({url}))"""
+                                [ """Je m’engage à respecter les [conditions d'utilisation]({url})"""
                                     |> String.replace "{url}" Env.cguUrl
                                     |> Markdown.simple []
                                 ]
