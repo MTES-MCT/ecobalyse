@@ -11,5 +11,5 @@ class EcobalyseUser(AbstractEmailUser):
     )
     terms_of_use = models.BooleanField(default=False)
     token = models.CharField(
-        _("TOKEN"), max_length=36, default=uuid.uuid4, editable=False
+        _("TOKEN"), max_length=36, default=uuid.uuid4, editable=False, db_index=True
     )
