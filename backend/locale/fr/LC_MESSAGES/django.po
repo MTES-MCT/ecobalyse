@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-15 17:53+0200\n"
-"PO-Revision-Date: 2024-04-15 17:53+0200\n"
+"POT-Creation-Date: 2024-05-19 15:52+0200\n"
+"PO-Revision-Date: 2024-05-19 15:59+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -50,9 +50,8 @@ msgstr "Merci d'utiliser le service Ecobalyse !"
 #: templates/registration/login_email.txt:9
 #: templates/registration/registration_email.html:9
 #: templates/registration/registration_email.txt:9
-#, python-format
-msgid "The %(site_name)s team"
-msgstr "L'équipe %(site_name)s"
+msgid "The Ecobalyse Team"
+msgstr "L'équipe Ecobalyse"
 
 #: templates/registration/login_subject.txt:2
 #: templates/registration/registration_subject.txt:2
@@ -68,6 +67,10 @@ msgid ""
 "%(site_name)s."
 msgstr ""
 "Vous avez reçu cet email car vous vous êtes inscrit(e) sur %(site_name)s."
+
+#, python-format
+#~ msgid "The %(site_name)s team"
+#~ msgstr "L'équipe %(site_name)s"
 
 #~ msgid "Thanks for using our site!"
 #~ msgstr "Merci d'utiliser notre site !"

@@ -7,7 +7,7 @@ from mailauth.contrib.user.models import AbstractEmailUser
 
 class EcobalyseUser(AbstractEmailUser):
     organization = models.CharField(
-        _("Company"), max_length=150, blank=True, default=""
+        _("Organization"), max_length=150, blank=True, default=""
     )
     terms_of_use = models.BooleanField(default=False)
     token = models.CharField(
