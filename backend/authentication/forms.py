@@ -33,9 +33,7 @@ class RegistrationForm(ModelForm):
     first_name = forms.CharField(label=_("First Name"), max_length=30)
     last_name = forms.CharField(label=_("Last Name"), max_length=30)
     organization = forms.CharField(label=_("Company"), max_length=100, required=False)
-    terms_of_use = forms.BooleanField(
-        label=_("I undertake not to use the data for commercial use")
-    )
+    terms_of_use = forms.BooleanField(label=_("I agree to the terms of use"))
     next = forms.CharField(label=_("Next url"), max_length=100)
 
     class Meta:
