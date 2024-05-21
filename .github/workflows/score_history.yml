@@ -1,9 +1,8 @@
 name: Score History Update
 
 on:
-  push:
-    branches:
-      - "*"
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   update_score_history:
@@ -22,10 +21,16 @@ jobs:
       - name: Install dependencies
         run: pip install pandas requests
 
+      - name: Wait 7 minutes
+        run: sleep 420 # Waits for 7 minutes for the review app to be deployed on scalingo
+
       - name: Update Score History
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
-        run: python ./data/common/score_history/compute_score_history.py
+          SCORE_DATABASE_URL: ${{ secrets.SCORE_DATABASE_URL }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: python ./data/common/score_history/compute_score_history.py $PR_NUMBER
 
       - name: Check for changes
         id: file-check

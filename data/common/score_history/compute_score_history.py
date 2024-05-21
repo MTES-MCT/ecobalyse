@@ -1,18 +1,51 @@
 import json
 import logging
+import os
 import subprocess
-import time
+import sys
 from datetime import datetime
 
 import numpy as np
 import pandas as pd
 import requests
+from dotenv import load_dotenv
+from git import Repo
 from pandas.api.types import is_numeric_dtype
+from sqlalchemy import create_engine, text
+
+load_dotenv()
+
+# Helper functions
+
+
+def get_current_branch_name():
+    """Retrieve the current branch name of the repository."""
+    repo = Repo(".")
+    return repo.active_branch.name
+
+
+def get_pr_number():
+    if len(sys.argv) < 2:
+        print("Usage: python compute_score_history.py PR_NUMBER")
+        sys.exit(1)
+    return sys.argv[1]
+
+
+def load_json(file):
+    with open(file, "r") as f:
+        return json.load(f)
+
+
+def get_impacts_weights(branch):
+    return fetch_json(
+        f"https://raw.githubusercontent.com/MTES-MCT/ecobalyse/{branch}/public/data/impacts.json"
+    )
+
+
+# Constants
 
 SCORE_HISTORY_PATH = "./data/common/score_history/score_history.csv"
-
-# TODO : find a way to retrieve this automatically
-TEST_BRANCH = {"name": "score-evolution-tracking", "pr_number": 566}
+TEST_BRANCH = {"name": get_current_branch_name(), "pr_number": get_pr_number()}
 
 BRANCHES = ["master", TEST_BRANCH["name"]]
 BRANCH_URLS = {
@@ -26,16 +59,11 @@ TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 IMPACTS_JSON_PATH = "./public/data/impacts.json"
 EXAMPLES_TEXTILE_PATH = "./public/data/textile/examples.json"
 
-
-def load_json(file):
-    with open(file, "r") as f:
-        return json.load(f)
+DATABASE_URL = os.getenv("SCORE_DATABASE_URL")
+HEADER = {"token": os.getenv("API_TOKEN")}
 
 
-def get_impacts_weights(branch):
-    return fetch_json(
-        f"https://raw.githubusercontent.com/MTES-MCT/ecobalyse/{branch}/public/data/impacts.json"
-    )
+# API functions
 
 
 def compute_new_score(examples, current_branch, last_commit):
@@ -50,10 +78,6 @@ def compute_new_score(examples, current_branch, last_commit):
             current_branch, branch_url, example, normalization_factors, last_commit
         )
         simulations.append(simulation_result)
-        """ except Exception as e:
-            logging.error(
-                f"Error simulating example {example['name']} on branch {current_branch}: {e}"
-            ) """
     return pd.concat(simulations, axis=0, ignore_index=True)
 
 
@@ -74,7 +98,7 @@ def compute_normalization_factors(branch):
 def fetch_json(url, method="GET", payload=None):
     try:
         if method.upper() == "POST":
-            response = requests.post(url, json=payload)
+            response = requests.post(url, json=payload, headers=HEADER)
         else:
             response = requests.get(url)
         response.raise_for_status()  # Raises HTTPError for bad responses
@@ -172,8 +196,8 @@ def create_df(
         "query": json.dumps(query),
         "mass": query["mass"],
         "elements": json.dumps(query["materials"]),
-        "lifeCycleStep": "Transport" if is_transport else step["label"],
-        "lifeCycleStepCountry": step.get("country", {}).get("code", ""),
+        "lifecyclestep": "Transport" if is_transport else step["label"],
+        "lifecyclestepcountry": step.get("country", {}).get("code", ""),
         "impact": impacts.index.tolist(),
         "value": impacts.values.tolist(),
     }
@@ -287,31 +311,59 @@ def get_previous_score(score_history_df, current_branch):
     return False, previous_score_df
 
 
+# Database Operations
+
+
+def get_score_history(conn):
+    query = text("SELECT * FROM score_history")
+    df = pd.read_sql(query, conn)
+    return df
+
+
+def get_row_count(conn):
+    query = text("SELECT COUNT(*) FROM score_history")
+    result = conn.execute(
+        query
+    ).scalar()  # Using scalar to fetch the first column of the first row
+    return result
+
+
 if __name__ == "__main__":
-    score_history_df = pd.read_csv(SCORE_HISTORY_PATH, sep=",")
-    examples_textile = load_json(EXAMPLES_TEXTILE_PATH)
-    current_branch, last_commit = get_last_commit()
-    commit_is_new = is_new_commit(score_history_df, last_commit)
+    engine = create_engine(DATABASE_URL, connect_args={"connect_timeout": 10})
+    with engine.connect() as conn:
+        score_history_df = get_score_history(conn)
+        examples_textile = load_json(EXAMPLES_TEXTILE_PATH)
+        current_branch, last_commit = get_last_commit()
+        commit_is_new = is_new_commit(score_history_df, last_commit)
 
-    if commit_is_new:
-        logging.info(f"computing score for {current_branch}")
-        new_score_df = compute_new_score(examples_textile, current_branch, last_commit)
-
-        no_previous_score, previous_score_df = get_previous_score(
-            score_history_df, current_branch
-        )
-        score_is_different = compare_scores_with_tolerance(
-            previous_score_df, new_score_df
-        )
-
-        if score_is_different or no_previous_score:
-            score_history_updated_df = pd.concat(
-                [score_history_df, new_score_df], ignore_index=True
+        if commit_is_new:
+            logging.info(f"Computing score for {current_branch}")
+            new_score_df = compute_new_score(
+                examples_textile, current_branch, last_commit
             )
-            score_history_updated_df.to_csv(
-                SCORE_HISTORY_PATH, index=False, encoding="utf-8-sig"
+            no_previous_score, previous_score_df = get_previous_score(
+                score_history_df, current_branch
             )
+            score_is_different = compare_scores_with_tolerance(
+                previous_score_df, new_score_df
+            )
+
+            if score_is_different or no_previous_score:
+                print(
+                    f"Number of rows in the score_history table before update: {get_row_count(conn)}"
+                )
+                new_score_df.to_sql(
+                    "score_history", con=conn, if_exists="append", index=False
+                )
+                print(
+                    f"Successfully appended new score ({new_score_df.shape[0]} rows) to score_history postgresql table"
+                )
+                print(
+                    f"Number of rows in the score_history table after update: {get_row_count(conn)}"
+                )
+            else:
+                print(
+                    "New score is identical to old score. Nothing was added to score history."
+                )
         else:
-            print(
-                "New score is the identical to old score. Nothing was added to score history"
-            )
+            print("Commit isn't new. Nothing added")
