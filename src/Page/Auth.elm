@@ -257,10 +257,9 @@ view session model =
                                     , title = Nothing
                                     , content =
                                         [ div [ class "fs-7" ]
-                                            [ Icon.info
-                                            , text """\u{00A0}Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
-                                        valider que vous êtes Français, et que vous n'utiliserez pas ces données à des fins
-                                        commerciales."""
+                                            [ """Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et d'approuver les [conditions d'utilisation]({url}), incluant notamment une utilisation strictement limitée aux produits textiles vendus sur le marché français."""
+                                                |> String.replace "{url}" Env.cguUrl
+                                                |> Markdown.simple []
                                             ]
                                         ]
                                     }
