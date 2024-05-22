@@ -19,7 +19,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install dependencies
-        run: pip install pandas requests
+        run: pip install numpy pandas requests python-dotenv GitPython sqlalchemy
 
       - name: Wait 7 minutes
         run: sleep 420 # Waits for 7 minutes for the review app to be deployed on scalingo
