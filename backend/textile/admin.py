@@ -133,7 +133,7 @@ class ProcessAdmin(admin.ModelAdmin):
 class ExampleJSONForm(forms.ModelForm):
     class Meta:
         model = Example
-        fields = ["id", "name"]
+        fields = ["id", "name", "product"]
 
     query = forms.JSONField()
 
@@ -218,7 +218,7 @@ class ExampleAdmin(admin.ModelAdmin):
                 json_example = {
                     "id": request.POST["id"],
                     "name": request.POST["name"],
-                    "category": request.POST["category"],
+                    "product": request.POST["product"],
                     "query": json.loads(request.POST["query"]),
                 }
                 try:
