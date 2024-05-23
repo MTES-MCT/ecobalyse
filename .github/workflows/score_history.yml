@@ -19,10 +19,10 @@ jobs:
           python-version: "3.10"
 
       - name: Install dependencies
-        run: pip install numpy pandas requests python-dotenv GitPython sqlalchemy
+        run: pip install numpy pandas requests python-dotenv GitPython sqlalchemy psycopg2
 
       - name: Wait 7 minutes
-        run: sleep 420 # Waits for 7 minutes for the review app to be deployed on scalingo
+        run: sleep 1 # Waits for 7 minutes for the review app to be deployed on scalingo
 
       - name: Update Score History
         env:
