@@ -2,7 +2,9 @@ import json
 import logging
 import os
 import sys
+from contextlib import contextmanager
 from datetime import datetime
+
 import numpy as np
 import pandas as pd
 import requests
@@ -10,7 +12,6 @@ from dotenv import load_dotenv
 from git import Repo
 from pandas.api.types import is_numeric_dtype
 from sqlalchemy import create_engine, text
-from contextlib import contextmanager
 
 load_dotenv()
 
