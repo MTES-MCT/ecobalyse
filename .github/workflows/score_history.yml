@@ -34,17 +34,3 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
 
         run: python ./data/common/score_history/compute_score_history.py $PR_NUMBER $GITHUB_HEAD_REF $LAST_COMMIT_HASH
-
-      - name: Check for changes
-        id: file-check
-        run: |
-          git diff --name-only | grep 'score_history.csv' && echo "::set-output name=modified::true" || echo "::set-output name=modified::false"
-
-      - name: Commit and push if changed
-        if: steps.file-check.outputs.modified == 'true'
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git add data/common/score_history/score_history.csv
-          git commit -m "Automatically update score history"
-          git push
