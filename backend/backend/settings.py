@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     # # don't use the provided mailauth user, it's redefined in the authentication module
     # "mailauth.contrib.user",
     "authentication.apps.AuthenticationConfig",
-    # "textile.apps.TextileConfig", # TODO disable textile for now
+    "textile.apps.TextileConfig",
     # #  the original admin config is replaced by custom AdminConfig
     # "django.contrib.admin",
     "backend.apps.AdminConfig",
