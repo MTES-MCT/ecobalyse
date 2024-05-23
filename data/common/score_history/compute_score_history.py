@@ -1,10 +1,8 @@
 import json
 import logging
 import os
-import subprocess
 import sys
 from datetime import datetime
-
 import numpy as np
 import pandas as pd
 import requests
@@ -12,10 +10,27 @@ from dotenv import load_dotenv
 from git import Repo
 from pandas.api.types import is_numeric_dtype
 from sqlalchemy import create_engine, text
+from contextlib import contextmanager
 
 load_dotenv()
 
+
+# Constants
+
+SCORE_HISTORY_PATH = "./data/common/score_history/score_history.csv"
+
+TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+IMPACTS_JSON_PATH = "./public/data/impacts.json"
+EXAMPLES_TEXTILE_PATH = "./public/data/textile/examples.json"
+
+DATABASE_URL = os.getenv("SCORE_DATABASE_URL")
+HEADER = {"token": os.getenv("API_TOKEN")}
+
+
 # Helper functions
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("logger")
 
 
 def get_current_branch_name():
@@ -24,11 +39,16 @@ def get_current_branch_name():
     return repo.active_branch.name
 
 
-def get_pr_number():
-    if len(sys.argv) < 2:
-        print("Usage: python compute_score_history.py PR_NUMBER")
+def get_arguments():
+    if len(sys.argv) < 4:
+        print(
+            "Usage: python compute_score_history.py <PR_NUMBER> <BRANCH_NAME> <LAST_COMMIT_HASH>"
+        )
         sys.exit(1)
-    return sys.argv[1]
+    pr_number = sys.argv[1]
+    branch_name = sys.argv[2]
+    last_commit_hash = sys.argv[3][:7]
+    return pr_number, branch_name, last_commit_hash
 
 
 def load_json(file):
@@ -40,27 +60,6 @@ def get_impacts_weights(branch):
     return fetch_json(
         f"https://raw.githubusercontent.com/MTES-MCT/ecobalyse/{branch}/public/data/impacts.json"
     )
-
-
-# Constants
-
-SCORE_HISTORY_PATH = "./data/common/score_history/score_history.csv"
-TEST_BRANCH = {"name": get_current_branch_name(), "pr_number": get_pr_number()}
-
-BRANCHES = ["master", TEST_BRANCH["name"]]
-BRANCH_URLS = {
-    "master": "https://ecobalyse.beta.gouv.fr/api/textile/simulator/detailed",
-    TEST_BRANCH[
-        "name"
-    ]: f"https://ecobalyse-pr{TEST_BRANCH['pr_number']}.osc-fr1.scalingo.io/api/textile/simulator/detailed",
-}
-
-TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-IMPACTS_JSON_PATH = "./public/data/impacts.json"
-EXAMPLES_TEXTILE_PATH = "./public/data/textile/examples.json"
-
-DATABASE_URL = os.getenv("SCORE_DATABASE_URL")
-HEADER = {"token": os.getenv("API_TOKEN")}
 
 
 # API functions
@@ -252,32 +251,6 @@ def compare_scores_with_tolerance(df1, df2, tolerance=0.0001):
     return False
 
 
-def get_last_commit():
-    """
-    Retrieve the last commit ID of the current branch without fetching remote branches.
-    """
-    # Command to get the current branch name
-    current_branch_command = ["git", "branch", "--show-current"]
-    try:
-        # Get the current branch name
-        current_branch_result = subprocess.run(
-            current_branch_command, check=True, capture_output=True, text=True
-        )
-        current_branch = current_branch_result.stdout.strip()
-
-        # Get the last commit ID on the current branch
-        last_commit_id_command = ["git", "rev-parse", current_branch]
-        last_commit_result = subprocess.run(
-            last_commit_id_command, check=True, capture_output=True, text=True
-        )
-        last_commit = last_commit_result.stdout.strip()[:7]
-
-        return current_branch, last_commit
-    except subprocess.CalledProcessError as e:
-        logging.error(f"Error in Git command: {e.stderr}")
-        raise Exception(f"Git command failed: {e.stderr}")
-
-
 def get_previous_score(score_history_df, current_branch):
     """
     Retrieves the most recent score from the score history dataframe for a specific branch.
@@ -312,58 +285,93 @@ def get_previous_score(score_history_df, current_branch):
 
 
 # Database Operations
+@contextmanager
+def get_database_connection(engine):
+    """
+    Context manager for database connections that correctly implements the context management protocol.
+    Ensures that the connection is properly managed with commit or rollback and closure.
+    """
+    connection = engine.connect()
+    transaction = connection.begin()
+    try:
+        yield connection
+        transaction.commit()  # Commit the transaction if all operations were successful
+    except Exception as e:
+        transaction.rollback()  # Roll back the transaction in case of an error
+        raise e
+    finally:
+        connection.close()  # Ensure the connection is closed
 
 
-def get_score_history(conn):
+def get_score_history(engine):
     query = text("SELECT * FROM score_history")
-    df = pd.read_sql(query, conn)
-    return df
+    with get_database_connection(engine) as conn:
+        df = pd.read_sql(query, conn)
+        return df
 
 
-def get_row_count(conn):
+def get_row_count(engine):
     query = text("SELECT COUNT(*) FROM score_history")
-    result = conn.execute(
-        query
-    ).scalar()  # Using scalar to fetch the first column of the first row
-    return result
+    with get_database_connection(engine) as conn:
+        result = conn.execute(query).scalar()
+        return result
+
+
+def insert_new_score(df, engine, table_name):
+    with get_database_connection(engine) as conn:
+        df.to_sql(table_name, con=conn, if_exists="append", index=False)
+
+
+def setup_variables():
+    pr_number, current_branch, last_commit = get_arguments()
+    TEST_BRANCH = {"name": current_branch, "pr_number": pr_number}
+    BRANCHES = ["master", TEST_BRANCH["name"]]
+    BRANCH_URLS = {
+        "master": "https://ecobalyse.beta.gouv.fr/api/textile/simulator/detailed",
+        TEST_BRANCH[
+            "name"
+        ]: f"https://ecobalyse-pr{TEST_BRANCH['pr_number']}.osc-fr1.scalingo.io/api/textile/simulator/detailed",
+    }
+    return pr_number, current_branch, last_commit, BRANCHES, BRANCH_URLS
 
 
 if __name__ == "__main__":
-    engine = create_engine(DATABASE_URL, connect_args={"connect_timeout": 10})
-    with engine.connect() as conn:
-        score_history_df = get_score_history(conn)
-        examples_textile = load_json(EXAMPLES_TEXTILE_PATH)
-        current_branch, last_commit = get_last_commit()
-        commit_is_new = is_new_commit(score_history_df, last_commit)
+    pr_number, current_branch, last_commit, BRANCHES, BRANCH_URLS = setup_variables()
 
-        if commit_is_new:
-            logging.info(f"Computing score for {current_branch}")
-            new_score_df = compute_new_score(
-                examples_textile, current_branch, last_commit
-            )
-            no_previous_score, previous_score_df = get_previous_score(
-                score_history_df, current_branch
-            )
-            score_is_different = compare_scores_with_tolerance(
-                previous_score_df, new_score_df
-            )
+    engine = create_engine(
+        DATABASE_URL, connect_args={"connect_timeout": 10}, echo=True
+    )
 
-            if score_is_different or no_previous_score:
-                print(
-                    f"Number of rows in the score_history table before update: {get_row_count(conn)}"
-                )
-                new_score_df.to_sql(
-                    "score_history", con=conn, if_exists="append", index=False
-                )
-                print(
-                    f"Successfully appended new score ({new_score_df.shape[0]} rows) to score_history postgresql table"
-                )
-                print(
-                    f"Number of rows in the score_history table after update: {get_row_count(conn)}"
-                )
-            else:
-                print(
-                    "New score is identical to old score. Nothing was added to score history."
-                )
+    score_history_df = get_score_history(engine)
+    examples_textile = load_json(EXAMPLES_TEXTILE_PATH)
+    commit_is_new = is_new_commit(score_history_df, last_commit)
+
+    if commit_is_new:
+        logger.info(
+            f"Score from commit {last_commit} hasn't been stored before. Computing score for {current_branch}"
+        )
+        new_score_df = compute_new_score(examples_textile, current_branch, last_commit)
+        no_previous_score, previous_score_df = get_previous_score(
+            score_history_df, current_branch
+        )
+        score_is_different = compare_scores_with_tolerance(
+            previous_score_df, new_score_df
+        )
+
+        if score_is_different or no_previous_score:
+            logger.info(
+                f"Number of rows in the score_history table before update: {get_row_count(engine)}"
+            )
+            insert_new_score(new_score_df, engine, "score_history")
+            logger.info(
+                f"Successfully appended new score ({new_score_df.shape[0]} rows) to score_history postgresql table"
+            )
+            logger.info(
+                f"Number of rows in the score_history table after update: {get_row_count(engine)}"
+            )
         else:
-            print("Commit isn't new. Nothing added")
+            logger.info(
+                "New score is identical to old score. Nothing was added to score history."
+            )
+    else:
+        logger.info(f"Commit {last_commit} isn't new. Nothing added")
