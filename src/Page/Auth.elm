@@ -20,7 +20,7 @@ import Request.Common as RequestCommon
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
-import Views.Icon as Icon
+import Views.Markdown as Markdown
 
 
 type alias Model =
@@ -229,9 +229,10 @@ view session model =
                                         , title = Nothing
                                         , content =
                                             [ div [ class "fs-7" ]
-                                                [ text "Vous avez maintenant accès au détail des impacts, à utiliser conformément aux "
-                                                , a [ href Env.gitbookUrl ] [ text "conditions d'utilisation des données" ]
-                                                , text "."
+                                                [ """Vous avez maintenant accès au détail des impacts, à utiliser conformément aux
+                                                [conditions d'utilisation des données]({url})."""
+                                                    |> String.replace "{url}" Env.cguUrl
+                                                    |> Markdown.simple []
                                                 ]
                                             ]
                                         }
@@ -255,10 +256,9 @@ view session model =
                                     , title = Nothing
                                     , content =
                                         [ div [ class "fs-7" ]
-                                            [ Icon.info
-                                            , text """\u{00A0}Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et
-                                        valider que vous êtes Français, et que vous n'utiliserez pas ces données à des fins
-                                        commerciales."""
+                                            [ """Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et d'approuver les [conditions d'utilisation]({url}), incluant notamment une utilisation strictement limitée aux produits textiles vendus sur le marché français."""
+                                                |> String.replace "{url}" Env.cguUrl
+                                                |> Markdown.simple []
                                             ]
                                         ]
                                     }
@@ -526,7 +526,11 @@ viewRegisterForm ({ user } as model) =
                                     )
                                 ]
                                 []
-                            , text "Je m'engage à ne pas exploiter les données pour une utilisation commerciale."
+                            , div []
+                                [ """Je m’engage à respecter les [conditions d'utilisation]({url})"""
+                                    |> String.replace "{url}" Env.cguUrl
+                                    |> Markdown.simple []
+                                ]
                             , div [ class "text-danger" ]
                                 [ getFormInputError "terms_of_use" model.response
                                     |> Maybe.withDefault ""

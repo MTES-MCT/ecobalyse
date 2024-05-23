@@ -115,7 +115,8 @@ ecotoxWeightingField updateEcotoxWeighting impactDefinitions =
         round2 =
             (*) 100 >> round >> (\x -> toFloat x / toFloat 100)
     in
-    div [ class "row d-flex align-items-center" ]
+    -- FIXME: temporarily hidden for launch
+    div [ class "d-none row d-flex align-items-center" ]
         [ div [ class "col-sm-6 d-flex align-items-center pt-1" ]
             [ label [ for "ecotox-weighting", class "form-label text-truncate" ]
                 [ text "Pondération Ecotox" ]

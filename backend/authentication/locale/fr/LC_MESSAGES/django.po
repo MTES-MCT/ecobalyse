@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 17:35+0200\n"
-"PO-Revision-Date: 2024-04-16 17:36+0200\n"
+"POT-Creation-Date: 2024-05-19 18:15+0200\n"
+"PO-Revision-Date: 2024-05-19 18:16+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,66 +18,77 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: authentication/forms.py:27
+#: authentication/forms.py:32
 msgid "E-mail"
 msgstr "E-mail"
 
-#: authentication/forms.py:28
+#: authentication/forms.py:33
 msgid "First Name"
 msgstr "Prénom"
 
-#: authentication/forms.py:29
+#: authentication/forms.py:34
 msgid "Last Name"
 msgstr "Nom"
 
-#: authentication/forms.py:30 authentication/models.py:9
+#: authentication/forms.py:35
 msgid "Company"
-msgstr "Entreprise"
+msgstr "Organisation"
 
-#: authentication/forms.py:32
-msgid "I undertake not to use the data for commercial use"
-msgstr "Je m'engage à ne pas exploiter les données à des fins commerciales"
+#: authentication/forms.py:36
+msgid "I agree to the terms of use"
+msgstr "Je m'engage à respecter les conditions d'utilisation"
 
-#: authentication/forms.py:34
+#: authentication/forms.py:37
 msgid "Next url"
 msgstr "URL de redirection"
 
-#: authentication/models.py:12
+#: authentication/models.py:10
+msgid "Organization"
+msgstr "Organisation"
+
+#: authentication/models.py:14
 msgid "TOKEN"
 msgstr "Jeton d'accès à l'API"
 
-#: authentication/views.py:34
+#: authentication/views.py:33
 msgid "Invalid json in the POST request"
 msgstr "Json invalide dans la requête POST"
 
-#: authentication/views.py:42 authentication/views.py:80
+#: authentication/views.py:42
+msgid "You seem already registered. Try to use the Connection form."
+msgstr "Vous semblez déjà inscrit(e). Essayez d'utiliser l'onglet Connexion."
+
+#: authentication/views.py:51 authentication/views.py:89
 #, python-format
 msgid "The link is valid for %d min"
 msgstr "Le lien de connexion est valide pendant %d min"
 
-#: authentication/views.py:44 authentication/views.py:82
+#: authentication/views.py:53 authentication/views.py:91
 msgid "The link does not expire"
 msgstr "Le lien n'a pas de date d'expiration"
 
-#: authentication/views.py:54
+#: authentication/views.py:63
 msgid "Your form has errors: "
 msgstr "Votre formulaire contient des erreurs : "
 
-#: authentication/views.py:67
+#: authentication/views.py:76
 msgid "Login"
 msgstr "Se connecter"
 
-#: authentication/views.py:86
+#: authentication/views.py:95
 msgid "Invalid form data"
 msgstr "Données de formulaire incorrectes"
 
-#: authentication/views.py:116
+#: authentication/views.py:119
 msgid "The token has expired"
 msgstr "Le jeton a expiré"
 
-#: authentication/views.py:147
+#: authentication/views.py:150
 msgid "You must be authenticated to access this page"
 msgstr "Vous devez être authentifié(e) pour accéder à cette page"
+
+#~ msgid "I undertake not to use the data for commercial use"
+#~ msgstr "Je m'engage à respecter les conditions d'utilisation"
 
 #~ msgid "Register"
 #~ msgstr "S'inscrire"
