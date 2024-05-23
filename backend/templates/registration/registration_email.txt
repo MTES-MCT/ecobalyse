@@ -6,6 +6,6 @@
 
 {% trans "Thanks for using Ecobalyse!" %}
 
-{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% blocktrans %}The Ecobalyse Team{% endblocktrans %}
 
 {% endautoescape %}
