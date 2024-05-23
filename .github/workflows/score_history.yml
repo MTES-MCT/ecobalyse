@@ -27,12 +27,13 @@ jobs:
       - name: Update Score History
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
           LAST_COMMIT_HASH: ${{ github.sha }}
           SCORE_DATABASE_URL: ${{ secrets.SCORE_DATABASE_URL }}
           API_TOKEN: ${{ secrets.API_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
 
-        run: python ./data/common/score_history/compute_score_history.py $PR_NUMBER $GITHUB_REF_NAME $LAST_COMMIT_HASH
+        run: python ./data/common/score_history/compute_score_history.py $PR_NUMBER $GITHUB_HEAD_REF $LAST_COMMIT_HASH
 
       - name: Check for changes
         id: file-check
