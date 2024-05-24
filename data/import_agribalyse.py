@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import copy
 import functools
 
 import bw2data
@@ -120,22 +121,33 @@ AGRIBALYSE_MIGRATIONS = [
         },
     }
 ]
+
+
+def remove_azadirachtine(db):
+    """Remove all exchanges with azadirachtine, except for apples"""
+    new_db = []
+    for ds in db:
+        new_ds = copy.deepcopy(ds)
+        new_ds["exchanges"] = [
+            exc
+            for exc in ds["exchanges"]
+            if (
+                "azadirachtin" not in exc.get("name", "").lower()
+                or ds.get("name", "").lower().startswith("apple")
+            )
+        ]
+        new_db.append(new_ds)
+    return new_db
+
+
 GINKO_STRATEGIES = [
+    remove_azadirachtine,
     functools.partial(
         link_technosphere_by_activity_hash,
         external_db_name="Agribalyse 3.1.1",
         fields=("name", "unit"),
-    )
+    ),
 ]
-
-
-def sync_datapackages():
-    print("Syncing datackages...")
-    for method in bw2data.methods:
-        bw2data.Method(method).process()
-
-    for database in bw2data.databases:
-        bw2data.Database(database).process()
 
 
 if __name__ == "__main__":
