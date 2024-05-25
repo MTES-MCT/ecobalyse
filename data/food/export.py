@@ -29,7 +29,6 @@ from food.ecosystemic_services.ecosystemic_services import (
     compute_vegetal_ecosystemic_services,
     load_ecosystemic_dic,
     load_ugb_dic,
-    plot_ecs_transformations,
 )
 
 # Configuration
@@ -175,6 +174,31 @@ def process_activity_for_processes(activity):
     }
 
 
+def simapro_impacts(activity, method):
+    strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
+    project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
+    method = urllib.parse.quote(main_method, encoding=None, errors=None)
+    return bytrigram(
+        definitions,
+        json.loads(
+            requests.get(
+                f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
+            ).content
+        ),
+    )
+
+
+def brightway_impacts(activity, method):
+    results = dict()
+    lca = bw2calc.LCA({activity: 1})
+    lca.lci()
+    for key, method in definitions.items():
+        lca.switch_method(method)
+        lca.lcia()
+        results[key] = float("{:.10g}".format(lca.score))
+    return results
+
+
 def compute_impacts(processes_fd):
     processes = dict(processes_fd)
     print("Computing impacts:")
@@ -184,48 +208,27 @@ def compute_impacts(processes_fd):
         activity = cached_search(
             process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
         )
-        strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-        project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
-        method = urllib.parse.quote(main_method, encoding=None, errors=None)
-        results = bytrigram(
-            definitions,
-            json.loads(
-                requests.get(
-                    f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
-                ).content
-            ),
-        )
+        results = simapro_impacts(activity, main_method)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
-        if process["unit"] == "kilowatt hour" and type(results) is dict:
+        if process["unit"] == "kilowatt hour" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
-        if process["unit"] == "litre" and type(results) is dict:
+        if process["unit"] == "litre" and isinstance(results, dict):
             results = {k: v / 1000 for k, v in results.items()}
 
-        if type(results) is dict and results:
+        process["impacts"] = results
+
+        if isinstance(results, dict) and results:
             # simapro succeeded
             process["impacts"] = results
             print(f"got impacts from simapro for: {process['name']}")
         else:
             # simapro failed (unexisting Ecobalyse project or some other reason)
             # brightway
-            lca = bw2calc.LCA(
-                {
-                    cached_search(
-                        process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
-                    ): 1
-                }
-            )
-            lca.lci()
-            for key, method in definitions.items():
-                lca.switch_method(method)
-                lca.lcia()
-                process.setdefault("impacts", {})[key] = float(
-                    "{:.10g}".format(lca.score)
-                )
+            process["impacts"] = brightway_impacts(activity, main_method)
             print(f"got impacts from brightway for: {process['name']}")
 
         # compute subimpacts
-        process = with_subimpacts(process)
+        process["impacts"] = with_subimpacts(process["impacts"])
 
         # remove unneeded attributes
         for attribute in ["search"]:
