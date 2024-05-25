@@ -43,21 +43,17 @@ def progress_bar(index, total):
     print(f"Export in progress: {str(index)}/{total}", end="\r")
 
 
-def with_subimpacts(process):
+def with_subimpacts(impacts):
     """compute subimpacts in the process"""
-    if not process["impacts"]:
-        return process
     # etf-o = etf-o1 + etf-o2
-    process["impacts"]["etf-o"] = (
-        process["impacts"]["etf-o1"] + process["impacts"]["etf-o2"]
-    )
-    del process["impacts"]["etf-o1"]
-    del process["impacts"]["etf-o2"]
+    impacts["etf-o"] = impacts["etf-o1"] + impacts["etf-o2"]
+    del impacts["etf-o1"]
+    del impacts["etf-o2"]
     # etf = etf1 + etf2
-    process["impacts"]["etf"] = process["impacts"]["etf1"] + process["impacts"]["etf2"]
-    del process["impacts"]["etf1"]
-    del process["impacts"]["etf2"]
-    return process
+    impacts["etf"] = impacts["etf1"] + impacts["etf2"]
+    del impacts["etf1"]
+    del impacts["etf2"]
+    return impacts
 
 
 @functools.cache
