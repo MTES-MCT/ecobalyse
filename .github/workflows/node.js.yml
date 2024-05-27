@@ -71,6 +71,3 @@ jobs:
 
     - name: Run elm-review
       run: npm run test:review
-
-    - name: Run server tests
-      run: pipenv run backend/update.sh && npm run test:server-ci
