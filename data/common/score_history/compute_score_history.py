@@ -214,7 +214,7 @@ def is_new_commit(score_history_df, last_commit):
         return False
 
 
-def compare_scores_with_tolerance(df1, df2, tolerance=0.0001):
+def are_df_different(df1, df2, tolerance=0.0001):
     """
     Compare two dataframes with a tolerance for numerical values.
 
@@ -224,7 +224,7 @@ def compare_scores_with_tolerance(df1, df2, tolerance=0.0001):
     - tolerance (float): Relative tolerance for numerical comparison, default is 0.01%.
 
     Returns:
-    - bool: True if dataframes are identical within the tolerance, False otherwise.
+    - bool: True if dataframes are different, False if dataframes are identical or within the tolerance.
     """
 
     df1 = df1.drop(["datetime", "commit"], axis=1)
@@ -233,23 +233,55 @@ def compare_scores_with_tolerance(df1, df2, tolerance=0.0001):
     df1 = df1.reset_index(drop=True)
     df2 = df2.reset_index(drop=True)
 
-    # Initial comparison using pandas compare
-    diff = df1.compare(df2)
-    if diff.empty:
-        return False  # DataFrames are identical
+    key_columns = [
+        "domain",
+        "product_name",
+        "query",
+        "lifecyclestep",
+        "lifecyclestepcountry",
+        "impact",
+    ]
 
-    # Check for numerical differences within the tolerance
-    for column in diff.columns.get_level_values(0).unique():
-        if is_numeric_dtype(df1[column]):
-            # Check only the differences in the numerical columns
-            diff_subset = diff[column].dropna()
-            # Extracting the 'self' and 'other' parts of the differences
-            self_values = diff_subset["self"]
-            other_values = diff_subset["other"]
-            # Check if the differences are within the tolerance
-            if not np.all(np.isclose(self_values, other_values, rtol=tolerance)):
+    value_columns = ["value", "norm_value_ecs"]
+
+    dict1 = dataframe_to_dict(df1, key_columns, value_columns)
+    dict2 = dataframe_to_dict(df2, key_columns, value_columns)
+
+    for key, (value1, norm_value1) in dict1.items():
+        if key in dict2:
+            (value2, norm_value2) = dict2[key]
+            if (
+                abs(value1 - value2) > tolerance
+                or abs(norm_value1 - norm_value2) > tolerance
+            ):
                 return True
+        else:
+            return True
     return False
+
+
+def dataframe_to_dict(df, key_cols, value_cols):
+    """
+    Transform a DataFrame into a dictionary by concatenating multiple columns to form the key
+    and using a tuple of columns as the dictionary values.
+
+    Args:
+    df (pd.DataFrame): The source DataFrame.
+    key_cols (list): List of column names to concatenate for the key.
+    value_cols (list): List of column names to combine into a tuple for the values.
+
+    Returns:
+    dict: Dictionary with concatenated keys and tuple values.
+    """
+    # Concatenate the specified columns to form a single key column
+    df["master_key"] = df[key_cols].apply(
+        lambda row: "_".join(row.values.astype(str)), axis=1
+    )
+    df["master_value"] = df[value_cols].apply(lambda row: tuple(row), axis=1)
+
+    # Create a dictionary with the new key column and the specified value column
+    result_dict = df.set_index("master_key")["master_value"].to_dict()
+    return result_dict
 
 
 def get_previous_score(score_history_df, current_branch):
@@ -355,9 +387,7 @@ if __name__ == "__main__":
         no_previous_score, previous_score_df = get_previous_score(
             score_history_df, current_branch
         )
-        score_is_different = compare_scores_with_tolerance(
-            previous_score_df, new_score_df
-        )
+        score_is_different = are_df_different(previous_score_df, new_score_df)
 
         if score_is_different or no_previous_score:
             logger.info(
