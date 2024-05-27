@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: pip install numpy pandas requests python-dotenv GitPython sqlalchemy psycopg2
 
-      - name: Wait 7 minutes
-        run: sleep 1 # Waits for 7 minutes for the review app to be deployed on scalingo
+      - name: Wait 8 minutes
+        run: sleep 480 # Waits for 8 minutes for the review app to be deployed on scalingo
 
       - name: Update Score History
         env:

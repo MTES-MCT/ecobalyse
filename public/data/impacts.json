@@ -279,7 +279,7 @@
     },
     "ecoscore": {
       "color": "#0070c0",
-      "normalization": 1.14687e4,
+      "normalization": 1.14687e10,
       "weighting": 0.0674
     }
   },
