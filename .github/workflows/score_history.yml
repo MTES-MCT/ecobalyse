@@ -13,7 +13,7 @@ name: Score History
 
 on:
   workflow_run:
-    workflows: ["Node.js CI"] # Name of the Node.js CI workflow
+    workflows: ["Node.js CI"]
     types: [completed]
 
 jobs:
