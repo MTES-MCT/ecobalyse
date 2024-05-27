@@ -9,11 +9,11 @@ import bw2io
 from bw2data.project import projects
 from bw2io.strategies import (
     drop_unspecified_subcategories,
-    fix_localized_water_flows,
+    # fix_localized_water_flows,
     link_iterable_by_fields,
     match_subcategories,
-    migrate_exchanges,
-    normalize_biosphere_categories,
+    # migrate_exchanges,
+    # normalize_biosphere_categories,
     normalize_biosphere_names,
     normalize_simapro_biosphere_categories,
     normalize_simapro_biosphere_names,
@@ -97,7 +97,7 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     print(f"### Finished importing {METHODNAME}")
 
 
-def main():
+if __name__ == "__main__":
     # Import custom method
     projects.set_current(PROJECT)
     # projects.create_project(PROJECT, activate=True, exist_ok=True)
@@ -108,7 +108,3 @@ def main():
         import_method()
     else:
         print(f"{METHODNAME} already imported")
-
-
-if __name__ == "__main__":
-    main()

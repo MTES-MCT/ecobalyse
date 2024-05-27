@@ -4,10 +4,13 @@
 """Export des ingrédients et des processes de l'alimentaire"""
 
 import json
+import sys
 import urllib.parse
 
 import bw2calc
 import bw2data
+import matplotlib
+import numpy
 import requests
 from bw2data.project import projects
 from common.export import (
@@ -45,6 +48,8 @@ CONFIG = {
     "PROCESSES_FILE": "../../public/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
 }
+with open("../public/data/impacts.json") as f:
+    IMPACTS = json.load(f)
 
 
 def setup_environment():
@@ -269,6 +274,40 @@ def compute_impacts(processes_fd):
     return frozendict({k: frozendict(v) for k, v in processes.items()})
 
 
+def plot_impacts(ingredient_name, simapro, brightway):
+    categories = [
+        c
+        for c in simapro.keys()
+        if c not in ("etf-o", "etf-i", "htn-o", "htn-i", "htc-i", "htc-o")
+    ]
+
+    simapro_values = [
+        simapro[cat] / IMPACTS[cat]["pef"]["normalization"] for cat in categories
+    ]
+    brightway_values = [
+        brightway[cat] / IMPACTS[cat]["pef"]["normalization"] for cat in categories
+    ]
+
+    x = numpy.arange(len(categories))
+    width = 0.35
+
+    fig, ax = matplotlib.pyplot.subplots(figsize=(12, 8))
+
+    ax.bar(x - width / 2, simapro_values, width, label="SimaPro")
+    ax.bar(x + width / 2, brightway_values, width, label="Brightway")
+
+    ax.set_xlabel("Impact Categories")
+    ax.set_ylabel("Impact Values")
+    ax.set_title(f"Environmental Impacts for {ingredient_name}")
+    ax.set_xticks(x)
+    ax.set_xticklabels(categories, rotation=90)
+    ax.legend()
+
+    matplotlib.pyplot.tight_layout()
+    matplotlib.pyplot.savefig(f"{ingredient_name}.png")
+    matplotlib.pyplot.close()
+
+
 if __name__ == "__main__":
     setup_environment()
 
@@ -292,9 +331,20 @@ if __name__ == "__main__":
 
     check_ids(ingredients_animal_es)
     processes = create_process_list(activities_land_occ)
-    processes_impacts = compute_impacts(processes)
-    # uncomment to store a file with both impacts (used to compare bw and sp)
-    # export_json(compare_impacts(processes), '/home/jovyan/ecobalyse/data/comparison.json')
+    if len(sys.argv) == 1:  # just export.py
+        processes_impacts = compute_impacts(processes)
+    elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
+        data_dict = compare_impacts(processes)
+        for ingredient_name, values in data_dict.items():
+            print(f"Plotting {ingredient_name}")
+            simapro_impacts = values["simapro impacts"]
+            brightway_impacts = values["brightway impacts"]
+            plot_impacts(ingredient_name, simapro_impacts, brightway_impacts)
+            print("Charts have been generated and saved as PNG files.")
+        sys.exit(0)
+    else:
+        print("Wrong argument: either no args or 'compare'")
+        sys.exit(1)
 
     processes_corrected_impacts = with_corrected_impacts(
         load_json(CONFIG["IMPACTS_FILE"]), processes_impacts

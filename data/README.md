@@ -31,6 +31,7 @@ d'abord un `make clean_data` (qui supprime le volume docker).
 - `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. Brightway (projet textile). Assurez-vous
   d'avoir le dossier `ECOINVENT3.9.1/` dans le dossier `data/`
 - `make export_food` : pour exporter les json pour le builder alimentaire
+- `make compare_food` : pour exporter des PNG pour chaque procédé montrant les différences entre Brightway et SimaPro
 - `make export_textile` : pour exporter les json pour le builder textile
 - `make delete_textile_method` : pour supprimer la méthode utilisée dans le projet textile
 - `make json` : lance toutes les commandes précédentes dans l'ordre
