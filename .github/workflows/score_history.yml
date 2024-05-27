@@ -13,12 +13,11 @@ name: Score History
 
 on:
   repository_dispatch:
-    types: [trigger-score-history]
+    types: [ trigger-score-history ]
 
 jobs:
   update_score_history:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest    
     steps:
       - uses: actions/checkout@v2
         with:
