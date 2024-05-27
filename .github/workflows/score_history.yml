@@ -13,8 +13,9 @@ name: Score History
 
 on:
   workflow_run:
-    workflows: [ 'Node.js CI' ]
-    types: [completed]
+    workflows: [Node.js CI]
+    types:
+      - completed
 
 jobs:
   update_score_history:
