@@ -68,3 +68,18 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
+
+  trigger_workflow:
+    needs: analyze
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+    - name: Trigger another workflow
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.repos.createDispatchEvent({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            event_type: 'trigger-score-history'
+          });

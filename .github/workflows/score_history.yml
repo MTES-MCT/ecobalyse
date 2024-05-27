@@ -12,10 +12,8 @@
 name: Score History
 
 on:
-  workflow_run:
-    workflows: [Node.js CI]
-    types:
-      - completed
+  repository_dispatch:
+    types: [trigger-score-history]
 
 jobs:
   update_score_history:
