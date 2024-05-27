@@ -1097,7 +1097,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , div [ class "d-flex sticky-md-top flex-column", style "top" "7px" ]
+            , div [ class "d-flex flex-column sticky-md-top" ]
                 [ CardTabs.view
                     { tabs =
                         [ { label = "Mode règlementaire"

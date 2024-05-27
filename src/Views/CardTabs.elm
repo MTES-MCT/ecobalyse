@@ -21,7 +21,7 @@ type alias Config msg =
 view : Config msg -> Html msg
 view { tabs, content } =
     div [ class "CardTabs card shadow-sm" ]
-        (div [ class "card-header px-0 pb-0 border-bottom-0" ]
+        (div [ class "card-header px-0 pb-0 border-bottom-0 bg-white sticky-md-top" ]
             [ tabs
                 |> List.map
                     (\{ label, onTabClick, active } ->
