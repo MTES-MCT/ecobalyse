@@ -47,13 +47,13 @@ view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, 
     CardTabs.view
         { tabs =
             (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated session then
-                [ ( StepImpactsTab, "Étapes" )
-                , ( SubscoresTab, "Sous-scores" )
-                , ( DetailedImpactsTab, "Impacts" )
+                [ ( StepImpactsTab, text "Étapes" )
+                , ( SubscoresTab, text "Sous-scores" )
+                , ( DetailedImpactsTab, text "Impacts" )
                 ]
 
              else
-                [ ( StepImpactsTab, "Étapes" ) ]
+                [ ( StepImpactsTab, text "Étapes" ) ]
             )
                 |> List.map
                     (\( tab, label ) ->

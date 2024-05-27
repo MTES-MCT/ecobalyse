@@ -202,6 +202,12 @@ input {
   }
 }
 
+.opacity {
+  &-50 {
+    opacity: 0.5;
+  }
+}
+
 .sticky {
   &-sm-top,
   &-md-top,

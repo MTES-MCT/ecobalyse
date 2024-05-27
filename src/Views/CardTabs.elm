@@ -6,7 +6,7 @@ import Html.Events exposing (..)
 
 
 type alias Tab msg =
-    { label : String
+    { label : Html msg
     , active : Bool
     , onTabClick : msg
     }
@@ -31,7 +31,7 @@ view { tabs, content } =
                                 , classList [ ( "active", active ) ]
                                 , onClick onTabClick
                                 ]
-                                [ text label ]
+                                [ label ]
                             ]
                     )
                 |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]

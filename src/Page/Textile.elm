@@ -987,7 +987,7 @@ lifeCycleStepsView db { activeTab, detailedStep, impact } simulator =
 
 simulatorFormView : Session -> Model -> Simulator -> List (Html Msg)
 simulatorFormView session model ({ inputs } as simulator) =
-    [ div [ class "row align-items-start flex-md-columns mb-3" ]
+    [ div [ class "row align-items-start flex-md-columns g-2 mb-3" ]
         [ div [ class "col-md-9" ]
             [ ExampleView.view
                 { currentQuery = session.queries.textile
@@ -1094,17 +1094,24 @@ simulatorFormView session model ({ inputs } as simulator) =
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView session model ({ inputs, impacts } as simulator) =
+    let
+        tabLabel name help =
+            span [ class "d-flex justify-content-between align-items-center gap-1" ]
+                [ span [ class "d-flex flex-fill justify-content-center" ] [ text name ]
+                , span [ class "text-muted fs-8 cursor-help opacity-50", title help ] [ Icon.question ]
+                ]
+    in
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "d-flex flex-column sticky-md-top" ]
                 [ CardTabs.view
                     { tabs =
-                        [ { label = "Mode règlementaire"
+                        [ { label = tabLabel "Mode règlementaire" "N'affiche que les champs requis règlementairement"
                           , active = model.activeTab == RegulatoryTab
                           , onTabClick = SwitchTab RegulatoryTab
                           }
-                        , { label = "Mode avancé"
+                        , { label = tabLabel "Mode avancé" "Affiche des champs supplémentaires, hors cadre règlementaire"
                           , active = model.activeTab == AdvancedTab
                           , onTabClick = SwitchTab AdvancedTab
                           }
