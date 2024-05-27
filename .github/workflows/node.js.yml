@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [master, staging]
+    branches: [ master, staging ]
   pull_request:
-    branches: [master, staging]
+    branches: [ master, staging ]
   workflow_dispatch:
 
 jobs:
@@ -18,14 +18,14 @@ jobs:
         node-version: [18.x]
         python-version: [3.11]
 
-  steps:
+    steps:
     - uses: actions/checkout@v4
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: "npm"
+        cache: 'npm'
 
     - uses: actions/setup-python@v5
       with:
@@ -71,9 +71,6 @@ jobs:
 
     - name: Run elm-review
       run: npm run test:review
-
-    #    - name: Run client tests
-    #      run: npm run test:client
 
     - name: Run server tests
       run: pipenv run backend/update.sh && npm run test:server-ci
