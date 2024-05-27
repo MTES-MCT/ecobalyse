@@ -56,6 +56,7 @@ import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelector
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
+import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
@@ -77,6 +78,7 @@ type alias Model =
     , detailedStep : Maybe Int
     , impact : Definition
     , modal : Modal
+    , activeTab : Tab
     , activeImpactsTab : ImpactTabs.Tab
     }
 
@@ -87,6 +89,11 @@ type Modal
     | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
     | SelectExampleModal (Autocomplete Query)
     | SelectProductModal (Autocomplete Product.Id)
+
+
+type Tab
+    = RegulatoryTab
+    | AdvancedTab
 
 
 type Msg
@@ -111,6 +118,7 @@ type Msg
     | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
+    | SwitchTab Tab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleFading Bool
     | ToggleStep Label
@@ -163,6 +171,7 @@ init trigram maybeUrlQuery session =
       , detailedStep = Nothing
       , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
+      , activeTab = RegulatoryTab
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session
@@ -211,6 +220,7 @@ initFromExample session uuid =
       , detailedStep = Nothing
       , impact = Definition.get Definition.Ecs session.db.definitions
       , modal = NoModal
+      , activeTab = RegulatoryTab
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session
@@ -456,6 +466,12 @@ update ({ queries, navKey } as session) msg model =
 
         SwitchImpactsTab impactsTab ->
             ( { model | activeImpactsTab = impactsTab }
+            , session
+            , Cmd.none
+            )
+
+        SwitchTab tab ->
+            ( { model | activeTab = tab }
             , session
             , Cmd.none
             )
@@ -919,7 +935,7 @@ massField massInput =
 
 
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { detailedStep, impact } simulator =
+lifeCycleStepsView db { activeTab, detailedStep, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
@@ -933,6 +949,7 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , inputs = simulator.inputs
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
                     , selectedImpact = impact
+                    , showAdvancedFields = activeTab == AdvancedTab
 
                     -- Events
                     , addMaterialModal = AddMaterialModal
@@ -968,109 +985,136 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
         |> div [ class "pt-1" ]
 
 
+simulatorFormView : Session -> Model -> Simulator -> List (Html Msg)
+simulatorFormView session model ({ inputs } as simulator) =
+    [ div [ class "row align-items-start flex-md-columns mb-3" ]
+        [ div [ class "col-md-9" ]
+            [ ExampleView.view
+                { currentQuery = session.queries.textile
+                , emptyQuery = Query.default
+                , examples = session.db.textile.examples
+                , helpUrl = Just Gitbook.TextileExamples
+                , onOpen = SelectExampleModal >> SetModal
+                , routes =
+                    { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                    , load = Route.TextileSimulatorExample
+                    , scopeHome = Route.TextileSimulatorHome
+                    }
+                }
+            ]
+        , div [ class "col-md-3" ]
+            [ inputs.mass
+                |> Mass.inKilograms
+                |> String.fromFloat
+                |> massField
+            ]
+        ]
+    , div [ class "card shadow-sm pb-2 mb-3" ]
+        [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ span [ class "d-none d-sm-flex" ] [ text "Coefficient de durabilité\u{00A0}:" ]
+                , simulator.durability
+                    |> Unit.durabilityToFloat
+                    |> Format.formatFloat 2
+                    |> text
+                , Button.docsPillLink
+                    [ class "bg-secondary"
+                    , style "height" "24px"
+                    , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
+                    , title "Documentation"
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
+            ]
+        , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-6" ]
+                [ productCategoryField session.db.textile (Inputs.toQuery inputs)
+                ]
+            , div [ class "col-md-6" ]
+                [ inputs.numberOfReferences
+                    |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                    |> numberOfReferencesField
+                ]
+            ]
+        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-6" ]
+                [ inputs.price
+                    |> Maybe.withDefault inputs.product.economics.price
+                    |> productPriceField
+                ]
+            , div [ class "col-md-6" ]
+                [ inputs.marketingDuration
+                    |> Maybe.withDefault inputs.product.economics.marketingDuration
+                    |> marketingDurationField
+                ]
+            ]
+        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-8" ]
+                [ inputs.business
+                    |> Maybe.withDefault inputs.product.economics.business
+                    |> businessField
+                ]
+            , div [ class "col-md-4" ]
+                [ inputs.traceability
+                    |> Maybe.withDefault inputs.product.economics.traceability
+                    |> traceabilityField
+                ]
+            ]
+        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-2" ] [ text "Matières" ]
+            , div [ class "col-md-10" ]
+                [ div [ class "fw-bold" ]
+                    [ Inputs.getMaterialsOriginShares inputs.materials
+                        |> Economics.computeMaterialsOriginIndex
+                        |> Tuple.second
+                        |> text
+                    ]
+                , small [ class "text-muted fs-8 lh-sm" ]
+                    [ text "Le type de matière retenu dépend de la composition du vêtement détaillée ci-dessous" ]
+                ]
+            ]
+        ]
+    , div []
+        [ lifeCycleStepsView session.db model simulator
+        , div [ class "d-flex align-items-center justify-content-between mt-3" ]
+            [ a [ Route.href Route.Home ]
+                [ text "« Retour à l'accueil" ]
+            , button
+                [ class "btn btn-secondary"
+                , onClick Reset
+                , disabled (session.queries.textile == model.initialQuery)
+                ]
+                [ text "Réinitialiser le produit" ]
+            ]
+        ]
+    ]
+
+
 simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView session model ({ inputs, impacts } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , div [ class "row align-items-start flex-md-columns mb-3" ]
-                [ div [ class "col-md-9" ]
-                    [ -- Inputs.toQuery inputs
-                      -- |> exampleProductField session.db.textile.exampleProducts
-                      ExampleView.view
-                        { currentQuery = session.queries.textile
-                        , emptyQuery = Query.default
-                        , examples = session.db.textile.examples
-                        , helpUrl = Just Gitbook.TextileExamples
-                        , onOpen = SelectExampleModal >> SetModal
-                        , routes =
-                            { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
-                            , load = Route.TextileSimulatorExample
-                            , scopeHome = Route.TextileSimulatorHome
-                            }
-                        }
-                    ]
-                , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
-                ]
-            , div [ class "card shadow-sm pb-2 mb-3" ]
-                [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-                    [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
-                    , div [ class "d-flex align-items-center gap-2" ]
-                        [ span [ class "d-none d-sm-flex" ] [ text "Coefficient de durabilité\u{00A0}:" ]
-                        , simulator.durability
-                            |> Unit.durabilityToFloat
-                            |> Format.formatFloat 2
-                            |> text
-                        , Button.docsPillLink
-                            [ class "bg-secondary"
-                            , style "height" "24px"
-                            , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
-                            , title "Documentation"
-                            , target "_blank"
-                            ]
-                            [ Icon.question ]
+            , div [ class "d-flex sticky-md-top flex-column", style "top" "7px" ]
+                [ CardTabs.view
+                    { tabs =
+                        [ { label = "Mode règlementaire"
+                          , active = model.activeTab == RegulatoryTab
+                          , onTabClick = SwitchTab RegulatoryTab
+                          }
+                        , { label = "Mode avancé"
+                          , active = model.activeTab == AdvancedTab
+                          , onTabClick = SwitchTab AdvancedTab
+                          }
                         ]
-                    ]
-                , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ div [ class "col-md-6" ]
-                        [ productCategoryField session.db.textile (Inputs.toQuery inputs)
-                        ]
-                    , div [ class "col-md-6" ]
-                        [ inputs.numberOfReferences
-                            |> Maybe.withDefault inputs.product.economics.numberOfReferences
-                            |> numberOfReferencesField
-                        ]
-                    ]
-                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ div [ class "col-md-6" ]
-                        [ inputs.price
-                            |> Maybe.withDefault inputs.product.economics.price
-                            |> productPriceField
-                        ]
-                    , div [ class "col-md-6" ]
-                        [ inputs.marketingDuration
-                            |> Maybe.withDefault inputs.product.economics.marketingDuration
-                            |> marketingDurationField
-                        ]
-                    ]
-                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ div [ class "col-md-8" ]
-                        [ inputs.business
-                            |> Maybe.withDefault inputs.product.economics.business
-                            |> businessField
-                        ]
-                    , div [ class "col-md-4" ]
-                        [ inputs.traceability
-                            |> Maybe.withDefault inputs.product.economics.traceability
-                            |> traceabilityField
-                        ]
-                    ]
-                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ div [ class "col-md-2" ] [ text "Matières" ]
-                    , div [ class "col-md-10" ]
-                        [ div [ class "fw-bold" ]
-                            [ Inputs.getMaterialsOriginShares inputs.materials
-                                |> Economics.computeMaterialsOriginIndex
-                                |> Tuple.second
-                                |> text
-                            ]
-                        , small [ class "text-muted fs-8 lh-sm" ]
-                            [ text "Le type de matière retenu dépend de la composition du vêtement détaillée ci-dessous" ]
-                        ]
-                    ]
-                ]
-            , div []
-                [ lifeCycleStepsView session.db model simulator
-                , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
-                    [ a [ Route.href Route.Home ]
-                        [ text "« Retour à l'accueil" ]
-                    , button
-                        [ class "btn btn-secondary"
-                        , onClick Reset
-                        , disabled (session.queries.textile == model.initialQuery)
-                        ]
-                        [ text "Réinitialiser le produit" ]
-                    ]
+                    , content =
+                        simulator
+                            |> simulatorFormView session model
+                            |> div [ class "card-body p-2" ]
+                            |> List.singleton
+                    }
                 ]
             ]
         , div [ class "col-lg-4 bg-white" ]

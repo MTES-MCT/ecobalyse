@@ -20,7 +20,7 @@ type alias Config msg =
 
 view : Config msg -> Html msg
 view { tabs, content } =
-    div [ class "card shadow-sm" ]
+    div [ class "CardTabs card shadow-sm" ]
         (div [ class "card-header px-0 pb-0 border-bottom-0" ]
             [ tabs
                 |> List.map

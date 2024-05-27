@@ -19,7 +19,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
-import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Product as Product
 import Data.Textile.Query exposing (MaterialQuery)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
@@ -62,6 +62,7 @@ type alias Config msg modal =
     , next : Maybe Step
     , selectedImpact : Definition
     , setModal : modal -> msg
+    , showAdvancedFields : Bool
     , toggleFading : Bool -> msg
     , toggleStep : Label -> msg
     , toggleStepDetails : Int -> msg
@@ -130,29 +131,30 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 
 dyeingMediumField : Config msg modal -> Html msg
-dyeingMediumField { inputs, updateDyeingMedium } =
-    div [ class "d-flex justify-content-between align-items-center fs-7" ]
-        [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
-            [ text "Teinture sur" ]
-        , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
-            |> List.map
-                (\medium ->
-                    option
-                        [ value <| DyeingMedium.toString medium
-                        , selected <| inputs.dyeingMedium == Just medium || inputs.product.dyeing.defaultMedium == medium
-                        ]
-                        [ text <| DyeingMedium.toLabel medium ]
-                )
-            |> select
-                [ id "dyeing-medium"
-                , class "form-select form-select-sm w-75"
-                , onInput
-                    (DyeingMedium.fromString
-                        >> Result.withDefault inputs.product.dyeing.defaultMedium
-                        >> updateDyeingMedium
+dyeingMediumField { inputs, updateDyeingMedium, showAdvancedFields } =
+    showIf showAdvancedFields <|
+        div [ class "d-flex justify-content-between align-items-center fs-7" ]
+            [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
+                [ text "Teinture sur" ]
+            , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
+                |> List.map
+                    (\medium ->
+                        option
+                            [ value <| DyeingMedium.toString medium
+                            , selected <| inputs.dyeingMedium == Just medium || inputs.product.dyeing.defaultMedium == medium
+                            ]
+                            [ text <| DyeingMedium.toLabel medium ]
                     )
-                ]
-        ]
+                |> select
+                    [ id "dyeing-medium"
+                    , class "form-select form-select-sm w-75"
+                    , onInput
+                        (DyeingMedium.fromString
+                            >> Result.withDefault inputs.product.dyeing.defaultMedium
+                            >> updateDyeingMedium
+                        )
+                    ]
+            ]
 
 
 spinningProcessField : Config msg modal -> Html msg
@@ -202,29 +204,30 @@ spinningProcessField { inputs, updateMaterialSpinning } =
 
 
 fabricProcessField : Config msg modal -> Html msg
-fabricProcessField { inputs, updateFabricProcess } =
-    -- Note: This field is only rendered in the detailed step view
-    li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ label [ class "text-nowrap w-25", for "fabric-process" ] [ text "Procédé" ]
-        , Fabric.fabricProcesses
-            |> List.map
-                (\fabricProcess ->
-                    option
-                        [ value <| Fabric.toString fabricProcess
-                        , selected <| inputs.fabricProcess == fabricProcess
-                        ]
-                        [ text <| Fabric.toLabel fabricProcess ]
-                )
-            |> select
-                [ id "fabric-process"
-                , class "form-select form-select-sm w-75"
-                , onInput
-                    (Fabric.fromString
-                        >> Result.withDefault Fabric.KnittingMix
-                        >> updateFabricProcess
+fabricProcessField { inputs, updateFabricProcess, showAdvancedFields } =
+    showIf showAdvancedFields <|
+        -- Note: This field is only rendered in the detailed step view
+        li [ class "list-group-item d-flex align-items-center gap-2" ]
+            [ label [ class "text-nowrap w-25", for "fabric-process" ] [ text "Procédé" ]
+            , Fabric.fabricProcesses
+                |> List.map
+                    (\fabricProcess ->
+                        option
+                            [ value <| Fabric.toString fabricProcess
+                            , selected <| inputs.fabricProcess == fabricProcess
+                            ]
+                            [ text <| Fabric.toLabel fabricProcess ]
                     )
-                ]
-        ]
+                |> select
+                    [ id "fabric-process"
+                    , class "form-select form-select-sm w-75"
+                    , onInput
+                        (Fabric.fromString
+                            >> Result.withDefault Fabric.KnittingMix
+                            >> updateFabricProcess
+                        )
+                    ]
+            ]
 
 
 printingFields : Config msg modal -> Html msg
@@ -376,72 +379,76 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
 
 
 makingWasteField : Config msg modal -> Html msg
-makingWasteField { current, inputs, updateMakingWaste } =
-    span
-        [ title "Taux moyen de pertes en confection"
-        ]
-        [ RangeSlider.percent
-            { id = "makingWaste"
-            , update = updateMakingWaste
-            , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
-            , toString = Step.makingWasteToString
-            , disabled =
-                not current.enabled
-                    || (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
-                    || (inputs.fabricProcess == Fabric.KnittingIntegral)
-            , min = Env.minMakingWasteRatio |> Split.toPercent |> round
-            , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
-            }
-        ]
+makingWasteField { current, inputs, updateMakingWaste, showAdvancedFields } =
+    showIf showAdvancedFields <|
+        span
+            [ title "Taux moyen de pertes en confection"
+            ]
+            [ RangeSlider.percent
+                { id = "makingWaste"
+                , update = updateMakingWaste
+                , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
+                , toString = Step.makingWasteToString
+                , disabled =
+                    not current.enabled
+                        || (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
+                        || (inputs.fabricProcess == Fabric.KnittingIntegral)
+                , min = Env.minMakingWasteRatio |> Split.toPercent |> round
+                , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
+                }
+            ]
 
 
 makingDeadStockField : Config msg modal -> Html msg
-makingDeadStockField { current, updateMakingDeadStock } =
-    span
-        [ title "Taux moyen de stocks dormants (vêtements non vendus + produits semi-finis non utilisés) sur l’ensemble de la chaîne de valeur"
-        ]
-        [ RangeSlider.percent
-            { id = "makingDeadStock"
-            , update = updateMakingDeadStock
-            , value = Maybe.withDefault Env.defaultDeadStock current.makingDeadStock
-            , toString = Step.makingDeadStockToString
-            , disabled = False
-            , min = Env.minMakingDeadStockRatio |> Split.toPercent |> round
-            , max = Env.maxMakingDeadStockRatio |> Split.toPercent |> round
-            }
-        ]
+makingDeadStockField { current, updateMakingDeadStock, showAdvancedFields } =
+    showIf showAdvancedFields <|
+        span
+            [ title "Taux moyen de stocks dormants (vêtements non vendus + produits semi-finis non utilisés) sur l’ensemble de la chaîne de valeur"
+            ]
+            [ RangeSlider.percent
+                { id = "makingDeadStock"
+                , update = updateMakingDeadStock
+                , value = Maybe.withDefault Env.defaultDeadStock current.makingDeadStock
+                , toString = Step.makingDeadStockToString
+                , disabled = False
+                , min = Env.minMakingDeadStockRatio |> Split.toPercent |> round
+                , max = Env.maxMakingDeadStockRatio |> Split.toPercent |> round
+                }
+            ]
 
 
-surfaceMassField : Config msg modal -> Product -> Html msg
-surfaceMassField { current, updateSurfaceMass } product =
-    div
-        [ class "mt-2"
-        , title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
-        ]
-        [ RangeSlider.surfaceMass
-            { id = "surface-density"
-            , update = updateSurfaceMass
-            , value = current.surfaceMass |> Maybe.withDefault product.surfaceMass
-            , toString = Step.surfaceMassToString
+surfaceMassField : Config msg modal -> Html msg
+surfaceMassField { current, updateSurfaceMass, inputs, showAdvancedFields } =
+    showIf showAdvancedFields <|
+        div
+            [ class "mt-2"
+            , title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
+            ]
+            [ RangeSlider.surfaceMass
+                { id = "surface-density"
+                , update = updateSurfaceMass
+                , value = current.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
+                , toString = Step.surfaceMassToString
 
-            -- Note: hide for knitted products as surface mass doesn't have any impact on them
-            , disabled = not current.enabled
-            }
-        ]
+                -- Note: hide for knitted products as surface mass doesn't have any impact on them
+                , disabled = not current.enabled
+                }
+            ]
 
 
-yarnSizeField : Config msg modal -> Product -> Html msg
-yarnSizeField { current, updateYarnSize } product =
-    span
-        [ title "Le titrage indique la grosseur d’un fil textile" ]
-        [ RangeSlider.yarnSize
-            { id = "yarnSize"
-            , update = updateYarnSize
-            , value = current.yarnSize |> Maybe.withDefault product.yarnSize
-            , toString = Step.yarnSizeToString
-            , disabled = not current.enabled
-            }
-        ]
+yarnSizeField : Config msg modal -> Html msg
+yarnSizeField { current, updateYarnSize, inputs, showAdvancedFields } =
+    showIf showAdvancedFields <|
+        span
+            [ title "Le titrage indique la grosseur d’un fil textile" ]
+            [ RangeSlider.yarnSize
+                { id = "yarnSize"
+                , update = updateYarnSize
+                , value = current.yarnSize |> Maybe.withDefault inputs.product.yarnSize
+                , toString = Step.yarnSizeToString
+                , disabled = not current.enabled
+                }
+            ]
 
 
 inlineDocumentationLink : Config msg modal -> Gitbook.Path -> Html msg
@@ -454,10 +461,13 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg modal -> Label -> Html msg
-stepActions { current, detailedStep, index, toggleStep, toggleStepDetails } label =
+stepActions { current, detailedStep, index, toggleStep, toggleStepDetails, showAdvancedFields } label =
     let
         materialStep =
             label == Label.Material
+
+        detailed =
+            not materialStep && current.enabled && showAdvancedFields
     in
     div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
@@ -465,14 +475,14 @@ stepActions { current, detailedStep, index, toggleStep, toggleStepDetails } labe
                 [ class "btn btn-secondary py-1"
                 , classList
                     [ ( "rounded", materialStep || not current.enabled )
-                    , ( "rounded-end", not materialStep && current.enabled )
+                    , ( "rounded-end", detailed )
                     ]
                 , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
                 , title "Documentation"
                 , target "_blank"
                 ]
                 [ Icon.question ]
-            , if not materialStep && current.enabled then
+            , if detailed then
                 Button.docsPill
                     [ class "btn btn-secondary py-1 rounded-start"
                     , detailedStep
@@ -570,13 +580,13 @@ simpleView c =
                             , case c.current.label of
                                 Label.Spinning ->
                                     div [ class "mt-2 fs-7 text-muted" ]
-                                        [ yarnSizeField c c.inputs.product
+                                        [ yarnSizeField c
                                         ]
 
                                 Label.Fabric ->
                                     div [ class "mt-2 fs-7" ]
                                         [ fabricProcessField c
-                                        , surfaceMassField c c.inputs.product
+                                        , surfaceMassField c
                                         ]
 
                                 Label.Ennobling ->
@@ -1000,11 +1010,11 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                         (\line -> li [ class "list-group-item fs-7" ] [ line ])
                         (case current.label of
                             Label.Spinning ->
-                                [ yarnSizeField config inputs.product
+                                [ yarnSizeField config
                                 ]
 
                             Label.Fabric ->
-                                [ surfaceMassField config inputs.product ]
+                                [ surfaceMassField config ]
 
                             Label.Ennobling ->
                                 [ div [ class "mb-2" ]
@@ -1269,6 +1279,15 @@ makingWasteView config waste =
              else
                 [ text "Aucune perte en confection." ]
             )
+
+    else
+        text ""
+
+
+showIf : Bool -> Html msg -> Html msg
+showIf flag html =
+    if flag then
+        html
 
     else
         text ""
