@@ -205,6 +205,37 @@ def brightway_impacts(activity, method):
     return results
 
 
+def compare_impacts(processes_fd):
+    """This is compute_impacts slightly modified to store impacts from both bw and wp"""
+    processes = dict(processes_fd)
+    print("Computing impacts:")
+    for index, (key, process) in enumerate(processes.items()):
+        progress_bar(index, len(processes))
+        # simapro
+        activity = cached_search(
+            process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
+        )
+        results = simapro_impacts(activity, main_method)
+        print(f"got impacts from SimaPro for: {process['name']}")
+        # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
+        if process["unit"] == "kilowatt hour" and isinstance(results, dict):
+            results = {k: v * 3.6 for k, v in results.items()}
+        if process["unit"] == "litre" and isinstance(results, dict):
+            results = {k: v / 1000 for k, v in results.items()}
+
+        process["simapro impacts"] = results
+
+        # brightway
+        process["brightway impacts"] = brightway_impacts(activity, main_method)
+        print(f"got impacts from Brightway for: {process['name']}")
+
+        # compute subimpacts
+        process["simapro impacts"] = with_subimpacts(process["simapro impacts"])
+        process["brightway impacts"] = with_subimpacts(process["brightway impacts"])
+
+    return frozendict({k: frozendict(v) for k, v in processes.items()})
+
+
 def compute_impacts(processes_fd):
     processes = dict(processes_fd)
     print("Computing impacts:")
@@ -268,6 +299,8 @@ if __name__ == "__main__":
     check_ids(ingredients_animal_es)
     processes = create_process_list(activities_land_occ)
     processes_impacts = compute_impacts(processes)
+    # uncomment to store a file with both impacts (used to compare bw and sp)
+    # export_json(compare_impacts(processes), '/home/jovyan/ecobalyse/data/comparison.json')
 
     processes_corrected_impacts = with_corrected_impacts(
         load_json(CONFIG["IMPACTS_FILE"]), processes_impacts

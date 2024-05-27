@@ -44,9 +44,6 @@ export_food:
 format:
 	npm run format:json
 
-export_food_format: export_food format
-
-
 #export_textile:
 #	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 #		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py;\
