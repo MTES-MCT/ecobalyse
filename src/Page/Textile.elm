@@ -471,6 +471,8 @@ update ({ queries, navKey } as session) msg model =
             )
 
         SwitchTab tab ->
+            -- FIXME: alert/confirm if switching from advanced to regulatory
+            --        that advanced field values will be reset
             ( { model | activeTab = tab, detailedStep = Nothing }
             , session
             , Cmd.none
