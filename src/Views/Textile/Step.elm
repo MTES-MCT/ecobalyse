@@ -496,30 +496,6 @@ stepActions { current, showAdvancedFields, toggleStep } label =
         ]
 
 
-stepHeader : Config msg modal -> Html msg
-stepHeader { current } =
-    div
-        [ class "d-flex align-items-center gap-2 text-dark"
-        , classList [ ( "text-secondary", not current.enabled ) ]
-        ]
-        [ h2 [ class "h5 mb-0" ]
-            [ current.label
-                |> Label.toName
-                |> text
-            , if current.label == Label.Material then
-                Link.smallPillExternal
-                    [ Route.href (Route.Explore Scope.Textile (Dataset.TextileMaterials Nothing))
-                    , title "Explorer"
-                    , attribute "aria-label" "Explorer"
-                    ]
-                    [ Icon.search ]
-
-              else
-                text ""
-            ]
-        ]
-
-
 viewStepImpacts : Definition -> Step -> Html msg
 viewStepImpacts selectedImpact { impacts, complementsImpacts } =
     if Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts) then
@@ -1008,92 +984,112 @@ showIf flag html =
         text ""
 
 
-simpleView : Config msg modal -> ViewWithTransport msg
-simpleView c =
-    { transport = viewTransport c
-    , step =
-        div [ class "Step card shadow-sm" ]
-            [ div
-                [ class "StepHeader card-header"
-                , StepsBorder.style <| Label.toColor c.current.label
-                , id <| Label.toId c.current.label
-                ]
-                [ div [ class "row d-flex align-items-center" ]
-                    [ div [ class "col-9 col-sm-6" ] [ stepHeader c ]
-                    , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
-                        [ div [ class "d-none d-sm-block text-center" ]
-                            [ viewStepImpacts c.selectedImpact c.current
-                            ]
-                        , stepActions c c.current.label
-                        ]
-                    ]
-                ]
-            , if c.current.label == Label.Material then
-                viewMaterials c
-
-              else if c.current.enabled then
-                div
-                    [ class "StepBody card-body row align-items-center" ]
-                    [ div [ class "col-11 col-lg-7" ]
-                        [ countryField c
-                        , case c.current.label of
-                            Label.Spinning ->
-                                div [ class "mt-2 fs-7 text-muted" ]
-                                    [ yarnSizeField c
-                                    ]
-
-                            Label.Fabric ->
-                                div [ class "mt-2 fs-7" ]
-                                    [ fabricProcessField c
-                                    , surfaceMassField c
-                                    ]
-
-                            Label.Ennobling ->
-                                div [ class "mt-2" ]
-                                    [ ennoblingGenericFields c
-                                    ]
-
-                            Label.Making ->
-                                div [ class "mt-2" ]
-                                    [ makingWasteField c
-                                    , makingDeadStockField c
-                                    , airTransportRatioField c
-                                    , fadingField c
-                                    ]
-
-                            Label.Use ->
-                                div [ class "mt-2" ]
-                                    [ daysOfWearInfo c
-                                    ]
-
-                            _ ->
-                                text ""
-                        ]
-                    , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                        [ if List.member c.current.label [ Label.Distribution, Label.Use, Label.EndOfLife ] then
-                            text ""
-
-                          else
-                            BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
-                        ]
-                    ]
-
-              else
-                button
-                    [ class "btn btn-outline-primary"
-                    , class "d-flex justify-content-center align-items-center"
-                    , class " gap-1 w-100"
-                    , id "add-new-element"
-                    , onClick (c.toggleStep c.current.label)
-                    ]
-                    [ i [ class "icon icon-plus" ] []
-                    , text <| "Ajouter une " ++ String.toLower (Label.toName c.current.label)
-                    ]
+stepView : Config msg modal -> List (Html msg) -> Html msg
+stepView ({ current } as config) html =
+    div [ class "Step card shadow-sm" ]
+        (div
+            [ class "StepHeader card-header"
+            , StepsBorder.style <| Label.toColor current.label
+            , id <| Label.toId current.label
             ]
-    }
+            [ div [ class "row d-flex align-items-center" ]
+                [ div [ class "col-9 col-sm-6" ]
+                    [ div
+                        [ class "d-flex align-items-center gap-2 text-dark"
+                        , classList [ ( "text-secondary", not current.enabled ) ]
+                        ]
+                        [ h2 [ class "h5 mb-0" ]
+                            [ current.label
+                                |> Label.toName
+                                |> text
+                            , if current.label == Label.Material then
+                                Link.smallPillExternal
+                                    [ Route.href (Route.Explore Scope.Textile (Dataset.TextileMaterials Nothing))
+                                    , title "Explorer"
+                                    , attribute "aria-label" "Explorer"
+                                    ]
+                                    [ Icon.search ]
+
+                              else
+                                text ""
+                            ]
+                        ]
+                    ]
+                , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
+                    [ div [ class "d-none d-sm-block text-center" ]
+                        [ viewStepImpacts config.selectedImpact current
+                        ]
+                    , stepActions config current.label
+                    ]
+                ]
+            ]
+            :: html
+        )
 
 
-detailedView : Config msg modal -> ViewWithTransport msg
+simpleView : Config msg modal -> Html msg
+simpleView c =
+    if c.current.enabled then
+        div
+            [ class "StepBody card-body row align-items-center" ]
+            [ div [ class "col-11 col-lg-7" ]
+                [ countryField c
+                , case c.current.label of
+                    Label.Spinning ->
+                        div [ class "mt-2 fs-7 text-muted" ]
+                            [ yarnSizeField c
+                            ]
+
+                    Label.Fabric ->
+                        div [ class "mt-2 fs-7" ]
+                            [ fabricProcessField c
+                            , surfaceMassField c
+                            ]
+
+                    Label.Ennobling ->
+                        div [ class "mt-2" ]
+                            [ ennoblingGenericFields c
+                            ]
+
+                    Label.Making ->
+                        div [ class "mt-2" ]
+                            [ makingWasteField c
+                            , makingDeadStockField c
+                            , airTransportRatioField c
+                            , fadingField c
+                            ]
+
+                    Label.Use ->
+                        div [ class "mt-2" ]
+                            [ daysOfWearInfo c
+                            ]
+
+                    _ ->
+                        text ""
+                ]
+            , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
+                [ if List.member c.current.label [ Label.Distribution, Label.Use, Label.EndOfLife ] then
+                    text ""
+
+                  else
+                    BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
+                ]
+            ]
+
+    else
+        button
+            [ class "btn btn-outline-primary"
+            , class "d-flex justify-content-center align-items-center"
+            , class " gap-1 w-100"
+            , id "add-new-element"
+            , onClick (c.toggleStep c.current.label)
+            ]
+            [ i [ class "icon icon-plus" ] []
+            , text <| "Ajouter une " ++ String.toLower (Label.toName c.current.label)
+            ]
+
+
+detailedView : Config msg modal -> Html msg
 detailedView ({ db, inputs, selectedImpact, current } as config) =
     let
         infoListElement =
@@ -1102,190 +1098,151 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
-    { transport = viewTransport config
-    , step =
-        if config.current.label == Label.Material then
-            div [ class "Step card shadow-sm" ]
-                [ div
-                    [ class "StepHeader card-header"
-                    , StepsBorder.style <| Label.toColor config.current.label
-                    , id <| Label.toId config.current.label
-                    ]
-                    [ div [ class "row d-flex align-items-center" ]
-                        [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
-                        , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
-                            [ div [ class "d-none d-sm-block text-center" ]
-                                [ viewStepImpacts config.selectedImpact config.current
+    div [ class "card-group" ]
+        [ div [ class "card border-start-0 border-top-0 border-bottom-0" ]
+            [ infoListElement
+                [ li [ class "list-group-item" ] [ countryField config ]
+                , viewProcessInfo <| Maybe.map ((++) "Elec : ") current.processInfo.countryElec
+                , viewProcessInfo <| Maybe.map ((++) "Chaleur : ") current.processInfo.countryHeat
+                , viewProcessInfo current.processInfo.distribution
+                , viewProcessInfo current.processInfo.useIroning
+                , viewProcessInfo current.processInfo.useNonIroning
+                , viewProcessInfo current.processInfo.passengerCar
+                , viewProcessInfo current.processInfo.endOfLife
+                , if current.label == Label.Spinning then
+                    spinningProcessField config
+
+                  else
+                    text ""
+                , if current.label == Label.Fabric then
+                    fabricProcessField config
+
+                  else
+                    text ""
+                , if current.label == Label.Making then
+                    makingComplexityField config
+
+                  else
+                    text ""
+                , if inputs.fading == Just True then
+                    viewProcessInfo current.processInfo.fading
+
+                  else
+                    text ""
+                ]
+            , ul
+                [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
+                (List.map
+                    (\line -> li [ class "list-group-item fs-7" ] [ line ])
+                    (case current.label of
+                        Label.Spinning ->
+                            [ yarnSizeField config
+                            ]
+
+                        Label.Fabric ->
+                            [ surfaceMassField config ]
+
+                        Label.Ennobling ->
+                            [ div [ class "mb-2" ]
+                                [ text "Pré-traitement\u{00A0}: non applicable" ]
+                            , ennoblingGenericFields config
+                            , div [ class "mt-2" ]
+                                [ text "Finition\u{00A0}: apprêt chimique" ]
+                            ]
+
+                        Label.Making ->
+                            List.filterMap identity
+                                [ Just <| makingWasteField config
+                                , Just <| makingDeadStockField config
+                                , Just <| airTransportRatioField config
+                                , Just (fadingField config)
                                 ]
-                            , stepActions config config.current.label
+
+                        Label.Use ->
+                            [ daysOfWearInfo config
+                            ]
+
+                        _ ->
+                            []
+                    )
+                )
+            ]
+        , div [ class "card border-end-0 border-top-0 border-bottom-0 text-center mb-0" ]
+            [ ul
+                [ class "StepBody list-group list-group-flush fs-7"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
+                [ if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
+                    li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
+                        [ span [ class "d-flex align-items-center" ]
+                            [ span [ class "me-1" ] [ text "Chaleur" ]
+                            , Format.megajoules current.heat
+                            , inlineDocumentationLink config Gitbook.TextileHeat
+                            ]
+                        , span [ class "d-flex align-items-center" ]
+                            [ span [ class "me-1" ] [ text "Électricité" ]
+                            , Format.kilowattHours current.kwh
+                            , inlineDocumentationLink config Gitbook.TextileElectricity
                             ]
                         ]
-                    ]
-                , viewMaterials config
-                ]
 
-        else
-            div [ class "Step card-group shadow-sm" ]
-                [ div [ class "card" ]
-                    [ div
-                        [ class "StepHeader card-header d-flex justify-content-between align-items-center"
-                        , StepsBorder.style <| Label.toColor current.label
-                        , id <| Label.toId current.label
-                        ]
-                        [ stepHeader config
-                        , -- Note: hide on desktop, show on mobile
-                          div [ class "d-block d-sm-none" ]
-                            [ stepActions config current.label
+                  else
+                    text ""
+                , surfaceInfoView inputs current
+                , ennoblingToxicityView db config current
+                , pickingView current.picking
+                , threadDensityView current.threadDensity
+                , makingWasteView config current.waste
+                , deadstockView config current.deadstock
+                , if current.label == Label.EndOfLife then
+                    li [ class "list-group-item text-muted" ]
+                        [ div [ class "d-flex justify-content-between" ]
+                            [ text "Fin de vie"
+                            , Format.formatImpact selectedImpact current.impacts
                             ]
-                        ]
-                    , infoListElement
-                        [ li [ class "list-group-item" ] [ countryField config ]
-                        , viewProcessInfo <| Maybe.map ((++) "Elec : ") current.processInfo.countryElec
-                        , viewProcessInfo <| Maybe.map ((++) "Chaleur : ") current.processInfo.countryHeat
-                        , viewProcessInfo current.processInfo.distribution
-                        , viewProcessInfo current.processInfo.useIroning
-                        , viewProcessInfo current.processInfo.useNonIroning
-                        , viewProcessInfo current.processInfo.passengerCar
-                        , viewProcessInfo current.processInfo.endOfLife
-                        , if current.label == Label.Spinning then
-                            spinningProcessField config
-
-                          else
-                            text ""
-                        , if current.label == Label.Fabric then
-                            fabricProcessField config
-
-                          else
-                            text ""
-                        , if current.label == Label.Making then
-                            makingComplexityField config
-
-                          else
-                            text ""
-                        , if inputs.fading == Just True then
-                            viewProcessInfo current.processInfo.fading
-
-                          else
-                            text ""
-                        ]
-                    , ul
-                        [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
-                        , classList [ ( "disabled", not current.enabled ) ]
-                        ]
-                        (List.map
-                            (\line -> li [ class "list-group-item fs-7" ] [ line ])
-                            (case current.label of
-                                Label.Spinning ->
-                                    [ yarnSizeField config
+                        , if selectedImpact.trigram == Definition.Ecs then
+                            div [ class "text-start mt-2" ]
+                                [ span [ class "fw-bold" ] [ text "Complément" ]
+                                , div [ class "d-flex justify-content-between" ]
+                                    [ text "-\u{00A0}Export hors-Europe"
+                                    , Format.complement current.complementsImpacts.outOfEuropeEOL
                                     ]
-
-                                Label.Fabric ->
-                                    [ surfaceMassField config ]
-
-                                Label.Ennobling ->
-                                    [ div [ class "mb-2" ]
-                                        [ text "Pré-traitement\u{00A0}: non applicable" ]
-                                    , ennoblingGenericFields config
-                                    , div [ class "mt-2" ]
-                                        [ text "Finition\u{00A0}: apprêt chimique" ]
-                                    ]
-
-                                Label.Making ->
-                                    List.filterMap identity
-                                        [ Just <| makingWasteField config
-                                        , Just <| makingDeadStockField config
-                                        , Just <| airTransportRatioField config
-                                        , Just (fadingField config)
+                                , div [ class "d-flex justify-content-between" ]
+                                    [ span [ class "me-2 text-truncate" ] [ text "-\u{00A0}Probabilité de fin de vie hors-Europe" ]
+                                    , span [ class "text-nowrap" ]
+                                        [ inputs.materials
+                                            |> Inputs.getOutOfEuropeEOLProbability
+                                            |> Format.splitAsPercentage 2
+                                        , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
                                         ]
-
-                                Label.Use ->
-                                    [ daysOfWearInfo config
-                                    ]
-
-                                _ ->
-                                    []
-                            )
-                        )
-                    ]
-                , div
-                    [ class "card text-center mb-0" ]
-                    [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center" ]
-                        [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
-                            div [ class "d-none d-sm-block text-center" ]
-                                [ viewStepImpacts selectedImpact current
-                                ]
-
-                          else
-                            span [] [ text "\u{00A0}" ]
-                        , -- Note: show on desktop, hide on mobile
-                          div [ class "d-none d-sm-block" ] [ stepActions config current.label ]
-                        ]
-                    , ul
-                        [ class "StepBody list-group list-group-flush fs-7"
-                        , classList [ ( "disabled", not current.enabled ) ]
-                        ]
-                        [ if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
-                            li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
-                                [ span [ class "d-flex align-items-center" ]
-                                    [ span [ class "me-1" ] [ text "Chaleur" ]
-                                    , Format.megajoules current.heat
-                                    , inlineDocumentationLink config Gitbook.TextileHeat
-                                    ]
-                                , span [ class "d-flex align-items-center" ]
-                                    [ span [ class "me-1" ] [ text "Électricité" ]
-                                    , Format.kilowattHours current.kwh
-                                    , inlineDocumentationLink config Gitbook.TextileElectricity
                                     ]
                                 ]
 
                           else
                             text ""
-                        , surfaceInfoView inputs current
-                        , ennoblingToxicityView db config current
-                        , pickingView current.picking
-                        , threadDensityView current.threadDensity
-                        , makingWasteView config current.waste
-                        , deadstockView config current.deadstock
-                        , if current.label == Label.EndOfLife then
-                            li [ class "list-group-item text-muted" ]
-                                [ div [ class "d-flex justify-content-between" ]
-                                    [ text "Fin de vie"
-                                    , Format.formatImpact selectedImpact current.impacts
-                                    ]
-                                , if selectedImpact.trigram == Definition.Ecs then
-                                    div [ class "text-start mt-2" ]
-                                        [ span [ class "fw-bold" ] [ text "Complément" ]
-                                        , div [ class "d-flex justify-content-between" ]
-                                            [ text "-\u{00A0}Export hors-Europe"
-                                            , Format.complement current.complementsImpacts.outOfEuropeEOL
-                                            ]
-                                        , div [ class "d-flex justify-content-between" ]
-                                            [ span [ class "me-2 text-truncate" ] [ text "-\u{00A0}Probabilité de fin de vie hors-Europe" ]
-                                            , span [ class "text-nowrap" ]
-                                                [ inputs.materials
-                                                    |> Inputs.getOutOfEuropeEOLProbability
-                                                    |> Format.splitAsPercentage 2
-                                                , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
-                                                ]
-                                            ]
-                                        ]
-
-                                  else
-                                    text ""
-                                ]
-
-                          else
-                            text ""
                         ]
-                    ]
+
+                  else
+                    text ""
                 ]
-    }
+            ]
+        ]
 
 
 view : Config msg modal -> ViewWithTransport msg
-view cfg =
-    if cfg.showAdvancedFields then
-        detailedView cfg
+view config =
+    { transport = viewTransport config
+    , step =
+        stepView config
+            (if config.current.label == Label.Material then
+                [ viewMaterials config ]
 
-    else
-        simpleView cfg
+             else if config.showAdvancedFields then
+                [ detailedView config ]
+
+             else
+                [ simpleView config ]
+            )
+    }
