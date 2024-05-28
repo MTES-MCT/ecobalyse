@@ -984,10 +984,10 @@ showIf flag html =
         text ""
 
 
-stepView : Config msg modal -> List (Html msg) -> Html msg
+stepView : Config msg modal -> Html msg -> Html msg
 stepView ({ current } as config) html =
     div [ class "Step card shadow-sm" ]
-        (div
+        [ div
             [ class "StepHeader card-header"
             , StepsBorder.style <| Label.toColor current.label
             , id <| Label.toId current.label
@@ -1023,8 +1023,8 @@ stepView ({ current } as config) html =
                     ]
                 ]
             ]
-            :: html
-        )
+        , html
+        ]
 
 
 simpleView : Config msg modal -> Html msg
@@ -1237,12 +1237,12 @@ view config =
     , step =
         stepView config
             (if config.current.label == Label.Material then
-                [ viewMaterials config ]
+                viewMaterials config
 
              else if config.showAdvancedFields then
-                [ detailedView config ]
+                detailedView config
 
              else
-                [ simpleView config ]
+                simpleView config
             )
     }
