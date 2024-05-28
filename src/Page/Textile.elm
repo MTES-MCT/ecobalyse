@@ -471,7 +471,7 @@ update ({ queries, navKey } as session) msg model =
             --        that advanced field values will be reset
             ( { model | activeTab = tab }
             , session
-            , Ports.scrollTo { x = 0, y = 0 }
+            , Cmd.none
             )
 
         ToggleComparedSimulation bookmark checked ->
