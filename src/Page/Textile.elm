@@ -170,7 +170,12 @@ init trigram maybeUrlQuery session =
       , initialQuery = initialQuery
       , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
-      , activeTab = RegulatoryTab
+      , activeTab =
+            if Query.isAdvancedQuery initialQuery then
+                AdvancedTab
+
+            else
+                RegulatoryTab
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session
@@ -218,7 +223,12 @@ initFromExample session uuid =
       , initialQuery = exampleQuery
       , impact = Definition.get Definition.Ecs session.db.definitions
       , modal = NoModal
-      , activeTab = RegulatoryTab
+      , activeTab =
+            if Query.isAdvancedQuery exampleQuery then
+                AdvancedTab
+
+            else
+                RegulatoryTab
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session
@@ -274,114 +284,106 @@ updateQuery query ( model, session, commands ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries, navKey } as session) msg model =
+update ({ db, queries, navKey } as session) msg model =
     let
         query =
             queries.textile
     in
-    case msg of
-        AddMaterial material ->
+    case ( msg, model.modal ) of
+        ( AddMaterial material, _ ) ->
             update session (SetModal NoModal) model
                 |> updateQuery (Query.addMaterial material query)
 
-        ConfirmSwitchToRegulatory ->
+        ( ConfirmSwitchToRegulatory, _ ) ->
             ( { model | modal = NoModal, activeTab = RegulatoryTab }, session, Cmd.none )
                 |> updateQuery (Query.regulatory query)
 
-        CopyToClipBoard shareableLink ->
+        ( CopyToClipBoard shareableLink, _ ) ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        DeleteBookmark bookmark ->
+        ( DeleteBookmark bookmark, _ ) ->
             ( model
             , session |> Session.deleteBookmark bookmark
             , Cmd.none
             )
 
-        NoOp ->
+        ( NoOp, _ ) ->
             ( model, session, Cmd.none )
 
-        OpenComparator ->
+        ( OpenComparator, _ ) ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
 
-        OnAutocompleteExample autocompleteMsg ->
-            case model.modal of
-                SelectExampleModal autocompleteState ->
-                    let
-                        ( newAutocompleteState, autoCompleteCmd ) =
-                            Autocomplete.update autocompleteMsg autocompleteState
-                    in
-                    ( { model | modal = SelectExampleModal newAutocompleteState }
-                    , session
-                    , Cmd.map OnAutocompleteExample autoCompleteCmd
-                    )
+        ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = SelectExampleModal newAutocompleteState }
+            , session
+            , Cmd.map OnAutocompleteExample autoCompleteCmd
+            )
 
-                _ ->
-                    ( model, session, Cmd.none )
+        ( OnAutocompleteExample _, _ ) ->
+            ( model, session, Cmd.none )
 
-        OnAutocompleteProduct autocompleteMsg ->
-            case model.modal of
-                SelectProductModal autocompleteState ->
-                    let
-                        ( newAutocompleteState, autoCompleteCmd ) =
-                            Autocomplete.update autocompleteMsg autocompleteState
-                    in
-                    ( { model | modal = SelectProductModal newAutocompleteState }
-                    , session
-                    , Cmd.map OnAutocompleteProduct autoCompleteCmd
-                    )
+        ( OnAutocompleteProduct autocompleteMsg, SelectProductModal autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = SelectProductModal newAutocompleteState }
+            , session
+            , Cmd.map OnAutocompleteProduct autoCompleteCmd
+            )
 
-                _ ->
-                    ( model, session, Cmd.none )
+        ( OnAutocompleteProduct _, _ ) ->
+            ( model, session, Cmd.none )
 
-        OnAutocompleteMaterial autocompleteMsg ->
-            case model.modal of
-                AddMaterialModal maybeOldMaterial autocompleteState ->
-                    let
-                        ( newAutocompleteState, autoCompleteCmd ) =
-                            Autocomplete.update autocompleteMsg autocompleteState
-                    in
-                    ( { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
-                    , session
-                    , Cmd.map OnAutocompleteMaterial autoCompleteCmd
-                    )
+        ( OnAutocompleteMaterial autocompleteMsg, AddMaterialModal maybeOldMaterial autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
+            , session
+            , Cmd.map OnAutocompleteMaterial autoCompleteCmd
+            )
 
-                _ ->
-                    ( model, session, Cmd.none )
+        ( OnAutocompleteMaterial _, _ ) ->
+            ( model, session, Cmd.none )
 
-        OnAutocompleteSelect ->
-            case model.modal of
-                AddMaterialModal maybeOldMaterial autocompleteState ->
-                    updateMaterial query model session maybeOldMaterial autocompleteState
+        ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
+            updateMaterial query model session maybeOldMaterial autocompleteState
 
-                SelectExampleModal autocompleteState ->
-                    ( model, session, Cmd.none )
-                        |> selectExample autocompleteState
+        ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
+            ( model, session, Cmd.none )
+                |> selectExample autocompleteState
 
-                SelectProductModal autocompleteState ->
-                    ( model, session, Cmd.none )
-                        |> selectProduct autocompleteState
+        ( OnAutocompleteSelect, SelectProductModal autocompleteState ) ->
+            ( model, session, Cmd.none )
+                |> selectProduct autocompleteState
 
-                _ ->
-                    ( model, session, Cmd.none )
+        ( OnAutocompleteSelect, _ ) ->
+            ( model, session, Cmd.none )
 
-        OnStepClick stepId ->
+        ( OnStepClick stepId, _ ) ->
             ( model
             , session
             , Ports.scrollIntoView stepId
             )
 
-        RemoveMaterial materialId ->
+        ( RemoveMaterial materialId, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeMaterial materialId query)
 
-        Reset ->
+        ( Reset, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery model.initialQuery
 
-        SaveBookmark ->
+        ( SaveBookmark, _ ) ->
             ( model
             , session
             , Time.now
@@ -391,7 +393,7 @@ update ({ queries, navKey } as session) msg model =
                     )
             )
 
-        SaveBookmarkWithTime name foodQuery now ->
+        ( SaveBookmarkWithTime name foodQuery now, _ ) ->
             ( model
             , session
                 |> Session.saveBookmark
@@ -402,31 +404,31 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        SelectAllBookmarks ->
+        ( SelectAllBookmarks, _ ) ->
             ( model, Session.selectAllBookmarks session, Cmd.none )
 
-        SelectNoBookmarks ->
+        ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
-        SetModal NoModal ->
+        ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
             , session
             , commandsForNoModal model.modal
             )
 
-        SetModal ComparatorModal ->
+        ( SetModal ComparatorModal, _ ) ->
             ( { model | modal = ComparatorModal }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
 
-        SetModal ConfirmSwitchToRegulatoryModal ->
+        ( SetModal ConfirmSwitchToRegulatoryModal, _ ) ->
             ( { model | modal = ConfirmSwitchToRegulatoryModal }
             , session
             , Cmd.none
             )
 
-        SetModal (AddMaterialModal maybeOldMaterial autocomplete) ->
+        ( SetModal (AddMaterialModal maybeOldMaterial autocomplete), _ ) ->
             ( { model | modal = AddMaterialModal maybeOldMaterial autocomplete }
             , session
             , Cmd.batch
@@ -436,28 +438,28 @@ update ({ queries, navKey } as session) msg model =
                 ]
             )
 
-        SetModal (SelectExampleModal autocomplete) ->
+        ( SetModal (SelectExampleModal autocomplete), _ ) ->
             ( { model | modal = SelectExampleModal autocomplete }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
 
-        SetModal (SelectProductModal autocomplete) ->
+        ( SetModal (SelectProductModal autocomplete), _ ) ->
             ( { model | modal = SelectProductModal autocomplete }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
 
-        SwitchBookmarksTab bookmarkTab ->
+        ( SwitchBookmarksTab bookmarkTab, _ ) ->
             ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
 
-        SwitchComparisonType displayChoice ->
+        ( SwitchComparisonType displayChoice, _ ) ->
             ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
-        SwitchImpact (Ok trigram) ->
+        ( SwitchImpact (Ok trigram), _ ) ->
             ( model
             , session
             , Just query
@@ -466,73 +468,69 @@ update ({ queries, navKey } as session) msg model =
                 |> Navigation.pushUrl navKey
             )
 
-        SwitchImpact (Err error) ->
+        ( SwitchImpact (Err error), _ ) ->
             ( model
             , session |> Session.notifyError "Erreur de sélection d'impact: " error
             , Cmd.none
             )
 
-        SwitchImpactsTab impactsTab ->
+        ( SwitchImpactsTab impactsTab, _ ) ->
             ( { model | activeImpactsTab = impactsTab }
             , session
             , Cmd.none
             )
 
-        SwitchTab RegulatoryTab ->
+        ( SwitchTab RegulatoryTab, _ ) ->
             if Query.isAdvancedQuery query then
                 ( { model | modal = ConfirmSwitchToRegulatoryModal }, session, Cmd.none )
 
             else
                 ( { model | activeTab = RegulatoryTab }, session, Cmd.none )
 
-        SwitchTab AdvancedTab ->
+        ( SwitchTab AdvancedTab, _ ) ->
             ( { model | activeTab = AdvancedTab }, session, Cmd.none )
 
-        ToggleComparedSimulation bookmark checked ->
+        ( ToggleComparedSimulation bookmark checked, _ ) ->
             ( model
             , session |> Session.toggleComparedSimulation bookmark checked
             , Cmd.none
             )
 
-        ToggleFading fading ->
+        ( ToggleFading fading, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | fading = Just fading }
 
-        ToggleStep label ->
+        ( ToggleStep label, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.toggleStep label query)
 
-        UpdateAirTransportRatio airTransportRatio ->
+        ( UpdateAirTransportRatio airTransportRatio, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
 
-        UpdateBookmarkName newName ->
+        ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        UpdateBusiness (Ok business) ->
+        ( UpdateBusiness (Ok business), _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | business = Just business }
 
-        UpdateBusiness (Err error) ->
+        ( UpdateBusiness (Err error), _ ) ->
             ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
 
-        UpdateDyeingMedium dyeingMedium ->
+        ( UpdateDyeingMedium dyeingMedium, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
 
-        UpdateEcotoxWeighting (Just ratio) ->
-            let
-                db =
-                    session.db
-            in
+        ( UpdateEcotoxWeighting (Just ratio), _ ) ->
             ( model, { session | db = Db.updateEcotoxWeighting db ratio }, Cmd.none )
                 -- triggers recompute
                 |> updateQuery query
 
-        UpdateEcotoxWeighting Nothing ->
+        ( UpdateEcotoxWeighting Nothing, _ ) ->
             ( model, session, Cmd.none )
 
-        UpdateFabricProcess fabricProcess ->
+        ( UpdateFabricProcess fabricProcess, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery
                     { query
@@ -553,23 +551,23 @@ update ({ queries, navKey } as session) msg model =
                                 |> Result.toMaybe
                     }
 
-        UpdateMakingComplexity makingComplexity ->
+        ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingComplexity = Just makingComplexity }
 
-        UpdateMakingWaste makingWaste ->
+        ( UpdateMakingWaste makingWaste, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingWaste = makingWaste }
 
-        UpdateMakingDeadStock makingDeadStock ->
+        ( UpdateMakingDeadStock makingDeadStock, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingDeadStock = makingDeadStock }
 
-        UpdateMarketingDuration marketingDuration ->
+        ( UpdateMarketingDuration marketingDuration, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | marketingDuration = marketingDuration }
 
-        UpdateMassInput massInput ->
+        ( UpdateMassInput massInput, _ ) ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
                     ( model, session, Cmd.none )
@@ -578,39 +576,39 @@ update ({ queries, navKey } as session) msg model =
                 Nothing ->
                     ( model, session, Cmd.none )
 
-        UpdateMaterial oldMaterial newMaterial ->
+        ( UpdateMaterial oldMaterial newMaterial, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateMaterial oldMaterial.id newMaterial query)
 
-        UpdateMaterialSpinning material spinning ->
+        ( UpdateMaterialSpinning material spinning, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateMaterialSpinning material spinning query)
 
-        UpdateNumberOfReferences numberOfReferences ->
+        ( UpdateNumberOfReferences numberOfReferences, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | numberOfReferences = numberOfReferences }
 
-        UpdatePrice price ->
+        ( UpdatePrice price, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | price = price }
 
-        UpdatePrinting printing ->
+        ( UpdatePrinting printing, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | printing = printing }
 
-        UpdateStepCountry label code ->
+        ( UpdateStepCountry label code, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateStepCountry label code query)
 
-        UpdateSurfaceMass surfaceMass ->
+        ( UpdateSurfaceMass surfaceMass, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | surfaceMass = surfaceMass }
 
-        UpdateTraceability traceability ->
+        ( UpdateTraceability traceability, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | traceability = Just traceability }
 
-        UpdateYarnSize yarnSize ->
+        ( UpdateYarnSize yarnSize, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
 
