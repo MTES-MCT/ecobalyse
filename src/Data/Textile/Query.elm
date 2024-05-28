@@ -8,6 +8,7 @@ module Data.Textile.Query exposing
     , decode
     , default
     , encode
+    , isAdvancedQuery
     , jupeCotonAsie
     , parseBase64Query
     , regulatory
@@ -204,6 +205,20 @@ removeMaterial materialId query =
                 else
                     newQuery
            )
+
+
+isAdvancedQuery : Query -> Bool
+isAdvancedQuery query =
+    List.any identity
+        [ query.makingWaste /= Nothing
+        , query.makingDeadStock /= Nothing
+        , query.makingComplexity /= Nothing
+        , query.yarnSize /= Nothing
+        , query.surfaceMass /= Nothing
+        , query.fabricProcess /= Fabric.KnittingMix
+        , query.disabledSteps /= []
+        , query.dyeingMedium /= Nothing
+        ]
 
 
 {-| Resets a query to use only regulatory-level fields.

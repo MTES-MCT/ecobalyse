@@ -285,7 +285,6 @@ update ({ queries, navKey } as session) msg model =
                 |> updateQuery (Query.addMaterial material query)
 
         ConfirmSwitchToRegulatory ->
-            -- FIXME: implement
             ( { model | modal = NoModal, activeTab = RegulatoryTab }, session, Cmd.none )
                 |> updateQuery (Query.regulatory query)
 
@@ -480,16 +479,14 @@ update ({ queries, navKey } as session) msg model =
             )
 
         SwitchTab RegulatoryTab ->
-            ( { model | modal = ConfirmSwitchToRegulatoryModal }
-            , session
-            , Cmd.none
-            )
+            if Query.isAdvancedQuery query then
+                ( { model | modal = ConfirmSwitchToRegulatoryModal }, session, Cmd.none )
+
+            else
+                ( { model | activeTab = RegulatoryTab }, session, Cmd.none )
 
         SwitchTab AdvancedTab ->
-            ( { model | activeTab = AdvancedTab }
-            , session
-            , Cmd.none
-            )
+            ( { model | activeTab = AdvancedTab }, session, Cmd.none )
 
         ToggleComparedSimulation bookmark checked ->
             ( model
