@@ -14,7 +14,7 @@ def spproject(activity):
     """return the current simapro project for an activity"""
     match activity.get("database"):
         case "Ginko":
-            return "Ginko"
+            return "Ginko w/o azadirachtin"
         case "Ecobalyse":
             return "EcobalyseIsNotASimaProProject"
         case _:
