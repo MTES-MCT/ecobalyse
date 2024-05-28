@@ -215,7 +215,7 @@ isAdvancedQuery query =
         , query.makingComplexity /= Nothing
         , query.yarnSize /= Nothing
         , query.surfaceMass /= Nothing
-        , query.fabricProcess /= Fabric.KnittingMix
+        , query.fabricProcess /= Fabric.default
         , query.disabledSteps /= []
         , query.dyeingMedium /= Nothing
         ]
@@ -231,7 +231,7 @@ regulatory query =
         , makingComplexity = Nothing
         , yarnSize = Nothing
         , surfaceMass = Nothing
-        , fabricProcess = Fabric.KnittingMix
+        , fabricProcess = Fabric.default
         , disabledSteps = []
         , dyeingMedium = Nothing
     }
@@ -364,7 +364,7 @@ default =
     , makingComplexity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
-    , fabricProcess = Fabric.KnittingMix
+    , fabricProcess = Fabric.default
     , disabledSteps = []
     , fading = Nothing
     , dyeingMedium = Nothing
