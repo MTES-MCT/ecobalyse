@@ -10,6 +10,7 @@ module Data.Textile.Query exposing
     , encode
     , jupeCotonAsie
     , parseBase64Query
+    , regulatory
     , removeMaterial
     , tShirtCotonFrance
     , toggleStep
@@ -203,6 +204,22 @@ removeMaterial materialId query =
                 else
                     newQuery
            )
+
+
+{-| Resets a query to use only regulatory-level fields.
+-}
+regulatory : Query -> Query
+regulatory query =
+    { query
+        | makingWaste = Nothing
+        , makingDeadStock = Nothing
+        , makingComplexity = Nothing
+        , yarnSize = Nothing
+        , surfaceMass = Nothing
+        , fabricProcess = Fabric.KnittingMix
+        , disabledSteps = []
+        , dyeingMedium = Nothing
+    }
 
 
 toggleStep : Label -> Query -> Query

@@ -86,6 +86,7 @@ type Modal
     = NoModal
     | ComparatorModal
     | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    | ConfirmSwitchToRegulatoryModal
     | SelectExampleModal (Autocomplete Query)
     | SelectProductModal (Autocomplete Product.Id)
 
@@ -97,6 +98,7 @@ type Tab
 
 type Msg
     = AddMaterial Material
+    | ConfirmSwitchToRegulatory
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
@@ -282,6 +284,11 @@ update ({ queries, navKey } as session) msg model =
             update session (SetModal NoModal) model
                 |> updateQuery (Query.addMaterial material query)
 
+        ConfirmSwitchToRegulatory ->
+            -- FIXME: implement
+            ( { model | modal = NoModal, activeTab = RegulatoryTab }, session, Cmd.none )
+                |> updateQuery (Query.regulatory query)
+
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
@@ -414,6 +421,12 @@ update ({ queries, navKey } as session) msg model =
             , Ports.addBodyClass "prevent-scrolling"
             )
 
+        SetModal ConfirmSwitchToRegulatoryModal ->
+            ( { model | modal = ConfirmSwitchToRegulatoryModal }
+            , session
+            , Cmd.none
+            )
+
         SetModal (AddMaterialModal maybeOldMaterial autocomplete) ->
             ( { model | modal = AddMaterialModal maybeOldMaterial autocomplete }
             , session
@@ -466,10 +479,14 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        SwitchTab tab ->
-            -- FIXME: alert/confirm if switching from advanced to regulatory
-            --        that advanced field values will be reset
-            ( { model | activeTab = tab }
+        SwitchTab RegulatoryTab ->
+            ( { model | modal = ConfirmSwitchToRegulatoryModal }
+            , session
+            , Cmd.none
+            )
+
+        SwitchTab AdvancedTab ->
+            ( { model | activeTab = AdvancedTab }
             , session
             , Cmd.none
             )
@@ -1193,6 +1210,33 @@ view session model =
                                 , toCategory = .origin >> Origin.toLabel
                                 }
 
+                        ConfirmSwitchToRegulatoryModal ->
+                            ModalView.view
+                                { size = ModalView.Standard
+                                , close = SetModal NoModal
+                                , noOp = NoOp
+                                , title = "Êtes-vous sûr\u{00A0}?"
+                                , subTitle = Nothing
+                                , formAction = Nothing
+                                , content =
+                                    [ div [ class "p-3" ]
+                                        [ p []
+                                            [ text "Vous allez perdre les valeurs renseignées pour les champs avancés." ]
+                                        , p
+                                            [ class "text-center" ]
+                                            [ button
+                                                [ class "btn btn-primary"
+                                                , onClick ConfirmSwitchToRegulatory
+                                                ]
+                                                [ text "Confirmer" ]
+                                            , button [ class "btn btn-link", onClick (SetModal NoModal) ]
+                                                [ text "Annuler et fermer" ]
+                                            ]
+                                        ]
+                                    ]
+                                , footer = []
+                                }
+
                         SelectExampleModal autocompleteState ->
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
@@ -1242,6 +1286,9 @@ subscriptions { modal } =
     case modal of
         NoModal ->
             Sub.none
+
+        ConfirmSwitchToRegulatoryModal ->
+            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
 
         ComparatorModal ->
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
