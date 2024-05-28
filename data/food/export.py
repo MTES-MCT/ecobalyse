@@ -6,6 +6,7 @@
 import json
 import sys
 import urllib.parse
+from os.path import dirname, join
 
 import bw2calc
 import bw2data
@@ -34,6 +35,7 @@ from food.ecosystemic_services.ecosystemic_services import (
     load_ugb_dic,
 )
 
+HERE = dirname(__file__)
 # Configuration
 CONFIG = {
     "PROJECT": "food",
@@ -48,7 +50,7 @@ CONFIG = {
     "PROCESSES_FILE": "../../public/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
 }
-with open("../public/data/impacts.json") as f:
+with open(join(dirname(dirname(HERE)), "public", "data", "impacts.json")) as f:
     IMPACTS = json.load(f)
 
 
