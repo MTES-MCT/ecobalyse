@@ -471,7 +471,7 @@ update ({ queries, navKey } as session) msg model =
             )
 
         SwitchTab tab ->
-            ( { model | activeTab = tab }
+            ( { model | activeTab = tab, detailedStep = Nothing }
             , session
             , Cmd.none
             )
