@@ -56,7 +56,6 @@ type alias Config msg modal =
     , daysOfWear : Duration
     , useNbCycles : Int
     , deleteMaterial : Material -> msg
-    , detailedStep : Maybe Int
     , index : Int
     , inputs : Inputs
     , next : Maybe Step
@@ -65,7 +64,6 @@ type alias Config msg modal =
     , showAdvancedFields : Bool
     , toggleFading : Bool -> msg
     , toggleStep : Label -> msg
-    , toggleStepDetails : Int -> msg
     , updateAirTransportRatio : Maybe Split -> msg
     , updateCountry : Label -> Country.Code -> msg
     , updateDyeingMedium : DyeingMedium -> msg
@@ -461,50 +459,21 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg modal -> Label -> Html msg
-stepActions { current, detailedStep, index, toggleStep, toggleStepDetails, showAdvancedFields } label =
+stepActions { current, showAdvancedFields, toggleStep } label =
     let
         materialStep =
             label == Label.Material
-
-        detailed =
-            not materialStep && current.enabled && showAdvancedFields
     in
     div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
             [ Button.docsPillLink
-                [ class "btn btn-secondary py-1"
-                , classList
-                    [ ( "rounded", materialStep || not current.enabled )
-                    , ( "rounded-end", detailed )
-                    ]
+                [ class "btn btn-secondary py-1 rounded"
                 , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
                 , title "Documentation"
                 , target "_blank"
                 ]
                 [ Icon.question ]
-            , if detailed then
-                Button.docsPill
-                    [ class "btn btn-secondary py-1 rounded-start"
-                    , detailedStep
-                        |> Maybe.map (always <| title "Affichage simplifie")
-                        |> Maybe.withDefault (title "Détailler cette étape")
-                    , onClick (toggleStepDetails index)
-                    ]
-                    [ detailedStep
-                        |> Maybe.map
-                            (\currentIndex ->
-                                if index == currentIndex then
-                                    Icon.zoomout
-
-                                else
-                                    Icon.zoomin
-                            )
-                        |> Maybe.withDefault Icon.zoomin
-                    ]
-
-              else
-                text ""
-            , if materialStep then
+            , if materialStep && showAdvancedFields then
                 input
                     [ type_ "checkbox"
                     , class "form-check-input ms-1 no-outline"
@@ -959,160 +928,181 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
     in
     { transport = viewTransport config
     , step =
-        div [ class "Step card-group shadow-sm" ]
-            [ div [ class "card" ]
+        if config.current.label == Label.Material then
+            div [ class "Step card shadow-sm" ]
                 [ div
-                    [ class "StepHeader card-header d-flex justify-content-between align-items-center"
-                    , StepsBorder.style <| Label.toColor current.label
-                    , id <| Label.toId current.label
+                    [ class "StepHeader card-header"
+                    , StepsBorder.style <| Label.toColor config.current.label
+                    , id <| Label.toId config.current.label
                     ]
-                    [ stepHeader config
-                    , -- Note: hide on desktop, show on mobile
-                      div [ class "d-block d-sm-none" ]
-                        [ stepActions config current.label
+                    [ div [ class "row d-flex align-items-center" ]
+                        [ div [ class "col-9 col-sm-6" ] [ stepHeader config ]
+                        , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
+                            [ div [ class "d-none d-sm-block text-center" ]
+                                [ viewStepImpacts config.selectedImpact config.current
+                                ]
+                            , stepActions config config.current.label
+                            ]
                         ]
                     ]
-                , infoListElement
-                    [ li [ class "list-group-item" ] [ countryField config ]
-                    , viewProcessInfo <| Maybe.map ((++) "Elec : ") current.processInfo.countryElec
-                    , viewProcessInfo <| Maybe.map ((++) "Chaleur : ") current.processInfo.countryHeat
-                    , viewProcessInfo current.processInfo.distribution
-                    , viewProcessInfo current.processInfo.useIroning
-                    , viewProcessInfo current.processInfo.useNonIroning
-                    , viewProcessInfo current.processInfo.passengerCar
-                    , viewProcessInfo current.processInfo.endOfLife
-                    , if current.label == Label.Spinning then
-                        spinningProcessField config
+                , viewMaterials config
+                ]
 
-                      else
-                        text ""
-                    , if current.label == Label.Fabric then
-                        fabricProcessField config
+        else
+            div [ class "Step card-group shadow-sm" ]
+                [ div [ class "card" ]
+                    [ div
+                        [ class "StepHeader card-header d-flex justify-content-between align-items-center"
+                        , StepsBorder.style <| Label.toColor current.label
+                        , id <| Label.toId current.label
+                        ]
+                        [ stepHeader config
+                        , -- Note: hide on desktop, show on mobile
+                          div [ class "d-block d-sm-none" ]
+                            [ stepActions config current.label
+                            ]
+                        ]
+                    , infoListElement
+                        [ li [ class "list-group-item" ] [ countryField config ]
+                        , viewProcessInfo <| Maybe.map ((++) "Elec : ") current.processInfo.countryElec
+                        , viewProcessInfo <| Maybe.map ((++) "Chaleur : ") current.processInfo.countryHeat
+                        , viewProcessInfo current.processInfo.distribution
+                        , viewProcessInfo current.processInfo.useIroning
+                        , viewProcessInfo current.processInfo.useNonIroning
+                        , viewProcessInfo current.processInfo.passengerCar
+                        , viewProcessInfo current.processInfo.endOfLife
+                        , if current.label == Label.Spinning then
+                            spinningProcessField config
 
-                      else
-                        text ""
-                    , if current.label == Label.Making then
-                        makingComplexityField config
+                          else
+                            text ""
+                        , if current.label == Label.Fabric then
+                            fabricProcessField config
 
-                      else
-                        text ""
-                    , if inputs.fading == Just True then
-                        viewProcessInfo current.processInfo.fading
+                          else
+                            text ""
+                        , if current.label == Label.Making then
+                            makingComplexityField config
 
-                      else
-                        text ""
-                    ]
-                , ul
-                    [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
-                    , classList [ ( "disabled", not current.enabled ) ]
-                    ]
-                    (List.map
-                        (\line -> li [ class "list-group-item fs-7" ] [ line ])
-                        (case current.label of
-                            Label.Spinning ->
-                                [ yarnSizeField config
-                                ]
+                          else
+                            text ""
+                        , if inputs.fading == Just True then
+                            viewProcessInfo current.processInfo.fading
 
-                            Label.Fabric ->
-                                [ surfaceMassField config ]
-
-                            Label.Ennobling ->
-                                [ div [ class "mb-2" ]
-                                    [ text "Pré-traitement\u{00A0}: non applicable" ]
-                                , ennoblingGenericFields config
-                                , div [ class "mt-2" ]
-                                    [ text "Finition\u{00A0}: apprêt chimique" ]
-                                ]
-
-                            Label.Making ->
-                                List.filterMap identity
-                                    [ Just <| makingWasteField config
-                                    , Just <| makingDeadStockField config
-                                    , Just <| airTransportRatioField config
-                                    , Just (fadingField config)
+                          else
+                            text ""
+                        ]
+                    , ul
+                        [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
+                        , classList [ ( "disabled", not current.enabled ) ]
+                        ]
+                        (List.map
+                            (\line -> li [ class "list-group-item fs-7" ] [ line ])
+                            (case current.label of
+                                Label.Spinning ->
+                                    [ yarnSizeField config
                                     ]
 
-                            Label.Use ->
-                                [ daysOfWearInfo config
-                                ]
+                                Label.Fabric ->
+                                    [ surfaceMassField config ]
 
-                            _ ->
-                                []
-                        )
-                    )
-                ]
-            , div
-                [ class "card text-center mb-0" ]
-                [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center" ]
-                    [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
-                        div [ class "d-none d-sm-block text-center" ]
-                            [ viewStepImpacts selectedImpact current
-                            ]
+                                Label.Ennobling ->
+                                    [ div [ class "mb-2" ]
+                                        [ text "Pré-traitement\u{00A0}: non applicable" ]
+                                    , ennoblingGenericFields config
+                                    , div [ class "mt-2" ]
+                                        [ text "Finition\u{00A0}: apprêt chimique" ]
+                                    ]
 
-                      else
-                        span [] [ text "\u{00A0}" ]
-                    , -- Note: show on desktop, hide on mobile
-                      div [ class "d-none d-sm-block" ] [ stepActions config current.label ]
-                    ]
-                , ul
-                    [ class "StepBody list-group list-group-flush fs-7"
-                    , classList [ ( "disabled", not current.enabled ) ]
-                    ]
-                    [ if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
-                        li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
-                            [ span [ class "d-flex align-items-center" ]
-                                [ span [ class "me-1" ] [ text "Chaleur" ]
-                                , Format.megajoules current.heat
-                                , inlineDocumentationLink config Gitbook.TextileHeat
-                                ]
-                            , span [ class "d-flex align-items-center" ]
-                                [ span [ class "me-1" ] [ text "Électricité" ]
-                                , Format.kilowattHours current.kwh
-                                , inlineDocumentationLink config Gitbook.TextileElectricity
-                                ]
-                            ]
-
-                      else
-                        text ""
-                    , surfaceInfoView inputs current
-                    , ennoblingToxicityView db config current
-                    , pickingView current.picking
-                    , threadDensityView current.threadDensity
-                    , makingWasteView config current.waste
-                    , deadstockView config current.deadstock
-                    , if current.label == Label.EndOfLife then
-                        li [ class "list-group-item text-muted" ]
-                            [ div [ class "d-flex justify-content-between" ]
-                                [ text "Fin de vie"
-                                , Format.formatImpact selectedImpact current.impacts
-                                ]
-                            , if selectedImpact.trigram == Definition.Ecs then
-                                div [ class "text-start mt-2" ]
-                                    [ span [ class "fw-bold" ] [ text "Complément" ]
-                                    , div [ class "d-flex justify-content-between" ]
-                                        [ text "-\u{00A0}Export hors-Europe"
-                                        , Format.complement current.complementsImpacts.outOfEuropeEOL
+                                Label.Making ->
+                                    List.filterMap identity
+                                        [ Just <| makingWasteField config
+                                        , Just <| makingDeadStockField config
+                                        , Just <| airTransportRatioField config
+                                        , Just (fadingField config)
                                         ]
-                                    , div [ class "d-flex justify-content-between" ]
-                                        [ span [ class "me-2 text-truncate" ] [ text "-\u{00A0}Probabilité de fin de vie hors-Europe" ]
-                                        , span [ class "text-nowrap" ]
-                                            [ inputs.materials
-                                                |> Inputs.getOutOfEuropeEOLProbability
-                                                |> Format.splitAsPercentage 2
-                                            , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
+
+                                Label.Use ->
+                                    [ daysOfWearInfo config
+                                    ]
+
+                                _ ->
+                                    []
+                            )
+                        )
+                    ]
+                , div
+                    [ class "card text-center mb-0" ]
+                    [ div [ class "StepHeader card-header d-flex justify-content-end align-items-center" ]
+                        [ if (current.impacts |> Impact.getImpact selectedImpact.trigram |> Unit.impactToFloat) > 0 then
+                            div [ class "d-none d-sm-block text-center" ]
+                                [ viewStepImpacts selectedImpact current
+                                ]
+
+                          else
+                            span [] [ text "\u{00A0}" ]
+                        , -- Note: show on desktop, hide on mobile
+                          div [ class "d-none d-sm-block" ] [ stepActions config current.label ]
+                        ]
+                    , ul
+                        [ class "StepBody list-group list-group-flush fs-7"
+                        , classList [ ( "disabled", not current.enabled ) ]
+                        ]
+                        [ if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
+                            li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
+                                [ span [ class "d-flex align-items-center" ]
+                                    [ span [ class "me-1" ] [ text "Chaleur" ]
+                                    , Format.megajoules current.heat
+                                    , inlineDocumentationLink config Gitbook.TextileHeat
+                                    ]
+                                , span [ class "d-flex align-items-center" ]
+                                    [ span [ class "me-1" ] [ text "Électricité" ]
+                                    , Format.kilowattHours current.kwh
+                                    , inlineDocumentationLink config Gitbook.TextileElectricity
+                                    ]
+                                ]
+
+                          else
+                            text ""
+                        , surfaceInfoView inputs current
+                        , ennoblingToxicityView db config current
+                        , pickingView current.picking
+                        , threadDensityView current.threadDensity
+                        , makingWasteView config current.waste
+                        , deadstockView config current.deadstock
+                        , if current.label == Label.EndOfLife then
+                            li [ class "list-group-item text-muted" ]
+                                [ div [ class "d-flex justify-content-between" ]
+                                    [ text "Fin de vie"
+                                    , Format.formatImpact selectedImpact current.impacts
+                                    ]
+                                , if selectedImpact.trigram == Definition.Ecs then
+                                    div [ class "text-start mt-2" ]
+                                        [ span [ class "fw-bold" ] [ text "Complément" ]
+                                        , div [ class "d-flex justify-content-between" ]
+                                            [ text "-\u{00A0}Export hors-Europe"
+                                            , Format.complement current.complementsImpacts.outOfEuropeEOL
+                                            ]
+                                        , div [ class "d-flex justify-content-between" ]
+                                            [ span [ class "me-2 text-truncate" ] [ text "-\u{00A0}Probabilité de fin de vie hors-Europe" ]
+                                            , span [ class "text-nowrap" ]
+                                                [ inputs.materials
+                                                    |> Inputs.getOutOfEuropeEOLProbability
+                                                    |> Format.splitAsPercentage 2
+                                                , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
+                                                ]
                                             ]
                                         ]
-                                    ]
 
-                              else
-                                text ""
-                            ]
+                                  else
+                                    text ""
+                                ]
 
-                      else
-                        text ""
+                          else
+                            text ""
+                        ]
                     ]
                 ]
-            ]
     }
 
 
@@ -1295,15 +1285,8 @@ showIf flag html =
 
 view : Config msg modal -> ViewWithTransport msg
 view cfg =
-    -- FIXME: Step views should decide what to render according to ViewMode; move
-    -- decision to caller and use appropriate view functions accordingly
-    cfg.detailedStep
-        |> Maybe.map
-            (\index ->
-                if cfg.index == index then
-                    detailedView cfg
+    if cfg.showAdvancedFields then
+        detailedView cfg
 
-                else
-                    simpleView cfg
-            )
-        |> Maybe.withDefault (simpleView cfg)
+    else
+        simpleView cfg

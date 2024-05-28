@@ -75,7 +75,6 @@ type alias Model =
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
     , initialQuery : Query
-    , detailedStep : Maybe Int
     , impact : Definition
     , modal : Modal
     , activeTab : Tab
@@ -122,7 +121,6 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | ToggleFading Bool
     | ToggleStep Label
-    | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
@@ -168,7 +166,6 @@ init trigram maybeUrlQuery session =
             else
                 ComparatorView.Steps
       , initialQuery = initialQuery
-      , detailedStep = Nothing
       , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
       , activeTab = RegulatoryTab
@@ -217,7 +214,6 @@ initFromExample session uuid =
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , initialQuery = exampleQuery
-      , detailedStep = Nothing
       , impact = Definition.get Definition.Ecs session.db.definitions
       , modal = NoModal
       , activeTab = RegulatoryTab
@@ -473,7 +469,7 @@ update ({ queries, navKey } as session) msg model =
         SwitchTab tab ->
             -- FIXME: alert/confirm if switching from advanced to regulatory
             --        that advanced field values will be reset
-            ( { model | activeTab = tab, detailedStep = Nothing }
+            ( { model | activeTab = tab }
             , session
             , Cmd.none
             )
@@ -491,14 +487,6 @@ update ({ queries, navKey } as session) msg model =
         ToggleStep label ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.toggleStep label query)
-
-        ToggleStepDetails index ->
-            ( { model
-                | detailedStep = toggleStepDetails index model.detailedStep
-              }
-            , session
-            , Cmd.none
-            )
 
         UpdateAirTransportRatio airTransportRatio ->
             ( model, session, Cmd.none )
@@ -611,20 +599,6 @@ update ({ queries, navKey } as session) msg model =
         UpdateYarnSize yarnSize ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
-
-
-toggleStepDetails : Int -> Maybe Int -> Maybe Int
-toggleStepDetails index detailedStep =
-    detailedStep
-        |> Maybe.map
-            (\current ->
-                if index == current then
-                    Nothing
-
-                else
-                    Just index
-            )
-        |> Maybe.withDefault (Just index)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -937,7 +911,7 @@ massField massInput =
 
 
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { activeTab, detailedStep, impact } simulator =
+lifeCycleStepsView db { activeTab, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
@@ -946,7 +920,6 @@ lifeCycleStepsView db { activeTab, detailedStep, impact } simulator =
                     , current = current
                     , daysOfWear = simulator.daysOfWear
                     , useNbCycles = simulator.useNbCycles
-                    , detailedStep = detailedStep
                     , index = index
                     , inputs = simulator.inputs
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
@@ -959,7 +932,6 @@ lifeCycleStepsView db { activeTab, detailedStep, impact } simulator =
                     , setModal = SetModal
                     , toggleFading = ToggleFading
                     , toggleStep = ToggleStep
-                    , toggleStepDetails = ToggleStepDetails
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
