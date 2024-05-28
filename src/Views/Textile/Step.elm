@@ -520,92 +520,6 @@ stepHeader { current } =
         ]
 
 
-simpleView : Config msg modal -> ViewWithTransport msg
-simpleView c =
-    { transport = viewTransport c
-    , step =
-        div [ class "Step card shadow-sm" ]
-            [ div
-                [ class "StepHeader card-header"
-                , StepsBorder.style <| Label.toColor c.current.label
-                , id <| Label.toId c.current.label
-                ]
-                [ div [ class "row d-flex align-items-center" ]
-                    [ div [ class "col-9 col-sm-6" ] [ stepHeader c ]
-                    , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
-                        [ div [ class "d-none d-sm-block text-center" ]
-                            [ viewStepImpacts c.selectedImpact c.current
-                            ]
-                        , stepActions c c.current.label
-                        ]
-                    ]
-                ]
-            , if c.current.label /= Label.Material then
-                if c.current.enabled then
-                    div
-                        [ class "StepBody card-body row align-items-center" ]
-                        [ div [ class "col-11 col-lg-7" ]
-                            [ countryField c
-                            , case c.current.label of
-                                Label.Spinning ->
-                                    div [ class "mt-2 fs-7 text-muted" ]
-                                        [ yarnSizeField c
-                                        ]
-
-                                Label.Fabric ->
-                                    div [ class "mt-2 fs-7" ]
-                                        [ fabricProcessField c
-                                        , surfaceMassField c
-                                        ]
-
-                                Label.Ennobling ->
-                                    div [ class "mt-2" ]
-                                        [ ennoblingGenericFields c
-                                        ]
-
-                                Label.Making ->
-                                    div [ class "mt-2" ]
-                                        [ makingWasteField c
-                                        , makingDeadStockField c
-                                        , airTransportRatioField c
-                                        , fadingField c
-                                        ]
-
-                                Label.Use ->
-                                    div [ class "mt-2" ]
-                                        [ daysOfWearInfo c
-                                        ]
-
-                                _ ->
-                                    text ""
-                            ]
-                        , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                            [ if List.member c.current.label [ Label.Distribution, Label.Use, Label.EndOfLife ] then
-                                text ""
-
-                              else
-                                BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
-                            ]
-                        ]
-
-                else
-                    button
-                        [ class "btn btn-outline-primary"
-                        , class "d-flex justify-content-center align-items-center"
-                        , class " gap-1 w-100"
-                        , id "add-new-element"
-                        , onClick (c.toggleStep c.current.label)
-                        ]
-                        [ i [ class "icon icon-plus" ] []
-                        , text <| "Ajouter une " ++ String.toLower (Label.toName c.current.label)
-                        ]
-
-              else
-                viewMaterials c
-            ]
-    }
-
-
 viewStepImpacts : Definition -> Step -> Html msg
 viewStepImpacts selectedImpact { impacts, complementsImpacts } =
     if Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts) then
@@ -917,6 +831,268 @@ ennoblingGenericFields config =
         ]
 
 
+surfaceInfoView : Inputs -> Step -> Html msg
+surfaceInfoView inputs current =
+    let
+        surfaceInfo =
+            if current.label == Label.Fabric then
+                Just ( "sortante", Step.getOutputSurface inputs current )
+
+            else if current.label == Label.Ennobling then
+                Just ( "entrante", Step.getInputSurface inputs current )
+
+            else
+                Nothing
+    in
+    case surfaceInfo of
+        Just ( dir, surface ) ->
+            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
+                , span [] [ Format.squareMeters surface ]
+                ]
+
+        Nothing ->
+            text ""
+
+
+ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
+ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
+    if current.label == Label.Ennobling then
+        let
+            bleachingToxicity =
+                current.outputMass
+                    |> Formula.bleachingImpacts current.impacts
+                        { bleachingProcess = db.textile.wellKnown.bleaching
+                        , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                        }
+
+            dyeingToxicity =
+                inputs.materials
+                    |> List.map
+                        (\{ material, share } ->
+                            Formula.materialDyeingToxicityImpacts current.impacts
+                                { dyeingToxicityProcess =
+                                    if Origin.isSynthetic material.origin then
+                                        db.textile.wellKnown.dyeingSynthetic
+
+                                    else
+                                        db.textile.wellKnown.dyeingCellulosic
+                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                                }
+                                current.outputMass
+                                share
+                        )
+                    |> Impact.sumImpacts
+
+            printingToxicity =
+                case current.printing of
+                    Just { kind, ratio } ->
+                        let
+                            { printingToxicityProcess } =
+                                WellKnown.getPrintingProcess kind db.textile.wellKnown
+                        in
+                        current.outputMass
+                            |> Formula.materialPrintingToxicityImpacts
+                                current.impacts
+                                { printingToxicityProcess = printingToxicityProcess
+                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                                }
+                                ratio
+
+                    Nothing ->
+                        Impact.empty
+
+            toxicity =
+                Impact.sumImpacts [ bleachingToxicity, dyeingToxicity, printingToxicity ]
+        in
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
+            , span [ class "text-end ImpactDisplay text-black-50 fs-7" ]
+                [ text "(+\u{00A0}"
+                , toxicity
+                    |> Format.formatImpact selectedImpact
+                , text ")"
+                , inlineDocumentationLink config Gitbook.TextileEnnoblingToxicity
+                ]
+            ]
+
+    else
+        text ""
+
+
+pickingView : Maybe Unit.PickPerMeter -> Html msg
+pickingView maybePicking =
+    case maybePicking of
+        Just picking ->
+            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                [ text "Duitage\u{00A0}:\u{00A0}"
+                , picking
+                    |> Unit.pickPerMeterToFloat
+                    |> Format.formatRichFloat 0 "duites.m"
+                ]
+
+        Nothing ->
+            text ""
+
+
+threadDensityView : Maybe Unit.ThreadDensity -> Html msg
+threadDensityView threadDensity =
+    case threadDensity of
+        Just density ->
+            let
+                value =
+                    Unit.threadDensityToFloat density
+            in
+            li [ class "list-group-item text-muted" ]
+                [ span [ class "d-flex justify-content-center gap-2" ]
+                    [ text "Densité de fils (approx.)\u{00A0}:\u{00A0}"
+                    , value
+                        |> Format.formatRichFloat 0 "fils/cm"
+                    ]
+                , if round value < Unit.threadDensityToInt Unit.threadDensityLow then
+                    text "⚠️ la densité de fils semble très faible"
+
+                  else if round value > Unit.threadDensityToInt Unit.threadDensityHigh then
+                    text "⚠️ la densité de fils semble très élevée"
+
+                  else
+                    text ""
+                ]
+
+        Nothing ->
+            text ""
+
+
+deadstockView : Config msg modal -> Mass -> Html msg
+deadstockView config deadstock =
+    if config.current.label == Label.Making then
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            (if deadstock /= Quantity.zero then
+                [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
+                , Format.kgToString deadstock |> text
+                , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
+                ]
+
+             else
+                [ text "Aucun stock dormant." ]
+            )
+
+    else
+        text ""
+
+
+makingWasteView : Config msg modal -> Mass -> Html msg
+makingWasteView config waste =
+    if config.current.label == Label.Making then
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            (if waste /= Quantity.zero then
+                [ text "Pertes\u{00A0}:\u{00A0}"
+                , Format.kgToString waste |> text
+                , inlineDocumentationLink config Gitbook.TextileMakingMakingWaste
+                ]
+
+             else
+                [ text "Aucune perte en confection." ]
+            )
+
+    else
+        text ""
+
+
+showIf : Bool -> Html msg -> Html msg
+showIf flag html =
+    if flag then
+        html
+
+    else
+        text ""
+
+
+simpleView : Config msg modal -> ViewWithTransport msg
+simpleView c =
+    { transport = viewTransport c
+    , step =
+        div [ class "Step card shadow-sm" ]
+            [ div
+                [ class "StepHeader card-header"
+                , StepsBorder.style <| Label.toColor c.current.label
+                , id <| Label.toId c.current.label
+                ]
+                [ div [ class "row d-flex align-items-center" ]
+                    [ div [ class "col-9 col-sm-6" ] [ stepHeader c ]
+                    , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
+                        [ div [ class "d-none d-sm-block text-center" ]
+                            [ viewStepImpacts c.selectedImpact c.current
+                            ]
+                        , stepActions c c.current.label
+                        ]
+                    ]
+                ]
+            , if c.current.label == Label.Material then
+                viewMaterials c
+
+              else if c.current.enabled then
+                div
+                    [ class "StepBody card-body row align-items-center" ]
+                    [ div [ class "col-11 col-lg-7" ]
+                        [ countryField c
+                        , case c.current.label of
+                            Label.Spinning ->
+                                div [ class "mt-2 fs-7 text-muted" ]
+                                    [ yarnSizeField c
+                                    ]
+
+                            Label.Fabric ->
+                                div [ class "mt-2 fs-7" ]
+                                    [ fabricProcessField c
+                                    , surfaceMassField c
+                                    ]
+
+                            Label.Ennobling ->
+                                div [ class "mt-2" ]
+                                    [ ennoblingGenericFields c
+                                    ]
+
+                            Label.Making ->
+                                div [ class "mt-2" ]
+                                    [ makingWasteField c
+                                    , makingDeadStockField c
+                                    , airTransportRatioField c
+                                    , fadingField c
+                                    ]
+
+                            Label.Use ->
+                                div [ class "mt-2" ]
+                                    [ daysOfWearInfo c
+                                    ]
+
+                            _ ->
+                                text ""
+                        ]
+                    , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
+                        [ if List.member c.current.label [ Label.Distribution, Label.Use, Label.EndOfLife ] then
+                            text ""
+
+                          else
+                            BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
+                        ]
+                    ]
+
+              else
+                button
+                    [ class "btn btn-outline-primary"
+                    , class "d-flex justify-content-center align-items-center"
+                    , class " gap-1 w-100"
+                    , id "add-new-element"
+                    , onClick (c.toggleStep c.current.label)
+                    ]
+                    [ i [ class "icon icon-plus" ] []
+                    , text <| "Ajouter une " ++ String.toLower (Label.toName c.current.label)
+                    ]
+            ]
+    }
+
+
 detailedView : Config msg modal -> ViewWithTransport msg
 detailedView ({ db, inputs, selectedImpact, current } as config) =
     let
@@ -1104,183 +1280,6 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                     ]
                 ]
     }
-
-
-surfaceInfoView : Inputs -> Step -> Html msg
-surfaceInfoView inputs current =
-    let
-        surfaceInfo =
-            if current.label == Label.Fabric then
-                Just ( "sortante", Step.getOutputSurface inputs current )
-
-            else if current.label == Label.Ennobling then
-                Just ( "entrante", Step.getInputSurface inputs current )
-
-            else
-                Nothing
-    in
-    case surfaceInfo of
-        Just ( dir, surface ) ->
-            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-                [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
-                , span [] [ Format.squareMeters surface ]
-                ]
-
-        Nothing ->
-            text ""
-
-
-ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
-ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
-    if current.label == Label.Ennobling then
-        let
-            bleachingToxicity =
-                current.outputMass
-                    |> Formula.bleachingImpacts current.impacts
-                        { bleachingProcess = db.textile.wellKnown.bleaching
-                        , aquaticPollutionScenario = current.country.aquaticPollutionScenario
-                        }
-
-            dyeingToxicity =
-                inputs.materials
-                    |> List.map
-                        (\{ material, share } ->
-                            Formula.materialDyeingToxicityImpacts current.impacts
-                                { dyeingToxicityProcess =
-                                    if Origin.isSynthetic material.origin then
-                                        db.textile.wellKnown.dyeingSynthetic
-
-                                    else
-                                        db.textile.wellKnown.dyeingCellulosic
-                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
-                                }
-                                current.outputMass
-                                share
-                        )
-                    |> Impact.sumImpacts
-
-            printingToxicity =
-                case current.printing of
-                    Just { kind, ratio } ->
-                        let
-                            { printingToxicityProcess } =
-                                WellKnown.getPrintingProcess kind db.textile.wellKnown
-                        in
-                        current.outputMass
-                            |> Formula.materialPrintingToxicityImpacts
-                                current.impacts
-                                { printingToxicityProcess = printingToxicityProcess
-                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
-                                }
-                                ratio
-
-                    Nothing ->
-                        Impact.empty
-
-            toxicity =
-                Impact.sumImpacts [ bleachingToxicity, dyeingToxicity, printingToxicity ]
-        in
-        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-            [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
-            , span [ class "text-end ImpactDisplay text-black-50 fs-7" ]
-                [ text "(+\u{00A0}"
-                , toxicity
-                    |> Format.formatImpact selectedImpact
-                , text ")"
-                , inlineDocumentationLink config Gitbook.TextileEnnoblingToxicity
-                ]
-            ]
-
-    else
-        text ""
-
-
-pickingView : Maybe Unit.PickPerMeter -> Html msg
-pickingView maybePicking =
-    case maybePicking of
-        Just picking ->
-            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-                [ text "Duitage\u{00A0}:\u{00A0}"
-                , picking
-                    |> Unit.pickPerMeterToFloat
-                    |> Format.formatRichFloat 0 "duites.m"
-                ]
-
-        Nothing ->
-            text ""
-
-
-threadDensityView : Maybe Unit.ThreadDensity -> Html msg
-threadDensityView threadDensity =
-    case threadDensity of
-        Just density ->
-            let
-                value =
-                    Unit.threadDensityToFloat density
-            in
-            li [ class "list-group-item text-muted" ]
-                [ span [ class "d-flex justify-content-center gap-2" ]
-                    [ text "Densité de fils (approx.)\u{00A0}:\u{00A0}"
-                    , value
-                        |> Format.formatRichFloat 0 "fils/cm"
-                    ]
-                , if round value < Unit.threadDensityToInt Unit.threadDensityLow then
-                    text "⚠️ la densité de fils semble très faible"
-
-                  else if round value > Unit.threadDensityToInt Unit.threadDensityHigh then
-                    text "⚠️ la densité de fils semble très élevée"
-
-                  else
-                    text ""
-                ]
-
-        Nothing ->
-            text ""
-
-
-deadstockView : Config msg modal -> Mass -> Html msg
-deadstockView config deadstock =
-    if config.current.label == Label.Making then
-        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-            (if deadstock /= Quantity.zero then
-                [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
-                , Format.kgToString deadstock |> text
-                , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
-                ]
-
-             else
-                [ text "Aucun stock dormant." ]
-            )
-
-    else
-        text ""
-
-
-makingWasteView : Config msg modal -> Mass -> Html msg
-makingWasteView config waste =
-    if config.current.label == Label.Making then
-        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-            (if waste /= Quantity.zero then
-                [ text "Pertes\u{00A0}:\u{00A0}"
-                , Format.kgToString waste |> text
-                , inlineDocumentationLink config Gitbook.TextileMakingMakingWaste
-                ]
-
-             else
-                [ text "Aucune perte en confection." ]
-            )
-
-    else
-        text ""
-
-
-showIf : Bool -> Html msg -> Html msg
-showIf flag html =
-    if flag then
-        html
-
-    else
-        text ""
 
 
 view : Config msg modal -> ViewWithTransport msg
