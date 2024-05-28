@@ -1095,7 +1095,7 @@ simulatorFormView session model ({ inputs } as simulator) =
 simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView session model ({ inputs, impacts } as simulator) =
     let
-        tabLabel name help =
+        tabLabel help name =
             span [ class "d-flex justify-content-between align-items-center gap-1" ]
                 [ span [ class "d-flex flex-fill justify-content-center" ] [ text name ]
                 , span [ class "text-muted fs-8 cursor-help opacity-50", title help ] [ Icon.question ]
@@ -1107,11 +1107,15 @@ simulatorView session model ({ inputs, impacts } as simulator) =
             , div [ class "d-flex flex-column sticky-md-top" ]
                 [ CardTabs.view
                     { tabs =
-                        [ { label = tabLabel "Mode règlementaire" "N'affiche que les champs requis règlementairement"
+                        [ { label =
+                                "Mode règlementaire"
+                                    |> tabLabel "N'affiche que les champs proposés réglementairement"
                           , active = model.activeTab == RegulatoryTab
                           , onTabClick = SwitchTab RegulatoryTab
                           }
-                        , { label = tabLabel "Mode avancé" "Affiche des champs supplémentaires, hors cadre règlementaire"
+                        , { label =
+                                "Mode avancé"
+                                    |> tabLabel "Affiche des champs supplémentaires, hors cadre règlementaire"
                           , active = model.activeTab == AdvancedTab
                           , onTabClick = SwitchTab AdvancedTab
                           }
