@@ -210,7 +210,8 @@ removeMaterial materialId query =
 isAdvancedQuery : Query -> Bool
 isAdvancedQuery query =
     List.any identity
-        [ query.makingWaste /= Nothing
+        [ query.materials |> List.any (.spinning >> (/=) Nothing)
+        , query.makingWaste /= Nothing
         , query.makingDeadStock /= Nothing
         , query.makingComplexity /= Nothing
         , query.yarnSize /= Nothing
@@ -226,7 +227,8 @@ isAdvancedQuery query =
 regulatory : Query -> Query
 regulatory query =
     { query
-        | makingWaste = Nothing
+        | materials = query.materials |> List.map (\m -> { m | spinning = Nothing })
+        , makingWaste = Nothing
         , makingDeadStock = Nothing
         , makingComplexity = Nothing
         , yarnSize = Nothing
