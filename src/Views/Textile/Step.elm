@@ -317,11 +317,10 @@ fadingField { inputs, toggleFading } =
         [ input
             [ type_ "checkbox"
             , class "form-check-input no-outline"
-            , checked
-                (inputs.fading
-                    |> Maybe.withDefault (Product.isFadedByDefault inputs.product)
-                )
-            , onCheck (\checked -> toggleFading checked)
+            , inputs.fading
+                |> Maybe.withDefault (Product.isFadedByDefault inputs.product)
+                |> checked
+            , onCheck toggleFading
             ]
             []
         , if Inputs.isFaded inputs then
@@ -459,8 +458,10 @@ inlineDocumentationLink _ path =
 stepActions : Config msg modal -> Label -> Html msg
 stepActions { current, showAdvancedFields, toggleStep } label =
     let
-        materialStep =
-            label == Label.Material
+        allowDisablingStep =
+            [ Label.Distribution, Label.Use, Label.EndOfLife ]
+                |> List.member current.label
+                |> not
     in
     div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
@@ -471,7 +472,7 @@ stepActions { current, showAdvancedFields, toggleStep } label =
                 , target "_blank"
                 ]
                 [ Icon.question ]
-            , if materialStep && showAdvancedFields then
+            , if showAdvancedFields && allowDisablingStep then
                 input
                     [ type_ "checkbox"
                     , class "form-check-input ms-1 no-outline"
@@ -1026,51 +1027,44 @@ stepView ({ current } as config) html =
 
 
 simpleView : Config msg modal -> Html msg
-simpleView c =
-    if c.current.enabled then
+simpleView ({ current } as config) =
+    if current.enabled then
         div
             [ class "StepBody card-body row align-items-center" ]
-            [ div [ class "col-11 col-lg-7" ]
-                [ countryField c
-                , case c.current.label of
+            [ div [ class "col-lg-7" ]
+                [ countryField config
+                , case current.label of
                     Label.Spinning ->
                         div [ class "mt-2 fs-7 text-muted" ]
-                            [ yarnSizeField c
+                            [ yarnSizeField config
                             ]
 
                     Label.Fabric ->
                         div [ class "mt-2 fs-7" ]
-                            [ fabricProcessField c
-                            , surfaceMassField c
+                            [ fabricProcessField config
+                            , surfaceMassField config
                             ]
 
                     Label.Ennobling ->
                         div [ class "mt-2" ]
-                            [ ennoblingGenericFields c
+                            [ ennoblingGenericFields config
                             ]
 
                     Label.Making ->
                         div [ class "mt-2" ]
-                            [ makingWasteField c
-                            , makingDeadStockField c
-                            , airTransportRatioField c
-                            , fadingField c
+                            [ makingWasteField config
+                            , makingDeadStockField config
+                            , airTransportRatioField config
+                            , fadingField config
                             ]
 
                     Label.Use ->
                         div [ class "mt-2" ]
-                            [ daysOfWearInfo c
+                            [ daysOfWearInfo config
                             ]
 
                     _ ->
                         text ""
-                ]
-            , div [ class "col-1 col-lg-5 ps-0 align-self-stretch text-end" ]
-                [ if List.member c.current.label [ Label.Distribution, Label.Use, Label.EndOfLife ] then
-                    text ""
-
-                  else
-                    BaseElement.deleteItemButton { disabled = False } (c.toggleStep c.current.label)
                 ]
             ]
 
@@ -1080,10 +1074,10 @@ simpleView c =
             , class "d-flex justify-content-center align-items-center"
             , class " gap-1 w-100"
             , id "add-new-element"
-            , onClick (c.toggleStep c.current.label)
+            , onClick (config.toggleStep current.label)
             ]
             [ i [ class "icon icon-plus" ] []
-            , text <| "Ajouter une " ++ String.toLower (Label.toName c.current.label)
+            , text <| "Ajouter une " ++ String.toLower (Label.toName current.label)
             ]
 
 
