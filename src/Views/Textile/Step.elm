@@ -158,46 +158,43 @@ dyeingMediumField { inputs, updateDyeingMedium, showAdvancedFields } =
 spinningProcessField : Config msg modal -> Html msg
 spinningProcessField { inputs, updateMaterialSpinning } =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ div [ class "d-flex flex-column gap-1 w-100" ]
-            (inputs.materials
-                |> List.map
-                    (\{ material, spinning } ->
-                        div [ class "d-flex justify-content-between align-items-center fs-7" ]
-                            [ label
-                                [ for <| "spinning-for-" ++ Material.idToString material.id
-                                , class "text-truncate w-25"
-                                ]
-                                [ text material.shortName ]
-                            , case Spinning.getAvailableProcesses material.origin of
-                                [ spinningProcess ] ->
-                                    span
-                                        [ class " w-75" ]
-                                        [ text <| Spinning.toLabel spinningProcess
-                                        ]
-
-                                availableSpinningProcesses ->
-                                    availableSpinningProcesses
-                                        |> List.map
-                                            (\spinningProcess ->
-                                                option
-                                                    [ value <| Spinning.toString spinningProcess
-                                                    , selected <| Just spinningProcess == spinning
-                                                    ]
-                                                    [ text <| Spinning.toLabel spinningProcess
-                                                    ]
-                                            )
-                                        |> select
-                                            [ class "form-select form-select-sm w-75"
-                                            , id <| "spinning-for-" ++ Material.idToString material.id
-                                            , onInput
-                                                (Spinning.fromString
-                                                    >> Result.withDefault (Spinning.getDefault material.origin)
-                                                    >> updateMaterialSpinning material
-                                                )
-                                            ]
+        [ inputs.materials
+            |> List.map
+                (\{ material, spinning } ->
+                    div [ class "d-flex justify-content-between align-items-center fs-7" ]
+                        [ label
+                            [ for <| "spinning-for-" ++ Material.idToString material.id
+                            , class "text-truncate w-25"
                             ]
-                    )
-            )
+                            [ text material.shortName ]
+                        , case Spinning.getAvailableProcesses material.origin of
+                            [ spinningProcess ] ->
+                                span [ class " w-75" ]
+                                    [ text <| Spinning.toLabel spinningProcess ]
+
+                            availableSpinningProcesses ->
+                                availableSpinningProcesses
+                                    |> List.map
+                                        (\spinningProcess ->
+                                            option
+                                                [ value <| Spinning.toString spinningProcess
+                                                , selected <| Just spinningProcess == spinning
+                                                ]
+                                                [ text <| Spinning.toLabel spinningProcess
+                                                ]
+                                        )
+                                    |> select
+                                        [ class "form-select form-select-sm w-75"
+                                        , id <| "spinning-for-" ++ Material.idToString material.id
+                                        , onInput
+                                            (Spinning.fromString
+                                                >> Result.withDefault (Spinning.getDefault material.origin)
+                                                >> updateMaterialSpinning material
+                                            )
+                                        ]
+                        ]
+                )
+            |> div [ class "d-flex flex-column gap-1 w-100" ]
         ]
 
 

@@ -1210,13 +1210,13 @@ view session model =
                                 { size = ModalView.Standard
                                 , close = SetModal NoModal
                                 , noOp = NoOp
-                                , title = "Êtes-vous sûr\u{00A0}?"
+                                , title = "Avertissement"
                                 , subTitle = Nothing
                                 , formAction = Nothing
                                 , content =
                                     [ div [ class "p-3" ]
                                         [ p []
-                                            [ text "Vous allez perdre les valeurs renseignées pour les champs avancés." ]
+                                            [ text "Repasser en mode règlementaire réinitialisera les valeurs renseignées pour les champs avancés." ]
                                         , p
                                             [ class "text-center" ]
                                             [ button
@@ -1225,7 +1225,7 @@ view session model =
                                                 ]
                                                 [ text "Confirmer" ]
                                             , button [ class "btn btn-link", onClick (SetModal NoModal) ]
-                                                [ text "Annuler et fermer" ]
+                                                [ text "Annuler" ]
                                             ]
                                         ]
                                     ]
