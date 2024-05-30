@@ -1216,16 +1216,17 @@ view session model =
                                 , content =
                                     [ div [ class "p-3" ]
                                         [ p []
-                                            [ text "Repasser en mode règlementaire réinitialisera les valeurs renseignées pour les champs avancés." ]
+                                            [ text "Basculer en mode règlementaire réinitialisera les valeurs renseignées pour les champs avancés." ]
                                         , p
-                                            [ class "text-center" ]
+                                            [ class "d-flex justify-content-center align-items-center gap-1" ]
                                             [ button
                                                 [ class "btn btn-primary"
                                                 , onClick ConfirmSwitchToRegulatory
                                                 ]
                                                 [ text "Confirmer" ]
-                                            , button [ class "btn btn-link", onClick (SetModal NoModal) ]
-                                                [ text "Annuler" ]
+                                            , text "ou"
+                                            , button [ class "btn btn-link ps-0", onClick (SetModal NoModal) ]
+                                                [ text "rester en mode avancé" ]
                                             ]
                                         ]
                                     ]
