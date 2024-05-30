@@ -113,9 +113,7 @@ countryField cfg =
 
 airTransportRatioField : Config msg modal -> Html msg
 airTransportRatioField { current, updateAirTransportRatio } =
-    span
-        [ title "Part de transport aérien pour le transport entre la confection et l'entrepôt en France."
-        ]
+    span [ title "Part de transport aérien pour le transport entre la confection et l'entrepôt en France." ]
         [ RangeSlider.percent
             { id = "airTransportRatio"
             , update = updateAirTransportRatio
@@ -374,9 +372,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
 makingWasteField : Config msg modal -> Html msg
 makingWasteField { current, inputs, updateMakingWaste, showAdvancedFields } =
     showIf showAdvancedFields <|
-        span
-            [ title "Taux moyen de pertes en confection"
-            ]
+        span [ title "Taux moyen de pertes en confection" ]
             [ RangeSlider.percent
                 { id = "makingWaste"
                 , update = updateMakingWaste
@@ -395,9 +391,7 @@ makingWasteField { current, inputs, updateMakingWaste, showAdvancedFields } =
 makingDeadStockField : Config msg modal -> Html msg
 makingDeadStockField { current, updateMakingDeadStock, showAdvancedFields } =
     showIf showAdvancedFields <|
-        span
-            [ title "Taux moyen de stocks dormants (vêtements non vendus + produits semi-finis non utilisés) sur l’ensemble de la chaîne de valeur"
-            ]
+        span [ title "Taux moyen de stocks dormants (vêtements non vendus + produits semi-finis non utilisés) sur l’ensemble de la chaîne de valeur" ]
             [ RangeSlider.percent
                 { id = "makingDeadStock"
                 , update = updateMakingDeadStock
@@ -432,8 +426,7 @@ surfaceMassField { current, updateSurfaceMass, inputs, showAdvancedFields } =
 yarnSizeField : Config msg modal -> Html msg
 yarnSizeField { current, updateYarnSize, inputs, showAdvancedFields } =
     showIf showAdvancedFields <|
-        span
-            [ title "Le titrage indique la grosseur d’un fil textile" ]
+        span [ title "Le titrage indique la grosseur d’un fil textile" ]
             [ RangeSlider.yarnSize
                 { id = "yarnSize"
                 , update = updateYarnSize
