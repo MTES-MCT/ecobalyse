@@ -220,9 +220,9 @@ isAdvancedQuery query =
         , query.disabledSteps
             |> List.any
                 (\label ->
+                    -- If these steps are disabled, it means we're in advanced mode
                     List.member label
-                        [ Label.Material
-                        , Label.Making
+                        [ Label.Making
                         , Label.Distribution
                         , Label.Use
                         , Label.EndOfLife
@@ -248,10 +248,14 @@ regulatory query =
             query.disabledSteps
                 |> List.filter
                     (\label ->
-                        -- keep only these 3 disablable steps in regulatory mode
+                        -- keep only these 4 disablable steps in regulatory mode
                         -- all others will be implicitely re-enabled
-                        [ Label.Spinning, Label.Fabric, Label.Ennobling ]
-                            |> List.member label
+                        List.member label
+                            [ Label.Material
+                            , Label.Spinning
+                            , Label.Fabric
+                            , Label.Ennobling
+                            ]
                     )
         , dyeingMedium = Nothing
     }

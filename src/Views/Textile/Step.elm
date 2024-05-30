@@ -446,7 +446,12 @@ stepActions { current, showAdvancedFields, toggleStep } label =
         allowDisablingStep =
             showAdvancedFields
                 -- Regulatory mode only allow disabling Spinning, Fabric and Ennobling steps
-                || List.member current.label [ Label.Spinning, Label.Fabric, Label.Ennobling ]
+                || List.member current.label
+                    [ Label.Material
+                    , Label.Spinning
+                    , Label.Fabric
+                    , Label.Ennobling
+                    ]
     in
     div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
