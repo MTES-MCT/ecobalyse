@@ -1283,17 +1283,5 @@ subscriptions { modal } =
         NoModal ->
             Sub.none
 
-        ConfirmSwitchToRegulatoryModal ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
-
-        ComparatorModal ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
-
-        AddMaterialModal _ _ ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
-
-        SelectExampleModal _ ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
-
-        SelectProductModal _ ->
+        _ ->
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
