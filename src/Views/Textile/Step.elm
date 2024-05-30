@@ -202,7 +202,6 @@ spinningProcessField { inputs, updateMaterialSpinning, showAdvancedFields } =
 fabricProcessField : Config msg modal -> Html msg
 fabricProcessField { inputs, updateFabricProcess, showAdvancedFields } =
     showIf showAdvancedFields <|
-        -- Note: This field is only rendered in the detailed step view
         li [ class "list-group-item d-flex align-items-center gap-2" ]
             [ label [ class "text-nowrap w-25", for "fabric-process" ] [ text "Procédé" ]
             , Fabric.fabricProcesses
@@ -333,7 +332,6 @@ fadingField { inputs, toggleFading } =
 
 makingComplexityField : Config msg modal -> Html msg
 makingComplexityField ({ inputs, updateMakingComplexity } as config) =
-    -- Note: This field is only rendered in the detailed step view
     let
         makingComplexity =
             inputs.makingComplexity
