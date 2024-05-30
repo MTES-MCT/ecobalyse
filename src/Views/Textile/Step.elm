@@ -127,100 +127,97 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 
 dyeingMediumField : Config msg modal -> Html msg
-dyeingMediumField { inputs, updateDyeingMedium, showAdvancedFields } =
-    showIf showAdvancedFields <|
-        div [ class "d-flex justify-content-between align-items-center fs-7" ]
-            [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
-                [ text "Teinture sur" ]
-            , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
-                |> List.map
-                    (\medium ->
-                        option
-                            [ value <| DyeingMedium.toString medium
-                            , selected <| inputs.dyeingMedium == Just medium || inputs.product.dyeing.defaultMedium == medium
-                            ]
-                            [ text <| DyeingMedium.toLabel medium ]
+dyeingMediumField { inputs, updateDyeingMedium } =
+    div [ class "d-flex justify-content-between align-items-center fs-7" ]
+        [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
+            [ text "Teinture sur" ]
+        , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
+            |> List.map
+                (\medium ->
+                    option
+                        [ value <| DyeingMedium.toString medium
+                        , selected <| inputs.dyeingMedium == Just medium || inputs.product.dyeing.defaultMedium == medium
+                        ]
+                        [ text <| DyeingMedium.toLabel medium ]
+                )
+            |> select
+                [ id "dyeing-medium"
+                , class "form-select form-select-sm w-75"
+                , onInput
+                    (DyeingMedium.fromString
+                        >> Result.withDefault inputs.product.dyeing.defaultMedium
+                        >> updateDyeingMedium
                     )
-                |> select
-                    [ id "dyeing-medium"
-                    , class "form-select form-select-sm w-75"
-                    , onInput
-                        (DyeingMedium.fromString
-                            >> Result.withDefault inputs.product.dyeing.defaultMedium
-                            >> updateDyeingMedium
-                        )
-                    ]
-            ]
+                ]
+        ]
 
 
 spinningProcessField : Config msg modal -> Html msg
-spinningProcessField { inputs, updateMaterialSpinning, showAdvancedFields } =
-    showIf showAdvancedFields <|
-        li [ class "list-group-item d-flex align-items-center gap-2" ]
-            [ inputs.materials
-                |> List.map
-                    (\{ material, spinning } ->
-                        div [ class "d-flex justify-content-between align-items-center fs-7" ]
-                            [ label
-                                [ for <| "spinning-for-" ++ Material.idToString material.id
-                                , class "text-truncate w-25"
-                                ]
-                                [ text material.shortName ]
-                            , case Spinning.getAvailableProcesses material.origin of
-                                [ spinningProcess ] ->
-                                    span [ class " w-75" ]
-                                        [ text <| Spinning.toLabel spinningProcess ]
-
-                                availableSpinningProcesses ->
-                                    availableSpinningProcesses
-                                        |> List.map
-                                            (\spinningProcess ->
-                                                option
-                                                    [ value <| Spinning.toString spinningProcess
-                                                    , selected <| Just spinningProcess == spinning
-                                                    ]
-                                                    [ text <| Spinning.toLabel spinningProcess
-                                                    ]
-                                            )
-                                        |> select
-                                            [ class "form-select form-select-sm w-75"
-                                            , id <| "spinning-for-" ++ Material.idToString material.id
-                                            , onInput
-                                                (Spinning.fromString
-                                                    >> Result.withDefault (Spinning.getDefault material.origin)
-                                                    >> updateMaterialSpinning material
-                                                )
-                                            ]
+spinningProcessField { inputs, updateMaterialSpinning } =
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
+        [ inputs.materials
+            |> List.map
+                (\{ material, spinning } ->
+                    div [ class "d-flex justify-content-between align-items-center fs-7" ]
+                        [ label
+                            [ for <| "spinning-for-" ++ Material.idToString material.id
+                            , class "text-truncate w-25"
                             ]
-                    )
-                |> div [ class "d-flex flex-column gap-1 w-100" ]
-            ]
+                            [ text material.shortName ]
+                        , case Spinning.getAvailableProcesses material.origin of
+                            [ spinningProcess ] ->
+                                span [ class " w-75" ]
+                                    [ text <| Spinning.toLabel spinningProcess ]
+
+                            availableSpinningProcesses ->
+                                availableSpinningProcesses
+                                    |> List.map
+                                        (\spinningProcess ->
+                                            option
+                                                [ value <| Spinning.toString spinningProcess
+                                                , selected <| Just spinningProcess == spinning
+                                                ]
+                                                [ text <| Spinning.toLabel spinningProcess
+                                                ]
+                                        )
+                                    |> select
+                                        [ class "form-select form-select-sm w-75"
+                                        , id <| "spinning-for-" ++ Material.idToString material.id
+                                        , onInput
+                                            (Spinning.fromString
+                                                >> Result.withDefault (Spinning.getDefault material.origin)
+                                                >> updateMaterialSpinning material
+                                            )
+                                        ]
+                        ]
+                )
+            |> div [ class "d-flex flex-column gap-1 w-100" ]
+        ]
 
 
 fabricProcessField : Config msg modal -> Html msg
-fabricProcessField { inputs, updateFabricProcess, showAdvancedFields } =
-    showIf showAdvancedFields <|
-        li [ class "list-group-item d-flex align-items-center gap-2" ]
-            [ label [ class "text-nowrap w-25", for "fabric-process" ] [ text "Procédé" ]
-            , Fabric.fabricProcesses
-                |> List.map
-                    (\fabricProcess ->
-                        option
-                            [ value <| Fabric.toString fabricProcess
-                            , selected <| inputs.fabricProcess == fabricProcess
-                            ]
-                            [ text <| Fabric.toLabel fabricProcess ]
+fabricProcessField { inputs, updateFabricProcess } =
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
+        [ label [ class "text-nowrap w-25", for "fabric-process" ] [ text "Procédé" ]
+        , Fabric.fabricProcesses
+            |> List.map
+                (\fabricProcess ->
+                    option
+                        [ value <| Fabric.toString fabricProcess
+                        , selected <| inputs.fabricProcess == fabricProcess
+                        ]
+                        [ text <| Fabric.toLabel fabricProcess ]
+                )
+            |> select
+                [ id "fabric-process"
+                , class "form-select form-select-sm w-75"
+                , onInput
+                    (Fabric.fromString
+                        >> Result.withDefault Fabric.default
+                        >> updateFabricProcess
                     )
-                |> select
-                    [ id "fabric-process"
-                    , class "form-select form-select-sm w-75"
-                    , onInput
-                        (Fabric.fromString
-                            >> Result.withDefault Fabric.KnittingMix
-                            >> updateFabricProcess
-                        )
-                    ]
-            ]
+                ]
+        ]
 
 
 printingFields : Config msg modal -> Html msg
@@ -370,22 +367,21 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
 
 
 makingWasteField : Config msg modal -> Html msg
-makingWasteField { current, inputs, updateMakingWaste, showAdvancedFields } =
-    showIf showAdvancedFields <|
-        span [ title "Taux moyen de pertes en confection" ]
-            [ RangeSlider.percent
-                { id = "makingWaste"
-                , update = updateMakingWaste
-                , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
-                , toString = Step.makingWasteToString
-                , disabled =
-                    not current.enabled
-                        || (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
-                        || (inputs.fabricProcess == Fabric.KnittingIntegral)
-                , min = Env.minMakingWasteRatio |> Split.toPercent |> round
-                , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
-                }
-            ]
+makingWasteField { current, inputs, updateMakingWaste } =
+    span [ title "Taux moyen de pertes en confection" ]
+        [ RangeSlider.percent
+            { id = "makingWaste"
+            , update = updateMakingWaste
+            , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
+            , toString = Step.makingWasteToString
+            , disabled =
+                not current.enabled
+                    || (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
+                    || (inputs.fabricProcess == Fabric.KnittingIntegral)
+            , min = Env.minMakingWasteRatio |> Split.toPercent |> round
+            , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
+            }
+        ]
 
 
 makingDeadStockField : Config msg modal -> Html msg
@@ -405,36 +401,34 @@ makingDeadStockField { current, updateMakingDeadStock, showAdvancedFields } =
 
 
 surfaceMassField : Config msg modal -> Html msg
-surfaceMassField { current, updateSurfaceMass, inputs, showAdvancedFields } =
-    showIf showAdvancedFields <|
-        div
-            [ class "mt-2"
-            , title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
-            ]
-            [ RangeSlider.surfaceMass
-                { id = "surface-density"
-                , update = updateSurfaceMass
-                , value = current.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
-                , toString = Step.surfaceMassToString
+surfaceMassField { current, updateSurfaceMass, inputs } =
+    div
+        [ class "mt-2"
+        , title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
+        ]
+        [ RangeSlider.surfaceMass
+            { id = "surface-density"
+            , update = updateSurfaceMass
+            , value = current.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
+            , toString = Step.surfaceMassToString
 
-                -- Note: hide for knitted products as surface mass doesn't have any impact on them
-                , disabled = not current.enabled
-                }
-            ]
+            -- Note: hide for knitted products as surface mass doesn't have any impact on them
+            , disabled = not current.enabled
+            }
+        ]
 
 
 yarnSizeField : Config msg modal -> Html msg
-yarnSizeField { current, updateYarnSize, inputs, showAdvancedFields } =
-    showIf showAdvancedFields <|
-        span [ title "Le titrage indique la grosseur d’un fil textile" ]
-            [ RangeSlider.yarnSize
-                { id = "yarnSize"
-                , update = updateYarnSize
-                , value = current.yarnSize |> Maybe.withDefault inputs.product.yarnSize
-                , toString = Step.yarnSizeToString
-                , disabled = not current.enabled
-                }
-            ]
+yarnSizeField { current, updateYarnSize, inputs } =
+    span [ title "Le titrage indique la grosseur d’un fil textile" ]
+        [ RangeSlider.yarnSize
+            { id = "yarnSize"
+            , update = updateYarnSize
+            , value = current.yarnSize |> Maybe.withDefault inputs.product.yarnSize
+            , toString = Step.yarnSizeToString
+            , disabled = not current.enabled
+            }
+        ]
 
 
 inlineDocumentationLink : Config msg modal -> Gitbook.Path -> Html msg
@@ -996,63 +990,37 @@ stepView ({ current } as config) html =
         ]
 
 
-regulatoryView : Config msg modal -> Html msg
-regulatoryView ({ current } as config) =
-    if current.enabled then
-        div
-            [ class "StepBody card-body row align-items-center" ]
-            [ div [ class "col-lg-7" ]
-                [ countryField config
-                , case current.label of
-                    Label.Spinning ->
-                        div [ class "mt-2 fs-7 text-muted" ]
-                            [ yarnSizeField config
-                            ]
+regulatoryStepView : Config msg modal -> Html msg
+regulatoryStepView ({ current } as config) =
+    div
+        [ class "StepBody card-body row align-items-center" ]
+        [ div [ class "col-lg-7" ]
+            [ countryField config
+            , case current.label of
+                Label.Ennobling ->
+                    div [ class "mt-2" ]
+                        [ ennoblingGenericFields config
+                        ]
 
-                    Label.Fabric ->
-                        div [ class "mt-2 fs-7" ]
-                            [ fabricProcessField config
-                            , surfaceMassField config
-                            ]
+                Label.Making ->
+                    div [ class "mt-2" ]
+                        [ airTransportRatioField config
+                        , fadingField config
+                        ]
 
-                    Label.Ennobling ->
-                        div [ class "mt-2" ]
-                            [ ennoblingGenericFields config
-                            ]
+                Label.Use ->
+                    div [ class "mt-2" ]
+                        [ daysOfWearInfo config
+                        ]
 
-                    Label.Making ->
-                        div [ class "mt-2" ]
-                            [ makingWasteField config
-                            , makingDeadStockField config
-                            , airTransportRatioField config
-                            , fadingField config
-                            ]
-
-                    Label.Use ->
-                        div [ class "mt-2" ]
-                            [ daysOfWearInfo config
-                            ]
-
-                    _ ->
-                        text ""
-                ]
+                _ ->
+                    text ""
             ]
-
-    else
-        button
-            [ class "btn btn-outline-primary"
-            , class "d-flex justify-content-center align-items-center"
-            , class " gap-1 w-100"
-            , id "add-new-element"
-            , onClick (config.toggleStep current.label)
-            ]
-            [ i [ class "icon icon-plus" ] []
-            , text <| "Ajouter une " ++ String.toLower (Label.toName current.label)
-            ]
+        ]
 
 
-advancedView : Config msg modal -> Html msg
-advancedView ({ db, inputs, selectedImpact, current } as config) =
+advancedStepView : Config msg modal -> Html msg
+advancedStepView ({ db, inputs, selectedImpact, current } as config) =
     let
         infoListElement =
             ul
@@ -1177,9 +1145,9 @@ view config =
                 viewMaterials config
 
              else if config.showAdvancedFields then
-                advancedView config
+                advancedStepView config
 
              else
-                regulatoryView config
+                regulatoryStepView config
             )
     }
