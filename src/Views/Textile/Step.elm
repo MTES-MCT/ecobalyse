@@ -472,7 +472,7 @@ stepActions { current, showAdvancedFields, toggleStep } label =
                 , target "_blank"
                 ]
                 [ Icon.question ]
-            , if showAdvancedFields && allowDisablingStep then
+            , showIf (showAdvancedFields && allowDisablingStep) <|
                 input
                     [ type_ "checkbox"
                     , class "form-check-input ms-1 no-outline"
@@ -488,16 +488,13 @@ stepActions { current, showAdvancedFields, toggleStep } label =
                         )
                     ]
                     []
-
-              else
-                text ""
             ]
         ]
 
 
 viewStepImpacts : Definition -> Step -> Html msg
 viewStepImpacts selectedImpact { impacts, complementsImpacts } =
-    if Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts) then
+    showIf (Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts)) <|
         let
             stepComplementsImpact =
                 complementsImpacts
@@ -513,9 +510,6 @@ viewStepImpacts selectedImpact { impacts, complementsImpacts } =
                     |> Format.formatImpact selectedImpact
                 ]
             ]
-
-    else
-        text ""
 
 
 viewMaterials : Config msg modal -> Html msg
@@ -735,7 +729,7 @@ viewTransport ({ selectedImpact, current, inputs } as config) =
             [ text "Masse\u{00A0}: "
             , current |> Step.getTransportedMass inputs |> Format.kg
             ]
-        , if Transport.totalKm current.transport > 0 then
+        , showIf (Transport.totalKm current.transport > 0) <|
             div [ class "d-flex justify-content-between gap-3 align-items-center" ]
                 [ div [ class "d-flex justify-content-between gap-3 flex-column flex-md-row" ]
                     (current.transport
@@ -754,9 +748,6 @@ viewTransport ({ selectedImpact, current, inputs } as config) =
                     , inlineDocumentationLink config Gitbook.TextileTransport
                     ]
                 ]
-
-          else
-            text ""
         ]
 
 
@@ -832,7 +823,7 @@ surfaceInfoView inputs current =
 
 ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
 ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
-    if current.label == Label.Ennobling then
+    showIf (current.label == Label.Ennobling) <|
         let
             bleachingToxicity =
                 current.outputMass
@@ -891,9 +882,6 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                 ]
             ]
 
-    else
-        text ""
-
 
 pickingView : Maybe Unit.PickPerMeter -> Html msg
 pickingView maybePicking =
@@ -940,7 +928,7 @@ threadDensityView threadDensity =
 
 deadstockView : Config msg modal -> Mass -> Html msg
 deadstockView config deadstock =
-    if config.current.label == Label.Making then
+    showIf (config.current.label == Label.Making) <|
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             (if deadstock /= Quantity.zero then
                 [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
@@ -952,13 +940,10 @@ deadstockView config deadstock =
                 [ text "Aucun stock dormant." ]
             )
 
-    else
-        text ""
-
 
 makingWasteView : Config msg modal -> Mass -> Html msg
 makingWasteView config waste =
-    if config.current.label == Label.Making then
+    showIf (config.current.label == Label.Making) <|
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             (if waste /= Quantity.zero then
                 [ text "Pertes\u{00A0}:\u{00A0}"
@@ -969,9 +954,6 @@ makingWasteView config waste =
              else
                 [ text "Aucune perte en confection." ]
             )
-
-    else
-        text ""
 
 
 showIf : Bool -> Html msg -> Html msg
@@ -1001,16 +983,13 @@ stepView ({ current } as config) html =
                             [ current.label
                                 |> Label.toName
                                 |> text
-                            , if current.label == Label.Material then
+                            , showIf (current.label == Label.Material) <|
                                 Link.smallPillExternal
                                     [ Route.href (Route.Explore Scope.Textile (Dataset.TextileMaterials Nothing))
                                     , title "Explorer"
                                     , attribute "aria-label" "Explorer"
                                     ]
                                     [ Icon.search ]
-
-                              else
-                                text ""
                             ]
                         ]
                     ]
@@ -1026,8 +1005,8 @@ stepView ({ current } as config) html =
         ]
 
 
-simpleView : Config msg modal -> Html msg
-simpleView ({ current } as config) =
+regulatoryView : Config msg modal -> Html msg
+regulatoryView ({ current } as config) =
     if current.enabled then
         div
             [ class "StepBody card-body row align-items-center" ]
@@ -1081,8 +1060,8 @@ simpleView ({ current } as config) =
             ]
 
 
-detailedView : Config msg modal -> Html msg
-detailedView ({ db, inputs, selectedImpact, current } as config) =
+advancedView : Config msg modal -> Html msg
+advancedView ({ db, inputs, selectedImpact, current } as config) =
     let
         infoListElement =
             ul
@@ -1101,26 +1080,10 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                 , viewProcessInfo current.processInfo.useNonIroning
                 , viewProcessInfo current.processInfo.passengerCar
                 , viewProcessInfo current.processInfo.endOfLife
-                , if current.label == Label.Spinning then
-                    spinningProcessField config
-
-                  else
-                    text ""
-                , if current.label == Label.Fabric then
-                    fabricProcessField config
-
-                  else
-                    text ""
-                , if current.label == Label.Making then
-                    makingComplexityField config
-
-                  else
-                    text ""
-                , if inputs.fading == Just True then
-                    viewProcessInfo current.processInfo.fading
-
-                  else
-                    text ""
+                , showIf (current.label == Label.Spinning) <| spinningProcessField config
+                , showIf (current.label == Label.Fabric) <| fabricProcessField config
+                , showIf (current.label == Label.Making) <| makingComplexityField config
+                , showIf (inputs.fading == Just True) <| viewProcessInfo current.processInfo.fading
                 ]
             , ul
                 [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
@@ -1166,7 +1129,7 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                 [ class "StepBody list-group list-group-flush fs-7"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
-                [ if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
+                [ showIf (Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0) <|
                     li [ class "list-group-item text-muted d-flex flex-wrap justify-content-around" ]
                         [ span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Chaleur" ]
@@ -1179,22 +1142,19 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                             , inlineDocumentationLink config Gitbook.TextileElectricity
                             ]
                         ]
-
-                  else
-                    text ""
                 , surfaceInfoView inputs current
                 , ennoblingToxicityView db config current
                 , pickingView current.picking
                 , threadDensityView current.threadDensity
                 , makingWasteView config current.waste
                 , deadstockView config current.deadstock
-                , if current.label == Label.EndOfLife then
+                , showIf (current.label == Label.EndOfLife) <|
                     li [ class "list-group-item text-muted" ]
                         [ div [ class "d-flex justify-content-between" ]
                             [ text "Fin de vie"
                             , Format.formatImpact selectedImpact current.impacts
                             ]
-                        , if selectedImpact.trigram == Definition.Ecs then
+                        , showIf (selectedImpact.trigram == Definition.Ecs) <|
                             div [ class "text-start mt-2" ]
                                 [ span [ class "fw-bold" ] [ text "Complément" ]
                                 , div [ class "d-flex justify-content-between" ]
@@ -1211,13 +1171,7 @@ detailedView ({ db, inputs, selectedImpact, current } as config) =
                                         ]
                                     ]
                                 ]
-
-                          else
-                            text ""
                         ]
-
-                  else
-                    text ""
                 ]
             ]
         ]
@@ -1232,9 +1186,9 @@ view config =
                 viewMaterials config
 
              else if config.showAdvancedFields then
-                detailedView config
+                advancedView config
 
              else
-                simpleView config
+                regulatoryView config
             )
     }
