@@ -444,9 +444,9 @@ stepActions : Config msg modal -> Label -> Html msg
 stepActions { current, showAdvancedFields, toggleStep } label =
     let
         allowDisablingStep =
-            [ Label.Distribution, Label.Use, Label.EndOfLife ]
-                |> List.member current.label
-                |> not
+            showAdvancedFields
+                -- Regulatory mode only allow disabling Spinning, Fabric and Ennobling steps
+                || List.member current.label [ Label.Spinning, Label.Fabric, Label.Ennobling ]
     in
     div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
@@ -457,7 +457,7 @@ stepActions { current, showAdvancedFields, toggleStep } label =
                 , target "_blank"
                 ]
                 [ Icon.question ]
-            , showIf (showAdvancedFields && allowDisablingStep) <|
+            , showIf allowDisablingStep <|
                 input
                     [ type_ "checkbox"
                     , class "form-check-input ms-1 no-outline"

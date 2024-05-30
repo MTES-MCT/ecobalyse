@@ -217,7 +217,17 @@ isAdvancedQuery query =
         , query.yarnSize /= Nothing
         , query.surfaceMass /= Nothing
         , query.fabricProcess /= Fabric.default
-        , query.disabledSteps /= []
+        , query.disabledSteps
+            |> List.any
+                (\label ->
+                    List.member label
+                        [ Label.Material
+                        , Label.Making
+                        , Label.Distribution
+                        , Label.Use
+                        , Label.EndOfLife
+                        ]
+                )
         , query.dyeingMedium /= Nothing
         ]
 
@@ -234,7 +244,15 @@ regulatory query =
         , yarnSize = Nothing
         , surfaceMass = Nothing
         , fabricProcess = Fabric.default
-        , disabledSteps = []
+        , disabledSteps =
+            query.disabledSteps
+                |> List.filter
+                    (\label ->
+                        -- keep only these 3 disablable steps in regulatory mode
+                        -- all others will be implicitely re-enabled
+                        [ Label.Spinning, Label.Fabric, Label.Ennobling ]
+                            |> List.member label
+                    )
         , dyeingMedium = Nothing
     }
 
