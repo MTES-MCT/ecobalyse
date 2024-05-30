@@ -1095,13 +1095,13 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     { tabs =
                         [ { label =
                                 "Mode règlementaire"
-                                    |> tabLabel "N'affiche que les champs proposés réglementairement"
+                                    |> tabLabel "N’affiche que les champs proposés dans le projet de cadre réglementaire"
                           , active = model.activeTab == RegulatoryTab
                           , onTabClick = SwitchTab RegulatoryTab
                           }
                         , { label =
                                 "Mode avancé"
-                                    |> tabLabel "Affiche des champs supplémentaires, hors cadre règlementaire"
+                                    |> tabLabel "Affiche des champs supplémentaires, hors cadre réglementaire"
                           , active = model.activeTab == AdvancedTab
                           , onTabClick = SwitchTab AdvancedTab
                           }
