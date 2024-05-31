@@ -1,6 +1,7 @@
 module Data.Textile.Fabric exposing
     ( Fabric(..)
     , decode
+    , default
     , encode
     , fabricProcesses
     , fromString
@@ -39,6 +40,11 @@ decode =
 encode : Fabric -> Encode.Value
 encode =
     toString >> Encode.string
+
+
+default : Fabric
+default =
+    KnittingMix
 
 
 fabricProcesses : List Fabric

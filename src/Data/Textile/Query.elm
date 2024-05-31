@@ -8,8 +8,10 @@ module Data.Textile.Query exposing
     , decode
     , default
     , encode
+    , isAdvancedQuery
     , jupeCotonAsie
     , parseBase64Query
+    , regulatory
     , removeMaterial
     , tShirtCotonFrance
     , toggleStep
@@ -205,6 +207,60 @@ removeMaterial materialId query =
            )
 
 
+isAdvancedQuery : Query -> Bool
+isAdvancedQuery query =
+    List.any identity
+        [ query.materials |> List.any (.spinning >> (/=) Nothing)
+        , query.makingWaste /= Nothing
+        , query.makingDeadStock /= Nothing
+        , query.makingComplexity /= Nothing
+        , query.yarnSize /= Nothing
+        , query.surfaceMass /= Nothing
+        , query.fabricProcess /= Fabric.default
+        , query.disabledSteps
+            |> List.any
+                (\label ->
+                    -- If these steps are disabled, it means we're in advanced mode
+                    List.member label
+                        [ Label.Making
+                        , Label.Distribution
+                        , Label.Use
+                        , Label.EndOfLife
+                        ]
+                )
+        , query.dyeingMedium /= Nothing
+        ]
+
+
+{-| Resets a query to use only regulatory-level fields.
+-}
+regulatory : Query -> Query
+regulatory query =
+    { query
+        | materials = query.materials |> List.map (\m -> { m | spinning = Nothing })
+        , makingWaste = Nothing
+        , makingDeadStock = Nothing
+        , makingComplexity = Nothing
+        , yarnSize = Nothing
+        , surfaceMass = Nothing
+        , fabricProcess = Fabric.default
+        , disabledSteps =
+            query.disabledSteps
+                |> List.filter
+                    (\label ->
+                        -- keep only these 4 disablable steps in regulatory mode
+                        -- all others will be implicitely re-enabled
+                        List.member label
+                            [ Label.Material
+                            , Label.Spinning
+                            , Label.Fabric
+                            , Label.Ennobling
+                            ]
+                    )
+        , dyeingMedium = Nothing
+    }
+
+
 toggleStep : Label -> Query -> Query
 toggleStep label query =
     { query
@@ -332,7 +388,7 @@ default =
     , makingComplexity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
-    , fabricProcess = Fabric.KnittingMix
+    , fabricProcess = Fabric.default
     , disabledSteps = []
     , fading = Nothing
     , dyeingMedium = Nothing

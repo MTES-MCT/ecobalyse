@@ -56,6 +56,7 @@ import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelector
 import Views.Bookmark as BookmarkView
 import Views.Button as Button
+import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
@@ -74,9 +75,9 @@ type alias Model =
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
     , initialQuery : Query
-    , detailedStep : Maybe Int
     , impact : Definition
     , modal : Modal
+    , activeTab : Tab
     , activeImpactsTab : ImpactTabs.Tab
     }
 
@@ -85,12 +86,19 @@ type Modal
     = NoModal
     | ComparatorModal
     | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    | ConfirmSwitchToRegulatoryModal
     | SelectExampleModal (Autocomplete Query)
     | SelectProductModal (Autocomplete Product.Id)
 
 
+type Tab
+    = RegulatoryTab
+    | AdvancedTab
+
+
 type Msg
     = AddMaterial Material
+    | ConfirmSwitchToRegulatory
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
@@ -111,10 +119,10 @@ type Msg
     | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
+    | SwitchTab Tab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleFading Bool
     | ToggleStep Label
-    | ToggleStepDetails Int
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
@@ -160,9 +168,14 @@ init trigram maybeUrlQuery session =
             else
                 ComparatorView.Steps
       , initialQuery = initialQuery
-      , detailedStep = Nothing
       , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
+      , activeTab =
+            if Query.isAdvancedQuery initialQuery then
+                AdvancedTab
+
+            else
+                RegulatoryTab
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session
@@ -208,9 +221,14 @@ initFromExample session uuid =
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , initialQuery = exampleQuery
-      , detailedStep = Nothing
       , impact = Definition.get Definition.Ecs session.db.definitions
       , modal = NoModal
+      , activeTab =
+            if Query.isAdvancedQuery exampleQuery then
+                AdvancedTab
+
+            else
+                RegulatoryTab
       , activeImpactsTab = ImpactTabs.StepImpactsTab
       }
     , session
@@ -266,110 +284,106 @@ updateQuery query ( model, session, commands ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries, navKey } as session) msg model =
+update ({ db, queries, navKey } as session) msg model =
     let
         query =
             queries.textile
     in
-    case msg of
-        AddMaterial material ->
+    case ( msg, model.modal ) of
+        ( AddMaterial material, _ ) ->
             update session (SetModal NoModal) model
                 |> updateQuery (Query.addMaterial material query)
 
-        CopyToClipBoard shareableLink ->
+        ( ConfirmSwitchToRegulatory, _ ) ->
+            ( { model | modal = NoModal, activeTab = RegulatoryTab }, session, Cmd.none )
+                |> updateQuery (Query.regulatory query)
+
+        ( CopyToClipBoard shareableLink, _ ) ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        DeleteBookmark bookmark ->
+        ( DeleteBookmark bookmark, _ ) ->
             ( model
             , session |> Session.deleteBookmark bookmark
             , Cmd.none
             )
 
-        NoOp ->
+        ( NoOp, _ ) ->
             ( model, session, Cmd.none )
 
-        OpenComparator ->
+        ( OpenComparator, _ ) ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
 
-        OnAutocompleteExample autocompleteMsg ->
-            case model.modal of
-                SelectExampleModal autocompleteState ->
-                    let
-                        ( newAutocompleteState, autoCompleteCmd ) =
-                            Autocomplete.update autocompleteMsg autocompleteState
-                    in
-                    ( { model | modal = SelectExampleModal newAutocompleteState }
-                    , session
-                    , Cmd.map OnAutocompleteExample autoCompleteCmd
-                    )
+        ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = SelectExampleModal newAutocompleteState }
+            , session
+            , Cmd.map OnAutocompleteExample autoCompleteCmd
+            )
 
-                _ ->
-                    ( model, session, Cmd.none )
+        ( OnAutocompleteExample _, _ ) ->
+            ( model, session, Cmd.none )
 
-        OnAutocompleteProduct autocompleteMsg ->
-            case model.modal of
-                SelectProductModal autocompleteState ->
-                    let
-                        ( newAutocompleteState, autoCompleteCmd ) =
-                            Autocomplete.update autocompleteMsg autocompleteState
-                    in
-                    ( { model | modal = SelectProductModal newAutocompleteState }
-                    , session
-                    , Cmd.map OnAutocompleteProduct autoCompleteCmd
-                    )
+        ( OnAutocompleteProduct autocompleteMsg, SelectProductModal autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = SelectProductModal newAutocompleteState }
+            , session
+            , Cmd.map OnAutocompleteProduct autoCompleteCmd
+            )
 
-                _ ->
-                    ( model, session, Cmd.none )
+        ( OnAutocompleteProduct _, _ ) ->
+            ( model, session, Cmd.none )
 
-        OnAutocompleteMaterial autocompleteMsg ->
-            case model.modal of
-                AddMaterialModal maybeOldMaterial autocompleteState ->
-                    let
-                        ( newAutocompleteState, autoCompleteCmd ) =
-                            Autocomplete.update autocompleteMsg autocompleteState
-                    in
-                    ( { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
-                    , session
-                    , Cmd.map OnAutocompleteMaterial autoCompleteCmd
-                    )
+        ( OnAutocompleteMaterial autocompleteMsg, AddMaterialModal maybeOldMaterial autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
+            , session
+            , Cmd.map OnAutocompleteMaterial autoCompleteCmd
+            )
 
-                _ ->
-                    ( model, session, Cmd.none )
+        ( OnAutocompleteMaterial _, _ ) ->
+            ( model, session, Cmd.none )
 
-        OnAutocompleteSelect ->
-            case model.modal of
-                AddMaterialModal maybeOldMaterial autocompleteState ->
-                    updateMaterial query model session maybeOldMaterial autocompleteState
+        ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
+            updateMaterial query model session maybeOldMaterial autocompleteState
 
-                SelectExampleModal autocompleteState ->
-                    ( model, session, Cmd.none )
-                        |> selectExample autocompleteState
+        ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
+            ( model, session, Cmd.none )
+                |> selectExample autocompleteState
 
-                SelectProductModal autocompleteState ->
-                    ( model, session, Cmd.none )
-                        |> selectProduct autocompleteState
+        ( OnAutocompleteSelect, SelectProductModal autocompleteState ) ->
+            ( model, session, Cmd.none )
+                |> selectProduct autocompleteState
 
-                _ ->
-                    ( model, session, Cmd.none )
+        ( OnAutocompleteSelect, _ ) ->
+            ( model, session, Cmd.none )
 
-        OnStepClick stepId ->
+        ( OnStepClick stepId, _ ) ->
             ( model
             , session
             , Ports.scrollIntoView stepId
             )
 
-        RemoveMaterial materialId ->
+        ( RemoveMaterial materialId, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeMaterial materialId query)
 
-        Reset ->
+        ( Reset, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery model.initialQuery
 
-        SaveBookmark ->
+        ( SaveBookmark, _ ) ->
             ( model
             , session
             , Time.now
@@ -379,7 +393,7 @@ update ({ queries, navKey } as session) msg model =
                     )
             )
 
-        SaveBookmarkWithTime name foodQuery now ->
+        ( SaveBookmarkWithTime name foodQuery now, _ ) ->
             ( model
             , session
                 |> Session.saveBookmark
@@ -390,25 +404,31 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        SelectAllBookmarks ->
+        ( SelectAllBookmarks, _ ) ->
             ( model, Session.selectAllBookmarks session, Cmd.none )
 
-        SelectNoBookmarks ->
+        ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
-        SetModal NoModal ->
+        ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
             , session
             , commandsForNoModal model.modal
             )
 
-        SetModal ComparatorModal ->
+        ( SetModal ComparatorModal, _ ) ->
             ( { model | modal = ComparatorModal }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
 
-        SetModal (AddMaterialModal maybeOldMaterial autocomplete) ->
+        ( SetModal ConfirmSwitchToRegulatoryModal, _ ) ->
+            ( { model | modal = ConfirmSwitchToRegulatoryModal }
+            , session
+            , Cmd.none
+            )
+
+        ( SetModal (AddMaterialModal maybeOldMaterial autocomplete), _ ) ->
             ( { model | modal = AddMaterialModal maybeOldMaterial autocomplete }
             , session
             , Cmd.batch
@@ -418,28 +438,28 @@ update ({ queries, navKey } as session) msg model =
                 ]
             )
 
-        SetModal (SelectExampleModal autocomplete) ->
+        ( SetModal (SelectExampleModal autocomplete), _ ) ->
             ( { model | modal = SelectExampleModal autocomplete }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
 
-        SetModal (SelectProductModal autocomplete) ->
+        ( SetModal (SelectProductModal autocomplete), _ ) ->
             ( { model | modal = SelectProductModal autocomplete }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
 
-        SwitchBookmarksTab bookmarkTab ->
+        ( SwitchBookmarksTab bookmarkTab, _ ) ->
             ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
 
-        SwitchComparisonType displayChoice ->
+        ( SwitchComparisonType displayChoice, _ ) ->
             ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
-        SwitchImpact (Ok trigram) ->
+        ( SwitchImpact (Ok trigram), _ ) ->
             ( model
             , session
             , Just query
@@ -448,71 +468,69 @@ update ({ queries, navKey } as session) msg model =
                 |> Navigation.pushUrl navKey
             )
 
-        SwitchImpact (Err error) ->
+        ( SwitchImpact (Err error), _ ) ->
             ( model
             , session |> Session.notifyError "Erreur de sélection d'impact: " error
             , Cmd.none
             )
 
-        SwitchImpactsTab impactsTab ->
+        ( SwitchImpactsTab impactsTab, _ ) ->
             ( { model | activeImpactsTab = impactsTab }
             , session
             , Cmd.none
             )
 
-        ToggleComparedSimulation bookmark checked ->
+        ( SwitchTab RegulatoryTab, _ ) ->
+            if Query.isAdvancedQuery query then
+                ( { model | modal = ConfirmSwitchToRegulatoryModal }, session, Cmd.none )
+
+            else
+                ( { model | activeTab = RegulatoryTab }, session, Cmd.none )
+
+        ( SwitchTab AdvancedTab, _ ) ->
+            ( { model | activeTab = AdvancedTab }, session, Cmd.none )
+
+        ( ToggleComparedSimulation bookmark checked, _ ) ->
             ( model
             , session |> Session.toggleComparedSimulation bookmark checked
             , Cmd.none
             )
 
-        ToggleFading fading ->
+        ( ToggleFading fading, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | fading = Just fading }
 
-        ToggleStep label ->
+        ( ToggleStep label, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.toggleStep label query)
 
-        ToggleStepDetails index ->
-            ( { model
-                | detailedStep = toggleStepDetails index model.detailedStep
-              }
-            , session
-            , Cmd.none
-            )
-
-        UpdateAirTransportRatio airTransportRatio ->
+        ( UpdateAirTransportRatio airTransportRatio, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
 
-        UpdateBookmarkName newName ->
+        ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        UpdateBusiness (Ok business) ->
+        ( UpdateBusiness (Ok business), _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | business = Just business }
 
-        UpdateBusiness (Err error) ->
+        ( UpdateBusiness (Err error), _ ) ->
             ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
 
-        UpdateDyeingMedium dyeingMedium ->
+        ( UpdateDyeingMedium dyeingMedium, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
 
-        UpdateEcotoxWeighting (Just ratio) ->
-            let
-                db =
-                    session.db
-            in
+        ( UpdateEcotoxWeighting (Just ratio), _ ) ->
             ( model, { session | db = Db.updateEcotoxWeighting db ratio }, Cmd.none )
                 -- triggers recompute
                 |> updateQuery query
 
-        UpdateEcotoxWeighting Nothing ->
+        ( UpdateEcotoxWeighting Nothing, _ ) ->
             ( model, session, Cmd.none )
 
-        UpdateFabricProcess fabricProcess ->
+        ( UpdateFabricProcess fabricProcess, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery
                     { query
@@ -533,23 +551,23 @@ update ({ queries, navKey } as session) msg model =
                                 |> Result.toMaybe
                     }
 
-        UpdateMakingComplexity makingComplexity ->
+        ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingComplexity = Just makingComplexity }
 
-        UpdateMakingWaste makingWaste ->
+        ( UpdateMakingWaste makingWaste, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingWaste = makingWaste }
 
-        UpdateMakingDeadStock makingDeadStock ->
+        ( UpdateMakingDeadStock makingDeadStock, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingDeadStock = makingDeadStock }
 
-        UpdateMarketingDuration marketingDuration ->
+        ( UpdateMarketingDuration marketingDuration, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | marketingDuration = marketingDuration }
 
-        UpdateMassInput massInput ->
+        ( UpdateMassInput massInput, _ ) ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
                     ( model, session, Cmd.none )
@@ -558,55 +576,41 @@ update ({ queries, navKey } as session) msg model =
                 Nothing ->
                     ( model, session, Cmd.none )
 
-        UpdateMaterial oldMaterial newMaterial ->
+        ( UpdateMaterial oldMaterial newMaterial, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateMaterial oldMaterial.id newMaterial query)
 
-        UpdateMaterialSpinning material spinning ->
+        ( UpdateMaterialSpinning material spinning, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateMaterialSpinning material spinning query)
 
-        UpdateNumberOfReferences numberOfReferences ->
+        ( UpdateNumberOfReferences numberOfReferences, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | numberOfReferences = numberOfReferences }
 
-        UpdatePrice price ->
+        ( UpdatePrice price, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | price = price }
 
-        UpdatePrinting printing ->
+        ( UpdatePrinting printing, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | printing = printing }
 
-        UpdateStepCountry label code ->
+        ( UpdateStepCountry label code, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateStepCountry label code query)
 
-        UpdateSurfaceMass surfaceMass ->
+        ( UpdateSurfaceMass surfaceMass, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | surfaceMass = surfaceMass }
 
-        UpdateTraceability traceability ->
+        ( UpdateTraceability traceability, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | traceability = Just traceability }
 
-        UpdateYarnSize yarnSize ->
+        ( UpdateYarnSize yarnSize, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
-
-
-toggleStepDetails : Int -> Maybe Int -> Maybe Int
-toggleStepDetails index detailedStep =
-    detailedStep
-        |> Maybe.map
-            (\current ->
-                if index == current then
-                    Nothing
-
-                else
-                    Just index
-            )
-        |> Maybe.withDefault (Just index)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -919,7 +923,7 @@ massField massInput =
 
 
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { detailedStep, impact } simulator =
+lifeCycleStepsView db { activeTab, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
@@ -928,11 +932,11 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , current = current
                     , daysOfWear = simulator.daysOfWear
                     , useNbCycles = simulator.useNbCycles
-                    , detailedStep = detailedStep
                     , index = index
                     , inputs = simulator.inputs
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
                     , selectedImpact = impact
+                    , showAdvancedFields = activeTab == AdvancedTab
 
                     -- Events
                     , addMaterialModal = AddMaterialModal
@@ -940,7 +944,6 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
                     , setModal = SetModal
                     , toggleFading = ToggleFading
                     , toggleStep = ToggleStep
-                    , toggleStepDetails = ToggleStepDetails
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
@@ -968,109 +971,147 @@ lifeCycleStepsView db { detailedStep, impact } simulator =
         |> div [ class "pt-1" ]
 
 
+simulatorFormView : Session -> Model -> Simulator -> List (Html Msg)
+simulatorFormView session model ({ inputs } as simulator) =
+    [ div [ class "row align-items-start flex-md-columns g-2 mb-3" ]
+        [ div [ class "col-md-9" ]
+            [ ExampleView.view
+                { currentQuery = session.queries.textile
+                , emptyQuery = Query.default
+                , examples = session.db.textile.examples
+                , helpUrl = Just Gitbook.TextileExamples
+                , onOpen = SelectExampleModal >> SetModal
+                , routes =
+                    { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                    , load = Route.TextileSimulatorExample
+                    , scopeHome = Route.TextileSimulatorHome
+                    }
+                }
+            ]
+        , div [ class "col-md-3" ]
+            [ inputs.mass
+                |> Mass.inKilograms
+                |> String.fromFloat
+                |> massField
+            ]
+        ]
+    , div [ class "card shadow-sm pb-2 mb-3" ]
+        [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ span [ class "d-none d-sm-flex" ] [ text "Coefficient de durabilité\u{00A0}:" ]
+                , simulator.durability
+                    |> Unit.durabilityToFloat
+                    |> Format.formatFloat 2
+                    |> text
+                , Button.docsPillLink
+                    [ class "bg-secondary"
+                    , style "height" "24px"
+                    , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
+                    , title "Documentation"
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
+            ]
+        , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-6" ]
+                [ productCategoryField session.db.textile (Inputs.toQuery inputs)
+                ]
+            , div [ class "col-md-6" ]
+                [ inputs.numberOfReferences
+                    |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                    |> numberOfReferencesField
+                ]
+            ]
+        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-6" ]
+                [ inputs.price
+                    |> Maybe.withDefault inputs.product.economics.price
+                    |> productPriceField
+                ]
+            , div [ class "col-md-6" ]
+                [ inputs.marketingDuration
+                    |> Maybe.withDefault inputs.product.economics.marketingDuration
+                    |> marketingDurationField
+                ]
+            ]
+        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-8" ]
+                [ inputs.business
+                    |> Maybe.withDefault inputs.product.economics.business
+                    |> businessField
+                ]
+            , div [ class "col-md-4" ]
+                [ inputs.traceability
+                    |> Maybe.withDefault inputs.product.economics.traceability
+                    |> traceabilityField
+                ]
+            ]
+        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-2" ] [ text "Matières" ]
+            , div [ class "col-md-10" ]
+                [ div [ class "fw-bold" ]
+                    [ Inputs.getMaterialsOriginShares inputs.materials
+                        |> Economics.computeMaterialsOriginIndex
+                        |> Tuple.second
+                        |> text
+                    ]
+                , small [ class "text-muted fs-8 lh-sm" ]
+                    [ text "Le type de matière retenu dépend de la composition du vêtement détaillée ci-dessous" ]
+                ]
+            ]
+        ]
+    , div []
+        [ lifeCycleStepsView session.db model simulator
+        , div [ class "d-flex align-items-center justify-content-between mt-3" ]
+            [ a [ Route.href Route.Home ]
+                [ text "« Retour à l'accueil" ]
+            , button
+                [ class "btn btn-secondary"
+                , onClick Reset
+                , disabled (session.queries.textile == model.initialQuery)
+                ]
+                [ text "Réinitialiser le produit" ]
+            ]
+        ]
+    ]
+
+
 simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView session model ({ inputs, impacts } as simulator) =
+    let
+        tabLabel help name =
+            span [ class "d-flex justify-content-between align-items-center gap-1" ]
+                [ span [ class "d-flex flex-fill justify-content-center" ] [ text name ]
+                , span [ class "text-muted fs-8 cursor-help opacity-50", title help ] [ Icon.question ]
+                ]
+    in
     div [ class "row" ]
         [ div [ class "col-lg-8" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , div [ class "row align-items-start flex-md-columns mb-3" ]
-                [ div [ class "col-md-9" ]
-                    [ -- Inputs.toQuery inputs
-                      -- |> exampleProductField session.db.textile.exampleProducts
-                      ExampleView.view
-                        { currentQuery = session.queries.textile
-                        , emptyQuery = Query.default
-                        , examples = session.db.textile.examples
-                        , helpUrl = Just Gitbook.TextileExamples
-                        , onOpen = SelectExampleModal >> SetModal
-                        , routes =
-                            { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
-                            , load = Route.TextileSimulatorExample
-                            , scopeHome = Route.TextileSimulatorHome
-                            }
-                        }
-                    ]
-                , div [ class "col-md-3" ] [ massField (String.fromFloat (Mass.inKilograms inputs.mass)) ]
-                ]
-            , div [ class "card shadow-sm pb-2 mb-3" ]
-                [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-                    [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
-                    , div [ class "d-flex align-items-center gap-2" ]
-                        [ span [ class "d-none d-sm-flex" ] [ text "Coefficient de durabilité\u{00A0}:" ]
-                        , simulator.durability
-                            |> Unit.durabilityToFloat
-                            |> Format.formatFloat 2
-                            |> text
-                        , Button.docsPillLink
-                            [ class "bg-secondary"
-                            , style "height" "24px"
-                            , href (Gitbook.publicUrlFromPath Gitbook.TextileDurability)
-                            , title "Documentation"
-                            , target "_blank"
-                            ]
-                            [ Icon.question ]
+            , div [ class "d-flex flex-column sticky-md-top" ]
+                [ CardTabs.view
+                    { tabs =
+                        [ { label =
+                                "Mode règlementaire"
+                                    |> tabLabel "N’affiche que les champs proposés dans le projet de cadre réglementaire"
+                          , active = model.activeTab == RegulatoryTab
+                          , onTabClick = SwitchTab RegulatoryTab
+                          }
+                        , { label =
+                                "Mode avancé"
+                                    |> tabLabel "Affiche des champs supplémentaires, hors cadre réglementaire"
+                          , active = model.activeTab == AdvancedTab
+                          , onTabClick = SwitchTab AdvancedTab
+                          }
                         ]
-                    ]
-                , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ div [ class "col-md-6" ]
-                        [ productCategoryField session.db.textile (Inputs.toQuery inputs)
-                        ]
-                    , div [ class "col-md-6" ]
-                        [ inputs.numberOfReferences
-                            |> Maybe.withDefault inputs.product.economics.numberOfReferences
-                            |> numberOfReferencesField
-                        ]
-                    ]
-                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ div [ class "col-md-6" ]
-                        [ inputs.price
-                            |> Maybe.withDefault inputs.product.economics.price
-                            |> productPriceField
-                        ]
-                    , div [ class "col-md-6" ]
-                        [ inputs.marketingDuration
-                            |> Maybe.withDefault inputs.product.economics.marketingDuration
-                            |> marketingDurationField
-                        ]
-                    ]
-                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ div [ class "col-md-8" ]
-                        [ inputs.business
-                            |> Maybe.withDefault inputs.product.economics.business
-                            |> businessField
-                        ]
-                    , div [ class "col-md-4" ]
-                        [ inputs.traceability
-                            |> Maybe.withDefault inputs.product.economics.traceability
-                            |> traceabilityField
-                        ]
-                    ]
-                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-                    [ div [ class "col-md-2" ] [ text "Matières" ]
-                    , div [ class "col-md-10" ]
-                        [ div [ class "fw-bold" ]
-                            [ Inputs.getMaterialsOriginShares inputs.materials
-                                |> Economics.computeMaterialsOriginIndex
-                                |> Tuple.second
-                                |> text
-                            ]
-                        , small [ class "text-muted fs-8 lh-sm" ]
-                            [ text "Le type de matière retenu dépend de la composition du vêtement détaillée ci-dessous" ]
-                        ]
-                    ]
-                ]
-            , div []
-                [ lifeCycleStepsView session.db model simulator
-                , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
-                    [ a [ Route.href Route.Home ]
-                        [ text "« Retour à l'accueil" ]
-                    , button
-                        [ class "btn btn-secondary"
-                        , onClick Reset
-                        , disabled (session.queries.textile == model.initialQuery)
-                        ]
-                        [ text "Réinitialiser le produit" ]
-                    ]
+                    , content =
+                        simulator
+                            |> simulatorFormView session model
+                            |> div [ class "card-body p-2" ]
+                            |> List.singleton
+                    }
                 ]
             ]
         , div [ class "col-lg-4 bg-white" ]
@@ -1164,6 +1205,34 @@ view session model =
                                 , toCategory = .origin >> Origin.toLabel
                                 }
 
+                        ConfirmSwitchToRegulatoryModal ->
+                            ModalView.view
+                                { size = ModalView.Standard
+                                , close = SetModal NoModal
+                                , noOp = NoOp
+                                , title = "Avertissement"
+                                , subTitle = Nothing
+                                , formAction = Nothing
+                                , content =
+                                    [ div [ class "p-3" ]
+                                        [ p []
+                                            [ text "Basculer en mode règlementaire réinitialisera les valeurs renseignées pour les champs avancés." ]
+                                        , p
+                                            [ class "d-flex justify-content-center align-items-center gap-1" ]
+                                            [ button
+                                                [ class "btn btn-primary"
+                                                , onClick ConfirmSwitchToRegulatory
+                                                ]
+                                                [ text "Confirmer" ]
+                                            , text "ou"
+                                            , button [ class "btn btn-link ps-0", onClick (SetModal NoModal) ]
+                                                [ text "rester en mode avancé" ]
+                                            ]
+                                        ]
+                                    ]
+                                , footer = []
+                                }
+
                         SelectExampleModal autocompleteState ->
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
@@ -1214,14 +1283,5 @@ subscriptions { modal } =
         NoModal ->
             Sub.none
 
-        ComparatorModal ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
-
-        AddMaterialModal _ _ ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
-
-        SelectExampleModal _ ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
-
-        SelectProductModal _ ->
+        _ ->
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))

@@ -41,8 +41,8 @@ view : ManagerConfig msg -> Html msg
 view cfg =
     CardTabs.view
         { tabs =
-            [ ( SaveTab, "Sauvegarder" )
-            , ( ShareTab, "Partager" )
+            [ ( SaveTab, text "Sauvegarder" )
+            , ( ShareTab, text "Partager" )
             ]
                 |> List.map
                     (\( tab, label ) ->

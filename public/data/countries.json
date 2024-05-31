@@ -1,7 +1,7 @@
 [
   {
     "code": "---",
-    "name": "Inconnu (par défaut)",
+    "name": "Pays inconnu (par défaut)",
     "zone": "Asia",
     "electricityProcessUuid": "4ee8150b0cbf3603e03345d780ba7a61",
     "heatProcessUuid": "heat-row",
