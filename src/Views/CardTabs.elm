@@ -13,15 +13,16 @@ type alias Tab msg =
 
 
 type alias Config msg =
-    { tabs : List (Tab msg)
+    { attrs : List (Attribute msg)
+    , tabs : List (Tab msg)
     , content : List (Html msg)
     }
 
 
 view : Config msg -> Html msg
-view { tabs, content } =
+view { attrs, tabs, content } =
     div [ class "CardTabs card shadow-sm" ]
-        (div [ class "card-header px-0 pb-0 border-bottom-0 bg-white sticky-md-top" ]
+        (div (class "card-header px-0 pb-0 border-bottom-0 bg-white" :: attrs)
             [ tabs
                 |> List.map
                     (\{ label, onTabClick, active } ->

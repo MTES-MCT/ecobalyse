@@ -45,7 +45,8 @@ type alias Config msg =
 view : Definitions -> Config msg -> Html msg
 view definitions { activeImpactsTab, impactDefinition, switchImpactsTab, total, complementsImpact, onStepClick, scoring, stepsImpacts, session } =
     CardTabs.view
-        { tabs =
+        { attrs = []
+        , tabs =
             (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated session then
                 [ ( StepImpactsTab, text "Étapes" )
                 , ( SubscoresTab, text "Sous-scores" )

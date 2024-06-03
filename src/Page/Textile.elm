@@ -975,18 +975,7 @@ simulatorFormView : Session -> Model -> Simulator -> List (Html Msg)
 simulatorFormView session model ({ inputs } as simulator) =
     [ div [ class "row align-items-start flex-md-columns g-2 mb-3" ]
         [ div [ class "col-md-9" ]
-            [ ExampleView.view
-                { currentQuery = session.queries.textile
-                , emptyQuery = Query.default
-                , examples = session.db.textile.examples
-                , helpUrl = Just Gitbook.TextileExamples
-                , onOpen = SelectExampleModal >> SetModal
-                , routes =
-                    { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
-                    , load = Route.TextileSimulatorExample
-                    , scopeHome = Route.TextileSimulatorHome
-                    }
-                }
+            [ text "TODO: sélecteur de catégorie de produit ici"
             ]
         , div [ class "col-md-3" ]
             [ inputs.mass
@@ -1088,11 +1077,26 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 ]
     in
     div [ class "row" ]
-        [ div [ class "col-lg-8" ]
+        [ div [ class "col-lg-8 bg-white" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
-            , div [ class "d-flex flex-column sticky-md-top" ]
+            , div [ class "sticky-md-top bg-white pb-3" ]
+                [ ExampleView.view
+                    { currentQuery = session.queries.textile
+                    , emptyQuery = Query.default
+                    , examples = session.db.textile.examples
+                    , helpUrl = Just Gitbook.TextileExamples
+                    , onOpen = SelectExampleModal >> SetModal
+                    , routes =
+                        { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                        , load = Route.TextileSimulatorExample
+                        , scopeHome = Route.TextileSimulatorHome
+                        }
+                    }
+                ]
+            , div [ class "d-flex flex-column bg-white" ]
                 [ CardTabs.view
-                    { tabs =
+                    { attrs = [ class "sticky-md-top", style "top" "50px" ]
+                    , tabs =
                         [ { label =
                                 "Mode règlementaire"
                                     |> tabLabel "N’affiche que les champs proposés dans le projet de cadre réglementaire"
@@ -1107,10 +1111,10 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                           }
                         ]
                     , content =
-                        simulator
+                        [ simulator
                             |> simulatorFormView session model
                             |> div [ class "card-body p-2" ]
-                            |> List.singleton
+                        ]
                     }
                 ]
             ]
