@@ -776,10 +776,10 @@ numberOfReferencesField numberOfReferences =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "number-of-references"
-            , class "col-sm-7 col-form-label text-truncate"
+            , class "col-sm-6 col-form-label text-truncate"
             ]
             [ text "Nombre de références" ]
-        , div [ class "col-sm-5" ]
+        , div [ class "col-sm-6" ]
             [ input
                 [ type_ "number"
                 , id "number-of-references"
@@ -803,10 +803,10 @@ productPriceField productPrice =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "product-price"
-            , class "col-sm-7 col-md-5 col-form-label text-truncate"
+            , class "col-sm-6 col-md-5 col-form-label text-truncate"
             ]
             [ text "Prix neuf" ]
-        , div [ class "col-sm-5 col-md-7" ]
+        , div [ class "col-sm-6 col-md-7" ]
             [ div [ class "input-group" ]
                 [ input
                     [ type_ "number"
@@ -829,10 +829,10 @@ marketingDurationField marketingDuration =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "marketing-duration"
-            , class "col-sm-7 col-form-label text-truncate"
+            , class "col-sm-6 col-form-label text-truncate"
             ]
             [ text "Durée de commercialisation" ]
-        , div [ class "col-sm-5" ]
+        , div [ class "col-sm-6" ]
             [ div [ class "input-group" ]
                 [ input
                     [ type_ "number"
