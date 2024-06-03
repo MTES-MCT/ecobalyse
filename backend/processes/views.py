@@ -1,14 +1,8 @@
-import json
-import logging
-import os
-from os.path import dirname, join
+from os.path import join
 
 from authentication.views import is_token_valid
 from django.conf import settings
-from django.contrib.auth import authenticate, login
-from django.core.exceptions import PermissionDenied
-from django.http import JsonResponse, response
-from django.shortcuts import redirect, render
+from django.http import JsonResponse
 
 # from django.shortcuts import resolve_url
 from django.utils.translation import gettext_lazy as _
