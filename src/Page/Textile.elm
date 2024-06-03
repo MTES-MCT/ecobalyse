@@ -754,7 +754,10 @@ productCategoryField { products } query =
                 |> Result.withDefault default
 
         autocompleteState =
-            AutocompleteSelector.init (nameFromProductId "") (List.map .id products)
+            products
+                |> List.sortBy .name
+                |> List.map .id
+                |> AutocompleteSelector.init (nameFromProductId "")
     in
     div [ class "d-flex flex-column" ]
         [ label [ for "selector-product", class "form-label text-truncate" ]
