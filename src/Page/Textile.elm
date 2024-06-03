@@ -756,15 +756,12 @@ productCategoryField { products } query =
         autocompleteState =
             AutocompleteSelector.init (nameFromProductId "") (List.map .id products)
     in
-    div [ class "row align-items-center g-2" ]
-        [ label
-            [ for "selector-product"
-            , class "col-sm-4 col-form-label text-truncate"
-            ]
+    div [ class "d-flex flex-column" ]
+        [ label [ for "selector-product", class "form-label text-truncate" ]
             [ text "Catégorie" ]
         , button
-            [ class "col-sm-8 flex-fill form-select ElementSelector text-start w-auto"
-            , id "selector-product"
+            [ id "selector-product"
+            , class "form-select ElementSelector text-start w-auto"
             , onClick (SetModal (SelectProductModal autocompleteState))
             ]
             [ query.product
@@ -806,10 +803,10 @@ productPriceField productPrice =
     div [ class "row align-items-center g-2" ]
         [ label
             [ for "product-price"
-            , class "col-sm-4 col-form-label text-truncate"
+            , class "col-sm-7 col-md-5 col-form-label text-truncate"
             ]
             [ text "Prix neuf" ]
-        , div [ class "col-sm-8" ]
+        , div [ class "col-sm-5 col-md-7" ]
             [ div [ class "input-group" ]
                 [ input
                     [ type_ "number"
@@ -859,29 +856,20 @@ marketingDurationField marketingDuration =
 
 businessField : Economics.Business -> Html Msg
 businessField business =
-    div [ class "row align-items-center g-2" ]
-        [ label
-            [ for "business"
-            , class "col-sm-3 col-form-label text-truncate"
+    [ Economics.SmallBusiness
+    , Economics.LargeBusinessWithoutServices
+    , Economics.LargeBusinessWithServices
+    ]
+        |> List.map
+            (\b ->
+                option [ value (Economics.businessToString b), selected (business == b) ]
+                    [ text (Economics.businessToLabel b) ]
+            )
+        |> select
+            [ id "business"
+            , class "form-select"
+            , onInput (Economics.businessFromString >> UpdateBusiness)
             ]
-            [ text "Entreprise" ]
-        , div [ class "col-sm-9" ]
-            [ [ Economics.SmallBusiness
-              , Economics.LargeBusinessWithoutServices
-              , Economics.LargeBusinessWithServices
-              ]
-                |> List.map
-                    (\b ->
-                        option [ value (Economics.businessToString b), selected (business == b) ]
-                            [ text (Economics.businessToLabel b) ]
-                    )
-                |> select
-                    [ id "business"
-                    , class "form-select"
-                    , onInput (Economics.businessFromString >> UpdateBusiness)
-                    ]
-            ]
-        ]
 
 
 traceabilityField : Bool -> Html Msg
@@ -974,10 +962,12 @@ lifeCycleStepsView db { activeTab, impact } simulator =
 simulatorFormView : Session -> Model -> Simulator -> List (Html Msg)
 simulatorFormView session model ({ inputs } as simulator) =
     [ div [ class "row align-items-start flex-md-columns g-2 mb-3" ]
-        [ div [ class "col-md-9" ]
-            [ text "TODO: sélecteur de catégorie de produit ici"
+        [ div [ class "col-md-8" ]
+            [ inputs
+                |> Inputs.toQuery
+                |> productCategoryField session.db.textile
             ]
-        , div [ class "col-md-3" ]
+        , div [ class "col-md-4" ]
             [ inputs.mass
                 |> Mass.inKilograms
                 |> String.fromFloat
@@ -988,7 +978,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
             [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ span [ class "d-none d-sm-flex" ] [ text "Coefficient de durabilité\u{00A0}:" ]
+                [ span [ class "d-none d-sm-flex text-truncate" ] [ text "Coefficient de durabilité\u{00A0}:" ]
                 , simulator.durability
                     |> Unit.durabilityToFloat
                     |> Format.formatFloat 2
@@ -1004,37 +994,35 @@ simulatorFormView session model ({ inputs } as simulator) =
                 ]
             ]
         , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-md-6" ]
-                [ productCategoryField session.db.textile (Inputs.toQuery inputs)
-                ]
-            , div [ class "col-md-6" ]
+            [ div [ class "col-md-8" ]
                 [ inputs.numberOfReferences
                     |> Maybe.withDefault inputs.product.economics.numberOfReferences
                     |> numberOfReferencesField
                 ]
-            ]
-        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-md-6" ]
+            , div [ class "col-md-4" ]
                 [ inputs.price
                     |> Maybe.withDefault inputs.product.economics.price
                     |> productPriceField
                 ]
-            , div [ class "col-md-6" ]
-                [ inputs.marketingDuration
-                    |> Maybe.withDefault inputs.product.economics.marketingDuration
-                    |> marketingDurationField
-                ]
             ]
         , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
             [ div [ class "col-md-8" ]
-                [ inputs.business
-                    |> Maybe.withDefault inputs.product.economics.business
-                    |> businessField
+                [ inputs.marketingDuration
+                    |> Maybe.withDefault inputs.product.economics.marketingDuration
+                    |> marketingDurationField
                 ]
             , div [ class "col-md-4" ]
                 [ inputs.traceability
                     |> Maybe.withDefault inputs.product.economics.traceability
                     |> traceabilityField
+                ]
+            ]
+        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-2" ] [ text "Entreprise" ]
+            , div [ class "col-md-10" ]
+                [ inputs.business
+                    |> Maybe.withDefault inputs.product.economics.business
+                    |> businessField
                 ]
             ]
         , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]

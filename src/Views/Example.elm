@@ -38,7 +38,7 @@ view config =
     div [ class "d-flex flex-row justify-content-between align-items-start gap-3" ]
         [ label [ for "selector-example", class "form-label fw-bold lh-lg mb-0" ]
             [ text "Exemples" ]
-        , div [ class "d-flex justify-content-between align-items-center flex-fill" ]
+        , div [ class "d-flex justify-content-between align-items-center flex-fill text-truncate" ]
             [ button
                 [ class "form-select ElementSelector text-start"
                 , id "selector-example"
