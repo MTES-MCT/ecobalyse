@@ -6,7 +6,7 @@ import Html.Events exposing (..)
 
 
 type alias Tab msg =
-    { label : String
+    { label : Html msg
     , active : Bool
     , onTabClick : msg
     }
@@ -20,8 +20,8 @@ type alias Config msg =
 
 view : Config msg -> Html msg
 view { tabs, content } =
-    div [ class "card shadow-sm" ]
-        (div [ class "card-header px-0 pb-0 border-bottom-0" ]
+    div [ class "CardTabs card shadow-sm" ]
+        (div [ class "card-header px-0 pb-0 border-bottom-0 bg-white sticky-md-top" ]
             [ tabs
                 |> List.map
                     (\{ label, onTabClick, active } ->
@@ -31,7 +31,7 @@ view { tabs, content } =
                                 , classList [ ( "active", active ) ]
                                 , onClick onTabClick
                                 ]
-                                [ text label ]
+                                [ label ]
                             ]
                     )
                 |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]

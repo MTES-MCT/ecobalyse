@@ -202,6 +202,12 @@ input {
   }
 }
 
+.opacity {
+  &-50 {
+    opacity: 0.5;
+  }
+}
+
 .sticky {
   &-sm-top,
   &-md-top,
@@ -583,6 +589,10 @@ q {
   .list-group-item {
     padding-top: 1.1em;
   }
+}
+
+.CardTabs {
+  border: 1px solid #ddd;
 }
 
 .ComparatorChart {
