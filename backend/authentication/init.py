@@ -6,7 +6,6 @@ def init():
     # create initial admins given by an env var. Mails separated by comma, with optional token
     # So the env var can be in the form: user@example.com=ABCDEFGH,user2@example.com,user3@example.com
     # this allows a user to have a persistent token among all the deployments
-    breakpoint()
     for admin in [
         m.strip().split("=") for m in config("BACKEND_ADMINS", "").split(",")
     ]:
