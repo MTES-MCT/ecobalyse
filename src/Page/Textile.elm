@@ -1248,8 +1248,8 @@ view session model =
                                 , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteProduct
                                 , onAutocompleteSelect = OnAutocompleteSelect
-                                , placeholderText = "tapez ici l'utilisation du produit pour le rechercher"
-                                , title = "Sélectionnez une utilisation de produit"
+                                , placeholderText = "tapez ici une catégorie pour la rechercher"
+                                , title = "Sélectionnez une catégorie de produit"
                                 , toLabel =
                                     \productId ->
                                         Product.findById productId session.db.textile.products
