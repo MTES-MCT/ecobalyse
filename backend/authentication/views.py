@@ -4,7 +4,6 @@ import logging
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
-from django.db import IntegrityError
 from django.http import Http404, JsonResponse, response
 from django.utils.translation import gettext_lazy as _
 from mailauth import signing
