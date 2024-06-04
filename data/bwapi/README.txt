@@ -62,5 +62,3 @@ https://bwapi.ecobalyse.fr/food/methods/EF%20v3.1/acidification/accumulated%20ex
 * The characterization factors of a method
 
 https://bwapi.ecobalyse.fr/food/characterization_factors/EF%20v3.1/acidification/accumulated%20exceedance%20(AE)
-
-
