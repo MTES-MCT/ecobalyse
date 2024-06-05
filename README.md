@@ -19,7 +19,7 @@ Ensure having a PostgreSQL >=16 server running locally.
 
 Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :
 
-    $ npm run backend:start
+    $ npm run start:backend
 
 ## Configuration
 
