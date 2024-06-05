@@ -88,11 +88,14 @@ class DjangoAuthenticationTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.content).get("success"), True)
 
-        # wrong json login url
-        response = self.client.get(
-            "/accounts/login/1::1ru4fl:Z3XQ1tyORtolai5tycqK99BjUgzefc7o-mfui0DQFa0?next=/"
-        )
-        self.assertEqual(response.status_code, 403)
+        with self.assertLogs(logger="mailauth.backends", level="ERROR") as cm:
+            # wrong json login url
+            response = self.client.get(
+                "/accounts/login/1::1ru4fl:Z3XQ1tyORtolai5tycqK99BjUgzefc7o-mfui0DQFa0?next=/"
+            )
+            self.assertEqual(response.status_code, 403)
+
+            self.assertIn("BadSignature", " ".join(cm.output))
 
         # right json login url (it's transmitted through environ in test mode)
         self.assertEqual(len(mail.outbox), 1)
