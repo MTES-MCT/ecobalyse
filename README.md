@@ -55,31 +55,30 @@ Trois instances de développement sont alors accessibles :
 - [localhost:8001](http://localhost:8001/) sert l'API ;
 - [localhost:1234](http://localhost:1234/) est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc`). Le frontend est servi en mode _hot-reload_, pour recharger! l'interface Web à chaque modification du code frontend.
 
-### Hooks Git avec Husky et Formatage de Code avec Prettier
+### Hooks Git avec pre-commit et Formatage de Code avec Prettier et Ruff
 
-Ce projet utilise Husky pour gérer les hooks Git, et Prettier pour le formatage automatique du code.
-Le build sur le CI échouera si les fichiers javascript et json ne sont pas proprement formattés.
-
-#### Pré-requis
-
-- Husky
-- Prettier
-
-Si vous clonez le dépôt pour la première fois, les dépendances devraient être installées automatiquement après avoir exécuté npm install. Si ce n'est pas le cas, vous pouvez les installer manuellement.
-
-    $ npm install --save-dev husky prettier
+Ce projet utilise https://pre-commit.com/ pour gérer les hooks Git ainsi que Prettier et Ruff pour le formatage automatique du code.
+Le build sur le CI échouera si les fichiers python, javascript et json ne sont pas proprement formattés.
 
 #### Vérification Automatique avant chaque Commit
 
-Un hook de pre-commit a été configuré pour vérifier que le code est bien formaté avant de permettre le commit. Si le code n'est pas correctement formaté, le commit sera bloqué.
+Pour installer les hooks pre-commit, exécutez la commande suivante :
 
-Pour résoudre ce problème, vous pouvez exécuter la commande suivante :
+    $ pipenv run pre-commit install
 
-    $ npm run format:json
+Un hook de pre-commit sera alors configuré pour vérifier que le code est bien formaté avant de permettre le commit. Le hook corrigera les erreurs dans la mesure du possible. Il vous suffira alors d'ajouter les modifications à votre staging, git puis à refaire votre commit.
 
-Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaler les hooks :
+Il est possible de lancer la vérification du formatage à la main grâce à la commande suivante :
 
-    $ npx husky uninstall
+    $ npm run lint:all
+
+Si vous voulez lancer la correction automatique de tous les problèmes détectés, lancez :
+
+    $ npm run fix:all
+
+Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaller pre-commit et les hooks associés :
+
+    $ pipenv run pre-commit uninstall
 
 ## Compilation
 

@@ -66,8 +66,8 @@ jobs:
     - name: Build Elm static Db
       run: npm run db:build
 
-    - name: Run prettier formatting check
-      run: npm run format:check
+    - name: Run prettier & ruff formatting check
+      run: npm run lint:all
 
     - name: Run elm-review
       run: npm run test:review
