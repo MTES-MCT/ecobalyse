@@ -782,7 +782,8 @@ ennoblingGenericFields : Config msg modal -> Html msg
 ennoblingGenericFields config =
     -- Note: this fieldset is rendered in both simple and detailed step views
     div [ class "d-flex flex-column gap-1" ]
-        [ dyeingMediumField config
+        [ showIf config.showAdvancedFields <|
+            dyeingMediumField config
         , printingFields config
         ]
 
