@@ -90,9 +90,7 @@ class DjangoAuthenticationTests(TestCase):
 
         with self.assertLogs(logger="mailauth.backends", level="ERROR") as cm:
             # wrong json login url
-            response = self.client.get(
-                "/accounts/login/1::1ru4fl:Z3XQ1tyORtolai5tycqK99BjUgzefc7o-mfui0DQFa0?next=/"
-            )
+            response = self.client.get("/accounts/login/invalid-token?next=/")
             self.assertEqual(response.status_code, 403)
 
             self.assertIn("BadSignature", " ".join(cm.output))
