@@ -20,15 +20,15 @@ On retrouve bien ce chiffre dans la réponse de l'API dans /impacts/ecs (ecs = e
 
 ### Comment le retrouver à partir des sous-impacts ?
 
-1\) Il faut faire la somme des sous-impacts en les normalisant/pondérant.
+1. Il faut faire la somme des sous-impacts en les normalisant/pondérant. On arrive à 7114 Pts.
 
 <figure><img src="../.gitbook/assets/image (103).png" alt="" width="375"><figcaption><p>Calcul de l'écoscore "ecs" à partir des sous-impacts et des compléments</p></figcaption></figure>
 
-2\) Il faut aussi ajouter les compléments (ici microfibers et outOfEuropeEOL) que l'on retrouve dans l'API sous complementsImpacts. On a comme valeur 194 Pts pour le compléments microfibres et 190 Pts pour le compléments fin de vie hors europe.
+2. Il faut aussi ajouter les compléments (ici microfibers et outOfEuropeEOL) que l'on retrouve dans l'API sous complementsImpacts. On a comme valeur 194 Pts pour le compléments microfibres et 190 Pts pour le compléments fin de vie hors europe.
 
 ![](<../.gitbook/assets/image (104).png>)
 
-Finalement on arrive bien sur 7498 Pts.
+En additionnant les compléments aux sous-impacts on a donc : 7114 + 194 + 190 = 7498 Pts. On retrouve bien le résultat attendu :)
 
 {% hint style="warning" %}
 Remarque : on peut voir que la valeur du compléments microfibre affiché dans l'UI est de 113 Pts, ce qui est différent de ce qui est affiché dans l'API (194 Pts).
