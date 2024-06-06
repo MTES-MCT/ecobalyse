@@ -43,6 +43,7 @@
   * [Travaux en cours](textile/travaux-en-cours.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
 * [Nous contacter](textile/nous-contacter.md)
+* [Aide API](textile/aide-api.md)
 
 ## 🍕 Alimentaire - /!\ DRAFT
 
