@@ -251,7 +251,6 @@ textileEndpoints db =
           in
           [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
-          , "fabricProcess=knitting-mix"
           , "materials[]=ei-coton;0.3;;FR"
           , "materials[]=coton-rdp;0.3;UnconventionalSpinning"
           , "materials[]=ei-pet;0.4"
