@@ -534,7 +534,7 @@ update ({ db, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery
                     { query
-                        | fabricProcess = fabricProcess
+                        | fabricProcess = Just fabricProcess
                         , makingWaste =
                             model.simulator
                                 |> Result.map

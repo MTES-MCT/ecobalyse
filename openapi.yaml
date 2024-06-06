@@ -794,7 +794,7 @@ components:
           - `knitting-circular` : Tricotage circulaire, inventaire désagrégé
           - `knitting-straight` : Tricotage rectiligne, inventaire désagrégé
           - `weaving`  : Tissage
-      required: true
+      required: false
       style: form
       schema:
         type: string
@@ -1238,7 +1238,7 @@ components:
           required: false
         fabricProcess:
           type: string
-          required: true
+          required: false
           enum:
             "$ref": "#/components/schemas/FabricProcessEnum"
         disabledSteps:

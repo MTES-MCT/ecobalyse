@@ -373,7 +373,7 @@ parseTextileQuery countries textile =
         |> apply (maybeMakingComplexityParser "makingComplexity")
         |> apply (maybeYarnSizeParser "yarnSize")
         |> apply (maybeSurfaceMassParser "surfaceMass")
-        |> apply (fabricParser "fabricProcess")
+        |> apply (maybeFabricParser "fabricProcess")
         |> apply (maybeDisabledStepsParser "disabledSteps")
         |> apply (maybeBoolParser "fading")
         |> apply (maybeDyeingMedium "dyeingMedium")
@@ -816,20 +816,20 @@ maybeSurfaceMassParser key =
             )
 
 
-fabricParser : String -> Parser (ParseResult Fabric)
-fabricParser key =
+maybeFabricParser : String -> Parser (ParseResult (Maybe Fabric))
+maybeFabricParser key =
     Query.string key
-        |> Query.map (Result.fromMaybe ( key, "Identifiant du type de tissu manquant." ))
         |> Query.map
-            (Result.andThen
+            (Maybe.map
                 (\str ->
                     case Fabric.fromString str of
-                        Ok fabricProcess ->
-                            Ok fabricProcess
+                        Ok fabric ->
+                            Ok (Just fabric)
 
                         Err err ->
                             Err ( key, err )
                 )
+                >> Maybe.withDefault (Ok Nothing)
             )
 
 
