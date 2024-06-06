@@ -510,10 +510,15 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
                 let
                     process =
                         inputs.fabricProcess
+                            |> Maybe.withDefault inputs.product.fabric
                             |> Fabric.getProcess textile.wellKnown
 
                     { kwh, threadDensity, picking, impacts } =
-                        if Fabric.isKnitted inputs.fabricProcess then
+                        if
+                            inputs.fabricProcess
+                                |> Maybe.withDefault inputs.product.fabric
+                                |> Fabric.isKnitted
+                        then
                             Formula.knittingImpacts step.impacts
                                 { elec = process.elec
                                 , countryElecProcess = country.electricityProcess

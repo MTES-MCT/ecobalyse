@@ -10,6 +10,7 @@ module Data.Textile.Inputs exposing
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
     , getTotalMicrofibersComplement
+    , isFabricOfType
     , isFaded
     , toQuery
     , toString
@@ -69,7 +70,7 @@ type alias Inputs =
     , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , fabricProcess : Fabric
+    , fabricProcess : Maybe Fabric
     , disabledSteps : List Label
     , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
@@ -260,7 +261,9 @@ stepsToStrings inputs =
         Nothing ->
             []
     , ifStepEnabled Label.Fabric
-        [ Fabric.toLabel inputs.fabricProcess
+        [ inputs.fabricProcess
+            |> Maybe.withDefault inputs.product.fabric
+            |> Fabric.toLabel
         , inputs.countryFabric.name
         ]
     , ifStepEnabled Label.Ennobling
@@ -471,6 +474,11 @@ computeMaterialTransport distances nextCountryCode { material, country, share } 
         Transport.default Impact.empty
 
 
+isFabricOfType : Fabric -> Inputs -> Bool
+isFabricOfType fabric { fabricProcess, product } =
+    fabric == Maybe.withDefault product.fabric fabricProcess
+
+
 encode : Inputs -> Encode.Value
 encode inputs =
     Encode.object
@@ -486,7 +494,7 @@ encode inputs =
         , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "fabricProcess", inputs.fabricProcess |> Fabric.encode )
+        , ( "fabricProcess", inputs.fabricProcess |> Maybe.map Fabric.encode |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         , ( "fading", inputs.fading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )

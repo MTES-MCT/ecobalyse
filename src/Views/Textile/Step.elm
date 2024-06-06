@@ -204,7 +204,13 @@ fabricProcessField { inputs, updateFabricProcess } =
                 (\fabricProcess ->
                     option
                         [ value <| Fabric.toString fabricProcess
-                        , selected <| inputs.fabricProcess == fabricProcess
+                        , selected <|
+                            case inputs.fabricProcess of
+                                Just fabric ->
+                                    fabricProcess == fabric
+
+                                Nothing ->
+                                    fabricProcess == inputs.product.fabric
                         ]
                         [ text <| Fabric.toLabel fabricProcess ]
                 )
@@ -335,7 +341,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
         , inlineDocumentationLink config Gitbook.TextileMakingComplexity
-        , if inputs.fabricProcess == Fabric.KnittingIntegral then
+        , if inputs |> Inputs.isFabricOfType Fabric.KnittingIntegral then
             text "Non applicable"
 
           else
@@ -356,7 +362,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
                 |> select
                     [ id "making-complexity"
                     , class "form-select form-select-sm w-75"
-                    , disabled (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
+                    , disabled (Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs)
                     , onInput
                         (MakingComplexity.fromString
                             >> Result.withDefault inputs.product.making.complexity
@@ -376,8 +382,8 @@ makingWasteField { current, inputs, updateMakingWaste } =
             , toString = Step.makingWasteToString
             , disabled =
                 not current.enabled
-                    || (inputs.fabricProcess == Fabric.KnittingFullyFashioned)
-                    || (inputs.fabricProcess == Fabric.KnittingIntegral)
+                    || Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs
+                    || Inputs.isFabricOfType Fabric.KnittingIntegral inputs
             , min = Env.minMakingWasteRatio |> Split.toPercent |> round
             , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
             }
@@ -782,7 +788,8 @@ ennoblingGenericFields : Config msg modal -> Html msg
 ennoblingGenericFields config =
     -- Note: this fieldset is rendered in both simple and detailed step views
     div [ class "d-flex flex-column gap-1" ]
-        [ dyeingMediumField config
+        [ showIf config.showAdvancedFields <|
+            dyeingMediumField config
         , printingFields config
         ]
 
