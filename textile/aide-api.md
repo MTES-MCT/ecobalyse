@@ -18,7 +18,7 @@ description: >-
 
 On retrouve bien ce chiffre dans la réponse de l'API dans /impacts/ecs (ecs = ecoscore)
 
-### Comment le retrouver à partir des sous-impacts ?
+### Comment retrouver ce résultat à partir des sous-impacts ?
 
 1. Il faut faire la somme des sous-impacts en les normalisant/pondérant. On arrive à 7114 Pts.
 
