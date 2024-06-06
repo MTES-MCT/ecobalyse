@@ -341,7 +341,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
         , inlineDocumentationLink config Gitbook.TextileMakingComplexity
-        , if inputs |> Inputs.fabricOfType Fabric.KnittingIntegral then
+        , if inputs |> Inputs.isFabricOfType Fabric.KnittingIntegral then
             text "Non applicable"
 
           else
@@ -362,7 +362,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
                 |> select
                     [ id "making-complexity"
                     , class "form-select form-select-sm w-75"
-                    , disabled (Inputs.fabricOfType Fabric.KnittingFullyFashioned inputs)
+                    , disabled (Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs)
                     , onInput
                         (MakingComplexity.fromString
                             >> Result.withDefault inputs.product.making.complexity
@@ -382,8 +382,8 @@ makingWasteField { current, inputs, updateMakingWaste } =
             , toString = Step.makingWasteToString
             , disabled =
                 not current.enabled
-                    || Inputs.fabricOfType Fabric.KnittingFullyFashioned inputs
-                    || Inputs.fabricOfType Fabric.KnittingIntegral inputs
+                    || Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs
+                    || Inputs.isFabricOfType Fabric.KnittingIntegral inputs
             , min = Env.minMakingWasteRatio |> Split.toPercent |> round
             , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
             }

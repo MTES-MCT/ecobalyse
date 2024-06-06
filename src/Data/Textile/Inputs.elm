@@ -4,13 +4,13 @@ module Data.Textile.Inputs exposing
     , computeMaterialTransport
     , countryList
     , encode
-    , fabricOfType
     , fromQuery
     , getMaterialMicrofibersComplement
     , getMaterialsOriginShares
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
     , getTotalMicrofibersComplement
+    , isFabricOfType
     , isFaded
     , toQuery
     , toString
@@ -474,8 +474,8 @@ computeMaterialTransport distances nextCountryCode { material, country, share } 
         Transport.default Impact.empty
 
 
-fabricOfType : Fabric -> Inputs -> Bool
-fabricOfType fabric { fabricProcess, product } =
+isFabricOfType : Fabric -> Inputs -> Bool
+isFabricOfType fabric { fabricProcess, product } =
     fabric == Maybe.withDefault product.fabric fabricProcess
 
 
