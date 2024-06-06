@@ -28,7 +28,7 @@ On retrouve bien ce chiffre dans la réponse de l'API dans /impacts/ecs (ecs = e
 
 ![](<../.gitbook/assets/image (104).png>)
 
-En additionnant les compléments aux sous-impacts on a donc : 7114 + 194 + 190 = 7498 Pts. On retrouve bien le résultat attendu :)
+En additionnant les compléments aux sous-impacts on a donc : 7114 + 194 + 190 = 7498 Pts. On retrouve bien le résultat attendu.
 
 {% hint style="warning" %}
 Remarque : on peut voir que la valeur du compléments microfibre affiché dans l'UI est de 113 Pts, ce qui est différent de ce qui est affiché dans l'API (194 Pts).
@@ -37,6 +37,6 @@ Remarque : on peut voir que la valeur du compléments microfibre affiché dans l
 
 
 
-En effet dans l'UI les valeurs sont affichés AVANT la prise en compte du coefficient de durabilité [durabilite.md](durabilite.md "mention"). Ainsi pour obtenir les valeurs finales il faut diviser le score par le coefficient de durabilité. \
+En effet dans l'UI les valeurs sont affichés AVANT la prise en compte du coefficient de  [durabilite.md](durabilite.md "mention"). Ainsi pour obtenir les valeurs finales il faut diviser le score par le coefficient de durabilité. \
 Pour le complément microfibres par exemple 113/0.58 \~ 195. On retrouve bien l'ordre de grandeur de 194 Pts affiché dans l'API.
 {% endhint %}
