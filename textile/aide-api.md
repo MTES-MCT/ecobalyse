@@ -45,12 +45,15 @@ Pour le complément microfibres par exemple 113/0.58 \~ 195. On retrouve bien l'
 
 Si l'on fait la somme de toutes les impacts de chaque étape du cycle de vie, on arrive à 4349 Pts. On est loin des 7498 Pts affiché dans l'interface, pourquoi ?
 
-<figure><img src="../.gitbook/assets/image (106).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (106).png" alt=""><figcaption><p>UI "Jean coton (450g) - Majorant par défaut" au 2024-06-06</p></figcaption></figure>
 
 Dans l'UI les valeurs (hors valeurs "total" dans l'encadré bleu) sont affichés AVANT la prise en compte du coefficient de  [durabilite.md](durabilite.md "mention"). Ainsi pour obtenir les valeurs finales il faut diviser le score par le coefficient de durabilité. On obtient bien ainsi 4349 /0.58 = 7498 Pts.\
 \
 Dans l'API le fonctionnement est le même. Dans la décomposition par étape du cycle de vie "lifecycle" les valeurs sont AVANT la prise en compte du coefficient de durabilité.\
 
 
-<figure><img src="../.gitbook/assets/image (109).png" alt="" width="371"><figcaption><p>API "Jean coton (450g) - Majorant par défaut" au 2024-06-06, impact "Matières premières"</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (109).png" alt="" width="371"><figcaption><p>API "Jean coton (450g) - Majorant par défaut" au 2024-06-06, impact "Matières premières" donc AVANT durabilité</p></figcaption></figure>
 
+De même que dans l'UI, hors décomposition par étapes du cycle de vie ("lifecycle"), les valeurs dans l'API sont APRES prise en compte du coefficient de durabilité.&#x20;
+
+<figure><img src="../.gitbook/assets/image.png" alt="" width="363"><figcaption><p>API "Jean coton (450g) - Majorant par défaut" au 2024-06-06, impact total donc APRES durabilité</p></figcaption></figure>

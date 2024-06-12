@@ -6,20 +6,20 @@ description: Page introduisant la notion d'exemples proposés au début du simul
 
 Le premier champ proposé sur le simulateur Ecobalyse textile propose de sélectionner un exemple.
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Capture d'écran (01/04/2024)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption><p>Capture d'écran (01/04/2024)</p></figcaption></figure>
 
 Les différents exemples proposés permettent d'initier la modélisation d'un vêtement à partir d'un exemple similaire (un jean pour un jean, un Tshirt pour un Tshirt...). **Ce choix initial permet de faciliter les modélisation mais ne remplace ensuite pas le paramétrage de chacun des champs proposés**. La page de documentation "[Paramétrage](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/887/textile/parametrage)" précise les paramètres qui peuvent ou doivent être renseignés suivant l'utilisation qui est faite de l'outil.
 
-Deux types d'exemples sont proposés en première approche :&#x20;
+Deux types d'exemples sont proposés en première approche :
 
 * des exemples paramétrés de façon "**majorante par défaut**"
 * des exemples **illustrant la diversité des cas qui peuvent être attendus**, en premier lieu pour des pulls et des Tshirts (début avril 2024)
 
 ## Exemples paramétrés de façon "majorante par défaut"
 
-Ces exemples "par défaut", sont définis, dans leur dénomination même, à travers les seuls paramètres qui les caractérisent :&#x20;
+Ces exemples "par défaut", sont définis, dans leur dénomination même, à travers les seuls paramètres qui les caractérisent :
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (7).png" alt=""><figcaption></figcaption></figure>
 
 * Catégorie de produit -> Le choix de ce paramètre permet de fixer, par défaut, la valeur de nombreux autres paramètres proposés dans la suite du calculateur. L'ensemble de ces valeurs par défaut sont accessibles dans la [rubrique "Produits" de l'explorateur](https://ecobalyse-v2.osc-fr1.scalingo.io/#/explore/textile/products).
 
@@ -34,13 +34,13 @@ Toute modélisation doit impérativement commencer par le choix d'un exemple de 
 * Matières -> Le choix de matière est un paramètre central. Il est donc précisé, même pour un exemple paramétré de façon "majorante par défaut". Ce paramètre doit donc impérativement être modifié si le produit modélisé n'est pas composé des mêmes matières que l'exemple paramétré de façon "majorante par défaut".
 * Masse -> Une masse par défaut est attachée à chaque catégorie de produit. Cette masse par défaut (170g pour un Tshirt) correspond à la valeur proposé dans le [projet de PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/). Ce paramètre étant crucial dans la modélisation, il est explicité dans les différents exemples paramétrés de façon "majorante par défaut" et il doit nécessairement être modifié pour modéliser un produit de la même catégorie qui n'aurait pas la même masse.
 
-L'ensemble des autres paramètres exposés dans le calculateur Ecobalyse sont, par défaut, fixés sur une valeur majorante. C'est en particulier le cas pour :&#x20;
+L'ensemble des autres paramètres exposés dans le calculateur Ecobalyse sont, par défaut, fixés sur une valeur majorante. C'est en particulier le cas pour :
 
 * Les paramètres permettant d'établir le coefficient de durabilité (cf. paramétrages proposés pour le cas "mode ultra fast fashion" dans le [tableau ci-après](exemples.md#parametres-mobilises-dans-les-exemples-pour-etablir-le-coefficient-de-durabilite))
 * L'origine géographique des différentes étapes de transformation (filature, tissage/tricotage, ennoblissement, confection) qui est fixée à "Inconnu (par défaut)".
 * La part de transport aérien depuis l'atelier qui, par défaut, est fixée à 100%
 
-De fait, les exemples "par défaut" vont généralement présenter un coût environnemental majorant par rapport au coût environnemental qui peut être modéliser en mobilisant des paramètres plus précis. Deux exception toutefois :&#x20;
+De fait, les exemples "par défaut" vont généralement présenter un coût environnemental majorant par rapport au coût environnemental qui peut être modéliser en mobilisant des paramètres plus précis. Deux exception toutefois :
 
 * Le délavage (étape de confection) qui n'est pas sélectionné par défaut, hormis pour le jean
 * L'impression (étape d'ennoblissement) qui n'est pas sélectionné par défaut
@@ -51,7 +51,7 @@ En partant d'un exemple paramétré de façon "majorante par défaut", toute mod
 
 ## Exemples **illustrant la diversité des cas qui peuvent être attendus**
 
-Lors de la mise en ligne d'une première version de projet de méthodologie réglementaire (avril 2024), sont proposés :&#x20;
+Lors de la mise en ligne d'une première version de projet de méthodologie réglementaire (avril 2024), sont proposés :
 
 * 6 exemples de Tshirts
 * 7 exemples de pulls
@@ -62,7 +62,7 @@ Ces exemples illustrent le fonctionnement de la méthode et de l'outil de calcul
 
 Ces exemples s'appuient sur les données présentées, en 2022, à l'occasion des expérimentations conduites en application de la loi Climat et résilience, en particulier par En mode climat.
 
-Par rapport aux exemples paramétrés de façon "majorante par défaut" (cf. [supra](exemples.md#exemples-parametres-de-facon-majorante-par-defaut)), ces exemples sont paramétrés de façon plus précise avec notamment :&#x20;
+Par rapport aux exemples paramétrés de façon "majorante par défaut" (cf. [supra](exemples.md#exemples-parametres-de-facon-majorante-par-defaut)), ces exemples sont paramétrés de façon plus précise avec notamment :
 
 * des choix de matières plus complexes correspondant à des produits considérés en 2022 (exemple : 75% de coton primaire et 25% de coton recyclé pour le _Tshirt coton (150g) - Chine - Mode "fast fashion" ;_
 * des origines géographiques plus précises proposées pour chaque étape de transformation (attention : seule une information géographique est présentée dans le nom de l'exemple, pour accéder à l'ensemble des hypothèses, il faut regarder chaque étape de la simulation) ;
@@ -72,17 +72,16 @@ Par rapport aux exemples paramétrés de façon "majorante par défaut" (cf. [su
 ## Paramètres mobilisés dans les exemples pour établir le coefficient de durabilité
 
 {% hint style="danger" %}
-Les paramètres exposés ci-après ont une vocation purement illustrative et pédagogique. Ils ne s'appliquent pas par défaut à chaque vêtement qui relèverait d'un de type de "mode" introduit mais doivent bien être reprécisés pour chaque modélisation ou, à défaut, être fixés de façon majorante.&#x20;
+Les paramètres exposés ci-après ont une vocation purement illustrative et pédagogique. Ils ne s'appliquent pas par défaut à chaque vêtement qui relèverait d'un de type de "mode" introduit mais doivent bien être reprécisés pour chaque modélisation ou, à défaut, être fixés de façon majorante.
 {% endhint %}
 
-Les exemples de paramètres suivants sont considérés :&#x20;
+Les exemples de paramètres suivants sont considérés :
 
 | PARAMETRE                  | Mode "éthique" | Mode "traditionnelle"                    | Mode "fast fashion"                            | Mode "ultra fast fashion"                     |
 | -------------------------- | -------------- | ---------------------------------------- | ---------------------------------------------- | --------------------------------------------- |
-| Nombre de références       | 200            |  2.500                                   | 12.000                                         | 100.00                                        |
+| Nombre de références       | 200            | 2.500                                    | 12.000                                         | 100.00                                        |
 | Durée de commercialisation | 300 jours      | 115 jours                                | 115 jours                                      | 65 jours                                      |
 | Entreprise                 | PME / TPE      | Grande entreprise proposant des services | Grande entreprise ne proposant pas de services | Grande entreprise ne proposant pas de service |
 | Traçabilité affichée       | Oui            | Oui / Non                                | Non                                            | Non                                           |
 | Prix neuf (Tshirt)         | 30 €           | 30 €                                     | 20 €                                           | 10 €                                          |
 | Prix neuf (Pull)           | 95 €           | 70 €                                     | 30 €                                           | 20 €                                          |
-
