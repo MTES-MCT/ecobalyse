@@ -140,21 +140,21 @@ compute db query =
         |> nextIf Label.Spinning computeSpinningImpacts
         -- Compute Weaving & Knitting step impacts
         |> nextWithDbIf Label.Fabric computeFabricImpacts
-        -- Compute Ennobling step bleaching impacts
+        -- Compute Ennobling step bleaching impacts (Blanchiment)
         |> nextWithDbIf Label.Ennobling computeBleachingImpacts
-        -- Compute Ennobling step desizing impacts
+        -- Compute Ennobling step desizing impacts (Désencollage)
         |> nextWithDbIf Label.Ennobling computeDesizingImpacts
-        -- Compute Ennobling step scouring impacts
+        -- Compute Ennobling step scouring impacts (Dégraissage)
         |> nextWithDbIf Label.Ennobling computeScouringImpacts
-        -- Compute Ennobling step mercerising impacts
+        -- Compute Ennobling step mercerising impacts (Mercerisage)
         |> nextWithDbIf Label.Ennobling computeMercerisingImpacts
-        -- Compute Ennobling step washing impacts
+        -- Compute Ennobling step washing impacts (Lavage)
         |> nextWithDbIf Label.Ennobling computeWashingImpacts
-        -- Compute Ennobling step Dyeing impacts
+        -- Compute Ennobling step Dyeing impacts (Teinture)
         |> nextWithDbIf Label.Ennobling computeDyeingImpacts
-        -- Compute Ennobling step Printing impacts
+        -- Compute Ennobling step Printing impacts (Impression)
         |> nextWithDbIf Label.Ennobling computePrintingImpacts
-        -- Compute Ennobling step Finishing impacts
+        -- Compute Ennobling step Finishing impacts (Finition)
         |> nextWithDbIf Label.Ennobling computeFinishingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
@@ -187,6 +187,18 @@ addFormulaResultToStep step { kwh, impacts, heat } =
         | impacts = impacts |> Impact.addImpacts step.impacts
         , kwh = kwh |> Quantity.plus step.kwh
         , heat = heat |> Quantity.plus step.heat
+    }
+
+
+addPretreatmentInfo : String -> Step -> Step
+addPretreatmentInfo text ({ processInfo } as step) =
+    { step
+        | processInfo =
+            { processInfo
+                | preTreatments =
+                    text
+                        :: processInfo.preTreatments
+            }
     }
 
 
@@ -414,6 +426,7 @@ computeBleachingImpacts { textile } ({ inputs } as simulator) =
                         , countryHeatProcess = inputs.countryDyeing.heatProcess
                         }
                     |> addFormulaResultToStep step
+                    |> addPretreatmentInfo "Blanchiment"
             )
 
 
@@ -431,6 +444,7 @@ computeDesizingImpacts { textile } ({ inputs } as simulator) =
                             , countryHeatProcess = inputs.countryDyeing.heatProcess
                             }
                         |> addFormulaResultToStep step
+                        |> addPretreatmentInfo "Désencollage"
 
                 else
                     step
@@ -451,6 +465,7 @@ computeScouringImpacts { textile } ({ inputs } as simulator) =
                         , countryHeatProcess = inputs.countryDyeing.heatProcess
                         }
                     |> addFormulaResultToStep step
+                    |> addPretreatmentInfo "Dégraissage"
             )
 
 
@@ -468,6 +483,7 @@ computeMercerisingImpacts { textile } ({ inputs } as simulator) =
                         , countryHeatProcess = inputs.countryDyeing.heatProcess
                         }
                     |> addFormulaResultToStep step
+                    |> addPretreatmentInfo "Mercerisage"
             )
 
 
@@ -485,14 +501,7 @@ computeWashingImpacts { textile } ({ inputs } as simulator) =
                         , countryHeatProcess = inputs.countryDyeing.heatProcess
                         }
                     |> addFormulaResultToStep step
-                    |> Step.updateStepProcessInfo
-                        (\processInfo ->
-                            { processInfo
-                                | preTreatments =
-                                    processInfo.preTreatments
-                                        |> Maybe.map (\preTreatments -> preTreatments ++ ", " ++ textile.wellKnown.washing.name)
-                            }
-                        )
+                    |> addPretreatmentInfo "Lavage"
             )
 
 

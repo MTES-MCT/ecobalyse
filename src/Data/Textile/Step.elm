@@ -15,7 +15,6 @@ module Data.Textile.Step exposing
     , surfaceMassToString
     , updateDeadStock
     , updateFromInputs
-    , updateStepProcessInfo
     , updateWaste
     , yarnSizeToString
     )
@@ -90,7 +89,7 @@ type alias ProcessInfo =
     , distribution : Maybe String
     , fading : Maybe String
     , printing : Maybe String
-    , preTreatments : Maybe String
+    , preTreatments : List String
     }
 
 
@@ -144,7 +143,7 @@ defaultProcessInfo =
     , distribution = Nothing
     , fading = Nothing
     , printing = Nothing
-    , preTreatments = Nothing
+    , preTreatments = []
     }
 
 
@@ -414,11 +413,6 @@ updateWaste waste mass step =
         , inputMass = mass
         , outputMass = Quantity.difference mass waste
     }
-
-
-updateStepProcessInfo : (ProcessInfo -> ProcessInfo) -> Step -> Step
-updateStepProcessInfo fn step =
-    { step | processInfo = fn step.processInfo }
 
 
 updateDeadStock : Mass -> Mass -> Step -> Step
