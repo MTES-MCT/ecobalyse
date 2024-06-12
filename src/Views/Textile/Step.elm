@@ -827,6 +827,8 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                     |> Formula.bleachingImpacts current.impacts
                         { bleachingProcess = db.textile.wellKnown.bleaching
                         , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
                         }
 
             dyeingToxicity =
@@ -866,7 +868,11 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                         Impact.empty
 
             toxicity =
-                Impact.sumImpacts [ bleachingToxicity, dyeingToxicity, printingToxicity ]
+                Impact.sumImpacts
+                    [ bleachingToxicity.impacts
+                    , dyeingToxicity
+                    , printingToxicity
+                    ]
         in
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
@@ -1057,7 +1063,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                 , showIf (inputs.fading == Just True) <| viewProcessInfo current.processInfo.fading
                 ]
             , ul
-                [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
+                [ class "StepBody p-0 list-group list-group-flush border-top border-bottom-0"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 (List.map
@@ -1071,20 +1077,21 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                             [ surfaceMassField config ]
 
                         Label.Ennobling ->
-                            [ div [ class "mb-2" ]
-                                [ text "Pré-traitement\u{00A0}: non applicable" ]
+                            [ showIf (List.length current.processInfo.preTreatments > 0)
+                                (text <|
+                                    "Pré-traitements\u{00A0}: "
+                                        ++ String.join ", " current.processInfo.preTreatments
+                                )
                             , ennoblingGenericFields config
-                            , div [ class "mt-2" ]
-                                [ text "Finition\u{00A0}: apprêt chimique" ]
+                            , text "Finition\u{00A0}: apprêt chimique"
                             ]
 
                         Label.Making ->
-                            List.filterMap identity
-                                [ Just <| makingWasteField config
-                                , Just <| makingDeadStockField config
-                                , Just <| airTransportRatioField config
-                                , Just (fadingField config)
-                                ]
+                            [ makingWasteField config
+                            , makingDeadStockField config
+                            , airTransportRatioField config
+                            , fadingField config
+                            ]
 
                         Label.Use ->
                             [ daysOfWearInfo config

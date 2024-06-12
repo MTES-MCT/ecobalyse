@@ -140,14 +140,22 @@ compute db query =
         |> nextIf Label.Spinning computeSpinningImpacts
         -- Compute Weaving & Knitting step impacts
         |> nextWithDbIf Label.Fabric computeFabricImpacts
-        -- Compute Ennobling step Dyeing impacts
-        |> nextWithDbIf Label.Ennobling computeDyeingImpacts
-        -- Compute Ennobling step Printing impacts
-        |> nextWithDbIf Label.Ennobling computePrintingImpacts
-        -- Compute Ennobling step Finishing impacts
-        |> nextWithDbIf Label.Ennobling computeFinishingImpacts
-        -- Compute Ennobling step bleaching impacts
+        -- Compute Ennobling step bleaching impacts (Blanchiment)
         |> nextWithDbIf Label.Ennobling computeBleachingImpacts
+        -- Compute Ennobling step desizing impacts (Désencollage)
+        |> nextWithDbIf Label.Ennobling computeDesizingImpacts
+        -- Compute Ennobling step scouring impacts (Dégraissage)
+        |> nextWithDbIf Label.Ennobling computeScouringImpacts
+        -- Compute Ennobling step mercerising impacts (Mercerisage)
+        |> nextWithDbIf Label.Ennobling computeMercerisingImpacts
+        -- Compute Ennobling step washing impacts (Lavage)
+        |> nextWithDbIf Label.Ennobling computeWashingImpacts
+        -- Compute Ennobling step Dyeing impacts (Teinture)
+        |> nextWithDbIf Label.Ennobling computeDyeingImpacts
+        -- Compute Ennobling step Printing impacts (Impression)
+        |> nextWithDbIf Label.Ennobling computePrintingImpacts
+        -- Compute Ennobling step Finishing impacts (Finition)
+        |> nextWithDbIf Label.Ennobling computeFinishingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
@@ -171,6 +179,27 @@ initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleSteps Label.all (Step.initMass inputs.mass)
+
+
+addFormulaResultToStep : Step -> { heat : Energy, kwh : Energy, impacts : Impacts } -> Step
+addFormulaResultToStep step { kwh, impacts, heat } =
+    { step
+        | impacts = impacts |> Impact.addImpacts step.impacts
+        , kwh = kwh |> Quantity.plus step.kwh
+        , heat = heat |> Quantity.plus step.heat
+    }
+
+
+addPretreatmentInfo : String -> Step -> Step
+addPretreatmentInfo text ({ processInfo } as step) =
+    { step
+        | processInfo =
+            { processInfo
+                | preTreatments =
+                    text
+                        :: processInfo.preTreatments
+            }
+    }
 
 
 computeDurability : Simulator -> Simulator
@@ -372,39 +401,107 @@ computeFinishingImpacts { textile } simulator =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\({ country } as step) ->
-                let
-                    { heat, kwh, impacts } =
-                        step.outputMass
-                            |> Formula.finishingImpacts step.impacts
-                                { finishingProcess = textile.wellKnown.finishing
-                                , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
-                                , elecProcess = country.electricityProcess
-                                }
-                in
-                { step
-                    | heat = step.heat |> Quantity.plus heat
-                    , kwh = step.kwh |> Quantity.plus kwh
-                    , impacts = Impact.sumImpacts [ step.impacts, impacts ]
-                }
+                step.outputMass
+                    |> Formula.finishingImpacts step.impacts
+                        { finishingProcess = textile.wellKnown.finishing
+                        , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
+                        , elecProcess = country.electricityProcess
+                        }
+                    |> addFormulaResultToStep step
             )
 
 
 computeBleachingImpacts : Db -> Simulator -> Simulator
-computeBleachingImpacts { textile } simulator =
+computeBleachingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
             (\step ->
-                let
-                    impacts =
-                        step.outputMass
-                            |> Formula.bleachingImpacts step.impacts
-                                { bleachingProcess = textile.wellKnown.bleaching
-                                , aquaticPollutionScenario = step.country.aquaticPollutionScenario
-                                }
-                in
-                { step
-                    | impacts = Impact.sumImpacts [ step.impacts, impacts ]
-                }
+                step.outputMass
+                    -- Note: bleaching only applies to non-synthetic materials
+                    |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.nonSynthetic inputs.materials)
+                    |> Formula.bleachingImpacts step.impacts
+                        { bleachingProcess = textile.wellKnown.bleaching
+                        , aquaticPollutionScenario = step.country.aquaticPollutionScenario
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
+                        }
+                    |> addFormulaResultToStep step
+                    |> addPretreatmentInfo "Blanchiment"
+            )
+
+
+computeDesizingImpacts : Db -> Simulator -> Simulator
+computeDesizingImpacts { textile } ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\step ->
+                -- Note: desizing only applies to weaved products
+                if inputs.product.fabric == Fabric.Weaving then
+                    step.outputMass
+                        |> Formula.genericImpacts step.impacts
+                            { process = textile.wellKnown.desizing
+                            , countryElecProcess = inputs.countryDyeing.electricityProcess
+                            , countryHeatProcess = inputs.countryDyeing.heatProcess
+                            }
+                        |> addFormulaResultToStep step
+                        |> addPretreatmentInfo "Désencollage"
+
+                else
+                    step
+            )
+
+
+computeScouringImpacts : Db -> Simulator -> Simulator
+computeScouringImpacts { textile } ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\step ->
+                step.outputMass
+                    -- Note: scouring only applies to natural materials
+                    |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.natural inputs.materials)
+                    |> Formula.genericImpacts step.impacts
+                        { process = textile.wellKnown.scouring
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
+                        }
+                    |> addFormulaResultToStep step
+                    |> addPretreatmentInfo "Dégraissage"
+            )
+
+
+computeMercerisingImpacts : Db -> Simulator -> Simulator
+computeMercerisingImpacts { textile } ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\step ->
+                step.outputMass
+                    -- Note: mercerising only applies to cotton (conventional and organic)
+                    |> Quantity.multiplyBy (Inputs.getCottonShare inputs.materials)
+                    |> Formula.genericImpacts step.impacts
+                        { process = textile.wellKnown.mercerising
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
+                        }
+                    |> addFormulaResultToStep step
+                    |> addPretreatmentInfo "Mercerisage"
+            )
+
+
+computeWashingImpacts : Db -> Simulator -> Simulator
+computeWashingImpacts { textile } ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Ennobling
+            (\step ->
+                step.outputMass
+                    -- Note: washing only applies to synthetic and artificial materials
+                    |> Quantity.multiplyBy (Inputs.getMaterialsShareForOrigin Origin.syntheticAndArtificial inputs.materials)
+                    |> Formula.genericImpacts step.impacts
+                        { process = textile.wellKnown.washing
+                        , countryElecProcess = inputs.countryDyeing.electricityProcess
+                        , countryHeatProcess = inputs.countryDyeing.heatProcess
+                        }
+                    |> addFormulaResultToStep step
+                    |> addPretreatmentInfo "Lavage"
             )
 
 

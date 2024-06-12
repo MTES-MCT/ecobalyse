@@ -89,25 +89,24 @@ type alias ProcessInfo =
     , distribution : Maybe String
     , fading : Maybe String
     , printing : Maybe String
+    , preTreatments : List String
     }
 
 
 create : { label : Label, editable : Bool, country : Country, enabled : Bool } -> Step
 create { label, editable, country, enabled } =
-    let
-        defaultImpacts =
-            Impact.empty
-    in
     { label = label
     , enabled = enabled
     , country = country
+
+    -- FIXME: check if this field is still useful
     , editable = editable
     , inputMass = Quantity.zero
     , outputMass = Quantity.zero
     , waste = Quantity.zero
     , deadstock = Quantity.zero
-    , transport = Transport.default defaultImpacts
-    , impacts = defaultImpacts
+    , transport = Transport.default Impact.empty
+    , impacts = Impact.empty
     , complementsImpacts = Impact.noComplementsImpacts
     , heat = Quantity.zero
     , kwh = Quantity.zero
@@ -144,6 +143,7 @@ defaultProcessInfo =
     , distribution = Nothing
     , fading = Nothing
     , printing = Nothing
+    , preTreatments = []
     }
 
 
