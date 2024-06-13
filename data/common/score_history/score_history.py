@@ -58,14 +58,13 @@ def get_new_score(domain, examples, current_branch, last_commit):
         if domain == "food":
             simulation_result = process_response_food(
                 current_branch,
-                domain,
                 example,
                 normalization_factors,
                 last_commit,
             )
         elif domain == "textile":
             simulation_result = process_response_textile(
-                current_branch, domain, example, normalization_factors, last_commit
+                current_branch, example, normalization_factors, last_commit
             )
         else:
             raise ValueError(
@@ -91,14 +90,13 @@ def compute_normalization_factors():
 
 
 def process_response_textile(
-    branch_name, domain, example, normalization_factors, last_commit
+    branch_name, example, normalization_factors, last_commit
 ):
     """
     Processes the simulation response for a given example, transforming it into a structured DataFrame.
 
     Parameters:
     - branch_name (str): The name of the branch for which the simulation was run.
-    - domain (str): "textile" or "food"
     - example (dict): The example data used in the simulation request.
     - normalization_factors (dict): A dictionary of normalization factors for adjusting impact scores.
 
@@ -113,7 +111,6 @@ def process_response_textile(
     df_list.append(create_df_textile(
             branch_name,
             last_commit,
-            domain,
             example,
             query,
             response,
@@ -126,7 +123,6 @@ def process_response_textile(
         df_list.append(create_df_textile(
             branch_name,
             last_commit,
-            domain,
             example,
             query,
             step,
@@ -139,7 +135,6 @@ def process_response_textile(
         transport_df = create_df_textile(
             branch_name,
             last_commit,
-            domain,
             example,
             query,
             transport_info,
@@ -156,10 +151,10 @@ def process_response_textile(
         return pd.DataFrame()
 
 
+
 def create_df_textile(
     branch,
     commit_id,
-    domain,
     example,
     query,
     step,
@@ -167,79 +162,50 @@ def create_df_textile(
     is_transport=False,
 ):
     impacts = pd.Series(step["impacts"])
-    # Process dataframe for total
-    if "label" not in step and not is_transport:
-        data = {
-            "datetime": TODAY_DATETIME_STR,
-            "branch": branch,
-            "commit": commit_id,
-            "domain": domain,
-            "product_name": example["name"],
-            "id": example["id"],
-            "query": json.dumps(query),
-            "mass": query["mass"],
-            "elements": json.dumps(query["materials"]),
-            "lifecyclestep": "Total",
-            "lifecyclestepcountry": step.get("country", {}).get("code", ""),
-            "impact": impacts.index.tolist(),
-            "value": impacts.values.tolist(),
-        }
-        df = pd.DataFrame(data)
-        df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
 
-    # Process response for lifecyle step or transport step
-    else:
-        data = {
+    def generate_data(step_label, impacts):
+        return {
             "datetime": TODAY_DATETIME_STR,
             "branch": branch,
             "commit": commit_id,
-            "domain": domain,
+            "domain": "textile",
             "product_name": example["name"],
             "id": example["id"],
             "query": json.dumps(query),
             "mass": query["mass"],
             "elements": json.dumps(query["materials"]),
-            "lifecyclestep": "Transport" if is_transport else step["label"],
-            "lifecyclestepcountry": step.get("country", {}).get("code", ""),
+            "lifecycle_step": step_label,
+            "lifecycle_step_country": step.get("country", {}).get("code", ""),
             "impact": impacts.index.tolist(),
             "value": impacts.values.tolist(),
         }
-        df = pd.DataFrame(data)
-        df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
+
+    # The step is either a transport step, a lifecycle step in that case we use the "label" field
+    # if it's not either one it's a "Total" step
+    step_label = "Transport" if is_transport else step.get("label", "Total")
+
+    data = generate_data(step_label, impacts)
+    df = pd.DataFrame(data)
+    df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
 
     # In the case of a non transport step we have to store the complements
-    if not is_transport:
+    if not is_transport and "complementsImpacts" in step:
         complementsImpacts = pd.Series(step["complementsImpacts"])
-        data_complements = {
-            "datetime": TODAY_DATETIME_STR,
-            "branch": branch,
-            "commit": commit_id,
-            "domain": domain,
-            "product_name": example["name"],
-            "id": example["id"],
-            "query": json.dumps(query),
-            "mass": query["mass"],
-            "elements": json.dumps(query["materials"]),
-            "lifecyclestep": step.get("label","Total"),
-            "lifecyclestepcountry": step.get("country", {}).get("code", ""),
-            "impact": complementsImpacts.index.tolist(),
-            "norm_value_ecs": complementsImpacts.values.tolist(),
-        }
+        data_complements = generate_data(step_label, complementsImpacts)
         df_complements = pd.DataFrame(data_complements)
-    else:
-        df_complements = pd.DataFrame()
-    return pd.concat([df,df_complements], axis=0, ignore_index=True)
+        df = pd.concat([df, df_complements], axis=0, ignore_index=True)
+
+    return df
 
 
 def process_response_food(
-    branch_name, domain, example, normalization_factors, last_commit
+    branch_name, example, normalization_factors, last_commit
 ):
     """
     Processes the simulation response for a given example, transforming it into a structured DataFrame.
 
     Parameters:
     - branch_name (str): The name of the branch for which the simulation was run.
-    - domain (str): "textile" or "food"
     - example (dict): The example data used in the simulation request.
     - normalization_factors (dict): A dictionary of normalization factors for adjusting impact scores.
 
@@ -247,7 +213,7 @@ def process_response_food(
     - DataFrame: A pandas DataFrame containing the structured results of the simulation.
     """
 
-    lifecyclestep_impact_paths = {
+    lifecycle_step_impact_paths = {
         "ingredients": ["recipe", "ingredientsTotal"],
         "transformation":["recipe", "transform"],
         "packaging": ["packaging"],
@@ -257,15 +223,14 @@ def process_response_food(
     }
 
     results_per_life_cycle = []
-    for lifecyclestep, path in lifecyclestep_impact_paths.items():
+    for lifecycle_step, path in lifecycle_step_impact_paths.items():
         impacts = get_nested_value(example["response"]["results"], path)
         results_per_life_cycle.append(
             create_df_food(
                 branch_name,
                 last_commit,
-                domain,
                 example,
-                lifecyclestep,
+                lifecycle_step,
                 impacts,
                 normalization_factors,
             )
@@ -296,7 +261,7 @@ def get_nested_value(nested_dict, keys):
 
 
 def create_df_food(
-    branch, commit_id, domain, example, lifecyclestep, impacts, normalization_factors
+    branch, commit_id, example, lifecycle_step, impacts, normalization_factors
 ):
     """
     Create a pandas DataFrame with detailed information about food products based on various inputs.
@@ -304,15 +269,14 @@ def create_df_food(
     Parameters:
     - branch (str): The branch of the repository being queried.
     - commit_id (str): The specific commit ID in the repository.
-    - domain (str): 'food' or 'textile'
     - example (dict): A dictionary containing details about the food product, such as name, id, and query details.
-    - lifecyclestep (str): The lifecycle step of the food product.
+    - lifecycle_step (str): The lifecycle step of the food product.
     - impacts (pd.DataFrame): A DataFrame containing the impact indices and their respective values.
     - normalization_factors (dict): A dictionary mapping impact indices to normalization factors.
 
     Returns:
     - pd.DataFrame: A DataFrame with columns for datetime, branch, commit, domain, product name, product ID,
-                    query JSON, mass, elements JSON, lifecycle step and country, impact indices, values,
+                    query, mass, elements, lifecycle step and country, impact indices, values,
                     and normalized impact values expressed in 'ecs' units.
     """
     impacts_sr = pd.Series(impacts, dtype="float64")
@@ -320,14 +284,14 @@ def create_df_food(
         "datetime": TODAY_DATETIME_STR,
         "branch": branch,
         "commit": commit_id,
-        "domain": domain,
+        "domain": "food",
         "product_name": example["name"],
         "id": example["id"],
         "query": json.dumps(example["query"]),
         "mass": example["response"]["results"]["preparedMass"],
         "elements": json.dumps(example["query"]["ingredients"]),
-        "lifecyclestep": lifecyclestep,
-        "lifecyclestepcountry": "",
+        "lifecycle_step": lifecycle_step,
+        "lifecycle_step_country": "",
         "impact": impacts_sr.index.tolist(),
         "value": impacts_sr.values.tolist(),
     }
@@ -367,8 +331,8 @@ def are_df_different(df1, df2, tolerance=0.0001):
         "domain",
         "product_name",
         "query",
-        "lifecyclestep",
-        "lifecyclestepcountry",
+        "lifecycle_step",
+        "lifecycle_step_country",
         "impact",
     ]
 
@@ -448,6 +412,7 @@ def get_previous_score(domain, score_history_df, current_branch):
 
 
 # Database Operations
+
 @contextmanager
 def get_database_connection(engine):
     """
