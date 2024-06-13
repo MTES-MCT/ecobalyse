@@ -163,8 +163,11 @@ def create_df_textile(
 ):
     impacts = pd.Series(step["impacts"])
 
-    def generate_data(step_label, impacts):
-        return {
+    # The step is either a transport step, a lifecycle step in that case we use the "label" field
+    # if it's not either one it's a "Total" step
+    step_label = "Transport" if is_transport else step.get("label", "Total")
+
+    data = {
             "datetime": TODAY_DATETIME_STR,
             "branch": branch,
             "commit": commit_id,
@@ -179,19 +182,28 @@ def create_df_textile(
             "impact": impacts.index.tolist(),
             "value": impacts.values.tolist(),
         }
-
-    # The step is either a transport step, a lifecycle step in that case we use the "label" field
-    # if it's not either one it's a "Total" step
-    step_label = "Transport" if is_transport else step.get("label", "Total")
-
-    data = generate_data(step_label, impacts)
     df = pd.DataFrame(data)
     df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
 
     # In the case of a non transport step we have to store the complements
     if not is_transport and "complementsImpacts" in step:
         complementsImpacts = pd.Series(step["complementsImpacts"])
-        data_complements = generate_data(step_label, complementsImpacts)
+        data_complements = {
+            "datetime": TODAY_DATETIME_STR,
+            "branch": branch,
+            "commit": commit_id,
+            "domain": "textile",
+            "product_name": example["name"],
+            "id": example["id"],
+            "query": json.dumps(query),
+            "mass": query["mass"],
+            "elements": json.dumps(query["materials"]),
+            "lifecycle_step": step_label,
+            "lifecycle_step_country": step.get("country", {}).get("code", ""),
+            "impact": complementsImpacts.index.tolist(),
+            "value":0,
+            "norm_value_ecs": complementsImpacts.values.tolist(),
+        }
         df_complements = pd.DataFrame(data_complements)
         df = pd.concat([df, df_complements], axis=0, ignore_index=True)
 
@@ -473,10 +485,7 @@ if __name__ == "__main__":
             previous_score_df = get_previous_score(
                 domain, score_history_df, current_branch
             )
-            if not previous_score_df.empty:
-                score_is_different = are_df_different(new_score_df, previous_score_df)
-
-            if score_is_different or previous_score_df.empty:
+            if previous_score_df.empty or are_df_different(new_score_df, previous_score_df):
                 logger.info(
                     f"Score is different for domain {domain}. Storing new score in the db. Number of rows in the score_history table before update: {get_row_count(engine)}"
                 )
