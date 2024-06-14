@@ -158,7 +158,6 @@ textileEndpoints db =
         [ String.join "&"
             [ "/textile/simulator?mass=0.17"
             , "product=tshirt"
-            , "fabricProcess=knitting-mix"
             , "materials[]=ei-coton;1"
             , "countryFabric=FR"
             , "countryDyeing=FR"
@@ -169,7 +168,6 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator endpoint"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
-          , "fabricProcess=knitting-mix"
           , "materials[]=ei-coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -186,7 +184,6 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator endpoint with the disabledSteps parameter set"
         , [ "/textile/simulator/fwe?mass=0.17"
           , "product=tshirt"
-          , "fabricProcess=knitting-mix"
           , "materials[]=ei-coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -202,7 +199,6 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator/{impact} endpoint"
         , [ "/textile/simulator/detailed?mass=0.17"
           , "product=tshirt"
-          , "fabricProcess=knitting-mix"
           , "materials[]=ei-coton;1"
           , "countryFabric=FR"
           , "countryDyeing=FR"
@@ -255,7 +251,6 @@ textileEndpoints db =
           in
           [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
-          , "fabricProcess=knitting-mix"
           , "materials[]=ei-coton;0.3;;FR"
           , "materials[]=coton-rdp;0.3;UnconventionalSpinning"
           , "materials[]=ei-pet;0.4"
@@ -344,7 +339,6 @@ textileEndpoints db =
                     [ ( "countryFabric", "Code pays manquant." )
                     , ( "countryDyeing", "Code pays manquant." )
                     , ( "countryMaking", "Code pays manquant." )
-                    , ( "fabricProcess", "Identifiant du type de tissu manquant." )
                     , ( "mass", "La masse est manquante." )
                     , ( "product", "Identifiant du type de produit manquant." )
                     ]

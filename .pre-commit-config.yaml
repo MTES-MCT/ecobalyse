@@ -1,0 +1,38 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    - id: check-yaml
+    - id: end-of-file-fixer
+      exclude: (svg|icomoon|rapidoc-9.3.4.min.js)
+    - id: trailing-whitespace
+      exclude: (vendor|rapidoc-9.3.4.min.js)
+    - id: no-commit-to-branch
+      name: "don't commit to master"
+      args: [--branch, master]
+
+  - repo: local
+    hooks:
+      - id: app-prettier
+        name: run prettier
+        language: system
+        files: ^.*$
+        types_or: [javascript, json]
+        entry: |
+          bash -c 'npm --prefix . run fix:prettier --write "${@}"' --
+
+      - id: app-ruff-check
+        name: run ruff check
+        language: system
+        files: ^.*$
+        types_or: [python]
+        entry: |
+          bash -c 'npm --prefix . run fix:ruff:check "${@}"' --
+
+      - id: app-ruff-format
+        name: run ruff format
+        language: system
+        files: ^.*$
+        types_or: [python]
+        entry: |
+          bash -c 'npm --prefix . run fix:ruff:format "${@}"' --

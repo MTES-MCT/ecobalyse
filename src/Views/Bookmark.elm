@@ -40,7 +40,8 @@ type ActiveTab
 view : ManagerConfig msg -> Html msg
 view cfg =
     CardTabs.view
-        { tabs =
+        { attrs = []
+        , tabs =
             [ ( SaveTab, text "Sauvegarder" )
             , ( ShareTab, text "Partager" )
             ]

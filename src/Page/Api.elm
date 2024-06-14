@@ -55,7 +55,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "10 avril 2024"
+    [ { date = "6 juin 2024"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Le champs `fabricProcess` n'est plus requis et prend désormais la valeur par
+            défaut associée à la catégorie de produit.
+            """
+      }
+    , { date = "10 avril 2024"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =

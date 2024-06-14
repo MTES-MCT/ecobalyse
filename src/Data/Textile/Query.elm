@@ -65,7 +65,7 @@ type alias Query =
     , makingComplexity : Maybe MakingComplexity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
-    , fabricProcess : Fabric
+    , fabricProcess : Maybe Fabric
     , disabledSteps : List Label
     , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
@@ -121,7 +121,7 @@ decode =
         |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
         |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.required "fabricProcess" Fabric.decode
+        |> Pipe.optional "fabricProcess" (Decode.maybe Fabric.decode) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> Pipe.optional "fading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
@@ -157,7 +157,7 @@ encode query =
     , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
     , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
     , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
-    , ( "fabricProcess", query.fabricProcess |> Fabric.encode |> Just )
+    , ( "fabricProcess", query.fabricProcess |> Maybe.map Fabric.encode )
     , ( "disabledSteps"
       , case query.disabledSteps of
             [] ->
@@ -216,7 +216,7 @@ isAdvancedQuery query =
         , query.makingComplexity /= Nothing
         , query.yarnSize /= Nothing
         , query.surfaceMass /= Nothing
-        , query.fabricProcess /= Fabric.default
+        , query.fabricProcess /= Nothing
         , query.disabledSteps
             |> List.any
                 (\label ->
@@ -243,7 +243,7 @@ regulatory query =
         , makingComplexity = Nothing
         , yarnSize = Nothing
         , surfaceMass = Nothing
-        , fabricProcess = Fabric.default
+        , fabricProcess = Nothing
         , disabledSteps =
             query.disabledSteps
                 |> List.filter
@@ -325,7 +325,7 @@ updateProduct product query =
             , makingComplexity = Nothing
             , yarnSize = Nothing
             , surfaceMass = Nothing
-            , fabricProcess = product.fabric
+            , fabricProcess = Nothing
             , fading = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
@@ -388,7 +388,7 @@ default =
     , makingComplexity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
-    , fabricProcess = Fabric.default
+    , fabricProcess = Nothing
     , disabledSteps = []
     , fading = Nothing
     , dyeingMedium = Nothing
@@ -406,7 +406,7 @@ jupeCotonAsie =
     { default
         | mass = Mass.kilograms 0.3
         , product = Product.Id "jupe"
-        , fabricProcess = Fabric.Weaving
+        , fabricProcess = Just Fabric.Weaving
     }
 
 
