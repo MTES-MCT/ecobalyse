@@ -1,4 +1,4 @@
-# 🥑 Part non comestible
+# 🥑 Part non comestible (OLD - à vérifier)
 
 La part non comestible correspond à une partie d'un produit agricole qui n'est pas destinée à la consommation humaine. Ces pertes peuvent inclure des éléments tels que les coquilles d'œufs, les écorces de fruits et légumes, les os, les cartilages et bien d'autres.
 
@@ -10,15 +10,15 @@ Dans le cadre de notre calcul d'impact pour 1 kg de produit comestible, nous dev
 
 <div>
 
-<figure><img src="../.gitbook/assets/Screenshot 2023-04-20 at 17.31.27.png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation_Annexes.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2023-04-20 at 17.31.27.png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation_Annexes.pdf</p></figcaption></figure>
 
  
 
-<figure><img src="../.gitbook/assets/Screenshot 2023-04-20 at 17.31.21 (1).png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation_Annexes.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2023-04-20 at 17.31.21 (1).png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation_Annexes.pdf</p></figcaption></figure>
 
  
 
-<figure><img src="../.gitbook/assets/Screenshot 2023-04-20 at 17.28.24 (1).png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2023-04-20 at 17.28.24 (1).png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation.pdf</p></figcaption></figure>
 
 </div>
 

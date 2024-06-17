@@ -152,7 +152,7 @@ I_cuisson = 0.0083 kgCO2e = 8.3 gCO2e
 
 ### Masse finale
 
-Suite à l'application des techniques d e préparation, la masse finale du produit (et donc des ingrédients) préparé peut avoir évolué. Il convient en effet de prendre en compte le [rapport cru/cuit](../rapport-cru-cuit.md).
+Suite à l'application des techniques d e préparation, la masse finale du produit (et donc des ingrédients) préparé peut avoir évolué. Il convient en effet de prendre en compte le [rapport cru/cuit](../impacts-consideres/rapport-cru-cuit.md).
 
 C'est bien cette masse finale du produit, tel que consommé, qui doit ensuite être considérée dans le calcul de l'impact par kg.
 

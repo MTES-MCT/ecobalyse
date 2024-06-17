@@ -1,12 +1,12 @@
-# 🚛 Transport
+# 🚛 Transport (OLD - à vérifier)
 
 ## Étapes considérées
 
 Différentes étapes de transport peuvent être mobilisées dans le cycle de vie d'un produit alimentaire. Le modèle considéré s'appuie sur la documentation Agribalyse, et en particulier les deux figures suivantes (cf. [Méthodologie AGB 3.1\_Alimentation.pdf](https://3613321239-files.gitbook.io/\~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1\_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971) - section 3.6 Transport le long de la chaîne de valeur) :&#x20;
 
-<figure><img src="../.gitbook/assets/Figure 10 transport.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Figure 10 transport.PNG" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/Figure 11 transport.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Figure 11 transport.PNG" alt=""><figcaption></figcaption></figure>
 
 Par rapport à la modélisation mobilisée dans Agribalyse, des valeurs par défaut sont proposées de manière assez systématique. Ces valeurs correspondent plutôt à des hypothèses majorantes, dans la mesure où certains paramètres peuvent ensuite être précisés, par exemple le pays d'origine des différents ingrédients.&#x20;
 
@@ -148,7 +148,7 @@ Le choix d'un mode transport frigorifique dépend de l'ingrédient considéré. 
 Au-delà de la première étape (Ingrédients), il faut considérer potentiellement le transport de plusieurs ingrédients. Dès lors qu'au moins un des ingrédients doit être transporté en frigorifique, c'est bien le transport frigorifique qui est considéré pour l'ensemble du produit.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/Tableau 36.PNG" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Tableau 36.PNG" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 La méthodologie Agribalyse introduit différents véhicules pour le transport routier, le transport maritime (ex : tableau 38 de la méthodologie). En première approche, on ne retient qu'un seul procédé pour le transport terrestre et un pour le transport maritime.

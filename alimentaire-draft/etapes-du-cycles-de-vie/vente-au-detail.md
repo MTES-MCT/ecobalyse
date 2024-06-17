@@ -12,7 +12,7 @@ L'impact de cette étape provient de :
 
 ## Calcul du volume
 
-On calcule le volume du produit à partir de sa densité. Ce calcul est détaillée sur la page [Densité](../densite.md).
+On calcule le volume du produit à partir de sa densité. Ce calcul est détaillée sur la page [Densité](../impacts-consideres/densite.md).
 
 ## Calcul de l'impact
 
