@@ -4,31 +4,128 @@ Ces compléments hors ACV visent à prendre en compte les **externalités enviro
 
 ## Complément "haies"&#x20;
 
-### Données
+
 
 {% hint style="info" %}
 \=> rédaction : s'inspirer de [https://docs.google.com/presentation/d/1AIVziRc9jjjSMEVS3wpCRSjmrbjWQWf6Ow9YpC7CxPc/edit#slide=id.g2a035ff3f7c\_0\_16](https://docs.google.com/presentation/d/1AIVziRc9jjjSMEVS3wpCRSjmrbjWQWf6Ow9YpC7CxPc/edit#slide=id.g2a035ff3f7c\_0\_16)&#x20;
 {% endhint %}
 
-### Formule
+### Approche globale
 
-### Agrégation au coût environnemental
+En l'absence de données de quantification des externalités positives liées aux haies, Ecobalyse approxime les externalités positives des haies par la quantité de haies (ml/ha)
 
-* $$c_i$$ : le coefficient permettant de moduler l'ampleur du bonus, il ne dépend pas du produit p.$$x_{diversité-agricole}(poulet -bio) = 0.5$$
+* Niveau 1 ⇒ bonus fonction du label x type de productions
+* Label bio dans un premier temps, mais il est possible d'intégrer d'autres labels dès que des données sont disponibles&#x20;
+
+⇒ Objectif : différencier le bio et le conventionnel selon la quantité de haies qui caractérise chacun de ces systèmes
+
+### Données
+
+Croisement entre :
+
+* Registre Parcellaire Graphique (RPG) “conventionnel” x BD HAIE
+* RPG Bio x BD HAIE
+
+Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bio)\
+
+
+<figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUeyvyKVUTf9UE2rcirVXR-iJ-ki3mhvrHHbf3ARNEO1kjm_2hV2ZH16FI5D7J40vb_uBBFnbC19F7TL0To0WagWubP-bi8qa0XDcTbuXZzOVV-LCFMbLT2AtugXYzPTfOrCnbXHUheYp70W6KVzRapReLm7wGMF=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
+
+#### Périmètre :
+
+* Emprise géographique : France métropolitaine → données exhaustives et donc moyennes par culture et mode de production (bio / non bio) significatives
+* Groupes de cultures : prise en compte de 22 des 24 groupes de cultures en vigueur dans le RPG\*
+* Déclinaison des calculs : nationale (France métropolitaine), régionale, départementale (+ données détaillées par parcelle disponibles également)
+* Millésime RPG : 2021
+
+#### Sources des données mobilisées :&#x20;
+
+* RPG niveau 1 (parcelles totales, cultures principales par parcelle, France métropolitaine, millésime 2021) :[ https://geoservices.ign.fr/ressource/194788](https://geoservices.ign.fr/ressource/194788)
+* Agence bio (parcelles en AB) :[  https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/)  (National - année 2021)
+* Dispositif de suivi des bocages - DSB de l'IGN/OFB (haies) :[ https://geoservices.ign.fr/bdtopo#telechargementshpreg](https://geoservices.ign.fr/bdtopo) (la BD HAIE est contenue dans la BD TOPO, dossier « Occupation du Sol »)
+
+### Synthèse des résultats obtenus
+
+<figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUenk1JYQpMdM3wpNT0e201j0oWG7lM2KeZc3qJyrFki2cVgY5JeDcr2067QL16IRVT5S0ADGb9nsuKF_UKrfF8NPJl02vc95wJ-Ej1UWTo4m4k5iCth13E-rcIyRup1uv1GqdFIzqJ9FvbV_BonEE92DFDJ0ug=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
+
+&#x20;Par rapport aux parcelles Non bio , les parcelles Bio présentent en moyenne :
+
+* \+ de haies pour 15/20 gpes de cultures
+* autant de haies  (- de 10% de différence) pour 5/20 gpes de cultures (Fourrage, Prairies permanentes, Prairies temporaires, Fruits à coque, Oliviers)
+
+• Quel que soit le mode de production, les groupes de cultures avec :
+
+* le + de haies sont les prairies
+* le - de haies sont les estives et landes (milieux ouverts)
+
+• Les + gros écarts entre Bio et Non bio concernent les groupes de cultures:
+
+* Légumes/fleurs en valeur absolue (+ 46 ml/ha pour le bio)
+* Autres cultures industrielles en valeur relative (+ 306% pour le bio)
 
 ## Complément "taille des parcelles"
 
+### Approche globale
+
+En l'absence de données données dispo sur les IAE hors haies, on approxime les externalités positives des autres IAE par la taille des parcelles. La logique est que les plus petites parcelles génèrent plus de « bords de champs » et autres zones lisières
+
+* Niveau 1 ⇒ bonus fonction du label x type de productions
+* Label bio dans un premier temps, mais besoin de données sur autres labels
+
+⇒ Objectif : différencier le bio et le conventionnel selon la taille des parcelles qui caractérise chacun de ces systèmes
+
 ### Données
 
-### Formule
+Etude de la taille des parcelles :
 
-### Agrégation au coût environnemental
+* RPG “conventionnel”
+* RPG Bio (Agence bio)
+
+Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bio)
+
+#### Périmètre
+
+* Emprise géographique : France métropolitaine → données exhaustives et donc moyennes par culture et mode de production (bio / non bio) significatives
+* Groupes de cultures : prise en compte de 22 des 24 groupes de cultures en vigueur dans le RPG\*
+* Déclinaison des calculs : nationale (France métropolitaine), régionale, départementale (+ données détaillées par parcelle disponibles également)
+* Millésime RPG : 2021
+
+#### Sources des données mobilisées :
+
+* RPG niveau 1 (parcelles totales, cultures principales par parcelle, France métropolitaine, millésime 2021) :[ https://geoservices.ign.fr/ressource/194788](https://geoservices.ign.fr/ressource/194788)
+* Agence bio (parcelles en AB) :[  https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/)  (National - année 2021)
+
+### Synthèse des résultats obtenus
+
+<figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUd4bXE1OC1ZdqTv9ScUZO962BbhD8DGwu_hpRzn7jXCE1UsUgv_QofwlhKFi21n_hVPM6W5PqLcP1zuOZMkAihEyW0xTtOFSbP5zI8pTcGP2fGGGRrRcPyiBLcRQKNfu-vmNbHEi1981n10XSVk3Fz5nniTN6lK=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
+
+&#x20;Par rapport aux parcelles Non bio , les parcelles Bio sont en moyenne :
+
+* \+ petites pour 10/21 gpes de cultures (Blé tendre, Orge, Colza, Protéagineux, Riz, Estives et landes, Vergers, Fruits à coque, Autres cultures industrielles, Légumes ou fleurs)
+* de même taille (- de 10% de différence) pour 6/21 gpes de cultures (Maïs grain et ensilage, Autres céréales, Tournesol, Prairies permanentes, Prairies temporaires, Vignes)
+* \+ grandes pour 5/21 gpes de cultures (Autres oléagineux, Légumineuses à grains, Fourrage, Oliviers, Divers)
+
+• Les + gros écarts (hors Divers) entre Bio et Non bio concernent les Autres cultures industrielles (-4.5 ha soit -76% pour le Bio)
 
 ## Complément "diversité agricole"
 
+### Approche globale
+
+L'objectif de ce complément est de prendre en compte les services écosystémiques rendus par la diversité culturale en les approximant par la mesure de cette diversité à travers l'**indice de Simpson**.
+
+* Calcul de l’indice de Simpson des Petites Régions Agricoles (PRA)
+* Par groupe de cultures, calcul de la moyenne des indices de Simpson des PRA pondérée par la surface du groupe de cultures dans chaque PRA
+
 ### Données
 
-### Formule
+* Surfaces conventionnelles/bio par cultures (227) et par PRA (750) (hors Outre-mer)
+* Surfaces conventionnelles/bio par groupe de cultures et par PRA
+
+### Synthèse des résultats obtenus
+
+<figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUfx__xgC6LRtFANKXoxKgRPvZsuSU6AYcy5U1eMpuD1PGdHxn0Bycot2RI3B331pkOUib0-DwqbwG8dCOIQPUghtk16PAHNeiYS23iWSL--gxk5_8osAMAR4sBJN83IE4XMI-rI8POsjTCVVqS3kJ339iQs_qaz=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
+
+L’indice de Simpson des surfaces bio est plus élevé que celui des surfaces conventionnelles, hormis pour le riz, les vergers, vignes, fruits à coque, et oliviers.
 
 ### Agrégation au coût environnemental
 
