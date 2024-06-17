@@ -33,9 +33,7 @@ $$
 ImpactBoeufHache_N = (ImpactBoeufHacheREF - ImpactBoeufREF )+ImpactBoeuf_N
 $$
 
-##
-
-## Procédés retenus
+### Procédés retenus
 
 | Label / Origine        | France                                                                                                                                                                                  | Autres pays                                                                                                                                                                             |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -46,6 +44,42 @@ $$
 
 <table><thead><tr><th width="319">ICV constitutifs de l'ICV moyen</th><th>Quantité de l'ICV dans l'ICV moyen</th></tr></thead><tbody><tr><td>Cull cow, organic, milk system n°1, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Cull cow, organic, milk system n°2, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Cull cow, organic, milk system n°3, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Cull cow, organic, milk system n°4, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Cull cow, organic, milk system n°5, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°1, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°2, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°3, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°4, at farm gate/FR U</td><td>0,088 kg</td></tr></tbody></table>
 
-L'ensemble des ICV bio construits sont détaillés ici  :
+{% hint style="danger" %}
+**Page en construction**
+{% endhint %}
 
-{% file src="../../.gitbook/assets/20221215 ICV bio moyen (1)-8.xlsx" %}
+## Exemple de la construction de l'ingrédient industrie farine à partir du blé tendre
+
+Si l'on exclue la farine utilisée pour l'alimentation animale (animal feed), un procédé est proposé dans Agribalyse pour la farine :&#x20;
+
+* Wheat flour, at industrial mill
+
+$$
+FarineREF
+$$
+
+Ce procédé est construit à partir :&#x20;
+
+* d'un [blé tendre](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/ingredients-agricoles/ble-tendre) \[at farm] --> Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate
+
+$$
+BléREF
+$$
+
+* d'opérations industrielles : mouture (milling), réception, prélavage, stockage.&#x20;
+
+<figure><img src="../../.gitbook/assets/Image collée à 2022-11-9 17-42.png" alt=""><figcaption><p>Arborescence du procédé Wheat flour at industrial mill</p></figcaption></figure>
+
+On construit différents procédés de farine **(N)**, sur la base du procédé de référence (Wheat flour at industrial mill), en appliquant les opérations industrielles à différents procédés de blé tendre **(N)**.
+
+$$
+ImpactFarine_N = (ImpactFarineREF - ImpactBléREF )+ImpactBlé_N
+$$
+
+## Procédés retenus
+
+| Label / Origine        | France                                                                                                                                                        | Autres pays                                                                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p> | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p> |
+| Agriculture biologique | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : procédé construit pour le <a href="boeuf-hache.md">blé tendre bio</a></p>           | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : procédé construit pour le <a href="boeuf-hache.md">blé tendre bio</a></p>           |
+

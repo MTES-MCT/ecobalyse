@@ -1,6 +1,2 @@
----
-description: A rédiger une fois les travaux CTCPA implémentés
----
-
-# Paramétrage des emballages
+# Paramétrage de la conservation à l'étape distribution
 

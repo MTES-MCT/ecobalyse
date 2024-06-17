@@ -1,4 +1,4 @@
-# 🍳 Consommation
+# Paramétrage de la conservation et de la transformation chez le consommateur (OLD: à vérifier)
 
 Les impacts considérés pour la phase de consommation sont cadrés dans la partie "3.7 Phase d'utilisation" de la méthodologie Agribalyse ([Méthodologie\_AGB\_3.1\_alimentation.pdf](https://3613321239-files.gitbook.io/\~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1\_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971)).&#x20;
 

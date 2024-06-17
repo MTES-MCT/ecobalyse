@@ -2,7 +2,7 @@
 description: Choix des procédés de transformation du produit alimentaire modélisé
 ---
 
-# 🏭 Transformation
+# Paramétrage de la transformation (issu de OLD : à vérifier)
 
 La seconde étape du paramétrage d'un produit alimentaire dans Ecobalyse est le choix des procédés de transformation : cuisson, mise en boîte ...
 
