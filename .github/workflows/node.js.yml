@@ -60,7 +60,6 @@ jobs:
     - name: Install Python dependencies
       run: pip install pipenv && pipenv install
 
-
     - name: Install Ubuntu dependencies
       run: |
         sudo apt-get update
@@ -70,7 +69,7 @@ jobs:
       run: npm run build --if-present
 
     - name: Build Elm static Db
-      run: npm run db:build
+      run: npm run db:build:full
 
     - name: Run prettier & ruff formatting check
       run: npm run lint:all
