@@ -127,23 +127,29 @@ L'objectif de ce complément est de prendre en compte les services écosystémiq
 
 L’indice de Simpson des surfaces bio est plus élevé que celui des surfaces conventionnelles, hormis pour le riz, les vergers, vignes, fruits à coque, et oliviers.
 
-### Agrégation au coût environnemental
-
 ## Complément "prairies"
 
-### Données
+### Approche globale et données mobilisées
 
-### Formule
+Ce complément vise à prendre en compte les externalités positives produites par les prairies en les approximant par la quantité de prairies (ha), c'est-à-dire en isolant la valeur de surfaces de prairies dans chaque ICV.
 
-### Agrégation au coût environnemental
+### Exemple de résultats
+
+<figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUey4NG-7yWTq5NcNMO8w0gWG56y4E3Mr7F4NQlJAMbTP5JLWbseen-nV_x4SK-AJofqY4oc8tc8JCT_4l_CtcJkH8TIwd6qtY_V9zqV6b_bTZXZZjZvvE8Nviq8anufBIkhQYDRf00pZI9rYHa_LVkz5lUWR3M=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
 
 ## Complément "densité territoriale en élevage"
 
+### Approche globale
+
 ### Données
 
-### Formule
+## Formules
 
-### Agrégation au coût environnemental
+[Pascal Dagras](https://app.gitbook.com/u/pwxhh5Bm9BgOcSW4v6Dn3wqFG4C2 "mention") et [paul.boosz](https://app.gitbook.com/u/Qw2QhUIB0eTFNu36oXM9fYkEu1t2 "mention")
+
+## Agrégation au coût environnemental
+
+[Pascal Dagras](https://app.gitbook.com/u/pwxhh5Bm9BgOcSW4v6Dn3wqFG4C2 "mention") et [paul.boosz](https://app.gitbook.com/u/Qw2QhUIB0eTFNu36oXM9fYkEu1t2 "mention")
 
 ## Exemples de calcul des compléments
 
