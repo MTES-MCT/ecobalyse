@@ -27,4 +27,8 @@ jobs:
           GITHUB_REF_NAME: ${{ github.ref_name }}
           LAST_COMMIT_HASH: ${{ github.sha }}
           SCALINGO_POSTGRESQL_SCORE_URL: ${{ secrets.SCALINGO_POSTGRESQL_SCORE_URL }}
-        run: python data/common/score_history/score_history.py $GITHUB_REF_NAME $LAST_COMMIT_HASH $SCALINGO_POSTGRESQL_SCORE_URL
+          DJANGO_BYPASS_AUTH: True
+        run: |
+          npm run server:start &
+          npm run start:backend &
+          python data/common/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $LAST_COMMIT_HASH $SCALINGO_POSTGRESQL_SCORE_URL

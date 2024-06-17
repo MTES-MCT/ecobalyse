@@ -1,24 +1,42 @@
 import json
 import logging
+import pathlib
 import sys
 from contextlib import contextmanager
 from datetime import datetime
+from enum import StrEnum
 
 import pandas as pd
+import requests
 from git import Repo
 from sqlalchemy import create_engine, text
 
-
-
 # Constants
 
-SCORE_HISTORY_PATH = "./data/common/score_history/score_history.csv"
+CURRENT_FILE_DIR = pathlib.Path(__file__).parent.resolve()
+PROJECT_ROOT_DIR = f"{CURRENT_FILE_DIR}/../../../"
 
 TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-IMPACTS_ECOBALYSE_PATH = "./public/data/impacts.json"
-EXAMPLES_PATH_DIC = {
-    "textile": "./tests/textile-examples-score.json",
-    "food": "./tests/food-examples-score.json",
+IMPACTS_ECOBALYSE_PATH = f"{PROJECT_ROOT_DIR}/public/data/impacts.json"
+
+
+class Domain(StrEnum):
+    TEXTILE = "textile"
+    FOOD = "food"
+
+
+EXAMPLES_KEY = "examples"
+API_ENDPOINT_KEY = "api_endpoint"
+
+DOMAIN_DATA = {
+    Domain.TEXTILE: {
+        EXAMPLES_KEY: f"{PROJECT_ROOT_DIR}public/data/textile/examples.json",
+        API_ENDPOINT_KEY: "/api/textile/simulator/detailed",
+    },
+    Domain.FOOD: {
+        EXAMPLES_KEY: f"{PROJECT_ROOT_DIR}public/data/food/examples.json",
+        API_ENDPOINT_KEY: "/api/food/",
+    },
 }
 
 # Helper functions
@@ -35,12 +53,16 @@ def get_current_branch_name():
 
 def get_arguments():
     if len(sys.argv) < 4:
-        print("Usage: python compute_score_history.py <BRANCH_NAME> <LAST_COMMIT_HASH> <SCALINGO_POSTGRESQL_SCORE_URL>")
+        print(
+            "Usage: python compute_score_history.py <API_URL> <BRANCH_NAME> <LAST_COMMIT_HASH> <SCALINGO_POSTGRESQL_SCORE_URL>"
+        )
         sys.exit(1)
-    branch_name = sys.argv[1]
-    last_commit_hash = sys.argv[2][:7]
-    scalingo_postgresql_score_url = sys.argv[3]
-    return branch_name, last_commit_hash, scalingo_postgresql_score_url
+
+    api_url = sys.argv[1]
+    branch_name = sys.argv[2]
+    last_commit_hash = sys.argv[3][:7]
+    scalingo_postgresql_score_url = sys.argv[4]
+    return api_url, branch_name, last_commit_hash, scalingo_postgresql_score_url
 
 
 def load_json(file):
@@ -89,9 +111,7 @@ def compute_normalization_factors():
     return normalization_factors
 
 
-def process_response_textile(
-    branch_name, example, normalization_factors, last_commit
-):
+def process_response_textile(branch_name, example, normalization_factors, last_commit):
     """
     Processes the simulation response for a given example, transforming it into a structured DataFrame.
 
@@ -108,26 +128,30 @@ def process_response_textile(
     query = example["query"]
     df_list = []
 
-    df_list.append(create_df_textile(
+    df_list.append(
+        create_df_textile(
             branch_name,
             last_commit,
             example,
             query,
             response,
             normalization_factors,
-        ))
+        )
+    )
 
     # Process life cycle steps
     life_cycle_steps = response.get("lifeCycle", [])
     for step in life_cycle_steps:
-        df_list.append(create_df_textile(
-            branch_name,
-            last_commit,
-            example,
-            query,
-            step,
-            normalization_factors,
-        ))
+        df_list.append(
+            create_df_textile(
+                branch_name,
+                last_commit,
+                example,
+                query,
+                step,
+                normalization_factors,
+            )
+        )
 
     # Process transport, if present in the response
     transport_info = response.get("transport", None)
@@ -151,7 +175,6 @@ def process_response_textile(
         return pd.DataFrame()
 
 
-
 def create_df_textile(
     branch,
     commit_id,
@@ -168,20 +191,20 @@ def create_df_textile(
     step_label = "Transport" if is_transport else step.get("label", "Total")
 
     data = {
-            "datetime": TODAY_DATETIME_STR,
-            "branch": branch,
-            "commit": commit_id,
-            "domain": "textile",
-            "product_name": example["name"],
-            "id": example["id"],
-            "query": json.dumps(query),
-            "mass": query["mass"],
-            "elements": json.dumps(query["materials"]),
-            "lifecycle_step": step_label,
-            "lifecycle_step_country": step.get("country", {}).get("code", ""),
-            "impact": impacts.index.tolist(),
-            "value": impacts.values.tolist(),
-        }
+        "datetime": TODAY_DATETIME_STR,
+        "branch": branch,
+        "commit": commit_id,
+        "domain": "textile",
+        "product_name": example["name"],
+        "id": example["id"],
+        "query": json.dumps(query),
+        "mass": query["mass"],
+        "elements": json.dumps(query["materials"]),
+        "lifecycle_step": step_label,
+        "lifecycle_step_country": step.get("country", {}).get("code", ""),
+        "impact": impacts.index.tolist(),
+        "value": impacts.values.tolist(),
+    }
     df = pd.DataFrame(data)
     df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
 
@@ -201,7 +224,7 @@ def create_df_textile(
             "lifecycle_step": step_label,
             "lifecycle_step_country": step.get("country", {}).get("code", ""),
             "impact": complementsImpacts.index.tolist(),
-            "value":0,
+            "value": 0,
             "norm_value_ecs": complementsImpacts.values.tolist(),
         }
         df_complements = pd.DataFrame(data_complements)
@@ -210,9 +233,7 @@ def create_df_textile(
     return df
 
 
-def process_response_food(
-    branch_name, example, normalization_factors, last_commit
-):
+def process_response_food(branch_name, example, normalization_factors, last_commit):
     """
     Processes the simulation response for a given example, transforming it into a structured DataFrame.
 
@@ -227,11 +248,11 @@ def process_response_food(
 
     lifecycle_step_impact_paths = {
         "ingredients": ["recipe", "ingredientsTotal"],
-        "transformation":["recipe", "transform"],
+        "transformation": ["recipe", "transform"],
         "packaging": ["packaging"],
         "preparation": ["preparation"],
         "transports": ["transports", "impacts"],
-        "distribution": ["distribution","total"],
+        "distribution": ["distribution", "total"],
     }
 
     results_per_life_cycle = []
@@ -425,6 +446,7 @@ def get_previous_score(domain, score_history_df, current_branch):
 
 # Database Operations
 
+
 @contextmanager
 def get_database_connection(engine):
     """
@@ -462,8 +484,26 @@ def insert_new_score(df, engine, table_name):
         df.to_sql(table_name, con=conn, if_exists="append", index=False)
 
 
+def compute_product_scores(product_params, api_url):
+    r = requests.post(api_url, json=product_params["query"])
+    return r.json()
+
+
+def compute_products_scores_for_examples(examples, api_url):
+    computed_scores = []
+
+    for example in examples:
+        product_scores = compute_product_scores(example, api_url)
+        example["response"] = product_scores
+        computed_scores.append(example)
+
+    return computed_scores
+
+
 if __name__ == "__main__":
-    current_branch, last_commit, scalingo_postgresql_score_url = get_arguments()
+    api_url, current_branch, last_commit, scalingo_postgresql_score_url = (
+        get_arguments()
+    )
 
     engine = create_engine(
         scalingo_postgresql_score_url, connect_args={"connect_timeout": 10}
@@ -478,14 +518,21 @@ if __name__ == "__main__":
             f"Score from commit {last_commit} hasn't been stored before. Computing score for {current_branch} and storing them if they are different"
         )
 
-        for domain in ["textile", "food"]:
-            example_path = EXAMPLES_PATH_DIC[domain]
-            examples = load_json(example_path)
+        for domain in Domain:
+            example_path = DOMAIN_DATA[domain][EXAMPLES_KEY]
+            api_endpoint = DOMAIN_DATA[domain][API_ENDPOINT_KEY]
+
+            examples = compute_products_scores_for_examples(
+                load_json(example_path), f"{api_url}{api_endpoint}"
+            )
+
             new_score_df = get_new_score(domain, examples, current_branch, last_commit)
             previous_score_df = get_previous_score(
                 domain, score_history_df, current_branch
             )
-            if previous_score_df.empty or are_df_different(new_score_df, previous_score_df):
+            if previous_score_df.empty or are_df_different(
+                new_score_df, previous_score_df
+            ):
                 logger.info(
                     f"Score is different for domain {domain}. Storing new score in the db. Number of rows in the score_history table before update: {get_row_count(engine)}"
                 )
