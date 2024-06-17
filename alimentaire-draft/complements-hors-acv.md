@@ -8,7 +8,7 @@ Ces compléments hors ACV visent à prendre en compte les **externalités enviro
 
 En l'absence de données de quantification des externalités positives liées aux haies, Ecobalyse approxime les externalités positives des haies par la quantité de haies (ml/ha)
 
-* Niveau 1 ⇒ bonus fonction du label x type de productions
+* Niveau 1 ⇒ complément fonction du label x type de productions
 * Label bio dans un premier temps, mais il est possible d'intégrer d'autres labels dès que des données sont disponibles&#x20;
 
 ⇒ Objectif : différencier le bio et le conventionnel selon la quantité de haies qui caractérise chacun de ces systèmes
@@ -44,7 +44,7 @@ Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bi
 
 &#x20;Par rapport aux parcelles Non bio , les parcelles Bio présentent en moyenne :
 
-* \+ de haies pour 15/20 gpes de cultures
+* \+ de haies pour 15/20 groupes de cultures
 * autant de haies  (- de 10% de différence) pour 5/20 gpes de cultures (Fourrage, Prairies permanentes, Prairies temporaires, Fruits à coque, Oliviers)
 
 • Quel que soit le mode de production, les groupes de cultures avec :
@@ -61,9 +61,9 @@ Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bi
 
 ### Approche globale
 
-En l'absence de données données dispo sur les IAE hors haies, on approxime les externalités positives des autres IAE par la taille des parcelles. La logique est que les plus petites parcelles génèrent plus de « bords de champs » et autres zones lisières
+En l'absence de données données disponibles sur les IAE hors haies, on approxime les externalités positives des autres IAE par la taille des parcelles. La logique est que les plus petites parcelles génèrent plus de « bords de champs » et autres zones lisières
 
-* Niveau 1 ⇒ bonus fonction du label x type de productions
+* Niveau 1 ⇒ complément fonction du label x type de productions
 * Label bio dans un premier temps, mais besoin de données sur autres labels
 
 ⇒ Objectif : différencier le bio et le conventionnel selon la taille des parcelles qui caractérise chacun de ces systèmes
@@ -95,9 +95,9 @@ Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bi
 
 &#x20;Par rapport aux parcelles Non bio , les parcelles Bio sont en moyenne :
 
-* \+ petites pour 10/21 gpes de cultures (Blé tendre, Orge, Colza, Protéagineux, Riz, Estives et landes, Vergers, Fruits à coque, Autres cultures industrielles, Légumes ou fleurs)
-* de même taille (- de 10% de différence) pour 6/21 gpes de cultures (Maïs grain et ensilage, Autres céréales, Tournesol, Prairies permanentes, Prairies temporaires, Vignes)
-* \+ grandes pour 5/21 gpes de cultures (Autres oléagineux, Légumineuses à grains, Fourrage, Oliviers, Divers)
+* \+ petites pour 10/21 groupes de cultures (Blé tendre, Orge, Colza, Protéagineux, Riz, Estives et landes, Vergers, Fruits à coque, Autres cultures industrielles, Légumes ou fleurs)
+* de même taille (- de 10% de différence) pour 6/21 groupes de cultures (Maïs grain et ensilage, Autres céréales, Tournesol, Prairies permanentes, Prairies temporaires, Vignes)
+* \+ grandes pour 5/21 groupes de cultures (Autres oléagineux, Légumineuses à grains, Fourrage, Oliviers, Divers)
 
 • Les + gros écarts (hors Divers) entre Bio et Non bio concernent les Autres cultures industrielles (-4.5 ha soit -76% pour le Bio)
 
