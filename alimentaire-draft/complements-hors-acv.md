@@ -4,12 +4,6 @@ Ces compléments hors ACV visent à prendre en compte les **externalités enviro
 
 ## Complément "haies"&#x20;
 
-
-
-{% hint style="info" %}
-\=> rédaction : s'inspirer de [https://docs.google.com/presentation/d/1AIVziRc9jjjSMEVS3wpCRSjmrbjWQWf6Ow9YpC7CxPc/edit#slide=id.g2a035ff3f7c\_0\_16](https://docs.google.com/presentation/d/1AIVziRc9jjjSMEVS3wpCRSjmrbjWQWf6Ow9YpC7CxPc/edit#slide=id.g2a035ff3f7c\_0\_16)&#x20;
-{% endhint %}
-
 ### Approche globale
 
 En l'absence de données de quantification des externalités positives liées aux haies, Ecobalyse approxime les externalités positives des haies par la quantité de haies (ml/ha)
