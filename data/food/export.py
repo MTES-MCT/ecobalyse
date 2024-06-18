@@ -46,7 +46,7 @@ CONFIG = {
     "AGRIBALYSE": "Agribalyse 3.1.1",
     "BIOSPHERE": "Agribalyse 3.1.1 biosphere",
     "ACTIVITIES_FILE": f"{PROJECT_ROOT_DIR}/data/food/activities.json",
-    "COMPARED_IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/data/food/impact_comparison/compared_impacts.csv",
+    "COMPARED_IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/data/food/compared_impacts.json",
     "IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/impacts.json",
     "ECOSYSTEMIC_FACTORS_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ecosystemic_factors.csv",
     "FEED_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",
@@ -54,7 +54,7 @@ CONFIG = {
     "INGREDIENTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",
     "PROCESSES_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
-    'GRAPH_FOLDER': f"{PROJECT_ROOT_DIR}/data/food/impact_comparison"
+    "GRAPH_FOLDER": f"{PROJECT_ROOT_DIR}/data/food/impact_comparison",
 }
 with open(CONFIG["IMPACTS_FILE"]) as f:
     IMPACTS_DEF_ECOBALYSE = json.load(f)
@@ -85,8 +85,8 @@ def create_ingredient_list(activities_tuple):
         ]
     )
 
-def compute_normalization_factors():
 
+def compute_normalization_factors():
     normalization_factors = {}
     for k, v in IMPACTS_DEF_ECOBALYSE.items():
         if v["ecoscore"]:
@@ -255,8 +255,12 @@ def compare_impacts(processes_fd):
         process["simapro_impacts"] = with_subimpacts(process["simapro_impacts"])
         process["brightway_impacts"] = with_subimpacts(process["brightway_impacts"])
 
-    processes_corrected_simapro  = with_corrected_impacts(IMPACTS_DEF_ECOBALYSE, processes, "simapro_impacts")
-    processes_corrected_smp_bw  = with_corrected_impacts(IMPACTS_DEF_ECOBALYSE, processes_corrected_simapro, "brightway_impacts")
+    processes_corrected_simapro = with_corrected_impacts(
+        IMPACTS_DEF_ECOBALYSE, processes, "simapro_impacts"
+    )
+    processes_corrected_smp_bw = with_corrected_impacts(
+        IMPACTS_DEF_ECOBALYSE, processes_corrected_simapro, "brightway_impacts"
+    )
 
     return frozendict({k: frozendict(v) for k, v in processes_corrected_smp_bw.items()})
 
@@ -351,26 +355,30 @@ def plot_impacts(ingredient_name, impacts_smp, impacts_bw):
     matplotlib.pyplot.savefig(f"{CONFIG['GRAPH_FOLDER']}/{ingredient_name}.png")
     matplotlib.pyplot.close()
 
+
 def csv_export_impact_comparison(compared_impacts):
     rows = []
     for product_id, process in compared_impacts.items():
-        simapro_impacts = process.get('simapro_impacts', {})
-        brightway_impacts = process.get('brightway_impacts', {})
+        simapro_impacts = process.get("simapro_impacts", {})
+        brightway_impacts = process.get("brightway_impacts", {})
         for impact in simapro_impacts:
             row = {
-                'id': product_id,
-                'name': process['name'],
-                'impact': impact,
-                'simapro': simapro_impacts.get(impact),
-                'brightway': brightway_impacts.get(impact)
+                "id": product_id,
+                "name": process["name"],
+                "impact": impact,
+                "simapro": simapro_impacts.get(impact),
+                "brightway": brightway_impacts.get(impact),
             }
-            row["diff_abs"] = abs(row["simapro"]-row["brightway"])
-            row["diff_rel"] = row["diff_abs"] / abs(row["simapro"]) if row["simapro"] != 0 else None
+            row["diff_abs"] = abs(row["simapro"] - row["brightway"])
+            row["diff_rel"] = (
+                row["diff_abs"] / abs(row["simapro"]) if row["simapro"] != 0 else None
+            )
 
             rows.append(row)
 
     df = pd.DataFrame(rows)
     df.to_csv(CONFIG["COMPARED_IMPACTS_FILE"], index=False)
+
 
 if __name__ == "__main__":
     setup_environment()
@@ -400,7 +408,9 @@ if __name__ == "__main__":
         processes_impacts = compute_impacts(processes)
     elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
         impacts_compared_dic = compare_impacts(processes)
-        csv_export_impact_comparison(impacts_compared_dic)
+        csv_export_impact_comparison(
+            impacts_compared_dic, CONFIG["COMPARED_IMPACTS_FILE"]
+        )
         for ingredient_name, values in impacts_compared_dic.items():
             print(f"Plotting {ingredient_name}")
             simapro_impacts = values["simapro_impacts"]
