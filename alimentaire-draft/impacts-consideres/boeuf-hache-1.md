@@ -1,6 +1,6 @@
 # 🐄 Ingrédients - cas des inventaires complexes construits par Ecobalyse
 
-Les inventaires mobilisés pour certains ingrédients sont construits par Ecobalyse. Il s'agit d'ingrédients dits "complexes", c'est-à-dire qui interviennent dans des recettes sous une forme différente (transformée) par rapport à leur état en sortie de ferme : &#x20;
+Les inventaires mobilisés pour certains ingrédients dits "complexes", c'est-à-dire qui interviennent dans des recettes sous une forme différente (transformée) par rapport à leur état en sortie de ferme, sont construits par Ecobalyse : &#x20;
 
 * Les différentes variantes d'ingrédients "viandes" (ils ont subi au moins les étapes d'abattage/découpe). Ex. : boeuf haché.
 * Les différentes variantes d'ingrédients "industrie" (ils ont subi au moins une transformation industrielle). Ex. : oignons déshydratés.
@@ -44,13 +44,9 @@ $$
 
 <table><thead><tr><th width="319">ICV constitutifs de l'ICV moyen</th><th>Quantité de l'ICV dans l'ICV moyen</th></tr></thead><tbody><tr><td>Cull cow, organic, milk system n°1, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Cull cow, organic, milk system n°2, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Cull cow, organic, milk system n°3, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Cull cow, organic, milk system n°4, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Cull cow, organic, milk system n°5, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°1, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°2, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°3, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°4, at farm gate/FR U</td><td>0,088 kg</td></tr></tbody></table>
 
-{% hint style="danger" %}
-**Page en construction**
-{% endhint %}
-
 ## Exemple de la construction de l'ingrédient industrie farine à partir du blé tendre
 
-Si l'on exclue la farine utilisée pour l'alimentation animale (animal feed), un procédé est proposé dans Agribalyse pour la farine :&#x20;
+Le procédé proposé dans Agribalyse pour la farine est :&#x20;
 
 * Wheat flour, at industrial mill
 

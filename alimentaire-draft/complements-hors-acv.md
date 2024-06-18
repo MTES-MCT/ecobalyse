@@ -47,12 +47,12 @@ Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bi
 * \+ de haies pour 15/20 groupes de cultures
 * autant de haies  (- de 10% de différence) pour 5/20 gpes de cultures (Fourrage, Prairies permanentes, Prairies temporaires, Fruits à coque, Oliviers)
 
-• Quel que soit le mode de production, les groupes de cultures avec :
+Quel que soit le mode de production, les groupes de cultures avec :
 
 * le + de haies sont les prairies
 * le - de haies sont les estives et landes (milieux ouverts)
 
-• Les + gros écarts entre Bio et Non bio concernent les groupes de cultures:
+Les + gros écarts entre Bio et Non bio concernent les groupes de cultures:
 
 * Légumes/fleurs en valeur absolue (+ 46 ml/ha pour le bio)
 * Autres cultures industrielles en valeur relative (+ 306% pour le bio)
@@ -99,7 +99,7 @@ Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bi
 * de même taille (- de 10% de différence) pour 6/21 groupes de cultures (Maïs grain et ensilage, Autres céréales, Tournesol, Prairies permanentes, Prairies temporaires, Vignes)
 * \+ grandes pour 5/21 groupes de cultures (Autres oléagineux, Légumineuses à grains, Fourrage, Oliviers, Divers)
 
-• Les + gros écarts (hors Divers) entre Bio et Non bio concernent les Autres cultures industrielles (-4.5 ha soit -76% pour le Bio)
+Les + gros écarts (hors Divers) entre Bio et Non bio concernent les Autres cultures industrielles (-4.5 ha soit -76% pour le Bio)
 
 ## Complément "diversité agricole"
 
