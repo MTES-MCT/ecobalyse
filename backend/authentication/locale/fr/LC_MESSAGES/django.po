@@ -64,8 +64,6 @@ msgid "The link does not expire"
 msgstr "Le lien n'a pas de date d'expiration"
 
 #: authentication/views.py:53
-#, fuzzy
-#| msgid "You seem already registered. Try to use the Connection form."
 msgid "You seem already registered. Try using the connection tab."
 msgstr "Vous semblez déjà inscrit(e). Essayez d'utiliser l'onglet Connexion."
 
