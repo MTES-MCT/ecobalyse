@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 17:35+0200\n"
+"POT-Creation-Date: 2024-06-18 13:49+0200\n"
 "PO-Revision-Date: 2024-04-16 17:36+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
@@ -26,10 +26,10 @@ msgstr "Administration Ecobalyse"
 msgid "Ecobalyse backend"
 msgstr "Console d'Administration Ecobalyse"
 
-#: backend/settings.py:168
+#: backend/settings.py:167
 msgid "Français"
 msgstr "Français"
 
-#: backend/settings.py:169
+#: backend/settings.py:168
 msgid "English"
 msgstr "English"
