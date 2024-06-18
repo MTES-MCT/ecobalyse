@@ -7,12 +7,12 @@ module Views.ImpactTabs exposing
     , view
     )
 
-import Array
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Session as Session exposing (Session)
+import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -194,9 +194,8 @@ forTextile definitions simulator config =
     let
         totalImpactsWithoutComplements =
             simulator.lifeCycle
-                |> Array.map .impacts
-                |> Array.toList
-                |> Impact.sumImpacts
+                |> LifeCycle.getTotalImpactsWithoutComplements
+                |> Impact.divideBy (Unit.durabilityToFloat simulator.durability)
     in
     { config
         | total = totalImpactsWithoutComplements

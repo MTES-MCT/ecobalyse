@@ -8,6 +8,7 @@ module Data.Textile.Step exposing
     , encode
     , getInputSurface
     , getOutputSurface
+    , getTotalImpactsWithoutComplements
     , getTransportedMass
     , initMass
     , makingDeadStockToString
@@ -528,3 +529,8 @@ encodeProcessInfo v =
         , ( "distribution", encodeMaybeString v.distribution )
         , ( "fading", encodeMaybeString v.fading )
         ]
+
+
+getTotalImpactsWithoutComplements : Step -> Impacts
+getTotalImpactsWithoutComplements { impacts, transport } =
+    Impact.sumImpacts [ impacts, transport.impacts ]
