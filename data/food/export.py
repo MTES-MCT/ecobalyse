@@ -343,9 +343,9 @@ if __name__ == "__main__":
         data_dict = compare_impacts(processes)
         for ingredient_name, values in data_dict.items():
             print(f"Plotting {ingredient_name}")
-            simapro_impacts = values["simapro impacts"]
+            impacts_from_simapro = values["simapro impacts"]
             brightway_impacts = values["brightway impacts"]
-            plot_impacts(ingredient_name, simapro_impacts, brightway_impacts)
+            plot_impacts(ingredient_name, impacts_from_simapro, brightway_impacts)
             print("Charts have been generated and saved as PNG files.")
         sys.exit(0)
     else:
