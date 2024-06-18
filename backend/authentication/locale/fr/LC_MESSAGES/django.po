@@ -82,12 +82,3 @@ msgstr "Données de formulaire incorrectes"
 #: authentication/views.py:109
 msgid "You must be authenticated to access this page"
 msgstr "Vous devez être authentifié(e) pour accéder à cette page"
-
-#~ msgid "The token has expired"
-#~ msgstr "Le jeton a expiré"
-
-#~ msgid "I undertake not to use the data for commercial use"
-#~ msgstr "Je m'engage à respecter les conditions d'utilisation"
-
-#~ msgid "Register"
-#~ msgstr "S'inscrire"
