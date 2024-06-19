@@ -92,7 +92,7 @@ def add_average_activity(activity_data, dbname):
 def replace_activities(activity_variant, activity_data, dbname):
     """Replace all activities in activity_data["replace"] with variants of these activities"""
     for old, new in activity_data["replace"].items():
-        if type(new) is list:
+        if isinstance(list, new):
             searchdb, new = new
         else:
             searchdb = dbname
@@ -134,7 +134,7 @@ def add_variant_activity(activity_data, dbname):
     else:
         for i, act_sub_data in enumerate(activity_data["subactivities"]):
             searchdb = None  # WARNING : the last database specified in "subactivities" is used in the "replace"
-            if type(act_sub_data) is list:
+            if isinstance(list, act_sub_data):
                 searchdb, act_sub_data = act_sub_data
             else:
                 searchdb, act_sub_data = (
@@ -190,7 +190,7 @@ def import_simapro_csv(
         unzipped = datapath[0:-4]
 
     if "AGB3.1.1" in datapath:
-        print(f"### Patching Agribalyse...")
+        print("### Patching Agribalyse...")
         # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
         # (sed is faster than Python)
         call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
