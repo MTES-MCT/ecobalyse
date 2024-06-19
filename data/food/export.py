@@ -201,7 +201,7 @@ def compute_impacts(processes_fd):
         if process["unit"] == "litre" and type(results) is dict:
             results = {k: v / 1000 for k, v in results.items()}
 
-        if type(results) is dict and results:
+        if False:  # type(results) is dict and results:
             # simapro succeeded
             process["impacts"] = results
             print(f"got impacts from simapro for: {process['name']}")
