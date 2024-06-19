@@ -1,10 +1,9 @@
-port module ComputeAggregated exposing (fakeDetails, main)
+port module ComputeAggregated exposing (main)
 
 import Data.Food.Process as FoodProcess
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Process as TextileProcess
-import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Quantity
@@ -72,43 +71,16 @@ toExport { definitionsString, textileProcessesString, foodProcessesString } =
                             foodProcessesOnlyAggregated =
                                 foodProcesses
                                     |> keepOnlyAggregated
-
-                            textileProcessesFakeDetails =
-                                fakeDetails textileProcesses
-
-                            foodProcessesFakeDetails =
-                                fakeDetails foodProcesses
                         in
                         Encode.object
                             [ ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
                             , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
                             , ( "textileProcessesOnlyAggregated", Encode.list TextileProcess.encode textileProcessesOnlyAggregated )
                             , ( "foodProcessesOnlyAggregated", Encode.list FoodProcess.encode foodProcessesOnlyAggregated )
-                            , ( "textileProcessesFakeDetails", Encode.list TextileProcess.encode textileProcessesFakeDetails )
-                            , ( "foodProcessesFakeDetails", Encode.list FoodProcess.encode foodProcessesFakeDetails )
                             ]
                     )
                     textileProcessesResult
                     foodProcessesResult
-            )
-
-
-fakeImpact : Trigram -> Unit.Impact -> Unit.Impact
-fakeImpact trigram impact =
-    if Definition.isAggregate trigram then
-        impact
-
-    else
-        -- Random value that's non zero so the e2e tests can help us spot changes in the computations of impacts
-        Unit.impact 1.2
-
-
-fakeDetails : List { a | impacts : Impacts } -> List { a | impacts : Impacts }
-fakeDetails processes =
-    processes
-        |> List.map
-            (\process ->
-                { process | impacts = Impact.mapImpacts fakeImpact process.impacts }
             )
 
 
