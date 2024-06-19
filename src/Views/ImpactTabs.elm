@@ -12,7 +12,6 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Session as Session exposing (Session)
-import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -193,9 +192,7 @@ forTextile : Definitions -> Simulator -> Config msg -> Config msg
 forTextile definitions simulator config =
     let
         totalImpactsWithoutComplements =
-            simulator.lifeCycle
-                |> LifeCycle.getTotalImpactsWithoutComplements
-                |> Impact.divideBy (Unit.durabilityToFloat simulator.durability)
+            Simulator.getTotalImpactsWithoutComplements simulator
     in
     { config
         | total = totalImpactsWithoutComplements

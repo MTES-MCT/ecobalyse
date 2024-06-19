@@ -8,7 +8,6 @@ module Data.Textile.LifeCycle exposing
     , getNextEnabledStep
     , getStep
     , getStepProp
-    , getTotalImpactsWithoutComplements
     , init
     , sumComplementsImpacts
     , updateStep
@@ -170,10 +169,3 @@ updateSteps labels update_ lifeCycle =
 encode : LifeCycle -> Encode.Value
 encode =
     Encode.array Step.encode
-
-
-getTotalImpactsWithoutComplements : LifeCycle -> Impacts
-getTotalImpactsWithoutComplements =
-    Array.map Step.getTotalImpactsWithoutComplements
-        >> Array.toList
-        >> Impact.sumImpacts
