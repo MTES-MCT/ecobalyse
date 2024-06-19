@@ -7,7 +7,6 @@ module Views.ImpactTabs exposing
     , view
     )
 
-import Array
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
@@ -193,10 +192,7 @@ forTextile : Definitions -> Simulator -> Config msg -> Config msg
 forTextile definitions simulator config =
     let
         totalImpactsWithoutComplements =
-            simulator.lifeCycle
-                |> Array.map .impacts
-                |> Array.toList
-                |> Impact.sumImpacts
+            Simulator.getTotalImpactsWithoutComplements simulator
     in
     { config
         | total = totalImpactsWithoutComplements
