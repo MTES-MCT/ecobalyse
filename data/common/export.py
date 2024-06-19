@@ -71,7 +71,7 @@ def search(dbname, name, excluded_term=None):
     return results[0]
 
 
-def with_corrected_impacts(impacts_ecobalyse, processes_fd):
+def with_corrected_impacts(impacts_ecobalyse, processes_fd, impacts_key = "impacts"):
     """Add corrected impacts to the processes"""
     corrections = {
         k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
@@ -84,11 +84,11 @@ def with_corrected_impacts(impacts_ecobalyse, processes_fd):
             corrected_impact = 0
             for correction_item in correction:  # For each sub-impact and its weighting
                 sub_impact_name = correction_item["sub-impact"]
-                if sub_impact_name in process["impacts"]:
-                    sub_impact = process["impacts"].get(sub_impact_name, 1)
+                if sub_impact_name in process[impacts_key]:
+                    sub_impact = process[impacts_key].get(sub_impact_name, 1)
                     corrected_impact += sub_impact * correction_item["weighting"]
-                    del process["impacts"][sub_impact_name]
-            process["impacts"][impact_to_correct] = corrected_impact
+                    del process[impacts_key][sub_impact_name]
+            process[impacts_key][impact_to_correct] = corrected_impact
         processes_updated[key] = process
     return frozendict(processes_updated)
 

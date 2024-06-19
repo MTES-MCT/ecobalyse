@@ -7,12 +7,13 @@ import json
 import sys
 import urllib.parse
 from os.path import dirname, join
-
+import pathlib
 import bw2calc
 import bw2data
 import matplotlib
 import numpy
 import requests
+import pandas as pd
 from bw2data.project import projects
 from common.export import (
     cached_search,
@@ -37,22 +38,26 @@ from food.ecosystemic_services.ecosystemic_services import (
 )
 
 HERE = dirname(__file__)
+CURRENT_FILE_DIR = pathlib.Path(__file__).parent.resolve()
+PROJECT_ROOT_DIR = f"{CURRENT_FILE_DIR}/../.."
 # Configuration
 CONFIG = {
     "PROJECT": "food",
     "AGRIBALYSE": "Agribalyse 3.1.1",
     "BIOSPHERE": "Agribalyse 3.1.1 biosphere",
-    "ACTIVITIES_FILE": "activities.json",
-    "IMPACTS_FILE": "../../public/data/impacts.json",
-    "ECOSYSTEMIC_FACTORS_FILE": "ecosystemic_services/ecosystemic_factors.csv",
-    "FEED_FILE": "ecosystemic_services/feed.json",
-    "UGB_FILE": "ecosystemic_services/ugb.csv",
-    "INGREDIENTS_FILE": "../../public/data/food/ingredients.json",
-    "PROCESSES_FILE": "../../public/data/food/processes_impacts.json",
+    "ACTIVITIES_FILE": f"{PROJECT_ROOT_DIR}/data/food/activities.json",
+    "COMPARED_IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/data/food/impact_comparison/compared_impacts.csv",
+    "IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/impacts.json",
+    "ECOSYSTEMIC_FACTORS_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ecosystemic_factors.csv",
+    "FEED_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",
+    "UGB_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv",
+    "INGREDIENTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",
+    "PROCESSES_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
+    'GRAPH_FOLDER': f"{PROJECT_ROOT_DIR}/data/food/impact_comparison"
 }
-with open("../public/data/impacts.json") as f:
-    IMPACTS = json.load(f)
+with open(CONFIG["IMPACTS_FILE"]) as f:
+    IMPACTS_DEF_ECOBALYSE = json.load(f)
 
 with open(join(dirname(dirname(HERE)), "public", "data", "impacts.json")) as f:
     IMPACTS = json.load(f)
@@ -79,6 +84,18 @@ def create_ingredient_list(activities_tuple):
             if activity["category"] == "ingredient"
         ]
     )
+
+def compute_normalization_factors():
+
+    normalization_factors = {}
+    for k, v in IMPACTS_DEF_ECOBALYSE.items():
+        if v["ecoscore"]:
+            normalization_factors[k] = (
+                v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
+            )
+        else:
+            normalization_factors[k] = 0
+    return normalization_factors
 
 
 def process_activity_for_ingredient(activity):
@@ -185,7 +202,7 @@ def process_activity_for_processes(activity):
     }
 
 
-def simapro_impacts(activity, method):
+def compute_simapro_impacts(activity, method):
     strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
     project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
@@ -199,7 +216,7 @@ def simapro_impacts(activity, method):
     )
 
 
-def brightway_impacts(activity, method):
+def compute_brightway_impacts(activity, method):
     results = dict()
     lca = bw2calc.LCA({activity: 1})
     lca.lci()
@@ -220,7 +237,7 @@ def compare_impacts(processes_fd):
         activity = cached_search(
             process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
         )
-        results = simapro_impacts(activity, main_method)
+        results = compute_simapro_impacts(activity, main_method)
         print(f"got impacts from SimaPro for: {process['name']}")
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kilowatt hour" and isinstance(results, dict):
@@ -228,29 +245,53 @@ def compare_impacts(processes_fd):
         if process["unit"] == "litre" and isinstance(results, dict):
             results = {k: v / 1000 for k, v in results.items()}
 
-        process["simapro impacts"] = results
+        process["simapro_impacts"] = results
 
         # brightway
-        process["brightway impacts"] = brightway_impacts(activity, main_method)
+        process["brightway_impacts"] = compute_brightway_impacts(activity, main_method)
         print(f"got impacts from Brightway for: {process['name']}")
 
         # compute subimpacts
-        process["simapro impacts"] = with_subimpacts(process["simapro impacts"])
-        process["brightway impacts"] = with_subimpacts(process["brightway impacts"])
+        process["simapro_impacts"] = with_subimpacts(process["simapro_impacts"])
+        process["brightway_impacts"] = with_subimpacts(process["brightway_impacts"])
 
-    return frozendict({k: frozendict(v) for k, v in processes.items()})
+    processes_corrected_simapro  = with_corrected_impacts(IMPACTS_DEF_ECOBALYSE, processes, "simapro_impacts")
+    processes_corrected_smp_bw  = with_corrected_impacts(IMPACTS_DEF_ECOBALYSE, processes_corrected_simapro, "brightway_impacts")
+
+    return frozendict({k: frozendict(v) for k, v in processes_corrected_smp_bw.items()})
 
 
 def compute_impacts(processes_fd):
+    """Add impacts to processes dictionary
+
+    Args:
+        processes_fd (frozendict): dictionary of processes of which we want to compute the impacts
+    Returns:
+    dictionary of processes with impacts. Example :
+
+    {"sunflower-oil-organic": {
+        "id": "sunflower-oil-organic",
+        name": "...",
+        "impacts": {
+            "acd": 3.14,
+            ...
+            "ecs": 34.3,
+        },
+        "unit": ...
+        },
+    "tomato":{
+    ...
+    }
+    """
     processes = dict(processes_fd)
     print("Computing impacts:")
-    for index, (key, process) in enumerate(processes.items()):
+    for index, (_, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
         # simapro
         activity = cached_search(
             process.get("source", CONFIG["AGRIBALYSE"]), process["search"]
         )
-        results = simapro_impacts(activity, main_method)
+        results = compute_simapro_impacts(activity, main_method)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kilowatt hour" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
@@ -266,7 +307,7 @@ def compute_impacts(processes_fd):
         else:
             # simapro failed (unexisting Ecobalyse project or some other reason)
             # brightway
-            process["impacts"] = brightway_impacts(activity, main_method)
+            process["impacts"] = compute_brightway_impacts(activity, main_method)
             print(f"got impacts from brightway for: {process['name']}")
 
         # compute subimpacts
@@ -280,21 +321,18 @@ def compute_impacts(processes_fd):
     return frozendict({k: frozendict(v) for k, v in processes.items()})
 
 
-def plot_impacts(ingredient_name, simapro, brightway):
-    categories = [
-        c
-        for c in simapro.keys()
-        if c not in ("etf-o", "etf-i", "htn-o", "htn-i", "htc-i", "htc-o")
-    ]
+def plot_impacts(ingredient_name, impacts_smp, impacts_bw):
+    impact_labels = impacts_smp.keys()
+    normalization_factors = compute_normalization_factors()
 
     simapro_values = [
-        simapro[cat] / IMPACTS[cat]["pef"]["normalization"] for cat in categories
+        impacts_smp[label] * normalization_factors[label] for label in impact_labels
     ]
     brightway_values = [
-        brightway[cat] / IMPACTS[cat]["pef"]["normalization"] for cat in categories
+        impacts_bw[label] * normalization_factors[label] for label in impact_labels
     ]
 
-    x = numpy.arange(len(categories))
+    x = numpy.arange(len(impact_labels))
     width = 0.35
 
     fig, ax = matplotlib.pyplot.subplots(figsize=(12, 8))
@@ -306,13 +344,33 @@ def plot_impacts(ingredient_name, simapro, brightway):
     ax.set_ylabel("Impact Values")
     ax.set_title(f"Environmental Impacts for {ingredient_name}")
     ax.set_xticks(x)
-    ax.set_xticklabels(categories, rotation=90)
+    ax.set_xticklabels(impact_labels, rotation=90)
     ax.legend()
 
     matplotlib.pyplot.tight_layout()
-    matplotlib.pyplot.savefig(f"{ingredient_name}.png")
+    matplotlib.pyplot.savefig(f"{CONFIG['GRAPH_FOLDER']}/{ingredient_name}.png")
     matplotlib.pyplot.close()
 
+def csv_export_impact_comparison(compared_impacts):
+    rows = []
+    for product_id, process in compared_impacts.items():
+        simapro_impacts = process.get('simapro_impacts', {})
+        brightway_impacts = process.get('brightway_impacts', {})
+        for impact in simapro_impacts:
+            row = {
+                'id': product_id,
+                'name': process['name'],
+                'impact': impact,
+                'simapro': simapro_impacts.get(impact),
+                'brightway': brightway_impacts.get(impact)
+            }
+            row["diff_abs"] = abs(row["simapro"]-row["brightway"])
+            row["diff_rel"] = row["diff_abs"] / abs(row["simapro"]) if row["simapro"] != 0 else None
+
+            rows.append(row)
+
+    df = pd.DataFrame(rows)
+    df.to_csv(CONFIG["COMPARED_IMPACTS_FILE"], index=False)
 
 if __name__ == "__main__":
     setup_environment()
@@ -337,15 +395,17 @@ if __name__ == "__main__":
 
     check_ids(ingredients_animal_es)
     processes = create_process_list(activities_land_occ)
+
     if len(sys.argv) == 1:  # just export.py
         processes_impacts = compute_impacts(processes)
     elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
-        data_dict = compare_impacts(processes)
-        for ingredient_name, values in data_dict.items():
+        impacts_compared_dic = compare_impacts(processes)
+        csv_export_impact_comparison(impacts_compared_dic)
+        for ingredient_name, values in impacts_compared_dic.items():
             print(f"Plotting {ingredient_name}")
-            impacts_from_simapro = values["simapro impacts"]
-            brightway_impacts = values["brightway impacts"]
-            plot_impacts(ingredient_name, impacts_from_simapro, brightway_impacts)
+            simapro_impacts = values["simapro_impacts"]
+            brightway_impacts = values["brightway_impacts"]
+            plot_impacts(ingredient_name, simapro_impacts, brightway_impacts)
             print("Charts have been generated and saved as PNG files.")
         sys.exit(0)
     else:
@@ -353,7 +413,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     processes_corrected_impacts = with_corrected_impacts(
-        load_json(CONFIG["IMPACTS_FILE"]), processes_impacts
+        IMPACTS_DEF_ECOBALYSE, processes_impacts
     )
 
     # Export
