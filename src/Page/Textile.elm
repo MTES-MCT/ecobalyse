@@ -36,7 +36,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
-import Data.Textile.Product as Product
+import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as Query exposing (MaterialQuery, Query)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
@@ -88,7 +88,7 @@ type Modal
     | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
     | ConfirmSwitchToRegulatoryModal
     | SelectExampleModal (Autocomplete Query)
-    | SelectProductModal (Autocomplete Product.Id)
+    | SelectProductModal (Autocomplete Product)
 
 
 type Tab
@@ -104,7 +104,7 @@ type Msg
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
-    | OnAutocompleteProduct (Autocomplete.Msg Product.Id)
+    | OnAutocompleteProduct (Autocomplete.Msg Product)
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
@@ -712,21 +712,16 @@ selectExample autocompleteState ( model, session, _ ) =
         |> updateQuery example
 
 
-selectProduct : Autocomplete Product.Id -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectProduct : Autocomplete Product -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectProduct autocompleteState ( model, session, _ ) =
-    let
-        product =
-            Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Query.default.product
+    case Autocomplete.selectedValue autocompleteState of
+        Just product ->
+            update session (SetModal NoModal) model
+                |> updateQuery (Query.updateProduct product session.queries.textile)
 
-        currentQuery =
-            session.queries.textile
-
-        updatedQuery =
-            { currentQuery | product = product }
-    in
-    update session (SetModal NoModal) model
-        |> updateQuery updatedQuery
+        Nothing ->
+            model
+                |> update (session |> Session.notifyError "Erreur" "Aucun produit sélectionné") (SetModal NoModal)
 
 
 selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -748,16 +743,10 @@ selectMaterial autocompleteState ( model, session, _ ) =
 productCategoryField : TextileDb.Db -> Query -> Html Msg
 productCategoryField { products } query =
     let
-        nameFromProductId default id =
-            Product.findById id products
-                |> Result.map .name
-                |> Result.withDefault default
-
         autocompleteState =
             products
                 |> List.sortBy .name
-                |> List.map .id
-                |> AutocompleteSelector.init (nameFromProductId "")
+                |> AutocompleteSelector.init .name
     in
     div [ class "d-flex flex-column" ]
         [ label [ for "selector-product", class "form-label text-truncate" ]
@@ -767,8 +756,10 @@ productCategoryField { products } query =
             , class "form-select ElementSelector text-start w-auto"
             , onClick (SetModal (SelectProductModal autocompleteState))
             ]
-            [ query.product
-                |> nameFromProductId (Product.idToString query.product)
+            [ products
+                |> Product.findById query.product
+                |> Result.map .name
+                |> Result.withDefault ""
                 |> text
             ]
         ]
@@ -1250,11 +1241,7 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici une catégorie pour la rechercher"
                                 , title = "Sélectionnez une catégorie de produit"
-                                , toLabel =
-                                    \productId ->
-                                        Product.findById productId session.db.textile.products
-                                            |> Result.map .name
-                                            |> Result.withDefault (Product.idToString productId)
+                                , toLabel = .name
                                 , toCategory = always ""
                                 }
                     ]
