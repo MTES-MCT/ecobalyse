@@ -136,7 +136,7 @@ mainMenuLinks { enableFoodSection } =
 
           else
             Nothing
-        , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.Impacts Nothing)) Explore
+        , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal "API" Route.Api Api
         ]
 
