@@ -325,7 +325,6 @@ updateProduct product query =
             , yarnSize = Nothing
             , surfaceMass = Nothing
             , fabricProcess = Nothing
-            , fading = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
         }
