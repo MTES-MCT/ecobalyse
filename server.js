@@ -16,9 +16,11 @@ const app = express(); // web app
 const api = express(); // api app
 const version = express(); // version app
 const host = "0.0.0.0";
-const express_port = 8001;
-const django_port = 8002;
-const max_memoize_age = 1000 * 60 * 24; // 24 hours memoization
+const expressPort = 8001;
+const djangoPort = 8002;
+const maxMemoizeAge = 1000 * 60 * 24; // 24 hours memoization
+
+const availableVersions = new Set(fs.readdirSync("./versions/"));
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -27,6 +29,9 @@ var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
   max: 100, // max 100 requests per second
 });
+
+// Rate limit the version API as it reads file from the disk
+version.use(rateLimiter);
 
 // Matomo
 if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
@@ -124,13 +129,13 @@ const getProcesses = async (token) => {
     headers["token"] = token;
   }
 
-  const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
+  const processesUrl = `http://127.0.0.1:${djangoPort}/processes/processes.json`;
   const processesRes = await fetch(processesUrl, { headers: headers });
   const processes = await processesRes.json();
   return { processes: processes, status: processesRes.status };
 };
 
-const memoizedGetProcesses = memoize(getProcesses, { maxAge: max_memoize_age });
+const memoizedGetProcesses = memoize(getProcesses, { maxAge: maxMemoizeAge });
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
@@ -157,63 +162,33 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   });
 });
 
-version.use("/:versionNumber", (req, res, next) => {
+// Middleware to check version number and file path
+const checkVersionAndPath = (req, res, next) => {
   const versionNumber = req.params.versionNumber;
 
-  // Construct the directory path based on the versionNumber path segment
+  if (!availableVersions.has(versionNumber)) {
+    res.status(404).send("Version not found");
+  }
   const staticDir = path.join(__dirname, "versions", versionNumber);
+  req.staticDir = staticDir;
+  next();
+};
 
-  // Verify that the file path is under the static directory for security reasons
-  filePath = fs.realpathSync(path.resolve(staticDir));
-  if (!filePath.startsWith(staticDir)) {
-    res.statusCode = 403;
-    res.end();
-    return;
-  }
-
-  if (fs.existsSync(staticDir)) {
-    // Serve static files from the constructed directory
-    express.static(staticDir)(req, res, next);
-  } else {
-    // If the directory doesn't exist, we should check if me can build it or retrieve it ?
-  }
+version.use("/:versionNumber", checkVersionAndPath, (req, res, next) => {
+  express.static(req.staticDir)(req, res, next);
 });
 
-version.get("/:versionNumber/api", (req, res) => {
-  const versionNumber = req.params.versionNumber;
-
-  const staticDir = path.join(__dirname, "versions", versionNumber);
-
-  // Verify that the file path is under the static directory for security reasons
-  filePath = fs.realpathSync(path.resolve(staticDir));
-  if (!filePath.startsWith(staticDir)) {
-    res.statusCode = 403;
-    res.end();
-    return;
-  }
-
-  const openApiContents = yaml.load(fs.readFileSync(path.join(staticDir, "openapi.yaml")));
+version.get("/:versionNumber/api", checkVersionAndPath, (req, res) => {
+  const openApiContents = yaml.load(fs.readFileSync(path.join(req.staticDir, "openapi.yaml")));
   res.status(200).send(openApiContents);
 });
 
-version.all("/:versionNumber/api/*", bodyParser.json(), async (req, res) => {
-  const versionNumber = req.params.versionNumber;
-
-  const staticDir = path.join(__dirname, "versions", versionNumber);
-
-  // Verify that the file path is under the static directory for security reasons
-  filePath = fs.realpathSync(path.resolve(staticDir));
-  if (!filePath.startsWith(staticDir)) {
-    res.statusCode = 403;
-    res.end();
-    return;
-  }
-
+version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), async (req, res) => {
   const foodProcesses = fs
-    .readFileSync(path.join(staticDir, "data", "food", "processes_impacts.json"))
+    .readFileSync(path.join(req.staticDir, "data", "food", "processes_impacts.json"))
     .toString();
   const textileProcesses = fs
-    .readFileSync(path.join(staticDir, "data", "textile", "processes_impacts.json"))
+    .readFileSync(path.join(req.staticDir, "data", "textile", "processes_impacts.json"))
     .toString();
 
   const processes = {
@@ -221,7 +196,7 @@ version.all("/:versionNumber/api/*", bodyParser.json(), async (req, res) => {
     textileProcesses: textileProcesses,
   };
 
-  const { Elm } = require(path.join(staticDir, "server-app"));
+  const { Elm } = require(path.join(req.staticDir, "server-app"));
 
   const elmApp = Elm.Server.init();
 
@@ -242,8 +217,6 @@ version.all("/:versionNumber/api/*", bodyParser.json(), async (req, res) => {
   });
 });
 
-version.use(rateLimiter);
-
 api.use(cors()); // Enable CORS for all API requests
 app.use("/api", api);
 app.use("/versions", version);
@@ -254,8 +227,8 @@ if (SENTRY_DSN) {
   app.use(Sentry.Handlers.errorHandler());
 }
 
-const server = app.listen(express_port, host, () => {
-  console.log(`Server listening at http://${host}:${express_port}`);
+const server = app.listen(expressPort, host, () => {
+  console.log(`Server listening at http://${host}:${expressPort}`);
 });
 
 module.exports = server;
