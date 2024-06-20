@@ -20,6 +20,7 @@ Une fois inscrit et connecté :
     *   Pour le domaine **textile** :
 
         * [31\_Textile](https://chat.ecobalyse.fr/ecobalyse/channels/31\_textile) : pour toutes les discussions sur Écobalyse pour le secteur Textile, la documentation, l’API… Ce canal remplace le Slack utilisé jusqu'ici.
+        * [32\_Textile\_Niveau2](https://chat.ecobalyse.fr/ecobalyse/channels/31\_textile\_niveau2) : pour les échanges relatifs un "niveau 2" de paramétrage, c'est à dire la mobilisation de paramètres aujourd'hui non exposés dans le mode "réglementaire" d'Ecobalyse et, potentiellement, la mobilisation de données plus précises.
 
 
 
