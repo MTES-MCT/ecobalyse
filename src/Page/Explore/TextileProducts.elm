@@ -85,17 +85,9 @@ table db { detailed, scope } =
                     div [ classList [ ( "text-center", not detailed ) ] ]
                         [ Format.m3 product.endOfLife.volume ]
           }
-        , let
-            fabricToString product =
-                if Fabric.isKnitted product.fabric then
-                    "Tricotée"
-
-                else
-                    "Tissée"
-          in
-          { label = "Etoffe"
-          , toValue = Table.StringValue fabricToString
-          , toCell = fabricToString >> text
+        , { label = "Étoffe"
+          , toValue = Table.StringValue (.fabric >> Fabric.toLabel)
+          , toCell = .fabric >> Fabric.toLabel >> text
           }
         , let
             picking product surfaceMass ys =
