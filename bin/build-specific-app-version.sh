@@ -98,8 +98,10 @@ cd $ROOT_DIR
 # Clean dir if it already exists
 if [ -d $VERSION_DIR ]; then
   rm -rf $VERSION_DIR
-  mkdir -p $VERSION_DIR
 fi
+
+
+mkdir -p $VERSION_DIR
 
 mv $GIT_CLONE_DIR/dist/* $VERSION_DIR
 mv $GIT_CLONE_DIR/server-app.js $VERSION_DIR
