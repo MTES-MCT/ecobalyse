@@ -20,7 +20,13 @@ const expressPort = 8001;
 const djangoPort = 8002;
 const maxMemoizeAge = 1000 * 60 * 24; // 24 hours memoization
 
-const availableVersions = new Set(fs.readdirSync("./versions/"));
+const versionsDir = "./versions";
+let availableVersions;
+if (fs.existsSync(versionsDir)) {
+  availableVersions = new Set(fs.readdirSync(versionsDir));
+} else {
+  availableVersions = new Set();
+}
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
