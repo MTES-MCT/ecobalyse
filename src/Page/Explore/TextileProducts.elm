@@ -1,6 +1,5 @@
 module Page.Explore.TextileProducts exposing (table)
 
-import Area
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Scope exposing (Scope)
@@ -20,7 +19,6 @@ import Duration
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Mass
 import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Table)
 import Quantity
@@ -55,13 +53,6 @@ table db { detailed, scope } =
           , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
-        , { label = "Poids"
-          , toValue = Table.FloatValue <| .mass >> Mass.inGrams
-          , toCell =
-                \product ->
-                    div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.kg product.mass ]
-          }
         , { label = "Titrage"
           , toValue = Table.IntValue <| .yarnSize >> Unit.yarnSizeInKilometers
           , toCell =
@@ -86,15 +77,6 @@ table db { detailed, scope } =
           , toValue = Table.FloatValue <| computeThreadDensity >> Unit.threadDensityToFloat
           , toCell =
                 computeThreadDensity >> Format.threadDensity
-          }
-        , let
-            computeSurface { mass, surfaceMass } =
-                Mass.inGrams mass
-                    / toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
-          in
-          { label = "Surface"
-          , toValue = Table.FloatValue computeSurface
-          , toCell = computeSurface >> Area.squareMeters >> Format.squareMeters
           }
         , { label = "Volume"
           , toValue = Table.FloatValue <| .endOfLife >> .volume >> Volume.inCubicMeters

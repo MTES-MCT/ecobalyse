@@ -316,10 +316,9 @@ updateMaterialSpinning material spinning query =
 updateProduct : Product -> Query -> Query
 updateProduct product query =
     if product.id /= query.product then
-        -- Product has changed, reset a bunch of related query params
+        -- Product category has changed, reset a bunch of related query params
         { query
             | product = product.id
-            , mass = product.mass
             , makingWaste = Nothing
             , makingDeadStock = Nothing
             , makingComplexity = Nothing
