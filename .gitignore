@@ -36,3 +36,5 @@ venv
 db.sqlite3
 
 *.egg-info
+/versions
+/git_build

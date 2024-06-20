@@ -20,6 +20,11 @@ const djangoPort = 8002;
 const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV, SENTRY_DSN } =
   process.env;
 
+var rateLimiter = rateLimit({
+  windowMs: 1000, // 1 second
+  max: 100, // max 100 requests per second
+});
+
 // Matomo
 if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
   console.error("Matomo environment variables are missing. Please check the README.");
@@ -163,8 +168,96 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   });
 });
 
+version.use("/:versionNumber", (req, res, next) => {
+  const versionNumber = req.params.versionNumber;
+
+  // Construct the directory path based on the versionNumber path segment
+  const staticDir = path.join(__dirname, "versions", versionNumber);
+
+  // Verify that the file path is under the static directory for security reasons
+  filePath = fs.realpathSync(path.resolve(staticDir));
+  if (!filePath.startsWith(staticDir)) {
+    res.statusCode = 403;
+    res.end();
+    return;
+  }
+
+  if (fs.existsSync(staticDir)) {
+    // Serve static files from the constructed directory
+    express.static(staticDir)(req, res, next);
+  } else {
+    // If the directory doesn't exist, we should check if me can build it or retrieve it ?
+  }
+});
+
+version.get("/:versionNumber/api", (req, res) => {
+  const versionNumber = req.params.versionNumber;
+
+  const staticDir = path.join(__dirname, "versions", versionNumber);
+
+  // Verify that the file path is under the static directory for security reasons
+  filePath = fs.realpathSync(path.resolve(staticDir));
+  if (!filePath.startsWith(staticDir)) {
+    res.statusCode = 403;
+    res.end();
+    return;
+  }
+
+  const openApiContents = yaml.load(fs.readFileSync(path.join(staticDir, "openapi.yaml")));
+  res.status(200).send(openApiContents);
+});
+
+version.all("/:versionNumber/api/*", bodyParser.json(), async (req, res) => {
+  const versionNumber = req.params.versionNumber;
+
+  const staticDir = path.join(__dirname, "versions", versionNumber);
+
+  // Verify that the file path is under the static directory for security reasons
+  filePath = fs.realpathSync(path.resolve(staticDir));
+  if (!filePath.startsWith(staticDir)) {
+    res.statusCode = 403;
+    res.end();
+    return;
+  }
+
+  const foodProcesses = fs
+    .readFileSync(path.join(staticDir, "data", "food", "processes_impacts.json"))
+    .toString();
+  const textileProcesses = fs
+    .readFileSync(path.join(staticDir, "data", "textile", "processes_impacts.json"))
+    .toString();
+
+  const processes = {
+    foodProcesses: foodProcesses,
+    textileProcesses: textileProcesses,
+  };
+
+  const { Elm } = require(path.join(staticDir, "server-app"));
+
+  const elmApp = Elm.Server.init();
+
+  elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
+    return jsResponseHandler({ status, body });
+  });
+
+  const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
+
+  elmApp.ports.input.send({
+    method: req.method,
+    url: urlWithoutPrefix,
+    body: req.body,
+    processes: processes,
+    jsResponseHandler: ({ status, body }) => {
+      res.status(status).send(body);
+    },
+  });
+});
+
+version.use(rateLimiter);
+
 api.use(cors()); // Enable CORS for all API requests
 app.use("/api", api);
+app.use("/versions", version);
 
 // Sentry error handler
 // Note: *must* be called *before* any other error handler
