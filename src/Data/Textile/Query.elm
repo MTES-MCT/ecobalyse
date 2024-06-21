@@ -327,12 +327,6 @@ updateProduct product query =
             , fabricProcess = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
-            , fading =
-                if Product.isFadedByDefault product then
-                    Just True
-
-                else
-                    query.fading
         }
 
     else
