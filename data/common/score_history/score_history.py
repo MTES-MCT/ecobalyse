@@ -8,7 +8,6 @@ from enum import StrEnum
 
 import pandas as pd
 import requests
-from git import Repo
 from sqlalchemy import create_engine, text
 
 # Constants
@@ -43,13 +42,6 @@ DOMAIN_DATA = {
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("logger")
-
-
-def get_current_branch_name():
-    """Retrieve the current branch name of the repository."""
-    repo = Repo(".")
-    return repo.active_branch.name
-
 
 def get_arguments():
     if len(sys.argv) < 4:
