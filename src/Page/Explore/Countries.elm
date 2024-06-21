@@ -21,11 +21,11 @@ table : Transport.Distances -> List Country.Country -> { detailed : Bool, scope 
 table distances countries { detailed, scope } =
     { toId = .code >> Country.codeToString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
+    , legend = []
     , columns =
         List.filterMap identity
             [ Just
                 { label = "Code"
-                , help = Nothing
                 , toValue = Table.StringValue <| .code >> Country.codeToString
                 , toCell =
                     \country ->
@@ -38,26 +38,22 @@ table distances countries { detailed, scope } =
                 }
             , Just
                 { label = "Nom"
-                , help = Nothing
                 , toValue = Table.StringValue .name
                 , toCell = .name >> text
                 }
             , Just
                 { label = "Mix éléctrique"
-                , help = Nothing
                 , toValue = Table.StringValue <| .electricityProcess >> .name
                 , toCell = .electricityProcess >> .name >> text
                 }
             , Just
                 { label = "Chaleur"
-                , help = Nothing
                 , toValue = Table.StringValue <| .heatProcess >> .name
                 , toCell = .heatProcess >> .name >> text
                 }
             , if scope == Scope.Textile then
                 Just
                     { label = "Taux de pollution aquatique"
-                    , help = Nothing
                     , toValue = Table.FloatValue (.aquaticPollutionScenario >> Country.getAquaticPollutionRatio >> Split.toPercent)
                     , toCell =
                         \country ->
@@ -73,7 +69,6 @@ table distances countries { detailed, scope } =
                 Nothing
             , Just
                 { label = "Part du transport aérien"
-                , help = Nothing
                 , toValue = Table.FloatValue (.airTransportRatio >> Split.toPercent)
                 , toCell =
                     \country ->
@@ -86,14 +81,12 @@ table distances countries { detailed, scope } =
                 }
             , Just
                 { label = "Domaines"
-                , help = Nothing
                 , toValue = Table.StringValue <| .scopes >> List.map Scope.toLabel >> String.join "/"
                 , toCell = Common.scopesView
                 }
             , if detailed then
                 Just
                     { label = "Distances"
-                    , help = Nothing
                     , toValue = Table.StringValue <| always ""
                     , toCell = displayDistances countries distances
                     }

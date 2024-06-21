@@ -13,7 +13,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Route exposing (Route)
 import Table as SortableTable
-import Views.Icon as Icon
 import Views.Table as TableView
 
 
@@ -21,12 +20,12 @@ type alias Table data comparable msg =
     { toId : data -> String
     , toRoute : data -> Route
     , columns : List (Column data comparable msg)
+    , legend : List (Html msg)
     }
 
 
 type alias Column data comparable msg =
     { label : String
-    , help : Maybe String
     , toValue : Value comparable data
     , toCell : data -> Html msg
     }
@@ -53,28 +52,23 @@ viewDetails :
     -> data
     -> Html msg
 viewDetails scope createTable item =
-    TableView.responsiveDefault [ class "view-details" ]
-        [ createTable { detailed = True, scope = scope }
-            |> .columns
-            |> List.map
-                (\{ label, help, toCell } ->
-                    tr []
-                        [ th [] [ text label ]
-                        , td []
-                            [ toCell item
-                            , case help of
-                                Just helpText ->
-                                    small [ class "d-flex align-items-start gap-1 text-muted mt-1" ]
-                                        [ span [] [ Icon.info ]
-                                        , text helpText
-                                        ]
-
-                                Nothing ->
-                                    text ""
+    let
+        { legend, columns } =
+            createTable { detailed = True, scope = scope }
+    in
+    div []
+        [ div [ class "text-muted fs-7" ] legend
+        , TableView.responsiveDefault [ class "view-details" ]
+            [ columns
+                |> List.map
+                    (\{ label, toCell } ->
+                        tr []
+                            [ th [] [ text label ]
+                            , td [] [ toCell item ]
                             ]
-                        ]
-                )
-            |> tbody []
+                    )
+                |> tbody []
+            ]
         ]
 
 
@@ -88,7 +82,7 @@ viewList :
     -> Html msg
 viewList routeToMsg defaultConfig tableState scope createTable items =
     let
-        { toId, toRoute, columns } =
+        { toId, toRoute, columns, legend } =
             createTable { detailed = False, scope = scope }
 
         customizations =
@@ -130,4 +124,5 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
     in
     div [ class "DatasetTable table-responsive" ]
         [ SortableTable.view config tableState items
+        , div [ class "text-muted fs-7" ] legend
         ]
