@@ -21,7 +21,6 @@ import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Json.Encode.Extra as EncodeExtra
-import Time exposing (Month(..))
 
 
 type alias Process =
