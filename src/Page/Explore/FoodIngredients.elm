@@ -92,6 +92,10 @@ table _ { detailed, scope } =
                                 text ""
                         ]
           }
+        , { label = "Source"
+          , toValue = Table.StringValue <| .default >> .source
+          , toCell = .default >> .source >> text
+          }
         , { label = "Services écosystémiques"
           , toValue = Table.StringValue <| always "N/A"
           , toCell =

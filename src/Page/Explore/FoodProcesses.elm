@@ -38,6 +38,10 @@ table _ { detailed, scope } =
           , toValue = Table.StringValue <| .name >> FoodProcess.nameToString
           , toCell = .name >> FoodProcess.nameToString >> text
           }
+        , { label = "Source"
+          , toValue = Table.StringValue <| .source
+          , toCell = .source >> text
+          }
         , { label = "Identifiant source"
           , toValue = Table.StringValue <| .code >> FoodProcess.codeToString
           , toCell = \process -> code [] [ text (FoodProcess.codeToString process.code) ]
