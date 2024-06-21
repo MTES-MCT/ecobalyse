@@ -92,7 +92,7 @@ def add_average_activity(activity_data, dbname):
 def replace_activities(activity_variant, activity_data, dbname):
     """Replace all activities in activity_data["replace"] with variants of these activities"""
     for old, new in activity_data["replace"].items():
-        if isinstance(list, new):
+        if isinstance(new, list):
             searchdb, new = new
         else:
             searchdb = dbname
@@ -134,7 +134,7 @@ def add_variant_activity(activity_data, dbname):
     else:
         for i, act_sub_data in enumerate(activity_data["subactivities"]):
             searchdb = None  # WARNING : the last database specified in "subactivities" is used in the "replace"
-            if isinstance(list, act_sub_data):
+            if isinstance(act_sub_data, list):
                 searchdb, act_sub_data = act_sub_data
             else:
                 searchdb, act_sub_data = (
