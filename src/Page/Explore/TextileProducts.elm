@@ -33,12 +33,33 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
+updatedOnCategorySwitch : String
+updatedOnCategorySwitch =
+    "Modifié au changement de catégorie de produit"
+
+
+updatedBecauseDependent : String
+updatedBecauseDependent =
+    "Modifié au changement de catégorie, car dépendant d’autres paramètres"
+
+
+notUpdated : String
+notUpdated =
+    "Non modifié en cas de changement de catégorie"
+
+
+initialisedButNotUpdated : String
+initialisedButNotUpdated =
+    "Initialisé avec le choix initial d’exemple mais non modifié au changement de catégorie"
+
+
 table : Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
 table db { detailed, scope } =
     { toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
     , columns =
         [ { label = "Identifiant"
+          , help = Nothing
           , toValue = Table.StringValue <| .id >> Product.idToString
           , toCell =
                 \product ->
@@ -50,10 +71,12 @@ table db { detailed, scope } =
                             [ code [] [ text (Product.idToString product.id) ] ]
           }
         , { label = "Produit(s) concerné(s)"
+          , help = Nothing
           , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
         , { label = "Titrage"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.IntValue <| .yarnSize >> Unit.yarnSizeInKilometers
           , toCell =
                 \product ->
@@ -61,6 +84,7 @@ table db { detailed, scope } =
                         [ product.yarnSize |> Format.yarnSize ]
           }
         , { label = "Grammage"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.IntValue <| .surfaceMass >> Unit.surfaceMassInGramsPerSquareMeters
           , toCell =
                 \{ surfaceMass } ->
@@ -74,11 +98,13 @@ table db { detailed, scope } =
                     |> Formula.computeThreadDensity surfaceMass
           in
           { label = "Densité de fils"
+          , help = Just updatedBecauseDependent
           , toValue = Table.FloatValue <| computeThreadDensity >> Unit.threadDensityToFloat
           , toCell =
                 computeThreadDensity >> Format.threadDensity
           }
         , { label = "Volume"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.FloatValue <| .endOfLife >> .volume >> Volume.inCubicMeters
           , toCell =
                 \product ->
@@ -86,6 +112,7 @@ table db { detailed, scope } =
                         [ Format.m3 product.endOfLife.volume ]
           }
         , { label = "Étoffe"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.StringValue (.fabric >> Fabric.toLabel)
           , toCell = .fabric >> Fabric.toLabel >> text
           }
@@ -109,6 +136,7 @@ table db { detailed, scope } =
                     |> Formula.computePicking threadDensity
           in
           { label = "Duites.m"
+          , help = Just updatedBecauseDependent
           , toValue =
                 Table.FloatValue <|
                     \({ surfaceMass, yarnSize } as product) ->
@@ -126,10 +154,12 @@ table db { detailed, scope } =
                 Common.boolText (Product.isFadedByDefault product)
           in
           { label = "Délavage par défaut"
+          , help = Just initialisedButNotUpdated
           , toValue = Table.StringValue fadableToString
           , toCell = fadableToString >> text
           }
         , { label = "Stocks dormants"
+          , help = Just notUpdated
           , toValue = Table.FloatValue (Split.toPercent Env.defaultDeadStock |> always)
           , toCell =
                 div [ classList [ ( "text-center", not detailed ) ] ]
@@ -137,14 +167,17 @@ table db { detailed, scope } =
                     |> always
           }
         , { label = "Type de teinture"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.StringValue <| .dyeing >> .defaultMedium >> DyeingMedium.toLabel
           , toCell = .dyeing >> .defaultMedium >> DyeingMedium.toLabel >> text
           }
         , { label = "Confection (complexité)"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.StringValue <| .making >> .complexity >> MakingComplexity.toLabel
           , toCell = .making >> .complexity >> MakingComplexity.toLabel >> text
           }
         , { label = "Confection (# minutes)"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.FloatValue <| Product.getMakingDurationInMinutes >> Duration.inMinutes
           , toCell =
                 \product ->
@@ -152,6 +185,7 @@ table db { detailed, scope } =
                         [ Product.getMakingDurationInMinutes product |> Format.minutes ]
           }
         , { label = "Confection (taux de perte)"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.FloatValue <| .making >> .pcrWaste >> Split.toPercent
           , toCell =
                 \product ->
@@ -159,6 +193,7 @@ table db { detailed, scope } =
                         [ Format.splitAsPercentage 2 product.making.pcrWaste ]
           }
         , { label = "Nombre de jours porté"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.FloatValue <| .use >> .daysOfWear >> Duration.inDays
           , toCell =
                 \product ->
@@ -166,6 +201,7 @@ table db { detailed, scope } =
                         [ Format.days product.use.daysOfWear ]
           }
         , { label = "Utilisations avant lavage"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.IntValue <| .use >> .wearsPerCycle
           , toCell =
                 \product ->
@@ -173,6 +209,7 @@ table db { detailed, scope } =
                         [ text <| String.fromInt product.use.wearsPerCycle ]
           }
         , { label = "Cycles d'entretien (par défaut)"
+          , help = Just updatedBecauseDependent
           , toValue = Table.IntValue <| .use >> .defaultNbCycles
           , toCell =
                 \product ->
@@ -180,16 +217,19 @@ table db { detailed, scope } =
                         [ text <| String.fromInt product.use.defaultNbCycles ]
           }
         , { label = "Repassage"
+          , help = Just updatedOnCategorySwitch
 
           -- Note: Much better expressing electricity consumption in kWh than in MJ
           , toValue = Table.FloatValue <| .use >> .ironingElec >> Energy.inKilowattHours
           , toCell = .use >> .ironingElec >> Format.kilowattHours
           }
         , { label = "Procédé d'utilisation hors-repassage"
+          , help = Just updatedBecauseDependent
           , toValue = Table.StringValue <| .use >> .nonIroningProcess >> .name
           , toCell = .use >> .nonIroningProcess >> .name >> withTitle
           }
         , { label = "Séchage électrique"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.FloatValue <| .use >> .ratioDryer >> Split.toPercent
           , toCell =
                 \product ->
@@ -197,6 +237,7 @@ table db { detailed, scope } =
                         [ Format.splitAsPercentage 0 product.use.ratioDryer ]
           }
         , { label = "Repassage (part)"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.FloatValue <| .use >> .ratioIroning >> Split.toPercent
           , toCell =
                 \product ->
@@ -204,6 +245,7 @@ table db { detailed, scope } =
                         [ Format.splitAsPercentage 0 product.use.ratioIroning ]
           }
         , { label = "Repassage (temps)"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.FloatValue <| .use >> .timeIroning >> Duration.inHours
           , toCell =
                 \product ->
@@ -211,6 +253,7 @@ table db { detailed, scope } =
                         [ Format.hours product.use.timeIroning ]
           }
         , { label = "Prix par défaut"
+          , help = Just initialisedButNotUpdated
           , toValue = Table.FloatValue <| .economics >> .price >> Economics.priceToFloat
           , toCell =
                 \product ->
@@ -218,6 +261,7 @@ table db { detailed, scope } =
                         [ Format.priceInEUR product.economics.price ]
           }
         , { label = "Coût de réparation par défaut"
+          , help = Just updatedOnCategorySwitch
           , toValue = Table.FloatValue <| .economics >> .repairCost >> Economics.priceToFloat
           , toCell =
                 \product ->
@@ -225,10 +269,12 @@ table db { detailed, scope } =
                         [ Format.priceInEUR product.economics.repairCost ]
           }
         , { label = "Type d'entreprise"
+          , help = Just notUpdated
           , toValue = Table.StringValue <| .economics >> .business >> Economics.businessToLabel
           , toCell = .economics >> .business >> Economics.businessToLabel >> text
           }
         , { label = "Durée de commercialisation moyenne"
+          , help = Just notUpdated
           , toValue = Table.FloatValue <| .economics >> .marketingDuration >> Duration.inDays
           , toCell =
                 \product ->
@@ -236,6 +282,7 @@ table db { detailed, scope } =
                         [ Format.days product.economics.marketingDuration ]
           }
         , { label = "Nombre de références"
+          , help = Just notUpdated
           , toValue = Table.IntValue <| .economics >> .numberOfReferences
           , toCell =
                 \product ->
@@ -245,6 +292,7 @@ table db { detailed, scope } =
                         ]
           }
         , { label = "Traçabilité affichée\u{00A0}?"
+          , help = Just notUpdated
           , toValue = Table.StringValue <| .economics >> .traceability >> Common.boolText
           , toCell = .economics >> .traceability >> Common.boolText >> text
           }

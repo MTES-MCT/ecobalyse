@@ -15,6 +15,7 @@ table _ { detailed, scope } =
     , toRoute = .code >> Just >> Dataset.FoodProcesses >> Route.Explore scope
     , columns =
         [ { label = "Identifiant"
+          , help = Nothing
           , toValue = Table.StringValue <| .code >> FoodProcess.codeToString
           , toCell =
                 \process ->
@@ -26,30 +27,37 @@ table _ { detailed, scope } =
                             [ code [] [ text (FoodProcess.codeToString process.code) ] ]
           }
         , { label = "Nom"
+          , help = Nothing
           , toValue = Table.StringValue getDisplayName
           , toCell = getDisplayName >> text
           }
         , { label = "Catégorie"
+          , help = Nothing
           , toValue = Table.StringValue <| .category >> FoodProcess.categoryToLabel
           , toCell = .category >> FoodProcess.categoryToLabel >> text
           }
         , { label = "Nom technique"
+          , help = Nothing
           , toValue = Table.StringValue <| .name >> FoodProcess.nameToString
           , toCell = .name >> FoodProcess.nameToString >> text
           }
         , { label = "Identifiant source"
+          , help = Nothing
           , toValue = Table.StringValue <| .code >> FoodProcess.codeToString
           , toCell = \process -> code [] [ text (FoodProcess.codeToString process.code) ]
           }
         , { label = "Unité"
+          , help = Nothing
           , toValue = Table.StringValue <| .unit
           , toCell = .unit >> text
           }
         , { label = "Description du système"
+          , help = Nothing
           , toValue = Table.StringValue <| .systemDescription
           , toCell = .systemDescription >> text
           }
         , { label = "Commentaire"
+          , help = Nothing
           , toValue = Table.StringValue <| .comment >> Maybe.withDefault "N/A"
           , toCell = .comment >> Maybe.withDefault "N/A" >> text
           }

@@ -18,6 +18,7 @@ table { detailed, scope } =
     , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
     , columns =
         [ { label = "Code"
+          , help = Nothing
           , toValue = Table.StringValue <| .trigram >> Definition.toString
           , toCell =
                 \def ->
@@ -29,16 +30,19 @@ table { detailed, scope } =
                             [ code [] [ text (Definition.toString def.trigram) ] ]
           }
         , { label = "Nom"
+          , help = Nothing
           , toValue = Table.StringValue <| .label
           , toCell =
                 \def ->
                     span [ title def.label ] [ text def.label ]
           }
         , { label = "Unité"
+          , help = Nothing
           , toValue = Table.StringValue <| .unit
           , toCell = \def -> code [] [ text def.unit ]
           }
         , { label = "Normalisation (PEF)"
+          , help = Nothing
           , toValue =
                 Table.FloatValue <|
                     .pefData
@@ -51,6 +55,7 @@ table { detailed, scope } =
                         |> Maybe.withDefault (text "N/A")
           }
         , { label = "Pondération (PEF)"
+          , help = Nothing
           , toValue =
                 Table.FloatValue <|
                     .pefData
@@ -59,6 +64,7 @@ table { detailed, scope } =
           , toCell = .pefData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Normalisation (Sc. Imp.)"
+          , help = Nothing
           , toValue =
                 Table.FloatValue <|
                     .ecoscoreData
@@ -71,6 +77,7 @@ table { detailed, scope } =
                         |> Maybe.withDefault (text "N/A")
           }
         , { label = "Pondération (Sc. Imp.)"
+          , help = Nothing
           , toValue =
                 Table.FloatValue <|
                     .ecoscoreData
@@ -79,6 +86,7 @@ table { detailed, scope } =
           , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Description"
+          , help = Nothing
           , toValue = Table.StringValue .description
           , toCell =
                 \def ->

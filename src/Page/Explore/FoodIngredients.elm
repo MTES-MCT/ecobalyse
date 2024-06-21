@@ -26,6 +26,7 @@ table _ { detailed, scope } =
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
     , columns =
         [ { label = "Identifiant"
+          , help = Nothing
           , toValue = Table.StringValue <| .id >> Ingredient.idToString
           , toCell =
                 \ingredient ->
@@ -37,18 +38,22 @@ table _ { detailed, scope } =
                             [ code [] [ text (Ingredient.idToString ingredient.id) ] ]
           }
         , { label = "Nom"
+          , help = Nothing
           , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
         , { label = "Catégories"
+          , help = Nothing
           , toValue = Table.StringValue <| .categories >> List.map IngredientCategory.toLabel >> String.join ","
           , toCell = .categories >> List.map (\c -> li [] [ text (IngredientCategory.toLabel c) ]) >> ul [ class "mb-0" ]
           }
         , { label = "Origine par défaut"
+          , help = Nothing
           , toValue = Table.StringValue <| .defaultOrigin >> Origin.toLabel
           , toCell = .defaultOrigin >> Origin.toLabel >> text
           }
         , { label = "Part non-comestible"
+          , help = Nothing
           , toValue = Table.FloatValue <| .inediblePart >> Split.toPercent
           , toCell =
                 \{ inediblePart } ->
@@ -62,6 +67,7 @@ table _ { detailed, scope } =
                         ]
           }
         , { label = "Rapport cru/cuit"
+          , help = Nothing
           , toValue = Table.FloatValue <| .rawToCookedRatio >> Unit.ratioToFloat
           , toCell =
                 \{ rawToCookedRatio } ->
@@ -76,6 +82,7 @@ table _ { detailed, scope } =
                         ]
           }
         , { label = "Procédé"
+          , help = Nothing
           , toValue = Table.StringValue <| .default >> .name >> Process.nameToString
           , toCell =
                 \{ default } ->
@@ -92,6 +99,7 @@ table _ { detailed, scope } =
                         ]
           }
         , { label = "Services écosystémiques"
+          , help = Nothing
           , toValue = Table.StringValue <| always "N/A"
           , toCell =
                 \{ ecosystemicServices } ->

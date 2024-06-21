@@ -22,26 +22,31 @@ table { maxScore, maxPer100g } { detailed, scope } =
     , toRoute = Tuple.first >> .id >> Just >> Dataset.FoodExamples >> Route.Explore scope
     , columns =
         [ { label = "Nom"
+          , help = Nothing
           , toValue = Table.StringValue (Tuple.first >> .name)
           , toCell = Tuple.first >> .name >> text
           }
         , { label = "Catégorie"
+          , help = Nothing
           , toValue = Table.StringValue (Tuple.first >> .category)
           , toCell = Tuple.first >> .category >> text
           }
         , { label = "Coût Environnemental"
+          , help = Nothing
           , toValue = Table.FloatValue (Tuple.second >> .score)
           , toCell =
                 \( _, { score } ) ->
                     Common.impactBarGraph detailed maxScore score
           }
         , { label = "Coût Environnemental/100g"
+          , help = Nothing
           , toValue = Table.FloatValue (Tuple.second >> .per100g)
           , toCell =
                 \( _, { per100g } ) ->
                     Common.impactBarGraph detailed maxPer100g per100g
           }
         , { label = ""
+          , help = Nothing
           , toValue = Table.NoValue
           , toCell =
                 \( { id, name }, _ ) ->

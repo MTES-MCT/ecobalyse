@@ -13,6 +13,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Route exposing (Route)
 import Table as SortableTable
+import Views.Icon as Icon
 import Views.Table as TableView
 
 
@@ -25,6 +26,7 @@ type alias Table data comparable msg =
 
 type alias Column data comparable msg =
     { label : String
+    , help : Maybe String
     , toValue : Value comparable data
     , toCell : data -> Html msg
     }
@@ -55,10 +57,21 @@ viewDetails scope createTable item =
         [ createTable { detailed = True, scope = scope }
             |> .columns
             |> List.map
-                (\{ label, toCell } ->
+                (\{ label, help, toCell } ->
                     tr []
                         [ th [] [ text label ]
-                        , td [] [ toCell item ]
+                        , td []
+                            [ toCell item
+                            , case help of
+                                Just helpText ->
+                                    small [ class "d-flex align-items-start gap-1 text-muted mt-1" ]
+                                        [ span [] [ Icon.info ]
+                                        , text helpText
+                                        ]
+
+                                Nothing ->
+                                    text ""
+                            ]
                         ]
                 )
             |> tbody []

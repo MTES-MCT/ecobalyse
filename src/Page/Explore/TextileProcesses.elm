@@ -15,10 +15,12 @@ table { detailed, scope } =
     , toRoute = .uuid >> Just >> Dataset.TextileProcesses >> Route.Explore scope
     , columns =
         [ { label = "Étape"
+          , help = Nothing
           , toValue = Table.StringValue <| .stepUsage
           , toCell = .stepUsage >> text
           }
         , { label = "Identifiant"
+          , help = Nothing
           , toValue = Table.StringValue <| .uuid >> Process.uuidToString
           , toCell =
                 .uuid
@@ -33,22 +35,26 @@ table { detailed, scope } =
                        )
           }
         , { label = "Nom"
+          , help = Nothing
           , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
         , { label = "Source"
+          , help = Nothing
           , toValue = Table.StringValue .source
           , toCell =
                 \process ->
                     span [ title process.source ] [ text process.source ]
           }
         , { label = "Correctif"
+          , help = Nothing
           , toValue = Table.StringValue .correctif
           , toCell =
                 \process ->
                     span [ title process.correctif ] [ text process.correctif ]
           }
         , { label = "Unité"
+          , help = Nothing
           , toValue = Table.StringValue .unit
           , toCell = .unit >> text
           }
