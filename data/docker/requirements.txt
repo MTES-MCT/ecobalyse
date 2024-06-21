@@ -5,6 +5,7 @@ IPython>=8.16, <9
 fastapi
 fjson>=0.1, <0.2
 flatdict>=4.0, <4.1
+fs
 git+https://github.com/brightway-lca/brightway2-analyzer@0.11.7
 git+https://github.com/brightway-lca/brightway2-calc@2.0.DEV16
 git+https://github.com/brightway-lca/brightway2-data@4.0.DEV33
