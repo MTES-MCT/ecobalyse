@@ -39,6 +39,7 @@ type alias Process =
     , systemDescription : String
     , comment : Maybe String
     , id_ : String
+    , source : String
     }
 
 
@@ -191,6 +192,7 @@ decodeProcess impactsDecoder =
         |> Pipe.required "system_description" Decode.string
         |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "id" Decode.string
+        |> Pipe.required "source" Decode.string
 
 
 encode : Process -> Encode.Value
@@ -205,6 +207,7 @@ encode process =
         , ( "system_description", Encode.string process.systemDescription )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
         , ( "id", Encode.string process.id_ )
+        , ( "source", Encode.string process.source )
         ]
 
 
