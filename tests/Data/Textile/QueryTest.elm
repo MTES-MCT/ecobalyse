@@ -3,14 +3,9 @@ module Data.Textile.QueryTest exposing (..)
 import Data.Country as Country
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
-import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Material as Material
-import Data.Textile.Product as Product
-import Data.Textile.Query as Query exposing (Query, default, jupeCotonAsie)
-import Data.Textile.Simulator as Simulator
-import Data.Textile.Step.Label as Label
+import Data.Textile.Query as Query exposing (Query, jupeCotonAsie)
 import Expect
-import Quantity
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
@@ -47,20 +42,6 @@ suite =
                         |> Expect.equal (Ok sampleQuery)
                         |> asTest "should base64 encode and decode a query"
                     ]
-                ]
-            , describe "Product update"
-                [ asTest "should update step masses"
-                    (case Product.findById (Product.Id "jean") db.textile.products of
-                        Ok jean ->
-                            default
-                                |> Query.updateProduct jean
-                                |> Simulator.compute db
-                                |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Distribution .inputMass Quantity.zero)
-                                |> Expect.equal (Ok jean.mass)
-
-                        Err error ->
-                            Expect.fail error
-                    )
                 ]
             ]
         )

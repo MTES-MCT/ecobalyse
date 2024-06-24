@@ -20,6 +20,7 @@ table :
 table { maxScore, maxPer100g } { detailed, scope } =
     { toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
+    , legend = []
     , columns =
         [ { label = "Nom"
           , toValue = Table.StringValue (Tuple.first >> .name)

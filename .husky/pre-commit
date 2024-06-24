@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-# Check if code is formatted
-if ! npm run format:check ; then
-  echo "Code is not formatted. Run 'npm run format:json' to format before committing."
-  exit 1
-fi

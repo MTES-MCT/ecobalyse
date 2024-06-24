@@ -16,6 +16,7 @@ table : { detailed : Bool, scope : Scope } -> Table Definition String msg
 table { detailed, scope } =
     { toId = .trigram >> Definition.toString
     , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
+    , legend = []
     , columns =
         [ { label = "Code"
           , toValue = Table.StringValue <| .trigram >> Definition.toString

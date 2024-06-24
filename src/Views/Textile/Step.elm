@@ -19,7 +19,6 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
-import Data.Textile.Product as Product
 import Data.Textile.Query exposing (MaterialQuery)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
@@ -317,9 +316,7 @@ fadingField { inputs, toggleFading } =
         [ input
             [ type_ "checkbox"
             , class "form-check-input no-outline"
-            , inputs.fading
-                |> Maybe.withDefault (Product.isFadedByDefault inputs.product)
-                |> checked
+            , checked <| Maybe.withDefault False inputs.fading
             , onCheck toggleFading
             ]
             []
