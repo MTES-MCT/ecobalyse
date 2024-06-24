@@ -1,0 +1,62 @@
+on:
+  push:
+    branches:
+      - master
+      # Will be removed before landing, used for testing
+      - feat/automate-release-creation
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: release-please
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+
+      # The logic below handles the static assets publication
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+        if: ${{ steps.release.outputs.release_created }}
+
+      - name: Install Node dependencies
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Build app
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          npm run build
+          npm run server:build
+
+      - name: Copy generated files to dist
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          cp server-app.js dist/
+          cp openapi.yaml dist/
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+        if: ${{ steps.release.outputs.release_created }}
+
+      - name: Upload Release Artifact
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ steps.release.outputs.tag_name }} ./artifact/dist.zip
