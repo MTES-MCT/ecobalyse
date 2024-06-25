@@ -1,4 +1,3 @@
-OOOOOO
 # Ecobalyse ![Build status](https://github.com/MTES-MCT/ecobalyse/actions/workflows/node.js.yml/badge.svg)
 
 > Accélerer la mise en place de l'affichage environnemental
