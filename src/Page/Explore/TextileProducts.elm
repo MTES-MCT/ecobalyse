@@ -125,14 +125,6 @@ table db { detailed, scope } =
                             |> Format.picking
                         ]
           }
-        , let
-            fadableToString product =
-                Common.boolText (Product.isFadedByDefault product)
-          in
-          { label = "Délavage par défaut"
-          , toValue = Table.StringValue fadableToString
-          , toCell = fadableToString >> text
-          }
         , { label = "Stocks dormants"
           , toValue = Table.FloatValue (Split.toPercent Env.defaultDeadStock |> always)
           , toCell =

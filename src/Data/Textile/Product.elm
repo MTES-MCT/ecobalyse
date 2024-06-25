@@ -8,7 +8,6 @@ module Data.Textile.Product exposing
     , findById
     , getMakingDurationInMinutes
     , idToString
-    , isFadedByDefault
     )
 
 import Data.Split as Split exposing (Split)
@@ -70,11 +69,6 @@ type alias Product =
 
 type Id
     = Id String
-
-
-isFadedByDefault : Product -> Bool
-isFadedByDefault product =
-    product.id == Id "jean"
 
 
 getMakingDurationInMinutes : Product -> Duration
