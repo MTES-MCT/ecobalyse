@@ -1542,6 +1542,7 @@ view session model =
                     AutocompleteSelectorView.view
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
+                        , footer = []
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteIngredient
                         , onAutocompleteSelect = OnAutocompleteSelect
@@ -1559,6 +1560,7 @@ view session model =
                     AutocompleteSelectorView.view
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
+                        , footer = []
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteExample
                         , onAutocompleteSelect = OnAutocompleteSelect

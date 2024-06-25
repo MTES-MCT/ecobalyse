@@ -10,6 +10,7 @@ import Views.Modal as ModalView
 type alias Config element msg =
     { autocompleteState : Autocomplete element
     , closeModal : msg
+    , footer : List (Html msg)
     , noOp : msg
     , onAutocomplete : Autocomplete.Msg element -> msg
     , onAutocompleteSelect : msg
@@ -21,7 +22,7 @@ type alias Config element msg =
 
 
 view : Config element msg -> Html msg
-view ({ autocompleteState, closeModal, noOp, onAutocomplete, onAutocompleteSelect, placeholderText, title } as config) =
+view ({ autocompleteState, closeModal, footer, noOp, onAutocomplete, onAutocompleteSelect, placeholderText, title } as config) =
     ModalView.view
         { size = ModalView.Large
         , close = closeModal
@@ -58,7 +59,7 @@ view ({ autocompleteState, closeModal, noOp, onAutocomplete, onAutocompleteSelec
                 |> List.indexedMap (renderChoice config choiceEvents selectedIndex)
                 |> div [ class "ElementAutocomplete", id "element-autocomplete-choices" ]
             ]
-        , footer = []
+        , footer = footer
         }
 
 
