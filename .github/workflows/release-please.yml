@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-      # Will be removed before landing, used for testing
-      - feat/automate-release-creation
 
 permissions:
   contents: write
