@@ -19,6 +19,7 @@ jobs:
         node-version: [18.x]
     steps:
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
@@ -47,6 +48,7 @@ jobs:
         run: |
           cp server-app.js dist/
           cp openapi.yaml dist/
+          tar czvf ${{ steps.release.outputs.tag_name }}-dist.tar.gz dist
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
@@ -59,4 +61,4 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ steps.release.outputs.tag_name }} ./artifact/dist.zip
+        run: gh release upload ${{ steps.release.outputs.tag_name }} ${{ steps.release.outputs.tag_name }}-dist.tar.gz
