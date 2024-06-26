@@ -8,18 +8,34 @@ L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/)
 
 ## Socle technique et prérequis
 
-Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`, ainsi que d'un environnement [python](https://www.python.org/) >=3.11, [pipenv](https://pipenv.pypa.io/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine :
+Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [pipenv](https://pipenv.pypa.io/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine.
 
 ## Installation
 
-Ensure having a PostgreSQL >=16 server running locally.
+### Frontend
 
     $ npm install
+
+### Backend
+
     $ pipenv install
 
-Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :
+Assurez-vous d'avoir un PostgreSQL >=16 qui tourne localement si vous souhaitez vous rapprocher de l'environnement de production. À défaut, `sqlite` sera utilisé.
 
-    $ npm run start:backend
+Pour créer et lancer un PostgreSQL sur le port 5433 en local en utilisant `docker` :
+
+    # Création du volume pour persister les données
+    docker volume create ecobalyse_postgres_data
+
+    # Lancement du docker postgres 16
+    docker run --name ecobalyse-postgres -e POSTGRES_PASSWORD=password -d -p 5433:5432 -v ecobalyse_postgres_data:/var/lib/postgresql/data postgres:16
+
+    # Création de la base de données ecobalyse_dev
+    docker exec -it ecobalyse-postgres createdb -U postgres ecobalyse_dev
+
+Vous devriez pouvoir y accéder via votre `psql` local avec la commande suivante :
+
+    psql -U postgres -p 5433 -h localhost ecobalyse_dev
 
 ## Configuration
 
@@ -27,7 +43,7 @@ Les variables d'environnement suivantes doivent être définies :
 
 - `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule
 - `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
-- `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `False`)
+- `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `True`)
 - `DJANGO_SECRET_KEY` : la [clé secrète de Django](https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY)
 - `EMAIL_HOST` : le host SMTP pour envoyer les mail liés à l'authentification
 - `EMAIL_HOST_USER`: l'utilisateur du compte SMTP
@@ -40,6 +56,16 @@ Les variables d'environnement suivantes doivent être définies :
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
 
 En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
+
+Pour utiliser le PostgreSQL lancé avec docker, configurez la variable `SCALINGO_POSTGRESQL_URL` comme ceci :
+
+    SCALINGO_POSTGRESQL_URL=postgres://postgres:password@localhost:5433/ecobalyse_dev
+
+## Chargement des données par défaut
+
+Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :
+
+    $ pipenv run ./backend/update.sh
 
 ## Développement
 
@@ -54,6 +80,8 @@ Trois instances de développement sont alors accessibles :
 - [localhost:8002](http://localhost:8002/) sert le backend django utilisé pour l'authentification, et sert aussi les fichiers statiques de elm. Sert aussi [l'admin django](http://localhost:8002/admin/)
 - [localhost:8001](http://localhost:8001/) sert l'API ;
 - [localhost:1234](http://localhost:1234/) est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc`). Le frontend est servi en mode _hot-reload_, pour recharger! l'interface Web à chaque modification du code frontend.
+
+> ℹ️ Pour accéder à l'admin django, utilisez l'email `foo@bar.baz`. Le lien d'activation pour se connecter automatiquement à l'admin sera affiché dans votre terminal.
 
 ### Hooks Git avec pre-commit et Formatage de Code avec Prettier et Ruff
 
