@@ -224,7 +224,8 @@
       "materials[]=ei-coton;1",
       "countryFabric=TR",
       "countryDyeing=TR",
-      "countryMaking=TR"
+      "countryMaking=TR",
+      "fading=true"
     ],
     "impacts": {
       "acd": 0.24140181242229392,

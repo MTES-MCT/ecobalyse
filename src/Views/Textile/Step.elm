@@ -316,11 +316,11 @@ fadingField { inputs, toggleFading } =
         [ input
             [ type_ "checkbox"
             , class "form-check-input no-outline"
-            , checked <| Maybe.withDefault False inputs.fading
+            , inputs.fading |> Maybe.withDefault False |> checked
             , onCheck toggleFading
             ]
             []
-        , if Inputs.isFaded inputs then
+        , if inputs.fading == Just True then
             text "Délavage activé"
 
           else

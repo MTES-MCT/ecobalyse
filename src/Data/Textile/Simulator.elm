@@ -265,7 +265,7 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
                                 { makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
                                 , fadingProcess =
                                     -- Note: in the future, we may have distinct fading processes per countries
-                                    if Inputs.isFaded inputs then
+                                    if inputs.fading == Just True then
                                         Just textile.wellKnown.fading
 
                                     else
