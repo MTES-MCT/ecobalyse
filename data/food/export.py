@@ -408,9 +408,7 @@ if __name__ == "__main__":
         processes_impacts = compute_impacts(processes)
     elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
         impacts_compared_dic = compare_impacts(processes)
-        csv_export_impact_comparison(
-            impacts_compared_dic, CONFIG["COMPARED_IMPACTS_FILE"]
-        )
+        csv_export_impact_comparison(impacts_compared_dic)
         for ingredient_name, values in impacts_compared_dic.items():
             print(f"Plotting {ingredient_name}")
             simapro_impacts = values["simapro_impacts"]
