@@ -235,7 +235,7 @@ def compare_impacts(processes_fd):
         progress_bar(index, len(processes))
         # simapro
         activity = cached_search(
-            process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
+            process.get("source", CONFIG["AGRIBALYSE"]), process["search"]
         )
         results = compute_simapro_impacts(activity, main_method)
         print(f"got impacts from SimaPro for: {process['name']}")
