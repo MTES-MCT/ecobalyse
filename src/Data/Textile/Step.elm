@@ -467,12 +467,12 @@ makingDeadStockToString makingDeadStock =
 
 yarnSizeToString : Unit.YarnSize -> String
 yarnSizeToString yarnSize =
-    "Titrage\u{00A0}: " ++ String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm (" ++ yarnSizeToDtexString yarnSize ++ ")"
+    "Titrage\u{00A0}: " ++ String.fromFloat (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm (" ++ yarnSizeToDtexString yarnSize ++ ")"
 
 
 yarnSizeToDtexString : Unit.YarnSize -> String
 yarnSizeToDtexString yarnSize =
-    String.fromInt (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
+    String.fromFloat (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
 encode : Step -> Encode.Value

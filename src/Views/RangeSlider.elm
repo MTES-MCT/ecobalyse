@@ -84,14 +84,14 @@ yarnSize config =
         { id = config.id
         , label = config.toString config.value
         , attributes =
-            [ onInput (String.toInt >> Maybe.map Unit.yarnSizeKilometersPerKg >> config.update)
-            , Attr.min (String.fromInt (Unit.yarnSizeInKilometers Unit.minYarnSize))
-            , Attr.max (String.fromInt (Unit.yarnSizeInKilometers Unit.maxYarnSize))
+            [ onInput (String.toFloat >> Maybe.map Unit.yarnSizeKilometersPerKg >> config.update)
+            , Attr.min (String.fromFloat (Unit.yarnSizeInKilometers Unit.minYarnSize))
+            , Attr.max (String.fromFloat (Unit.yarnSizeInKilometers Unit.maxYarnSize))
 
             -- WARNING: be careful when reordering attributes: for obscure reasons,
             -- the `value` one MUST be set AFTER the `step` one.
             , step "1"
-            , value (String.fromInt (Unit.yarnSizeInKilometers config.value))
+            , value (String.fromFloat (Unit.yarnSizeInKilometers config.value))
             , Attr.disabled config.disabled
             ]
         }

@@ -60,7 +60,7 @@ table db { detailed, scope } =
           , toCell = .name >> text
           }
         , { label = "Titrage*"
-          , toValue = Table.IntValue <| .yarnSize >> Unit.yarnSizeInKilometers
+          , toValue = Table.FloatValue <| .yarnSize >> Unit.yarnSizeInKilometers
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]

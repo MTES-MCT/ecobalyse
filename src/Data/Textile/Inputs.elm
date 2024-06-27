@@ -250,7 +250,7 @@ stepsToStrings inputs =
         ]
     , case inputs.yarnSize of
         Just yarnSize ->
-            [ "titrage", String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
+            [ "titrage", String.fromFloat (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
 
         Nothing ->
             []
