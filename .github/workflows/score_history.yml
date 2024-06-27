@@ -20,6 +20,9 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - name: Install Scalingo CLI
+        uses: ./.github/actions/scalingo-cli
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
@@ -73,13 +76,17 @@ jobs:
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
           LAST_COMMIT_HASH: ${{ github.sha }}
-          SCALINGO_POSTGRESQL_SCORE_URL: ${{ secrets.SCALINGO_POSTGRESQL_SCORE_URL }}
+          SCALINGO_POSTGRESQL_SCORE_URL: ${{ secrets.SCALINGO_POSTGRESQL_TUNNEL_SCORE_URL }}
           DJANGO_BYPASS_AUTH: True
           NODE_ENV: "test"
+          SCALINGO_REGION: ${{ secrets.SCALINGO_REGION }}
+          SCALINGO_APP: ecobalyse
+          SCALINGO_API_TOKEN: ${{ secrets.SCALINGO_API_TOKEN }}
         run: |
           npm run server:build
           npm run server:start &
           npm run start:backend &
           for attempt in {1..20}; do sleep 1; if curl -s http://localhost:8001/ > /dev/null; then echo "-> Node server is up and ready on port 8001"; break; fi; echo "-> Waiting for the Node server to boot..."; done
           for attempt in {1..20}; do sleep 1; if curl -s http://localhost:8002/ > /dev/null; then echo "-> Python server is up and ready on port 8002"; break; fi; echo "-> Waiting for the Python server to boot..."; done
+          scalingo db-tunnel DATABASE_URL &
           python data/common/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $LAST_COMMIT_HASH $SCALINGO_POSTGRESQL_SCORE_URL
