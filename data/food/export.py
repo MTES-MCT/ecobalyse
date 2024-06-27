@@ -5,6 +5,7 @@
 
 import json
 import urllib.parse
+from os.path import dirname, join
 
 import bw2calc
 import bw2data
@@ -21,17 +22,18 @@ from common.export import (
     with_subimpacts,
 )
 from common.impacts import bytrigram, main_method
+
+
 from common.impacts import impacts as definitions
 from frozendict import frozendict
-
 from food.ecosystemic_services.ecosystemic_services import (
     compute_animal_ecosystemic_services,
     compute_vegetal_ecosystemic_services,
     load_ecosystemic_dic,
     load_ugb_dic,
-    plot_ecs_transformations,
 )
 
+HERE = dirname(__file__)
 # Configuration
 CONFIG = {
     "PROJECT": "food",
@@ -46,6 +48,9 @@ CONFIG = {
     "PROCESSES_FILE": "../../public/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
 }
+
+with open(join(dirname(dirname(HERE)), "public", "data", "impacts.json")) as f:
+    IMPACTS = json.load(f)
 
 
 def setup_environment():
