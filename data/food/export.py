@@ -5,6 +5,7 @@
 
 import json
 import urllib.parse
+from os.path import dirname, join
 
 import bw2calc
 import bw2data
@@ -21,17 +22,18 @@ from common.export import (
     with_subimpacts,
 )
 from common.impacts import bytrigram, main_method
+
+
 from common.impacts import impacts as definitions
 from frozendict import frozendict
-
 from food.ecosystemic_services.ecosystemic_services import (
     compute_animal_ecosystemic_services,
     compute_vegetal_ecosystemic_services,
     load_ecosystemic_dic,
     load_ugb_dic,
-    plot_ecs_transformations,
 )
 
+HERE = dirname(__file__)
 # Configuration
 CONFIG = {
     "PROJECT": "food",
@@ -46,6 +48,9 @@ CONFIG = {
     "PROCESSES_FILE": "../../public/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
 }
+
+with open(join(dirname(dirname(HERE)), "public", "data", "impacts.json")) as f:
+    IMPACTS = json.load(f)
 
 
 def setup_environment():
@@ -169,8 +174,8 @@ def process_activity_for_processes(activity):
             )
             else activity.get("comment", "")
         ),
+        "source": activity.get("database", AGRIBALYSE),
         # those are removed at the end:
-        "database": activity.get("database", AGRIBALYSE),
         "search": activity["search"],
     }
 
@@ -182,7 +187,7 @@ def compute_impacts(processes_fd):
         progress_bar(index, len(processes))
         # simapro
         activity = cached_search(
-            process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
+            process.get("source", CONFIG["AGRIBALYSE"]), process["search"]
         )
         strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
         project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
@@ -211,7 +216,7 @@ def compute_impacts(processes_fd):
             lca = bw2calc.LCA(
                 {
                     cached_search(
-                        process.get("database", CONFIG["AGRIBALYSE"]), process["search"]
+                        process.get("source", CONFIG["AGRIBALYSE"]), process["search"]
                     ): 1
                 }
             )

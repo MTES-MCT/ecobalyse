@@ -48,6 +48,10 @@ table db { detailed, scope } =
           , toValue = Table.StringValue <| .materialProcess >> .name
           , toCell = .materialProcess >> .name >> text
           }
+        , { label = "Source"
+          , toValue = Table.StringValue <| .materialProcess >> .source
+          , toCell = .materialProcess >> .source >> text
+          }
         , { label = "Origine"
           , toValue = Table.StringValue <| .origin >> Origin.toLabel
           , toCell = .origin >> Origin.toLabel >> text
