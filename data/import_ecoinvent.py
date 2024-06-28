@@ -3,6 +3,7 @@
 import bw2data
 import bw2io
 from bw2data.project import projects
+
 from common.import_ import add_missing_substances
 from import_agribalyse import import_simapro_csv
 

@@ -194,7 +194,7 @@ def dict2html(d):
         "<ul>"
         + "".join(
             [
-                f"<li><b>{k}</b>: {dict2html(v) if type(v) is dict else list2html(v) if type(v) in (list, tuple) else str(v)}</li>"
+                f"<li><b>{k}</b>: {dict2html(v) if isinstance(v, dict) else list2html(v) if isinstance(v, (list, tuple)) else str(v)}</li>"
                 for k, v in d.items()
             ]
         )
@@ -208,7 +208,7 @@ def list2html(lst):
         "<ul>"
         + "".join(
             [
-                f"<li><b>{list2html(i) if type(i) in (list,tuple) else dict2html(i) if type(i) is dict else str(i)}</b></li>"
+                f"<li><b>{list2html(i) if isinstance(i, (list,tuple)) else dict2html(i) if isinstance(i, dict) else str(i)}</b></li>"
                 for i in lst
             ]
         )

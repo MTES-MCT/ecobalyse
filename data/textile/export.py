@@ -7,6 +7,7 @@ import json
 
 import bw2calc
 from bw2data.project import projects
+
 from common.export import (
     cached_search,
     display_changes,
@@ -19,7 +20,7 @@ from common.impacts import impacts as impacts_definition
 PROJECT = "textile"
 DBNAME = "Ecoinvent 3.9.1"
 ACTIVITIES = "activities.json"
-IMPACTS = "../../public/data/impacts.json"  # TODO move the impact definition somewhere else and remove base impact
+IMPACTS = "../../public/data/impacts.json"
 # Output
 MATERIALS = "../../public/data/textile/materials.json"
 PROCESSES = "../../public/data/textile/processes_impacts.json"
@@ -136,7 +137,7 @@ if __name__ == "__main__":
     # export materials
     with open(MATERIALS, "w") as outfile:
         json.dump(materials, outfile, indent=2, ensure_ascii=False)
-        # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
+        # avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"\nExported {len(materials)} materials to {MATERIALS}")
 
@@ -146,6 +147,6 @@ if __name__ == "__main__":
     # export processes
     with open(PROCESSES, "w") as outfile:
         json.dump(list(processes.values()), outfile, indent=2, ensure_ascii=False)
-        # Add a newline at the end of the file, to avoid creating a diff with editors adding a newline
+        # avoid creating a diff with editors adding a newline
         outfile.write("\n")
     print(f"Exported {len(processes)} processes to {PROCESSES}")
