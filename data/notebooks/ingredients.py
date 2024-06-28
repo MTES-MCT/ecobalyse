@@ -2,17 +2,17 @@
 This file is the ingredient/activity editor Jupyter Notebook
 """
 
-if __name__ == "__main__":
+if True:  # just to bypass the ruff warning
     print("Please wait")
 import os
 import sys
 
 # don"t display bw2data startup output
-if __name__ == "__main__":
+if True:
     sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
 
-if __name__ == "__main__":
+if True:
     sys.stdout = sys.__stdout__
 import json
 import shutil

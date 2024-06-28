@@ -2,18 +2,18 @@
 This file is `explore` Jupyter Notebook
 """
 
-if __name__ == "__main__":
+if True:  # just to bypass the ruff warning
     print("Please wait")
 import os
 import sys
 
 from IPython.core.display import Markdown, display
 
-if __name__ == "__main__":
+if True:
     sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
 
-if __name__ == "__main__":
+if True:
     sys.stdout = sys.__stdout__
 import base64
 import csv
