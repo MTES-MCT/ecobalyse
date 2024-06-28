@@ -4,16 +4,17 @@
 """Export des ingrédients et des processes de l'alimentaire"""
 
 import json
-import sys
 import os
+import sys
 import urllib.parse
-from os.path import dirname, join
+from os.path import dirname
+
 import bw2calc
 import bw2data
 import matplotlib
 import numpy
-import requests
 import pandas as pd
+import requests
 from bw2data.project import projects
 from common.export import (
     cached_search,
@@ -26,10 +27,9 @@ from common.export import (
     with_subimpacts,
 )
 from common.impacts import bytrigram, main_method
-
-
 from common.impacts import impacts as definitions
 from frozendict import frozendict
+
 from food.ecosystemic_services.ecosystemic_services import (
     compute_animal_ecosystemic_services,
     compute_vegetal_ecosystemic_services,
@@ -44,7 +44,7 @@ CONFIG = {
     "AGRIBALYSE": "Agribalyse 3.1.1",
     "BIOSPHERE": "Agribalyse 3.1.1 biosphere",
     "ACTIVITIES_FILE": f"{PROJECT_ROOT_DIR}/data/food/activities.json",
-    "COMPARED_IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/data/food/compared_impacts.json",
+    "COMPARED_IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/data/food/compared_impacts.csv",
     "IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/impacts.json",
     "ECOSYSTEMIC_FACTORS_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ecosystemic_factors.csv",
     "FEED_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",
@@ -57,7 +57,7 @@ CONFIG = {
 with open(CONFIG["IMPACTS_FILE"]) as f:
     IMPACTS_DEF_ECOBALYSE = json.load(f)
 
-with open(join(dirname(dirname(HERE)), "public", "data", "impacts.json")) as f:
+with open(CONFIG["IMPACTS_FILE"]) as f:
     IMPACTS = json.load(f)
 
 
@@ -411,7 +411,7 @@ if __name__ == "__main__":
             print(f"Plotting {ingredient_name}")
             simapro_impacts = values["simapro_impacts"]
             brightway_impacts = values["brightway_impacts"]
-            os.makedirs(CONFIG['GRAPH_FOLDER']}, exist_ok=True)
+            os.makedirs(CONFIG["GRAPH_FOLDER"], exist_ok=True)
             plot_impacts(ingredient_name, simapro_impacts, brightway_impacts)
             print("Charts have been generated and saved as PNG files.")
         sys.exit(0)
