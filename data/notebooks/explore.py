@@ -2,16 +2,19 @@
 This file is `explore` Jupyter Notebook
 """
 
-print("Please wait")
+if __name__ == "__main__":
+    print("Please wait")
 import os
 import sys
 
 from IPython.core.display import Markdown, display
 
-sys.stdout = open(os.devnull, "w")
+if __name__ == "__main__":
+    sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
 
-sys.stdout = sys.__stdout__
+if __name__ == "__main__":
+    sys.stdout = sys.__stdout__
 import base64
 import csv
 import io
@@ -199,14 +202,14 @@ def dict2html(d):
     )
 
 
-def list2html(l):
+def list2html(lst):
     """Display a list in HTML"""
     return (
         "<ul>"
         + "".join(
             [
                 f"<li><b>{list2html(i) if type(i) in (list,tuple) else dict2html(i) if type(i) is dict else str(i)}</b></li>"
-                for i in l
+                for i in lst
             ]
         )
         + "</ul>"
@@ -370,7 +373,7 @@ def display_right_panel(database):
 def display_main_data(method, impact_category, activity):
     w_details.clear_output()
     w_results.clear_output()
-    display(Markdown(f"## (Computing impacts...)"))
+    display(Markdown("## (Computing impacts...)"))
 
     # Impacts
     scores = dict()
@@ -445,7 +448,7 @@ def display_main_data(method, impact_category, activity):
     activity_fields = f"{production}" + dict2html(activity)
 
     w_details.clear_output()
-    display(Markdown(f"## (Retrieving technosphere...)"))
+    display(Markdown("## (Retrieving technosphere...)"))
 
     # TECHNOSPHERE
     technosphere_widgets = []
@@ -488,7 +491,7 @@ def display_main_data(method, impact_category, activity):
         )
 
     w_details.clear_output()
-    display(Markdown(f"## (Retrieving biosphere...)"))
+    display(Markdown("## (Retrieving biosphere...)"))
 
     # BIOSPHERE
     biosphere = []
@@ -598,7 +601,7 @@ def display_main_data(method, impact_category, activity):
                 f"<h3>Top Processes</h3>{top_processes.to_html()}"
                 f"<h3>Top Emissions</h3>{top_emissions.to_html()}"
             )
-        except Exception as e:
+        except Exception:
             analysis = "Nothing to display. Maybe you selected the biosphere?"
     else:
         analysis = "💡 Please select an impact category"
