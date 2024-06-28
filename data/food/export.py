@@ -5,9 +5,9 @@
 
 import json
 import sys
+import os
 import urllib.parse
 from os.path import dirname, join
-import pathlib
 import bw2calc
 import bw2data
 import matplotlib
@@ -37,9 +37,7 @@ from food.ecosystemic_services.ecosystemic_services import (
     load_ugb_dic,
 )
 
-HERE = dirname(__file__)
-CURRENT_FILE_DIR = pathlib.Path(__file__).parent.resolve()
-PROJECT_ROOT_DIR = f"{CURRENT_FILE_DIR}/../.."
+PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
 # Configuration
 CONFIG = {
     "PROJECT": "food",
@@ -413,6 +411,7 @@ if __name__ == "__main__":
             print(f"Plotting {ingredient_name}")
             simapro_impacts = values["simapro_impacts"]
             brightway_impacts = values["brightway_impacts"]
+            os.makedirs(CONFIG['GRAPH_FOLDER']}, exist_ok=True)
             plot_impacts(ingredient_name, simapro_impacts, brightway_impacts)
             print("Charts have been generated and saved as PNG files.")
         sys.exit(0)
