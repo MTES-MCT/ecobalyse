@@ -16,8 +16,6 @@ import numpy
 import pandas as pd
 import requests
 from bw2data.project import projects
-from frozendict import frozendict
-
 from common.export import (
     cached_search,
     display_changes,
@@ -30,6 +28,8 @@ from common.export import (
 )
 from common.impacts import bytrigram, main_method
 from common.impacts import impacts as definitions
+from frozendict import frozendict
+
 from food.ecosystemic_services.ecosystemic_services import (
     compute_animal_ecosystemic_services,
     compute_vegetal_ecosystemic_services,

@@ -7,7 +7,6 @@ import json
 
 import bw2calc
 from bw2data.project import projects
-
 from common.export import (
     cached_search,
     display_changes,
@@ -30,7 +29,7 @@ projects.set_current(PROJECT)
 
 
 def isUuid(txt):
-    return type(txt) is str and len(txt.split("-")) == 5
+    return isinstance(txt, str) and len(txt.split("-")) == 5
 
 
 def uuidOrSearch(txt):

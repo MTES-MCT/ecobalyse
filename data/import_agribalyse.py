@@ -8,7 +8,6 @@ import bw2data
 import bw2io
 from bw2data.project import projects
 from bw2io.strategies.generic import link_technosphere_by_activity_hash
-
 from common.import_ import (
     add_created_activities,
     add_missing_substances,
