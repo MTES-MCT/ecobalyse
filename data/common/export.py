@@ -71,7 +71,7 @@ def search(dbname, name, excluded_term=None):
     return results[0]
 
 
-def with_corrected_impacts(impacts_ecobalyse, processes_fd, impacts_key = "impacts"):
+def with_corrected_impacts(impacts_ecobalyse, processes_fd, impacts_key="impacts"):
     """Add corrected impacts to the processes"""
     corrections = {
         k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v

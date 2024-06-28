@@ -5,6 +5,7 @@ import json
 
 import ipywidgets
 import pandas
+from IPython.display import display
 from matplotlib import pyplot
 
 print("Please wait...")

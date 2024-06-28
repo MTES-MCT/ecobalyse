@@ -2,15 +2,18 @@
 This file is the ingredient/activity editor Jupyter Notebook
 """
 
-print("Please wait")
+if True:  # just to bypass the ruff warning
+    print("Please wait")
 import os
 import sys
 
 # don"t display bw2data startup output
-sys.stdout = open(os.devnull, "w")
+if True:
+    sys.stdout = open(os.devnull, "w")
 from bw2data.project import projects
 
-sys.stdout = sys.__stdout__
+if True:
+    sys.stdout = sys.__stdout__
 import json
 import shutil
 import subprocess
@@ -23,6 +26,7 @@ import pandas
 import pandas.io.formats.style
 import requests
 from flatdict import FlatDict
+from IPython.display import display
 
 os.chdir("/home/jovyan/ecobalyse/data")
 PROJECT = "food"
@@ -1265,7 +1269,7 @@ Ecobalyse</li></ul>
                 )
             ),
             ipywidgets.VBox(
-                (ipywidgets.HTML(f"<h2>Fichier JSON résultant:</h2>"), file_output)
+                (ipywidgets.HTML("<h2>Fichier JSON résultant:</h2>"), file_output)
             ),
             ipywidgets.VBox(
                 [
