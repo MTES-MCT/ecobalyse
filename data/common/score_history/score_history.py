@@ -493,14 +493,17 @@ def compute_products_scores_for_examples(examples, api_url):
 
     return computed_scores
 
-def add_all_ingredients(examples_input):
+def add_all_ingredients_as_examples(examples_input):
+    """
+    Add all ingredients to the list of examples. Thanks to this we can notice the evolution of impacts of all ingredients. We could add all these ingredients as food product examples but we don't as this would be overwhelming of the UI user.
+    """
     new_examples_input = list(examples_input)
     ingredients = load_json(DOMAIN_DATA[domain][INGREDIENTS_KEY])
     for ingredient in ingredients:
         ingredient_id = ingredient["id"]
         new_example = {
-                "id": str(uuid.uuid5(uuid.NAMESPACE_DNS,ingredient_id)),  # Generate a unique identifier for the example
-                "name": f"{ingredient_id}",    # Create a unique name by appending the index
+                "id": str(uuid.uuid5(uuid.NAMESPACE_DNS,ingredient_id)),
+                "name": f"{ingredient_id}",
                 "category": "raw_ingredient",
                 "query": {
                     "ingredients": {
@@ -540,11 +543,8 @@ if __name__ == "__main__":
 
             examples_input = load_json(example_path)
 
-            if domain == Domain.TEXTILE:
-                continue
-
             if domain == Domain.FOOD:
-                examples_input = add_all_ingredients(examples_input)
+                examples_input = add_all_ingredients_as_examples(examples_input)
 
             examples = compute_products_scores_for_examples(
                 examples_input, f"{api_url}{api_endpoint}"
