@@ -506,10 +506,10 @@ def add_all_ingredients_as_examples(examples_input):
                 "name": f"{ingredient_id}",
                 "category": "raw_ingredient",
                 "query": {
-                    "ingredients": {
+                    "ingredients": [{
                         "id": ingredient_id,
                         "mass": 1000
-                    }
+                    }]
                 }
             }
         new_examples_input.append(new_example)
