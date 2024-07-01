@@ -100,6 +100,16 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
 
+// Detailed processes files
+
+const textileFile = "public/data/textile/processes_impacts.json";
+const foodFile = "public/data/textile/processes_impacts.json";
+
+const processes = {
+  foodProcesses: JSON.parse(fs.readFileSync(foodFile, "utf8")),
+  textileProcesses: JSON.parse(fs.readFileSync(textileFile, "utf8")),
+};
+
 const elmApp = Elm.Server.init();
 
 elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
@@ -119,21 +129,13 @@ const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
 const getProcesses = async (encrypted = true) => {
-  const textileFile = "public/data/textile/processes_impacts.json";
-  const foodFile = "public/data/textile/processes_impacts.json";
-
   const { ENCRYPTION_KEY } = process.env;
 
-  let processes = {
-    foodProcesses: JSON.parse(fs.readFileSync(foodFile, "utf8")),
-    textileProcesses: JSON.parse(fs.readFileSync(textileFile, "utf8")),
-  };
-
   if (encrypted) {
-    processes = encrypt(JSON.stringify(processes), ENCRYPTION_KEY);
+    return encrypt(JSON.stringify(processes), ENCRYPTION_KEY);
+  } else {
+    return processes;
   }
-
-  return processes;
 };
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
