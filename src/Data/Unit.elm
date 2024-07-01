@@ -174,16 +174,16 @@ type alias YarnSize =
     Quantity Float (Quantity.Rate Length.Meters Mass.Kilograms)
 
 
-yarnSizeKilometersPerKg : Int -> YarnSize
+yarnSizeKilometersPerKg : Float -> YarnSize
 yarnSizeKilometersPerKg kilometers =
     -- The Nm unit is the length in kilometers of a yarn that weighs 1kg
-    Quantity.rate (Length.kilometers (toFloat kilometers)) Mass.kilogram
+    Quantity.rate (Length.kilometers kilometers) Mass.kilogram
 
 
-yarnSizeGramsPer10km : Int -> YarnSize
+yarnSizeGramsPer10km : Float -> YarnSize
 yarnSizeGramsPer10km weight =
     -- The Dtex unit is the weight in grams of 10000 meters
-    Quantity.rate (Length.meters 10000) (Mass.grams (toFloat weight))
+    Quantity.rate (Length.meters 10000) (Mass.grams weight)
 
 
 minYarnSize : YarnSize
@@ -196,51 +196,47 @@ maxYarnSize =
     yarnSizeKilometersPerKg 200
 
 
-yarnSizeInKilometers : YarnSize -> Int
+yarnSizeInKilometers : YarnSize -> Float
 yarnSizeInKilometers yarnSize =
     -- Used to display the value using the Nm unit
     Quantity.at yarnSize Mass.kilogram
         |> Length.inKilometers
-        |> round
 
 
-yarnSizeInGrams : YarnSize -> Int
+yarnSizeInGrams : YarnSize -> Float
 yarnSizeInGrams yarnSize =
     -- Used to display the value using the Dtex unit
     Quantity.at_ yarnSize (Length.meters 10000)
         |> Mass.inGrams
-        |> round
 
 
 encodeYarnSize : YarnSize -> Encode.Value
-encodeYarnSize yarnSize =
-    yarnSize
-        |> yarnSizeInKilometers
-        |> Encode.int
+encodeYarnSize =
+    yarnSizeInKilometers >> Encode.float
 
 
 decodeYarnSize : Decoder YarnSize
 decodeYarnSize =
-    Decode.int
+    Decode.float
         |> Decode.andThen
-            (\int ->
+            (\float ->
                 let
                     yarnSize =
-                        yarnSizeKilometersPerKg int
+                        yarnSizeKilometersPerKg float
                 in
                 if (yarnSize |> Quantity.lessThan minYarnSize) || (yarnSize |> Quantity.greaterThan maxYarnSize) then
                     Decode.fail
                         ("Le titrage spécifié ("
-                            ++ String.fromInt int
+                            ++ String.fromFloat float
                             ++ ") doit être compris entre "
-                            ++ String.fromInt (yarnSizeInKilometers minYarnSize)
+                            ++ String.fromFloat (yarnSizeInKilometers minYarnSize)
                             ++ " et "
-                            ++ String.fromInt (yarnSizeInKilometers maxYarnSize)
+                            ++ String.fromFloat (yarnSizeInKilometers maxYarnSize)
                             ++ "."
                         )
 
                 else
-                    Decode.succeed int
+                    Decode.succeed float
             )
         |> Decode.map yarnSizeKilometersPerKg
 

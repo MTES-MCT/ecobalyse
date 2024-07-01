@@ -27,16 +27,12 @@ elmApp.ports.export.subscribe(
     foodProcesses,
     textileProcessesOnlyAggregated,
     foodProcessesOnlyAggregated,
-    textileProcessesFakeDetails,
-    foodProcessesFakeDetails,
   }) => {
     try {
       exportJson("public/data/textile/processes_impacts.json", textileProcesses);
       exportJson("public/data/food/processes_impacts.json", foodProcesses);
       exportJson("public/data/textile/processes.json", textileProcessesOnlyAggregated);
       exportJson("public/data/food/processes.json", foodProcessesOnlyAggregated);
-      exportJson("public/data/textile/processes_impacts_fake.json", textileProcessesFakeDetails);
-      exportJson("public/data/food/processes_impacts_fake.json", foodProcessesFakeDetails);
       console.log("EXPORTED!");
     } catch (err) {
       console.error(err);

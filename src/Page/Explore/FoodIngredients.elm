@@ -24,6 +24,7 @@ table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient Stri
 table _ { detailed, scope } =
     { toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
+    , legend = []
     , columns =
         [ { label = "Identifiant"
           , toValue = Table.StringValue <| .id >> Ingredient.idToString
@@ -90,6 +91,10 @@ table _ { detailed, scope } =
                             Nothing ->
                                 text ""
                         ]
+          }
+        , { label = "Source"
+          , toValue = Table.StringValue <| .default >> .source
+          , toCell = .default >> .source >> text
           }
         , { label = "Services écosystémiques"
           , toValue = Table.StringValue <| always "N/A"

@@ -8,7 +8,6 @@ module Data.Textile.Product exposing
     , findById
     , getMakingDurationInMinutes
     , idToString
-    , isFadedByDefault
     )
 
 import Data.Split as Split exposing (Split)
@@ -23,7 +22,6 @@ import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import Mass exposing (Mass)
 import Volume exposing (Volume)
 
 
@@ -58,7 +56,6 @@ type alias EndOfLifeOptions =
 type alias Product =
     { id : Id
     , name : String
-    , mass : Mass
     , surfaceMass : Unit.SurfaceMass
     , yarnSize : Unit.YarnSize
     , fabric : Fabric
@@ -72,11 +69,6 @@ type alias Product =
 
 type Id
     = Id String
-
-
-isFadedByDefault : Product -> Bool
-isFadedByDefault product =
-    product.id == Id "jean"
 
 
 getMakingDurationInMinutes : Product -> Duration
@@ -135,7 +127,6 @@ decode processes =
     Decode.succeed Product
         |> Pipe.required "id" (Decode.map Id Decode.string)
         |> Pipe.required "name" Decode.string
-        |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
         |> Pipe.required "yarnSize" Unit.decodeYarnSize
         |> Pipe.required "fabric" Fabric.decode
@@ -183,7 +174,6 @@ encode v =
     Encode.object
         [ ( "id", encodeId v.id )
         , ( "name", Encode.string v.name )
-        , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "fabric", Fabric.encode v.fabric )
         , ( "making", encodeMakingOptions v.making )
         , ( "use", encodeUseOptions v.use )

@@ -1,6 +1,7 @@
 *.yml
 *.yaml
 *.html
+*.md
 package-lock.json
 public/icomoon/*
 public/vendor/*

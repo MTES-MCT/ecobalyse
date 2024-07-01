@@ -2,10 +2,12 @@ module Data.Textile.Simulator exposing
     ( Simulator
     , compute
     , encode
+    , getTotalImpactsWithoutComplements
     , stepMaterialImpacts
     , toStepsImpacts
     )
 
+import Array
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -263,7 +265,7 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
                                 { makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
                                 , fadingProcess =
                                     -- Note: in the future, we may have distinct fading processes per countries
-                                    if Inputs.isFaded inputs then
+                                    if inputs.fading == Just True then
                                         Just textile.wellKnown.fading
 
                                     else
@@ -697,6 +699,15 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
                 |> Impact.divideBy (Unit.durabilityToFloat durability)
                 |> Impact.impactsWithComplements complementsImpacts
     }
+
+
+getTotalImpactsWithoutComplements : Simulator -> Impacts
+getTotalImpactsWithoutComplements { durability, lifeCycle } =
+    lifeCycle
+        |> Array.map Step.getTotalImpactsWithoutComplements
+        |> Array.toList
+        |> Impact.sumImpacts
+        |> Impact.divideBy (Unit.durabilityToFloat durability)
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator

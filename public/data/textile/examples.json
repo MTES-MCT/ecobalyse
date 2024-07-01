@@ -392,6 +392,7 @@
       "countryFabric": "---",
       "countryDyeing": "---",
       "countryMaking": "---",
+      "fading": true,
       "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,

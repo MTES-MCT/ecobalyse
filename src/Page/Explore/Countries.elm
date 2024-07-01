@@ -21,6 +21,7 @@ table : Transport.Distances -> List Country.Country -> { detailed : Bool, scope 
 table distances countries { detailed, scope } =
     { toId = .code >> Country.codeToString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
+    , legend = []
     , columns =
         List.filterMap identity
             [ Just

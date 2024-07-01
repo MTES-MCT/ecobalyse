@@ -4,7 +4,6 @@ module TestUtils exposing
     , suiteWithDb
     )
 
-import ComputeAggregated exposing (fakeDetails)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Unit as Unit
@@ -21,19 +20,8 @@ asTest label =
 suiteWithDb : String -> (Db -> List Test) -> Test
 suiteWithDb name suite =
     case db processes of
-        Ok ({ food, textile } as db) ->
-            let
-                -- The non detailed DB, accessible to all without authentication, will have all the
-                -- non aggregated impacts set to 0. To still be able to spot computation changes
-                -- we need those to be non zero. To do that, we change those non aggregated impacts
-                -- in the DB.
-                fakeDetailedDb =
-                    { db
-                        | food = { food | processes = fakeDetails food.processes }
-                        , textile = { textile | processes = fakeDetails textile.processes }
-                    }
-            in
-            describe name (suite fakeDetailedDb)
+        Ok db ->
+            describe name (suite db)
 
         Err error ->
             describe name

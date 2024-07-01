@@ -27,6 +27,7 @@ table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
 table db { detailed, scope } =
     { toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
+    , legend = []
     , columns =
         [ { label = "Identifiant"
           , toValue = Table.StringValue <| .id >> Material.idToString
@@ -46,6 +47,10 @@ table db { detailed, scope } =
         , { label = "Procédé"
           , toValue = Table.StringValue <| .materialProcess >> .name
           , toCell = .materialProcess >> .name >> text
+          }
+        , { label = "Source"
+          , toValue = Table.StringValue <| .materialProcess >> .source
+          , toCell = .materialProcess >> .source >> text
           }
         , { label = "Origine"
           , toValue = Table.StringValue <| .origin >> Origin.toLabel

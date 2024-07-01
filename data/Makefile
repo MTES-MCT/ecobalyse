@@ -41,11 +41,13 @@ export_food:
         else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py && \
                 $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build; fi
 
+compare_food:
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py compare; \
+        else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py compare; fi
+
 format:
 	npm run format:json
-
-export_food_format: export_food format
-
 
 #export_textile:
 #	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \

@@ -60,7 +60,6 @@ jobs:
     - name: Install Python dependencies
       run: pip install pipenv && pipenv install
 
-
     - name: Install Ubuntu dependencies
       run: |
         sudo apt-get update
@@ -82,4 +81,6 @@ jobs:
       run: npm run test:client
 
     - name: Run server tests
+      env:
+        DJANGO_BYPASS_AUTH: True
       run: pipenv run backend/update.sh && npm run test:server-ci && npm run test:backend

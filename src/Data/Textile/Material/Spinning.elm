@@ -147,7 +147,7 @@ getElec : Mass -> Unit.YarnSize -> Spinning -> Float
 getElec mass yarnSize spinning =
     -- See the formula in https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#consommation-delectricite
     -- Formula: kWh(Process) = YarnSize(Nm) / 50 * Normalization(Process) * OutputMass(kg)
-    (Unit.yarnSizeInKilometers yarnSize |> toFloat)
+    Unit.yarnSizeInKilometers yarnSize
         / 50
         * normalization spinning
         * Mass.inKilograms mass

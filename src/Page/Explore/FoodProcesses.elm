@@ -13,6 +13,7 @@ table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table FoodProcess.Pro
 table _ { detailed, scope } =
     { toId = .code >> FoodProcess.codeToString
     , toRoute = .code >> Just >> Dataset.FoodProcesses >> Route.Explore scope
+    , legend = []
     , columns =
         [ { label = "Identifiant"
           , toValue = Table.StringValue <| .code >> FoodProcess.codeToString
@@ -36,6 +37,10 @@ table _ { detailed, scope } =
         , { label = "Nom technique"
           , toValue = Table.StringValue <| .name >> FoodProcess.nameToString
           , toCell = .name >> FoodProcess.nameToString >> text
+          }
+        , { label = "Source"
+          , toValue = Table.StringValue <| .source
+          , toCell = .source >> text
           }
         , { label = "Identifiant source"
           , toValue = Table.StringValue <| .code >> FoodProcess.codeToString

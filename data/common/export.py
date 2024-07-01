@@ -14,7 +14,7 @@ def spproject(activity):
     """return the current simapro project for an activity"""
     match activity.get("database"):
         case "Ginko":
-            return "Ginko"
+            return "Ginko w/o azadirachtin"
         case "Ecobalyse":
             return "EcobalyseIsNotASimaProProject"
         case _:
@@ -43,21 +43,19 @@ def progress_bar(index, total):
     print(f"Export in progress: {str(index)}/{total}", end="\r")
 
 
-def with_subimpacts(process):
-    """compute subimpacts in the process"""
-    if not process["impacts"]:
-        return process
+def with_subimpacts(impacts):
+    """compute subimpacts"""
+    if not impacts:
+        return impacts
     # etf-o = etf-o1 + etf-o2
-    process["impacts"]["etf-o"] = (
-        process["impacts"]["etf-o1"] + process["impacts"]["etf-o2"]
-    )
-    del process["impacts"]["etf-o1"]
-    del process["impacts"]["etf-o2"]
+    impacts["etf-o"] = impacts["etf-o1"] + impacts["etf-o2"]
+    del impacts["etf-o1"]
+    del impacts["etf-o2"]
     # etf = etf1 + etf2
-    process["impacts"]["etf"] = process["impacts"]["etf1"] + process["impacts"]["etf2"]
-    del process["impacts"]["etf1"]
-    del process["impacts"]["etf2"]
-    return process
+    impacts["etf"] = impacts["etf1"] + impacts["etf2"]
+    del impacts["etf1"]
+    del impacts["etf2"]
+    return impacts
 
 
 @functools.cache
@@ -73,7 +71,7 @@ def search(dbname, name, excluded_term=None):
     return results[0]
 
 
-def with_corrected_impacts(impacts_ecobalyse, processes_fd):
+def with_corrected_impacts(impacts_ecobalyse, processes_fd, impacts_key = "impacts"):
     """Add corrected impacts to the processes"""
     corrections = {
         k: v["correction"] for (k, v) in impacts_ecobalyse.items() if "correction" in v
@@ -86,11 +84,11 @@ def with_corrected_impacts(impacts_ecobalyse, processes_fd):
             corrected_impact = 0
             for correction_item in correction:  # For each sub-impact and its weighting
                 sub_impact_name = correction_item["sub-impact"]
-                if sub_impact_name in process["impacts"]:
-                    sub_impact = process["impacts"].get(sub_impact_name, 1)
+                if sub_impact_name in process[impacts_key]:
+                    sub_impact = process[impacts_key].get(sub_impact_name, 1)
                     corrected_impact += sub_impact * correction_item["weighting"]
-                    del process["impacts"][sub_impact_name]
-            process["impacts"][impact_to_correct] = corrected_impact
+                    del process[impacts_key][sub_impact_name]
+            process[impacts_key][impact_to_correct] = corrected_impact
         processes_updated[key] = process
     return frozendict(processes_updated)
 
