@@ -1,7 +1,3 @@
----
-description: Cette page est un brouillon
----
-
 # Focus coton
 
 ## Généralités
