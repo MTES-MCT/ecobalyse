@@ -83,16 +83,6 @@ app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
 app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
 app.get("/stats", (_, res) => res.redirect("/#/stats"));
 
-app.get("/processes/processes.json", async (_, res) => {
-  try {
-    const processes = await getProcesses();
-    return res.status(200).send(processes);
-  } catch (err) {
-    console.error(err.message);
-    return res.status(500).send("Error while retrieving the processes");
-  }
-});
-
 // API
 
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
@@ -109,6 +99,13 @@ const processes = {
   foodProcesses: JSON.parse(fs.readFileSync(foodFile, "utf8")),
   textileProcesses: JSON.parse(fs.readFileSync(textileFile, "utf8")),
 };
+
+const { ENCRYPTION_KEY } = process.env;
+const encryptedProcesses = encrypt(JSON.stringify(processes), ENCRYPTION_KEY);
+
+app.get("/processes/processes.json", async (_, res) => {
+  return res.status(200).send(encryptedProcesses);
+});
 
 const elmApp = Elm.Server.init();
 
@@ -128,31 +125,13 @@ api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
-const getProcesses = async (encrypted = true) => {
-  const { ENCRYPTION_KEY } = process.env;
-
-  if (encrypted) {
-    return encrypt(JSON.stringify(processes), ENCRYPTION_KEY);
-  } else {
-    return processes;
-  }
-};
-
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
-  let processes;
-  try {
-    processes = await getProcesses(false);
-  } catch (err) {
-    console.error(err.message);
-    return res.status(500).send("Error while retrieving the processes");
-  }
-
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
     body: req.body,
-    processes: processes,
+    processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
       res.status(status).send(body);
