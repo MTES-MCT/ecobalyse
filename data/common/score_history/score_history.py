@@ -5,7 +5,7 @@ import sys
 from contextlib import contextmanager
 from datetime import datetime
 from enum import StrEnum
-
+import uuid
 import pandas as pd
 import requests
 from sqlalchemy import create_engine, text
@@ -26,6 +26,7 @@ class Domain(StrEnum):
 
 EXAMPLES_KEY = "examples"
 API_ENDPOINT_KEY = "api_endpoint"
+INGREDIENTS_KEY = "ingredients"
 
 DOMAIN_DATA = {
     Domain.TEXTILE: {
@@ -35,6 +36,7 @@ DOMAIN_DATA = {
     Domain.FOOD: {
         EXAMPLES_KEY: f"{PROJECT_ROOT_DIR}public/data/food/examples.json",
         API_ENDPOINT_KEY: "/api/food/",
+        INGREDIENTS_KEY: f"{PROJECT_ROOT_DIR}public/data/food/ingredients.json",
     },
 }
 
@@ -491,6 +493,28 @@ def compute_products_scores_for_examples(examples, api_url):
 
     return computed_scores
 
+def add_all_ingredients(examples_input):
+    new_examples_input = list(examples_input)
+    ingredients = load_json(DOMAIN_DATA[domain][INGREDIENTS_KEY])
+    for ingredient in ingredients:
+        ingredient_id = ingredient["id"]
+        new_example = {
+                "id": str(uuid.uuid5(uuid.NAMESPACE_DNS,ingredient_id)),  # Generate a unique identifier for the example
+                "name": f"{ingredient_id}",    # Create a unique name by appending the index
+                "category": "raw_ingredient",
+                "query": {
+                    "ingredients": {
+                        "id": ingredient_id,
+                        "mass": 1000
+                    }
+                }
+            }
+        new_examples_input.append(new_example)
+
+    return new_examples_input
+
+
+
 
 if __name__ == "__main__":
     api_url, current_branch, last_commit, scalingo_postgresql_score_url = (
@@ -514,8 +538,16 @@ if __name__ == "__main__":
             example_path = DOMAIN_DATA[domain][EXAMPLES_KEY]
             api_endpoint = DOMAIN_DATA[domain][API_ENDPOINT_KEY]
 
+            examples_input = load_json(example_path)
+
+            if domain == Domain.TEXTILE:
+                continue
+
+            if domain == Domain.FOOD:
+                examples_input = add_all_ingredients(examples_input)
+
             examples = compute_products_scores_for_examples(
-                load_json(example_path), f"{api_url}{api_endpoint}"
+                examples_input, f"{api_url}{api_endpoint}"
             )
 
             new_score_df = get_new_score(domain, examples, current_branch, last_commit)
@@ -528,7 +560,7 @@ if __name__ == "__main__":
                 logger.info(
                     f"Score is different for domain {domain}. Storing new score in the db. Number of rows in the score_history table before update: {get_row_count(engine)}"
                 )
-                insert_new_score(new_score_df, engine, "score_history")
+                #insert_new_score(new_score_df, engine, "score_history")
                 logger.info(
                     f"Successfully appended new score ({new_score_df.shape[0]} rows) to score_history postgresql table for domain {domain}."
                 )
