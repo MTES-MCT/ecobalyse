@@ -85,8 +85,8 @@ app.get("/stats", (_, res) => res.redirect("/#/stats"));
 
 app.get("/processes/processes.json", async (_, res) => {
   try {
-    result = await getProcesses();
-    return res.status(result.status).send(result.processes);
+    const processes = await getProcesses();
+    return res.status(200).send(processes);
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Error while retrieving the processes");
@@ -133,17 +133,14 @@ const getProcesses = async (encrypted = true) => {
     processes = encrypt(JSON.stringify(processes), ENCRYPTION_KEY);
   }
 
-  return {
-    processes: processes,
-    status: 200,
-  };
+  return processes;
 };
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
-  let result;
+  let processes;
   try {
-    result = await getProcesses(false);
+    processes = await getProcesses(false);
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Error while retrieving the processes");
@@ -153,7 +150,7 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
     method: req.method,
     url: req.url,
     body: req.body,
-    processes: result.processes,
+    processes: processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
       res.status(status).send(body);
