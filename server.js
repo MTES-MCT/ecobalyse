@@ -9,16 +9,35 @@ const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
 const memoize = require("fast-memoize");
+const path = require("path");
+const rateLimit = require("express-rate-limit");
 
 const app = express(); // web app
 const api = express(); // api app
+const version = express(); // version app
 const host = "0.0.0.0";
-const express_port = 8001;
-const django_port = 8002;
-const max_memoize_age = 1000 * 60 * 24; // 24 hours memoization
+const expressPort = 8001;
+const djangoPort = 8002;
+const maxMemoizeAge = 1000 * 60 * 24; // 24 hours memoization
+
+const versionsDir = "./versions";
+let availableVersions;
+if (fs.existsSync(versionsDir)) {
+  availableVersions = new Set(fs.readdirSync(versionsDir));
+} else {
+  availableVersions = new Set();
+}
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
+
+var rateLimiter = rateLimit({
+  windowMs: 1000, // 1 second
+  max: 100, // max 100 requests per second
+});
+
+// Rate limit the version API as it reads file from the disk
+version.use(rateLimiter);
 
 // Matomo
 if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
@@ -116,13 +135,13 @@ const getProcesses = async (token) => {
     headers["token"] = token;
   }
 
-  const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
+  const processesUrl = `http://127.0.0.1:${djangoPort}/processes/processes.json`;
   const processesRes = await fetch(processesUrl, { headers: headers });
   const processes = await processesRes.json();
   return { processes: processes, status: processesRes.status };
 };
 
-const memoizedGetProcesses = memoize(getProcesses, { maxAge: max_memoize_age });
+const memoizedGetProcesses = memoize(getProcesses, { maxAge: maxMemoizeAge });
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
@@ -149,8 +168,64 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   });
 });
 
+// Middleware to check version number and file path
+const checkVersionAndPath = (req, res, next) => {
+  const versionNumber = req.params.versionNumber;
+
+  if (!availableVersions.has(versionNumber)) {
+    res.status(404).send("Version not found");
+  }
+  const staticDir = path.join(__dirname, "versions", versionNumber);
+  req.staticDir = staticDir;
+  next();
+};
+
+version.use("/:versionNumber", checkVersionAndPath, (req, res, next) => {
+  express.static(req.staticDir)(req, res, next);
+});
+
+version.get("/:versionNumber/api", checkVersionAndPath, (req, res) => {
+  const openApiContents = yaml.load(fs.readFileSync(path.join(req.staticDir, "openapi.yaml")));
+  res.status(200).send(openApiContents);
+});
+
+version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), async (req, res) => {
+  const foodProcesses = fs
+    .readFileSync(path.join(req.staticDir, "data", "food", "processes_impacts.json"))
+    .toString();
+  const textileProcesses = fs
+    .readFileSync(path.join(req.staticDir, "data", "textile", "processes_impacts.json"))
+    .toString();
+
+  const processes = {
+    foodProcesses: foodProcesses,
+    textileProcesses: textileProcesses,
+  };
+
+  const { Elm } = require(path.join(req.staticDir, "server-app"));
+
+  const elmApp = Elm.Server.init();
+
+  elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
+    return jsResponseHandler({ status, body });
+  });
+
+  const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
+
+  elmApp.ports.input.send({
+    method: req.method,
+    url: urlWithoutPrefix,
+    body: req.body,
+    processes: processes,
+    jsResponseHandler: ({ status, body }) => {
+      res.status(status).send(body);
+    },
+  });
+});
+
 api.use(cors()); // Enable CORS for all API requests
 app.use("/api", api);
+app.use("/versions", version);
 
 // Sentry error handler
 // Note: *must* be called *before* any other error handler
@@ -158,8 +233,8 @@ if (SENTRY_DSN) {
   app.use(Sentry.Handlers.errorHandler());
 }
 
-const server = app.listen(express_port, host, () => {
-  console.log(`Server listening at http://${host}:${express_port}`);
+const server = app.listen(expressPort, host, () => {
+  console.log(`Server listening at http://${host}:${expressPort}`);
 });
 
 module.exports = server;
