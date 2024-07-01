@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+const crypto = require("crypto");
+const key = crypto.createHash("sha512").digest("hex").substring(0, 32);
+process.stdout.write(key + "\n");

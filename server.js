@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
+const { encrypt } = require("./lib/crypto");
 
 const app = express(); // web app
 const api = express(); // api app
@@ -82,6 +83,16 @@ app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
 app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
 app.get("/stats", (_, res) => res.redirect("/#/stats"));
 
+app.get("/processes/processes.json", async (_, res) => {
+  try {
+    result = await getProcesses();
+    return res.status(result.status).send(result.processes);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send("Error while retrieving the processes");
+  }
+});
+
 // API
 
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
@@ -107,25 +118,23 @@ api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
-const getProcesses = async (token) => {
-  let textileFile;
-  let foodFile;
+const getProcesses = async (encrypted = true) => {
+  const textileFile = "public/data/textile/processes_impacts.json";
+  const foodFile = "public/data/textile/processes_impacts.json";
 
-  // For now, consider that if we prodive a token, we are authenticated
-  // Next step : use this token to decrypt the files
-  if (token) {
-    textileFile = "public/data/textile/processes_impacts.json";
-    foodFile = "public/data/textile/processes_impacts.json";
-  } else {
-    textileFile = "public/data/textile/processes.json";
-    foodFile = "public/data/textile/processes.json";
+  const { ENCRYPTION_KEY } = process.env;
+
+  let processes = {
+    foodProcesses: JSON.parse(fs.readFileSync(foodFile, "utf8")),
+    textileProcesses: JSON.parse(fs.readFileSync(textileFile, "utf8")),
+  };
+
+  if (encrypted) {
+    processes = encrypt(JSON.stringify(processes), ENCRYPTION_KEY);
   }
 
-  var textile = JSON.parse(fs.readFileSync(textileFile, "utf8"));
-  var food = JSON.parse(fs.readFileSync(foodFile, "utf8"));
-
   return {
-    processes: { foodProcesses: food, textileProcesses: textile },
+    processes: processes,
     status: 200,
   };
 };
@@ -134,10 +143,7 @@ const getProcesses = async (token) => {
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   let result;
   try {
-    result = await getProcesses(req.headers.token);
-    if (result.status != 200) {
-      return res.status(result.status).send(result.processes);
-    }
+    result = await getProcesses(false);
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Error while retrieving the processes");
