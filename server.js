@@ -8,14 +8,11 @@ const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
-const memoize = require("fast-memoize");
 
 const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
 const express_port = 8001;
-const django_port = 8002;
-const max_memoize_age = 1000 * 60 * 24; // 24 hours memoization
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -111,24 +108,33 @@ const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
 const getProcesses = async (token) => {
-  let headers = {};
+  let textileFile;
+  let foodFile;
+
+  // For now, consider that if we prodive a token, we are authenticated
+  // Next step : use this token to decrypt the files
   if (token) {
-    headers["token"] = token;
+    textileFile = "public/data/textile/processes_impacts.json";
+    foodFile = "public/data/textile/processes_impacts.json";
+  } else {
+    textileFile = "public/data/textile/processes.json";
+    foodFile = "public/data/textile/processes.json";
   }
 
-  const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
-  const processesRes = await fetch(processesUrl, { headers: headers });
-  const processes = await processesRes.json();
-  return { processes: processes, status: processesRes.status };
-};
+  var textile = JSON.parse(fs.readFileSync(textileFile, "utf8"));
+  var food = JSON.parse(fs.readFileSync(foodFile, "utf8"));
 
-const memoizedGetProcesses = memoize(getProcesses, { maxAge: max_memoize_age });
+  return {
+    processes: { foodProcesses: food, textileProcesses: textile },
+    status: 200,
+  };
+};
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   let result;
   try {
-    result = await memoizedGetProcesses(req.headers.token);
+    result = await getProcesses(req.headers.token);
     if (result.status != 200) {
       return res.status(result.status).send(result.processes);
     }
