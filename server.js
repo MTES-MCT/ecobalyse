@@ -96,8 +96,8 @@ const textileFile = "public/data/textile/processes_impacts.json";
 const foodFile = "public/data/textile/processes_impacts.json";
 
 const processes = {
-  foodProcesses: JSON.parse(fs.readFileSync(foodFile, "utf8")),
-  textileProcesses: JSON.parse(fs.readFileSync(textileFile, "utf8")),
+  foodProcesses: fs.readFileSync(foodFile, "utf8"),
+  textileProcesses: fs.readFileSync(textileFile, "utf8"),
 };
 
 const { ENCRYPTION_KEY } = process.env;
