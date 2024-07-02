@@ -25,7 +25,6 @@ from .views import serve_directory
 urlpatterns = [
     path("admin/", admin_site.urls),
     path("accounts/", include("authentication.urls")),
-    path("processes/", include("processes.urls")),
 ]
 
 if settings.DEBUG:

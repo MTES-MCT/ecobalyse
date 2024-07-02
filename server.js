@@ -8,14 +8,12 @@ const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
-const memoize = require("fast-memoize");
+const { encrypt } = require("./lib/crypto");
 
 const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
 const express_port = 8001;
-const django_port = 8002;
-const max_memoize_age = 1000 * 60 * 24; // 24 hours memoization
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -92,6 +90,23 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
 
+// Detailed processes files
+
+const textileFile = "public/data/textile/processes_impacts.json";
+const foodFile = "public/data/food/processes_impacts.json";
+
+const processes = {
+  foodProcesses: fs.readFileSync(foodFile, "utf8"),
+  textileProcesses: fs.readFileSync(textileFile, "utf8"),
+};
+
+const { ENCRYPTION_KEY } = process.env;
+const encryptedProcesses = encrypt(JSON.stringify(processes), ENCRYPTION_KEY);
+
+app.get("/processes/processes.json", async (_, res) => {
+  return res.status(200).send(encryptedProcesses);
+});
+
 const elmApp = Elm.Server.init();
 
 elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
@@ -110,38 +125,13 @@ api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
-const getProcesses = async (token) => {
-  let headers = {};
-  if (token) {
-    headers["token"] = token;
-  }
-
-  const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
-  const processesRes = await fetch(processesUrl, { headers: headers });
-  const processes = await processesRes.json();
-  return { processes: processes, status: processesRes.status };
-};
-
-const memoizedGetProcesses = memoize(getProcesses, { maxAge: max_memoize_age });
-
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
-  let result;
-  try {
-    result = await memoizedGetProcesses(req.headers.token);
-    if (result.status != 200) {
-      return res.status(result.status).send(result.processes);
-    }
-  } catch (err) {
-    console.error(err.message);
-    return res.status(500).send("Error while retrieving the processes");
-  }
-
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
     body: req.body,
-    processes: result.processes,
+    processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
       res.status(status).send(body);
