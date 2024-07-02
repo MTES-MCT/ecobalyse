@@ -28,7 +28,7 @@ import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
-import Data.Textile.Fabric as Fabric exposing (Fabric)
+import Data.Textile.Fabric exposing (Fabric)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
@@ -532,24 +532,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( UpdateFabricProcess fabricProcess, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery
-                    { query
-                        | fabricProcess = Just fabricProcess
-                        , makingWaste =
-                            model.simulator
-                                |> Result.map
-                                    (\simulator ->
-                                        Fabric.getMakingWaste simulator.inputs.product.making.pcrWaste fabricProcess
-                                    )
-                                |> Result.toMaybe
-                        , makingComplexity =
-                            model.simulator
-                                |> Result.map
-                                    (\simulator ->
-                                        Fabric.getMakingComplexity simulator.inputs.product.making.complexity fabricProcess
-                                    )
-                                |> Result.toMaybe
-                    }
+                |> updateQuery { query | fabricProcess = Just fabricProcess }
 
         ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )
