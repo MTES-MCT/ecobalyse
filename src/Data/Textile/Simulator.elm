@@ -259,10 +259,25 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
         |> updateLifeCycleStep Label.Making
             (\({ country } as step) ->
                 let
+                    makingComplexity =
+                        case ( inputs.fabricProcess, inputs.makingComplexity ) of
+                            ( _, Just customComplexity ) ->
+                                -- User has provided a custom complexity: it takes priority
+                                customComplexity
+
+                            ( Just fabricProcess, Nothing ) ->
+                                -- User has selected a specific fabric process: retrieve associated complexity
+                                fabricProcess
+                                    |> Fabric.getMakingComplexity inputs.product.making.complexity
+
+                            ( Nothing, Nothing ) ->
+                                -- No specific fabric process or complexity selected: fallback to product defaults
+                                inputs.product.making.complexity
+
                     { kwh, heat, impacts } =
                         step.outputMass
                             |> Formula.makingImpacts step.impacts
-                                { makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
+                                { makingComplexity = makingComplexity
                                 , fadingProcess =
                                     -- Note: in the future, we may have distinct fading processes per countries
                                     if inputs.fading == Just True then
@@ -548,9 +563,23 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
 computeMakingStepWaste : Simulator -> Simulator
 computeMakingStepWaste ({ inputs } as simulator) =
     let
+        pcrWaste =
+            case ( inputs.fabricProcess, inputs.makingWaste ) of
+                ( _, Just customWaste ) ->
+                    -- User has provided a custom waste: it takes priority
+                    customWaste
+
+                ( Just fabricProcess, Nothing ) ->
+                    -- User has selected a specific fabric process: retrieve associated waste
+                    fabricProcess
+                        |> Fabric.getMakingWaste inputs.product.making.pcrWaste
+
+                ( Nothing, Nothing ) ->
+                    -- No specific fabric process or waste selected: fallback to product defaults
+                    inputs.product.making.pcrWaste
+
         { mass, waste } =
-            inputs.mass
-                |> Formula.makingWaste (Maybe.withDefault inputs.product.making.pcrWaste inputs.makingWaste)
+            Formula.makingWaste pcrWaste inputs.mass
     in
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
