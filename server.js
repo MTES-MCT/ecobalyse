@@ -93,7 +93,7 @@ const apiTracker = lib.setupTracker(openApiContents);
 // Detailed processes files
 
 const textileFile = "public/data/textile/processes_impacts.json";
-const foodFile = "public/data/textile/processes_impacts.json";
+const foodFile = "public/data/food/processes_impacts.json";
 
 const processes = {
   foodProcesses: fs.readFileSync(foodFile, "utf8"),
