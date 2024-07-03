@@ -499,7 +499,8 @@ def add_all_ingredients_as_examples(examples_input):
     """
     new_examples_input = list(examples_input)
     ingredients = load_json(DOMAIN_DATA[domain][INGREDIENTS_KEY])
-    for ingredient in ingredients:
+    visible_ingredients = [ingr for ingr in ingredients if ingr["visible"]]
+    for ingredient in visible_ingredients:
         ingredient_id = ingredient["id"]
         new_example = {
                 "id": str(uuid.uuid5(uuid.NAMESPACE_DNS,ingredient_id)),
