@@ -83,17 +83,28 @@ fromString string =
             Err <| "Procédé de tissage/tricotage inconnu: " ++ string
 
 
-getMakingComplexity : MakingComplexity -> Fabric -> MakingComplexity
-getMakingComplexity productDefaultMakingComplexity fabric =
-    case fabric of
-        KnittingFullyFashioned ->
-            MakingComplexity.VeryLow
+getMakingComplexity : MakingComplexity -> Maybe MakingComplexity -> Maybe Fabric -> MakingComplexity
+getMakingComplexity defaultComplexity maybeCustomComplexity maybeFabric =
+    case ( maybeFabric, maybeCustomComplexity ) of
+        ( _, Just customComplexity ) ->
+            -- A custom complexity is provided: always takes priority
+            customComplexity
 
-        KnittingIntegral ->
-            MakingComplexity.NotApplicable
+        ( Just fabric, Nothing ) ->
+            -- Specific fabric process provided: retrieve associated complexity
+            case fabric of
+                KnittingFullyFashioned ->
+                    MakingComplexity.VeryLow
 
-        _ ->
-            productDefaultMakingComplexity
+                KnittingIntegral ->
+                    MakingComplexity.NotApplicable
+
+                _ ->
+                    defaultComplexity
+
+        ( Nothing, Nothing ) ->
+            -- No specific fabric process or complexity provided: fallback to defaults
+            defaultComplexity
 
 
 getMakingWaste : Split -> Fabric -> Split

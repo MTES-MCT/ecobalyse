@@ -259,25 +259,12 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
         |> updateLifeCycleStep Label.Making
             (\({ country } as step) ->
                 let
-                    makingComplexity =
-                        case ( inputs.fabricProcess, inputs.makingComplexity ) of
-                            ( _, Just customComplexity ) ->
-                                -- User has provided a custom complexity: it takes priority
-                                customComplexity
-
-                            ( Just fabricProcess, Nothing ) ->
-                                -- User has selected a specific fabric process: retrieve associated complexity
-                                fabricProcess
-                                    |> Fabric.getMakingComplexity inputs.product.making.complexity
-
-                            ( Nothing, Nothing ) ->
-                                -- No specific fabric process or complexity selected: fallback to product defaults
-                                inputs.product.making.complexity
-
                     { kwh, heat, impacts } =
                         step.outputMass
                             |> Formula.makingImpacts step.impacts
-                                { makingComplexity = makingComplexity
+                                { makingComplexity =
+                                    inputs.fabricProcess
+                                        |> Fabric.getMakingComplexity inputs.product.making.complexity inputs.makingComplexity
                                 , fadingProcess =
                                     -- Note: in the future, we may have distinct fading processes per countries
                                     if inputs.fading == Just True then
