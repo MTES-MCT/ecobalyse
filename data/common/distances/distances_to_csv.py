@@ -2,6 +2,9 @@ import gettext
 import json
 
 import pandas as pd
+import pycountry
+
+_ = gettext.gettext
 
 """Convert distances.json to distances.csv, countries.csv to use it in excel
 """

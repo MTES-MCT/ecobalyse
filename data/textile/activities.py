@@ -72,7 +72,10 @@ for process in processes:
         process["correctif"] = ""
 
 processes = [
-    {p[0]: p[1].encode("utf-8") if type(p) is str else p[1] for p in process.items()}
+    {
+        p[0]: p[1].encode("utf-8") if isinstance(p, str) else p[1]
+        for p in process.items()
+    }
     for process in processes
 ]
 

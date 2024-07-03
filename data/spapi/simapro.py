@@ -56,7 +56,7 @@ async def impact(_: Request, project: str, process: str, method: str):
                 # try the first and stop if it raises (typically on a Dummy process.
                 # Seems a bug in the COM intf)
                 server.AnalyseResult(0, 0)
-            except:
+            except Exception:
                 impacts.setdefault(f"{project}/{process}", {})
                 impacts[f"{project}/{process}"][method] = results
                 with open("impacts.json", "w") as fp:
