@@ -15,5 +15,7 @@ pandas = "1.5.3"
 GitPython = "3.1.43"
 pre-commit = "*"
 numpy = ">=1,<2"
+cryptography = "*"
+jwcrypto = "*"
 
 [dev-packages]
