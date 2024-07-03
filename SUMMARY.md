@@ -116,3 +116,7 @@
   * [🌼 Huile de colza](alimentaire-draft/old/huile-de-colza.md)
   * [Calcul des compléments végétaux](alimentaire-draft/old/calcul-des-complements-vegetaux.md)
   * [Calcul des compléments animaux](alimentaire-draft/old/calcul-des-complements-animaux.md)
+* [🪚 Cycle de vie des meubles](alimentaire-draft/etape-2-fabrication-du-fil/README.md)
+  * [🪵 Bois d'oeuvre](alimentaire-draft/etape-2-fabrication-du-fil/bois-doeuvre.md)
+  * [◽ Panneaux de bois](alimentaire-draft/etape-2-fabrication-du-fil/panneaux-de-bois.md)
+  * [🚚 Transport](alimentaire-draft/etape-2-fabrication-du-fil/transport.md)
