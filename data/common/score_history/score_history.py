@@ -2,10 +2,11 @@ import json
 import logging
 import pathlib
 import sys
+import uuid
 from contextlib import contextmanager
 from datetime import datetime
 from enum import StrEnum
-import uuid
+
 import pandas as pd
 import requests
 from sqlalchemy import create_engine, text
@@ -494,6 +495,7 @@ def compute_products_scores_for_examples(examples, api_url):
 
     return computed_scores
 
+
 def add_all_ingredients_as_examples(examples_input):
     """
     Add all ingredients to the list of examples. Thanks to this we can notice the evolution of impacts of all ingredients. We could add all these ingredients as food product examples but we don't as this would be overwhelming of the UI user.
@@ -504,21 +506,14 @@ def add_all_ingredients_as_examples(examples_input):
     for ingredient in visible_ingredients:
         ingredient_id = ingredient["id"]
         new_example = {
-                "id": str(uuid.uuid5(uuid.NAMESPACE_DNS,ingredient_id)),
-                "name": f"{ingredient_id}",
-                "category": "raw_ingredient",
-                "query": {
-                    "ingredients": [{
-                        "id": ingredient_id,
-                        "mass": 1000
-                    }]
-                }
-            }
+            "id": str(uuid.uuid5(uuid.NAMESPACE_DNS, ingredient_id)),
+            "name": f"{ingredient_id}",
+            "category": "raw_ingredient",
+            "query": {"ingredients": [{"id": ingredient_id, "mass": 1000}]},
+        }
         new_examples_input.append(new_example)
 
     return new_examples_input
-
-
 
 
 if __name__ == "__main__":
@@ -562,7 +557,7 @@ if __name__ == "__main__":
                 logger.info(
                     f"Score is different for domain {domain}. Storing new score in the db. Number of rows in the score_history table before update: {get_row_count(engine)}"
                 )
-                #insert_new_score(new_score_df, engine, "score_history")
+                insert_new_score(new_score_df, engine, "score_history")
                 logger.info(
                     f"Successfully appended new score ({new_score_df.shape[0]} rows) to score_history postgresql table for domain {domain}."
                 )
