@@ -1,7 +1,7 @@
 import json
 
 from common.distances.CountryDistances import CountryDistances
-from common.export import export_json, load_json
+from common.export import load_json
 
 INPUT_DISTANCES = "distances_raw.json"
 COUNTRIES_OFFICIAL = "../../../public/data/countries.json"

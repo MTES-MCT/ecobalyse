@@ -45,6 +45,7 @@ DOMAIN_DATA = {
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("logger")
 
+
 def get_arguments():
     if len(sys.argv) < 4:
         print(
