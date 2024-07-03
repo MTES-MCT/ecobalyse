@@ -472,7 +472,7 @@ yarnSizeToString yarnSize =
 
 yarnSizeToDtexString : Unit.YarnSize -> String
 yarnSizeToDtexString yarnSize =
-    String.fromFloat (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
+    Format.formatFloat 2 (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
 encode : Step -> Encode.Value
