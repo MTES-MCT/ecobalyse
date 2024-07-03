@@ -32,7 +32,7 @@ Un taux de perte "masse sortante" de 10% (un paramètre \`waste\` de 10%) corres
 
 * 1,1 kg -> procédé -> 1 kg
 
-Ce qui correspond à un taux de perte "masse entrante" de 1/1.1\~9%
+Ce qui correspond à un taux de perte "masse entrante" de 0.1/1.1\~9%
 {% endhint %}
 
 &#x20;
