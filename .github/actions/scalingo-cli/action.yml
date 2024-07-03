@@ -1,0 +1,15 @@
+name: "Setup Scalingo CLI"
+description: "Installs the Scalingo CLI"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Scalingo cli
+      shell: bash
+      run: |
+        BIN_DIR="$HOME/bin"
+        mkdir -p $BIN_DIR
+        PATH=$BIN_DIR:$PATH
+        echo "$BIN_DIR" >> "$GITHUB_PATH"
+        wget https://cli-dl.scalingo.com/install
+        bash ./install -i $BIN_DIR
