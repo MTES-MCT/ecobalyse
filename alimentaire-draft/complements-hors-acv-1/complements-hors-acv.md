@@ -1,4 +1,4 @@
-# Paramétrage des ingrédients
+# 🧅 Paramétrage des ingrédients
 
 Le paramétrage de la recette repose sur :&#x20;
 

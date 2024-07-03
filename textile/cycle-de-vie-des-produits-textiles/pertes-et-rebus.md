@@ -16,3 +16,23 @@ A chaque étape de la production, des pertes et rebut sont pris en compte. Les f
 | Habit          | Habit          | [Distribution](distribution.md)                                                                                       |
 
 Le paramètre proposé dans le paramétrage du calculateur en ligne est la masse du vêtement, donc la masse à la fin des différentes étapes. Le calcul des masses se fait donc **en remontant la chaîne de production** : d'abord la masse du vêtement, puis la masse d'étoffe, puis la masse de fil, puis la masse de matière première.
+
+
+
+{% hint style="danger" %}
+Dans cette documentation les taux de pertes sont exprimés de cette manière  $$Tx_{entrante}=m_{perte}/m_{entrante}$$, que l'on nommera taux de perte "masse entrante". 10% de taux de perte "masse entrante" correspond à ce cas de figure :&#x20;
+
+* 1 kg -> procédé -> 0.9 kg
+
+Mais dans les procédés visibles sur github le paramètre \`waste\` correspond à une autre définition du taux de perte qui vient de la Base Impacts : le taux de perte "masse sortante" :  $$Tx_{sortante}=m_{perte}/m_{sortante}$$
+
+![](<../../.gitbook/assets/image (111).png>)&#x20;
+
+Un taux de perte "masse sortante" de 10% (un paramètre \`waste\` de 10%) correspond à ce cas de figure :
+
+* 1,1 kg -> procédé -> 1 kg
+
+Ce qui correspond à un taux de perte "masse entrante" de 1/1.1\~9%
+{% endhint %}
+
+&#x20;
