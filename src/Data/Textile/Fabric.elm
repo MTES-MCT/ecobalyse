@@ -86,50 +86,38 @@ fromString string =
 getMakingComplexity : MakingComplexity -> Maybe MakingComplexity -> Maybe Fabric -> MakingComplexity
 getMakingComplexity defaultComplexity maybeCustomComplexity maybeFabric =
     case ( maybeFabric, maybeCustomComplexity ) of
+        -- Custom complexity provided: always takes priority
         ( _, Just customComplexity ) ->
-            -- A custom complexity is provided: always takes priority
             customComplexity
 
-        ( Just fabric, Nothing ) ->
-            -- Specific fabric process provided: retrieve associated complexity
-            case fabric of
-                KnittingFullyFashioned ->
-                    MakingComplexity.VeryLow
+        -- Specific fabric process provided: retrieve associated complexity
+        ( Just KnittingFullyFashioned, Nothing ) ->
+            MakingComplexity.VeryLow
 
-                KnittingIntegral ->
-                    MakingComplexity.NotApplicable
+        ( Just KnittingIntegral, Nothing ) ->
+            MakingComplexity.NotApplicable
 
-                _ ->
-                    defaultComplexity
-
-        ( Nothing, Nothing ) ->
-            -- No specific fabric process or complexity provided: fallback to defaults
+        _ ->
             defaultComplexity
 
 
 getMakingWaste : Split -> Maybe Split -> Maybe Fabric -> Split
 getMakingWaste defaultWaste maybeCustomWaste maybeFabric =
     case ( maybeFabric, maybeCustomWaste ) of
+        -- Custom waste provided: always takes priority
         ( _, Just customWaste ) ->
-            -- A custom waste is provided: always takes priority
             customWaste
 
-        ( Just fabric, Nothing ) ->
-            -- Specific fabric process provided: retrieve associated waste
-            case fabric of
-                KnittingFullyFashioned ->
-                    -- Fully fashioned garments have 2% fabric waste
-                    Split.two
+        -- Specific fabric process provided: retrieve associated waste
+        ( Just KnittingFullyFashioned, Nothing ) ->
+            -- Fully fashioned garments have 2% fabric waste
+            Split.two
 
-                KnittingIntegral ->
-                    -- Garments integrally knitted have no fabric waste at all
-                    Split.zero
+        ( Just KnittingIntegral, Nothing ) ->
+            -- Garments integrally knitted have no fabric waste at all
+            Split.zero
 
-                _ ->
-                    defaultWaste
-
-        ( Nothing, Nothing ) ->
-            -- No specific fabric process or waste provided: fallback to defaults
+        _ ->
             defaultWaste
 
 
