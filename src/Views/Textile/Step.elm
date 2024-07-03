@@ -332,8 +332,8 @@ makingComplexityField : Config msg modal -> Html msg
 makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     let
         makingComplexity =
-            inputs.makingComplexity
-                |> Maybe.withDefault inputs.product.making.complexity
+            inputs.fabricProcess
+                |> Fabric.getMakingComplexity inputs.product.making.complexity inputs.makingComplexity
     in
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
@@ -375,7 +375,9 @@ makingWasteField { current, inputs, updateMakingWaste } =
         [ RangeSlider.percent
             { id = "makingWaste"
             , update = updateMakingWaste
-            , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
+            , value =
+                inputs.fabricProcess
+                    |> Fabric.getMakingWaste inputs.product.making.pcrWaste inputs.makingWaste
             , toString = Step.makingWasteToString
             , disabled =
                 not current.enabled
