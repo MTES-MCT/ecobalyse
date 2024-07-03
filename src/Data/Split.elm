@@ -20,6 +20,7 @@ module Data.Split exposing
     , toPercent
     , toPercentString
     , twenty
+    , two
     , zero
     )
 
@@ -64,6 +65,11 @@ fifteen =
 twenty : Split
 twenty =
     Split 20
+
+
+two : Split
+two =
+    Split 2
 
 
 thirty : Split

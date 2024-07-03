@@ -550,23 +550,15 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
 computeMakingStepWaste : Simulator -> Simulator
 computeMakingStepWaste ({ inputs } as simulator) =
     let
-        pcrWaste =
-            case ( inputs.fabricProcess, inputs.makingWaste ) of
-                ( _, Just customWaste ) ->
-                    -- User has provided a custom waste: it takes priority
-                    customWaste
-
-                ( Just fabricProcess, Nothing ) ->
-                    -- User has selected a specific fabric process: retrieve associated waste
-                    fabricProcess
-                        |> Fabric.getMakingWaste inputs.product.making.pcrWaste
-
-                ( Nothing, Nothing ) ->
-                    -- No specific fabric process or waste selected: fallback to product defaults
-                    inputs.product.making.pcrWaste
+        { product, makingWaste, fabricProcess } =
+            inputs
 
         { mass, waste } =
-            Formula.makingWaste pcrWaste inputs.mass
+            inputs.mass
+                |> Formula.makingWaste
+                    (fabricProcess
+                        |> Fabric.getMakingWaste product.making.pcrWaste makingWaste
+                    )
     in
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)

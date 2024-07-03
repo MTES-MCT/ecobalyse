@@ -107,21 +107,30 @@ getMakingComplexity defaultComplexity maybeCustomComplexity maybeFabric =
             defaultComplexity
 
 
-getMakingWaste : Split -> Fabric -> Split
-getMakingWaste productDefaultWaste fabric =
-    case fabric of
-        KnittingFullyFashioned ->
-            Split.fromFloat 0.02
-                |> Result.toMaybe
-                |> Maybe.withDefault productDefaultWaste
+getMakingWaste : Split -> Maybe Split -> Maybe Fabric -> Split
+getMakingWaste defaultWaste maybeCustomWaste maybeFabric =
+    case ( maybeFabric, maybeCustomWaste ) of
+        ( _, Just customWaste ) ->
+            -- A custom waste is provided: always takes priority
+            customWaste
 
-        KnittingIntegral ->
-            Split.fromFloat 0
-                |> Result.toMaybe
-                |> Maybe.withDefault productDefaultWaste
+        ( Just fabric, Nothing ) ->
+            -- Specific fabric process provided: retrieve associated waste
+            case fabric of
+                KnittingFullyFashioned ->
+                    -- Fully fashioned garments have 2% fabric waste
+                    Split.two
 
-        _ ->
-            productDefaultWaste
+                KnittingIntegral ->
+                    -- Garments integrally knitted have no fabric waste at all
+                    Split.zero
+
+                _ ->
+                    defaultWaste
+
+        ( Nothing, Nothing ) ->
+            -- No specific fabric process or waste provided: fallback to defaults
+            defaultWaste
 
 
 getProcess : WellKnown -> Fabric -> Process
