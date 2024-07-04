@@ -39,7 +39,6 @@ import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
-import Task
 
 
 type alias Session =
@@ -323,34 +322,27 @@ authenticated ({ store } as session) user { textileProcessesJson, foodProcessesJ
 
 
 type alias AllProcessesJson =
-    { textileProcessesJson : String, foodProcessesJson : String }
+    { textileProcessesJson : String
+    , foodProcessesJson : String
+    }
 
 
-login : (Result String AllProcessesJson -> msg) -> Cmd msg
-login event =
-    Task.attempt event
-        (getProcesses "processes/processes.json")
-
-
-getProcesses : String -> Task.Task String AllProcessesJson
-getProcesses url =
-    Http.task
+login : Session -> (Result Http.Error AllProcessesJson -> msg) -> Cmd msg
+login { store } event =
+    Http.request
         { method = "GET"
-        , headers = []
-        , url = url
-        , body = Http.emptyBody
-        , resolver =
-            Http.stringResolver
-                (\response ->
-                    case response of
-                        Http.GoodStatus_ _ stringBody ->
-                            Decode.decodeString decodeAllProcessesJson stringBody
-                                |> Result.mapError Decode.errorToString
+        , url = "processes/processes.json"
+        , headers =
+            case store.auth of
+                NotAuthenticated ->
+                    []
 
-                        _ ->
-                            Err "Couldn't get the processes"
-                )
+                Authenticated { token } _ _ ->
+                    [ Http.header "token" token ]
+        , body = Http.emptyBody
+        , expect = Http.expectJson event decodeAllProcessesJson
         , timeout = Nothing
+        , tracker = Nothing
         }
 
 
