@@ -243,7 +243,7 @@ def process_response_food(branch_name, example, normalization_factors, last_comm
     """
 
     lifecycle_step_impact_paths = {
-        "ingredients": ["recipe", "ingredientsTotal"],
+        "ingredients": ["recipe"],
         "transformation": ["recipe", "transform"],
         "packaging": ["packaging"],
         "preparation": ["preparation"],
@@ -308,7 +308,11 @@ def create_df_food(
                     query, mass, elements, lifecycle step and country, impact indices, values,
                     and normalized impact values expressed in 'ecs' units.
     """
-    impacts_sr = pd.Series(impacts, dtype="float64")
+    if lifecycle_step == "ingredients":
+        impacts_sr = pd.Series(impacts["ingredientsTotal"], dtype="float64")
+    else:
+        impacts_sr = pd.Series(impacts, dtype="float64")
+
     data = {
         "datetime": TODAY_DATETIME_STR,
         "branch": branch,
@@ -326,6 +330,28 @@ def create_df_food(
     }
     df = pd.DataFrame(data)
     df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
+
+    # For the ingredients we have to store the complements
+    if lifecycle_step == "ingredients":
+        complementsImpacts = pd.Series(impacts["totalBonusImpact"])
+        data_complements = {
+            "datetime": TODAY_DATETIME_STR,
+            "branch": branch,
+            "commit": commit_id,
+            "domain": "textile",
+            "product_name": example["name"],
+            "id": example["id"],
+            "query": json.dumps(example["query"]),
+            "mass": example["response"]["results"]["preparedMass"],
+            "elements": json.dumps(example["query"]["ingredients"]),
+            "lifecycle_step": lifecycle_step,
+            "lifecycle_step_country": "",
+            "impact": complementsImpacts.index.tolist(),
+            "value": 0,
+            "norm_value_ecs": complementsImpacts.values.tolist(),
+        }
+        df_complements = pd.DataFrame(data_complements)
+        df = pd.concat([df, df_complements], axis=0, ignore_index=True)
     return df
 
 
