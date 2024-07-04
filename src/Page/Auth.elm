@@ -33,7 +33,7 @@ type alias Model =
 
 type Msg
     = AskForRegistration
-    | Authenticated User (Result Http.Error Session.AllProcesses)
+    | Authenticated User (Result Http.Error Session.AllProcessesJson)
     | ChangeAction Action
     | GotUserInfo (Result Http.Error User)
     | LoggedOut
