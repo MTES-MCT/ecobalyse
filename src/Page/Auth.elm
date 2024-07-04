@@ -33,7 +33,7 @@ type alias Model =
 
 type Msg
     = AskForRegistration
-    | Authenticated User (Result String Session.AllProcessesJson)
+    | Authenticated User (Result Http.Error Session.AllProcessesJson)
     | ChangeAction Action
     | GotUserInfo (Result Http.Error User)
     | LoggedOut
@@ -130,7 +130,10 @@ update session msg model =
 
         Authenticated _ (Err error) ->
             ( model
-            , session |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
+            , session
+                |> Session.notifyError
+                    "Impossible de charger les impacts lors de la connexion"
+                    (RequestCommon.errorToString error)
             , Cmd.none
             )
 
@@ -143,7 +146,7 @@ update session msg model =
         GotUserInfo (Ok user) ->
             ( { model | user = user }
             , session
-            , Session.login (Authenticated user)
+            , Session.login session (Authenticated user)
             )
 
         GotUserInfo (Err err) ->
