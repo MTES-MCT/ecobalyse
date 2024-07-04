@@ -359,7 +359,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
                 |> select
                     [ id "making-complexity"
                     , class "form-select form-select-sm w-75"
-                    , disabled (Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs)
+                    , disabled False
                     , onInput
                         (MakingComplexity.fromString
                             >> Result.withDefault inputs.product.making.complexity
@@ -379,10 +379,7 @@ makingWasteField { current, inputs, updateMakingWaste } =
                 inputs.fabricProcess
                     |> Fabric.getMakingWaste inputs.product.making.pcrWaste inputs.makingWaste
             , toString = Step.makingWasteToString
-            , disabled =
-                not current.enabled
-                    || Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs
-                    || Inputs.isFabricOfType Fabric.KnittingIntegral inputs
+            , disabled = not current.enabled
             , min = Env.minMakingWasteRatio |> Split.toPercent |> round
             , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
             }
