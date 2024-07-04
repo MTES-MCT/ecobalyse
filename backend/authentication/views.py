@@ -3,7 +3,7 @@ import logging
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.http import Http404, JsonResponse, response
+from django.http import JsonResponse, response
 from django.utils.translation import gettext_lazy as _
 from mailauth.views import (
     LoginTokenView as MailauthLoginTokenView,
@@ -13,55 +13,68 @@ from mailauth.views import (
 )
 
 from authentication.models import EcobalyseUser
+from django.views.decorators.http import require_http_methods
 
 from .forms import EmailLoginForm, RegistrationForm
 
 logger = logging.getLogger(__name__)
 
 
+def authenticated_user(view_func):
+    def wrapper_func(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return view_func(request, *args, **kwargs)
+
+        else:
+            return JsonResponse(
+                {"error": _("You must be authenticated to access this page")},
+                status=401,
+            )
+
+    return wrapper_func
+
+
+@require_http_methods(["POST"])
 def register(request):
     """render a form to provide an email to register"""
-    if request.method == "POST":
-        try:
-            form = RegistrationForm(
-                request=request, data=json.loads(request.body.decode("utf-8"))
-            )
-        except json.JSONDecodeError:
-            return JsonResponse(
-                {"success": False, "msg": _("Invalid json in the POST request")}
-            )
-        if form.is_valid():
-            form.save()
-            timeout = settings.LOGIN_URL_TIMEOUT
-            return JsonResponse(
-                {
-                    "success": True,
-                    "msg": _("The link is valid for %d min") % (timeout / 60)
-                    if timeout is not None
-                    else _("The link does not expire"),
-                }
-            )
-        else:
-            errors = {
-                k: " ".join(v) for k, v in (form.errors.items() if form.errors else [])
+    try:
+        form = RegistrationForm(
+            request=request, data=json.loads(request.body.decode("utf-8"))
+        )
+    except json.JSONDecodeError:
+        return JsonResponse(
+            {"success": False, "msg": _("Invalid json in the POST request")}
+        )
+    if form.is_valid():
+        form.save()
+        timeout = settings.LOGIN_URL_TIMEOUT
+        return JsonResponse(
+            {
+                "success": True,
+                "msg": _("The link is valid for %d min") % (timeout / 60)
+                if timeout is not None
+                else _("The link does not expire"),
             }
-            if (
-                errors.get("email")
-                == "Un objet Utilisateur avec ce champ Adresse électronique existe déjà."
-            ):
-                errors["email"] = _(
-                    "You seem already registered. Try using the connection tab."
-                )
-            return JsonResponse(
-                {
-                    "success": False,
-                    "msg": _("Your form has errors: ")
-                    + " ".join([f"{k}: {v}" for k, v in errors.items()]),
-                    "errors": errors,
-                }
-            )
+        )
     else:
-        raise Http404("Only POST here")
+        errors = {
+            k: " ".join(v) for k, v in (form.errors.items() if form.errors else [])
+        }
+        if (
+            errors.get("email")
+            == "Un objet Utilisateur avec ce champ Adresse électronique existe déjà."
+        ):
+            errors["email"] = _(
+                "You seem already registered. Try using the connection tab."
+            )
+        return JsonResponse(
+            {
+                "success": False,
+                "msg": _("Your form has errors: ")
+                + " ".join([f"{k}: {v}" for k, v in errors.items()]),
+                "errors": errors,
+            }
+        )
 
 
 class LoginView(MailauthLoginView):
@@ -90,25 +103,20 @@ class LoginView(MailauthLoginView):
             return JsonResponse({"success": False, "msg": _("Invalid form data")})
 
 
+@require_http_methods(["GET"])
+@authenticated_user
 def profile(request):
-    if request.method == "GET":
-        u = request.user
-        if u.is_authenticated:
-            return JsonResponse(
-                {
-                    "email": u.email,
-                    "first_name": u.first_name,
-                    "last_name": u.last_name,
-                    "organization": u.organization,
-                    "terms_of_use": u.terms_of_use,
-                    "token": u.token,
-                }
-            )
-        else:
-            return JsonResponse(
-                {"error": _("You must be authenticated to access this page")},
-                status=401,
-            )
+    u = request.user
+    return JsonResponse(
+        {
+            "email": u.email,
+            "first_name": u.first_name,
+            "last_name": u.last_name,
+            "organization": u.organization,
+            "terms_of_use": u.terms_of_use,
+            "token": u.token,
+        }
+    )
 
 
 def is_token_valid(token):
