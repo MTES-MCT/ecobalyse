@@ -1,11 +1,12 @@
 require("dotenv").config();
 const fs = require("fs");
 const { Elm } = require("./compute-aggregated-app");
+const crypto = require("./lib/crypto");
 
 const elmApp = Elm.ComputeAggregated.init({
   flags: {
     definitionsString: fs.readFileSync("public/data/impacts.json", "utf-8"),
-    textileProcessesString: fs.readFileSync("public/data/textile/processes_impacts.json", "utf-8"),
+    textileProcessesString: crypto.decryptFile("public/data/textile/processes_impacts.json"),
     foodProcessesString: fs.readFileSync("public/data/food/processes_impacts.json", "utf-8"),
   },
 });
