@@ -12,8 +12,10 @@ const { encrypt } = require("./lib/crypto");
 
 const app = express(); // web app
 const api = express(); // api app
-const host = "0.0.0.0";
-const express_port = 8001;
+const expressHost = "0.0.0.0";
+const expressPort = 8001;
+const djangoHost = "127.0.0.1";
+const djangoPort = 8002;
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -92,19 +94,38 @@ const apiTracker = lib.setupTracker(openApiContents);
 
 // Detailed processes files
 
-const textileFile = "public/data/textile/processes_impacts.json";
-const foodFile = "public/data/food/processes_impacts.json";
+const textileImpactsFile = "public/data/textile/processes_impacts.json";
+const foodImpactsFile = "public/data/food/processes_impacts.json";
+const textileFile = "public/data/textile/processes.json";
+const foodFile = "public/data/food/processes.json";
 
-const processes = {
-  foodProcesses: fs.readFileSync(foodFile, "utf8"),
-  textileProcesses: fs.readFileSync(textileFile, "utf8"),
+const processesImpacts = {
+  foodProcesses: JSON.parse(fs.readFileSync(foodImpactsFile, "utf8")),
+  textileProcesses: JSON.parse(fs.readFileSync(textileImpactsFile, "utf8")),
 };
 
-const { ENCRYPTION_KEY } = process.env;
-const encryptedProcesses = encrypt(JSON.stringify(processes), ENCRYPTION_KEY);
+const processes = {
+  foodProcesses: JSON.parse(fs.readFileSync(foodFile, "utf8")),
+  textileProcesses: JSON.parse(fs.readFileSync(textileFile, "utf8")),
+};
 
-app.get("/processes/processes.json", async (_, res) => {
-  return res.status(200).send(encryptedProcesses);
+const getProcesses = async (token) => {
+  let isTokenValid = false;
+  if (token) {
+    const checkTokenUrl = `http://${djangoHost}:${djangoPort}/internal/check_token`;
+    const tokenRes = await fetch(checkTokenUrl, { headers: { token } });
+    isTokenValid = tokenRes.status == 200;
+  }
+
+  if (isTokenValid) {
+    return processesImpacts;
+  } else {
+    return processes;
+  }
+};
+
+app.get("/processes/processes.json", async (req, res) => {
+  return res.status(200).send(await getProcesses(req.headers.token));
 });
 
 const elmApp = Elm.Server.init();
@@ -127,6 +148,8 @@ api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${clean
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
+  const processes = await getProcesses(req.headers.token);
+
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
@@ -148,8 +171,8 @@ if (SENTRY_DSN) {
   app.use(Sentry.Handlers.errorHandler());
 }
 
-const server = app.listen(express_port, host, () => {
-  console.log(`Server listening at http://${host}:${express_port}`);
+const server = app.listen(expressPort, expressHost, () => {
+  console.log(`Server listening at http://${expressHost}:${expressPort}`);
 });
 
 module.exports = server;

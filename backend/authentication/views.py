@@ -2,9 +2,13 @@ import json
 import logging
 
 from django.conf import settings
-from django.http import JsonResponse
+from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse, response
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
+from mailauth.views import (
+    LoginTokenView as MailauthLoginTokenView,
+)
 from mailauth.views import (
     LoginView as MailauthLoginView,
 )
@@ -111,3 +115,13 @@ def profile(request):
             "token": u.token,
         }
     )
+
+
+class EcobalyseLoginTokenView(
+    MailauthLoginTokenView,
+):
+    def get(self, request, *a, **kwargs):
+        try:
+            return super().get(request, *a, **kwargs)
+        except PermissionDenied:
+            return response.HttpResponseRedirect("/#/auth/")
