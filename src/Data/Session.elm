@@ -1,5 +1,5 @@
 module Data.Session exposing
-    ( AllProcesses
+    ( AllProcessesJson
     , Auth(..)
     , Notification(..)
     , Session
@@ -225,11 +225,11 @@ decodeAuth =
         |> JDP.required "foodProcesses" (FoodProcess.decodeList Impact.decodeImpacts)
 
 
-decodeAllProcesses : Decoder Impact.Impacts -> Decoder AllProcesses
-decodeAllProcesses impactsDecoder =
-    Decode.succeed AllProcesses
-        |> JDP.required "textileProcesses" (TextileProcess.decodeList impactsDecoder)
-        |> JDP.required "foodProcesses" (FoodProcess.decodeList impactsDecoder)
+decodeAllProcessesJson : Decoder AllProcessesJson
+decodeAllProcessesJson =
+    Decode.succeed AllProcessesJson
+        |> JDP.required "textileProcesses" Decode.string
+        |> JDP.required "foodProcesses" Decode.string
 
 
 encodeStore : Store -> Encode.Value
@@ -297,29 +297,37 @@ updateStore update session =
     { session | store = update session.store }
 
 
-authenticated : Session -> User -> AllProcesses -> Session
-authenticated ({ db, store } as session) user { textileProcesses, foodProcesses } =
+authenticated : Session -> User -> AllProcessesJson -> Session
+authenticated ({ store } as session) user { textileProcessesJson, foodProcessesJson } =
     let
-        { food, textile } =
-            db
-    in
-    { session
-        | db =
-            { db
-                | food = { food | processes = foodProcesses }
-                , textile = { textile | processes = textileProcesses }
+        originalProcesses =
+            StaticDb.processes
+
+        newProcesses =
+            { originalProcesses
+                | foodProcesses = foodProcessesJson
+                , textileProcesses = textileProcessesJson
             }
-        , store = { store | auth = Authenticated user textileProcesses foodProcesses }
+    in
+    case StaticDb.db newProcesses of
+        Ok db ->
+            { session
+                | db = db
+                , store = { store | auth = Authenticated user db.textile.processes db.food.processes }
+            }
+
+        Err err ->
+            session
+                |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
+
+
+type alias AllProcessesJson =
+    { textileProcessesJson : String
+    , foodProcessesJson : String
     }
 
 
-type alias AllProcesses =
-    { textileProcesses : List TextileProcess.Process
-    , foodProcesses : List FoodProcess.Process
-    }
-
-
-login : Session -> (Result Http.Error AllProcesses -> msg) -> Cmd msg
+login : Session -> (Result Http.Error AllProcessesJson -> msg) -> Cmd msg
 login { store } event =
     Http.request
         { method = "GET"
@@ -332,7 +340,7 @@ login { store } event =
                 Authenticated { token } _ _ ->
                     [ Http.header "token" token ]
         , body = Http.emptyBody
-        , expect = Http.expectJson event (decodeAllProcesses Impact.decodeImpacts)
+        , expect = Http.expectJson event decodeAllProcessesJson
         , timeout = Nothing
         , tracker = Nothing
         }
