@@ -100,13 +100,13 @@ const textileFile = "public/data/textile/processes.json";
 const foodFile = "public/data/food/processes.json";
 
 const processesImpacts = {
-  foodProcesses: JSON.parse(fs.readFileSync(foodImpactsFile, "utf8")),
-  textileProcesses: JSON.parse(fs.readFileSync(textileImpactsFile, "utf8")),
+  foodProcesses: fs.readFileSync(foodImpactsFile, "utf8"),
+  textileProcesses: fs.readFileSync(textileImpactsFile, "utf8"),
 };
 
 const processes = {
-  foodProcesses: JSON.parse(fs.readFileSync(foodFile, "utf8")),
-  textileProcesses: JSON.parse(fs.readFileSync(textileFile, "utf8")),
+  foodProcesses: fs.readFileSync(foodFile, "utf8"),
+  textileProcesses: fs.readFileSync(textileFile, "utf8"),
 };
 
 const getProcesses = async (token) => {
