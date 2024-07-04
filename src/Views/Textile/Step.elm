@@ -332,8 +332,8 @@ makingComplexityField : Config msg modal -> Html msg
 makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     let
         makingComplexity =
-            inputs.makingComplexity
-                |> Maybe.withDefault inputs.product.making.complexity
+            inputs.fabricProcess
+                |> Fabric.getMakingComplexity inputs.product.making.complexity inputs.makingComplexity
     in
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
@@ -359,7 +359,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
                 |> select
                     [ id "making-complexity"
                     , class "form-select form-select-sm w-75"
-                    , disabled (Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs)
+                    , disabled False
                     , onInput
                         (MakingComplexity.fromString
                             >> Result.withDefault inputs.product.making.complexity
@@ -375,12 +375,11 @@ makingWasteField { current, inputs, updateMakingWaste } =
         [ RangeSlider.percent
             { id = "makingWaste"
             , update = updateMakingWaste
-            , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
+            , value =
+                inputs.fabricProcess
+                    |> Fabric.getMakingWaste inputs.product.making.pcrWaste inputs.makingWaste
             , toString = Step.makingWasteToString
-            , disabled =
-                not current.enabled
-                    || Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs
-                    || Inputs.isFabricOfType Fabric.KnittingIntegral inputs
+            , disabled = not current.enabled
             , min = Env.minMakingWasteRatio |> Split.toPercent |> round
             , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
             }
