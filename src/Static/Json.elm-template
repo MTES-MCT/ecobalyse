@@ -1,5 +1,5 @@
 module Static.Json exposing
-    ( Processes
+    ( RawJsonProcesses
     , countriesJson
     , db
     , impactsJson
@@ -7,16 +7,20 @@ module Static.Json exposing
     , transportsJson
     )
 
-
 import Data.Food.Db as FoodDb
 import Data.Textile.Db as TextileDb
 
 
 type alias Db =
-    { foodDb : FoodDb.Db,  textileDb : TextileDb.Db }
+    { foodDb : FoodDb.Db
+    , textileDb : TextileDb.Db
+    }
 
 
-type alias Processes = { foodProcesses : String, textileProcesses: String }
+type alias RawJsonProcesses =
+    { foodProcesses : String
+    , textileProcesses : String
+    }
 
 
 impactsJson : String
@@ -79,13 +83,13 @@ transportsJson =
     """%transportsJson%"""
 
 
-processes : Processes
+processes : RawJsonProcesses
 processes =
     { foodProcesses = foodProcessesJson
     , textileProcesses = textileProcessesJson
     }
 
 
-db : Processes -> Result String Db
+db : RawJsonProcesses -> Result String Db
 db { foodProcesses, textileProcesses } =
     Result.map2 Db (foodDb foodProcesses) (textileDb textileProcesses)
