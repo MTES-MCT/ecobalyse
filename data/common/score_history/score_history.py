@@ -338,7 +338,7 @@ def create_df_food(
             "datetime": TODAY_DATETIME_STR,
             "branch": branch,
             "commit": commit_id,
-            "domain": "textile",
+            "domain": "food",
             "product_name": example["name"],
             "id": example["id"],
             "query": json.dumps(example["query"]),
