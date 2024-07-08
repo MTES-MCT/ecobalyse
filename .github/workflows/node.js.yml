@@ -27,10 +27,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-
     - name: Cache node_modules
       id: cache-node_modules
       uses: actions/cache@v4
@@ -46,35 +42,28 @@ jobs:
         key: elm-cache-${{ hashFiles('elm.json') }}
         restore-keys: elm-cache-
 
-    - name: Cache virtualenv
-      uses: actions/cache@v4
+    - name: Set up Python with uv
+      uses: drivendataorg/setup-python-uv-action@main
       with:
-        path: ~/.venv
-        key: ${{ runner.os }}-${{ matrix.python-version }}-pipenv-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-venv-
-
-    - name: Install Node dependencies
-      run: npm ci --prefer-offline --no-audit
+        python-version: ${{ matrix.python-version }}
+        cache-dependency-path: requirements.txt
+        cache: venv
 
     - name: Install python dependencies
       run: |
-        python -m pip install uv
-        uv venv
         uv pip install -r requirements.txt
 
-    - name: Activate virtualenv
-      run: |
-        . .venv/bin/activate
-        echo PATH=$PATH >> $GITHUB_ENV
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+
+    - name: Install Node dependencies
+      run: npm ci --prefer-offline --no-audit
 
     - name: Install Ubuntu dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y gettext
 
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
 
     - name: Build app
       run: npm run build --if-present
