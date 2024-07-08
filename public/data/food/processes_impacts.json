@@ -1,7 +1,7 @@
 [
   {
     "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
-    "displayName": "Oeuf Bleu-Blanc-Cœur",
+    "displayName": "Oeuf Bleu-Blanc-Cœur FR Conv.",
     "impacts": {
       "acd": 0.07330851015782336,
       "cch": 2.1690867245145284,
@@ -35,7 +35,7 @@
   },
   {
     "name": "Cow milk, national average, at farm gate {FR} U",
-    "displayName": "Lait FR",
+    "displayName": "Lait FR Conv.",
     "impacts": {
       "acd": 0.01256867715612211,
       "cch": 1.1014651805627522,
@@ -69,7 +69,7 @@
   },
   {
     "name": "Cow milk, organic, national average, at farm gate/FR U constructed by Ecobalyse",
-    "displayName": "Lait bio",
+    "displayName": "Lait FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.01254903328,
       "cch": 0.8705791261,
@@ -103,7 +103,7 @@
   },
   {
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Carotte bio",
+    "displayName": "Carotte FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0012383442457556174,
       "cch": 0.06340574324261536,
@@ -137,7 +137,7 @@
   },
   {
     "name": "Wheat flour, at industrial mill {FR} U",
-    "displayName": "Farine",
+    "displayName": "Farine UE Conv.",
     "impacts": {
       "acd": 0.008946086999543012,
       "cch": 0.5747925759558894,
@@ -171,7 +171,7 @@
   },
   {
     "name": "Wheat flour, at industrial mill {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Farine bio",
+    "displayName": "Farine FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.006729164718,
       "cch": 0.5496087741,
@@ -205,7 +205,7 @@
   },
   {
     "name": "Sunflower grain, consumption mix, organic 2023 {FR} U",
-    "displayName": "Tournesol bio",
+    "displayName": "Tournesol FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.01030765961884839,
       "cch": 0.9813259365913096,
@@ -239,7 +239,7 @@
   },
   {
     "name": "Sunflower, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Tournesol bio",
+    "displayName": "Tournesol FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.006538817933585597,
       "cch": 0.4387694229309028,
@@ -273,7 +273,7 @@
   },
   {
     "name": "Winter rapeseed, organic, at farm gate {FR} U",
-    "displayName": "Colza bio",
+    "displayName": "Colza FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.01883971613809338,
       "cch": 0.6527722000512062,
@@ -307,7 +307,7 @@
   },
   {
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
-    "displayName": "Boeuf haché FR (cru)",
+    "displayName": "Boeuf haché cru FR Conv.",
     "impacts": {
       "acd": 0.4449346238601327,
       "cch": 31.419327269981114,
@@ -341,7 +341,7 @@
   },
   {
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Boeuf haché bio (cru)",
+    "displayName": "Boeuf haché cru FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.4451329374,
       "cch": 29.06044017,
@@ -409,7 +409,7 @@
   },
   {
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [feedlot], constructed by Ecobalyse",
-    "displayName": "Boeuf haché hors UE par défaut (cru)",
+    "displayName": "Boeuf haché cru Hors UE Conv.",
     "impacts": {
       "acd": 0.7854027081,
       "cch": 47.36177002,
@@ -443,7 +443,7 @@
   },
   {
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [grass-fed], constructed by Ecobalyse",
-    "displayName": "Boeuf haché FR (cru) - v. de réforme 100% herbe",
+    "displayName": "Boeuf haché cru - v. de réforme 100% herbe FR Conv.",
     "impacts": {
       "acd": 0.1602021458,
       "cch": 20.50115101,
@@ -477,7 +477,7 @@
   },
   {
     "name": "Cooked ham, case ready, at plant {FR} U",
-    "displayName": "Jambon cuit FR",
+    "displayName": "Jambon cuit FR Conv.",
     "impacts": {
       "acd": 0.12403052597157778,
       "cch": 6.388697797814088,
@@ -511,7 +511,7 @@
   },
   {
     "name": "Cooked ham, case ready, at plant {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Jambon cuit bio",
+    "displayName": "Jambon cuit FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.1889433388,
       "cch": 9.450337541,
@@ -545,7 +545,7 @@
   },
   {
     "name": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
-    "displayName": "Jambon cuit FR (alim. ani. 100%FR)",
+    "displayName": "Jambon cuit (alim. ani. 100%FR) FR Conv.",
     "impacts": {
       "acd": 0.1228524347,
       "cch": 6.002740459,
@@ -579,7 +579,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U",
-    "displayName": "Blanc de poulet FR (cru)",
+    "displayName": "Blanc de poulet cru FR Conv.",
     "impacts": {
       "acd": 0.09963378152297978,
       "cch": 6.044520550055202,
@@ -613,7 +613,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Blanc de poulet bio (cru)",
+    "displayName": "Blanc de poulet cru FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.1699074134,
       "cch": 6.211915699,
@@ -647,7 +647,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse [fr-organic]",
-    "displayName": "Blanc de poulet bio (alim. ani. 100%FR)",
+    "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR ou UE ou Hors UE Bio ",
     "impacts": {
       "acd": 0.1705652993,
       "cch": 6.463908369,
@@ -681,7 +681,7 @@
   },
   {
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "displayName": "Huile de colza",
+    "displayName": "Huile de colza Hors UE Conv.",
     "impacts": {
       "acd": 0.0701751143997628,
       "cch": 1.8699933948748053,
@@ -715,7 +715,7 @@
   },
   {
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
-    "displayName": "Huile de colza bio",
+    "displayName": "Huile de colza FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0317396188,
       "cch": 1.255118172,
@@ -749,7 +749,7 @@
   },
   {
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "displayName": "Huile de tournesol",
+    "displayName": "Huile de tournesol Hors UE Conv.",
     "impacts": {
       "acd": 0.038026864118765706,
       "cch": 2.9433366471719324,
@@ -783,7 +783,7 @@
   },
   {
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
-    "displayName": "Huile de tournesol bio",
+    "displayName": "Huile de tournesol FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.02036263992,
       "cch": 2.098855869,
@@ -817,7 +817,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
-    "displayName": "Courgette bio",
+    "displayName": "Courgette FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0014304194034405909,
       "cch": 0.15067557155756478,
@@ -851,7 +851,7 @@
   },
   {
     "name": "Peach, organic, national average, at orchard {FR} U",
-    "displayName": "Pêche bio",
+    "displayName": "Pêche FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0023468691061546776,
       "cch": 0.21779844313142827,
@@ -885,7 +885,7 @@
   },
   {
     "name": "Melon, organic, at farm gate {FR} U",
-    "displayName": "Melon bio",
+    "displayName": "Melon FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0009546532856891369,
       "cch": 0.13354015959735555,
@@ -919,7 +919,7 @@
   },
   {
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
-    "displayName": "Beurre FR",
+    "displayName": "Beurre FR Conv.",
     "impacts": {
       "acd": 0.08336396701032509,
       "cch": 7.346420927986676,
@@ -953,7 +953,7 @@
   },
   {
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Beurre bio",
+    "displayName": "Beurre FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.08323468296,
       "cch": 5.826826642,
@@ -1667,7 +1667,7 @@
   },
   {
     "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "displayName": "Eau du robinet",
+    "displayName": "Eau du robinet UE Conv.",
     "impacts": {
       "acd": 0.0000018372221856044803,
       "cch": 0.0003241962778683046,
@@ -1735,7 +1735,7 @@
   },
   {
     "name": "Comte cheese, from cow's milk, at plant {FR} U",
-    "displayName": "Comté AOP",
+    "displayName": "Comté FR AOP Conv.",
     "impacts": {
       "acd": 0.05802858895774979,
       "cch": 5.363965127580336,
@@ -1769,7 +1769,7 @@
   },
   {
     "name": "Emmental cheese, from cow's milk, at plant {FR} U",
-    "displayName": "Emmental",
+    "displayName": "Emmental FR Conv.",
     "impacts": {
       "acd": 0.061015445440187104,
       "cch": 5.609088587057458,
@@ -1803,7 +1803,7 @@
   },
   {
     "name": "Mozzarella cheese, from cow's milk, at plant {FR} U",
-    "displayName": "Mozzarella",
+    "displayName": "Mozzarella FR Conv.",
     "impacts": {
       "acd": 0.04457488008019794,
       "cch": 4.101281808415125,
@@ -1837,7 +1837,7 @@
   },
   {
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Betterave rouge bio",
+    "displayName": "Betterave rouge FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0012383442457556174,
       "cch": 0.06340574324261536,
@@ -1871,7 +1871,7 @@
   },
   {
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Céleri-rave bio",
+    "displayName": "Céleri-rave FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0012383442457556174,
       "cch": 0.06340574324261536,
@@ -1905,7 +1905,7 @@
   },
   {
     "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
-    "displayName": "Navet bio",
+    "displayName": "Navet FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0008900570699896845,
       "cch": 0.09069249159708041,
@@ -1939,7 +1939,7 @@
   },
   {
     "name": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
-    "displayName": "Pois chiche bio",
+    "displayName": "Pois chiche FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.003748176669187028,
       "cch": 0.3030167563749287,
@@ -1973,7 +1973,7 @@
   },
   {
     "name": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Poivron sous serre non chauffée",
+    "displayName": "Poivron sous serre non chauffée FR Conv.",
     "impacts": {
       "acd": 0.002781039999890109,
       "cch": 0.5443616332485881,
@@ -2007,7 +2007,7 @@
   },
   {
     "name": "Soybean, national average, animal feed, at farm gate {FR} U",
-    "displayName": "Soja FR",
+    "displayName": "Soja FR Conv.",
     "impacts": {
       "acd": 0.0026578914510962835,
       "cch": 0.46168932008725505,
@@ -2041,7 +2041,7 @@
   },
   {
     "name": "Soybean, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Soja FR bio",
+    "displayName": "Soja FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0068872155868963105,
       "cch": 0.8150971990928648,
@@ -2075,7 +2075,7 @@
   },
   {
     "name": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
-    "displayName": "Soja BR (non déforestant)",
+    "displayName": "Soja (non déforestant) Hors UE Conv.",
     "impacts": {
       "acd": 0.0017624704405511452,
       "cch": 0.9630220767220246,
@@ -2109,7 +2109,7 @@
   },
   {
     "name": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Soja BR déforestant",
+    "displayName": "Soja déforestant Hors UE Conv.",
     "impacts": {
       "acd": 0.004034871776351695,
       "cch": 2.622717706320412,
@@ -2143,7 +2143,7 @@
   },
   {
     "name": "Soybean grain dried, stored and transported, processing {FR} U",
-    "displayName": "Soja feed",
+    "displayName": "Soja feed Hors UE Conv.",
     "impacts": {
       "acd": 0.0027259456896363606,
       "cch": 0.4744832320289378,
@@ -2177,7 +2177,7 @@
   },
   {
     "name": "Sausage meat, raw, at plant {FR} U",
-    "displayName": "Chair à saucisse FR (crue)",
+    "displayName": "Chair à saucisse crue FR Conv.",
     "impacts": {
       "acd": 0.15550255960009007,
       "cch": 7.922756534848201,
@@ -2211,7 +2211,7 @@
   },
   {
     "name": "Toulouse sausage, raw, at plant {FR} U",
-    "displayName": "Saucisse de Toulouse (crue)",
+    "displayName": "Saucisse de Toulouse (crue) FR Conv.",
     "impacts": {
       "acd": 0.25908999061980786,
       "cch": 14.426336511868794,
@@ -2245,7 +2245,7 @@
   },
   {
     "name": "Toulouse sausage, cooked, at plant {FR} U",
-    "displayName": "Saucisse de Toulouse (cuite)",
+    "displayName": "Saucisse de Toulouse (cuite) FR Conv.",
     "impacts": {
       "acd": 0.2601656647369509,
       "cch": 14.564238112792587,
@@ -2279,7 +2279,7 @@
   },
   {
     "name": "Plant-based sausage with tofu (vegan), at plant {FR} U",
-    "displayName": "Saucisse végétale tofu",
+    "displayName": "Saucisse végétale tofu FR Conv.",
     "impacts": {
       "acd": 0.0044327616848631604,
       "cch": 0.5654274229807452,
@@ -2313,7 +2313,7 @@
   },
   {
     "name": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
-    "displayName": "Purée de tomates",
+    "displayName": "Purée de tomates Hors UE Conv.",
     "impacts": {
       "acd": 0.014463400855601454,
       "cch": 2.429913021034579,
@@ -2347,7 +2347,7 @@
   },
   {
     "name": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO} - Adapted from WFLDB U",
-    "displayName": "Concentré de tomates",
+    "displayName": "Concentré de tomates Hors UE Conv.",
     "impacts": {
       "acd": 0.024729967762581018,
       "cch": 3.7292949213430795,
@@ -2381,7 +2381,7 @@
   },
   {
     "name": "Meat with bone, beef, for direct consumption {FR} U",
-    "displayName": "Viande de boeuf avec os FR (crue)",
+    "displayName": "Viande de boeuf avec os (crue) FR Conv.",
     "impacts": {
       "acd": 0.28973670988732037,
       "cch": 20.380518353107693,
@@ -2415,7 +2415,7 @@
   },
   {
     "name": "Meat without bone, beef, for direct consumption {FR} U",
-    "displayName": "Viande de boeuf sans os FR (crue)",
+    "displayName": "Viande de boeuf sans os (crue) FR Conv.",
     "impacts": {
       "acd": 0.36239586048096106,
       "cch": 25.52309639106332,
@@ -2449,7 +2449,7 @@
   },
   {
     "name": "Meat without bone, beef, for direct consumption {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Viande de boeuf sans os bio (crue)",
+    "displayName": "Viande de boeuf sans os FR ou UE ou Hors UE Bio (crue)",
     "impacts": {
       "acd": 0.3625575155,
       "cch": 23.60034326,
@@ -2483,7 +2483,7 @@
   },
   {
     "name": "Durum wheat, semolina, at plant {FR} U",
-    "displayName": "Semoule de blé dur",
+    "displayName": "Semoule de blé dur FR Conv.",
     "impacts": {
       "acd": 0.01708707917957548,
       "cch": 1.2541945392586809,
@@ -2517,7 +2517,7 @@
   },
   {
     "name": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
-    "displayName": "Sucre de betterave",
+    "displayName": "Sucre de betterave FR Conv.",
     "impacts": {
       "acd": 0.02470476211955953,
       "cch": 0.5189563662937747,
@@ -2551,7 +2551,7 @@
   },
   {
     "name": "Dark chocolate, at plant {FR} U",
-    "displayName": "Chocolat noir",
+    "displayName": "Chocolat noir UE Conv.",
     "impacts": {
       "acd": 0.02606328073203774,
       "cch": 15.814106136172711,
@@ -2585,7 +2585,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U [br-max], constructed by Ecobalyse",
-    "displayName": "Blanc de poulet hors UE (alim. ani. 100%BR)",
+    "displayName": "Blanc de poulet cru (alim. ani. 100%BR) Hors UE Conv.",
     "impacts": {
       "acd": 0.1008192203,
       "cch": 7.908418239,
@@ -2619,7 +2619,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
-    "displayName": "Blanc de poulet FR (alim. ani. 100%FR)",
+    "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR Conv.",
     "impacts": {
       "acd": 0.09690645283,
       "cch": 4.702913942,
@@ -2653,7 +2653,7 @@
   },
   {
     "name": "Brown sugar, production, at plant {FR} U",
-    "displayName": "Sucre de canne",
+    "displayName": "Sucre de canne Hors UE Conv.",
     "impacts": {
       "acd": 0.01297225202921081,
       "cch": 0.9325923372196554,
@@ -2687,7 +2687,7 @@
   },
   {
     "name": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Thé (feuilles)",
+    "displayName": "Thé (feuilles) UE Conv.",
     "impacts": {
       "acd": 0.033556991115937046,
       "cch": 2.196130014564788,
@@ -2721,7 +2721,7 @@
   },
   {
     "name": "Coffee, roast and ground, at plant {FR} U",
-    "displayName": "Café (moulu)",
+    "displayName": "Café moulu Hors UE Conv.",
     "impacts": {
       "acd": 0.23403325686229895,
       "cch": 9.673246849959092,
@@ -2755,7 +2755,7 @@
   },
   {
     "name": "Black pepper, dried, consumption mix {FR} U",
-    "displayName": "Poivre noir ",
+    "displayName": "Poivre noir Hors UE Conv.",
     "impacts": {
       "acd": 0.08296326543997565,
       "cch": 7.430388781737795,
@@ -2789,7 +2789,7 @@
   },
   {
     "name": "Milk, powder, skimmed, non rehydrated, at plant {FR} U",
-    "displayName": "Poudre de lait écrémé",
+    "displayName": "Poudre de lait écrémé FR Conv.",
     "impacts": {
       "acd": 0.16452577718202563,
       "cch": 14.523875374662577,
@@ -2823,7 +2823,7 @@
   },
   {
     "name": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
-    "displayName": "Vin rouge",
+    "displayName": "Vin rouge FR Conv.",
     "impacts": {
       "acd": 0.008429855900390052,
       "cch": 0.9219230611986129,
@@ -2857,7 +2857,7 @@
   },
   {
     "name": "Fresh shrimps, China production {FR} U",
-    "displayName": "Crevettes fraîches hors UE",
+    "displayName": "Crevettes fraîches Hors UE Conv.",
     "impacts": {
       "acd": 0.024216621058629567,
       "cch": 2.3490784391389226,
@@ -2891,7 +2891,7 @@
   },
   {
     "name": "Large trout, 2-4kg, conventional, at farm gate {FR} U",
-    "displayName": "Truite d'élevage",
+    "displayName": "Truite d'élevage FR Conv.",
     "impacts": {
       "acd": 0.015087720714953312,
       "cch": 2.5244022072201022,
@@ -2925,7 +2925,7 @@
   },
   {
     "name": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
-    "displayName": "Oeuf conventionnel (code 2)",
+    "displayName": "Oeuf (code 2) FR Conv.",
     "impacts": {
       "acd": 0.08057096742960765,
       "cch": 2.851535630176297,
@@ -2959,7 +2959,7 @@
   },
   {
     "name": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
-    "displayName": "Oeuf conventionnel (code 3)",
+    "displayName": "Oeuf (code 3) FR Conv.",
     "impacts": {
       "acd": 0.06309298747095433,
       "cch": 2.1231727191246708,
@@ -2993,7 +2993,7 @@
   },
   {
     "name": "Egg, conventional, outdoor system, at farm gate {FR} U",
-    "displayName": "Oeuf plein air (code 1)",
+    "displayName": "Oeuf (code 1) FR Conv.",
     "impacts": {
       "acd": 0.07587861226740189,
       "cch": 2.754485340935007,
@@ -3027,7 +3027,7 @@
   },
   {
     "name": "Egg, organic, at farm gate {FR} U",
-    "displayName": "Oeuf bio",
+    "displayName": "Oeuf FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0680695846312214,
       "cch": 1.7212137828003247,
@@ -3061,7 +3061,7 @@
   },
   {
     "name": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
-    "displayName": "Raisin de cuve bio",
+    "displayName": "Raisin de cuve FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.007055979514965099,
       "cch": 0.3432733480434868,
@@ -3095,7 +3095,7 @@
   },
   {
     "name": "Meat without bone, lamb {FR} U",
-    "displayName": "Viande d'agneau FR (désossée)",
+    "displayName": "Viande d'agneau (désossée) FR Conv.",
     "impacts": {
       "acd": 0.6913439150931867,
       "cch": 37.959736445971394,
@@ -3129,7 +3129,7 @@
   },
   {
     "name": "Meat without bone, lamb {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Viande d'agneau bio (désossée)",
+    "displayName": "Viande d'agneau FR ou UE ou Hors UE Bio (désossée)",
     "impacts": {
       "acd": 0.3704183087,
       "cch": 29.50094801,
@@ -3163,7 +3163,7 @@
   },
   {
     "name": "Pear, consumption mix, organic 2023 {FR} U",
-    "displayName": "Poire bio",
+    "displayName": "Poire FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.001862082082435529,
       "cch": 0.09542765866886571,
@@ -3197,7 +3197,7 @@
   },
   {
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Carotte FR",
+    "displayName": "Carotte FR Conv.",
     "impacts": {
       "acd": 0.0009941101830478688,
       "cch": 0.06602231408088612,
@@ -3231,7 +3231,7 @@
   },
   {
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Carotte UE par défaut",
+    "displayName": "Carotte UE Conv.",
     "impacts": {
       "acd": 0.0006635756935110806,
       "cch": 0.06452401945665423,
@@ -3265,7 +3265,7 @@
   },
   {
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Carotte hors UE par défaut",
+    "displayName": "Carotte Hors UE Conv.",
     "impacts": {
       "acd": 0.003633352675688262,
       "cch": 0.11092025030832423,
@@ -3299,7 +3299,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "displayName": "Courgette FR",
+    "displayName": "Courgette FR Conv.",
     "impacts": {
       "acd": 0.0022592048815995537,
       "cch": 0.17007166416599576,
@@ -3333,7 +3333,7 @@
   },
   {
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "displayName": "Courgette UE par défaut",
+    "displayName": "Courgette UE Conv.",
     "impacts": {
       "acd": 0.0019836570220756844,
       "cch": 0.16014038679793097,
@@ -3367,7 +3367,7 @@
   },
   {
     "name": "Pear, conventional, at orchard {FR} U",
-    "displayName": "Poire FR",
+    "displayName": "Poire FR Conv.",
     "impacts": {
       "acd": 0.001064407732835944,
       "cch": 0.08523679072431747,
@@ -3401,7 +3401,7 @@
   },
   {
     "name": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Poire UE par défaut",
+    "displayName": "Poire UE Conv.",
     "impacts": {
       "acd": 0.0024105566814274933,
       "cch": -0.009745579970082553,
@@ -3435,7 +3435,7 @@
   },
   {
     "name": "Peach, production mix, national average, at orchard {FR} U",
-    "displayName": "Pêche FR",
+    "displayName": "Pêche FR Conv.",
     "impacts": {
       "acd": 0.0029731687342449365,
       "cch": 0.19489714140606829,
@@ -3469,7 +3469,7 @@
   },
   {
     "name": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Pêche UE par défaut",
+    "displayName": "Pêche UE Conv.",
     "impacts": {
       "acd": 0.0008222319850235432,
       "cch": 0.06749548800813791,
@@ -3503,7 +3503,7 @@
   },
   {
     "name": "Melon, conventional, national average, at farm gate {FR} U",
-    "displayName": "Melon FR",
+    "displayName": "Melon FR Conv.",
     "impacts": {
       "acd": 0.00161272206829356,
       "cch": 0.17264216141546038,
@@ -3537,7 +3537,7 @@
   },
   {
     "name": "Melon, conventional, national average, at farm gate {FR} U",
-    "displayName": "Melon UE par défaut",
+    "displayName": "Melon UE Conv.",
     "impacts": {
       "acd": 0.00161272206829356,
       "cch": 0.17264216141546038,
@@ -3571,7 +3571,7 @@
   },
   {
     "name": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
-    "displayName": "Pomme de terre industrie FR",
+    "displayName": "Pomme de terre industrie FR Conv.",
     "impacts": {
       "acd": 0.0013398093262578141,
       "cch": 0.09385600560047519,
@@ -3605,7 +3605,7 @@
   },
   {
     "name": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
-    "displayName": "Pomme de terre de table FR",
+    "displayName": "Pomme de terre de table FR Conv.",
     "impacts": {
       "acd": 0.001338365724034481,
       "cch": 0.09373087746690179,
@@ -3639,7 +3639,7 @@
   },
   {
     "name": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "displayName": "Fécule de pomme de terre",
+    "displayName": "Fécule de pomme de terre Hors UE Conv.",
     "impacts": {
       "acd": 0.0296079476938176,
       "cch": 1.5826605226342287,
@@ -3673,7 +3673,7 @@
   },
   {
     "name": "Wheat grain, feed {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "displayName": "Blé tendre (GLO)",
+    "displayName": "Blé tendre Hors UE Conv.",
     "impacts": {
       "acd": 0.015618292348245572,
       "cch": 0.6635993839855621,
@@ -3707,7 +3707,7 @@
   },
   {
     "name": "Onion, national average, at farm {FR} U",
-    "displayName": "Oignon FR",
+    "displayName": "Oignon FR Conv.",
     "impacts": {
       "acd": 0.001023700996702447,
       "cch": 0.06727685361228843,
@@ -3741,7 +3741,7 @@
   },
   {
     "name": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Oignon UE par défaut",
+    "displayName": "Oignon UE Conv.",
     "impacts": {
       "acd": 0.002369528099616071,
       "cch": 0.14729953131243398,
@@ -3775,7 +3775,7 @@
   },
   {
     "name": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Oignon hors UE par défaut",
+    "displayName": "Oignon Hors UE Conv.",
     "impacts": {
       "acd": 0.009624882739512253,
       "cch": 0.23875438310150915,
@@ -3809,7 +3809,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "displayName": "Aubergine FR",
+    "displayName": "Aubergine FR Conv.",
     "impacts": {
       "acd": 0.0022592048815995537,
       "cch": 0.17007166416599576,
@@ -3843,7 +3843,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "displayName": "Aubergine UE par défaut",
+    "displayName": "Aubergine UE Conv.",
     "impacts": {
       "acd": 0.0022592048815995537,
       "cch": 0.17007166416599576,
@@ -3877,7 +3877,7 @@
   },
   {
     "name": "French bean, conventional, national average, at farm gate {FR} U",
-    "displayName": "Haricot vert FR",
+    "displayName": "Haricot vert FR Conv.",
     "impacts": {
       "acd": 0.004471181184961865,
       "cch": 0.12243508684218746,
@@ -3911,7 +3911,7 @@
   },
   {
     "name": "French bean, conventional, national average, at farm gate {FR} U",
-    "displayName": "Haricot vert UE par défaut",
+    "displayName": "Haricot vert UE Conv.",
     "impacts": {
       "acd": 0.004471181184961865,
       "cch": 0.12243508684218746,
@@ -3945,7 +3945,7 @@
   },
   {
     "name": "French bean, conventional, national average, at farm gate {FR} U",
-    "displayName": "Haricot vert hors UE par défaut",
+    "displayName": "Haricot vert Hors UE Conv.",
     "impacts": {
       "acd": 0.004471181184961865,
       "cch": 0.12243508684218746,
@@ -3979,7 +3979,7 @@
   },
   {
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "displayName": "Laitue FR",
+    "displayName": "Laitue FR Conv.",
     "impacts": {
       "acd": 0.0018255357229294907,
       "cch": 0.16212548752010672,
@@ -4013,7 +4013,7 @@
   },
   {
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Laitue UE par défaut",
+    "displayName": "Laitue UE Conv.",
     "impacts": {
       "acd": 0.0011204921143674474,
       "cch": 0.14037127105869446,
@@ -4047,7 +4047,7 @@
   },
   {
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Laitue hors UE par défaut",
+    "displayName": "Laitue Hors UE Conv.",
     "impacts": {
       "acd": 0.0011204921143674474,
       "cch": 0.14037127105869446,
@@ -4081,7 +4081,7 @@
   },
   {
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
-    "displayName": "Petit pois FR",
+    "displayName": "Petit pois FR Conv.",
     "impacts": {
       "acd": 0.00644582720772954,
       "cch": 0.39562344915368225,
@@ -4115,7 +4115,7 @@
   },
   {
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
-    "displayName": "Petit pois UE par défaut",
+    "displayName": "Petit pois UE Conv.",
     "impacts": {
       "acd": 0.00644582720772954,
       "cch": 0.39562344915368225,
@@ -4149,7 +4149,7 @@
   },
   {
     "name": "Cherry, conventional, national average, at orchard {FR} U",
-    "displayName": "Cerise FR",
+    "displayName": "Cerise FR Conv.",
     "impacts": {
       "acd": 0.005190624769755873,
       "cch": 0.4337022511381512,
@@ -4183,7 +4183,7 @@
   },
   {
     "name": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Citron UE par défaut",
+    "displayName": "Citron UE Conv.",
     "impacts": {
       "acd": 0.002552098715208934,
       "cch": 0.1184020755131036,
@@ -4217,7 +4217,7 @@
   },
   {
     "name": "Cherry, conventional, national average, at orchard {FR} U",
-    "displayName": "Prune FR",
+    "displayName": "Prune FR Conv.",
     "impacts": {
       "acd": 0.005190624769755873,
       "cch": 0.4337022511381512,
@@ -4251,7 +4251,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "displayName": "Courge FR",
+    "displayName": "Courge FR Conv.",
     "impacts": {
       "acd": 0.0022592048815995537,
       "cch": 0.17007166416599576,
@@ -4285,7 +4285,7 @@
   },
   {
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "displayName": "Courge UE par défaut",
+    "displayName": "Courge UE Conv.",
     "impacts": {
       "acd": 0.0019836570220756844,
       "cch": 0.16014038679793097,
@@ -4319,7 +4319,7 @@
   },
   {
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
-    "displayName": "Courge bio",
+    "displayName": "Courge FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0014304194034405909,
       "cch": 0.15067557155756478,
@@ -4353,7 +4353,7 @@
   },
   {
     "name": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
-    "displayName": "Tomate sous serre chauffée",
+    "displayName": "Tomate sous serre chauffée Hors UE Conv.",
     "impacts": {
       "acd": 0.00406244831736418,
       "cch": 1.6726912431627605,
@@ -4387,7 +4387,7 @@
   },
   {
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "displayName": "Tomate sous serre non chauffée FR",
+    "displayName": "Tomate sous serre non chauffée FR Conv.",
     "impacts": {
       "acd": 0.001238757845393047,
       "cch": 0.15267728494225907,
@@ -4421,7 +4421,7 @@
   },
   {
     "name": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Tomate UE par défaut",
+    "displayName": "Tomate UE Conv.",
     "impacts": {
       "acd": 0.003998040744760378,
       "cch": 0.3714938754210344,
@@ -4455,7 +4455,7 @@
   },
   {
     "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Abricot FR",
+    "displayName": "Abricot FR Conv.",
     "impacts": {
       "acd": 0.0036181112516670225,
       "cch": 0.10632747935921606,
@@ -4489,7 +4489,7 @@
   },
   {
     "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Abricot UE par défaut",
+    "displayName": "Abricot UE Conv.",
     "impacts": {
       "acd": 0.0036181112516670225,
       "cch": 0.10632747935921606,
@@ -4523,7 +4523,7 @@
   },
   {
     "name": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
-    "displayName": "Noisette hors UE avec coque",
+    "displayName": "Noisette avec coque Hors UE Conv.",
     "impacts": {
       "acd": 0.034423326202102755,
       "cch": 2.248984077414186,
@@ -4557,7 +4557,7 @@
   },
   {
     "name": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
-    "displayName": "Noisette UE avec coque",
+    "displayName": "Noisette avec coque UE Conv.",
     "impacts": {
       "acd": 0.022748390810443716,
       "cch": 1.0264812418131621,
@@ -4591,7 +4591,7 @@
   },
   {
     "name": "Hazelnut, unshelled, at plant {IT} U",
-    "displayName": "Noisette décortiquée UE par défaut",
+    "displayName": "Noisette décortiquée UE Conv.",
     "impacts": {
       "acd": 0.04639667319677272,
       "cch": 2.242756148082806,
@@ -4625,7 +4625,7 @@
   },
   {
     "name": "Hazelnut, unshelled, at plant {TR} U",
-    "displayName": "Noisette décortiquée hors UE par défaut",
+    "displayName": "Noisette décortiquée Hors UE Conv.",
     "impacts": {
       "acd": 0.06974654398094335,
       "cch": 4.687761819302767,
@@ -4659,7 +4659,7 @@
   },
   {
     "name": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "displayName": "Artichaut FR",
+    "displayName": "Artichaut FR Conv.",
     "impacts": {
       "acd": 0.003952810283409749,
       "cch": 0.2555410353641251,
@@ -4693,7 +4693,7 @@
   },
   {
     "name": "Cauliflower, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Artichaut bio",
+    "displayName": "Artichaut FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.004954261339090974,
       "cch": 0.20372896505564214,
@@ -4727,7 +4727,7 @@
   },
   {
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "displayName": "Chou-fleur bio",
+    "displayName": "Chou-fleur FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0062118358998394215,
       "cch": 0.28318514232404635,
@@ -4761,7 +4761,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou-fleur FR",
+    "displayName": "Chou-fleur FR Conv.",
     "impacts": {
       "acd": 0.004241107096469375,
       "cch": 0.26032412225810353,
@@ -4795,7 +4795,7 @@
   },
   {
     "name": "Leek, national average, at plant {FR} U",
-    "displayName": "Poireau FR",
+    "displayName": "Poireau FR Conv.",
     "impacts": {
       "acd": 0.0036549146632127213,
       "cch": 0.28975497243891424,
@@ -4829,7 +4829,7 @@
   },
   {
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Betterave rouge FR",
+    "displayName": "Betterave rouge FR Conv.",
     "impacts": {
       "acd": 0.0009941101830478688,
       "cch": 0.06602231408088612,
@@ -4863,7 +4863,7 @@
   },
   {
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Navet FR",
+    "displayName": "Navet FR Conv.",
     "impacts": {
       "acd": 0.0009941101830478688,
       "cch": 0.06602231408088612,
@@ -4897,7 +4897,7 @@
   },
   {
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Navet UE par défaut",
+    "displayName": "Navet UE Conv.",
     "impacts": {
       "acd": 0.0006635756935110806,
       "cch": 0.06452401945665423,
@@ -4931,7 +4931,7 @@
   },
   {
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Navet hors UE par défaut",
+    "displayName": "Navet Hors UE Conv.",
     "impacts": {
       "acd": 0.003633352675688262,
       "cch": 0.11092025030832423,
@@ -4965,7 +4965,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou chinois FR",
+    "displayName": "Chou chinois FR Conv.",
     "impacts": {
       "acd": 0.004241107096469375,
       "cch": 0.26032412225810353,
@@ -4999,7 +4999,7 @@
   },
   {
     "name": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR} U",
-    "displayName": "Chou chinois bio",
+    "displayName": "Chou chinois FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.005039064079616455,
       "cch": 0.23086022508586646,
@@ -5033,7 +5033,7 @@
   },
   {
     "name": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Chou blanc hors UE par défaut",
+    "displayName": "Chou blanc Hors UE Conv.",
     "impacts": {
       "acd": 0.0013604647226973566,
       "cch": 0.2078829390021502,
@@ -5067,7 +5067,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou vert FR",
+    "displayName": "Chou vert FR Conv.",
     "impacts": {
       "acd": 0.004241107096469375,
       "cch": 0.26032412225810353,
@@ -5101,7 +5101,7 @@
   },
   {
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "displayName": "Chou vert bio",
+    "displayName": "Chou vert FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0062118358998394215,
       "cch": 0.28318514232404635,
@@ -5135,7 +5135,7 @@
   },
   {
     "name": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Chou rouge UE par défaut",
+    "displayName": "Chou rouge Hors UE Conv.",
     "impacts": {
       "acd": 0.0016893154839530819,
       "cch": 0.26322618389647234,
@@ -5169,7 +5169,7 @@
   },
   {
     "name": "Onion, national average, at farm {FR} U",
-    "displayName": "Echalote FR",
+    "displayName": "Echalote FR Conv.",
     "impacts": {
       "acd": 0.001023700996702447,
       "cch": 0.06727685361228843,
@@ -5203,7 +5203,7 @@
   },
   {
     "name": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
-    "displayName": "Orange UE par défaut",
+    "displayName": "Orange UE Conv.",
     "impacts": {
       "acd": 0.0030518537123762537,
       "cch": 0.15261720973410303,
@@ -5237,7 +5237,7 @@
   },
   {
     "name": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Orange hors UE par défaut",
+    "displayName": "Orange Hors UE Conv.",
     "impacts": {
       "acd": 0.0013738813467386952,
       "cch": 0.08103173111710193,
@@ -5271,7 +5271,7 @@
   },
   {
     "name": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Olive UE par défaut",
+    "displayName": "Olive UE Conv.",
     "impacts": {
       "acd": 0.005713999718550926,
       "cch": 0.014308935332849233,
@@ -5305,7 +5305,7 @@
   },
   {
     "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Colza FR",
+    "displayName": "Colza FR Conv.",
     "impacts": {
       "acd": 0.0202517604235587,
       "cch": 0.9178881296129885,
@@ -5339,7 +5339,7 @@
   },
   {
     "name": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Colza UE par défaut",
+    "displayName": "Colza UE Conv.",
     "impacts": {
       "acd": 0.04204114919613513,
       "cch": 1.0239391682740522,
@@ -5373,7 +5373,7 @@
   },
   {
     "name": "Rapeseed, at farm {CA} - Adapted from WFLDB U",
-    "displayName": "Colza hors UE par défaut",
+    "displayName": "Colza Hors UE Conv.",
     "impacts": {
       "acd": 0.04889620460544476,
       "cch": 1.0306852082465592,
@@ -5407,7 +5407,7 @@
   },
   {
     "name": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Pistache avec coque hors UE par défaut",
+    "displayName": "Pistache avec coque Hors UE Conv.",
     "impacts": {
       "acd": 0.020828707169390975,
       "cch": 0.5578224014388848,
@@ -5441,7 +5441,7 @@
   },
   {
     "name": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Arachide avec coque hors UE",
+    "displayName": "Arachide avec coque Hors UE Conv.",
     "impacts": {
       "acd": 0.05811436893373266,
       "cch": 1.7327060054016994,
@@ -5475,7 +5475,7 @@
   },
   {
     "name": "Extra Virgin Olive Oil, consumption mix {FR} U",
-    "displayName": "Huile d'olive hors UE ",
+    "displayName": "Huile d'olive UE Conv.",
     "impacts": {
       "acd": 0.04233484681123098,
       "cch": 0.6793316880412303,
@@ -5509,7 +5509,7 @@
   },
   {
     "name": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Avocat UE ou hors UE",
+    "displayName": "Avocat Hors UE Conv.",
     "impacts": {
       "acd": 0.0035455346944533997,
       "cch": 0.5436551172184049,
@@ -5543,7 +5543,7 @@
   },
   {
     "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "displayName": "Pois chiche FR",
+    "displayName": "Pois chiche FR Conv.",
     "impacts": {
       "acd": 0.00248027581915241,
       "cch": 0.38356448767607815,
@@ -5577,7 +5577,7 @@
   },
   {
     "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
-    "displayName": "Tournesol FR",
+    "displayName": "Tournesol FR Conv.",
     "impacts": {
       "acd": 0.024048040306782956,
       "cch": 0.6007530154405045,
@@ -5611,7 +5611,7 @@
   },
   {
     "name": "Sunflower, at farm {HU} - Adapted from WFLDB U",
-    "displayName": "Tournesol UE par défaut",
+    "displayName": "Tournesol UE Conv.",
     "impacts": {
       "acd": 0.0075508193074801735,
       "cch": 0.5597473463771953,
@@ -5645,7 +5645,7 @@
   },
   {
     "name": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Tournesol hors UE par défaut",
+    "displayName": "Tournesol Hors UE Conv.",
     "impacts": {
       "acd": 0.01292812382378991,
       "cch": 0.7381726762591555,
@@ -5679,7 +5679,7 @@
   },
   {
     "name": "Kiwi FR, conventional, national average, at orchard {FR} U",
-    "displayName": "Kiwi FR",
+    "displayName": "Kiwi FR Conv.",
     "impacts": {
       "acd": 0.0033959669373130074,
       "cch": 0.31628227585402663,
@@ -5713,7 +5713,7 @@
   },
   {
     "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Kiwi UE par défaut",
+    "displayName": "Kiwi UE Conv.",
     "impacts": {
       "acd": 0.0024244367074172934,
       "cch": 0.3788194237296448,
@@ -5747,7 +5747,7 @@
   },
   {
     "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Kiwi hors UE par défaut",
+    "displayName": "Kiwi Hors UE Conv.",
     "impacts": {
       "acd": 0.0024244367074172934,
       "cch": 0.3788194237296448,
@@ -5781,7 +5781,7 @@
   },
   {
     "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Mangue hors UE par défaut",
+    "displayName": "Mangue Hors UE Conv.",
     "impacts": {
       "acd": 0.0023679591495248836,
       "cch": 0.11775182234863696,
@@ -5815,7 +5815,7 @@
   },
   {
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Epinard hors UE par défaut",
+    "displayName": "Epinard Hors UE Conv.",
     "impacts": {
       "acd": 0.0008604068603101483,
       "cch": 0.10258505744018802,
@@ -5849,7 +5849,7 @@
   },
   {
     "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Fenouil FR",
+    "displayName": "Fenouil FR Conv.",
     "impacts": {
       "acd": 0.0025663970307355766,
       "cch": 0.3510747019665245,
@@ -5883,7 +5883,7 @@
   },
   {
     "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Fenouil UE par défaut",
+    "displayName": "Fenouil UE Conv.",
     "impacts": {
       "acd": 0.0025663970307355766,
       "cch": 0.3510747019665245,
@@ -5917,7 +5917,7 @@
   },
   {
     "name": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Brocoli UE par défaut",
+    "displayName": "Brocoli UE Conv.",
     "impacts": {
       "acd": 0.0027460651734716878,
       "cch": 0.37665230146394824,
@@ -5951,7 +5951,7 @@
   },
   {
     "name": "Blueberry, at farm {CA} - Adapted from WFLDB U",
-    "displayName": "Myrtille hors UE par défaut",
+    "displayName": "Myrtille Hors UE Conv.",
     "impacts": {
       "acd": 0.014464127699368803,
       "cch": 0.5526856200325324,
@@ -5985,7 +5985,7 @@
   },
   {
     "name": "Raspberry, at farm {RS} - Adapted from WFLDB U",
-    "displayName": "Framboise UE par défaut",
+    "displayName": "Framboise UE Conv.",
     "impacts": {
       "acd": 0.034438140290119025,
       "cch": 0.8818401275205279,
@@ -6019,7 +6019,7 @@
   },
   {
     "name": "Strawberry for processing, open field, conventional, at farm gate {ES} U",
-    "displayName": "Fraise UE par défaut",
+    "displayName": "Fraise UE Conv.",
     "impacts": {
       "acd": 0.00563710031167453,
       "cch": 0.2317321097392975,
@@ -6053,7 +6053,7 @@
   },
   {
     "name": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
-    "displayName": "Fraise hors UE par défaut",
+    "displayName": "Fraise Hors UE Conv.",
     "impacts": {
       "acd": 0.004979699818954077,
       "cch": 0.16511593309897046,
@@ -6087,7 +6087,7 @@
   },
   {
     "name": "Banana, mixed production, West Indies, at farm gate {WI} U",
-    "displayName": "Banane Antilles",
+    "displayName": "Banane hors UE Conv.",
     "impacts": {
       "acd": 0.007307522618130235,
       "cch": 0.2185843270306997,
@@ -6121,7 +6121,7 @@
   },
   {
     "name": "Banana, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Banane hors UE par défaut",
+    "displayName": "Banane Hors UE Conv.",
     "impacts": {
       "acd": 0.004374145407288805,
       "cch": 0.20676510770766068,
@@ -6155,7 +6155,7 @@
   },
   {
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "displayName": "Concombre FR de saison",
+    "displayName": "Concombre de saison FR Conv.",
     "impacts": {
       "acd": 0.001238757845393047,
       "cch": 0.15267728494225907,
@@ -6189,7 +6189,7 @@
   },
   {
     "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Concombre FR hors saison",
+    "displayName": "Concombre hors saison FR Conv.",
     "impacts": {
       "acd": 0.015740455375798247,
       "cch": 2.8583195453137638,
@@ -6223,7 +6223,7 @@
   },
   {
     "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Concombre UE hors saison",
+    "displayName": "Concombre hors saison UE Conv.",
     "impacts": {
       "acd": 0.015740455375798247,
       "cch": 2.8583195453137638,
@@ -6257,7 +6257,7 @@
   },
   {
     "name": "Strawberry, open field, conventional, at farm gate {FR} U",
-    "displayName": "Fraise FR de saison",
+    "displayName": "Fraise de saison FR  Conv.",
     "impacts": {
       "acd": 0.005345326760733963,
       "cch": 0.17629553850652557,
@@ -6291,7 +6291,7 @@
   },
   {
     "name": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
-    "displayName": "Fraise FR hors saison",
+    "displayName": "Fraise hors saison FR Conv.",
     "impacts": {
       "acd": 0.011359393299702716,
       "cch": 2.918409498472129,
@@ -6325,7 +6325,7 @@
   },
   {
     "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Céleri branche FR",
+    "displayName": "Céleri branche FR Conv.",
     "impacts": {
       "acd": 0.002567304190174462,
       "cch": 0.37660057224996,
@@ -6359,7 +6359,7 @@
   },
   {
     "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Céleri branche UE par défaut",
+    "displayName": "Céleri branche UE Conv.",
     "impacts": {
       "acd": 0.002567304190174462,
       "cch": 0.37660057224996,
@@ -6393,7 +6393,7 @@
   },
   {
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Céleri-rave FR",
+    "displayName": "Céleri-rave FR Conv.",
     "impacts": {
       "acd": 0.0009941101830478688,
       "cch": 0.06602231408088612,
@@ -6427,7 +6427,7 @@
   },
   {
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Céleri-rave UE par défaut",
+    "displayName": "Céleri-rave UE Conv.",
     "impacts": {
       "acd": 0.0006635756935110806,
       "cch": 0.06452401945665423,
@@ -6461,7 +6461,7 @@
   },
   {
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Céleri-rave hors UE par défaut",
+    "displayName": "Céleri-rave Hors UE Conv.",
     "impacts": {
       "acd": 0.003633352675688262,
       "cch": 0.11092025030832423,
@@ -6495,7 +6495,7 @@
   },
   {
     "name": "Walnut, dried inshell, national average, at farm gate {FR} U",
-    "displayName": "Noix avec coque FR",
+    "displayName": "Noix avec coque FR Conv.",
     "impacts": {
       "acd": 0.020666184213758723,
       "cch": 1.4688132115256785,
@@ -6529,7 +6529,7 @@
   },
   {
     "name": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
-    "displayName": "Noix décortiquées FR",
+    "displayName": "Noix décortiquées FR Conv.",
     "impacts": {
       "acd": 0.022364052967520795,
       "cch": 1.6776364097142509,
@@ -6563,7 +6563,7 @@
   },
   {
     "name": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
-    "displayName": "Châtaigne décortiquée FR",
+    "displayName": "Châtaigne décortiquée FR Conv.",
     "impacts": {
       "acd": 0.022364052967520795,
       "cch": 1.6776364097142509,
@@ -6597,7 +6597,7 @@
   },
   {
     "name": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "displayName": "Châtaigne avec coque FR",
+    "displayName": "Châtaigne avec coque FR Conv.",
     "impacts": {
       "acd": 0.02146972672227245,
       "cch": 1.4728290649244906,
@@ -6631,7 +6631,7 @@
   },
   {
     "name": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Mandarine UE par défaut",
+    "displayName": "Mandarine UE Conv.",
     "impacts": {
       "acd": 0.002950977995473898,
       "cch": 0.0033493674603889724,
@@ -6665,7 +6665,7 @@
   },
   {
     "name": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
-    "displayName": "Champignon frais UE par défaut",
+    "displayName": "Champignon frais UE Conv.",
     "impacts": {
       "acd": 0.012680961791761354,
       "cch": 4.141249211879508,
@@ -6699,7 +6699,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou de Bruxelles FR",
+    "displayName": "Chou de Bruxelles FR Conv.",
     "impacts": {
       "acd": 0.004241107096469375,
       "cch": 0.26032412225810353,
@@ -6733,7 +6733,7 @@
   },
   {
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "displayName": "Chou de Bruxelles bio",
+    "displayName": "Chou de Bruxelles FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0062118358998394215,
       "cch": 0.28318514232404635,
@@ -6767,7 +6767,7 @@
   },
   {
     "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "displayName": "Lentilles FR",
+    "displayName": "Lentilles FR Conv.",
     "impacts": {
       "acd": 0.00248027581915241,
       "cch": 0.38356448767607815,
@@ -6801,7 +6801,7 @@
   },
   {
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou frisé FR",
+    "displayName": "Chou frisé FR Conv.",
     "impacts": {
       "acd": 0.004241107096469375,
       "cch": 0.26032412225810353,
@@ -6835,7 +6835,7 @@
   },
   {
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "displayName": "Chou frisé bio",
+    "displayName": "Chou frisé FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0062118358998394215,
       "cch": 0.28318514232404635,
@@ -6869,7 +6869,7 @@
   },
   {
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "displayName": "Citrouille FR",
+    "displayName": "Citrouille FR Conv.",
     "impacts": {
       "acd": 0.0019836570220756844,
       "cch": 0.16014038679793097,
@@ -6903,7 +6903,7 @@
   },
   {
     "name": "Clementine, export quality, Souss, at orchard {MA} U",
-    "displayName": "Clémentine hors UE par défaut",
+    "displayName": "Clémentine Hors UE Conv.",
     "impacts": {
       "acd": 0.0033832949171526037,
       "cch": 0.30069426659913717,
@@ -6937,7 +6937,7 @@
   },
   {
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "displayName": "Endive FR",
+    "displayName": "Endive FR Conv.",
     "impacts": {
       "acd": 0.0018255357229294907,
       "cch": 0.16212548752010672,
@@ -6971,7 +6971,7 @@
   },
   {
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Endive UE par défaut",
+    "displayName": "Endive UE Conv.",
     "impacts": {
       "acd": 0.0011204921143674474,
       "cch": 0.14037127105869446,
@@ -7005,7 +7005,7 @@
   },
   {
     "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
-    "displayName": "Raisin de cuve FR",
+    "displayName": "Raisin de cuve FR Conv.",
     "impacts": {
       "acd": 0.0018649240085231382,
       "cch": 0.16166205667166245,
@@ -7039,7 +7039,7 @@
   },
   {
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "displayName": "Mâche FR",
+    "displayName": "Mâche FR Conv.",
     "impacts": {
       "acd": 0.0018255357229294907,
       "cch": 0.16212548752010672,
@@ -7073,7 +7073,7 @@
   },
   {
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Mâche UE par défaut",
+    "displayName": "Mâche UE Conv.",
     "impacts": {
       "acd": 0.0011204921143674474,
       "cch": 0.14037127105869446,
@@ -7107,7 +7107,7 @@
   },
   {
     "name": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
-    "displayName": "Maïs doux FR",
+    "displayName": "Maïs doux FR Conv.",
     "impacts": {
       "acd": 0.00806544659317081,
       "cch": 0.38649532231351347,
@@ -7141,7 +7141,7 @@
   },
   {
     "name": "Grain maize, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Maïs doux FR bio",
+    "displayName": "Maïs doux FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.002774291635754935,
       "cch": 0.23730209213335293,
@@ -7175,7 +7175,7 @@
   },
   {
     "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
-    "displayName": "Maïs doux BR",
+    "displayName": "Maïs doux Hors UE Conv.",
     "impacts": {
       "acd": 0.006498889119744408,
       "cch": 1.5468698597575958,
@@ -7209,7 +7209,7 @@
   },
   {
     "name": "Pineapple, at farm {CR} - Adapted from WFLDB U",
-    "displayName": "Ananas hors UE par défaut",
+    "displayName": "Ananas Hors UE Conv.",
     "impacts": {
       "acd": 0.003218509370060055,
       "cch": 0.25209404696428434,
@@ -7243,7 +7243,7 @@
   },
   {
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Fève UE par défaut",
+    "displayName": "Fève UE Conv.",
     "impacts": {
       "acd": 0.002151058788593463,
       "cch": 0.47854563578613746,
@@ -7277,7 +7277,7 @@
   },
   {
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Fève FR",
+    "displayName": "Fève FR Conv.",
     "impacts": {
       "acd": 0.002151058788593463,
       "cch": 0.47854563578613746,
@@ -7311,7 +7311,7 @@
   },
   {
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Blette UE par défaut",
+    "displayName": "Blette UE Conv.",
     "impacts": {
       "acd": 0.0008604068603101483,
       "cch": 0.10258505744018802,
@@ -7345,7 +7345,7 @@
   },
   {
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Blette FR",
+    "displayName": "Blette FR Conv.",
     "impacts": {
       "acd": 0.0008604068603101483,
       "cch": 0.10258505744018802,
@@ -7379,7 +7379,7 @@
   },
   {
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Haricot flageolet UE par défaut",
+    "displayName": "Haricot flageolet UE Conv.",
     "impacts": {
       "acd": 0.002151058788593463,
       "cch": 0.47854563578613746,
@@ -7413,7 +7413,7 @@
   },
   {
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Haricot flageolet FR",
+    "displayName": "Haricot flageolet FR Conv.",
     "impacts": {
       "acd": 0.002151058788593463,
       "cch": 0.47854563578613746,
@@ -7447,7 +7447,7 @@
   },
   {
     "name": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Riz basmati hors UE par défaut",
+    "displayName": "Riz basmati Hors UE Conv.",
     "impacts": {
       "acd": 0.0350349901490726,
       "cch": 3.4995239803420435,
@@ -7481,7 +7481,7 @@
   },
   {
     "name": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
-    "displayName": "Blé tendre bio",
+    "displayName": "Blé tendre FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.005415727679,
       "cch": 0.4070647913,
@@ -7515,7 +7515,7 @@
   },
   {
     "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "displayName": "Blé tendre FR",
+    "displayName": "Blé tendre FR Conv.",
     "impacts": {
       "acd": 0.007591039932644626,
       "cch": 0.46750611926124197,
@@ -7549,7 +7549,7 @@
   },
   {
     "name": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Blé tendre hors UE par défaut",
+    "displayName": "Blé tendre Hors UE Conv.",
     "impacts": {
       "acd": 0.008747187311799314,
       "cch": 0.4194613952504446,
@@ -7583,7 +7583,7 @@
   },
   {
     "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
-    "displayName": "Blé dur FR",
+    "displayName": "Blé dur FR Conv.",
     "impacts": {
       "acd": 0.008970645698549046,
       "cch": 0.722898477587744,
@@ -7617,7 +7617,7 @@
   },
   {
     "name": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
-    "displayName": "Blé dur UE par défaut",
+    "displayName": "Blé dur UE Conv.",
     "impacts": {
       "acd": 0.012446122976158972,
       "cch": 0.5580451521679676,
@@ -7651,7 +7651,7 @@
   },
   {
     "name": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
-    "displayName": "Blé dur hors UE par défaut",
+    "displayName": "Blé dur Hors UE Conv.",
     "impacts": {
       "acd": 0.0138951775854083,
       "cch": 0.7681978492414332,
@@ -7685,7 +7685,7 @@
   },
   {
     "name": "Table apple, consumption mix, organic 2023 {FR} U",
-    "displayName": "Pomme bio",
+    "displayName": "Pomme FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0019856080372359667,
       "cch": 0.12269862469238552,
@@ -7719,7 +7719,7 @@
   },
   {
     "name": "Apple, conventional, national average, at orchard {FR} U",
-    "displayName": "Pomme FR",
+    "displayName": "Pomme FR Conv.",
     "impacts": {
       "acd": 0.000977276417592524,
       "cch": 0.08993409758810425,
@@ -7753,7 +7753,7 @@
   },
   {
     "name": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR} U",
-    "displayName": "Pomme de terre de table bio",
+    "displayName": "Pomme de terre de table FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.002426947092364807,
       "cch": 0.11876950896368905,
@@ -7787,7 +7787,7 @@
   },
   {
     "name": "Ware potato, organic 2023, for industrial use, at farm gate {FR} U",
-    "displayName": "Pomme de terre industrie bio",
+    "displayName": "Pomme de terre industrie FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.002491883927717023,
       "cch": 0.12022716314162296,
@@ -7821,7 +7821,7 @@
   },
   {
     "name": "Kiwi, consumption mix, organic 2023 {FR} U",
-    "displayName": "Kiwi bio",
+    "displayName": "Kiwi FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.008024175482478885,
       "cch": 0.4263682315116626,
@@ -7855,7 +7855,7 @@
   },
   {
     "name": "Red Cabbage, consumption mix, organic 2023 {FR} U",
-    "displayName": "Chou rouge bio",
+    "displayName": "Chou rouge FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.003913989603362788,
       "cch": 0.3378294199243622,
@@ -7889,7 +7889,7 @@
   },
   {
     "name": "Sugar beet, organic 2023 {FR}| sugar beet production | Cut-off, U",
-    "displayName": "Betterave sucrière bio",
+    "displayName": "Betterave sucrière FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.000750713620938018,
       "cch": 0.02980924420028421,
@@ -7923,7 +7923,7 @@
   },
   {
     "name": "Papaya, consumption mix, organic 2023 {FR} U",
-    "displayName": "Papaye bio",
+    "displayName": "Papaye FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.006358334194857024,
       "cch": 0.339316857855433,
@@ -7957,7 +7957,7 @@
   },
   {
     "name": "Fresh tomato, consumption mix, organic 2023 {FR} U",
-    "displayName": "Tomate bio",
+    "displayName": "Tomate FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0032520366482479673,
       "cch": 0.27826907362935793,
@@ -7991,7 +7991,7 @@
   },
   {
     "name": "Pineapple, organic 2023 {GLO}| production | Cut-off, U",
-    "displayName": "Ananas bio",
+    "displayName": "Ananas FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0018534706207831877,
       "cch": 0.06085933046374942,
@@ -8025,7 +8025,7 @@
   },
   {
     "name": "Garden peas, consumption mix, organic 2023 {FR} U",
-    "displayName": "Petit pois bio",
+    "displayName": "Petit pois FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.003217454205773467,
       "cch": 0.6004695551205187,
@@ -8059,7 +8059,7 @@
   },
   {
     "name": "Almonds, in shell, at farm, organic 2023 {CN}",
-    "displayName": "Amandes bio en coque",
+    "displayName": "Amandes en coque FR ou UE ou Hors UE Bio ",
     "impacts": {
       "acd": 0.026378991964115923,
       "cch": 0.9124428264113791,
@@ -8093,7 +8093,7 @@
   },
   {
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Laitue bio",
+    "displayName": "Laitue FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0018842973210864205,
       "cch": 0.09701564738242113,
@@ -8127,7 +8127,7 @@
   },
   {
     "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Mangue bio",
+    "displayName": "Mangue FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0035761679430113915,
       "cch": 0.12617402436930755,
@@ -8161,7 +8161,7 @@
   },
   {
     "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Litchi bio",
+    "displayName": "Litchi Hors FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0035761679430113915,
       "cch": 0.12617402436930755,
@@ -8195,7 +8195,7 @@
   },
   {
     "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Litchi hors UE par défaut",
+    "displayName": "Litchi Hors UE Conv.",
     "impacts": {
       "acd": 0.0023679591495248836,
       "cch": 0.11775182234863696,
@@ -8229,7 +8229,7 @@
   },
   {
     "name": "Oats, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Avoine (GLO)",
+    "displayName": "Avoine Hors UE Conv.",
     "impacts": {
       "acd": 0.024650204865553877,
       "cch": 0.4464079676110657,
@@ -8263,7 +8263,7 @@
   },
   {
     "name": "Spring oats, organic, national average, at feed plant {FR} U",
-    "displayName": "Avoine bio",
+    "displayName": "Avoine FR ou UE ou Hors UE bio",
     "impacts": {
       "acd": 0.006267191389247638,
       "cch": 0.3817506116004498,
@@ -8297,7 +8297,7 @@
   },
   {
     "name": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
-    "displayName": "Orge",
+    "displayName": "Orge FR Conv.",
     "impacts": {
       "acd": 0.006807770010082529,
       "cch": 0.4513772769631317,
@@ -8331,7 +8331,7 @@
   },
   {
     "name": "Barley, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Orge bio",
+    "displayName": "Orge FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0035796524134500607,
       "cch": 0.4005937327677237,
@@ -8365,7 +8365,7 @@
   },
   {
     "name": "Banana, consumption mix, organic 2023 {FR} U",
-    "displayName": "Banane bio",
+    "displayName": "Banane FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0066407207357957795,
       "cch": 0.30247921284934665,
@@ -8399,7 +8399,7 @@
   },
   {
     "name": "Orange, fresh grade, at farm, organic 2023 {ES}",
-    "displayName": "Orange bio",
+    "displayName": "Orange FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.005768503991809585,
       "cch": 0.13909701560365634,
@@ -8433,7 +8433,7 @@
   },
   {
     "name": "Lemon, organic 2023 {ES}| lemon production | Cut-off, U",
-    "displayName": "Citron bio",
+    "displayName": "Citron FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.002981317652974883,
       "cch": 0.07913186546514676,
@@ -8467,7 +8467,7 @@
   },
   {
     "name": "Celery, organic 2023 {GLO}| 675 production | Cut-off, U",
-    "displayName": "Céleri branche bio",
+    "displayName": "Céleri branche FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.005146371907084847,
       "cch": 0.40442901955846733,
@@ -8501,7 +8501,7 @@
   },
   {
     "name": "Olive, organic 2023 {ES}| olive production | Cut-off, U",
-    "displayName": "Olive bio",
+    "displayName": "Olive FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.006898832398388564,
       "cch": -0.2069417764300653,
@@ -8535,7 +8535,7 @@
   },
   {
     "name": "Peanut, organic 2023 {RoW}| peanut production | Cut-off, U",
-    "displayName": "Arachide avec coque bio",
+    "displayName": "Arachide avec coque FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.023424740612998252,
       "cch": 0.7413545104722375,
@@ -8569,7 +8569,7 @@
   },
   {
     "name": "Raspberry, at farm, organic 2023 {RS}",
-    "displayName": "Framboise bio",
+    "displayName": "Framboise FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.029057801279549485,
       "cch": 0.9966150729012154,
@@ -8603,7 +8603,7 @@
   },
   {
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Mâche bio",
+    "displayName": "Mâche FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0018842973210864205,
       "cch": 0.09701564738242113,
@@ -8637,7 +8637,7 @@
   },
   {
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Endive bio",
+    "displayName": "Endive FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0018842973210864205,
       "cch": 0.09701564738242113,
@@ -8671,7 +8671,7 @@
   },
   {
     "name": "Durum wheat grain, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Blé dur bio",
+    "displayName": "Blé dur FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.022008963474319042,
       "cch": 0.6578274092687503,
@@ -8705,7 +8705,7 @@
   },
   {
     "name": "Onion, national average, at farm, organic 2023 {FR} U",
-    "displayName": "Oignon bio",
+    "displayName": "Oignon FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0015617972633342105,
       "cch": 0.05397726820578519,
@@ -8739,7 +8739,7 @@
   },
   {
     "name": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati | Cut-off, U",
-    "displayName": "Riz basmati bio",
+    "displayName": "Riz basmati FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.011674880185445042,
       "cch": 1.37450957431954,
@@ -8773,7 +8773,7 @@
   },
   {
     "name": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
-    "displayName": "Orge (DE)",
+    "displayName": "Orge UE Conv.",
     "impacts": {
       "acd": 0.009201099926288295,
       "cch": 0.3965514827062877,
@@ -8807,7 +8807,7 @@
   },
   {
     "name": "Triticale, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Triricale bio",
+    "displayName": "Triricale FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0038559157592257115,
       "cch": 0.40469811140637985,
@@ -8841,7 +8841,7 @@
   },
   {
     "name": "Faba bean, grain stored and transported, processing {FR} U",
-    "displayName": "Pois",
+    "displayName": "Pois Hors UE Conv.",
     "impacts": {
       "acd": 0.0017779756205871487,
       "cch": 0.3050786396151419,
@@ -8875,7 +8875,7 @@
   },
   {
     "name": "Pea, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Pois bio",
+    "displayName": "Pois FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.002828402964302717,
       "cch": 0.35470452005486414,
@@ -8909,7 +8909,7 @@
   },
   {
     "name": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Luzerne bio",
+    "displayName": "Luzerne FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0011332667371946206,
       "cch": 0.20206117140902752,
@@ -8943,7 +8943,7 @@
   },
   {
     "name": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse | Cut-off, U",
-    "displayName": "Radis bio",
+    "displayName": "Radis FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0026363350189269334,
       "cch": 0.3395539011266822,
@@ -8977,7 +8977,7 @@
   },
   {
     "name": "Lentil, organic 2023 {RoW}| lentil production | Cut-off, U",
-    "displayName": "Lentilles bio",
+    "displayName": "Lentilles Hors FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.002225269210584907,
       "cch": 0.24656099500927842,
@@ -9011,7 +9011,7 @@
   },
   {
     "name": "Apricot, organic 2023 {FR}| apricot production | Cut-off, U",
-    "displayName": "Abricot bio",
+    "displayName": "Abricot FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0025099509005052176,
       "cch": 0.1164933372086132,
@@ -9045,7 +9045,7 @@
   },
   {
     "name": "Leek, national average, at plant, organic 2023 {FR} U",
-    "displayName": "Poireau bio",
+    "displayName": "Poireau FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.003365722974291201,
       "cch": 0.14721850603522063,
@@ -9079,7 +9079,7 @@
   },
   {
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
-    "displayName": "Cerise bio",
+    "displayName": "Cerise FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.014248119371462527,
       "cch": 0.8195124150451464,
@@ -9113,7 +9113,7 @@
   },
   {
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
-    "displayName": "Prune bio",
+    "displayName": "Prune FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.014248119371462527,
       "cch": 0.8195124150451464,
@@ -9147,7 +9147,7 @@
   },
   {
     "name": "Onion, national average, at farm, organic 2023 {FR} U",
-    "displayName": "Echalote bio",
+    "displayName": "Echalote FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0015617972633342105,
       "cch": 0.05397726820578519,
@@ -9181,7 +9181,7 @@
   },
   {
     "name": "Blueberry, at farm, organic 2023 {CA}",
-    "displayName": "Myrtille bio",
+    "displayName": "Myrtille FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.013091022106218075,
       "cch": 0.41533524659144755,
@@ -9215,7 +9215,7 @@
   },
   {
     "name": "Spinach, organic 2023 {GLO}| production | Cut-off, U",
-    "displayName": "Epinard bio",
+    "displayName": "Epinard FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0026455485277442096,
       "cch": 0.07677365987277705,
@@ -9249,7 +9249,7 @@
   },
   {
     "name": "Melon, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Pastèque bio",
+    "displayName": "Pastèque FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.0026969726634362085,
       "cch": 0.19376508353925986,
@@ -9283,7 +9283,7 @@
   },
   {
     "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "displayName": "Ensilage maïs FR",
+    "displayName": "Ensilage maïs FR Conv.",
     "impacts": {
       "acd": 0.008336508211740725,
       "cch": 0.23367583954236718,
@@ -9317,7 +9317,7 @@
   },
   {
     "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "displayName": "Ensilage maïs organic",
+    "displayName": "Ensilage maïs FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0.008336508211740725,
       "cch": 0.23367583954236718,
@@ -9351,7 +9351,7 @@
   },
   {
     "name": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
-    "displayName": "Soja FR",
+    "displayName": "Soja FR Conv.",
     "impacts": {
       "acd": 0.012012695738471394,
       "cch": 2.070304238449867,
@@ -9385,7 +9385,7 @@
   },
   {
     "name": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
-    "displayName": "Herbe de prairie temporaire",
+    "displayName": "Herbe de prairie temporaire FR Conv.",
     "impacts": {
       "acd": 0.006419477575067786,
       "cch": 0.19625574781032012,
@@ -9419,7 +9419,7 @@
   },
   {
     "name": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
-    "displayName": "Herbe de prairie permanente",
+    "displayName": "Herbe de prairie permanente FR Conv.",
     "impacts": {
       "acd": 0.003323440133128641,
       "cch": 0.06696181456841939,
@@ -9453,7 +9453,7 @@
   },
   {
     "name": "Cherry, at farm (WFLDB)",
-    "displayName": "Cerise hors UE par défaut",
+    "displayName": "Cerise Hors UE Conv.",
     "impacts": {
       "acd": 0.03010438487,
       "cch": 1.175226332,
@@ -9487,7 +9487,7 @@
   },
   {
     "name": "Palm oil, refined, processed in EU, at plant {RER} U",
-    "displayName": "Huile de palme (raffinée)",
+    "displayName": "Huile de palme (raffinée) UE Conv.",
     "impacts": {
       "acd": 0.020950451223366674,
       "cch": 5.357619118158384,
@@ -9521,7 +9521,7 @@
   },
   {
     "name": "Linseed oil, refined, at oil mill { FR} U",
-    "displayName": "Huile de lin (raffinée)",
+    "displayName": "Huile de lin (raffinée) FR Conv.",
     "impacts": {
       "acd": 0.05953305956408078,
       "cch": 2.950529801757351,
@@ -9555,7 +9555,7 @@
   },
   {
     "name": "Grapeseed oil, refined at plant {FR} U",
-    "displayName": "Huile de pépin de raisin (raffinée)",
+    "displayName": "Huile de pépin de raisin (raffinée) FR Conv.",
     "impacts": {
       "acd": 0.004406002807328771,
       "cch": 0.9800405255028847,
@@ -9589,7 +9589,7 @@
   },
   {
     "name": "Soybean oil, refined, at plant  {FR} U",
-    "displayName": "Huile de soja (raffinée)",
+    "displayName": "Huile de soja (raffinée) FR Conv.",
     "impacts": {
       "acd": 0.014939010307067508,
       "cch": 2.503937388070941,
@@ -9623,7 +9623,7 @@
   },
   {
     "name": "Hazelnut oil, crude, at plant {FR} U",
-    "displayName": "Huile de noisette (vierge)",
+    "displayName": "Huile de noisette (vierge) FR Conv.",
     "impacts": {
       "acd": 0.12150899856926985,
       "cch": 7.807134272306866,
@@ -9657,7 +9657,7 @@
   },
   {
     "name": "Peanut oil, at oil mill {SN} U",
-    "displayName": "Huile d'arachide (raffinée)",
+    "displayName": "Huile d'arachide (raffinée) Hors UE Conv.",
     "impacts": {
       "acd": 0.09353188784854635,
       "cch": 3.965722254358436,
@@ -9691,7 +9691,7 @@
   },
   {
     "name": "Sunflower oil, refined, low dehulling at plant {FR} U",
-    "displayName": "Huile de tournesol (raffinée)",
+    "displayName": "Huile de tournesol (raffinée) FR Conv.",
     "impacts": {
       "acd": 0.019688843859698824,
       "cch": 2.2518245534735626,
@@ -9725,7 +9725,7 @@
   },
   {
     "name": "Rapeseed oil, refined, at oil mill {FR} U",
-    "displayName": "Huile de colza (raffinée)",
+    "displayName": "Huile de colza (raffinée) FR Conv.",
     "impacts": {
       "acd": 0.03182394197724917,
       "cch": 1.958537389503113,
@@ -9759,7 +9759,7 @@
   },
   {
     "name": "Extra Virgin Olive Oil, at plant {ES} U",
-    "displayName": "Huile d'olive (extra vierge)",
+    "displayName": "Huile d'olive (extra vierge) UE Conv.",
     "impacts": {
       "acd": 0.03309023806288486,
       "cch": 0.15614785605476847,
