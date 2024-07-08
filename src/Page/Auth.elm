@@ -146,7 +146,7 @@ update session msg model =
         GotUserInfo (Ok user) ->
             ( { model | user = user }
             , session
-            , Session.login session (Authenticated user)
+            , Session.login user.token (Authenticated user)
             )
 
         GotUserInfo (Err err) ->
