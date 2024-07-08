@@ -13,6 +13,6 @@ type alias Request =
     { method : String
     , url : String
     , body : Encode.Value
-    , processes : StaticJson.Processes
+    , processes : StaticJson.RawJsonProcesses
     , jsResponseHandler : Encode.Value
     }

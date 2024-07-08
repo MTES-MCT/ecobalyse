@@ -35,7 +35,8 @@ import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
-import Static.Db as StaticDb exposing (AllProcessesJson, Db)
+import Static.Db as StaticDb exposing (Db)
+import Static.Json exposing (RawJsonProcesses)
 
 
 type alias Session =
@@ -287,16 +288,16 @@ updateStore update session =
     { session | store = update session.store }
 
 
-authenticated : Session -> User -> AllProcessesJson -> Session
-authenticated ({ store } as session) user { textileProcessesJson, foodProcessesJson } =
+authenticated : Session -> User -> RawJsonProcesses -> Session
+authenticated ({ store } as session) user { textileProcesses, foodProcesses } =
     let
         originalProcesses =
             StaticDb.processes
 
         newProcesses =
             { originalProcesses
-                | foodProcesses = foodProcessesJson
-                , textileProcesses = textileProcessesJson
+                | foodProcesses = foodProcesses
+                , textileProcesses = textileProcesses
             }
     in
     case StaticDb.db newProcesses of
