@@ -8,7 +8,7 @@ module Page.Auth exposing
 
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
-import Data.User exposing (User)
+import Data.User as User exposing (User)
 import Dict exposing (Dict)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -54,10 +54,6 @@ type alias Errors =
     Dict String String
 
 
-type alias Form a =
-    { a | next : String }
-
-
 type Response
     = Success String
     | Error String (Maybe Errors)
@@ -81,18 +77,6 @@ init session data =
 -- 2/ register:
 --    - ask for registration with email, firstname, lastname, cgu (company): should receive en email with a validation link
 --    - once the link in the email received is clicked, may not go through the login flow
-
-
-formFromUser : User -> Form User
-formFromUser user =
-    { email = user.email
-    , firstname = user.firstname
-    , lastname = user.lastname
-    , company = user.company
-    , cgu = user.cgu
-    , token = ""
-    , next = "/#/auth/authenticated"
-    }
 
 
 emptyModel : { authenticated : Bool } -> Model
@@ -119,7 +103,10 @@ update session msg model =
             , session
             , Http.post
                 { url = "/accounts/register/"
-                , body = Http.jsonBody (encodeUserForm (formFromUser model.user))
+                , body =
+                    User.form model.user
+                        |> User.encodeForm
+                        |> Http.jsonBody
                 , expect = Http.expectJson TokenEmailSent decodeResponse
                 }
             )
@@ -648,15 +635,3 @@ decodeResponse =
 encodeEmail : String -> Encode.Value
 encodeEmail email =
     Encode.object [ ( "email", Encode.string email ) ]
-
-
-encodeUserForm : Form User -> Encode.Value
-encodeUserForm user =
-    Encode.object
-        [ ( "email", Encode.string user.email )
-        , ( "first_name", Encode.string user.firstname )
-        , ( "last_name", Encode.string user.lastname )
-        , ( "organization", Encode.string user.company )
-        , ( "terms_of_use", Encode.bool user.cgu )
-        , ( "next", Encode.string user.next )
-        ]
