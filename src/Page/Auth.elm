@@ -8,7 +8,7 @@ module Page.Auth exposing
 
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
-import Data.User as User exposing (User)
+import Data.User exposing (User)
 import Dict exposing (Dict)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -16,6 +16,7 @@ import Html.Events exposing (..)
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Request.Auth
 import Request.Common as RequestCommon
 import Route
 import Views.Alert as Alert
@@ -35,7 +36,7 @@ type Msg
     = AskForRegistration
     | Authenticated User (Result Http.Error Session.AllProcessesJson)
     | ChangeAction Action
-    | GotUserInfo (Result Http.Error User)
+    | GotProfile (Result Http.Error User)
     | LoggedOut
     | Login
     | Logout
@@ -65,7 +66,7 @@ init : Session -> { authenticated : Bool } -> ( Model, Session, Cmd Msg )
 init session data =
     ( emptyModel data
     , session
-    , getUserInfo GotUserInfo
+    , Request.Auth.user GotProfile
     )
 
 
@@ -143,13 +144,13 @@ update session msg model =
             , Cmd.none
             )
 
-        GotUserInfo (Ok user) ->
+        GotProfile (Ok user) ->
             ( { model | user = user }
             , session
-            , Session.login user.token (Authenticated user)
+            , Request.Auth.processes user.token (Authenticated user)
             )
 
-        GotUserInfo (Err err) ->
+        GotProfile (Err err) ->
             ( { model | authenticated = False }
             , if model.authenticated then
                 -- We're here following a click on a login link in an email. If we failed, notify the user.
@@ -579,19 +580,6 @@ viewFormErrors maybeResponse =
 
 
 ---- helpers
-
-
-getUserInfo : (Result Http.Error User -> Msg) -> Cmd Msg
-getUserInfo event =
-    Http.riskyRequest
-        { method = "GET"
-        , headers = []
-        , url = "/accounts/profile/"
-        , body = Http.emptyBody
-        , expect = Http.expectJson event User.decode
-        , timeout = Nothing
-        , tracker = Nothing
-        }
 
 
 logout : Cmd Msg

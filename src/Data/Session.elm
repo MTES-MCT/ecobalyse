@@ -11,7 +11,6 @@ module Data.Session exposing
     , deserializeStore
     , getUser
     , isAuthenticated
-    , login
     , logout
     , notifyError
     , notifyInfo
@@ -32,7 +31,6 @@ import Data.Impact as Impact
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
 import Data.User as User exposing (User)
-import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
@@ -225,13 +223,6 @@ decodeAuth =
         |> JDP.required "foodProcesses" (FoodProcess.decodeList Impact.decodeImpacts)
 
 
-decodeAllProcessesJson : Decoder AllProcessesJson
-decodeAllProcessesJson =
-    Decode.succeed AllProcessesJson
-        |> JDP.required "textileProcesses" Decode.string
-        |> JDP.required "foodProcesses" Decode.string
-
-
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
@@ -325,19 +316,6 @@ type alias AllProcessesJson =
     { textileProcessesJson : String
     , foodProcessesJson : String
     }
-
-
-login : String -> (Result Http.Error AllProcessesJson -> msg) -> Cmd msg
-login token event =
-    Http.request
-        { method = "GET"
-        , url = "processes/processes.json"
-        , headers = [ Http.header "token" token ]
-        , body = Http.emptyBody
-        , expect = Http.expectJson event decodeAllProcessesJson
-        , timeout = Nothing
-        , tracker = Nothing
-        }
 
 
 logout : Session -> Session
