@@ -1,6 +1,5 @@
 module Data.Session exposing
-    ( AllProcessesJson
-    , Auth(..)
+    ( Auth(..)
     , Notification(..)
     , Session
     , Store
@@ -36,7 +35,7 @@ import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
-import Static.Db as StaticDb exposing (Db)
+import Static.Db as StaticDb exposing (AllProcessesJson, Db)
 
 
 type alias Session =
@@ -310,12 +309,6 @@ authenticated ({ store } as session) user { textileProcessesJson, foodProcessesJ
         Err err ->
             session
                 |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
-
-
-type alias AllProcessesJson =
-    { textileProcessesJson : String
-    , foodProcessesJson : String
-    }
 
 
 logout : Session -> Session
