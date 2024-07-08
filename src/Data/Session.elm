@@ -327,18 +327,12 @@ type alias AllProcessesJson =
     }
 
 
-login : Session -> (Result Http.Error AllProcessesJson -> msg) -> Cmd msg
-login { store } event =
+login : String -> (Result Http.Error AllProcessesJson -> msg) -> Cmd msg
+login token event =
     Http.request
         { method = "GET"
         , url = "processes/processes.json"
-        , headers =
-            case store.auth of
-                NotAuthenticated ->
-                    []
-
-                Authenticated { token } _ _ ->
-                    [ Http.header "token" token ]
+        , headers = [ Http.header "token" token ]
         , body = Http.emptyBody
         , expect = Http.expectJson event decodeAllProcessesJson
         , timeout = Nothing
