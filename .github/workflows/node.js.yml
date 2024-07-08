@@ -73,6 +73,9 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y gettext
 
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+
     - name: Build app
       run: npm run build --if-present
 
