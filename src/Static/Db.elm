@@ -1,5 +1,6 @@
 module Static.Db exposing
-    ( Db
+    ( AllProcessesJson
+    , Db
     , db
     , processes
     , updateEcotoxWeighting
@@ -25,6 +26,12 @@ type alias Db =
     , food : FoodDb.Db
     , countries : List Country
     , distances : Distances
+    }
+
+
+type alias AllProcessesJson =
+    { textileProcessesJson : String
+    , foodProcessesJson : String
     }
 
 

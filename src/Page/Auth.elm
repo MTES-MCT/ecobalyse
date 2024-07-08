@@ -19,6 +19,7 @@ import Json.Encode as Encode
 import Request.Auth
 import Request.Common as RequestCommon
 import Route
+import Static.Db exposing (AllProcessesJson)
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Markdown as Markdown
@@ -34,7 +35,7 @@ type alias Model =
 
 type Msg
     = AskForRegistration
-    | Authenticated User (Result Http.Error Session.AllProcessesJson)
+    | Authenticated User (Result Http.Error AllProcessesJson)
     | ChangeAction Action
     | GotProfile (Result Http.Error User)
     | LoggedOut

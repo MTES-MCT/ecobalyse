@@ -4,12 +4,7 @@ import Data.User as User exposing (User)
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
-
-
-type alias AllProcessesJson =
-    { textileProcessesJson : String
-    , foodProcessesJson : String
-    }
+import Static.Db exposing (AllProcessesJson)
 
 
 decodeAllProcessesJson : Decoder AllProcessesJson
