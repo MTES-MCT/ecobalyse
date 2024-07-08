@@ -9,3 +9,4 @@ styles.scss
 tests/e2e-*-output.json
 dist/
 Pipfile.lock
+.venv/
