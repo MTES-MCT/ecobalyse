@@ -51,7 +51,6 @@
     "dotenv": "^16.4.5",
     "elm": "^0.19.1-6",
     "express": "^4.19.2",
-    "fast-memoize": "^2.5.2",
     "helmet": "^7.1.0",
     "highcharts": "^11.4.0",
     "js-yaml": "^4.1.0",

@@ -1,7 +1,7 @@
 module Static.Db exposing
     ( Db
     , db
-    , processes
+    , decodeRawJsonProcesses
     , updateEcotoxWeighting
     , updateProcesses
     )
@@ -16,7 +16,9 @@ import Data.Textile.Db as TextileDb
 import Data.Textile.Process as TextileProcess
 import Data.Transport exposing (Distances)
 import Data.Unit as Unit
-import Static.Json as StaticJson
+import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as JDP
+import Static.Json as StaticJson exposing (RawJsonProcesses)
 
 
 type alias Db =
@@ -28,7 +30,7 @@ type alias Db =
     }
 
 
-db : StaticJson.Processes -> Result String Db
+db : StaticJson.RawJsonProcesses -> Result String Db
 db procs =
     StaticJson.db procs
         |> Result.andThen
@@ -43,14 +45,16 @@ db procs =
             )
 
 
+decodeRawJsonProcesses : Decoder RawJsonProcesses
+decodeRawJsonProcesses =
+    Decode.succeed RawJsonProcesses
+        |> JDP.required "foodProcesses" Decode.string
+        |> JDP.required "textileProcesses" Decode.string
+
+
 impactDefinitions : Result String Definitions
 impactDefinitions =
     Common.impactsFromJson StaticJson.impactsJson
-
-
-processes : StaticJson.Processes
-processes =
-    StaticJson.processes
 
 
 countries : TextileDb.Db -> Result String (List Country)

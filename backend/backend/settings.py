@@ -33,9 +33,6 @@ DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("DJANGO_SECRET_KEY", "dev_not_so_secret_key")
 
-# SECURITY WARNING: don't bypass auth in production
-BYPASS_AUTH = config("DJANGO_BYPASS_AUTH", cast=bool, default=False)
-
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
     f"{HOSTNAME},localhost,127.0.0.1",

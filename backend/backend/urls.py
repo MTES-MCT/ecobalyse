@@ -25,7 +25,8 @@ from .views import serve_directory
 urlpatterns = [
     path("admin/", admin_site.urls),
     path("accounts/", include("authentication.urls")),
-    path("processes/", include("processes.urls")),
+    # Localhost only calls, url not mapped to the nginx proxy
+    path("internal/", include("internal.urls")),
 ]
 
 if settings.DEBUG:

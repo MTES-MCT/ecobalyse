@@ -8,14 +8,13 @@ const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
-const memoize = require("fast-memoize");
 
 const app = express(); // web app
 const api = express(); // api app
-const host = "0.0.0.0";
-const express_port = 8001;
-const django_port = 8002;
-const max_memoize_age = 1000 * 60 * 24; // 24 hours memoization
+const expressHost = "0.0.0.0";
+const expressPort = 8001;
+const djangoHost = "127.0.0.1";
+const djangoPort = 8002;
 
 // Env vars
 const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
@@ -92,6 +91,42 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
 
+// Detailed processes files
+
+const textileImpactsFile = "public/data/textile/processes_impacts.json";
+const foodImpactsFile = "public/data/food/processes_impacts.json";
+const textileFile = "public/data/textile/processes.json";
+const foodFile = "public/data/food/processes.json";
+
+const processesImpacts = {
+  foodProcesses: fs.readFileSync(foodImpactsFile, "utf8"),
+  textileProcesses: fs.readFileSync(textileImpactsFile, "utf8"),
+};
+
+const processes = {
+  foodProcesses: fs.readFileSync(foodFile, "utf8"),
+  textileProcesses: fs.readFileSync(textileFile, "utf8"),
+};
+
+const getProcesses = async (token) => {
+  let isTokenValid = false;
+  if (token) {
+    const checkTokenUrl = `http://${djangoHost}:${djangoPort}/internal/check_token`;
+    const tokenRes = await fetch(checkTokenUrl, { headers: { token } });
+    isTokenValid = tokenRes.status == 200;
+  }
+
+  if (isTokenValid || process.env.NODE_ENV === "test") {
+    return processesImpacts;
+  } else {
+    return processes;
+  }
+};
+
+app.get("/processes/processes.json", async (req, res) => {
+  return res.status(200).send(await getProcesses(req.headers.token));
+});
+
 const elmApp = Elm.Server.init();
 
 elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
@@ -110,38 +145,15 @@ api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
-const getProcesses = async (token) => {
-  let headers = {};
-  if (token) {
-    headers["token"] = token;
-  }
-
-  const processesUrl = `http://127.0.0.1:${django_port}/processes/processes.json`;
-  const processesRes = await fetch(processesUrl, { headers: headers });
-  const processes = await processesRes.json();
-  return { processes: processes, status: processesRes.status };
-};
-
-const memoizedGetProcesses = memoize(getProcesses, { maxAge: max_memoize_age });
-
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
-  let result;
-  try {
-    result = await memoizedGetProcesses(req.headers.token);
-    if (result.status != 200) {
-      return res.status(result.status).send(result.processes);
-    }
-  } catch (err) {
-    console.error(err.message);
-    return res.status(500).send("Error while retrieving the processes");
-  }
+  const processes = await getProcesses(req.headers.token);
 
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
     body: req.body,
-    processes: result.processes,
+    processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
       res.status(status).send(body);
@@ -158,8 +170,8 @@ if (SENTRY_DSN) {
   app.use(Sentry.Handlers.errorHandler());
 }
 
-const server = app.listen(express_port, host, () => {
-  console.log(`Server listening at http://${host}:${express_port}`);
+const server = app.listen(expressPort, expressHost, () => {
+  console.log(`Server listening at http://${expressHost}:${expressPort}`);
 });
 
 module.exports = server;
