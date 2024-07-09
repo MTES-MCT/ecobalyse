@@ -81,7 +81,4 @@ jobs:
       run: npm run test:client
 
     - name: Run server tests
-      env:
-        DJANGO_BYPASS_AUTH: True
-        ENCRYPTION_KEY: my_secret_encryptionkey_changeit
       run: pipenv run backend/update.sh && npm run test:server-ci && npm run test:backend
