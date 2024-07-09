@@ -8,7 +8,6 @@ const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
-const { encrypt } = require("./lib/crypto");
 
 const app = express(); // web app
 const api = express(); // api app

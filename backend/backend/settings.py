@@ -31,9 +31,6 @@ HOSTNAME = "ecobalyse.beta.gouv.fr"
 DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-ENCRYPTION_KEY = config("ENCRYPTION_KEY", "dev_not_so_secret_key")
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("DJANGO_SECRET_KEY", "dev_not_so_secret_key")
 
 ALLOWED_HOSTS = config(
