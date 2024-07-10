@@ -2,6 +2,7 @@ import json
 import logging
 import pathlib
 import sys
+import uuid
 from contextlib import contextmanager
 from datetime import datetime
 from enum import StrEnum
@@ -26,6 +27,7 @@ class Domain(StrEnum):
 
 EXAMPLES_KEY = "examples"
 API_ENDPOINT_KEY = "api_endpoint"
+INGREDIENTS_KEY = "ingredients"
 
 DOMAIN_DATA = {
     Domain.TEXTILE: {
@@ -35,6 +37,7 @@ DOMAIN_DATA = {
     Domain.FOOD: {
         EXAMPLES_KEY: f"{PROJECT_ROOT_DIR}public/data/food/examples.json",
         API_ENDPOINT_KEY: "/api/food/",
+        INGREDIENTS_KEY: f"{PROJECT_ROOT_DIR}public/data/food/ingredients.json",
     },
 }
 
@@ -240,7 +243,7 @@ def process_response_food(branch_name, example, normalization_factors, last_comm
     """
 
     lifecycle_step_impact_paths = {
-        "ingredients": ["recipe", "ingredientsTotal"],
+        "ingredients": ["recipe"],
         "transformation": ["recipe", "transform"],
         "packaging": ["packaging"],
         "preparation": ["preparation"],
@@ -305,7 +308,11 @@ def create_df_food(
                     query, mass, elements, lifecycle step and country, impact indices, values,
                     and normalized impact values expressed in 'ecs' units.
     """
-    impacts_sr = pd.Series(impacts, dtype="float64")
+    if lifecycle_step == "ingredients":
+        impacts_sr = pd.Series(impacts["ingredientsTotal"], dtype="float64")
+    else:
+        impacts_sr = pd.Series(impacts, dtype="float64")
+
     data = {
         "datetime": TODAY_DATETIME_STR,
         "branch": branch,
@@ -323,6 +330,28 @@ def create_df_food(
     }
     df = pd.DataFrame(data)
     df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
+
+    # For the ingredients we have to store the complements
+    if lifecycle_step == "ingredients":
+        complementsImpacts = pd.Series(impacts["totalBonusImpact"])
+        data_complements = {
+            "datetime": TODAY_DATETIME_STR,
+            "branch": branch,
+            "commit": commit_id,
+            "domain": "food",
+            "product_name": example["name"],
+            "id": example["id"],
+            "query": json.dumps(example["query"]),
+            "mass": example["response"]["results"]["preparedMass"],
+            "elements": json.dumps(example["query"]["ingredients"]),
+            "lifecycle_step": lifecycle_step,
+            "lifecycle_step_country": "",
+            "impact": complementsImpacts.index.tolist(),
+            "value": 0,
+            "norm_value_ecs": complementsImpacts.values.tolist(),
+        }
+        df_complements = pd.DataFrame(data_complements)
+        df = pd.concat([df, df_complements], axis=0, ignore_index=True)
     return df
 
 
@@ -493,6 +522,26 @@ def compute_products_scores_for_examples(examples, api_url):
     return computed_scores
 
 
+def add_all_ingredients_as_examples(examples_input):
+    """
+    Add all ingredients to the list of examples. Thanks to this we can notice the evolution of impacts of all ingredients. We could add all these ingredients as food product examples but we don't as this would be overwhelming of the UI user.
+    """
+    new_examples_input = list(examples_input)
+    ingredients = load_json(DOMAIN_DATA[domain][INGREDIENTS_KEY])
+    visible_ingredients = [ingr for ingr in ingredients if ingr["visible"]]
+    for ingredient in visible_ingredients:
+        ingredient_id = ingredient["id"]
+        new_example = {
+            "id": str(uuid.uuid5(uuid.NAMESPACE_DNS, ingredient_id)),
+            "name": f"{ingredient_id}",
+            "category": "raw_ingredient",
+            "query": {"ingredients": [{"id": ingredient_id, "mass": 1000}]},
+        }
+        new_examples_input.append(new_example)
+
+    return new_examples_input
+
+
 if __name__ == "__main__":
     api_url, current_branch, last_commit, scalingo_postgresql_score_url = (
         get_arguments()
@@ -515,8 +564,13 @@ if __name__ == "__main__":
             example_path = DOMAIN_DATA[domain][EXAMPLES_KEY]
             api_endpoint = DOMAIN_DATA[domain][API_ENDPOINT_KEY]
 
+            examples_input = load_json(example_path)
+
+            if domain == Domain.FOOD:
+                examples_input = add_all_ingredients_as_examples(examples_input)
+
             examples = compute_products_scores_for_examples(
-                load_json(example_path), f"{api_url}{api_endpoint}"
+                examples_input, f"{api_url}{api_endpoint}"
             )
 
             new_score_df = get_new_score(domain, examples, current_branch, last_commit)
