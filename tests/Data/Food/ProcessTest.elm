@@ -12,7 +12,7 @@ suite =
         (\{ food } ->
             [ describe "findByCode"
                 [ food.processes
-                    |> Process.findByIdentifier (Process.codeFromString "AGRIBALU000000003102592")
+                    |> Process.findByIdentifier (Process.identifierFromString "AGRIBALU000000003102592")
                     |> Result.map (.name >> Process.nameToString)
                     |> Expect.equal (Ok "Carrot, conventional, national average, at farm gate {FR} U")
                     |> asTest "should find a process by its identifier"

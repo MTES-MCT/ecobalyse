@@ -216,7 +216,7 @@ setIdFromString idString dataset =
             FoodIngredients (Just (Ingredient.idFromString idString))
 
         FoodProcesses _ ->
-            FoodProcesses (Just (FoodProcess.codeFromString idString))
+            FoodProcesses (Just (FoodProcess.identifierFromString idString))
 
         TextileExamples _ ->
             TextileExamples (Uuid.fromString idString)
@@ -292,7 +292,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         FoodProcesses (Just id) ->
-            [ slug dataset, FoodProcess.codeToString id ]
+            [ slug dataset, FoodProcess.identifierToString id ]
 
         Impacts Nothing ->
             [ slug dataset ]

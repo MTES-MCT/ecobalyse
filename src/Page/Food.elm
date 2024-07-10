@@ -705,6 +705,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
             SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
     , toId = .id >> Ingredient.idToString
     , toString = .name
+    , toTooltip = .default >> .name >> Process.nameToString
     , update =
         \_ newElement ->
             UpdateIngredient
@@ -1005,7 +1006,11 @@ packagingListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html M
 packagingListView db selectedImpact recipe results =
     let
         availablePackagings =
-            Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.food.processes
+            db.food.processes
+                |> Recipe.availablePackagings
+                    (recipe.packaging
+                        |> List.map (.process >> .identifier)
+                    )
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1040,14 +1045,14 @@ packagingListView db selectedImpact recipe results =
                             { processes =
                                 db.food.processes
                                     |> Process.listByCategory Process.Packaging
-                            , excluded = recipe.packaging |> List.map (.process >> .code)
-                            , processQuery = { code = packaging.process.code, mass = packaging.mass }
+                            , excluded = recipe.packaging |> List.map (.process >> .identifier)
+                            , processQuery = { code = packaging.process.identifier, mass = packaging.mass }
                             , impact =
                                 packaging
                                     |> Recipe.computeProcessImpacts
                                     |> Format.formatImpact selectedImpact
-                            , updateEvent = UpdatePackaging packaging.process.code
-                            , deleteEvent = DeletePackaging packaging.process.code
+                            , updateEvent = UpdatePackaging packaging.process.identifier
+                            , deleteEvent = DeletePackaging packaging.process.identifier
                             }
                     )
          )
@@ -1373,16 +1378,16 @@ processSelectorView :
 processSelectorView selectedCode event excluded processes =
     select
         [ class "form-select form-select"
-        , onInput (Process.codeFromString >> event)
+        , onInput (Process.identifierFromString >> event)
         ]
         (processes
             |> List.sortBy (\process -> Process.getDisplayName process)
             |> List.map
                 (\process ->
                     option
-                        [ selected <| selectedCode == process.code
-                        , value <| Process.codeToString process.code
-                        , disabled <| List.member process.code excluded
+                        [ selected <| selectedCode == process.identifier
+                        , value <| Process.identifierToString process.identifier
+                        , disabled <| List.member process.identifier excluded
                         ]
                         [ text <| Process.getDisplayName process ]
                 )
@@ -1490,8 +1495,8 @@ transformView db selectedImpact recipe results =
                     { processes =
                         db.food.processes
                             |> Process.listByCategory Process.Transform
-                    , excluded = [ transform.process.code ]
-                    , processQuery = { code = transform.process.code, mass = transform.mass }
+                    , excluded = [ transform.process.identifier ]
+                    , processQuery = { code = transform.process.identifier, mass = transform.mass }
                     , impact = impact
                     , updateEvent = UpdateTransform
                     , deleteEvent = ResetTransform

@@ -163,7 +163,7 @@ encodeProduct { id, name } =
 encodeFoodProcess : FoodProcess.Process -> Encode.Value
 encodeFoodProcess process =
     Encode.object
-        [ ( "code", process.code |> FoodProcess.codeToString |> Encode.string )
+        [ ( "code", process.identifier |> FoodProcess.identifierToString |> Encode.string )
         , ( "name", process |> FoodProcess.getDisplayName |> Encode.string )
         ]
 

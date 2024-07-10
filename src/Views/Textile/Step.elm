@@ -702,6 +702,7 @@ createElementSelectorConfig cfg materialInput =
                 }
     , toId = .id >> Material.idToString
     , toString = .shortName
+    , toTooltip = .materialProcess >> .name
     , update =
         \_ newElement ->
             cfg.updateMaterial

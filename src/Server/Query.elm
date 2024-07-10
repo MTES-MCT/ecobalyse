@@ -149,8 +149,8 @@ countryParser countries scope countryStr =
 foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Identifier
 foodProcessCodeParser processes string =
     processes
-        |> FoodProcess.findByIdentifier (FoodProcess.codeFromString string)
-        |> Result.map .code
+        |> FoodProcess.findByIdentifier (FoodProcess.identifierFromString string)
+        |> Result.map .identifier
 
 
 packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List BuilderQuery.ProcessQuery))
