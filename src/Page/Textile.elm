@@ -1165,6 +1165,7 @@ view session model =
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
+                                , footer = []
                                 , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteMaterial
                                 , onAutocompleteSelect = OnAutocompleteSelect
@@ -1206,6 +1207,7 @@ view session model =
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
+                                , footer = []
                                 , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteExample
                                 , onAutocompleteSelect = OnAutocompleteSelect
@@ -1219,6 +1221,16 @@ view session model =
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
+                                , footer =
+                                    [ a
+                                        [ class "d-flex justify-content-between gap-2 align-items-center btn btn-primary"
+                                        , href "https://forms.gle/JY6QYMppqRTiCM6g8"
+                                        , target "_blank"
+                                        ]
+                                        [ Icon.plus
+                                        , text "Suggérer une nouvelle catégorie"
+                                        ]
+                                    ]
                                 , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteProduct
                                 , onAutocompleteSelect = OnAutocompleteSelect
