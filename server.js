@@ -25,6 +25,16 @@ if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATO
   process.exit(1);
 }
 
+if (process.env.NODE_ENV === "test") {
+  if (!process.env.TEXTILE_PROCESSES_IMPACTS_PATH || !process.env.FOOD_PROCESSES_IMPACTS_PATH) {
+    console.error(
+      "\n🚨 ERROR: For the tests to work properly, you need to specify FOOD_PROCESSES_IMPACTS_PATH and TEXTILE_PROCESSES_IMPACTS_PATH env variables. They need to point to the detailed versions of the processes files. Please, edit your .env file accordingly.",
+    );
+    console.error("-> Exiting the test process.\n");
+    process.exit(1);
+  }
+}
+
 // Sentry
 if (SENTRY_DSN) {
   Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0.1 });
@@ -93,10 +103,22 @@ const apiTracker = lib.setupTracker(openApiContents);
 
 // Detailed processes files
 
-const textileImpactsFile = "public/data/textile/processes_impacts.json";
-const foodImpactsFile = "public/data/food/processes_impacts.json";
+let textileImpactsFile =
+  process.env.TEXTILE_PROCESSES_IMPACTS_PATH || "public/data/textile/processes_impacts.json";
+let foodImpactsFile =
+  process.env.FOOD_PROCESSES_IMPACTS_PATH || "public/data/food/processes_impacts.json";
 const textileFile = "public/data/textile/processes.json";
 const foodFile = "public/data/food/processes.json";
+
+// If detailed impacts files doesn't exist,
+// we should default to the non detailed files
+if (!fs.existsSync(textileImpactsFile)) {
+  textileImpactsFile = textileFile;
+}
+
+if (!fs.existsSync(foodImpactsFile)) {
+  foodImpactsFile = foodFile;
+}
 
 const processesImpacts = {
   foodProcesses: fs.readFileSync(foodImpactsFile, "utf8"),
