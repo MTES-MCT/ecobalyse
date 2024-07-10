@@ -1,7 +1,7 @@
 [
   {
     "id": "egg-bleublanccoeur",
-    "name": "Oeuf Bleu-Blanc-Cœur",
+    "name": "Oeuf Bleu-Blanc-Cœur FR Conv.",
     "categories": ["animal_product", "bleublanccoeur"],
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "default": "AGRIBALU000000003105149",
@@ -23,7 +23,7 @@
   },
   {
     "id": "milk",
-    "name": "Lait FR",
+    "name": "Lait FR Conv.",
     "categories": ["dairy_product"],
     "search": "Cow milk national average at farm gate",
     "default": "AGRIBALU000000003104145",
@@ -45,7 +45,7 @@
   },
   {
     "id": "milk-organic",
-    "name": "Lait bio",
+    "name": "Lait FR ou UE ou Hors UE Bio",
     "categories": ["dairy_product", "organic"],
     "search": "cow milk organic national average",
     "default": "843986b19b3ea959b8817afda669dead",
@@ -67,7 +67,7 @@
   },
   {
     "id": "carrot-organic",
-    "name": "Carotte bio",
+    "name": "Carotte FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "default": "carrot-organic",
@@ -88,7 +88,7 @@
   },
   {
     "id": "flour",
-    "name": "Farine",
+    "name": "Farine UE Conv.",
     "categories": ["grain_processed"],
     "search": "Wheat flour at industrial mill",
     "default": "AGRIBALU000000003116999",
@@ -109,7 +109,7 @@
   },
   {
     "id": "flour-organic",
-    "name": "Farine bio",
+    "name": "Farine FR ou UE ou Hors UE Bio",
     "categories": ["grain_processed", "organic"],
     "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
     "default": "4a9ea0a29fbde60e2d1fc5c33d8a4f3a",
@@ -130,7 +130,7 @@
   },
   {
     "id": "sunflower-organic",
-    "name": "Tournesol bio",
+    "name": "Tournesol FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Sunflower grain, consumption mix, organic 2023 {FR}",
     "default": "sunflower-organic",
@@ -151,7 +151,7 @@
   },
   {
     "id": "sunflower-feed-organic",
-    "name": "Tournesol bio",
+    "name": "Tournesol FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Sunflower, organic, animal feed, at farm gate {FR}",
     "default": "AGRIBALU000000003115221",
@@ -172,7 +172,7 @@
   },
   {
     "id": "rapeseed-organic",
-    "name": "Colza bio",
+    "name": "Colza FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Winter rapeseed, organic, at farm gate {FR}",
     "default": "AGRIBALU000024985200196",
@@ -193,7 +193,7 @@
   },
   {
     "id": "ground-beef",
-    "name": "Boeuf haché FR (cru)",
+    "name": "Boeuf haché cru FR Conv.",
     "categories": ["animal_product"],
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "default": "AGRIBALU000000003107081",
@@ -215,7 +215,7 @@
   },
   {
     "id": "ground-beef-organic",
-    "name": "Boeuf haché bio (cru)",
+    "name": "Boeuf haché cru FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Ground beef fresh case ready for direct consumption at plant organic, constructed by Ecobalyse",
     "default": "67f1a99d8093f1b2b3e4e7f8b292953c",
@@ -237,7 +237,7 @@
   },
   {
     "id": "ground-beef-feedlot",
-    "name": "Boeuf haché hors UE par défaut (cru)",
+    "name": "Boeuf haché cru Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "Ground beef fresh case ready for direct consumption at plant feedlot, constructed by Ecobalyse",
     "default": "6fcaacd84b90aec94cf924041ff09fc9",
@@ -259,7 +259,7 @@
   },
   {
     "id": "ground-beef-grass-fed",
-    "name": "Boeuf haché FR (cru) - v. de réforme 100% herbe",
+    "name": "Boeuf haché cru - v. de réforme 100% herbe FR Conv.",
     "categories": ["animal_product", "organic"],
     "search": "Ground beef fresh case ready for direct consumption at plant [grass-fed], constructed by Ecobalyse",
     "default": "51c8f8e74c9ade89850e7b4b8a4efc59",
@@ -281,7 +281,7 @@
   },
   {
     "id": "cooked-ham",
-    "name": "Jambon cuit FR",
+    "name": "Jambon cuit FR Conv.",
     "categories": ["animal_product"],
     "search": "Cooked ham case ready at plant",
     "default": "AGRIBALU000000003103910",
@@ -303,7 +303,7 @@
   },
   {
     "id": "cooked-ham-organic",
-    "name": "Jambon cuit bio",
+    "name": "Jambon cuit FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Cooked ham case ready at plant organic, constructed by Ecobalyse",
     "default": "3fc68b77b276cfc781ed546ec32b84f5",
@@ -325,7 +325,7 @@
   },
   {
     "id": "cooked-ham-fr",
-    "name": "Jambon cuit FR (alim. ani. 100%FR)",
+    "name": "Jambon cuit (alim. ani. 100%FR) FR Conv.",
     "categories": ["animal_product"],
     "search": "Cooked ham case ready at plant fr, constructed by Ecobalyse",
     "default": "bbbce945e38218c05c671aa17bcedbe2",
@@ -347,7 +347,7 @@
   },
   {
     "id": "chicken-breast",
-    "name": "Blanc de poulet FR (cru)",
+    "name": "Blanc de poulet cru FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone chicken for direct consumption",
     "default": "AGRIBALU000000003109221",
@@ -369,7 +369,7 @@
   },
   {
     "id": "chicken-breast-organic",
-    "name": "Blanc de poulet bio (cru)",
+    "name": "Blanc de poulet cru FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Meat without bone chicken for direct consumption organic, constructed by Ecobalyse",
     "default": "d41682caea2d55a3b95173f276b9d903",
@@ -391,7 +391,7 @@
   },
   {
     "id": "chicken-breast-fr-organic",
-    "name": "Blanc de poulet bio (alim. ani. 100%FR)",
+    "name": "Blanc de poulet cru (alim. ani. 100%FR) FR ou UE ou Hors UE Bio ",
     "categories": ["animal_product", "organic"],
     "search": "Meat without bone chicken for direct consumption \"fr-organic\" constructed by Ecobalyse",
     "default": "fc9b8a819a1ba51b4fbca210d0771198",
@@ -413,7 +413,7 @@
   },
   {
     "id": "rapeseed-oil",
-    "name": "Huile de colza",
+    "name": "Huile de colza Hors UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Rapeseed oil mill {GLO}",
     "default": "AGRIBALU000000003112448",
@@ -434,7 +434,7 @@
   },
   {
     "id": "rapeseed-oil-organic",
-    "name": "Huile de colza bio",
+    "name": "Huile de colza FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_processed", "organic"],
     "search": "Rapeseed oil mill {GLO} organic, constructed by Ecobalyse",
     "default": "425b95709f7882fa60c6b42f3add1873",
@@ -455,7 +455,7 @@
   },
   {
     "id": "sunflower-oil",
-    "name": "Huile de tournesol",
+    "name": "Huile de tournesol Hors UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "sunflower oil at mill {glo}",
     "default": "AGRIBALU000000003115182",
@@ -476,7 +476,7 @@
   },
   {
     "id": "sunflower-oil-organic",
-    "name": "Huile de tournesol bio",
+    "name": "Huile de tournesol FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_processed", "organic"],
     "search": "sunflower oil at mill {glo} organic, constructed by Ecobalyse",
     "default": "2735a9eb9848c97f9e70fd94f051fb2a",
@@ -497,7 +497,7 @@
   },
   {
     "id": "zucchini-organic",
-    "name": "Courgette bio",
+    "name": "Courgette FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Zucchini, springtime, under tunnel, organic, at farm gate {FR}",
     "default": "AGRIBALU000024985200219",
@@ -518,7 +518,7 @@
   },
   {
     "id": "peach-organic",
-    "name": "Pêche bio",
+    "name": "Pêche FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Peach, organic, national average, at orchard {FR} U",
     "default": "AGRIBALU000000003110947",
@@ -539,7 +539,7 @@
   },
   {
     "id": "melon-organic",
-    "name": "Melon bio",
+    "name": "Melon FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Melon, organic, at farm gate FR",
     "default": "AGRIBALU000024985200102",
@@ -560,7 +560,7 @@
   },
   {
     "id": "butter",
-    "name": "Beurre FR",
+    "name": "Beurre FR Conv.",
     "categories": ["dairy_product"],
     "search": "Butter, 82% fat, unsalted, at dairy {FR}",
     "default": "AGRIBALU000000003102321",
@@ -575,7 +575,7 @@
   },
   {
     "id": "butter-organic",
-    "name": "Beurre bio",
+    "name": "Beurre FR ou UE ou Hors UE Bio",
     "categories": ["dairy_product", "organic"],
     "search": "Butter, 82% fat, unsalted, at dairy {FR} organic, constructed by Ecobalyse",
     "default": "4ada2b1db5db813770f5ec73a5b1c109",
@@ -590,7 +590,7 @@
   },
   {
     "id": "tap-water",
-    "name": "Eau du robinet",
+    "name": "Eau du robinet UE Conv.",
     "categories": [],
     "search": "Tap water Europe market",
     "default": "AGRIBALU000000003115449",
@@ -605,7 +605,7 @@
   },
   {
     "id": "comte-aop",
-    "name": "Comté AOP",
+    "name": "Comté FR AOP Conv.",
     "categories": ["dairy_product"],
     "search": "code:b9b650a42442d76be26feb783620f123",
     "default": "AGRIBALU000000003103732",
@@ -620,7 +620,7 @@
   },
   {
     "id": "emmental",
-    "name": "Emmental",
+    "name": "Emmental FR Conv.",
     "categories": ["dairy_product"],
     "search": "code:3d72c918ca829647072bab92542bb70e",
     "default": "AGRIBALU000000003105529",
@@ -635,7 +635,7 @@
   },
   {
     "id": "mozzarella",
-    "name": "Mozzarella",
+    "name": "Mozzarella FR Conv.",
     "categories": ["dairy_product"],
     "search": "code:5f9448ee99cd739447359929e9c869d3",
     "default": "AGRIBALU000000003110032",
@@ -650,7 +650,7 @@
   },
   {
     "id": "beetroot-organic",
-    "name": "Betterave rouge bio",
+    "name": "Betterave rouge FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "default": "beetroot-organic",
@@ -671,7 +671,7 @@
   },
   {
     "id": "celeriac-organic",
-    "name": "Céleri-rave bio",
+    "name": "Céleri-rave FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "default": "celeriac-organic",
@@ -692,7 +692,7 @@
   },
   {
     "id": "turnip-organic",
-    "name": "Navet bio",
+    "name": "Navet FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Carrot, organic, Lower Normandy, at farm gate",
     "default": "AGRIBALU000000003102611",
@@ -713,7 +713,7 @@
   },
   {
     "id": "chickpea-organic",
-    "name": "Pois chiche bio",
+    "name": "Pois chiche FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "default": "AGRIBALU000024985200193",
@@ -734,7 +734,7 @@
   },
   {
     "id": "bellpepper-unheated-greenhouse",
-    "name": "Poivron sous serre non chauffée",
+    "name": "Poivron sous serre non chauffée FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
     "default": "AGRIBALU000000003101321",
@@ -755,7 +755,7 @@
   },
   {
     "id": "soybean-humanconsumption",
-    "name": "Soja FR",
+    "name": "Soja FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Soybean, national average, animal feed, at farm gate {FR} U",
     "default": "AGRIBALU000024985200128",
@@ -776,7 +776,7 @@
   },
   {
     "id": "soybean-organic",
-    "name": "Soja FR bio",
+    "name": "Soja FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "soybean organic animal {FR}",
     "default": "AGRIBALU000000003114674",
@@ -797,7 +797,7 @@
   },
   {
     "id": "soybean-br-no-deforestation",
-    "name": "Soja BR (non déforestant)",
+    "name": "Soja (non déforestant) Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
     "default": "AGRIBALU000024985200001",
@@ -818,7 +818,7 @@
   },
   {
     "id": "soybean-br-deforestation",
-    "name": "Soja BR déforestant",
+    "name": "Soja déforestant Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Soybean {BR}| market for soybean | Cut-off, U copied from Ecoinvent",
     "default": "AGRIBALU000024985200302",
@@ -839,7 +839,7 @@
   },
   {
     "id": "soybean-feed",
-    "name": "Soja feed",
+    "name": "Soja feed Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Soybean grain dried, stored and transported, processing {FR}",
     "default": "AGRIBALU000000003114580",
@@ -860,7 +860,7 @@
   },
   {
     "id": "sausage-meat",
-    "name": "Chair à saucisse FR (crue)",
+    "name": "Chair à saucisse crue FR Conv.",
     "categories": ["animal_product"],
     "search": "Sausage meat, raw, at plant {FR} U",
     "default": "AGRIBALU000000003113461",
@@ -875,7 +875,7 @@
   },
   {
     "id": "sausage-toulouse",
-    "name": "Saucisse de Toulouse (crue)",
+    "name": "Saucisse de Toulouse (crue) FR Conv.",
     "categories": ["animal_product"],
     "search": "Toulouse sausage, raw, at plant {FR} U",
     "default": "AGRIBALU000000003115859",
@@ -890,7 +890,7 @@
   },
   {
     "id": "sausage-toulouse-cooked",
-    "name": "Saucisse de Toulouse (cuite)",
+    "name": "Saucisse de Toulouse (cuite) FR Conv.",
     "categories": ["animal_product"],
     "search": "Toulouse sausage, cooked, at plant {FR} U",
     "default": "AGRIBALU000000003115854",
@@ -905,7 +905,7 @@
   },
   {
     "id": "sausage-tofu",
-    "name": "Saucisse végétale tofu",
+    "name": "Saucisse végétale tofu FR Conv.",
     "categories": [],
     "search": "Plant-based sausage with tofu (vegan), at plant {FR} U \t",
     "default": "AGRIBALU000000003111467",
@@ -920,7 +920,7 @@
   },
   {
     "id": "tomato-paste",
-    "name": "Purée de tomates",
+    "name": "Purée de tomates Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003115655",
@@ -941,7 +941,7 @@
   },
   {
     "id": "tomato-concentrated",
-    "name": "Concentré de tomates",
+    "name": "Concentré de tomates Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO}",
     "default": "AGRIBALU000000003115656",
@@ -962,7 +962,7 @@
   },
   {
     "id": "beef-with-bone",
-    "name": "Viande de boeuf avec os FR (crue)",
+    "name": "Viande de boeuf avec os (crue) FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat with bone, beef, for direct consumption",
     "default": "AGRIBALU000000003109214",
@@ -984,7 +984,7 @@
   },
   {
     "id": "beef-without-bone",
-    "name": "Viande de boeuf sans os FR (crue)",
+    "name": "Viande de boeuf sans os (crue) FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone, beef, for direct consumption",
     "default": "AGRIBALU000000003109219",
@@ -1006,7 +1006,7 @@
   },
   {
     "id": "beef-without-bone-organic",
-    "name": "Viande de boeuf sans os bio (crue)",
+    "name": "Viande de boeuf sans os FR ou UE ou Hors UE Bio (crue)",
     "categories": ["animal_product"],
     "search": "Meat without bone, beef, for direct consumption organic constructed",
     "default": "f66ba18359adc61e5988ed8a7cf24b3e",
@@ -1028,7 +1028,7 @@
   },
   {
     "id": "durum-wheat-semolina",
-    "name": "Semoule de blé dur",
+    "name": "Semoule de blé dur FR Conv.",
     "categories": ["grain_processed"],
     "search": "Durum wheat, semolina, at plant {FR} U",
     "default": "AGRIBALU000000003105079",
@@ -1049,7 +1049,7 @@
   },
   {
     "id": "sugar",
-    "name": "Sucre de betterave",
+    "name": "Sucre de betterave FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "sugar",
     "default": "AGRIBALU000000003109942",
@@ -1070,7 +1070,7 @@
   },
   {
     "id": "dark-chocolate",
-    "name": "Chocolat noir",
+    "name": "Chocolat noir UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "chocolate dark",
     "default": "AGRIBALU000000003104662",
@@ -1085,7 +1085,7 @@
   },
   {
     "id": "chicken-breast-br-max",
-    "name": "Blanc de poulet hors UE (alim. ani. 100%BR)",
+    "name": "Blanc de poulet cru (alim. ani. 100%BR) Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
     "default": "b9f380cbd26fef2f30b16cbe06edd732",
@@ -1107,7 +1107,7 @@
   },
   {
     "id": "chicken-breast-fr",
-    "name": "Blanc de poulet FR (alim. ani. 100%FR)",
+    "name": "Blanc de poulet cru (alim. ani. 100%FR) FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone chicken for direct consumption fr constructed by Ecobalyse",
     "default": "862a53ceeeaf072c8528a71d2fa6a027",
@@ -1129,7 +1129,7 @@
   },
   {
     "id": "cane-sugar",
-    "name": "Sucre de canne",
+    "name": "Sucre de canne Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "brown sugar",
     "default": "AGRIBALU000000003102182",
@@ -1150,7 +1150,7 @@
   },
   {
     "id": "tea-dried",
-    "name": "Thé (feuilles)",
+    "name": "Thé (feuilles) UE Conv.",
     "categories": ["misc"],
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
     "default": "AGRIBALU000000003115509",
@@ -1171,7 +1171,7 @@
   },
   {
     "id": "coffee-ground",
-    "name": "Café (moulu)",
+    "name": "Café moulu Hors UE Conv.",
     "categories": ["misc"],
     "search": "Coffee, roast and ground, at plant",
     "default": "AGRIBALU000000003103623",
@@ -1192,7 +1192,7 @@
   },
   {
     "id": "black-pepper",
-    "name": "Poivre noir ",
+    "name": "Poivre noir Hors UE Conv.",
     "categories": ["spice_condiment_additive"],
     "search": "Black pepper, dried, consumption mix",
     "default": "AGRIBALU000000003101545",
@@ -1213,7 +1213,7 @@
   },
   {
     "id": "milk-powder",
-    "name": "Poudre de lait écrémé",
+    "name": "Poudre de lait écrémé FR Conv.",
     "categories": ["dairy_product"],
     "search": "Milk, powder, skimmed, non rehydrated, at plant {FR} ",
     "default": "AGRIBALU000000003109401",
@@ -1228,7 +1228,7 @@
   },
   {
     "id": "red-wine",
-    "name": "Vin rouge",
+    "name": "Vin rouge FR Conv.",
     "categories": ["misc"],
     "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine PGi",
     "default": "AGRIBALU000000003112590",
@@ -1249,7 +1249,7 @@
   },
   {
     "id": "fresh-shrimps",
-    "name": "Crevettes fraîches hors UE",
+    "name": "Crevettes fraîches Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "Fresh shrimps, China production/FR U :",
     "default": "AGRIBALU000000003106282",
@@ -1264,7 +1264,7 @@
   },
   {
     "id": "large-trout",
-    "name": "Truite d'élevage",
+    "name": "Truite d'élevage FR Conv.",
     "categories": ["animal_product"],
     "search": "Large trout, 2-4kg, conventional, at farm gate/FR U :",
     "default": "AGRIBALU000000003108470",
@@ -1279,7 +1279,7 @@
   },
   {
     "id": "egg-indoor-code2",
-    "name": "Oeuf conventionnel (code 2)",
+    "name": "Oeuf (code 2) FR Conv.",
     "categories": ["animal_product"],
     "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
     "default": "AGRIBALU000000003105152",
@@ -1301,7 +1301,7 @@
   },
   {
     "id": "egg-indoor-code3",
-    "name": "Oeuf conventionnel (code 3)",
+    "name": "Oeuf (code 3) FR Conv.",
     "categories": ["animal_product"],
     "search": "Egg indoor cage",
     "default": "AGRIBALU000000003105151",
@@ -1323,7 +1323,7 @@
   },
   {
     "id": "egg-outdoor-code1",
-    "name": "Oeuf plein air (code 1)",
+    "name": "Oeuf (code 1) FR Conv.",
     "categories": ["animal_product"],
     "search": "Egg, conventional, outdoor system, at farm gate/FR U :",
     "default": "AGRIBALU000000003105153",
@@ -1345,7 +1345,7 @@
   },
   {
     "id": "egg-organic-code0",
-    "name": "Oeuf bio",
+    "name": "Oeuf FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Egg organic at farm gate",
     "default": "AGRIBALU000000003105163",
@@ -1367,7 +1367,7 @@
   },
   {
     "id": "wine-grape-organic",
-    "name": "Raisin de cuve bio",
+    "name": "Raisin de cuve FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "default": "wine-grape-organic",
@@ -1388,7 +1388,7 @@
   },
   {
     "id": "lamb-meat-without-bone",
-    "name": "Viande d'agneau FR (désossée)",
+    "name": "Viande d'agneau (désossée) FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone lamb",
     "default": "AGRIBALU000000003109223",
@@ -1410,7 +1410,7 @@
   },
   {
     "id": "lamb-meat-without-bone-organic",
-    "name": "Viande d'agneau bio (désossée)",
+    "name": "Viande d'agneau FR ou UE ou Hors UE Bio (désossée)",
     "categories": ["animal_product"],
     "search": "lamb organic",
     "default": "f025b4a41c45eabdb2510795b3353ca4",
@@ -1432,7 +1432,7 @@
   },
   {
     "id": "pear-organic",
-    "name": "Poire bio",
+    "name": "Poire FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Pear, consumption mix, organic 2023 {FR} U",
     "default": "pear-organic",
@@ -1453,7 +1453,7 @@
   },
   {
     "id": "carrot-fr",
-    "name": "Carotte FR",
+    "name": "Carotte FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot, conventional, national average, at farm gate {FR} U",
     "default": "AGRIBALU000000003102592",
@@ -1474,7 +1474,7 @@
   },
   {
     "id": "carrot-eu",
-    "name": "Carotte UE par défaut",
+    "name": "Carotte UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003102563",
@@ -1495,7 +1495,7 @@
   },
   {
     "id": "carrot-non-ue",
-    "name": "Carotte hors UE par défaut",
+    "name": "Carotte Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "default": "AGRIBALU000000003102564",
@@ -1516,7 +1516,7 @@
   },
   {
     "id": "zucchini-fr",
-    "name": "Courgette FR",
+    "name": "Courgette FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "default": "AGRIBALU000024985200218",
@@ -1537,7 +1537,7 @@
   },
   {
     "id": "zucchini-eu",
-    "name": "Courgette UE par défaut",
+    "name": "Courgette UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
     "default": "AGRIBALU000000003117541",
@@ -1558,7 +1558,7 @@
   },
   {
     "id": "pear-fr",
-    "name": "Poire FR",
+    "name": "Poire FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Pear, conventional, at orchard {FR} U",
     "default": "AGRIBALU000000003111019",
@@ -1579,7 +1579,7 @@
   },
   {
     "id": "pear-eu",
-    "name": "Poire UE par défaut",
+    "name": "Poire UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U {BE}",
     "default": "AGRIBALU000000003111005",
@@ -1600,7 +1600,7 @@
   },
   {
     "id": "peach-fr",
-    "name": "Pêche FR",
+    "name": "Pêche FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Peach, production mix, national average, at orchard {FR} U",
     "default": "AGRIBALU000000003110952",
@@ -1621,7 +1621,7 @@
   },
   {
     "id": "peach-eu",
-    "name": "Pêche UE par défaut",
+    "name": "Pêche UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003110917",
@@ -1642,7 +1642,7 @@
   },
   {
     "id": "melon-fr",
-    "name": "Melon FR",
+    "name": "Melon FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Melon, conventional, national average, at farm gate {FR} U",
     "default": "AGRIBALU000000003109266",
@@ -1663,7 +1663,7 @@
   },
   {
     "id": "melon-eu",
-    "name": "Melon UE par défaut",
+    "name": "Melon UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Melon, conventional, national average, at farm gate {FR} U",
     "default": "AGRIBALU000000003109266",
@@ -1684,7 +1684,7 @@
   },
   {
     "id": "potato-industry-fr",
-    "name": "Pomme de terre industrie FR",
+    "name": "Pomme de terre industrie FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
     "default": "AGRIBALU000024985200170",
@@ -1705,7 +1705,7 @@
   },
   {
     "id": "potato-table-fr",
-    "name": "Pomme de terre de table FR",
+    "name": "Pomme de terre de table FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
     "default": "AGRIBALU000024985200169",
@@ -1726,7 +1726,7 @@
   },
   {
     "id": "potato-starch",
-    "name": "Fécule de pomme de terre",
+    "name": "Fécule de pomme de terre Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "default": "AGRIBALU000000003111897",
@@ -1747,7 +1747,7 @@
   },
   {
     "id": "wheat-glo",
-    "name": "Blé tendre (GLO)",
+    "name": "Blé tendre Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Wheat grain, feed {GLO}| market for | Cut-off",
     "default": "AGRIBALU000000003117048",
@@ -1768,7 +1768,7 @@
   },
   {
     "id": "onion-fr",
-    "name": "Oignon FR",
+    "name": "Oignon FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Onion, national average, at farm FR",
     "default": "AGRIBALU000000003110467",
@@ -1789,7 +1789,7 @@
   },
   {
     "id": "onion-eu",
-    "name": "Oignon UE par défaut",
+    "name": "Oignon UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": " \tOnion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003110441",
@@ -1810,7 +1810,7 @@
   },
   {
     "id": "onion-non-ue",
-    "name": "Oignon hors UE par défaut",
+    "name": "Oignon Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
     "default": "AGRIBALU000000003110442",
@@ -1831,7 +1831,7 @@
   },
   {
     "id": "eggplant-fr",
-    "name": "Aubergine FR",
+    "name": "Aubergine FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "default": "AGRIBALU000024985200218",
@@ -1852,7 +1852,7 @@
   },
   {
     "id": "eggplant-eu",
-    "name": "Aubergine UE par défaut",
+    "name": "Aubergine UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "default": "AGRIBALU000024985200218",
@@ -1873,7 +1873,7 @@
   },
   {
     "id": "french-bean-fr",
-    "name": "Haricot vert FR",
+    "name": "Haricot vert FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "French bean, conventional, national average, at farm gate {FR} U",
     "default": "AGRIBALU000024985200072",
@@ -1894,7 +1894,7 @@
   },
   {
     "id": "french-bean-eu",
-    "name": "Haricot vert UE par défaut",
+    "name": "Haricot vert UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000024985200072",
@@ -1915,7 +1915,7 @@
   },
   {
     "id": "french-bean-non-eu",
-    "name": "Haricot vert hors UE par défaut",
+    "name": "Haricot vert Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000024985200072",
@@ -1936,7 +1936,7 @@
   },
   {
     "id": "lettuce-fr",
-    "name": "Laitue FR",
+    "name": "Laitue FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000000003108668",
@@ -1957,7 +1957,7 @@
   },
   {
     "id": "lettuce-eu",
-    "name": "Laitue UE par défaut",
+    "name": "Laitue UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003107604",
@@ -1978,7 +1978,7 @@
   },
   {
     "id": "lettuce-non-eu",
-    "name": "Laitue hors UE par défaut",
+    "name": "Laitue Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003107604",
@@ -1999,7 +1999,7 @@
   },
   {
     "id": "garden-peas-fr",
-    "name": "Petit pois FR",
+    "name": "Petit pois FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "annual vining pea conventional",
     "default": "AGRIBALU000024985200024",
@@ -2020,7 +2020,7 @@
   },
   {
     "id": "garden-peas-eu",
-    "name": "Petit pois UE par défaut",
+    "name": "Petit pois UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "annual vining pea conventional",
     "default": "AGRIBALU000024985200024",
@@ -2041,7 +2041,7 @@
   },
   {
     "id": "cherry-fr",
-    "name": "Cerise FR",
+    "name": "Cerise FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cherry, conventional, national average, at orchard {FR}",
     "default": "AGRIBALU000000003102916",
@@ -2062,7 +2062,7 @@
   },
   {
     "id": "lemon-eu",
-    "name": "Citron UE par défaut",
+    "name": "Citron UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003108561",
@@ -2083,7 +2083,7 @@
   },
   {
     "id": "plum-fr",
-    "name": "Prune FR",
+    "name": "Prune FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cherry, conventional, national average, at orchard ",
     "default": "AGRIBALU000000003102916",
@@ -2104,7 +2104,7 @@
   },
   {
     "id": "squash-fr",
-    "name": "Courge FR",
+    "name": "Courge FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "default": "AGRIBALU000024985200218",
@@ -2125,7 +2125,7 @@
   },
   {
     "id": "squash-eu",
-    "name": "Courge UE par défaut",
+    "name": "Courge UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
     "default": "AGRIBALU000000003117541",
@@ -2146,7 +2146,7 @@
   },
   {
     "id": "squash-organic",
-    "name": "Courge bio",
+    "name": "Courge FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": " \tZucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "default": "AGRIBALU000024985200219",
@@ -2167,7 +2167,7 @@
   },
   {
     "id": "tomato-heated-greenhouse-fr",
-    "name": "Tomate sous serre chauffée",
+    "name": "Tomate sous serre chauffée Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "code:b489582f34edd951efb90bb7e7225503",
     "default": "AGRIBALU000000003115752",
@@ -2188,7 +2188,7 @@
   },
   {
     "id": "tomato-greenhouse-fr",
-    "name": "Tomate sous serre non chauffée FR",
+    "name": "Tomate sous serre non chauffée FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
     "default": "AGRIBALU000000003115753",
@@ -2209,7 +2209,7 @@
   },
   {
     "id": "tomato-greenhouse-eu",
-    "name": "Tomate UE par défaut",
+    "name": "Tomate UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
     "default": "AGRIBALU000000003115743",
@@ -2230,7 +2230,7 @@
   },
   {
     "id": "apricot-fr",
-    "name": "Abricot FR",
+    "name": "Abricot FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003100510",
@@ -2251,7 +2251,7 @@
   },
   {
     "id": "apricot-eu",
-    "name": "Abricot UE par défaut",
+    "name": "Abricot UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003100510",
@@ -2272,7 +2272,7 @@
   },
   {
     "id": "hazelnut-non-eu",
-    "name": "Noisette hors UE avec coque",
+    "name": "Noisette avec coque Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003107313",
@@ -2293,7 +2293,7 @@
   },
   {
     "id": "hazelnut-eu",
-    "name": "Noisette UE avec coque",
+    "name": "Noisette avec coque UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": " \tHazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003107312",
@@ -2314,7 +2314,7 @@
   },
   {
     "id": "hazelnut-unshelled-eu",
-    "name": "Noisette décortiquée UE par défaut",
+    "name": "Noisette décortiquée UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Hazelnut, unshelled, at plant {IT} U",
     "default": "AGRIBALU000000003107318",
@@ -2335,7 +2335,7 @@
   },
   {
     "id": "hazelnut-unshelled-non-eu",
-    "name": "Noisette décortiquée hors UE par défaut",
+    "name": "Noisette décortiquée Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Hazelnut, unshelled, at plant {TR} U",
     "default": "AGRIBALU000000003107319",
@@ -2356,7 +2356,7 @@
   },
   {
     "id": "artichoke-fr",
-    "name": "Artichaut FR",
+    "name": "Artichaut FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "default": "AGRIBALU000000003102661",
@@ -2377,7 +2377,7 @@
   },
   {
     "id": "artichoke-organic",
-    "name": "Artichaut bio",
+    "name": "Artichaut FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, organic 2023, national average, at farm gate {FR}",
     "default": "artichoke-organic",
@@ -2398,7 +2398,7 @@
   },
   {
     "id": "cauliflower-organic",
-    "name": "Chou-fleur bio",
+    "name": "Chou-fleur FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "default": "AGRIBALU000024985200052",
@@ -2419,7 +2419,7 @@
   },
   {
     "id": "cauliflower-fr",
-    "name": "Chou-fleur FR",
+    "name": "Chou-fleur FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "default": "AGRIBALU000024985200045",
@@ -2440,7 +2440,7 @@
   },
   {
     "id": "leek-fr",
-    "name": "Poireau FR",
+    "name": "Poireau FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Leek, national average, at plant {FR} U",
     "default": "AGRIBALU000000003108547",
@@ -2461,7 +2461,7 @@
   },
   {
     "id": "beetroot-fr",
-    "name": "Betterave rouge FR",
+    "name": "Betterave rouge FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot, conventional, national average, at farm gate {FR} U \t",
     "default": "AGRIBALU000000003102592",
@@ -2482,7 +2482,7 @@
   },
   {
     "id": "turnip-fr",
-    "name": "Navet FR",
+    "name": "Navet FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000000003102592",
@@ -2503,7 +2503,7 @@
   },
   {
     "id": "turnip-eu",
-    "name": "Navet UE par défaut",
+    "name": "Navet UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003102563",
@@ -2524,7 +2524,7 @@
   },
   {
     "id": "turnip-non-eu",
-    "name": "Navet hors UE par défaut",
+    "name": "Navet Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U ",
     "default": "AGRIBALU000000003102564",
@@ -2545,7 +2545,7 @@
   },
   {
     "id": "chinese-cabbage-fr",
-    "name": "Chou chinois FR",
+    "name": "Chou chinois FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR}",
     "default": "AGRIBALU000024985200045",
@@ -2566,7 +2566,7 @@
   },
   {
     "id": "chinese-cabbage-organic",
-    "name": "Chou chinois bio",
+    "name": "Chou chinois FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR}",
     "default": "chinese-cabbage-organic",
@@ -2587,7 +2587,7 @@
   },
   {
     "id": "white-cabbage-non-eu",
-    "name": "Chou blanc hors UE par défaut",
+    "name": "Chou blanc Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cabbage white {RoW}| cabbage white production",
     "default": "AGRIBALU000000003102347",
@@ -2608,7 +2608,7 @@
   },
   {
     "id": "green-cabbage-fr",
-    "name": "Chou vert FR",
+    "name": "Chou vert FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate",
     "default": "AGRIBALU000024985200045",
@@ -2629,7 +2629,7 @@
   },
   {
     "id": "green-cabbage-organic",
-    "name": "Chou vert bio",
+    "name": "Chou vert FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, organic, at farm gate",
     "default": "AGRIBALU000024985200052",
@@ -2650,7 +2650,7 @@
   },
   {
     "id": "red-cabbage-non-eu",
-    "name": "Chou rouge UE par défaut",
+    "name": "Chou rouge Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "default": "AGRIBALU000000003102346",
@@ -2671,7 +2671,7 @@
   },
   {
     "id": "shallot-fr",
-    "name": "Echalote FR",
+    "name": "Echalote FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Onion, national average, at farm {FR} U",
     "default": "AGRIBALU000000003110467",
@@ -2692,7 +2692,7 @@
   },
   {
     "id": "orange-eu",
-    "name": "Orange UE par défaut",
+    "name": "Orange UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Orange, fresh grade, at farm {ES}",
     "default": "AGRIBALU000000003110507",
@@ -2713,7 +2713,7 @@
   },
   {
     "id": "orange-non-eu",
-    "name": "Orange hors UE par défaut",
+    "name": "Orange Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Orange, fresh grade {ZA}| orange production, fresh grade",
     "default": "AGRIBALU000000003110506",
@@ -2734,7 +2734,7 @@
   },
   {
     "id": "olive-eu",
-    "name": "Olive UE par défaut",
+    "name": "Olive UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Olive {ES}| olive production | Cut-off, U",
     "default": "AGRIBALU000000003110400",
@@ -2755,7 +2755,7 @@
   },
   {
     "id": "rapeseed-fr",
-    "name": "Colza FR",
+    "name": "Colza FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Rape seed {FR}| production",
     "default": "AGRIBALU000000003112430",
@@ -2776,7 +2776,7 @@
   },
   {
     "id": "rapeseed-eu",
-    "name": "Colza UE par défaut",
+    "name": "Colza UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Rapeseed, at farm {GLO}",
     "default": "AGRIBALU000000003112456",
@@ -2797,7 +2797,7 @@
   },
   {
     "id": "rapeseed-non-eu",
-    "name": "Colza hors UE par défaut",
+    "name": "Colza Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Rapeseed, at farm {CA}",
     "default": "AGRIBALU000000003112455",
@@ -2818,7 +2818,7 @@
   },
   {
     "id": "pistachio-non-eu",
-    "name": "Pistache avec coque hors UE par défaut",
+    "name": "Pistache avec coque Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Peanut {CN}| peanut production",
     "default": "AGRIBALU000000003110959",
@@ -2839,7 +2839,7 @@
   },
   {
     "id": "peanut-non-eu",
-    "name": "Arachide avec coque hors UE",
+    "name": "Arachide avec coque Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Peanut {IN}| peanut production",
     "default": "AGRIBALU000000003110960",
@@ -2860,7 +2860,7 @@
   },
   {
     "id": "olive-oil-eu",
-    "name": "Huile d'olive hors UE ",
+    "name": "Huile d'olive UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Extra Virgin Olive Oil consumption",
     "default": "AGRIBALU000000003105719",
@@ -2881,7 +2881,7 @@
   },
   {
     "id": "avocado-non-eu",
-    "name": "Avocat UE ou hors UE",
+    "name": "Avocat Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Avocado {GLO}| production",
     "default": "AGRIBALU000000003100748",
@@ -2902,7 +2902,7 @@
   },
   {
     "id": "chickpea-fr",
-    "name": "Pois chiche FR",
+    "name": "Pois chiche FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} ",
     "default": "AGRIBALU000024985200192",
@@ -2923,7 +2923,7 @@
   },
   {
     "id": "sunflower-fr",
-    "name": "Tournesol FR",
+    "name": "Tournesol FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Sunflower at farm FR",
     "default": "AGRIBALU000000003115216",
@@ -2944,7 +2944,7 @@
   },
   {
     "id": "sunflower-eu",
-    "name": "Tournesol UE par défaut",
+    "name": "Tournesol UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Sunflower, at farm {HU}",
     "default": "AGRIBALU000000003115218",
@@ -2965,7 +2965,7 @@
   },
   {
     "id": "sunflower-non-eu",
-    "name": "Tournesol hors UE par défaut",
+    "name": "Tournesol Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Sunflower, at farm {Glo}",
     "default": "AGRIBALU000000003115217",
@@ -2986,7 +2986,7 @@
   },
   {
     "id": "kiwi-fr",
-    "name": "Kiwi FR",
+    "name": "Kiwi FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Kiwi FR, conventional, national average, at orchard {FR}",
     "default": "AGRIBALU000000003108090",
@@ -3007,7 +3007,7 @@
   },
   {
     "id": "kiwi-eu",
-    "name": "Kiwi UE par défaut",
+    "name": "Kiwi UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Kiwi {GLO}| production",
     "default": "AGRIBALU000000003108089",
@@ -3028,7 +3028,7 @@
   },
   {
     "id": "kiwi-non-eu",
-    "name": "Kiwi hors UE par défaut",
+    "name": "Kiwi Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Kiwi {GLO}| production",
     "default": "AGRIBALU000000003108089",
@@ -3049,7 +3049,7 @@
   },
   {
     "id": "mango-non-eu",
-    "name": "Mangue hors UE par défaut",
+    "name": "Mangue Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Mango conventional Val de San Francisco at orchard",
     "default": "AGRIBALU000000003109086",
@@ -3070,7 +3070,7 @@
   },
   {
     "id": "spinach-non-eu",
-    "name": "Epinard hors UE par défaut",
+    "name": "Epinard Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Spinach {GLO}| production |",
     "default": "AGRIBALU000000003114717",
@@ -3091,7 +3091,7 @@
   },
   {
     "id": "fennel-fr",
-    "name": "Fenouil FR",
+    "name": "Fenouil FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Fennel {GLO}| production",
     "default": "AGRIBALU000000003105790",
@@ -3112,7 +3112,7 @@
   },
   {
     "id": "fennel-eu",
-    "name": "Fenouil UE par défaut",
+    "name": "Fenouil UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Fennel {GLO}| production",
     "default": "AGRIBALU000000003105790",
@@ -3133,7 +3133,7 @@
   },
   {
     "id": "broccoli-eu",
-    "name": "Brocoli UE par défaut",
+    "name": "Brocoli UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Broccoli {GLO}| production",
     "default": "AGRIBALU000000003102101",
@@ -3154,7 +3154,7 @@
   },
   {
     "id": "blueberry-non-eu",
-    "name": "Myrtille hors UE par défaut",
+    "name": "Myrtille Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003101680",
@@ -3175,7 +3175,7 @@
   },
   {
     "id": "raspberry-eu",
-    "name": "Framboise UE par défaut",
+    "name": "Framboise UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003112470",
@@ -3196,7 +3196,7 @@
   },
   {
     "id": "strawberry-eu",
-    "name": "Fraise UE par défaut",
+    "name": "Fraise UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Strawberry for processing, open field, conventional, at farm gate {ES}",
     "default": "AGRIBALU000024985200014",
@@ -3217,7 +3217,7 @@
   },
   {
     "id": "strawberry-non-eu",
-    "name": "Fraise hors UE par défaut",
+    "name": "Fraise Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Strawberry for processing, open field, conventional, at farm gate {MA}",
     "default": "AGRIBALU000024985200015",
@@ -3238,7 +3238,7 @@
   },
   {
     "id": "banana-wi",
-    "name": "Banane Antilles",
+    "name": "Banane hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Banana, mixed production, West Indies, at farm gate {WI}",
     "default": "AGRIBALU000000003100930",
@@ -3259,7 +3259,7 @@
   },
   {
     "id": "banana-non-eu",
-    "name": "Banane hors UE par défaut",
+    "name": "Banane Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Banana, at farm {GLO}",
     "default": "AGRIBALU000000003100924",
@@ -3280,7 +3280,7 @@
   },
   {
     "id": "cucumber-fr-inseason",
-    "name": "Concombre FR de saison",
+    "name": "Concombre de saison FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
     "default": "AGRIBALU000000003115753",
@@ -3301,7 +3301,7 @@
   },
   {
     "id": "cucumber-fr-offseason",
-    "name": "Concombre FR hors saison",
+    "name": "Concombre hors saison FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
     "default": "AGRIBALU000000003104392",
@@ -3322,7 +3322,7 @@
   },
   {
     "id": "cucumber-eu",
-    "name": "Concombre UE hors saison",
+    "name": "Concombre hors saison UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
     "default": "AGRIBALU000000003104392",
@@ -3343,7 +3343,7 @@
   },
   {
     "id": "strawberry-fr-inseason",
-    "name": "Fraise FR de saison",
+    "name": "Fraise de saison FR  Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Strawberry, open field, conventional, at farm gate {FR} U",
     "default": "AGRIBALU000024985200146",
@@ -3364,7 +3364,7 @@
   },
   {
     "id": "strawberry-fr-offseason",
-    "name": "Fraise FR hors saison",
+    "name": "Fraise hors saison FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR}",
     "default": "AGRIBALU000000003115025",
@@ -3385,7 +3385,7 @@
   },
   {
     "id": "celery-fr",
-    "name": "Céleri branche FR",
+    "name": "Céleri branche FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Celery {GLO}| 675 production",
     "default": "AGRIBALU000000003102720",
@@ -3406,7 +3406,7 @@
   },
   {
     "id": "celery-eu",
-    "name": "Céleri branche UE par défaut",
+    "name": "Céleri branche UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Celery {GLO}| 675 production",
     "default": "AGRIBALU000000003102720",
@@ -3427,7 +3427,7 @@
   },
   {
     "id": "celeriac-fr",
-    "name": "Céleri-rave FR",
+    "name": "Céleri-rave FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000000003102592",
@@ -3448,7 +3448,7 @@
   },
   {
     "id": "celeriac-eu",
-    "name": "Céleri-rave UE par défaut",
+    "name": "Céleri-rave UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {NL}| carrot production | Cut-off, U",
     "default": "AGRIBALU000000003102563",
@@ -3469,7 +3469,7 @@
   },
   {
     "id": "celeriac-non-eu",
-    "name": "Céleri-rave hors UE par défaut",
+    "name": "Céleri-rave Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {RoW}| carrot production | Cut-off, U",
     "default": "AGRIBALU000000003102564",
@@ -3490,7 +3490,7 @@
   },
   {
     "id": "walnut-inshell-fr",
-    "name": "Noix avec coque FR",
+    "name": "Noix avec coque FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "default": "AGRIBALU000000003116663",
@@ -3511,7 +3511,7 @@
   },
   {
     "id": "walnut-husked-fr",
-    "name": "Noix décortiquées FR",
+    "name": "Noix décortiquées FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
     "default": "AGRIBALU000000003116668",
@@ -3532,7 +3532,7 @@
   },
   {
     "id": "chestnut-husked-fr",
-    "name": "Châtaigne décortiquée FR",
+    "name": "Châtaigne décortiquée FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
     "default": "AGRIBALU000000003116668",
@@ -3553,7 +3553,7 @@
   },
   {
     "id": "chestnut-inshell-fr",
-    "name": "Châtaigne avec coque FR",
+    "name": "Châtaigne avec coque FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000000003116662",
@@ -3574,7 +3574,7 @@
   },
   {
     "id": "mandarin-eu",
-    "name": "Mandarine UE par défaut",
+    "name": "Mandarine UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Mandarin {ES}| mandarin production",
     "default": "AGRIBALU000000003109060",
@@ -3595,7 +3595,7 @@
   },
   {
     "id": "mushroom-eu",
-    "name": "Champignon frais UE par défaut",
+    "name": "Champignon frais UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003100184",
@@ -3616,7 +3616,7 @@
   },
   {
     "id": "brussels-sprout-fr",
-    "name": "Chou de Bruxelles FR",
+    "name": "Chou de Bruxelles FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR}",
     "default": "AGRIBALU000024985200045",
@@ -3637,7 +3637,7 @@
   },
   {
     "id": "brussels-sprout-organic",
-    "name": "Chou de Bruxelles bio",
+    "name": "Chou de Bruxelles FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "default": "AGRIBALU000024985200052",
@@ -3658,7 +3658,7 @@
   },
   {
     "id": "lentils-uncooked-fr",
-    "name": "Lentilles FR",
+    "name": "Lentilles FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Winter pea, conventional, 15% moisture, at farm gate",
     "default": "AGRIBALU000024985200192",
@@ -3679,7 +3679,7 @@
   },
   {
     "id": "curly-kale-fr",
-    "name": "Chou frisé FR",
+    "name": "Chou frisé FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR}",
     "default": "AGRIBALU000024985200045",
@@ -3700,7 +3700,7 @@
   },
   {
     "id": "curly-kale-organic",
-    "name": "Chou frisé bio",
+    "name": "Chou frisé FR ou UE ou Hors UE Bio",
     "categories": ["organic", "vegetable_fresh"],
     "search": "Cauliflower, winter, organic, at farm gate {FR}",
     "default": "AGRIBALU000024985200052",
@@ -3721,7 +3721,7 @@
   },
   {
     "id": "pumpkin-fr",
-    "name": "Citrouille FR",
+    "name": "Citrouille FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000000003117541",
@@ -3742,7 +3742,7 @@
   },
   {
     "id": "clementine-non-eu",
-    "name": "Clémentine hors UE par défaut",
+    "name": "Clémentine Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Clementine, export quality, Souss, at orchard {MA}",
     "default": "AGRIBALU000000003103409",
@@ -3763,7 +3763,7 @@
   },
   {
     "id": "endive-fr",
-    "name": "Endive FR",
+    "name": "Endive FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000000003108668",
@@ -3784,7 +3784,7 @@
   },
   {
     "id": "endive-eu",
-    "name": "Endive UE par défaut",
+    "name": "Endive UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Iceberg lettuce {GLO}| production |",
     "default": "AGRIBALU000000003107604",
@@ -3805,7 +3805,7 @@
   },
   {
     "id": "wine-grape-fr",
-    "name": "Raisin de cuve FR",
+    "name": "Raisin de cuve FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
     "default": "AGRIBALU000000003106864",
@@ -3826,7 +3826,7 @@
   },
   {
     "id": "lambs-lettuce-fr",
-    "name": "Mâche FR",
+    "name": "Mâche FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000000003108668",
@@ -3847,7 +3847,7 @@
   },
   {
     "id": "lambs-lettuce-eu",
-    "name": "Mâche UE par défaut",
+    "name": "Mâche UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Iceberg lettuce {GLO}| production",
     "default": "AGRIBALU000000003107604",
@@ -3868,7 +3868,7 @@
   },
   {
     "id": "sweet-corn-fr",
-    "name": "Maïs doux FR",
+    "name": "Maïs doux FR Conv.",
     "categories": ["grain_raw"],
     "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate",
     "default": "AGRIBALU000024985200100",
@@ -3889,7 +3889,7 @@
   },
   {
     "id": "sweet-corn-organic-fr",
-    "name": "Maïs doux FR bio",
+    "name": "Maïs doux FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw"],
     "search": "Grain maize, organic, animal feed, at farm gate {FR}",
     "default": "AGRIBALU000000003106825",
@@ -3910,7 +3910,7 @@
   },
   {
     "id": "sweet-corn-br",
-    "name": "Maïs doux BR",
+    "name": "Maïs doux Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003109026",
@@ -3931,7 +3931,7 @@
   },
   {
     "id": "pineapple-non-eu",
-    "name": "Ananas hors UE par défaut",
+    "name": "Ananas Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Pineapple, at farm {CR} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003111295",
@@ -3952,7 +3952,7 @@
   },
   {
     "id": "broad-beans-eu",
-    "name": "Fève UE par défaut",
+    "name": "Fève UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "default": "AGRIBALU000000003105780",
@@ -3973,7 +3973,7 @@
   },
   {
     "id": "broad-beans-fr",
-    "name": "Fève FR",
+    "name": "Fève FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "default": "AGRIBALU000000003105780",
@@ -3994,7 +3994,7 @@
   },
   {
     "id": "swiss-chard-eu",
-    "name": "Blette UE par défaut",
+    "name": "Blette UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Spinach GLO production",
     "default": "AGRIBALU000000003114717",
@@ -4015,7 +4015,7 @@
   },
   {
     "id": "swiss-chard-fr",
-    "name": "Blette FR",
+    "name": "Blette FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Spinach GLO production",
     "default": "AGRIBALU000000003114717",
@@ -4036,7 +4036,7 @@
   },
   {
     "id": "flageolet-bean-eu",
-    "name": "Haricot flageolet UE par défaut",
+    "name": "Haricot flageolet UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "default": "AGRIBALU000000003105780",
@@ -4057,7 +4057,7 @@
   },
   {
     "id": "flageolet-bean-fr",
-    "name": "Haricot flageolet FR",
+    "name": "Haricot flageolet FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "default": "AGRIBALU000000003105780",
@@ -4078,7 +4078,7 @@
   },
   {
     "id": "rice-basmati-non-eu",
-    "name": "Riz basmati hors UE par défaut",
+    "name": "Riz basmati Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent",
     "default": "AGRIBALU000000003112687",
@@ -4099,7 +4099,7 @@
   },
   {
     "id": "soft-wheat-organic",
-    "name": "Blé tendre bio",
+    "name": "Blé tendre FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "default": "bdd14c2017eaf0cda1e207e74012c391",
@@ -4120,7 +4120,7 @@
   },
   {
     "id": "soft-wheat-fr",
-    "name": "Blé tendre FR",
+    "name": "Blé tendre FR Conv.",
     "categories": ["grain_raw"],
     "search": "Soft wheat grain conventional national average animal feed at farm gate production",
     "default": "AGRIBALU000024985200247",
@@ -4141,7 +4141,7 @@
   },
   {
     "id": "soft-wheat-non-eu",
-    "name": "Blé tendre hors UE par défaut",
+    "name": "Blé tendre Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003117044",
@@ -4162,7 +4162,7 @@
   },
   {
     "id": "durum-wheat-fr",
-    "name": "Blé dur FR",
+    "name": "Blé dur FR Conv.",
     "categories": ["grain_raw"],
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
     "default": "AGRIBALU000024985200066",
@@ -4183,7 +4183,7 @@
   },
   {
     "id": "durum-wheat-eu",
-    "name": "Blé dur UE par défaut",
+    "name": "Blé dur UE Conv.",
     "categories": ["grain_raw"],
     "search": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003105055",
@@ -4204,7 +4204,7 @@
   },
   {
     "id": "durum-wheat-non-eu",
-    "name": "Blé dur hors UE par défaut",
+    "name": "Blé dur Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003105051",
@@ -4225,7 +4225,7 @@
   },
   {
     "id": "apple-organic",
-    "name": "Pomme bio",
+    "name": "Pomme FR ou UE ou Hors UE Bio",
     "categories": ["organic", "vegetable_fresh"],
     "search": "Table apple, consumption mix, organic 2023 {FR}",
     "default": "apple-organic",
@@ -4246,7 +4246,7 @@
   },
   {
     "id": "apple-fr",
-    "name": "Pomme FR",
+    "name": "Pomme FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Apple, conventional, national average, at orchard {FR} U",
     "default": "AGRIBALU000000003100459",
@@ -4267,7 +4267,7 @@
   },
   {
     "id": "potato-table-organic",
-    "name": "Pomme de terre de table bio",
+    "name": "Pomme de terre de table FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR}",
     "default": "potato-table-organic",
@@ -4288,7 +4288,7 @@
   },
   {
     "id": "potato-industry-organic",
-    "name": "Pomme de terre industrie bio",
+    "name": "Pomme de terre industrie FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Ware potato, organic 2023, for industrial use, at farm gate {FR}",
     "default": "potato-industry-organic",
@@ -4309,7 +4309,7 @@
   },
   {
     "id": "kiwi-organic",
-    "name": "Kiwi bio",
+    "name": "Kiwi FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Kiwi, consumption mix, organic 2023 {FR}",
     "default": "kiwi-organic",
@@ -4330,7 +4330,7 @@
   },
   {
     "id": "red-cabbage-organic",
-    "name": "Chou rouge bio",
+    "name": "Chou rouge FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Red Cabbage, consumption mix, organic 2023 {FR}",
     "default": "red-cabbage-organic",
@@ -4351,7 +4351,7 @@
   },
   {
     "id": "sugar-beet-organic",
-    "name": "Betterave sucrière bio",
+    "name": "Betterave sucrière FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_processed", "organic"],
     "search": "Sugar beet, organic 2023 {FR}| sugar beet production",
     "default": "sugar-beet-organic",
@@ -4372,7 +4372,7 @@
   },
   {
     "id": "papaya-organic",
-    "name": "Papaye bio",
+    "name": "Papaye FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Papaya, consumption mix, organic 2023 {FR}",
     "default": "papaya-organic",
@@ -4393,7 +4393,7 @@
   },
   {
     "id": "tomato-organic",
-    "name": "Tomate bio",
+    "name": "Tomate FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Fresh tomato, consumption mix, organic 2023 {FR}",
     "default": "tomato-organic",
@@ -4414,7 +4414,7 @@
   },
   {
     "id": "pineapple-organic",
-    "name": "Ananas bio",
+    "name": "Ananas FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Pineapple, organic 2023 {GLO}| production",
     "default": "pineapple-organic",
@@ -4435,7 +4435,7 @@
   },
   {
     "id": "garden-peas-organic",
-    "name": "Petit pois bio",
+    "name": "Petit pois FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Garden peas, consumption mix, organic 2023 {FR}",
     "default": "garden-peas-organic",
@@ -4456,7 +4456,7 @@
   },
   {
     "id": "almond-inshell-organic",
-    "name": "Amandes bio en coque",
+    "name": "Amandes en coque FR ou UE ou Hors UE Bio ",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Almonds, in shell, at farm, organic 2023 {CN}",
     "default": "almond-inshell-organic",
@@ -4477,7 +4477,7 @@
   },
   {
     "id": "lettuce-organic",
-    "name": "Laitue bio",
+    "name": "Laitue FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "default": "lettuce-organic",
@@ -4498,7 +4498,7 @@
   },
   {
     "id": "mango-organic",
-    "name": "Mangue bio",
+    "name": "Mangue FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR}",
     "default": "mango-organic",
@@ -4519,7 +4519,7 @@
   },
   {
     "id": "lychee-organic",
-    "name": "Litchi bio",
+    "name": "Litchi Hors FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR}",
     "default": "lychee-organic",
@@ -4540,7 +4540,7 @@
   },
   {
     "id": "lychee-non-eu",
-    "name": "Litchi hors UE par défaut",
+    "name": "Litchi Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Mango conventional Val de San Francisco at orchard",
     "default": "AGRIBALU000000003109086",
@@ -4561,7 +4561,7 @@
   },
   {
     "id": "oats-glo",
-    "name": "Avoine (GLO)",
+    "name": "Avoine Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003110378",
@@ -4582,7 +4582,7 @@
   },
   {
     "id": "oats-organic",
-    "name": "Avoine bio",
+    "name": "Avoine FR ou UE ou Hors UE bio",
     "categories": ["grain_raw"],
     "search": "Spring oats, organic, national average, at feed plant {FR}",
     "default": "AGRIBALU000000003114832",
@@ -4603,7 +4603,7 @@
   },
   {
     "id": "barley",
-    "name": "Orge",
+    "name": "Orge FR Conv.",
     "categories": ["grain_raw"],
     "search": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR}",
     "default": "AGRIBALU000000003100974",
@@ -4624,7 +4624,7 @@
   },
   {
     "id": "barley-organic",
-    "name": "Orge bio",
+    "name": "Orge FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw"],
     "search": "Barley, organic, animal feed, at farm gate {FR} U",
     "default": "AGRIBALU000000003100976",
@@ -4645,7 +4645,7 @@
   },
   {
     "id": "banana-organic",
-    "name": "Banane bio",
+    "name": "Banane FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Banana, consumption mix, organic 2023 {FR}",
     "default": "banana-organic",
@@ -4666,7 +4666,7 @@
   },
   {
     "id": "orange-organic",
-    "name": "Orange bio",
+    "name": "Orange FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Orange, fresh grade, at farm, organic 2023 {ES}",
     "default": "orange-organic",
@@ -4687,7 +4687,7 @@
   },
   {
     "id": "lemon-organic",
-    "name": "Citron bio",
+    "name": "Citron FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Lemon, organic 2023 {ES}| lemon production",
     "default": "lemon-organic",
@@ -4708,7 +4708,7 @@
   },
   {
     "id": "celery-organic",
-    "name": "Céleri branche bio",
+    "name": "Céleri branche FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Celery, organic 2023 {GLO}| 675 production",
     "default": "celery-organic",
@@ -4729,7 +4729,7 @@
   },
   {
     "id": "olive-organic",
-    "name": "Olive bio",
+    "name": "Olive FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Olive, organic 2023 {ES}| olive production",
     "default": "olive-organic",
@@ -4750,7 +4750,7 @@
   },
   {
     "id": "peanut-organic",
-    "name": "Arachide avec coque bio",
+    "name": "Arachide avec coque FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw"],
     "search": "Peanut, organic 2023 {RoW}| peanut production",
     "default": "peanut-organic",
@@ -4771,7 +4771,7 @@
   },
   {
     "id": "raspberry-organic",
-    "name": "Framboise bio",
+    "name": "Framboise FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Raspberry, at farm, organic 2023 {RS}",
     "default": "raspberry-organic",
@@ -4792,7 +4792,7 @@
   },
   {
     "id": "lambs-lettuce-organic",
-    "name": "Mâche bio",
+    "name": "Mâche FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "default": "lambs-lettuce-organic",
@@ -4813,7 +4813,7 @@
   },
   {
     "id": "endive-organic",
-    "name": "Endive bio",
+    "name": "Endive FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "default": "endive-organic",
@@ -4834,7 +4834,7 @@
   },
   {
     "id": "durum-wheat-organic",
-    "name": "Blé dur bio",
+    "name": "Blé dur FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Durum wheat grain, organic 2023, national average, at farm gate {FR}",
     "default": "durum-wheat-organic",
@@ -4855,7 +4855,7 @@
   },
   {
     "id": "onion-organic",
-    "name": "Oignon bio",
+    "name": "Oignon FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Onion, national average, at farm, organic 2023 {FR} U",
     "default": "onion-organic",
@@ -4876,7 +4876,7 @@
   },
   {
     "id": "rice-basmati-organic",
-    "name": "Riz basmati bio",
+    "name": "Riz basmati FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati",
     "default": "rice-basmati-organic",
@@ -4897,7 +4897,7 @@
   },
   {
     "id": "barley-de",
-    "name": "Orge (DE)",
+    "name": "Orge UE Conv.",
     "categories": ["grain_raw"],
     "search": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003100967",
@@ -4918,7 +4918,7 @@
   },
   {
     "id": "triticale-organic",
-    "name": "Triricale bio",
+    "name": "Triricale FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Triticale, organic, animal feed, at farm gate {FR}",
     "default": "AGRIBALU000000003116024",
@@ -4939,7 +4939,7 @@
   },
   {
     "id": "bean",
-    "name": "Pois",
+    "name": "Pois Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Faba bean, grain stored and transported, processing {FR} U",
     "default": "AGRIBALU000000003105752",
@@ -4960,7 +4960,7 @@
   },
   {
     "id": "bean-organic",
-    "name": "Pois bio",
+    "name": "Pois FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Pea, organic, animal feed, at farm gate {FR}",
     "default": "AGRIBALU000000003110915",
@@ -4981,7 +4981,7 @@
   },
   {
     "id": "alfalfa-organic",
-    "name": "Luzerne bio",
+    "name": "Luzerne FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
     "default": "AGRIBALU000000003100242",
@@ -5002,7 +5002,7 @@
   },
   {
     "id": "radish-organic",
-    "name": "Radis bio",
+    "name": "Radis FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse",
     "default": "radish-organic",
@@ -5023,7 +5023,7 @@
   },
   {
     "id": "lentils-uncooked-organic",
-    "name": "Lentilles bio",
+    "name": "Lentilles Hors FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Lentil, organic 2023 {RoW}",
     "default": "lentils-uncooked-organic",
@@ -5044,7 +5044,7 @@
   },
   {
     "id": "apricot-organic",
-    "name": "Abricot bio",
+    "name": "Abricot FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Apricot, organic 2023 {FR}| apricot production",
     "default": "apricot-organic",
@@ -5065,7 +5065,7 @@
   },
   {
     "id": "leek-organic",
-    "name": "Poireau bio",
+    "name": "Poireau FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Leek, national average, at plant, organic 2023 {FR}",
     "default": "leek-organic",
@@ -5086,7 +5086,7 @@
   },
   {
     "id": "cherry-organic",
-    "name": "Cerise bio",
+    "name": "Cerise FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Cherry, organic 2023, national average, at orchard {FR}",
     "default": "cherry-organic",
@@ -5107,7 +5107,7 @@
   },
   {
     "id": "plum-organic",
-    "name": "Prune bio",
+    "name": "Prune FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
     "default": "plum-organic",
@@ -5128,7 +5128,7 @@
   },
   {
     "id": "shallot-organic",
-    "name": "Echalote bio",
+    "name": "Echalote FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Onion, national average, at farm, organic 2023 {FR}",
     "default": "shallot-organic",
@@ -5149,7 +5149,7 @@
   },
   {
     "id": "blueberry-organic",
-    "name": "Myrtille bio",
+    "name": "Myrtille FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Blueberry, at farm, organic 2023 {CA}",
     "default": "blueberry-organic",
@@ -5170,7 +5170,7 @@
   },
   {
     "id": "spinach-organic",
-    "name": "Epinard bio",
+    "name": "Epinard FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Spinach, organic 2023 {GLO}",
     "default": "spinach-organic",
@@ -5191,7 +5191,7 @@
   },
   {
     "id": "watermelon-organic",
-    "name": "Pastèque bio",
+    "name": "Pastèque FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Melon, organic 2023, national average, at farm gate {FR}",
     "default": "watermelon-organic",
@@ -5212,7 +5212,7 @@
   },
   {
     "id": "silage-maize-fr",
-    "name": "Ensilage maïs FR",
+    "name": "Ensilage maïs FR Conv.",
     "categories": ["grain_raw"],
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "default": "AGRIBALU000024985200246",
@@ -5233,7 +5233,7 @@
   },
   {
     "id": "silage-maize-organic",
-    "name": "Ensilage maïs organic",
+    "name": "Ensilage maïs FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw"],
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "default": "AGRIBALU000024985200246",
@@ -5254,7 +5254,7 @@
   },
   {
     "id": "oilseed-feed",
-    "name": "Soja FR",
+    "name": "Soja FR Conv.",
     "categories": ["grain_raw"],
     "search": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB",
     "default": "AGRIBALU000000003110393",
@@ -5275,7 +5275,7 @@
   },
   {
     "id": "grazed-grass-temporary",
-    "name": "Herbe de prairie temporaire",
+    "name": "Herbe de prairie temporaire FR Conv.",
     "categories": [],
     "search": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
     "default": "AGRIBALU000024985200276",
@@ -5296,7 +5296,7 @@
   },
   {
     "id": "grazed-grass-permanent",
-    "name": "Herbe de prairie permanente",
+    "name": "Herbe de prairie permanente FR Conv.",
     "categories": [],
     "search": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
     "default": "AGRIBALU000000003106967",
@@ -5317,7 +5317,7 @@
   },
   {
     "id": "cherry-tr",
-    "name": "Cerise hors UE par défaut",
+    "name": "Cerise Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cherry, at farm (WFLDB)/TR",
     "default": "WFLDBQUA000001234500334",
@@ -5338,7 +5338,7 @@
   },
   {
     "id": "refined-palm-oil",
-    "name": "Huile de palme (raffinée)",
+    "name": "Huile de palme (raffinée) UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Palm oil, refined, processed in EU, at plant {RER} U",
     "default": "AGRIBALU000000003105775",
@@ -5359,7 +5359,7 @@
   },
   {
     "id": "refined-linseed-oil",
-    "name": "Huile de lin (raffinée)",
+    "name": "Huile de lin (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Linseed oil, refined, at oil mill { FR} U",
     "default": "AGRIBALU000000003108737",
@@ -5380,7 +5380,7 @@
   },
   {
     "id": "refined-grapeseed-oil",
-    "name": "Huile de pépin de raisin (raffinée)",
+    "name": "Huile de pépin de raisin (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Grapeseed oil, refined at plant {FR} U",
     "default": "AGRIBALU000000003106915",
@@ -5401,7 +5401,7 @@
   },
   {
     "id": "refined-soybean-oil",
-    "name": "Huile de soja (raffinée)",
+    "name": "Huile de soja (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Soybean oil, refined, at plant  {FR} U",
     "default": "AGRIBALU000000003114609",
@@ -5422,7 +5422,7 @@
   },
   {
     "id": "virgin-hazelnut-oil",
-    "name": "Huile de noisette (vierge)",
+    "name": "Huile de noisette (vierge) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Hazelnut oil, crude, at plant {FR} U",
     "default": "AGRIBALU000000003107299",
@@ -5443,7 +5443,7 @@
   },
   {
     "id": "refined-peanut-oil",
-    "name": "Huile d'arachide (raffinée)",
+    "name": "Huile d'arachide (raffinée) Hors UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Peanut oil, at oil mill {SN} U",
     "default": "AGRIBALU000000003110968",
@@ -5464,7 +5464,7 @@
   },
   {
     "id": "refined-sunflower-oil",
-    "name": "Huile de tournesol (raffinée)",
+    "name": "Huile de tournesol (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Sunflower oil, refined, low dehulling at plant {FR} U",
     "default": "AGRIBALU000000003115161",
@@ -5485,7 +5485,7 @@
   },
   {
     "id": "refined-rapeseed-oil",
-    "name": "Huile de colza (raffinée)",
+    "name": "Huile de colza (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Rapeseed oil, refined, at oil mill {FR} U",
     "default": "AGRIBALU000000003112440",
@@ -5506,7 +5506,7 @@
   },
   {
     "id": "extra-virgin-olive-oil",
-    "name": "Huile d'olive (extra vierge)",
+    "name": "Huile d'olive (extra vierge) UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Extra Virgin Olive Oil, at plant {ES} U",
     "default": "AGRIBALU000000003105717",
