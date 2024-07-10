@@ -37,7 +37,7 @@
     "test:review": "npx elm-review",
     "test:server": "npm run server:build && jest",
     "test:server-ci": "concurrently -k -s first -n \"django,test\" \"npm run start:backend\" \"while ! lsof -i:8002; do sleep 1; done && npm run server:build && jest\"",
-    "test": "npm run db:build && npm run test:review && npm run test:client && npm run test:backend && npm run test:server"
+    "test": "NODE_ENV=test npm run db:build && npm run test:review && npm run test:client && npm run test:backend && npm run test:server"
   },
   "dependencies": {
     "@parcel/transformer-elm": "^2.12.0",

@@ -3,6 +3,9 @@
 
 name: Node.js CI
 
+env:
+  NODE_ENV: test
+
 on:
   push:
     branches: [ master, staging ]
