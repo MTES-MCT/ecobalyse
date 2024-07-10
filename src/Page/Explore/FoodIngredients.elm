@@ -81,7 +81,7 @@ table _ { detailed, scope } =
           , toCell =
                 \{ default } ->
                     div []
-                        [ code [] [ text <| Process.codeToString default.code ]
+                        [ code [] [ text <| Process.identifierToString default.identifier ]
                         , div [ class "cursor-help", title <| Process.nameToString default.name ]
                             [ text <| Process.nameToString default.name ]
                         , case default.comment of

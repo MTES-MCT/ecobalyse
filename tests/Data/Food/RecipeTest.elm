@@ -87,7 +87,7 @@ suite =
                 , { royalPizza
                     | transform =
                         Just
-                            { code = Process.codeFromString "not a process"
+                            { code = Process.identifierFromString "not a process"
                             , mass = Mass.kilograms 0
                             }
                   }

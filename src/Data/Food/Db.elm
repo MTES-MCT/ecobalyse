@@ -51,6 +51,6 @@ updateWellKnownFromNewProcesses processes =
     WellKnown.map
         (\({ id_ } as process) ->
             processes
-                |> Process.findByIdentifier (Process.codeFromString id_)
+                |> Process.findByIdentifier (Process.identifierFromString id_)
                 |> Result.withDefault process
         )

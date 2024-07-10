@@ -123,7 +123,7 @@ idToString (Id str) =
 decodeIngredients : List Process -> Decoder (List Ingredient)
 decodeIngredients processes =
     processes
-        |> List.map (\process -> ( Process.codeToString process.code, process ))
+        |> List.map (\process -> ( Process.identifierToString process.identifier, process ))
         |> Dict.fromList
         |> decodeIngredient
         |> Decode.list
