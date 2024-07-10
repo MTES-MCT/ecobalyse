@@ -36,3 +36,10 @@ repos:
         types_or: [python]
         entry: |
           bash -c 'npm --prefix . run fix:ruff:format "${@}"' --
+
+      - id: dont-commit-detailed-processes
+        name: check that we don't commit processes_impacts.json
+        language: system
+        files: ^processes_impacts.json$
+        entry: |
+          bash -c 'exit 1'

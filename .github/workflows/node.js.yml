@@ -5,6 +5,8 @@ name: Node.js CI
 
 env:
   NODE_ENV: test
+  FOOD_PROCESSES_IMPACTS_PATH: ./ecobalyse-private/data/food/processes_impacts.json
+  TEXTILE_PROCESSES_IMPACTS_PATH: ./ecobalyse-private/data/textile/processes_impacts.json
 
 on:
   push:
@@ -67,6 +69,12 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y gettext
+
+    - name: Clone the detailed impacts
+      run: |
+        eval `ssh-agent -s`
+        ssh-add - <<< '${{ secrets.SCALINGO_SSH_KEY }}'
+        git clone git@github.com:MTES-MCT/ecobalyse-private.git
 
     - name: Build app
       run: npm run build --if-present
