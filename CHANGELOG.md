@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.1](https://github.com/MTES-MCT/ecobalyse/compare/v1.1.0...v1.1.1) (2024-07-10)
+
+
+### Bug Fixes
+
+* **api,ui:** Use custom waste/complexity and product defaults. ([#648](https://github.com/MTES-MCT/ecobalyse/issues/648)) ([fd9e465](https://github.com/MTES-MCT/ecobalyse/commit/fd9e4658470c2243baf53abfff3eec09066bba9d))
+* avoid building detailed impacts in production. ([#656](https://github.com/MTES-MCT/ecobalyse/issues/656)) ([3b5d79b](https://github.com/MTES-MCT/ecobalyse/commit/3b5d79beaca1a77087202731f4fc28e08a6d7a72))
+* Rename organic cotton. ([#647](https://github.com/MTES-MCT/ecobalyse/issues/647)) ([5549065](https://github.com/MTES-MCT/ecobalyse/commit/554906580cac60f21f66e09671681fa08482a514))
+* **ui:** Round Dtex number in the web UI. ([#649](https://github.com/MTES-MCT/ecobalyse/issues/649)) ([9ad4597](https://github.com/MTES-MCT/ecobalyse/commit/9ad459794888fd9d883e2f34971f4bc286a76076))
+
 ## [1.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v1.0.0...v1.1.0) (2024-06-27)
 
 
