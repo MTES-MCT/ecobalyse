@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v1.1.1...v1.2.0) (2024-07-10)
+
+
+### Features
+
+* add a link to the new product category gform. ([#626](https://github.com/MTES-MCT/ecobalyse/issues/626)) ([036864c](https://github.com/MTES-MCT/ecobalyse/commit/036864c105af216e935404109dc659a49fa33391))
+* clarify ingredients names (bio, conv) and origin (France, EU, Hors-EU) ([#653](https://github.com/MTES-MCT/ecobalyse/issues/653)) ([cae1776](https://github.com/MTES-MCT/ecobalyse/commit/cae177697645ad151439c3ef7a0e069018a53893))
+
 ## [1.1.1](https://github.com/MTES-MCT/ecobalyse/compare/v1.1.0...v1.1.1) (2024-07-10)
 
 
