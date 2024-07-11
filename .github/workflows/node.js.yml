@@ -7,7 +7,6 @@ env:
   NODE_ENV: test
   FOOD_PROCESSES_IMPACTS_PATH: ./ecobalyse-private/data/food/processes_impacts.json
   TEXTILE_PROCESSES_IMPACTS_PATH: ./ecobalyse-private/data/textile/processes_impacts.json
-
 on:
   push:
     branches: [ master, staging ]
@@ -78,13 +77,6 @@ jobs:
 
     - name: Build app
       run: npm run build --if-present
-
-    - name: Encrypt the impacts files
-      env:
-        ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
-      run : |
-        npm run encrypt ${{ env.TEXTILE_PROCESSES_IMPACTS_PATH}} dist/processes_impacts_textile.json.enc
-        npm run encrypt ${{ env.FOOD_PROCESSES_IMPACTS_PATH}} dist/processes_impacts_food.json.enc
 
     - name: Build Elm static Db
       run: npm run db:build

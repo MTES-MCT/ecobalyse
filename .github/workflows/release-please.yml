@@ -40,12 +40,25 @@ jobs:
         run: |
           npm run build
           npm run server:build
-
-      - name: Copy generated files to dist
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
           cp server-app.js dist/
           cp openapi.yaml dist/
+
+      - name: Clone the detailed impacts
+        run: |
+          eval `ssh-agent -s`
+          ssh-add - <<< '${{ secrets.SCALINGO_SSH_KEY }}'
+          git clone git@github.com:MTES-MCT/ecobalyse-private.git
+
+      - name: Encrypt the impacts files
+        env:
+          ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+        run : |
+          npm run encrypt ./ecobalyse-private/data/textile/processes_impacts.json dist/processes_impacts_textile.json.enc
+          npm run encrypt ./ecobalyse-private/data/food/processes_impacts.json dist/processes_impacts_food.json.enc
+
+      - name: Generate dist archive
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
           tar czvf ${{ steps.release.outputs.tag_name }}-dist.tar.gz dist
 
       - name: Archive production artifacts
