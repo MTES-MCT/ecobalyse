@@ -38,6 +38,13 @@ from food.ecosystemic_services.ecosystemic_services import (
 )
 
 PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
+ECOBALYSE_PRIVATE = os.environ.get("ECOBALYSE_PRIVATE")
+if not ECOBALYSE_PRIVATE:
+    print(
+        "\n🚨 ERROR: For the export to work properly, you need to specify ECOBALYSE_PRIVATE env variable. It needs to point to the https://github.com/MTES-MCT/ecobalyse-private/ repository. Please, edit your .env file accordingly.",
+    )
+    sys.exit(1)
+
 # Configuration
 CONFIG = {
     "PROJECT": "food",
@@ -50,7 +57,7 @@ CONFIG = {
     "FEED_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",
     "UGB_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv",
     "INGREDIENTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",
-    "PROCESSES_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/processes_impacts.json",
+    "PROCESSES_FILE": f"{ECOBALYSE_PRIVATE}/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
     "GRAPH_FOLDER": f"{PROJECT_ROOT_DIR}/data/food/impact_comparison",
 }

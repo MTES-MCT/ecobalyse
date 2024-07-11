@@ -26,13 +26,17 @@ if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATO
 }
 
 if (process.env.NODE_ENV === "test") {
-  if (!process.env.TEXTILE_PROCESSES_IMPACTS_PATH || !process.env.FOOD_PROCESSES_IMPACTS_PATH) {
+  if (!process.env.ECOBALYSE_PRIVATE) {
     console.error(
-      "\n🚨 ERROR: For the tests to work properly, you need to specify FOOD_PROCESSES_IMPACTS_PATH and TEXTILE_PROCESSES_IMPACTS_PATH env variables. They need to point to the detailed versions of the processes files. Please, edit your .env file accordingly.",
+      "\n🚨 ERROR: For the tests to work properly, you need to specify the ECOBALYSE_PRIVATE env variable. It needs to point to the https://github.com/MTES-MCT/ecobalyse-private/ repository. Please, edit your .env file accordingly.",
     );
     console.error("-> Exiting the test process.\n");
     process.exit(1);
   }
+  const TEXTILE_PROCESSES_IMPACTS_PATH =
+    process.env.ECOBALYSE_PRIVATE + "data/textile/processes_impacts.json";
+  const FOOD_PROCESSES_IMPACTS_PATH =
+    process.env.ECOBALYSE_PRIVATE + "data/food/processes_impacts.json";
 }
 
 // Sentry
@@ -104,9 +108,8 @@ const apiTracker = lib.setupTracker(openApiContents);
 // Detailed processes files
 
 let textileImpactsFile =
-  process.env.TEXTILE_PROCESSES_IMPACTS_PATH || "public/data/textile/processes_impacts.json";
-let foodImpactsFile =
-  process.env.FOOD_PROCESSES_IMPACTS_PATH || "public/data/food/processes_impacts.json";
+  TEXTILE_PROCESSES_IMPACTS_PATH || "public/data/textile/processes_impacts.json";
+let foodImpactsFile = FOOD_PROCESSES_IMPACTS_PATH || "public/data/food/processes_impacts.json";
 const textileFile = "public/data/textile/processes.json";
 const foodFile = "public/data/food/processes.json";
 
