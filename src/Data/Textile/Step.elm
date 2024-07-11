@@ -38,6 +38,7 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
+import Length
 import Mass exposing (Mass)
 import Quantity
 import Static.Db exposing (Db)
@@ -221,10 +222,12 @@ computeTransportImpacts impacts { airTransport, seaTransport } roadProcess mass 
 computeTransportSummary : Step -> Transport -> Transport
 computeTransportSummary step transport =
     let
-        ( noTransports, defaultInland ) =
-            ( Transport.default step.transport.impacts
-            , Transport.default step.transport.impacts
-            )
+        noTransports =
+            Transport.default step.transport.impacts
+
+        defaultInland =
+            Transport.default step.transport.impacts
+                |> Transport.add { noTransports | road = Length.kilometers 500 }
     in
     case step.label of
         Label.Distribution ->
