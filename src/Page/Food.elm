@@ -928,7 +928,12 @@ ingredientListView db selectedImpact recipe results =
                 |> List.sortBy .name
 
         autocompleteState =
-            AutocompleteSelector.init .name availableIngredients
+            availableIngredients
+                |> AutocompleteSelector.init
+                    (\{ name, default } ->
+                        -- Allow searching by name and process name
+                        name ++ " " ++ Process.nameToString default.name
+                    )
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1553,12 +1558,13 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                         , title = "Sélectionnez un ingrédient"
-                        , toLabel = .name
                         , toCategory =
                             .categories
                                 >> List.head
                                 >> Maybe.map IngredientCategory.toLabel
                                 >> Maybe.withDefault ""
+                        , toDescription = Just (.default >> .name >> Process.nameToString)
+                        , toLabel = .name
                         }
 
                 SelectExampleModal autocompleteState ->
@@ -1571,8 +1577,9 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = Example.toName session.db.food.examples
                         , toCategory = Example.toCategory session.db.food.examples
+                        , toDescription = Nothing
+                        , toLabel = Example.toName session.db.food.examples
                         }
             ]
       ]
