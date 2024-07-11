@@ -33,6 +33,11 @@ RUN apt update \
     && git config --global --add safe.directory /home/$NB_USER/ecobalyse \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
 
+RUN curl -L -o elm.gz https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz \
+    && gunzip elm.gz \
+    && chmod +x elm \
+    && mv elm /usr/local/bin/
+
 COPY simapro-biosphere.json /opt/conda/lib/python3.11/site-packages/bw2io/data/
 COPY entrypoint.sh /
 
