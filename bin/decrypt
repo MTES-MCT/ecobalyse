@@ -2,12 +2,19 @@
 
 const { decryptFile } = require("../lib/crypto");
 
-const path = `${__dirname}/../${process.argv[2]}`;
-console.log(`Decrypting ${path}…`);
+if (process.argv.length !== 4) {
+  console.error("Usage: decrypt [SOURCE_PATH] [DESTINATION_PATH]");
+  process.exit(1);
+}
+
+const path = process.argv[2];
+const destination = process.argv[3];
+
+console.log(`Decrypting ${path} to ${destination}…`);
 
 try {
-  decryptFile(path);
-  console.log("Done.");
+  decryptFile(path, destination);
+  console.log(`Done, decrypted ${path} to ${destination}.`);
 } catch (err) {
   console.error(`Couldn't decrypt ${path}:\n> ${err}\nWas it encoded?`);
   process.exit(1);
