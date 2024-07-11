@@ -49,7 +49,7 @@ import Html.Events exposing (..)
 import Mass
 import Ports
 import Route
-import Static.Db as Db exposing (Db)
+import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -127,7 +127,6 @@ type Msg
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
-    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
@@ -284,7 +283,7 @@ updateQuery query ( model, session, commands ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, queries, navKey } as session) msg model =
+update ({ queries, navKey } as session) msg model =
     let
         query =
             queries.textile
@@ -521,14 +520,6 @@ update ({ db, queries, navKey } as session) msg model =
         ( UpdateDyeingMedium dyeingMedium, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
-
-        ( UpdateEcotoxWeighting (Just ratio), _ ) ->
-            ( model, { session | db = Db.updateEcotoxWeighting db ratio }, Cmd.none )
-                -- triggers recompute
-                |> updateQuery query
-
-        ( UpdateEcotoxWeighting Nothing, _ ) ->
-            ( model, session, Cmd.none )
 
         ( UpdateFabricProcess fabricProcess, _ ) ->
             ( model, session, Cmd.none )
@@ -1104,9 +1095,6 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                         )
                 , productMass = inputs.mass
                 , totalImpacts = impacts
-
-                -- Ecotox weighting customization
-                , updateEcotoxWeighting = UpdateEcotoxWeighting
 
                 -- Impacts tabs
                 , impactTabsConfig =
