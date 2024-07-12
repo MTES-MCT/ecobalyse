@@ -405,5 +405,13 @@
     "replace": {
       "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "soybean grain dried stored and transported processing FR"
     }
+  },
+  {
+    "id": "tomato-organic-fr",
+    "search_in": "Ginko",
+    "search": "Fresh tomato, consumption mix",
+    "suffix": "[fr-only]",
+    "subactivities": [],
+    "replace": { "Fresh tomato ES": "medium tomato FR" }
   }
 ]
