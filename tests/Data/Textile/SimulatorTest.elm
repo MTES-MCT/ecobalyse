@@ -81,5 +81,17 @@ suite =
                         )
                     ]
                 ]
+            , describe "getTotalImpactsWithoutComplements"
+                [ tShirtCotonFrance
+                    |> Simulator.compute db
+                    |> Result.map
+                        (Simulator.getTotalImpactsWithoutComplements
+                            >> Impact.getImpact Definition.Ecs
+                            >> Unit.impactToFloat
+                        )
+                    |> Result.withDefault 0
+                    |> Expect.greaterThan 0
+                    |> asTest "should compute total impacts without complements"
+                ]
             ]
         )

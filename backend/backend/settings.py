@@ -33,13 +33,11 @@ DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("DJANGO_SECRET_KEY", "dev_not_so_secret_key")
 
-ALLOWED_HOSTS = [
-    HOSTNAME,
-    "localhost",
-    "127.0.0.1",
-    ".osc-fr1.scalingo.io",
-    "staging-ecobalyse.incubateur.net",
-]
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    f"{HOSTNAME},localhost,127.0.0.1",
+    cast=lambda v: [s.strip() for s in v.split(",")],
+)
 
 
 # Application definition
@@ -50,8 +48,7 @@ INSTALLED_APPS = [
     # # don't use the provided mailauth user, it's redefined in the authentication module
     # "mailauth.contrib.user",
     "authentication.apps.AuthenticationConfig",
-    # # disable textile for now
-    # "textile.apps.TextileConfig",
+    # "textile.apps.TextileConfig", # TODO disable textile for now
     # #  the original admin config is replaced by custom AdminConfig
     # "django.contrib.admin",
     "backend.apps.AdminConfig",

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-19 15:52+0200\n"
-"PO-Revision-Date: 2024-05-19 15:59+0200\n"
+"POT-Creation-Date: 2024-06-18 13:49+0200\n"
+"PO-Revision-Date: 2024-06-18 13:53+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,9 +18,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: processes/views.py:65
+#: processes/views.py:59
 msgid "This token isn't valid"
 msgstr "Ce token n'est pas valable"
+
+#: templates/admin/textile/example/change_list.html:8
+msgid "Create from JSON"
+msgstr "Créer depuis JSON"
+
+#: templates/admin/textile/example/from_json.html:4
+msgid "Create the Example from the provided JSON block in Ecobalyse"
+msgstr "Crée un Exemple de produit depuis le JSON fourni par Ecobalyse"
+
+#: templates/admin/textile/example/from_json.html:10
+msgid "Submit"
+msgstr "Valider"
 
 #: templates/registration/login_email.html:2
 #: templates/registration/login_email.txt:2

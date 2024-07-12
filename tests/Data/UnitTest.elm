@@ -110,5 +110,15 @@ suite =
                     |> expectImpactFloat 0.5
                     |> asTest "should compute impact from ratioed impact and energy in MJ"
                 ]
+            , describe "Unit.decodeYarnSize"
+                [ "27"
+                    |> Decode.decodeString Unit.decodeYarnSize
+                    |> Expect.equal (Ok (Unit.yarnSizeKilometersPerKg 27))
+                    |> asTest "should decode an int yarnSize value"
+                , "27.04"
+                    |> Decode.decodeString Unit.decodeYarnSize
+                    |> Expect.equal (Ok (Unit.yarnSizeKilometersPerKg 27.04))
+                    |> asTest "should decode a float yarnSize value"
+                ]
             ]
         ]

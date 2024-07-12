@@ -11,19 +11,20 @@ import Route
 
 table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table FoodProcess.Process String msg
 table _ { detailed, scope } =
-    { toId = .code >> FoodProcess.codeToString
-    , toRoute = .code >> Just >> Dataset.FoodProcesses >> Route.Explore scope
+    { toId = .identifier >> FoodProcess.identifierToString
+    , toRoute = .identifier >> Just >> Dataset.FoodProcesses >> Route.Explore scope
+    , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .code >> FoodProcess.codeToString
+          , toValue = Table.StringValue <| .identifier >> FoodProcess.identifierToString
           , toCell =
                 \process ->
                     if detailed then
-                        code [] [ text (FoodProcess.codeToString process.code) ]
+                        code [] [ text (FoodProcess.identifierToString process.identifier) ]
 
                     else
-                        a [ Route.href (Route.Explore scope (Dataset.FoodProcesses (Just process.code))) ]
-                            [ code [] [ text (FoodProcess.codeToString process.code) ] ]
+                        a [ Route.href (Route.Explore scope (Dataset.FoodProcesses (Just process.identifier))) ]
+                            [ code [] [ text (FoodProcess.identifierToString process.identifier) ] ]
           }
         , { label = "Nom"
           , toValue = Table.StringValue getDisplayName
@@ -37,9 +38,13 @@ table _ { detailed, scope } =
           , toValue = Table.StringValue <| .name >> FoodProcess.nameToString
           , toCell = .name >> FoodProcess.nameToString >> text
           }
+        , { label = "Source"
+          , toValue = Table.StringValue <| .source
+          , toCell = .source >> text
+          }
         , { label = "Identifiant source"
-          , toValue = Table.StringValue <| .code >> FoodProcess.codeToString
-          , toCell = \process -> code [] [ text (FoodProcess.codeToString process.code) ]
+          , toValue = Table.StringValue <| .identifier >> FoodProcess.identifierToString
+          , toCell = \process -> code [] [ text (FoodProcess.identifierToString process.identifier) ]
           }
         , { label = "Unité"
           , toValue = Table.StringValue <| .unit

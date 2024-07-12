@@ -210,7 +210,7 @@ picking =
 
 yarnSize : Unit.YarnSize -> Html msg
 yarnSize =
-    Unit.yarnSizeInKilometers >> toFloat >> formatRichFloat 0 "Nm"
+    Unit.yarnSizeInKilometers >> formatRichFloat 0 "Nm"
 
 
 ratio : Unit.Ratio -> Html msg

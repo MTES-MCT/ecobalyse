@@ -13,12 +13,7 @@ const elmApp = Elm.ComputeAggregated.init({
 const exportJson = async (filepath, json) => {
   // Using dynamic import to avoid jest runtime error
   // eg. “A dynamic import callback was invoked without --experimental-vm-modules”
-  const prettier = require("prettier");
-
-  const jsonString = JSON.stringify(json, null, 2);
-  const formattedJson = await prettier.format(jsonString, { filepath });
-
-  fs.writeFileSync(filepath, formattedJson);
+  fs.writeFileSync(filepath, JSON.stringify(json, null, 2));
 };
 
 elmApp.ports.export.subscribe(
@@ -27,16 +22,12 @@ elmApp.ports.export.subscribe(
     foodProcesses,
     textileProcessesOnlyAggregated,
     foodProcessesOnlyAggregated,
-    textileProcessesFakeDetails,
-    foodProcessesFakeDetails,
   }) => {
     try {
       exportJson("public/data/textile/processes_impacts.json", textileProcesses);
       exportJson("public/data/food/processes_impacts.json", foodProcesses);
       exportJson("public/data/textile/processes.json", textileProcessesOnlyAggregated);
       exportJson("public/data/food/processes.json", foodProcessesOnlyAggregated);
-      exportJson("public/data/textile/processes_impacts_fake.json", textileProcessesFakeDetails);
-      exportJson("public/data/food/processes_impacts_fake.json", foodProcessesFakeDetails);
       console.log("EXPORTED!");
     } catch (err) {
       console.error(err);

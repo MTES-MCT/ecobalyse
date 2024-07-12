@@ -2,7 +2,6 @@
   {
     "id": "chemise",
     "name": "Chemise",
-    "mass": 0.25,
     "surfaceMass": 200,
     "yarnSize": 40,
     "fabric": "weaving",
@@ -38,7 +37,6 @@
   {
     "id": "jean",
     "name": "Jean",
-    "mass": 0.45,
     "surfaceMass": 250,
     "yarnSize": 40,
     "fabric": "weaving",
@@ -74,7 +72,6 @@
   {
     "id": "jupe",
     "name": "Jupe / Robe",
-    "mass": 0.3,
     "surfaceMass": 200,
     "yarnSize": 40,
     "fabric": "weaving",
@@ -110,7 +107,6 @@
   {
     "id": "manteau",
     "name": "Manteau / Veste",
-    "mass": 0.95,
     "surfaceMass": 450,
     "yarnSize": 30,
     "fabric": "weaving",
@@ -146,7 +142,6 @@
   {
     "id": "pantalon",
     "name": "Pantalon / Short",
-    "mass": 0.45,
     "surfaceMass": 250,
     "yarnSize": 40,
     "fabric": "weaving",
@@ -182,7 +177,6 @@
   {
     "id": "pull",
     "name": "Pull",
-    "mass": 0.5,
     "surfaceMass": 250,
     "yarnSize": 35,
     "fabric": "knitting-mix",
@@ -218,7 +212,6 @@
   {
     "id": "tshirt",
     "name": "T-shirt / Polo",
-    "mass": 0.17,
     "surfaceMass": 200,
     "yarnSize": 40,
     "fabric": "knitting-mix",
@@ -254,7 +247,6 @@
   {
     "id": "chaussettes",
     "name": "Chaussettes",
-    "mass": 0.043,
     "surfaceMass": 250,
     "yarnSize": 35,
     "fabric": "knitting-fully-fashioned",
@@ -290,7 +282,6 @@
   {
     "id": "calecon",
     "name": "Caleçon (tissé)",
-    "mass": 0.04,
     "surfaceMass": 180,
     "yarnSize": 45,
     "fabric": "weaving",
@@ -326,7 +317,6 @@
   {
     "id": "slip",
     "name": "Boxer / Slip (tricoté)",
-    "mass": 0.03,
     "surfaceMass": 180,
     "yarnSize": 45,
     "fabric": "knitting-mix",
@@ -362,7 +352,6 @@
   {
     "id": "maillot-de-bain",
     "name": "Maillot de bain",
-    "mass": 0.1,
     "surfaceMass": 220,
     "yarnSize": 40,
     "fabric": "knitting-mix",

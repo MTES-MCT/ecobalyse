@@ -149,8 +149,8 @@ countryParser countries scope countryStr =
 foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Identifier
 foodProcessCodeParser processes string =
     processes
-        |> FoodProcess.findByIdentifier (FoodProcess.codeFromString string)
-        |> Result.map .code
+        |> FoodProcess.findByIdentifier (FoodProcess.identifierFromString string)
+        |> Result.map .identifier
 
 
 packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List BuilderQuery.ProcessQuery))
@@ -732,18 +732,18 @@ parseYarnSize str =
                 |> Regex.find withUnitRegex
                 |> List.map .submatches
     in
-    case String.toInt str of
-        Just int ->
-            Just <| Unit.yarnSizeKilometersPerKg int
+    case String.toFloat str of
+        Just float ->
+            Just <| Unit.yarnSizeKilometersPerKg float
 
         Nothing ->
             case subMatches of
-                [ [ Just intStr, Just "Nm" ] ] ->
-                    String.toInt intStr
+                [ [ Just floatStr, Just "Nm" ] ] ->
+                    String.toFloat floatStr
                         |> Maybe.map Unit.yarnSizeKilometersPerKg
 
-                [ [ Just intStr, Just "Dtex" ] ] ->
-                    String.toInt intStr
+                [ [ Just floatStr, Just "Dtex" ] ] ->
+                    String.toFloat floatStr
                         |> Maybe.map Unit.yarnSizeGramsPer10km
 
                 _ ->
@@ -759,17 +759,21 @@ maybeYarnSizeParser key =
                     case parseYarnSize str of
                         Just yarnSize ->
                             if (yarnSize |> Quantity.lessThan Unit.minYarnSize) || (yarnSize |> Quantity.greaterThan Unit.maxYarnSize) then
+                                let
+                                    format fn =
+                                        fn >> floor >> String.fromInt
+                                in
                                 Err
                                     ( key
                                     , "Le titrage (yarnSize) doit être compris entre "
-                                        ++ String.fromInt (Unit.yarnSizeInKilometers Unit.minYarnSize)
+                                        ++ (Unit.minYarnSize |> format Unit.yarnSizeInKilometers)
                                         ++ " et "
-                                        ++ String.fromInt (Unit.yarnSizeInKilometers Unit.maxYarnSize)
+                                        ++ (Unit.maxYarnSize |> format Unit.yarnSizeInKilometers)
                                         ++ " Nm (entre "
                                         -- The following two are reversed in Dtex because the unit is "reversed"
-                                        ++ String.fromInt (Unit.yarnSizeInGrams Unit.maxYarnSize)
+                                        ++ (Unit.maxYarnSize |> format Unit.yarnSizeInGrams)
                                         ++ " et "
-                                        ++ String.fromInt (Unit.yarnSizeInGrams Unit.minYarnSize)
+                                        ++ (Unit.minYarnSize |> format Unit.yarnSizeInGrams)
                                         ++ " Dtex)"
                                     )
 

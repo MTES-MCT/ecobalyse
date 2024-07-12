@@ -1,0 +1,107 @@
+name: Score History
+
+on:
+  push:
+    branches:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  score_history:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+        python-version: [3.11]
+
+    # Run the job manually, on push to master or if the commit contains "[score_history]"
+    if: ${{ github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/master' || contains(github.event.head_commit.message, '[score_history]') }}
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Install Scalingo CLI
+        uses: ./.github/actions/scalingo-cli
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache node_modules
+        id: cache-node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('package.json', 'package-lock.json') }}
+
+      - name: Cache ~/.elm
+        # see https://docs.microsoft.com/en-us/answers/questions/510640/deploy-elm-app-to-azure-static-website-from-github.html
+        uses: actions/cache@v4
+        with:
+          path: ~/.elm
+          key: elm-cache-${{ hashFiles('elm.json') }}
+          restore-keys: elm-cache-
+
+      - name: Cache pipenv virtualenv
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-${{ matrix.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-
+
+      - name: Install Node dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Install Python dependencies
+        run: pip install pipenv && pipenv install
+
+
+      - name: Install Ubuntu dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gettext
+
+
+      - name: Install dependencies
+        run: pip install numpy pandas requests python-dotenv GitPython sqlalchemy psycopg2
+
+
+      - name: Add scalingo to know hosts
+        run: echo "KNOWN_HOSTS=$(ssh-keyscan -H ssh.osc-fr1.scalingo.com)" >> $GITHUB_ENV
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SCALINGO_SSH_KEY }}
+          name: id_rsa # optional
+          known_hosts: ${{ env.KNOWN_HOSTS }}
+          config: ${{ secrets.CONFIG }} # ssh_config; optional
+          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
+
+      - name: Score History
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          LAST_COMMIT_HASH: ${{ github.sha }}
+          SCALINGO_POSTGRESQL_SCORE_URL: ${{ secrets.SCALINGO_POSTGRESQL_TUNNEL_SCORE_URL }}
+          NODE_ENV: "test"
+          SCALINGO_REGION: ${{ secrets.SCALINGO_REGION }}
+          SCALINGO_APP: ecobalyse
+          SCALINGO_API_TOKEN: ${{ secrets.SCALINGO_API_TOKEN }}
+        run: |
+          npm run server:build
+          scalingo db-tunnel DATABASE_URL &
+          npm run server:start &
+          npm run start:backend &
+
+          for attempt in {1..20}; do if curl -s http://localhost:8001/ > /dev/null; then echo "-> Node server is up and ready on port 8001"; break; fi; echo "-> Waiting for the Node server to boot..."; sleep 1; done
+          for attempt in {1..20}; do if curl -s http://localhost:8002/ > /dev/null; then echo "-> Python server is up and ready on port 8002"; break; fi; echo "-> Waiting for the Python server to boot..."; sleep 1; done
+          for attempt in {1..20}; do if lsof -i:10000 > /dev/null; then echo "-> PG Tunnel to Scalingo is up and ready on port 10000"; break; fi; echo "-> Waiting for the PG tunnel to Scalingo..."; sleep 1; done
+
+          python data/common/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $LAST_COMMIT_HASH $SCALINGO_POSTGRESQL_SCORE_URL

@@ -108,7 +108,7 @@ async def characterization_factors(
     projects.set_current(project)
     try:
         return bw2data.Method((method,) + tuple(impact_category.split("/"))).load()
-    except:
+    except Exception:
         return JSONResponse(
             status_code=404, content={"message": "Impact category not found"}
         )

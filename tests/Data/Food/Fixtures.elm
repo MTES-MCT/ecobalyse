@@ -59,11 +59,11 @@ royalPizza =
         ]
     , transform =
         Just
-            { code = Process.codeFromString "AGRIBALU000000003103966"
+            { code = Process.identifierFromString "AGRIBALU000000003103966"
             , mass = Mass.grams 363
             }
     , packaging =
-        [ { code = Process.codeFromString "AGRIBALU000000003104019"
+        [ { code = Process.identifierFromString "AGRIBALU000000003104019"
           , mass = Mass.grams 100
           }
         ]

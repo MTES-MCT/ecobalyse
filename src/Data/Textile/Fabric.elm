@@ -83,34 +83,42 @@ fromString string =
             Err <| "Procédé de tissage/tricotage inconnu: " ++ string
 
 
-getMakingComplexity : MakingComplexity -> Fabric -> MakingComplexity
-getMakingComplexity productDefaultMakingComplexity fabric =
-    case fabric of
-        KnittingFullyFashioned ->
+getMakingComplexity : MakingComplexity -> Maybe MakingComplexity -> Maybe Fabric -> MakingComplexity
+getMakingComplexity defaultComplexity maybeCustomComplexity maybeFabric =
+    case ( maybeFabric, maybeCustomComplexity ) of
+        -- Custom complexity provided: always takes priority
+        ( _, Just customComplexity ) ->
+            customComplexity
+
+        -- Specific fabric process provided: retrieve associated complexity
+        ( Just KnittingFullyFashioned, Nothing ) ->
             MakingComplexity.VeryLow
 
-        KnittingIntegral ->
+        ( Just KnittingIntegral, Nothing ) ->
             MakingComplexity.NotApplicable
 
         _ ->
-            productDefaultMakingComplexity
+            defaultComplexity
 
 
-getMakingWaste : Split -> Fabric -> Split
-getMakingWaste productDefaultWaste fabric =
-    case fabric of
-        KnittingFullyFashioned ->
-            Split.fromFloat 0.02
-                |> Result.toMaybe
-                |> Maybe.withDefault productDefaultWaste
+getMakingWaste : Split -> Maybe Split -> Maybe Fabric -> Split
+getMakingWaste defaultWaste maybeCustomWaste maybeFabric =
+    case ( maybeFabric, maybeCustomWaste ) of
+        -- Custom waste provided: always takes priority
+        ( _, Just customWaste ) ->
+            customWaste
 
-        KnittingIntegral ->
-            Split.fromFloat 0
-                |> Result.toMaybe
-                |> Maybe.withDefault productDefaultWaste
+        -- Specific fabric process provided: retrieve associated waste
+        ( Just KnittingFullyFashioned, Nothing ) ->
+            -- Fully fashioned garments have 2% fabric waste
+            Split.two
+
+        ( Just KnittingIntegral, Nothing ) ->
+            -- Garments integrally knitted have no fabric waste at all
+            Split.zero
 
         _ ->
-            productDefaultWaste
+            defaultWaste
 
 
 getProcess : WellKnown -> Fabric -> Process

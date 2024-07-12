@@ -4,8 +4,6 @@ module Data.Food.Process exposing
     , Process
     , ProcessName
     , categoryToLabel
-    , codeFromString
-    , codeToString
     , decodeIdentifier
     , decodeList
     , encode
@@ -13,6 +11,8 @@ module Data.Food.Process exposing
     , findById
     , findByIdentifier
     , getDisplayName
+    , identifierFromString
+    , identifierToString
     , listByCategory
     , nameToString
     )
@@ -34,11 +34,12 @@ type alias Process =
     , displayName : Maybe String
     , impacts : Impacts
     , unit : String
-    , code : Identifier
+    , identifier : Identifier
     , category : Category
     , systemDescription : String
     , comment : Maybe String
     , id_ : String
+    , source : String
     }
 
 
@@ -148,13 +149,13 @@ categoryToLabel category =
             "Traitement des déchets"
 
 
-codeFromString : String -> Identifier
-codeFromString =
+identifierFromString : String -> Identifier
+identifierFromString =
     Identifier
 
 
-codeToString : Identifier -> String
-codeToString (Identifier string) =
+identifierToString : Identifier -> String
+identifierToString (Identifier string) =
     string
 
 
@@ -191,6 +192,7 @@ decodeProcess impactsDecoder =
         |> Pipe.required "system_description" Decode.string
         |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "id" Decode.string
+        |> Pipe.required "source" Decode.string
 
 
 encode : Process -> Encode.Value
@@ -200,18 +202,19 @@ encode process =
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "impacts", Impact.encode process.impacts )
         , ( "unit", encodeStringUnit process.unit )
-        , ( "identifier", encodeIdentifier process.code )
+        , ( "identifier", encodeIdentifier process.identifier )
         , ( "category", encodeCategory process.category )
         , ( "system_description", Encode.string process.systemDescription )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
         , ( "id", Encode.string process.id_ )
+        , ( "source", Encode.string process.source )
         ]
 
 
 decodeIdentifier : Decoder Identifier
 decodeIdentifier =
     Decode.string
-        |> Decode.map codeFromString
+        |> Decode.map identifierFromString
 
 
 decodeList : Decoder Impact.Impacts -> Decoder (List Process)
@@ -221,7 +224,7 @@ decodeList impactsDecoder =
 
 encodeIdentifier : Identifier -> Encode.Value
 encodeIdentifier =
-    codeToString >> Encode.string
+    identifierToString >> Encode.string
 
 
 findById : List Process -> String -> Result String Process
@@ -233,11 +236,11 @@ findById processes id_ =
 
 
 findByIdentifier : Identifier -> List Process -> Result String Process
-findByIdentifier ((Identifier codeString) as code) processes =
+findByIdentifier ((Identifier identifierString) as identifier) processes =
     processes
-        |> List.filter (.code >> (==) code)
+        |> List.filter (.identifier >> (==) identifier)
         |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par code : " ++ codeString)
+        |> Result.fromMaybe ("Procédé introuvable par code : " ++ identifierString)
 
 
 decodeStringUnit : Decoder String

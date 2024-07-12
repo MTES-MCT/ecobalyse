@@ -509,7 +509,7 @@ computeThreadDensity surfaceMass yarnSize =
             1.08
     in
     toFloat (Unit.surfaceMassInGramsPerSquareMeters surfaceMass)
-        * toFloat (Unit.yarnSizeInKilometers yarnSize)
+        * Unit.yarnSizeInKilometers yarnSize
         -- the output surface is in (m2) so we would have the threadDensity is in (# fils / m) but we need it in (# fils / cm)
         / 100
         -- the thread is weaved horizontally and vertically, so the number of threads along one axis is only half of the total thread length

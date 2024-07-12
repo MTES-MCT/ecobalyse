@@ -28,7 +28,7 @@ import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
-import Data.Textile.Fabric as Fabric exposing (Fabric)
+import Data.Textile.Fabric exposing (Fabric)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
@@ -36,7 +36,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning exposing (Spinning)
 import Data.Textile.Printing exposing (Printing)
-import Data.Textile.Product as Product
+import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as Query exposing (MaterialQuery, Query)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
@@ -88,7 +88,7 @@ type Modal
     | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
     | ConfirmSwitchToRegulatoryModal
     | SelectExampleModal (Autocomplete Query)
-    | SelectProductModal (Autocomplete Product.Id)
+    | SelectProductModal (Autocomplete Product)
 
 
 type Tab
@@ -104,7 +104,7 @@ type Msg
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
-    | OnAutocompleteProduct (Autocomplete.Msg Product.Id)
+    | OnAutocompleteProduct (Autocomplete.Msg Product)
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
@@ -532,24 +532,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( UpdateFabricProcess fabricProcess, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery
-                    { query
-                        | fabricProcess = Just fabricProcess
-                        , makingWaste =
-                            model.simulator
-                                |> Result.map
-                                    (\simulator ->
-                                        Fabric.getMakingWaste simulator.inputs.product.making.pcrWaste fabricProcess
-                                    )
-                                |> Result.toMaybe
-                        , makingComplexity =
-                            model.simulator
-                                |> Result.map
-                                    (\simulator ->
-                                        Fabric.getMakingComplexity simulator.inputs.product.making.complexity fabricProcess
-                                    )
-                                |> Result.toMaybe
-                    }
+                |> updateQuery { query | fabricProcess = Just fabricProcess }
 
         ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )
@@ -712,21 +695,16 @@ selectExample autocompleteState ( model, session, _ ) =
         |> updateQuery example
 
 
-selectProduct : Autocomplete Product.Id -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectProduct : Autocomplete Product -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectProduct autocompleteState ( model, session, _ ) =
-    let
-        product =
-            Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Query.default.product
+    case Autocomplete.selectedValue autocompleteState of
+        Just product ->
+            update session (SetModal NoModal) model
+                |> updateQuery (Query.updateProduct product session.queries.textile)
 
-        currentQuery =
-            session.queries.textile
-
-        updatedQuery =
-            { currentQuery | product = product }
-    in
-    update session (SetModal NoModal) model
-        |> updateQuery updatedQuery
+        Nothing ->
+            model
+                |> update (session |> Session.notifyError "Erreur" "Aucun produit sélectionné") (SetModal NoModal)
 
 
 selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -748,16 +726,10 @@ selectMaterial autocompleteState ( model, session, _ ) =
 productCategoryField : TextileDb.Db -> Query -> Html Msg
 productCategoryField { products } query =
     let
-        nameFromProductId default id =
-            Product.findById id products
-                |> Result.map .name
-                |> Result.withDefault default
-
         autocompleteState =
             products
                 |> List.sortBy .name
-                |> List.map .id
-                |> AutocompleteSelector.init (nameFromProductId "")
+                |> AutocompleteSelector.init .name
     in
     div [ class "d-flex flex-column" ]
         [ label [ for "selector-product", class "form-label text-truncate" ]
@@ -767,8 +739,10 @@ productCategoryField { products } query =
             , class "form-select ElementSelector text-start w-auto"
             , onClick (SetModal (SelectProductModal autocompleteState))
             ]
-            [ query.product
-                |> nameFromProductId (Product.idToString query.product)
+            [ products
+                |> Product.findById query.product
+                |> Result.map .name
+                |> Result.withDefault ""
                 |> text
             ]
         ]
@@ -1191,6 +1165,7 @@ view session model =
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
+                                , footer = []
                                 , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteMaterial
                                 , onAutocompleteSelect = OnAutocompleteSelect
@@ -1232,6 +1207,7 @@ view session model =
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
+                                , footer = []
                                 , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteExample
                                 , onAutocompleteSelect = OnAutocompleteSelect
@@ -1245,16 +1221,22 @@ view session model =
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
+                                , footer =
+                                    [ a
+                                        [ class "d-flex justify-content-between gap-2 align-items-center btn btn-primary"
+                                        , href "https://forms.gle/JY6QYMppqRTiCM6g8"
+                                        , target "_blank"
+                                        ]
+                                        [ Icon.plus
+                                        , text "Suggérer une nouvelle catégorie"
+                                        ]
+                                    ]
                                 , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteProduct
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici une catégorie pour la rechercher"
                                 , title = "Sélectionnez une catégorie de produit"
-                                , toLabel =
-                                    \productId ->
-                                        Product.findById productId session.db.textile.products
-                                            |> Result.map .name
-                                            |> Result.withDefault (Product.idToString productId)
+                                , toLabel = .name
                                 , toCategory = always ""
                                 }
                     ]

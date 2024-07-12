@@ -118,10 +118,9 @@ availableIngredients usedIngredientIds =
 
 
 availablePackagings : List Process.Identifier -> List Process -> List Process
-availablePackagings usedProcesses processes =
-    processes
-        |> Process.listByCategory Process.Packaging
-        |> List.filter (\process -> not (List.member process.code usedProcesses))
+availablePackagings usedProcesses =
+    Process.listByCategory Process.Packaging
+        >> List.filter (\process -> not (List.member process.identifier usedProcesses))
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
@@ -632,7 +631,7 @@ packagingFromQuery { processes } { code, mass } =
 
 processQueryFromProcess : Process -> BuilderQuery.ProcessQuery
 processQueryFromProcess process =
-    { code = process.code
+    { code = process.identifier
     , mass = Mass.grams 100
     }
 

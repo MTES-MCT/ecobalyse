@@ -1,6 +1,5 @@
 module Data.Session exposing
-    ( AllProcessesJson
-    , Auth(..)
+    ( Auth(..)
     , Notification(..)
     , Session
     , Store
@@ -11,7 +10,6 @@ module Data.Session exposing
     , deserializeStore
     , getUser
     , isAuthenticated
-    , login
     , logout
     , notifyError
     , notifyInfo
@@ -32,14 +30,13 @@ import Data.Impact as Impact
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
 import Data.User as User exposing (User)
-import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
-import Task
+import Static.Json exposing (RawJsonProcesses, rawJsonProcesses)
 
 
 type alias Session =
@@ -226,13 +223,6 @@ decodeAuth =
         |> JDP.required "foodProcesses" (FoodProcess.decodeList Impact.decodeImpacts)
 
 
-decodeAllProcessesJson : Decoder AllProcessesJson
-decodeAllProcessesJson =
-    Decode.succeed AllProcessesJson
-        |> JDP.required "textileProcesses" Decode.string
-        |> JDP.required "foodProcesses" Decode.string
-
-
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
@@ -298,19 +288,9 @@ updateStore update session =
     { session | store = update session.store }
 
 
-authenticated : Session -> User -> AllProcessesJson -> Session
-authenticated ({ store } as session) user { textileProcessesJson, foodProcessesJson } =
-    let
-        originalProcesses =
-            StaticDb.processes
-
-        newProcesses =
-            { originalProcesses
-                | foodProcesses = foodProcessesJson
-                , textileProcesses = textileProcessesJson
-            }
-    in
-    case StaticDb.db newProcesses of
+authenticated : Session -> User -> RawJsonProcesses -> Session
+authenticated ({ store } as session) user rawJsonProcesses =
+    case StaticDb.db rawJsonProcesses of
         Ok db ->
             { session
                 | db = db
@@ -322,41 +302,9 @@ authenticated ({ store } as session) user { textileProcessesJson, foodProcessesJ
                 |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 
 
-type alias AllProcessesJson =
-    { textileProcessesJson : String, foodProcessesJson : String }
-
-
-login : (Result String AllProcessesJson -> msg) -> Cmd msg
-login event =
-    Task.attempt event
-        (getProcesses "processes/processes.json")
-
-
-getProcesses : String -> Task.Task String AllProcessesJson
-getProcesses url =
-    Http.task
-        { method = "GET"
-        , headers = []
-        , url = url
-        , body = Http.emptyBody
-        , resolver =
-            Http.stringResolver
-                (\response ->
-                    case response of
-                        Http.GoodStatus_ _ stringBody ->
-                            Decode.decodeString decodeAllProcessesJson stringBody
-                                |> Result.mapError Decode.errorToString
-
-                        _ ->
-                            Err "Couldn't get the processes"
-                )
-        , timeout = Nothing
-        }
-
-
 logout : Session -> Session
 logout ({ store } as session) =
-    case StaticDb.db StaticDb.processes of
+    case StaticDb.db rawJsonProcesses of
         Ok db ->
             { session
                 | store = { store | auth = NotAuthenticated }

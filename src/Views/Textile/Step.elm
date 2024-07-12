@@ -19,7 +19,6 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
-import Data.Textile.Product as Product
 import Data.Textile.Query exposing (MaterialQuery)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
 import Data.Textile.Step as Step exposing (Step)
@@ -317,13 +316,11 @@ fadingField { inputs, toggleFading } =
         [ input
             [ type_ "checkbox"
             , class "form-check-input no-outline"
-            , inputs.fading
-                |> Maybe.withDefault (Product.isFadedByDefault inputs.product)
-                |> checked
+            , inputs.fading |> Maybe.withDefault False |> checked
             , onCheck toggleFading
             ]
             []
-        , if Inputs.isFaded inputs then
+        , if inputs.fading == Just True then
             text "Délavage activé"
 
           else
@@ -335,8 +332,8 @@ makingComplexityField : Config msg modal -> Html msg
 makingComplexityField ({ inputs, updateMakingComplexity } as config) =
     let
         makingComplexity =
-            inputs.makingComplexity
-                |> Maybe.withDefault inputs.product.making.complexity
+            inputs.fabricProcess
+                |> Fabric.getMakingComplexity inputs.product.making.complexity inputs.makingComplexity
     in
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
@@ -362,7 +359,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
                 |> select
                     [ id "making-complexity"
                     , class "form-select form-select-sm w-75"
-                    , disabled (Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs)
+                    , disabled False
                     , onInput
                         (MakingComplexity.fromString
                             >> Result.withDefault inputs.product.making.complexity
@@ -378,12 +375,11 @@ makingWasteField { current, inputs, updateMakingWaste } =
         [ RangeSlider.percent
             { id = "makingWaste"
             , update = updateMakingWaste
-            , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
+            , value =
+                inputs.fabricProcess
+                    |> Fabric.getMakingWaste inputs.product.making.pcrWaste inputs.makingWaste
             , toString = Step.makingWasteToString
-            , disabled =
-                not current.enabled
-                    || Inputs.isFabricOfType Fabric.KnittingFullyFashioned inputs
-                    || Inputs.isFabricOfType Fabric.KnittingIntegral inputs
+            , disabled = not current.enabled
             , min = Env.minMakingWasteRatio |> Split.toPercent |> round
             , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
             }
@@ -706,6 +702,7 @@ createElementSelectorConfig cfg materialInput =
                 }
     , toId = .id >> Material.idToString
     , toString = .shortName
+    , toTooltip = .materialProcess >> .name
     , update =
         \_ newElement ->
             cfg.updateMaterial

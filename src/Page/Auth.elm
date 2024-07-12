@@ -9,63 +9,50 @@ module Page.Auth exposing
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
 import Data.User as User exposing (User)
-import Dict exposing (Dict)
+import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
-import Json.Decode as Decode exposing (Decoder)
-import Json.Encode as Encode
+import Request.Auth as AuthRequest
 import Request.Common as RequestCommon
 import Route
+import Static.Json exposing (RawJsonProcesses)
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Markdown as Markdown
 
 
 type alias Model =
-    { user : User
-    , response : Maybe Response
-    , action : Action
-    , authenticated : Bool
+    { authenticated : Bool
+    , currentTab : Tab
+    , formErrors : AuthRequest.Errors
+    , user : User
     }
 
 
 type Msg
     = AskForRegistration
-    | Authenticated User (Result String Session.AllProcessesJson)
-    | ChangeAction Action
-    | GotUserInfo (Result Http.Error User)
+    | Authenticated User (Result Http.Error RawJsonProcesses)
+    | ChangeAction Tab
+    | GotProfile (Result Http.Error User)
     | LoggedOut
     | Login
     | Logout
-    | TokenEmailSent (Result Http.Error Response)
+    | TokenEmailSent (Result Http.Error AuthRequest.AuthResponse)
     | UpdateForm Model
 
 
-type Action
-    = Register
-    | Authenticate
-
-
-type alias Errors =
-    Dict String String
-
-
-type alias Form a =
-    { a | next : String }
-
-
-type Response
-    = Success String
-    | Error String (Maybe Errors)
+type Tab
+    = RegistrationTab
+    | AuthenticationTab
 
 
 init : Session -> { authenticated : Bool } -> ( Model, Session, Cmd Msg )
 init session data =
     ( emptyModel data
     , session
-    , getUserInfo GotUserInfo
+    , AuthRequest.profile GotProfile
     )
 
 
@@ -81,18 +68,6 @@ init session data =
 --    - once the link in the email received is clicked, may not go through the login flow
 
 
-formFromUser : User -> Form User
-formFromUser user =
-    { email = user.email
-    , firstname = user.firstname
-    , lastname = user.lastname
-    , company = user.company
-    , cgu = user.cgu
-    , token = ""
-    , next = "/#/auth/authenticated"
-    }
-
-
 emptyModel : { authenticated : Bool } -> Model
 emptyModel { authenticated } =
     { user =
@@ -103,8 +78,8 @@ emptyModel { authenticated } =
         , cgu = False
         , token = ""
         }
-    , response = Nothing
-    , action = Register
+    , formErrors = Dict.empty
+    , currentTab = RegistrationTab
     , authenticated = authenticated
     }
 
@@ -115,11 +90,9 @@ update session msg model =
         AskForRegistration ->
             ( model
             , session
-            , Http.post
-                { url = "/accounts/register/"
-                , body = Http.jsonBody (encodeUserForm (formFromUser model.user))
-                , expect = Http.expectJson TokenEmailSent decodeResponse
-                }
+            , User.form model.user
+                |> User.encodeForm
+                |> AuthRequest.register TokenEmailSent
             )
 
         Authenticated user (Ok newProcessesJson) ->
@@ -130,23 +103,27 @@ update session msg model =
 
         Authenticated _ (Err error) ->
             ( model
-            , session |> Session.notifyError "Impossible de charger les impacts lors de la connexion" error
+            , session
+                |> Session.notifyError
+                    "Impossible de charger les impacts lors de la connexion"
+                    (RequestCommon.errorToString error)
             , Cmd.none
             )
 
         ChangeAction action ->
-            ( { model | action = action, response = Nothing }
+            ( { model | currentTab = action, formErrors = Dict.empty }
             , session
             , Cmd.none
             )
 
-        GotUserInfo (Ok user) ->
+        GotProfile (Ok user) ->
             ( { model | user = user }
             , session
-            , Session.login (Authenticated user)
+            , user.token
+                |> AuthRequest.processes (Authenticated user)
             )
 
-        GotUserInfo (Err err) ->
+        GotProfile (Err err) ->
             ( { model | authenticated = False }
             , if model.authenticated then
                 -- We're here following a click on a login link in an email. If we failed, notify the user.
@@ -160,7 +137,7 @@ update session msg model =
             )
 
         LoggedOut ->
-            ( { model | response = Nothing }
+            ( { model | formErrors = Dict.empty }
             , session
             , Cmd.none
             )
@@ -168,33 +145,34 @@ update session msg model =
         Login ->
             ( model
             , session
-            , Http.post
-                { url = "/accounts/login/"
-                , body = Http.jsonBody (encodeEmail model.user.email)
-                , expect = Http.expectJson TokenEmailSent decodeResponse
-                }
+            , AuthRequest.login TokenEmailSent model.user.email
             )
 
         Logout ->
-            let
-                newSession =
-                    Session.logout session
-                        |> Session.notifyInfo "Vous êtes désormais déconnecté" "Vous n'avez plus accès au détail des impacts."
-            in
             ( model
-            , newSession
-            , logout
+            , Session.logout session
+                |> Session.notifyInfo "Vous êtes désormais déconnecté" "Vous n'avez plus accès au détail des impacts."
+            , AuthRequest.logout LoggedOut
             )
 
-        TokenEmailSent response ->
-            ( { model | response = Result.toMaybe response }
-            , case response of
-                Ok _ ->
-                    session
+        TokenEmailSent (Ok (AuthRequest.SuccessResponse message)) ->
+            ( model
+            , session
+                |> Session.notifyInfo "Authentification" ("Si vous êtes inscrit(e), un email vous a été envoyé avec un lien de connexion. " ++ message)
+            , Cmd.none
+            )
 
-                Err _ ->
-                    session
-                        |> Session.notifyError "Erreur lors de la connexion" ""
+        TokenEmailSent (Ok (AuthRequest.ErrorResponse message errors)) ->
+            ( { model | formErrors = errors }
+            , session
+                |> Session.notifyError "Erreur(s) rencontrée(s)" message
+            , Cmd.none
+            )
+
+        TokenEmailSent (Err httpError) ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur lors de la connexion" (RequestCommon.errorToString httpError)
             , Cmd.none
             )
 
@@ -307,18 +285,18 @@ viewLoginRegisterForm model =
     div [ class "card shadow-sm px-0" ]
         [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
             [ ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
-                ([ ( "Inscription", Register )
-                 , ( "Connexion", Authenticate )
+                ([ ( "Inscription", RegistrationTab )
+                 , ( "Connexion", AuthenticationTab )
                  ]
                     |> List.map
                         (\( label, action ) ->
                             li
                                 [ class "TabsTab nav-item"
-                                , classList [ ( "active", model.action == action ) ]
+                                , classList [ ( "active", model.currentTab == action ) ]
                                 ]
                                 [ button
                                     [ class "nav-link no-outline border-top-0"
-                                    , classList [ ( "active", model.action == action ) ]
+                                    , classList [ ( "active", model.currentTab == action ) ]
                                     , onClick (ChangeAction action)
                                     ]
                                     [ text label ]
@@ -327,11 +305,11 @@ viewLoginRegisterForm model =
                 )
             ]
         , div [ class "card-body" ]
-            [ case model.action of
-                Register ->
-                    viewRegisterForm model
+            [ case model.currentTab of
+                RegistrationTab ->
+                    viewRegistrationForm model
 
-                Authenticate ->
+                AuthenticationTab ->
                     viewLoginForm model
             ]
         ]
@@ -346,12 +324,12 @@ viewInput :
     , value : String
     , onInput : String -> Msg
     }
-    -> Maybe Response
+    -> AuthRequest.Errors
     -> Html Msg
-viewInput inputData maybeResponse =
+viewInput inputData formErrors =
     let
         error =
-            getFormInputError inputData.id maybeResponse
+            Dict.get inputData.id formErrors
     in
     div [ class "mb-3" ]
         [ label
@@ -380,291 +358,127 @@ viewInput inputData maybeResponse =
 
 viewLoginForm : Model -> Html Msg
 viewLoginForm ({ user } as model) =
-    case model.response of
-        Just (Success msg) ->
-            div []
-                [ p [] [ Html.text "Si vous êtes inscrit(e), un email vous a été envoyé avec un lien de connexion." ]
-                , p [] [ Html.text msg ]
-                ]
+    Html.form [ onSubmit Login ]
+        [ viewInput
+            { label = "Adresse e-mail"
+            , type_ = "email"
+            , id = "email"
+            , placeholder = "nom@example.com"
+            , required = True
+            , value = user.email
+            , onInput = \email -> UpdateForm { model | user = { user | email = email } }
+            }
+            model.formErrors
+        , button
+            [ type_ "submit"
+            , class "btn btn-primary mb-3"
+            , disabled <| String.isEmpty user.email
+            ]
+            [ text "Connexion" ]
+        ]
 
-        _ ->
-            Html.form [ onSubmit Login ]
-                [ viewFormErrors model.response
-                , viewInput
-                    { label = "Adresse e-mail"
-                    , type_ = "text"
-                    , id = "email"
-                    , placeholder = "nom@example.com"
-                    , required = True
-                    , value = user.email
-                    , onInput =
-                        \email ->
-                            UpdateForm
-                                { model
-                                    | user = { user | email = email }
-                                    , response = removeError model.response
-                                }
-                    }
-                    model.response
-                , button
-                    [ type_ "submit"
-                    , class "btn btn-primary mb-3"
-                    , disabled <| String.isEmpty user.email
+
+viewRegistrationForm : Model -> Html Msg
+viewRegistrationForm ({ user } as model) =
+    div []
+        [ Html.form [ onSubmit AskForRegistration ]
+            [ div [ class "row" ]
+                [ div [ class "col-sm-6" ]
+                    [ viewInput
+                        { label = "Adresse e-mail"
+                        , type_ = "text"
+                        , id = "email"
+                        , placeholder = "nom@example.com"
+                        , required = True
+                        , value = user.email
+                        , onInput = \email -> UpdateForm { model | user = { user | email = email } }
+                        }
+                        model.formErrors
                     ]
-                    [ text "Connexion" ]
+                , div [ class "col-sm-6" ]
+                    [ viewInput
+                        { label = "Organisation"
+                        , type_ = "text"
+                        , id = "company"
+                        , placeholder = "ACME SARL"
+                        , required = False
+                        , value = user.company
+                        , onInput = \company -> UpdateForm { model | user = { user | company = company } }
+                        }
+                        model.formErrors
+                    ]
                 ]
-
-
-viewRegisterForm : Model -> Html Msg
-viewRegisterForm ({ user } as model) =
-    case model.response of
-        Just (Success msg) ->
-            div []
-                [ p [] [ Html.text "Un email vous a été envoyé avec un lien de validation." ]
-                , p [] [ Html.text msg ]
+            , div [ class "row" ]
+                [ div [ class "col-sm-6" ]
+                    [ viewInput
+                        { label = "Prénom"
+                        , type_ = "text"
+                        , id = "first_name"
+                        , placeholder = "Joséphine"
+                        , required = True
+                        , value = user.firstname
+                        , onInput = \firstname -> UpdateForm { model | user = { user | firstname = firstname } }
+                        }
+                        model.formErrors
+                    ]
+                , div [ class "col-sm-6" ]
+                    [ viewInput
+                        { label = "Nom"
+                        , type_ = "text"
+                        , id = "last_name"
+                        , placeholder = "Durand"
+                        , required = True
+                        , value = user.lastname
+                        , onInput = \lastname -> UpdateForm { model | user = { user | lastname = lastname } }
+                        }
+                        model.formErrors
+                    ]
                 ]
-
-        _ ->
-            div []
-                [ viewFormErrors model.response
-                , Html.form [ onSubmit AskForRegistration ]
-                    [ div [ class "row" ]
-                        [ div [ class "col-sm-6" ]
-                            [ viewInput
-                                { label = "Adresse e-mail"
-                                , type_ = "text"
-                                , id = "email"
-                                , placeholder = "nom@example.com"
-                                , required = True
-                                , value = user.email
-                                , onInput =
-                                    \email ->
-                                        UpdateForm
-                                            { model
-                                                | user = { user | email = email }
-                                                , response = removeError model.response
-                                            }
-                                }
-                                model.response
-                            ]
-                        , div [ class "col-sm-6" ]
-                            [ viewInput
-                                { label = "Organisation"
-                                , type_ = "text"
-                                , id = "company"
-                                , placeholder = "ACME SARL"
-                                , required = False
-                                , value = user.company
-                                , onInput =
-                                    \company ->
-                                        UpdateForm
-                                            { model
-                                                | user = { user | company = company }
-                                                , response = removeError model.response
-                                            }
-                                }
-                                model.response
-                            ]
+            , div []
+                [ label
+                    [ for "terms_of_use"
+                    , class "form-check form-switch form-check-label pt-1"
+                    ]
+                    [ input
+                        [ type_ "checkbox"
+                        , class "form-check-input"
+                        , classList [ ( "is-invalid", Dict.get "terms_of_use" model.formErrors /= Nothing ) ]
+                        , id "terms_of_use"
+                        , required True
+                        , checked user.cgu
+                        , onCheck (\isChecked -> UpdateForm { model | user = { user | cgu = isChecked } })
                         ]
-                    , div [ class "row" ]
-                        [ div [ class "col-sm-6" ]
-                            [ viewInput
-                                { label = "Prénom"
-                                , type_ = "text"
-                                , id = "first_name"
-                                , placeholder = "Joséphine"
-                                , required = True
-                                , value = user.firstname
-                                , onInput =
-                                    \firstname ->
-                                        UpdateForm
-                                            { model
-                                                | user = { user | firstname = firstname }
-                                                , response = removeError model.response
-                                            }
-                                }
-                                model.response
-                            ]
-                        , div [ class "col-sm-6" ]
-                            [ viewInput
-                                { label = "Nom"
-                                , type_ = "text"
-                                , id = "last_name"
-                                , placeholder = "Durand"
-                                , required = True
-                                , value = user.lastname
-                                , onInput =
-                                    \lastname ->
-                                        UpdateForm
-                                            { model
-                                                | user = { user | lastname = lastname }
-                                                , response = removeError model.response
-                                            }
-                                }
-                                model.response
-                            ]
-                        ]
+                        []
                     , div []
-                        [ label
-                            [ for "terms_of_use"
-                            , class "form-check form-switch form-check-label pt-1"
-                            ]
-                            [ input
-                                [ type_ "checkbox"
-                                , class "form-check-input"
-                                , classList [ ( "is-invalid", getFormInputError "terms_of_use" model.response /= Nothing ) ]
-                                , id "terms_of_use"
-                                , required True
-                                , checked user.cgu
-                                , onCheck
-                                    (\isChecked ->
-                                        UpdateForm
-                                            { model
-                                                | user = { user | cgu = isChecked }
-                                                , response = removeError model.response
-                                            }
-                                    )
-                                ]
-                                []
-                            , div []
-                                [ """Je m’engage à respecter les [conditions d'utilisation]({url})"""
-                                    |> String.replace "{url}" Env.cguUrl
-                                    |> Markdown.simple []
-                                ]
-                            , div [ class "text-danger" ]
-                                [ getFormInputError "terms_of_use" model.response
-                                    |> Maybe.withDefault ""
-                                    |> text
-                                ]
-                            ]
-                        , div [ class "d-none" ]
-                            [ label [ for "nextInput", class "form-label" ] []
-                            , input
-                                [ type_ "text"
-                                , class "form-control"
-                                , id "nextInput"
-                                , required True
-                                , value "/#/auth/authenticated"
-                                , hidden True
-                                ]
-                                []
-                            ]
+                        [ """Je m’engage à respecter les [conditions d'utilisation]({url})"""
+                            |> String.replace "{url}" Env.cguUrl
+                            |> Markdown.simple []
                         ]
-                    , div [ class "text-center mt-3" ]
-                        [ button
-                            [ type_ "submit"
-                            , class "btn btn-primary"
-                            ]
-                            [ text "Créer mon compte" ]
+                    , div [ class "text-danger" ]
+                        [ Dict.get "terms_of_use" model.formErrors
+                            |> Maybe.withDefault ""
+                            |> text
                         ]
                     ]
+                , div [ class "d-none" ]
+                    [ label [ for "nextInput", class "form-label" ] []
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , id "nextInput"
+                        , required True
+                        , value "/#/auth/authenticated"
+                        , hidden True
+                        ]
+                        []
+                    ]
                 ]
-
-
-viewFormErrors : Maybe Response -> Html Msg
-viewFormErrors maybeResponse =
-    case maybeResponse of
-        Just (Error errorMsg Nothing) ->
-            -- No field errors, we display some general error message
-            div [ class "text-danger" ]
-                [ text errorMsg
+            , div [ class "text-center mt-3" ]
+                [ button
+                    [ type_ "submit"
+                    , class "btn btn-primary"
+                    ]
+                    [ text "Créer mon compte" ]
                 ]
-
-        _ ->
-            text ""
-
-
-
----- helpers
-
-
-getUserInfo : (Result Http.Error User -> Msg) -> Cmd Msg
-getUserInfo event =
-    Http.riskyRequest
-        { method = "GET"
-        , headers = []
-        , url = "/accounts/profile/"
-        , body = Http.emptyBody
-        , expect = Http.expectJson event User.decode
-        , timeout = Nothing
-        , tracker = Nothing
-        }
-
-
-logout : Cmd Msg
-logout =
-    Http.riskyRequest
-        { method = "POST"
-        , headers = []
-        , url = "/accounts/logout/"
-        , body = Http.emptyBody
-        , expect = Http.expectWhatever (always LoggedOut)
-        , timeout = Nothing
-        , tracker = Nothing
-        }
-
-
-getFormInputError : String -> Maybe Response -> Maybe String
-getFormInputError inputId =
-    Maybe.andThen
-        (\response ->
-            case response of
-                Success _ ->
-                    Nothing
-
-                Error _ maybeErrors ->
-                    maybeErrors
-                        |> Maybe.andThen (Dict.get inputId)
-        )
-
-
-removeError : Maybe Response -> Maybe Response
-removeError =
-    Maybe.map
-        (\response ->
-            case response of
-                Success _ ->
-                    response
-
-                Error errorMsg maybeErrors ->
-                    maybeErrors
-                        |> Maybe.map (Dict.remove "email")
-                        |> Error errorMsg
-        )
-
-
-
----- encoders/decoders
-
-
-decodeResponse : Decoder Response
-decodeResponse =
-    Decode.field "success" Decode.bool
-        |> Decode.andThen
-            (\success ->
-                if success then
-                    Decode.field "msg" Decode.string
-                        |> Decode.map Success
-
-                else
-                    Decode.map2 Error
-                        (Decode.field "msg" Decode.string)
-                        (Decode.maybe (Decode.field "errors" (Decode.dict Decode.string)))
-            )
-
-
-encodeEmail : String -> Encode.Value
-encodeEmail email =
-    Encode.object [ ( "email", Encode.string email ) ]
-
-
-encodeUserForm : Form User -> Encode.Value
-encodeUserForm user =
-    Encode.object
-        [ ( "email", Encode.string user.email )
-        , ( "first_name", Encode.string user.firstname )
-        , ( "last_name", Encode.string user.lastname )
-        , ( "organization", Encode.string user.company )
-        , ( "terms_of_use", Encode.bool user.cgu )
-        , ( "next", Encode.string user.next )
+            ]
         ]

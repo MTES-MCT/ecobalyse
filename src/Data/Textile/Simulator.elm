@@ -2,10 +2,12 @@ module Data.Textile.Simulator exposing
     ( Simulator
     , compute
     , encode
+    , getTotalImpactsWithoutComplements
     , stepMaterialImpacts
     , toStepsImpacts
     )
 
+import Array
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -289,10 +291,12 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
                     { kwh, heat, impacts } =
                         step.outputMass
                             |> Formula.makingImpacts step.impacts
-                                { makingComplexity = inputs.makingComplexity |> Maybe.withDefault inputs.product.making.complexity
+                                { makingComplexity =
+                                    inputs.fabricProcess
+                                        |> Fabric.getMakingComplexity inputs.product.making.complexity inputs.makingComplexity
                                 , fadingProcess =
                                     -- Note: in the future, we may have distinct fading processes per countries
-                                    if Inputs.isFaded inputs then
+                                    if inputs.fading == Just True then
                                         Just textile.wellKnown.fading
 
                                     else
@@ -643,9 +647,15 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
 computeMakingStepWaste : Simulator -> Simulator
 computeMakingStepWaste ({ inputs } as simulator) =
     let
+        { product, makingWaste, fabricProcess } =
+            inputs
+
         { mass, waste } =
             inputs.mass
-                |> Formula.makingWaste (Maybe.withDefault inputs.product.making.pcrWaste inputs.makingWaste)
+                |> Formula.makingWaste
+                    (fabricProcess
+                        |> Fabric.getMakingWaste product.making.pcrWaste makingWaste
+                    )
     in
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
@@ -794,6 +804,15 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
                 |> Impact.divideBy (Unit.durabilityToFloat durability)
                 |> Impact.impactsWithComplements complementsImpacts
     }
+
+
+getTotalImpactsWithoutComplements : Simulator -> Impacts
+getTotalImpactsWithoutComplements { durability, lifeCycle } =
+    lifeCycle
+        |> Array.map Step.getTotalImpactsWithoutComplements
+        |> Array.toList
+        |> Impact.sumImpacts
+        |> Impact.divideBy (Unit.durabilityToFloat durability)
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator

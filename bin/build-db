@@ -6,8 +6,17 @@
  * is impossible in an Elm test environment.
  */
 const fs = require("fs");
-const textileProcesses = process.env.TEXTILE_PROCESSES || "public/data/textile/processes.json";
-const foodProcesses = process.env.FOOD_PROCESSES || "public/data/food/processes.json";
+
+console.log(`Building database for the ${process.env.NODE_ENV} env…`);
+
+let foodProcesses, textileProcesses;
+if (process.env.NODE_ENV === "test") {
+  foodProcesses = "public/data/food/processes_impacts.json";
+  textileProcesses = "public/data/textile/processes_impacts.json";
+} else {
+  foodProcesses = "public/data/food/processes.json";
+  textileProcesses = "public/data/textile/processes.json";
+}
 
 function getJson(path) {
   const raw = JSON.parse(fs.readFileSync(path).toString());

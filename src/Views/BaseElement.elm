@@ -41,12 +41,13 @@ type alias Config element quantity msg =
     , selectElement : element -> Autocomplete element -> msg
     , toId : element -> String
     , toString : element -> String
+    , toTooltip : element -> String
     , update : BaseElement element quantity -> BaseElement element quantity -> msg
     }
 
 
 view : Config element quantity msg -> List (Html msg)
-view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, update } =
+view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, toTooltip, update } =
     let
         updateEvent =
             update baseElement
@@ -75,7 +76,7 @@ view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact
         ]
     , autocompleteState
         |> selectElement baseElement.element
-        |> selectorView baseElement.element toId toString
+        |> selectorView baseElement.element toId toTooltip toString
     , db.countries
         |> List.sortBy .name
         |> List.map
@@ -130,11 +131,12 @@ deleteItemButton { disabled } event =
         [ Icon.trash ]
 
 
-selectorView : element -> (element -> String) -> (element -> String) -> msg -> Html msg
-selectorView selectedElement toId toString selectElement =
+selectorView : element -> (element -> String) -> (element -> String) -> (element -> String) -> msg -> Html msg
+selectorView selectedElement toId toTooltip toString selectElement =
     button
         [ class "form-select ElementSelector text-start"
         , id <| "selector-" ++ toId selectedElement
+        , title (toTooltip selectedElement)
         , onClick selectElement
         ]
         [ span

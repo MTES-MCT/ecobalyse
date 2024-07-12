@@ -13,7 +13,6 @@ module Data.Textile.Inputs exposing
     , getOutOfEuropeEOLProbability
     , getTotalMicrofibersComplement
     , isFabricOfType
-    , isFaded
     , toQuery
     , toString
     )
@@ -83,11 +82,6 @@ type alias Inputs =
     , price : Maybe Economics.Price
     , traceability : Maybe Bool
     }
-
-
-isFaded : Inputs -> Bool
-isFaded inputs =
-    inputs.fading == Just True || (inputs.fading == Nothing && Product.isFadedByDefault inputs.product)
 
 
 fromMaterialQuery : List Material -> List Country -> List MaterialQuery -> Result String (List MaterialInput)
@@ -258,7 +252,7 @@ stepsToStrings inputs =
         ]
     , case inputs.yarnSize of
         Just yarnSize ->
-            [ "titrage", String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
+            [ "titrage", String.fromFloat (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
 
         Nothing ->
             []

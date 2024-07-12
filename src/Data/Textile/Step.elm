@@ -8,6 +8,7 @@ module Data.Textile.Step exposing
     , encode
     , getInputSurface
     , getOutputSurface
+    , getTotalImpactsWithoutComplements
     , getTransportedMass
     , initMass
     , makingDeadStockToString
@@ -466,12 +467,12 @@ makingDeadStockToString makingDeadStock =
 
 yarnSizeToString : Unit.YarnSize -> String
 yarnSizeToString yarnSize =
-    "Titrage\u{00A0}: " ++ String.fromInt (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm (" ++ yarnSizeToDtexString yarnSize ++ ")"
+    "Titrage\u{00A0}: " ++ String.fromFloat (Unit.yarnSizeInKilometers yarnSize) ++ "\u{202F}Nm (" ++ yarnSizeToDtexString yarnSize ++ ")"
 
 
 yarnSizeToDtexString : Unit.YarnSize -> String
 yarnSizeToDtexString yarnSize =
-    String.fromInt (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
+    Format.formatFloat 2 (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
 encode : Step -> Encode.Value
@@ -528,3 +529,8 @@ encodeProcessInfo v =
         , ( "distribution", encodeMaybeString v.distribution )
         , ( "fading", encodeMaybeString v.fading )
         ]
+
+
+getTotalImpactsWithoutComplements : Step -> Impacts
+getTotalImpactsWithoutComplements { impacts, transport } =
+    Impact.sumImpacts [ impacts, transport.impacts ]

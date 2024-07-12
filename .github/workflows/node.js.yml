@@ -3,6 +3,9 @@
 
 name: Node.js CI
 
+env:
+  NODE_ENV: test
+
 on:
   push:
     branches: [ master, staging ]
@@ -59,7 +62,6 @@ jobs:
 
     - name: Install Python dependencies
       run: pip install pipenv && pipenv install
-
 
     - name: Install Ubuntu dependencies
       run: |
