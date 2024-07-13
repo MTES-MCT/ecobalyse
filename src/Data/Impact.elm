@@ -3,6 +3,7 @@ module Data.Impact exposing
     , Impacts
     , StepsImpacts
     , addComplementsImpacts
+    , addImpacts
     , applyComplements
     , complementsImpactAsChartEntries
     , decodeImpacts
@@ -396,6 +397,11 @@ per100grams totalMass =
 perKg : Mass -> Impacts -> Impacts
 perKg totalMass =
     mapImpacts (\_ -> Quantity.divideBy (Mass.inKilograms totalMass))
+
+
+addImpacts : Impacts -> Impacts -> Impacts
+addImpacts a b =
+    sumImpacts [ a, b ]
 
 
 sumImpacts : List Impacts -> Impacts
