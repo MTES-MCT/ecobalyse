@@ -31,7 +31,6 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
-import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -42,7 +41,7 @@ import Mass exposing (Mass)
 import Ports
 import Quantity
 import Route
-import Static.Db as Db exposing (Db)
+import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -116,7 +115,6 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateEcotoxWeighting (Maybe Unit.Ratio)
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
@@ -439,14 +437,6 @@ update ({ db, queries } as session) msg model =
         UpdateDistribution newDistribution ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateDistribution newDistribution query)
-
-        UpdateEcotoxWeighting (Just ratio) ->
-            ( model, { session | db = Db.updateEcotoxWeighting db ratio }, Cmd.none )
-                -- triggers recompute
-                |> updateQuery query
-
-        UpdateEcotoxWeighting Nothing ->
-            ( model, session, Cmd.none )
 
         UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
@@ -1408,9 +1398,6 @@ sidebarView session model results =
         , customScoreInfo = Nothing
         , productMass = results.preparedMass
         , totalImpacts = results.total
-
-        -- Ecotox weighting customization
-        , updateEcotoxWeighting = UpdateEcotoxWeighting
 
         -- Impacts tabs
         , impactTabsConfig =

@@ -2,7 +2,6 @@ module Static.Db exposing
     ( Db
     , db
     , decodeRawJsonProcesses
-    , updateEcotoxWeighting
     , updateProcesses
     )
 
@@ -10,12 +9,10 @@ import Data.Common.Db as Common
 import Data.Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Food.Process as FoodProcess
-import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definitions)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Process as TextileProcess
 import Data.Transport exposing (Distances)
-import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Static.Json as StaticJson exposing (RawJsonProcesses)
@@ -65,28 +62,6 @@ countries textileDb =
 distances : Result String Distances
 distances =
     Common.transportsFromJson StaticJson.transportsJson
-
-
-updateEcotoxWeighting : Db -> Unit.Ratio -> Db
-updateEcotoxWeighting db_ weighting =
-    updateImpactDefinitions db_ (Impact.setEcotoxWeighting weighting db_.definitions)
-
-
-{-| Update database with new definitions and recompute processes aggregated impacts accordingly.
--}
-updateImpactDefinitions : Db -> Definitions -> Db
-updateImpactDefinitions db_ definitions =
-    let
-        updatedFoodProcesses =
-            Common.updateProcessesFromNewDefinitions definitions db_.food.processes
-
-        updatedTextileProcesses =
-            Common.updateProcessesFromNewDefinitions definitions db_.textile.processes
-
-        updatedDb =
-            db_ |> updateProcesses updatedFoodProcesses updatedTextileProcesses
-    in
-    { updatedDb | definitions = definitions }
 
 
 updateProcesses : List FoodProcess.Process -> List TextileProcess.Process -> Db -> Db

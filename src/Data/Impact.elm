@@ -22,8 +22,6 @@ module Data.Impact exposing
     , impactsWithComplements
     , mapComplementsImpacts
     , mapImpacts
-    , maxEcotoxWeighting
-    , minEcotoxWeighting
     , noComplementsImpacts
     , noStepsImpacts
     , parseTrigram
