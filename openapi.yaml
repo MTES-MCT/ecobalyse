@@ -1246,7 +1246,7 @@ components:
             - knitting-straight
             - weaving
         disabledSteps:
-          type: string
+          type: array
           enum:
           - material
           - spinning
