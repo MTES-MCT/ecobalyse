@@ -17,25 +17,18 @@ const djangoHost = "127.0.0.1";
 const djangoPort = 8002;
 
 // Env vars
-const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
+const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV, SENTRY_DSN } =
+  process.env;
 
 // Matomo
-if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
+if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
   console.error("Matomo environment variables are missing. Please check the README.");
   process.exit(1);
 }
-
-if (process.env.NODE_ENV === "test") {
-  if (!process.env.ECOBALYSE_DATA_DIR) {
-    console.error(
-      `
-🚨 ERROR: For the tests to work properly, you need to specify ECOBALYSE_DATA_DIR env variable.
-   It needs to point to a directory with the detailed versions of the processes files. Please, edit your .env file accordingly.",
-   -> Exiting the test process.
-`,
-    );
-    process.exit(1);
-  }
+if (NODE_ENV === "test") {
+  // Check that the detailed files are provided only in test mode
+  // In production, the app will fallback to non detailed processes by default
+  lib.checkDataFiles();
 }
 
 // Sentry
@@ -64,7 +57,7 @@ app.use(
           "https://sentry.incubateur.net",
           "*.gouv.fr",
         ],
-        "frame-src": ["'self'", `https://${process.env.MATOMO_HOST}`, "https://www.loom.com"],
+        "frame-src": ["'self'", `https://${MATOMO_HOST}`, "https://www.loom.com"],
         "img-src": [
           "'self'",
           "data:",
@@ -75,7 +68,7 @@ app.use(
         // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
         // server sends the appropriate `Access-Control-Allow-Origin` header
         // @see https://matomo.org/faq/how-to/faq_18694/
-        "script-src": ["'self'", "'unsafe-inline'", `https://${process.env.MATOMO_HOST}`],
+        "script-src": ["'self'", "'unsafe-inline'", `https://${MATOMO_HOST}`],
         "object-src": ["blob:"],
       },
     },
@@ -106,7 +99,7 @@ const apiTracker = lib.setupTracker(openApiContents);
 
 // By default get the detailed path from the env, otherwise consider that the detailed
 // files are stored in the current public directory
-let detailedProcessesDirectory = process.env.ECOBALYSE_DATA_DIR || "./public";
+let detailedProcessesDirectory = ECOBALYSE_DATA_DIR || "./public";
 
 let textileImpactsFile = `${detailedProcessesDirectory}/data/textile/processes_impacts.json`;
 let foodImpactsFile = `${detailedProcessesDirectory}/data/food/processes_impacts.json`;
@@ -142,7 +135,7 @@ const getProcesses = async (token) => {
     isTokenValid = tokenRes.status == 200;
   }
 
-  if (isTokenValid || process.env.NODE_ENV === "test") {
+  if (isTokenValid || NODE_ENV === "test") {
     return processesImpacts;
   } else {
     return processes;

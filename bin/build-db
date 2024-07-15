@@ -6,25 +6,21 @@
  * is impossible in an Elm test environment.
  */
 const fs = require("fs");
+const lib = require("../lib");
 
 console.log(`Building database for the ${process.env.NODE_ENV} env…`);
 
 let foodProcesses, textileProcesses;
 
 if (process.env.NODE_ENV === "test") {
-  if (!process.env.ECOBALYSE_DATA_DIR) {
-    console.error(
-      `
-🚨 ERROR: For the tests to work properly, you need to specify ECOBALYSE_DATA_DIR env variable.
-   It needs to point to a directory with the detailed versions of the processes files. Please, edit your .env file accordingly.",
-   -> Exiting the test process.
-`,
-    );
-    process.exit(1);
-  }
+  // If we are in test, we need to load the detailed files for the test suite to work
+  lib.checkDataFiles();
+
   foodProcesses = `${process.env.ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
   textileProcesses = `${process.env.ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
 } else {
+  // If we are not in test, we build the db without the detailed impacts, they will will
+  // be fetched later on by the client
   foodProcesses = "public/data/food/processes.json";
   textileProcesses = "public/data/textile/processes.json";
 }

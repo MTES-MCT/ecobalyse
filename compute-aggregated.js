@@ -1,21 +1,15 @@
 require("dotenv").config();
 const fs = require("fs");
 const { Elm } = require("./compute-aggregated-app");
+const lib = require("./lib");
 
-if (!process.env.ECOBALYSE_DATA_DIR) {
-  console.error(
-    `
-🚨 ERROR: For the aggregation to work properly, you need to specify ECOBALYSE_DATA_DIR env variable.
-   It need to point to the detailed versions of the processes files that are stored in the https://github.com/MTES-MCT/ecobalyse-private/ repository.
-   Please, edit your .env file accordingly.
-   -> Exiting the aggregation process.
-`,
-  );
-  process.exit(1);
-}
+// Check that the data dir is correctly setup
+lib.checkDataFiles();
 
-let textileImpactsFile = `${process.env.ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
-let foodImpactsFile = `${process.env.ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
+const { ECOBALYSE_DATA_DIR } = process.env;
+
+let textileImpactsFile = `${ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
+let foodImpactsFile = `${ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
 
 const elmApp = Elm.ComputeAggregated.init({
   flags: {
@@ -51,7 +45,7 @@ elmApp.ports.export.subscribe(
 - public/data/textile/processes.json
 - public/data/food/processes.json
 
-🚨 Be sure to commit the detailed impacts 'processes_impacts.json' files in the 'ecobalyse-private' repo`);
+⚠️ Be sure to commit the detailed impacts 'processes_impacts.json' files in the 'ecobalyse-private' repo`);
     } catch (err) {
       console.error(err);
     }
