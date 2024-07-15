@@ -16,9 +16,12 @@ if (process.env.NODE_ENV === "test") {
 
   if (!foodProcesses || !textileProcesses) {
     console.error(
-      "\n🚨 ERROR: For the tests to work properly, you need to specify FOOD_PROCESSES_IMPACTS_PATH and TEXTILE_PROCESSES_IMPACTS_PATH env variables. They need to point to the detailed versions of the processes files. Please, edit your .env file accordingly.",
+      `
+🚨 ERROR: For the tests to work properly, you need to specify FOOD_PROCESSES_IMPACTS_PATH and TEXTILE_PROCESSES_IMPACTS_PATH env variables.
+   They need to point to the detailed versions of the processes files. Please, edit your .env file accordingly.
+   -> Exiting the build-db process
+`,
     );
-    console.error("-> Exiting the build-db process.\n");
     process.exit(1);
   }
 } else {

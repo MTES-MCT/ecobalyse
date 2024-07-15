@@ -42,4 +42,4 @@ repos:
         language: system
         files: ^processes_impacts.json$
         entry: |
-          bash -c 'exit 1'
+          bash -c 'echo "⚠️ Prevented pushing detailed impacts data to public git repository. To update these, clone and push to the ecobalyse-private repository.";exit 1'

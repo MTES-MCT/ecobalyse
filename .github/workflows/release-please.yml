@@ -38,15 +38,12 @@ jobs:
       - name: Build app
         if: ${{ steps.release.outputs.release_created }}
         run: |
-          npm run build
-          npm run server:build
-          cp server-app.js dist/
-          cp openapi.yaml dist/
+          npm run build:standalone-app
 
       - name: Clone the detailed impacts
         run: |
           eval `ssh-agent -s`
-          ssh-add - <<< '${{ secrets.SCALINGO_SSH_KEY }}'
+          ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
           git clone git@github.com:MTES-MCT/ecobalyse-private.git
 
       - name: Encrypt the impacts files

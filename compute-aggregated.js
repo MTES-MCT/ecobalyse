@@ -4,9 +4,13 @@ const { Elm } = require("./compute-aggregated-app");
 
 if (!process.env.TEXTILE_PROCESSES_IMPACTS_PATH || !process.env.FOOD_PROCESSES_IMPACTS_PATH) {
   console.error(
-    "\n🚨 ERROR: For the aggregation to work properly, you need to specify FOOD_PROCESSES_IMPACTS_PATH and TEXTILE_PROCESSES_IMPACTS_PATH env variables. They need to point to the detailed versions of the processes files that are stored in the https://github.com/MTES-MCT/ecobalyse-private/ repository. Please, edit your .env file accordingly.",
+    `
+🚨 ERROR: For the aggregation to work properly, you need to specify FOOD_PROCESSES_IMPACTS_PATH and TEXTILE_PROCESSES_IMPACTS_PATH env variables.
+   They need to point to the detailed versions of the processes files that are stored in the https://github.com/MTES-MCT/ecobalyse-private/ repository.
+   Please, edit your .env file accordingly.
+   -> Exiting the aggregation process.
+`,
   );
-  console.error("-> Exiting the aggregation process.\n");
   process.exit(1);
 }
 
