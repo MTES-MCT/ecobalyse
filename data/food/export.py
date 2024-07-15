@@ -57,7 +57,7 @@ CONFIG = {
     "FEED_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",
     "UGB_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv",
     "INGREDIENTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",
-    "PROCESSES_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/processes_impacts.json",
+    "PROCESSES_FILE": f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
     "GRAPH_FOLDER": f"{PROJECT_ROOT_DIR}/data/food/impact_comparison",
 }
