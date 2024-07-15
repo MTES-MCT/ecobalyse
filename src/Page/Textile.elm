@@ -64,6 +64,7 @@ import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
+import Views.Markdown as Markdown
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
 import Views.Textile.Step as StepView
@@ -92,8 +93,8 @@ type Modal
 
 
 type Tab
-    = RegulatoryTab
-    | AdvancedTab
+    = LearningTab
+    | RegulatoryTab
 
 
 type Msg
@@ -171,7 +172,7 @@ init trigram maybeUrlQuery session =
       , modal = NoModal
       , activeTab =
             if Query.isAdvancedQuery initialQuery then
-                AdvancedTab
+                LearningTab
 
             else
                 RegulatoryTab
@@ -224,7 +225,7 @@ initFromExample session uuid =
       , modal = NoModal
       , activeTab =
             if Query.isAdvancedQuery exampleQuery then
-                AdvancedTab
+                LearningTab
 
             else
                 RegulatoryTab
@@ -486,8 +487,8 @@ update ({ queries, navKey } as session) msg model =
             else
                 ( { model | activeTab = RegulatoryTab }, session, Cmd.none )
 
-        ( SwitchTab AdvancedTab, _ ) ->
-            ( { model | activeTab = AdvancedTab }, session, Cmd.none )
+        ( SwitchTab LearningTab, _ ) ->
+            ( { model | activeTab = LearningTab }, session, Cmd.none )
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             ( model
@@ -892,7 +893,7 @@ lifeCycleStepsView db { activeTab, impact } simulator =
                     , inputs = simulator.inputs
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
                     , selectedImpact = impact
-                    , showAdvancedFields = activeTab == AdvancedTab
+                    , showAdvancedFields = activeTab == LearningTab
 
                     -- Events
                     , addMaterialModal = AddMaterialModal
@@ -1060,10 +1061,10 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                           , onTabClick = SwitchTab RegulatoryTab
                           }
                         , { label =
-                                "Mode avancé"
+                                "Mode pédagogique"
                                     |> tabLabel "Affiche des champs supplémentaires, hors cadre réglementaire"
-                          , active = model.activeTab == AdvancedTab
-                          , onTabClick = SwitchTab AdvancedTab
+                          , active = model.activeTab == LearningTab
+                          , onTabClick = SwitchTab LearningTab
                           }
                         ]
                     , content =
@@ -1173,8 +1174,9 @@ view session model =
                                 , formAction = Nothing
                                 , content =
                                     [ div [ class "p-3" ]
-                                        [ p []
-                                            [ text "Basculer en mode règlementaire réinitialisera les valeurs renseignées pour les champs avancés." ]
+                                        [ """Basculer en mode règlementaire réinitialisera les valeurs renseignées
+                                             pour les champs avancés du mode pédagogique."""
+                                            |> Markdown.simple []
                                         , p
                                             [ class "d-flex justify-content-center align-items-center gap-1" ]
                                             [ button
@@ -1184,7 +1186,7 @@ view session model =
                                                 [ text "Confirmer" ]
                                             , text "ou"
                                             , button [ class "btn btn-link ps-0", onClick (SetModal NoModal) ]
-                                                [ text "rester en mode avancé" ]
+                                                [ text "rester en mode pédagogique" ]
                                             ]
                                         ]
                                     ]
