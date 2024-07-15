@@ -55,7 +55,14 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "6 juin 2024"
+    [ { date = "15 juillet 2024"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """L'API alimentaire est remise en service.
+            """
+      }
+    , { date = "6 juin 2024"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =
