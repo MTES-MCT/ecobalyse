@@ -1297,7 +1297,7 @@
     },
     "land_occupation": 3.718097733,
     "scenario": "reference",
-    "visible": true
+    "visible": false
   },
   {
     "id": "egg-indoor-code3",
@@ -1319,7 +1319,7 @@
     },
     "land_occupation": 3.069579193,
     "scenario": "reference",
-    "visible": false
+    "visible": true
   },
   {
     "id": "egg-outdoor-code1",
