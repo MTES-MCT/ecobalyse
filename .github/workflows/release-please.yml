@@ -50,6 +50,9 @@ jobs:
         env:
           ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
         run : |
+          # We include the encrypted detailed processes with the dist
+          # so that people with the encryption key could later on use the app with the exact
+          # files it was using on production
           npm run encrypt ./ecobalyse-private/data/textile/processes_impacts.json dist/processes_impacts_textile.json.enc
           npm run encrypt ./ecobalyse-private/data/food/processes_impacts.json dist/processes_impacts_food.json.enc
 
