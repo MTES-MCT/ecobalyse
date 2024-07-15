@@ -28,7 +28,12 @@ if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
 if (NODE_ENV === "test") {
   // Check that the detailed files are provided only in test mode
   // In production, the app will fallback to non detailed processes by default
-  lib.checkDataFiles();
+  try {
+    lib.checkDataFiles(ECOBALYSE_DATA_DIR);
+  } catch (err) {
+    console.error(`🚨 ERROR: ${err.message}`);
+    process.exit(1);
+  }
 }
 
 // Sentry

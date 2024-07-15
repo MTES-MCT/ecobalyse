@@ -8,16 +8,24 @@
 const fs = require("fs");
 const lib = require("../lib");
 
-console.log(`Building database for the ${process.env.NODE_ENV} env…`);
+// Env vars
+const { ECOBALYSE_DATA_DIR, NODE_ENV } = process.env;
+
+console.log(`Building database for the ${NODE_ENV} env…`);
 
 let foodProcesses, textileProcesses;
 
-if (process.env.NODE_ENV === "test") {
-  // If we are in test, we need to load the detailed files for the test suite to work
-  lib.checkDataFiles();
+if (NODE_ENV === "test") {
+  try {
+    // If we are in test, we need to load the detailed files for the test suite to work
+    lib.checkDataFiles(ECOBALYSE_DATA_DIR);
+  } catch (err) {
+    console.error(`🚨 ERROR: ${err.message}`);
+    process.exit(1);
+  }
 
-  foodProcesses = `${process.env.ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
-  textileProcesses = `${process.env.ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
+  foodProcesses = `${ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
+  textileProcesses = `${ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
 } else {
   // If we are not in test, we build the db without the detailed impacts, they will will
   // be fetched later on by the client

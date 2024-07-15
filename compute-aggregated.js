@@ -3,10 +3,15 @@ const fs = require("fs");
 const { Elm } = require("./compute-aggregated-app");
 const lib = require("./lib");
 
-// Check that the data dir is correctly setup
-lib.checkDataFiles();
-
 const { ECOBALYSE_DATA_DIR } = process.env;
+
+try {
+  // Check that the data dir is correctly setup
+  lib.checkDataFiles(ECOBALYSE_DATA_DIR);
+} catch (err) {
+  console.error(`🚨 ERROR: ${err.message}`);
+  process.exit(1);
+}
 
 let textileImpactsFile = `${ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
 let foodImpactsFile = `${ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
