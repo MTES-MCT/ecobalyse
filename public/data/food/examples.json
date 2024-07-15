@@ -70,28 +70,6 @@
     }
   },
   {
-    "id": "56373594-ff73-4c2c-81b0-cf257292c4eb",
-    "name": "Filets de poulet bio FR (250g) - 95",
-    "category": "Volaille",
-    "query": {
-      "ingredients": [
-        {
-          "id": "chicken-breast-organic",
-          "mass": 250,
-          "country": "FR"
-        }
-      ],
-      "packaging": [
-        {
-          "code": "AGRIBALU000000003111575",
-          "mass": 50
-        }
-      ],
-      "distribution": "frozen",
-      "preparation": ["freezing", "oven"]
-    }
-  },
-  {
     "id": "55539367-a21b-4da1-8009-e2620c18404f",
     "name": "Filets de poulet FR (250g) - 96",
     "category": "Volaille",
