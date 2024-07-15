@@ -38,6 +38,13 @@ from food.ecosystemic_services.ecosystemic_services import (
 )
 
 PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
+ECOBALYSE_DATA_DIR = os.environ.get("ECOBALYSE_DATA_DIR")
+if not ECOBALYSE_DATA_DIR:
+    print(
+        "\n🚨 ERROR: For the export to work properly, you need to specify ECOBALYSE_DATA_DIR env variable. It needs to point to the https://github.com/MTES-MCT/ecobalyse-private/ repository. Please, edit your .env file accordingly."
+    )
+    sys.exit(1)
+
 # Configuration
 CONFIG = {
     "PROJECT": "food",
