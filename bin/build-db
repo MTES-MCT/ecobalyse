@@ -10,20 +10,20 @@ const fs = require("fs");
 console.log(`Building database for the ${process.env.NODE_ENV} env…`);
 
 let foodProcesses, textileProcesses;
-if (process.env.NODE_ENV === "test") {
-  foodProcesses = process.env.FOOD_PROCESSES_IMPACTS_PATH;
-  textileProcesses = process.env.TEXTILE_PROCESSES_IMPACTS_PATH;
 
-  if (!foodProcesses || !textileProcesses) {
+if (process.env.NODE_ENV === "test") {
+  if (!process.env.ECOBALYSE_DATA_DIR) {
     console.error(
       `
-🚨 ERROR: For the tests to work properly, you need to specify FOOD_PROCESSES_IMPACTS_PATH and TEXTILE_PROCESSES_IMPACTS_PATH env variables.
-   They need to point to the detailed versions of the processes files. Please, edit your .env file accordingly.
-   -> Exiting the build-db process
+🚨 ERROR: For the tests to work properly, you need to specify ECOBALYSE_DATA_DIR env variable.
+   It needs to point to a directory with the detailed versions of the processes files. Please, edit your .env file accordingly.",
+   -> Exiting the test process.
 `,
     );
     process.exit(1);
   }
+  foodProcesses = `${process.env.ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
+  textileProcesses = `${process.env.ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
 } else {
   foodProcesses = "public/data/food/processes.json";
   textileProcesses = "public/data/textile/processes.json";

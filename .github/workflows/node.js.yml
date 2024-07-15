@@ -5,8 +5,7 @@ name: Node.js CI
 
 env:
   NODE_ENV: test
-  FOOD_PROCESSES_IMPACTS_PATH: ./ecobalyse-private/data/food/processes_impacts.json
-  TEXTILE_PROCESSES_IMPACTS_PATH: ./ecobalyse-private/data/textile/processes_impacts.json
+  ECOBALYSE_DATA_DIR: ./ecobalyse-private
 on:
   push:
     branches: [ master, staging ]
@@ -73,7 +72,7 @@ jobs:
       run: |
         eval `ssh-agent -s`
         # Private ssh key used by this Github action to clone the private repo
-        # The corresponding public key has been set as a deploy key of the private repo
+        # The corresponding public key must be set as a deploy key of the private repo
         ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
         git clone git@github.com:MTES-MCT/ecobalyse-private.git
 

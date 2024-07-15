@@ -2,11 +2,11 @@ require("dotenv").config();
 const fs = require("fs");
 const { Elm } = require("./compute-aggregated-app");
 
-if (!process.env.TEXTILE_PROCESSES_IMPACTS_PATH || !process.env.FOOD_PROCESSES_IMPACTS_PATH) {
+if (!process.env.ECOBALYSE_DATA_DIR) {
   console.error(
     `
-🚨 ERROR: For the aggregation to work properly, you need to specify FOOD_PROCESSES_IMPACTS_PATH and TEXTILE_PROCESSES_IMPACTS_PATH env variables.
-   They need to point to the detailed versions of the processes files that are stored in the https://github.com/MTES-MCT/ecobalyse-private/ repository.
+🚨 ERROR: For the aggregation to work properly, you need to specify ECOBALYSE_DATA_DIR env variable.
+   It need to point to the detailed versions of the processes files that are stored in the https://github.com/MTES-MCT/ecobalyse-private/ repository.
    Please, edit your .env file accordingly.
    -> Exiting the aggregation process.
 `,
@@ -14,11 +14,14 @@ if (!process.env.TEXTILE_PROCESSES_IMPACTS_PATH || !process.env.FOOD_PROCESSES_I
   process.exit(1);
 }
 
+let textileImpactsFile = `${process.env.ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
+let foodImpactsFile = `${process.env.ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
+
 const elmApp = Elm.ComputeAggregated.init({
   flags: {
     definitionsString: fs.readFileSync("public/data/impacts.json", "utf-8"),
-    textileProcessesString: fs.readFileSync(process.env.TEXTILE_PROCESSES_IMPACTS_PATH, "utf-8"),
-    foodProcessesString: fs.readFileSync(process.env.FOOD_PROCESSES_IMPACTS_PATH, "utf-8"),
+    textileProcessesString: fs.readFileSync(textileImpactsFile, "utf-8"),
+    foodProcessesString: fs.readFileSync(foodImpactsFile, "utf-8"),
   },
 });
 
@@ -36,16 +39,19 @@ elmApp.ports.export.subscribe(
     foodProcessesOnlyAggregated,
   }) => {
     try {
-      exportJson(process.env.TEXTILE_PROCESSES_IMPACTS_PATH, textileProcesses);
-      exportJson(process.env.FOOD_PROCESSES_IMPACTS_PATH, foodProcesses);
+      exportJson(textileImpactsFile, textileProcesses);
+      exportJson(foodImpactsFile, foodProcesses);
       exportJson("public/data/textile/processes.json", textileProcessesOnlyAggregated);
       exportJson("public/data/food/processes.json", foodProcessesOnlyAggregated);
-      console.log(
-        `\n4 files exported to\n- ${process.env.TEXTILE_PROCESSES_IMPACTS_PATH}\n- ${process.env.FOOD_PROCESSES_IMPACTS_PATH}\n- public/data/textile/processes.json\n- public/data/food/processes.json!`,
-      );
-      console.log(
-        "\n🚨 Be sure to commit the detailed impacts `processes_impacts.json` files in the `ecobalyse-private` repo.",
-      );
+      console.log(`
+4 files exported to:
+
+- ${textileImpactsFile}
+- ${foodImpactsFile}
+- public/data/textile/processes.json
+- public/data/food/processes.json
+
+🚨 Be sure to commit the detailed impacts 'processes_impacts.json' files in the 'ecobalyse-private' repo`);
     } catch (err) {
       console.error(err);
     }

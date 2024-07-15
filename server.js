@@ -26,11 +26,14 @@ if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATO
 }
 
 if (process.env.NODE_ENV === "test") {
-  if (!process.env.TEXTILE_PROCESSES_IMPACTS_PATH || !process.env.FOOD_PROCESSES_IMPACTS_PATH) {
+  if (!process.env.ECOBALYSE_DATA_DIR) {
     console.error(
-      "\n🚨 ERROR: For the tests to work properly, you need to specify FOOD_PROCESSES_IMPACTS_PATH and TEXTILE_PROCESSES_IMPACTS_PATH env variables. They need to point to the detailed versions of the processes files. Please, edit your .env file accordingly.",
+      `
+🚨 ERROR: For the tests to work properly, you need to specify ECOBALYSE_DATA_DIR env variable.
+   It needs to point to a directory with the detailed versions of the processes files. Please, edit your .env file accordingly.",
+   -> Exiting the test process.
+`,
     );
-    console.error("-> Exiting the test process.\n");
     process.exit(1);
   }
 }
@@ -101,12 +104,13 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
 
-// Detailed processes files
+// By default get the detailed path from the env, otherwise consider that the detailed
+// files are stored in the current public directory
+let detailedProcessesDirectory = process.env.ECOBALYSE_DATA_DIR || "./public";
 
-let textileImpactsFile =
-  process.env.TEXTILE_PROCESSES_IMPACTS_PATH || "public/data/textile/processes_impacts.json";
-let foodImpactsFile =
-  process.env.FOOD_PROCESSES_IMPACTS_PATH || "public/data/food/processes_impacts.json";
+let textileImpactsFile = `${detailedProcessesDirectory}/data/textile/processes_impacts.json`;
+let foodImpactsFile = `${detailedProcessesDirectory}/data/food/processes_impacts.json`;
+
 const textileFile = "public/data/textile/processes.json";
 const foodFile = "public/data/food/processes.json";
 
