@@ -1,12 +1,23 @@
 require("dotenv").config();
 const fs = require("fs");
 const { Elm } = require("./compute-aggregated-app");
+const lib = require("./lib");
+
+const { ECOBALYSE_DATA_DIR } = process.env;
+
+let dataFiles;
+try {
+  dataFiles = lib.getDataFiles(ECOBALYSE_DATA_DIR);
+} catch (err) {
+  console.error(`🚨 ERROR: ${err.message}`);
+  process.exit(1);
+}
 
 const elmApp = Elm.ComputeAggregated.init({
   flags: {
     definitionsString: fs.readFileSync("public/data/impacts.json", "utf-8"),
-    textileProcessesString: fs.readFileSync("public/data/textile/processes_impacts.json", "utf-8"),
-    foodProcessesString: fs.readFileSync("public/data/food/processes_impacts.json", "utf-8"),
+    textileProcessesString: fs.readFileSync(dataFiles.textileDetailed, "utf-8"),
+    foodProcessesString: fs.readFileSync(dataFiles.foodDetailed, "utf-8"),
   },
 });
 
@@ -24,11 +35,19 @@ elmApp.ports.export.subscribe(
     foodProcessesOnlyAggregated,
   }) => {
     try {
-      exportJson("public/data/textile/processes_impacts.json", textileProcesses);
-      exportJson("public/data/food/processes_impacts.json", foodProcesses);
-      exportJson("public/data/textile/processes.json", textileProcessesOnlyAggregated);
-      exportJson("public/data/food/processes.json", foodProcessesOnlyAggregated);
-      console.log("EXPORTED!");
+      exportJson(dataFiles.textileDetailed, textileProcesses);
+      exportJson(dataFiles.foodDetailed, foodProcesses);
+      exportJson(dataFiles.textileNoDetails, textileProcessesOnlyAggregated);
+      exportJson(dataFiles.foodNoDetails, foodProcessesOnlyAggregated);
+      console.log(`
+4 files exported to:
+x"
+- ${dataFiles.textileDetailed}
+- ${dataFiles.foodDetailed}
+- ${dataFiles.textileNoDetails}
+- ${dataFiles.foodNoDetails}
+
+⚠️ Be sure to commit the detailed impacts 'processes_impacts.json' files in the 'ecobalyse-private' repo`);
     } catch (err) {
       console.error(err);
     }

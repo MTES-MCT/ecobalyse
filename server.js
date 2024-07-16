@@ -17,11 +17,20 @@ const djangoHost = "127.0.0.1";
 const djangoPort = 8002;
 
 // Env vars
-const { SENTRY_DSN, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN } = process.env;
+const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV, SENTRY_DSN } =
+  process.env;
 
 // Matomo
-if (process.env.NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
+if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
   console.error("Matomo environment variables are missing. Please check the README.");
+  process.exit(1);
+}
+
+let dataFiles;
+try {
+  dataFiles = lib.getDataFiles(ECOBALYSE_DATA_DIR);
+} catch (err) {
+  console.error(`🚨 ERROR: ${err.message}`);
   process.exit(1);
 }
 
@@ -51,7 +60,7 @@ app.use(
           "https://sentry.incubateur.net",
           "*.gouv.fr",
         ],
-        "frame-src": ["'self'", `https://${process.env.MATOMO_HOST}`, "https://www.loom.com"],
+        "frame-src": ["'self'", `https://${MATOMO_HOST}`, "https://www.loom.com"],
         "img-src": [
           "'self'",
           "data:",
@@ -62,7 +71,7 @@ app.use(
         // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
         // server sends the appropriate `Access-Control-Allow-Origin` header
         // @see https://matomo.org/faq/how-to/faq_18694/
-        "script-src": ["'self'", "'unsafe-inline'", `https://${process.env.MATOMO_HOST}`],
+        "script-src": ["'self'", "'unsafe-inline'", `https://${MATOMO_HOST}`],
         "object-src": ["blob:"],
       },
     },
@@ -91,21 +100,14 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
 
-// Detailed processes files
-
-const textileImpactsFile = "public/data/textile/processes_impacts.json";
-const foodImpactsFile = "public/data/food/processes_impacts.json";
-const textileFile = "public/data/textile/processes.json";
-const foodFile = "public/data/food/processes.json";
-
 const processesImpacts = {
-  foodProcesses: fs.readFileSync(foodImpactsFile, "utf8"),
-  textileProcesses: fs.readFileSync(textileImpactsFile, "utf8"),
+  foodProcesses: fs.readFileSync(dataFiles.foodDetailed, "utf8"),
+  textileProcesses: fs.readFileSync(dataFiles.textileDetailed, "utf8"),
 };
 
 const processes = {
-  foodProcesses: fs.readFileSync(foodFile, "utf8"),
-  textileProcesses: fs.readFileSync(textileFile, "utf8"),
+  foodProcesses: fs.readFileSync(dataFiles.foodNoDetails, "utf8"),
+  textileProcesses: fs.readFileSync(dataFiles.textileNoDetails, "utf8"),
 };
 
 const getProcesses = async (token) => {
@@ -116,7 +118,7 @@ const getProcesses = async (token) => {
     isTokenValid = tokenRes.status == 200;
   }
 
-  if (isTokenValid || process.env.NODE_ENV === "test") {
+  if (isTokenValid || NODE_ENV === "test") {
     return processesImpacts;
   } else {
     return processes;
