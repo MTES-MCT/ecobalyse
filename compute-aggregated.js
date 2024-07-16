@@ -5,11 +5,6 @@ const lib = require("./lib");
 
 const { ECOBALYSE_DATA_DIR } = process.env;
 
-if (!ECOBALYSE_DATA_DIR) {
-  console.error("🚨 ERROR: ECOBALYSE_DATA_DIR is required in env, please check the README.");
-  process.exit(1);
-}
-
 let dataFiles;
 try {
   dataFiles = lib.getDataFiles(ECOBALYSE_DATA_DIR);
