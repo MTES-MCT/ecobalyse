@@ -34,11 +34,11 @@
     "start:dev": "npm run build:init && concurrently -k -n \"parcel,server,backend\" -c \"green,cyan,yellow\" \"npm run start:parcel\" \"npm run server:dev\" \"npm run start:backend\"",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:backend": "pipenv run pytest",
-    "test:client": "npx elm-test",
+    "test:client": "NODE_ENV=test npm run db:build && npx elm-test",
     "test:review": "npx elm-review",
     "test:server": "npm run server:build && jest",
     "test:server-ci": "concurrently -k -s first -n \"django,test\" \"npm run start:backend\" \"while ! lsof -i:8002; do sleep 1; done && npm run server:build && jest\"",
-    "test": "NODE_ENV=test npm run db:build && npm run test:review && npm run test:client && npm run test:backend && npm run test:server"
+    "test": "npm run test:client && npm run test:backend && npm run test:server"
   },
   "dependencies": {
     "@parcel/transformer-elm": "^2.12.0",

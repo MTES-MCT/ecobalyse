@@ -19,6 +19,7 @@ module Data.Textile.Query exposing
     , updateMaterialSpinning
     , updateProduct
     , updateStepCountry
+    , validateMaterials
     )
 
 import Base64
@@ -359,6 +360,29 @@ updateStepCountry label code query =
 
         _ ->
             query
+
+
+validateMaterials : List MaterialQuery -> Result String (List MaterialQuery)
+validateMaterials materials =
+    if materials == [] then
+        Ok []
+
+    else
+        let
+            total =
+                materials
+                    |> List.map (.share >> Split.toFloat)
+                    |> List.sum
+        in
+        -- Note: taking care of float number rounding precision errors https://en.wikipedia.org/wiki/Round-off_error
+        if not (List.member total [ 1, 0.6 + 0.3 + 0.1 ]) then
+            Err <|
+                "La somme des parts de matières doit être égale à 1 (ici : "
+                    ++ String.fromFloat total
+                    ++ ")"
+
+        else
+            Ok materials
 
 
 
