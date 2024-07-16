@@ -26,16 +26,9 @@ if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
   process.exit(1);
 }
 
-// Non detailed and detailed processes files
-let textileProcessesPath, foodProcessesPath, textileImpactsProcessesPath, foodImpactsProcessesPath;
-
+let dataFiles;
 try {
-  ({
-    textileProcessesPath,
-    foodProcessesPath,
-    textileImpactsProcessesPath,
-    foodImpactsProcessesPath,
-  } = lib.getDataFiles(ECOBALYSE_DATA_DIR, true));
+  dataFiles = lib.getDataFiles(ECOBALYSE_DATA_DIR);
 } catch (err) {
   console.error(`🚨 ERROR: ${err.message}`);
   process.exit(1);
@@ -108,13 +101,13 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 const apiTracker = lib.setupTracker(openApiContents);
 
 const processesImpacts = {
-  foodProcesses: fs.readFileSync(foodImpactsProcessesPath, "utf8"),
-  textileProcesses: fs.readFileSync(textileImpactsProcessesPath, "utf8"),
+  foodProcesses: fs.readFileSync(dataFiles.foodDetailed, "utf8"),
+  textileProcesses: fs.readFileSync(dataFiles.textileDetailed, "utf8"),
 };
 
 const processes = {
-  foodProcesses: fs.readFileSync(foodProcessesPath, "utf8"),
-  textileProcesses: fs.readFileSync(textileProcessesPath, "utf8"),
+  foodProcesses: fs.readFileSync(dataFiles.foodNoDetails, "utf8"),
+  textileProcesses: fs.readFileSync(dataFiles.textileNoDetails, "utf8"),
 };
 
 const getProcesses = async (token) => {
