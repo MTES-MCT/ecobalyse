@@ -9824,5 +9824,39 @@
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "id": "tomato-organic-fr-only",
     "source": "Ecobalyse"
+  },
+  {
+    "name": "Fresh tomato, consumption mix, organic 2023 {FR} U [es-only], constructed by Ecobalyse",
+    "displayName": "Tomate ES bio",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 68.67069809800357,
+      "pef": 80.82939387679832
+    },
+    "unit": "kilogram",
+    "identifier": "553e50143c594dbdf543a6d0723e9a2b",
+    "category": "ingredient",
+    "system_description": "Ecobalyse",
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
+    "id": "tomato-organic-es-only",
+    "source": "Ecobalyse"
   }
 ]
