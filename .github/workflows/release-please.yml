@@ -41,12 +41,14 @@ jobs:
           npm run build:standalone-app
 
       - name: Clone the detailed impacts
+        if: ${{ steps.release.outputs.release_created }}
         run: |
           eval `ssh-agent -s`
           ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
           git clone git@github.com:MTES-MCT/ecobalyse-private.git
 
       - name: Encrypt the impacts files
+        if: ${{ steps.release.outputs.release_created }}
         env:
           ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
         run : |
