@@ -27,7 +27,6 @@
     "fix:ruff:format": "pipenv run ruff format --force-exclude",
     "fix:all": "npm run fix:ruff:all && npm run fix:prettier:all",
     "format:json": "npx prettier@3.0.3 --write . && pipenv run ruff check --select I --fix && pipenv run ruff format",
-    "prepare": "husky",
     "server:build": "npm run db:build && elm make src/Server.elm --optimize --output=server-app.js",
     "server:dev": "npm run server:build && nodemon server.js --config nodemon.json",
     "server:debug": "elm make src/Server.elm --output=server-app.js && nodemon server.js --config nodemon.json",
