@@ -5,22 +5,25 @@ const lib = require("./lib");
 
 const { ECOBALYSE_DATA_DIR } = process.env;
 
+let textileProcessesPath, foodProcessesPath, textileImpactsProcessesPath, foodImpactsProcessesPath;
+
 try {
-  // Check that the data dir is correctly setup
-  lib.checkDataFiles(ECOBALYSE_DATA_DIR);
+  ({
+    textileProcessesPath,
+    foodProcessesPath,
+    textileImpactsProcessesPath,
+    foodImpactsProcessesPath,
+  } = lib.getDataFiles(ECOBALYSE_DATA_DIR, true));
 } catch (err) {
   console.error(`🚨 ERROR: ${err.message}`);
   process.exit(1);
 }
 
-let textileImpactsFile = `${ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
-let foodImpactsFile = `${ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
-
 const elmApp = Elm.ComputeAggregated.init({
   flags: {
     definitionsString: fs.readFileSync("public/data/impacts.json", "utf-8"),
-    textileProcessesString: fs.readFileSync(textileImpactsFile, "utf-8"),
-    foodProcessesString: fs.readFileSync(foodImpactsFile, "utf-8"),
+    textileProcessesString: fs.readFileSync(textileImpactsProcessesPath, "utf-8"),
+    foodProcessesString: fs.readFileSync(foodImpactsProcessesPath, "utf-8"),
   },
 });
 
@@ -38,17 +41,17 @@ elmApp.ports.export.subscribe(
     foodProcessesOnlyAggregated,
   }) => {
     try {
-      exportJson(textileImpactsFile, textileProcesses);
-      exportJson(foodImpactsFile, foodProcesses);
-      exportJson("public/data/textile/processes.json", textileProcessesOnlyAggregated);
-      exportJson("public/data/food/processes.json", foodProcessesOnlyAggregated);
+      exportJson(textileImpactsProcessesPath, textileProcesses);
+      exportJson(foodImpactsProcessesPath, foodProcesses);
+      exportJson(textileProcessesPath, textileProcessesOnlyAggregated);
+      exportJson(foodProcessesPath, foodProcessesOnlyAggregated);
       console.log(`
 4 files exported to:
 
-- ${textileImpactsFile}
-- ${foodImpactsFile}
-- public/data/textile/processes.json
-- public/data/food/processes.json
+- ${textileImpactsProcessesPath}
+- ${foodImpactsProcessesPath}
+- ${textileProcessesPath}
+- ${foodProcessesPath}
 
 ⚠️ Be sure to commit the detailed impacts 'processes_impacts.json' files in the 'ecobalyse-private' repo`);
     } catch (err) {

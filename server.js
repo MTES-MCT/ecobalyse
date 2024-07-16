@@ -25,15 +25,20 @@ if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
   console.error("Matomo environment variables are missing. Please check the README.");
   process.exit(1);
 }
-if (NODE_ENV === "test") {
-  // Check that the detailed files are provided only in test mode
-  // In production, the app will fallback to non detailed processes by default
-  try {
-    lib.checkDataFiles(ECOBALYSE_DATA_DIR);
-  } catch (err) {
-    console.error(`🚨 ERROR: ${err.message}`);
-    process.exit(1);
-  }
+
+// Non detailed and detailed processes files
+let textileProcessesPath, foodProcessesPath, textileImpactsProcessesPath, foodImpactsProcessesPath;
+
+try {
+  ({
+    textileProcessesPath,
+    foodProcessesPath,
+    textileImpactsProcessesPath,
+    foodImpactsProcessesPath,
+  } = lib.getDataFiles(ECOBALYSE_DATA_DIR, true));
+} catch (err) {
+  console.error(`🚨 ERROR: ${err.message}`);
+  process.exit(1);
 }
 
 // Sentry
@@ -102,34 +107,14 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
 
-// By default get the detailed path from the env, otherwise consider that the detailed
-// files are stored in the current public directory
-let detailedProcessesDirectory = ECOBALYSE_DATA_DIR || "./public";
-
-let textileImpactsFile = `${detailedProcessesDirectory}/data/textile/processes_impacts.json`;
-let foodImpactsFile = `${detailedProcessesDirectory}/data/food/processes_impacts.json`;
-
-const textileFile = "public/data/textile/processes.json";
-const foodFile = "public/data/food/processes.json";
-
-// If detailed impacts files doesn't exist,
-// we should default to the non detailed files
-if (!fs.existsSync(textileImpactsFile)) {
-  textileImpactsFile = textileFile;
-}
-
-if (!fs.existsSync(foodImpactsFile)) {
-  foodImpactsFile = foodFile;
-}
-
 const processesImpacts = {
-  foodProcesses: fs.readFileSync(foodImpactsFile, "utf8"),
-  textileProcesses: fs.readFileSync(textileImpactsFile, "utf8"),
+  foodProcesses: fs.readFileSync(foodImpactsProcessesPath, "utf8"),
+  textileProcesses: fs.readFileSync(textileImpactsProcessesPath, "utf8"),
 };
 
 const processes = {
-  foodProcesses: fs.readFileSync(foodFile, "utf8"),
-  textileProcesses: fs.readFileSync(textileFile, "utf8"),
+  foodProcesses: fs.readFileSync(foodProcessesPath, "utf8"),
+  textileProcesses: fs.readFileSync(textileProcessesPath, "utf8"),
 };
 
 const getProcesses = async (token) => {

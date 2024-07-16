@@ -13,24 +13,25 @@ const { ECOBALYSE_DATA_DIR, NODE_ENV } = process.env;
 
 console.log(`Building database for the ${NODE_ENV} env…`);
 
-let foodProcesses, textileProcesses;
+// Non detailed and detailed processes files
+let textileProcessesPath, foodProcessesPath, textileImpactsProcessesPath, foodImpactsProcessesPath;
+
+try {
+  ({
+    textileProcessesPath,
+    foodProcessesPath,
+    textileImpactsProcessesPath,
+    foodImpactsProcessesPath,
+  } = lib.getDataFiles(ECOBALYSE_DATA_DIR, NODE_ENV === "test"));
+} catch (err) {
+  console.error(`🚨 ERROR: ${err.message}`);
+  process.exit(1);
+}
 
 if (NODE_ENV === "test") {
-  try {
-    // If we are in test, we need to load the detailed files for the test suite to work
-    lib.checkDataFiles(ECOBALYSE_DATA_DIR);
-  } catch (err) {
-    console.error(`🚨 ERROR: ${err.message}`);
-    process.exit(1);
-  }
-
-  foodProcesses = `${ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json`;
-  textileProcesses = `${ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json`;
-} else {
-  // If we are not in test, we build the db without the detailed impacts, they will will
-  // be fetched later on by the client
-  foodProcesses = "public/data/food/processes.json";
-  textileProcesses = "public/data/textile/processes.json";
+  // If we are in test, we need to always use the detailed path
+  textileProcessesPath = textileImpactsProcessesPath;
+  foodProcessesPath = foodImpactsProcessesPath;
 }
 
 function getJson(path) {
@@ -49,11 +50,11 @@ const elmWithFixtures = elmTemplate
   .replace("%transportsJson%", getJson("public/data/transports.json"))
   // Food JSON data
   .replace("%foodIngredientsJson%", getJson("public/data/food/ingredients.json"))
-  .replace("%foodProcessesJson%", getJson(foodProcesses))
+  .replace("%foodProcessesJson%", getJson(foodProcessesPath))
   .replace("%foodProductExamplesJson%", getJson("public/data/food/examples.json"))
   // Textile JSON data
   .replace("%textileMaterialsJson%", getJson("public/data/textile/materials.json"))
-  .replace("%textileProcessesJson%", getJson(textileProcesses))
+  .replace("%textileProcessesJson%", getJson(textileProcessesPath))
   .replace("%textileProductExamplesJson%", getJson("public/data/textile/examples.json"))
   .replace("%textileProductsJson%", getJson("public/data/textile/products.json"));
 
