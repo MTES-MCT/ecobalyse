@@ -19,13 +19,11 @@ const djangoPort = 8002;
 const version = express(); // version app
 
 const versionsDir = "./versions";
-let availableVersions;
+let availableVersions = new Set();
+
 if (fs.existsSync(versionsDir)) {
   availableVersions = new Set(fs.readdirSync(versionsDir));
-} else {
-  availableVersions = new Set();
 }
-
 // Env vars
 const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV, SENTRY_DSN } =
   process.env;
