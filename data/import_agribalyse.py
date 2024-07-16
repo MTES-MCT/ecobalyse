@@ -205,7 +205,8 @@ if __name__ == "__main__":
         print(f"{db} already imported")
 
     if args.recreate_activities:
-        del bw2data.databases["Ecobalyse"]
+        if "Ecobalyse" in bw2data.databases:
+            del bw2data.databases["Ecobalyse"]
 
     if (db := "Ecobalyse") not in bw2data.databases:
         add_created_activities(db, ACTIVITIES_TO_CREATE)

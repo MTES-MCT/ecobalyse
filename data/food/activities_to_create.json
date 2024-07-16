@@ -413,5 +413,13 @@
     "suffix": "[fr-only]",
     "subactivities": [],
     "replace": { "Fresh tomato ES": "medium tomato FR" }
+  },
+  {
+    "id": "tomato-organic-es",
+    "search_in": "Ginko",
+    "search": "Fresh tomato, consumption mix",
+    "suffix": "[es-only]",
+    "subactivities": [],
+    "replace": { "medium tomato FR": "Fresh tomato ES" }
   }
 ]
