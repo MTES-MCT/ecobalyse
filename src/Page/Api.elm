@@ -55,7 +55,7 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "15 juillet 2024"
+    [ { date = "16 juillet 2024"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md =
