@@ -45,6 +45,7 @@ Les variables d'environnement suivantes doivent être définies :
 - `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
 - `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `True`)
 - `DJANGO_SECRET_KEY` : la [clé secrète de Django](https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY)
+- `ECOBALYSE_DATA_DIR`: l'emplacement du dépôt de données détaillées sur le système de fichier. Note: à terme, cette valeur deviendra optionnelle pour autoriser un fonctionnement en mode restreint.
 - `EMAIL_HOST` : le host SMTP pour envoyer les mail liés à l'authentification
 - `EMAIL_HOST_USER`: l'utilisateur du compte SMTP
 - `EMAIL_HOST_PASSWORD` : le mot de passe du compte SMTP pour envoyer les mail liés à l'authentification
