@@ -469,7 +469,7 @@ materialListParser key materials countries =
     Query.custom (key ++ "[]")
         (List.map (parseMaterial_ materials countries)
             >> RE.combine
-            >> Result.andThen validateMaterialList
+            >> Result.andThen TextileQuery.validateMaterials
             >> Result.mapError (\err -> ( key, err ))
         )
 
@@ -556,26 +556,6 @@ parseSpinning material spinningString =
                         ++ spinningString
                         ++ ")"
                 )
-
-
-validateMaterialList : List TextileQuery.MaterialQuery -> Result String (List TextileQuery.MaterialQuery)
-validateMaterialList list =
-    if list == [] then
-        Ok []
-
-    else
-        let
-            total =
-                list |> List.map (.share >> Split.toFloat) |> List.sum
-        in
-        if total /= 1 then
-            Err <|
-                "La somme des parts de matières doit être égale à 1 (ici : "
-                    ++ String.fromFloat total
-                    ++ ")"
-
-        else
-            Ok list
 
 
 textileCountryParser : String -> List Country -> Parser (ParseResult Country.Code)

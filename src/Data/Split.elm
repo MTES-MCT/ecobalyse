@@ -13,6 +13,7 @@ module Data.Split exposing
     , full
     , half
     , quarter
+    , sixty
     , tenth
     , thirty
     , toFloat
@@ -47,9 +48,9 @@ zero =
     Split 0
 
 
-full : Split
-full =
-    Split 100
+two : Split
+two =
+    Split 2
 
 
 tenth : Split
@@ -67,9 +68,9 @@ twenty =
     Split 20
 
 
-two : Split
-two =
-    Split 2
+quarter : Split
+quarter =
+    Split 25
 
 
 thirty : Split
@@ -87,9 +88,14 @@ half =
     Split 50
 
 
-quarter : Split
-quarter =
-    Split 25
+sixty : Split
+sixty =
+    Split 60
+
+
+full : Split
+full =
+    Split 100
 
 
 fromFloat : Float -> Result String Split
