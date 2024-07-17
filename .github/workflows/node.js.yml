@@ -69,18 +69,24 @@ jobs:
         sudo apt-get install -y gettext
 
     - name: Clone the detailed impacts
+      env:
+        GITHUB_SHA: ${{ github.sha }}
       run: |
         eval `ssh-agent -s`
         # Private ssh key used by this Github action to clone the private repo
         # The corresponding public key must be set as a deploy key of the private repo
         ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
         git clone git@github.com:MTES-MCT/ecobalyse-private.git
+
         DATA_BRANCH_NAME=$(./bin/extract-data-branch-from-pr.sh $GITHUB_SHA)
-        if [ $? -eq 0 ]; then
+
+        if [ ! -z $DATA_BRANCH_NAME ]; then
           cd ecobalyse-private
           echo "-> Checkout branch $DATA_BRANCH_NAME of ecobalyse-private"
           git checkout $DATA_BRANCH_NAME && git pull
           cd ..
+        else
+          echo "-> No specific ecobalyse-data branch found for $GITHUB_SHA. Using master."
         fi
 
     - name: Build app

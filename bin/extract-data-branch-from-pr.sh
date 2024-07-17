@@ -23,7 +23,4 @@ DATA_BRANCH=$(echo $SEARCH_RESULT | sed -E 's/.*ecobalyse_data: ([^\R]*).*/\1/g'
 # If the PR is open and we've found a data: branch_name value, display it
 if [[ "$STATE" == "open" && ! -z $DATA_BRANCH ]]; then
   echo $DATA_BRANCH
-else
-  exit 1;
 fi
-
