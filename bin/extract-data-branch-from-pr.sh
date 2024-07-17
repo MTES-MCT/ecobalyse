@@ -17,7 +17,7 @@ SEARCH_RESULT=$(curl -sL "https://api.github.com/search/issues?q=$COMMIT")
 # Extract the state of the PR "state": "open"
 STATE=$(echo $SEARCH_RESULT | sed -E 's/.*"state": "([^"]*).*/\1/')
 # Check if the response contains, on a single line, a pattern of type data: branch_name
-# (that should be bart of the body)
+# (it should be part of the body)
 DATA_BRANCH=$(echo $SEARCH_RESULT | sed -E 's/.*ecobalyse_data: ([^\R]*).*/\1/g')
 
 # If the PR is open and we've found a data: branch_name value, display it
