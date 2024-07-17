@@ -28,7 +28,7 @@ fi
 if [ ! -z $DATA_BRANCH_NAME ]; then
   cd ecobalyse-private
   echo "-> Checkout branch $DATA_BRANCH_NAME of ecobalyse-private"
-  git checkout $DATA_BRANCH_NAME && git pull
+  git checkout $DATA_BRANCH_NAME
   cd ..
 else
   echo "-> No specific ecobalyse-data branch found for $COMMIT. Using main."
