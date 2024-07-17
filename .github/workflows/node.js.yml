@@ -75,6 +75,13 @@ jobs:
         # The corresponding public key must be set as a deploy key of the private repo
         ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
         git clone git@github.com:MTES-MCT/ecobalyse-private.git
+        DATA_BRANCH_NAME=$(./bin/extract-data-branch-from-pr.sh $GITHUB_SHA)
+        if [ $? -eq 0 ]; then
+          cd ecobalyse-private
+          echo "-> Checkout branch $DATA_BRANCH_NAME of ecobalyse-private"
+          git checkout $DATA_BRANCH_NAME && git pull
+          cd ..
+        fi
 
     - name: Build app
       run: npm run build --if-present
