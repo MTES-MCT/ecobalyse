@@ -81,9 +81,9 @@ jobs:
     - name: Checkout specific ecobalyse-private branch
       if: ${{ github.event_name == 'pull_request' }}
       env:
-        GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+        LAST_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
       run: |
-        DATA_BRANCH_NAME=$(./bin/extract-data-branch-from-pr.sh $GITHUB_SHA)
+        DATA_BRANCH_NAME=$(./bin/extract-data-branch-from-pr.sh $LAST_COMMIT_SHA)
 
         if [ ! -z $DATA_BRANCH_NAME ]; then
           cd ecobalyse-private
@@ -91,7 +91,7 @@ jobs:
           git checkout $DATA_BRANCH_NAME && git pull
           cd ..
         else
-          echo "-> No specific ecobalyse-data branch found for $GITHUB_SHA. Using master."
+          echo "-> No specific ecobalyse-data branch found for $LAST_COMMIT_SHA. Using master."
         fi
 
     - name: Build app
