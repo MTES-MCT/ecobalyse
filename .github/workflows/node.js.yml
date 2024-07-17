@@ -69,8 +69,6 @@ jobs:
         sudo apt-get install -y gettext
 
     - name: Clone the detailed impacts
-      env:
-        GITHUB_SHA: ${{ github.sha }}
       run: |
         eval `ssh-agent -s`
         # Private ssh key used by this Github action to clone the private repo
@@ -83,6 +81,10 @@ jobs:
       env:
         LAST_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
       run: |
+        eval `ssh-agent -s`
+        # Private ssh key used by this Github action to clone the private repo
+        # The corresponding public key must be set as a deploy key of the private repo
+        ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
         DATA_BRANCH_NAME=$(./bin/extract-data-branch-from-pr.sh $LAST_COMMIT_SHA)
 
         if [ ! -z $DATA_BRANCH_NAME ]; then
