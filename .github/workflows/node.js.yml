@@ -78,6 +78,11 @@ jobs:
         ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
         git clone git@github.com:MTES-MCT/ecobalyse-private.git
 
+    - name: Checkout specific ecobalyse-private branch
+      if: ${{ github.event_name == 'pull_request' }}
+      env:
+        GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+      run: |
         DATA_BRANCH_NAME=$(./bin/extract-data-branch-from-pr.sh $GITHUB_SHA)
 
         if [ ! -z $DATA_BRANCH_NAME ]; then
