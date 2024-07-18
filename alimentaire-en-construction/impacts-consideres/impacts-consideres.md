@@ -1,10 +1,10 @@
----
-description: >-
-  Parler de l'architecture en arborescence et de la logique d'Ecobalyse de
-  "découper" cette arborescence
----
-
 # 📖 La base Agribalyse
 
-[Vincent Colomb](https://app.gitbook.com/u/yC9QzuwMY9Z8RaSvSSmdFK0Q7JH2 "mention")
+La base Agribalyse fournit les ICV pour les différents processus agricoles et agro-alimentaires nécessaires à la production des aliments. Ces ICV représentent des opérations "moyennes/standards" représentatives du marché francais. On retrouve parmi les procédés, les différentes matières premières agricoles francaises et importées (pour les produits importés, agribalyse s'appuie sur un partenariat avec ecoinvent et WFLDB), les opérations de transformation (cuisson, sterilisation, sechage, mélange etc.), les emballages et les transports. Ce sont ces "briques unitaires" qui sont ensuites recombinées dans ecobalyse afin de décrire des produits spécifiques (la pizza de marque X).&#x20;
+
+Toute la méthodologie et le fonctionnement de la base de données Agribalyse est disponible sur le site web dédié.
+
+<mark style="background-color:orange;">Ajouter logo/lien</mark>
+
+
 
