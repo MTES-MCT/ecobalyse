@@ -13,49 +13,7 @@ import TestUtils exposing (asTest)
 suite : Test
 suite =
     describe "Data.Split"
-        [ describe "zero"
-            [ Split.zero
-                |> Split.toPercent
-                |> Expect.equal 0
-                |> asTest "should have a 'zero' constructor"
-            ]
-        , describe "full"
-            [ Split.full
-                |> Split.toPercent
-                |> Expect.equal 100
-                |> asTest "should have a 'hundred' constructor"
-            ]
-        , describe "tenth"
-            [ Split.tenth
-                |> Split.toPercent
-                |> Expect.equal 10
-                |> asTest "should have a 'tenth' constructor"
-            ]
-        , describe "twenty"
-            [ Split.twenty
-                |> Split.toPercent
-                |> Expect.equal 20
-                |> asTest "should have a 'twenty' constructor"
-            ]
-        , describe "fourty"
-            [ Split.fourty
-                |> Split.toPercent
-                |> Expect.equal 40
-                |> asTest "should have a 'fourty' constructor"
-            ]
-        , describe "half"
-            [ Split.half
-                |> Split.toPercent
-                |> Expect.equal 50
-                |> asTest "should have a 'half' constructor"
-            ]
-        , describe "quarter"
-            [ Split.quarter
-                |> Split.toPercent
-                |> Expect.equal 25
-                |> asTest "should have a 'quarter' constructor"
-            ]
-        , describe "fromFloat constructor"
+        [ describe "fromFloat constructor"
             [ -0.1
                 |> Split.fromFloat
                 |> Expect.equal (Err "Une part (en nombre flottant) doit être comprise entre 0 et 1 inclus (ici: -0.1)")

@@ -387,7 +387,7 @@
     },
     "land_occupation": 15.82110984,
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "chicken-breast-fr-organic",
@@ -793,7 +793,7 @@
     "land_occupation": 5.627292234,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "soybean-br-no-deforestation",
@@ -1146,7 +1146,7 @@
     "land_occupation": 1.541979267,
     "crop_group": "DIVERS",
     "scenario": "import",
-    "visible": true
+    "visible": false
   },
   {
     "id": "tea-dried",
@@ -1297,7 +1297,7 @@
     },
     "land_occupation": 3.718097733,
     "scenario": "reference",
-    "visible": true
+    "visible": false
   },
   {
     "id": "egg-indoor-code3",
@@ -1341,7 +1341,7 @@
     },
     "land_occupation": 4.268467591,
     "scenario": "reference",
-    "visible": true
+    "visible": false
   },
   {
     "id": "egg-organic-code0",
@@ -1384,7 +1384,7 @@
     "land_occupation": 1.032679591,
     "crop_group": "VIGNES",
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "lamb-meat-without-bone",
@@ -1449,7 +1449,7 @@
     "land_occupation": 0.3820688838,
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "carrot-fr",
@@ -4284,7 +4284,7 @@
     "land_occupation": 0.4722120942351419,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "potato-industry-organic",
@@ -4305,7 +4305,7 @@
     "land_occupation": 0.4702722617322555,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "kiwi-organic",
@@ -4326,7 +4326,7 @@
     "land_occupation": 0.6058029841998362,
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "red-cabbage-organic",
@@ -4683,7 +4683,7 @@
     "land_occupation": 0.37137037037037035,
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "lemon-organic",
@@ -4746,7 +4746,7 @@
     "land_occupation": 3.631654573968224,
     "crop_group": "OLIVIERS",
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "peanut-organic",
@@ -4851,7 +4851,7 @@
     "land_occupation": 2.5811340696785146,
     "crop_group": "AUTRES CEREALES",
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "onion-organic",

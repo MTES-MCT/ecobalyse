@@ -43,5 +43,54 @@ suite =
                         |> asTest "should base64 encode and decode a query"
                     ]
                 ]
+            , describe "validateMaterials"
+                [ []
+                    |> Query.validateMaterials
+                    |> Expect.ok
+                    |> asTest "should validate the sum of an empty list of materials"
+                , [ { id = Material.Id "ei-coton"
+                    , share = Split.tenth
+                    , spinning = Nothing
+                    , country = Nothing
+                    }
+                  ]
+                    |> Query.validateMaterials
+                    |> Expect.err
+                    |> asTest "should validate the sum of an incomplete list of materials"
+                , [ { id = Material.Id "ei-pu"
+                    , share = Split.half
+                    , spinning = Nothing
+                    , country = Nothing
+                    }
+                  , { id = Material.Id "ei-coton"
+                    , share = Split.half
+                    , spinning = Nothing
+                    , country = Nothing
+                    }
+                  ]
+                    |> Query.validateMaterials
+                    |> Expect.ok
+                    |> asTest "should validate a complete sum of materials"
+                , -- Testing for float number rounding precision errors https://en.wikipedia.org/wiki/Round-off_error
+                  [ { id = Material.Id "ei-pet"
+                    , share = Split.sixty
+                    , spinning = Nothing
+                    , country = Nothing
+                    }
+                  , { id = Material.Id "ei-pu"
+                    , share = Split.thirty
+                    , spinning = Nothing
+                    , country = Nothing
+                    }
+                  , { id = Material.Id "ei-coton"
+                    , share = Split.tenth
+                    , spinning = Nothing
+                    , country = Nothing
+                    }
+                  ]
+                    |> Query.validateMaterials
+                    |> Expect.ok
+                    |> asTest "should validate a complete sum of materials with rounding error"
+                ]
             ]
         )
