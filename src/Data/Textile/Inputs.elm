@@ -6,7 +6,6 @@ module Data.Textile.Inputs exposing
     , encode
     , fromQuery
     , getMaterialMicrofibersComplement
-    , getMaterialsOriginShares
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
     , getTotalMicrofibersComplement
@@ -393,16 +392,6 @@ getTotalMicrofibersComplement { mass, materials } =
     materials
         |> List.map (getMaterialMicrofibersComplement mass)
         |> Quantity.sum
-
-
-getMaterialsOriginShares : List MaterialInput -> Origin.Shares
-getMaterialsOriginShares materialInputs =
-    { artificialFromInorganic = materialInputs |> getMaterialCategoryShare Origin.ArtificialFromInorganic
-    , artificialFromOrganic = materialInputs |> getMaterialCategoryShare Origin.ArtificialFromOrganic
-    , naturalFromAnimal = materialInputs |> getMaterialCategoryShare Origin.NaturalFromAnimal
-    , naturalFromVegetal = materialInputs |> getMaterialCategoryShare Origin.NaturalFromVegetal
-    , synthetic = materialInputs |> getMaterialCategoryShare Origin.Synthetic
-    }
 
 
 getMaterialCategoryShare : Origin -> List MaterialInput -> Split

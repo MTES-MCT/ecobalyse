@@ -6,7 +6,6 @@ module Data.Textile.Economics exposing
     , businessToLabel
     , businessToString
     , computeDurabilityIndex
-    , computeMaterialsOriginIndex
     , computeNumberOfReferencesIndex
     , computeRepairCostIndex
     , decode
@@ -22,8 +21,6 @@ module Data.Textile.Economics exposing
     , priceToFloat
     )
 
-import Data.Split as Split
-import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -98,8 +95,8 @@ businessToString business =
             "large-business-without-services"
 
 
-computeDurabilityIndex : Origin.Shares -> Economics -> Unit.Durability
-computeDurabilityIndex materialsOriginShares economics =
+computeDurabilityIndex : Economics -> Unit.Durability
+computeDurabilityIndex economics =
     let
         ( minDurability, maxDurability ) =
             ( Unit.durabilityToFloat Unit.minDurability
@@ -107,10 +104,10 @@ computeDurabilityIndex materialsOriginShares economics =
             )
 
         finalIndex =
-            [ ( 0.15, computeMaterialsOriginIndex materialsOriginShares |> Tuple.first )
-            , ( 0.2, computeNumberOfReferencesIndex economics.numberOfReferences )
-            , ( 0.3, computeRepairCostIndex economics.business economics.price economics.repairCost )
-            , ( 0.15, computeTraceabilityIndex economics.traceability )
+            -- FIXME: update weightings
+            [ ( 10 / 3, computeNumberOfReferencesIndex economics.numberOfReferences )
+            , ( 10 / 3, computeRepairCostIndex economics.business economics.price economics.repairCost )
+            , ( 10 / 3, computeTraceabilityIndex economics.traceability )
             ]
                 |> List.map (\( weighting, index ) -> weighting * Unit.ratioToFloat index)
                 |> List.sum
@@ -124,19 +121,6 @@ computeDurabilityIndex materialsOriginShares economics =
         * (maxDurability - minDurability)
         |> formatIndex
         |> Unit.durability
-
-
-computeMaterialsOriginIndex : Origin.Shares -> ( Unit.Ratio, String )
-computeMaterialsOriginIndex { naturalFromAnimal, naturalFromVegetal } =
-    if Split.toPercent naturalFromAnimal + Split.toPercent naturalFromVegetal > 90 then
-        if Split.toPercent naturalFromAnimal > 90 then
-            ( Unit.ratio 1, "Matières naturelles d'origine animale" )
-
-        else
-            ( Unit.ratio 0.5, "Matières naturelles" )
-
-    else
-        ( Unit.ratio 0, "Autres matières" )
 
 
 computeRepairCostIndex : Business -> Price -> Price -> Unit.Ratio

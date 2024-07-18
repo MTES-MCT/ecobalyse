@@ -960,10 +960,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             [ div [ class "col-md-2" ] [ text "Matières" ]
             , div [ class "col-md-10" ]
                 [ div [ class "fw-bold" ]
-                    [ Inputs.getMaterialsOriginShares inputs.materials
-                        |> Economics.computeMaterialsOriginIndex
-                        |> Tuple.second
-                        |> text
+                    [ text "REMOVE ME"
                     ]
                 , small [ class "text-muted fs-8 lh-sm" ]
                     [ text "Le type de matière retenu dépend de la composition du vêtement détaillée ci-dessous" ]
