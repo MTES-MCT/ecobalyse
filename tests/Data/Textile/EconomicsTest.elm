@@ -4,7 +4,6 @@ import Data.Split as Split
 import Data.Textile.Economics as Economics exposing (..)
 import Data.Textile.Material.Origin exposing (defaultShares)
 import Data.Unit as Unit
-import Duration
 import Expect
 import Test exposing (..)
 import TestUtils exposing (asTest)
@@ -22,7 +21,6 @@ suite =
         [ describe "computeDurabilityIndex"
             [ Economics.computeDurabilityIndex defaultShares
                 { business = SmallBusiness
-                , marketingDuration = Duration.days 60
                 , numberOfReferences = 20000
                 , price = priceFromFloat 100
                 , repairCost = priceFromFloat 10
@@ -31,17 +29,6 @@ suite =
                 |> Unit.durabilityToFloat
                 |> Expect.within (Expect.Absolute 0.01) 0.8
                 |> asTest "should compute durability index"
-            ]
-        , describe "computeMarketingDurationIndex"
-            [ Economics.computeMarketingDurationIndex (Duration.days 60)
-                |> expectRatioEqual 0
-                |> asTest "should compute lowest ratio"
-            , Economics.computeMarketingDurationIndex (Duration.days 120)
-                |> expectRatioEqual 0.5
-                |> asTest "should compute average ratio"
-            , Economics.computeMarketingDurationIndex (Duration.days 180)
-                |> expectRatioEqual 1
-                |> asTest "should compute highest ratio"
             ]
         , describe "computeMaterialsOriginIndex"
             [ Economics.computeMaterialsOriginIndex { defaultShares | synthetic = Split.full }

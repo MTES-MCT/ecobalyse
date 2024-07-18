@@ -186,9 +186,6 @@ computeDurability ({ inputs } as simulator) =
                 { business =
                     inputs.business
                         |> Maybe.withDefault inputs.product.economics.business
-                , marketingDuration =
-                    inputs.marketingDuration
-                        |> Maybe.withDefault inputs.product.economics.marketingDuration
                 , numberOfReferences =
                     inputs.numberOfReferences
                         |> Maybe.withDefault inputs.product.economics.numberOfReferences

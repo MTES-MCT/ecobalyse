@@ -6,7 +6,6 @@ module Data.Textile.Economics exposing
     , businessToLabel
     , businessToString
     , computeDurabilityIndex
-    , computeMarketingDurationIndex
     , computeMaterialsOriginIndex
     , computeNumberOfReferencesIndex
     , computeRepairCostIndex
@@ -15,10 +14,8 @@ module Data.Textile.Economics exposing
     , decodePrice
     , encodeBusiness
     , encodePrice
-    , maxMarketingDuration
     , maxNumberOfReferences
     , maxPrice
-    , minMarketingDuration
     , minNumberOfReferences
     , minPrice
     , priceFromFloat
@@ -28,7 +25,6 @@ module Data.Textile.Economics exposing
 import Data.Split as Split
 import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
-import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -37,7 +33,6 @@ import Json.Encode as Encode
 
 type alias Economics =
     { business : Business
-    , marketingDuration : Duration
     , numberOfReferences : Int
     , price : Price
     , repairCost : Price
@@ -113,7 +108,6 @@ computeDurabilityIndex materialsOriginShares economics =
 
         finalIndex =
             [ ( 0.15, computeMaterialsOriginIndex materialsOriginShares |> Tuple.first )
-            , ( 0.2, computeMarketingDurationIndex economics.marketingDuration )
             , ( 0.2, computeNumberOfReferencesIndex economics.numberOfReferences )
             , ( 0.3, computeRepairCostIndex economics.business economics.price economics.repairCost )
             , ( 0.15, computeTraceabilityIndex economics.traceability )
@@ -130,26 +124,6 @@ computeDurabilityIndex materialsOriginShares economics =
         * (maxDurability - minDurability)
         |> formatIndex
         |> Unit.durability
-
-
-computeMarketingDurationIndex : Duration -> Unit.Ratio
-computeMarketingDurationIndex marketingDuration =
-    let
-        ( highThreshold, lowThreshold ) =
-            ( 180, 60 )
-
-        marketingDurationDays =
-            Duration.inDays marketingDuration
-    in
-    Unit.ratio <|
-        if marketingDurationDays > highThreshold then
-            1
-
-        else if marketingDurationDays < lowThreshold then
-            0
-
-        else
-            (marketingDurationDays - lowThreshold) / (highThreshold - lowThreshold)
 
 
 computeMaterialsOriginIndex : Origin.Shares -> ( Unit.Ratio, String )
@@ -239,7 +213,6 @@ decode : Decoder Economics
 decode =
     Decode.succeed Economics
         |> Pipe.required "business" decodeBusiness
-        |> Pipe.required "marketingDuration" (Decode.map Duration.days Decode.float)
         |> Pipe.required "numberOfReferences" Decode.int
         |> Pipe.required "price" decodePrice
         |> Pipe.required "repairCost" decodePrice
@@ -267,11 +240,6 @@ encodePrice =
     priceToFloat >> Encode.float
 
 
-minMarketingDuration : Duration
-minMarketingDuration =
-    Duration.day
-
-
 minNumberOfReferences : Int
 minNumberOfReferences =
     1
@@ -280,11 +248,6 @@ minNumberOfReferences =
 minPrice : Price
 minPrice =
     Price 1
-
-
-maxMarketingDuration : Duration
-maxMarketingDuration =
-    Duration.days 999
 
 
 maxNumberOfReferences : Int

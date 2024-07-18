@@ -42,7 +42,6 @@ import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
-import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -132,7 +131,6 @@ type Msg
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMakingDeadStock (Maybe Split)
-    | UpdateMarketingDuration (Maybe Duration)
     | UpdateMassInput String
     | UpdateMaterial MaterialQuery MaterialQuery
     | UpdateMaterialSpinning Material Spinning
@@ -538,10 +536,6 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingDeadStock = makingDeadStock }
 
-        ( UpdateMarketingDuration marketingDuration, _ ) ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | marketingDuration = marketingDuration }
-
         ( UpdateMassInput massInput, _ ) ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -793,36 +787,6 @@ productPriceField productPrice =
         ]
 
 
-marketingDurationField : Duration -> Html Msg
-marketingDurationField marketingDuration =
-    div [ class "row align-items-center g-2" ]
-        [ label
-            [ for "marketing-duration"
-            , class "col-sm-6 col-form-label text-truncate"
-            ]
-            [ text "Durée de commercialisation" ]
-        , div [ class "col-sm-6" ]
-            [ div [ class "input-group" ]
-                [ input
-                    [ type_ "number"
-                    , id "marketing-duration"
-                    , class "form-control"
-                    , Attr.min <| String.fromFloat <| Duration.inDays <| Economics.minMarketingDuration
-                    , Attr.max <| String.fromFloat <| Duration.inDays <| Economics.maxMarketingDuration
-
-                    -- WARNING: be careful when reordering attributes: for obscure reasons,
-                    -- the `value` one MUST be set AFTER the `step` one.
-                    , step "1"
-                    , marketingDuration |> Duration.inDays |> String.fromFloat |> value
-                    , onInput (String.toInt >> Maybe.map (toFloat >> Duration.days) >> UpdateMarketingDuration)
-                    ]
-                    []
-                , span [ class "input-group-text", title "jours" ] [ text "j." ]
-                ]
-            ]
-        ]
-
-
 businessField : Economics.Business -> Html Msg
 businessField business =
     [ Economics.SmallBusiness
@@ -976,9 +940,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             ]
         , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
             [ div [ class "col-md-8" ]
-                [ inputs.marketingDuration
-                    |> Maybe.withDefault inputs.product.economics.marketingDuration
-                    |> marketingDurationField
+                [ text "REMOVE ME"
                 ]
             , div [ class "col-md-4" ]
                 [ inputs.traceability
