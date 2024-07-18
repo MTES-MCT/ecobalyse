@@ -126,7 +126,7 @@ computeRepairCostIndex : Business -> Price -> Price -> Unit.Ratio
 computeRepairCostIndex business price repairCost =
     let
         ( highThreshold, lowThreshold ) =
-            ( 0.33, 0.5 )
+            ( 0.33, 1 )
 
         repairCostRatio =
             priceToFloat repairCost / priceToFloat price
