@@ -25,22 +25,21 @@ suite =
                 , traceability = False
                 }
                 |> Unit.durabilityToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.98
+                |> Expect.within (Expect.Absolute 0.01) 1.1
                 |> asTest "should compute durability index"
             ]
         , describe "computeNumberOfReferencesIndex"
             ([ ( 1, 1 )
              , ( 3000, 1 )
-             , ( 3001, 0.999 )
+             , ( 3750, 0.95 )
              , ( 4500, 0.9 )
-             , ( 5999, 0.801 )
+             , ( 5250, 0.85 )
              , ( 6000, 0.8 )
-             , ( 7500, 0.525 )
-             , ( 8000, 0.433 )
-             , ( 9000, 0.25 )
-             , ( 10500, 0.125 )
-             , ( 11500, 0.041 )
-             , ( 12000, 0 )
+             , ( 8000, 0.65 )
+             , ( 10000, 0.5 )
+             , ( 30000, 0.25 )
+             , ( 50000, 0 )
+             , ( 100000, 0 )
              ]
                 |> List.map
                     (\( n, expectedIndex ) ->

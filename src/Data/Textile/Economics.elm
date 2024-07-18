@@ -160,25 +160,40 @@ computeNumberOfReferencesIndex n =
             (low - toFloat n) / (low - high)
     in
     Unit.ratio <|
-        if n > 12000 then
-            -- Over 12000: 0%
-            0
+        -- if n > 12000 then
+        --     -- Over 12000: 0%
+        --     0
+        -- else if n > 9000 then
+        --     -- From 9000 to 12000: decreasing from 25% to 0%
+        --     fromThreshold 9000 12000 * 0.25
+        -- else if n > 6000 then
+        --     -- From 6000 to 9000: decreasing from 80% to 25%
+        --     0.25 + (fromThreshold 6000 9000 * (0.8 - 0.25))
+        -- else if n > 3000 then
+        --     -- From 3000 to 6000: decreasing from 100% to 80%
+        --     0.8 + (fromThreshold 3000 6000 * 0.2)
+        -- else
+        --     -- From 0 to 3000: 100%
+        --     1
+        if n <= 3000 then
+            -- From 0 to 3000: 100%
+            1
 
-        else if n > 9000 then
-            -- From 9000 to 12000: decreasing from 25% to 0%
-            fromThreshold 9000 12000 * 0.25
-
-        else if n > 6000 then
-            -- From 6000 to 9000: decreasing from 80% to 25%
-            0.25 + (fromThreshold 6000 9000 * (0.8 - 0.25))
-
-        else if n > 3000 then
+        else if n <= 6000 then
             -- From 3000 to 6000: decreasing from 100% to 80%
             0.8 + (fromThreshold 3000 6000 * 0.2)
 
+        else if n <= 10000 then
+            -- From 6000 to 10000: decreasing from 80% to 50%
+            0.5 + (fromThreshold 6000 10000 * (0.8 - 0.5))
+
+        else if n <= 50000 then
+            -- From 10000 to 50000: decreasing from 50% to 0%
+            fromThreshold 10000 50000 * 0.5
+
         else
-            -- From 0 to 3000: 100%
-            1
+            -- Over 50000: 0%
+            0
 
 
 computeTraceabilityIndex : Bool -> Unit.Ratio
