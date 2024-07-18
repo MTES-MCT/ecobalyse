@@ -122,6 +122,11 @@ if (fs.existsSync(versionsDir)) {
     const foodDetailedEnc = path.join(versionsDir, dir, "processes_impacts_food.json.enc");
     const textileDetailedEnc = path.join(versionsDir, dir, "processes_impacts_textile.json.enc");
 
+    if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
+      console.error(
+        `🚨 ERROR: processes files without details missing for version ${dir}. Skipping version.`,
+      );
+    }
     let processesImpacts;
 
     if (fs.existsSync(foodDetailedEnc) && fs.existsSync(textileDetailedEnc)) {
@@ -137,11 +142,7 @@ if (fs.existsSync(versionsDir)) {
         textileProcesses: fs.readFileSync(textileDetailed, "utf8"),
       };
     }
-    if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
-      console.error(
-        `🚨 ERROR: processes files without details missing for version ${dir}. Skipping version.`,
-      );
-    }
+
     availableVersions.push({
       dir: dir,
       processes: {
@@ -170,7 +171,7 @@ const processes = {
   textileProcesses: fs.readFileSync(dataFiles.textileNoDetails, "utf8"),
 };
 
-const getProcesses = async (token) => {
+const getProcesses = async (token, customProcessesImpacts, customProcesses) => {
   let isTokenValid = false;
   if (token) {
     const checkTokenUrl = `http://${djangoHost}:${djangoPort}/internal/check_token`;
@@ -179,9 +180,9 @@ const getProcesses = async (token) => {
   }
 
   if (isTokenValid || NODE_ENV === "test") {
-    return processesImpacts;
+    return customProcessesImpacts ?? processesImpacts;
   } else {
-    return processes;
+    return customProcesses ?? processes;
   }
 };
 
@@ -278,6 +279,15 @@ version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), asy
       res.status(status).send(body);
     },
   });
+});
+
+version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, async (req, res) => {
+  const versionNumber = req.params.versionNumber;
+  const { processesImpacts, processes } = availableVersions.find(
+    (version) => version.dir === versionNumber,
+  );
+
+  return res.status(200).send(await getProcesses(req.headers.token, processesImpacts, processes));
 });
 
 api.use(cors()); // Enable CORS for all API requests
