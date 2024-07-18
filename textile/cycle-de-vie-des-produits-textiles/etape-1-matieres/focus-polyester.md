@@ -6,7 +6,7 @@ Le polyester est la fibre textile la plus utilisée dans le monde et représente
 
 La consommation de polyester est en croissance et gagne des parts de marché. Cette tendance s'explique en partie par la capacité de cette fibre à accompagner le développement des pratiques de fast-fashion depuis les années 2000 (fibre abordable aux propriétés multiples permettant notamment des prix bas). Le principal pays producteur est la Chine, suivie de l'Inde et des Etats-Unis.&#x20;
 
-Les fibres de polyester sont par ailleurs utilisées dans différents domaines tels que le transport (pneus, ceintures, etc.), l'ameublement (rembourrage), les emballages, la constructio (isolants, piscines, etc.), etc.)&#x20;
+Les fibres de polyester sont par ailleurs utilisées dans différents domaines tels que le transport (pneus, ceintures, etc.), l'ameublement (rembourrage), les emballages, la construction (isolants, piscines), etc.)&#x20;
 
 <figure><img src="../../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption><p>Source : Textile Exchange (market report 2023)</p></figcaption></figure>
 
