@@ -9,6 +9,7 @@ const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
+const { decrypt } = require("./lib/crypto");
 
 const rateLimit = require("express-rate-limit");
 const app = express(); // web app
@@ -19,12 +20,6 @@ const djangoHost = "127.0.0.1";
 const djangoPort = 8002;
 const version = express(); // version app
 
-const versionsDir = "./versions";
-let availableVersions = new Set();
-
-if (fs.existsSync(versionsDir)) {
-  availableVersions = new Set(fs.readdirSync(versionsDir));
-}
 // Env vars
 const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV, SENTRY_DSN } =
   process.env;
@@ -110,6 +105,54 @@ app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
 app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
 app.get("/stats", (_, res) => res.redirect("/#/stats"));
 
+// Versions
+const versionsDir = "./versions";
+let availableVersions = [];
+
+// Loading existing versions in memory
+if (fs.existsSync(versionsDir)) {
+  const dirs = fs.readdirSync(versionsDir);
+  for (const dir of dirs) {
+    const foodNoDetails = path.join(versionsDir, dir, "data/food/processes.json");
+    const textileNoDetails = path.join(versionsDir, dir, "data/textile/processes.json");
+
+    const foodDetailed = path.join(versionsDir, dir, "data/food/processes_impacts.json");
+    const textileDetailed = path.join(versionsDir, dir, "data/textile/processes_impacts.json");
+
+    const foodDetailedEnc = path.join(versionsDir, dir, "processes_impacts_food.json.enc");
+    const textileDetailedEnc = path.join(versionsDir, dir, "processes_impacts_textile.json.enc");
+
+    let processesImpacts;
+
+    if (fs.existsSync(foodDetailedEnc) && fs.existsSync(textileDetailedEnc)) {
+      // Encrypted files exist, use them
+      processesImpacts = {
+        foodProcesses: decrypt(foodDetailedEnc),
+        textileProcesses: decrypt(textileDetailedEnc),
+      };
+    } else if (fs.existsSync(foodDetailed) || fs.existsSync(textileDetailed)) {
+      // Or use old files
+      processesImpacts = {
+        foodProcesses: fs.readFileSync(foodDetailed, "utf8"),
+        textileProcesses: fs.readFileSync(textileDetailed, "utf8"),
+      };
+    }
+    if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
+      console.error(
+        `🚨 ERROR: processes files without details missing for version ${dir}. Skipping version.`,
+      );
+    }
+    availableVersions.push({
+      dir: dir,
+      processes: {
+        foodProcesses: fs.readFileSync(foodNoDetails, "utf8"),
+        textileProcesses: fs.readFileSync(textileNoDetails, "utf8"),
+      },
+      processesImpacts,
+    });
+  }
+}
+
 // API
 
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
@@ -184,7 +227,9 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
 const checkVersionAndPath = (req, res, next) => {
   const versionNumber = req.params.versionNumber;
 
-  if (!availableVersions.has(versionNumber)) {
+  const version = availableVersions.find((version) => version.dir === versionNumber);
+
+  if (!version) {
     res.status(404).send("Version not found");
   }
   const staticDir = path.join(__dirname, "versions", versionNumber);
