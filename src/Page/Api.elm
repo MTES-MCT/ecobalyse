@@ -55,11 +55,18 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "6 juin 2024"
+    [ { date = "18 juillet 2024"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le champ `marketingDuration` a été supprimé et n'est désormais plus opérant.
+            """
+      }
+    , { date = "6 juin 2024"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =
-            """Le champs `fabricProcess` n'est plus requis et prend désormais la valeur par
+            """Le champ `fabricProcess` n'est plus requis et prend désormais la valeur par
             défaut associée à la catégorie de produit.
             """
       }
