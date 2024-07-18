@@ -15,7 +15,6 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "visible": true,
-    "explain": "t",
     "scenario": "reference",
     "land_occupation": 4.46757635,
     "animal_group1": "poultry",
