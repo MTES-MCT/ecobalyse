@@ -30,7 +30,6 @@ import Data.Textile.Query exposing (MaterialQuery, Query)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Distances, Transport)
 import Data.Unit as Unit
-import Duration exposing (Duration)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -74,7 +73,6 @@ type alias Inputs =
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , business : Maybe Economics.Business
-    , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
     , traceability : Maybe Bool
@@ -194,7 +192,6 @@ fromQuery { countries, textile } query =
         |> RE.andMap (Ok query.dyeingMedium)
         |> RE.andMap (Ok query.printing)
         |> RE.andMap (Ok query.business)
-        |> RE.andMap (Ok query.marketingDuration)
         |> RE.andMap (Ok query.numberOfReferences)
         |> RE.andMap (Ok query.price)
         |> RE.andMap (Ok query.traceability)
@@ -221,7 +218,6 @@ toQuery inputs =
     , dyeingMedium = inputs.dyeingMedium
     , printing = inputs.printing
     , business = inputs.business
-    , marketingDuration = inputs.marketingDuration
     , numberOfReferences = inputs.numberOfReferences
     , price = inputs.price
     , traceability = inputs.traceability
@@ -483,7 +479,6 @@ encode inputs =
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         , ( "business", inputs.business |> Maybe.map Economics.encodeBusiness |> Maybe.withDefault Encode.null )
-        , ( "marketingDuration", inputs.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) |> Maybe.withDefault Encode.null )
         , ( "numberOfReferences", inputs.numberOfReferences |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
         , ( "price", inputs.price |> Maybe.map Economics.encodePrice |> Maybe.withDefault Encode.null )
         , ( "traceability", inputs.traceability |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
