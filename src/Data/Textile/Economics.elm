@@ -104,10 +104,9 @@ computeDurabilityIndex economics =
             )
 
         finalIndex =
-            -- FIXME: update weightings
-            [ ( 0.2, computeNumberOfReferencesIndex economics.numberOfReferences )
-            , ( 0.3, computeRepairCostIndex economics.business economics.price economics.repairCost )
-            , ( 0.15, computeTraceabilityIndex economics.traceability )
+            [ ( 0.4, computeNumberOfReferencesIndex economics.numberOfReferences )
+            , ( 0.4, computeRepairCostIndex economics.business economics.price economics.repairCost )
+            , ( 0.2, computeTraceabilityIndex economics.traceability )
             ]
                 |> List.map (\( weighting, index ) -> weighting * Unit.ratioToFloat index)
                 |> List.sum

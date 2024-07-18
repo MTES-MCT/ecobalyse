@@ -25,7 +25,7 @@ suite =
                 , traceability = False
                 }
                 |> Unit.durabilityToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.8
+                |> Expect.within (Expect.Absolute 0.01) 0.98
                 |> asTest "should compute durability index"
             ]
         , describe "computeNumberOfReferencesIndex"
