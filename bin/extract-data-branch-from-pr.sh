@@ -12,7 +12,7 @@ then
   exit
 fi
 
-SEARCH_RESULT=$(curl -sL "https://api.github.com/search/issues?q=$COMMIT")
+SEARCH_RESULT=$(curl -sL "https://api.github.com/search/issues?q=$COMMIT&per_page=1&page=1&sort=updated&direction=desc")
 
 # Extract the state of the PR "state": "open"
 STATE=$(echo $SEARCH_RESULT | sed -E 's/.*"state": "([^"]*).*/\1/')
