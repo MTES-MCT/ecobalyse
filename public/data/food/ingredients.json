@@ -5558,11 +5558,11 @@
     "inedible_part": 0.03,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.045504,
-      "plotSize": 0.068818,
-      "cropDiversity": 0.2203
+      "hedges": 0.064825,
+      "plotSize": 0.098038,
+      "cropDiversity": 0.31383
     },
-    "land_occupation": 0.07864890463267575,
+    "land_occupation": 0.11204329462602416,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
     "visible": true

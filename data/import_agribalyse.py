@@ -146,7 +146,7 @@ def remove_negative_land_use_on_tomato(db):
     new_db = []
     for ds in db:
         new_ds = copy.deepcopy(ds)
-        if ds.get("name", "").lower().startswith("Plastic tunnel"):
+        if ds.get("name", "").lower().startswith("plastic tunnel"):
             new_ds["exchanges"] = [
                 exc
                 for exc in ds["exchanges"]
