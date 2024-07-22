@@ -31,7 +31,7 @@ updateVersion currentVersion webData =
         RemoteData.Success v ->
             case currentVersion of
                 Version currentV ->
-                    if currentV.hash /= v.hash then
+                    if currentV.hash /= v.hash || currentV.tag /= v.tag then
                         NewerVersion
 
                     else
