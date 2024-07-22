@@ -37,6 +37,9 @@ jobs:
 
       - name: Build app
         if: ${{ steps.release.outputs.release_created }}
+        env:
+          # Specify the created SHA to correctly update version.json
+          SOURCE_VERSION: ${{ steps.release.outputs.sha }}
         run: |
           npm run build:standalone-app
 
