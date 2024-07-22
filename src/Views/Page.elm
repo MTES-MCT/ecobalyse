@@ -14,7 +14,7 @@ import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Request.Version as Version
+import Request.Version as Version exposing (Version(..))
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -260,20 +260,36 @@ pageFooter session =
                 |> List.map (List.singleton >> li [])
                 |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
-            , case Version.toString session.currentVersion of
-                Just hash ->
+            , versionLink session.currentVersion
+            ]
+        ]
+
+
+versionLink : Version -> Html msg
+versionLink version =
+    case version of
+        Version versionData ->
+            let
+                displayLink url linkText =
                     p [ class "fs-9 text-muted" ]
                         [ Link.external
                             [ class "text-decoration-none"
-                            , href <| Env.githubUrl ++ "/commit/" ++ hash
+                            , href url
                             ]
-                            [ text <| "Version\u{00A0}: " ++ hash ]
+                            [ text <| "Version\u{00A0}: " ++ linkText ]
                         ]
+            in
+            case ( versionData.hash, versionData.tag ) of
+                -- If we have a tag provided, display it by default
+                ( _, Just tag ) ->
+                    displayLink (Env.githubUrl ++ "/releases/tag/" ++ tag) tag
 
-                Nothing ->
-                    text ""
-            ]
-        ]
+                -- If we don't have a tag (in dev mode for example) display a link to the commit
+                ( hash, _ ) ->
+                    displayLink (Env.githubUrl ++ "/commit/" ++ hash) hash
+
+        _ ->
+            text ""
 
 
 pageHeader : Config msg -> Html msg
