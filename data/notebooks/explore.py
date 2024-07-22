@@ -158,15 +158,16 @@ def linkto(button, append_to_stack=True):
     """We clicked on an activity button to visit"""
 
     if append_to_stack:
-        VISITED.append(button.search)
+        VISITED.append((button.database, button.search))
     else:
         if len(VISITED) > 1:
             VISITED.pop()
         elif len(VISITED) == 1:
             w_search.value = VISITED.pop()
-    setattr(w_back_button, "search", VISITED[-1] if len(VISITED) > 0 else "")
+    setattr(w_back_button, "database", VISITED[-1][0] if len(VISITED) > 0 else "")
+    setattr(w_back_button, "search", VISITED[-1][1] if len(VISITED) > 0 else "")
     results = list(
-        bw2data.Database(w_database.value).search(button.search, limit=w_limit.value)
+        bw2data.Database(button.database).search(button.search, limit=w_limit.value)
     )
     if len(VISITED) == 0:
         w_search.value = ""
@@ -284,7 +285,7 @@ def changed_search(_):
 
     if search:
         if len(VISITED) <= 1:
-            VISITED = [search]
+            VISITED = [(database, search)]
             activity = w_activity.value = None
         else:
             VISITED = []
@@ -357,8 +358,9 @@ def display_right_panel(database):
     biosphere_name = bw2data.preferences.get("biosphere_database", "")
     biosphere = bw2data.Database(biosphere_name) if biosphere_name else ()
     breadcrumb = [
-        f"<li>{bw2data.Database(database).search(a)[0] if bw2data.Database(database).search(a) and str(a).startswith('code:') else a}</li>"
-        for a in VISITED
+        # v[0] is the db name, v[1] is the search string
+        f"<li>{v[0]} : {bw2data.Database(v[0]).search(v[1])[0] if bw2data.Database(database).search(v[1]) and str(v[1]).startswith('code:') else v[1]}</li>"
+        for v in VISITED
     ]
     w_panel.value = STATSTYLE + (
         f"<div><b>database size</b>: {len(bw2data.Database(database))}</div>"
@@ -463,6 +465,7 @@ def display_main_data(method, impact_category, activity):
         comment = upstream.get("comment", "N/A")
         # link button
         w_link = ipywidgets.Button(description="→ visit")
+        setattr(w_link, "database", f"{db}")
         setattr(w_link, "search", f"code:{code}")
         w_link.on_click(linkto)
         technosphere_widgets.append(
