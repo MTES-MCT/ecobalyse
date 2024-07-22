@@ -3,7 +3,6 @@ module Request.Version exposing
     , VersionData
     , loadVersion
     , pollVersion
-    , toString
     , updateVersion
     )
 
@@ -24,16 +23,6 @@ type Version
     = Unknown
     | Version VersionData
     | NewerVersion
-
-
-toString : Version -> Maybe String
-toString version =
-    case version of
-        Version versionData ->
-            Just versionData.hash
-
-        _ ->
-            Nothing
 
 
 updateVersion : Version -> WebData VersionData -> Version
