@@ -150,7 +150,9 @@ def remove_negative_land_use_on_tomato(db):
             new_ds["exchanges"] = [
                 exc
                 for exc in ds["exchanges"]
-                if exc.get("name", "").lower().startswith("transformation, from urban")
+                if not exc.get("name", "")
+                .lower()
+                .startswith("transformation, from urban")
             ]
         else:
             pass
