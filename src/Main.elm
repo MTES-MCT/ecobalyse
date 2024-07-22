@@ -19,7 +19,7 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
-import Request.Version
+import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
 import Static.Json as StaticJson
@@ -82,7 +82,7 @@ type Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
     | VersionPoll
-    | VersionReceived (WebData String)
+    | VersionReceived (WebData VersionData)
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )

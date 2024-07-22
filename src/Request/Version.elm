@@ -1,40 +1,37 @@
 module Request.Version exposing
     ( Version(..)
+    , VersionData
     , loadVersion
     , pollVersion
-    , toString
     , updateVersion
     )
 
 import Json.Decode as Decode
+import Json.Decode.Pipeline as Pipe
 import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Time
 
 
+type alias VersionData =
+    { hash : String
+    , tag : Maybe String
+    }
+
+
 type Version
     = Unknown
-    | Version String
+    | Version VersionData
     | NewerVersion
 
 
-toString : Version -> Maybe String
-toString version =
-    case version of
-        Version string ->
-            Just string
-
-        _ ->
-            Nothing
-
-
-updateVersion : Version -> WebData String -> Version
+updateVersion : Version -> WebData VersionData -> Version
 updateVersion currentVersion webData =
     case webData of
         RemoteData.Success v ->
             case currentVersion of
                 Version currentV ->
-                    if currentV /= v then
+                    if currentV.hash /= v.hash || currentV.tag /= v.tag then
                         NewerVersion
 
                     else
@@ -50,14 +47,16 @@ updateVersion currentVersion webData =
             currentVersion
 
 
-hashDecoder : Decode.Decoder String
-hashDecoder =
-    Decode.field "hash" Decode.string
+versionDataDecoder : Decode.Decoder VersionData
+versionDataDecoder =
+    Decode.succeed VersionData
+        |> Pipe.required "hash" Decode.string
+        |> Pipe.optional "tag" (Decode.nullable Decode.string) Nothing
 
 
-loadVersion : (WebData String -> msg) -> Cmd msg
+loadVersion : (WebData VersionData -> msg) -> Cmd msg
 loadVersion event =
-    Http.get "/version.json" event hashDecoder
+    Http.get "/version.json" event versionDataDecoder
 
 
 pollVersion : msg -> Sub msg
