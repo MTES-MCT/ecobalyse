@@ -85,7 +85,7 @@ jobs:
         # Private ssh key used by this Github action to clone the private repo
         # The corresponding public key must be set as a deploy key of the private repo
         ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
-        ./bin/checkout-ecobalyse-private-branch.sh $LAST_COMMIT_SHA
+        pipenv run ./bin/checkout-ecobalyse-private-branch.sh $LAST_COMMIT_SHA
 
     - name: Build app
       run: npm run build --if-present

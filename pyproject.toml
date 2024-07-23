@@ -1,2 +1,5 @@
 [project]
 requires-python = ">= 3.11"
+
+[tool.ruff]
+extend-select = ["I"]
