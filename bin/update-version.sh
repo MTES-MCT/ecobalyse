@@ -2,6 +2,7 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
+export PYTHONPATH="$ROOT_DIR:$PYTHONPATH"
 
 # Default JSON value for the TAG
 TAG=null
@@ -11,7 +12,7 @@ DATA_DIR_HASH=null
 # Using the github API
 if [[ ! -z "${SOURCE_VERSION}" ]]; then
   HASH=$SOURCE_VERSION
-  TAG_FOUND=$(python $SCRIPT_DIR/get-tag-for-commit.py $HASH)
+  TAG_FOUND=$(python $SCRIPT_DIR/get_tag_for_commit.py $HASH)
 else
   # If it's not provided we are certainly in the dev env, so get the current hash from
   # the git repo
