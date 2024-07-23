@@ -9822,12 +9822,12 @@
     "category": "ingredient",
     "system_description": "Ecobalyse",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "id": "tomato-organic-fr-only",
+    "id": "tomato-organic-fr",
     "source": "Ecobalyse"
   },
   {
     "name": "Fresh tomato, consumption mix, organic 2023 {FR} U [es-only], constructed by Ecobalyse",
-    "displayName": "Tomate ES bio",
+    "displayName": "Tomate UE bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9856,7 +9856,7 @@
     "category": "ingredient",
     "system_description": "Ecobalyse",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "id": "tomato-organic-es-only",
+    "id": "tomato-organic-es",
     "source": "Ecobalyse"
   }
 ]

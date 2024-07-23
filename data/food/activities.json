@@ -4860,7 +4860,7 @@
     "land_occupation": 11.545842285430188
   },
   {
-    "id": "tomato-organic-fr-only",
+    "id": "tomato-organic-fr",
     "name": "Tomate FR bio",
     "database": "Ecobalyse",
     "search": "tomato fr-only",
@@ -4878,8 +4878,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "tomato-organic-es-only",
-    "name": "Tomate ES bio",
+    "id": "tomato-organic-es",
+    "name": "Tomate UE bio",
     "database": "Ecobalyse",
     "search": "tomato es-only",
     "category": "ingredient",

@@ -5526,7 +5526,7 @@
     "visible": true
   },
   {
-    "id": "tomato-organic-fr-only",
+    "id": "tomato-organic-fr",
     "name": "Tomate FR bio",
     "categories": ["organic", "vegetable_fresh"],
     "search": "tomato fr-only",
@@ -5547,8 +5547,8 @@
     "visible": true
   },
   {
-    "id": "tomato-organic-es-only",
-    "name": "Tomate ES bio",
+    "id": "tomato-organic-es",
+    "name": "Tomate UE bio",
     "categories": ["organic", "vegetable_fresh"],
     "search": "tomato es-only",
     "default": "553e50143c594dbdf543a6d0723e9a2b",
