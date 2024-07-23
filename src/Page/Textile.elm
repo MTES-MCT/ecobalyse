@@ -93,7 +93,7 @@ type Modal
 
 
 type Tab
-    = LearningTab
+    = ExploratoryTab
     | RegulatoryTab
 
 
@@ -172,7 +172,7 @@ init trigram maybeUrlQuery session =
       , modal = NoModal
       , activeTab =
             if Query.isAdvancedQuery initialQuery then
-                LearningTab
+                ExploratoryTab
 
             else
                 RegulatoryTab
@@ -225,7 +225,7 @@ initFromExample session uuid =
       , modal = NoModal
       , activeTab =
             if Query.isAdvancedQuery exampleQuery then
-                LearningTab
+                ExploratoryTab
 
             else
                 RegulatoryTab
@@ -487,8 +487,8 @@ update ({ queries, navKey } as session) msg model =
             else
                 ( { model | activeTab = RegulatoryTab }, session, Cmd.none )
 
-        ( SwitchTab LearningTab, _ ) ->
-            ( { model | activeTab = LearningTab }, session, Cmd.none )
+        ( SwitchTab ExploratoryTab, _ ) ->
+            ( { model | activeTab = ExploratoryTab }, session, Cmd.none )
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             ( model
@@ -893,7 +893,7 @@ lifeCycleStepsView db { activeTab, impact } simulator =
                     , inputs = simulator.inputs
                     , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
                     , selectedImpact = impact
-                    , showAdvancedFields = activeTab == LearningTab
+                    , showAdvancedFields = activeTab == ExploratoryTab
 
                     -- Events
                     , addMaterialModal = AddMaterialModal
@@ -1061,10 +1061,10 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                           , onTabClick = SwitchTab RegulatoryTab
                           }
                         , { label =
-                                "Mode pédagogique"
+                                "Mode exploratoire"
                                     |> tabLabel "Affiche des champs supplémentaires, hors cadre réglementaire"
-                          , active = model.activeTab == LearningTab
-                          , onTabClick = SwitchTab LearningTab
+                          , active = model.activeTab == ExploratoryTab
+                          , onTabClick = SwitchTab ExploratoryTab
                           }
                         ]
                     , content =
@@ -1175,7 +1175,7 @@ view session model =
                                 , content =
                                     [ div [ class "p-3" ]
                                         [ """Basculer en mode règlementaire réinitialisera les valeurs renseignées
-                                             pour les champs avancés du mode pédagogique."""
+                                             pour les champs avancés du mode exploratoire."""
                                             |> Markdown.simple []
                                         , p
                                             [ class "d-flex justify-content-center align-items-center gap-1" ]
@@ -1186,7 +1186,7 @@ view session model =
                                                 [ text "Confirmer" ]
                                             , text "ou"
                                             , button [ class "btn btn-link ps-0", onClick (SetModal NoModal) ]
-                                                [ text "rester en mode pédagogique" ]
+                                                [ text "rester en mode exploratoire" ]
                                             ]
                                         ]
                                     ]
