@@ -6,6 +6,7 @@ name: Node.js CI
 env:
   NODE_ENV: test
   ECOBALYSE_DATA_DIR: ./ecobalyse-private
+  PYTHONPATH: .
 on:
   push:
     branches: [ master, staging ]
