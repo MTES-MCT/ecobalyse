@@ -38,6 +38,13 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: npm ci --prefer-offline --no-audit
 
+      - name: Clone the detailed impacts
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          eval `ssh-agent -s`
+          ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
+          git clone git@github.com:MTES-MCT/ecobalyse-private.git
+
       - name: Build app
         if: ${{ steps.release.outputs.release_created }}
         env:
@@ -45,13 +52,6 @@ jobs:
           SOURCE_VERSION: ${{ steps.release.outputs.sha }}
         run: |
           npm run build:standalone-app
-
-      - name: Clone the detailed impacts
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          eval `ssh-agent -s`
-          ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
-          git clone git@github.com:MTES-MCT/ecobalyse-private.git
 
       - name: Encrypt the impacts files
         if: ${{ steps.release.outputs.release_created }}
@@ -61,8 +61,8 @@ jobs:
           # We include the encrypted detailed processes with the dist
           # so that people with the encryption key could later on use the app with the exact
           # files it was using on production
-          npm run encrypt ./ecobalyse-private/data/textile/processes_impacts.json dist/processes_impacts_textile.json.enc
-          npm run encrypt ./ecobalyse-private/data/food/processes_impacts.json dist/processes_impacts_food.json.enc
+          npm run encrypt $ECOBALYSE_DATA_DIR/data/textile/processes_impacts.json dist/processes_impacts_textile.json.enc
+          npm run encrypt $ECOBALYSE_DATA_DIR/data/food/processes_impacts.json dist/processes_impacts_food.json.enc
 
       - name: Generate dist archive
         if: ${{ steps.release.outputs.release_created }}
