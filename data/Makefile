@@ -5,7 +5,9 @@ DOCKERRUN := docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(ECOBAL
 DOCKEREXEC := docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
 JUPYTER_PORT ?= 8888
 
-json: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food format
+all: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food format
+food: image import_agribalyse import_food_method export_food format
+textile: image import_ecoinvent import_textile_method format
 
 image:
 	docker build -t $(NAME) docker
