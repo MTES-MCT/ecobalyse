@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+ROOT_DIR=$( dirname $SCRIPT_DIR )
 
 # Default JSON value for the TAG
 TAG=null
+DATA_DIR_HASH=null
 
 # If the SOURCE_VERSION is provided (usually by scalingo), search for a corresponding TAG
 # Using the github API
@@ -23,4 +25,14 @@ if [[ ! -z $TAG_FOUND ]]; then
   TAG=\"$TAG_FOUND\"
 fi
 
-echo "{\"hash\": \"$HASH\", \"tag\": $TAG}" > public/version.json
+
+# If the data dir is set and it's a git repository, keep track of git hash used
+# in this version
+if [[ ! -z $ECOBALYSE_DATA_DIR && -d "$ECOBALYSE_DATA_DIR/.git" ]]; then
+  cd $ECOBALYSE_DATA_DIR
+  DATA_DIR_HASH_FOUND=$(git rev-parse HEAD)
+  DATA_DIR_HASH=\"$DATA_DIR_HASH_FOUND\"
+  cd $ROOT_DIR
+fi
+
+echo "{\"hash\": \"$HASH\", \"tag\": $TAG, \"dataDirHash\": $DATA_DIR_HASH}" > public/version.json
