@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v1.2.0...v1.3.0) (2024-07-23)
+
+
+### Features
+
+* Allow to switch to a different DB while navigating ([#674](https://github.com/MTES-MCT/ecobalyse/issues/674)) ([6672e4f](https://github.com/MTES-MCT/ecobalyse/commit/6672e4f2adf9f2ffce0859b3c00b2b3385047332))
+* display current version in the footer ([#677](https://github.com/MTES-MCT/ecobalyse/issues/677)) ([90178b1](https://github.com/MTES-MCT/ecobalyse/commit/90178b19fdccb5230170781e72e58d6374db264a))
+* **food,ui:** render agribalyse process name in ingredient selector. ([#659](https://github.com/MTES-MCT/ecobalyse/issues/659)) ([d6c732f](https://github.com/MTES-MCT/ecobalyse/commit/d6c732f7a1081fb75e749c466c1b2e69de1fbbbf))
+
+
+### Bug Fixes
+
+* add missing condition in `release-please` workflow ([#671](https://github.com/MTES-MCT/ecobalyse/issues/671)) ([be4e18f](https://github.com/MTES-MCT/ecobalyse/commit/be4e18f43e320e3bd1e740306ea551a438617d0a))
+* **api:** Fix invalid openapi format ([#666](https://github.com/MTES-MCT/ecobalyse/issues/666)) ([9e8f170](https://github.com/MTES-MCT/ecobalyse/commit/9e8f17014891846acdff2d6cfaffd41fc5ed4ccc))
+* **api:** Fix material shares sum rounding precision error. ([#670](https://github.com/MTES-MCT/ecobalyse/issues/670)) ([f0f8358](https://github.com/MTES-MCT/ecobalyse/commit/f0f8358802d6180d6c43a5fe7374f1271bd82193))
+
 ## [1.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v1.1.1...v1.2.0) (2024-07-10)
 
 
