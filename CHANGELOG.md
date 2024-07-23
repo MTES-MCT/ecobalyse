@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.2](https://github.com/MTES-MCT/ecobalyse/compare/v1.3.1...v1.3.2) (2024-07-23)
+
+
+### Bug Fixes
+
+* data-dir is needed before build ([#681](https://github.com/MTES-MCT/ecobalyse/issues/681)) ([4407c91](https://github.com/MTES-MCT/ecobalyse/commit/4407c91f2a45661f6e9cd73a3d9bee238ceb864e))
+
+## [1.3.1](https://github.com/MTES-MCT/ecobalyse/compare/v1.3.0...v1.3.1) (2024-07-23)
+
+
+### Bug Fixes
+
+* add ecobalyse-private to release please ([#679](https://github.com/MTES-MCT/ecobalyse/issues/679)) ([1c8d9c0](https://github.com/MTES-MCT/ecobalyse/commit/1c8d9c0b9cbdb3490650abf7800e8279457d6d9d))
+
 ## [1.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v1.2.0...v1.3.0) (2024-07-23)
 
 
