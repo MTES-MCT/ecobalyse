@@ -5524,25 +5524,5 @@
     "crop_group": "OLIVIERS",
     "scenario": "import",
     "visible": true
-  },
-  {
-    "id": "tomato-heated-greenhouse-ue",
-    "name": "Tomate sous serre chauffée UE Conv.",
-    "categories": ["vegetable_fresh"],
-    "search": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
-    "default": "AGRIBALU000000003115743",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "once_transformed",
-    "ecosystemicServices": {
-      "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
-    },
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "import",
-    "visible": true
   }
 ]
