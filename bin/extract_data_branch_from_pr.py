@@ -2,16 +2,8 @@
 
 import argparse
 import os
-import re
 
-from lib.ecobalyse_github import get_github
-
-
-def extract_branch_name(content: str) -> str | None:
-    result = re.search(r"ecobalyse_data: ([0-9a-zA-Z./_-]+)", content, re.M | re.I)
-    if result:
-        return result.group(1)
-
+from lib.ecobalyse_github import extract_branch_name, get_github
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
