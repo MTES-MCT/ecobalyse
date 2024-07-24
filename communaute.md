@@ -22,7 +22,7 @@ Une fois inscrit et connecté :
       * [32\_Textile\_Niveau2](https://chat.ecobalyse.fr/ecobalyse/channels/31\_textile\_niveau2) : pour les échanges relatifs un "niveau 2" de paramétrage, c'est à dire la mobilisation de paramètres aujourd'hui non exposés dans le mode "réglementaire" d'Ecobalyse et, potentiellement, la mobilisation de données plus précises.
     *   Pour le domaine **ameublement** :
 
-        * [41\_Ameublement](https://chat.ecobalyse.fr/ecobalyse/channels/41\_ameublement) : pour toutes les discussions sur Écobalyse pour le secteur Textile, la documentation, l’API…&#x20;
+        * [41\_Ameublement](https://chat.ecobalyse.fr/ecobalyse/channels/41\_ameublement) : pour toutes les discussions sur Écobalyse pour le secteur Ameublement, la documentation, l’API…&#x20;
 
 
 
