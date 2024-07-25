@@ -52,7 +52,7 @@
   * [📖 La base Agribalyse](alimentaire-en-construction/impacts-consideres/impacts-consideres.md)
   * [🍒 Ingrédients agricoles - inventaires mobilisés (impacts ACV)](alimentaire-en-construction/impacts-consideres/impacts-consideres-1.md)
   * [🐄 Ingrédients - cas des inventaires complexes construits par Ecobalyse](alimentaire-en-construction/impacts-consideres/boeuf-hache.md)
-  * [Transport](alimentaire-en-construction/impacts-consideres/transport.md)
+  * [⛴️ Transport](alimentaire-en-construction/impacts-consideres/transport.md)
   * [🚣‍♀️ Densité (issu de OLD - à vérifier)](alimentaire-en-construction/impacts-consideres/densite.md)
   * [🍚 Rapport cru/cuit (issu de OLD - à vérifier)](alimentaire-en-construction/impacts-consideres/rapport-cru-cuit.md)
   * [🥑 Part non comestible (issu de OLD - à vérifier)](alimentaire-en-construction/impacts-consideres/part-non-comestible.md)
