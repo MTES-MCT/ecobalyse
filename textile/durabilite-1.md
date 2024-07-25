@@ -63,7 +63,7 @@ Le coefficient de durabilité est établi à partir de 3 critères avec les $$Po
 Chacun des 3 critères, pris indépendamment, ne suffit pas à qualifier la durabilité non physique d'un vêtement et peut présenter des effets de bord. En revanche, la prise en compte des 3 critères ensemble permet de qualifier un positionnement marque/produit avec une incidence sur le nombre d'utilisation des vêtements, donc leur durabilité.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Pondération des 3 composantes du coefficient de durabilité</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption><p>Pondération des 3 composantes du coefficient de durabilité</p></figcaption></figure>
 
 Chacune des 3 composantes s'exprime à travers un indice (I) compris entre 0 et 1 et pouvant donc être exprimé en pourcentage (%). En intégrant les pondérations mentionnées ci-dessus, et les valeurs minimale (Coefmin) et maximale (Coefmax) du coefficient de durabilité $$C_{durabilité}$$ , la formule permettant de l'établir est :&#x20;
 
@@ -102,7 +102,7 @@ L'indice "largeur de gamme" prend les valeurs suivantes :&#x20;
 * 0% lorsque le nombre de références est supérieur à 50 000
 * Entre ces différents points, l'évolution de l'indice est linéaire (cf. schéma ci-après)
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption><p>Indice "largeur de gamme" en fonction du nombre de références commercialisées</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Indice "largeur de gamme" en fonction du nombre de références commercialisées</p></figcaption></figure>
 
 {% hint style="info" %}
 En première approche, une unique formule est appliquée quelle que soit la marque ou la plateforme qui commercialise le produit considéré. Au besoin, l'introduction d'échelles différenciées pourra être envisagée pour distinguer les marques qui ne couvriraient qu'une partie du marché (vêtements pour hommes, vêtements pour femme, vêtements pour enfants, vêtements de sport...).
@@ -146,7 +146,7 @@ L'indice "incitation à la réparation", pour sa première composante, prend les
 
 Application au cas du Tshirt, avec un coût moyen de réparation de 10€ :&#x20;
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption><p>Indice "incitation à la réparation" (partie 1/2) en fonction du prix de vente d'un Tshirt</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption><p>Indice "incitation à la réparation" (partie 1/2) en fonction du prix de vente d'un Tshirt</p></figcaption></figure>
 
 ## Incitation à la réparation (2/2)
 

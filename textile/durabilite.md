@@ -104,7 +104,7 @@ L'indice "largeur de gamme" prend les valeurs suivantes :&#x20;
 * 0% lorsque le nombre de références est supérieur à 12000
 * Entre ces différents points, l'évolution de l'indice est linéaire (cf. schéma ci-après)
 
-<figure><img src="../.gitbook/assets/image (2) (1).png" alt="" width="375"><figcaption><p>Indice "largeur de gamme" en fonction du nombre de références commercialisées</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (4).png" alt="" width="375"><figcaption><p>Indice "largeur de gamme" en fonction du nombre de références commercialisées</p></figcaption></figure>
 
 {% hint style="info" %}
 En première approche, une unique formule est appliquée quelle que soit la marque ou la plateforme qui commercialise le produit considéré. Au besoin, l'introduction d'échelles différenciées pourra être envisagée pour distinguer les marques qui ne couvriraient qu'une partie du marché (vêtements pour hommes, vêtements pour femme, vêtements pour enfants, vêtements de sport...).
@@ -131,7 +131,7 @@ L'indice "durée de commercialisation" prend les valeurs suivantes :&#x20;
 * 100% lorsque la durée moyenne de commercialisation est de 180 jours ou plus
 * &#x20;Entre ces deux points, l'évolution de l'indice est linéaire (cf. schéma ci-après)
 
-<figure><img src="../.gitbook/assets/image (1) (1).png" alt="" width="563"><figcaption><p>Indice "durée de commercialisation" en fonction du nombre moyen de jours de commercialisation</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (6).png" alt="" width="563"><figcaption><p>Indice "durée de commercialisation" en fonction du nombre moyen de jours de commercialisation</p></figcaption></figure>
 
 ## Incitation à la réparation (1/2)
 
