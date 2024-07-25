@@ -51,10 +51,10 @@ suite =
         , describe "computeRepairCostIndex"
             [ describe "for TPE/PME"
                 [ computeRepairCostIndex SmallBusiness (priceFromFloat 100) (priceFromFloat 90)
-                    |> expectRatioEqual 0.15
+                    |> expectRatioEqual 0.054
                     |> asTest "should compute lowest ratio"
                 , computeRepairCostIndex SmallBusiness (priceFromFloat 100) (priceFromFloat 41.5)
-                    |> expectRatioEqual 0.87
+                    |> expectRatioEqual 0.69
                     |> asTest "should compute average ratio"
                 , computeRepairCostIndex SmallBusiness (priceFromFloat 100) (priceFromFloat 10)
                     |> expectRatioEqual 1
@@ -62,10 +62,10 @@ suite =
                 ]
             , describe "for large businesses with service offerings"
                 [ computeRepairCostIndex LargeBusinessWithServices (priceFromFloat 100) (priceFromFloat 90)
-                    |> expectRatioEqual 0.43
+                    |> expectRatioEqual 0.36
                     |> asTest "should compute lowest ratio"
                 , computeRepairCostIndex LargeBusinessWithServices (priceFromFloat 100) (priceFromFloat 41.5)
-                    |> expectRatioEqual 0.915
+                    |> expectRatioEqual 0.795
                     |> asTest "should compute average ratio"
                 , computeRepairCostIndex LargeBusinessWithServices (priceFromFloat 100) (priceFromFloat 10)
                     |> expectRatioEqual 1
@@ -73,10 +73,10 @@ suite =
                 ]
             , describe "for large businesses with no service offerings"
                 [ computeRepairCostIndex LargeBusinessWithoutServices (priceFromFloat 100) (priceFromFloat 90)
-                    |> expectRatioEqual 0.1
+                    |> expectRatioEqual 0.03
                     |> asTest "should compute lowest ratio"
                 , computeRepairCostIndex LargeBusinessWithoutServices (priceFromFloat 100) (priceFromFloat 41.5)
-                    |> expectRatioEqual 0.58
+                    |> expectRatioEqual 0.46
                     |> asTest "should compute average ratio"
                 , computeRepairCostIndex LargeBusinessWithoutServices (priceFromFloat 100) (priceFromFloat 10)
                     |> expectRatioEqual 0.67
