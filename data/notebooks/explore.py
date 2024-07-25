@@ -570,26 +570,27 @@ def display_main_data(method, impact_category, activity):
             analysis = "Nothing to display. Maybe you selected the biosphere?"
         else:
             lca.lcia()
-            top_emissions_columns = ["Score", "Amount", "Unit", "Elementary flow"]
+            top_emissions_columns = ["Amount", "Score", "Unit", "Elementary flow"]
             top_emissions_tuples = [
-                (score, amount, activity["unit"], activity)
+                (amount, score, activity["unit"], activity)
                 for (
                     score,
                     amount,
                     activity,
                 ) in bw2analyzer.ContributionAnalysis().annotated_top_emissions(lca)
             ]
+            print(bw2analyzer.ContributionAnalysis().annotated_top_emissions(lca))
             top_emissions = pandas.io.formats.style.Styler(
                 pandas.DataFrame(top_emissions_tuples, columns=top_emissions_columns)
             )
             top_emissions.format(
-                formatter={"Score": "{:.4g}".format, "Amount": "{:.4g}".format}
+                formatter={"Amount": "{:.4g}".format, "Score": "{:.4g}".format}
             )
             top_emissions.set_properties(**{"background-color": "#EEE"})
             # TOP PROCESSES
-            top_processes_columns = ["Score", "Amount", "Unit", "Activity"]
+            top_processes_columns = ["Amount", "Score", "Unit", "Activity"]
             top_processes_tuples = [
-                (score, amount, activity["unit"], activity)
+                (amount, score, activity["unit"], activity)
                 for (
                     score,
                     amount,
@@ -601,12 +602,12 @@ def display_main_data(method, impact_category, activity):
             )
             top_processes.set_properties(**{"background-color": "#EEE"})
             top_processes.format(
-                formatter={"Score": "{:.4g}".format, "Amount": "{:.4g}".format}
+                formatter={"Amount": "{:.4g}".format, "Score": "{:.4g}".format}
             )
             analysis = (
                 f"<h2>{', '.join(lca.method[1:])}</h2>"
+                f"<h3>Top Emissions</h3>{w_csv_button(top_emissions_tuples, top_emissions_columns)}{top_emissions.to_html()}"
                 f"<h3>Top Processes</h3>{w_csv_button(top_processes_tuples, top_processes_columns)}{top_processes.to_html()}"
-                f"<h3>Top Emissions</h3>{w_csv_button(top_processes_tuples, top_emissions_columns)}{top_emissions.to_html()}"
             )
     else:
         analysis = "💡 Please select an impact category"
