@@ -14,6 +14,9 @@ from bw2data.project import projects
 
 if True:
     sys.stdout = sys.__stdout__
+import base64
+import csv
+import io
 import json
 import shutil
 import subprocess
@@ -459,6 +462,23 @@ commitbutton = ipywidgets.Button(
 )
 
 
+def w_csv_button(contents, columns):
+    csvfile = io.StringIO()
+    writer = csv.DictWriter(csvfile, fieldnames=columns)
+    writer.writeheader()
+    for item in contents:
+        writer.writerow(item)
+    csvfile.seek(0)
+    contents = csvfile.read()
+    return """
+        <a download="{filename}" href="data:text/csv;base64,{payload}" download>
+        <button class="p-Widget jupyter-widgets jupyter-button widget-button mod-warning">Download as CSV</button>
+        </a>
+    """.format(
+        payload=base64.b64encode(contents.encode()).decode(), filename="export.csv"
+    )
+
+
 @list_output.capture()
 def list_activities(filter=""):
     activities = {
@@ -468,14 +488,15 @@ def list_activities(filter=""):
         or filter.lower() in a["Nom"].lower()
         or filter.lower() in a["id"].lower()
     }
+    columns = list(FIELDS.values())
     df = pandas.io.formats.style.Styler(
-        pandas.DataFrame(activities.values(), columns=list(FIELDS.values()))
+        pandas.DataFrame(activities.values(), columns=columns)
     )
     df.set_properties(**{"background-color": "#EEE"})
     list_output.clear_output()
     display(
         ipywidgets.HTML(
-            f"<h2>List of {len(activities)} processes/ingredients:</h2>{df.to_html()}",
+            f"<h2>List of {len(activities)} processes/ingredients:</h2>{w_csv_button(activities.values(), columns)}{df.to_html()}",
             layout=ipywidgets.Layout(width="auto", overflow="scroll"),
         ),
     )
