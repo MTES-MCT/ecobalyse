@@ -77,12 +77,12 @@ setattr(w_back_button, "search", "")
 w_back_button.on_click(go_back)
 
 
-def w_csv_button(database, search, limit):
+def w_csv_button(contents, columns):
     csvfile = io.StringIO()
-    writer = csv.DictWriter(csvfile, fieldnames=["name"])
+    writer = csv.DictWriter(csvfile, fieldnames=columns)
     writer.writeheader()
-    for name in list(bw2data.Database(database).search(search, limit=limit)):
-        writer.writerow({"name": name["name"]})
+    for item in contents:
+        writer.writerow({key: item[key] for key in columns})
     csvfile.seek(0)
     contents = csvfile.read()
     return ipywidgets.HTML(
@@ -111,11 +111,12 @@ def display_results(database, search, limit):
         display(
             Markdown(f"## {('+' if len(results)==LIMIT else '')}{len(results)} results")
         )
+        columns = ["name", "code", "location"]
         html = pandas.io.formats.style.Styler(
-            pandas.DataFrame(results, columns=["name", "code", "location"])
+            pandas.DataFrame(results, columns=columns)
         )
         html.set_properties(**{"background-color": "#EEE"})
-        display(w_csv_button(database, search, limit))
+        display(w_csv_button(results, columns))
         display(ipywidgets.HTML(html.to_html()))
 
 
