@@ -139,7 +139,8 @@ computeRepairCostIndex business price repairCost =
                 0
 
             else
-                (lowThreshold - repairCostRatio) / (lowThreshold - highThreshold)
+                (priceToFloat price - priceToFloat repairCost / lowThreshold)
+                    / (priceToFloat repairCost / highThreshold - priceToFloat repairCost / lowThreshold)
     in
     Unit.ratio <|
         case business of
