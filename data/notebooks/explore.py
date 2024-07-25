@@ -82,17 +82,15 @@ def w_csv_button(contents, columns):
     writer = csv.DictWriter(csvfile, fieldnames=columns)
     writer.writeheader()
     for item in contents:
-        writer.writerow({key: item[key] for key in columns})
+        writer.writerow({k: v for k, v in zip(columns, item)})
     csvfile.seek(0)
     contents = csvfile.read()
-    return ipywidgets.HTML(
-        """
+    return """
         <a download="{filename}" href="data:text/csv;base64,{payload}" download>
         <button class="p-Widget jupyter-widgets jupyter-button widget-button mod-warning">Download as CSV</button>
         </a>
     """.format(
-            payload=base64.b64encode(contents.encode()).decode(), filename="export.csv"
-        )
+        payload=base64.b64encode(contents.encode()).decode(), filename="export.csv"
     )
 
 
@@ -116,7 +114,14 @@ def display_results(database, search, limit):
             pandas.DataFrame(results, columns=columns)
         )
         html.set_properties(**{"background-color": "#EEE"})
-        display(w_csv_button(results, columns))
+        display(
+            ipywidgets.HTML(
+                w_csv_button(
+                    [tuple(item[k] for k in columns if k in item) for item in results],
+                    columns,
+                )
+            )
+        )
         display(ipywidgets.HTML(html.to_html()))
 
 
@@ -557,44 +562,42 @@ def display_main_data(method, impact_category, activity):
 
     # ANALYSIS
     if w_impact_category.value:
+        #        try:
+        # TOP EMISSIONS
         try:
-            # TOP EMISSIONS
             lca.switch_method((method,) + impact_category)
+        except Exception:
+            analysis = "Nothing to display. Maybe you selected the biosphere?"
+        else:
             lca.lcia()
+            top_emissions_columns = ["Score", "Amount", "Unit", "Elementary flow"]
+            top_emissions_tuples = [
+                (score, amount, activity["unit"], activity)
+                for (
+                    score,
+                    amount,
+                    activity,
+                ) in bw2analyzer.ContributionAnalysis().annotated_top_emissions(lca)
+            ]
             top_emissions = pandas.io.formats.style.Styler(
-                pandas.DataFrame(
-                    [
-                        (score, amount, activity["unit"], activity)
-                        for (
-                            score,
-                            amount,
-                            activity,
-                        ) in bw2analyzer.ContributionAnalysis().annotated_top_emissions(
-                            lca
-                        )
-                    ],
-                    columns=["Score", "Amount", "Unit", "Elementary flow"],
-                )
+                pandas.DataFrame(top_emissions_tuples, columns=top_emissions_columns)
             )
             top_emissions.format(
                 formatter={"Score": "{:.4g}".format, "Amount": "{:.4g}".format}
             )
             top_emissions.set_properties(**{"background-color": "#EEE"})
             # TOP PROCESSES
+            top_processes_columns = ["Score", "Amount", "Unit", "Activity"]
+            top_processes_tuples = [
+                (score, amount, activity["unit"], activity)
+                for (
+                    score,
+                    amount,
+                    activity,
+                ) in bw2analyzer.ContributionAnalysis().annotated_top_processes(lca)
+            ]
             top_processes = pandas.io.formats.style.Styler(
-                pandas.DataFrame(
-                    [
-                        (score, amount, activity["unit"], activity)
-                        for (
-                            score,
-                            amount,
-                            activity,
-                        ) in bw2analyzer.ContributionAnalysis().annotated_top_processes(
-                            lca
-                        )
-                    ],
-                    columns=["Score", "Amount", "Unit", "Activity"],
-                )
+                pandas.DataFrame(top_processes_tuples, columns=top_processes_columns)
             )
             top_processes.set_properties(**{"background-color": "#EEE"})
             top_processes.format(
@@ -602,11 +605,9 @@ def display_main_data(method, impact_category, activity):
             )
             analysis = (
                 f"<h2>{', '.join(lca.method[1:])}</h2>"
-                f"<h3>Top Processes</h3>{top_processes.to_html()}"
-                f"<h3>Top Emissions</h3>{top_emissions.to_html()}"
+                f"<h3>Top Processes</h3>{w_csv_button(top_processes_tuples, top_processes_columns)}{top_processes.to_html()}"
+                f"<h3>Top Emissions</h3>{w_csv_button(top_processes_tuples, top_emissions_columns)}{top_emissions.to_html()}"
             )
-        except Exception:
-            analysis = "Nothing to display. Maybe you selected the biosphere?"
     else:
         analysis = "💡 Please select an impact category"
 
