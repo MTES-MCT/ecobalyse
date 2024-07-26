@@ -206,12 +206,12 @@ def read_activities():
     if not os.path.exists(ACTIVITIES_TEMP % w_contributor.value):
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_contributor.value)
     try:
-        igs = read_temp()
+        activities = read_temp()
     except json.JSONDecodeError:
         shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_contributor.value)
-        igs = read_temp()
+        activities = read_temp()
 
-    return igs
+    return activities
 
 
 # WIDGETS
@@ -460,9 +460,14 @@ commitbutton = ipywidgets.Button(
     icon="code-commit",
     layout=ipywidgets.Layout(width="auto"),
 )
+uploadbutton = ipywidgets.FileUpload(
+    description="Upload CSV",
+    accept=".csv",
+    multiple=False,
+)
 
 
-def w_csv_button(contents, columns):
+def downloadbutton(contents, columns):
     csvfile = io.StringIO()
     writer = csv.DictWriter(csvfile, fieldnames=columns)
     writer.writeheader()
@@ -472,7 +477,7 @@ def w_csv_button(contents, columns):
     contents = csvfile.read()
     return """
         <a download="{filename}" href="data:text/csv;base64,{payload}" download>
-        <button class="p-Widget jupyter-widgets jupyter-button widget-button mod-warning">Download as CSV</button>
+        <button class="p-Widget jupyter-widgets jupyter-button widget-button mod-warning">Download CSV</button>
         </a>
     """.format(
         payload=base64.b64encode(contents.encode()).decode(), filename="export.csv"
@@ -496,7 +501,9 @@ def list_activities(filter=""):
     list_output.clear_output()
     display(
         ipywidgets.HTML(
-            f"<h2>List of {len(activities)} processes/ingredients:</h2>{w_csv_button(activities.values(), columns)}{df.to_html()}",
+            f"<h2>List of {len(activities)} processes/ingredients:</h2>"
+            f"{downloadbutton(activities.values(), columns)}"
+            f"{df.to_html()}",
             layout=ipywidgets.Layout(width="auto", overflow="scroll"),
         ),
     )
@@ -873,6 +880,18 @@ def clear_reset_output(_):
     reset_output.clear_output()
 
 
+@list_output.capture()
+def upload_activities(_):
+    if not w_contributor.value:
+        list_output.clear_output()
+        display(ipywidgets.HTML("Sélectionnez d'abord le bon contributeur"))
+        return
+    csvfile = io.StringIO()
+    csvfile.write(uploadbutton.value[0].content.tobytes().decode("utf-8"))
+    csvfile.seek(0)
+    save_activities({row["id"]: row for row in csv.DictReader(csvfile)})
+
+
 @git_output.capture()
 def commit_activities(_):
     git_output.clear_output()
@@ -956,7 +975,7 @@ clear_reset_button.on_click(clear_reset_output)
 commitbutton.on_click(commit_activities)
 clear_git_button.on_click(clear_git_output)
 clear_save_button.on_click(clear_save_output)
-
+uploadbutton.observe(upload_activities, names="value")
 
 branch = current_branch()
 list_activities(w_filter.value)
@@ -1018,7 +1037,13 @@ Ecobalyse</li></ul>
             ),
             ipywidgets.VBox(
                 (
-                    ipywidgets.HBox((resetbutton, clear_reset_button)),
+                    ipywidgets.HBox(
+                        (
+                            resetbutton,
+                            uploadbutton,
+                            clear_reset_button,
+                        )
+                    ),
                     w_filter,
                     reset_output,
                     list_output,
