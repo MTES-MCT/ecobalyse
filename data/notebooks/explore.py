@@ -579,7 +579,6 @@ def display_main_data(method, impact_category, activity):
                     activity,
                 ) in bw2analyzer.ContributionAnalysis().annotated_top_emissions(lca)
             ]
-            print(bw2analyzer.ContributionAnalysis().annotated_top_emissions(lca))
             top_emissions = pandas.io.formats.style.Styler(
                 pandas.DataFrame(top_emissions_tuples, columns=top_emissions_columns)
             )
