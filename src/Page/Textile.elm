@@ -42,7 +42,6 @@ import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
-import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -132,7 +131,6 @@ type Msg
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMakingDeadStock (Maybe Split)
-    | UpdateMarketingDuration (Maybe Duration)
     | UpdateMassInput String
     | UpdateMaterial MaterialQuery MaterialQuery
     | UpdateMaterialSpinning Material Spinning
@@ -538,10 +536,6 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingDeadStock = makingDeadStock }
 
-        ( UpdateMarketingDuration marketingDuration, _ ) ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | marketingDuration = marketingDuration }
-
         ( UpdateMassInput massInput, _ ) ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -742,84 +736,36 @@ productCategoryField { products } query =
 
 numberOfReferencesField : Int -> Html Msg
 numberOfReferencesField numberOfReferences =
-    div [ class "row align-items-center g-2" ]
-        [ label
-            [ for "number-of-references"
-            , class "col-sm-6 col-form-label text-truncate"
-            ]
-            [ text "Nombre de références" ]
-        , div [ class "col-sm-6" ]
-            [ input
-                [ type_ "number"
-                , id "number-of-references"
-                , class "form-control"
+    input
+        [ type_ "number"
+        , id "number-of-references"
+        , class "form-control"
 
-                -- WARNING: be careful when reordering attributes: for obscure reasons,
-                -- the `value` one MUST be set AFTER the `step` one.
-                , Attr.min <| String.fromInt <| Economics.minNumberOfReferences
-                , Attr.max <| String.fromInt <| Economics.maxNumberOfReferences
-                , step "1"
-                , value (String.fromInt numberOfReferences)
-                , onInput (String.toInt >> UpdateNumberOfReferences)
-                ]
-                []
-            ]
+        -- WARNING: be careful when reordering attributes: for obscure reasons,
+        -- the `value` one MUST be set AFTER the `step` one.
+        , Attr.min <| String.fromInt <| Economics.minNumberOfReferences
+        , Attr.max <| String.fromInt <| Economics.maxNumberOfReferences
+        , step "1"
+        , value (String.fromInt numberOfReferences)
+        , onInput (String.toInt >> UpdateNumberOfReferences)
         ]
+        []
 
 
 productPriceField : Economics.Price -> Html Msg
 productPriceField productPrice =
-    div [ class "row align-items-center g-2" ]
-        [ label
-            [ for "product-price"
-            , class "col-sm-6 col-md-5 col-form-label text-truncate"
+    div [ class "input-group" ]
+        [ input
+            [ type_ "number"
+            , id "product-price"
+            , class "form-control"
+            , Attr.min <| String.fromFloat <| Economics.priceToFloat <| Economics.minPrice
+            , Attr.max <| String.fromFloat <| Economics.priceToFloat <| Economics.maxPrice
+            , productPrice |> Economics.priceToFloat |> String.fromFloat |> value
+            , onInput (String.toFloat >> Maybe.map Economics.priceFromFloat >> UpdatePrice)
             ]
-            [ text "Prix neuf" ]
-        , div [ class "col-sm-6 col-md-7" ]
-            [ div [ class "input-group" ]
-                [ input
-                    [ type_ "number"
-                    , id "product-price"
-                    , class "form-control"
-                    , Attr.min <| String.fromFloat <| Economics.priceToFloat <| Economics.minPrice
-                    , Attr.max <| String.fromFloat <| Economics.priceToFloat <| Economics.maxPrice
-                    , productPrice |> Economics.priceToFloat |> String.fromFloat |> value
-                    , onInput (String.toFloat >> Maybe.map Economics.priceFromFloat >> UpdatePrice)
-                    ]
-                    []
-                , span [ class "input-group-text" ] [ text "€" ]
-                ]
-            ]
-        ]
-
-
-marketingDurationField : Duration -> Html Msg
-marketingDurationField marketingDuration =
-    div [ class "row align-items-center g-2" ]
-        [ label
-            [ for "marketing-duration"
-            , class "col-sm-6 col-form-label text-truncate"
-            ]
-            [ text "Durée de commercialisation" ]
-        , div [ class "col-sm-6" ]
-            [ div [ class "input-group" ]
-                [ input
-                    [ type_ "number"
-                    , id "marketing-duration"
-                    , class "form-control"
-                    , Attr.min <| String.fromFloat <| Duration.inDays <| Economics.minMarketingDuration
-                    , Attr.max <| String.fromFloat <| Duration.inDays <| Economics.maxMarketingDuration
-
-                    -- WARNING: be careful when reordering attributes: for obscure reasons,
-                    -- the `value` one MUST be set AFTER the `step` one.
-                    , step "1"
-                    , marketingDuration |> Duration.inDays |> String.fromFloat |> value
-                    , onInput (String.toInt >> Maybe.map (toFloat >> Duration.days) >> UpdateMarketingDuration)
-                    ]
-                    []
-                , span [ class "input-group-text", title "jours" ] [ text "j." ]
-                ]
-            ]
+            []
+        , span [ class "input-group-text" ] [ text "€" ]
         ]
 
 
@@ -843,7 +789,7 @@ businessField business =
 
 traceabilityField : Bool -> Html Msg
 traceabilityField traceability =
-    div [ class "form-check align-items-center g-2 pt-2" ]
+    div [ class "form-check align-items-center g-2 pt-2 text-truncate" ]
         [ input
             [ type_ "checkbox"
             , id "traceability"
@@ -852,7 +798,11 @@ traceabilityField traceability =
             , checked traceability
             ]
             []
-        , label [ for "traceability", class "form-check-label text-truncate" ]
+        , label
+            [ for "traceability"
+            , class "form-check-label text-truncate"
+            , title "Traçabilité affichée"
+            ]
             [ text "Traçabilité affichée" ]
         ]
 
@@ -963,48 +913,48 @@ simulatorFormView session model ({ inputs } as simulator) =
                 ]
             ]
         , div [ class "card-body pt-3 py-2 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-md-8" ]
-                [ inputs.numberOfReferences
-                    |> Maybe.withDefault inputs.product.economics.numberOfReferences
-                    |> numberOfReferencesField
+            [ div [ class "col-md-2" ]
+                [ label
+                    [ for "product-price"
+                    , class "col-form-label text-truncate"
+                    ]
+                    [ text "Prix neuf" ]
                 ]
-            , div [ class "col-md-4" ]
+            , div [ class "col-md-3" ]
                 [ inputs.price
                     |> Maybe.withDefault inputs.product.economics.price
                     |> productPriceField
                 ]
+            , div [ class "col-md-4" ]
+                [ label
+                    [ for "number-of-references"
+                    , class "col-form-label text-truncate"
+                    ]
+                    [ text "Nombre de références" ]
+                ]
+            , div [ class "col-md-3" ]
+                [ inputs.numberOfReferences
+                    |> Maybe.withDefault inputs.product.economics.numberOfReferences
+                    |> numberOfReferencesField
+                ]
             ]
         , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-md-8" ]
-                [ inputs.marketingDuration
-                    |> Maybe.withDefault inputs.product.economics.marketingDuration
-                    |> marketingDurationField
+            [ div [ class "col-md-2" ]
+                [ label
+                    [ for "business"
+                    , class "col-form-label text-truncate"
+                    ]
+                    [ text "Entreprise" ]
+                ]
+            , div [ class "col-md-6" ]
+                [ inputs.business
+                    |> Maybe.withDefault inputs.product.economics.business
+                    |> businessField
                 ]
             , div [ class "col-md-4" ]
                 [ inputs.traceability
                     |> Maybe.withDefault inputs.product.economics.traceability
                     |> traceabilityField
-                ]
-            ]
-        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-md-2" ] [ text "Entreprise" ]
-            , div [ class "col-md-10" ]
-                [ inputs.business
-                    |> Maybe.withDefault inputs.product.economics.business
-                    |> businessField
-                ]
-            ]
-        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-md-2" ] [ text "Matières" ]
-            , div [ class "col-md-10" ]
-                [ div [ class "fw-bold" ]
-                    [ Inputs.getMaterialsOriginShares inputs.materials
-                        |> Economics.computeMaterialsOriginIndex
-                        |> Tuple.second
-                        |> text
-                    ]
-                , small [ class "text-muted fs-8 lh-sm" ]
-                    [ text "Le type de matière retenu dépend de la composition du vêtement détaillée ci-dessous" ]
                 ]
             ]
         ]
