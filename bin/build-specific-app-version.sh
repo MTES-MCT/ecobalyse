@@ -103,6 +103,9 @@ fi
 
 mkdir -p $VERSION_DIR
 
+npm run encrypt $ECOBALYSE_DATA_DIR/data/textile/processes_impacts.json $GIT_CLONE_DIR/dist/processes_impacts_textile.json.enc
+npm run encrypt $ECOBALYSE_DATA_DIR/data/food/processes_impacts.json $GIT_CLONE_DIR/dist/processes_impacts_food.json.enc
+
 mv $GIT_CLONE_DIR/dist/* $VERSION_DIR
 mv $GIT_CLONE_DIR/server-app.js $VERSION_DIR
 cp $GIT_CLONE_DIR/openapi.yaml $VERSION_DIR
