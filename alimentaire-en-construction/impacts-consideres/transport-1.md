@@ -1,4 +1,4 @@
-# 🚛 Transport (issu de OLD - à vérifier)
+# 🚛 Transport
 
 ## Étapes considérées
 
@@ -8,25 +8,27 @@ Différentes étapes de transport peuvent être mobilisées dans le cycle de vie
 
 <figure><img src="../../.gitbook/assets/Figure 11 transport.PNG" alt=""><figcaption></figcaption></figure>
 
-Par rapport à la modélisation mobilisée dans Agribalyse, des valeurs par défaut sont proposées de manière assez systématique. Ces valeurs correspondent plutôt à des hypothèses majorantes, dans la mesure où certains paramètres peuvent ensuite être précisés, par exemple le pays d'origine des différents ingrédients.&#x20;
+Par rapport à la modélisation mobilisée dans Agribalyse, des valeurs par défaut sont proposées. Ces valeurs correspondent à des hypothèses plutôt majorantes, dans la mesure où certains paramètres peuvent ensuite être précisés, par exemple le pays d'origine des différents ingrédients.&#x20;
 
 Les étapes suivantes sont donc considérées :&#x20;
 
-| Étape                                                                                               | Hypothèse et paramétrage                                                          | Remarques                                                                                                                                                                                                          |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <p>1.RECETTE<br>Acheminement d'un ingrédient vers le site de transformation</p>                     | Hypothèse par défaut  : 160 km de transport terrestre                             | <p>Cette distance est considérée, que le site de transformation soit situé en France ou dans un autre pays.<br>Elle n'est pas considérée pour un ingrédient agricole</p>                                           |
-| <p>2. RECETTE<br>Transport international - Acheminement d'un ingrédient vers la zone logistique</p> | Hypothèse par défaut : 500 km de transport terrestre                              | Cette distance n'est considérée que si un ingrédient a été produit hors de France. Elle s'applique que la transformation se fasse en France ou dans le pays d'origine, voire même s'il n'y a pas de transformation |
-| <p>3. RECETTE<br>Transport international - Transport vers la France</p>                             | <p>Hypothèses par défaut détaillées ci-après.<br>Pays d'origine paramétrable.</p> | Cette distance n'est considérée que si un ingrédient a été produit hors de France.                                                                                                                                 |
-| <p>4. STOCKAGE<br>Transport vers le site de stockage</p>                                            | Hypothèse par défaut : 450 km de transport terrestre (cf. figure 11 ci-dessus)    | Distance considérée systématiquement <mark style="color:red;">\[lorsque l'étape de stockage sera intégrée]</mark>                                                                                                  |
-| <p>5. VENTE<br>Transport vers le lieu de vente au détail</p>                                        | Hypothèse par défaut : 150 km de transport terrestre (cf. figure 11 ci-dessus)    | Distance considérée systématiquement <mark style="color:red;">\[lorsque l'étape de vente sera intégrée]</mark>                                                                                                     |
-| 6. CONSOMMATION                                                                                     | Pas de transport considéré (cf. figure 11 ci-dessus)                              |                                                                                                                                                                                                                    |
+| Étape                                                                                                                   | Hypothèse et paramétrage                                                          | Remarques                                                                                                                                                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| <p>1.RECETTE<br>Acheminement d'un ingrédient vers le site de transformation (ex: ferme - usine IAA)</p>                 | Hypothèse par défaut  : 160 km de transport terrestre                             | <p>Cette distance est considérée, que le site de transformation soit situé en France ou dans un autre pays.<br>Elle n'est pas considérée pour un ingrédient agricole</p>                                           |
+| <p>2. RECETTE<br>Transport international - Acheminement d'un ingrédient vers la zone logistique (ex : ferme - port)</p> | Hypothèse par défaut : 500 km de transport terrestre                              | Cette distance n'est considérée que si un ingrédient a été produit hors de France. Elle s'applique que la transformation se fasse en France ou dans le pays d'origine, voire même s'il n'y a pas de transformation |
+| <p>3. RECETTE<br>Transport international - Transport vers la France (ex: port brésil/port France)</p>                   | <p>Hypothèses par défaut détaillées ci-après.<br>Pays d'origine paramétrable.</p> | Cette distance n'est considérée que si un ingrédient a été produit hors de France.                                                                                                                                 |
+| <p>4. STOCKAGE<br>Transport vers le site de stockage (ex: IAA - entrepôt de stockage)</p>                               | Hypothèse par défaut : 450 km de transport terrestre (cf. figure 11 ci-dessus)    | Distance considérée systématiquement <mark style="color:red;">\[lorsque l'étape de stockage sera intégrée]</mark>                                                                                                  |
+| <p>5. VENTE<br>Transport vers le lieu de vente au détail (entrepôt-magasin)</p>                                         | Hypothèse par défaut : 150 km de transport terrestre (cf. figure 11 ci-dessus)    | Distance considérée systématiquement <mark style="color:red;">\[lorsque l'étape de vente sera intégrée]</mark>                                                                                                     |
+| 6. CONSOMMATION                                                                                                         | Pas de transport considéré (cf. figure 11 ci-dessus)                              | Ceci ne dépend pas du produit mais du lieu de vie du consommateur et de ses modes d'achats (livraison, déplacement dédié, déplacement combiné...)                                                                  |
 
 {% hint style="info" %}
 **Ingrédients agricoles et ingrédients industrie**.\
-Le payse d'origine qui peut être paramétré pour l'étape de transport international (étape 3. RECETTE dans le tableau ci-dessus) peut correspondre : \
-\- au site de production agricole pour les ingrédients agricoles \
-\- au site de transformation pour les ingrédients industrie\
-On considère, en première approche, que les ingrédients agricoles considérés dans les recettes sont ensuite tous transformés en France.
+Dans le cas des ingrédients importés, le pays d'origine peut être précisé (étape 3. RECETTE dans le tableau ci-dessus) : \
+\- import d'un ingrédient agricole (ex: tomate brute)\
+\- import d'un ingrédient transformé (ex: coulis de tomate) \
+
+
+Par simplification, on considère de manière similaire l'import de l'ingrédient ou du produit transformé; en considérant que l'étape de transformation est systématiquement en France (usage du mix électrique FR pour la transformation).
 {% endhint %}
 
 {% hint style="warning" %}
@@ -58,7 +60,7 @@ $$
 ImpactTransport = ImpactTransportIngrédient_1 + ImpactTransportIngrédient_2 ...
 $$
 
-Pour chaque ingrédient, l'impact est calculé comme suit, avec les procédés de transport introduits [ci-après](transport.md#undefined) :&#x20;
+Pour chaque ingrédient, l'impact est calculé comme suit, avec les procédés de transport introduits [ci-après](transport-1.md#undefined) :&#x20;
 
 $$
 ImpactTransport = MasseIngrédient (tonnes) * Distance (km) *  ImpactProcédéTransport
@@ -112,7 +114,7 @@ Pour les ingrédients relevant de la catégories "Hors Europe-Maghreb (Avion)", 
 Donc, pour ces ingrédients, le transport international se limite au seul transport par avion, sur une distance calculée spécifiquement pour le pays d'origine (lorsqu'il est sélectionné) come suit.
 
 {% hint style="warning" %}
-Dans un premier temps, les "états impossibles" ne sont pas traités. Il est donc théoriquement possible de simuler, par exemple, une mangue qui serait originaire d'Espagne ou de France et qui serait donc transportée par avion.
+Dans un premier temps, les "états impossibles" ne sont pas traités. Il est donc théoriquement possible de simuler, par exemple, une mangue qui serait originaire de France et qui serait transportée par avion même si ceci n'a pas de réalité marché.&#x20;
 {% endhint %}
 
 {% hint style="info" %}
