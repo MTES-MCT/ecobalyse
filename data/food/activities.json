@@ -4677,7 +4677,8 @@
     "explain": "Hypothèse : 1 kg = 1 m2a pour simplifier les calculs",
     "crop_group": "PRAIRIES PERMANENTES",
     "scenario": "reference",
-    "land_occupation": 1
+    "land_occupation": 1,
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cherry-tr",
@@ -4857,5 +4858,41 @@
     "crop_group": "OLIVIERS",
     "scenario": "import",
     "land_occupation": 11.545842285430188
+  },
+  {
+    "id": "tomato-organic-fr",
+    "name": "Tomate FR bio",
+    "database": "Ecobalyse",
+    "search": "tomato fr-only",
+    "category": "ingredient",
+    "categories": ["organic", "vegetable_fresh"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "explain": "Tomate bio Ginko dont le 1/3 ES a été remplacé par 1/3 FR",
+    "scenario": "organic",
+    "land_occupation": 0.07864890463267575,
+    "crop_group": "LEGUMES-FLEURS"
+  },
+  {
+    "id": "tomato-organic-es",
+    "name": "Tomate UE bio",
+    "database": "Ecobalyse",
+    "search": "tomato es-only",
+    "category": "ingredient",
+    "categories": ["organic", "vegetable_fresh"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "visible": true,
+    "explain": "Tomate bio Ginko dont le 2/3 FR a été remplacé par 2/3 ES",
+    "scenario": "organic",
+    "land_occupation": 0.11204329462602416,
+    "crop_group": "LEGUMES-FLEURS"
   }
 ]

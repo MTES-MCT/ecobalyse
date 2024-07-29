@@ -140,6 +140,26 @@ def remove_azadirachtine(db):
     return new_db
 
 
+def remove_negative_land_use_on_tomato(db):
+    """Remove transformation flows from urban on greenhouses
+    that cause negative land-use on tomatoes"""
+    new_db = []
+    for ds in db:
+        new_ds = copy.deepcopy(ds)
+        if ds.get("name", "").lower().startswith("plastic tunnel"):
+            new_ds["exchanges"] = [
+                exc
+                for exc in ds["exchanges"]
+                if not exc.get("name", "")
+                .lower()
+                .startswith("transformation, from urban")
+            ]
+        else:
+            pass
+        new_db.append(new_ds)
+    return new_db
+
+
 GINKO_STRATEGIES = [
     remove_azadirachtine,
     functools.partial(
@@ -148,7 +168,7 @@ GINKO_STRATEGIES = [
         fields=("name", "unit"),
     ),
 ]
-
+AGB_STRATEGIES = [remove_negative_land_use_on_tomato]
 
 if __name__ == "__main__":
     """Import Agribalyse and additional processes"""
@@ -173,6 +193,7 @@ if __name__ == "__main__":
             db,
             migrations=AGRIBALYSE_MIGRATIONS,
             excluded_strategies=EXCLUDED,
+            other_strategies=AGB_STRATEGIES,
         )
     else:
         print(f"{db} already imported")
@@ -205,7 +226,8 @@ if __name__ == "__main__":
         print(f"{db} already imported")
 
     if args.recreate_activities:
-        del bw2data.databases["Ecobalyse"]
+        if "Ecobalyse" in bw2data.databases:
+            del bw2data.databases["Ecobalyse"]
 
     if (db := "Ecobalyse") not in bw2data.databases:
         add_created_activities(db, ACTIVITIES_TO_CREATE)
