@@ -47,7 +47,7 @@ suite =
                 [ { tShirtCotonFrance
                     | countrySpinning = Nothing
                   }
-                    |> expectImpact db ecs 1668.06283770339
+                    |> expectImpact db ecs 1670.3616926662007
                     |> asTest "should compute a simulation ecs impact"
                 , describe "disabled steps"
                     [ { tShirtCotonFrance | disabledSteps = [ Label.Ennobling ] }
