@@ -123,6 +123,14 @@ L'application est déployée automatiquement sur la plateforme [Scalingo](https:
 
 Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple `https://ecobalyse-pr44.osc-fr1.scalingo.io/` pour la pull request #44. **Ces instances de recette restent actives 72 heures, puis sont automatiquement décommisionnées passé ce délai ou si la pull request correspondante est mergée.**
 
+### Lien avec ecobalyse_private
+
+Lorsqu'un déploiement est effectué sur une branche, les données utilisées du dépôt `ecobalyse_private` sont celles de la branche `main`. Cependant, si la description de la Pull Request sur le repo `ecobalyse` mentionne `ecobalyse_data: branch-a` avec branch-a étant une branche du dépôt `ecobalyse_private`, alors la PR utilisera les données de la branche `branch-a` du dépôt `ecobalyse_private`.
+
+#### Points d'attention
+
+Lors du merge d'une PR, il est important de merger d'abord la PR correspondante sur ecobalyse_private, puis celle sur ecobalyse.
+
 # Serveur de production
 
 ## Variables d'environnement
