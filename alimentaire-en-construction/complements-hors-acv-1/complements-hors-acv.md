@@ -13,7 +13,7 @@ Le menu déroulant propose plusieurs types d'ingrédients mais aussi plusieurs d
 * Un ingrédient FR
 * Un ingrédient UE par défaut
 * Un ingrédient hors UE par défaut
-* Un ingrédient bio
+* Un ingrédient bio (FR/UE/hors UE)
 
 **C'est donc le menu déroulant qui permet de choisir le bon couple "inventaire de cycle de vie + compléments services écosystémiques (SE)"**. Ainsi, c'est à travers ce menu déroulant qu'il est possible de **paramétrer le mode de production en fonction du label et de l'origine de l'ingrédient**.
 
@@ -75,8 +75,6 @@ Il est possible de préciser l'origine de chaque ingrédient d'une recette.&#x20
 Il est de la responsabilité de l'utilisateur de faire le choix d'un pays d'origine cohérent avec l'ingrédient choisi.
 {% endhint %}
 
-Exemples :&#x20;
 
-<table><thead><tr><th width="183">Ingrédient choisi</th><th width="259">Je connais son origine</th><th>Je ne connais pas son origine</th></tr></thead><tbody><tr><td>Bœuf haché hors UE par défaut</td><td>Je sélectionne le pays d'origine qui doit être cohérent avec le choix de mon ingrédient (ex. ici : Etats-Unis, Brésil...)</td><td>Je sélectionne "par défaut (hors Europe)"</td></tr><tr><td>Abricot UE par défaut</td><td>Je sélectionne le pays d'origine qui doit être cohérent avec le choix de mon ingrédient (ex. ici : Espagne...)</td><td>Je sélectionne "par défaut (Europe et Maghreb)"</td></tr><tr><td>Blé tendre FR</td><td>Je sélectionne "par défaut (France)"</td><td>/</td></tr><tr><td>Carotte bio</td><td>Pour l'instant, que je connaisse ou pas l'origine de mon ingrédient bio, Ecobalyse attribue par défaut l'origine France à un ingrédient bio.</td><td>Pour l'instant, que je connaisse ou pas l'origine de mon ingrédient bio, Ecobalyse attribue par défaut l'origine France à un ingrédient bio.</td></tr></tbody></table>
 
 [^1]: ajouter le lien une fois mis en ligne
