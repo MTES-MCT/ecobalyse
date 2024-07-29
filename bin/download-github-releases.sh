@@ -6,7 +6,6 @@ set -eo pipefail
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
 ECOBALYSE_GIT_REPO="MTES-MCT/ecobalyse"
-#ECOBALYSE_GIT_REPO="vjousse/pomodorolm"
 BASE_VERSION_DIR=$ROOT_DIR/versions
 
 mkdir -p $BASE_VERSION_DIR
@@ -31,7 +30,7 @@ while IFS= read -r TAG; do
 
   if [ -d $VERSION_DIR ]; then
     echo "⚠️ Version $TAG destination directory exists, deleting."
-    echo "-> Deleting '$VERSION_DIR'."
+    echo "-> Deleting '$VERSION_DIR'"
     rm -rf $VERSION_DIR
   fi
 
@@ -41,7 +40,7 @@ while IFS= read -r TAG; do
 
   curl -sSLO $DOWNLOAD_URL
 
-  echo "-> Extracting archive to '$VERSION_DIR'."
+  echo "-> Extracting archive to '$VERSION_DIR'"
   tar xzf $ARCHIVE_FILE_NAME
 
   mv dist/* $VERSION_DIR
