@@ -13,8 +13,8 @@ FABRICS = {
 }
 BUSINESSES = {
     "small-business": "PME/TPE",
-    "large-business-with-services": "Grande entreprise proposant un service de réparation et de garantie",
-    "large-business-without-services": "Grande entreprise ne proposant pas de service de réparation ou de garantie",
+    "large-business-with-services": "Grande entreprise avec un service de réparation",
+    "large-business-without-services": "Grande entreprise sans service de réparation",
 }
 DYEINGMEDIA = {"article": "Article", "fabric": "Tissu", "yarn": "Fil"}
 MAKINGCOMPLEXITIES = {
