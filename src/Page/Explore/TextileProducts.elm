@@ -224,13 +224,6 @@ table db { detailed, scope } =
           , toValue = Table.StringValue <| .economics >> .business >> Economics.businessToLabel
           , toCell = .economics >> .business >> Economics.businessToLabel >> text
           }
-        , { label = "Durée de commercialisation moyenne"
-          , toValue = Table.FloatValue <| .economics >> .marketingDuration >> Duration.inDays
-          , toCell =
-                \product ->
-                    div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.days product.economics.marketingDuration ]
-          }
         , { label = "Nombre de références"
           , toValue = Table.IntValue <| .economics >> .numberOfReferences
           , toCell =

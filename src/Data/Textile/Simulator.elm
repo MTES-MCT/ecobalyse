@@ -178,17 +178,11 @@ initializeFinalMass ({ inputs } as simulator) =
 computeDurability : Simulator -> Simulator
 computeDurability ({ inputs } as simulator) =
     let
-        materialOriginShares =
-            Inputs.getMaterialsOriginShares inputs.materials
-
         durability =
-            Economics.computeDurabilityIndex materialOriginShares
+            Economics.computeDurabilityIndex
                 { business =
                     inputs.business
                         |> Maybe.withDefault inputs.product.economics.business
-                , marketingDuration =
-                    inputs.marketingDuration
-                        |> Maybe.withDefault inputs.product.economics.marketingDuration
                 , numberOfReferences =
                     inputs.numberOfReferences
                         |> Maybe.withDefault inputs.product.economics.numberOfReferences

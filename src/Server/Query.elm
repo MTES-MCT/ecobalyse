@@ -28,7 +28,6 @@ import Data.Textile.Query as TextileQuery
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Dict exposing (Dict)
-import Duration exposing (Duration)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -300,21 +299,6 @@ distributionParser key =
             )
 
 
-maybeDurationParser : String -> Parser (ParseResult (Maybe Duration))
-maybeDurationParser key =
-    Query.string key
-        |> Query.map
-            (Maybe.map
-                (String.toFloat
-                    >> Maybe.map Duration.days
-                    >> Result.fromMaybe "Cette durée en jours est invalide"
-                    >> Result.map Just
-                    >> Result.mapError (\err -> ( key, err ))
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
-
-
 maybeBusiness : String -> Parser (ParseResult (Maybe Economics.Business))
 maybeBusiness key =
     Query.string key
@@ -379,7 +363,6 @@ parseTextileQuery countries textile =
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybePrinting "printing")
         |> apply (maybeBusiness "business")
-        |> apply (maybeDurationParser "marketingDuration")
         |> apply (maybeIntParser "numberOfReferences")
         |> apply (maybePriceParser "price")
         |> apply (maybeBoolParser "traceability")
