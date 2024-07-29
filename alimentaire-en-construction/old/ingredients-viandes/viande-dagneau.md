@@ -26,9 +26,9 @@ $$
 
 * de procédés d'abattage :&#x20;
 
-<figure><img src="../../.gitbook/assets/agneau 1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/agneau 1.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/Screenshot 2024-01-23 at 14.42.50.png" alt=""><figcaption><p>Il faut 2.39 kg d'agneau pour obtenir 1 kg de viande d'agneau désossée</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Screenshot 2024-01-23 at 14.42.50.png" alt=""><figcaption><p>Il faut 2.39 kg d'agneau pour obtenir 1 kg de viande d'agneau désossée</p></figcaption></figure>
 
 On construit différents procédés de viande d'agneau **(N)**, sur la base du procédé de référence (Meat with bone, lamb/FR U), en appliquant les opérations d'abattage à différents procédés d'agneau **(N)**.
 
@@ -57,5 +57,5 @@ Lamb, organic, system n°3, at farm gate
 
 
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 

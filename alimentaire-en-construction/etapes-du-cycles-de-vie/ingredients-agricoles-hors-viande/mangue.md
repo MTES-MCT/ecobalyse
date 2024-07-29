@@ -13,7 +13,7 @@ Les procédés retenus sont des procédés "at farm", c'est à dire des procéd�
 
 En effet, dans Agribalyse le mix de consommation appelle le procédé 'Mango, conventional, Val de San Francisco, at orchard' (kilogram, BR, None) :&#x20;
 
-<figure><img src="../../.gitbook/assets/mangue.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/mangue.jpg" alt=""><figcaption></figcaption></figure>
 
 
 

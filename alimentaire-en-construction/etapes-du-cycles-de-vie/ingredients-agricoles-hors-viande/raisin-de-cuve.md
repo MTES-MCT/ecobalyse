@@ -24,7 +24,7 @@ Le procédé 'Grape, full production (phase), integrated, variety mix, Languedoc
 L'approximation est donc faite de ne retenir que ce procédé.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/raisin de cuve.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/raisin de cuve.png" alt=""><figcaption></figcaption></figure>
 
 Le procédé équivalent en bio est retenu pour le raisin bio, à savoir :&#x20;
 

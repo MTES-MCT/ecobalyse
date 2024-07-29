@@ -61,7 +61,7 @@ Le procédé "Fresh tomato, consumption mix" France proposée dans Agribalyse s'
 
 On observe 2 ICV "autres pays" mobilisés.
 
-<figure><img src="../../.gitbook/assets/tomato.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/tomato.png" alt=""><figcaption></figcaption></figure>
 
 ## Identification de l'origine par défaut
 

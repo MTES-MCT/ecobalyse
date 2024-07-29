@@ -26,7 +26,7 @@ $$
 
 * d'opérations industrielles :&#x20;
 
-<figure><img src="../../.gitbook/assets/sunflower.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/sunflower.png" alt=""><figcaption></figcaption></figure>
 
 On construit différents procédés d'huile de tournesol **(N)**, sur la base du procédé de référence (Sunflower oil, at oil mill), en appliquant les opérations industrielles à différents procédés de tournesol **(N)**.
 

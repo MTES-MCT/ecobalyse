@@ -38,7 +38,7 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
 
 L'analyse comparée des impacts donne :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (4) (3) (2).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (4) (3) (2).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 ## Mix de consommation
 
@@ -46,7 +46,7 @@ Le procédé "**Potato, consumption mix"** France proposée dans Agribalyse s'ap
 
 Un transport de 160 km en camion y est intégré.
 
-<figure><img src="../../.gitbook/assets/image (2) (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 Ce graphique met en évidence que le procédé pris en compte pour le mix de consommation français est Ware potato, conventional, variety mix, national average, at farm gate. C'est donc l'ICV retenu pour calculer l'impact de la pomme de terre conventionnelle.
 

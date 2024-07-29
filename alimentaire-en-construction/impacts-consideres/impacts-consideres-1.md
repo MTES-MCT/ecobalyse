@@ -5,7 +5,7 @@ description: >-
   productions conventionnelles et sous label.
 ---
 
-# 🍒 Ingrédients agricoles - les inventaires mobilisés (impacts ACV)
+# 🍒 Ingrédients agricoles - inventaires mobilisés (impacts ACV)
 
 Les impacts des ingrédients sont majoritairement issus de la base Agribalyse, qui a construit en propre des ICV pour les productions françaises ; et s’appuie sur ecoinvent et WFLDB pour les produits importés. Malgré la richesse de ces bases, elles sont loin de couvrir l’ensemble des pays de productions et des modes de production. Aussi une logique d’appariement et de proxy doit être mise en œuvre.
 
@@ -61,7 +61,7 @@ Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu 
 
 L’ensemble des appariements entre ingrédients et ICV Agribalyse est visible dans l’explorateur, et en surbrillance dans l’interface ecobalyse.
 
-<img src="../../.gitbook/assets/image.png" alt="" data-size="original">
+<img src="../../.gitbook/assets/image (1).png" alt="" data-size="original">
 
 
 

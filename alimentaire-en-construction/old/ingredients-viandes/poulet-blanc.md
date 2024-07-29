@@ -24,9 +24,9 @@ $$
 
 * de procédés intermédiaires (abattage, desossage) :
 
-<figure><img src="../../.gitbook/assets/chicken.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/chicken.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/broiler 1.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/broiler 1.jpg" alt=""><figcaption></figcaption></figure>
 
 On construit différents procédés de blanc de poulet **(N)**, sur la base du procédé de référence (Chicken, breast, without skin, raw, processed in FR |), en appliquant les opérations intermédiaires à différents procédés de poulet sortie de ferme **(N)**.
 

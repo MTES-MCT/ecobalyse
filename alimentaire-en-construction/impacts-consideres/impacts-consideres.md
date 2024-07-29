@@ -4,7 +4,7 @@ La base Agribalyse fournit les ICV pour les différents processus agricoles et a
 
 Toute la méthodologie et le fonctionnement de la base de données Agribalyse est disponible sur le site web dédié.
 
-<mark style="background-color:orange;">Ajouter logo/lien</mark>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p><a href="https://agribalyse.ademe.fr/">https://agribalyse.ademe.fr/</a></p></figcaption></figure>
 
 
 

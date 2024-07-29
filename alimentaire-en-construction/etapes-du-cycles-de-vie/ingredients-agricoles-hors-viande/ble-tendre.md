@@ -21,7 +21,7 @@ La blé tendre "mix de consommation" France proposée dans Agribalyse s'appuie s
 
 Un transport de 160 km y est ajouté.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2022-11-08 at 14.56.24.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Screenshot 2022-11-08 at 14.56.24.png" alt=""><figcaption></figcaption></figure>
 
 ## Identification de l'origine par défaut
 

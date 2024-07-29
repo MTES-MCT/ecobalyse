@@ -69,7 +69,7 @@ Le tournesol bio est déterminé par l'analyse des procédés bio présents dans
 
 Le procédé "Sunflower oil, at oil mill (WFLDB 3.1)/GLO U" mobilise un procédé "Sunflower, at farm (WFLDB 3.1)/GLO U" issu d'une moyenne de 3 procédés FR, HU et UA.
 
-<figure><img src="../../.gitbook/assets/sunflower.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/sunflower.png" alt=""><figcaption></figcaption></figure>
 
 ## Identification de l'origine par défaut
 

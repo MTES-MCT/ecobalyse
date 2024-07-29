@@ -39,9 +39,9 @@ La base Agribalyse permet de distinguer 14 inventaires de cycle de vie pour la c
 
 L'analyse comparée des impacts donne :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (2) (3).png" alt=""><figcaption><p>Conventionnel vs bio - source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (3).png" alt=""><figcaption><p>Conventionnel vs bio - source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (1) (6) (1).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (6) (1).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="info" %}
 **Axes de progrès ?**
@@ -58,7 +58,7 @@ La carotte "mix de consommation" France proposée dans Agribalyse s'appuie sur l
 
 Un transport de 160 km en camion y est ajouté.
 
-<figure><img src="../../.gitbook/assets/Carotte.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Carotte.png" alt=""><figcaption></figcaption></figure>
 
 ## Identification de l'origine par défaut
 
