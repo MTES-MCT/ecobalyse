@@ -130,10 +130,13 @@ if (fs.existsSync(versionsDir)) {
     let processesImpacts;
 
     if (fs.existsSync(foodDetailedEnc) && fs.existsSync(textileDetailedEnc)) {
+      console.log(`encrypted files found for ${dir} ${foodDetailedEnc}`);
       // Encrypted files exist, use them
       processesImpacts = {
-        foodProcesses: decrypt(foodDetailedEnc),
-        textileProcesses: decrypt(textileDetailedEnc),
+        foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
+        textileProcesses: decrypt(
+          JSON.parse(fs.readFileSync(textileDetailedEnc).toString("utf-8")),
+        ),
       };
     } else if (fs.existsSync(foodDetailed) || fs.existsSync(textileDetailed)) {
       // Or use old files
