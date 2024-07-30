@@ -667,8 +667,8 @@ components:
         Type d'entreprise et d'offre de services :
 
         - `small-business`: PME/TPE
-        - `large-business-with-services`: Grande entreprise proposant un service de réparation et de prise en garantie
-        - `large-business-without-services` (par défaut): Grande entreprise ne proposant pas de service de réparation ou de prise en garantie
+        - `large-business-with-services`: Grande entreprise avec service de réparation
+        - `large-business-without-services` (par défaut): Grande entreprise sans service de réparation
       required: false
       style: form
       schema:
@@ -1248,8 +1248,8 @@ components:
             Type d'entreprise et d'offre de services :
 
             - `small-business`: PME/TPE
-            - `large-business-with-services`: Grande entreprise proposant un service de réparation et de prise en garantie
-            - `large-business-without-services` (par défaut): Grande entreprise ne proposant pas de service de réparation ou de prise en garantie
+            - `large-business-with-services`: Grande entreprise avec service de réparation
+            - `large-business-without-services` (par défaut): Grande entreprise sans service de réparation
           enum:
             - small-business
             - large-business-with-services

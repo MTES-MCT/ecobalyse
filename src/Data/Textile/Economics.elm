@@ -47,9 +47,9 @@ type Price
 type Business
     = -- PME/TPE
       SmallBusiness
-      -- Grande entreprise proposant un service de réparation et de garantie
+      -- Grande entreprise avec service de réparation
     | LargeBusinessWithServices
-      -- Grande entreprise ne proposant pas de service de réparation ou de garantie
+      -- Grande entreprise sans service de réparation
     | LargeBusinessWithoutServices
 
 
@@ -66,7 +66,7 @@ businessFromString string =
             Ok LargeBusinessWithoutServices
 
         _ ->
-            Err <| "Type d'entreprise inconnu: " ++ string
+            Err <| "Type d'entreprise inconnu : " ++ string
 
 
 businessToLabel : Business -> String
@@ -76,10 +76,10 @@ businessToLabel business =
             "PME/TPE"
 
         LargeBusinessWithServices ->
-            "Grande entreprise proposant un service de réparation et de garantie"
+            "Grande entreprise avec service de réparation"
 
         LargeBusinessWithoutServices ->
-            "Grande entreprise ne proposant pas de service de réparation ou de garantie"
+            "Grande entreprise sans service de réparation"
 
 
 businessToString : Business -> String
