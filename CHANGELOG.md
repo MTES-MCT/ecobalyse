@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v1.3.2...v2.0.0) (2024-07-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textile,api,ui,data:** update durability index computation ([#673](https://github.com/MTES-MCT/ecobalyse/issues/673))
+
+### Features
+
+* Brightway explorer download buttons ([#688](https://github.com/MTES-MCT/ecobalyse/issues/688)) ([d4cf712](https://github.com/MTES-MCT/ecobalyse/commit/d4cf712e52438c8b61abe362779a15daebfc3e24))
+* download and upload buttons above the list of activities ([#689](https://github.com/MTES-MCT/ecobalyse/issues/689)) ([d27fa51](https://github.com/MTES-MCT/ecobalyse/commit/d27fa51c415f7af14d60cae8e7d1c7c459464553))
+* **textile,api,ui,data:** update durability index computation ([#673](https://github.com/MTES-MCT/ecobalyse/issues/673)) ([a915613](https://github.com/MTES-MCT/ecobalyse/commit/a915613cbb3d600775f5001023e0e5e61dbb467b))
+
+
+### Bug Fixes
+
+* **food:** correct default origin for ingredients ([#683](https://github.com/MTES-MCT/ecobalyse/issues/683)) ([8b1ce73](https://github.com/MTES-MCT/ecobalyse/commit/8b1ce7363c280d1fc298bcd3aee644f1b6f4ea42))
+* update pull examples data ([#690](https://github.com/MTES-MCT/ecobalyse/issues/690)) ([bfbef62](https://github.com/MTES-MCT/ecobalyse/commit/bfbef62fa63a36119c9930678ed766a317c0ee2a))
+
 ## [1.3.2](https://github.com/MTES-MCT/ecobalyse/compare/v1.3.1...v1.3.2) (2024-07-23)
 
 
