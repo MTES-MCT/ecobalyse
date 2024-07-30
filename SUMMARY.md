@@ -37,7 +37,6 @@
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)
   * [🐠 Microfibres](textile/complements-hors-acv/microfibres.md)
 * [Durabilité](textile/durabilite.md)
-* [\[...\]](textile/durabilite-1.md)
 * [Paramétrage](textile/parametrage.md)
 * [Exemples](textile/exemples.md)
 * [Mises à jour](textile/mises-a-jour.md)

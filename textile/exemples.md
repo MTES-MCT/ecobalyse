@@ -84,4 +84,4 @@ Les exemples de paramètres suivants sont considérés :
 | Entreprise                 | PME / TPE      | Grande entreprise proposant des services | Grande entreprise ne proposant pas de services | Grande entreprise ne proposant pas de service |
 | Traçabilité affichée       | Oui            | Oui / Non                                | Non                                            | Non                                           |
 | Prix neuf (Tshirt)         | 30 €           | 30 €                                     | 20 €                                           | 10 €                                          |
-| Prix neuf (Pull)           | 95 €           | 70 €                                     | 30 €                                           | 20 €                                          |
+| Prix neuf (Pull)           | 95 €           | 70 €                                     | 30 €                                           | 15 €                                          |
