@@ -104,8 +104,7 @@ FOOD_DETAILED_IMPACTS_FILE="$PUBLIC_GIT_CLONE_DIR/public/data/textile/processes_
 
 if [[ ! -f "$TEXTILE_DETAILED_IMPACTS_FILE" ]]; then
 
-  if [ -z "$ECOBALYSE_DATA_DIR_COMMIT" ]
-  then
+  if [ -z "$ECOBALYSE_DATA_DIR_COMMIT" ]; then
     echo ""
     echo "🚨 This version of the application requires data files from the Ecobalyse data dir. You need to specify the ECOBALYSE_DATA_DIR_COMMIT as a second parameter."
     echo "   The corresponding data dir version will be cloned locally."
@@ -153,10 +152,31 @@ NODE_ENV=dev npm ci
 # We want a production build
 export NODE_ENV=production
 
+ELM_VERSION_FILE="src/Request/Version.elm"
+
+# Patch old versions of the app so that it gets the version file using relative path
+# Otherwise serving the app from /versions will not display the good version number
+if [[ -f "$ELM_VERSION_FILE" ]]; then
+  sed -i 's/"\/version\.json"/"version\.json"/g' $ELM_VERSION_FILE
+fi
+
 # Rely on the build command of the version we are on. We should be careful when changing this build command
 # It should always generate a dist/ directory because that's what we are assuming here
 npm run build
 npm run server:build
+
+# If a data dir commit was specified, put it in the version file if needed
+# it will to keep track of the commit used to build the version
+if [[ ! -z "$ECOBALYSE_DATA_DIR_COMMIT" ]]; then
+  if grep dataDirHash dist/version.json >/dev/null 2>&1; then
+    # version file is up to date, don't do anything
+    echo "-> dataDirHash already in version.json, skipping."
+  else
+    # version file is missing the dataDirHash parameter (old version of the app, before 2.0.0)
+    # patch the file to add it
+    sed -i "s/}/, \"dataDirHash\": \"$ECOBALYSE_DATA_DIR_COMMIT\"}/" dist/version.json
+  fi
+fi
 
 cd $ROOT_DIR
 
@@ -164,7 +184,6 @@ cd $ROOT_DIR
 if [ -d $VERSION_DIR ]; then
   rm -rf $VERSION_DIR
 fi
-
 
 mkdir -p $VERSION_DIR
 
