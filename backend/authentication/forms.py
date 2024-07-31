@@ -10,8 +10,13 @@ from mailauth.forms import EmailLoginForm as MailauthEmailLoginForm
 
 class EmailLoginForm(MailauthEmailLoginForm):
     def get_login_url(self, request, token, next=None):
+        referrer = request.META.get("HTTP_REFERER")
+
+        if referrer is None:
+            referrer = "/"
+
         return super(EmailLoginForm, self).get_login_url(
-            request, token, next=next or "/#/auth/authenticated"
+            request, token, next=next or f"{referrer}#/auth/authenticated"
         )
 
     def save(self):
@@ -60,9 +65,17 @@ class RegistrationForm(ModelForm):
             super().__init__(*a, *kw)
 
     def get_login_url(self, request, token, next=None):
-        return MailauthEmailLoginForm.get_login_url(
-            self, request, token, next=next or "/#/auth/authenticated"
-        )
+        referrer = request.META.get("HTTP_REFERER")
+
+        # If referrer is provided always use it to be compatible with multiple versions
+        # that are served using relative urls (available in the referrer variable)
+        # using / will redirect to the home and not to the appropriate version
+        if referrer is None:
+            next = next or "/#/auth/authenticated"
+        else:
+            next = f"{referrer}#/auth/authenticated"
+
+        return MailauthEmailLoginForm.get_login_url(self, request, token, next=next)
 
     def get_token(self, user):
         """Return the access token."""
