@@ -145,8 +145,8 @@ Avec  P_non_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l
 
 impact_élec_non_ironing = élec_non_ironing * P_élec_fr_cch
 Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
-impact_élec_non_ironing = 1.55 * 0.081
-impact_élec_non_ironing = 0.13 kgCO2e
+impact_élec_non_ironing = 1.55 * 0.0729
+impact_élec_non_ironing = 0.11 kgCO2e
 
 
 impact_eaux_lessive_non_ironing = n_cycles * m * P_non_ironing_cch
@@ -159,6 +159,6 @@ impact_eaux_lessive_non_ironing = 0.23 kgCO2e
 
 ```
 impact = impact_ironing + impact_élec_non_ironing + impact_eaux_lessive_non_ironing
-impact = 0.038 + 0.13 + 0.23
-impact = 0.40 kgCO2e
+impact = 0.038 + 0.11 + 0.23
+impact = 0.38 kgCO2e
 ```
