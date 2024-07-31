@@ -168,14 +168,19 @@ npm run server:build
 # If a data dir commit was specified, put it in the version file if needed
 # it will to keep track of the commit used to build the version
 if [[ ! -z "$ECOBALYSE_DATA_DIR_COMMIT" ]]; then
-  if grep dataDirHash dist/version.json >/dev/null 2>&1; then
-    # version file is up to date, don't do anything
-    echo "-> dataDirHash already in version.json, skipping."
-  else
+
+  if [[ -z "$(grep dataDirHash dist/version.json >/dev/null 2>&1)" ]]; then
     # version file is missing the dataDirHash parameter (old version of the app, before 2.0.0)
     # patch the file to add it
     sed -i "s/}/, \"dataDirHash\": \"$ECOBALYSE_DATA_DIR_COMMIT\"}/" dist/version.json
   fi
+
+fi
+
+# We need to send the referer to python in order to properly redirect after login
+# <meta charset="utf-8">
+if [[ -z "$(grep origin-when-cross-origin dist/index.html)" ]]; then
+  sed -i "s/<meta charset=\"utf-8\">/<meta charset=\"utf-8\"><meta name=\"referrer\" content=\"origin-when-cross-origin\" \/>/" dist/index.html
 fi
 
 cd $ROOT_DIR
