@@ -88,19 +88,56 @@ La définition et la modélisation de chaque indice sont détaillées ci-après.
 ### Définition
 
 {% hint style="info" %}
-Des précisions vont être apportées prochainement sur les modalités de calcul de la largeur de gamme.
+Pendant l'été 2024, un exercice de recueil de données est proposé aux marques. Il s'agir de recueillir de leur part une estimation du nombre de références (ou références couleurs) proposées sur leur site internet, en distinguant différents segments de marché : femme / homme / enfant / bébé / sous-vêtements... Dans cet exercice, il est demandé de dissocier les références proposées spécifiquement pour les grandes tailles pour les segments femme, homme et sous-vêtements. Une référence couvrant toutes les tailles jusqu'aux grandes tailles incluses ne doit pas être comptabilisée dans la catégorie "grandes tailles" mais dans la catégorie "standard".\
+Pour partager leurs données, les marques sont invitées à utiliser le formulaire suivant : [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l\_jCftG7S-\_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf\_link).&#x20;
 {% endhint %}
 
 **La largeur de gamme désigne le nombre de références proposées simultanément par une marque ou une plateforme**. Ce paramètre qualifie donc la marque ou la plateforme, et donc l'ensemble des références qu'elle propose.
 
 Précisions :&#x20;
 
-* Le canal de vente considéré est prioritairement le site internet de la marque. En l'absence de vente en ligne sur le site de la marque (ou si le site est un canal de vente artificiel), un canal de vente doit être choisi parmi les principaux.
-* Par exception, dans le cas d'une marque qui serait distribuée via une plateforme, de sorte que les consommateurs identifient plus la plateforme que la marque, c'est le nombre total de références proposées sur la plateforme qui doit être considéré.
-* Lorsqu'une marque est proposée au sein d'un site internet multi-marques, mais qu'elle y est bien identifiée et que l'essentiel des autres produits proposés sur ce site internet sont également proposés sur le site internet de leur marque propre, c'est alors le nombre de référence de chaque marque qui est considéré.
-* Par "référence", on entend généralement une suite de lettres ou de chiffres figurant sur la page produit, et correspondant à une couleur donnée d’un produit donné. Ce terme peut correspondre à la notion d'unité de gestion de stock (UGC ou SKU pour Stock Keeping Unit). Une référence peut être déclinée en plusieurs tailles. On compte alors bien une seule référence pour l'ensemble des tailles proposées.
-* Le nombre de références à renseigner doit être le nombre maximum de références commercialisées un même jour sur l'ensemble de l'année. Ainsi, en cas de contrôle à une date donnée, il doit toujours être observé un nombre de références commercialisées inférieur à la valeur renseignée pour calculer l'indice "largeur de gamme".
-* Les références à considérer ne concernent que les articles relevant du textile d'habillement. Les chaussures ou les sacs sont par exemple exclus.
+* **Le canal de vente considéré est le site internet de la marque**. En l'absence de vente en ligne sur le site de la marque (ou si le site est un canal de vente artificiel), un canal de vente doit être choisi parmi les principaux.
+* Par exception, dans le cas d'une **marque qui serait distribuée via une plateforme**, de sorte que les consommateurs identifient plus la plateforme que la marque, c'est le nombre total de références proposées sur la plateforme qui doit être considéré.
+* Lorsqu'une marque est proposée au sein d'un **site internet multi-marques**, mais qu'elle y est bien identifiée et que l'essentiel des autres produits proposés sur ce site internet sont également proposés sur le site internet de leur marque propre, c'est alors le nombre de référence de chaque marque qui est considéré.
+
+{% hint style="info" %}
+Exemple : Le site C.fr commercialise la marque A (2000 références), la marque B (3000 références) et la marque C (4000 références). La marque A et la marque B disposent par ailleurs de leur site internet propre. La marque B propose 2500 références sur B.fr. La marque C propose 3500 références sur C.fr.\
+Les largeurs de gamme à considérer sont alors (cf. tableau ci-dessous) :\
+\- 2500 références pour la marque A\
+\- 3500 références pour la marque B\
+\- 4000 références pour la marque C
+{% endhint %}
+
+|               | Marque A  | Marque B  | Marque C      | Total         |
+| ------------- | --------- | --------- | ------------- | ------------- |
+| **Site A.fr** | 2500 réf. |           |               | **2500 réf.** |
+| **Site B.fr** |           | 3500 réf. |               | **3500 réf.** |
+| **Site C.fr** | 2000 réf. | 3000 réf. | **4000 réf.** | 9000 réf.     |
+
+* Par "référence", on entend généralement une suite de lettres ou de chiffres figurant sur la page produit, et correspondant à une couleur donnée d’un produit donné. Ce terme peut correspondre à la notion d'unité de gestion de stock (UGC ou SKU pour Stock Keeping Unit) ou encore de **référence couleur**.&#x20;
+
+{% hint style="info" %}
+Lors de la phase de concertation du printemps 2024, certains acteurs ont demandé à ce que soient comptabilisées les références et non les références couleurs. Les réponses aux questionnaire introduit ci-dessus (cf. [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l\_jCftG7S-\_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf\_link)) permettront de mieux apprécier l'opportunité de basculer d'un décompte des références à un décompte des références couleurs.
+{% endhint %}
+
+* **Une référence peut être déclinée en plusieurs tailles**. On compte alors bien une seule référence pour l'ensemble des tailles proposées. Certaines références peuvent concerner spécifiquement certaines tailles. C'est par exemple le cas pour les grandes tailles. Sur l'illustration ci-après, chaque ligne correspond à une référence, indépendamment de la gamme de tailles couvertes.
+
+|              | XS à XL | XXL à XXXXL |
+| ------------ | ------- | ----------- |
+| Référence #1 | Oui     | Oui         |
+| Référence #2 | Oui     | Non         |
+| Référence #3 | Non     | Oui         |
+
+{% hint style="info" %}
+Lors de la phase de concertation du printemps 2024, certains acteurs ont demandé à ce que soient distinguées les segments pour lesquels les références sont proposées : homme / femme / enfant, mais aussi grandes tailles. Les réponses aux questionnaire introduit ci-dessus (cf. [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l\_jCftG7S-\_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf\_link)) permettront de mieux apprécier l'opportunité d'introduire une telle distinction.
+{% endhint %}
+
+* **Seules les références correspondant à du textile d'habillement doivent être comptabilisées**. Les chaussures ou les sacs, par exemple, ne doivent pas être comptabilisés. Les références correspondant à du textile d'habillement mais qui pourraient ne pas être couvertes par le cadre réglementaire (ex : un pull en cachemire) doivent bien être comptabilisées.
+* Le nombre de références à renseigner doit être le **nombre maximum de références commercialisées un même jour sur l'ensemble de l'année civile**. Ainsi, en cas de contrôle à une date donnée, il doit toujours être observé un nombre de références commercialisées inférieur à la valeur renseignée pour calculer l'indice "largeur de gamme". Il n'est pas attendu de la marque qu'elle déclare le nombre exact de références, lequel n'est connu qu'à la fin de l'année. Elles proposent un nombre en s'engageant à ne pas commercialiser simultanément plus de références. Si une marque n'est pas en capacité d'anticiper précisément le nombre de références qu'elle pourrait  commercialiser sur l'année, elle doit donc considérer une marge qu'il lui revient de choisir. Deux illustrations sont proposées ci-après.
+
+<figure><img src="../.gitbook/assets/image (113).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (114).png" alt=""><figcaption></figcaption></figure>
 
 ### Formule de calcul
 
