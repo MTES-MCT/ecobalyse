@@ -50,6 +50,7 @@ jobs:
         env:
           # Specify the created SHA to correctly update version.json
           SOURCE_VERSION: ${{ steps.release.outputs.sha }}
+          TAG: ${{ steps.release.outputs.tag_name }}
         run: |
           npm run build:standalone-app
 
