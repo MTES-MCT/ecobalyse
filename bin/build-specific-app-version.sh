@@ -178,7 +178,7 @@ if [[ ! -z "$ECOBALYSE_DATA_DIR_COMMIT" ]]; then
 fi
 
 # We need to send the referer to python in order to properly redirect after login
-# <meta charset="utf-8">
+# so we need to patch the html files that don't have it
 if [[ -z "$(grep origin-when-cross-origin dist/index.html)" ]]; then
   sed -i "s/<meta charset=\"utf-8\">/<meta charset=\"utf-8\"><meta name=\"referrer\" content=\"origin-when-cross-origin\" \/>/" dist/index.html
 fi
