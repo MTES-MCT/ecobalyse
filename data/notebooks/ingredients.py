@@ -901,7 +901,7 @@ def commit_activities(_):
         return
     shutil.copy(ACTIVITIES_TEMP % w_contributor.value, ACTIVITIES)
     display(ipywidgets.HTML("Veuillez patienter quelques secondes..."))
-    prettier = ["npx", "run", "format:json"]
+    prettier = ["npx", "prettier", "--write", "food/activities.json"]
     if subprocess.run(prettier, capture_output=True).returncode != 0:
         display(
             ipywidgets.HTML(
