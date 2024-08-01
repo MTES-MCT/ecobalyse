@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 ECOBALYSE_DATA_DIR := ${ECOBALYSE_DATA_DIR}
-DOCKERRUN := docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -v $(NAME):/home/jovyan -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
-DOCKEREXEC := docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
+DOCKERRUN := echo "(Creating a new container)" && docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -v $(NAME):/home/jovyan -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
+DOCKEREXEC := echo "(Using the existing container)" && docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
 JUPYTER_PORT ?= 8888
 
 all: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food format
