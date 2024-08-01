@@ -89,6 +89,7 @@ if git rev-parse "$COMMIT_OR_TAG" >/dev/null 2>&1; then
   # Tag exists
   # Use custom error handler to avoid set -eo to be triggred before displaying the error message
   git checkout tags/$COMMIT_OR_TAG || error_handler $ERR_INVALID_COMMIT
+  TAG=$COMMIT_OR_TAG
 else
   # Tag doesn't exist
   git checkout $COMMIT_OR_TAG || error_handler $ERR_INVALID_COMMIT
@@ -165,6 +166,15 @@ fi
 npm run build
 npm run server:build
 
+# Always put the tag name in the version.json file to help debugging if needed later on
+# If TAG is defined
+if [[ ! -z "$TAG" ]]; then
+  # If no tag is present in the file
+  if [[ -z "$(grep tag dist/version.json)" ]]; then
+    sed -ri "s/\{(.*)\}/{\1, \"tag\": \"$TAG\"}/" dist/version.json
+  fi
+fi
+
 # If a data dir commit was specified, put it in the version file if needed
 # it will to keep track of the commit used to build the version
 if [[ ! -z "$ECOBALYSE_DATA_DIR_COMMIT" ]]; then
@@ -195,10 +205,17 @@ mkdir -p $VERSION_DIR
 npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/textile/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_textile.json.enc
 npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/food/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_food.json.enc
 
-
-mv $PUBLIC_GIT_CLONE_DIR/dist/* $VERSION_DIR
-mv $PUBLIC_GIT_CLONE_DIR/server-app.js $VERSION_DIR
-cp $PUBLIC_GIT_CLONE_DIR/openapi.yaml $VERSION_DIR
 # Never ship detailed impacts
-rm -f -- $VERSION_DIR/data/textile/processes_impacts.json
-rm -f -- $VERSION_DIR/data/food/processes_impacts.json
+rm -f -- $PUBLIC_GIT_CLONE_DIR/data/textile/processes_impacts.json
+rm -f -- $PUBLIC_GIT_CLONE_DIR/data/food/processes_impacts.json
+
+mv $PUBLIC_GIT_CLONE_DIR/server-app.js $PUBLIC_GIT_CLONE_DIR/dist
+mv $PUBLIC_GIT_CLONE_DIR/openapi.yaml $PUBLIC_GIT_CLONE_DIR/dist
+
+# Create the dist archive and put it in the ROOT_DIR
+cd $PUBLIC_GIT_CLONE_DIR
+tar czvf $VERSION_DIR-dist.tar.gz dist
+mv $VERSION_DIR-dist.tar.gz $ROOT_DIR/
+
+# Move the standalone app into the version directory
+mv $PUBLIC_GIT_CLONE_DIR/dist/* $VERSION_DIR
