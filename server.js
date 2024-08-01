@@ -113,14 +113,15 @@ let availableVersions = [];
 if (fs.existsSync(versionsDir)) {
   const dirs = fs.readdirSync(versionsDir);
   for (const dir of dirs) {
-    const foodNoDetails = path.join(versionsDir, dir, "data/food/processes.json");
-    const textileNoDetails = path.join(versionsDir, dir, "data/textile/processes.json");
+    const currentVersionDir = path.join(versionsDir, dir);
+    const foodNoDetails = path.join(currentVersionDir, "data/food/processes.json");
+    const textileNoDetails = path.join(currentVersionDir, "data/textile/processes.json");
 
-    const foodDetailed = path.join(versionsDir, dir, "data/food/processes_impacts.json");
-    const textileDetailed = path.join(versionsDir, dir, "data/textile/processes_impacts.json");
+    const foodDetailed = path.join(currentVersionDir, "data/food/processes_impacts.json");
+    const textileDetailed = path.join(currentVersionDir, "data/textile/processes_impacts.json");
 
-    const foodDetailedEnc = path.join(versionsDir, dir, "processes_impacts_food.json.enc");
-    const textileDetailedEnc = path.join(versionsDir, dir, "processes_impacts_textile.json.enc");
+    const foodDetailedEnc = path.join(currentVersionDir, "processes_impacts_food.json.enc");
+    const textileDetailedEnc = path.join(currentVersionDir, "processes_impacts_textile.json.enc");
 
     if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
       console.error(
@@ -147,7 +148,7 @@ if (fs.existsSync(versionsDir)) {
     }
 
     availableVersions.push({
-      dir: dir,
+      dir,
       processes: {
         foodProcesses: fs.readFileSync(foodNoDetails, "utf8"),
         textileProcesses: fs.readFileSync(textileNoDetails, "utf8"),
