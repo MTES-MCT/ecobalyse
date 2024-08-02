@@ -115,7 +115,7 @@
     * [🐖 Jambon](alimentaire-en-construction/old/ingredients-viandes/jambon.md)
     * [🐣 Poulet (blanc)](alimentaire-en-construction/old/ingredients-viandes/poulet-blanc.md)
     * [🐑 Viande d'agneau](alimentaire-en-construction/old/ingredients-viandes/viande-dagneau.md)
-* [🪚 Ameublement](alimentaire-en-construction/etape-2-fabrication-du-fil/README.md)
+* [🪚 Objet / Ameublement](alimentaire-en-construction/etape-2-fabrication-du-fil/README.md)
   * [🪵 Composants en bois](alimentaire-en-construction/etape-2-fabrication-du-fil/composants-en-bois.md)
   * [⚙️ Autres composants](alimentaire-en-construction/etape-2-fabrication-du-fil/autres-composants.md)
   * [🚚 Transport](alimentaire-en-construction/etape-2-fabrication-du-fil/transport.md)
