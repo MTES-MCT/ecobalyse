@@ -647,7 +647,7 @@
   },
   {
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse [fr-organic]",
-    "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR ou UE ou Hors UE Bio ",
+    "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR ou UE ou Hors UE Bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -777,7 +777,7 @@
     "identifier": "AGRIBALU000000003115182",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
+    "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "id": "sunflower-oil",
     "source": "Agribalyse 3.1.1"
   },
@@ -811,7 +811,7 @@
     "identifier": "2735a9eb9848c97f9e70fd94f051fb2a",
     "category": "ingredient",
     "system_description": "Ecobalyse",
-    "comment": "Economic allocation:Price for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; Price for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15Sunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
+    "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "id": "sunflower-oil-organic",
     "source": "Ecobalyse"
   },
@@ -1389,7 +1389,7 @@
     "identifier": "AGRIBALU000000003102449",
     "category": "transformation",
     "system_description": "AGRIBALYSE",
-    "comment": "\"Functional UnitTo obtain 1kg of canned vegetable or fruit. An input of 0,626kg of food is required. Added packaging should account for the 1% loss.BoundariesFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).Contrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.we considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
+    "comment": "\"Functional Unit\nTo obtain 1kg of canned vegetable or fruit. \nAn input of 0,626kg of food is required. Added packaging should account for the 1% loss.\n\nBoundaries\nFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).\nContrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.\nwe considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
     "id": "canning",
     "source": "Agribalyse 3.1.1"
   },
@@ -2341,7 +2341,7 @@
     "identifier": "AGRIBALU000000003115655",
     "category": "ingredient",
     "system_description": "",
-    "comment": "1 kg output from plant (tomato paste) excluding packaging6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
+    "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "id": "tomato-paste",
     "source": "Agribalyse 3.1.1"
   },
@@ -2375,7 +2375,7 @@
     "identifier": "AGRIBALU000000003115656",
     "category": "ingredient",
     "system_description": "",
-    "comment": "1 kg output from plant (tomato paste) excluding packaging6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
+    "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "id": "tomato-concentrated",
     "source": "Agribalyse 3.1.1"
   },
@@ -2817,7 +2817,7 @@
     "identifier": "AGRIBALU000000003109401",
     "category": "ingredient",
     "system_description": "AGRIBALYSE",
-    "comment": "This process describes the production of Milk, powder, skimmed in France.Included activities are : production in country of origin and transport",
+    "comment": "This process describes the production of Milk, powder, skimmed in France.\nIncluded activities are : production in country of origin and transport",
     "id": "milk-powder",
     "source": "Agribalyse 3.1.1"
   },
@@ -2925,7 +2925,7 @@
   },
   {
     "name": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
-    "displayName": "Oeuf (code 2) FR Conv.",
+    "displayName": "Oeuf FR Conv.",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3259,7 +3259,7 @@
     "identifier": "AGRIBALU000000003102563",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 56880 kg/haProduction Volume Amount: 508750016",
+    "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "id": "carrot-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -3429,7 +3429,7 @@
     "identifier": "AGRIBALU000000003111005",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 48205 kg/ha table fruit qualityProduction Volume Amount: 277274240",
+    "comment": "Reference flow: Yield = 48205 kg/ha table fruit quality\nProduction Volume Amount: 277274240",
     "id": "pear-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -3497,7 +3497,7 @@
     "identifier": "AGRIBALU000000003110917",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 27000 kg/ha table fruit qualityProduction Volume Amount: 1257250944",
+    "comment": "Reference flow: Yield = 27000 kg/ha table fruit quality\nProduction Volume Amount: 1257250944",
     "id": "peach-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -3769,7 +3769,7 @@
     "identifier": "AGRIBALU000000003110441",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 55000 kg/haProduction Volume Amount: 1402423040",
+    "comment": "Reference flow: Yield = 55000 kg/ha\nProduction Volume Amount: 1402423040",
     "id": "onion-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -4211,7 +4211,7 @@
     "identifier": "AGRIBALU000000003108561",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 37000 kg/haProduction Volume Amount: 674371008",
+    "comment": "Reference flow: Yield = 37000 kg/ha\nProduction Volume Amount: 674371008",
     "id": "lemon-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -4449,7 +4449,7 @@
     "identifier": "AGRIBALU000000003115743",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Yield = 165000.0 kg/haOutput of tomato, fresh grade, produced for direct human consumption.Production Volume Amount: 4255320576",
+    "comment": "Yield = 165000.0 kg/haOutput of tomato, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 4255320576",
     "id": "tomato-greenhouse-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -4483,7 +4483,7 @@
     "identifier": "AGRIBALU000000003100510",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 20000 kg/ha table fruit qualityProduction Volume Amount: 171400752",
+    "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
     "id": "apricot-fr",
     "source": "Agribalyse 3.1.1"
   },
@@ -4517,7 +4517,7 @@
     "identifier": "AGRIBALU000000003100510",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 20000 kg/ha table fruit qualityProduction Volume Amount: 171400752",
+    "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
     "id": "apricot-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -4619,7 +4619,7 @@
     "identifier": "AGRIBALU000000003107318",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Dataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Turkey and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. Source : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
+    "comment": "Dataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Turkey and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "id": "hazelnut-unshelled-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -4653,7 +4653,7 @@
     "identifier": "AGRIBALU000000003107319",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. Source : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
+    "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "id": "hazelnut-unshelled-non-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -4925,7 +4925,7 @@
     "identifier": "AGRIBALU000000003102563",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 56880 kg/haProduction Volume Amount: 508750016",
+    "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "id": "turnip-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -5265,7 +5265,7 @@
     "identifier": "AGRIBALU000000003110506",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Orange, fresh grade, South African production. Output of orange, fresh grade, produced for direct human consumption.Production Volume Amount: 1645182976",
+    "comment": "Orange, fresh grade, South African production. Output of orange, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 1645182976",
     "id": "orange-non-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -5299,7 +5299,7 @@
     "identifier": "AGRIBALU000000003110400",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit qualityProduction Volume Amount: 6459754496",
+    "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit quality\nProduction Volume Amount: 6459754496",
     "id": "olive-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -5333,7 +5333,7 @@
     "identifier": "AGRIBALU000000003112430",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "EcoSpold01Location=FRProduction Volume Amount: 4532871168",
+    "comment": "EcoSpold01Location=FR\nProduction Volume Amount: 4532871168",
     "id": "rapeseed-fr",
     "source": "Agribalyse 3.1.1"
   },
@@ -5435,7 +5435,7 @@
     "identifier": "AGRIBALU000000003110959",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 3470 kg/haProduction Volume Amount: 15861245952",
+    "comment": "Reference flow: Yield = 3470 kg/ha\nProduction Volume Amount: 15861245952",
     "id": "pistachio-non-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -5469,7 +5469,7 @@
     "identifier": "AGRIBALU000000003110960",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 1000 kg/haProduction Volume Amount: 6338124800",
+    "comment": "Reference flow: Yield = 1000 kg/ha\nProduction Volume Amount: 6338124800",
     "id": "peanut-non-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -6149,7 +6149,7 @@
     "identifier": "AGRIBALU000000003100924",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)India is considered since it is a major banana producer, with 29% of global production.",
+    "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)\nIndia is considered since it is a major banana producer, with 29% of global production.",
     "id": "banana-non-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -6455,7 +6455,7 @@
     "identifier": "AGRIBALU000000003102563",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 56880 kg/haProduction Volume Amount: 508750016",
+    "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "id": "celeriac-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -6659,7 +6659,7 @@
     "identifier": "AGRIBALU000000003109060",
     "category": "ingredient",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "comment": "Reference flow: Yield = 30000 kg/ha table fruit qualityProduction Volume Amount: 2046639488",
+    "comment": "Reference flow: Yield = 30000 kg/ha table fruit quality\nProduction Volume Amount: 2046639488",
     "id": "mandarin-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -6693,7 +6693,7 @@
     "identifier": "AGRIBALU000000003100184",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. This dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. The infrastructure are excluded as well as the mushroom packaging.",
+    "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. \nThis dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. \nThe infrastructure are excluded as well as the mushroom packaging.",
     "id": "mushroom-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -7004,7 +7004,7 @@
     "source": "Agribalyse 3.1.1"
   },
   {
-    "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
+    "name": "Grape, organic, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
     "displayName": "Raisin de cuve FR Conv.",
     "impacts": {
       "acd": 0,
@@ -7026,14 +7026,14 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 40.236846179316856,
-      "pef": 39.922827407839684
+      "ecs": 68.18463773370154,
+      "pef": 75.26967630932535
     },
     "unit": "kilogram",
-    "identifier": "AGRIBALU000000003106864",
+    "identifier": "AGRIBALU000000003106876",
     "category": "ingredient",
     "system_description": "AGRIBALYSE",
-    "comment": "",
+    "comment": "FRANCE",
     "id": "wine-grape-fr",
     "source": "Agribalyse 3.1.1"
   },
@@ -7679,7 +7679,7 @@
     "identifier": "AGRIBALU000000003105051",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Economic allocation for wheat based on FEFAC (2015)Yield, irrigation (no irrigation in Australia), fertilizers (type and amount) and pesticides (total amount) application, diesel consumption and seed consumption based on the PEF Screening report for dry pasta.",
+    "comment": "Economic allocation for wheat based on FEFAC (2015)\nYield, irrigation (no irrigation in Australia), fertilizers (type and amount) and pesticides (total amount) application, diesel consumption and seed consumption based on the PEF Screening report for dry pasta.",
     "id": "durum-wheat-non-eu",
     "source": "Agribalyse 3.1.1"
   },
@@ -9379,7 +9379,7 @@
     "identifier": "AGRIBALU000000003110393",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Feed mixture inventory is built for 1 kg DM, but contains inputs with various DM content, for a total fresh matter above 1 kg.The average DM of this mixture is 0.89, hence transport modelling should add an additional mass of 0.11 kg/kg DM for the water content.Gross energy content is 19.70 MJ/kg DM and crude protein content is 46.4%.Proportions between the oilseeds estimated based on FAOSTAT 2017 data at global level",
+    "comment": "Feed mixture inventory is built for 1 kg DM, but contains inputs with various DM content, for a total fresh matter above 1 kg.\nThe average DM of this mixture is 0.89, hence transport modelling should add an additional mass of 0.11 kg/kg DM for the water content.\nGross energy content is 19.70 MJ/kg DM and crude protein content is 46.4%.\nProportions between the oilseeds estimated based on FAOSTAT 2017 data at global level",
     "id": "oilseed-feed",
     "source": "Agribalyse 3.1.1"
   },
@@ -9515,7 +9515,7 @@
     "identifier": "AGRIBALU000000003105775",
     "category": "ingredient",
     "system_description": "AGRIBALYSE",
-    "comment": "Modification : ITERGIncluded processes: This process includes the refining of crude palm oil, in Europe. Transport of inputs are considered. System boundary is at the oil mill.Remark: Inventory refers to the production of 1 kg refined palm oil, respectively 0,07 kg of Fatty Acids Distallates.   Economic allocation : Economic Allocation between refined palm oil and palm oil fatty acids distillatesPalm oil : 803/T",
+    "comment": "Modification : ITERG\n\nIncluded processes: This process includes the refining of crude palm oil, in Europe. Transport of inputs are considered. System boundary is at the oil mill.\nRemark: Inventory refers to the production of 1 kg refined palm oil, respectively 0,07 kg of Fatty Acids Distallates.   \nEconomic allocation : Economic Allocation between refined palm oil and palm oil fatty acids distillates\nPalm oil : 803/T",
     "id": "refined-palm-oil",
     "source": "Agribalyse 3.1.1"
   },
@@ -9549,7 +9549,7 @@
     "identifier": "AGRIBALU000000003108737",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Dataset of the production of refined linseed oil in France. It includes crushing of linseed grain, representative of French consumption mix, and refining of crude oil. 3,36 kg of linseed are needed for the production of 1kg of refined Linseed oil and Linseed oil cake.Economic allocation is made between oil, cake and refining co-productsPrice for 1 kg Linseed oil = 1,49 /kg ; price for 1 kg Linseed oil cake = 0,286/kg, according to WFLDB economic value. Price for soap stocks and deodorization condensates were approximated from the economic values of rapeseed co-products: 0,2179 /kg Linseed soap stock, 0,2179 /kg Linseed deodorisation condensates.Including consumptions at crushing and refiningData for crushing come from AGRIBALYSE 1.4 datateset  \"Flaxseed crushing, processing/FR U\", from AGRIBALYSE 1.4, based on expert informations. Data from crude Linseed oil refining are based on industrial data for 2013, representative of refining step for linseed oil in France.",
+    "comment": "Dataset of the production of refined linseed oil in France. It includes crushing of linseed grain, representative of French consumption mix, and refining of crude oil. \n3,36 kg of linseed are needed for the production of 1kg of refined Linseed oil and Linseed oil cake.\nEconomic allocation is made between oil, cake and refining co-products\nPrice for 1 kg Linseed oil = 1,49 /kg ; price for 1 kg Linseed oil cake = 0,286/kg, according to WFLDB economic value. Price for soap stocks and deodorization condensates were approximated from the economic values of rapeseed co-products: 0,2179 /kg Linseed soap stock, 0,2179 /kg Linseed deodorisation condensates.\nIncluding consumptions at crushing and refining\nData for crushing come from AGRIBALYSE 1.4 datateset  \"Flaxseed crushing, processing/FR U\", from AGRIBALYSE 1.4, based on expert informations. Data from crude Linseed oil refining are based on industrial data for 2013, representative of refining step for linseed oil in France.",
     "id": "refined-linseed-oil",
     "source": "Agribalyse 3.1.1"
   },
@@ -9583,7 +9583,7 @@
     "identifier": "AGRIBALU000000003106915",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Data are representative of refined grapeseed oil production from dry grapeseed. 7,18kg of dry grapeseed are needed to produce 1kg of refined grapeseed oil and 5,87 of grapeseed oil meal. Data source : Data source : industrial data, representative for crushing and refining of grapeseed oil in France.Economic AllocationEconomic value from AGECO report : 1,71/kg of refined grapeseed oil, 0,212/kg of grapeseed oil meal, 0,21792/kg of grapeseed soap stock, 0,21792/kg of grapeseed deodorization condensateData source : industrial data, representative for grapeseed drying. Reference year : 2014",
+    "comment": "Data are representative of refined grapeseed oil production from dry grapeseed. 7,18kg of dry grapeseed are needed to produce 1kg of refined grapeseed oil and 5,87 of grapeseed oil meal. Data source : Data source : industrial data, representative for crushing and refining of grapeseed oil in France.\nEconomic Allocation\nEconomic value from AGECO report : 1,71/kg of refined grapeseed oil, 0,212/kg of grapeseed oil meal, 0,21792/kg of grapeseed soap stock, 0,21792/kg of grapeseed deodorization condensate\nData source : industrial data, representative for grapeseed drying. Reference year : 2014",
     "id": "refined-grapeseed-oil",
     "source": "Agribalyse 3.1.1"
   },
@@ -9617,7 +9617,7 @@
     "identifier": "AGRIBALU000000003114609",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Data are representative of refined soybean oil production from soybean seeds. 5,4k g of soybean seeds are needed to produce 1 kg of refined soybean oil and 4,24 kg of soybean oil cake. Data source : industrial data, representative for crushing and refining of soybean oil in Europe. Data from FEDIOL, 2013. Life cycle assessment of EU Oilseed Crushing and Vegetable oil refining. Final report 59 pagesEconomic AllocationEconomic value from FEDIOL report : 0,809/kg of refined soybean oil, 0,297/kg of soybean oil meal, 0,6/kg of soybean lecithin, 0,35/kg of soybean soap stockThe consumption mix of soybean oil in France was determined with importation and production data from FAOSTAT (average 2015-2019). The average conusmption mix (2015-2019) was : France, 70%, Spain, 12%, others origins (mainly UE countries)  : 18%. Only French  origin are considered in this datasets, representing 70% of market mix",
+    "comment": "Data are representative of refined soybean oil production from soybean seeds. 5,4k g of soybean seeds are needed to produce 1 kg of refined soybean oil and 4,24 kg of soybean oil cake. \nData source : industrial data, representative for crushing and refining of soybean oil in Europe. Data from FEDIOL, 2013. Life cycle assessment of EU Oilseed Crushing and Vegetable oil refining. Final report 59 pages\nEconomic Allocation\nEconomic value from FEDIOL report : 0,809/kg of refined soybean oil, 0,297/kg of soybean oil meal, 0,6/kg of soybean lecithin, 0,35/kg of soybean soap stock\n\nThe consumption mix of soybean oil in France was determined with importation and production data from FAOSTAT (average 2015-2019). The average conusmption mix (2015-2019) was : France, 70%, Spain, 12%, others origins (mainly UE countries)  : 18%. Only French  origin are considered in this datasets, representing 70% of market mix",
     "id": "refined-soybean-oil",
     "source": "Agribalyse 3.1.1"
   },
@@ -9651,7 +9651,7 @@
     "identifier": "AGRIBALU000000003107299",
     "category": "ingredient",
     "system_description": "AGRIBALYSE",
-    "comment": "Dataset of the production of crude hazelnut oil in France. It includes crushing of unshelled hazelnut kernel, by mechanical cold pressing. 2,5 kg of unshelled hazelnut are needed for the production of 1 kg of crude hazelnut oil and 1,5 of hazelnut oil cake. Economic allocation is made between oil and cakePrice for 1 kg crude Hazelnut  oil = 4  TL/ kg (0,4/kg)  Price for 1 kg Hazelnut oil  cake = 1 TL/kg ( 0,10/kg). Source : Turkish Grain Board (TMO)Data from ITERG, based on cold pressing for rapeseed seeds",
+    "comment": "Dataset of the production of crude hazelnut oil in France. It includes crushing of unshelled hazelnut kernel, by mechanical cold pressing. \n2,5 kg of unshelled hazelnut are needed for the production of 1 kg of crude hazelnut oil and 1,5 of hazelnut oil cake. \n\nEconomic allocation is made between oil and cake\nPrice for 1 kg crude Hazelnut  oil = 4  TL/ kg (0,4/kg) \n Price for 1 kg Hazelnut oil  cake = 1 TL/kg ( 0,10/kg). Source : Turkish Grain Board (TMO)\nData from ITERG, based on cold pressing for rapeseed seeds",
     "id": "virgin-hazelnut-oil",
     "source": "Agribalyse 3.1.1"
   },
@@ -9685,7 +9685,7 @@
     "identifier": "AGRIBALU000000003110968",
     "category": "ingredient",
     "system_description": "",
-    "comment": "Production of 1kg refined peanut oil in SenegalSource : Schmidt, J. H. (2015). Life cycle assessment of five vegetable oilsAllocation is based on the price ratio of cake : oil = 0.10Economic allocation is applied. Price for 1 kg Peanut oil = 0.51 US $/pound; price for 1 kg Peanut oil cake = 0.05 US $/pound.",
+    "comment": "Production of 1kg refined peanut oil in Senegal\nSource : Schmidt, J. H. (2015). Life cycle assessment of five vegetable oils\nAllocation is based on the price ratio of cake : oil = 0.10\nEconomic allocation is applied. Price for 1 kg Peanut oil = 0.51 US $/pound; price for 1 kg Peanut oil cake = 0.05 US $/pound.",
     "id": "refined-peanut-oil",
     "source": "Agribalyse 3.1.1"
   },
@@ -9719,7 +9719,7 @@
     "identifier": "AGRIBALU000000003115161",
     "category": "ingredient",
     "system_description": "",
-    "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.Economic AllocationEconomic value from AGECO report : 0,9517/kg of refined sunflower oil",
+    "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9517/kg of refined sunflower oil",
     "id": "refined-sunflower-oil",
     "source": "Agribalyse 3.1.1"
   },
@@ -9753,7 +9753,7 @@
     "identifier": "AGRIBALU000000003112440",
     "category": "ingredient",
     "system_description": "",
-    "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.Economic AllocationEconomic value from AGECO report : 0,9192/kg of refined rapeseed oil",
+    "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9192/kg of refined rapeseed oil",
     "id": "refined-rapeseed-oil",
     "source": "Agribalyse 3.1.1"
   },
@@ -9787,13 +9787,13 @@
     "identifier": "AGRIBALU000000003105717",
     "category": "ingredient",
     "system_description": "",
-    "comment": "This dataset represents the virgin oil extraction in Spain from olive produced in Spain. Included processes: This process includes the production of olive in Spain, cleaning and rinsing of harvest olives and Extra Virgin Olive Oil extraction from two phases process. Remark : Inventory refers to the production of 1kg of Extra Virgin Olive Oil and 4,46 kg of pomace from 5,83 kg of harvest olives. System boundary is at Spain mill. Electricity, water consumption and extraction Yield_ are based on default value proposed by PEFCR for Olive rules (3rd Draft, 2016). Economic Allocation is applied between Extra Virgin Olive Oil and pomace, based on price proposed in PEFCR : Extra Virgin Olive Oil : 1,88/kg and Pomace : 0,01/kgGeography: Extra Virgin Olive Oil production in SpainTechnology: Extra Virgin Olive Oil extraction two phases, representative of extraction process in Spain. Time period: Data from PEFCR Olive Oil, 2016,",
+    "comment": "This dataset represents the virgin oil extraction in Spain from olive produced in Spain. \n\nIncluded processes: This process includes the production of olive in Spain, cleaning and rinsing of harvest olives and Extra Virgin Olive Oil extraction from two phases process. \nRemark : Inventory refers to the production of 1kg of Extra Virgin Olive Oil and 4,46 kg of pomace from 5,83 kg of harvest olives. System boundary is at Spain mill. Electricity, water consumption and extraction Yield_ are based on default value proposed by PEFCR for Olive rules (3rd Draft, 2016). \nEconomic Allocation is applied between Extra Virgin Olive Oil and pomace, based on price proposed in PEFCR : Extra Virgin Olive Oil : 1,88/kg and Pomace : 0,01/kg\nGeography: Extra Virgin Olive Oil production in Spain\nTechnology: Extra Virgin Olive Oil extraction two phases, representative of extraction process in Spain. \nTime period: Data from PEFCR Olive Oil, 2016,",
     "id": "extra-virgin-olive-oil",
     "source": "Agribalyse 3.1.1"
   },
   {
-    "name": "Fresh tomato, consumption mix, organic 2023 {FR} U [fr-only], constructed by Ecobalyse",
-    "displayName": "Tomate FR bio",
+    "name": "Fresh cream cheese, plain, creamy, around 8% fat, at plant {FR} U",
+    "displayName": "Crème fraiche FR Conv.",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9814,20 +9814,20 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 22.25332526144074,
-      "pef": 25.008522064630935
+      "ecs": 216.74496581528857,
+      "pef": 178.17749595620128
     },
     "unit": "kilogram",
-    "identifier": "089876c63c20d9e2741fb9ae874e9039",
+    "identifier": "AGRIBALU000000003106208",
     "category": "ingredient",
-    "system_description": "Ecobalyse",
-    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "id": "tomato-organic-fr",
-    "source": "Ecobalyse"
+    "system_description": "AGRIBALYSE",
+    "comment": "This process describes the production of Fresh cream cheese, plain, creamy, around 8% fat in France.\nIncluded activities are : production in country of origin and transport",
+    "id": "fresh-cream-cheese",
+    "source": "Agribalyse 3.1.1"
   },
   {
-    "name": "Fresh tomato, consumption mix, organic 2023 {FR} U [es-only], constructed by Ecobalyse",
-    "displayName": "Tomate UE bio",
+    "name": "Onions, dried, consumption mix {FR} U",
+    "displayName": "Oignons déshydratés Hors UE Conv.",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9848,15 +9848,185 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 68.67069809800357,
-      "pef": 80.82939387679832
+      "ecs": 631.3772011936228,
+      "pef": 686.1046949964716
     },
     "unit": "kilogram",
-    "identifier": "553e50143c594dbdf543a6d0723e9a2b",
+    "identifier": "AGRIBALU000000003110475",
     "category": "ingredient",
-    "system_description": "Ecobalyse",
-    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "id": "tomato-organic-es",
-    "source": "Ecobalyse"
+    "system_description": "AGRIBALYSE",
+    "comment": "This process describes the average consumption mix of dried Onions in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
+    "id": "onion-dried-hors-ue",
+    "source": "Agribalyse 3.1.1"
+  },
+  {
+    "name": "Chicken egg, raw, without shell, at plant {FR} U",
+    "displayName": "Oeuf cru décoquillé FR Conv.",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 593.6027482016807,
+      "pef": 429.48383867791114
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003103004",
+    "category": "ingredient",
+    "system_description": "AGRIBALYSE",
+    "comment": "",
+    "id": "egg-without-shell-fr",
+    "source": "Agribalyse 3.1.1"
+  },
+  {
+    "name": "Egg yolk, powder, at plant {FR} U",
+    "displayName": "poudre de jaune d'oeuf FR Conv.",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 672.2074141794261,
+      "pef": 503.3278638031698
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003105140",
+    "category": "ingredient",
+    "system_description": "AGRIBALYSE",
+    "comment": "",
+    "id": "egg-yolk-powder-fr",
+    "source": "Agribalyse 3.1.1"
+  },
+  {
+    "name": "Egg white, powder, at plant {FR} U",
+    "displayName": "poudre de blanc d'oeuf FR Conv.",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 672.2964545916599,
+      "pef": 503.3922863789764
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003105126",
+    "category": "ingredient",
+    "system_description": "AGRIBALYSE",
+    "comment": "",
+    "id": "egg-white-powder-fr",
+    "source": "Agribalyse 3.1.1"
+  },
+  {
+    "name": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
+    "displayName": "Emmental rapé FR Conv.",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 654.3724238653224,
+      "pef": 523.8711839742018
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003105535",
+    "category": "ingredient",
+    "system_description": "AGRIBALYSE",
+    "comment": "(3,3,2,1,2),",
+    "id": "emmental-grated-fr",
+    "source": "Agribalyse 3.1.1"
+  },
+  {
+    "name": "Cocoa powder, at plant {FR} U",
+    "displayName": "Poudre de cacao Hors UE Conv.",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 1235.6680735506416,
+      "pef": 1228.2995950409074
+    },
+    "unit": "kilogram",
+    "identifier": "AGRIBALU000000003103498",
+    "category": "ingredient",
+    "system_description": "AGRIBALYSE",
+    "comment": "",
+    "id": "cocoa-powder-non-ue",
+    "source": "Agribalyse 3.1.1"
   }
 ]
