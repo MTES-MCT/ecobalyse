@@ -195,13 +195,17 @@ def lookup_cf(loaded_method, element):
         return "Multiple CFs : " + " | ".join([str(cf[1]) for cf in cfs])
 
 
+def strepl(s):
+    return str(s).replace("\n", "<br/>")
+
+
 def dict2html(d):
     """Display a dict in HTML"""
     return (
         "<ul>"
         + "".join(
             [
-                f"<li><b>{k}</b>: {dict2html(v) if isinstance(v, dict) else list2html(v) if isinstance(v, (list, tuple)) else str(v)}</li>"
+                f"<li><b>{k}</b>: {dict2html(v) if isinstance(v, dict) else list2html(v) if isinstance(v, (list, tuple)) else strepl(v)}</li>"
                 for k, v in d.items()
             ]
         )
@@ -215,7 +219,7 @@ def list2html(lst):
         "<ul>"
         + "".join(
             [
-                f"<li><b>{list2html(i) if isinstance(i, (list,tuple)) else dict2html(i) if isinstance(i, dict) else str(i)}</b></li>"
+                f"<li><b>{list2html(i) if isinstance(i, (list,tuple)) else dict2html(i) if isinstance(i, dict) else strepl(i)}</b></li>"
                 for i in lst
             ]
         )
