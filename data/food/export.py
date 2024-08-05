@@ -64,9 +64,6 @@ CONFIG = {
 with open(CONFIG["IMPACTS_FILE"]) as f:
     IMPACTS_DEF_ECOBALYSE = json.load(f)
 
-with open(CONFIG["IMPACTS_FILE"]) as f:
-    IMPACTS = json.load(f)
-
 
 def setup_environment():
     projects.set_current(CONFIG["PROJECT"])
