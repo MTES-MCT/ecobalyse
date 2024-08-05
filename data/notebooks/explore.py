@@ -453,6 +453,16 @@ def display_main_data(method, impact_category, activity):
             "Unité": scores["Human toxicity, non-cancer"]["Unité"],
         }
         # PEF
+        pef = sum(
+            scores[IMPACTS[trigram]["label_en"]]["Amount"]
+            / IMPACTS[trigram].get("pef", {}).get("normalization", 1)
+            * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
+            for trigram in [
+                t
+                for t in IMPACTS.keys()
+                if t not in ("ecs", "pef", "htn-c", "etf-c", "htc-c")
+            ]
+        )
         for trigram in [
             t
             for t in IMPACTS.keys()
@@ -464,16 +474,9 @@ def display_main_data(method, impact_category, activity):
                 * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
                 * 1e6
             )
-        pef = sum(
-            scores[IMPACTS[trigram]["label_en"]]["Amount"]
-            / IMPACTS[trigram].get("pef", {}).get("normalization", 1)
-            * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
-            for trigram in [
-                t
-                for t in IMPACTS.keys()
-                if t not in ("ecs", "pef", "htn-c", "etf-c", "htc-c")
-            ]
-        )
+            scores[IMPACTS[trigram]["label_en"]]["% / PEF"] = (
+                scores[IMPACTS[trigram]["label_en"]]["Score"] / (pef * 1e6) * 100
+            )
         ecs = sum(
             scores[IMPACTS[trigram]["label_en"]]["Amount"]
             / IMPACTS[trigram].get("ecoscore", {}).get("normalization", 1)
