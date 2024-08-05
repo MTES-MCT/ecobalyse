@@ -462,6 +462,7 @@ def display_main_data(method, impact_category, activity):
                 scores[IMPACTS[trigram]["label_en"]]["Amount"]
                 / IMPACTS[trigram].get("pef", {}).get("normalization", 1)
                 * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
+                * 1e6
             )
         pef = sum(
             scores[IMPACTS[trigram]["label_en"]]["Amount"]
