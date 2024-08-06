@@ -6,8 +6,6 @@ module Data.Textile.Economics exposing
     , businessToLabel
     , businessToString
     , computeDurabilityIndex
-    , computeMarketingDurationIndex
-    , computeMaterialsOriginIndex
     , computeNumberOfReferencesIndex
     , computeRepairCostIndex
     , decode
@@ -15,20 +13,15 @@ module Data.Textile.Economics exposing
     , decodePrice
     , encodeBusiness
     , encodePrice
-    , maxMarketingDuration
     , maxNumberOfReferences
     , maxPrice
-    , minMarketingDuration
     , minNumberOfReferences
     , minPrice
     , priceFromFloat
     , priceToFloat
     )
 
-import Data.Split as Split
-import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
-import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -37,7 +30,6 @@ import Json.Encode as Encode
 
 type alias Economics =
     { business : Business
-    , marketingDuration : Duration
     , numberOfReferences : Int
     , price : Price
     , repairCost : Price
@@ -55,9 +47,9 @@ type Price
 type Business
     = -- PME/TPE
       SmallBusiness
-      -- Grande entreprise proposant un service de réparation et de garantie
+      -- Grande entreprise avec service de réparation
     | LargeBusinessWithServices
-      -- Grande entreprise ne proposant pas de service de réparation ou de garantie
+      -- Grande entreprise sans service de réparation
     | LargeBusinessWithoutServices
 
 
@@ -74,7 +66,7 @@ businessFromString string =
             Ok LargeBusinessWithoutServices
 
         _ ->
-            Err <| "Type d'entreprise inconnu: " ++ string
+            Err <| "Type d'entreprise inconnu : " ++ string
 
 
 businessToLabel : Business -> String
@@ -84,10 +76,10 @@ businessToLabel business =
             "PME/TPE"
 
         LargeBusinessWithServices ->
-            "Grande entreprise proposant un service de réparation et de garantie"
+            "Grande entreprise avec service de réparation"
 
         LargeBusinessWithoutServices ->
-            "Grande entreprise ne proposant pas de service de réparation ou de garantie"
+            "Grande entreprise sans service de réparation"
 
 
 businessToString : Business -> String
@@ -103,8 +95,8 @@ businessToString business =
             "large-business-without-services"
 
 
-computeDurabilityIndex : Origin.Shares -> Economics -> Unit.Durability
-computeDurabilityIndex materialsOriginShares economics =
+computeDurabilityIndex : Economics -> Unit.Durability
+computeDurabilityIndex economics =
     let
         ( minDurability, maxDurability ) =
             ( Unit.durabilityToFloat Unit.minDurability
@@ -112,11 +104,9 @@ computeDurabilityIndex materialsOriginShares economics =
             )
 
         finalIndex =
-            [ ( 0.15, computeMaterialsOriginIndex materialsOriginShares |> Tuple.first )
-            , ( 0.2, computeMarketingDurationIndex economics.marketingDuration )
-            , ( 0.2, computeNumberOfReferencesIndex economics.numberOfReferences )
-            , ( 0.3, computeRepairCostIndex economics.business economics.price economics.repairCost )
-            , ( 0.15, computeTraceabilityIndex economics.traceability )
+            [ ( 0.4, computeNumberOfReferencesIndex economics.numberOfReferences )
+            , ( 0.4, computeRepairCostIndex economics.business economics.price economics.repairCost )
+            , ( 0.2, computeTraceabilityIndex economics.traceability )
             ]
                 |> List.map (\( weighting, index ) -> weighting * Unit.ratioToFloat index)
                 |> List.sum
@@ -132,44 +122,11 @@ computeDurabilityIndex materialsOriginShares economics =
         |> Unit.durability
 
 
-computeMarketingDurationIndex : Duration -> Unit.Ratio
-computeMarketingDurationIndex marketingDuration =
-    let
-        ( highThreshold, lowThreshold ) =
-            ( 180, 60 )
-
-        marketingDurationDays =
-            Duration.inDays marketingDuration
-    in
-    Unit.ratio <|
-        if marketingDurationDays > highThreshold then
-            1
-
-        else if marketingDurationDays < lowThreshold then
-            0
-
-        else
-            (marketingDurationDays - lowThreshold) / (highThreshold - lowThreshold)
-
-
-computeMaterialsOriginIndex : Origin.Shares -> ( Unit.Ratio, String )
-computeMaterialsOriginIndex { naturalFromAnimal, naturalFromVegetal } =
-    if Split.toPercent naturalFromAnimal + Split.toPercent naturalFromVegetal > 90 then
-        if Split.toPercent naturalFromAnimal > 90 then
-            ( Unit.ratio 1, "Matières naturelles d'origine animale" )
-
-        else
-            ( Unit.ratio 0.5, "Matières naturelles" )
-
-    else
-        ( Unit.ratio 0, "Autres matières" )
-
-
 computeRepairCostIndex : Business -> Price -> Price -> Unit.Ratio
 computeRepairCostIndex business price repairCost =
     let
         ( highThreshold, lowThreshold ) =
-            ( 0.33, 0.5 )
+            ( 0.33, 1 )
 
         repairCostRatio =
             priceToFloat repairCost / priceToFloat price
@@ -182,7 +139,8 @@ computeRepairCostIndex business price repairCost =
                 0
 
             else
-                (lowThreshold - repairCostRatio) / (lowThreshold - highThreshold)
+                (priceToFloat price - priceToFloat repairCost / lowThreshold)
+                    / (priceToFloat repairCost / highThreshold - priceToFloat repairCost / lowThreshold)
     in
     Unit.ratio <|
         case business of
@@ -203,25 +161,25 @@ computeNumberOfReferencesIndex n =
             (low - toFloat n) / (low - high)
     in
     Unit.ratio <|
-        if n > 12000 then
-            -- Over 12000: 0%
-            0
+        if n <= 3000 then
+            -- From 0 to 3000: 100%
+            1
 
-        else if n > 9000 then
-            -- From 9000 to 12000: decreasing from 25% to 0%
-            fromThreshold 9000 12000 * 0.25
-
-        else if n > 6000 then
-            -- From 6000 to 9000: decreasing from 80% to 25%
-            0.25 + (fromThreshold 6000 9000 * (0.8 - 0.25))
-
-        else if n > 3000 then
+        else if n <= 6000 then
             -- From 3000 to 6000: decreasing from 100% to 80%
             0.8 + (fromThreshold 3000 6000 * 0.2)
 
+        else if n <= 10000 then
+            -- From 6000 to 10000: decreasing from 80% to 50%
+            0.5 + (fromThreshold 6000 10000 * (0.8 - 0.5))
+
+        else if n <= 50000 then
+            -- From 10000 to 50000: decreasing from 50% to 0%
+            fromThreshold 10000 50000 * 0.5
+
         else
-            -- From 0 to 3000: 100%
-            1
+            -- Over 50000: 0%
+            0
 
 
 computeTraceabilityIndex : Bool -> Unit.Ratio
@@ -239,7 +197,6 @@ decode : Decoder Economics
 decode =
     Decode.succeed Economics
         |> Pipe.required "business" decodeBusiness
-        |> Pipe.required "marketingDuration" (Decode.map Duration.days Decode.float)
         |> Pipe.required "numberOfReferences" Decode.int
         |> Pipe.required "price" decodePrice
         |> Pipe.required "repairCost" decodePrice
@@ -267,11 +224,6 @@ encodePrice =
     priceToFloat >> Encode.float
 
 
-minMarketingDuration : Duration
-minMarketingDuration =
-    Duration.day
-
-
 minNumberOfReferences : Int
 minNumberOfReferences =
     1
@@ -280,11 +232,6 @@ minNumberOfReferences =
 minPrice : Price
 minPrice =
     Price 1
-
-
-maxMarketingDuration : Duration
-maxMarketingDuration =
-    Duration.days 999
 
 
 maxNumberOfReferences : Int

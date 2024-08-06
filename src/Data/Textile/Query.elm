@@ -35,7 +35,6 @@ import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
-import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -72,7 +71,6 @@ type alias Query =
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
     , business : Maybe Economics.Business
-    , marketingDuration : Maybe Duration
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
     , traceability : Maybe Bool
@@ -128,7 +126,6 @@ decode =
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
         |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
         |> Pipe.optional "business" (Decode.maybe Economics.decodeBusiness) Nothing
-        |> Pipe.optional "marketingDuration" (Decode.maybe (Decode.map Duration.days Decode.float)) Nothing
         |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
         |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
         |> Pipe.optional "traceability" (Decode.maybe Decode.bool) Nothing
@@ -171,7 +168,6 @@ encode query =
     , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode )
     , ( "printing", query.printing |> Maybe.map Printing.encode )
     , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
-    , ( "marketingDuration", query.marketingDuration |> Maybe.map (Duration.inDays >> Encode.float) )
     , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
     , ( "price", query.price |> Maybe.map Economics.encodePrice )
     , ( "traceability", query.traceability |> Maybe.map Encode.bool )
@@ -416,7 +412,6 @@ default =
     , dyeingMedium = Nothing
     , printing = Nothing
     , business = Nothing
-    , marketingDuration = Nothing
     , numberOfReferences = Nothing
     , price = Nothing
     , traceability = Nothing

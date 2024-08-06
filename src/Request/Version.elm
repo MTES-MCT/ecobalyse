@@ -56,7 +56,7 @@ versionDataDecoder =
 
 loadVersion : (WebData VersionData -> msg) -> Cmd msg
 loadVersion event =
-    Http.get "/version.json" event versionDataDecoder
+    Http.get "version.json" event versionDataDecoder
 
 
 pollVersion : msg -> Sub msg
