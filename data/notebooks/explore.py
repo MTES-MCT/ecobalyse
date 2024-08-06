@@ -474,7 +474,7 @@ def display_main_data(method, impact_category, activity):
                 * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
                 * 1e6
             )
-            scores[IMPACTS[trigram]["label_en"]]["% / PEF"] = (
+            scores[IMPACTS[trigram]["label_en"]]["%/PEF"] = (
                 scores[IMPACTS[trigram]["label_en"]]["Score"] / (pef * 1e6) * 100
             )
         ecs = sum(
@@ -509,7 +509,13 @@ def display_main_data(method, impact_category, activity):
 
     dfimpacts = pandas.io.formats.style.Styler(pandas.DataFrame(list(scores.values())))
     dfimpacts.set_properties(**{"background-color": "#EEE"})
-    dfimpacts.format(formatter={"Amount": "{:.4g}".format, "Score": "{:.4g}".format})
+    dfimpacts.format(
+        formatter={
+            "Amount": "{:.4g}".format,
+            "Score": "{:.4g}".format,
+            "%/PEF": "{:.1f}",
+        }
+    )
 
     # PRODUCTION
     production = "".join(
