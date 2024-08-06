@@ -44,6 +44,15 @@ IMPACTS = {}
 with open("/home/jovyan/ecobalyse/public/data/impacts.json") as f:
     IMPACTS = json.load(f)
 
+
+# IMPACTS["etf-o"] = {"label_en": "Ecotoxicity, freshwater - organics"}
+# IMPACTS["etf-i"] = {"label_en": "Ecotoxicity, freshwater - inorganics"}
+# IMPACTS["htn-o"] = {"label_en": "Human toxicity, non-cancer - organics"}
+# IMPACTS["htn-i"] = {"label_en": "Human toxicity, non-cancer - inorganics"}
+# IMPACTS["htc-o"] = {"label_en": "Human toxicity, cancer - organics"}
+# IMPACTS["htc-i"] = {"label_en": "Human toxicity, cancer - inorganics"}
+
+
 # widgets
 w_panel = ipywidgets.HTML(value=STATSTYLE)
 w_project = ipywidgets.Dropdown(
@@ -195,13 +204,17 @@ def lookup_cf(loaded_method, element):
         return "Multiple CFs : " + " | ".join([str(cf[1]) for cf in cfs])
 
 
+def strepl(s):
+    return str(s).replace("\n", "<br/>")
+
+
 def dict2html(d):
     """Display a dict in HTML"""
     return (
         "<ul>"
         + "".join(
             [
-                f"<li><b>{k}</b>: {dict2html(v) if isinstance(v, dict) else list2html(v) if isinstance(v, (list, tuple)) else str(v)}</li>"
+                f"<li><b>{k}</b>: {dict2html(v) if isinstance(v, dict) else list2html(v) if isinstance(v, (list, tuple)) else strepl(v)}</li>"
                 for k, v in d.items()
             ]
         )
@@ -215,7 +228,7 @@ def list2html(lst):
         "<ul>"
         + "".join(
             [
-                f"<li><b>{list2html(i) if isinstance(i, (list,tuple)) else dict2html(i) if isinstance(i, dict) else str(i)}</b></li>"
+                f"<li><b>{list2html(i) if isinstance(i, (list,tuple)) else dict2html(i) if isinstance(i, dict) else strepl(i)}</b></li>"
                 for i in lst
             ]
         )
@@ -395,7 +408,7 @@ def display_main_data(method, impact_category, activity):
             name = ", ".join(m[1:])
             scores[name] = {
                 "Indicateur": name,
-                "Score": lca.score,
+                "Amount": lca.score,
                 "Unité": bw2data.methods[m].get("unit", "(no unit)"),
             }
     except Exception as e:
@@ -403,12 +416,77 @@ def display_main_data(method, impact_category, activity):
             "Could not compute impact. Maybe you selected the biosphere?<br/>" + str(e)
         )
     if scores and method == EF31:
+        scores["Ecotoxicity, freshwater - organics"] = {
+            "Indicateur": "Ecotoxicity, freshwater",
+            "Amount": scores["Ecotoxicity, freshwater - organics - p.1"]["Amount"]
+            + scores["Ecotoxicity, freshwater - organics - p.2"]["Amount"],
+            "Unité": scores["Ecotoxicity, freshwater - organics - p.1"]["Unité"],
+        }
         scores["Ecotoxicity, freshwater"] = {
             "Indicateur": "Ecotoxicity, freshwater",
-            "Score": scores["Ecotoxicity, freshwater - part 1"]["Score"]
-            + scores["Ecotoxicity, freshwater - part 2"]["Score"],
+            "Amount": scores["Ecotoxicity, freshwater - part 1"]["Amount"]
+            + scores["Ecotoxicity, freshwater - part 2"]["Amount"],
             "Unité": scores["Ecotoxicity, freshwater - part 1"]["Unité"],
         }
+        scores["Ecotoxicity, freshwater, corrected"] = {
+            "Indicateur": "Ecotoxicity, freshwater, corrected",
+            "Amount": IMPACTS["etf-c"]["correction"][0]["weighting"]
+            * scores["Ecotoxicity, freshwater - organics"]["Amount"]
+            + IMPACTS["etf-c"]["correction"][1]["weighting"]
+            * scores["Ecotoxicity, freshwater - inorganics"]["Amount"],
+            "Unité": scores["Ecotoxicity, freshwater"]["Unité"],
+        }
+        scores["Human toxicity, cancer, corrected"] = {
+            "Indicateur": "Human toxicity, cancer, corrected",
+            "Amount": IMPACTS["htc-c"]["correction"][0]["weighting"]
+            * scores["Human toxicity, cancer - organics"]["Amount"]
+            + IMPACTS["htc-c"]["correction"][1]["weighting"]
+            * scores["Human toxicity, cancer - inorganics"]["Amount"],
+            "Unité": scores["Human toxicity, cancer"]["Unité"],
+        }
+        scores["Human toxicity, non-cancer, corrected"] = {
+            "Indicateur": "Human toxicity, non-cancer, corrected",
+            "Amount": IMPACTS["htn-c"]["correction"][0]["weighting"]
+            * scores["Human toxicity, non-cancer - organics"]["Amount"]
+            + IMPACTS["htn-c"]["correction"][1]["weighting"]
+            * scores["Human toxicity, non-cancer - inorganics"]["Amount"],
+            "Unité": scores["Human toxicity, non-cancer"]["Unité"],
+        }
+        # PEF
+        pef = sum(
+            scores[IMPACTS[trigram]["label_en"]]["Amount"]
+            / IMPACTS[trigram].get("pef", {}).get("normalization", 1)
+            * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
+            for trigram in [
+                t
+                for t in IMPACTS.keys()
+                if t not in ("ecs", "pef", "htn-c", "etf-c", "htc-c")
+            ]
+        )
+        for trigram in [
+            t
+            for t in IMPACTS.keys()
+            if t not in ("ecs", "pef", "htn-c", "etf-c", "htc-c")
+        ]:
+            scores[IMPACTS[trigram]["label_en"]]["Score"] = (
+                scores[IMPACTS[trigram]["label_en"]]["Amount"]
+                / IMPACTS[trigram].get("pef", {}).get("normalization", 1)
+                * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
+                * 1e6
+            )
+            scores[IMPACTS[trigram]["label_en"]]["%/PEF"] = (
+                scores[IMPACTS[trigram]["label_en"]]["Score"] / (pef * 1e6) * 100
+            )
+        ecs = sum(
+            scores[IMPACTS[trigram]["label_en"]]["Amount"]
+            / IMPACTS[trigram].get("ecoscore", {}).get("normalization", 1)
+            * IMPACTS[trigram].get("ecoscore", {}).get("weighting", 0)
+            for trigram in [
+                t
+                for t in IMPACTS.keys()
+                if t not in ("ecs", "pef", "htn", "etf", "htc")
+            ]
+        )
         # cleanup to keep 16 subimpacts
         for subscore in [
             "Ecotoxicity, freshwater - part 1",
@@ -426,23 +504,18 @@ def display_main_data(method, impact_category, activity):
         ]:
             if subscore in scores:
                 del scores[subscore]
-        # PEF
-        pef = sum(
-            scores[IMPACTS[trigram]["label_en"]]["Score"]
-            / IMPACTS[trigram]["pef"]["normalization"]
-            * IMPACTS[trigram]["pef"]["weighting"]
-            for trigram in [
-                t
-                for t in IMPACTS.keys()
-                if t not in ("ecs", "pef", "htn-c", "etf-c", "htc-c")
-            ]
-        )
     else:
-        pef = None
+        pef = ecs = None
 
     dfimpacts = pandas.io.formats.style.Styler(pandas.DataFrame(list(scores.values())))
     dfimpacts.set_properties(**{"background-color": "#EEE"})
-    dfimpacts.format(formatter={"Score": "{:.4g}".format})
+    dfimpacts.format(
+        formatter={
+            "Amount": "{:.4g}".format,
+            "Score": "{:.4g}".format,
+            "%/PEF": "{:.1f}",
+        }
+    )
 
     # PRODUCTION
     production = "".join(
@@ -643,6 +716,9 @@ def display_main_data(method, impact_category, activity):
                     [
                         ipywidgets.HTML(
                             f"<h2>µPt PEF: {1e6 * pef:10.2f}</h2>" if pef else ""
+                        ),
+                        ipywidgets.HTML(
+                            f"<h2>Ecoscore: {1e6 * ecs:10.2f}</h2>" if ecs else ""
                         ),
                         ipywidgets.HTML(impacts_error),
                         ipywidgets.HTML(dfimpacts.to_html()),

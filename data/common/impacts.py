@@ -89,14 +89,12 @@ impacts = {
 
 def bytrigram(definitions, bynames):
     """takes the definitions above and some impacts by name, return the impacts by trigram"""
-    if not isinstance(bynames, dict):
-        print(bynames)
-    names2trigrams = {method[1]: trigram for trigram, method in definitions.items()}
+    trigramsByName = {method[1]: trigram for trigram, method in definitions.items()}
     try:
         return {
-            names2trigrams.get(name): amount["amount"]
+            trigramsByName.get(name): amount["amount"]
             for name, amount in bynames.items()
-            if names2trigrams.get(name)
+            if trigramsByName.get(name)
         }
     except Exception as e:
         return str(e)
