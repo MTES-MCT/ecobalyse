@@ -1,5 +1,7 @@
 ---
-description: 'A noter : Cette page ne concerne pas les produits de la pisciculture'
+description: >-
+  A noter : Cette page ne concerne pas les produits de la pisciculture (saumon
+  notamment)
 ---
 
 # 🐟 Cas particulier des produits issu de la pêche
