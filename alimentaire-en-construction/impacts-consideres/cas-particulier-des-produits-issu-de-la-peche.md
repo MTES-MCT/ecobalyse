@@ -4,7 +4,7 @@ description: 'À noter : Cette page ne concerne pas les produits de la piscicult
 
 # 🐟 Cas particulier des produits issu de la pêche
 
-Nous avons aujourd'hui dans Agribalyse des ICV sur une vingtaine de [produits de la mer](https://doc.agribalyse.fr/documentation/les-donnees/documentation-complete#id-4.-les-rapports-methodologiques-thematiques-relatifs-a-lamelioration-des-indicateurs), reflétant l'impact sur les 16 indicateurs EF de ces produits. Ceci permet de couvrir en particulier les impacts liés à la consommation de carburant pour la pêche, qui peut être élevée.
+Nous avons aujourd'hui dans Agribalyse des ICV pour une vingtaine de [produits de la mer](https://doc.agribalyse.fr/documentation/les-donnees/documentation-complete#id-4.-les-rapports-methodologiques-thematiques-relatifs-a-lamelioration-des-indicateurs), reflétant l'impact sur les 16 indicateurs EF de ces produits. Ceci permet de couvrir en particulier les impacts liés à la consommation de carburant pour la pêche, qui peut être élevée.
 
 Les produits de la mer portent cependant des enjeux spécifiques en termes de biodiversité. Les pressions sur la biodiversité marine liées aux pratiques de pêche sont importantes et variées, les 3 principales étant :
 
