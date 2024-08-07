@@ -1,4 +1,8 @@
-# 🐟 Cas particulier des produits de la mer
+---
+description: 'A noter : Cette page ne concerne pas les produits de la pisciculture'
+---
+
+# 🐟 Cas particulier des produits issu de la pêche
 
 Nous avons aujourd'hui dans Agribalyse des ICV sur une vingtaine de [produits de la mer](https://doc.agribalyse.fr/documentation/les-donnees/documentation-complete#id-3.-les-rapports-methodologiques-specifiques-a-differents-produits-ou-etapes-du-cycle-de-vie); reflétant l'impact sur les 16 indicateurs EF de ces produits. Ceci permet de couvrir en particulier les impacts liés à la consommation de carburant pour la pêche, qui peut être élevée.&#x20;
 

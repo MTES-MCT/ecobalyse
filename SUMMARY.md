@@ -50,7 +50,7 @@
 * [Cycle de vie des produits alimentaires](alimentaire-en-construction/impacts-consideres/README.md)
   * [📖 La base Agribalyse](alimentaire-en-construction/impacts-consideres/impacts-consideres.md)
   * [🍒 Ingrédients agricoles - inventaires mobilisés (impacts ACV)](alimentaire-en-construction/impacts-consideres/impacts-consideres-1.md)
-  * [🐟 Cas particulier des produits de la mer](alimentaire-en-construction/impacts-consideres/cas-particulier-des-produits-de-la-mer.md)
+  * [🐟 Cas particulier des produits issu de la pêche](alimentaire-en-construction/impacts-consideres/cas-particulier-des-produits-issu-de-la-peche.md)
   * [🐄 Ingrédients - cas des inventaires complexes construits par Ecobalyse](alimentaire-en-construction/impacts-consideres/boeuf-hache.md)
   * [🚣‍♀️ Densité (draft)](alimentaire-en-construction/impacts-consideres/densite.md)
   * [🍚 Rapport cru/cuit (draft)](alimentaire-en-construction/impacts-consideres/rapport-cru-cuit.md)
