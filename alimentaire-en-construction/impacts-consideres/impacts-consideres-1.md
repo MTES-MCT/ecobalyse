@@ -1,17 +1,17 @@
 ---
 description: >-
-  Cette partie traite des opérations "au champ" (fertilisation, irrigation,
-  phytosanitaires etc.) mais n'inclue pas le transport. Elle couvre les
-  productions conventionnelles et sous label.
+  Cette partie traite des opérations "au champ" (fertilisation, labour etc.) et
+  s'arrête à la sortie de la ferme. Elle couvre les productions conventionnelles
+  et sous label.
 ---
 
 # 🍒 Ingrédients agricoles - inventaires mobilisés (impacts ACV)
 
-Les impacts des ingrédients sont majoritairement issus de la base Agribalyse, qui a construit en propre des ICV pour les productions françaises ; et s’appuie sur ecoinvent et WFLDB pour les produits importés. Malgré la richesse de ces bases, elles sont loin de couvrir l’ensemble des pays de productions et des modes de production. Aussi une logique d’appariement et de proxy doit être mise en œuvre.
+Les impacts de la production des ingrédients agricoles sont issus de la base Agribalyse pour les productions françaises et des bases ecoinvent et WFLDB pour les produits importés. Malgré la richesse de ces bases, elles sont loin de couvrir l’ensemble des pays de productions et des modes de production. Aussi une logique d'approximation par l'utilisation de proxy doit être mise en œuvre.
 
-S’il est bien sûr souhaitable d’enrichir les bases de données à l’avenir, il est déjà possible de travailler de manière satisfaisante dans la majorité des situations. En effet, le critère géographique n’est pas forcément très discriminant pour l’étape agricole :  ex : une tomate produite dans le sud de la France ne diffère pas fortement d’une tomate produite dans le nord de l’Espagne ou de l’Italie.
+S’il est bien sûr souhaitable d’enrichir les bases de données à l’avenir, il est déjà possible de travailler de manière satisfaisante dans la majorité des situations. En effet, le critère géographique n’est pas forcément très discriminant pour l’étape agricole :  par exemple une tomate produite dans le sud de la France ne diffère pas fortement d’une tomate produite dans le nord de l’Espagne ou de l’Italie.
 
-Les ingrédients sont définis selon l’arborescence suivante, permettant à l’utilisateur de faire un choix claire :
+Les ingrédients sont définis selon l’arborescence suivante, permettant à l’utilisateur de faire un choix clair :
 
 \-          Production conventionnelle FR,
 
@@ -27,7 +27,7 @@ _Ex : "Pomme FR Conv" fait appel à l'ICV "Apple, conventional, national average
 
 _Dans les cas ou il n'y a pas d'inventaire francais disponible (ex : amande), le principal pays d'import est utilisé comme proxy pour la production francaise (amande US, at farm)_
 
-* **Pour les productions européennes**, nous sommes repartis des « mix de consommation » français construits pour Agribalyse ; et qui reflètent les principaux produits importés. Au sein de ces « mixes de consommation » ; nous avons considéré une approche « raisonnablement conservative », en sélectionnant l’ICV correspondant au pays européen le moins favorable ; parmi les principaux pays d’importations. Ainsi, par défaut, les ingrédients UE correspondent à des produits courants sur le marché Français.
+* **Pour les productions européennes**, nous sommes repartis des « mix de consommation » français construits pour Agribalyse ; et qui reflètent les principaux produits importés. Parmi les principaux pays d'importations (identifié selon ces mix), nous avons retenu l'ICV du produit "import hors europe" la moins favorable. Ainsi, par défaut, les ingrédients UE correspondent à des produits courants sur le marché Français.
 
 _Ex: Tomate, UE conv = Tomato, fresh grade ES, in unheated greenhouse Ecoinvent._&#x20;
 
@@ -46,14 +46,14 @@ Dans une logique de simplification et au regard du manque de données sur les pr
 Pour définir les ICV bio, nous avons procédé selon cette hiérarchie&#x20;
 
 1. ICV AB directement issu d'Agribalyse (ex: wheat, organic, national average, at farm, agribalyse). Pour les ingrédients AB courants produits en France et les productions animales.
-2. ICV AB issus d'un travail d'adaptation à partir des données conventionnelles menée par Ginko pour le compte de l'ADEME. Ceci ne concerne que les productions végétales,  couvre les productions françaises et importées. Ces ICV seront inclut dans des futurs versions d'Agribalyse.&#x20;
+2. ICV AB issus d'un travail d'adaptation à partir des données conventionnelles menée par Ginko pour le compte de l'ADEME. Ceci ne concerne que les productions végétales françaises et importées. Ces ICV seront inclut dans des futurs versions d'Agribalyse.&#x20;
 3. ICV AB résultants de l'agrégation de différents cas type issus d'Agribalyse.  Ceci a été nécessaire pour certaines productions animales, en particulier les ruminants, en l'absence d'autres données. Ces combinaisons ont été réalisées directement par l'équipe Agribalyse.&#x20;
 
 <mark style="background-color:orange;">Rapport gingko disponible prochainement</mark>
 
 * **Autres labels**
 
-Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu etre intégrées dans ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans écobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se rapprocher de l'ADEME et des travaux Agribalyse.&#x20;
+Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans écobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../impacts-consideres.md).&#x20;
 
 {% file src="../../.gitbook/assets/20221215 ICV bio moyen ecobalyse.xlsx" %}
 
