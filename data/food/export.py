@@ -47,7 +47,7 @@ if not ECOBALYSE_DATA_DIR:
 
 # Configuration
 CONFIG = {
-    "PROJECT": "food",
+    "PROJECT": "default",
     "AGRIBALYSE": "Agribalyse 3.1.1",
     "BIOSPHERE": "Agribalyse 3.1.1 biosphere",
     "ACTIVITIES_FILE": f"{PROJECT_ROOT_DIR}/data/food/activities.json",
@@ -63,11 +63,6 @@ CONFIG = {
 }
 with open(CONFIG["IMPACTS_FILE"]) as f:
     IMPACTS_DEF_ECOBALYSE = json.load(f)
-
-
-def setup_environment():
-    projects.set_current(CONFIG["PROJECT"])
-    bw2data.config.p["biosphere_database"] = CONFIG["BIOSPHERE"]
 
 
 def find_id(dbname, activity):
@@ -383,7 +378,8 @@ def csv_export_impact_comparison(compared_impacts):
 
 
 if __name__ == "__main__":
-    setup_environment()
+    projects.set_current(CONFIG["PROJECT"])
+    bw2data.config.p["biosphere_database"] = CONFIG["BIOSPHERE"]
 
     # keep the previous processes with old impacts
     oldprocesses = load_json(CONFIG["PROCESSES_FILE"])

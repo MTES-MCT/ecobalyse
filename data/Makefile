@@ -17,25 +17,25 @@ import_agribalyse:
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_agribalyse.py --recreate-activities;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_agribalyse.py; fi
 
-import_food_method:
+import_method:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py food;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py food; fi
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py; fi
 
 import_ecoinvent:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py; fi
 
-import_textile_method:
+sync_datapackages:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py textile;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py textile; fi
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/sync_datapackages.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/sync_datapackages.py; fi
 
-delete_textile_method:
+delete_method:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_methods.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_textile_method.py; fi
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_method.py; fi
 
 export_food:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \

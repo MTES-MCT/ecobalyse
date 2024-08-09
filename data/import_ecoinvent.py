@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 
+
 import bw2data
 import bw2io
 from bw2data.project import projects
 from common.import_ import add_missing_substances
 from import_agribalyse import import_simapro_csv
 
-PROJECT = "textile"
 # Ecoinvent
 DATAPATH = "./Ecoinvent3.9.1.CSV.zip"
 BIOSPHERE = "biosphere3"
+PROJECT = "default"
 
 
 def main():

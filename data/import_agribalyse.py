@@ -15,7 +15,7 @@ from common.import_ import (
     sync_datapackages,
 )
 
-PROJECT = "food"
+PROJECT = "default"
 AGRIBALYSE = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse
 GINKO = "CSV_369p_et_298chapeaux_final.csv.zip"  # additional organic processes
 PASTOECO = [

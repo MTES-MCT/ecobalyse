@@ -90,8 +90,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 73.28220920830047,
-      "pef": 85.56984419203104
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "843986b19b3ea959b8817afda669dead",
@@ -192,8 +192,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 75.09113339163017,
-      "pef": 98.6365873674314
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "4a9ea0a29fbde60e2d1fc5c33d8a4f3a",
@@ -362,8 +362,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 2423.465638706463,
-      "pef": 2809.416054232443
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "67f1a99d8093f1b2b3e4e7f8b292953c",
@@ -430,8 +430,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 5454.768881702009,
-      "pef": 5866.962929357457
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "6fcaacd84b90aec94cf924041ff09fc9",
@@ -464,8 +464,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1022.8928544825391,
-      "pef": 1128.3099123709333
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "51c8f8e74c9ade89850e7b4b8a4efc59",
@@ -532,8 +532,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1146.0764688094807,
-      "pef": 1332.9783574432186
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "3fc68b77b276cfc781ed546ec32b84f5",
@@ -566,8 +566,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 967.2093886660132,
-      "pef": 875.6073918482264
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "bbbce945e38218c05c671aa17bcedbe2",
@@ -634,8 +634,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1002.7966067829354,
-      "pef": 1152.6303736892075
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "d41682caea2d55a3b95173f276b9d903",
@@ -668,8 +668,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1038.2786524697924,
-      "pef": 1187.559011478903
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "fc9b8a819a1ba51b4fbca210d0771198",
@@ -736,8 +736,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 210.05192070912292,
-      "pef": 261.13204060072036
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "425b95709f7882fa60c6b42f3add1873",
@@ -804,8 +804,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 312.52984554113317,
-      "pef": 360.4590660434512
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "2735a9eb9848c97f9e70fd94f051fb2a",
@@ -974,8 +974,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 501.46375407409084,
-      "pef": 585.6945053650963
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "4ada2b1db5db813770f5ec73a5b1c109",
@@ -2470,8 +2470,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1956.6522284266964,
-      "pef": 2265.525824415107
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "f66ba18359adc61e5988ed8a7cf24b3e",
@@ -2606,8 +2606,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1589.659056438474,
-      "pef": 974.702423314601
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "b9f380cbd26fef2f30b16cbe06edd732",
@@ -2640,8 +2640,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 859.881276295895,
-      "pef": 680.728622263604
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "862a53ceeeaf072c8528a71d2fa6a027",
@@ -3150,8 +3150,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 2780.43749192331,
-      "pef": 3315.2687054260427
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "f025b4a41c45eabdb2510795b3353ca4",
@@ -7004,7 +7004,7 @@
     "source": "Agribalyse 3.1.1"
   },
   {
-    "name": "Grape, organic, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
+    "name": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
     "displayName": "Raisin de cuve FR Conv.",
     "impacts": {
       "acd": 0,
@@ -7026,11 +7026,11 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 68.18463773370154,
-      "pef": 75.26967630932535
+      "ecs": 100.87693480435146,
+      "pef": 85.15157126220456
     },
     "unit": "kilogram",
-    "identifier": "AGRIBALU000000003106876",
+    "identifier": "AGRIBALU000000003106869",
     "category": "ingredient",
     "system_description": "AGRIBALYSE",
     "comment": "FRANCE",
@@ -7502,8 +7502,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 56.86371542054134,
-      "pef": 75.11819304767269
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "bdd14c2017eaf0cda1e207e74012c391",
@@ -9474,8 +9474,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1055.1748133055262,
-      "pef": 396.812784387594
+      "ecs": 0,
+      "pef": 0
     },
     "unit": "kilogram",
     "identifier": "WFLDBQUA000001234500334",
