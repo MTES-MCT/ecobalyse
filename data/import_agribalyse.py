@@ -160,6 +160,7 @@ def remove_negative_land_use_on_tomato(db):
 
 
 GINKO_STRATEGIES = [
+    remove_negative_land_use_on_tomato,
     remove_azadirachtine,
     functools.partial(
         link_technosphere_by_activity_hash,
