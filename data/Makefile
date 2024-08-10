@@ -32,6 +32,11 @@ sync_datapackages:
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/sync_datapackages.py;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/sync_datapackages.py; fi
 
+delete_database:
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_database.py $(DB);\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_database.py $(DB); fi
+
 delete_method:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_methods.py;\

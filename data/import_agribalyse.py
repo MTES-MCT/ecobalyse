@@ -12,7 +12,6 @@ from common.import_ import (
     add_created_activities,
     add_missing_substances,
     import_simapro_csv,
-    sync_datapackages,
 )
 
 PROJECT = "default"
@@ -233,4 +232,3 @@ if __name__ == "__main__":
         add_created_activities(db, ACTIVITIES_TO_CREATE)
     else:
         print(f"{db} already imported")
-    sync_datapackages()
