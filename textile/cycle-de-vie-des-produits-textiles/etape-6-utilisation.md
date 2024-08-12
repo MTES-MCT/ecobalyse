@@ -46,6 +46,24 @@ Par exemple le nombre de cycles d'entretien est différent pour chaque catégori
 
 <details>
 
+<summary>Origine des données</summary>
+
+Les procédés sont d'origine Ecoinvent SAUF pour 4 procédés Base Impacts mobilisés pour faire ce procédé précalculé ([détail du précalcul](https://github.com/MTES-MCT/ecobalyse-data/blob/master/src/ecobalyse\_data/textile/eol\_precalculation/eol\_precalculation.py)) :
+
+* proc\_landfill = "Mise en décharge de textiles, FR"&#x20;
+* proc\_incineration = "Incinération de déchets - Déchets textiles, FR"
+* &#x20;proc\_transport = "Transport en camion 7,5t (3t) France (dont parc, utilisation et infrastructure) (50%) \[tkm], FR"
+* &#x20;proc\_elec = "Mix électrique réseau, FR”
+
+
+
+\
+
+
+</details>
+
+<details>
+
 <summary>Détail des calculs</summary>
 
 ### Lavage
