@@ -5,9 +5,9 @@ DOCKERRUN := echo "(Creating a new container)" && docker run --rm -it -v $$PWD/.
 DOCKEREXEC := echo "(Using the existing container)" && docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
 JUPYTER_PORT ?= 8888
 
-all: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food format
-food: image import_agribalyse import_food_method export_food format
-textile: image import_ecoinvent import_textile_method format
+all: import export
+import : image import_agribalyse import_ecoinvent import_method sync_datapackages
+export: export_food format
 
 image:
 	docker build -t $(NAME) docker
