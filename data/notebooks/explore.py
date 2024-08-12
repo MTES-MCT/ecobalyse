@@ -432,10 +432,16 @@ def display_main_data(method, impact_category, activity):
             for t in IMPACTS.keys()
             if t not in ("ecs", "pef", "htn-c", "etf-c", "htc-c")
         ]:
-            scores[IMPACTS[trigram]["label_en"]]["Score"] = (
+            scores[IMPACTS[trigram]["label_en"]]["µPt PEF"] = (
                 scores[IMPACTS[trigram]["label_en"]]["Amount"]
                 / IMPACTS[trigram].get("pef", {}).get("normalization", 1)
                 * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
+                * 1e6
+            )
+            scores[IMPACTS[trigram]["label_en"]]["Ecoscore"] = (
+                scores[IMPACTS[trigram]["label_en"]]["Amount"]
+                / (IMPACTS[trigram].get("ecoscore", {}) or {}).get("normalization", 1)
+                * (IMPACTS[trigram].get("ecoscore", {}) or {}).get("weighting", 0)
                 * 1e6
             )
         scores["Ecotoxicity, freshwater, corrected"] = {
@@ -446,7 +452,7 @@ def display_main_data(method, impact_category, activity):
             * scores["Ecotoxicity, freshwater - inorganics"]["Amount"],
             "Unité": scores["Ecotoxicity, freshwater"]["Unité"],
         }
-        scores["Ecotoxicity, freshwater, corrected"]["Score"] = (
+        scores["Ecotoxicity, freshwater, corrected"]["Ecoscore"] = (
             scores["Ecotoxicity, freshwater, corrected"]["Amount"]
             / IMPACTS["etf-c"]["ecoscore"]["normalization"]
             * IMPACTS["etf-c"]["ecoscore"]["weighting"]
@@ -459,7 +465,7 @@ def display_main_data(method, impact_category, activity):
             * scores["Human toxicity, cancer - inorganics"]["Amount"],
             "Unité": scores["Human toxicity, cancer"]["Unité"],
         }
-        scores["Human toxicity, cancer, corrected"]["Score"] = (
+        scores["Human toxicity, cancer, corrected"]["Ecoscore"] = (
             scores["Human toxicity, cancer, corrected"]["Amount"]
             / IMPACTS["htc-c"]["ecoscore"]["normalization"]
             * IMPACTS["htc-c"]["ecoscore"]["weighting"]
@@ -472,7 +478,7 @@ def display_main_data(method, impact_category, activity):
             * scores["Human toxicity, non-cancer - inorganics"]["Amount"],
             "Unité": scores["Human toxicity, non-cancer"]["Unité"],
         }
-        scores["Human toxicity, non-cancer, corrected"]["Score"] = (
+        scores["Human toxicity, non-cancer, corrected"]["Ecoscore"] = (
             scores["Human toxicity, non-cancer, corrected"]["Amount"]
             / IMPACTS["htn-c"]["ecoscore"]["normalization"]
             * IMPACTS["htn-c"]["ecoscore"]["weighting"]
@@ -501,7 +507,7 @@ def display_main_data(method, impact_category, activity):
         )
         for trigram in [t for t in IMPACTS.keys() if t not in ("ecs", "pef")]:
             scores[IMPACTS[trigram]["label_en"]]["%/ECS"] = (
-                (scores[IMPACTS[trigram]["label_en"]]["Score"] / (ecs * 1e6) * 100)
+                (scores[IMPACTS[trigram]["label_en"]]["Ecoscore"] / (ecs * 1e6) * 100)
                 if ecs
                 else math.inf
             )
@@ -531,8 +537,8 @@ def display_main_data(method, impact_category, activity):
     dfimpacts.format(
         formatter={
             "Amount": "{:.4g}".format,
-            "Score": "{:.4g}".format,
-            "%/PEF": "{:.1f}",
+            "Ecoscore": "{:.4g}".format,
+            "%/ECS": "{:.1f}",
         }
     )
 

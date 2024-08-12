@@ -16,6 +16,7 @@ def spproject(activity):
         case "Ginko":
             return "Ginko w/o azadirachtin"
         case "Ecobalyse":
+            # return a non existing project to force looking at brightway
             return "EcobalyseIsNotASimaProProject"
         case _:
             return "AGB3.1.1 2023-03-06"

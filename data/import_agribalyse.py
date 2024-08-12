@@ -42,6 +42,25 @@ EXCLUDED = [
     "simapro-water",
 ]
 
+GINKO_MIGRATIONS = [
+    {
+        "name": "diesel-fix",
+        "description": "Fix Diesel process name",
+        "data": {
+            "fields": ("name",),
+            "data": [
+                (
+                    (
+                        "Diesel {GLO}| market group for | Cut-off, S - Copied from ecoinvent",
+                    ),
+                    {
+                        "name": "Diesel {GLO}| market group for | Cut-off, S - Copied from Ecoinvent U"
+                    },
+                )
+            ],
+        },
+    }
+]
 # migrations necessary to link some remaining unlinked technosphere activities
 AGRIBALYSE_MIGRATIONS = [
     {
@@ -208,7 +227,11 @@ if __name__ == "__main__":
     # GINKO
     if (db := "Ginko") not in bw2data.databases:
         import_simapro_csv(
-            GINKO, db, excluded_strategies=EXCLUDED, other_strategies=GINKO_STRATEGIES
+            GINKO,
+            db,
+            excluded_strategies=EXCLUDED,
+            other_strategies=GINKO_STRATEGIES,
+            migrations=GINKO_MIGRATIONS + AGRIBALYSE_MIGRATIONS,
         )
     else:
         print(f"{db} already imported")

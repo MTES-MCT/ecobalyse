@@ -52,17 +52,18 @@ def import_method(project, datapath=METHODPATH, biosphere=BIOSPHERE):
     ef = bw2io.importers.SimaProLCIACSVImporter(
         unzipped,
         biosphere=biosphere,
-        normalize_biosphere=False if project == "textile" else True,
+        normalize_biosphere=True,
+        # normalize_biosphere=False if project == "textile" else True,
         # normalize_biosphere to align the categories between LCI and LCIA
     )
     os.unlink(unzipped)
     ef.statistics()
 
     # exclude strategies/migrations in EXCLUDED
-    if project == "food":
+    if project == "default":
         ef.strategies = [
             s for s in ef.strategies if not any([e in repr(s) for e in EXCLUDED_FOOD])
-        ]  # + [fix_localized_water_flows]
+        ]
     if project == "textile":
         ef.strategies = [
             normalize_units,
@@ -93,7 +94,7 @@ def import_method(project, datapath=METHODPATH, biosphere=BIOSPHERE):
     # drop CFs which are not linked to a biosphere substance
     ef.drop_unlinked()
     ef.write_methods()
-    print(f"### Finished importing {METHODNAME}")
+    print(f"### Finished importing {METHODNAME}\n")
 
 
 if __name__ == "__main__":
