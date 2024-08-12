@@ -3403,7 +3403,7 @@
     "id": "wine-grape-fr",
     "name": "Raisin de cuve FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "grape Languedoc",
+    "search": "grape integrated Languedoc",
     "category": "ingredient",
     "categories": ["vegetable_fresh"],
     "default_origin": "France",
