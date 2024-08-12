@@ -153,12 +153,19 @@ NODE_ENV=dev npm ci
 # We want a production build
 export NODE_ENV=production
 
-ELM_VERSION_FILE="src/Request/Version.elm"
-
 # Patch old versions of the app so that it gets the version file using relative path
 # Otherwise serving the app from /versions will not display the good version number
+ELM_VERSION_FILE="src/Request/Version.elm"
+
 if [[ -f "$ELM_VERSION_FILE" ]]; then
   sed -i 's/"\/version\.json"/"version\.json"/g' $ELM_VERSION_FILE
+fi
+
+# Patch the local storage key to avoid messing things up between versions
+INDEX_JS_FILE="index.js"
+
+if [[ -f "$INDEX_JS_FILE" ]]; then
+  sed -i "s/storeKey = \"store\"/storeKey = \"store$COMMIT_OR_TAG\"/" $INDEX_JS_FILE
 fi
 
 # Rely on the build command of the version we are on. We should be careful when changing this build command
