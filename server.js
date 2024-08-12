@@ -131,7 +131,7 @@ if (fs.existsSync(versionsDir)) {
     let processesImpacts;
 
     if (fs.existsSync(foodDetailedEnc) && fs.existsSync(textileDetailedEnc)) {
-      console.log(`encrypted files found for ${dir} ${foodDetailedEnc}`);
+      console.log(`Encrypted files found for ${dir}: ${foodDetailedEnc} && ${textileDetailedEnc}`);
       // Encrypted files exist, use them
       processesImpacts = {
         foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
