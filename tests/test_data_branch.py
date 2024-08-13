@@ -1,4 +1,4 @@
-from lib.ecobalyse_github import extract_branch_name
+from ecobalyse.github import extract_branch_name
 
 
 def test_extract_data_branch_name(client):

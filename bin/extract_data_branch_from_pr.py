@@ -3,7 +3,7 @@
 import argparse
 import os
 
-from lib.ecobalyse_github import extract_branch_name, get_github
+from ecobalyse.github import extract_branch_name, get_github
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

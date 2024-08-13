@@ -29,8 +29,9 @@ def get_github(github_access_token=None):
 
     try:
         return (g.get_repo("MTES-MCT/ecobalyse"), g)
-    except github.RateLimitExceededException:
+    except github.RateLimitExceededException as e:
         print(
             "-> ⚠️ Github rate limit exceeded, can't get the tag for the current commit. You should setup GITHUB_ACCESS_TOKEN env variable to a valid Github access token.",
             file=sys.stderr,
         )
+        raise e
