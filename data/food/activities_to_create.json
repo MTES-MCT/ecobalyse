@@ -455,7 +455,7 @@
   {
     "id": "brown-sugar-organic",
     "search_in": "Agribalyse 3.1.1",
-    "search": "Brown sugar, production, at plant {FR} U' (kilogram, FR, None)",
+    "search": "Brown sugar, production, at plant {FR} U",
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],
     "replace": {
