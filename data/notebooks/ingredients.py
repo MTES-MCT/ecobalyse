@@ -32,7 +32,7 @@ from flatdict import FlatDict
 from IPython.display import display
 
 os.chdir("/home/jovyan/ecobalyse/data")
-PROJECT = "food"
+PROJECT = "default"
 ACTIVITIES = "/home/jovyan/ecobalyse/data/food/activities.json"
 ACTIVITIES_TEMP = "/home/jovyan/activities.%s.json"
 AGRIBALYSE = "Agribalyse 3.1.1"
@@ -79,6 +79,7 @@ ANIMAL_PRODUCT = ["egg", "milk", "meat"]
 projects.set_current(PROJECT)
 # projects.create_project(PROJECT, activate=True, exist_ok=True)
 
+main_output = ipywidgets.Output()
 list_output = ipywidgets.Output()
 git_output = ipywidgets.Output()
 reset_output = ipywidgets.Output()
@@ -127,8 +128,6 @@ def cleanup_json(activities):
 
 
 def save_activities(activities):
-    if not w_contributor.value:
-        return
     with open(ACTIVITIES_TEMP % w_contributor.value, "w") as fp:
         fp.write(
             json.dumps(
@@ -137,8 +136,7 @@ def save_activities(activities):
                 ensure_ascii=False,
             )
         )
-    clear_form()
-    display_all()
+    display_main()
 
 
 def to_flat(d):
@@ -465,6 +463,13 @@ uploadbutton = ipywidgets.FileUpload(
     accept=".csv",
     multiple=False,
 )
+surfacebutton = ipywidgets.Button(
+    description="Calculer la surface",
+    button_style="danger",  # 'success', 'info', 'warning', 'danger' or ''
+    tooltip="Calcule la surface dans Brightway et Simapro et alimente le champ ci-dessous",
+    icon="sparkles",
+    layout=ipywidgets.Layout(width="150px"),
+)
 
 
 def downloadbutton(contents, columns):
@@ -523,11 +528,11 @@ def display_output_file():
         )
 
 
-def display_all():
+def clear_all():
+    clear_form()
     list_output.clear_output()
     file_output.clear_output()
-    list_activities(w_filter.value)
-    display_output_file()
+    main_output.clear_output()
 
 
 def clear_form():
@@ -570,8 +575,9 @@ def display_of(activity):
     return f"{activity['name']} ({activity.get('unit','(aucune)')}) code:{activity['code']}"
 
 
+@main_output.capture()
 def change_contributor(_):
-    list_activities(w_filter.value)
+    display_main()
 
 
 w_contributor.observe(change_contributor, names="value")
@@ -600,11 +606,7 @@ def change_id(change):
         w_results.options = [[display_of(r) for r in res][0]]
     else:
         w_results.options = []
-    set_field(
-        w_default_origin,
-        i.get("default_origin"),
-        "EuropeAndMaghreb",
-    )
+    set_field(w_default_origin, i.get("default_origin"), "EuropeAndMaghreb")
     set_field(w_explain, i.get("explain"), "")
     set_field(w_category, i.get("category"), "")
     set_field(w_categories, i.get("categories"), [])
@@ -630,10 +632,9 @@ def changed_database_to(field):
         field.rows = len(results)
         field.options = [display_of(r) for r in results]
         if results:
-            field.value = display_of(results[0])
-            display_surface(results[0])
-        else:
-            surface_output.clear_output()
+            activity = results[0]
+            field.value = display_of(activity)
+            setattr(surfacebutton, "activity", activity)
 
     return changed_database
 
@@ -644,10 +645,9 @@ def changed_search_to(field):
         field.rows = len(results)
         field.options = [display_of(r) for r in results]
         if results:
-            field.value = display_of(results[0])
-            display_surface(results[0])
-        else:
-            surface_output.clear_output()
+            activity = results[0]
+            field.value = display_of(activity)
+            setattr(surfacebutton, "activity", activity)
 
     return changed_search
 
@@ -795,10 +795,12 @@ def reset_branch():
         )
 
 
-@surface_output.capture()
-def display_surface(activity):
-    surface_output.clear_output()
-    display(ipywidgets.HTML("Computing surface... (please wait at least 15s)"))
+def compute_surface(_):
+    activity = getattr(surfacebutton, "activity")
+    if not activity:
+        return
+    surfacebutton.disabled = True
+    display_surface()
     lca = bw2calc.LCA({activity: 1})
     method = ("selected LCI results", "resource", "land occupation")
     try:
@@ -829,21 +831,27 @@ def display_surface(activity):
         spsurface = 0
         spoutput = repr(e)
     w_landFootprint.value = spsurface or bwsurface
+    display_surface(bwoutput, spoutput)
+    surfacebutton.disabled = False
+
+
+@surface_output.capture()
+def display_surface(bwoutput=None, spoutput=None):
     surface_output.clear_output()
-    display(
-        ipywidgets.HTML(
-            "<ul>" f"<li>Brightway: {bwoutput}" f"<li>SimaPro: {spoutput}" "</ul>"
+    if not bwoutput and not spoutput:
+        display(ipywidgets.HTML("Computing surface... (please wait at least 15s)"))
+    else:
+        display(
+            ipywidgets.HTML(
+                "<ul>" f"<li>Brightway: {bwoutput}" f"<li>SimaPro: {spoutput}" "</ul>"
+            )
         )
-    )
 
 
 @reset_output.capture()
 def reset_activities(_):
     branch = current_branch()
-    if not w_contributor.value:
-        display("Sélectionnez d'abord le bon contributeur")
-        return
-    elif (
+    if (
         subprocess.run(
             ["git", "pull", "origin", f"{branch}"], capture_output=True
         ).returncode
@@ -864,8 +872,7 @@ def reset_activities(_):
 
     shutil.copy(ACTIVITIES, ACTIVITIES_TEMP % w_contributor.value)
     w_id.options = tuple(read_activities().keys())
-    clear_form()
-    display_all()
+    display_main()
 
 
 def clear_git_output(_):
@@ -882,10 +889,6 @@ def clear_reset_output(_):
 
 @list_output.capture()
 def upload_activities(_):
-    if not w_contributor.value:
-        list_output.clear_output()
-        display(ipywidgets.HTML("Sélectionnez d'abord le bon contributeur"))
-        return
     csvfile = io.StringIO()
     csvfile.write(uploadbutton.value[0].content.tobytes().decode("utf-8"))
     csvfile.seek(0)
@@ -896,17 +899,9 @@ def upload_activities(_):
 def commit_activities(_):
     git_output.clear_output()
     branch = current_branch()
-    if not w_contributor.value:
-        display(ipywidgets.HTML("Sélectionnez d'abord le bon contributeur"))
-        return
     shutil.copy(ACTIVITIES_TEMP % w_contributor.value, ACTIVITIES)
     display(ipywidgets.HTML("Veuillez patienter quelques secondes..."))
-    prettier = [
-        "npx",
-        "prettier@3.0.3",
-        "--write",
-        ACTIVITIES_TEMP % w_contributor.value,
-    ]
+    prettier = ["npx", "prettier", "--write", "food/activities.json"]
     if subprocess.run(prettier, capture_output=True).returncode != 0:
         display(
             ipywidgets.HTML(
@@ -966,8 +961,375 @@ def commit_activities(_):
         )
 
 
-w_database.observe(changed_database_to(w_results), names="value")
-w_search.observe(changed_search_to(w_results), names="value")
+@main_output.capture()
+def display_main():
+    clear_all()
+    display(
+        ipywidgets.HTML("Sélectionnez le contributeur")
+    ) if not w_contributor.value else display(
+        ipywidgets.Tab(
+            titles=[
+                "Liste",
+                "Formulaire",
+                "Aperçu du fichier",
+                "Publier",
+                "Documentation",
+            ],
+            layout=ipywidgets.Layout(width="auto", overflow="scroll"),
+            children=[
+                ipywidgets.VBox(
+                    (
+                        ipywidgets.HBox(
+                            (
+                                resetbutton,
+                                uploadbutton,
+                                clear_reset_button,
+                            )
+                        ),
+                        w_filter,
+                        reset_output,
+                        list_output,
+                    )
+                ),
+                ipywidgets.VBox(
+                    (
+                        ipywidgets.HTML(
+                            "Identifiant technique de l'ingrédient à ajouter, modifier ou supprimer (en anglais, sans espace) : "
+                        ),
+                        ipywidgets.HBox(
+                            (
+                                ipywidgets.Label(
+                                    FIELDS["id"],
+                                ),
+                                w_id,
+                            ),
+                        ),
+                        ipywidgets.HBox((savebutton, delbutton, clear_save_button)),
+                        ipywidgets.VBox((save_output,)),
+                        ipywidgets.HTML(
+                            "<hr/>Nom de l'ingrédient tel qu'il va apparaître dans l'outil (en français) :"
+                        ),
+                        ipywidgets.HBox(
+                            (
+                                ipywidgets.Label(
+                                    FIELDS["name"],
+                                ),
+                                w_name,
+                            ),
+                        ),
+                        ipywidgets.HTML(
+                            """<hr/>Mots clés permettant de faire remonter le bon ICV Agribalyse en
+                          <b>premier</b> dans la liste des résultats. Il faut rester le plus succint
+                          possible pour que les termes de recherche restent valable dans une future
+                          version d'Agribalyse. Si vous ne pouvez pas différencier deux procédés vous
+                          pouvez préciser son code avec: <i>code:1234567890...</i>. Vous pouvez vous
+                          aider de l'explorateur dans un autre onglet pour naviguer dans
+                          Agribalyse."""
+                        ),
+                        ipywidgets.HBox(
+                            (
+                                ipywidgets.Label("Base de données"),
+                                w_database,
+                            ),
+                        ),
+                        ipywidgets.HBox(
+                            (
+                                ipywidgets.Label("Termes de recherche"),
+                                w_search,
+                            ),
+                        ),
+                        ipywidgets.HBox(
+                            (
+                                ipywidgets.Label(
+                                    "Résultats",
+                                ),
+                                w_results,
+                            ),
+                        ),
+                        ipywidgets.HBox(
+                            (
+                                ipywidgets.Label(
+                                    FIELDS["category"],
+                                ),
+                                w_category,
+                            ),
+                        ),
+                        ipywidgets.Accordion(
+                            titles=["Si le procédé est un ingrédient"],
+                            children=[
+                                ipywidgets.VBox(
+                                    (
+                                        ipywidgets.HTML(
+                                            """Indiquez « visible » pour que l'ingrédient soit visible
+                                          dans Écobalyse. (Un ingrédient en attente peut être publié
+                                          mais invisible) :"""
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["visible"],
+                                                ),
+                                                w_visible,
+                                            ),
+                                        ),
+                                        ipywidgets.HTML(
+                                            """<hr/>Sélectionnez la catégorie principale de
+                                          l'ingrédient. (par exemple un sucre de canne peut être
+                                          catégorisé comme légume transformé, par analogie avec le
+                                          sucre de betterave). Si l'ingrédient dispose d'un label
+                                          (bio, bleublanccoeur) ajoutez cette catégorie à la suite de
+                                          la catégorie principale """
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["categories"],
+                                                ),
+                                                w_categories,
+                                            ),
+                                        ),
+                                        ipywidgets.HTML(
+                                            """<hr/>Indiquez l'origine par défaut. Se référer à la <a
+                                          style="color:blue"
+                                          href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport">documentation
+                                          Écobalyse</a>"""
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["default_origin"],
+                                                ),
+                                                w_default_origin,
+                                            ),
+                                        ),
+                                        ipywidgets.HTML(
+                                            """<hr/>Le rapport cuit/cru est nécessaire pour le calcul
+                                          d'impact. Si besoin se référer à la <a style="color:blue"
+                                          href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/rapport-cru-cuit">documentation
+                                          Écobalyse</a>, page « rapport cuit/cru » qui reprend les
+                                          règles Agribalyse :"""
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["raw_to_cooked_ratio"],
+                                                ),
+                                                w_raw_to_cooked_ratio,
+                                            ),
+                                        ),
+                                        ipywidgets.HTML(
+                                            """ <hr/>La densité est nécessaire pour le calcul d'impact.
+                                          Si besoin se référer à la <a style="color:blue"
+                                          href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/densite">documentation
+                                          Écobalyse</a>, page « densité » , qui reprend les règles
+                                          Agribalyse"""
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["density"],
+                                                ),
+                                                w_density,
+                                            ),
+                                        ),
+                                        ipywidgets.HTML(
+                                            """<hr/>La part non comestible est nécessaire pour le calcul
+                                          d'impact. Si besoin se référer à la <a style="color:blue"
+                                          href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/part-non-comestible">documentation
+                                          Écobalyse</a>, page « part non-comestible, qui reprend les
+                                          règles Agribalyse. En l'absence d'info, prendre un
+                                          ingrédient équivalent en terme de part non comestible"""
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["inedible_part"],
+                                                ),
+                                                w_inedible,
+                                            ),
+                                        ),
+                                        ipywidgets.HTML(
+                                            "<hr/>Sélectionnez le mode de transport : régrigéré ou non"
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["transport_cooling"],
+                                                ),
+                                                w_cooling,
+                                            ),
+                                        ),
+                                        ipywidgets.HTML(
+                                            """<hr/>Indiquez tous les commentaires nécessaires à la bonne
+                                          compréhension des choix qui ont été faits, afin d'assurer la
+                                          traçabilité de l'info"""
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["explain"],
+                                                ),
+                                                w_explain,
+                                            ),
+                                        ),
+                                        ipywidgets.HTML(
+                                            """<hr/>Pour les services écosystémiques, voir
+                                              la <a style="color:blue"
+                                              href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
+                                              (TODO: mettre à jour le lien)
+                                              """
+                                        ),
+                                        ipywidgets.HTML("<hr/>Surface mobilisée :"),
+                                        surface_output,
+                                        surfacebutton,
+                                        ipywidgets.HTML(
+                                            "<hr/>Pour un ingrédient, renseignez « ingrédient » :"
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["land_occupation"],
+                                                ),
+                                                w_landFootprint,
+                                            ),
+                                        ),
+                                        ipywidgets.HBox(
+                                            (
+                                                ipywidgets.Label(
+                                                    FIELDS["scenario"],
+                                                ),
+                                                w_scenario,
+                                            ),
+                                        ),
+                                        ipywidgets.Accordion(
+                                            titles=[
+                                                "Services écosystémiques : Ingrédients d'origine animale",
+                                                "Services écosystémiques : Autres ingrédients",
+                                            ],
+                                            children=[
+                                                ipywidgets.VBox(
+                                                    [
+                                                        ipywidgets.HBox(
+                                                            (
+                                                                ipywidgets.Label(
+                                                                    FIELDS[
+                                                                        "animal_group1"
+                                                                    ],
+                                                                ),
+                                                                w_animal_group1,
+                                                            ),
+                                                        ),
+                                                        ipywidgets.HBox(
+                                                            (
+                                                                ipywidgets.Label(
+                                                                    FIELDS[
+                                                                        "animal_group2"
+                                                                    ],
+                                                                ),
+                                                                w_animal_group2,
+                                                            ),
+                                                        ),
+                                                        ipywidgets.HBox(
+                                                            (
+                                                                ipywidgets.Label(
+                                                                    FIELDS[
+                                                                        "animal_product"
+                                                                    ],
+                                                                ),
+                                                                w_animal_product,
+                                                            ),
+                                                        ),
+                                                    ]
+                                                ),
+                                                ipywidgets.VBox(
+                                                    [
+                                                        ipywidgets.HBox(
+                                                            (
+                                                                ipywidgets.Label(
+                                                                    FIELDS[
+                                                                        "crop_group"
+                                                                    ],
+                                                                ),
+                                                                w_cropGroup,
+                                                            ),
+                                                        ),
+                                                    ]
+                                                ),
+                                            ],
+                                        ),
+                                    ),
+                                ),
+                            ],
+                        ),
+                    )
+                ),
+                ipywidgets.VBox(
+                    (ipywidgets.HTML("<h2>Fichier JSON résultant:</h2>"), file_output)
+                ),
+                ipywidgets.VBox(
+                    [
+                        ipywidgets.HTML(
+                            f"""Si vous êtes satisfait(e) de vos modifications locales, vous devez
+                          <b>publier</b> vos modifications, qui vont alors arriver dans la branche <a
+                          style="color:blue"
+                          href="https://github.com/MTES-MCT/ecobalyse/tree/{branch}">{branch}</a>
+                          du dépôt Écobalyse.<br/> L'équipe Écobalyse pourra ensuite recalculer les
+                          impacts et intégrer vos contributions."""
+                        ),
+                        ipywidgets.HBox((commitbutton, clear_git_button)),
+                        git_output,
+                    ]
+                ),
+                ipywidgets.VBox(
+                    (
+                        ipywidgets.HTML(
+                            """
+  <h2>Documentation de cet outil</h2> <ul>
+                          """
+                            """
+  <li><b>Étape 1)</b> Cliquez sur le bouton « ▶▶ » dans la barre d'outils supérieure
+  pour récupérer la dernière version de cet éditeur d'ingrédients. Si l'éditeur
+  ne se recharge pas, patientez une ou deux minutes puis recommencez</li>
+                          """
+                            """
+  <li><b>Étape 2)</b> Cliquez sur le sous-onglet « Liste », puis sélectionnez le
+  Contributeur pour charger votre liste temporaire d'ingrédients. Vous pouvez
+  annuler les changements temporaires et revenir à la liste publiée en cliquant
+  sur le bouton vert « Réinitialiser ». </li>
+                          """
+                            """
+  <li><b>Étape 3)</b> Ajouter un ingrédient :</li>
+  Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
+  de l’ingrédient à ajouter. <div style="padding-left: 50px">En utilisant
+  l'explorateur depuis un autre onglet, il faut d'abord identifier l'ICV
+  correspondant à l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par
+  exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
+  adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
+  vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
+  Technosphere de l'explorateur permet de vérifier les procédés qui entrent dans
+  la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
+  du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
+  annexed plant | Cut-off, S - Copied from Écoinvent U {RoW} ».</div> Après
+  chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
+  cette étape pour chaque ingrédient.
+                          """
+                            """
+  <li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
+  « Publier », et cliquez sur le bouton rouge une fois l’ensemble des
+  modifications faites et les ingrédients ajoutés. Vos modifications arrivent sur
+  la branche indiquée et pourra être vérifiée et intégrée en production dans
+  Ecobalyse</li></ul>
+                          """
+                        ),
+                    )
+                ),
+            ],
+        ),
+    )
+    list_activities(w_filter.value)
+    display_output_file()
+
+
 savebutton.on_click(add_activity)
 delbutton.on_click(delete_activity)
 resetbutton.on_click(reset_activities)
@@ -976,361 +1338,13 @@ commitbutton.on_click(commit_activities)
 clear_git_button.on_click(clear_git_output)
 clear_save_button.on_click(clear_save_output)
 uploadbutton.observe(upload_activities, names="value")
+w_database.observe(changed_database_to(w_results), names="value")
+w_search.observe(changed_search_to(w_results), names="value")
+surfacebutton.on_click(compute_surface)
 
 branch = current_branch()
 list_activities(w_filter.value)
-display(
-    ipywidgets.HTML("<h1>Éditeur d'ingrédients</h1>"),
-    w_contributor,
-    ipywidgets.Tab(
-        titles=[
-            "Documentation",
-            "Liste",
-            "Formulaire",
-            "Aperçu du fichier",
-            "Publier",
-        ],
-        layout=ipywidgets.Layout(width="auto", overflow="scroll"),
-        children=[
-            ipywidgets.VBox(
-                (
-                    ipywidgets.HTML(
-                        """
-<h2>Documentation de cet outil</h2> <ul>
-                        """
-                        """
-<li><b>Étape 1)</b> Cliquez sur le bouton « ▶▶ » dans la barre d'outils supérieure
-pour récupérer la dernière version de cet éditeur d'ingrédients. Si l'éditeur
-ne se recharge pas, patientez une ou deux minutes puis recommencez</li>
-                        """
-                        """
-<li><b>Étape 2)</b> Cliquez sur le sous-onglet « Liste », puis sélectionnez le
-Contributeur pour charger votre liste temporaire d'ingrédients. Vous pouvez
-annuler les changements temporaires et revenir à la liste publiée en cliquant
-sur le bouton vert « Réinitialiser ». </li>
-                        """
-                        """
-<li><b>Étape 3)</b> Ajouter un ingrédient :</li>
-Aller dans le sous-onglet « Formulaire » pour renseigner les caractéristiques
-de l’ingrédient à ajouter. <div style="padding-left: 50px">En utilisant
-l'explorateur depuis un autre onglet, il faut d'abord identifier l'ICV
-correspondant à l’ingrédient souhaité. Prenons l'exemple du sucre de canne. Par
-exemple l’ICV « Brown sugar, production, at plant {FR} U » semble être le plus
-adapté à l’ingrédient sucre de canne tel qu’il est utilisé en usine. Pour
-vérifier qu’il est bien fabriqué à partir de canne à sucre, le sous-onglet
-Technosphere de l'explorateur permet de vérifier les procédés qui entrent dans
-la composition de « Brown sugar, production, at plant {FR} U ». Il s’agit bien
-du procédé « Sugar, from sugarcane {RoW}| sugarcane processing, traditional
-annexed plant | Cut-off, S - Copied from Écoinvent U {RoW} ».</div> Après
-chaque ingrédient ajouté, cliquez sur « Enregistrer localement ». Réitérez
-cette étape pour chaque ingrédient.
-                        """
-                        """
-<li><b>Étape 4)</b> : Validez tous vos ingrédients ajoutés : allez sur l’onglet
-« Publier », et cliquez sur le bouton rouge une fois l’ensemble des
-modifications faites et les ingrédients ajoutés. Vos modifications arrivent sur
-la branche indiquée et pourra être vérifiée et intégrée en production dans
-Ecobalyse</li></ul>
-                        """
-                    ),
-                )
-            ),
-            ipywidgets.VBox(
-                (
-                    ipywidgets.HBox(
-                        (
-                            resetbutton,
-                            uploadbutton,
-                            clear_reset_button,
-                        )
-                    ),
-                    w_filter,
-                    reset_output,
-                    list_output,
-                )
-            ),
-            ipywidgets.VBox(
-                (
-                    ipywidgets.HTML(
-                        "Identifiant technique de l'ingrédient à ajouter, modifier ou supprimer (en anglais, sans espace) : "
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["id"],
-                            ),
-                            w_id,
-                        ),
-                    ),
-                    ipywidgets.HBox((savebutton, delbutton, clear_save_button)),
-                    ipywidgets.VBox((save_output,)),
-                    ipywidgets.HTML(
-                        "<hr/>Nom de l'ingrédient tel qu'il va apparaître dans l'outil (en français) :"
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["name"],
-                            ),
-                            w_name,
-                        ),
-                    ),
-                    ipywidgets.HTML(
-                        """<hr/>Mots clés permettant de faire remonter le bon ICV Agribalyse en
-                        <b>premier</b> dans la liste des résultats. Il faut rester le plus succint
-                        possible pour que les termes de recherche restent valable dans une future
-                        version d'Agribalyse. Si vous ne pouvez pas différencier deux procédés vous
-                        pouvez préciser son code avec: <i>code:1234567890...</i>. Vous pouvez vous
-                        aider de l'explorateur dans un autre onglet pour naviguer dans
-                        Agribalyse."""
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label("Base de données"),
-                            w_database,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label("Termes de recherche"),
-                            w_search,
-                        ),
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                "Résultats",
-                            ),
-                            w_results,
-                        ),
-                    ),
-                    ipywidgets.HTML("<hr/>Surface mobilisée :"),
-                    surface_output,
-                    ipywidgets.HTML(
-                        "<hr/>Pour un ingrédient, renseignez « ingrédient » :"
-                    ),
-                    ipywidgets.HBox(
-                        (
-                            ipywidgets.Label(
-                                FIELDS["category"],
-                            ),
-                            w_category,
-                        ),
-                    ),
-                    ipywidgets.Accordion(
-                        titles=["Si le procédé est un ingrédient"],
-                        children=[
-                            ipywidgets.VBox(
-                                (
-                                    ipywidgets.HTML(
-                                        """Indiquez « visible » pour que l'ingrédient soit visible
-                                        dans Écobalyse. (Un ingrédient en attente peut être publié
-                                        mais invisible) :"""
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["visible"],
-                                            ),
-                                            w_visible,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """<hr/>Sélectionnez la catégorie principale de
-                                        l'ingrédient. (par exemple un sucre de canne peut être
-                                        catégorisé comme légume transformé, par analogie avec le
-                                        sucre de betterave). Si l'ingrédient dispose d'un label
-                                        (bio, bleublanccoeur) ajoutez cette catégorie à la suite de
-                                        la catégorie principale """
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["categories"],
-                                            ),
-                                            w_categories,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """<hr/>Indiquez l'origine par défaut. Se référer à la <a
-                                        style="color:blue"
-                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport">documentation
-                                        Écobalyse</a>"""
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["default_origin"],
-                                            ),
-                                            w_default_origin,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """<hr/>Le rapport cuit/cru est nécessaire pour le calcul
-                                        d'impact. Si besoin se référer à la <a style="color:blue"
-                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/rapport-cru-cuit">documentation
-                                        Écobalyse</a>, page « rapport cuit/cru » qui reprend les
-                                        règles Agribalyse :"""
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["raw_to_cooked_ratio"],
-                                            ),
-                                            w_raw_to_cooked_ratio,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """ <hr/>La densité est nécessaire pour le calcul d'impact.
-                                        Si besoin se référer à la <a style="color:blue"
-                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/densite">documentation
-                                        Écobalyse</a>, page « densité » , qui reprend les règles
-                                        Agribalyse"""
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["density"],
-                                            ),
-                                            w_density,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """<hr/>La part non comestible est nécessaire pour le calcul
-                                        d'impact. Si besoin se référer à la <a style="color:blue"
-                                        href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/part-non-comestible">documentation
-                                        Écobalyse</a>, page « part non-comestible, qui reprend les
-                                        règles Agribalyse. En l'absence d'info, prendre un
-                                        ingrédient équivalent en terme de part non comestible"""
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["inedible_part"],
-                                            ),
-                                            w_inedible,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        "<hr/>Sélectionnez le mode de transport : régrigéré ou non"
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["transport_cooling"],
-                                            ),
-                                            w_cooling,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """<hr/>Indiquez tous les commentaires nécessaires à la bonne
-                                        compréhension des choix qui ont été faits, afin d'assurer la
-                                        traçabilité de l'info"""
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["explain"],
-                                            ),
-                                            w_explain,
-                                        ),
-                                    ),
-                                    ipywidgets.HTML(
-                                        """<hr/>Pour les services écosystémiques, voir
-                                            la <a style="color:blue"
-                                            href="https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/complements-hors-acv">documentation</a>
-                                            (TODO: mettre à jour le lien)
-                                            """
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["land_occupation"],
-                                            ),
-                                            w_landFootprint,
-                                        ),
-                                    ),
-                                    ipywidgets.HBox(
-                                        (
-                                            ipywidgets.Label(
-                                                FIELDS["scenario"],
-                                            ),
-                                            w_scenario,
-                                        ),
-                                    ),
-                                    ipywidgets.Accordion(
-                                        titles=[
-                                            "Services écosystémiques : Ingrédients d'origine animale",
-                                            "Services écosystémiques : Autres ingrédients",
-                                        ],
-                                        children=[
-                                            ipywidgets.VBox(
-                                                [
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS["animal_group1"],
-                                                            ),
-                                                            w_animal_group1,
-                                                        ),
-                                                    ),
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS["animal_group2"],
-                                                            ),
-                                                            w_animal_group2,
-                                                        ),
-                                                    ),
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS[
-                                                                    "animal_product"
-                                                                ],
-                                                            ),
-                                                            w_animal_product,
-                                                        ),
-                                                    ),
-                                                ]
-                                            ),
-                                            ipywidgets.VBox(
-                                                [
-                                                    ipywidgets.HBox(
-                                                        (
-                                                            ipywidgets.Label(
-                                                                FIELDS["crop_group"],
-                                                            ),
-                                                            w_cropGroup,
-                                                        ),
-                                                    ),
-                                                ]
-                                            ),
-                                        ],
-                                    ),
-                                ),
-                            ),
-                        ],
-                    ),
-                )
-            ),
-            ipywidgets.VBox(
-                (ipywidgets.HTML("<h2>Fichier JSON résultant:</h2>"), file_output)
-            ),
-            ipywidgets.VBox(
-                [
-                    ipywidgets.HTML(
-                        f"""Si vous êtes satisfait(e) de vos modifications locales, vous devez
-                        <b>publier</b> vos modifications, qui vont alors arriver dans la branche <a
-                        style="color:blue"
-                        href="https://github.com/MTES-MCT/ecobalyse/tree/{branch}">{branch}</a>
-                        du dépôt Écobalyse.<br/> L'équipe Écobalyse pourra ensuite recalculer les
-                        impacts et intégrer vos contributions."""
-                    ),
-                    ipywidgets.HBox((commitbutton, clear_git_button)),
-                    git_output,
-                ]
-            ),
-        ],
-    ),
-)
+display(ipywidgets.HTML("<h1>Éditeur d'ingrédients</h1>"))
+display(w_contributor)
+display(main_output)
+display_main()

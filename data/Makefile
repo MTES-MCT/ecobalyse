@@ -1,13 +1,13 @@
 SHELL := /bin/bash
 NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 ECOBALYSE_DATA_DIR := ${ECOBALYSE_DATA_DIR}
-DOCKERRUN := docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -v $(NAME):/home/jovyan -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
-DOCKEREXEC := docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
+DOCKERRUN := echo "(Creating a new container)" && docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -v $(NAME):/home/jovyan -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
+DOCKEREXEC := echo "(Using the existing container)" && docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
 JUPYTER_PORT ?= 8888
 
-all: image import_agribalyse import_food_method import_ecoinvent import_textile_method export_food format
-food: image import_agribalyse import_food_method export_food format
-textile: image import_ecoinvent import_textile_method format
+all: import export
+import : image import_agribalyse import_ecoinvent import_method sync_datapackages
+export: export_food format
 
 image:
 	docker build -t $(NAME) docker
@@ -17,25 +17,30 @@ import_agribalyse:
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_agribalyse.py --recreate-activities;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_agribalyse.py; fi
 
-import_food_method:
+import_method:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py food;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py food; fi
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py; fi
 
 import_ecoinvent:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py;\
 	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py; fi
 
-import_textile_method:
+sync_datapackages:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py textile;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py textile; fi
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/sync_datapackages.py;\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/sync_datapackages.py; fi
 
-delete_textile_method:
+delete_database:
+	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_database.py $(DB);\
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_database.py $(DB); fi
+
+delete_method:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
 		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_methods.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_textile_method.py; fi
+	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_method.py; fi
 
 export_food:
 	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \

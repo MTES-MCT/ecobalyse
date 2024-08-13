@@ -12,10 +12,9 @@ from common.import_ import (
     add_created_activities,
     add_missing_substances,
     import_simapro_csv,
-    sync_datapackages,
 )
 
-PROJECT = "food"
+PROJECT = "default"
 AGRIBALYSE = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse
 GINKO = "CSV_369p_et_298chapeaux_final.csv.zip"  # additional organic processes
 PASTOECO = [
@@ -43,6 +42,25 @@ EXCLUDED = [
     "simapro-water",
 ]
 
+GINKO_MIGRATIONS = [
+    {
+        "name": "diesel-fix",
+        "description": "Fix Diesel process name",
+        "data": {
+            "fields": ("name",),
+            "data": [
+                (
+                    (
+                        "Diesel {GLO}| market group for | Cut-off, S - Copied from ecoinvent",
+                    ),
+                    {
+                        "name": "Diesel {GLO}| market group for | Cut-off, S - Copied from Ecoinvent U"
+                    },
+                )
+            ],
+        },
+    }
+]
 # migrations necessary to link some remaining unlinked technosphere activities
 AGRIBALYSE_MIGRATIONS = [
     {
@@ -161,6 +179,7 @@ def remove_negative_land_use_on_tomato(db):
 
 
 GINKO_STRATEGIES = [
+    remove_negative_land_use_on_tomato,
     remove_azadirachtine,
     functools.partial(
         link_technosphere_by_activity_hash,
@@ -208,7 +227,11 @@ if __name__ == "__main__":
     # GINKO
     if (db := "Ginko") not in bw2data.databases:
         import_simapro_csv(
-            GINKO, db, excluded_strategies=EXCLUDED, other_strategies=GINKO_STRATEGIES
+            GINKO,
+            db,
+            excluded_strategies=EXCLUDED,
+            other_strategies=GINKO_STRATEGIES,
+            migrations=GINKO_MIGRATIONS + AGRIBALYSE_MIGRATIONS,
         )
     else:
         print(f"{db} already imported")
@@ -233,4 +256,3 @@ if __name__ == "__main__":
         add_created_activities(db, ACTIVITIES_TO_CREATE)
     else:
         print(f"{db} already imported")
-    sync_datapackages()

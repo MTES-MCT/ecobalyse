@@ -16,7 +16,7 @@ RUN mkdir -p /home/$NB_USER/data \
 
 # keep in sync with requirements.txt
 # allow to update the image if the source repo is updated
-ADD https://api.github.com/repos/ccomb/brightway2-io/git/refs/tags/ccomb-4 bw2-io.json
+ADD https://api.github.com/repos/ccomb/brightway2-io/git/refs/tags/ccomb-5 bw2-io.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-parameters/git/refs/tags/1.1.0 bw2-parameters.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-data/git/refs/tags/4.0.dev42 bw2-data.json
 ADD https://api.github.com/repos/brightway-lca/brightway2-calc/git/refs/tags/2.0.dev17 bw2-calc.json
@@ -31,7 +31,9 @@ RUN apt update \
     && pip install -r /home/$NB_USER/requirements.txt \
     && rm /home/$NB_USER/requirements.txt \
     && git config --global --add safe.directory /home/$NB_USER/ecobalyse \
+    && npm install prettier \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
+
 
 RUN curl -L -o elm.gz https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz \
     && gunzip elm.gz \
