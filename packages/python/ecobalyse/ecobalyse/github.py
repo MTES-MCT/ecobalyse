@@ -7,6 +7,9 @@ from github import Auth, Github
 
 
 def extract_branch_name(content: str) -> str | None:
+    if not content:
+        return
+
     # Check if the response contains, on a single line, a pattern of type data: branch_name
     # (it should be part of the body)
     # Branch names format: https://docs.github.com/en/get-started/using-git/dealing-with-special-characters-in-branch-and-tag-names#naming-branches-and-tags
