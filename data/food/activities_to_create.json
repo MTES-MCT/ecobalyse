@@ -178,14 +178,14 @@
       "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
     ],
     "replace": {
-      "Beef cattle national average at farm gate": "Beef cattle, feedlot or intensive system, live weight, at farm {BR} - Adapted from WFLDB U"
+      "Beef cattle national average at farm gate": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U"
     }
   },
   {
-    "id": "ground-beef-ue",
+    "id": "ground-beef-eu",
     "search_in": "Agribalyse 3.1.1",
     "search": "Ground beef fresh case ready for direct consumption at plant",
-    "suffix": "[ue]constructed by Ecobalyse",
+    "suffix": "[eu] constructed by Ecobalyse",
     "subactivities": [
       "Fresh ground beef production, industrial production, French production mix, at plant, 1 kg of fresh ground beef (PDi) {FR} U",
       "Slaughtering and chilling, of beef, industrial production, French production mix, 1 kg of beef quarter {FR} U",
@@ -419,6 +419,22 @@
     "replace": {
       "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "soybean grain dried stored and transported processing FR"
     }
+  },
+  {
+    "id": "tomato-organic-fr",
+    "search_in": "Ginko",
+    "search": "Fresh tomato, consumption mix",
+    "suffix": "[fr-only]",
+    "subactivities": [],
+    "replace": { "Fresh tomato ES": "medium tomato FR" }
+  },
+  {
+    "id": "tomato-organic-es",
+    "search_in": "Ginko",
+    "search": "Fresh tomato, consumption mix",
+    "suffix": "[es-only]",
+    "subactivities": [],
+    "replace": { "medium tomato FR": "Fresh tomato ES" }
   },
   {
     "id": "sugar-sugarcane-organic",
