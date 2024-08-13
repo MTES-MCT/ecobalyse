@@ -178,7 +178,21 @@
       "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
     ],
     "replace": {
-      "Beef cattle national average at farm gate": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U"
+      "Beef cattle national average at farm gate": "Beef cattle, feedlot or intensive system, live weight, at farm {BR} - Adapted from WFLDB U"
+    }
+  },
+  {
+    "id": "ground-beef-ue",
+    "search_in": "Agribalyse 3.1.1",
+    "search": "Ground beef fresh case ready for direct consumption at plant",
+    "suffix": "[ue]constructed by Ecobalyse",
+    "subactivities": [
+      "Fresh ground beef production, industrial production, French production mix, at plant, 1 kg of fresh ground beef (PDi) {FR} U",
+      "Slaughtering and chilling, of beef, industrial production, French production mix, 1 kg of beef quarter {FR} U",
+      "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
+    ],
+    "replace": {
+      "Beef cattle national average at farm gate": "Beef cattle, mixed system, live weight, at farm {DE} - Adapted from WFLDB U"
     }
   },
   {
@@ -407,19 +421,26 @@
     }
   },
   {
-    "id": "tomato-organic-fr",
-    "search_in": "Ginko",
-    "search": "Fresh tomato, consumption mix",
-    "suffix": "[fr-only]",
+    "id": "sugar-sugarcane-organic",
+    "search_in": "Agribalyse 3.1.1",
+    "search": "Sugar, from sugarcane, at sugar refinery {GLO} - Adapted from WFLDB",
+    "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],
-    "replace": { "Fresh tomato ES": "medium tomato FR" }
+    "replace": {
+      "Sugarcane, at farm {GLO} - Adapted from WFLDB U {GLO}": [
+        "Ginko",
+        "Sugarcane, at farm, organic 2023 {GLO}"
+      ]
+    }
   },
   {
-    "id": "tomato-organic-es",
-    "search_in": "Ginko",
-    "search": "Fresh tomato, consumption mix",
-    "suffix": "[es-only]",
+    "id": "brown-sugar-organic",
+    "search_in": "Agribalyse 3.1.1",
+    "search": "Brown sugar, production, at plant {FR} U' (kilogram, FR, None)",
+    "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],
-    "replace": { "medium tomato FR": "Fresh tomato ES" }
+    "replace": {
+      "Sugar, from sugarcane {RoW}| sugarcane processing, traditional annexed plant | Cut-off, S - Copied from Ecoinvent U {RoW}": "Sugar, from sugarcane, at sugar refinery {GLO} - Adapted from WFLDB, [organic], constructed by Ecobalyse"
+    }
   }
 ]
