@@ -459,7 +459,10 @@
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],
     "replace": {
-      "Sugar, from sugarcane {RoW}| sugarcane processing, traditional annexed plant | Cut-off, S - Copied from Ecoinvent U {RoW}": "Sugar, from sugarcane, at sugar refinery {GLO} - Adapted from WFLDB, [organic], constructed by Ecobalyse"
+      "Sugar, from sugarcane {RoW}| sugarcane processing, traditional annexed plant | Cut-off, S - Copied from Ecoinvent U {RoW}": [
+        "Ecobalyse",
+        "Sugar, from sugarcane, at sugar refinery {GLO} - Adapted from WFLDB, [organic], constructed by Ecobalyse"
+      ]
     }
   }
 ]
