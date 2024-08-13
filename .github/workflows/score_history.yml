@@ -92,7 +92,7 @@ jobs:
           ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
           # As this action is not triggered by the pull_request event, the current sha
           # can be found in $GITHUB_SHA (setup by github actions)
-          ./bin/checkout-ecobalyse-private-branch.sh $GITHUB_SHA
+          pipenv ./bin/checkout-ecobalyse-private-branch.sh $GITHUB_SHA
 
       - name: Add scalingo to know hosts
         run: echo "KNOWN_HOSTS=$(ssh-keyscan -H ssh.osc-fr1.scalingo.com)" >> $GITHUB_ENV
