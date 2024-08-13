@@ -180,7 +180,7 @@
     "replace": {
       "Beef cattle national average at farm gate": [
         "WFLDB",
-        "Beef cattle, feedlot or intensive system, live weight, at farm {BR} - Adapted from WFLDB U"
+        "Beef cattle, feedlot or intensive system, live weight, at farm {BR}"
       ]
     }
   },
