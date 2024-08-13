@@ -10,7 +10,6 @@ on:
 env:
   NODE_ENV: test
   ECOBALYSE_DATA_DIR: ./ecobalyse-private
-  PYTHONPATH: .
 
 jobs:
   score_history:

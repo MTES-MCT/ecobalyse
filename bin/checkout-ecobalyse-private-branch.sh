@@ -17,8 +17,6 @@ fi
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
 
-export PYTHONPATH="$ROOT_DIR:$PYTHONPATH"
-
 cd $ROOT_DIR
 
 DATA_BRANCH_NAME=$(./bin/extract_data_branch_from_pr.py $COMMIT)
