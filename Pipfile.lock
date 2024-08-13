@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "95ba6b73e2b36adc15208776b987ae9e93b29bd64d1143d736eb118486c14dc5"
+            "sha256": "e84cc831736b908da1e6ee4662a6463faaa2bdc7f5984ff9178f225c119d03a7"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -271,6 +271,9 @@
             "index": "pypi",
             "markers": "python_version >= '3.9'",
             "version": "==3.2.2"
+        },
+        "ecobalyse": {
+            "file": "packages/python/ecobalyse"
         },
         "filelock": {
             "hashes": [

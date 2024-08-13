@@ -34,3 +34,5 @@ data/trtrpastoeco/*
 /data/Environmental Footprint 3.1 (adapted).CSV
 venv
 db.sqlite3
+
+*.egg-info
