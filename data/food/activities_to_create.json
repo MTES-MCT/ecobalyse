@@ -192,7 +192,10 @@
       "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
     ],
     "replace": {
-      "Beef cattle national average at farm gate": "Beef cattle, mixed system, live weight, at farm {DE} - Adapted from WFLDB U"
+      "Beef cattle national average at farm gate": [
+        "WFLDB",
+        "Beef cattle, mixed system, live weight, at farm {DE}"
+      ]
     }
   },
   {
