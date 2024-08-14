@@ -317,15 +317,18 @@ pageHeader config =
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
                 ]
-            , a
-                [ class "HeaderAuthLink d-none d-sm-block"
-                , Route.href (Route.Auth { authenticated = False })
-                ]
-                [ if Session.isAuthenticated config.session then
-                    text "Mon compte"
+            , div [ class "d-none d-sm-flex align-items-center flex-nowrap gap-3" ]
+                [ a
+                    [ class "HeaderAuthLink text-end"
+                    , Route.href (Route.Auth { authenticated = False })
+                    ]
+                    [ if Session.isAuthenticated config.session then
+                        text "Mon compte"
 
-                  else
-                    text "Connexion ou inscription"
+                      else
+                        text "Connexion ou inscription"
+                    ]
+                , select [ class "form-select w-auto" ] [ option [] [ text "v1.1.3" ] ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]
