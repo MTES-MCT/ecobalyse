@@ -318,18 +318,6 @@ pageHeader { session, activePage, openMobileNavigation, switchVersion } =
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
-                ]
-            , div [ class "d-none d-sm-flex align-items-center flex-nowrap gap-3" ]
-                [ a
-                    [ class "HeaderAuthLink text-end"
-                    , Route.href (Route.Auth { authenticated = False })
-                    ]
-                    [ if Session.isAuthenticated session then
-                        text "Mon compte"
-
-                      else
-                        text "Connexion ou inscription"
-                    ]
                 , session.releases
                     |> RemoteData.map
                         (List.map
@@ -338,11 +326,21 @@ pageHeader { session, activePage, openMobileNavigation, switchVersion } =
                                     [ text release.tag ]
                             )
                         )
-                    |> RemoteData.withDefault [ option [ title "Chargement…" ] [ text "…" ] ]
+                    |> RemoteData.withDefault []
                     |> select
-                        [ class "form-select w-auto"
+                        [ class "VersionSelector form-select form-select-sm w-auto"
                         , onInput switchVersion
                         ]
+                ]
+            , a
+                [ class "HeaderAuthLink text-end"
+                , Route.href (Route.Auth { authenticated = False })
+                ]
+                [ if Session.isAuthenticated session then
+                    text "Mon compte"
+
+                  else
+                    text "Connexion ou inscription"
                 ]
             ]
         , Container.fluid [ class "border-top" ]
@@ -472,7 +470,7 @@ mobileNavigation { activePage, closeMobileNavigation, session } =
                                     strong [] [ text release.tag ]
 
                                 else
-                                    a [ class "nav-link pe-3", href <| "/versions/" ++ release.tag ] [ text release.tag ]
+                                    a [ class "nav-link", href <| "/versions/" ++ release.tag ] [ text release.tag ]
                             )
                         )
                     |> RemoteData.withDefault []
