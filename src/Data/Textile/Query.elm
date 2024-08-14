@@ -19,6 +19,7 @@ module Data.Textile.Query exposing
     , updateMaterialSpinning
     , updateProduct
     , updateStepCountry
+    , updateUpcycled
     , validateMaterials
     )
 
@@ -74,6 +75,7 @@ type alias Query =
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
     , traceability : Maybe Bool
+    , upcycled : Bool
     }
 
 
@@ -129,6 +131,7 @@ decode =
         |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
         |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
         |> Pipe.optional "traceability" (Decode.maybe Decode.bool) Nothing
+        |> Pipe.optional "upcycled" Decode.bool False
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -366,6 +369,25 @@ updateStepCountry label code query =
             query
 
 
+updateUpcycled : Bool -> Query -> Query
+updateUpcycled upcycled query =
+    { query
+        | upcycled = upcycled
+        , disabledSteps =
+            if upcycled then
+                [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
+
+            else
+                []
+        , makingComplexity =
+            if upcycled then
+                Just MakingComplexity.High
+
+            else
+                query.makingComplexity
+    }
+
+
 validateMaterials : List MaterialQuery -> Result String (List MaterialQuery)
 validateMaterials materials =
     if materials == [] then
@@ -423,6 +445,7 @@ default =
     , numberOfReferences = Nothing
     , price = Nothing
     , traceability = Nothing
+    , upcycled = False
     }
 
 

@@ -142,6 +142,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
+    | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
 
@@ -585,6 +586,10 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | traceability = Just traceability }
 
+        ( UpdateUpcycled upcycled, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateUpcycled upcycled query)
+
         ( UpdateYarnSize yarnSize, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
@@ -905,7 +910,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             [ div [ class "d-flex flex-column" ]
                 [ label [ class "form-label d-none d-md-block", attribute "aria-hidden" "true" ] [ text "\u{00A0}" ]
                 , div [ class "UpcycledCheck form-check text-truncate ms-1" ]
-                    [ input [ type_ "checkbox", class "form-check-input", id "upcycled" ] []
+                    [ input [ type_ "checkbox", class "form-check-input", id "upcycled", onCheck UpdateUpcycled ] []
                     , label [ for "upcycled", class "form-check-label text-truncate", title "Le vêtement est-il upcyclé\u{00A0}?" ]
                         [ text "Remanufacturé" ]
                     ]
