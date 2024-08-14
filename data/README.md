@@ -27,6 +27,7 @@ d'abord un `make clean_data` (qui supprime le volume docker).
 - `make import_method` : pour importer EF 3.1 adapted dans Brightway.
   Assurez-vous d'avoir le bon fichier de données dans `data/`
 - `make export_food` : pour exporter les json pour le builder alimentaire
+- `make delete_database DB=<dbname>` : pour supprimer une base de données
 - `make delete_method` : pour supprimer la méthode EF3.1
 - `make sync_datapackages` : lance un fix parfois nécessaire pour la synchro brightway
 - `make import` : lance toutes les commandes d'import
