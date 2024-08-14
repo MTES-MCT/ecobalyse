@@ -5,7 +5,6 @@ import logging
 import os
 import pathlib
 import shutil
-import sys
 from pathlib import Path
 
 import requests
@@ -53,9 +52,6 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    if not os.path.isdir(args.destination_directory):
-        logger.error("Destination directory must be a directory, exiting.")
-        sys.exit(1)
 
     logger.info(f"Downloading versions to '{args.destination_directory}' directory.")
     if args.loglevel is not None:
