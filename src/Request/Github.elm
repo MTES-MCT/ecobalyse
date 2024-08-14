@@ -31,5 +31,5 @@ getChangelog _ event =
 
 getReleases : (WebData (List Github.Release) -> msg) -> Cmd msg
 getReleases event =
-    Decode.list Github.decodeRelease
+    Github.decodeReleaseList
         |> RemoteData.Http.getWithConfig config (apiBaseUrl ++ "/releases") event

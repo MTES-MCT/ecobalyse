@@ -2,7 +2,7 @@ module Data.Github exposing
     ( Commit
     , Release
     , decodeCommit
-    , decodeRelease
+    , decodeReleaseList
     )
 
 import Iso8601
@@ -22,7 +22,8 @@ type alias Commit =
 
 
 type alias Release =
-    { hash : String
+    { draft : Bool
+    , hash : String
     , markdown : String
     , name : String
     , tag : String
@@ -54,8 +55,16 @@ decodeCommit =
 decodeRelease : Decoder Release
 decodeRelease =
     Decode.succeed Release
+        |> Pipe.required "draft" Decode.bool
         |> Pipe.required "target_commitish" Decode.string
         |> Pipe.required "body" Decode.string
         |> Pipe.required "name" Decode.string
         |> Pipe.required "tag_name" Decode.string
         |> Pipe.required "html_url" Decode.string
+
+
+decodeReleaseList : Decoder (List Release)
+decodeReleaseList =
+    Decode.list decodeRelease
+        -- Exclude draft releases
+        |> Decode.andThen (List.filter (.draft >> not) >> Decode.succeed)

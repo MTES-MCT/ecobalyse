@@ -81,6 +81,7 @@ type Msg
     | ReloadPage
     | StatsMsg Stats.Msg
     | StoreChanged String
+    | SwitchVersion String
     | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -303,6 +304,10 @@ update rawMsg ({ state } as model) =
                     , Cmd.none
                     )
 
+                -- Version switch
+                ( SwitchVersion version, _ ) ->
+                    ( model, Nav.load <| "/versions/" ++ version )
+
                 -- Mobile navigation menu
                 ( CloseMobileNavigation, _ ) ->
                     ( { model | mobileNavigationOpened = False }, Cmd.none )
@@ -409,6 +414,7 @@ view { state, mobileNavigationOpened } =
                         LoadUrl
                         ReloadPage
                         CloseNotification
+                        SwitchVersion
 
                 mapMsg msg ( title, content ) =
                     ( title, content |> List.map (Html.map msg) )

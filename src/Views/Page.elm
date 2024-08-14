@@ -51,6 +51,7 @@ type alias Config msg =
     , loadUrl : String -> msg
     , reloadPage : msg
     , closeNotification : Session.Notification -> msg
+    , switchVersion : String -> msg
     , activePage : ActivePage
     }
 
@@ -294,7 +295,7 @@ versionLink version =
 
 
 pageHeader : Config msg -> Html msg
-pageHeader config =
+pageHeader { session, activePage, openMobileNavigation, switchVersion } =
     header [ class "Header shadow-sm", attribute "role" "banner" ]
         [ div [ class "MobileMenuButton" ]
             [ button
@@ -302,7 +303,7 @@ pageHeader config =
                 , class "d-inline-block d-sm-none btn m-0 p-0"
                 , attribute "aria-label" "Ouvrir la navigation"
                 , title "Ouvrir la navigation"
-                , onClick config.openMobileNavigation
+                , onClick openMobileNavigation
                 ]
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
@@ -323,20 +324,25 @@ pageHeader config =
                     [ class "HeaderAuthLink text-end"
                     , Route.href (Route.Auth { authenticated = False })
                     ]
-                    [ if Session.isAuthenticated config.session then
+                    [ if Session.isAuthenticated session then
                         text "Mon compte"
 
                       else
                         text "Connexion ou inscription"
                     ]
-                , case config.session.releases of
-                    RemoteData.Success releases ->
-                        releases
-                            |> List.map (\{ tag } -> option [] [ text tag ])
-                            |> select [ class "form-select w-auto" ]
-
-                    _ ->
-                        text ""
+                , session.releases
+                    |> RemoteData.map
+                        (List.map
+                            (\release ->
+                                option [ selected <| Version.is release session.currentVersion ]
+                                    [ text release.tag ]
+                            )
+                        )
+                    |> RemoteData.withDefault [ option [ title "Chargement…" ] [ text "…" ] ]
+                    |> select
+                        [ class "form-select w-auto"
+                        , onInput switchVersion
+                        ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]
@@ -346,8 +352,8 @@ pageHeader config =
                     , attribute "role" "navigation"
                     , attribute "aria-label" "Menu principal"
                     ]
-                    [ headerMenuLinks config.session
-                        |> List.map (viewNavigationLink config.activePage)
+                    [ headerMenuLinks session
+                        |> List.map (viewNavigationLink activePage)
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
                 ]
