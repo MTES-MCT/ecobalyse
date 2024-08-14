@@ -366,7 +366,7 @@ viewNavigationLink activePage link =
     case link of
         Internal label route page ->
             Link.internal
-                (class "nav-link pe-3"
+                (class "nav-link"
                     :: classList [ ( "active", page == activePage ) ]
                     :: Route.href route
                     :: (if page == activePage then
@@ -379,7 +379,7 @@ viewNavigationLink activePage link =
                 [ text label ]
 
         External label url ->
-            Link.external [ class "nav-link link-external-muted pe-2", href url ]
+            Link.external [ class "nav-link link-external-muted", href url ]
                 [ text label ]
 
         MailTo label email ->
@@ -462,6 +462,20 @@ mobileNavigation { activePage, closeMobileNavigation, session } =
             , div [ class "offcanvas-body" ]
                 [ footerMenuLinks session
                     |> List.map (viewNavigationLink activePage)
+                    |> div [ class "nav nav-pills flex-column" ]
+                , h4 [ class "h6 mt-3" ] [ text "Versions" ]
+                , session.releases
+                    |> RemoteData.map
+                        (List.map
+                            (\release ->
+                                if Version.is release session.currentVersion then
+                                    strong [] [ text release.tag ]
+
+                                else
+                                    a [ class "nav-link pe-3", href <| "/versions/" ++ release.tag ] [ text release.tag ]
+                            )
+                        )
+                    |> RemoteData.withDefault []
                     |> div [ class "nav nav-pills flex-column" ]
                 ]
             ]
