@@ -14,6 +14,7 @@ import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import RemoteData
 import Request.Version as Version exposing (Version(..))
 import Route
 import Views.Alert as Alert
@@ -328,7 +329,14 @@ pageHeader config =
                       else
                         text "Connexion ou inscription"
                     ]
-                , select [ class "form-select w-auto" ] [ option [] [ text "v1.1.3" ] ]
+                , case config.session.releases of
+                    RemoteData.Success releases ->
+                        releases
+                            |> List.map (\{ tag } -> option [] [ text tag ])
+                            |> select [ class "form-select w-auto" ]
+
+                    _ ->
+                        text ""
                 ]
             ]
         , Container.fluid [ class "border-top" ]

@@ -20,9 +20,9 @@ type alias VersionData =
 
 
 type Version
-    = Unknown
+    = NewerVersion
+    | Unknown
     | Version VersionData
-    | NewerVersion
 
 
 updateVersion : Version -> WebData VersionData -> Version

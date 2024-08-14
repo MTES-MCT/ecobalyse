@@ -1,4 +1,7 @@
-module Request.Github exposing (getChangelog)
+module Request.Github exposing
+    ( getChangelog
+    , getReleases
+    )
 
 import Data.Env as Env
 import Data.Github as Github
@@ -6,6 +9,11 @@ import Data.Session exposing (Session)
 import Json.Decode as Decode
 import RemoteData exposing (WebData)
 import RemoteData.Http exposing (defaultConfig)
+
+
+apiBaseUrl : String
+apiBaseUrl =
+    "https://api.github.com/repos/" ++ Env.githubRepository
 
 
 config : RemoteData.Http.Config
@@ -17,7 +25,11 @@ config =
 
 getChangelog : Session -> (WebData (List Github.Commit) -> msg) -> Cmd msg
 getChangelog _ event =
-    RemoteData.Http.getWithConfig config
-        ("https://api.github.com/repos/" ++ Env.githubRepository ++ "/commits")
-        event
-        (Decode.list Github.decodeCommit)
+    Decode.list Github.decodeCommit
+        |> RemoteData.Http.getWithConfig config (apiBaseUrl ++ "/commits") event
+
+
+getReleases : (WebData (List Github.Release) -> msg) -> Cmd msg
+getReleases event =
+    Decode.list Github.decodeRelease
+        |> RemoteData.Http.getWithConfig config (apiBaseUrl ++ "/releases") event
