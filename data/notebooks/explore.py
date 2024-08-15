@@ -406,7 +406,7 @@ def display_main_data(method, impact_category, activity):
             name = ", ".join(m[1:])
             scores[name] = {
                 "Indicateur": name,
-                "Amount": lca.score,
+                "Score": lca.score,
                 "Unité": bw2data.methods[m].get("unit", "(no unit)"),
             }
 
@@ -417,14 +417,14 @@ def display_main_data(method, impact_category, activity):
     if scores and method == EF31:
         scores["Ecotoxicity, freshwater - organics"] = {
             "Indicateur": "Ecotoxicity, freshwater - organics",
-            "Amount": scores["Ecotoxicity, freshwater - organics - p.1"]["Amount"]
-            + scores["Ecotoxicity, freshwater - organics - p.2"]["Amount"],
+            "Score": scores["Ecotoxicity, freshwater - organics - p.1"]["Score"]
+            + scores["Ecotoxicity, freshwater - organics - p.2"]["Score"],
             "Unité": scores["Ecotoxicity, freshwater - organics - p.1"]["Unité"],
         }
         scores["Ecotoxicity, freshwater"] = {
             "Indicateur": "Ecotoxicity, freshwater",
-            "Amount": scores["Ecotoxicity, freshwater - part 1"]["Amount"]
-            + scores["Ecotoxicity, freshwater - part 2"]["Amount"],
+            "Score": scores["Ecotoxicity, freshwater - part 1"]["Score"]
+            + scores["Ecotoxicity, freshwater - part 2"]["Score"],
             "Unité": scores["Ecotoxicity, freshwater - part 1"]["Unité"],
         }
         for trigram in [
@@ -433,59 +433,59 @@ def display_main_data(method, impact_category, activity):
             if t not in ("ecs", "pef", "htn-c", "etf-c", "htc-c")
         ]:
             scores[IMPACTS[trigram]["label_en"]]["µPt PEF"] = (
-                scores[IMPACTS[trigram]["label_en"]]["Amount"]
+                scores[IMPACTS[trigram]["label_en"]]["Score"]
                 / IMPACTS[trigram].get("pef", {}).get("normalization", 1)
                 * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
                 * 1e6
             )
             scores[IMPACTS[trigram]["label_en"]]["Ecoscore"] = (
-                scores[IMPACTS[trigram]["label_en"]]["Amount"]
+                scores[IMPACTS[trigram]["label_en"]]["Score"]
                 / (IMPACTS[trigram].get("ecoscore", {}) or {}).get("normalization", 1)
                 * (IMPACTS[trigram].get("ecoscore", {}) or {}).get("weighting", 0)
                 * 1e6
             )
         scores["Ecotoxicity, freshwater, corrected"] = {
             "Indicateur": "Ecotoxicity, freshwater, corrected",
-            "Amount": IMPACTS["etf-c"]["correction"][0]["weighting"]
-            * scores["Ecotoxicity, freshwater - organics"]["Amount"]
+            "Score": IMPACTS["etf-c"]["correction"][0]["weighting"]
+            * scores["Ecotoxicity, freshwater - organics"]["Score"]
             + IMPACTS["etf-c"]["correction"][1]["weighting"]
-            * scores["Ecotoxicity, freshwater - inorganics"]["Amount"],
+            * scores["Ecotoxicity, freshwater - inorganics"]["Score"],
             "Unité": scores["Ecotoxicity, freshwater"]["Unité"],
         }
         scores["Ecotoxicity, freshwater, corrected"]["Ecoscore"] = (
-            scores["Ecotoxicity, freshwater, corrected"]["Amount"]
+            scores["Ecotoxicity, freshwater, corrected"]["Score"]
             / IMPACTS["etf-c"]["ecoscore"]["normalization"]
             * IMPACTS["etf-c"]["ecoscore"]["weighting"]
         )
         scores["Human toxicity, cancer, corrected"] = {
             "Indicateur": "Human toxicity, cancer, corrected",
-            "Amount": IMPACTS["htc-c"]["correction"][0]["weighting"]
-            * scores["Human toxicity, cancer - organics"]["Amount"]
+            "Score": IMPACTS["htc-c"]["correction"][0]["weighting"]
+            * scores["Human toxicity, cancer - organics"]["Score"]
             + IMPACTS["htc-c"]["correction"][1]["weighting"]
-            * scores["Human toxicity, cancer - inorganics"]["Amount"],
+            * scores["Human toxicity, cancer - inorganics"]["Score"],
             "Unité": scores["Human toxicity, cancer"]["Unité"],
         }
         scores["Human toxicity, cancer, corrected"]["Ecoscore"] = (
-            scores["Human toxicity, cancer, corrected"]["Amount"]
+            scores["Human toxicity, cancer, corrected"]["Score"]
             / IMPACTS["htc-c"]["ecoscore"]["normalization"]
             * IMPACTS["htc-c"]["ecoscore"]["weighting"]
         )
         scores["Human toxicity, non-cancer, corrected"] = {
             "Indicateur": "Human toxicity, non-cancer, corrected",
-            "Amount": IMPACTS["htn-c"]["correction"][0]["weighting"]
-            * scores["Human toxicity, non-cancer - organics"]["Amount"]
+            "Score": IMPACTS["htn-c"]["correction"][0]["weighting"]
+            * scores["Human toxicity, non-cancer - organics"]["Score"]
             + IMPACTS["htn-c"]["correction"][1]["weighting"]
-            * scores["Human toxicity, non-cancer - inorganics"]["Amount"],
+            * scores["Human toxicity, non-cancer - inorganics"]["Score"],
             "Unité": scores["Human toxicity, non-cancer"]["Unité"],
         }
         scores["Human toxicity, non-cancer, corrected"]["Ecoscore"] = (
-            scores["Human toxicity, non-cancer, corrected"]["Amount"]
+            scores["Human toxicity, non-cancer, corrected"]["Score"]
             / IMPACTS["htn-c"]["ecoscore"]["normalization"]
             * IMPACTS["htn-c"]["ecoscore"]["weighting"]
         )
         # PEF
         pef = sum(
-            scores[IMPACTS[trigram]["label_en"]]["Amount"]
+            scores[IMPACTS[trigram]["label_en"]]["Score"]
             / IMPACTS[trigram].get("pef", {}).get("normalization", 1)
             * IMPACTS[trigram].get("pef", {}).get("weighting", 0)
             for trigram in [
@@ -496,7 +496,7 @@ def display_main_data(method, impact_category, activity):
         )
         # ECOSCORE
         ecs = sum(
-            scores[IMPACTS[trigram]["label_en"]]["Amount"]
+            scores[IMPACTS[trigram]["label_en"]]["Score"]
             / IMPACTS[trigram].get("ecoscore", {}).get("normalization", 1)
             * IMPACTS[trigram].get("ecoscore", {}).get("weighting", 0)
             for trigram in [
@@ -536,7 +536,7 @@ def display_main_data(method, impact_category, activity):
     dfimpacts.set_properties(**{"background-color": "#EEE"})
     dfimpacts.format(
         formatter={
-            "Amount": "{:.4g}".format,
+            "Score": "{:.4g}".format,
             "Ecoscore": "{:.4g}".format,
             "%/ECS": "{:.1f}",
         }
