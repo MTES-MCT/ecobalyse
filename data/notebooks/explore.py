@@ -668,9 +668,9 @@ def display_main_data(method, impact_category, activity):
             analysis = "Nothing to display. Maybe you selected the biosphere?"
         else:
             lca.lcia()
-            top_emissions_columns = ["Amount", "Score", "Unit", "Elementary flow"]
+            top_emissions_columns = ["Amount", "Unit", "Score", "Elementary flow"]
             top_emissions_tuples = [
-                (amount, score, activity["unit"], activity)
+                (amount, activity["unit"], score, activity)
                 for (
                     score,
                     amount,
@@ -685,9 +685,9 @@ def display_main_data(method, impact_category, activity):
             )
             top_emissions.set_properties(**{"background-color": "#EEE"})
             # TOP PROCESSES
-            top_processes_columns = ["Amount", "Score", "Unit", "Activity"]
+            top_processes_columns = ["Amount", "Unit", "Score", "Activity"]
             top_processes_tuples = [
-                (amount, score, activity["unit"], activity)
+                (amount, activity["unit"], score, activity)
                 for (
                     score,
                     amount,
