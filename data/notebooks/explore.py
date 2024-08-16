@@ -456,6 +456,7 @@ def display_main_data(method, impact_category, activity):
             scores["Ecotoxicity, freshwater, corrected"]["Score"]
             / IMPACTS["etf-c"]["ecoscore"]["normalization"]
             * IMPACTS["etf-c"]["ecoscore"]["weighting"]
+            * 1e6
         )
         scores["Human toxicity, cancer, corrected"] = {
             "Indicateur": "Human toxicity, cancer, corrected",
@@ -469,6 +470,7 @@ def display_main_data(method, impact_category, activity):
             scores["Human toxicity, cancer, corrected"]["Score"]
             / IMPACTS["htc-c"]["ecoscore"]["normalization"]
             * IMPACTS["htc-c"]["ecoscore"]["weighting"]
+            * 1e6
         )
         scores["Human toxicity, non-cancer, corrected"] = {
             "Indicateur": "Human toxicity, non-cancer, corrected",
@@ -482,6 +484,7 @@ def display_main_data(method, impact_category, activity):
             scores["Human toxicity, non-cancer, corrected"]["Score"]
             / IMPACTS["htn-c"]["ecoscore"]["normalization"]
             * IMPACTS["htn-c"]["ecoscore"]["weighting"]
+            * 1e6
         )
         # PEF
         pef = sum(
