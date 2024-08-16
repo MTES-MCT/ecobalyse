@@ -115,7 +115,12 @@ def display_results(database, search, limit):
     w_results.clear_output()
     w_details.clear_output()
     w_activity.options = [("", "")] + [
-        (str(i) + " " + a.get("name", ""), a) for i, a in enumerate(results)
+        (
+            str(i)
+            + f" {a.get('name', '')} {'(' if a.get('categories') else ''}{', '.join(a.get('categories', []))}{')' if a.get('categories') else ''}",
+            a,
+        )
+        for i, a in enumerate(results)
     ]
     if len(results) == 0:
         display(Markdown("(No results)"))
@@ -713,7 +718,11 @@ def display_main_data(method, impact_category, activity):
         analysis = "💡 Please select an impact category"
 
     w_details.clear_output()
-    display(Markdown(f"# {activity}"))
+    display(
+        Markdown(
+            f"# 1 {activity.get('unit', '')} of {activity.get('name', '')} ({', '.join(activity.get('categories', 'N/A'))})"
+        )
+    )
     display(
         ipywidgets.Tab(
             titles=[
