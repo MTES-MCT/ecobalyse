@@ -49,7 +49,7 @@ type alias Config msg =
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
     , loadUrl : String -> msg
-    , reloadPage : msg
+    , reloadPage : Maybe String -> msg
     , closeNotification : Session.Notification -> msg
     , switchVersion : String -> msg
     , activePage : ActivePage
@@ -119,7 +119,7 @@ newVersionAlert { session, reloadPage } =
                 , button
                     [ type_ "button"
                     , class "btn btn-outline-primary"
-                    , onClick reloadPage
+                    , onClick (reloadPage Nothing)
                     ]
                     [ text "Mettre à jour" ]
                 ]
@@ -295,7 +295,7 @@ versionLink version =
 
 
 pageHeader : Config msg -> Html msg
-pageHeader { session, activePage, openMobileNavigation, switchVersion } =
+pageHeader { session, activePage, openMobileNavigation, reloadPage, switchVersion } =
     header [ class "Header shadow-sm", attribute "role" "banner" ]
         [ div [ class "MobileMenuButton" ]
             [ button
@@ -307,7 +307,7 @@ pageHeader { session, activePage, openMobileNavigation, switchVersion } =
                 ]
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
-        , Container.centered [ class "d-flex justify-content-between align-items-center" ]
+        , Container.centered [ class "d-flex justify-content-between align-items-center gap-2" ]
             [ a
                 [ class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5 pe-3"
 
@@ -315,25 +315,26 @@ pageHeader { session, activePage, openMobileNavigation, switchVersion } =
                 -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
                 , class "fr-header__brand"
                 , href "/"
+                , onClick (reloadPage <| Just "/")
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
-                , session.releases
-                    |> RemoteData.map
-                        (List.map
-                            (\release ->
-                                option [ selected <| Version.is release session.currentVersion ]
-                                    [ text release.tag ]
-                            )
-                        )
-                    |> RemoteData.withDefault []
-                    |> select
-                        [ class "VersionSelector form-select form-select-sm w-auto"
-                        , onInput switchVersion
-                        ]
                 ]
+            , session.releases
+                |> RemoteData.map
+                    (List.map
+                        (\release ->
+                            option [ selected <| Version.is release session.currentVersion ]
+                                [ text release.tag ]
+                        )
+                    )
+                |> RemoteData.withDefault []
+                |> select
+                    [ class "VersionSelector form-select form-select-sm w-auto"
+                    , onInput switchVersion
+                    ]
             , a
-                [ class "HeaderAuthLink text-end"
+                [ class "HeaderAuthLink text-end flex-fill"
                 , Route.href (Route.Auth { authenticated = False })
                 ]
                 [ if Session.isAuthenticated session then
