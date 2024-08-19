@@ -1,14 +1,17 @@
 {
-  "/api": {
-    "target": "http://127.0.0.1:8001/"
+  "/admin/": {
+    "target": "http://127.0.0.1:8002/"
   },
   "/accounts/": {
     "target": "http://127.0.0.1:8002/"
   },
+  "/api": {
+    "target": "http://127.0.0.1:8001/"
+  },
   "/processes/": {
     "target": "http://127.0.0.1:8001/"
   },
-  "/admin/": {
-    "target": "http://127.0.0.1:8002/"
+  "/versions": {
+    "target": "http://127.0.0.1:8001/"
   }
 }
