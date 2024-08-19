@@ -9,7 +9,7 @@ if [ -z "$COMMIT_OR_TAG" ]
 then
   echo "Missing commit hash or tag name parameter."
   echo ""
-  echo "Usage : $0 <commit_hash_or_tag>"
+  echo "Usage: $0 <public_commit_hash> [<data_dir_commit_hash>]"
   exit
 fi
 
@@ -110,7 +110,7 @@ if [[ ! -f "$TEXTILE_DETAILED_IMPACTS_FILE" ]]; then
     echo "🚨 This version of the application requires data files from the Ecobalyse data dir. You need to specify the ECOBALYSE_DATA_DIR_COMMIT as a second parameter."
     echo "   The corresponding data dir version will be cloned locally."
     echo ""
-    echo "Usage : $0 <public_commit_hash> <data_dir_commit_hash>"
+    echo "Usage: $0 <public_commit_hash> <data_dir_commit_hash>"
     echo ""
     exit
   fi
@@ -143,6 +143,14 @@ if [[ ! -f "$TEXTILE_DETAILED_IMPACTS_FILE" ]]; then
   export ECOBALYSE_DATA_DIR=$DATA_DIR_GIT_CLONE_DIR
 fi
 
+ELM_VERSION_FILE=$PUBLIC_GIT_CLONE_DIR"/src/Request/Version.elm"
+INDEX_JS_FILE=$PUBLIC_GIT_CLONE_DIR"/index.js"
+
+# Patch old versions of the app so that it gets the version file using relative path in Elm
+# Otherwise serving the app from /versions will not display the good version number
+# Also patch the local storage key to avoid messing things up between versions
+$ROOT_DIR/bin/patch_files_for_versions_compat.py --elm_version_file $ELM_VERSION_FILE --index_js_file $INDEX_JS_FILE $COMMIT_OR_TAG
+
 cd $PUBLIC_GIT_CLONE_DIR
 
 # Installing node stuff
@@ -152,21 +160,6 @@ NODE_ENV=dev npm ci
 
 # We want a production build
 export NODE_ENV=production
-
-# Patch old versions of the app so that it gets the version file using relative path
-# Otherwise serving the app from /versions will not display the good version number
-ELM_VERSION_FILE="src/Request/Version.elm"
-
-if [[ -f "$ELM_VERSION_FILE" ]]; then
-  sed -i 's/"\/version\.json"/"version\.json"/g' $ELM_VERSION_FILE
-fi
-
-# Patch the local storage key to avoid messing things up between versions
-INDEX_JS_FILE="index.js"
-
-if [[ -f "$INDEX_JS_FILE" ]]; then
-  sed -i "s/storeKey = \"store\"/storeKey = \"store$COMMIT_OR_TAG\"/" $INDEX_JS_FILE
-fi
 
 # Rely on the build command of the version we are on. We should be careful when changing this build command
 # It should always generate a dist/ directory because that's what we are assuming here
