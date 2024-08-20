@@ -36,6 +36,7 @@ type alias Config element quantity msg =
     , impact : Impacts
 
     -- TODO: introduce complementsView
+    , openExplorerDetails : element -> msg
     , quantityView : { quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
     , selectedImpact : Definition
     , selectElement : element -> Autocomplete element -> msg
@@ -132,7 +133,7 @@ deleteItemButton { disabled } event =
 
 
 selectorView : Config element quantity msg -> msg -> Html msg
-selectorView { baseElement, toId, toTooltip, toString } selectElement =
+selectorView { baseElement, openExplorerDetails, toId, toTooltip, toString } selectElement =
     let
         selectedElement =
             baseElement.element
@@ -149,6 +150,7 @@ selectorView { baseElement, toId, toTooltip, toString } selectElement =
         , button
             [ type_ "button"
             , class "input-group-text"
+            , onClick (openExplorerDetails selectedElement)
             ]
             [ Icon.question ]
         ]

@@ -84,9 +84,10 @@ type alias Model =
 
 type Modal
     = NoModal
-    | ComparatorModal
     | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    | ComparatorModal
     | ConfirmSwitchToRegulatoryModal
+    | ExplorerDetailsTab Material
     | SelectExampleModal (Autocomplete Query)
     | SelectProductModal (Autocomplete Product)
 
@@ -414,6 +415,16 @@ update ({ queries, navKey } as session) msg model =
             , commandsForNoModal model.modal
             )
 
+        ( SetModal (AddMaterialModal maybeOldMaterial autocomplete), _ ) ->
+            ( { model | modal = AddMaterialModal maybeOldMaterial autocomplete }
+            , session
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
+            )
+
         ( SetModal ComparatorModal, _ ) ->
             ( { model | modal = ComparatorModal }
             , session
@@ -426,14 +437,10 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        ( SetModal (AddMaterialModal maybeOldMaterial autocomplete), _ ) ->
-            ( { model | modal = AddMaterialModal maybeOldMaterial autocomplete }
+        ( SetModal (ExplorerDetailsTab material), _ ) ->
+            ( { model | modal = ExplorerDetailsTab material }
             , session
-            , Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "element-search"
-                    |> Task.attempt (always NoOp)
-                ]
+            , Cmd.none
             )
 
         ( SetModal (SelectExampleModal autocomplete), _ ) ->
@@ -848,6 +855,7 @@ lifeCycleStepsView db { activeTab, impact } simulator =
                     -- Events
                     , addMaterialModal = AddMaterialModal
                     , deleteMaterial = .id >> RemoveMaterial
+                    , openExplorerDetails = ExplorerDetailsTab >> SetModal
                     , setModal = SetModal
                     , toggleFading = ToggleFading
                     , toggleStep = ToggleStep
@@ -1078,6 +1086,20 @@ view session model =
                         NoModal ->
                             text ""
 
+                        AddMaterialModal _ autocompleteState ->
+                            AutocompleteSelector.view
+                                { autocompleteState = autocompleteState
+                                , closeModal = SetModal NoModal
+                                , footer = []
+                                , noOp = NoOp
+                                , onAutocomplete = OnAutocompleteMaterial
+                                , onAutocompleteSelect = OnAutocompleteSelect
+                                , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
+                                , title = "Sélectionnez une matière première"
+                                , toLabel = .shortName
+                                , toCategory = .origin >> Origin.toLabel
+                                }
+
                         ComparatorModal ->
                             ModalView.view
                                 { size = ModalView.ExtraLarge
@@ -1098,20 +1120,6 @@ view session model =
                                         }
                                     ]
                                 , footer = []
-                                }
-
-                        AddMaterialModal _ autocompleteState ->
-                            AutocompleteSelector.view
-                                { autocompleteState = autocompleteState
-                                , closeModal = SetModal NoModal
-                                , footer = []
-                                , noOp = NoOp
-                                , onAutocomplete = OnAutocompleteMaterial
-                                , onAutocompleteSelect = OnAutocompleteSelect
-                                , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
-                                , title = "Sélectionnez une matière première"
-                                , toLabel = .shortName
-                                , toCategory = .origin >> Origin.toLabel
                                 }
 
                         ConfirmSwitchToRegulatoryModal ->
@@ -1139,6 +1147,20 @@ view session model =
                                                 [ text "rester en mode exploratoire" ]
                                             ]
                                         ]
+                                    ]
+                                , footer = []
+                                }
+
+                        ExplorerDetailsTab material ->
+                            ModalView.view
+                                { size = ModalView.Large
+                                , close = SetModal NoModal
+                                , noOp = NoOp
+                                , title = material.name
+                                , subTitle = Nothing
+                                , formAction = Nothing
+                                , content =
+                                    [ text "hello"
                                     ]
                                 , footer = []
                                 }

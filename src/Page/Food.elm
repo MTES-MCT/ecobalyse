@@ -78,8 +78,9 @@ type alias Model =
 
 type Modal
     = NoModal
-    | ComparatorModal
     | AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
+    | ComparatorModal
+    | ExplorerDetailsModal Ingredient
     | SelectExampleModal (Autocomplete Query)
 
 
@@ -371,6 +372,12 @@ update ({ db, queries } as session) msg model =
 
         SetModal ComparatorModal ->
             ( { model | modal = ComparatorModal }
+            , session
+            , Ports.addBodyClass "prevent-scrolling"
+            )
+
+        SetModal (ExplorerDetailsModal ingredient) ->
+            ( { model | modal = ExplorerDetailsModal ingredient }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
@@ -686,6 +693,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
         db.food.ingredients
             |> List.filter (\ingredient -> List.member ingredient.id excluded)
     , impact = impact
+    , openExplorerDetails = ExplorerDetailsModal >> SetModal
     , quantityView =
         \{ quantity, onChange } ->
             MassInput.view { disabled = False, mass = quantity, onChange = onChange }
@@ -1526,6 +1534,20 @@ view session model =
                                 , switchComparisonType = SwitchComparisonType
                                 , toggle = ToggleComparedSimulation
                                 }
+                            ]
+                        , footer = []
+                        }
+
+                ExplorerDetailsModal ingredient ->
+                    ModalView.view
+                        { size = ModalView.Large
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = ingredient.name
+                        , subTitle = Nothing
+                        , formAction = Nothing
+                        , content =
+                            [ text "hello"
                             ]
                         , footer = []
                         }
