@@ -171,29 +171,20 @@ npm run server:build
 # Always put the tag name in the version.json file to help debugging if needed later on
 # If TAG is defined
 if [[ ! -z "$TAG" ]]; then
-  # If no tag is present in the file
-  if [[ -z "$(grep tag dist/version.json)" ]]; then
-    sed -ri "s/\{(.*)\}/{\1, \"tag\": \"$TAG\"}/" dist/version.json
-  fi
+  $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json tag $TAG
 fi
+
 
 # If a data dir commit was specified, put it in the version file if needed
 # it will to keep track of the commit used to build the version
 if [[ ! -z "$ECOBALYSE_DATA_DIR_COMMIT" ]]; then
-
-  if [[ -z "$(grep dataDirHash dist/version.json >/dev/null 2>&1)" ]]; then
-    # version file is missing the dataDirHash parameter (old version of the app, before 2.0.0)
-    # patch the file to add it
-    sed -i "s/}/, \"dataDirHash\": \"$ECOBALYSE_DATA_DIR_COMMIT\"}/" dist/version.json
-  fi
+  $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json dataDirHash $ECOBALYSE_DATA_DIR_COMMIT
 
 fi
 
 # We need to send the referer to python in order to properly redirect after login
 # so we need to patch the html files that don't have it
-if [[ -z "$(grep origin-when-cross-origin dist/index.html)" ]]; then
-  sed -i "s/<meta charset=\"utf-8\">/<meta charset=\"utf-8\"><meta name=\"referrer\" content=\"origin-when-cross-origin\" \/>/" dist/index.html
-fi
+$ROOT_DIR/bin/patch_files_for_versions_compat.py patch-cross-origin dist/index.html
 
 cd $ROOT_DIR
 

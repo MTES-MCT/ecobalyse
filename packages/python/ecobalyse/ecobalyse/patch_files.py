@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 import pathlib
@@ -63,11 +64,51 @@ def patch_index_js_file(index_js_file: pathlib.Path, version: str):
     write_patched_data(nb, data, index_js_file)
 
 
+def add_entry_to_version_file(version_file: pathlib.Path, key: str, value: str):
+    (data, nb) = (None, 0)
+
+    with open(version_file, "r") as file:
+        json_content = json.load(file)
+        if json_content.get(key) is None:
+            json_content[key] = value
+            nb = 1
+            data = json.dumps(json_content)
+            logger.info(f"Adding key '{key}' with value '{value}' to `version.json`.")
+        else:
+            logger.info(f"Key '{key}' already present in `version.json`, skipping.")
+
+    write_patched_data(nb, data, version_file)
+
+
+def patch_cross_origin(index_html_string: str):
+    meta_charset = '<meta charset="utf-8">'
+    meta_content = '<meta name="referrer" content="origin-when-cross-origin" />'
+    (data, nb) = (None, 0)
+    if (
+        index_html_string.count(meta_charset) >= 0
+        and index_html_string.count('content="origin-when-cross-origin"') == 0
+    ):
+        data = index_html_string.replace(meta_charset, meta_charset + meta_content)
+        nb = 1
+
+    return (data, nb)
+
+
+def patch_cross_origin_index_html_file(index_html_file: pathlib.Path):
+    (data, nb) = (None, 0)
+
+    with open(index_html_file, "r") as file:
+        data = file.read()
+        (data, nb) = patch_cross_origin(data)
+
+    write_patched_data(nb, data, index_html_file)
+
+
 def patch_version_selector(patch_file: pathlib.Path, git_dir: pathlib.Path):
     with open(os.path.join(git_dir, "index.html"), "r") as index_file:
         data = index_file.read()
         if data.count('selector.classList.add("VersionSelector"') > 0:
-            logger.info("Patch content already present in 'index.html', skipping.")
+            logger.info("Patch content already present in `index.html`, skipping.")
         else:
             logger.info(
                 f"Applying patch file `{patch_file}` to `{git_dir}` using `git apply`."

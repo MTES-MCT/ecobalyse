@@ -9,6 +9,8 @@ import typer
 # See https://docs.astral.sh/ruff/rules/unused-import/
 from ecobalyse import logging_config as logging_config
 from ecobalyse.patch_files import (
+    add_entry_to_version_file,
+    patch_cross_origin_index_html_file,
     patch_elm_version_file,
     patch_index_js_file,
     patch_version_selector,
@@ -116,6 +118,54 @@ def version_selector(
     Patch main index.html and Page.elm to add the version selector
     """
     patch_version_selector(patch_file, git_dir)
+
+
+@app.command()
+def add_entry_to_version(
+    version_file: Annotated[
+        pathlib.Path,
+        typer.Argument(
+            help="The full path of the version.json file.",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            writable=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    name: Annotated[
+        str, typer.Argument(help="The name of the entry to add to the json file.")
+    ],
+    value: Annotated[
+        str, typer.Argument(help="The value of the entry to add to the json file.")
+    ],
+):
+    """
+    Patch version.json with the new entry
+    """
+    add_entry_to_version_file(version_file, name, value)
+
+
+@app.command()
+def patch_cross_origin(
+    index_html_file: Annotated[
+        pathlib.Path,
+        typer.Argument(
+            help="The full path of the index.html file.",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            writable=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+):
+    """
+    Patch version.json with the new entry
+    """
+    patch_cross_origin_index_html_file(index_html_file)
 
 
 if __name__ == "__main__":
