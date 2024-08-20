@@ -47,22 +47,22 @@ type alias Config element quantity msg =
 
 
 view : Config element quantity msg -> List (Html msg)
-view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact, quantityView, selectedImpact, selectElement, toId, toString, toTooltip, update } =
+view ({ baseElement, db, impact } as config) =
     let
         updateEvent =
-            update baseElement
+            config.update config.baseElement
 
         deleteEvent =
-            delete baseElement.element
+            config.delete config.baseElement.element
 
         autocompleteState =
             db.elements
-                |> List.filter (\component -> not (List.member component excluded))
-                |> List.sortBy toString
-                |> AutocompleteSelector.init toString
+                |> List.filter (\component -> not (List.member component config.excluded))
+                |> List.sortBy config.toString
+                |> AutocompleteSelector.init config.toString
     in
     [ span [ class "QuantityInputWrapper" ]
-        [ quantityView
+        [ config.quantityView
             { quantity = baseElement.quantity
             , onChange =
                 \maybeQuantity ->
@@ -75,8 +75,8 @@ view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact
             }
         ]
     , autocompleteState
-        |> selectElement baseElement.element
-        |> selectorView baseElement.element toId toTooltip toString
+        |> config.selectElement baseElement.element
+        |> selectorView config
     , db.countries
         |> List.sortBy .name
         |> List.map
@@ -92,7 +92,7 @@ view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact
                 [ value ""
                 , selected (baseElement.country == Nothing)
                 ]
-                [ text <| "Par défaut (" ++ defaultCountry ++ ")" ]
+                [ text <| "Par défaut (" ++ config.defaultCountry ++ ")" ]
             )
         |> select
             [ class "form-select form-select CountrySelector"
@@ -113,9 +113,9 @@ view { allowEmptyList, baseElement, db, defaultCountry, delete, excluded, impact
             ]
     , span [ class "text-end ImpactDisplay fs-7" ]
         [ impact
-            |> Format.formatImpact selectedImpact
+            |> Format.formatImpact config.selectedImpact
         ]
-    , deleteItemButton { disabled = List.length excluded == 1 && not allowEmptyList } deleteEvent
+    , deleteItemButton { disabled = List.length config.excluded == 1 && not config.allowEmptyList } deleteEvent
     ]
 
 
@@ -131,8 +131,12 @@ deleteItemButton { disabled } event =
         [ Icon.trash ]
 
 
-selectorView : element -> (element -> String) -> (element -> String) -> (element -> String) -> msg -> Html msg
-selectorView selectedElement toId toTooltip toString selectElement =
+selectorView : Config element quantity msg -> msg -> Html msg
+selectorView { baseElement, toId, toTooltip, toString } selectElement =
+    let
+        selectedElement =
+            baseElement.element
+    in
     div [ class "input-group" ]
         [ button
             [ class "form-select ElementSelector text-start"
@@ -140,7 +144,7 @@ selectorView selectedElement toId toTooltip toString selectElement =
             , title (toTooltip selectedElement)
             , onClick selectElement
             ]
-            [ text <| toString selectedElement
+            [ span [] [ text <| toString selectedElement ]
             ]
         , button
             [ type_ "button"
