@@ -133,13 +133,18 @@ deleteItemButton { disabled } event =
 
 selectorView : element -> (element -> String) -> (element -> String) -> (element -> String) -> msg -> Html msg
 selectorView selectedElement toId toTooltip toString selectElement =
-    button
-        [ class "form-select ElementSelector text-start"
-        , id <| "selector-" ++ toId selectedElement
-        , title (toTooltip selectedElement)
-        , onClick selectElement
-        ]
-        [ span
-            []
-            [ text <| toString selectedElement ]
+    div [ class "input-group" ]
+        [ button
+            [ class "form-select ElementSelector text-start"
+            , id <| "selector-" ++ toId selectedElement
+            , title (toTooltip selectedElement)
+            , onClick selectElement
+            ]
+            [ text <| toString selectedElement
+            ]
+        , button
+            [ type_ "button"
+            , class "input-group-text"
+            ]
+            [ Icon.question ]
         ]
