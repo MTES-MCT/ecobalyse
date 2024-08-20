@@ -41,7 +41,6 @@ import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
-import Ports
 import Route exposing (Route)
 import Static.Db exposing (Db)
 import Table as SortableTable
@@ -102,7 +101,7 @@ init scope dataset session =
       , tableState = SortableTable.initialSort initialSort
       }
     , session
-    , Ports.scrollTo { x = 0, y = 0 }
+    , Cmd.none
     )
 
 
