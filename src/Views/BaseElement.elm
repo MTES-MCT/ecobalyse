@@ -150,6 +150,7 @@ selectorView { baseElement, openExplorerDetails, toId, toTooltip, toString } sel
         , button
             [ type_ "button"
             , class "input-group-text"
+            , title "Ouvrir les informations détaillées"
             , onClick (openExplorerDetails selectedElement)
             ]
             [ Icon.question ]
