@@ -49,7 +49,7 @@ type alias Config msg =
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
     , loadUrl : String -> msg
-    , reloadPage : Maybe String -> msg
+    , reloadPage : msg
     , closeNotification : Session.Notification -> msg
     , switchVersion : String -> msg
     , activePage : ActivePage
@@ -119,7 +119,7 @@ newVersionAlert { session, reloadPage } =
                 , button
                     [ type_ "button"
                     , class "btn btn-outline-primary"
-                    , onClick (reloadPage Nothing)
+                    , onClick reloadPage
                     ]
                     [ text "Mettre à jour" ]
                 ]
@@ -295,7 +295,7 @@ versionLink version =
 
 
 pageHeader : Config msg -> Html msg
-pageHeader { session, activePage, openMobileNavigation, reloadPage, switchVersion } =
+pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion } =
     header [ class "Header shadow-sm", attribute "role" "banner" ]
         [ div [ class "MobileMenuButton" ]
             [ button
@@ -315,7 +315,7 @@ pageHeader { session, activePage, openMobileNavigation, reloadPage, switchVersio
                 -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
                 , class "fr-header__brand"
                 , href "/"
-                , onClick (reloadPage <| Just "/")
+                , onClick (loadUrl "/")
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]

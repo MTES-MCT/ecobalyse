@@ -78,7 +78,7 @@ type Msg
     | LoadUrl String
     | OpenMobileNavigation
     | ReleasesReceived (WebData (List Github.Release))
-    | ReloadPage (Maybe String)
+    | ReloadPage
     | StatsMsg Stats.Msg
     | StoreChanged String
     | SwitchVersion String
@@ -319,10 +319,7 @@ update rawMsg ({ state } as model) =
                 ( LoadUrl url, _ ) ->
                     ( model, Nav.load url )
 
-                ( ReloadPage (Just url), _ ) ->
-                    ( model, Nav.load url )
-
-                ( ReloadPage Nothing, _ ) ->
+                ( ReloadPage, _ ) ->
                     ( model, Nav.reloadAndSkipCache )
 
                 ( UrlChanged url, _ ) ->
