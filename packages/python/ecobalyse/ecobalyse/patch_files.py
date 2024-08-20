@@ -1,5 +1,7 @@
 import logging
+import os
 import pathlib
+import subprocess
 from typing import Tuple
 
 # Tell ruff to not delete the unused import by rexporting it using as
@@ -41,7 +43,7 @@ def write_patched_data(nb_patched: int, data: str, dest_file: pathlib.Path) -> b
     return False
 
 
-def patch_version_file(elm_version_file: pathlib.Path):
+def patch_elm_version_file(elm_version_file: pathlib.Path):
     (data, nb) = (None, 0)
 
     with open(elm_version_file, "r") as file:
@@ -59,3 +61,15 @@ def patch_index_js_file(index_js_file: pathlib.Path, version: str):
         (data, nb) = patch_storage_key(data, version)
 
     write_patched_data(nb, data, index_js_file)
+
+
+def patch_version_selector(patch_file: pathlib.Path, git_dir: pathlib.Path):
+    with open(os.path.join(git_dir, "index.html"), "r") as index_file:
+        data = index_file.read()
+        if data.count('selector.classList.add("VersionSelector"') > 0:
+            logger.info("Patch content already present in 'index.html', skipping.")
+        else:
+            logger.info(
+                f"Applying patch file `{patch_file}` to `{git_dir}` using `git apply`."
+            )
+            subprocess.run(["git", "apply", patch_file], check=True, cwd=git_dir)

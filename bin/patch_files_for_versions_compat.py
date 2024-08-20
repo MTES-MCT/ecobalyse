@@ -11,6 +11,7 @@ from ecobalyse import logging_config as logging_config
 from ecobalyse.patch_files import (
     patch_elm_version_file,
     patch_index_js_file,
+    patch_version_selector,
 )
 from typing_extensions import Annotated
 
@@ -83,6 +84,38 @@ def local_storage_key(
     Patch main index.js file to add the version to the local storage key
     """
     patch_index_js_file(index_js_file, suffix)
+
+
+@app.command()
+def version_selector(
+    patch_file: Annotated[
+        pathlib.Path,
+        typer.Argument(
+            help="The full path of the patch to apply.",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            writable=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    git_dir: Annotated[
+        pathlib.Path,
+        typer.Argument(
+            help="The full path of the git repo where to apply the patch.",
+            exists=True,
+            file_okay=False,
+            dir_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+):
+    """
+    Patch main index.html and Page.elm to add the version selector
+    """
+    patch_version_selector(patch_file, git_dir)
 
 
 if __name__ == "__main__":

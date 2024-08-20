@@ -151,6 +151,7 @@ INDEX_JS_FILE=$PUBLIC_GIT_CLONE_DIR"/index.js"
 # Also patch the local storage key to avoid messing things up between versions
 $ROOT_DIR/bin/patch_files_for_versions_compat.py elm-version $ELM_VERSION_FILE
 $ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FILE $COMMIT_OR_TAG
+$ROOT_DIR/bin/patch_files_for_versions_compat.py version-selector $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0001-feat-patch-homepage-link-and-inject-and-inject-versi.patch $PUBLIC_GIT_CLONE_DIR
 
 cd $PUBLIC_GIT_CLONE_DIR
 
