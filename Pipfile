@@ -18,5 +18,6 @@ numpy = ">=1,<2"
 pytest-django = "*"
 pygithub = "*"
 ecobalyse = {file = "packages/python/ecobalyse"}
+typer = "*"
 
 [dev-packages]

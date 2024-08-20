@@ -149,7 +149,8 @@ INDEX_JS_FILE=$PUBLIC_GIT_CLONE_DIR"/index.js"
 # Patch old versions of the app so that it gets the version file using relative path in Elm
 # Otherwise serving the app from /versions will not display the good version number
 # Also patch the local storage key to avoid messing things up between versions
-$ROOT_DIR/bin/patch_files_for_versions_compat.py --elm_version_file $ELM_VERSION_FILE --index_js_file $INDEX_JS_FILE $COMMIT_OR_TAG
+$ROOT_DIR/bin/patch_files_for_versions_compat.py elm-version $ELM_VERSION_FILE
+$ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FILE $COMMIT_OR_TAG
 
 cd $PUBLIC_GIT_CLONE_DIR
 
