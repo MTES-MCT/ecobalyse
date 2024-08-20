@@ -51,10 +51,10 @@ view : Config element quantity msg -> List (Html msg)
 view ({ baseElement, db, impact } as config) =
     let
         updateEvent =
-            config.update config.baseElement
+            config.update baseElement
 
         deleteEvent =
-            config.delete config.baseElement.element
+            config.delete baseElement.element
 
         autocompleteState =
             db.elements
@@ -135,23 +135,23 @@ deleteItemButton { disabled } event =
 selectorView : Config element quantity msg -> msg -> Html msg
 selectorView { baseElement, openExplorerDetails, toId, toTooltip, toString } selectElement =
     let
-        selectedElement =
-            baseElement.element
+        { element } =
+            baseElement
     in
     div [ class "input-group" ]
         [ button
             [ class "form-select ElementSelector text-start"
-            , id <| "selector-" ++ toId selectedElement
-            , title (toTooltip selectedElement)
+            , id <| "selector-" ++ toId element
+            , title (toTooltip element)
             , onClick selectElement
             ]
-            [ span [] [ text <| toString selectedElement ]
+            [ span [] [ text <| toString element ]
             ]
         , button
             [ type_ "button"
             , class "input-group-text"
             , title "Ouvrir les informations détaillées"
-            , onClick (openExplorerDetails selectedElement)
+            , onClick (openExplorerDetails element)
             ]
             [ Icon.question ]
         ]
