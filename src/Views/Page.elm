@@ -330,11 +330,11 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                     )
                 |> RemoteData.withDefault []
                 |> select
-                    [ class "VersionSelector form-select form-select-sm w-auto"
+                    [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
                     , onInput switchVersion
                     ]
             , a
-                [ class "HeaderAuthLink text-end flex-fill"
+                [ class "HeaderAuthLink d-none d-sm-block flex-fill text-end"
                 , Route.href (Route.Auth { authenticated = False })
                 ]
                 [ if Session.isAuthenticated session then
@@ -436,7 +436,7 @@ loading =
 
 
 mobileNavigation : Config msg -> Html msg
-mobileNavigation { activePage, closeMobileNavigation, session } =
+mobileNavigation { activePage, closeMobileNavigation, loadUrl, session } =
     div []
         [ div
             [ class "offcanvas offcanvas-start show"
@@ -471,7 +471,12 @@ mobileNavigation { activePage, closeMobileNavigation, session } =
                                     strong [] [ text release.tag ]
 
                                 else
-                                    a [ class "nav-link", href <| "/versions/" ++ release.tag ] [ text release.tag ]
+                                    a
+                                        [ class "nav-link"
+                                        , href <| "/versions/" ++ release.tag
+                                        , onClick (loadUrl <| "/versions/" ++ release.tag)
+                                        ]
+                                        [ text release.tag ]
                             )
                         )
                     |> RemoteData.withDefault []
