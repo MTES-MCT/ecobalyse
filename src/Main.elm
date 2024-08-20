@@ -306,7 +306,7 @@ update rawMsg ({ state } as model) =
 
                 -- Version switch
                 ( SwitchVersion version, _ ) ->
-                    ( model, Nav.load <| "/versions/" ++ version )
+                    ( model, Nav.load <| "/versions/" ++ version ++ "/" )
 
                 -- Mobile navigation menu
                 ( CloseMobileNavigation, _ ) ->
