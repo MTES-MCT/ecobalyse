@@ -46,6 +46,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
+import Page.Explore as Explore
 import Ports
 import Route
 import Static.Db exposing (Db)
@@ -1159,9 +1160,7 @@ view session model =
                                 , title = material.name
                                 , subTitle = Nothing
                                 , formAction = Nothing
-                                , content =
-                                    [ text "hello"
-                                    ]
+                                , content = [ Explore.textileMaterialDetails session.db material ]
                                 , footer = []
                                 }
 

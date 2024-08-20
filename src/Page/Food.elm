@@ -38,6 +38,7 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
+import Page.Explore as Explore
 import Ports
 import Quantity
 import Route
@@ -1546,9 +1547,7 @@ view session model =
                         , title = ingredient.name
                         , subTitle = Nothing
                         , formAction = Nothing
-                        , content =
-                            [ text "hello"
-                            ]
+                        , content = [ Explore.foodIngredientDetails session.db.food ingredient ]
                         , footer = []
                         }
 
