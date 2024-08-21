@@ -9,11 +9,13 @@ module Views.Page exposing
 import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
+import Data.Github as Github
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import RemoteData
 import Request.Version as Version exposing (Version(..))
 import Route
 import Views.Alert as Alert
@@ -50,6 +52,7 @@ type alias Config msg =
     , loadUrl : String -> msg
     , reloadPage : msg
     , closeNotification : Session.Notification -> msg
+    , switchVersion : String -> msg
     , activePage : ActivePage
     }
 
@@ -293,7 +296,7 @@ versionLink version =
 
 
 pageHeader : Config msg -> Html msg
-pageHeader config =
+pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion } =
     header [ class "Header shadow-sm", attribute "role" "banner" ]
         [ div [ class "MobileMenuButton" ]
             [ button
@@ -301,11 +304,11 @@ pageHeader config =
                 , class "d-inline-block d-sm-none btn m-0 p-0"
                 , attribute "aria-label" "Ouvrir la navigation"
                 , title "Ouvrir la navigation"
-                , onClick config.openMobileNavigation
+                , onClick openMobileNavigation
                 ]
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
-        , Container.centered [ class "d-flex justify-content-between align-items-center" ]
+        , Container.centered [ class "d-flex justify-content-between align-items-center gap-2" ]
             [ a
                 [ class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5 pe-3"
 
@@ -313,15 +316,32 @@ pageHeader config =
                 -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
                 , class "fr-header__brand"
                 , href "/"
+                , onClick (loadUrl "/")
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
                 ]
+            , session.releases
+                |> RemoteData.map
+                    (\releases ->
+                        Github.unreleased
+                            :: releases
+                            |> List.map
+                                (\release ->
+                                    option [ selected <| Version.is release session.currentVersion ]
+                                        [ text release.tag ]
+                                )
+                    )
+                |> RemoteData.withDefault []
+                |> select
+                    [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
+                    , onInput switchVersion
+                    ]
             , a
-                [ class "HeaderAuthLink d-none d-sm-block"
+                [ class "HeaderAuthLink d-none d-sm-block flex-fill text-end"
                 , Route.href (Route.Auth { authenticated = False })
                 ]
-                [ if Session.isAuthenticated config.session then
+                [ if Session.isAuthenticated session then
                     text "Mon compte"
 
                   else
@@ -335,8 +355,8 @@ pageHeader config =
                     , attribute "role" "navigation"
                     , attribute "aria-label" "Menu principal"
                     ]
-                    [ headerMenuLinks config.session
-                        |> List.map (viewNavigationLink config.activePage)
+                    [ headerMenuLinks session
+                        |> List.map (viewNavigationLink activePage)
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
                 ]
@@ -349,7 +369,7 @@ viewNavigationLink activePage link =
     case link of
         Internal label route page ->
             Link.internal
-                (class "nav-link pe-3"
+                (class "nav-link"
                     :: classList [ ( "active", page == activePage ) ]
                     :: Route.href route
                     :: (if page == activePage then
@@ -362,7 +382,7 @@ viewNavigationLink activePage link =
                 [ text label ]
 
         External label url ->
-            Link.external [ class "nav-link link-external-muted pe-2", href url ]
+            Link.external [ class "nav-link link-external-muted", href url ]
                 [ text label ]
 
         MailTo label email ->
@@ -420,7 +440,7 @@ loading =
 
 
 mobileNavigation : Config msg -> Html msg
-mobileNavigation { activePage, closeMobileNavigation, session } =
+mobileNavigation { activePage, closeMobileNavigation, loadUrl, session } =
     div []
         [ div
             [ class "offcanvas offcanvas-start show"
@@ -445,6 +465,25 @@ mobileNavigation { activePage, closeMobileNavigation, session } =
             , div [ class "offcanvas-body" ]
                 [ footerMenuLinks session
                     |> List.map (viewNavigationLink activePage)
+                    |> div [ class "nav nav-pills flex-column" ]
+                , h4 [ class "h6 mt-3" ] [ text "Versions" ]
+                , session.releases
+                    |> RemoteData.map
+                        (List.map
+                            (\release ->
+                                if Version.is release session.currentVersion then
+                                    strong [] [ text release.tag ]
+
+                                else
+                                    a
+                                        [ class "nav-link"
+                                        , href <| "/versions/" ++ release.tag
+                                        , onClick (loadUrl <| "/versions/" ++ release.tag)
+                                        ]
+                                        [ text release.tag ]
+                            )
+                        )
+                    |> RemoteData.withDefault []
                     |> div [ class "nav nav-pills flex-column" ]
                 ]
             ]

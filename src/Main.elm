@@ -4,6 +4,7 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
+import Data.Github as Github
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
@@ -19,6 +20,7 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
+import Request.Github
 import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
@@ -75,9 +77,11 @@ type Msg
     | HomeMsg Home.Msg
     | LoadUrl String
     | OpenMobileNavigation
+    | ReleasesReceived (WebData (List Github.Release))
     | ReloadPage
     | StatsMsg Stats.Msg
     | StoreChanged String
+    | SwitchVersion String
     | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -101,6 +105,7 @@ init flags url navKey =
         , Cmd.batch
             [ Ports.appStarted ()
             , Request.Version.loadVersion VersionReceived
+            , Request.Github.getReleases ReleasesReceived
             ]
         )
 
@@ -133,6 +138,7 @@ setupSession navKey flags db =
                 |> Result.map .query
                 |> Result.withDefault TextileQuery.default
         }
+    , releases = RemoteData.NotAsked
     }
 
 
@@ -298,6 +304,10 @@ update rawMsg ({ state } as model) =
                     , Cmd.none
                     )
 
+                -- Version switch
+                ( SwitchVersion version, _ ) ->
+                    ( model, Nav.load <| "/versions/" ++ version ++ "/" )
+
                 -- Mobile navigation menu
                 ( CloseMobileNavigation, _ ) ->
                     ( { model | mobileNavigationOpened = False }, Cmd.none )
@@ -321,6 +331,16 @@ update rawMsg ({ state } as model) =
 
                 ( UrlRequested (Browser.External href), _ ) ->
                     ( model, Nav.load href )
+
+                -- Releases
+                ( ReleasesReceived webData, currentPage ) ->
+                    ( { model
+                        | state =
+                            currentPage
+                                |> Loaded { session | releases = webData }
+                      }
+                    , Cmd.none
+                    )
 
                 -- Version check
                 ( VersionReceived webData, currentPage ) ->
@@ -394,6 +414,7 @@ view { state, mobileNavigationOpened } =
                         LoadUrl
                         ReloadPage
                         CloseNotification
+                        SwitchVersion
 
                 mapMsg msg ( title, content ) =
                     ( title, content |> List.map (Html.map msg) )

@@ -26,6 +26,7 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
+import Data.Github as Github
 import Data.Impact as Impact
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
@@ -33,6 +34,7 @@ import Data.User as User exposing (User)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import RemoteData exposing (WebData)
 import Request.Version exposing (Version)
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
@@ -52,6 +54,7 @@ type alias Session =
         { food : FoodQuery.Query
         , textile : TextileQuery.Query
         }
+    , releases : WebData (List Github.Release)
     }
 
 
