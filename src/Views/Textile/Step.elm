@@ -58,6 +58,7 @@ type alias Config msg modal =
     , index : Int
     , inputs : Inputs
     , next : Maybe Step
+    , openExplorerDetails : Material -> msg
     , selectedImpact : Definition
     , setModal : modal -> msg
     , showAdvancedFields : Bool
@@ -691,8 +692,7 @@ createElementSelectorConfig cfg materialInput =
     , delete = cfg.deleteMaterial
     , excluded = excluded
     , impact = impacts
-    , selectedImpact = cfg.selectedImpact
-    , selectElement = \_ autocompleteState -> cfg.setModal (cfg.addMaterialModal (Just materialInput) autocompleteState)
+    , openExplorerDetails = cfg.openExplorerDetails
     , quantityView =
         \{ quantity, onChange } ->
             SplitInput.view
@@ -700,6 +700,8 @@ createElementSelectorConfig cfg materialInput =
                 , share = quantity
                 , onChange = onChange
                 }
+    , selectedImpact = cfg.selectedImpact
+    , selectElement = \_ autocompleteState -> cfg.setModal (cfg.addMaterialModal (Just materialInput) autocompleteState)
     , toId = .id >> Material.idToString
     , toString = .shortName
     , toTooltip = .materialProcess >> .name
