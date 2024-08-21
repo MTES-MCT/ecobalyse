@@ -155,3 +155,15 @@ importer et exporter les données du projet [Ecobalyse](https://github.com/MTES-
 
 Ces scripts se trouvent dans `data/`, et un fichier [README](data/README.md) spécifique
 en détaille l'installation et l'utilisation.
+
+# Versioning
+
+Le versioning de l'application permet de revenir à des anciennes versions d'Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l'application et d'appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire data associé) :
+
+    pipenv run ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
+
+Un fichier `v1.3.2-dist.tar.gz` sera disponible à la racine du projet et un répertoire `v1.3.2` aura été créé dans `versions/`.
+
+Le script python permettant de patcher les fichiers est disponible ici : `./bin/patch_files_for_versions_compat.py`.
+
+Toutes les versions disponibles dans les releases Github ont été patchées comme il se doit.
