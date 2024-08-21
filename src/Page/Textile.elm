@@ -441,7 +441,7 @@ update ({ queries, navKey } as session) msg model =
         ( SetModal (ExplorerDetailsTab material), _ ) ->
             ( { model | modal = ExplorerDetailsTab material }
             , session
-            , Cmd.none
+            , Ports.addBodyClass "prevent-scrolling"
             )
 
         ( SetModal (SelectExampleModal autocomplete), _ ) ->
