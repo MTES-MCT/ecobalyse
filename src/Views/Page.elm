@@ -9,6 +9,7 @@ module Views.Page exposing
 import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
+import Data.Github as Github
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
@@ -322,11 +323,14 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                 ]
             , session.releases
                 |> RemoteData.map
-                    (List.map
-                        (\release ->
-                            option [ selected <| Version.is release session.currentVersion ]
-                                [ text release.tag ]
-                        )
+                    (\releases ->
+                        Github.unreleased
+                            :: releases
+                            |> List.map
+                                (\release ->
+                                    option [ selected <| Version.is release session.currentVersion ]
+                                        [ text release.tag ]
+                                )
                     )
                 |> RemoteData.withDefault []
                 |> select

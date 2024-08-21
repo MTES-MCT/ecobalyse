@@ -3,6 +3,7 @@ module Data.Github exposing
     , Release
     , decodeCommit
     , decodeReleaseList
+    , unreleased
     )
 
 import Iso8601
@@ -68,3 +69,8 @@ decodeReleaseList =
     Decode.list decodeRelease
         -- Exclude draft releases
         |> Decode.andThen (List.filter (.draft >> not) >> Decode.succeed)
+
+
+unreleased : Release
+unreleased =
+    Release True "" "" "Unreleased" "Unreleased" ""
