@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 def patch_storage_key(index_js_string: str, version: str) -> Tuple[str, int]:
     nb = index_js_string.count('storeKey = "store"')
-    data = None
+    data = index_js_string
     if nb >= 0:
         data = index_js_string.replace(
             'storeKey = "store"', f'storeKey = "store{version}"'
@@ -25,7 +25,7 @@ def patch_storage_key(index_js_string: str, version: str) -> Tuple[str, int]:
 
 def patch_version_string(elm_version_string: str) -> Tuple[str, int]:
     nb = elm_version_string.count('"/version.json')
-    data = None
+    data = elm_version_string
     if nb >= 0:
         data = elm_version_string.replace('"/version.json', '"version.json')
 
@@ -33,7 +33,7 @@ def patch_version_string(elm_version_string: str) -> Tuple[str, int]:
 
 
 def write_patched_data(nb_patched: int, data: str, dest_file: pathlib.Path) -> bool:
-    if nb_patched == 1:
+    if nb_patched == 1 and data is not None:
         with open(dest_file, "w") as f:
             f.write(data)
             logger.info(f"Content patched successfully in `{dest_file}`.")
@@ -64,18 +64,25 @@ def patch_index_js_file(index_js_file: pathlib.Path, version: str):
     write_patched_data(nb, data, index_js_file)
 
 
+def patch_version_json(json_content: dict, key: str, value: str):
+    (data, nb) = (json_content, 0)
+
+    if data.get(key) is None:
+        data[key] = value
+        nb = 1
+        logger.info(f"Adding key '{key}' with value '{value}' to `version.json`.")
+    else:
+        logger.info(f"Key '{key}' already present in `version.json`, skipping.")
+
+    return (json.dumps(data), nb)
+
+
 def add_entry_to_version_file(version_file: pathlib.Path, key: str, value: str):
     (data, nb) = (None, 0)
 
     with open(version_file, "r") as file:
         json_content = json.load(file)
-        if json_content.get(key) is None:
-            json_content[key] = value
-            nb = 1
-            data = json.dumps(json_content)
-            logger.info(f"Adding key '{key}' with value '{value}' to `version.json`.")
-        else:
-            logger.info(f"Key '{key}' already present in `version.json`, skipping.")
+        (data, nb) = patch_version_json(json_content, key, value)
 
     write_patched_data(nb, data, version_file)
 
@@ -83,7 +90,7 @@ def add_entry_to_version_file(version_file: pathlib.Path, key: str, value: str):
 def patch_cross_origin(index_html_string: str):
     meta_charset = '<meta charset="utf-8">'
     meta_content = '<meta name="referrer" content="origin-when-cross-origin" />'
-    (data, nb) = (None, 0)
+    (data, nb) = (index_html_string, 0)
     if (
         index_html_string.count(meta_charset) >= 0
         and index_html_string.count('content="origin-when-cross-origin"') == 0

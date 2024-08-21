@@ -19,5 +19,6 @@ pytest-django = "*"
 pygithub = "*"
 ecobalyse = {file = "packages/python/ecobalyse"}
 typer = "*"
+pytest-mock = "*"
 
 [dev-packages]
