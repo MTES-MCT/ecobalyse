@@ -7,7 +7,9 @@ module Page.Explore.Table exposing
     , viewList
     )
 
-import Data.Scope exposing (Scope)
+import Base64
+import Csv.Encode as EncodeCsv exposing (Csv)
+import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -17,7 +19,8 @@ import Views.Table as TableView
 
 
 type alias Table data comparable msg =
-    { toId : data -> String
+    { filename : String
+    , toId : data -> String
     , toRoute : data -> Route
     , columns : List (Column data comparable msg)
     , legend : List (Html msg)
@@ -82,7 +85,7 @@ viewList :
     -> Html msg
 viewList routeToMsg defaultConfig tableState scope createTable items =
     let
-        { toId, toRoute, columns, legend } =
+        ({ filename, toId, toRoute, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
         customizations =
@@ -121,8 +124,52 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                             | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
                         }
                 }
+
+        csv =
+            toCSV table items
+                |> EncodeCsv.toString
+
+        b64csv =
+            Base64.encode csv
     in
     div [ class "DatasetTable table-responsive" ]
         [ SortableTable.view config tableState items
         , div [ class "text-muted fs-7" ] legend
+        , div [ class "text-end pt-3" ]
+            [ a
+                [ class "btn btn-secondary"
+                , href <| "data:text/csv;base64," ++ b64csv
+                , download <| "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
+                ]
+                [ text "Télécharger ces données au format CSV" ]
+            ]
         ]
+
+
+toCSV : Table data comparable msg -> List data -> Csv
+toCSV { columns } items =
+    { headers = List.map .label columns
+    , records =
+        items
+            |> List.map
+                (\item ->
+                    columns
+                        |> List.map (.toValue >> valueToString item)
+                )
+    }
+
+
+valueToString : data -> Value comparable data -> String
+valueToString item toValue =
+    case toValue of
+        FloatValue getFloat ->
+            getFloat item |> String.fromFloat
+
+        IntValue getInt ->
+            getInt item |> String.fromInt
+
+        StringValue getString ->
+            getString item
+
+        NoValue ->
+            "N/A"
