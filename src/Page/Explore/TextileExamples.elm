@@ -18,7 +18,8 @@ table :
     -> { detailed : Bool, scope : Scope }
     -> Table ( Example Query, { score : Float, per100g : Float } ) String msg
 table { maxScore, maxPer100g } { detailed, scope } =
-    { toId = Tuple.first >> .id >> Uuid.toString
+    { filename = "examples"
+    , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
     , legend = []
     , columns =
