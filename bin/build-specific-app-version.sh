@@ -9,7 +9,7 @@ if [ -z "$COMMIT_OR_TAG" ]
 then
   echo "Missing commit hash or tag name parameter."
   echo ""
-  echo "Usage : $0 <commit_hash_or_tag>"
+  echo "Usage: $0 <public_commit_hash> [<data_dir_commit_hash>]"
   exit
 fi
 
@@ -110,7 +110,7 @@ if [[ ! -f "$TEXTILE_DETAILED_IMPACTS_FILE" ]]; then
     echo "🚨 This version of the application requires data files from the Ecobalyse data dir. You need to specify the ECOBALYSE_DATA_DIR_COMMIT as a second parameter."
     echo "   The corresponding data dir version will be cloned locally."
     echo ""
-    echo "Usage : $0 <public_commit_hash> <data_dir_commit_hash>"
+    echo "Usage: $0 <public_commit_hash> <data_dir_commit_hash>"
     echo ""
     exit
   fi
@@ -143,6 +143,16 @@ if [[ ! -f "$TEXTILE_DETAILED_IMPACTS_FILE" ]]; then
   export ECOBALYSE_DATA_DIR=$DATA_DIR_GIT_CLONE_DIR
 fi
 
+ELM_VERSION_FILE=$PUBLIC_GIT_CLONE_DIR"/src/Request/Version.elm"
+INDEX_JS_FILE=$PUBLIC_GIT_CLONE_DIR"/index.js"
+
+# Patch old versions of the app so that it gets the version file using relative path in Elm
+# Otherwise serving the app from /versions will not display the good version number
+# Also patch the local storage key to avoid messing things up between versions
+$ROOT_DIR/bin/patch_files_for_versions_compat.py elm-version $ELM_VERSION_FILE
+$ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FILE $COMMIT_OR_TAG
+$ROOT_DIR/bin/patch_files_for_versions_compat.py version-selector $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0001-feat-patch-homepage-link-and-inject-and-inject-versi.patch $PUBLIC_GIT_CLONE_DIR
+
 cd $PUBLIC_GIT_CLONE_DIR
 
 # Installing node stuff
@@ -153,21 +163,6 @@ NODE_ENV=dev npm ci
 # We want a production build
 export NODE_ENV=production
 
-# Patch old versions of the app so that it gets the version file using relative path
-# Otherwise serving the app from /versions will not display the good version number
-ELM_VERSION_FILE="src/Request/Version.elm"
-
-if [[ -f "$ELM_VERSION_FILE" ]]; then
-  sed -i 's/"\/version\.json"/"version\.json"/g' $ELM_VERSION_FILE
-fi
-
-# Patch the local storage key to avoid messing things up between versions
-INDEX_JS_FILE="index.js"
-
-if [[ -f "$INDEX_JS_FILE" ]]; then
-  sed -i "s/storeKey = \"store\"/storeKey = \"store$COMMIT_OR_TAG\"/" $INDEX_JS_FILE
-fi
-
 # Rely on the build command of the version we are on. We should be careful when changing this build command
 # It should always generate a dist/ directory because that's what we are assuming here
 npm run build
@@ -176,29 +171,20 @@ npm run server:build
 # Always put the tag name in the version.json file to help debugging if needed later on
 # If TAG is defined
 if [[ ! -z "$TAG" ]]; then
-  # If no tag is present in the file
-  if [[ -z "$(grep tag dist/version.json)" ]]; then
-    sed -ri "s/\{(.*)\}/{\1, \"tag\": \"$TAG\"}/" dist/version.json
-  fi
+  $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json tag $TAG
 fi
+
 
 # If a data dir commit was specified, put it in the version file if needed
 # it will to keep track of the commit used to build the version
 if [[ ! -z "$ECOBALYSE_DATA_DIR_COMMIT" ]]; then
-
-  if [[ -z "$(grep dataDirHash dist/version.json >/dev/null 2>&1)" ]]; then
-    # version file is missing the dataDirHash parameter (old version of the app, before 2.0.0)
-    # patch the file to add it
-    sed -i "s/}/, \"dataDirHash\": \"$ECOBALYSE_DATA_DIR_COMMIT\"}/" dist/version.json
-  fi
+  $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json dataDirHash $ECOBALYSE_DATA_DIR_COMMIT
 
 fi
 
 # We need to send the referer to python in order to properly redirect after login
 # so we need to patch the html files that don't have it
-if [[ -z "$(grep origin-when-cross-origin dist/index.html)" ]]; then
-  sed -i "s/<meta charset=\"utf-8\">/<meta charset=\"utf-8\"><meta name=\"referrer\" content=\"origin-when-cross-origin\" \/>/" dist/index.html
-fi
+$ROOT_DIR/bin/patch_files_for_versions_compat.py patch-cross-origin dist/index.html
 
 cd $ROOT_DIR
 
