@@ -126,11 +126,12 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                 }
 
         csv =
-            toCSV table items
-                |> EncodeCsv.toString
-
-        b64csv =
-            Base64.encode csv
+            { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
+            , content =
+                items
+                    |> toCSV table
+                    |> EncodeCsv.toString
+            }
     in
     div [ class "DatasetTable table-responsive" ]
         [ SortableTable.view config tableState items
@@ -138,8 +139,8 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
         , div [ class "text-end pt-3" ]
             [ a
                 [ class "btn btn-secondary"
-                , href <| "data:text/csv;base64," ++ b64csv
-                , download <| "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
+                , href <| "data:text/csv;base64," ++ Base64.encode csv.content
+                , download csv.filename
                 ]
                 [ text "Télécharger ces données au format CSV" ]
             ]
