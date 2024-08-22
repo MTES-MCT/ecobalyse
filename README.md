@@ -123,6 +123,12 @@ L'application est déployée automatiquement sur la plateforme [Scalingo](https:
 
 Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple `https://ecobalyse-pr44.osc-fr1.scalingo.io/` pour la pull request #44. **Ces instances de recette restent actives 72 heures, puis sont automatiquement décommisionnées passé ce délai ou si la pull request correspondante est mergée.**
 
+### Ajout d'une variable d'environnement
+
+Pour ajouter une variable d'environnement sur une application, il est recommandé d'utiliser le CLI scalingo qui permet d'ajouter des valeurs qui contiennent plusieurs lignes (à la différence de l'interface graphique qui ne le permet pas) :
+
+    scalingo --app ecobalyse env-set "MY_VAR=$(cat fichier.key)"
+
 ### Lien avec ecobalyse_private
 
 Lorsqu'un déploiement est effectué sur une branche, les données utilisées du dépôt `ecobalyse_private` sont celles de la branche `main`. Cependant, si la description de la Pull Request sur le repo `ecobalyse` mentionne `ecobalyse_data: branch-a` avec branch-a étant une branche du dépôt `ecobalyse_private`, alors la PR utilisera les données de la branche `branch-a` du dépôt `ecobalyse_private`.
