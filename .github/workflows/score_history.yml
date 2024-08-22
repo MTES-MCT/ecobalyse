@@ -85,6 +85,8 @@ jobs:
           git clone git@github.com:MTES-MCT/ecobalyse-private.git
 
       - name: Checkout specific ecobalyse-private branch
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           eval `ssh-agent -s`
           # Private ssh key used by this Github action to clone the private repo
