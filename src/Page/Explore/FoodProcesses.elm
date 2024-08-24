@@ -11,7 +11,8 @@ import Route
 
 table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table FoodProcess.Process String msg
 table _ { detailed, scope } =
-    { toId = .identifier >> FoodProcess.identifierToString
+    { filename = "processes"
+    , toId = .identifier >> FoodProcess.identifierToString
     , toRoute = .identifier >> Just >> Dataset.FoodProcesses >> Route.Explore scope
     , legend = []
     , columns =

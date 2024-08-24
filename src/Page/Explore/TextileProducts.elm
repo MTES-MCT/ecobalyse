@@ -35,7 +35,8 @@ withTitle str =
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
 table db { detailed, scope } =
-    { toId = .id >> Product.idToString
+    { filename = "products"
+    , toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
     , legend =
         [ ul [ class "list-unstyled text-muted p-2 m-0" ]

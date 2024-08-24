@@ -5,4 +5,4 @@ git clone git@github.com:MTES-MCT/ecobalyse-private.git
 # Scalingo should set the $SOURCE_VERSION variable
 ./bin/checkout-ecobalyse-private-branch.sh $SOURCE_VERSION
 
-python --version
+./bin/download_github_releases.py

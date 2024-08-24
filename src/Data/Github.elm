@@ -1,4 +1,10 @@
-module Data.Github exposing (Commit, decodeCommit)
+module Data.Github exposing
+    ( Commit
+    , Release
+    , decodeCommit
+    , decodeReleaseList
+    , unreleased
+    )
 
 import Iso8601
 import Json.Decode as Decode exposing (Decoder)
@@ -13,6 +19,16 @@ type alias Commit =
     , authorName : String
     , authorLogin : String
     , authorAvatar : Maybe String
+    }
+
+
+type alias Release =
+    { draft : Bool
+    , hash : String
+    , markdown : String
+    , name : String
+    , tag : String
+    , url : String
     }
 
 
@@ -35,3 +51,26 @@ decodeCommit =
                         commit
                     )
             )
+
+
+decodeRelease : Decoder Release
+decodeRelease =
+    Decode.succeed Release
+        |> Pipe.required "draft" Decode.bool
+        |> Pipe.required "target_commitish" Decode.string
+        |> Pipe.required "body" Decode.string
+        |> Pipe.required "name" Decode.string
+        |> Pipe.required "tag_name" Decode.string
+        |> Pipe.required "html_url" Decode.string
+
+
+decodeReleaseList : Decoder (List Release)
+decodeReleaseList =
+    Decode.list decodeRelease
+        -- Exclude draft releases
+        |> Decode.andThen (List.filter (.draft >> not) >> Decode.succeed)
+
+
+unreleased : Release
+unreleased =
+    Release True "" "" "Unreleased" "Unreleased" ""

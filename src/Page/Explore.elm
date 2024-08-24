@@ -1,8 +1,10 @@
 module Page.Explore exposing
     ( Model
     , Msg(..)
+    , foodIngredientDetails
     , init
     , subscriptions
+    , textileMaterialDetails
     , update
     , view
     )
@@ -12,6 +14,7 @@ import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example exposing (Example)
+import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
@@ -41,7 +44,6 @@ import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
-import Ports
 import Route exposing (Route)
 import Static.Db exposing (Db)
 import Table as SortableTable
@@ -102,7 +104,7 @@ init scope dataset session =
       , tableState = SortableTable.initialSort initialSort
       }
     , session
-    , Ports.scrollTo { x = 0, y = 0 }
+    , Cmd.none
     )
 
 
@@ -352,8 +354,7 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
             detailsModal
                 (case Ingredient.findByID id food.ingredients of
                     Ok ingredient ->
-                        ingredient
-                            |> Table.viewDetails Scope.Food (FoodIngredients.table food)
+                        foodIngredientDetails food ingredient
 
                     Err error ->
                         alert error
@@ -362,6 +363,11 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
         Nothing ->
             text ""
     ]
+
+
+foodIngredientDetails : FoodDb.Db -> Ingredient -> Html msg
+foodIngredientDetails foodDb =
+    Table.viewDetails Scope.Food (FoodIngredients.table foodDb)
 
 
 foodProcessesExplorer :
@@ -488,8 +494,7 @@ textileMaterialsExplorer db tableConfig tableState maybeId =
             detailsModal
                 (case Material.findById id db.textile.materials of
                     Ok material ->
-                        material
-                            |> Table.viewDetails Scope.Textile (TextileMaterials.table db)
+                        textileMaterialDetails db material
 
                     Err error ->
                         alert error
@@ -498,6 +503,11 @@ textileMaterialsExplorer db tableConfig tableState maybeId =
         Nothing ->
             text ""
     ]
+
+
+textileMaterialDetails : Db -> Material -> Html msg
+textileMaterialDetails db =
+    Table.viewDetails Scope.Textile (TextileMaterials.table db)
 
 
 textileProcessesExplorer :

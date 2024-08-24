@@ -1,11 +1,13 @@
 module Request.Version exposing
     ( Version(..)
     , VersionData
+    , is
     , loadVersion
     , pollVersion
     , updateVersion
     )
 
+import Data.Github as Github
 import Json.Decode as Decode
 import Json.Decode.Pipeline as Pipe
 import RemoteData exposing (WebData)
@@ -20,9 +22,9 @@ type alias VersionData =
 
 
 type Version
-    = Unknown
+    = NewerVersion
+    | Unknown
     | Version VersionData
-    | NewerVersion
 
 
 updateVersion : Version -> WebData VersionData -> Version
@@ -52,6 +54,16 @@ versionDataDecoder =
     Decode.succeed VersionData
         |> Pipe.required "hash" Decode.string
         |> Pipe.optional "tag" (Decode.nullable Decode.string) Nothing
+
+
+is : Github.Release -> Version -> Bool
+is release version =
+    case version of
+        Version { hash, tag } ->
+            hash == release.hash || tag == Just release.tag
+
+        _ ->
+            False
 
 
 loadVersion : (WebData VersionData -> msg) -> Cmd msg
