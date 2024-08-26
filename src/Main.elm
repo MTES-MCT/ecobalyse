@@ -94,14 +94,14 @@ type Msg
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url navKey =
-    case StaticDb.db StaticJson.rawJsonProcesses of
-        Ok db ->
-            let
-                session =
-                    setupSession navKey flags db
-            in
-            setRoute url
+init flags requestedUrl navKey =
+    setRoute requestedUrl <|
+        case StaticDb.db StaticJson.rawJsonProcesses of
+            Ok db ->
+                let
+                    session =
+                        setupSession navKey flags db
+                in
                 ( { state = Loaded session LoadingPage
                   , mobileNavigationOpened = False
                   , navKey = navKey
@@ -110,19 +110,16 @@ init flags url navKey =
                     [ Ports.appStarted ()
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
-
-                    -- FIXME: tester si localStorage auth pas null, et récupérer les processes détaillés
                     , case session.store.auth of
                         Session.Authenticated user ->
-                            Request.Auth.processes (DetailedProcessesReceived url) user.token
+                            Request.Auth.processes (DetailedProcessesReceived requestedUrl) user.token
 
                         Session.NotAuthenticated ->
                             Cmd.none
                     ]
                 )
 
-        Err err ->
-            setRoute url
+            Err err ->
                 ( { state = Errored err
                   , mobileNavigationOpened = False
                   , navKey = navKey
