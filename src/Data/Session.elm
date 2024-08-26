@@ -282,9 +282,9 @@ updateStore update session =
     { session | store = update session.store }
 
 
-authenticated : Session -> User -> RawJsonProcesses -> Session
-authenticated ({ store } as session) user rawJsonProcessesWithImpacts =
-    case StaticDb.db rawJsonProcessesWithImpacts of
+authenticated : User -> RawJsonProcesses -> Session -> Session
+authenticated user rawDetailedProcessesJson ({ store } as session) =
+    case StaticDb.db rawDetailedProcessesJson of
         Ok db ->
             { session | db = db, store = { store | auth = Authenticated user } }
 
