@@ -65,6 +65,7 @@ type alias Model =
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
+    , url : Url
     }
 
 
@@ -105,6 +106,7 @@ init flags requestedUrl navKey =
                 ( { state = Loaded session LoadingPage
                   , mobileNavigationOpened = False
                   , navKey = navKey
+                  , url = requestedUrl
                   }
                 , Cmd.batch
                     [ Ports.appStarted ()
@@ -123,6 +125,7 @@ init flags requestedUrl navKey =
                 ( { state = Errored err
                   , mobileNavigationOpened = False
                   , navKey = navKey
+                  , url = requestedUrl
                   }
                 , Cmd.none
                 )
@@ -333,7 +336,13 @@ update rawMsg ({ state } as model) =
 
                 -- Version switch
                 ( SwitchVersion version, _ ) ->
-                    ( model, Nav.load <| "/versions/" ++ version ++ "/" )
+                    ( model
+                    , Nav.load <|
+                        "/versions/"
+                            ++ version
+                            ++ "/#"
+                            ++ Maybe.withDefault "" model.url.fragment
+                    )
 
                 -- Mobile navigation menu
                 ( CloseMobileNavigation, _ ) ->
@@ -350,11 +359,11 @@ update rawMsg ({ state } as model) =
                     ( model, Nav.reloadAndSkipCache )
 
                 ( UrlChanged url, _ ) ->
-                    ( { model | mobileNavigationOpened = False }, Cmd.none )
+                    ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                         |> setRoute url
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
-                    ( model, Nav.pushUrl session.navKey (Url.toString url) )
+                    ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )
 
                 ( UrlRequested (Browser.External href), _ ) ->
                     ( model, Nav.load href )
