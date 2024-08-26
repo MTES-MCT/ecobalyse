@@ -24,11 +24,8 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
-import Data.Impact as Impact
-import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as TextileQuery
 import Data.User as User exposing (User)
 import Json.Decode as Decode exposing (Decoder)
@@ -38,7 +35,7 @@ import RemoteData exposing (WebData)
 import Request.Version exposing (Version)
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
-import Static.Json exposing (RawJsonProcesses, rawJsonProcesses)
+import Static.Json as StaticJson exposing (RawJsonProcesses)
 
 
 type alias Session =
@@ -199,7 +196,7 @@ type alias Store =
 
 type Auth
     = NotAuthenticated
-    | Authenticated User (List TextileProcess.Process) (List FoodProcess.Process)
+    | Authenticated User
 
 
 defaultStore : Store
@@ -222,8 +219,6 @@ decodeAuth : Decoder Auth
 decodeAuth =
     Decode.succeed Authenticated
         |> JDP.required "user" User.decode
-        |> JDP.required "textileProcesses" (TextileProcess.decodeList Impact.decodeImpacts)
-        |> JDP.required "foodProcesses" (FoodProcess.decodeList Impact.decodeImpacts)
 
 
 encodeStore : Store -> Encode.Value
@@ -241,18 +236,14 @@ encodeAuth auth =
         NotAuthenticated ->
             Encode.null
 
-        Authenticated user textileProcesses foodProcesses ->
-            Encode.object
-                [ ( "user", User.encode user )
-                , ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
-                , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
-                ]
+        Authenticated user ->
+            Encode.object [ ( "user", User.encode user ) ]
 
 
 getUser : Session -> Maybe User
 getUser { store } =
     case store.auth of
-        Authenticated user _ _ ->
+        Authenticated user ->
             Just user
 
         NotAuthenticated ->
@@ -292,13 +283,10 @@ updateStore update session =
 
 
 authenticated : Session -> User -> RawJsonProcesses -> Session
-authenticated ({ store } as session) user rawJsonProcesses =
-    case StaticDb.db rawJsonProcesses of
+authenticated ({ store } as session) user rawJsonProcessesWithImpacts =
+    case StaticDb.db rawJsonProcessesWithImpacts of
         Ok db ->
-            { session
-                | db = db
-                , store = { store | auth = Authenticated user db.textile.processes db.food.processes }
-            }
+            { session | db = db, store = { store | auth = Authenticated user } }
 
         Err err ->
             session
@@ -307,12 +295,9 @@ authenticated ({ store } as session) user rawJsonProcesses =
 
 logout : Session -> Session
 logout ({ store } as session) =
-    case StaticDb.db rawJsonProcesses of
+    case StaticDb.db StaticJson.rawJsonProcesses of
         Ok db ->
-            { session
-                | store = { store | auth = NotAuthenticated }
-                , db = db
-            }
+            { session | store = { store | auth = NotAuthenticated }, db = db }
 
         Err err ->
             { session | store = { store | auth = NotAuthenticated } }
@@ -322,7 +307,7 @@ logout ({ store } as session) =
 isAuthenticated : Session -> Bool
 isAuthenticated { store } =
     case store.auth of
-        Authenticated _ _ _ ->
+        Authenticated _ ->
             True
 
         _ ->

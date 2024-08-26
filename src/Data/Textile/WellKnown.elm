@@ -4,7 +4,6 @@ module Data.Textile.WellKnown exposing
     , getEnnoblingHeatProcess
     , getPrintingProcess
     , load
-    , map
     )
 
 import Data.Country exposing (Country)
@@ -145,35 +144,3 @@ load processes =
         |> find .heatEurope
         |> find .heatRoW
         |> find .weaving
-
-
-map : (Process -> Process) -> WellKnown -> WellKnown
-map update wellKnown =
-    { airTransport = update wellKnown.airTransport
-    , bleaching = update wellKnown.bleaching
-    , seaTransport = update wellKnown.seaTransport
-    , roadTransport = update wellKnown.roadTransport
-    , trainTransport = update wellKnown.trainTransport
-    , distribution = update wellKnown.distribution
-    , dyeingYarn = update wellKnown.dyeingYarn
-    , dyeingFabric = update wellKnown.dyeingFabric
-    , dyeingArticle = update wellKnown.dyeingArticle
-    , dyeingSynthetic = update wellKnown.dyeingSynthetic
-    , dyeingCellulosic = update wellKnown.dyeingCellulosic
-    , printingPigment = update wellKnown.printingPigment
-    , printingSubstantive = update wellKnown.printingSubstantive
-    , printingPaste = update wellKnown.printingPaste
-    , printingDyes = update wellKnown.printingDyes
-    , finishing = update wellKnown.finishing
-    , passengerCar = update wellKnown.passengerCar
-    , endOfLife = update wellKnown.endOfLife
-    , fading = update wellKnown.fading
-    , heatEurope = update wellKnown.heatEurope
-    , heatRoW = update wellKnown.heatRoW
-    , knittingMix = update wellKnown.knittingMix
-    , knittingFullyFashioned = update wellKnown.knittingFullyFashioned
-    , knittingSeamless = update wellKnown.knittingSeamless
-    , knittingCircular = update wellKnown.knittingCircular
-    , knittingStraight = update wellKnown.knittingStraight
-    , weaving = update wellKnown.weaving
-    }
