@@ -9,6 +9,7 @@ import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
+import Http
 import Page.Api as Api
 import Page.Auth as Auth
 import Page.Changelog as Changelog
@@ -20,11 +21,13 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
+import Request.Auth
+import Request.Common
 import Request.Github
 import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
-import Static.Json as StaticJson
+import Static.Json as StaticJson exposing (RawJsonProcesses)
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -71,6 +74,7 @@ type Msg
     | ChangelogMsg Changelog.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
+    | DetailedProcessesReceived Url (Result Http.Error RawJsonProcesses)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -90,24 +94,38 @@ type Msg
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url navKey =
-    setRoute url
-        ( { state =
-                case StaticDb.db StaticJson.rawJsonProcesses of
-                    Ok db ->
-                        Loaded (setupSession navKey flags db) LoadingPage
+init flags requestedUrl navKey =
+    setRoute requestedUrl <|
+        case StaticDb.db StaticJson.rawJsonProcesses of
+            Ok db ->
+                let
+                    session =
+                        setupSession navKey flags db
+                in
+                ( { state = Loaded session LoadingPage
+                  , mobileNavigationOpened = False
+                  , navKey = navKey
+                  }
+                , Cmd.batch
+                    [ Ports.appStarted ()
+                    , Request.Version.loadVersion VersionReceived
+                    , Request.Github.getReleases ReleasesReceived
+                    , case session.store.auth of
+                        Session.Authenticated user ->
+                            Request.Auth.processes (DetailedProcessesReceived requestedUrl) user.token
 
-                    Err err ->
-                        Errored err
-          , mobileNavigationOpened = False
-          , navKey = navKey
-          }
-        , Cmd.batch
-            [ Ports.appStarted ()
-            , Request.Version.loadVersion VersionReceived
-            , Request.Github.getReleases ReleasesReceived
-            ]
-        )
+                        Session.NotAuthenticated ->
+                            Cmd.none
+                    ]
+                )
+
+            Err err ->
+                ( { state = Errored err
+                  , mobileNavigationOpened = False
+                  , navKey = navKey
+                  }
+                , Cmd.none
+                )
 
 
 setupSession : Nav.Key -> Flags -> Db -> Session
@@ -116,13 +134,7 @@ setupSession navKey flags db =
         store =
             Session.deserializeStore flags.rawStore
     in
-    { db =
-        case store.auth of
-            Session.Authenticated _ textileProcesses foodProcesses ->
-                db |> StaticDb.updateProcesses foodProcesses textileProcesses
-
-            Session.NotAuthenticated ->
-                db
+    { db = db
     , clientUrl = flags.clientUrl
     , enableFoodSection = flags.enableFoodSection
     , navKey = navKey
@@ -262,6 +274,21 @@ update rawMsg ({ state } as model) =
                 ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
                     Changelog.update session changelogMsg changelogModel
                         |> toPage ChangelogPage ChangelogMsg
+
+                ( DetailedProcessesReceived url (Ok rawDetailedProcessesJson), currentPage ) ->
+                    -- When detailed processes are received, rebuild the entire static db using them
+                    case StaticDb.db rawDetailedProcessesJson of
+                        Ok detailedDb ->
+                            { model | state = currentPage |> Loaded { session | db = detailedDb } }
+                                |> update (UrlChanged url)
+
+                        Err error ->
+                            ( { model | state = Errored error }, Cmd.none )
+
+                ( DetailedProcessesReceived _ (Err httpError), _ ) ->
+                    ( { model | state = Errored (Request.Common.errorToString httpError) }
+                    , Cmd.none
+                    )
 
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
