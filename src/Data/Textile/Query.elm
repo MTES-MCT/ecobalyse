@@ -378,13 +378,15 @@ updateUpcycled upcycled query =
                 [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
 
             else
+                -- Force re-enable all steps
                 []
         , makingComplexity =
             if upcycled then
                 Just MakingComplexity.High
 
             else
-                query.makingComplexity
+                -- Force reset complexity to product defaults
+                Nothing
     }
 
 
