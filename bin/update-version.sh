@@ -3,26 +3,36 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
 
-# Default JSON value for the TAG
-TAG=null
 DATA_DIR_HASH=null
 
 # If the SOURCE_VERSION is provided (usually by scalingo), search for a corresponding TAG
-# Using the github API
+# Using the github API or use the provided one in the tag ENV variable
 if [[ ! -z "${SOURCE_VERSION}" ]]; then
   HASH=$SOURCE_VERSION
-  TAG_FOUND=$(python $SCRIPT_DIR/get-tag-for-commit.py $HASH)
+
+  if [[ ! -z "${TAG}" ]]; then
+    TAG_NAME=$TAG
+  else
+    TAG_NAME=$(python $SCRIPT_DIR/get_tag_for_commit.py $HASH)
+  fi
 else
   # If it's not provided we are certainly in the dev env, so get the current hash from
   # the git repo
   HASH=$(git rev-parse HEAD)
-  # And get the possible tag from it too
-  TAG_FOUND=$(git describe --tags --exact-match $HASH 2> /dev/null)
+
+  if [[ ! -z "${TAG}" ]]; then
+    TAG_NAME=$TAG
+  else
+    # And get the possible tag from it too
+    TAG_NAME=$(git describe --tags --exact-match $HASH 2> /dev/null)
+  fi
 fi
 
 # If we found a tag, set the json object value to it
-if [[ ! -z $TAG_FOUND ]]; then
-  TAG=\"$TAG_FOUND\"
+if [[ ! -z $TAG_NAME ]]; then
+  TAG=\"$TAG_NAME\"
+else
+  TAG=null
 fi
 
 

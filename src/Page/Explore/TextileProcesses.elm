@@ -11,7 +11,8 @@ import Route
 
 table : { detailed : Bool, scope : Scope } -> Table Process String msg
 table { detailed, scope } =
-    { toId = .uuid >> Process.uuidToString
+    { filename = "processes"
+    , toId = .uuid >> Process.uuidToString
     , toRoute = .uuid >> Just >> Dataset.TextileProcesses >> Route.Explore scope
     , legend = []
     , columns =

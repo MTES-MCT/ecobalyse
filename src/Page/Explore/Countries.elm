@@ -19,7 +19,8 @@ import Views.Link as Link
 
 table : Transport.Distances -> List Country.Country -> { detailed : Bool, scope : Scope } -> Table Country String msg
 table distances countries { detailed, scope } =
-    { toId = .code >> Country.codeToString
+    { filename = "countries"
+    , toId = .code >> Country.codeToString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
     , legend = []
     , columns =

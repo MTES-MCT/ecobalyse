@@ -4,10 +4,12 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
+import Data.Github as Github
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
+import Http
 import Page.Api as Api
 import Page.Auth as Auth
 import Page.Changelog as Changelog
@@ -19,10 +21,13 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
+import Request.Auth
+import Request.Common
+import Request.Github
 import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
-import Static.Json as StaticJson
+import Static.Json as StaticJson exposing (RawJsonProcesses)
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -60,6 +65,7 @@ type alias Model =
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
+    , url : Url
     }
 
 
@@ -69,15 +75,18 @@ type Msg
     | ChangelogMsg Changelog.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
+    | DetailedProcessesReceived Url (Result Http.Error RawJsonProcesses)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
     | OpenMobileNavigation
+    | ReleasesReceived (WebData (List Github.Release))
     | ReloadPage
     | StatsMsg Stats.Msg
     | StoreChanged String
+    | SwitchVersion String
     | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -86,23 +95,40 @@ type Msg
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url navKey =
-    setRoute url
-        ( { state =
-                case StaticDb.db StaticJson.rawJsonProcesses of
-                    Ok db ->
-                        Loaded (setupSession navKey flags db) LoadingPage
+init flags requestedUrl navKey =
+    setRoute requestedUrl <|
+        case StaticDb.db StaticJson.rawJsonProcesses of
+            Ok db ->
+                let
+                    session =
+                        setupSession navKey flags db
+                in
+                ( { state = Loaded session LoadingPage
+                  , mobileNavigationOpened = False
+                  , navKey = navKey
+                  , url = requestedUrl
+                  }
+                , Cmd.batch
+                    [ Ports.appStarted ()
+                    , Request.Version.loadVersion VersionReceived
+                    , Request.Github.getReleases ReleasesReceived
+                    , case session.store.auth of
+                        Session.Authenticated user ->
+                            Request.Auth.processes (DetailedProcessesReceived requestedUrl) user.token
 
-                    Err err ->
-                        Errored err
-          , mobileNavigationOpened = False
-          , navKey = navKey
-          }
-        , Cmd.batch
-            [ Ports.appStarted ()
-            , Request.Version.loadVersion VersionReceived
-            ]
-        )
+                        Session.NotAuthenticated ->
+                            Cmd.none
+                    ]
+                )
+
+            Err err ->
+                ( { state = Errored err
+                  , mobileNavigationOpened = False
+                  , navKey = navKey
+                  , url = requestedUrl
+                  }
+                , Cmd.none
+                )
 
 
 setupSession : Nav.Key -> Flags -> Db -> Session
@@ -111,13 +137,7 @@ setupSession navKey flags db =
         store =
             Session.deserializeStore flags.rawStore
     in
-    { db =
-        case store.auth of
-            Session.Authenticated _ textileProcesses foodProcesses ->
-                db |> StaticDb.updateProcesses foodProcesses textileProcesses
-
-            Session.NotAuthenticated ->
-                db
+    { db = db
     , clientUrl = flags.clientUrl
     , enableFoodSection = flags.enableFoodSection
     , navKey = navKey
@@ -133,6 +153,7 @@ setupSession navKey flags db =
                 |> Result.map .query
                 |> Result.withDefault TextileQuery.default
         }
+    , releases = RemoteData.NotAsked
     }
 
 
@@ -257,6 +278,21 @@ update rawMsg ({ state } as model) =
                     Changelog.update session changelogMsg changelogModel
                         |> toPage ChangelogPage ChangelogMsg
 
+                ( DetailedProcessesReceived url (Ok rawDetailedProcessesJson), currentPage ) ->
+                    -- When detailed processes are received, rebuild the entire static db using them
+                    case StaticDb.db rawDetailedProcessesJson of
+                        Ok detailedDb ->
+                            { model | state = currentPage |> Loaded { session | db = detailedDb } }
+                                |> update (UrlChanged url)
+
+                        Err error ->
+                            ( { model | state = Errored error }, Cmd.none )
+
+                ( DetailedProcessesReceived _ (Err httpError), _ ) ->
+                    ( { model | state = Errored (Request.Common.errorToString httpError) }
+                    , Cmd.none
+                    )
+
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
                         |> toPage EditorialPage EditorialMsg
@@ -298,6 +334,16 @@ update rawMsg ({ state } as model) =
                     , Cmd.none
                     )
 
+                -- Version switch
+                ( SwitchVersion version, _ ) ->
+                    ( model
+                    , Nav.load <|
+                        "/versions/"
+                            ++ version
+                            ++ "/#"
+                            ++ Maybe.withDefault "" model.url.fragment
+                    )
+
                 -- Mobile navigation menu
                 ( CloseMobileNavigation, _ ) ->
                     ( { model | mobileNavigationOpened = False }, Cmd.none )
@@ -313,14 +359,24 @@ update rawMsg ({ state } as model) =
                     ( model, Nav.reloadAndSkipCache )
 
                 ( UrlChanged url, _ ) ->
-                    ( { model | mobileNavigationOpened = False }, Cmd.none )
+                    ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                         |> setRoute url
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
-                    ( model, Nav.pushUrl session.navKey (Url.toString url) )
+                    ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )
 
                 ( UrlRequested (Browser.External href), _ ) ->
                     ( model, Nav.load href )
+
+                -- Releases
+                ( ReleasesReceived webData, currentPage ) ->
+                    ( { model
+                        | state =
+                            currentPage
+                                |> Loaded { session | releases = webData }
+                      }
+                    , Cmd.none
+                    )
 
                 -- Version check
                 ( VersionReceived webData, currentPage ) ->
@@ -394,6 +450,7 @@ view { state, mobileNavigationOpened } =
                         LoadUrl
                         ReloadPage
                         CloseNotification
+                        SwitchVersion
 
                 mapMsg msg ( title, content ) =
                     ( title, content |> List.map (Html.map msg) )

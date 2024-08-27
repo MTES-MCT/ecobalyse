@@ -17,5 +17,8 @@ pre-commit = "*"
 numpy = ">=1,<2"
 pytest-django = "*"
 pygithub = "*"
+ecobalyse = {file = "packages/python/ecobalyse"}
+typer = "*"
+pytest-mock = "*"
 
 [dev-packages]

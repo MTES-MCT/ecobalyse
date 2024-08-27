@@ -15,7 +15,7 @@ type alias Config msg =
 
 view : Config msg -> Html msg
 view { disabled, share, onChange } =
-    div [ class "input-group input-group" ]
+    div [ class "input-group" ]
         [ input
             [ class "form-control text-end incdec-arrows-left"
             , type_ "number"

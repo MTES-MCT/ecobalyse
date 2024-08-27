@@ -13,12 +13,13 @@ then
   exit
 fi
 
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
 
 cd $ROOT_DIR
 
-DATA_BRANCH_NAME=$(./bin/extract-data-branch-from-pr.sh $COMMIT)
+DATA_BRANCH_NAME=$(./bin/extract_data_branch_from_pr.py $COMMIT)
 
 if [ ! -d ecobalyse-private ]; then
   echo "No ecobalyse-private directory found. You need to clone the private repository first."
