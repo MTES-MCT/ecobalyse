@@ -174,6 +174,7 @@ encode query =
     , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
     , ( "price", query.price |> Maybe.map Economics.encodePrice )
     , ( "traceability", query.traceability |> Maybe.map Encode.bool )
+    , ( "upcycled", Encode.bool query.upcycled |> Just )
     ]
         -- For concision, drop keys where no param is defined
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
