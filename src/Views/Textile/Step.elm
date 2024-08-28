@@ -127,7 +127,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 
 dyeingMediumField : Config msg modal -> Html msg
-dyeingMediumField { inputs, updateDyeingMedium } =
+dyeingMediumField { current, inputs, updateDyeingMedium } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
             [ text "Teinture sur" ]
@@ -143,7 +143,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
             |> select
                 [ id "dyeing-medium"
                 , class "form-select form-select-sm w-75"
-                , disabled inputs.upcycled
+                , disabled <| not current.enabled
                 , onInput
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
@@ -154,7 +154,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
 
 
 spinningProcessField : Config msg modal -> Html msg
-spinningProcessField { inputs, updateMaterialSpinning } =
+spinningProcessField { current, inputs, updateMaterialSpinning } =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ inputs.materials
             |> List.map
@@ -184,6 +184,7 @@ spinningProcessField { inputs, updateMaterialSpinning } =
                                     |> select
                                         [ class "form-select form-select-sm w-75"
                                         , id <| "spinning-for-" ++ Material.idToString material.id
+                                        , disabled <| not current.enabled
                                         , onInput
                                             (Spinning.fromString
                                                 >> Result.withDefault (Spinning.getDefault material.origin)
@@ -197,7 +198,7 @@ spinningProcessField { inputs, updateMaterialSpinning } =
 
 
 fabricProcessField : Config msg modal -> Html msg
-fabricProcessField { inputs, updateFabricProcess } =
+fabricProcessField { current, inputs, updateFabricProcess } =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "fabric-process" ] [ text "Procédé" ]
         , Fabric.fabricProcesses
@@ -218,7 +219,7 @@ fabricProcessField { inputs, updateFabricProcess } =
             |> select
                 [ id "fabric-process"
                 , class "form-select form-select-sm w-75"
-                , disabled inputs.upcycled
+                , disabled <| not current.enabled
                 , onInput
                     (Fabric.fromString
                         >> Result.withDefault Fabric.default
@@ -229,7 +230,7 @@ fabricProcessField { inputs, updateFabricProcess } =
 
 
 printingFields : Config msg modal -> Html msg
-printingFields { inputs, updatePrinting } =
+printingFields { current, inputs, updatePrinting } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "ennobling-printing", title "Impression" ]
             [ text "Impression" ]
@@ -248,7 +249,7 @@ printingFields { inputs, updatePrinting } =
                     [ id "ennobling-printing"
                     , class "form-select form-select-sm"
                     , style "flex" "2"
-                    , disabled inputs.upcycled
+                    , disabled <| not current.enabled
                     , onInput
                         (\str ->
                             updatePrinting
@@ -333,7 +334,7 @@ fadingField { inputs, toggleFading } =
 
 
 makingComplexityField : Config msg modal -> Html msg
-makingComplexityField ({ inputs, updateMakingComplexity } as config) =
+makingComplexityField ({ current, inputs, updateMakingComplexity } as config) =
     let
         makingComplexity =
             inputs.fabricProcess
@@ -363,7 +364,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
                 |> select
                     [ id "making-complexity"
                     , class "form-select form-select-sm w-75"
-                    , disabled False
+                    , disabled <| not current.enabled
                     , onInput
                         (MakingComplexity.fromString
                             >> Result.withDefault inputs.product.making.complexity
