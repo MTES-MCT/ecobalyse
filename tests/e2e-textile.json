@@ -4,7 +4,6 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -39,7 +38,6 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countrySpinning=TR",
       "countryFabric=FR",
@@ -110,7 +108,6 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;0.5",
       "materials[]=ei-pet;0.45",
       "materials[]=elasthane;0.05",
@@ -147,7 +144,6 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -292,7 +288,6 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -329,7 +324,6 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -365,7 +359,6 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -401,7 +394,6 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -438,7 +430,6 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -475,7 +466,6 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -512,7 +502,6 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
-      "fabricProcess=knitting-mix",
       "materials[]=ei-coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -542,42 +531,6 @@
       "wtu": 24.67340682584345,
       "ecs": 2688.6163069018926,
       "pef": 1694.7748529334613
-    }
-  },
-  {
-    "name": "Tshirt coton, Inde, Coal heat source for ennobling",
-    "query": [
-      "mass=0.3",
-      "product=tshirt",
-      "fabricProcess=knitting-mix",
-      "materials[]=ei-coton;1",
-      "countryFabric=IN",
-      "countryDyeing=IN",
-      "countryMaking=IN",
-      "ennoblingHeatSource=coal"
-    ],
-    "impacts": {
-      "acd": 0.10842265645710396,
-      "cch": 16.893025225223184,
-      "etf": 248.94966322666153,
-      "etf-c": 767.6210791501102,
-      "fru": 208.38644723048307,
-      "fwe": 0.005595790009105641,
-      "htc": 2.0375423492108543e-9,
-      "htc-c": 3.1797115493143418e-9,
-      "htn": 5.765607640705803e-8,
-      "htn-c": 6.14358992469319e-8,
-      "ior": 20.967522967262724,
-      "ldu": 200.03949081319362,
-      "mru": 0.0000937362168991708,
-      "ozd": 0.000053624810177878656,
-      "pco": 0.050262722585871604,
-      "pma": 9.076197160167003e-7,
-      "swe": 0.051733595095197996,
-      "tre": 0.29664637663864973,
-      "wtu": 25.332834547348483,
-      "ecs": 3490.5808517883092,
-      "pef": 2017.8371685131435
     }
   }
 ]
