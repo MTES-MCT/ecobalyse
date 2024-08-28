@@ -334,7 +334,7 @@ updateStepCountry : Label -> Country.Code -> Query -> Query
 updateStepCountry label code query =
     let
         maybeCode =
-            if code == Country.Code "---" then
+            if code == Country.unknownCountryCode then
                 Nothing
 
             else
