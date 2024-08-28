@@ -21,7 +21,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Product as Product exposing (Product)
-import Data.Textile.Query exposing (Query)
+import Data.Textile.Query as Query exposing (Query)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
@@ -62,23 +62,20 @@ encode v =
 
 
 init : Db -> Query -> Result String Simulator
-init db =
-    let
-        defaultImpacts =
-            Impact.empty
-    in
-    Inputs.fromQuery db
-        >> Result.map
+init db query =
+    query
+        |> Inputs.fromQuery db
+        |> Result.map
             (\({ product } as inputs) ->
                 inputs
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
-                            , impacts = defaultImpacts
+                            , impacts = Impact.empty
                             , complementsImpacts = Impact.noComplementsImpacts
                             , durability = Unit.standardDurability
-                            , transport = Transport.default defaultImpacts
+                            , transport = Transport.default Impact.empty
                             , daysOfWear = inputs.product.use.daysOfWear
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
@@ -111,7 +108,8 @@ compute db query =
             else
                 identity
     in
-    init db query
+    Query.handleUpcycling query
+        |> init db
         -- Ensure end product mass is first applied to the final Distribution step
         |> next initializeFinalMass
         --

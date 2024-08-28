@@ -8,6 +8,7 @@ module Data.Textile.Query exposing
     , decode
     , default
     , encode
+    , handleUpcycling
     , isAdvancedQuery
     , jupeCotonAsie
     , parseBase64Query
@@ -19,7 +20,6 @@ module Data.Textile.Query exposing
     , updateMaterialSpinning
     , updateProduct
     , updateStepCountry
-    , updateUpcycled
     , validateMaterials
     )
 
@@ -207,6 +207,21 @@ removeMaterial materialId query =
            )
 
 
+{-| Handle the case of upcycling: when a garment is upcycled, we disable the Material, Spinning,
+Fabric and Ennobling steps and enforce the use of a high making complexity
+-}
+handleUpcycling : Query -> Query
+handleUpcycling query =
+    if query.upcycled then
+        { query
+            | disabledSteps = [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
+            , makingComplexity = Just MakingComplexity.High
+        }
+
+    else
+        query
+
+
 isAdvancedQuery : Query -> Bool
 isAdvancedQuery query =
     List.any identity
@@ -367,27 +382,6 @@ updateStepCountry label code query =
 
         _ ->
             query
-
-
-updateUpcycled : Bool -> Query -> Query
-updateUpcycled upcycled query =
-    { query
-        | upcycled = upcycled
-        , disabledSteps =
-            if upcycled then
-                [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
-
-            else
-                -- Force re-enable all steps
-                []
-        , makingComplexity =
-            if upcycled then
-                Just MakingComplexity.High
-
-            else
-                -- Force reset complexity to product defaults
-                Nothing
-    }
 
 
 validateMaterials : List MaterialQuery -> Result String (List MaterialQuery)

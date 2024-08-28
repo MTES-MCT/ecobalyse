@@ -588,7 +588,7 @@ update ({ queries, navKey } as session) msg model =
 
         ( UpdateUpcycled upcycled, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateUpcycled upcycled query)
+                |> updateQuery { query | upcycled = upcycled }
 
         ( UpdateYarnSize yarnSize, _ ) ->
             ( model, session, Cmd.none )
