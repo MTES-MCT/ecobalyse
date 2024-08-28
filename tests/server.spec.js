@@ -110,11 +110,11 @@ describe("API", () => {
           );
         });
 
-        it("should validate the country params are present", async () => {
+        it("should validate the countrySpinning param (invalid code)", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["countryFabric=FR,countryDyeing=FR"]),
-            "countryMaking",
-            /Code pays manquant/,
+            await makeRequest("/api/textile/simulator", ["countrySpinning=XX"]),
+            "countrySpinning",
+            /Code pays invalide: XX/,
           );
         });
 
