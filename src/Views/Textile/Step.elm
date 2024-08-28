@@ -399,7 +399,7 @@ makingDeadStockField { current, updateMakingDeadStock, showAdvancedFields } =
                 , update = updateMakingDeadStock
                 , value = Maybe.withDefault Env.defaultDeadStock current.makingDeadStock
                 , toString = Step.makingDeadStockToString
-                , disabled = False
+                , disabled = not current.enabled
                 , min = Env.minMakingDeadStockRatio |> Split.toPercent |> round
                 , max = Env.maxMakingDeadStockRatio |> Split.toPercent |> round
                 }
