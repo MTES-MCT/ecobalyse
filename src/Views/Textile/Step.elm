@@ -1049,7 +1049,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                 , showIf (inputs.fading == Just True) <| viewProcessInfo current.processInfo.fading
                 ]
             , ul
-                [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
+                [ class "StepBody p-0 list-group list-group-flush border-bottom-0 border-top"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 (List.map
