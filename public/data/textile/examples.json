@@ -447,6 +447,32 @@
     }
   },
   {
+    "id": "f48d7a6b-68db-4d1c-9623-6ec0ab89cbdb",
+    "name": "Tshirt coton (150g) - Remanufacturé",
+    "category": "Tshirt / Polo",
+    "query": {
+      "mass": 0.15,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "tshirt",
+      "countrySpinning": "---",
+      "countryFabric": "---",
+      "countryDyeing": "---",
+      "countryMaking": "---",
+      "airTransportRatio": 1,
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 10,
+      "traceability": false,
+      "upcycled": true
+    }
+  },
+  {
     "id": "190ccaed-6883-4dd9-a70b-918878ccced6",
     "name": "Pull coton (550g) - Majorant par défaut",
     "category": "Pull",
