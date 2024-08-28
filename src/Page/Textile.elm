@@ -910,8 +910,19 @@ simulatorFormView session model ({ inputs } as simulator) =
             [ div [ class "d-flex flex-column" ]
                 [ label [ class "form-label d-none d-md-block", attribute "aria-hidden" "true" ] [ text "\u{00A0}" ]
                 , div [ class "UpcycledCheck form-check text-truncate ms-1" ]
-                    [ input [ type_ "checkbox", class "form-check-input", id "upcycled", onCheck UpdateUpcycled ] []
-                    , label [ for "upcycled", class "form-check-label text-truncate", title "Le vêtement est-il upcyclé\u{00A0}?" ]
+                    [ input
+                        [ type_ "checkbox"
+                        , class "form-check-input"
+                        , id "upcycled"
+                        , checked <| inputs.upcycled
+                        , onCheck UpdateUpcycled
+                        ]
+                        []
+                    , label
+                        [ for "upcycled"
+                        , class "form-check-label text-truncate"
+                        , title "Le vêtement est-il upcyclé\u{00A0}?"
+                        ]
                         [ text "Remanufacturé" ]
                     ]
                 ]
