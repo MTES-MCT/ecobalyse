@@ -16,7 +16,7 @@ module Data.Textile.Step exposing
     , surfaceMassToString
     , updateDeadStock
     , updateFromInputs
-    , updateWaste
+    , updateWasteAndMasses
     , yarnSizeToString
     )
 
@@ -407,8 +407,8 @@ initMass mass step =
     }
 
 
-updateWaste : Mass -> Mass -> Step -> Step
-updateWaste waste mass step =
+updateWasteAndMasses : Mass -> Mass -> Step -> Step
+updateWasteAndMasses waste mass step =
     { step
         | waste = waste
         , inputMass = mass
