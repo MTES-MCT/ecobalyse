@@ -143,6 +143,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
             |> select
                 [ id "dyeing-medium"
                 , class "form-select form-select-sm w-75"
+                , disabled inputs.upcycled
                 , onInput
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
@@ -217,6 +218,7 @@ fabricProcessField { inputs, updateFabricProcess } =
             |> select
                 [ id "fabric-process"
                 , class "form-select form-select-sm w-75"
+                , disabled inputs.upcycled
                 , onInput
                     (Fabric.fromString
                         >> Result.withDefault Fabric.default
@@ -246,6 +248,7 @@ printingFields { inputs, updatePrinting } =
                     [ id "ennobling-printing"
                     , class "form-select form-select-sm"
                     , style "flex" "2"
+                    , disabled inputs.upcycled
                     , onInput
                         (\str ->
                             updatePrinting
