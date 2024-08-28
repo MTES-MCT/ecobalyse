@@ -55,7 +55,16 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "18 juillet 2024"
+    [ { date = "28 août 2024"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Les champs `countryFabric`, `countryDyeing` at `countryMaking` sont désormais
+            optionnels et prennent pour valeur par défault celles du pays inconnu par défaut
+            sont utilisées (voir la documentation méthodologique).
+            """
+      }
+    , { date = "18 juillet 2024"
       , level = "major"
       , domains = [ "Textile" ]
       , md =
