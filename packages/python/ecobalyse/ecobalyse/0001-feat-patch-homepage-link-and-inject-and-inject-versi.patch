@@ -1,8 +1,7 @@
-From c6a72c8c69322ecf47d9f6c54c1e079100edc46b Mon Sep 17 00:00:00 2001
+From 5fc5d6895752c3ca60062b8194a60889f20ed93b Mon Sep 17 00:00:00 2001
 From: Nicolas Perriault <nicolas@perriault.net>
-Date: Mon, 19 Aug 2024 15:58:26 +0200
-Subject: [PATCH] feat: patch homepage link and inject and inject version
- selector.
+Date: Mon, 26 Aug 2024 17:18:19 +0200
+Subject: [PATCH] feat: redirect to previous hash path.
 
 ---
  index.html         | 29 +++++++++++++++++++++++++++++
@@ -10,7 +9,7 @@ Subject: [PATCH] feat: patch homepage link and inject and inject version
  2 files changed, 30 insertions(+)
 
 diff --git a/index.html b/index.html
-index b3ad75e0..c596eb8e 100644
+index b3ad75e0..1edc8bbe 100644
 --- a/index.html
 +++ b/index.html
 @@ -18,5 +18,34 @@
@@ -37,7 +36,7 @@ index b3ad75e0..c596eb8e 100644
 +          }
 +          selector.append(option);
 +        }
-+        selector.addEventListener("input", (e) => location.href = `/versions/${e.target.value}/`);
++        selector.addEventListener("input", (e) => location.href = `/versions/${e.target.value}/${location.hash}`);
 +        document.querySelector(".HeaderBrand").after(selector);
 +        document.querySelector(".HeaderAuthLink").classList.remove("d-none", "d-sm-block");
 +        document.querySelector(".HeaderAuthLink").classList.add("text-end", "flex-fill");
