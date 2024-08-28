@@ -33,6 +33,16 @@ Un taux de perte "masse sortante" de 10% (un paramètre \`waste\` de 10%) corres
 * 1,1 kg -> procédé -> 1 kg
 
 Ce qui correspond à un taux de perte "masse entrante" de 0.1/1.1\~9%
+
+
+
+On peut montrer que&#x20;
+
+$$Tx_{entrante}= \frac{Tx_{sortante}}{1+Tx_{sortante}}$$
 {% endhint %}
+
+
+
+
 
 &#x20;
