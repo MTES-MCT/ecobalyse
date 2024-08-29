@@ -1163,7 +1163,7 @@ view session model =
                                              pour les champs avancés du mode exploratoire."""
                                             |> Markdown.simple []
                                         , p
-                                            [ class "d-flex justify-content-center align-items-center gap-1" ]
+                                            [ class "d-flex justify-content-center align-items-center gap-1 mt-4" ]
                                             [ button
                                                 [ class "btn btn-primary"
                                                 , onClick ConfirmSwitchToRegulatory

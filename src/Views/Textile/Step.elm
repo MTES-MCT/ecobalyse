@@ -974,7 +974,7 @@ stepView ({ current, showAdvancedFields } as config) html =
                         [ class "d-flex align-items-center gap-2 text-dark"
                         , classList [ ( "text-secondary", not current.enabled ) ]
                         ]
-                        [ h2 [ class "h5 mb-0", classList [ ( "text-muted", not current.enabled ) ] ]
+                        [ h2 [ class "h5 mb-0", classList [ ( "text-body-tertiary", not current.enabled ) ] ]
                             [ current.label
                                 |> Label.toName
                                 |> text
