@@ -1,9 +1,6 @@
 module Data.Textile.Db exposing
     ( Db
     , buildFromJson
-    , updateMaterialsFromNewProcesses
-    , updateProductsFromNewProcesses
-    , updateWellKnownFromNewProcesses
     )
 
 import Data.Example as Example exposing (Example)
@@ -38,44 +35,3 @@ buildFromJson exampleProductsJson materialsJson productsJson processesJson =
                     (Decode.decodeString (Product.decodeList processes) productsJson |> Result.mapError Decode.errorToString)
                     (WellKnown.load processes)
             )
-
-
-updateWellKnownFromNewProcesses : List Process -> WellKnown -> WellKnown
-updateWellKnownFromNewProcesses processes =
-    WellKnown.map
-        (\({ uuid } as process) ->
-            processes
-                |> Process.findByUuid uuid
-                |> Result.withDefault process
-        )
-
-
-updateMaterialsFromNewProcesses : List Process -> List Material -> List Material
-updateMaterialsFromNewProcesses processes =
-    List.map
-        (\material ->
-            Result.map2
-                (\materialProcess maybeRecycledProcess ->
-                    { material
-                        | materialProcess = materialProcess
-                        , recycledProcess = maybeRecycledProcess
-                    }
-                )
-                (Process.findByUuid material.materialProcess.uuid processes)
-                (material.recycledProcess
-                    |> Maybe.map (\{ uuid } -> processes |> Process.findByUuid uuid |> Result.map Just)
-                    |> Maybe.withDefault (Ok Nothing)
-                )
-                |> Result.withDefault material
-        )
-
-
-updateProductsFromNewProcesses : List Process -> List Product -> List Product
-updateProductsFromNewProcesses processes =
-    List.map
-        (\({ use } as product) ->
-            processes
-                |> Process.findByUuid product.use.nonIroningProcess.uuid
-                |> Result.map (\p -> { product | use = { use | nonIroningProcess = p } })
-                |> Result.withDefault product
-        )
