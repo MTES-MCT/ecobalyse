@@ -62,10 +62,10 @@ encode v =
 
 
 init : Db -> Query -> Result String Simulator
-init db query =
-    query
-        |> Inputs.fromQuery db
-        |> Result.map
+init db =
+    Query.handleUpcycling
+        >> Inputs.fromQuery db
+        >> Result.map
             (\({ product } as inputs) ->
                 inputs
                     |> LifeCycle.init db
@@ -108,8 +108,7 @@ compute db query =
             else
                 identity
     in
-    Query.handleUpcycling query
-        |> init db
+    init db query
         -- Ensure end product mass is first applied to the final Distribution step
         |> next initializeFinalMass
         --

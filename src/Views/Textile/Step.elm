@@ -84,19 +84,19 @@ type alias ViewWithTransport msg =
 
 
 countryField : Config msg modal -> Html msg
-countryField cfg =
+countryField { current, db, updateCountry } =
     div []
-        [ if cfg.current.editable then
+        [ if current.editable then
             CountrySelect.view
                 { attributes =
                     [ class "form-select"
-                    , disabled (not cfg.current.enabled)
-                    , onInput (Country.codeFromString >> cfg.updateCountry cfg.current.label)
+                    , disabled (not current.enabled)
+                    , onInput (Country.codeFromString >> updateCountry current.label)
                     ]
-                , countries = cfg.db.countries
-                , onSelect = cfg.updateCountry cfg.current.label
+                , countries = db.countries
+                , onSelect = updateCountry current.label
                 , scope = Scope.Textile
-                , selectedCountry = cfg.current.country.code
+                , selectedCountry = current.country.code
                 }
 
           else
@@ -106,7 +106,7 @@ countryField cfg =
                     , title "Le pays n'est pas modifiable à cette étape"
                     ]
                     [ Icon.lock ]
-                , text cfg.current.country.name
+                , text current.country.name
                 ]
         ]
 
@@ -449,10 +449,6 @@ inlineDocumentationLink _ path =
 
 stepActions : Config msg modal -> Label -> Html msg
 stepActions { current, inputs, showAdvancedFields, toggleStep } label =
-    let
-        _ =
-            Debug.log "step" ( current.label, current.enabled )
-    in
     div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
             [ Button.docsPillLink
