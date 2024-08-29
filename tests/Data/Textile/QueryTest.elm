@@ -59,7 +59,7 @@ suite =
                 , { jupeCotonAsie | upcycled = True }
                     |> Query.handleUpcycling
                     |> .disabledSteps
-                    |> Expect.equal [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
+                    |> Expect.equal Label.upcyclables
                     |> asTest "should disable specific steps when upcycled"
                 , { jupeCotonAsie | upcycled = True }
                     |> Query.handleUpcycling

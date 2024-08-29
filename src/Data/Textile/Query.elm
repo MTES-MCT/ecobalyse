@@ -215,7 +215,7 @@ handleUpcycling : Query -> Query
 handleUpcycling query =
     if query.upcycled then
         { query
-            | disabledSteps = [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
+            | disabledSteps = Label.upcyclables
             , makingComplexity = Just MakingComplexity.High
         }
 
@@ -266,12 +266,7 @@ regulatory query =
                     (\label ->
                         -- keep only these 4 disablable steps in regulatory mode
                         -- all others will be implicitely re-enabled
-                        List.member label
-                            [ Label.Material
-                            , Label.Spinning
-                            , Label.Fabric
-                            , Label.Ennobling
-                            ]
+                        List.member label Label.upcyclables
                     )
         , dyeingMedium = Nothing
     }

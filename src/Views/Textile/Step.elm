@@ -449,6 +449,10 @@ inlineDocumentationLink _ path =
 
 stepActions : Config msg modal -> Label -> Html msg
 stepActions { current, inputs, showAdvancedFields, toggleStep } label =
+    let
+        _ =
+            Debug.log "step" ( current.label, current.enabled )
+    in
     div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
             [ Button.docsPillLink
@@ -465,7 +469,7 @@ stepActions { current, inputs, showAdvancedFields, toggleStep } label =
                     , attribute "role" "switch"
                     , checked current.enabled
                     , onCheck (always (toggleStep current.label))
-                    , disabled inputs.upcycled
+                    , disabled (isStepUpcycled inputs.upcycled current.label)
                     , title
                         (if current.enabled then
                             "Étape activée, cliquez pour la désactiver"
@@ -477,6 +481,11 @@ stepActions { current, inputs, showAdvancedFields, toggleStep } label =
                     []
             ]
         ]
+
+
+isStepUpcycled : Bool -> Label -> Bool
+isStepUpcycled upcycled label =
+    upcycled && List.member label Label.upcyclables
 
 
 viewStepImpacts : Definition -> Step -> Html msg

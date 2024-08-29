@@ -554,9 +554,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
-        |> updateLifeCycleSteps
-            [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
-            (Step.initMass mass)
+        |> updateLifeCycleSteps Label.upcyclables (Step.initMass mass)
 
 
 computeMakingStepDeadStock : Simulator -> Simulator
@@ -569,9 +567,7 @@ computeMakingStepDeadStock ({ inputs, lifeCycle } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateDeadStock deadstock mass)
-        |> updateLifeCycleSteps
-            [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
-            (Step.initMass mass)
+        |> updateLifeCycleSteps Label.upcyclables (Step.initMass mass)
 
 
 computeFabricStepWaste : Db -> Simulator -> Simulator
