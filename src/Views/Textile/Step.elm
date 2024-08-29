@@ -448,7 +448,7 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg modal -> Label -> Html msg
-stepActions { current, showAdvancedFields, toggleStep } label =
+stepActions { current, inputs, showAdvancedFields, toggleStep } label =
     div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
             [ Button.docsPillLink
@@ -465,6 +465,7 @@ stepActions { current, showAdvancedFields, toggleStep } label =
                     , attribute "role" "switch"
                     , checked current.enabled
                     , onCheck (always (toggleStep current.label))
+                    , disabled inputs.upcycled
                     , title
                         (if current.enabled then
                             "Étape activée, cliquez pour la désactiver"
