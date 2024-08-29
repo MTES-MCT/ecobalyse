@@ -114,7 +114,7 @@ toMaterialQuery =
             { id = material.id
             , share = share
             , spinning = spinning
-            , country = country |> Maybe.map .code
+            , country = country |> Maybe.andThen (.code >> toQueryCountryCode)
             }
         )
 
@@ -200,14 +200,6 @@ fromQuery { countries, textile } query =
 
 toQuery : Inputs -> Query
 toQuery inputs =
-    let
-        toQueryCountryCode c =
-            if c == Country.unknownCountryCode then
-                Nothing
-
-            else
-                Just c
-    in
     { mass = inputs.mass
     , materials = toMaterialQuery inputs.materials
     , product = inputs.product.id
@@ -231,6 +223,15 @@ toQuery inputs =
     , price = inputs.price
     , traceability = inputs.traceability
     }
+
+
+toQueryCountryCode : Country.Code -> Maybe Country.Code
+toQueryCountryCode c =
+    if c == Country.unknownCountryCode then
+        Nothing
+
+    else
+        Just c
 
 
 stepsToStrings : Inputs -> List (List String)
