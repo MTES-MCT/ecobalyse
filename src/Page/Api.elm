@@ -55,7 +55,16 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "18 juillet 2024"
+    [ { date = "28 août 2024"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Les champs `countryFabric`, `countryDyeing` at `countryMaking` sont désormais optionnels et prennent pour valeur par défaut celles du *Pays inconnu* (voir la
+            [documentation méthodologique](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport#pays-par-defaut-etapes-de-transformation)).
+            Techniquement, stipuler le code `"---"` pour ces paramètres ou les omettre revient désormais au même.
+            """
+      }
+    , { date = "18 juillet 2024"
       , level = "major"
       , domains = [ "Textile" ]
       , md =

@@ -608,7 +608,7 @@ components:
       in: query
       description: |
         Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/countries`)
-      required: true
+      required: false
       style: form
       schema:
         type: string
@@ -623,7 +623,7 @@ components:
       name: countryDyeing
       in: query
       description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/countries`)"
-      required: true
+      required: false
       style: form
       schema:
         type: string
@@ -638,7 +638,7 @@ components:
       name: countryMaking
       in: query
       description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/countries`)"
-      required: true
+      required: false
       style: form
       schema:
         type: string
@@ -1152,10 +1152,6 @@ components:
       additionalProperties: false
       required:
       - materials
-      - countrySpinning
-      - countryFabric
-      - countryDyeing
-      - countryMaking
       properties:
         mass:
           type: number

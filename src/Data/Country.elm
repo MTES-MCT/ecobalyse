@@ -10,6 +10,7 @@ module Data.Country exposing
     , encodeCode
     , findByCode
     , getAquaticPollutionRatio
+    , unknownCountryCode
     )
 
 import Data.Scope as Scope exposing (Scope)
@@ -149,3 +150,8 @@ getAquaticPollutionRatio scenario =
 
         Worst ->
             Split.fromPercent 65 |> Result.withDefault Split.full
+
+
+unknownCountryCode : Code
+unknownCountryCode =
+    Code "---"
