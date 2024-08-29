@@ -961,7 +961,7 @@ showIf flag html =
 
 
 stepView : Config msg modal -> Html msg -> Html msg
-stepView ({ current } as config) html =
+stepView ({ current, showAdvancedFields } as config) html =
     div [ class "Step card shadow-sm" ]
         [ div
             [ class "StepHeader card-header"
@@ -974,7 +974,7 @@ stepView ({ current } as config) html =
                         [ class "d-flex align-items-center gap-2 text-dark"
                         , classList [ ( "text-secondary", not current.enabled ) ]
                         ]
-                        [ h2 [ class "h5 mb-0" ]
+                        [ h2 [ class "h5 mb-0", classList [ ( "text-muted", not current.enabled ) ] ]
                             [ current.label
                                 |> Label.toName
                                 |> text
@@ -990,7 +990,8 @@ stepView ({ current } as config) html =
                     ]
                 , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
                     [ div [ class "d-none d-sm-block text-center" ]
-                        [ viewStepImpacts config.selectedImpact current
+                        [ showIf (current.enabled || showAdvancedFields) <|
+                            viewStepImpacts config.selectedImpact current
                         ]
                     , stepActions config current.label
                     ]
