@@ -103,6 +103,7 @@ paths:
         - $ref: "#/components/parameters/numberOfReferencesParam"
         - $ref: "#/components/parameters/priceParam"
         - $ref: "#/components/parameters/traceabilityParam"
+        - $ref: "#/components/parameters/upcycledParam"
       responses:
         200:
           description: Opération réussie
@@ -174,6 +175,7 @@ paths:
         - $ref: "#/components/parameters/numberOfReferencesParam"
         - $ref: "#/components/parameters/priceParam"
         - $ref: "#/components/parameters/traceabilityParam"
+        - $ref: "#/components/parameters/upcycledParam"
       responses:
         200:
           description: successful operation
@@ -247,6 +249,7 @@ paths:
         - $ref: "#/components/parameters/numberOfReferencesParam"
         - $ref: "#/components/parameters/priceParam"
         - $ref: "#/components/parameters/traceabilityParam"
+        - $ref: "#/components/parameters/upcycledParam"
       responses:
         200:
           description: Opération réussie
@@ -704,6 +707,16 @@ components:
       in: query
       description: |
         Traçabilité renforcée
+      required: false
+      style: form
+      schema:
+        type: string
+        enum: ["true", "false"]
+    upcycledParam:
+      name: upcycled
+      in: query
+      description: |
+        Produit remanufacturé
       required: false
       style: form
       schema:
@@ -1265,6 +1278,10 @@ components:
         traceability:
           description: |
             Traçabilité renforcée
+          type: boolean
+        upcycled:
+          description: |
+            Produit remanufacturé
           type: boolean
     TextileQueryMaterial:
       type: object

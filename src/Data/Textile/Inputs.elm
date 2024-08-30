@@ -76,6 +76,7 @@ type alias Inputs =
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
     , traceability : Maybe Bool
+    , upcycled : Bool
     }
 
 
@@ -196,6 +197,7 @@ fromQuery { countries, textile } query =
         |> RE.andMap (Ok query.numberOfReferences)
         |> RE.andMap (Ok query.price)
         |> RE.andMap (Ok query.traceability)
+        |> RE.andMap (Ok query.upcycled)
 
 
 toQuery : Inputs -> Query
@@ -222,6 +224,7 @@ toQuery inputs =
     , numberOfReferences = inputs.numberOfReferences
     , price = inputs.price
     , traceability = inputs.traceability
+    , upcycled = inputs.upcycled
     }
 
 
@@ -244,7 +247,15 @@ stepsToStrings inputs =
             else
                 []
     in
-    [ [ inputs.product.name, Format.kgToString inputs.mass ]
+    [ [ inputs.product.name
+            ++ (if inputs.upcycled then
+                    " remanufacturé"
+
+                else
+                    ""
+               )
+      , Format.kgToString inputs.mass
+      ]
     , ifStepEnabled Label.Material
         [ "matière"
         , materialsToString inputs.materials
@@ -492,6 +503,7 @@ encode inputs =
         , ( "numberOfReferences", inputs.numberOfReferences |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
         , ( "price", inputs.price |> Maybe.map Economics.encodePrice |> Maybe.withDefault Encode.null )
         , ( "traceability", inputs.traceability |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
+        , ( "upcycled", Encode.bool inputs.upcycled )
         ]
 
 

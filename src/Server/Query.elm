@@ -366,6 +366,7 @@ parseTextileQuery countries textile =
         |> apply (maybeIntParser "numberOfReferences")
         |> apply (maybePriceParser "price")
         |> apply (maybeBoolParser "traceability")
+        |> apply (boolParser { default = False } "upcycled")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -818,6 +819,15 @@ maybeBoolParser key =
                     >> Result.mapError (Tuple.pair key)
                 )
                 >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+boolParser : { default : Bool } -> String -> Parser (ParseResult Bool)
+boolParser { default } key =
+    Query.string key
+        |> Query.map
+            (Maybe.map (validateBool >> Result.mapError (Tuple.pair key))
+                >> Maybe.withDefault (Ok default)
             )
 
 
