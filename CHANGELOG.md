@@ -1,5 +1,26 @@
 # Changelog
 
+## [2.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.0.0...v2.1.0) (2024-08-30)
+
+
+### Features
+
+* add a button to access material/ingredient details ([#703](https://github.com/MTES-MCT/ecobalyse/issues/703)) ([e6fa6fe](https://github.com/MTES-MCT/ecobalyse/commit/e6fa6fe1f58183c15d28d7c08949cd566391b980))
+* add a version selector widget. ([#700](https://github.com/MTES-MCT/ecobalyse/issues/700)) ([a4ac751](https://github.com/MTES-MCT/ecobalyse/commit/a4ac75194530bad42bc673502f0413a19c4da80a))
+* allow downloading explorer data as CSV. ([#705](https://github.com/MTES-MCT/ecobalyse/issues/705)) ([b0ce426](https://github.com/MTES-MCT/ecobalyse/commit/b0ce426d374744fb416188e17dcfdfb0a505b521))
+* **api,textile:** make all country params optional. ([#713](https://github.com/MTES-MCT/ecobalyse/issues/713)) ([9c6724b](https://github.com/MTES-MCT/ecobalyse/commit/9c6724b7fcf2ebb5352f6c385fe80cc371957dd8))
+* implement upcycling. ([#710](https://github.com/MTES-MCT/ecobalyse/issues/710)) ([b8b20ee](https://github.com/MTES-MCT/ecobalyse/commit/b8b20ee5f0b911eca035e10b7325ffd65adfb133))
+* serve multiple app versions ([#627](https://github.com/MTES-MCT/ecobalyse/issues/627)) ([dcbbfaa](https://github.com/MTES-MCT/ecobalyse/commit/dcbbfaa1fae97daa45a342f1cb037f888a499d9f))
+* version selector redirect to current location hash. ([#709](https://github.com/MTES-MCT/ecobalyse/issues/709)) ([4493fb8](https://github.com/MTES-MCT/ecobalyse/commit/4493fb87f500441c3a0c728c13973ebba2c18e65))
+
+
+### Bug Fixes
+
+* add github token to worklows ([#704](https://github.com/MTES-MCT/ecobalyse/issues/704)) ([053d920](https://github.com/MTES-MCT/ecobalyse/commit/053d92085c6f20f328be0d7bea41ba2d2bfaf581))
+* add missing run command for score history ([#697](https://github.com/MTES-MCT/ecobalyse/issues/697)) ([82207dc](https://github.com/MTES-MCT/ecobalyse/commit/82207dce85e67e19f8abaf6bd8e31ef407c493d1))
+* avoid scrolling to top when using the explorer. ([#702](https://github.com/MTES-MCT/ecobalyse/issues/702)) ([bc4332f](https://github.com/MTES-MCT/ecobalyse/commit/bc4332ffad9dfda4ae7f56b20afa78d779c1078f))
+* broken comparator charts on desynced cache data. ([#706](https://github.com/MTES-MCT/ecobalyse/issues/706)) ([9445b71](https://github.com/MTES-MCT/ecobalyse/commit/9445b7107311bcace6761f5a2d039c1b0dc103c0))
+
 ## [2.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v1.3.2...v2.0.0) (2024-07-30)
 
 
