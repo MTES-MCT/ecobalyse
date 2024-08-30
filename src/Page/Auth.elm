@@ -95,9 +95,9 @@ update session msg model =
                 |> AuthRequest.register TokenEmailSent
             )
 
-        Authenticated user (Ok newProcessesJson) ->
+        Authenticated user (Ok rawDetailedProcessesJson) ->
             ( model
-            , Session.authenticated session user newProcessesJson
+            , session |> Session.authenticated user rawDetailedProcessesJson
             , Cmd.none
             )
 

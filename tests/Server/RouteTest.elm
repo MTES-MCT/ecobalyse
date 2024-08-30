@@ -336,10 +336,7 @@ textileEndpoints db =
             |> Maybe.andThen extractTextileErrors
             |> Expect.equal
                 (Dict.fromList
-                    [ ( "countryFabric", "Code pays manquant." )
-                    , ( "countryDyeing", "Code pays manquant." )
-                    , ( "countryMaking", "Code pays manquant." )
-                    , ( "mass", "La masse est manquante." )
+                    [ ( "mass", "La masse est manquante." )
                     , ( "product", "Identifiant du type de produit manquant." )
                     ]
                     |> Just

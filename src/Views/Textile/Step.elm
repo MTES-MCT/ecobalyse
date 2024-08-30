@@ -58,6 +58,7 @@ type alias Config msg modal =
     , index : Int
     , inputs : Inputs
     , next : Maybe Step
+    , openExplorerDetails : Material -> msg
     , selectedImpact : Definition
     , setModal : modal -> msg
     , showAdvancedFields : Bool
@@ -83,19 +84,19 @@ type alias ViewWithTransport msg =
 
 
 countryField : Config msg modal -> Html msg
-countryField cfg =
+countryField { current, db, updateCountry } =
     div []
-        [ if cfg.current.editable then
+        [ if current.editable then
             CountrySelect.view
                 { attributes =
                     [ class "form-select"
-                    , disabled (not cfg.current.enabled)
-                    , onInput (Country.codeFromString >> cfg.updateCountry cfg.current.label)
+                    , disabled (not current.enabled)
+                    , onInput (Country.codeFromString >> updateCountry current.label)
                     ]
-                , countries = cfg.db.countries
-                , onSelect = cfg.updateCountry cfg.current.label
+                , countries = db.countries
+                , onSelect = updateCountry current.label
                 , scope = Scope.Textile
-                , selectedCountry = cfg.current.country.code
+                , selectedCountry = current.country.code
                 }
 
           else
@@ -105,7 +106,7 @@ countryField cfg =
                     , title "Le pays n'est pas modifiable à cette étape"
                     ]
                     [ Icon.lock ]
-                , text cfg.current.country.name
+                , text current.country.name
                 ]
         ]
 
@@ -126,7 +127,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 
 dyeingMediumField : Config msg modal -> Html msg
-dyeingMediumField { inputs, updateDyeingMedium } =
+dyeingMediumField { current, inputs, updateDyeingMedium } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
             [ text "Teinture sur" ]
@@ -142,6 +143,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
             |> select
                 [ id "dyeing-medium"
                 , class "form-select form-select-sm w-75"
+                , disabled <| not current.enabled
                 , onInput
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
@@ -152,7 +154,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
 
 
 spinningProcessField : Config msg modal -> Html msg
-spinningProcessField { inputs, updateMaterialSpinning } =
+spinningProcessField { current, inputs, updateMaterialSpinning } =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ inputs.materials
             |> List.map
@@ -182,6 +184,7 @@ spinningProcessField { inputs, updateMaterialSpinning } =
                                     |> select
                                         [ class "form-select form-select-sm w-75"
                                         , id <| "spinning-for-" ++ Material.idToString material.id
+                                        , disabled <| not current.enabled
                                         , onInput
                                             (Spinning.fromString
                                                 >> Result.withDefault (Spinning.getDefault material.origin)
@@ -195,7 +198,7 @@ spinningProcessField { inputs, updateMaterialSpinning } =
 
 
 fabricProcessField : Config msg modal -> Html msg
-fabricProcessField { inputs, updateFabricProcess } =
+fabricProcessField { current, inputs, updateFabricProcess } =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "fabric-process" ] [ text "Procédé" ]
         , Fabric.fabricProcesses
@@ -216,6 +219,7 @@ fabricProcessField { inputs, updateFabricProcess } =
             |> select
                 [ id "fabric-process"
                 , class "form-select form-select-sm w-75"
+                , disabled <| not current.enabled
                 , onInput
                     (Fabric.fromString
                         >> Result.withDefault Fabric.default
@@ -226,7 +230,7 @@ fabricProcessField { inputs, updateFabricProcess } =
 
 
 printingFields : Config msg modal -> Html msg
-printingFields { inputs, updatePrinting } =
+printingFields { current, inputs, updatePrinting } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "ennobling-printing", title "Impression" ]
             [ text "Impression" ]
@@ -245,6 +249,7 @@ printingFields { inputs, updatePrinting } =
                     [ id "ennobling-printing"
                     , class "form-select form-select-sm"
                     , style "flex" "2"
+                    , disabled <| not current.enabled
                     , onInput
                         (\str ->
                             updatePrinting
@@ -329,7 +334,7 @@ fadingField { inputs, toggleFading } =
 
 
 makingComplexityField : Config msg modal -> Html msg
-makingComplexityField ({ inputs, updateMakingComplexity } as config) =
+makingComplexityField ({ current, inputs, updateMakingComplexity } as config) =
     let
         makingComplexity =
             inputs.fabricProcess
@@ -359,7 +364,7 @@ makingComplexityField ({ inputs, updateMakingComplexity } as config) =
                 |> select
                     [ id "making-complexity"
                     , class "form-select form-select-sm w-75"
-                    , disabled False
+                    , disabled <| not current.enabled
                     , onInput
                         (MakingComplexity.fromString
                             >> Result.withDefault inputs.product.making.complexity
@@ -395,7 +400,7 @@ makingDeadStockField { current, updateMakingDeadStock, showAdvancedFields } =
                 , update = updateMakingDeadStock
                 , value = Maybe.withDefault Env.defaultDeadStock current.makingDeadStock
                 , toString = Step.makingDeadStockToString
-                , disabled = False
+                , disabled = not current.enabled
                 , min = Env.minMakingDeadStockRatio |> Split.toPercent |> round
                 , max = Env.maxMakingDeadStockRatio |> Split.toPercent |> round
                 }
@@ -443,18 +448,7 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg modal -> Label -> Html msg
-stepActions { current, showAdvancedFields, toggleStep } label =
-    let
-        allowDisablingStep =
-            showAdvancedFields
-                -- Regulatory mode only allow disabling Spinning, Fabric and Ennobling steps
-                || List.member current.label
-                    [ Label.Material
-                    , Label.Spinning
-                    , Label.Fabric
-                    , Label.Ennobling
-                    ]
-    in
+stepActions { current, inputs, showAdvancedFields, toggleStep } label =
     div [ class "StepActions ms-2" ]
         [ div [ class "btn-group" ]
             [ Button.docsPillLink
@@ -464,13 +458,14 @@ stepActions { current, showAdvancedFields, toggleStep } label =
                 , target "_blank"
                 ]
                 [ Icon.question ]
-            , showIf allowDisablingStep <|
+            , showIf showAdvancedFields <|
                 input
                     [ type_ "checkbox"
                     , class "form-check-input ms-1 no-outline"
                     , attribute "role" "switch"
                     , checked current.enabled
                     , onCheck (always (toggleStep current.label))
+                    , disabled (isStepUpcycled inputs.upcycled current.label)
                     , title
                         (if current.enabled then
                             "Étape activée, cliquez pour la désactiver"
@@ -482,6 +477,11 @@ stepActions { current, showAdvancedFields, toggleStep } label =
                     []
             ]
         ]
+
+
+isStepUpcycled : Bool -> Label -> Bool
+isStepUpcycled upcycled label =
+    upcycled && List.member label Label.upcyclables
 
 
 viewStepImpacts : Definition -> Step -> Html msg
@@ -691,8 +691,7 @@ createElementSelectorConfig cfg materialInput =
     , delete = cfg.deleteMaterial
     , excluded = excluded
     , impact = impacts
-    , selectedImpact = cfg.selectedImpact
-    , selectElement = \_ autocompleteState -> cfg.setModal (cfg.addMaterialModal (Just materialInput) autocompleteState)
+    , openExplorerDetails = cfg.openExplorerDetails
     , quantityView =
         \{ quantity, onChange } ->
             SplitInput.view
@@ -700,6 +699,8 @@ createElementSelectorConfig cfg materialInput =
                 , share = quantity
                 , onChange = onChange
                 }
+    , selectedImpact = cfg.selectedImpact
+    , selectElement = \_ autocompleteState -> cfg.setModal (cfg.addMaterialModal (Just materialInput) autocompleteState)
     , toId = .id >> Material.idToString
     , toString = .shortName
     , toTooltip = .materialProcess >> .name
@@ -960,7 +961,7 @@ showIf flag html =
 
 
 stepView : Config msg modal -> Html msg -> Html msg
-stepView ({ current } as config) html =
+stepView ({ current, showAdvancedFields } as config) html =
     div [ class "Step card shadow-sm" ]
         [ div
             [ class "StepHeader card-header"
@@ -973,7 +974,7 @@ stepView ({ current } as config) html =
                         [ class "d-flex align-items-center gap-2 text-dark"
                         , classList [ ( "text-secondary", not current.enabled ) ]
                         ]
-                        [ h2 [ class "h5 mb-0" ]
+                        [ h2 [ class "h5 mb-0", classList [ ( "text-body-tertiary", not current.enabled ) ] ]
                             [ current.label
                                 |> Label.toName
                                 |> text
@@ -989,7 +990,8 @@ stepView ({ current } as config) html =
                     ]
                 , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
                     [ div [ class "d-none d-sm-block text-center" ]
-                        [ viewStepImpacts config.selectedImpact current
+                        [ showIf (current.enabled || showAdvancedFields) <|
+                            viewStepImpacts config.selectedImpact current
                         ]
                     , stepActions config current.label
                     ]
@@ -1054,7 +1056,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                 , showIf (inputs.fading == Just True) <| viewProcessInfo current.processInfo.fading
                 ]
             , ul
-                [ class "StepBody p-0 list-group list-group-flush border-bottom-0"
+                [ class "StepBody p-0 list-group list-group-flush border-bottom-0 border-top"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 (List.map
