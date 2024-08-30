@@ -31,9 +31,9 @@ suite =
         (\db ->
             [ describe "Query countries validation"
                 [ { default
-                    | countryFabric = Country.Code "CN"
-                    , countryDyeing = Country.Code "CN"
-                    , countryMaking = Country.Code "CN"
+                    | countryFabric = Just (Country.Code "CN")
+                    , countryDyeing = Just (Country.Code "CN")
+                    , countryMaking = Just (Country.Code "CN")
                   }
                     |> Inputs.fromQuery db
                     |> Result.map Inputs.countryList
@@ -41,9 +41,9 @@ suite =
                     |> Expect.equal (Ok (Country.codeFromString "CN"))
                     |> asTest "should replace the first country with the material's default country"
                 , { default
-                    | countryFabric = Country.Code "XX"
-                    , countryDyeing = Country.Code "CN"
-                    , countryMaking = Country.Code "CN"
+                    | countryFabric = Just (Country.Code "XX")
+                    , countryDyeing = Just (Country.Code "CN")
+                    , countryMaking = Just (Country.Code "CN")
                   }
                     |> Inputs.fromQuery db
                     |> Expect.equal (Err "Code pays invalide: XX.")

@@ -41,9 +41,9 @@ suite =
                 , let
                     tShirtCotonEnnoblementIndia =
                         { tShirtCotonFrance
-                            | countryFabric = Country.Code "FR"
-                            , countryDyeing = Country.Code "IN" -- Ennoblement in India
-                            , countryMaking = Country.Code "FR"
+                            | countryFabric = Just (Country.Code "FR")
+                            , countryDyeing = Just (Country.Code "IN") -- Ennoblement in India
+                            , countryMaking = Just (Country.Code "FR")
                         }
                   in
                   tShirtCotonEnnoblementIndia

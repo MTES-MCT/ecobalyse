@@ -142,6 +142,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
+    | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
 
@@ -585,6 +586,10 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | traceability = Just traceability }
 
+        ( UpdateUpcycled upcycled, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | upcycled = upcycled }
+
         ( UpdateYarnSize yarnSize, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | yarnSize = yarnSize }
@@ -890,16 +895,37 @@ lifeCycleStepsView db { activeTab, impact } simulator =
 simulatorFormView : Session -> Model -> Simulator -> List (Html Msg)
 simulatorFormView session model ({ inputs } as simulator) =
     [ div [ class "row align-items-start flex-md-columns g-2 mb-3" ]
-        [ div [ class "col-md-8" ]
+        [ div [ class "col-md-6" ]
             [ inputs
                 |> Inputs.toQuery
                 |> productCategoryField session.db.textile
             ]
-        , div [ class "col-md-4" ]
+        , div [ class "col-md-3" ]
             [ inputs.mass
                 |> Mass.inKilograms
                 |> String.fromFloat
                 |> massField
+            ]
+        , div [ class "col-md-3 d-flex align-items-end flex-row" ]
+            [ div [ class "d-flex flex-column" ]
+                [ label [ class "form-label d-none d-md-block", attribute "aria-hidden" "true" ] [ text "\u{00A0}" ]
+                , div [ class "UpcycledCheck form-check text-truncate ms-1" ]
+                    [ input
+                        [ type_ "checkbox"
+                        , class "form-check-input"
+                        , id "upcycled"
+                        , checked <| inputs.upcycled
+                        , onCheck UpdateUpcycled
+                        ]
+                        []
+                    , label
+                        [ for "upcycled"
+                        , class "form-check-label text-truncate"
+                        , title "Le vêtement est-il upcyclé\u{00A0}?"
+                        ]
+                        [ text "Remanufacturé" ]
+                    ]
+                ]
             ]
         ]
     , div [ class "card shadow-sm pb-2 mb-3" ]
@@ -1137,7 +1163,7 @@ view session model =
                                              pour les champs avancés du mode exploratoire."""
                                             |> Markdown.simple []
                                         , p
-                                            [ class "d-flex justify-content-center align-items-center gap-1" ]
+                                            [ class "d-flex justify-content-center align-items-center gap-1 mt-4" ]
                                             [ button
                                                 [ class "btn btn-primary"
                                                 , onClick ConfirmSwitchToRegulatory

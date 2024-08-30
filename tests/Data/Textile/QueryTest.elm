@@ -3,8 +3,10 @@ module Data.Textile.QueryTest exposing (..)
 import Data.Country as Country
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
+import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Material as Material
 import Data.Textile.Query as Query exposing (Query, jupeCotonAsie)
+import Data.Textile.Step.Label as Label
 import Expect
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
@@ -42,6 +44,28 @@ suite =
                         |> Expect.equal (Ok sampleQuery)
                         |> asTest "should base64 encode and decode a query"
                     ]
+                ]
+            , describe "handleUpcycling"
+                [ { jupeCotonAsie | upcycled = False }
+                    |> Query.handleUpcycling
+                    |> .disabledSteps
+                    |> Expect.equal []
+                    |> asTest "should not touch disabled steps when not upcycled"
+                , { jupeCotonAsie | upcycled = False }
+                    |> Query.handleUpcycling
+                    |> .makingComplexity
+                    |> Expect.equal jupeCotonAsie.makingComplexity
+                    |> asTest "should not touch making complexity when not upcycled"
+                , { jupeCotonAsie | upcycled = True }
+                    |> Query.handleUpcycling
+                    |> .disabledSteps
+                    |> Expect.equal Label.upcyclables
+                    |> asTest "should disable specific steps when upcycled"
+                , { jupeCotonAsie | upcycled = True }
+                    |> Query.handleUpcycling
+                    |> .makingComplexity
+                    |> Expect.equal (Just MakingComplexity.High)
+                    |> asTest "should update making complexity to High when upcycled"
                 ]
             , describe "validateMaterials"
                 [ []
