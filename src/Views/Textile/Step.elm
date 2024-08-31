@@ -1078,12 +1078,11 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                             ]
 
                         Label.Making ->
-                            List.filterMap identity
-                                [ Just <| makingWasteField config
-                                , Just <| makingDeadStockField config
-                                , Just <| airTransportRatioField config
-                                , Just (fadingField config)
-                                ]
+                            [ makingWasteField config
+                            , makingDeadStockField config
+                            , airTransportRatioField config
+                            , fadingField config
+                            ]
 
                         Label.Use ->
                             [ daysOfWearInfo config

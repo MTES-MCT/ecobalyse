@@ -401,8 +401,7 @@ impactAggregateScore normalization weighting =
 
 decodeImpact : Decoder Impact
 decodeImpact =
-    Decode.float
-        |> Decode.andThen (impact >> Decode.succeed)
+    Decode.map impact Decode.float
 
 
 encodeImpact : Impact -> Encode.Value

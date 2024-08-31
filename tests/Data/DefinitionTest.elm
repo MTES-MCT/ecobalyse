@@ -23,8 +23,7 @@ suite =
             , Definition.trigrams
                 |> List.map ((\trigram -> Definition.get trigram db.definitions) >> .trigram >> Definition.toString)
                 |> Set.fromList
-                |> Set.toList
-                |> List.length
+                |> Set.size
                 |> Expect.equal (List.length Definition.trigrams)
                 |> asTest "There are 21 unique impact definitions and trigrams"
             , Definition.trigrams

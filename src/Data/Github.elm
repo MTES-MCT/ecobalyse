@@ -41,15 +41,13 @@ decodeCommit =
         |> Pipe.requiredAt [ "commit", "author", "name" ] Decode.string
         |> Pipe.optionalAt [ "author", "login" ] Decode.string "Ecobalyse"
         |> Pipe.optionalAt [ "author", "avatar_url" ] (Decode.maybe Decode.string) Nothing
-        |> Decode.andThen
+        |> Decode.map
             (\({ authorAvatar, authorName } as commit) ->
-                Decode.succeed
-                    (if authorAvatar == Nothing && authorName == "Ingredient editor" then
-                        { commit | authorAvatar = Just "img/ingredient-editor.png" }
+                if authorAvatar == Nothing && authorName == "Ingredient editor" then
+                    { commit | authorAvatar = Just "img/ingredient-editor.png" }
 
-                     else
-                        commit
-                    )
+                else
+                    commit
             )
 
 
@@ -68,7 +66,7 @@ decodeReleaseList : Decoder (List Release)
 decodeReleaseList =
     Decode.list decodeRelease
         -- Exclude draft releases
-        |> Decode.andThen (List.filter (.draft >> not) >> Decode.succeed)
+        |> Decode.map (List.filter (.draft >> not))
 
 
 unreleased : Release
