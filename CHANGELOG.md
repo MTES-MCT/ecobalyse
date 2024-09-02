@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/MTES-MCT/ecobalyse/compare/v2.1.0...v2.1.1) (2024-09-02)
+
+
+### Bug Fixes
+
+* **ui:** Hide unreleased entry in production version selector. ([#715](https://github.com/MTES-MCT/ecobalyse/issues/715)) ([78e4e8e](https://github.com/MTES-MCT/ecobalyse/commit/78e4e8e567b71677e70aaf5c1f3f09aea612fb32))
+
 ## [2.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.0.0...v2.1.0) (2024-08-30)
 
 
