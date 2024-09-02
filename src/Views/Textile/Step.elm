@@ -945,10 +945,10 @@ wasteView ({ current } as config) waste =
                 , Format.kgToString waste |> text
                 , inlineDocumentationLink config
                     (if current.label == Label.Fabric then
-                        Gitbook.TextileFabricFabricWaste
+                        Gitbook.TextileFabricWaste
 
                      else
-                        Gitbook.TextileMakingMakingWaste
+                        Gitbook.TextileMakingWaste
                     )
                 ]
 

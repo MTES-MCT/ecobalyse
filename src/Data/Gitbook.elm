@@ -38,13 +38,13 @@ type Path
     | TextileEnnoblingToxicity -- Inventaires enrichis pour le blanchiment, la teinture et l'impression
     | TextileExamples -- Exemples de produits textile
     | TextileFabric -- Tissage/Tricotage textile
-    | TextileFabricFabricWaste -- Taux de perte en tissage/tricotage textile
+    | TextileFabricWaste -- Taux de perte en tissage/tricotage textile
     | TextileHeat -- Chaleur textile
     | TextileMaterial -- Matière textile
     | TextileMaking -- Confection textile
     | TextileMakingComplexity -- Complexité de la confection textile
     | TextileMakingDeadStock -- Deadstock lors de la confection textile
-    | TextileMakingMakingWaste -- Taux de perte en confection textile
+    | TextileMakingWaste -- Taux de perte en confection textile
     | TextileSpinning -- Filature textile
     | TextileTransport -- Transport textile
     | TextileUse -- Utilisation textile
@@ -116,7 +116,7 @@ pathToString path =
         TextileFabric ->
             "textile/etapes-du-cycle-de-vie/tricotage-tissage"
 
-        TextileFabricFabricWaste ->
+        TextileFabricWaste ->
             "textile/cycle-de-vie-des-produits-textiles/tricotage-tissage#taux-de-perte"
 
         TextileHeat ->
@@ -134,7 +134,7 @@ pathToString path =
         TextileMakingDeadStock ->
             "textile/cas-particuliers/stocks-dormants-deadstock"
 
-        TextileMakingMakingWaste ->
+        TextileMakingWaste ->
             "textile/parametres-transverses/pertes-et-rebus"
 
         TextileSpinning ->
