@@ -324,8 +324,14 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
             , session.releases
                 |> RemoteData.map
                     (\releases ->
-                        Github.unreleased
-                            :: releases
+                        (case Version.getTag session.currentVersion of
+                            Just _ ->
+                                releases
+
+                            Nothing ->
+                                -- If we're not on a tag, add an "unreleased" entry to reflect that
+                                Github.unreleased :: releases
+                        )
                             |> List.map
                                 (\release ->
                                     option [ selected <| Version.is release session.currentVersion ]

@@ -1,6 +1,7 @@
 module Request.Version exposing
     ( Version(..)
     , VersionData
+    , getTag
     , is
     , loadVersion
     , pollVersion
@@ -64,6 +65,16 @@ is release version =
 
         _ ->
             False
+
+
+getTag : Version -> Maybe String
+getTag version =
+    case version of
+        Version { tag } ->
+            tag
+
+        _ ->
+            Nothing
 
 
 loadVersion : (WebData VersionData -> msg) -> Cmd msg
