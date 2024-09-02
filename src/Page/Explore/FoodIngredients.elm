@@ -22,7 +22,8 @@ import Views.Link as Link
 
 table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient String msg
 table _ { detailed, scope } =
-    { toId = .id >> Ingredient.idToString
+    { filename = "ingredients"
+    , toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
     , legend = []
     , columns =

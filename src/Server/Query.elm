@@ -348,9 +348,9 @@ parseTextileQuery countries textile =
         |> apply (materialListParser "materials" textile.materials countries)
         |> apply (productParser "product" textile.products)
         |> apply (maybeTextileCountryParser "countrySpinning" countries)
-        |> apply (textileCountryParser "countryFabric" countries)
-        |> apply (textileCountryParser "countryDyeing" countries)
-        |> apply (textileCountryParser "countryMaking" countries)
+        |> apply (maybeTextileCountryParser "countryFabric" countries)
+        |> apply (maybeTextileCountryParser "countryDyeing" countries)
+        |> apply (maybeTextileCountryParser "countryMaking" countries)
         |> apply (maybeSplitParser "airTransportRatio")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (maybeMakingDeadStockParser "makingDeadStock")
@@ -366,6 +366,7 @@ parseTextileQuery countries textile =
         |> apply (maybeIntParser "numberOfReferences")
         |> apply (maybePriceParser "price")
         |> apply (maybeBoolParser "traceability")
+        |> apply (boolParser { default = False } "upcycled")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -539,19 +540,6 @@ parseSpinning material spinningString =
                         ++ spinningString
                         ++ ")"
                 )
-
-
-textileCountryParser : String -> List Country -> Parser (ParseResult Country.Code)
-textileCountryParser key countries =
-    Query.string key
-        |> Query.map (Result.fromMaybe ( key, "Code pays manquant." ))
-        |> Query.map
-            (Result.andThen
-                (\code ->
-                    validateCountry code Scope.Textile countries
-                        |> Result.mapError (\err -> ( key, err ))
-                )
-            )
 
 
 maybeTextileCountryParser : String -> List Country -> Parser (ParseResult (Maybe Country.Code))
@@ -831,6 +819,15 @@ maybeBoolParser key =
                     >> Result.mapError (Tuple.pair key)
                 )
                 >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+boolParser : { default : Bool } -> String -> Parser (ParseResult Bool)
+boolParser { default } key =
+    Query.string key
+        |> Query.map
+            (Maybe.map (validateBool >> Result.mapError (Tuple.pair key))
+                >> Maybe.withDefault (Ok default)
             )
 
 

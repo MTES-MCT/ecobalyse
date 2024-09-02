@@ -342,10 +342,6 @@
         }
       ],
       "product": "jupe",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -365,10 +361,6 @@
         }
       ],
       "product": "chemise",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -388,10 +380,6 @@
         }
       ],
       "product": "jean",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "fading": true,
       "airTransportRatio": 1,
       "marketingDuration": 65,
@@ -412,10 +400,6 @@
         }
       ],
       "product": "pantalon",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -435,10 +419,6 @@
         }
       ],
       "product": "manteau",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -458,6 +438,27 @@
         }
       ],
       "product": "tshirt",
+      "airTransportRatio": 1,
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
+      "numberOfReferences": 100000,
+      "price": 10,
+      "traceability": false
+    }
+  },
+  {
+    "id": "f48d7a6b-68db-4d1c-9623-6ec0ab89cbdb",
+    "name": "Tshirt coton (150g) - Remanufacturé",
+    "category": "Tshirt / Polo",
+    "query": {
+      "mass": 0.15,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "product": "tshirt",
       "countrySpinning": "---",
       "countryFabric": "---",
       "countryDyeing": "---",
@@ -467,7 +468,8 @@
       "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 10,
-      "traceability": false
+      "traceability": false,
+      "upcycled": true
     }
   },
   {
@@ -483,10 +485,6 @@
         }
       ],
       "product": "pull",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
@@ -508,10 +506,6 @@
         }
       ],
       "product": "chaussettes",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
@@ -533,10 +527,6 @@
         }
       ],
       "product": "calecon",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
@@ -558,10 +548,6 @@
         }
       ],
       "product": "slip",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
@@ -583,10 +569,6 @@
         }
       ],
       "product": "maillot-de-bain",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
       "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,

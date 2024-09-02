@@ -85,6 +85,8 @@ jobs:
           git clone git@github.com:MTES-MCT/ecobalyse-private.git
 
       - name: Checkout specific ecobalyse-private branch
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           eval `ssh-agent -s`
           # Private ssh key used by this Github action to clone the private repo
@@ -92,7 +94,7 @@ jobs:
           ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
           # As this action is not triggered by the pull_request event, the current sha
           # can be found in $GITHUB_SHA (setup by github actions)
-          pipenv ./bin/checkout-ecobalyse-private-branch.sh $GITHUB_SHA
+          pipenv run ./bin/checkout-ecobalyse-private-branch.sh $GITHUB_SHA
 
       - name: Add scalingo to know hosts
         run: echo "KNOWN_HOSTS=$(ssh-keyscan -H ssh.osc-fr1.scalingo.com)" >> $GITHUB_ENV
@@ -109,7 +111,6 @@ jobs:
       - name: Score History
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
-          LAST_COMMIT_HASH: ${{ github.sha }}
           SCALINGO_POSTGRESQL_SCORE_URL: ${{ secrets.SCALINGO_POSTGRESQL_TUNNEL_SCORE_URL }}
           SCALINGO_REGION: ${{ secrets.SCALINGO_REGION }}
           SCALINGO_APP: ecobalyse
@@ -124,4 +125,4 @@ jobs:
           for attempt in {1..20}; do if curl -s http://localhost:8002/ > /dev/null; then echo "-> Python server is up and ready on port 8002"; break; fi; echo "-> Waiting for the Python server to boot..."; sleep 1; done
           for attempt in {1..20}; do if lsof -i:10000 > /dev/null; then echo "-> PG Tunnel to Scalingo is up and ready on port 10000"; break; fi; echo "-> Waiting for the PG tunnel to Scalingo..."; sleep 1; done
 
-          python data/common/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $LAST_COMMIT_HASH $SCALINGO_POSTGRESQL_SCORE_URL
+          python data/common/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $GITHUB_SHA $SCALINGO_POSTGRESQL_SCORE_URL

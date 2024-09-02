@@ -76,6 +76,7 @@ type alias Inputs =
     , numberOfReferences : Maybe Int
     , price : Maybe Economics.Price
     , traceability : Maybe Bool
+    , upcycled : Bool
     }
 
 
@@ -114,7 +115,7 @@ toMaterialQuery =
             { id = material.id
             , share = share
             , spinning = spinning
-            , country = country |> Maybe.map .code
+            , country = country |> Maybe.andThen (.code >> toQueryCountryCode)
             }
         )
 
@@ -147,13 +148,21 @@ fromQuery { countries, textile } query =
         franceResult =
             Country.findByCode (Country.Code "FR") countries
 
-        -- TODO: we don't use the main material country anymore as each material can specify
-        -- its own country. We still need a country per step though, so we'll just default
-        -- to using France.
+        unknownCountryResult =
+            Country.findByCode Country.unknownCountryCode countries
+
         mainMaterialCountry =
             materials_
                 |> Result.andThen (getMainMaterialCountry countries)
-                |> RE.orElse franceResult
+                |> RE.orElse unknownCountryResult
+
+        getCountryResult fallbackResult maybeCode =
+            case maybeCode of
+                Just code ->
+                    Country.findByCode code countries
+
+                Nothing ->
+                    fallbackResult
     in
     Ok Inputs
         |> RE.andMap (Ok query.mass)
@@ -163,17 +172,10 @@ fromQuery { countries, textile } query =
         |> RE.andMap mainMaterialCountry
         -- Spinning country is either provided by query or fallbacks to material's default
         -- country, making the parameter optional
-        |> RE.andMap
-            (case query.countrySpinning of
-                Just spinningCountryCode ->
-                    Country.findByCode spinningCountryCode countries
-
-                Nothing ->
-                    mainMaterialCountry
-            )
-        |> RE.andMap (countries |> Country.findByCode query.countryFabric)
-        |> RE.andMap (countries |> Country.findByCode query.countryDyeing)
-        |> RE.andMap (countries |> Country.findByCode query.countryMaking)
+        |> RE.andMap (getCountryResult mainMaterialCountry query.countrySpinning)
+        |> RE.andMap (getCountryResult unknownCountryResult query.countryFabric)
+        |> RE.andMap (getCountryResult unknownCountryResult query.countryDyeing)
+        |> RE.andMap (getCountryResult unknownCountryResult query.countryMaking)
         -- The distribution country is always France
         |> RE.andMap franceResult
         -- The use country is always France
@@ -195,6 +197,7 @@ fromQuery { countries, textile } query =
         |> RE.andMap (Ok query.numberOfReferences)
         |> RE.andMap (Ok query.price)
         |> RE.andMap (Ok query.traceability)
+        |> RE.andMap (Ok query.upcycled)
 
 
 toQuery : Inputs -> Query
@@ -202,10 +205,10 @@ toQuery inputs =
     { mass = inputs.mass
     , materials = toMaterialQuery inputs.materials
     , product = inputs.product.id
-    , countrySpinning = Just inputs.countrySpinning.code
-    , countryFabric = inputs.countryFabric.code
-    , countryDyeing = inputs.countryDyeing.code
-    , countryMaking = inputs.countryMaking.code
+    , countrySpinning = toQueryCountryCode inputs.countrySpinning.code
+    , countryFabric = toQueryCountryCode inputs.countryFabric.code
+    , countryDyeing = toQueryCountryCode inputs.countryDyeing.code
+    , countryMaking = toQueryCountryCode inputs.countryMaking.code
     , airTransportRatio = inputs.airTransportRatio
     , makingWaste = inputs.makingWaste
     , makingDeadStock = inputs.makingDeadStock
@@ -221,7 +224,17 @@ toQuery inputs =
     , numberOfReferences = inputs.numberOfReferences
     , price = inputs.price
     , traceability = inputs.traceability
+    , upcycled = inputs.upcycled
     }
+
+
+toQueryCountryCode : Country.Code -> Maybe Country.Code
+toQueryCountryCode c =
+    if c == Country.unknownCountryCode then
+        Nothing
+
+    else
+        Just c
 
 
 stepsToStrings : Inputs -> List (List String)
@@ -234,7 +247,15 @@ stepsToStrings inputs =
             else
                 []
     in
-    [ [ inputs.product.name, Format.kgToString inputs.mass ]
+    [ [ inputs.product.name
+            ++ (if inputs.upcycled then
+                    " remanufacturé"
+
+                else
+                    ""
+               )
+      , Format.kgToString inputs.mass
+      ]
     , ifStepEnabled Label.Material
         [ "matière"
         , materialsToString inputs.materials
@@ -482,6 +503,7 @@ encode inputs =
         , ( "numberOfReferences", inputs.numberOfReferences |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
         , ( "price", inputs.price |> Maybe.map Economics.encodePrice |> Maybe.withDefault Encode.null )
         , ( "traceability", inputs.traceability |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
+        , ( "upcycled", Encode.bool inputs.upcycled )
         ]
 
 

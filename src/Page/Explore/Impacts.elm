@@ -14,7 +14,8 @@ import Views.Markdown as Markdown
 
 table : { detailed : Bool, scope : Scope } -> Table Definition String msg
 table { detailed, scope } =
-    { toId = .trigram >> Definition.toString
+    { filename = "impacts"
+    , toId = .trigram >> Definition.toString
     , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
     , legend = []
     , columns =

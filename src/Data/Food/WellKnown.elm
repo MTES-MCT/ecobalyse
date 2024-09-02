@@ -1,7 +1,6 @@
 module Data.Food.WellKnown exposing
     ( WellKnown
     , load
-    , map
     )
 
 import Data.Food.Process as Process exposing (Process)
@@ -35,16 +34,3 @@ load processes =
         |> resolve "tap-water"
         |> resolve "low-voltage-electricity"
         |> resolve "domestic-gas-heat"
-
-
-map : (Process -> Process) -> WellKnown -> WellKnown
-map update wellKnown =
-    { lorryTransport = update wellKnown.lorryTransport
-    , boatTransport = update wellKnown.boatTransport
-    , planeTransport = update wellKnown.planeTransport
-    , lorryCoolingTransport = update wellKnown.lorryCoolingTransport
-    , boatCoolingTransport = update wellKnown.boatCoolingTransport
-    , water = update wellKnown.water
-    , lowVoltageElectricity = update wellKnown.lowVoltageElectricity
-    , domesticGasHeat = update wellKnown.domesticGasHeat
-    }
