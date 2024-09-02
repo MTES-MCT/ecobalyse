@@ -936,18 +936,34 @@ deadstockView config deadstock =
             )
 
 
-makingWasteView : Config msg modal -> Mass -> Html msg
-makingWasteView config waste =
-    showIf (config.current.label == Label.Making) <|
+wasteView : Config msg modal -> Mass -> Html msg
+wasteView ({ current } as config) waste =
+    showIf (current.label == Label.Making || current.label == Label.Fabric) <|
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             (if waste /= Quantity.zero then
                 [ text "Pertes\u{00A0}:\u{00A0}"
                 , Format.kgToString waste |> text
-                , inlineDocumentationLink config Gitbook.TextileMakingMakingWaste
+                , inlineDocumentationLink config
+                    (if current.label == Label.Fabric then
+                        Gitbook.TextileFabricFabricWaste
+
+                     else
+                        Gitbook.TextileMakingMakingWaste
+                    )
                 ]
 
              else
-                [ text "Aucune perte en confection." ]
+                [ text
+                    ("Aucune perte en "
+                        ++ (if current.label == Label.Fabric then
+                                "tissage/tricotage"
+
+                            else
+                                "confection"
+                           )
+                        ++ "."
+                    )
+                ]
             )
 
 
@@ -1116,7 +1132,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                 , ennoblingToxicityView db config current
                 , pickingView current.picking
                 , threadDensityView current.threadDensity
-                , makingWasteView config current.waste
+                , wasteView config current.waste
                 , deadstockView config current.deadstock
                 , showIf (current.label == Label.EndOfLife) <|
                     li [ class "list-group-item text-muted" ]

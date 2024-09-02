@@ -38,6 +38,7 @@ type Path
     | TextileEnnoblingToxicity -- Inventaires enrichis pour le blanchiment, la teinture et l'impression
     | TextileExamples -- Exemples de produits textile
     | TextileFabric -- Tissage/Tricotage textile
+    | TextileFabricFabricWaste -- Taux de perte en tissage/tricotage textile
     | TextileHeat -- Chaleur textile
     | TextileMaterial -- Matière textile
     | TextileMaking -- Confection textile
@@ -114,6 +115,9 @@ pathToString path =
 
         TextileFabric ->
             "textile/etapes-du-cycle-de-vie/tricotage-tissage"
+
+        TextileFabricFabricWaste ->
+            "textile/cycle-de-vie-des-produits-textiles/tricotage-tissage#taux-de-perte"
 
         TextileHeat ->
             "textile/parametres-transverses/chaleur"
