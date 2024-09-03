@@ -19,19 +19,9 @@ blue =
     "#12a5ed"
 
 
-moss : String
-moss =
-    "#92b42c"
-
-
 green : String
 green =
     "#71c614"
-
-
-orange : String
-orange =
-    "#ff8400"
 
 
 turquoise : String
@@ -42,36 +32,6 @@ turquoise =
 red : String
 red =
     "#f5325b"
-
-
-darkYellow : String
-darkYellow =
-    "#eabd39"
-
-
-darkBlue : String
-darkBlue =
-    "#7345f6"
-
-
-coral : String
-coral =
-    "#ea7369"
-
-
-magenta : String
-magenta =
-    "#db4cb2"
-
-
-brown : String
-brown =
-    "#871c1c"
-
-
-mint : String
-mint =
-    "#6df0d2"
 
 
 yellow : String
