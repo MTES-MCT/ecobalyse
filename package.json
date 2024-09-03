@@ -5,6 +5,9 @@
   "author": "Ecobalyse <contact@beta.gouv.fr>",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/ && npm run db:build",
