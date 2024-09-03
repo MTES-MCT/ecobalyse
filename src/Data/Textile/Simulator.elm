@@ -552,7 +552,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
                     )
     in
     simulator
-        |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Label.Making (Step.updateWasteAndMasses waste mass)
         |> updateLifeCycleSteps Label.upcyclables (Step.initMass mass)
 
 
@@ -576,16 +576,14 @@ computeFabricStepWaste { textile } ({ inputs, lifeCycle } as simulator) =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
                 |> Formula.genericWaste
-                    -- FIXME: we should rather use inputs.fabricProcess here, but we must
-                    --        avoid updating results in production until next milestone.
-                    --        @see https://github.com/MTES-MCT/ecobalyse/pull/577
-                    (inputs.product.fabric
+                    (inputs.fabricProcess
+                        |> Maybe.withDefault inputs.product.fabric
                         |> Fabric.getProcess textile.wellKnown
                         |> .waste
                     )
     in
     simulator
-        |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Label.Fabric (Step.updateWasteAndMasses waste mass)
         |> updateLifeCycleSteps [ Label.Material, Label.Spinning ] (Step.initMass mass)
 
 
@@ -613,7 +611,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
                    )
     in
     simulator
-        |> updateLifeCycleStep Label.Material (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Label.Material (Step.updateWasteAndMasses waste mass)
 
 
 computeSpinningStepWaste : Simulator -> Simulator
@@ -661,7 +659,7 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                    )
     in
     simulator
-        |> updateLifeCycleStep Label.Spinning (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Label.Spinning (Step.updateWasteAndMasses waste mass)
 
 
 computeStepsTransport : Db -> Simulator -> Simulator
