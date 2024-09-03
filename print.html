@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="fr" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="gestion-des-tests.html"><strong aria-hidden="true">2.</strong> Gestion des tests</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -174,8 +174,159 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ecobalyse--documentation-technique"><a class="header" href="#ecobalyse--documentation-technique">Ecobalyse — Documentation technique</a></h1>
-<p>This is a test, don't panic.</p>
+                        <h1 id="ecobalyse"><a class="header" href="#ecobalyse">Ecobalyse <img src="https://github.com/MTES-MCT/ecobalyse/actions/workflows/node.js.yml/badge.svg" alt="Build status" /></a></h1>
+<blockquote>
+<p>Accélerer la mise en place de l'affichage environnemental</p>
+</blockquote>
+<p>L'application est accessible <a href="https://ecobalyse.beta.gouv.fr/">à cette adresse</a>.</p>
+<blockquote>
+<p>Note: le projet Ecobalyse s'appellait initialement <strong>Wikicarbone</strong>.</p>
+</blockquote>
+<h2 id="socle-technique-et-prérequis"><a class="header" href="#socle-technique-et-prérequis">Socle technique et prérequis</a></h2>
+<p>Le frontend de cette application est écrite en <a href="https://elm-lang.org/">Elm</a>. Vous devez disposer d'un environnement <a href="https://nodejs.org/fr/">NodeJS</a> 14+ et <code>npm</code>. Pour le backend vous devez disposer d'un environnement <a href="https://www.python.org/">python</a> &gt;=3.11, <a href="https://pipenv.pypa.io/">pipenv</a> et <a href="https://www.gnu.org/software/gettext/">gettext</a> sur votre machine.</p>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<h3 id="frontend"><a class="header" href="#frontend">Frontend</a></h3>
+<pre><code class="language-shell">$ npm install
+</code></pre>
+<h3 id="backend"><a class="header" href="#backend">Backend</a></h3>
+<pre><code class="language-shell">$ pipenv install
+</code></pre>
+<p>Assurez-vous d'avoir un PostgreSQL &gt;=16 qui tourne localement si vous souhaitez vous rapprocher de l'environnement de production. À défaut, <code>sqlite</code> sera utilisé.</p>
+<p>Pour créer et lancer un PostgreSQL sur le port 5433 en local en utilisant <code>docker</code> :</p>
+<pre><code class="language-shell"># Création du volume pour persister les données
+$ docker volume create ecobalyse_postgres_data
+
+# Lancement du docker postgres 16
+$ docker run --name ecobalyse-postgres -e POSTGRES_PASSWORD=password -d -p 5433:5432 -v ecobalyse_postgres_data:/var/lib/postgresql/data postgres:16
+
+# Création de la base de données ecobalyse_dev
+$ docker exec -it ecobalyse-postgres createdb -U postgres ecobalyse_dev
+</code></pre>
+<p>Vous devriez pouvoir y accéder via votre <code>psql</code> local avec la commande suivante :</p>
+<pre><code class="language-shell">$ psql -U postgres -p 5433 -h localhost ecobalyse_dev
+</code></pre>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>Les variables d'environnement suivantes doivent être définies :</p>
+<ul>
+<li><code>BACKEND_ADMINS</code> : la liste des emails des administrateurs initiaux, séparés par une virgule</li>
+<li><code>DEFAULT_FROM_EMAIL</code> : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)</li>
+<li><code>DJANGO_DEBUG</code>: la valeur du mode DEBUG de Django (par défaut <code>True</code>)</li>
+<li><code>DJANGO_SECRET_KEY</code> : la <a href="https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY">clé secrète de Django</a></li>
+<li><code>ECOBALYSE_DATA_DIR</code>: l'emplacement du dépôt de données détaillées sur le système de fichier. Note: à terme, cette valeur deviendra optionnelle pour autoriser un fonctionnement en mode restreint.</li>
+<li><code>EMAIL_HOST</code> : le host SMTP pour envoyer les mail liés à l'authentification</li>
+<li><code>EMAIL_HOST_USER</code>: l'utilisateur du compte SMTP</li>
+<li><code>EMAIL_HOST_PASSWORD</code> : le mot de passe du compte SMTP pour envoyer les mail liés à l'authentification</li>
+<li><code>MATOMO_HOST</code>: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement <code>stats.beta.gouv.fr</code>).</li>
+<li><code>MATOMO_SITE_ID</code>: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.</li>
+<li><code>MATOMO_TOKEN</code>: le token Matomo permettant le suivi d'audience du produit.</li>
+<li><code>NODE_ENV</code>: l'environnement d'exécution nodejs (par défaut, <code>production</code>)</li>
+<li><code>SCALINGO_POSTGRESQL_URL</code> : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.</li>
+<li><code>SENTRY_DSN</code>: le DSN <a href="https://sentry.io">Sentry</a> à utiliser pour les rapports d'erreur.</li>
+</ul>
+<p>En développement, copiez le fichier <code>.env.sample</code>, renommez-le <code>.env</code>, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.</p>
+<p>Pour utiliser le PostgreSQL lancé avec docker, configurez la variable <code>SCALINGO_POSTGRESQL_URL</code> comme ceci :</p>
+<pre><code class="language-shall">$ SCALINGO_POSTGRESQL_URL=postgres://postgres:password@localhost:5433/ecobalyse_dev
+</code></pre>
+<h2 id="chargement-des-données-par-défaut"><a class="header" href="#chargement-des-données-par-défaut">Chargement des données par défaut</a></h2>
+<p>Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :</p>
+<pre><code class="language-shell">$ pipenv run ./backend/update.sh
+</code></pre>
+<h2 id="développement"><a class="header" href="#développement">Développement</a></h2>
+<h3 id="environnement-de-développement-local"><a class="header" href="#environnement-de-développement-local">Environnement de développement local</a></h3>
+<p>Le serveur local de développement se lance au moyen des deux commandes suivantes :</p>
+<pre><code class="language-shell">$ npm start
+</code></pre>
+<p>Trois instances de développement sont alors accessibles :</p>
+<ul>
+<li><a href="http://localhost:8002/">localhost:8002</a> sert le backend django utilisé pour l'authentification, et sert aussi les fichiers statiques de elm. Sert aussi <a href="http://localhost:8002/admin/">l'admin django</a></li>
+<li><a href="http://localhost:8001/">localhost:8001</a> sert l'API ;</li>
+<li><a href="http://localhost:1234/">localhost:1234</a> est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir <code>.proxyrc</code>). Le frontend est servi en mode <em>hot-reload</em>, pour recharger! l'interface Web à chaque modification du code frontend.</li>
+</ul>
+<blockquote>
+<p>ℹ️ Pour accéder à l'admin django, utilisez l'email <code>foo@bar.baz</code>. Le lien d'activation pour se connecter automatiquement à l'admin sera affiché dans votre terminal.</p>
+</blockquote>
+<h3 id="hooks-git-avec-pre-commit-et-formatage-de-code-avec-prettier-et-ruff"><a class="header" href="#hooks-git-avec-pre-commit-et-formatage-de-code-avec-prettier-et-ruff">Hooks Git avec pre-commit et Formatage de Code avec Prettier et Ruff</a></h3>
+<p>Ce projet utilise https://pre-commit.com/ pour gérer les hooks Git ainsi que Prettier et Ruff pour le formatage automatique du code.
+Le build sur le CI échouera si les fichiers python, javascript et json ne sont pas proprement formattés.</p>
+<h4 id="vérification-automatique-avant-chaque-commit"><a class="header" href="#vérification-automatique-avant-chaque-commit">Vérification Automatique avant chaque Commit</a></h4>
+<p>Pour installer les hooks pre-commit, exécutez la commande suivante :</p>
+<pre><code class="language-shell">$ pipenv run pre-commit install
+</code></pre>
+<p>Un hook de pre-commit sera alors configuré pour vérifier que le code est bien formaté avant de permettre le commit. Le hook corrigera les erreurs dans la mesure du possible. Il vous suffira alors d'ajouter les modifications à votre staging, git puis à refaire votre commit.</p>
+<p>Il est possible de lancer la vérification du formatage à la main grâce à la commande suivante :</p>
+<pre><code class="language-shell">$ npm run lint:all
+</code></pre>
+<p>Si vous voulez lancer la correction automatique de tous les problèmes détectés, lancez :</p>
+<pre><code class="language-shell">$ npm run fix:all
+</code></pre>
+<p>Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaller pre-commit et les hooks associés :</p>
+<pre><code class="language-shell">$ pipenv run pre-commit uninstall
+</code></pre>
+<h2 id="compilation"><a class="header" href="#compilation">Compilation</a></h2>
+<p>Pour compiler la partie client de l'application :</p>
+<pre><code class="language-shell">$ npm run build
+</code></pre>
+<p>Les fichiers sont alors générés dans le répertoire <code>build</code> à la racine du projet, qui peut être servi de façon statique.</p>
+<h2 id="déploiement"><a class="header" href="#déploiement">Déploiement</a></h2>
+<p>L'application est déployée automatiquement sur la plateforme <a href="https://scalingo.com/">Scalingo</a> à chaque mise à jour de la branche <code>master</code> sur <a href="https://github.com/MTES-MCT/ecobalyse/tree/master">le dépôt</a>.</p>
+<p>Chaque <em>Pull Request</em> effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple <code>https://ecobalyse-pr44.osc-fr1.scalingo.io/</code> pour la pull request #44. <strong>Ces instances de recette restent actives 72 heures, puis sont automatiquement décommisionnées passé ce délai ou si la pull request correspondante est mergée.</strong></p>
+<h3 id="ajout-dune-variable-denvironnement"><a class="header" href="#ajout-dune-variable-denvironnement">Ajout d'une variable d'environnement</a></h3>
+<p>Pour ajouter une variable d'environnement sur une application, il est recommandé d'utiliser le CLI scalingo qui permet d'ajouter des valeurs qui contiennent plusieurs lignes (à la différence de l'interface graphique qui ne le permet pas) :</p>
+<pre><code class="language-shell">$ scalingo --app ecobalyse env-set "MY_VAR=$(cat fichier.key)"
+</code></pre>
+<h3 id="lien-avec-ecobalyse_private"><a class="header" href="#lien-avec-ecobalyse_private">Lien avec ecobalyse_private</a></h3>
+<p>Lorsqu'un déploiement est effectué sur une branche, les données utilisées du dépôt <code>ecobalyse_private</code> sont celles de la branche <code>main</code>. Cependant, si la description de la Pull Request sur le repo <code>ecobalyse</code> mentionne <code>ecobalyse_data: branch-a</code> avec branch-a étant une branche du dépôt <code>ecobalyse_private</code>, alors la PR utilisera les données de la branche <code>branch-a</code> du dépôt <code>ecobalyse_private</code>.</p>
+<h4 id="points-dattention"><a class="header" href="#points-dattention">Points d'attention</a></h4>
+<p>Lors du merge d'une PR, il est important de merger d'abord la PR correspondante sur ecobalyse_private, puis celle sur ecobalyse.</p>
+<h1 id="serveur-de-production"><a class="header" href="#serveur-de-production">Serveur de production</a></h1>
+<h2 id="variables-denvironnement"><a class="header" href="#variables-denvironnement">Variables d'environnement</a></h2>
+<p>Les variables d'environnement doivent être positionnées via l'interface de <a href="https://dashboard.scalingo.com/apps/osc-fr1/ecobalyse/environment">configuration Scalingo</a> (voir la section <a href="index.html#configuration">Configuration</a>).</p>
+<h2 id="lancement-du-serveur"><a class="header" href="#lancement-du-serveur">Lancement du serveur</a></h2>
+<p>Pour lancer le serveur applicatif complet (frontend + backend), par exemple depuis un environnement de production, la démarche est la suivante :</p>
+<pre><code class="language-shell">$ npm run build
+$ npm run server:start
+</code></pre>
+<p>L'application est alors servie sur le port 1234.</p>
+<h1 id="ecobalyse-data"><a class="header" href="#ecobalyse-data">Ecobalyse data</a></h1>
+<p>Ce dépôt contient aussi les scripts (principalement python) utilisés pour
+importer et exporter les données du projet <a href="https://github.com/MTES-MCT/ecobalyse">Ecobalyse</a>.</p>
+<p>Ces scripts se trouvent dans <code>data/</code>, et un fichier <a href="data/README.html">README</a> spécifique
+en détaille l'installation et l'utilisation.</p>
+<h1 id="versioning"><a class="header" href="#versioning">Versioning</a></h1>
+<p>Le versioning de l'application permet de revenir à des anciennes versions d'Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (&lt;= 2.0.0) doivent être patchées rétroactivement. Le script <code>./bin/build-specific-app-version.sh</code> permet de générer une version spécifique de l'application et d'appliquer les patchs si nécessaire. Par exemple, pour générer la version <code>1.3.2</code> (le deuxième paramètre est le commit du répertoire data associé) :</p>
+<pre><code class="language-shell">pipenv run ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
+</code></pre>
+<p>Un fichier <code>v1.3.2-dist.tar.gz</code> sera disponible à la racine du projet et un répertoire <code>v1.3.2</code> aura été créé dans <code>versions/</code>.</p>
+<p>Le script python permettant de patcher les fichiers est disponible ici : <code>./bin/patch_files_for_versions_compat.py</code>.</p>
+<p>Toutes les versions disponibles dans les releases Github ont été patchées comme il se doit.</p>
+<div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p>💡 <strong>Prérequis</strong></p>
+<p>Pour exécuter et régler les problèmes de tests en échec suite à la mise à jour d’impacts, il convient de disposer d’une installation locale du projet. Les instructions d’installation et de configuration sont décrites <a href="https://github.com/MTES-MCT/ecobalyse/blob/master/README.md">dans le README sur le dépôt.</a></p>
+</blockquote>
+</aside>
+<p><strong>Si suite à une mise à jour des impacts ou des coefficients de complément les tests échouent, voici la méthode pour régler la situation :</strong></p>
+<ul>
+<li>Depuis votre branche à jour en local et depuis un terminal, lancez <code>npm test</code></li>
+<li>Vérifiez dans les rapports de tests si les échecs ou différences relevés sont attendus ou non</li>
+<li>Si les échecs <strong>ne sont pas attendus</strong>, réglez le problème et soumettez les modifications sur la branche afin que les tests passent à nouveau</li>
+<li>Si les échecs <strong>sont attendus</strong> — par exemple lorsque vous mettez à jour des impacts ou des compléments — et que vous vous souhaitez mettre à jour les tests afin de prendre en compte les nouvelles valeurs obtenues :
+<ul>
+<li>Pour les tests unitaires, mettez à jour les valeurs en échecs directement dans les tests Elm (<code>tests/**/*Test.elm</code>)</li>
+<li>Pour les tests e2e (serveur), il faudra copier le ou les fichiers suivants, générés automatiquement à chaque lancement de la suite de tests via <code>npm test</code>:
+<ul>
+<li>Pour le textile : <code>cp tests/e2e-textile-output.json tests/e2e-textile.json</code></li>
+<li>Pour l’alimentaire : <code>cp tests/e2e-food-output.json tests/e2e-food.json</code></li>
+</ul>
+</li>
+<li>Une fois que les tests passent tous à nouveau, vous pouvez commiter et pousser les changements sur votre branche distante, le build de votre pull-request devrait revenir au vert et être déployé automatiquement en recette.💡C’est toujours une bonne idée d’aller sur la recette Web vérifier que tout fonctionne comme prévu.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Cas particulier de la détection d’évolutions inhabituelles d’impacts</strong></p>
+<p>Si vous obtenez des échecs sur les tests de type <code>Food ingredients ecoscore deviation</code>, il vous faut également vérifier si ces écarts sont attendus ou non.</p>
+<p>S’ils sont attendus, il vous faut commenter le test en question, merger votre branche dans master, puis pousser un commit sur master qui décommente le test à nouveau afin que le contrôle puisse être effectué sur les branches et pull-requests créées par la suite.</p>
+</blockquote>
 
                     </main>
 

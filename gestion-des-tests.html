@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="fr" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Chapter 1 - Ecobalyse - Documentation technique</title>
+        <title>Gestion des tests - Ecobalyse - Documentation technique</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="gestion-des-tests.html" class="active"><strong aria-hidden="true">2.</strong> Gestion des tests</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -173,13 +173,42 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ecobalyse--documentation-technique"><a class="header" href="#ecobalyse--documentation-technique">Ecobalyse — Documentation technique</a></h1>
-<p>This is a test, don't panic.</p>
+                        <blockquote>
+<p>💡 <strong>Prérequis</strong></p>
+<p>Pour exécuter et régler les problèmes de tests en échec suite à la mise à jour d’impacts, il convient de disposer d’une installation locale du projet. Les instructions d’installation et de configuration sont décrites <a href="https://github.com/MTES-MCT/ecobalyse/blob/master/README.md">dans le README sur le dépôt.</a></p>
+</blockquote>
+</aside>
+<p><strong>Si suite à une mise à jour des impacts ou des coefficients de complément les tests échouent, voici la méthode pour régler la situation :</strong></p>
+<ul>
+<li>Depuis votre branche à jour en local et depuis un terminal, lancez <code>npm test</code></li>
+<li>Vérifiez dans les rapports de tests si les échecs ou différences relevés sont attendus ou non</li>
+<li>Si les échecs <strong>ne sont pas attendus</strong>, réglez le problème et soumettez les modifications sur la branche afin que les tests passent à nouveau</li>
+<li>Si les échecs <strong>sont attendus</strong> — par exemple lorsque vous mettez à jour des impacts ou des compléments — et que vous vous souhaitez mettre à jour les tests afin de prendre en compte les nouvelles valeurs obtenues :
+<ul>
+<li>Pour les tests unitaires, mettez à jour les valeurs en échecs directement dans les tests Elm (<code>tests/**/*Test.elm</code>)</li>
+<li>Pour les tests e2e (serveur), il faudra copier le ou les fichiers suivants, générés automatiquement à chaque lancement de la suite de tests via <code>npm test</code>:
+<ul>
+<li>Pour le textile : <code>cp tests/e2e-textile-output.json tests/e2e-textile.json</code></li>
+<li>Pour l’alimentaire : <code>cp tests/e2e-food-output.json tests/e2e-food.json</code></li>
+</ul>
+</li>
+<li>Une fois que les tests passent tous à nouveau, vous pouvez commiter et pousser les changements sur votre branche distante, le build de votre pull-request devrait revenir au vert et être déployé automatiquement en recette.💡C’est toujours une bonne idée d’aller sur la recette Web vérifier que tout fonctionne comme prévu.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Cas particulier de la détection d’évolutions inhabituelles d’impacts</strong></p>
+<p>Si vous obtenez des échecs sur les tests de type <code>Food ingredients ecoscore deviation</code>, il vous faut également vérifier si ces écarts sont attendus ou non.</p>
+<p>S’ils sont attendus, il vous faut commenter le test en question, merger votre branche dans master, puis pousser un commit sur master qui décommente le test à nouveau afin que le contrôle puisse être effectué sur les branches et pull-requests créées par la suite.</p>
+</blockquote>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
 
                         <div style="clear: both"></div>
@@ -188,6 +217,9 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
             </nav>
 
