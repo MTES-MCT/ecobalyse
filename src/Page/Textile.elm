@@ -24,7 +24,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
-import Data.Split exposing (Split)
+import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
@@ -66,6 +66,7 @@ import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Markdown as Markdown
 import Views.Modal as ModalView
+import Views.RangeSlider as RangeSlider
 import Views.Sidebar as SidebarView
 import Views.Textile.Step as StepView
 
@@ -130,6 +131,7 @@ type Msg
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
     | UpdateFabricProcess Fabric
+    | UpdatePhysicalDurability (Maybe Unit.Durability)
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMakingDeadStock (Maybe Split)
@@ -285,7 +287,7 @@ updateQuery query ( model, session, commands ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries, navKey } as session) msg model =
+update ({ queries, navKey } as session) msg ({ simulator } as model) =
     let
         query =
             queries.textile
@@ -532,6 +534,25 @@ update ({ queries, navKey } as session) msg model =
         ( UpdateFabricProcess fabricProcess, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | fabricProcess = Just fabricProcess }
+
+        ( UpdatePhysicalDurability physicalDurability, _ ) ->
+            let
+                updatedSimulator =
+                    simulator
+                        |> Result.map
+                            (\s ->
+                                let
+                                    updatedDurability =
+                                        { nonPhysical = s.durability.nonPhysical
+                                        , physical =
+                                            physicalDurability
+                                                |> Maybe.withDefault s.durability.physical
+                                        }
+                                in
+                                { s | durability = updatedDurability }
+                            )
+            in
+            ( { model | simulator = updatedSimulator }, session, Cmd.none )
 
         ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )
@@ -782,6 +803,19 @@ productPriceField productPrice =
         ]
 
 
+physicalDurabilityField : Unit.Durability -> Html Msg
+physicalDurabilityField durability =
+    div [ class "input-group" ]
+        [ RangeSlider.physicalDurability
+            { id = "physicalDurability"
+            , update = UpdatePhysicalDurability
+            , value = durability
+            , toString = Unit.durabilityToFloat >> String.fromFloat
+            , disabled = False
+            }
+        ]
+
+
 businessField : Economics.Business -> Html Msg
 businessField business =
     [ Economics.SmallBusiness
@@ -994,6 +1028,10 @@ simulatorFormView session model ({ inputs } as simulator) =
                     |> Maybe.withDefault inputs.product.economics.traceability
                     |> traceabilityField
                 ]
+            ]
+        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-4" ] [ text "Durabilité physique" ]
+            , div [ class "col-md-8" ] [ simulator.durability.physical |> physicalDurabilityField ]
             ]
         ]
     , div []

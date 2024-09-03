@@ -1,5 +1,6 @@
 module Views.RangeSlider exposing
     ( percent
+    , physicalDurability
     , surfaceMass
     , yarnSize
     )
@@ -92,6 +93,34 @@ yarnSize config =
             -- the `value` one MUST be set AFTER the `step` one.
             , step "1"
             , value (String.fromFloat (Unit.yarnSizeInKilometers config.value))
+            , Attr.disabled config.disabled
+            ]
+        }
+
+
+type alias PhysicalDurabilityConfig msg =
+    { id : String
+    , update : Maybe Unit.Durability -> msg
+    , value : Unit.Durability
+    , toString : Unit.Durability -> String
+    , disabled : Bool
+    }
+
+
+physicalDurability : PhysicalDurabilityConfig msg -> Html msg
+physicalDurability config =
+    layout
+        { id = config.id
+        , label = config.toString config.value
+        , attributes =
+            [ onInput (String.toFloat >> Maybe.map Unit.durability >> config.update)
+            , Attr.min (String.fromFloat (Unit.durabilityToFloat Unit.minDurability))
+            , Attr.max (String.fromFloat (Unit.durabilityToFloat Unit.maxDurability))
+
+            -- WARNING: be careful when reordering attributes: for obscure reasons,
+            -- the `value` one MUST be set AFTER the `step` one.
+            , step "0.01"
+            , value (String.fromFloat (Unit.durabilityToFloat config.value))
             , Attr.disabled config.disabled
             ]
         }
