@@ -14,28 +14,36 @@ Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vo
 
 ### Frontend
 
-    $ npm install
+```shell
+$ npm install
+```
 
 ### Backend
 
-    $ pipenv install
+```shell
+$ pipenv install
+```
 
 Assurez-vous d'avoir un PostgreSQL >=16 qui tourne localement si vous souhaitez vous rapprocher de l'environnement de production. À défaut, `sqlite` sera utilisé.
 
 Pour créer et lancer un PostgreSQL sur le port 5433 en local en utilisant `docker` :
 
-    # Création du volume pour persister les données
-    docker volume create ecobalyse_postgres_data
+```shell
+# Création du volume pour persister les données
+$ docker volume create ecobalyse_postgres_data
 
-    # Lancement du docker postgres 16
-    docker run --name ecobalyse-postgres -e POSTGRES_PASSWORD=password -d -p 5433:5432 -v ecobalyse_postgres_data:/var/lib/postgresql/data postgres:16
+# Lancement du docker postgres 16
+$ docker run --name ecobalyse-postgres -e POSTGRES_PASSWORD=password -d -p 5433:5432 -v ecobalyse_postgres_data:/var/lib/postgresql/data postgres:16
 
-    # Création de la base de données ecobalyse_dev
-    docker exec -it ecobalyse-postgres createdb -U postgres ecobalyse_dev
+# Création de la base de données ecobalyse_dev
+$ docker exec -it ecobalyse-postgres createdb -U postgres ecobalyse_dev
+```
 
 Vous devriez pouvoir y accéder via votre `psql` local avec la commande suivante :
 
-    psql -U postgres -p 5433 -h localhost ecobalyse_dev
+```shell
+$ psql -U postgres -p 5433 -h localhost ecobalyse_dev
+```
 
 ## Configuration
 
@@ -60,13 +68,17 @@ En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mette
 
 Pour utiliser le PostgreSQL lancé avec docker, configurez la variable `SCALINGO_POSTGRESQL_URL` comme ceci :
 
-    SCALINGO_POSTGRESQL_URL=postgres://postgres:password@localhost:5433/ecobalyse_dev
+```shall
+$ SCALINGO_POSTGRESQL_URL=postgres://postgres:password@localhost:5433/ecobalyse_dev
+```
 
 ## Chargement des données par défaut
 
 Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :
 
-    $ pipenv run ./backend/update.sh
+```shell
+$ pipenv run ./backend/update.sh
+```
 
 ## Développement
 
@@ -74,7 +86,9 @@ Pour initialiser la base de données (attention, toutes les données présentes,
 
 Le serveur local de développement se lance au moyen des deux commandes suivantes :
 
-    $ npm start
+```shell
+$ npm start
+```
 
 Trois instances de développement sont alors accessibles :
 
@@ -93,27 +107,37 @@ Le build sur le CI échouera si les fichiers python, javascript et json ne sont 
 
 Pour installer les hooks pre-commit, exécutez la commande suivante :
 
-    $ pipenv run pre-commit install
+```shell
+$ pipenv run pre-commit install
+```
 
 Un hook de pre-commit sera alors configuré pour vérifier que le code est bien formaté avant de permettre le commit. Le hook corrigera les erreurs dans la mesure du possible. Il vous suffira alors d'ajouter les modifications à votre staging, git puis à refaire votre commit.
 
 Il est possible de lancer la vérification du formatage à la main grâce à la commande suivante :
 
-    $ npm run lint:all
+```shell
+$ npm run lint:all
+```
 
 Si vous voulez lancer la correction automatique de tous les problèmes détectés, lancez :
 
-    $ npm run fix:all
+```shell
+$ npm run fix:all
+```
 
 Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaller pre-commit et les hooks associés :
 
-    $ pipenv run pre-commit uninstall
+```shell
+$ pipenv run pre-commit uninstall
+```
 
 ## Compilation
 
 Pour compiler la partie client de l'application :
 
-    $ npm run build
+```shell
+$ npm run build
+```
 
 Les fichiers sont alors générés dans le répertoire `build` à la racine du projet, qui peut être servi de façon statique.
 
@@ -127,7 +151,9 @@ Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement d
 
 Pour ajouter une variable d'environnement sur une application, il est recommandé d'utiliser le CLI scalingo qui permet d'ajouter des valeurs qui contiennent plusieurs lignes (à la différence de l'interface graphique qui ne le permet pas) :
 
-    scalingo --app ecobalyse env-set "MY_VAR=$(cat fichier.key)"
+```shell
+$ scalingo --app ecobalyse env-set "MY_VAR=$(cat fichier.key)"
+```
 
 ### Lien avec ecobalyse_private
 
@@ -147,7 +173,7 @@ Les variables d'environnement doivent être positionnées via l'interface de [co
 
 Pour lancer le serveur applicatif complet (frontend + backend), par exemple depuis un environnement de production, la démarche est la suivante :
 
-```
+```shell
 $ npm run build
 $ npm run server:start
 ```
@@ -166,7 +192,9 @@ en détaille l'installation et l'utilisation.
 
 Le versioning de l'application permet de revenir à des anciennes versions d'Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l'application et d'appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire data associé) :
 
-    pipenv run ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
+```shell
+pipenv run ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
+```
 
 Un fichier `v1.3.2-dist.tar.gz` sera disponible à la racine du projet et un répertoire `v1.3.2` aura été créé dans `versions/`.
 
