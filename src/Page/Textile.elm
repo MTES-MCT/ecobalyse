@@ -932,10 +932,11 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , div [ class "card shadow-sm pb-2 mb-3" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
+            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
             , div [ class "d-flex align-items-center gap-2" ]
                 [ span [ class "d-none d-sm-flex text-truncate" ] [ text "Coefficient de durabilité\u{00A0}:" ]
                 , simulator.durability
+                    |> Unit.durabilityFromHolistic
                     |> Unit.durabilityToFloat
                     |> Format.formatFloat 2
                     |> text

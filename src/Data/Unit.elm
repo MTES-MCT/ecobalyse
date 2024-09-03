@@ -1,5 +1,6 @@
 module Data.Unit exposing
     ( Durability(..)
+    , HolisticDurability
     , Impact
     , ImpactUnit(..)
     , PickPerMeter(..)
@@ -13,6 +14,7 @@ module Data.Unit exposing
     , decodeSurfaceMass
     , decodeYarnSize
     , durability
+    , durabilityFromHolistic
     , durabilityToFloat
     , encodeDurability
     , encodeImpact
@@ -114,6 +116,12 @@ type Durability
     = Durability Float
 
 
+type alias HolisticDurability =
+    { physical : Durability
+    , nonPhysical : Durability
+    }
+
+
 minDurability : Durability
 minDurability =
     Durability 0.67
@@ -134,6 +142,11 @@ durability =
     Durability
 
 
+durabilityFromHolistic : HolisticDurability -> Durability
+durabilityFromHolistic { physical, nonPhysical } =
+    durability <| min (durabilityToFloat physical) (durabilityToFloat nonPhysical)
+
+
 durabilityToFloat : Durability -> Float
 durabilityToFloat (Durability float) =
     float
@@ -148,7 +161,7 @@ decodeDurability =
                     Decode.fail
                         ("Le coefficient de durabilité spécifié ("
                             ++ String.fromFloat float
-                            ++ ") doit être comprise entre "
+                            ++ ") doit être compris entre "
                             ++ String.fromFloat (durabilityToFloat minDurability)
                             ++ " et "
                             ++ String.fromFloat (durabilityToFloat maxDurability)
