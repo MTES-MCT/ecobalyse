@@ -681,6 +681,7 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     let
         complementsImpacts =
             lifeCycle
+                |> Array.filter .enabled
                 |> LifeCycle.sumComplementsImpacts
                 |> Impact.divideComplementsImpactsBy (Unit.durabilityToFloat durability)
     in
@@ -697,6 +698,7 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
 getTotalImpactsWithoutComplements : Simulator -> Impacts
 getTotalImpactsWithoutComplements { durability, lifeCycle } =
     lifeCycle
+        |> Array.filter .enabled
         |> Array.map Step.getTotalImpactsWithoutComplements
         |> Array.toList
         |> Impact.sumImpacts
@@ -722,7 +724,9 @@ toStepsImpacts : Definition.Trigram -> Simulator -> Impact.StepsImpacts
 toStepsImpacts trigram simulator =
     let
         getImpacts label =
-            LifeCycle.getStep label simulator.lifeCycle
+            simulator.lifeCycle
+                |> Array.filter .enabled
+                |> LifeCycle.getStep label
                 |> Maybe.map .impacts
                 |> Maybe.withDefault Impact.empty
 
