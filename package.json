@@ -8,6 +8,10 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "browserslist": [
+    "last 2 versions",
+    "not dead"
+  ],
   "scripts": {
     "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/ && npm run db:build",
