@@ -1,6 +1,6 @@
 [book]
 authors = ["Nicolas Perriault"]
-language = "en"
+language = "fr"
 multilingual = false
 src = "src"
 title = "Ecobalyse - Documentation technique"
