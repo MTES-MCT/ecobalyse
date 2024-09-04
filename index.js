@@ -1,13 +1,12 @@
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
-import { BrowserTracing } from "@sentry/browser";
 import Charts from "./lib/charts";
 
 // Sentry
 if (process.env.SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
-    integrations: [new BrowserTracing()],
+    integrations: [Sentry.browserTracingIntegration()],
     tracesSampleRate: 0,
     allowUrls: [
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,

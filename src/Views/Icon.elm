@@ -20,11 +20,6 @@ boatCooled =
         [ snow ]
 
 
-build : Html msg
-build =
-    icon "build"
-
-
 bus : Html msg
 bus =
     icon "truck"
@@ -34,11 +29,6 @@ busCooled : Html msg
 busCooled =
     i [ attribute "aria-hidden" "true", class "icon icon-truck" ]
         [ snow ]
-
-
-train : Html msg
-train =
-    icon "rail"
 
 
 check : Html msg
@@ -114,13 +104,3 @@ trash =
 warning : Html msg
 warning =
     icon "warning"
-
-
-zoomin : Html msg
-zoomin =
-    icon "zoomin"
-
-
-zoomout : Html msg
-zoomout =
-    icon "zoomout"
