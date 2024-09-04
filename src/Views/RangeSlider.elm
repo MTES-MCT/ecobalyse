@@ -109,7 +109,27 @@ type alias PhysicalDurabilityConfig msg =
 
 physicalDurability : PhysicalDurabilityConfig msg -> Html msg
 physicalDurability config =
-    layout
+    let
+        customLayout : { id : String, label : String, attributes : List (Attribute msg) } -> Html msg
+        customLayout { id, label, attributes } =
+            div [ class "RangeSlider row", style "flex-grow" "1" ]
+                [ div [ class "col-xxl-2" ]
+                    [ Html.label [ for id, class "form-label text-nowrap mb-0" ]
+                        [ text label ]
+                    ]
+                , div [ class "col-xxl-10" ]
+                    [ input
+                        (type_ "range"
+                            :: class "d-block form-range"
+                            :: style "margin-top" "2px"
+                            :: Attr.id id
+                            :: attributes
+                        )
+                        []
+                    ]
+                ]
+    in
+    customLayout
         { id = config.id
         , label = config.toString config.value
         , attributes =
