@@ -74,7 +74,10 @@ init db =
                             , lifeCycle = lifeCycle
                             , impacts = Impact.empty
                             , complementsImpacts = Impact.noComplementsImpacts
-                            , durability = { nonPhysical = Unit.standardDurability, physical = Unit.minDurability }
+                            , durability =
+                                { nonPhysical = Unit.standardDurability
+                                , physical = Unit.maxDurability
+                                }
                             , transport = Transport.default Impact.empty
                             , daysOfWear = inputs.product.use.daysOfWear
                             , useNbCycles = Product.customDaysOfWear product.use

@@ -24,7 +24,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
-import Data.Split as Split exposing (Split)
+import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
@@ -1028,6 +1028,10 @@ simulatorFormView session model ({ inputs } as simulator) =
                     |> Maybe.withDefault inputs.product.economics.traceability
                     |> traceabilityField
                 ]
+            ]
+        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-md-4" ] [ text "Durabilité non physique" ]
+            , div [ class "col-md-8" ] [ text (simulator.durability.nonPhysical |> Unit.durabilityToFloat |> String.fromFloat) ]
             ]
         , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
             [ div [ class "col-md-4" ] [ text "Durabilité physique" ]
