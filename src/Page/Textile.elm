@@ -1029,14 +1029,20 @@ simulatorFormView session model ({ inputs } as simulator) =
                     |> traceabilityField
                 ]
             ]
-        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-md-4" ] [ text "Durabilité non physique" ]
-            , div [ class "col-md-8" ] [ text (simulator.durability.nonPhysical |> Unit.durabilityToFloat |> String.fromFloat) ]
-            ]
-        , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-md-4" ] [ text "Durabilité physique" ]
-            , div [ class "col-md-8" ] [ simulator.durability.physical |> physicalDurabilityField ]
-            ]
+        , if model.activeTab == ExploratoryTab then
+            div []
+                [ div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-4" ] [ text "Durabilité non physique" ]
+                    , div [ class "col-md-8" ] [ text (simulator.durability.nonPhysical |> Unit.durabilityToFloat |> String.fromFloat) ]
+                    ]
+                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-4" ] [ text "Durabilité physique" ]
+                    , div [ class "col-md-8" ] [ simulator.durability.physical |> physicalDurabilityField ]
+                    ]
+                ]
+
+          else
+            text ""
         ]
     , div []
         [ lifeCycleStepsView session.db model simulator
