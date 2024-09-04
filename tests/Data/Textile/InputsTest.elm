@@ -4,25 +4,12 @@ import Data.Country as Country
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material
-import Data.Textile.Query exposing (Query, default, jupeCotonAsie, tShirtCotonFrance)
+import Data.Textile.Query exposing (default, tShirtCotonFrance)
 import Data.Unit as Unit
 import Expect
 import List.Extra as LE
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
-
-
-sampleQuery : Query
-sampleQuery =
-    { jupeCotonAsie
-        | materials =
-            [ { id = Material.Id "ei-pet"
-              , share = Split.full
-              , spinning = Nothing
-              , country = Just (Country.Code "CN")
-              }
-            ]
-    }
 
 
 suite : Test
