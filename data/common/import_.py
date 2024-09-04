@@ -187,7 +187,7 @@ def import_simapro_csv(
     # unzip
     with ZipFile(datapath) as zf:
         print("### Extracting the zip file...")
-        zf.extractall()
+        zf.extractall(path=os.path.dirname(datapath))
         unzipped = datapath[0:-4]
 
     if "AGB" in datapath:
