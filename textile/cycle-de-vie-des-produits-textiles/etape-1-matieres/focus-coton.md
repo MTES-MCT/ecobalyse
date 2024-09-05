@@ -73,7 +73,9 @@ Ecobalyse a enrichi ce procédé avec une consommation d'eau liée à une irriga
 
 <summary>Coton recyclé (déchets post-consommation)</summary>
 
-Ce procédé est issu de la Base Impacts (ADEME) car Ecoinvent ne propose pas de coton recyclé dans sa base de données.
+Ce procédé est issu de la Base Impacts (ADEME) auquel a été retranché l'impact de la filature.&#x20;
+
+Ecoinvent ne propose pas de coton recyclé dans sa base de données.&#x20;
 
 </details>
 
@@ -81,11 +83,13 @@ Ce procédé est issu de la Base Impacts (ADEME) car Ecoinvent ne propose pas de
 
 <summary>Coton recyclé (déchets de production)</summary>
 
-Ce procédé est issu de la Base Impacts (ADEME) car Ecoinvent ne propose pas de coton recyclé dans sa base de données.
+Ce procédé est issu de la Base Impacts (ADEME) auquel a été retranché l'impact de la filature.
+
+Ecoinvent ne propose pas de coton recyclé dans sa base de données.
 
 </details>
 
-<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts _ kg) des différents types de coton disponibles dans Ecobalyse.png" alt=""><figcaption><p>Coût environnemental de 1kg de différents coton dans Ecobalyse</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts _ kg) des différents types de coton disponibles dans Ecobalyse (1).png" alt=""><figcaption></figcaption></figure>
 
 [^1]: Market report 2023 \_ Textile Exchange
 
