@@ -1,6 +1,8 @@
 {
     "type": "application",
-    "source-directories": ["src"],
+    "source-directories": [
+        "src"
+    ],
     "elm-version": "0.19.1",
     "dependencies": {
         "direct": {
@@ -23,9 +25,7 @@
             "elm-community/list-extra": "8.7.0",
             "elm-community/result-extra": "2.4.0",
             "elm-community/string-extra": "4.0.1",
-            "f0i/debug-to-json": "1.0.6",
             "futureworkz/elm-autocomplete": "1.0.2",
-            "gingko/time-distance": "2.4.0",
             "ianmackenzie/elm-units": "2.10.0",
             "krisajenkins/remotedata": "6.0.1",
             "kuon/elm-string-normalize": "1.0.6",
