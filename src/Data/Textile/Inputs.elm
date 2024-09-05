@@ -77,6 +77,7 @@ type alias Inputs =
     , price : Maybe Economics.Price
     , traceability : Maybe Bool
     , upcycled : Bool
+    , physicalDurability : Maybe Unit.Durability
     }
 
 
@@ -198,6 +199,7 @@ fromQuery { countries, textile } query =
         |> RE.andMap (Ok query.price)
         |> RE.andMap (Ok query.traceability)
         |> RE.andMap (Ok query.upcycled)
+        |> RE.andMap (Ok query.physicalDurability)
 
 
 toQuery : Inputs -> Query
@@ -225,6 +227,7 @@ toQuery inputs =
     , price = inputs.price
     , traceability = inputs.traceability
     , upcycled = inputs.upcycled
+    , physicalDurability = inputs.physicalDurability
     }
 
 
