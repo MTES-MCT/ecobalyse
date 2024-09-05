@@ -9,6 +9,7 @@ module Data.Textile.Step.Label exposing
     , toId
     , toName
     , toString
+    , upcyclables
     )
 
 import Data.Gitbook as Gitbook
@@ -39,6 +40,15 @@ all =
     , Distribution
     , Use
     , EndOfLife
+    ]
+
+
+upcyclables : List Label
+upcyclables =
+    [ Material
+    , Spinning
+    , Fabric
+    , Ennobling
     ]
 
 

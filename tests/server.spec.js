@@ -110,11 +110,11 @@ describe("API", () => {
           );
         });
 
-        it("should validate the country params are present", async () => {
+        it("should validate the countrySpinning param (invalid code)", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["countryFabric=FR,countryDyeing=FR"]),
-            "countryMaking",
-            /Code pays manquant/,
+            await makeRequest("/api/textile/simulator", ["countrySpinning=XX"]),
+            "countrySpinning",
+            /Code pays invalide: XX/,
           );
         });
 
@@ -334,6 +334,35 @@ describe("API", () => {
           expect(response.body.impacts).toEqual(impacts);
         });
       }
+    });
+
+    describe("Changing the fabric process", () => {
+      const jeanQuery = [
+        "mass=0.45",
+        "product=jean",
+        "fabricProcess=weaving",
+        "materials[]=ei-coton;1",
+        "countryFabric=TR",
+        "countryDyeing=TR",
+        "countryMaking=TR",
+        "fading=true",
+      ];
+
+      it("should change the waste", async () => {
+        let response = await makeRequest("/api/textile/simulator/detailed", jeanQuery);
+        expectStatus(response, 200);
+        fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
+        weavingWaste = fabricLifeCycle.waste;
+
+        const jeanQueryKnittingMix = jeanQuery.map((input) =>
+          input == "fabricProcess=weaving" ? "fabricProcess=knitting-mix" : input,
+        );
+
+        response = await makeRequest("/api/textile/simulator/detailed", jeanQueryKnittingMix);
+        expectStatus(response, 200);
+        fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
+        expect(fabricLifeCycle.waste).toBeLessThan(weavingWaste);
+      });
     });
 
     describe("Textile product examples checks", () => {

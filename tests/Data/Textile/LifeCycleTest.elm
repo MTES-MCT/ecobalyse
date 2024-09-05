@@ -11,11 +11,6 @@ import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
 
-km : Float -> Length.Length
-km =
-    Length.kilometers
-
-
 lifeCycleToTransports : Db -> Query -> LifeCycle -> Result String LifeCycle
 lifeCycleToTransports db query lifeCycle =
     query
@@ -41,9 +36,9 @@ suite =
                 , let
                     tShirtCotonEnnoblementIndia =
                         { tShirtCotonFrance
-                            | countryFabric = Country.Code "FR"
-                            , countryDyeing = Country.Code "IN" -- Ennoblement in India
-                            , countryMaking = Country.Code "FR"
+                            | countryFabric = Just (Country.Code "FR")
+                            , countryDyeing = Just (Country.Code "IN") -- Ennoblement in India
+                            , countryMaking = Just (Country.Code "FR")
                         }
                   in
                   tShirtCotonEnnoblementIndia

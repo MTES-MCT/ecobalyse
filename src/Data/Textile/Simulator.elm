@@ -21,7 +21,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Product as Product exposing (Product)
-import Data.Textile.Query exposing (Query)
+import Data.Textile.Query as Query exposing (Query)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
@@ -63,11 +63,8 @@ encode v =
 
 init : Db -> Query -> Result String Simulator
 init db =
-    let
-        defaultImpacts =
-            Impact.empty
-    in
-    Inputs.fromQuery db
+    Query.handleUpcycling
+        >> Inputs.fromQuery db
         >> Result.map
             (\({ product } as inputs) ->
                 inputs
@@ -75,10 +72,10 @@ init db =
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
-                            , impacts = defaultImpacts
+                            , impacts = Impact.empty
                             , complementsImpacts = Impact.noComplementsImpacts
                             , durability = Unit.standardDurability
-                            , transport = Transport.default defaultImpacts
+                            , transport = Transport.default Impact.empty
                             , daysOfWear = inputs.product.use.daysOfWear
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
@@ -555,10 +552,8 @@ computeMakingStepWaste ({ inputs } as simulator) =
                     )
     in
     simulator
-        |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
-        |> updateLifeCycleSteps
-            [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
-            (Step.initMass mass)
+        |> updateLifeCycleStep Label.Making (Step.updateWasteAndMasses waste mass)
+        |> updateLifeCycleSteps Label.upcyclables (Step.initMass mass)
 
 
 computeMakingStepDeadStock : Simulator -> Simulator
@@ -571,9 +566,7 @@ computeMakingStepDeadStock ({ inputs, lifeCycle } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateDeadStock deadstock mass)
-        |> updateLifeCycleSteps
-            [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
-            (Step.initMass mass)
+        |> updateLifeCycleSteps Label.upcyclables (Step.initMass mass)
 
 
 computeFabricStepWaste : Db -> Simulator -> Simulator
@@ -583,16 +576,14 @@ computeFabricStepWaste { textile } ({ inputs, lifeCycle } as simulator) =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
                 |> Formula.genericWaste
-                    -- FIXME: we should rather use inputs.fabricProcess here, but we must
-                    --        avoid updating results in production until next milestone.
-                    --        @see https://github.com/MTES-MCT/ecobalyse/pull/577
-                    (inputs.product.fabric
+                    (inputs.fabricProcess
+                        |> Maybe.withDefault inputs.product.fabric
                         |> Fabric.getProcess textile.wellKnown
                         |> .waste
                     )
     in
     simulator
-        |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Label.Fabric (Step.updateWasteAndMasses waste mass)
         |> updateLifeCycleSteps [ Label.Material, Label.Spinning ] (Step.initMass mass)
 
 
@@ -620,7 +611,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
                    )
     in
     simulator
-        |> updateLifeCycleStep Label.Material (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Label.Material (Step.updateWasteAndMasses waste mass)
 
 
 computeSpinningStepWaste : Simulator -> Simulator
@@ -668,7 +659,7 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                    )
     in
     simulator
-        |> updateLifeCycleStep Label.Spinning (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Label.Spinning (Step.updateWasteAndMasses waste mass)
 
 
 computeStepsTransport : Db -> Simulator -> Simulator
@@ -690,6 +681,7 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     let
         complementsImpacts =
             lifeCycle
+                |> Array.filter .enabled
                 |> LifeCycle.sumComplementsImpacts
                 |> Impact.divideComplementsImpactsBy (Unit.durabilityToFloat durability)
     in
@@ -706,6 +698,7 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
 getTotalImpactsWithoutComplements : Simulator -> Impacts
 getTotalImpactsWithoutComplements { durability, lifeCycle } =
     lifeCycle
+        |> Array.filter .enabled
         |> Array.map Step.getTotalImpactsWithoutComplements
         |> Array.toList
         |> Impact.sumImpacts
@@ -731,7 +724,9 @@ toStepsImpacts : Definition.Trigram -> Simulator -> Impact.StepsImpacts
 toStepsImpacts trigram simulator =
     let
         getImpacts label =
-            LifeCycle.getStep label simulator.lifeCycle
+            simulator.lifeCycle
+                |> Array.filter .enabled
+                |> LifeCycle.getStep label
                 |> Maybe.map .impacts
                 |> Maybe.withDefault Impact.empty
 

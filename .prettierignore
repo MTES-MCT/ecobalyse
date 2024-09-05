@@ -2,6 +2,7 @@
 *.yaml
 *.html
 *.md
+elm.json
 package-lock.json
 public/icomoon/*
 public/vendor/*

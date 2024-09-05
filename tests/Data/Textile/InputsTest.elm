@@ -4,25 +4,12 @@ import Data.Country as Country
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material
-import Data.Textile.Query exposing (Query, default, jupeCotonAsie, tShirtCotonFrance)
+import Data.Textile.Query exposing (default, tShirtCotonFrance)
 import Data.Unit as Unit
 import Expect
 import List.Extra as LE
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
-
-
-sampleQuery : Query
-sampleQuery =
-    { jupeCotonAsie
-        | materials =
-            [ { id = Material.Id "ei-pet"
-              , share = Split.full
-              , spinning = Nothing
-              , country = Just (Country.Code "CN")
-              }
-            ]
-    }
 
 
 suite : Test
@@ -31,9 +18,9 @@ suite =
         (\db ->
             [ describe "Query countries validation"
                 [ { default
-                    | countryFabric = Country.Code "CN"
-                    , countryDyeing = Country.Code "CN"
-                    , countryMaking = Country.Code "CN"
+                    | countryFabric = Just (Country.Code "CN")
+                    , countryDyeing = Just (Country.Code "CN")
+                    , countryMaking = Just (Country.Code "CN")
                   }
                     |> Inputs.fromQuery db
                     |> Result.map Inputs.countryList
@@ -41,9 +28,9 @@ suite =
                     |> Expect.equal (Ok (Country.codeFromString "CN"))
                     |> asTest "should replace the first country with the material's default country"
                 , { default
-                    | countryFabric = Country.Code "XX"
-                    , countryDyeing = Country.Code "CN"
-                    , countryMaking = Country.Code "CN"
+                    | countryFabric = Just (Country.Code "XX")
+                    , countryDyeing = Just (Country.Code "CN")
+                    , countryMaking = Just (Country.Code "CN")
                   }
                     |> Inputs.fromQuery db
                     |> Expect.equal (Err "Code pays invalide: XX.")

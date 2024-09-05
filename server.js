@@ -49,8 +49,7 @@ try {
 // Sentry
 if (SENTRY_DSN) {
   Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0.1 });
-  // Note: Sentry middleware *must* be the very first applied to be effective
-  app.use(Sentry.Handlers.requestHandler());
+  Sentry.setupExpressErrorHandler(app);
 }
 
 // Web
@@ -161,6 +160,7 @@ if (fs.existsSync(versionsDir)) {
 // API
 
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
+openApiContents.version = require("./package.json").version;
 
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
@@ -297,12 +297,6 @@ version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, asy
 api.use(cors()); // Enable CORS for all API requests
 app.use("/api", api);
 app.use("/versions", version);
-
-// Sentry error handler
-// Note: *must* be called *before* any other error handler
-if (SENTRY_DSN) {
-  app.use(Sentry.Handlers.errorHandler());
-}
 
 const server = app.listen(expressPort, expressHost, () => {
   console.log(`Server listening at http://${expressHost}:${expressPort}`);

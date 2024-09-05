@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import functools
 import os
-import sys
 from zipfile import ZipFile
 
 import bw2data
@@ -21,7 +20,7 @@ from bw2io.strategies import (
     set_biosphere_type,
 )
 
-PROJECT = sys.argv[1]
+PROJECT = "default"
 # Agribalyse
 BIOSPHERE = "biosphere3"
 METHODNAME = "Environmental Footprint 3.1 (adapted) patch wtu"  # defined inside the csv
@@ -36,12 +35,12 @@ EXCLUDED_FOOD = [
 ]
 
 
-def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
+def import_method(project, datapath=METHODPATH, biosphere=BIOSPHERE):
     """
     Import file at path `datapath` linked to biosphere named `dbname`
     """
     print(f"### Importing {datapath}...")
-    projects.set_current(PROJECT)
+    projects.set_current(project)
 
     # unzip
     with ZipFile(datapath) as zf:
@@ -53,17 +52,18 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     ef = bw2io.importers.SimaProLCIACSVImporter(
         unzipped,
         biosphere=biosphere,
-        normalize_biosphere=False if project == "textile" else True,
+        normalize_biosphere=True,
+        # normalize_biosphere=False if project == "textile" else True,
         # normalize_biosphere to align the categories between LCI and LCIA
     )
     os.unlink(unzipped)
     ef.statistics()
 
     # exclude strategies/migrations in EXCLUDED
-    if project == "food":
+    if project == "default":
         ef.strategies = [
             s for s in ef.strategies if not any([e in repr(s) for e in EXCLUDED_FOOD])
-        ]  # + [fix_localized_water_flows]
+        ]
     if project == "textile":
         ef.strategies = [
             normalize_units,
@@ -94,7 +94,7 @@ def import_method(datapath=METHODPATH, project=PROJECT, biosphere=BIOSPHERE):
     # drop CFs which are not linked to a biosphere substance
     ef.drop_unlinked()
     ef.write_methods()
-    print(f"### Finished importing {METHODNAME}")
+    print(f"### Finished importing {METHODNAME}\n")
 
 
 if __name__ == "__main__":
@@ -105,6 +105,6 @@ if __name__ == "__main__":
     bw2io.bw2setup()
 
     if len([method for method in bw2data.methods if method[0] == METHODNAME]) == 0:
-        import_method()
+        import_method(PROJECT)
     else:
         print(f"{METHODNAME} already imported")

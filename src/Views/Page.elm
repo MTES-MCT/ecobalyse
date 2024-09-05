@@ -141,18 +141,18 @@ mainMenuLinks { enableFoodSection } =
             Nothing
         , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal "API" Route.Api Api
+        , Just <| MailTo "Contact" Env.contactEmail
         ]
 
 
 secondaryMenuLinks : List MenuLink
 secondaryMenuLinks =
-    [ Internal "Nouveautés" Route.Changelog Changelog
+    [ Internal "Changelog" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
     , External "CGU" Env.cguUrl
-    , MailTo "Contact" Env.contactEmail
     ]
 
 
@@ -200,7 +200,7 @@ pageFooter session =
                         [ text label ]
 
                 MailTo label email ->
-                    a [ class "text-decoration-none link-email", href <| "mailto:" ++ email ]
+                    a [ class "text-decoration-none", href <| "mailto:" ++ email ]
                         [ text label ]
     in
     footer [ class "Footer" ]
@@ -324,8 +324,14 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
             , session.releases
                 |> RemoteData.map
                     (\releases ->
-                        Github.unreleased
-                            :: releases
+                        (case Version.getTag session.currentVersion of
+                            Just _ ->
+                                releases
+
+                            Nothing ->
+                                -- If we're not on a tag, add an "unreleased" entry to reflect that
+                                Github.unreleased :: releases
+                        )
                             |> List.map
                                 (\release ->
                                     option [ selected <| Version.is release session.currentVersion ]
