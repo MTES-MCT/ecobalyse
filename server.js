@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { monitorExpressApp } = require("./lib/instrument");
 const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -8,8 +9,6 @@ const helmet = require("helmet");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
 const { decrypt } = require("./lib/crypto");
-const Sentry = require("@sentry/node");
-Sentry.init({ dsn: process.env.SENTRY_DSN, tracesSampleRate: 0.1 });
 const express = require("express");
 
 const rateLimit = require("express-rate-limit");
@@ -22,8 +21,7 @@ const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
-const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV, SENTRY_DSN } =
-  process.env;
+const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
 
 var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -47,10 +45,8 @@ try {
   process.exit(1);
 }
 
-// Sentry
-if (SENTRY_DSN) {
-  Sentry.setupExpressErrorHandler(app);
-}
+// Sentry monitoring
+monitorExpressApp(app);
 
 // Web
 
