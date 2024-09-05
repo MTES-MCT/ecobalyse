@@ -160,6 +160,7 @@ if (fs.existsSync(versionsDir)) {
 // API
 
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
+openApiContents.version = require("./package.json").version;
 
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
