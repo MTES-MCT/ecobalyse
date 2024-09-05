@@ -1,9 +1,6 @@
-
 > 💡 **Prérequis**
 >
 > Pour exécuter et régler les problèmes de tests en échec suite à la mise à jour d’impacts, il convient de disposer d’une installation locale du projet. Les instructions d’installation et de configuration sont décrites [dans le README sur le dépôt.](https://github.com/MTES-MCT/ecobalyse/blob/master/README.md)
-
-</aside>
 
 **Si suite à une mise à jour des impacts ou des coefficients de complément les tests échouent, voici la méthode pour régler la situation :**
 

@@ -68,7 +68,7 @@ En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mette
 
 Pour utiliser le PostgreSQL lancé avec docker, configurez la variable `SCALINGO_POSTGRESQL_URL` comme ceci :
 
-```shall
+```shell
 $ SCALINGO_POSTGRESQL_URL=postgres://postgres:password@localhost:5433/ecobalyse_dev
 ```
 
