@@ -1,15 +1,16 @@
 require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
-const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const yaml = require("js-yaml");
 const helmet = require("helmet");
-const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
 const { decrypt } = require("./lib/crypto");
+const Sentry = require("@sentry/node");
+Sentry.init({ dsn: process.env.SENTRY_DSN, tracesSampleRate: 0.1 });
+const express = require("express");
 
 const rateLimit = require("express-rate-limit");
 const app = express(); // web app
@@ -48,7 +49,6 @@ try {
 
 // Sentry
 if (SENTRY_DSN) {
-  Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0.1 });
   Sentry.setupExpressErrorHandler(app);
 }
 
