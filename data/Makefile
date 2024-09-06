@@ -5,6 +5,14 @@ DOCKERRUN := echo "(Creating a new container)" && docker run --rm -it -v $$PWD/.
 DOCKEREXEC := echo "(Using the existing container)" && docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
 JUPYTER_PORT ?= 8888
 
+# Define a DOCKER function
+define DOCKER
+@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
+	$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) $(1);\
+else \
+	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) $(1); fi
+endef
+
 all: import export
 import : image import_agribalyse import_ecoinvent import_method sync_datapackages
 export: export_food format
@@ -13,78 +21,47 @@ image:
 	docker build -t $(NAME) docker
 
 import_agribalyse:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_agribalyse.py --recreate-activities;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_agribalyse.py; fi
+	$(call DOCKER,python3 import_agribalyse.py --recreate-activities)
 
 import_method:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_method.py; fi
+	$(call DOCKER,python3 import_method.py)
 
 import_ecoinvent:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 import_ecoinvent.py; fi
+	$(call DOCKER,python3 import_ecoinvent.py)
 
 sync_datapackages:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/sync_datapackages.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/sync_datapackages.py; fi
+	$(call DOCKER,python3 common/sync_datapackages.py)
 
 delete_database:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_database.py $(DB);\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_database.py $(DB); fi
+	$(call DOCKER,python3 common/delete_database.py $(DB))
 
 delete_method:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_methods.py;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python3 common/delete_method.py; fi
+	$(call DOCKER,python3 common/delete_methods.py)
 
 export_food:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py && \
-                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build; \
-        else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py && \
-                $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) npm run processes:build; fi
+	$(call DOCKER,bash -c "python3 export.py && npm run processes:build")
 
 compare_food:
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-                $(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py compare; \
-        else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food $(NAME) python3 export.py compare; fi
+	$(call DOCKER,python3 export.py compare)
 
 format:
 	npm run format:json
 
-#export_textile:
-#	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-#		$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py;\
-#	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data/textile $(NAME) python3 export.py; fi
-
 python:
 	echo Running Python inside the container...
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) $(NAME) python;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) python; fi
+	$(call DOCKER,python)
 
 root_shell:
 	echo starting a root shell inside the container...
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) -u root $(NAME) bash;\
-	else $(DOCKERRUN) -u root -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
+	$(call DOCKER,bash)
 
 shell:
 	echo starting a user shell inside the container...
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) $(NAME) bash;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash; fi
+	$(call DOCKER,bash)
 
 jupyter_password:
 	echo starting a user shell inside the container...
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) $(NAME) jupyter notebook password;\
-	else $(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) jupyter notebook password; fi
+	$(call DOCKER,jupyter notebook password)
 
 start_notebook:
 	$(DOCKERRUN) -d --name $(NAME) -p $(JUPYTER_PORT):$(JUPYTER_PORT) -e JUPYTER_PORT=$(JUPYTER_PORT) -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh --collaborative
@@ -93,17 +70,13 @@ start_notebook:
 
 stop_notebook:
 	@echo "Stopping Jupyter notebook and container..."
-	@# Kill the Jupyter process inside the container (if specifically needed)
-	-@$(DOCKEREXEC) $(NAME) bash -c "pkill jupyter" || true
-	@# Stop the container explicitly
+	-@$(call DOCKER,bash -c "pkill jupyter") || true
 	-docker stop $(NAME) || echo "Container $(NAME) not running or already stopped."
 	@echo "Container $(NAME) has been stopped."
 
 start_bwapi:
 	echo starting the Brightway API on port 8000...
-	@if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-		$(DOCKEREXEC) $(NAME) bash -c "cd ../ecobalyse/data/bwapi; uvicorn --host 0.0.0.0 server:api";\
-	else $(DOCKERRUN) $(NAME) bash -c "cd ../ecobalyse/data/bwapi; uvicorn --host 0.0.0.0 server:api"; fi
+	$(call DOCKER,bash -c "cd /home/jovyan/ecobalyse/data/bwapi; uvicorn --host 0.0.0.0 server:api")
 
 clean_data:
 	docker volume rm $(NAME)
@@ -112,3 +85,4 @@ clean_image:
 	docker image rm $(NAME)
 
 clean: clean_data clean_image
+
