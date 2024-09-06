@@ -1,15 +1,15 @@
 require("dotenv").config();
+const { monitorExpressApp } = require("./lib/instrument");
 const fs = require("fs");
 const path = require("path");
-const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const yaml = require("js-yaml");
 const helmet = require("helmet");
-const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
 const { decrypt } = require("./lib/crypto");
+const express = require("express");
 
 const rateLimit = require("express-rate-limit");
 const app = express(); // web app
@@ -21,8 +21,7 @@ const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
-const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV, SENTRY_DSN } =
-  process.env;
+const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
 
 var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -46,11 +45,8 @@ try {
   process.exit(1);
 }
 
-// Sentry
-if (SENTRY_DSN) {
-  Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0.1 });
-  Sentry.setupExpressErrorHandler(app);
-}
+// Sentry monitoring
+monitorExpressApp(app);
 
 // Web
 
@@ -160,6 +156,7 @@ if (fs.existsSync(versionsDir)) {
 // API
 
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
+openApiContents.version = require("./package.json").version;
 
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);

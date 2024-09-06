@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=20.0.0"
+    "node": "20.17"
   },
   "browserslist": [
     "last 2 versions",
@@ -55,6 +55,7 @@
     "@parcel/transformer-sass": "^2.12.0",
     "@sentry/browser": "^8.27.0",
     "@sentry/node": "^8.27.0",
+    "@sentry/profiling-node": "^8.28.0",
     "@sentry/tracing": "^7.114.0",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
