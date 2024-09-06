@@ -1,16 +1,18 @@
 SHELL := /bin/bash
 NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 ECOBALYSE_DATA_DIR := ${ECOBALYSE_DATA_DIR}
-DOCKERRUN := echo "(Creating a new container)" && docker run --rm -it -v $$PWD/../:/home/jovyan/ecobalyse -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -v $(NAME):/home/jovyan -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
-DOCKEREXEC := echo "(Using the existing container)" && docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/
 JUPYTER_PORT ?= 8888
 
 # Define a DOCKER function
 define DOCKER
+env | grep ECOBALYSE_DATA_DIR || echo "No ECOBALYSE_DATA_DIR in environment. Consider adding it in .env and run: pipenv shell"
+env | grep ECOBALYSE_DATA_DIR || exit
 @if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
-	$(DOCKEREXEC) -w /home/jovyan/ecobalyse/data $(NAME) $(1);\
+  echo "(Using the existing container)" &&\
+	docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ -w /home/jovyan/ecobalyse/data $(NAME) $(1);\
 else \
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) $(1); fi
+	echo "(Creating a new container)" &&\
+	docker run --rm -it -v $(NAME):/home/jovyan -v $$PWD/../:/home/jovyan/ecobalyse -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ -w /home/jovyan/ecobalyse/data $(NAME) $(1); fi
 endef
 
 all: import export
@@ -21,52 +23,59 @@ image:
 	docker build -t $(NAME) docker
 
 import_agribalyse:
-	$(call DOCKER,python3 import_agribalyse.py --recreate-activities)
+	@$(call DOCKER,python3 import_agribalyse.py --recreate-activities)
 
 import_method:
-	$(call DOCKER,python3 import_method.py)
+	@$(call DOCKER,python3 import_method.py)
 
 import_ecoinvent:
-	$(call DOCKER,python3 import_ecoinvent.py)
+	@$(call DOCKER,python3 import_ecoinvent.py)
 
 sync_datapackages:
-	$(call DOCKER,python3 common/sync_datapackages.py)
+	@$(call DOCKER,python3 common/sync_datapackages.py)
 
 delete_database:
-	$(call DOCKER,python3 common/delete_database.py $(DB))
+	@$(call DOCKER,python3 common/delete_database.py $(DB))
 
 delete_method:
-	$(call DOCKER,python3 common/delete_methods.py)
+	@$(call DOCKER,python3 common/delete_methods.py)
 
 export_food:
-	$(call DOCKER,bash -c "python3 export.py && npm run processes:build")
+	@$(call DOCKER,bash -c "python3 food/export.py && npm run processes:build")
 
 compare_food:
-	$(call DOCKER,python3 export.py compare)
+	@$(call DOCKER,python3 export.py compare)
 
 format:
 	npm run format:json
 
 python:
 	echo Running Python inside the container...
-	$(call DOCKER,python)
-
-root_shell:
-	echo starting a root shell inside the container...
-	$(call DOCKER,bash)
+	@$(call DOCKER,python)
 
 shell:
 	echo starting a user shell inside the container...
-	$(call DOCKER,bash)
+	@$(call DOCKER,bash)
 
 jupyter_password:
 	echo starting a user shell inside the container...
-	$(call DOCKER,jupyter notebook password)
+	@$(call DOCKER,jupyter notebook password)
 
 start_notebook:
-	$(DOCKERRUN) -d --name $(NAME) -p $(JUPYTER_PORT):$(JUPYTER_PORT) -e JUPYTER_PORT=$(JUPYTER_PORT) -e JUPYTER_ENABLE_LAB=yes $(NAME) start-notebook.sh --collaborative
-	docker cp ~/.gitconfig $(NAME):/home/jovyan/
-	$(DOCKERRUN) $(NAME) bash -c "test -e ~/.jupyter/jupyter_notebook_config.json" || echo '### Run: `make jupyter_password` before starting to change the jupyter password.'
+	@docker run --rm -it -d \
+    -v $(NAME):/home/jovyan \
+    -v $$PWD/../:/home/jovyan/ecobalyse \
+    -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private \
+    -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ \
+    -e JUPYTER_PORT=$(JUPYTER_PORT) \
+    -e JUPYTER_ENABLE_LAB=yes \
+    -w /home/jovyan/ecobalyse/data \
+    -p $(JUPYTER_PORT):$(JUPYTER_PORT) \
+    --name $(NAME) \
+    $(NAME) start-notebook.sh --collaborative
+	@docker cp ~/.gitconfig $(NAME):/home/jovyan/
+	@docker exec -it -u jovyan $(NAME) \
+    bash -c "if [ ! -e ~/.jupyter/jupyter_server_config.json ]; then echo '### Run: you have no Jupyter password. Run: make jupyter_password and restart it.'; fi"
 
 stop_notebook:
 	@echo "Stopping Jupyter notebook and container..."
@@ -76,7 +85,7 @@ stop_notebook:
 
 start_bwapi:
 	echo starting the Brightway API on port 8000...
-	$(call DOCKER,bash -c "cd /home/jovyan/ecobalyse/data/bwapi; uvicorn --host 0.0.0.0 server:api")
+	@$(call DOCKER,bash -c "cd /home/jovyan/ecobalyse/data/bwapi; uvicorn --host 0.0.0.0 server:api")
 
 clean_data:
 	docker volume rm $(NAME)
