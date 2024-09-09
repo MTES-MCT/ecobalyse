@@ -12,7 +12,8 @@ RUN mkdir -p /home/$NB_USER/data \
     && mkdir -p /home/$NB_USER/output \
     && fix-permissions "/home/${NB_USER}/data" \
     && fix-permissions "/home/${NB_USER}/notebooks" \
-    && fix-permissions "/home/${NB_USER}/output"
+    && fix-permissions "/home/${NB_USER}/output" \
+    && npm install prettier
 
 # keep in sync with requirements.txt
 # allow to update the image if the source repo is updated
@@ -31,7 +32,6 @@ RUN apt update \
     && pip install -r /home/$NB_USER/requirements.txt \
     && rm /home/$NB_USER/requirements.txt \
     && git config --global --add safe.directory /home/$NB_USER/ecobalyse \
-    && npm install prettier \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
 
 
