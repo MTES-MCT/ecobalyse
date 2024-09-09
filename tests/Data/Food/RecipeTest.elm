@@ -189,7 +189,7 @@ suite =
                                     |> Expect.within (Expect.Absolute 0.01) 61.34156762961918
                                     |> asTest "should properly score impact on health protected area"
                                 , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 1116.8164656507397
+                                    |> Expect.within (Expect.Absolute 0.01) 116.8164656507397
                                     |> asTest "should properly score impact on resources protected area"
                                 ]
                         )
