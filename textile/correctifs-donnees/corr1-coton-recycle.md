@@ -2,7 +2,7 @@
 
 ### Pourquoi ce correctif  ?
 
-Nous n'avons pas de données Ecoinvent sur le coton recyclé. La seule donnée que nous avons provient de la Base Impacts (ADEME) mais elle concerne 1 kg de fil de coton recylé et non 1 kg de coton recyclé. Dans notre calculateur nous avons besoin de l'impact d'1 kg de coton recylé, nous avons donc besoin de retravailler cette donnée Base Impacts.
+Nous n'avons pas de données Ecoinvent sur le coton recyclé. La seule donnée que nous avons provient de la Base Impacts (ADEME) mais elle concerne 1 kg de fil de coton recylé et non d'1 kg de coton recyclé comme nous en avons besoin. Ainsi nous avons retravaillé cette donnée Base Impacts.
 
 ### Que fait ce correctif ?
 
