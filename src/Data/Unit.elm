@@ -1,28 +1,29 @@
 module Data.Unit exposing
-    ( Durability(..)
-    , HolisticDurability
+    ( HolisticDurability
     , Impact
     , ImpactUnit(..)
+    , NonPhysicalDurability(..)
+    , PhysicalDurability(..)
     , PickPerMeter(..)
     , Ratio(..)
     , SurfaceMass
     , ThreadDensity(..)
     , YarnSize
-    , decodeDurability
     , decodeImpact
+    , decodePhysicalDurability
     , decodeRatio
     , decodeSurfaceMass
     , decodeYarnSize
     , durability
-    , durabilityFromHolistic
-    , durabilityToFloat
-    , encodeDurability
     , encodeImpact
+    , encodeNonPhysicalDurability
+    , encodePhysicalDurability
     , encodePickPerMeter
     , encodeRatio
     , encodeSurfaceMass
     , encodeThreadDensity
     , encodeYarnSize
+    , floatDurabilityFromHolistic
     , forKWh
     , forKg
     , forKgAndDistance
@@ -37,6 +38,8 @@ module Data.Unit exposing
     , minDurability
     , minSurfaceMass
     , minYarnSize
+    , nonPhysicalDurabilityToFloat
+    , physicalDurabilityToFloat
     , pickPerMeter
     , pickPerMeterToFloat
     , ratio
@@ -112,70 +115,84 @@ encodeRatio =
 -- Durability
 
 
-type Durability
-    = Durability Float
+type PhysicalDurability
+    = PhysicalDurability Float
+
+
+type NonPhysicalDurability
+    = NonPhysicalDurability Float
 
 
 type alias HolisticDurability =
-    { physical : Durability
-    , nonPhysical : Durability
+    { physical : PhysicalDurability
+    , nonPhysical : NonPhysicalDurability
     }
 
 
-minDurability : Durability
-minDurability =
-    Durability 0.67
+minDurability : (Float -> a) -> a
+minDurability dur =
+    dur 0.67
 
 
-standardDurability : Durability
-standardDurability =
-    Durability 1
+standardDurability : (Float -> a) -> a
+standardDurability dur =
+    dur 1
 
 
-maxDurability : Durability
-maxDurability =
-    Durability 1.45
+maxDurability : (Float -> a) -> a
+maxDurability dur =
+    dur 1.45
 
 
-durability : Float -> Durability
-durability =
-    Durability
+durability : (Float -> a) -> Float -> a
+durability constructor value =
+    constructor value
 
 
-durabilityFromHolistic : HolisticDurability -> Durability
-durabilityFromHolistic { physical, nonPhysical } =
-    durability <| min (durabilityToFloat physical) (durabilityToFloat nonPhysical)
+floatDurabilityFromHolistic : HolisticDurability -> Float
+floatDurabilityFromHolistic { physical, nonPhysical } =
+    min (physicalDurabilityToFloat physical) (nonPhysicalDurabilityToFloat nonPhysical)
 
 
-durabilityToFloat : Durability -> Float
-durabilityToFloat (Durability float) =
+physicalDurabilityToFloat : PhysicalDurability -> Float
+physicalDurabilityToFloat (PhysicalDurability float) =
     float
 
 
-decodeDurability : Decoder Durability
-decodeDurability =
+nonPhysicalDurabilityToFloat : NonPhysicalDurability -> Float
+nonPhysicalDurabilityToFloat (NonPhysicalDurability float) =
+    float
+
+
+decodePhysicalDurability : Decoder PhysicalDurability
+decodePhysicalDurability =
     Decode.float
         |> Decode.andThen
             (\float ->
-                if float < durabilityToFloat minDurability || float > durabilityToFloat maxDurability then
+                if float < physicalDurabilityToFloat (minDurability PhysicalDurability) || float > physicalDurabilityToFloat (maxDurability PhysicalDurability) then
                     Decode.fail
                         ("Le coefficient de durabilité spécifié ("
                             ++ String.fromFloat float
                             ++ ") doit être compris entre "
-                            ++ String.fromFloat (durabilityToFloat minDurability)
+                            ++ String.fromFloat (physicalDurabilityToFloat (minDurability PhysicalDurability))
                             ++ " et "
-                            ++ String.fromFloat (durabilityToFloat maxDurability)
+                            ++ String.fromFloat (physicalDurabilityToFloat (maxDurability PhysicalDurability))
                             ++ "."
                         )
 
                 else
                     Decode.succeed float
             )
-        |> Decode.map durability
+        |> Decode.map (durability PhysicalDurability)
 
 
-encodeDurability : Durability -> Encode.Value
-encodeDurability (Durability float) =
+encodePhysicalDurability : PhysicalDurability -> Encode.Value
+encodePhysicalDurability (PhysicalDurability float) =
+    Encode.float float
+
+
+encodeNonPhysicalDurability : NonPhysicalDurability -> Encode.Value
+encodeNonPhysicalDurability (NonPhysicalDurability float) =
     Encode.float float
 
 

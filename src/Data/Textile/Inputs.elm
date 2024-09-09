@@ -77,7 +77,7 @@ type alias Inputs =
     , price : Maybe Economics.Price
     , traceability : Maybe Bool
     , upcycled : Bool
-    , physicalDurability : Maybe Unit.Durability
+    , physicalDurability : Maybe Unit.PhysicalDurability
     }
 
 

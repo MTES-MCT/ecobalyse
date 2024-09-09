@@ -55,7 +55,7 @@ encode v =
         , ( "impacts", Impact.encode v.impacts )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "transport", Transport.encode v.transport )
-        , ( "durability", v.durability |> Unit.durabilityFromHolistic |> Unit.durabilityToFloat |> Encode.float )
+        , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
@@ -75,8 +75,8 @@ init db =
                             , impacts = Impact.empty
                             , complementsImpacts = Impact.noComplementsImpacts
                             , durability =
-                                { nonPhysical = Unit.standardDurability
-                                , physical = Unit.maxDurability
+                                { nonPhysical = Unit.standardDurability Unit.NonPhysicalDurability
+                                , physical = Unit.maxDurability Unit.PhysicalDurability
                                 }
                             , transport = Transport.default Impact.empty
                             , daysOfWear = inputs.product.use.daysOfWear
@@ -179,7 +179,7 @@ computeDurability : Simulator -> Simulator
 computeDurability ({ inputs } as simulator) =
     let
         nonPhysicalDurability =
-            Economics.computeDurabilityIndex
+            Economics.computeNonPhysicalDurabilityIndex
                 { business =
                     inputs.business
                         |> Maybe.withDefault inputs.product.economics.business
@@ -201,9 +201,9 @@ computeDurability ({ inputs } as simulator) =
     { simulator
         | durability = newDurability
         , daysOfWear =
-            simulator.daysOfWear |> Quantity.multiplyBy (Unit.durabilityToFloat <| Unit.durabilityFromHolistic newDurability)
+            simulator.daysOfWear |> Quantity.multiplyBy (Unit.floatDurabilityFromHolistic newDurability)
         , useNbCycles =
-            round (toFloat simulator.useNbCycles * (Unit.durabilityToFloat <| Unit.durabilityFromHolistic newDurability))
+            round (toFloat simulator.useNbCycles * Unit.floatDurabilityFromHolistic newDurability)
     }
 
 
@@ -689,14 +689,14 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
             lifeCycle
                 |> Array.filter .enabled
                 |> LifeCycle.sumComplementsImpacts
-                |> Impact.divideComplementsImpactsBy (Unit.durabilityToFloat <| Unit.durabilityFromHolistic durability)
+                |> Impact.divideComplementsImpactsBy (Unit.floatDurabilityFromHolistic durability)
     in
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
             lifeCycle
                 |> LifeCycle.computeFinalImpacts
-                |> Impact.divideBy (Unit.durabilityToFloat <| Unit.durabilityFromHolistic durability)
+                |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
                 |> Impact.impactsWithComplements complementsImpacts
     }
 
@@ -708,7 +708,7 @@ getTotalImpactsWithoutComplements { durability, lifeCycle } =
         |> Array.map Step.getTotalImpactsWithoutComplements
         |> Array.toList
         |> Impact.sumImpacts
-        |> Impact.divideBy (Unit.durabilityToFloat <| Unit.durabilityFromHolistic durability)
+        |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator
@@ -745,7 +745,7 @@ toStepsImpacts trigram simulator =
                 Maybe.map
                     (Quantity.minus
                         (complementImpact
-                            |> Quantity.multiplyBy (Unit.durabilityToFloat <| Unit.durabilityFromHolistic simulator.durability)
+                            |> Quantity.multiplyBy (Unit.floatDurabilityFromHolistic simulator.durability)
                         )
                     )
 
@@ -773,4 +773,4 @@ toStepsImpacts trigram simulator =
             |> getImpact
             |> applyComplement simulator.complementsImpacts.outOfEuropeEOL
     }
-        |> Impact.divideStepsImpactsBy (Unit.durabilityToFloat <| Unit.durabilityFromHolistic simulator.durability)
+        |> Impact.divideStepsImpactsBy (Unit.floatDurabilityFromHolistic simulator.durability)

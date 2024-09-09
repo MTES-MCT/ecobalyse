@@ -257,8 +257,8 @@ validateMassInGrams string =
         |> Result.map Mass.grams
 
 
-validateDurability : String -> Result String Unit.Durability
-validateDurability string =
+validatePhysicalDurability : String -> Result String Unit.PhysicalDurability
+validatePhysicalDurability string =
     string
         |> String.toFloat
         |> Result.fromMaybe ("Durabilité invalide\u{202F}: " ++ string)
@@ -266,18 +266,24 @@ validateDurability string =
             (\durability ->
                 let
                     minFloatDurability =
-                        Unit.minDurability |> Unit.durabilityToFloat
+                        Unit.minDurability Unit.PhysicalDurability |> Unit.physicalDurabilityToFloat
 
                     maxFloatDurability =
-                        Unit.maxDurability |> Unit.durabilityToFloat
+                        Unit.maxDurability Unit.PhysicalDurability |> Unit.physicalDurabilityToFloat
                 in
                 if durability < minFloatDurability || durability > maxFloatDurability then
-                    Err ("La durabilité doit être comprise entre " ++ (minFloatDurability |> String.fromFloat) ++ " et " ++ (maxFloatDurability |> String.fromFloat) ++ ".")
+                    Err
+                        ("La durabilité doit être comprise entre "
+                            ++ String.fromFloat minFloatDurability
+                            ++ " et "
+                            ++ String.fromFloat maxFloatDurability
+                            ++ "."
+                        )
 
                 else
                     Ok durability
             )
-        |> Result.map Unit.Durability
+        |> Result.map Unit.PhysicalDurability
 
 
 maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe BuilderQuery.ProcessQuery))
@@ -309,13 +315,13 @@ maybePriceParser key =
             )
 
 
-maybeDurabilityParser : String -> Parser (ParseResult (Maybe Unit.Durability))
-maybeDurabilityParser key =
+maybePhysicalDurabilityParser : String -> Parser (ParseResult (Maybe Unit.PhysicalDurability))
+maybePhysicalDurabilityParser key =
     Query.string key
         |> Query.map
             (Maybe.map
                 (\durability ->
-                    validateDurability durability
+                    validatePhysicalDurability durability
                         |> Result.map Just
                         |> Result.mapError (\err -> ( key, err ))
                 )
@@ -397,7 +403,7 @@ parseTextileQuery countries textile =
         |> apply (massParserInKilograms "mass")
         |> apply (materialListParser "materials" textile.materials countries)
         |> apply (maybeIntParser "numberOfReferences")
-        |> apply (maybeDurabilityParser "physicalDurability")
+        |> apply (maybePhysicalDurabilityParser "physicalDurability")
         |> apply (maybePriceParser "price")
         |> apply (maybePrinting "printing")
         |> apply (productParser "product" textile.products)

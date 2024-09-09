@@ -131,7 +131,7 @@ type Msg
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
     | UpdateFabricProcess Fabric
-    | UpdatePhysicalDurability (Maybe Unit.Durability)
+    | UpdatePhysicalDurability (Maybe Unit.PhysicalDurability)
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMakingDeadStock (Maybe Split)
@@ -286,8 +286,28 @@ updateQuery query ( model, session, commands ) =
     )
 
 
+updateSimulatorPhysicalDurability : Maybe Unit.PhysicalDurability -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+updateSimulatorPhysicalDurability physicalDurability ( { simulator } as model, session, commands ) =
+    ( { model
+        | simulator =
+            simulator
+                |> Result.map
+                    (\({ durability } as simulatorToUpdate) ->
+                        { simulatorToUpdate
+                            | durability =
+                                { nonPhysical = durability.nonPhysical
+                                , physical = physicalDurability |> Maybe.withDefault durability.physical
+                                }
+                        }
+                    )
+      }
+    , session
+    , Cmd.none
+    )
+
+
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries, navKey } as session) msg ({ simulator } as model) =
+update ({ queries, navKey } as session) msg model =
     let
         query =
             queries.textile
@@ -536,21 +556,8 @@ update ({ queries, navKey } as session) msg ({ simulator } as model) =
                 |> updateQuery { query | fabricProcess = Just fabricProcess }
 
         ( UpdatePhysicalDurability physicalDurability, _ ) ->
-            ( { model 
-                | simulator = 
-                    simulator
-                        |> Result.map
-                            (\({ durability } as simulator) ->
-                                { simulator | durability = 
-                                    { nonPhysical = durability.nonPhysical
-                                    , physical = physicalDurability |> Maybe.withDefault durability.physical
-                                    }
-                                }
-                            )
-              }
-            , session
-            , Cmd.none 
-            )
+            ( model, session, Cmd.none )
+                |> updateSimulatorPhysicalDurability physicalDurability
 
         ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )
@@ -801,14 +808,14 @@ productPriceField productPrice =
         ]
 
 
-physicalDurabilityField : Unit.Durability -> Html Msg
+physicalDurabilityField : Unit.PhysicalDurability -> Html Msg
 physicalDurabilityField durability =
     div [ class "input-group" ]
         [ RangeSlider.physicalDurability
             { id = "physicalDurability"
             , update = UpdatePhysicalDurability
             , value = durability
-            , toString = Unit.durabilityToFloat >> String.fromFloat
+            , toString = Unit.physicalDurabilityToFloat >> String.fromFloat
             , disabled = False
             }
         ]
@@ -968,8 +975,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             , div [ class "d-flex align-items-center gap-2" ]
                 [ span [ class "d-none d-sm-flex text-truncate" ] [ text "Coefficient de durabilité\u{00A0}:" ]
                 , simulator.durability
-                    |> Unit.durabilityFromHolistic
-                    |> Unit.durabilityToFloat
+                    |> Unit.floatDurabilityFromHolistic
                     |> Format.formatFloat 2
                     |> text
                 , Button.docsPillLink
@@ -1031,7 +1037,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             div []
                 [ div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-4" ] [ text "Durabilité non physique" ]
-                    , div [ class "col-md-8" ] [ text (simulator.durability.nonPhysical |> Unit.durabilityToFloat |> String.fromFloat) ]
+                    , div [ class "col-md-8" ] [ text (simulator.durability.nonPhysical |> Unit.nonPhysicalDurabilityToFloat |> String.fromFloat) ]
                     ]
                 , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-4" ] [ text "Durabilité physique" ]

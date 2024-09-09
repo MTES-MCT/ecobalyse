@@ -35,7 +35,7 @@ import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Unit as Unit exposing (Durability)
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -69,7 +69,7 @@ type alias Query =
     , mass : Mass
     , materials : List MaterialQuery
     , numberOfReferences : Maybe Int
-    , physicalDurability : Maybe Durability
+    , physicalDurability : Maybe Unit.PhysicalDurability
     , price : Maybe Economics.Price
     , printing : Maybe Printing
     , product : Product.Id
@@ -126,7 +126,7 @@ decode =
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
         |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
-        |> Pipe.optional "physicalDurability" (Decode.maybe Unit.decodeDurability) Nothing
+        |> Pipe.optional "physicalDurability" (Decode.maybe Unit.decodePhysicalDurability) Nothing
         |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
         |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
