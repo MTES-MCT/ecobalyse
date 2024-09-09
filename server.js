@@ -87,6 +87,7 @@ app.use(
 
 app.use(
   express.static("dist", {
+    index: "index.html",
     setHeaders: (res) => {
       // Note: helmet sets this header to `0` by default and doesn't allow overriding
       // this value

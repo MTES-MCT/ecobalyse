@@ -8,20 +8,19 @@ L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/)
 
 ## Socle technique et prérequis
 
-Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [pipenv](https://pipenv.pypa.io/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine.
+Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [pipenv](https://pipenv.pypa.io/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Le paquet [mdbook](https://rust-lang.github.io/mdBook/) est également requis pour générer la documentation technique du projet.
 
-## Installation
-
-### Frontend
+## Installation de l'environnement de développement
 
 ```shell
 $ npm install
+$ pipenv install
 ```
 
-### Backend
+Pour installer `mdbook`, si vous disposez d'un environnement de dévelopement rust:
 
 ```shell
-$ pipenv install
+$ test -x $HOME/.cargo/bin/mdbook || cargo install mdbook
 ```
 
 Assurez-vous d'avoir un PostgreSQL >=16 qui tourne localement si vous souhaitez vous rapprocher de l'environnement de production. À défaut, `sqlite` sera utilisé.
