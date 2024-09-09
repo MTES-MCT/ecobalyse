@@ -43,8 +43,8 @@
   * [Travaux en cours](textile/travaux-en-cours.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
 * [Nous contacter](textile/nous-contacter.md)
-* [Données](textile/donnees/README.md)
-  * [corr1 : Coton recyclé](textile/donnees/corr1-coton-recycle.md)
+* [Correctifs données](textile/correctifs-donnees/README.md)
+  * [corr1 : Coton recyclé](textile/correctifs-donnees/corr1-coton-recycle.md)
 * [Aide API](textile/aide-api.md)
 
 ## 🍕 Alimentaire -EN CONSTRUCTION

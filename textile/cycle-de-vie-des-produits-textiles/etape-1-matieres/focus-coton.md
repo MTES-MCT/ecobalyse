@@ -73,9 +73,7 @@ Ecobalyse a enrichi ce procédé avec une consommation d'eau liée à une irriga
 
 <summary>Coton recyclé (déchets post-consommation)</summary>
 
-Ce procédé est issu de la Base Impacts (ADEME) auquel a été retranché l'impact de la filature.&#x20;
-
-Ecoinvent ne propose pas de coton recyclé dans sa base de données.&#x20;
+Ce procédé est issu de la Base Impacts (ADEME) auquel a été retranché l'impact de la filature. [Ce correctif est documenté ici](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/1001/textile/correctifs-donnees/corr1-coton-recycle).
 
 </details>
 
