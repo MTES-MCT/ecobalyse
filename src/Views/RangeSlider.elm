@@ -133,7 +133,7 @@ physicalDurability config =
         { id = config.id
         , label = config.toString config.value
         , attributes =
-            [ onInput (String.toFloat >> Maybe.map (Unit.durability Unit.PhysicalDurability) >> config.update)
+            [ onInput (String.toFloat >> Maybe.map Unit.physicalDurability >> config.update)
             , Attr.min (String.fromFloat (Unit.physicalDurabilityToFloat (Unit.minDurability Unit.PhysicalDurability)))
             , Attr.max (String.fromFloat (Unit.physicalDurabilityToFloat (Unit.maxDurability Unit.PhysicalDurability)))
 

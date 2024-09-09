@@ -119,7 +119,7 @@ computeNonPhysicalDurabilityIndex economics =
         + finalIndex
         * (maxDurability - minDurability)
         |> formatIndex
-        |> Unit.durability Unit.NonPhysicalDurability
+        |> Unit.nonPhysicalDurability
 
 
 computeRepairCostIndex : Business -> Price -> Price -> Unit.Ratio

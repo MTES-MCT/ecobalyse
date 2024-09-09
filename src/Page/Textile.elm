@@ -286,26 +286,6 @@ updateQuery query ( model, session, commands ) =
     )
 
 
-updateSimulatorPhysicalDurability : Maybe Unit.PhysicalDurability -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateSimulatorPhysicalDurability physicalDurability ( { simulator } as model, session, commands ) =
-    ( { model
-        | simulator =
-            simulator
-                |> Result.map
-                    (\({ durability } as simulatorToUpdate) ->
-                        { simulatorToUpdate
-                            | durability =
-                                { nonPhysical = durability.nonPhysical
-                                , physical = physicalDurability |> Maybe.withDefault durability.physical
-                                }
-                        }
-                    )
-      }
-    , session
-    , commands
-    )
-
-
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ queries, navKey } as session) msg model =
     let
@@ -557,7 +537,7 @@ update ({ queries, navKey } as session) msg model =
 
         ( UpdatePhysicalDurability physicalDurability, _ ) ->
             ( model, session, Cmd.none )
-                |> updateSimulatorPhysicalDurability physicalDurability
+                |> updateQuery { query | physicalDurability = physicalDurability }
 
         ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )

@@ -14,7 +14,6 @@ module Data.Unit exposing
     , decodeRatio
     , decodeSurfaceMass
     , decodeYarnSize
-    , durability
     , encodeImpact
     , encodeNonPhysicalDurability
     , encodePickPerMeter
@@ -37,7 +36,9 @@ module Data.Unit exposing
     , minDurability
     , minSurfaceMass
     , minYarnSize
+    , nonPhysicalDurability
     , nonPhysicalDurabilityToFloat
+    , physicalDurability
     , physicalDurabilityToFloat
     , pickPerMeter
     , pickPerMeterToFloat
@@ -143,9 +144,14 @@ maxDurability dur =
     dur 1.45
 
 
-durability : (Float -> a) -> Float -> a
-durability constructor value =
-    constructor value
+physicalDurability : Float -> PhysicalDurability
+physicalDurability value =
+    PhysicalDurability value
+
+
+nonPhysicalDurability : Float -> NonPhysicalDurability
+nonPhysicalDurability value =
+    NonPhysicalDurability value
 
 
 floatDurabilityFromHolistic : HolisticDurability -> Float
@@ -182,7 +188,7 @@ decodePhysicalDurability =
                 else
                     Decode.succeed float
             )
-        |> Decode.map (durability PhysicalDurability)
+        |> Decode.map physicalDurability
 
 
 encodeNonPhysicalDurability : NonPhysicalDurability -> Encode.Value

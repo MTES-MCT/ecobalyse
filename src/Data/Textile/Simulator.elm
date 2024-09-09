@@ -76,7 +76,7 @@ init db =
                             , complementsImpacts = Impact.noComplementsImpacts
                             , durability =
                                 { nonPhysical = Unit.standardDurability Unit.NonPhysicalDurability
-                                , physical = Unit.maxDurability Unit.PhysicalDurability
+                                , physical = inputs.physicalDurability |> Maybe.withDefault (Unit.maxDurability Unit.PhysicalDurability)
                                 }
                             , transport = Transport.default Impact.empty
                             , daysOfWear = inputs.product.use.daysOfWear
