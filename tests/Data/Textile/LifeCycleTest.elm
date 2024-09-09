@@ -11,11 +11,6 @@ import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
 
-km : Float -> Length.Length
-km =
-    Length.kilometers
-
-
 lifeCycleToTransports : Db -> Query -> LifeCycle -> Result String LifeCycle
 lifeCycleToTransports db query lifeCycle =
     query

@@ -1,25 +1,11 @@
 module Data.Github exposing
-    ( Commit
-    , Release
-    , decodeCommit
+    ( Release
     , decodeReleaseList
     , unreleased
     )
 
-import Iso8601
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
-import Time exposing (Posix)
-
-
-type alias Commit =
-    { sha : String
-    , message : String
-    , date : Posix
-    , authorName : String
-    , authorLogin : String
-    , authorAvatar : Maybe String
-    }
 
 
 type alias Release =
@@ -30,27 +16,6 @@ type alias Release =
     , tag : String
     , url : String
     }
-
-
-decodeCommit : Decoder Commit
-decodeCommit =
-    Decode.succeed Commit
-        |> Pipe.requiredAt [ "sha" ] Decode.string
-        |> Pipe.requiredAt [ "commit", "message" ] Decode.string
-        |> Pipe.requiredAt [ "commit", "author", "date" ] Iso8601.decoder
-        |> Pipe.requiredAt [ "commit", "author", "name" ] Decode.string
-        |> Pipe.optionalAt [ "author", "login" ] Decode.string "Ecobalyse"
-        |> Pipe.optionalAt [ "author", "avatar_url" ] (Decode.maybe Decode.string) Nothing
-        |> Decode.andThen
-            (\({ authorAvatar, authorName } as commit) ->
-                Decode.succeed
-                    (if authorAvatar == Nothing && authorName == "Ingredient editor" then
-                        { commit | authorAvatar = Just "img/ingredient-editor.png" }
-
-                     else
-                        commit
-                    )
-            )
 
 
 decodeRelease : Decoder Release
@@ -68,7 +33,7 @@ decodeReleaseList : Decoder (List Release)
 decodeReleaseList =
     Decode.list decodeRelease
         -- Exclude draft releases
-        |> Decode.andThen (List.filter (.draft >> not) >> Decode.succeed)
+        |> Decode.map (List.filter (.draft >> not))
 
 
 unreleased : Release

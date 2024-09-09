@@ -343,7 +343,7 @@ def import_simapro_csv(
     database.statistics()
     bw2data.Database(biosphere).register()
     database.write_database()
-    print(f"### Finished importing {datapath}")
+    print(f"### Finished importing {datapath}\n")
 
 
 def add_missing_substances(project, biosphere):
@@ -371,12 +371,3 @@ def add_missing_substances(project, biosphere):
     for code, activity in substances.items():
         if not [flow for flow in bio if flow["code"] == code]:
             bio.new_activity(code, **activity)
-
-
-def sync_datapackages():
-    print("Syncing datapackages...")
-    for method in bw2data.methods:
-        bw2data.Method(method).process()
-
-    for database in bw2data.databases:
-        bw2data.Database(database).process()

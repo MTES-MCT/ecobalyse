@@ -216,7 +216,7 @@ handleUpcycling query =
     if query.upcycled then
         { query
             | disabledSteps = LE.unique <| Label.upcyclables ++ query.disabledSteps
-            , makingComplexity = Just MakingComplexity.High
+            , makingComplexity = query.makingComplexity |> Maybe.withDefault MakingComplexity.High |> Just
         }
 
     else

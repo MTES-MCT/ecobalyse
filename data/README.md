@@ -7,12 +7,12 @@ Comment générer les données json utilisées par le frontal elm :
   Settings → Ressources → Advanced → Memory = 6G
 - Préparez les bases de données à importer, elle ne font pas partie du dépôt :
   - Agribalyse : compressé dans un fichier `AGB3.1.1.20230306.CSV.zip` dans ce dossier data/
+  - Autres bases alimentaire : consultez les noms de fichier dans `import_agribalyse.py`
   - Ecoinvent : décompressé dans un dossier `ECOINVENT3.9.1` dans ce même dossier
 - Lancez **`make`** ce qui va successivement :
-  - construire l'image docker
-  - importer agribalyse et EF 3.1 adapted dans un projet `food` de Brightway
-  - importer ecoinvent et EF 3.1 adapted dans un projet `textile` de Brightway
-  - exporter les données json utilisées côté front-end
+  - construire l'image docker ;
+  - importer les bases de données dans le projet `default` de Brightway ;
+  - exporter les données json utilisées côté front-end, qui pourront ensuite être commitées.
 
 Le processus entier prend environ 1h. En cas de problème vous pouvez redémarrer de zéro en faisant
 d'abord un `make clean_data` (qui supprime le volume docker).
@@ -20,27 +20,24 @@ d'abord un `make clean_data` (qui supprime le volume docker).
 ## Autres commandes :
 
 - `make image` : pour construire l'image docker choisie
-- `make import_agribalyse` : pour importer Agribalyse 3.1.1 dans Brightway (projet food).
-  Assurez-vous d'avoir le fichier `AGB3.1.1.20230306.CSV.zip` dans le dossier `data/`
-- `make import_food_method` : pour importer EF 3.1 adapted dans Brightway (projet food).
-  Assurez-vous d'avoir le fichier `Environmental Footprint 3.1 (adapted).CSV` dans le dossier
-  `data/`
-- `make import_textile_method` : pour importer EF 3.1 adapted dans Brightway (projet textile).
-  Assurez-vous d'avoir le fichier `Environmental Footprint 3.1 (adapted).CSV` dans le dossier
-  `data/`
-- `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. Brightway (projet textile). Assurez-vous
-  d'avoir le dossier `ECOINVENT3.9.1/` dans le dossier `data/`
+- `make import_agribalyse` : pour importer les bases de données alimentaire dans Brightway.
+  Assurez-vous d'avoir les bon fichiers de données dans `data/`
+- `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. dans Brightway. Assurez-vous
+  d'avoir le bon dossier de données dans `data/`
+- `make import_method` : pour importer EF 3.1 adapted dans Brightway.
+  Assurez-vous d'avoir le bon fichier de données dans `data/`
 - `make export_food` : pour exporter les json pour le builder alimentaire
-- `make compare_food` : pour exporter des PNG pour chaque procédé montrant les différences entre Brightway et SimaPro
-- `make export_textile` : pour exporter les json pour le builder textile
-- `make delete_textile_method` : pour supprimer la méthode utilisée dans le projet textile
-- `make json` : lance toutes les commandes précédentes dans l'ordre
+- `make delete_database DB=<dbname>` : pour supprimer une base de données
+- `make delete_method` : pour supprimer la méthode EF3.1
+- `make sync_datapackages` : lance un fix parfois nécessaire pour la synchro brightway
+- `make import` : lance toutes les commandes d'import
+- `make export` : lance toutes les commandes d'export
 - `make shell` : lance un shell bash à l'intérieur du conteneur
 - `make python` : lance un interpréteur Python à l'intérieur du conteneur
 - `make jupyter_password` : définit le mot de passe jupyter. Doit être lancé avant son démarrage.
 - `make root_shell` : lance un shell root à l'intérieur du conteneur
-- `make jupyter_password` : pour définir le mot de passe de Jupyter avant de le lancer
-- `make start_notebook` : lance le serveur Jupyter dans le conteneur
+- `make start_notebook` : lance le serveur Jupyter dans le conteneur.
+  Peut être précédé du n° de port Jupyter: ex `JUPYTER_PORT=8889`
 - `make stop_notebook` : arrête le serveur Jupyter donc aussi le conteneur
 - `make clean_data` : supprime toutes les données (celles de brightway et jupyter mais pas les json
   générés)

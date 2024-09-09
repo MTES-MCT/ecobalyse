@@ -118,7 +118,9 @@ suite =
                 [ db.definitions
                     |> Impact.setEcotoxWeighting (Unit.ratio 0)
                     |> Definition.get Definition.Acd
-                    |> (.ecoscoreData >> Maybe.map (.weighting >> Unit.ratioToFloat) >> Maybe.withDefault -99)
+                    |> .ecoscoreData
+                    |> Maybe.map (.weighting >> Unit.ratioToFloat)
+                    |> Maybe.withDefault -99
                     |> Expect.within (Expect.Absolute 0.001) 0.067
                     |> asTest "should update other weightings"
                 , db.definitions
