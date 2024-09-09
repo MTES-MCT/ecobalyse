@@ -302,7 +302,7 @@ updateSimulatorPhysicalDurability physicalDurability ( { simulator } as model, s
                     )
       }
     , session
-    , Cmd.none
+    , commands
     )
 
 

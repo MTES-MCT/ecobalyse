@@ -17,7 +17,6 @@ module Data.Unit exposing
     , durability
     , encodeImpact
     , encodeNonPhysicalDurability
-    , encodePhysicalDurability
     , encodePickPerMeter
     , encodeRatio
     , encodeSurfaceMass
@@ -184,11 +183,6 @@ decodePhysicalDurability =
                     Decode.succeed float
             )
         |> Decode.map (durability PhysicalDurability)
-
-
-encodePhysicalDurability : PhysicalDurability -> Encode.Value
-encodePhysicalDurability (PhysicalDurability float) =
-    Encode.float float
 
 
 encodeNonPhysicalDurability : NonPhysicalDurability -> Encode.Value
