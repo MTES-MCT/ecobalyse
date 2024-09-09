@@ -536,23 +536,21 @@ update ({ queries, navKey } as session) msg ({ simulator } as model) =
                 |> updateQuery { query | fabricProcess = Just fabricProcess }
 
         ( UpdatePhysicalDurability physicalDurability, _ ) ->
-            let
-                updatedSimulator =
+            ( { model 
+                | simulator = 
                     simulator
                         |> Result.map
-                            (\s ->
-                                let
-                                    updatedDurability =
-                                        { nonPhysical = s.durability.nonPhysical
-                                        , physical =
-                                            physicalDurability
-                                                |> Maybe.withDefault s.durability.physical
-                                        }
-                                in
-                                { s | durability = updatedDurability }
+                            (\({ durability } as simulator) ->
+                                { simulator | durability = 
+                                    { nonPhysical = durability.nonPhysical
+                                    , physical = physicalDurability |> Maybe.withDefault durability.physical
+                                    }
+                                }
                             )
-            in
-            ( { model | simulator = updatedSimulator }, session, Cmd.none )
+              }
+            , session
+            , Cmd.none 
+            )
 
         ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )
