@@ -1221,11 +1221,11 @@
     "alias": null
   },
   {
-    "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
+    "name": "Production de coton recyclé (recyclage mécanique) pré-filature, traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "unit": "kg",
-    "source": "Base Impacts 2.01",
-    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
+    "source": "Ecobalyse",
+    "correctif": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature",
     "step_usage": "Matières",
     "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "impacts": {
@@ -1248,8 +1248,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 184.38643567098705,
-      "pef": 227.57180261234362
+      "ecs": 179.4597612653979,
+      "pef": 221.26277508920256
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
@@ -1258,11 +1258,11 @@
     "alias": null
   },
   {
-    "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
+    "name": "Production de coton recyclé (recyclage mécanique) pré-filature, traitement de déchets de production textiles, inventaire partiellement agrégé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
     "unit": "kg",
-    "source": "Base Impacts 2.01",
-    "correctif": "Ajout données \"EP&L Kering\" pour la consommation d'eau",
+    "source": "Ecobalyse",
+    "correctif": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature",
     "step_usage": "Matières",
     "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "impacts": {
@@ -1285,8 +1285,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 169.75015994483672,
-      "pef": 206.43149786198828
+      "ecs": 147.07224315665147,
+      "pef": 185.4743814674453
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
