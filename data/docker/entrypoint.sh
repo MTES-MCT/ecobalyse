@@ -8,9 +8,10 @@ if [ $ECOBALYSE_ID -ne $JOVYAN_ID ]; then
 fi
 
 pushd /home/jovyan/${ECOBALYSE:=ecobalyse}/data
-pip install -e .
+gosu jovyan pip install -e .
 popd
 
 ldconfig
+chown -R 1000:100 "/home/jovyan/.npm"
 
 gosu jovyan "$@"

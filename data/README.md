@@ -35,7 +35,6 @@ d'abord un `make clean_data` (qui supprime le volume docker).
 - `make shell` : lance un shell bash à l'intérieur du conteneur
 - `make python` : lance un interpréteur Python à l'intérieur du conteneur
 - `make jupyter_password` : définit le mot de passe jupyter. Doit être lancé avant son démarrage.
-- `make root_shell` : lance un shell root à l'intérieur du conteneur
 - `make start_notebook` : lance le serveur Jupyter dans le conteneur.
   Peut être précédé du n° de port Jupyter: ex `JUPYTER_PORT=8889`
 - `make stop_notebook` : arrête le serveur Jupyter donc aussi le conteneur
