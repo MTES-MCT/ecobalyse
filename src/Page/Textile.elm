@@ -1027,7 +1027,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                     ]
                 , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-4" ] [ text "Durabilité physique" ]
-                    , div [ class "col-md-8" ] [ simulator.durability.physical |> physicalDurabilityField ]
+                    , div [ class "col-md-8" ] [ physicalDurabilityField simulator.durability.physical ]
                     ]
                 ]
 
