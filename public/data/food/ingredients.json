@@ -387,11 +387,11 @@
     },
     "land_occupation": 15.82110984,
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "chicken-breast-fr-organic",
-    "name": "Blanc de poulet cru (alim. ani. 100%FR) FR ou UE ou Hors UE Bio ",
+    "name": "Blanc de poulet cru (alim. ani. 100%FR) FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Meat without bone chicken for direct consumption \"fr-organic\" constructed by Ecobalyse",
     "default": "fc9b8a819a1ba51b4fbca210d0771198",
@@ -409,7 +409,7 @@
     },
     "land_occupation": 18.52244428,
     "scenario": "organic",
-    "visible": true
+    "visible": false
   },
   {
     "id": "rapeseed-oil",
@@ -793,7 +793,7 @@
     "land_occupation": 5.627292234,
     "crop_group": "AUTRES OLEAGINEUX",
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "soybean-br-no-deforestation",
@@ -1125,7 +1125,7 @@
     },
     "land_occupation": 7.297867846,
     "scenario": "reference",
-    "visible": true
+    "visible": false
   },
   {
     "id": "cane-sugar",
@@ -1146,7 +1146,7 @@
     "land_occupation": 1.541979267,
     "crop_group": "DIVERS",
     "scenario": "import",
-    "visible": false
+    "visible": true
   },
   {
     "id": "tea-dried",
@@ -1279,7 +1279,7 @@
   },
   {
     "id": "egg-indoor-code2",
-    "name": "Oeuf (code 2) FR Conv.",
+    "name": "Oeuf FR Conv.",
     "categories": ["animal_product"],
     "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
     "default": "AGRIBALU000000003105152",
@@ -1297,7 +1297,7 @@
     },
     "land_occupation": 3.718097733,
     "scenario": "reference",
-    "visible": false
+    "visible": true
   },
   {
     "id": "egg-indoor-code3",
@@ -1341,7 +1341,7 @@
     },
     "land_occupation": 4.268467591,
     "scenario": "reference",
-    "visible": false
+    "visible": true
   },
   {
     "id": "egg-organic-code0",
@@ -1384,7 +1384,7 @@
     "land_occupation": 1.032679591,
     "crop_group": "VIGNES",
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "lamb-meat-without-bone",
@@ -1449,7 +1449,7 @@
     "land_occupation": 0.3820688838,
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "carrot-fr",
@@ -3807,7 +3807,7 @@
     "id": "wine-grape-fr",
     "name": "Raisin de cuve FR Conv.",
     "categories": ["vegetable_fresh"],
-    "search": "Grape full production (phase) integrated variety mix Languedoc-Roussillon at vineyard",
+    "search": "Grape full production integrated variety mix",
     "default": "AGRIBALU000000003106864",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
@@ -3815,11 +3815,11 @@
     "inedible_part": 0.1,
     "transport_cooling": "always",
     "ecosystemicServices": {
-      "hedges": 0.2425,
-      "plotSize": 0.84875,
+      "hedges": 0.27049,
+      "plotSize": 0.94671,
       "cropDiversity": 0.0
     },
-    "land_occupation": 0.97,
+    "land_occupation": 1.081959226398917,
     "crop_group": "VIGNES",
     "scenario": "reference",
     "visible": true
@@ -4284,7 +4284,7 @@
     "land_occupation": 0.4722120942351419,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "potato-industry-organic",
@@ -4305,7 +4305,7 @@
     "land_occupation": 0.4702722617322555,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "kiwi-organic",
@@ -4326,7 +4326,7 @@
     "land_occupation": 0.6058029841998362,
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "red-cabbage-organic",
@@ -4683,7 +4683,7 @@
     "land_occupation": 0.37137037037037035,
     "crop_group": "VERGERS",
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "lemon-organic",
@@ -4746,7 +4746,7 @@
     "land_occupation": 3.631654573968224,
     "crop_group": "OLIVIERS",
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "peanut-organic",
@@ -4851,7 +4851,7 @@
     "land_occupation": 2.5811340696785146,
     "crop_group": "AUTRES CEREALES",
     "scenario": "organic",
-    "visible": false
+    "visible": true
   },
   {
     "id": "onion-organic",
@@ -5526,45 +5526,125 @@
     "visible": true
   },
   {
-    "id": "tomato-organic-fr",
-    "name": "Tomate FR bio",
-    "categories": ["organic", "vegetable_fresh"],
-    "search": "tomato fr-only",
-    "default": "089876c63c20d9e2741fb9ae874e9039",
+    "id": "fresh-cream-cheese",
+    "name": "Crème fraiche FR Conv.",
+    "categories": ["dairy_product"],
+    "search": "fresh cream 8",
+    "default": "AGRIBALU000000003106208",
     "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.045504,
-      "plotSize": 0.068818,
-      "cropDiversity": 0.2203
-    },
-    "land_occupation": 0.07864890463267575,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "organic",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "ecosystemicServices": {},
+    "land_occupation": 2.090359642651662,
+    "scenario": "reference",
     "visible": true
   },
   {
-    "id": "tomato-organic-es",
-    "name": "Tomate UE bio",
-    "categories": ["organic", "vegetable_fresh"],
-    "search": "tomato es-only",
-    "default": "553e50143c594dbdf543a6d0723e9a2b",
+    "id": "onion-dried-hors-ue",
+    "name": "Oignons déshydratés Hors UE Conv.",
+    "categories": ["vegetable_processed"],
+    "search": "onions dried",
+    "default": "AGRIBALU000000003110475",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
-    "density": 0.447,
-    "inedible_part": 0.03,
+    "density": 0.6195,
+    "inedible_part": 0.1,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 0.064825,
-      "plotSize": 0.098038,
-      "cropDiversity": 0.31383
+      "hedges": 0.62787,
+      "plotSize": 1.5697,
+      "cropDiversity": 0.0
     },
-    "land_occupation": 0.11204329462602416,
+    "land_occupation": 2.5114890758258803,
     "crop_group": "LEGUMES-FLEURS",
-    "scenario": "organic",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "egg-without-shell-fr",
+    "name": "Oeuf cru décoquillé FR Conv.",
+    "categories": ["animal_product"],
+    "search": "egg without shell",
+    "default": "AGRIBALU000000003103004",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.974,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "once_transformed",
+    "ecosystemicServices": {},
+    "land_occupation": 3.6957619265972763,
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "egg-yolk-powder-fr",
+    "name": "poudre de jaune d'oeuf FR Conv.",
+    "categories": ["animal_product"],
+    "search": "yolk powder",
+    "default": "AGRIBALU000000003105140",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.974,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "once_transformed",
+    "ecosystemicServices": {},
+    "land_occupation": 3.702438686612501,
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "egg-white-powder-fr",
+    "name": "poudre de blanc d'oeuf FR Conv.",
+    "categories": ["animal_product"],
+    "search": "egg white powder",
+    "default": "AGRIBALU000000003105126",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.974,
+    "density": 1.0,
+    "inedible_part": 0.2,
+    "transport_cooling": "once_transformed",
+    "ecosystemicServices": {},
+    "land_occupation": 3.702993188589924,
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "emmental-grated-fr",
+    "name": "Emmental rapé FR Conv.",
+    "categories": ["dairy_product"],
+    "search": "emmental grated",
+    "default": "AGRIBALU000000003105535",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "ecosystemicServices": {},
+    "land_occupation": 6.67983376678164,
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "cocoa-powder-non-ue",
+    "name": "Poudre de cacao Hors UE Conv.",
+    "categories": ["vegetable_processed"],
+    "search": "cocoa powder",
+    "default": "AGRIBALU000000003103498",
+    "default_origin": "OutOfEuropeAndMaghrebByPlane",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 11.927677078146885,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "import",
     "visible": true
   }
 ]

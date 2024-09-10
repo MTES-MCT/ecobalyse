@@ -1,0 +1,1 @@
+Actuellement sur le domaine textile les fichiers ecobalyse/public/data/textile/ `processes.json` et `materials.json` ne sont pas générés par le script `export.py` de ce dossier. Ils sont édités à la main.

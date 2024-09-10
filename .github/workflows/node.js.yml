@@ -80,7 +80,7 @@ jobs:
       if: ${{ github.event_name == 'pull_request' }}
       env:
         LAST_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
-        GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACCESS_TOKEN: ${{ secrets.GH_REST_ACCESS_TOKEN }}
       run: |
         eval `ssh-agent -s`
         # Private ssh key used by this Github action to clone the private repo
