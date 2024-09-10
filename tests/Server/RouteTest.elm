@@ -330,6 +330,11 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "countryDyeing")
             |> Expect.equal (Just "Le code pays US n'est pas utilisable dans un contexte Textile.")
             |> asTest "should validate that an ingredient country scope is valid"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?physicalDurability=99"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "physicalDurability")
+            |> Expect.equal (Just "La durabilité doit être comprise entre 0.67 et 1.45.")
+            |> asTest "should validate that the physical durability param is invalid"
         ]
     , describe "multiple parameters checks"
         [ testEndpoint db "GET" Encode.null "/textile/simulator"
