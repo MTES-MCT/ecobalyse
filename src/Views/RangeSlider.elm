@@ -25,7 +25,7 @@ type alias PercentConfig msg =
 
 percent : PercentConfig msg -> Html msg
 percent config =
-    layout
+    narrowLayout
         { id = config.id
         , label = config.toString config.value
         , attributes =
@@ -53,7 +53,7 @@ type alias SurfaceMassConfig msg =
 
 surfaceMass : SurfaceMassConfig msg -> Html msg
 surfaceMass config =
-    layout
+    narrowLayout
         { id = config.id
         , label = config.toString config.value
         , attributes =
@@ -81,7 +81,7 @@ type alias YarnSizeConfig msg =
 
 yarnSize : YarnSizeConfig msg -> Html msg
 yarnSize config =
-    layout
+    narrowLayout
         { id = config.id
         , label = config.toString config.value
         , attributes =
@@ -109,27 +109,7 @@ type alias PhysicalDurabilityConfig msg =
 
 physicalDurability : PhysicalDurabilityConfig msg -> Html msg
 physicalDurability config =
-    let
-        customLayout : { id : String, label : String, attributes : List (Attribute msg) } -> Html msg
-        customLayout { id, label, attributes } =
-            div [ class "RangeSlider row", style "flex-grow" "1" ]
-                [ div [ class "col-xxl-2" ]
-                    [ Html.label [ for id, class "form-label text-nowrap mb-0" ]
-                        [ text label ]
-                    ]
-                , div [ class "col-xxl-10" ]
-                    [ input
-                        (type_ "range"
-                            :: class "d-block form-range"
-                            :: style "margin-top" "2px"
-                            :: Attr.id id
-                            :: attributes
-                        )
-                        []
-                    ]
-                ]
-    in
-    customLayout
+    wideLayout
         { id = config.id
         , label = config.toString config.value
         , attributes =
@@ -146,21 +126,36 @@ physicalDurability config =
         }
 
 
-layout : { id : String, label : String, attributes : List (Attribute msg) } -> Html msg
-layout { id, label, attributes } =
+narrowLayout : { id : String, label : String, attributes : List (Attribute msg) } -> Html msg
+narrowLayout { id, label, attributes } =
     div [ class "RangeSlider row" ]
         [ div [ class "col-xxl-6" ]
             [ Html.label [ for id, class "form-label text-nowrap fs-7 mb-0" ]
                 [ text label ]
             ]
         , div [ class "col-xxl-6" ]
-            [ input
-                (type_ "range"
-                    :: class "d-block form-range"
-                    :: style "margin-top" "2px"
-                    :: Attr.id id
-                    :: attributes
-                )
-                []
-            ]
+            [ rangeInput (Attr.id id :: attributes) ]
         ]
+
+
+wideLayout : { id : String, label : String, attributes : List (Attribute msg) } -> Html msg
+wideLayout { id, label, attributes } =
+    div [ class "RangeSlider row", style "flex-grow" "1" ]
+        [ div [ class "col-xxl-2" ]
+            [ Html.label [ for id, class "form-label text-nowrap mb-0" ]
+                [ text label ]
+            ]
+        , div [ class "col-xxl-10" ]
+            [ rangeInput (Attr.id id :: attributes) ]
+        ]
+
+
+rangeInput : List (Attribute msg) -> Html msg
+rangeInput attributes =
+    input
+        (type_ "range"
+            :: class "d-block form-range"
+            :: style "margin-top" "2px"
+            :: attributes
+        )
+        []
