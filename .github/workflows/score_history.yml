@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x]
-        python-version: [3.11]
+        python-version: [3.12]
 
     # Run the job manually, on push to master or if the commit contains "[score_history]"
     if: ${{ github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/master' || contains(github.event.head_commit.message, '[score_history]') }}

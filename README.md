@@ -14,7 +14,7 @@ Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vo
 
 ### Frontend
 
-    $ npm install
+    $ NODE_ENV=development npm install
 
 ### Backend
 
