@@ -511,10 +511,10 @@ parseMaterial_ materials countries string =
                 |> Result.andThen
                     (\material ->
                         Ok TextileQuery.MaterialQuery
+                            |> RE.andMap (countryParser countries Scope.Textile countryCode)
                             |> RE.andMap (Ok material.id)
                             |> RE.andMap (parseSplit share)
                             |> RE.andMap (parseSpinning material spinningString)
-                            |> RE.andMap (countryParser countries Scope.Textile countryCode)
                     )
 
         [ id, share, spinningString ] ->
@@ -523,17 +523,18 @@ parseMaterial_ materials countries string =
                 |> Result.andThen
                     (\material ->
                         Ok TextileQuery.MaterialQuery
+                            |> RE.andMap (Ok Nothing)
                             |> RE.andMap (Ok material.id)
                             |> RE.andMap (parseSplit share)
                             |> RE.andMap (parseSpinning material spinningString)
-                            |> RE.andMap (Ok Nothing)
                     )
 
         [ id, share ] ->
             Ok TextileQuery.MaterialQuery
+                |> RE.andMap (Ok Nothing)
                 |> RE.andMap (parseMaterialId_ materials id)
                 |> RE.andMap (parseSplit share)
-                |> Result.map (\partiallyApplied -> partiallyApplied Nothing Nothing)
+                |> RE.andMap (Ok Nothing)
 
         [ "" ] ->
             Err <| "Format de matière vide."
