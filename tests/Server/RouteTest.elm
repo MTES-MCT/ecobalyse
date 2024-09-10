@@ -12,6 +12,7 @@ import Data.Textile.Material.Spinning as Spinning
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Step.Label as Label
+import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
 import Json.Encode as Encode
@@ -385,6 +386,23 @@ textileEndpoints db =
                 )
             |> asTest "should expose detailed query validation errors"
         ]
+    , describe "POST validation"
+        [ "/textile/simulator"
+            |> testEndpoint db "POST" (Query.encode { tShirtCotonFrance | physicalDurability = Just (Unit.physicalDurability 1) })
+            |> Maybe.andThen extractTextileErrors
+            |> Expect.equal Nothing
+            |> asTest "should accept a valid physical durability in POST"
+        , "/textile/simulator"
+            |> testEndpoint db "POST" (Query.encode { tShirtCotonFrance | physicalDurability = Just (Unit.physicalDurability 99) })
+            |> Maybe.andThen extractTextileErrors
+            |> Expect.equal
+                (Just <|
+                    Dict.fromList
+                        [ ( "physicalDurability", "La durabilité doit être comprise entre 0.67 et 1.45." )
+                        ]
+                )
+            |> asTest "should not accept an invalid physical durability in POST"
+        ]
     ]
 
 
@@ -394,8 +412,17 @@ testEndpoint dbs method body url =
         { method = method
         , url = url
         , body = body
-        , processes = { foodProcesses = Encode.list FoodProcess.encode dbs.food.processes |> Encode.encode 0, textileProcesses = Encode.list TextileProcess.encode dbs.textile.processes |> Encode.encode 0 }
         , jsResponseHandler = Encode.null
+        , processes =
+            { foodProcesses =
+                dbs.food.processes
+                    |> Encode.list FoodProcess.encode
+                    |> Encode.encode 0
+            , textileProcesses =
+                dbs.textile.processes
+                    |> Encode.list TextileProcess.encode
+                    |> Encode.encode 0
+            }
         }
 
 
