@@ -1017,7 +1017,13 @@ simulatorFormView session model ({ inputs } as simulator) =
             div []
                 [ div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-4" ] [ text "Durabilité non physique" ]
-                    , div [ class "col-md-8" ] [ text (simulator.durability.nonPhysical |> Unit.nonPhysicalDurabilityToFloat |> String.fromFloat) ]
+                    , div [ class "col-md-8" ]
+                        [ simulator.durability.nonPhysical
+                            |> Unit.nonPhysicalDurabilityToFloat
+                            |> String.fromFloat
+                            |> text
+                        ]
+                    ]
                     ]
                 , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
                     [ div [ class "col-md-4" ] [ text "Durabilité physique" ]
