@@ -60,7 +60,7 @@ type alias Step =
     , kwh : Energy
     , processInfo : ProcessInfo
     , airTransportRatio : Split -- FIXME: why not Maybe?
-    , durability : Unit.Durability
+    , durability : Unit.NonPhysicalDurability
     , makingComplexity : Maybe MakingComplexity
     , makingWaste : Maybe Split
     , makingDeadStock : Maybe Split
@@ -114,7 +114,7 @@ create { label, editable, country, enabled } =
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
     , airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
-    , durability = Unit.standardDurability
+    , durability = Unit.standardDurability Unit.NonPhysicalDurability
     , makingComplexity = Nothing
     , makingWaste = Nothing
     , makingDeadStock = Nothing
@@ -497,7 +497,7 @@ encode v =
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
-        , ( "durability", Unit.encodeDurability v.durability )
+        , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
         , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )

@@ -55,7 +55,12 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "29 août 2024"
+    [ { date = "5 septembre 2024"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md = "Ajout du champ `physicalDurability` qui permet de préciser la durabilité physique d'un vêtement."
+      }
+    , { date = "29 août 2024"
       , level = "minor"
       , domains = [ "Textile" ]
       , md = """Ajout du champ booléen `upcycled` qui permet de préciser si un vêtement est remanufacturé.

@@ -20,7 +20,7 @@ suite =
     describe "Data.Unit"
         [ describe "Decoder validation"
             [ "-7"
-                |> Decode.decodeString Unit.decodeDurability
+                |> Decode.decodeString Unit.decodePhysicalDurability
                 |> Result.mapError Decode.errorToString
                 |> Expect.err
                 |> asTest "should discard erroneous Durability value"

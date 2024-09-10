@@ -229,6 +229,14 @@ describe("API", () => {
           );
         });
 
+        it("should validate the physicalDurability param range", async () => {
+          expectFieldErrorMessage(
+            await makeRequest("/api/textile/simulator", ["physicalDurability=2"]),
+            "physicalDurability",
+            /doit être comprise entre/,
+          );
+        });
+
         it("should accept the yarnSize param without any unit", async () => {
           const response = await makeRequest("/api/textile/simulator", ["yarnSize=9"]);
         });
