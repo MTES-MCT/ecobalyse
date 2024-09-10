@@ -5,7 +5,7 @@ module Data.Textile.Economics exposing
     , businessFromString
     , businessToLabel
     , businessToString
-    , computeDurabilityIndex
+    , computeNonPhysicalDurabilityIndex
     , computeNumberOfReferencesIndex
     , computeRepairCostIndex
     , decode
@@ -95,12 +95,12 @@ businessToString business =
             "large-business-without-services"
 
 
-computeDurabilityIndex : Economics -> Unit.Durability
-computeDurabilityIndex economics =
+computeNonPhysicalDurabilityIndex : Economics -> Unit.NonPhysicalDurability
+computeNonPhysicalDurabilityIndex economics =
     let
         ( minDurability, maxDurability ) =
-            ( Unit.durabilityToFloat Unit.minDurability
-            , Unit.durabilityToFloat Unit.maxDurability
+            ( Unit.nonPhysicalDurabilityToFloat (Unit.minDurability Unit.NonPhysicalDurability)
+            , Unit.nonPhysicalDurabilityToFloat (Unit.maxDurability Unit.NonPhysicalDurability)
             )
 
         finalIndex =
@@ -119,7 +119,7 @@ computeDurabilityIndex economics =
         + finalIndex
         * (maxDurability - minDurability)
         |> formatIndex
-        |> Unit.durability
+        |> Unit.nonPhysicalDurability
 
 
 computeRepairCostIndex : Business -> Price -> Price -> Unit.Ratio

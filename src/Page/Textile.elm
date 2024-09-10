@@ -66,6 +66,7 @@ import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Markdown as Markdown
 import Views.Modal as ModalView
+import Views.RangeSlider as RangeSlider
 import Views.Sidebar as SidebarView
 import Views.Textile.Step as StepView
 
@@ -130,6 +131,7 @@ type Msg
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
     | UpdateFabricProcess Fabric
+    | UpdatePhysicalDurability (Maybe Unit.PhysicalDurability)
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingWaste (Maybe Split)
     | UpdateMakingDeadStock (Maybe Split)
@@ -533,6 +535,10 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | fabricProcess = Just fabricProcess }
 
+        ( UpdatePhysicalDurability physicalDurability, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | physicalDurability = physicalDurability }
+
         ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingComplexity = Just makingComplexity }
@@ -782,6 +788,19 @@ productPriceField productPrice =
         ]
 
 
+physicalDurabilityField : Unit.PhysicalDurability -> Html Msg
+physicalDurabilityField durability =
+    div [ class "input-group" ]
+        [ RangeSlider.physicalDurability
+            { id = "physicalDurability"
+            , update = UpdatePhysicalDurability
+            , value = durability
+            , toString = Unit.physicalDurabilityToFloat >> String.fromFloat
+            , disabled = False
+            }
+        ]
+
+
 businessField : Economics.Business -> Html Msg
 businessField business =
     [ Economics.SmallBusiness
@@ -932,11 +951,11 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , div [ class "card shadow-sm pb-2 mb-3" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
+            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
             , div [ class "d-flex align-items-center gap-2" ]
                 [ span [ class "d-none d-sm-flex text-truncate" ] [ text "Coefficient de durabilité\u{00A0}:" ]
                 , simulator.durability
-                    |> Unit.durabilityToFloat
+                    |> Unit.floatDurabilityFromHolistic
                     |> Format.formatFloat 2
                     |> text
                 , Button.docsPillLink
@@ -994,6 +1013,25 @@ simulatorFormView session model ({ inputs } as simulator) =
                     |> traceabilityField
                 ]
             ]
+        , if model.activeTab == ExploratoryTab then
+            div []
+                [ div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-4" ] [ text "Durabilité non physique" ]
+                    , div [ class "col-md-8" ]
+                        [ simulator.durability.nonPhysical
+                            |> Unit.nonPhysicalDurabilityToFloat
+                            |> String.fromFloat
+                            |> text
+                        ]
+                    ]
+                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-4" ] [ text "Durabilité physique" ]
+                    , div [ class "col-md-8" ] [ physicalDurabilityField simulator.durability.physical ]
+                    ]
+                ]
+
+          else
+            text ""
         ]
     , div []
         [ lifeCycleStepsView session.db model simulator

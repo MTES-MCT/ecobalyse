@@ -104,6 +104,7 @@ paths:
         - $ref: "#/components/parameters/priceParam"
         - $ref: "#/components/parameters/traceabilityParam"
         - $ref: "#/components/parameters/upcycledParam"
+        - $ref: "#/components/parameters/physicalDurabilityParam"
       responses:
         200:
           description: Opération réussie
@@ -176,6 +177,7 @@ paths:
         - $ref: "#/components/parameters/priceParam"
         - $ref: "#/components/parameters/traceabilityParam"
         - $ref: "#/components/parameters/upcycledParam"
+        - $ref: "#/components/parameters/physicalDurabilityParam"
       responses:
         200:
           description: successful operation
@@ -250,6 +252,7 @@ paths:
         - $ref: "#/components/parameters/priceParam"
         - $ref: "#/components/parameters/traceabilityParam"
         - $ref: "#/components/parameters/upcycledParam"
+        - $ref: "#/components/parameters/physicalDurabilityParam"
       responses:
         200:
           description: Opération réussie
@@ -1099,6 +1102,16 @@ components:
         freezingAndOven:
           summary: Congélation et cuisson au four
           value: ["freezing", "oven"]
+    physicalDurabilityParam:
+      name: physicalDurability
+      in: query
+      description: La durabilité physique du produit.
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 0.67
+        maximum: 1.45
   schemas:
     Impacts:
       type: object
@@ -1283,6 +1296,11 @@ components:
           description: |
             Produit remanufacturé
           type: boolean
+        physicalDurability:
+          description: La durabilité physique du produit.
+          type: number
+          minimum: 0.67
+          maximum: 1.45
     TextileQueryMaterial:
       type: object
       additionalProperties: false
