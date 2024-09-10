@@ -1296,6 +1296,11 @@ components:
           description: |
             Produit remanufacturé
           type: boolean
+        physicalDurability:
+          description: La durabilité physique du produit.
+          type: number
+          minimum: 0.67
+          maximum: 1.45
     TextileQueryMaterial:
       type: object
       additionalProperties: false
