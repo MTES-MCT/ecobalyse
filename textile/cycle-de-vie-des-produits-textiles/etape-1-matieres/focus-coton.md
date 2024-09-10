@@ -81,9 +81,9 @@ Ce procédé est issu de la Base Impacts (ADEME) auquel a été retranché l'imp
 
 <summary>Coton recyclé (déchets de production)</summary>
 
-Ce procédé est issu de la Base Impacts (ADEME) auquel a été retranché l'impact de la filature.
+Ce procédé est issu de la Base Impacts (ADEME) auquel a été retranché l'impact de la filature. [Ce correctif est documenté ici.](../../correctifs-donnees/corr1-coton-recycle.md)
 
-Ecoinvent ne propose pas de coton recyclé dans sa base de données.
+
 
 </details>
 
