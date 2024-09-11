@@ -18,7 +18,8 @@ import NoUnused.Variables
 import Review.Rule as Rule exposing (Rule)
 import Simplify
 import CognitiveComplexity
-
+import NoUnsortedRecordFields
+import NoUnsortedConstructors
 
 config : List Rule
 config =
@@ -44,6 +45,8 @@ config =
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
     , NoRedundantConcat.rule
     , NoRedundantCons.rule
+    , NoUnsortedRecordFields.rule
+    , NoUnsortedConstructors.rule
       -- NoUnused
     , NoUnused.CustomTypeConstructors.rule []
         |> Rule.ignoreErrorsForFiles [ "src/Views/Modal.elm" ]
