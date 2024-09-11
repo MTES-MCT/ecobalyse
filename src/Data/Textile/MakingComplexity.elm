@@ -13,100 +13,100 @@ import Json.Decode.Extra as DE
 
 
 type MakingComplexity
-    = VeryHigh
-    | High
-    | Medium
+    = High
     | Low
-    | VeryLow
+    | Medium
     | NotApplicable
+    | VeryHigh
+    | VeryLow
 
 
 toDuration : MakingComplexity -> Duration
 toDuration makingComplexity =
     case makingComplexity of
-        VeryHigh ->
-            Duration.minutes 120
-
         High ->
             Duration.minutes 60
-
-        Medium ->
-            Duration.minutes 30
 
         Low ->
             Duration.minutes 15
 
-        VeryLow ->
-            Duration.minutes 5
+        Medium ->
+            Duration.minutes 30
 
         NotApplicable ->
             Duration.minutes 0
+
+        VeryHigh ->
+            Duration.minutes 120
+
+        VeryLow ->
+            Duration.minutes 5
 
 
 toLabel : MakingComplexity -> String
 toLabel makingComplexity =
     case makingComplexity of
-        VeryHigh ->
-            "Très élevée"
-
         High ->
             "Elevée"
-
-        Medium ->
-            "Moyenne"
 
         Low ->
             "Faible"
 
-        VeryLow ->
-            "Très faible"
+        Medium ->
+            "Moyenne"
 
         NotApplicable ->
             "Non applicable"
+
+        VeryHigh ->
+            "Très élevée"
+
+        VeryLow ->
+            "Très faible"
 
 
 toString : MakingComplexity -> String
 toString makingComplexity =
     case makingComplexity of
-        VeryHigh ->
-            "very-high"
-
         High ->
             "high"
-
-        Medium ->
-            "medium"
 
         Low ->
             "low"
 
-        VeryLow ->
-            "very-low"
+        Medium ->
+            "medium"
 
         NotApplicable ->
             "non-applicable"
+
+        VeryHigh ->
+            "very-high"
+
+        VeryLow ->
+            "very-low"
 
 
 fromString : String -> Result String MakingComplexity
 fromString str =
     case str of
-        "very-high" ->
-            Ok VeryHigh
-
         "high" ->
             Ok High
-
-        "medium" ->
-            Ok Medium
 
         "low" ->
             Ok Low
 
-        "very-low" ->
-            Ok VeryLow
+        "medium" ->
+            Ok Medium
 
         "not-applicable" ->
             Ok NotApplicable
+
+        "very-high" ->
+            Ok VeryHigh
+
+        "very-low" ->
+            Ok VeryLow
 
         _ ->
             Err ("Type de complexité de fabrication inconnu\u{00A0}: " ++ str)

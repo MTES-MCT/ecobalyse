@@ -84,10 +84,10 @@ addMaterial : Material -> Query -> Query
 addMaterial material query =
     let
         materialQuery =
-            { id = material.id
+            { country = Nothing
+            , id = material.id
             , share = Split.zero
             , spinning = Nothing
-            , country = Nothing
             }
     in
     { query
@@ -348,14 +348,14 @@ updateStepCountry label code query =
 
         Label.Making ->
             { query
-                | countryMaking = maybeCode
-                , airTransportRatio =
+                | airTransportRatio =
                     if query.countryMaking /= maybeCode then
                         -- reset custom value as we just switched country
                         Nothing
 
                     else
                         query.airTransportRatio
+                , countryMaking = maybeCode
             }
 
         Label.Spinning ->
@@ -409,10 +409,10 @@ default =
     , makingWaste = Nothing
     , mass = Mass.kilograms 0.17
     , materials =
-        [ { id = Material.Id "ei-coton"
+        [ { country = Nothing
+          , id = Material.Id "ei-coton"
           , share = Split.full
           , spinning = Nothing
-          , country = Nothing
           }
         ]
     , numberOfReferences = Nothing

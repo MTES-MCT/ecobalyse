@@ -20,16 +20,16 @@ import Json.Encode as Encode
 
 
 type alias Material =
-    { id : Id
-    , name : String
-    , shortName : String
-    , origin : Origin
-    , materialProcess : Process
-    , recycledProcess : Maybe Process
-    , recycledFrom : Maybe Id
-    , geographicOrigin : String -- A textual information about the geographic origin of the material
+    { cffData : Maybe CFFData
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
-    , cffData : Maybe CFFData
+    , geographicOrigin : String -- A textual information about the geographic origin of the material
+    , id : Id
+    , materialProcess : Process
+    , name : String
+    , origin : Origin
+    , recycledFrom : Maybe Id
+    , recycledProcess : Maybe Process
+    , shortName : String
     }
 
 
@@ -76,16 +76,16 @@ findById id =
 decode : List Process -> Decoder Material
 decode processes =
     Decode.succeed Material
-        |> JDP.required "id" (Decode.map Id Decode.string)
-        |> JDP.required "name" Decode.string
-        |> JDP.required "shortName" Decode.string
-        |> JDP.required "origin" Origin.decode
-        |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
-        |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
-        |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
-        |> JDP.required "geographicOrigin" Decode.string
-        |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
         |> JDP.required "cff" (Decode.maybe decodeCFFData)
+        |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
+        |> JDP.required "geographicOrigin" Decode.string
+        |> JDP.required "id" (Decode.map Id Decode.string)
+        |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
+        |> JDP.required "name" Decode.string
+        |> JDP.required "origin" Origin.decode
+        |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
+        |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
+        |> JDP.required "shortName" Decode.string
 
 
 decodeCFFData : Decoder CFFData

@@ -17,30 +17,30 @@ import Result.Extra as RE
 type alias WellKnown =
     { airTransport : Process
     , bleaching : Process
-    , seaTransport : Process
-    , roadTransport : Process
-    , trainTransport : Process
     , distribution : Process
-    , dyeingYarn : Process
-    , dyeingFabric : Process
     , dyeingArticle : Process
-    , dyeingSynthetic : Process
     , dyeingCellulosic : Process
-    , knittingMix : Process
-    , knittingFullyFashioned : Process
-    , knittingSeamless : Process
-    , knittingCircular : Process
-    , knittingStraight : Process
-    , printingPigment : Process
-    , printingSubstantive : Process
-    , printingPaste : Process
-    , printingDyes : Process
-    , finishing : Process
-    , passengerCar : Process
+    , dyeingFabric : Process
+    , dyeingSynthetic : Process
+    , dyeingYarn : Process
     , endOfLife : Process
     , fading : Process
+    , finishing : Process
     , heatEurope : Process
     , heatRoW : Process
+    , knittingCircular : Process
+    , knittingFullyFashioned : Process
+    , knittingMix : Process
+    , knittingSeamless : Process
+    , knittingStraight : Process
+    , passengerCar : Process
+    , printingDyes : Process
+    , printingPaste : Process
+    , printingPigment : Process
+    , printingSubstantive : Process
+    , roadTransport : Process
+    , seaTransport : Process
+    , trainTransport : Process
     , weaving : Process
     }
 
@@ -71,7 +71,7 @@ getEnnoblingHeatProcess wk country =
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, printingToxicityProcess : Process }
-getPrintingProcess medium { printingPigment, printingSubstantive, printingDyes, printingPaste } =
+getPrintingProcess medium { printingDyes, printingPaste, printingPigment, printingSubstantive } =
     case medium of
         Printing.Pigment ->
             { printingProcess = printingPigment, printingToxicityProcess = printingPaste }
@@ -83,64 +83,34 @@ getPrintingProcess medium { printingPigment, printingSubstantive, printingDyes, 
 load : List Process -> Result String WellKnown
 load processes =
     let
-        mapping =
-            { airTransport = "air-transport"
-            , bleaching = "bleaching"
-            , seaTransport = "sea-transport"
-            , roadTransport = "road-transport"
-            , trainTransport = "train-transport"
-            , distribution = "road-transport"
-            , dyeingYarn = "dyeing-yarn"
-            , dyeingFabric = "dyeing-fabric"
-            , dyeingArticle = "dyeing-article"
-            , dyeingSynthetic = "dyeing-synthetic-fiber"
-            , dyeingCellulosic = "dyeing-cellulosic-fiber"
-            , printingPigment = "printing-pigment"
-            , printingSubstantive = "printing-substantive"
-            , printingPaste = "printing-paste"
-            , printingDyes = "printing-dyes"
-            , finishing = "finishing"
-            , passengerCar = "passenger-car"
-            , endOfLife = "end-of-life"
-            , fading = "fading"
-            , heatEurope = "heat-europe"
-            , heatRoW = "heat-row"
-            , knittingMix = "knitting-mix"
-            , knittingFullyFashioned = "knitting-fully-fashioned"
-            , knittingSeamless = "knitting-seamless"
-            , knittingCircular = "knitting-circular"
-            , knittingStraight = "knitting-straight"
-            , weaving = "weaving"
-            }
-
-        find get =
-            RE.andMap (Process.findByAlias (Alias <| get mapping) processes)
+        fromAlias key =
+            RE.andMap (Process.findByAlias (Alias key) processes)
     in
     Ok WellKnown
-        |> find .airTransport
-        |> find .bleaching
-        |> find .seaTransport
-        |> find .roadTransport
-        |> find .trainTransport
-        |> find .distribution
-        |> find .dyeingYarn
-        |> find .dyeingFabric
-        |> find .dyeingArticle
-        |> find .dyeingSynthetic
-        |> find .dyeingCellulosic
-        |> find .knittingMix
-        |> find .knittingFullyFashioned
-        |> find .knittingSeamless
-        |> find .knittingCircular
-        |> find .knittingStraight
-        |> find .printingPigment
-        |> find .printingSubstantive
-        |> find .printingPaste
-        |> find .printingDyes
-        |> find .finishing
-        |> find .passengerCar
-        |> find .endOfLife
-        |> find .fading
-        |> find .heatEurope
-        |> find .heatRoW
-        |> find .weaving
+        |> fromAlias "air-transport"
+        |> fromAlias "bleaching"
+        |> fromAlias "road-transport"
+        |> fromAlias "dyeing-article"
+        |> fromAlias "dyeing-cellulosic-fiber"
+        |> fromAlias "dyeing-fabric"
+        |> fromAlias "dyeing-synthetic-fiber"
+        |> fromAlias "dyeing-yarn"
+        |> fromAlias "end-of-life"
+        |> fromAlias "fading"
+        |> fromAlias "finishing"
+        |> fromAlias "heat-europe"
+        |> fromAlias "heat-row"
+        |> fromAlias "knitting-circular"
+        |> fromAlias "knitting-fully-fashioned"
+        |> fromAlias "knitting-mix"
+        |> fromAlias "knitting-seamless"
+        |> fromAlias "knitting-straight"
+        |> fromAlias "passenger-car"
+        |> fromAlias "printing-dyes"
+        |> fromAlias "printing-paste"
+        |> fromAlias "printing-pigment"
+        |> fromAlias "printing-substantive"
+        |> fromAlias "road-transport"
+        |> fromAlias "sea-transport"
+        |> fromAlias "train-transport"
+        |> fromAlias "weaving"
