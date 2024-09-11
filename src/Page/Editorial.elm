@@ -55,6 +55,15 @@ update session msg model =
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
     case model.content of
+        RemoteData.Failure httpError ->
+            ( "Erreur de chargement", [ Alert.httpError httpError ] )
+
+        RemoteData.Loading ->
+            ( "Chargement…", [ Spinner.view ] )
+
+        RemoteData.NotAsked ->
+            ( "", [] )
+
         RemoteData.Success content ->
             ( content
                 |> String.split "\n"
@@ -66,12 +75,3 @@ view _ model =
                     ]
               ]
             )
-
-        RemoteData.Loading ->
-            ( "Chargement…", [ Spinner.view ] )
-
-        RemoteData.Failure httpError ->
-            ( "Erreur de chargement", [ Alert.httpError httpError ] )
-
-        RemoteData.NotAsked ->
-            ( "", [] )

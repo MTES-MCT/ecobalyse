@@ -39,19 +39,16 @@ import Static.Json as StaticJson exposing (RawJsonProcesses)
 
 
 type alias Session =
-    { db : Db
-    , navKey : Nav.Key
-    , clientUrl : String
-    , enableFoodSection : Bool
-    , store : Store
+    { clientUrl : String
     , currentVersion : Version
+    , db : Db
+    , enableFoodSection : Bool
     , matomo : { host : String, siteId : String }
+    , navKey : Nav.Key
     , notifications : List Notification
-    , queries :
-        { food : FoodQuery.Query
-        , textile : TextileQuery.Query
-        }
+    , queries : { food : FoodQuery.Query, textile : TextileQuery.Query }
     , releases : WebData (List Github.Release)
+    , store : Store
     }
 
 
@@ -188,31 +185,31 @@ selectNoBookmarks =
 
 
 type alias Store =
-    { comparedSimulations : Set String
+    { auth : Auth
     , bookmarks : List Bookmark
-    , auth : Auth
+    , comparedSimulations : Set String
     }
 
 
 type Auth
-    = NotAuthenticated
-    | Authenticated User
+    = Authenticated User
+    | NotAuthenticated
 
 
 defaultStore : Store
 defaultStore =
-    { comparedSimulations = Set.empty
+    { auth = NotAuthenticated
     , bookmarks = []
-    , auth = NotAuthenticated
+    , comparedSimulations = Set.empty
     }
 
 
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
-        |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
         |> JDP.optional "auth" decodeAuth NotAuthenticated
+        |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
+        |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
 
 decodeAuth : Decoder Auth
@@ -233,11 +230,11 @@ encodeStore store =
 encodeAuth : Auth -> Encode.Value
 encodeAuth auth =
     case auth of
-        NotAuthenticated ->
-            Encode.null
-
         Authenticated user ->
             Encode.object [ ( "user", User.encode user ) ]
+
+        NotAuthenticated ->
+            Encode.null
 
 
 getUser : Session -> Maybe User
@@ -285,23 +282,23 @@ updateStore update session =
 authenticated : User -> RawJsonProcesses -> Session -> Session
 authenticated user rawDetailedProcessesJson ({ store } as session) =
     case StaticDb.db rawDetailedProcessesJson of
-        Ok db ->
-            { session | db = db, store = { store | auth = Authenticated user } }
-
         Err err ->
             session
                 |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
+
+        Ok db ->
+            { session | db = db, store = { store | auth = Authenticated user } }
 
 
 logout : Session -> Session
 logout ({ store } as session) =
     case StaticDb.db StaticJson.rawJsonProcesses of
-        Ok db ->
-            { session | store = { store | auth = NotAuthenticated }, db = db }
-
         Err err ->
             { session | store = { store | auth = NotAuthenticated } }
                 |> notifyError "Impossible de recharger la db avec les procédés par défaut" err
+
+        Ok db ->
+            { session | db = db, store = { store | auth = NotAuthenticated } }
 
 
 isAuthenticated : Session -> Bool

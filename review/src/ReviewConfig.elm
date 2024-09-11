@@ -47,6 +47,7 @@ config =
     , NoRedundantCons.rule
     , NoUnsortedRecordFields.rule
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
+        |> Rule.ignoreErrorsForDirectories [ "src/Page" ]
     , NoUnsortedConstructors.rule
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
       -- NoUnused

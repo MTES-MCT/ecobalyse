@@ -12,11 +12,11 @@ import Json.Encode as Encode
 
 
 type alias User =
-    { email : String
+    { cgu : Bool
+    , company : String
+    , email : String
     , firstname : String
     , lastname : String
-    , company : String
-    , cgu : Bool
     , token : String
     }
 
@@ -28,11 +28,11 @@ type alias Form a =
 decode : Decoder User
 decode =
     Decode.succeed User
+        |> Pipe.required "terms_of_use" Decode.bool
+        |> Pipe.optional "organization" Decode.string ""
         |> Pipe.required "email" Decode.string
         |> Pipe.required "first_name" Decode.string
         |> Pipe.required "last_name" Decode.string
-        |> Pipe.optional "organization" Decode.string ""
-        |> Pipe.required "terms_of_use" Decode.bool
         |> Pipe.required "token" Decode.string
 
 
@@ -62,11 +62,11 @@ encodeForm user =
 
 form : User -> Form User
 form user =
-    { email = user.email
+    { cgu = user.cgu
+    , company = user.company
+    , email = user.email
     , firstname = user.firstname
     , lastname = user.lastname
-    , company = user.company
-    , cgu = user.cgu
-    , token = ""
     , next = "/#/auth/authenticated"
+    , token = ""
     }

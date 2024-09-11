@@ -44,8 +44,8 @@ type Msg
 
 
 type Tab
-    = RegistrationTab
-    | AuthenticationTab
+    = AuthenticationTab
+    | RegistrationTab
 
 
 init : Session -> { authenticated : Bool } -> ( Model, Session, Cmd Msg )
@@ -306,11 +306,11 @@ viewLoginRegisterForm model =
             ]
         , div [ class "card-body" ]
             [ case model.currentTab of
-                RegistrationTab ->
-                    viewRegistrationForm model
-
                 AuthenticationTab ->
                     viewLoginForm model
+
+                RegistrationTab ->
+                    viewRegistrationForm model
             ]
         ]
 

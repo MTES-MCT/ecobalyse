@@ -15,9 +15,9 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias Example query =
-    { id : Uuid
+    { category : String
+    , id : Uuid
     , name : String
-    , category : String
     , query : query
     }
 
@@ -25,9 +25,9 @@ type alias Example query =
 decode : Decoder query -> Decoder (Example query)
 decode decodeQuery =
     Decode.map4 Example
+        (Decode.field "category" Decode.string)
         (Decode.field "id" Uuid.decoder)
         (Decode.field "name" Decode.string)
-        (Decode.field "category" Decode.string)
         (Decode.field "query" decodeQuery)
 
 

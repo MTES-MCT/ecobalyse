@@ -8,9 +8,9 @@ import Task
 init : (element -> String) -> List element -> Autocomplete element
 init toString availableElements =
     Autocomplete.init
-        { query = ""
-        , choices = availableElements
+        { choices = availableElements
         , ignoreList = []
+        , query = ""
         }
         (\lastChoices ->
             Task.succeed
