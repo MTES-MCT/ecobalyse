@@ -1,6 +1,6 @@
 module Page.Explore.FoodProcesses exposing (table)
 
-import Data.Dataset as Dataset exposing (Dataset(..))
+import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
 import Data.Food.Process as FoodProcess exposing (getDisplayName)
 import Data.Scope exposing (Scope)
