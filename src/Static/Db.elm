@@ -12,15 +12,16 @@ import Data.Textile.Db as TextileDb
 import Data.Transport exposing (Distances)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
+import Result.Extra as RE
 import Static.Json as StaticJson exposing (RawJsonProcesses)
 
 
 type alias Db =
-    { definitions : Definitions
-    , textile : TextileDb.Db
-    , food : FoodDb.Db
-    , countries : List Country
+    { countries : List Country
+    , definitions : Definitions
     , distances : Distances
+    , food : FoodDb.Db
+    , textile : TextileDb.Db
     }
 
 
@@ -29,13 +30,12 @@ db procs =
     StaticJson.db procs
         |> Result.andThen
             (\{ foodDb, textileDb } ->
-                Result.map3
-                    (\okImpactDefinitions okCountries okDistances ->
-                        Db okImpactDefinitions textileDb foodDb okCountries okDistances
-                    )
-                    impactDefinitions
-                    (countries textileDb)
-                    distances
+                Ok Db
+                    |> RE.andMap (countries textileDb)
+                    |> RE.andMap impactDefinitions
+                    |> RE.andMap distances
+                    |> RE.andMap (Ok foodDb)
+                    |> RE.andMap (Ok textileDb)
             )
 
 
