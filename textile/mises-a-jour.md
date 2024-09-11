@@ -8,6 +8,40 @@ description: >-
 
 <details>
 
+<summary>v2.1.0</summary>
+
+* Ajout du sélecteur de versions
+* Possibilité de télécharger les données de l'explorateur au format CSV.
+* Ajout de l'upcycling
+
+</details>
+
+<details>
+
+<summary>v2.0.0</summary>
+
+* Modification du calcul de la [durabilité non physique ](https://fabrique-numerique.gitbook.io/ecobalyse/textile/durabilite)pour s'appuyer sur 3 critères
+
+</details>
+
+<details>
+
+<summary>v1.2.0</summary>
+
+* Ajout du lien du formulaire pour ajouter des nouvelles catégories
+
+</details>
+
+<details>
+
+<summary>v1.1.0</summary>
+
+* Afficher l'origine des ingrédients, matériaux dans l'explorateur
+
+</details>
+
+<details>
+
 <summary>Janvier - mars 2024</summary>
 
 * Développement de l'outil dans une version "offline" dans l'attente d'un feu vert politique

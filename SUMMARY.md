@@ -40,7 +40,6 @@
 * [Paramétrage](textile/parametrage.md)
 * [Exemples](textile/exemples.md)
 * [Mises à jour](textile/mises-a-jour.md)
-  * [Travaux en cours](textile/travaux-en-cours.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
 * [Nous contacter](textile/nous-contacter.md)
 * [Correctifs données](textile/correctifs-donnees/README.md)
