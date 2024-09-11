@@ -27,63 +27,63 @@ type Route
     = -- Food Routes
       --   GET
       --     Food country list
-      GetFoodCountryList
+      FoodGetCountryList
       --     Food ingredient list
-    | GetFoodIngredientList
+    | FoodGetIngredientList
       --     Food packaging list
-    | GetFoodPackagingList
-      --     Food transforms list
-    | GetFoodTransformList
+    | FoodGetPackagingList
       --     Food recipe builder (GET, query string)
-    | GetFoodRecipe (Result Query.Errors BuilderQuery.Query)
+    | FoodGetRecipe (Result Query.Errors BuilderQuery.Query)
+      --     Food transforms list
+    | FoodGetTransformList
       --   POST
       --     Food recipe builder (POST, JSON body)
-    | PostFoodRecipe
+    | FoodPostRecipe
       --
       -- Textile Routes
       --   GET
       --     Textile country list
-    | GetTextileCountryList
+    | TextileGetCountryList
       --     Textile Material list
-    | GetTextileMaterialList
+    | TextileGetMaterialList
       --     Textile Product list
-    | GetTextileProductList
+    | TextileGetProductList
       --     Textile Simple version of all impacts (GET, query string)
-    | GetTextileSimulator (Result Query.Errors TextileQuery.Query)
+    | TextileGetSimulator (Result Query.Errors TextileQuery.Query)
       --     Textile Detailed version for all impacts (GET, query string)
-    | GetTextileSimulatorDetailed (Result Query.Errors TextileQuery.Query)
+    | TextileGetSimulatorDetailed (Result Query.Errors TextileQuery.Query)
       --     Textile Simple version for one specific impact (GET, query string)
-    | GetTextileSimulatorSingle Definition.Trigram (Result Query.Errors TextileQuery.Query)
+    | TextileGetSimulatorSingle Definition.Trigram (Result Query.Errors TextileQuery.Query)
       --   POST
       --     Textile Simple version of all impacts (POST, JSON body)
-    | PostTextileSimulator
+    | TextilePostSimulator
       --     Textile Detailed version for all impacts (POST, JSON body)
-    | PostTextileSimulatorDetailed
+    | TextilePostSimulatorDetailed
       --     Textile Simple version for one specific impact (POST, JSON bosy)
-    | PostTextileSimulatorSingle Definition.Trigram
+    | TextilePostSimulatorSingle Definition.Trigram
 
 
 parser : Food.Db -> Textile.Db -> List Country -> Parser (Route -> a) a
 parser foodDb textile countries =
     Parser.oneOf
         [ -- Food
-          Parser.map GetFoodCountryList (s "GET" </> s "food" </> s "countries")
-        , Parser.map GetFoodIngredientList (s "GET" </> s "food" </> s "ingredients")
-        , Parser.map GetFoodTransformList (s "GET" </> s "food" </> s "transforms")
-        , Parser.map GetFoodPackagingList (s "GET" </> s "food" </> s "packagings")
-        , Parser.map GetFoodRecipe (s "GET" </> s "food" <?> Query.parseFoodQuery countries foodDb)
-        , Parser.map PostFoodRecipe (s "POST" </> s "food")
+          Parser.map FoodGetCountryList (s "GET" </> s "food" </> s "countries")
+        , Parser.map FoodGetIngredientList (s "GET" </> s "food" </> s "ingredients")
+        , Parser.map FoodGetTransformList (s "GET" </> s "food" </> s "transforms")
+        , Parser.map FoodGetPackagingList (s "GET" </> s "food" </> s "packagings")
+        , Parser.map FoodGetRecipe (s "GET" </> s "food" <?> Query.parseFoodQuery countries foodDb)
+        , Parser.map FoodPostRecipe (s "POST" </> s "food")
 
         -- Textile
-        , Parser.map GetTextileCountryList (s "GET" </> s "textile" </> s "countries")
-        , Parser.map GetTextileMaterialList (s "GET" </> s "textile" </> s "materials")
-        , Parser.map GetTextileProductList (s "GET" </> s "textile" </> s "products")
-        , Parser.map GetTextileSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery countries textile)
-        , Parser.map GetTextileSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery countries textile)
-        , Parser.map GetTextileSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery countries textile)
-        , Parser.map PostTextileSimulator (s "POST" </> s "textile" </> s "simulator")
-        , Parser.map PostTextileSimulatorDetailed (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
-        , Parser.map PostTextileSimulatorSingle (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
+        , Parser.map TextileGetCountryList (s "GET" </> s "textile" </> s "countries")
+        , Parser.map TextileGetMaterialList (s "GET" </> s "textile" </> s "materials")
+        , Parser.map TextileGetProductList (s "GET" </> s "textile" </> s "products")
+        , Parser.map TextileGetSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery countries textile)
+        , Parser.map TextileGetSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery countries textile)
+        , Parser.map TextileGetSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery countries textile)
+        , Parser.map TextilePostSimulator (s "POST" </> s "textile" </> s "simulator")
+        , Parser.map TextilePostSimulatorDetailed (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
+        , Parser.map TextilePostSimulatorSingle (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
         ]
 
 

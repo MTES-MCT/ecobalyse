@@ -205,96 +205,96 @@ handleRequest : Db -> Request -> JsonResponse
 handleRequest db request =
     case Route.endpoint db request of
         -- GET routes
-        Just Route.GetFoodCountryList ->
+        Just Route.FoodGetCountryList ->
             db.countries
                 |> Scope.only Scope.Food
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
-        Just Route.GetFoodIngredientList ->
+        Just Route.FoodGetIngredientList ->
             db.food.ingredients
                 |> encodeIngredients
                 |> respondWith 200
 
-        Just Route.GetFoodPackagingList ->
+        Just Route.FoodGetPackagingList ->
             db.food.processes
                 |> List.filter (.category >> (==) FoodProcess.Packaging)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
-        Just Route.GetFoodTransformList ->
+        Just Route.FoodGetTransformList ->
             db.food.processes
                 |> List.filter (.category >> (==) FoodProcess.Transform)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
-        Just (Route.GetFoodRecipe (Ok query)) ->
+        Just (Route.FoodGetRecipe (Ok query)) ->
             query
                 |> executeFoodQuery db (toFoodResults query)
 
-        Just (Route.GetFoodRecipe (Err errors)) ->
+        Just (Route.FoodGetRecipe (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
 
-        Just Route.GetTextileCountryList ->
+        Just Route.TextileGetCountryList ->
             db.countries
                 |> Scope.only Scope.Textile
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
-        Just Route.GetTextileMaterialList ->
+        Just Route.TextileGetMaterialList ->
             db.textile.materials
                 |> Encode.list encodeMaterial
                 |> respondWith 200
 
-        Just Route.GetTextileProductList ->
+        Just Route.TextileGetProductList ->
             db.textile.products
                 |> Encode.list encodeProduct
                 |> respondWith 200
 
-        Just (Route.GetTextileSimulator (Ok query)) ->
+        Just (Route.TextileGetSimulator (Ok query)) ->
             query
                 |> executeTextileQuery db toAllImpactsSimple
 
-        Just (Route.GetTextileSimulator (Err errors)) ->
+        Just (Route.TextileGetSimulator (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
 
-        Just (Route.GetTextileSimulatorDetailed (Ok query)) ->
+        Just (Route.TextileGetSimulatorDetailed (Ok query)) ->
             query
                 |> executeTextileQuery db Simulator.encode
 
-        Just (Route.GetTextileSimulatorDetailed (Err errors)) ->
+        Just (Route.TextileGetSimulatorDetailed (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
 
-        Just (Route.GetTextileSimulatorSingle trigram (Ok query)) ->
+        Just (Route.TextileGetSimulatorSingle trigram (Ok query)) ->
             query
                 |> executeTextileQuery db (toSingleImpactSimple trigram)
 
-        Just (Route.GetTextileSimulatorSingle _ (Err errors)) ->
+        Just (Route.TextileGetSimulatorSingle _ (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
 
         -- POST routes
-        Just Route.PostFoodRecipe ->
+        Just Route.FoodPostRecipe ->
             request.body
                 |> handleDecodeBody BuilderQuery.decode
                     (\query ->
                         executeFoodQuery db (toFoodResults query) query
                     )
 
-        Just Route.PostTextileSimulator ->
+        Just Route.TextilePostSimulator ->
             request.body
                 |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db toAllImpactsSimple)
 
-        Just Route.PostTextileSimulatorDetailed ->
+        Just Route.TextilePostSimulatorDetailed ->
             request.body
                 |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db Simulator.encode)
 
-        Just (Route.PostTextileSimulatorSingle trigram) ->
+        Just (Route.TextilePostSimulatorSingle trigram) ->
             request.body
                 |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db (toSingleImpactSimple trigram))
