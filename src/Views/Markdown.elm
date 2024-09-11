@@ -15,9 +15,11 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-type ContentType
-    = Simple String
-    | Gitbook Gitbook.Page
+type
+    ContentType
+    -- FIXME: remove the Gitbook type as this is not used anymore
+    = Gitbook Gitbook.Page
+    | Simple String
 
 
 siteUrl : String
@@ -33,9 +35,7 @@ clean =
 renderer : Maybe Gitbook.Path -> Renderer (Html msg)
 renderer maybePath =
     { defaultHtmlRenderer
-        | link = renderLink maybePath
-        , image = renderImage
-        , html =
+        | html =
             MdHtml.oneOf
                 [ MdHtml.tag "hint" renderHint
                     |> MdHtml.withAttribute "level"
@@ -44,13 +44,15 @@ renderer maybePath =
 
                 -- NOTE: sometimes gitbook exposes raw HTML in markdown
                 , MdHtml.tag "a"
-                    (\href title -> renderLink maybePath { title = title, destination = href })
+                    (\href title -> renderLink maybePath { destination = href, title = title })
                     |> MdHtml.withAttribute "href"
                     |> MdHtml.withOptionalAttribute "title"
                 , MdHtml.tag "code" (code [])
                 , MdHtml.tag "em" (em [])
                 , MdHtml.tag "p" (p [ class "mb-1" ])
                 ]
+        , image = renderImage
+        , link = renderLink maybePath
     }
 
 
@@ -88,8 +90,8 @@ renderMark style_ =
         ]
 
 
-renderLink : Maybe Gitbook.Path -> { title : Maybe String, destination : String } -> List (Html msg) -> Html msg
-renderLink maybePath { title, destination } =
+renderLink : Maybe Gitbook.Path -> { destination : String, title : Maybe String } -> List (Html msg) -> Html msg
+renderLink maybePath { destination, title } =
     let
         destination_ =
             Gitbook.handleMarkdownGitbookLink maybePath destination
@@ -109,8 +111,8 @@ renderLink maybePath { title, destination } =
         Link.internal (Attr.href destination_ :: baseAttrs)
 
 
-renderImage : { title : Maybe String, alt : String, src : String } -> Html msg
-renderImage { title, src, alt } =
+renderImage : { alt : String, src : String, title : Maybe String } -> Html msg
+renderImage { alt, src, title } =
     Html.img
         (List.filterMap identity
             [ Maybe.map Attr.title title
@@ -134,16 +136,16 @@ simple attrs markdown =
 view : List (Attribute msg) -> ContentType -> Html msg
 view attrs content =
     case parse content of
-        Ok rendered ->
-            div (class "Markdown bottomed-paragraphs" :: attrs) rendered
-
         Err errors ->
             Alert.preformatted
-                { title = Just "Des erreurs ont été rencontrées"
-                , close = Nothing
-                , level = Alert.Danger
+                { close = Nothing
                 , content = [ text errors ]
+                , level = Alert.Danger
+                , title = Just "Des erreurs ont été rencontrées"
                 }
+
+        Ok rendered ->
+            div (class "Markdown bottomed-paragraphs" :: attrs) rendered
 
 
 parse : ContentType -> Result String (List (Html msg))
@@ -151,11 +153,11 @@ parse content =
     let
         ( markdown, path ) =
             case content of
-                Simple string ->
-                    ( string, Nothing )
-
                 Gitbook page ->
                     ( page.markdown, Just page.path )
+
+                Simple string ->
+                    ( string, Nothing )
     in
     clean markdown
         |> Parser.parse

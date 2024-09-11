@@ -40,9 +40,9 @@ type ComparisonType
 
 
 type alias ChartsData =
-    { label : String
+    { complementsImpact : Impact.ComplementsImpacts
     , impacts : Impact.Impacts
-    , complementsImpact : Impact.ComplementsImpacts
+    , label : String
     , stepsImpacts : Impact.StepsImpacts
     }
 
@@ -60,7 +60,7 @@ view config =
 
 
 sidebarView : Config msg -> List (Html msg)
-sidebarView { session, toggle, selectAll, selectNone } =
+sidebarView { selectAll, selectNone, session, toggle } =
     [ div [ class "p-2 ps-3 mb-0 text-muted" ]
         [ text "Sélectionnez des simulations pour les comparer"
         ]
@@ -112,9 +112,9 @@ addToComparison session label query =
                 |> Recipe.compute session.db
                 |> Result.map
                     (\( _, { recipe, total } as results ) ->
-                        { label = label
+                        { complementsImpact = recipe.totalComplementsImpact
                         , impacts = total
-                        , complementsImpact = recipe.totalComplementsImpact
+                        , label = label
                         , stepsImpacts =
                             results
                                 |> Recipe.toStepsImpacts Definition.Ecs
@@ -126,9 +126,9 @@ addToComparison session label query =
                 |> Simulator.compute session.db
                 |> Result.map
                     (\simulator ->
-                        { label = label
+                        { complementsImpact = simulator.complementsImpacts
                         , impacts = simulator.impacts
-                        , complementsImpact = simulator.complementsImpacts
+                        , label = label
                         , stepsImpacts =
                             simulator
                                 |> Simulator.toStepsImpacts Definition.Ecs
@@ -176,6 +176,14 @@ comparatorView config =
             )
         |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-3 mt-2 px-2" ]
     , case charts of
+        Err error ->
+            Alert.simple
+                { close = Nothing
+                , content = [ text error ]
+                , level = Alert.Danger
+                , title = Just "Erreur"
+                }
+
         Ok [] ->
             p [ class "d-flex h-100 justify-content-center align-items-center pb-5" ]
                 [ text "Sélectionnez une ou plusieurs simulations pour les comparer" ]
@@ -187,11 +195,11 @@ comparatorView config =
                         IndividualImpacts ->
                             dataForIndividualImpacts config.session.db.definitions chartsData
 
-                        Subscores ->
-                            dataForSubscoresImpacts config.session.db.definitions chartsData
-
                         Steps ->
                             dataForSteps chartsData
+
+                        Subscores ->
+                            dataForSubscoresImpacts config.session.db.definitions chartsData
 
                         Total ->
                             dataForTotalImpacts chartsData
@@ -203,11 +211,11 @@ comparatorView config =
                         IndividualImpacts ->
                             "individual-impacts"
 
-                        Subscores ->
-                            "grouped-impacts"
-
                         Steps ->
                             "steps-impacts"
+
+                        Subscores ->
+                            "grouped-impacts"
 
                         Total ->
                             "total-impacts"
@@ -217,14 +225,6 @@ comparatorView config =
                     [ attribute "data" data ]
                     []
                 ]
-
-        Err error ->
-            Alert.simple
-                { level = Alert.Danger
-                , close = Nothing
-                , title = Just "Erreur"
-                , content = [ text error ]
-                }
     ]
 
 
@@ -277,7 +277,7 @@ dataForIndividualImpacts definitions chartsData =
     in
     chartsData
         |> List.map
-            (\{ label, impacts, complementsImpact } ->
+            (\{ complementsImpact, impacts, label } ->
                 let
                     complementImpacts =
                         Impact.complementsImpactAsChartEntries complementsImpact
@@ -305,7 +305,7 @@ dataForSubscoresImpacts : Definitions -> List ChartsData -> String
 dataForSubscoresImpacts definitions chartsData =
     chartsData
         |> List.map
-            (\{ label, impacts, complementsImpact } ->
+            (\{ complementsImpact, impacts, label } ->
                 let
                     complementImpacts =
                         Impact.totalComplementsImpactAsChartEntry complementsImpact
@@ -313,13 +313,13 @@ dataForSubscoresImpacts definitions chartsData =
                     entries =
                         impacts
                             |> Impact.toProtectionAreas definitions
-                            |> (\{ climate, biodiversity, health, resources } ->
+                            |> (\{ biodiversity, climate, health, resources } ->
                                     List.reverse
                                         [ complementImpacts
-                                        , { name = "Climat", color = "#9025be", value = Unit.impactToFloat climate }
-                                        , { name = "Biodiversité", color = "#00b050", value = Unit.impactToFloat biodiversity }
-                                        , { name = "Santé environnementale", color = "#ffc000", value = Unit.impactToFloat health }
-                                        , { name = "Ressource", color = "#0070c0", value = Unit.impactToFloat resources }
+                                        , { color = "#9025be", name = "Climat", value = Unit.impactToFloat climate }
+                                        , { color = "#00b050", name = "Biodiversité", value = Unit.impactToFloat biodiversity }
+                                        , { color = "#ffc000", name = "Santé environnementale", value = Unit.impactToFloat health }
+                                        , { color = "#0070c0", name = "Ressource", value = Unit.impactToFloat resources }
                                         ]
                                )
                 in
@@ -355,13 +355,13 @@ dataForTotalImpacts : List ChartsData -> String
 dataForTotalImpacts chartsData =
     chartsData
         |> List.map
-            (\{ label, impacts } ->
+            (\{ impacts, label } ->
                 Encode.object
                     [ ( "label", Encode.string label )
                     , ( "data"
                       , Encode.list Impact.encodeAggregatedScoreChartEntry
-                            [ { name = "Impact total"
-                              , color = "#333333"
+                            [ { color = "#333333"
+                              , name = "Impact total"
                               , value =
                                     impacts
                                         |> Impact.getImpact Definition.Ecs

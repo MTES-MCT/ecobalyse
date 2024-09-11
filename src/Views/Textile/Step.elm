@@ -49,11 +49,10 @@ import Views.Transport as TransportView
 
 
 type alias Config msg modal =
-    { db : Db
-    , addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
+    { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
     , current : Step
     , daysOfWear : Duration
-    , useNbCycles : Int
+    , db : Db
     , deleteMaterial : Material -> msg
     , index : Int
     , inputs : Inputs
@@ -76,6 +75,7 @@ type alias Config msg modal =
     , updatePrinting : Maybe Printing -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
+    , useNbCycles : Int
     }
 
 
@@ -115,13 +115,13 @@ airTransportRatioField : Config msg modal -> Html msg
 airTransportRatioField { current, updateAirTransportRatio } =
     span [ title "Part de transport aérien pour le transport entre la confection et l'entrepôt en France." ]
         [ RangeSlider.percent
-            { id = "airTransportRatio"
+            { disabled = Step.airTransportDisabled current
+            , id = "airTransportRatio"
+            , max = 100
+            , min = 0
+            , toString = Step.airTransportRatioToString
             , update = updateAirTransportRatio
             , value = current.airTransportRatio
-            , toString = Step.airTransportRatioToString
-            , disabled = Step.airTransportDisabled current
-            , min = 0
-            , max = 100
             }
         ]
 
@@ -254,6 +254,12 @@ printingFields { current, inputs, updatePrinting } =
                         (\str ->
                             updatePrinting
                                 (case Printing.fromString str of
+                                    Err _ ->
+                                        -- Note: we've most likely received the "Aucune" string value from
+                                        -- when the user picked this choice, so it's fair to reset any
+                                        -- previously selected printing process.
+                                        Nothing
+
                                     Ok kind ->
                                         case inputs.printing of
                                             Just printing ->
@@ -261,12 +267,6 @@ printingFields { current, inputs, updatePrinting } =
 
                                             Nothing ->
                                                 Just { kind = kind, ratio = Printing.defaultRatio }
-
-                                    Err _ ->
-                                        -- Note: we've most likely received the "Aucune" string value from
-                                        -- when the user picked this choice, so it's fair to reset any
-                                        -- previously selected printing process.
-                                        Nothing
                                 )
                         )
                     ]
@@ -378,62 +378,60 @@ makingWasteField : Config msg modal -> Html msg
 makingWasteField { current, inputs, updateMakingWaste } =
     span [ title "Taux moyen de pertes en confection" ]
         [ RangeSlider.percent
-            { id = "makingWaste"
+            { disabled = not current.enabled
+            , id = "makingWaste"
+            , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
+            , min = Env.minMakingWasteRatio |> Split.toPercent |> round
+            , toString = Step.makingWasteToString
             , update = updateMakingWaste
             , value =
                 inputs.fabricProcess
                     |> Fabric.getMakingWaste inputs.product.making.pcrWaste inputs.makingWaste
-            , toString = Step.makingWasteToString
-            , disabled = not current.enabled
-            , min = Env.minMakingWasteRatio |> Split.toPercent |> round
-            , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
             }
         ]
 
 
 makingDeadStockField : Config msg modal -> Html msg
-makingDeadStockField { current, updateMakingDeadStock, showAdvancedFields } =
+makingDeadStockField { current, showAdvancedFields, updateMakingDeadStock } =
     showIf showAdvancedFields <|
         span [ title "Taux moyen de stocks dormants (vêtements non vendus + produits semi-finis non utilisés) sur l’ensemble de la chaîne de valeur" ]
             [ RangeSlider.percent
-                { id = "makingDeadStock"
+                { disabled = not current.enabled
+                , id = "makingDeadStock"
+                , max = Env.maxMakingDeadStockRatio |> Split.toPercent |> round
+                , min = Env.minMakingDeadStockRatio |> Split.toPercent |> round
+                , toString = Step.makingDeadStockToString
                 , update = updateMakingDeadStock
                 , value = Maybe.withDefault Env.defaultDeadStock current.makingDeadStock
-                , toString = Step.makingDeadStockToString
-                , disabled = not current.enabled
-                , min = Env.minMakingDeadStockRatio |> Split.toPercent |> round
-                , max = Env.maxMakingDeadStockRatio |> Split.toPercent |> round
                 }
             ]
 
 
 surfaceMassField : Config msg modal -> Html msg
-surfaceMassField { current, updateSurfaceMass, inputs } =
+surfaceMassField { current, inputs, updateSurfaceMass } =
     div
         [ class "mt-2"
         , title "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
         ]
         [ RangeSlider.surfaceMass
-            { id = "surface-density"
+            { disabled = not current.enabled
+            , id = "surface-density"
+            , toString = Step.surfaceMassToString
             , update = updateSurfaceMass
             , value = current.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
-            , toString = Step.surfaceMassToString
-
-            -- Note: hide for knitted products as surface mass doesn't have any impact on them
-            , disabled = not current.enabled
             }
         ]
 
 
 yarnSizeField : Config msg modal -> Html msg
-yarnSizeField { current, updateYarnSize, inputs } =
+yarnSizeField { current, inputs, updateYarnSize } =
     span [ title "Le titrage indique la grosseur d’un fil textile" ]
         [ RangeSlider.yarnSize
-            { id = "yarnSize"
+            { disabled = not current.enabled
+            , id = "yarnSize"
+            , toString = Step.yarnSizeToString
             , update = updateYarnSize
             , value = current.yarnSize |> Maybe.withDefault inputs.product.yarnSize
-            , toString = Step.yarnSizeToString
-            , disabled = not current.enabled
             }
         ]
 
@@ -485,7 +483,7 @@ isStepUpcycled upcycled label =
 
 
 viewStepImpacts : Definition -> Step -> Html msg
-viewStepImpacts selectedImpact { impacts, complementsImpacts } =
+viewStepImpacts selectedImpact { complementsImpacts, impacts } =
     showIf (Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts)) <|
         let
             stepComplementsImpact =
@@ -535,12 +533,12 @@ viewMaterials config =
                             , [ span [ class "text-muted d-flex fs-7 gap-3 justify-content-left ElementTransportDistances" ]
                                     (transport
                                         |> TransportView.viewDetails
-                                            { fullWidth = False
+                                            { airTransportLabel = Nothing
+                                            , fullWidth = False
                                             , hideNoLength = True
                                             , onlyIcons = False
-                                            , airTransportLabel = Nothing
-                                            , seaTransportLabel = Nothing
                                             , roadTransportLabel = Nothing
+                                            , seaTransportLabel = Nothing
                                             }
                                     )
                               , span
@@ -656,16 +654,16 @@ createElementSelectorConfig cfg materialInput =
     let
         materialQuery : MaterialQuery
         materialQuery =
-            { id = materialInput.material.id
+            { country = materialInput.country |> Maybe.map .code
+            , id = materialInput.material.id
             , share = materialInput.share
             , spinning = materialInput.spinning
-            , country = materialInput.country |> Maybe.map .code
             }
 
         baseElement =
-            { element = materialInput.material
+            { country = materialInput.country
+            , element = materialInput.material
             , quantity = materialInput.share
-            , country = materialInput.country
             }
 
         excluded =
@@ -680,12 +678,12 @@ createElementSelectorConfig cfg materialInput =
     { allowEmptyList = False
     , baseElement = baseElement
     , db =
-        { elements = cfg.db.textile.materials
-        , countries =
+        { countries =
             cfg.db.countries
                 |> Scope.only Scope.Textile
                 |> List.sortBy .name
         , definitions = cfg.db.definitions
+        , elements = cfg.db.textile.materials
         }
     , defaultCountry = materialInput.material.geographicOrigin
     , delete = cfg.deleteMaterial
@@ -693,14 +691,14 @@ createElementSelectorConfig cfg materialInput =
     , impact = impacts
     , openExplorerDetails = cfg.openExplorerDetails
     , quantityView =
-        \{ quantity, onChange } ->
+        \{ onChange, quantity } ->
             SplitInput.view
                 { disabled = False
-                , share = quantity
                 , onChange = onChange
+                , share = quantity
                 }
-    , selectedImpact = cfg.selectedImpact
     , selectElement = \_ autocompleteState -> cfg.setModal (cfg.addMaterialModal (Just materialInput) autocompleteState)
+    , selectedImpact = cfg.selectedImpact
     , toId = .id >> Material.idToString
     , toString = .shortName
     , toTooltip = .materialProcess >> .name
@@ -709,9 +707,9 @@ createElementSelectorConfig cfg materialInput =
             cfg.updateMaterial
                 materialQuery
                 { materialQuery
-                    | id = newElement.element.id
+                    | country = newElement.country |> Maybe.map .code
+                    , id = newElement.element.id
                     , share = newElement.quantity
-                    , country = newElement.country |> Maybe.map .code
                 }
     }
 
@@ -728,12 +726,12 @@ viewTransport ({ selectedImpact, current, inputs } as config) =
                 [ div [ class "d-flex justify-content-between gap-3 flex-column flex-md-row" ]
                     (current.transport
                         |> TransportView.viewDetails
-                            { fullWidth = False
+                            { airTransportLabel = Nothing
+                            , fullWidth = False
                             , hideNoLength = True
                             , onlyIcons = False
-                            , airTransportLabel = Nothing
-                            , seaTransportLabel = Nothing
                             , roadTransportLabel = Nothing
+                            , seaTransportLabel = Nothing
                             }
                     )
                 , span []
@@ -823,8 +821,8 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
             bleachingToxicity =
                 current.outputMass
                     |> Formula.bleachingImpacts current.impacts
-                        { bleachingProcess = db.textile.wellKnown.bleaching
-                        , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                        { aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                        , bleachingProcess = db.textile.wellKnown.bleaching
                         }
 
             dyeingToxicity =
@@ -832,13 +830,13 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                     |> List.map
                         (\{ material, share } ->
                             Formula.materialDyeingToxicityImpacts current.impacts
-                                { dyeingToxicityProcess =
+                                { aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                                , dyeingToxicityProcess =
                                     if Origin.isSynthetic material.origin then
                                         db.textile.wellKnown.dyeingSynthetic
 
                                     else
                                         db.textile.wellKnown.dyeingCellulosic
-                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
                                 }
                                 current.outputMass
                                 share
@@ -853,10 +851,9 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                                 WellKnown.getPrintingProcess kind db.textile.wellKnown
                         in
                         current.outputMass
-                            |> Formula.materialPrintingToxicityImpacts
-                                current.impacts
-                                { printingToxicityProcess = printingToxicityProcess
-                                , aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                            |> Formula.materialPrintingToxicityImpacts current.impacts
+                                { aquaticPollutionScenario = current.country.aquaticPollutionScenario
+                                , printingToxicityProcess = printingToxicityProcess
                                 }
                                 ratio
 
@@ -1078,13 +1075,6 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                 (List.map
                     (\line -> li [ class "list-group-item fs-7" ] [ line ])
                     (case current.label of
-                        Label.Spinning ->
-                            [ yarnSizeField config
-                            ]
-
-                        Label.Fabric ->
-                            [ surfaceMassField config ]
-
                         Label.Ennobling ->
                             [ div [ class "mb-2" ]
                                 [ text "Pré-traitement\u{00A0}: non applicable" ]
@@ -1093,11 +1083,18 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                                 [ text "Finition\u{00A0}: apprêt chimique" ]
                             ]
 
+                        Label.Fabric ->
+                            [ surfaceMassField config ]
+
                         Label.Making ->
                             [ makingWasteField config
                             , makingDeadStockField config
                             , airTransportRatioField config
                             , fadingField config
+                            ]
+
+                        Label.Spinning ->
+                            [ yarnSizeField config
                             ]
 
                         Label.Use ->
@@ -1164,8 +1161,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
 
 view : Config msg modal -> ViewWithTransport msg
 view config =
-    { transport = viewTransport config
-    , step =
+    { step =
         stepView config
             (if config.current.label == Label.Material then
                 viewMaterials config
@@ -1176,4 +1172,5 @@ view config =
              else
                 regulatoryStepView config
             )
+    , transport = viewTransport config
     }

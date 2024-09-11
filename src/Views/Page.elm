@@ -39,8 +39,8 @@ type ActivePage
 
 
 type MenuLink
-    = Internal String Route.Route ActivePage
-    | External String String
+    = External String String
+    | Internal String Route.Route ActivePage
     | MailTo String String
 
 
@@ -191,12 +191,12 @@ pageFooter session =
     let
         makeLink link =
             case link of
-                Internal label route _ ->
-                    Link.internal [ class "text-decoration-none", Route.href route ]
-                        [ text label ]
-
                 External label url ->
                     Link.external [ class "text-decoration-none", href url ]
+                        [ text label ]
+
+                Internal label route _ ->
+                    Link.internal [ class "text-decoration-none", Route.href route ]
                         [ text label ]
 
                 MailTo label email ->
@@ -373,6 +373,10 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
 viewNavigationLink : ActivePage -> MenuLink -> Html msg
 viewNavigationLink activePage link =
     case link of
+        External label url ->
+            Link.external [ class "nav-link link-external-muted", href url ]
+                [ text label ]
+
         Internal label route page ->
             Link.internal
                 (class "nav-link"
@@ -385,10 +389,6 @@ viewNavigationLink activePage link =
                             []
                        )
                 )
-                [ text label ]
-
-        External label url ->
-            Link.external [ class "nav-link link-external-muted", href url ]
                 [ text label ]
 
         MailTo label email ->

@@ -46,9 +46,12 @@ config =
     , NoRedundantConcat.rule
     , NoRedundantCons.rule
     , NoUnsortedRecordFields.rule
-        |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
+        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
         |> Rule.ignoreErrorsForDirectories [ "src/Page" ]
+        |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
+        |> Rule.ignoreErrorsForFiles [ "src/Views/Page.elm" ]
     , NoUnsortedConstructors.rule
+        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
       -- NoUnused
     , NoUnused.CustomTypeConstructors.rule []

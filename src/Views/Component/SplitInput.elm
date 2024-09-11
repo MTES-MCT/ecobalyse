@@ -8,13 +8,13 @@ import Html.Events exposing (..)
 
 type alias Config msg =
     { disabled : Bool
-    , share : Split
     , onChange : Maybe Split -> msg
+    , share : Split
     }
 
 
 view : Config msg -> Html msg
-view { disabled, share, onChange } =
+view { disabled, onChange, share } =
     div [ class "input-group" ]
         [ input
             [ class "form-control text-end incdec-arrows-left"

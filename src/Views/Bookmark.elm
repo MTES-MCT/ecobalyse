@@ -16,19 +16,17 @@ import Views.Icon as Icon
 
 
 type alias ManagerConfig msg =
-    { session : Session
-    , activeTab : ActiveTab
+    { activeTab : ActiveTab
     , bookmarkName : String
-    , impact : Definition
-    , scope : Scope
-
-    -- Messages
-    , copyToClipBoard : String -> msg
     , compare : msg
+    , copyToClipBoard : String -> msg
     , delete : Bookmark -> msg
+    , impact : Definition
     , save : msg
-    , update : String -> msg
+    , scope : Scope
+    , session : Session
     , switchTab : ActiveTab -> msg
+    , update : String -> msg
     }
 
 
@@ -41,30 +39,30 @@ view : ManagerConfig msg -> Html msg
 view cfg =
     CardTabs.view
         { attrs = []
+        , content =
+            [ case cfg.activeTab of
+                SaveTab ->
+                    managerView cfg
+
+                ShareTab ->
+                    shareTabView cfg
+            ]
         , tabs =
             [ ( SaveTab, text "Sauvegarder" )
             , ( ShareTab, text "Partager" )
             ]
                 |> List.map
                     (\( tab, label ) ->
-                        { label = label
+                        { active = cfg.activeTab == tab
+                        , label = label
                         , onTabClick = cfg.switchTab tab
-                        , active = cfg.activeTab == tab
                         }
                     )
-        , content =
-            [ case cfg.activeTab of
-                ShareTab ->
-                    shareTabView cfg
-
-                SaveTab ->
-                    managerView cfg
-            ]
         }
 
 
 shareTabView : ManagerConfig msg -> Html msg
-shareTabView { session, impact, copyToClipBoard, scope } =
+shareTabView { copyToClipBoard, impact, scope, session } =
     let
         ( shareableLink, apiCall, jsonParams ) =
             case scope of

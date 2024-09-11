@@ -6,26 +6,26 @@ import Html.Events exposing (..)
 
 
 type alias Tab msg =
-    { label : Html msg
-    , active : Bool
+    { active : Bool
+    , label : Html msg
     , onTabClick : msg
     }
 
 
 type alias Config msg =
     { attrs : List (Attribute msg)
-    , tabs : List (Tab msg)
     , content : List (Html msg)
+    , tabs : List (Tab msg)
     }
 
 
 view : Config msg -> Html msg
-view { attrs, tabs, content } =
+view { attrs, content, tabs } =
     div [ class "CardTabs card shadow-sm" ]
         (div (class "card-header px-0 pb-0 border-bottom-0 bg-white" :: attrs)
             [ tabs
                 |> List.map
-                    (\{ label, onTabClick, active } ->
+                    (\{ active, label, onTabClick } ->
                         li [ class "TabsTab nav-item", classList [ ( "active", active ) ] ]
                             [ button
                                 [ class "nav-link no-outline border-top-0"
