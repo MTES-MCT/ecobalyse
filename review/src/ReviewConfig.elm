@@ -46,7 +46,9 @@ config =
     , NoRedundantConcat.rule
     , NoRedundantCons.rule
     , NoUnsortedRecordFields.rule
+        |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
     , NoUnsortedConstructors.rule
+        |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
       -- NoUnused
     , NoUnused.CustomTypeConstructors.rule []
         |> Rule.ignoreErrorsForFiles [ "src/Views/Modal.elm" ]
