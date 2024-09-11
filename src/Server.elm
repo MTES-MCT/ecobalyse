@@ -47,7 +47,7 @@ apiDocUrl =
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
-sendResponse httpStatus { method, url, jsResponseHandler } body =
+sendResponse httpStatus { jsResponseHandler, method, url } body =
     Encode.object
         [ ( "status", Encode.int httpStatus )
         , ( "method", Encode.string method )
@@ -69,15 +69,15 @@ encodeStringError error =
 toResponse : Result String Encode.Value -> JsonResponse
 toResponse encodedResult =
     case encodedResult of
-        Ok encoded ->
-            ( 200, encoded )
-
         Err error ->
             ( 400, encodeStringError error )
 
+        Ok encoded ->
+            ( 200, encoded )
+
 
 toAllImpactsSimple : Simulator -> Encode.Value
-toAllImpactsSimple { inputs, impacts } =
+toAllImpactsSimple { impacts, inputs } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
         , ( "impacts", Impact.encode impacts )
@@ -101,7 +101,7 @@ toTextileWebUrl maybeTrigram textileQuery =
 
 
 toSingleImpactSimple : Definition.Trigram -> Simulator -> Encode.Value
-toSingleImpactSimple trigram { inputs, impacts } =
+toSingleImpactSimple trigram { impacts, inputs } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl (Just trigram) inputs |> Encode.string )
         , ( "impacts"
@@ -307,11 +307,11 @@ handleRequest db request =
 handleDecodeBody : Decode.Decoder a -> (a -> JsonResponse) -> Encode.Value -> JsonResponse
 handleDecodeBody decoder mapper jsonBody =
     case Decode.decodeValue decoder jsonBody of
-        Ok x ->
-            mapper x
-
         Err error ->
             ( 400, Encode.string (Decode.errorToString error) )
+
+        Ok x ->
+            mapper x
 
 
 update : Msg -> Cmd Msg
@@ -319,21 +319,20 @@ update msg =
     case msg of
         Received request ->
             case db request.processes of
-                Ok db ->
-                    cmdRequest db request
-
                 Err error ->
                     encodeStringError error |> sendResponse 503 request
+
+                Ok db ->
+                    cmdRequest db request
 
 
 main : Program () () Msg
 main =
+    -- Note: The Api server being stateless, there's no need for a model
     Platform.worker
         { init = always ( (), Cmd.none )
-
-        -- The Api server being stateless, there's no need of a model
-        , update = \msg _ -> ( (), update msg )
         , subscriptions = always (input Received)
+        , update = \msg _ -> ( (), update msg )
         }
 
 
