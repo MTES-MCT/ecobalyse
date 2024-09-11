@@ -12,3 +12,8 @@ node_modules/@swc
 node_modules/bootstrap
 node_modules/sass
 node_modules/highcharts
+node_modules/@elm_binaries
+node_modules/bootstrap
+node_modules/lightningcss-linux-x64-gnu
+node_modules/lightningcss-linux-x64-musl
+node_modules/sass
