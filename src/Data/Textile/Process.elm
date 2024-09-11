@@ -111,12 +111,7 @@ decode impactsDecoder =
 
 getDisplayName : Process -> String
 getDisplayName process =
-    case process.displayName of
-        Just displayName ->
-            displayName
-
-        Nothing ->
-            process.name
+    Maybe.withDefault process.name process.displayName
 
 
 decodeList : Decoder Impact.Impacts -> Decoder (List Process)

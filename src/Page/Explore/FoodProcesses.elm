@@ -1,8 +1,8 @@
 module Page.Explore.FoodProcesses exposing (table)
 
-import Data.Dataset as Dataset
+import Data.Dataset as Dataset exposing (Dataset(..))
 import Data.Food.Db as FoodDb
-import Data.Food.Process as FoodProcess
+import Data.Food.Process as FoodProcess exposing (getDisplayName)
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Table)
@@ -61,13 +61,3 @@ table _ { detailed, scope } =
           }
         ]
     }
-
-
-getDisplayName : FoodProcess.Process -> String
-getDisplayName process =
-    case process.displayName of
-        Just displayName ->
-            displayName
-
-        Nothing ->
-            FoodProcess.nameToString process.name

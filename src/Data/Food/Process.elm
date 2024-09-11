@@ -306,12 +306,7 @@ encodeStringUnit unit =
 
 getDisplayName : Process -> String
 getDisplayName process =
-    case process.displayName of
-        Just displayName ->
-            displayName
-
-        Nothing ->
-            nameToString process.name
+    Maybe.withDefault (nameToString process.name) process.displayName
 
 
 listByCategory : Category -> List Process -> List Process
