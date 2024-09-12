@@ -6,6 +6,8 @@ description: >-
 
 # Durabilité
 
+
+
 {% hint style="warning" %}
 Mise à jour importante de cette page le 30/07/2024 suite à la concertation initiée début avril.
 {% endhint %}
@@ -37,13 +39,21 @@ Ces deux dimensions sont mises en avant dans différents travaux à l'échelle e
 
 &#x20;La durabilité physique fait par ailleurs l'objet de travaux dans le cadre du projet de PEFCR Apparel & Footwear, en s'appuyant notamment sur le projet Durhabi porté par l'IFTH, en lien avec de nombreux acteurs en France et avec le soutien de l'Ademe.
 
+{% hint style="danger" %}
+Dans un premier temps, seule la durabilité non physique est considérée dans le cadre du mode réglementaire d'Ecobalyse.
+{% endhint %}
 
-
-Le calcul du coût environnemental prend en compte la durabilité physique et non physique selon la formule suivante&#x20;
-
-**Durabilité\_Holistique = min (Durabilité\_Physique ; Durabilité\_NonPhysique)**
-
-
+{% hint style="info" %}
+**Travaux sur la durabilité physique**\
+Les travaux sur la durabilité physique se poursuivent, en particulier au sein du secrétariat technique du [PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/) qui s'appuie notamment sur les résultats du projet [Durhabi](https://www.ifth.org/services/durhabi/) piloté par l'[IFTH](https://www.ifth.org/) et qui a associé de nombreux acteurs français.\
+Afin de préparer l'intégration future de la durabilité physique dans le mode réglementaire, celle-ci est intégrée, par anticipation, dans le mode exploratoire d'Ecobalyse. Elle est proposé à partir d'un sélecteur de valeur du coefficient qui peut aller de 0,67 à 1,45, soit la plage de valeurs prévue pour l'IQM (Intrinsic Quality Multiplier) dans le projet de PEFCR Apparel & Footwear v2.0. La valeur de ce coefficient est celle qui découle des tests prévus dans le projet de PEFCR.\
+Pour combiner les deux dimension de la durabilité, la formule suivante est considérée en première approche :\
+\
+**Durabilité\_Holistique = min (Durabilité\_Physique ; Durabilité\_NonPhysique)**\
+\
+Cette formule traduit l'idée qu'un vêtement arrive en fin de vie, soit pour une cause d'usure physique soit pour une cause non physique. C'est donc bien la dimension la plus limitante qui définierait la durée moyenne d'utilisation modélisée.\
+Cette proposition est une simple base de travail qui appelle des échanges au sein de groupe de travail qui doit être mis en place à l'automne et qui devra travailler en lien avec le sercrétariat technique du PEFCR Apparel & Footwear.
+{% endhint %}
 
 ## Calcul du coût environnemental
 
