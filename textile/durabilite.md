@@ -35,7 +35,15 @@ Ces deux dimensions sont mises en avant dans différents travaux à l'échelle e
 > _b.the extrinsic durability and_\
 > _c.the reparability of the product_"
 
-Dans un premier temps, le coefficient de durabilité introduit dans la modélisation du coût environnemental intègre la dimension non physique de la durabilité. La durabilité physique fait par ailleurs l'objet de travaux dans le cadre du projet de PEFCR Apparel & Footwear, en s'appuyant notamment sur le projet Durhabi porté par l'IFTH, en lien avec de nombreux acteurs en France et avec le soutien de l'Ademe.
+&#x20;La durabilité physique fait par ailleurs l'objet de travaux dans le cadre du projet de PEFCR Apparel & Footwear, en s'appuyant notamment sur le projet Durhabi porté par l'IFTH, en lien avec de nombreux acteurs en France et avec le soutien de l'Ademe.
+
+
+
+Le calcul du coût environnemental prend en compte la durabilité physique et non physique selon la formule suivante&#x20;
+
+**Durabilité\_Holistique = min (Durabilité\_Physique ; Durabilité\_NonPhysique)**
+
+
 
 ## Calcul du coût environnemental
 
