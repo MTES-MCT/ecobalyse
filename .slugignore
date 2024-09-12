@@ -1,0 +1,12 @@
+elm-stuff/
+data/
+.elm/
+src/
+ecobalyse-private/.git
+tests/
+styles.scss
+review/
+
+node_modules/@parcel
+node_modules/@swc
+node_modules/@elm_binaries

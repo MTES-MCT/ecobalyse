@@ -43,10 +43,6 @@ table _ { detailed, scope } =
           , toValue = Table.StringValue <| .source
           , toCell = .source >> text
           }
-        , { label = "Identifiant source"
-          , toValue = Table.StringValue <| .identifier >> FoodProcess.identifierToString
-          , toCell = \process -> code [] [ text (FoodProcess.identifierToString process.identifier) ]
-          }
         , { label = "Unité"
           , toValue = Table.StringValue <| .unit
           , toCell = .unit >> text

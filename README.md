@@ -14,11 +14,11 @@ Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vo
 
 ### Frontend
 
-    $ npm install
+    $ NODE_ENV=development npm install
 
 ### Backend
 
-    $ pipenv install
+    $ pipenv install -d
 
 Assurez-vous d'avoir un PostgreSQL >=16 qui tourne localement si vous souhaitez vous rapprocher de l'environnement de production. À défaut, `sqlite` sera utilisé.
 
