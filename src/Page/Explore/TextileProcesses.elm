@@ -2,7 +2,7 @@ module Page.Explore.TextileProcesses exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Scope exposing (Scope)
-import Data.Textile.Process as Process exposing (Process, getDisplayName)
+import Data.Textile.Process as Process exposing (Process)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
@@ -31,8 +31,8 @@ table { detailed, scope } =
                        )
           }
         , { label = "Nom"
-          , toValue = Table.StringValue getDisplayName
-          , toCell = getDisplayName >> text
+          , toValue = Table.StringValue Process.getDisplayName
+          , toCell = Process.getDisplayName >> text
           }
         , { label = "Étape"
           , toValue = Table.StringValue .stepUsage
