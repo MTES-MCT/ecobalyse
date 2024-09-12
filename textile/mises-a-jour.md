@@ -6,6 +6,16 @@ description: >-
 
 # Mises à jour
 
+
+
+<details>
+
+<summary>v2.2.0</summary>
+
+* Ajout du sélecteur de durabilité physique en mode exploratoire
+
+</details>
+
 <details>
 
 <summary>v2.1.0</summary>
