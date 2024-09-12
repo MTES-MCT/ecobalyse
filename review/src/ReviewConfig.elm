@@ -53,6 +53,7 @@ config =
     , NoUnsortedConstructors.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
+        |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
       -- NoUnused
     , NoUnused.CustomTypeConstructors.rule []
         |> Rule.ignoreErrorsForFiles [ "src/Views/Modal.elm" ]

@@ -1,19 +1,9 @@
 module Data.Gitbook exposing
-    ( Page
-    , Path(..)
-    , handleMarkdownGitbookLink
+    ( Path(..)
     , publicUrlFromPath
     )
 
 import Data.Env as Env
-
-
-type alias Page =
-    { description : Maybe String
-    , markdown : String
-    , path : Path
-    , title : String
-    }
 
 
 type Path
@@ -147,11 +137,6 @@ pathToString path =
             "textile/etapes-du-cycle-de-vie/etape-6-utilisation"
 
 
-pathPrefixes : List String
-pathPrefixes =
-    [ "faq", "glossaire", "methodologie" ]
-
-
 publicUrlFromPath : Path -> String
 publicUrlFromPath =
     pathToString >> publicUrlFromString
@@ -160,37 +145,3 @@ publicUrlFromPath =
 publicUrlFromString : String -> String
 publicUrlFromString path =
     Env.gitbookUrl ++ "/" ++ path
-
-
-handleMarkdownGitbookLink : Maybe Path -> String -> String
-handleMarkdownGitbookLink maybePath link =
-    if List.any (\x -> String.startsWith x link) pathPrefixes then
-        publicUrlFromString link
-
-    else if String.endsWith ".md" link then
-        case maybePath of
-            Just path ->
-                -- check for current folder, eg. "filature.md", "../faq.md", "methodologie/transport.md"
-                (extractLinkFolder path ++ [ String.replace ".md" "" link ])
-                    |> String.join "/"
-                    |> publicUrlFromString
-
-            Nothing ->
-                publicUrlFromString link
-
-    else
-        link
-
-
-extractLinkFolder : Path -> List String
-extractLinkFolder path =
-    case String.split "/" (pathToString path) of
-        folder :: _ ->
-            if folder == ".." then
-                []
-
-            else
-                [ folder ]
-
-        _ ->
-            []

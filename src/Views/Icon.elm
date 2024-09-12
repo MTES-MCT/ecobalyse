@@ -46,11 +46,6 @@ clipboard =
     icon "clipboard"
 
 
-exclamation : Html msg
-exclamation =
-    icon "exclamation"
-
-
 ham : Html msg
 ham =
     icon "ham"
