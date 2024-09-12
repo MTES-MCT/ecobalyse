@@ -111,7 +111,8 @@ decode impactsDecoder =
 
 getDisplayName : Process -> String
 getDisplayName process =
-    Maybe.withDefault process.name process.displayName
+    process.displayName
+        |> Maybe.withDefault process.name
 
 
 decodeList : Decoder Impact.Impacts -> Decoder (List Process)

@@ -306,7 +306,8 @@ encodeStringUnit unit =
 
 getDisplayName : Process -> String
 getDisplayName process =
-    Maybe.withDefault (nameToString process.name) process.displayName
+    process.displayName
+        |> Maybe.withDefault (nameToString process.name)
 
 
 listByCategory : Category -> List Process -> List Process
