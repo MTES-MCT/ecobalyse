@@ -411,7 +411,7 @@ def display_main_data(method, impact_category, activity):
             name = ", ".join(m[1:])
             scores[name] = {
                 "Indicateur": name,
-                "Amount": lca.score,
+                "Score": lca.score,
                 "Unité": bw2data.methods[m].get("unit", "(no unit)"),
             }
 
@@ -428,8 +428,8 @@ def display_main_data(method, impact_category, activity):
         }
         scores["Ecotoxicity, freshwater"] = {
             "Indicateur": "Ecotoxicity, freshwater",
-            "Amount": scores["Ecotoxicity, freshwater - part 1"]["Amount"]
-            + scores["Ecotoxicity, freshwater - part 2"]["Amount"],
+            "Score": scores["Ecotoxicity, freshwater - part 1"]["Score"]
+            + scores["Ecotoxicity, freshwater - part 2"]["Score"],
             "Unité": scores["Ecotoxicity, freshwater - part 1"]["Unité"],
         }
         for trigram in [
