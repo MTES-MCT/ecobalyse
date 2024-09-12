@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.1.1...v2.2.0) (2024-09-12)
+
+
+### Features
+
+* add app version to openapi docs in the root endpoint. ([#726](https://github.com/MTES-MCT/ecobalyse/issues/726)) ([5959c34](https://github.com/MTES-MCT/ecobalyse/commit/5959c3483600a2668390f6f0dd8a2778218436c0))
+* add holistic durability in exploratory mode ([#721](https://github.com/MTES-MCT/ecobalyse/issues/721)) ([774faf3](https://github.com/MTES-MCT/ecobalyse/commit/774faf3ad553687e154d4f46bf1227ccd0571710))
+* render app version details in the changelog. ([#725](https://github.com/MTES-MCT/ecobalyse/issues/725)) ([8f6ea50](https://github.com/MTES-MCT/ecobalyse/commit/8f6ea50aa1d11c37a0afc54e0de68a69cffbb1bb))
+
+
+### Bug Fixes
+
+* accept custom making complexity for upcycled garments. ([#723](https://github.com/MTES-MCT/ecobalyse/issues/723)) ([8f61547](https://github.com/MTES-MCT/ecobalyse/commit/8f61547f942b3fefd2129550125e9e7c0591cbaa))
+* **ci:** check for ecobalyse-private when extracting the branch name ([#733](https://github.com/MTES-MCT/ecobalyse/issues/733)) ([23ae8a5](https://github.com/MTES-MCT/ecobalyse/commit/23ae8a564854ab6cdb4f38bc62f04a04a47ca3c4))
+* don't add disabled step impacts to lifecycle totals. ([#719](https://github.com/MTES-MCT/ecobalyse/issues/719)) ([b6a7e1c](https://github.com/MTES-MCT/ecobalyse/commit/b6a7e1c4ff190acef8d0af0ee0f02b93b19ee32d))
+* ensure express app is properly monitored by Sentry. ([#729](https://github.com/MTES-MCT/ecobalyse/issues/729)) ([84a39aa](https://github.com/MTES-MCT/ecobalyse/commit/84a39aa69a8771294195787401cd0e9e11403d1f))
+* make scalingo not segfaulting. ([#728](https://github.com/MTES-MCT/ecobalyse/issues/728)) ([1de5140](https://github.com/MTES-MCT/ecobalyse/commit/1de5140c7e75bae20bd6afb58a0180d389dd3254))
+* use fabric processes to compute fabric waste ([#712](https://github.com/MTES-MCT/ecobalyse/issues/712)) ([1cce55b](https://github.com/MTES-MCT/ecobalyse/commit/1cce55b229cc9e14de72037d381d06f2255fe0bd))
+
 ## [2.1.1](https://github.com/MTES-MCT/ecobalyse/compare/v2.1.0...v2.1.1) (2024-09-02)
 
 
