@@ -20,19 +20,19 @@ import Url.Parser as Parser exposing ((</>), Parser)
 
 
 type Route
-    = Home
-    | Api
+    = Api
     | Auth { authenticated : Bool }
     | Changelog
     | Editorial String
     | Explore Scope Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
-    | FoodBuilderHome
     | FoodBuilderExample Uuid
-    | TextileSimulatorHome
+    | FoodBuilderHome
+    | Home
+    | Stats
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | TextileSimulatorExample Uuid
-    | Stats
+    | TextileSimulatorHome
 
 
 parser : Parser (Route -> a) a
@@ -172,9 +172,6 @@ toString route =
     let
         pieces =
             case route of
-                Home ->
-                    []
-
                 Api ->
                     [ "api" ]
 
@@ -202,9 +199,6 @@ toString route =
                 Explore scope dataset ->
                     "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
 
-                FoodBuilderHome ->
-                    [ "food" ]
-
                 FoodBuilder trigram Nothing ->
                     [ "food", Definition.toString trigram ]
 
@@ -214,8 +208,14 @@ toString route =
                 FoodBuilderExample uuid ->
                     [ "food", "edit-example", Uuid.toString uuid ]
 
-                TextileSimulatorHome ->
-                    [ "textile", "simulator" ]
+                FoodBuilderHome ->
+                    [ "food" ]
+
+                Home ->
+                    []
+
+                Stats ->
+                    [ "stats" ]
 
                 TextileSimulator trigram (Just query) ->
                     [ "textile"
@@ -233,7 +233,7 @@ toString route =
                 TextileSimulatorExample uuid ->
                     [ "textile", "edit-example", Uuid.toString uuid ]
 
-                Stats ->
-                    [ "stats" ]
+                TextileSimulatorHome ->
+                    [ "textile", "simulator" ]
     in
     "#/" ++ String.join "/" pieces

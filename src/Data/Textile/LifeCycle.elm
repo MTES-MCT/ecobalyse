@@ -55,9 +55,7 @@ computeTotalTransportImpacts =
     Array.foldl
         (\{ transport } acc ->
             { acc
-                | road = acc.road |> Quantity.plus transport.road
-                , sea = acc.sea |> Quantity.plus transport.sea
-                , air = acc.air |> Quantity.plus transport.air
+                | air = acc.air |> Quantity.plus transport.air
                 , impacts =
                     acc.impacts
                         |> Impact.mapImpacts
@@ -67,6 +65,8 @@ computeTotalTransportImpacts =
                                     , Impact.getImpact trigram transport.impacts
                                     ]
                             )
+                , road = acc.road |> Quantity.plus transport.road
+                , sea = acc.sea |> Quantity.plus transport.sea
             }
         )
         (Transport.default Impact.empty)
@@ -130,10 +130,10 @@ init { textile } inputs =
         |> List.map2
             (\( label, editable ) country ->
                 Step.create
-                    { label = label
+                    { country = country
                     , editable = editable
-                    , country = country
                     , enabled = not (List.member label inputs.disabledSteps)
+                    , label = label
                     }
             )
             [ ( Label.Material, False )

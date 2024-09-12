@@ -20,14 +20,14 @@ import Json.Encode as Encode
 
 
 type Label
-    = Material -- Matière
-    | Spinning -- Filature
-    | Fabric -- Tissage ou Tricotage
-    | Ennobling -- Ennoblissement
-    | Making -- Confection
-    | Distribution -- Distribution
-    | Use -- Utilisation
+    = Distribution -- Distribution
     | EndOfLife -- Fin de vie
+    | Ennobling -- Ennoblissement
+    | Fabric -- Tissage ou Tricotage
+    | Making -- Confection
+    | Material -- Matière
+    | Spinning -- Filature
+    | Use -- Utilisation
 
 
 all : List Label
@@ -55,10 +55,13 @@ upcyclables =
 toColor : Label -> String
 toColor label =
     case label of
-        Material ->
-            Impact.stepsColors.materials
+        Distribution ->
+            Impact.stepsColors.distribution
 
-        Spinning ->
+        EndOfLife ->
+            Impact.stepsColors.endOfLife
+
+        Ennobling ->
             Impact.stepsColors.transform
 
         Fabric ->
@@ -67,22 +70,34 @@ toColor label =
         Making ->
             Impact.stepsColors.transform
 
-        Ennobling ->
-            Impact.stepsColors.transform
+        Material ->
+            Impact.stepsColors.materials
 
-        Distribution ->
-            Impact.stepsColors.distribution
+        Spinning ->
+            Impact.stepsColors.transform
 
         Use ->
             Impact.stepsColors.usage
-
-        EndOfLife ->
-            Impact.stepsColors.endOfLife
 
 
 toId : Label -> String
 toId label =
     case label of
+        Distribution ->
+            "distribution-step"
+
+        EndOfLife ->
+            "end-of-life-step"
+
+        Ennobling ->
+            "transform-step-ennobling"
+
+        Fabric ->
+            "transform-step-fabric"
+
+        Making ->
+            "transform-step-making"
+
         Material ->
             "materials-step"
 
@@ -91,30 +106,15 @@ toId label =
             -- and they are meant to be unique throughout the page.
             "transform-step"
 
-        Fabric ->
-            "transform-step-fabric"
-
-        Making ->
-            "transform-step-making"
-
-        Ennobling ->
-            "transform-step-ennobling"
-
-        Distribution ->
-            "distribution-step"
-
         Use ->
             "usage-step"
-
-        EndOfLife ->
-            "end-of-life-step"
 
 
 toName : Label -> String
 toName label =
     case label of
-        Spinning ->
-            "Transformation\u{00A0}- Filature"
+        Ennobling ->
+            "Transformation\u{00A0}- Ennoblissement"
 
         Fabric ->
             "Transformation\u{00A0}- Tissage / Tricotage"
@@ -122,8 +122,8 @@ toName label =
         Making ->
             "Transformation\u{00A0}- Confection"
 
-        Ennobling ->
-            "Transformation\u{00A0}- Ennoblissement"
+        Spinning ->
+            "Transformation\u{00A0}- Filature"
 
         _ ->
             toString label
@@ -132,11 +132,14 @@ toName label =
 toString : Label -> String
 toString label =
     case label of
-        Material ->
-            "Matières premières"
+        Distribution ->
+            "Distribution"
 
-        Spinning ->
-            "Filature"
+        EndOfLife ->
+            "Fin de vie"
+
+        Ennobling ->
+            "Ennoblissement"
 
         Fabric ->
             "Tissage & Tricotage"
@@ -144,27 +147,27 @@ toString label =
         Making ->
             "Confection"
 
-        Ennobling ->
-            "Ennoblissement"
+        Material ->
+            "Matières premières"
 
-        Distribution ->
-            "Distribution"
+        Spinning ->
+            "Filature"
 
         Use ->
             "Utilisation"
-
-        EndOfLife ->
-            "Fin de vie"
 
 
 fromCodeString : String -> Result String Label
 fromCodeString code =
     case code of
-        "material" ->
-            Ok Material
+        "distribution" ->
+            Ok Distribution
 
-        "spinning" ->
-            Ok Spinning
+        "ennobling" ->
+            Ok Ennobling
+
+        "eol" ->
+            Ok EndOfLife
 
         "fabric" ->
             Ok Fabric
@@ -172,17 +175,14 @@ fromCodeString code =
         "making" ->
             Ok Making
 
-        "ennobling" ->
-            Ok Ennobling
+        "material" ->
+            Ok Material
 
-        "distribution" ->
-            Ok Distribution
+        "spinning" ->
+            Ok Spinning
 
         "use" ->
             Ok Use
-
-        "eol" ->
-            Ok EndOfLife
 
         _ ->
             Err ("Code étape inconnu: " ++ code)
@@ -191,11 +191,14 @@ fromCodeString code =
 toCodeString : Label -> String
 toCodeString label =
     case label of
-        Material ->
-            "material"
+        Distribution ->
+            "distribution"
 
-        Spinning ->
-            "spinning"
+        EndOfLife ->
+            "eol"
+
+        Ennobling ->
+            "ennobling"
 
         Fabric ->
             "fabric"
@@ -203,45 +206,42 @@ toCodeString label =
         Making ->
             "making"
 
-        Ennobling ->
-            "ennobling"
+        Material ->
+            "material"
 
-        Distribution ->
-            "distribution"
+        Spinning ->
+            "spinning"
 
         Use ->
             "use"
-
-        EndOfLife ->
-            "eol"
 
 
 toGitbookPath : Label -> Gitbook.Path
 toGitbookPath label =
     case label of
+        Distribution ->
+            Gitbook.TextileDistribution
+
+        EndOfLife ->
+            Gitbook.TextileEndOfLife
+
+        Ennobling ->
+            Gitbook.TextileEnnobling
+
+        Fabric ->
+            Gitbook.TextileFabric
+
+        Making ->
+            Gitbook.TextileMaking
+
         Material ->
             Gitbook.TextileMaterial
 
         Spinning ->
             Gitbook.TextileSpinning
 
-        Fabric ->
-            Gitbook.TextileFabric
-
-        Ennobling ->
-            Gitbook.TextileEnnobling
-
-        Making ->
-            Gitbook.TextileMaking
-
-        Distribution ->
-            Gitbook.TextileDistribution
-
         Use ->
             Gitbook.TextileUse
-
-        EndOfLife ->
-            Gitbook.TextileEndOfLife
 
 
 decodeFromCode : Decoder Label

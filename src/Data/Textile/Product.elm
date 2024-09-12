@@ -31,20 +31,20 @@ type alias DyeingOptions =
 
 
 type alias MakingOptions =
-    { pcrWaste : Split -- PCR product waste ratio
-    , complexity : MakingComplexity -- How complex is this making
+    { complexity : MakingComplexity -- How complex is this making
+    , pcrWaste : Split -- PCR product waste ratio
     }
 
 
 type alias UseOptions =
-    { ironingElec : Energy -- Quantitié d'éléctricité mobilisée pour repasser une pièce
-    , nonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
-    , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
+    { daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (not used in computations)
     , defaultNbCycles : Int -- Nombre par défaut de cycles d'entretien (not used in computations)
+    , ironingElec : Energy -- Quantitié d'éléctricité mobilisée pour repasser une pièce
+    , nonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
     , ratioDryer : Split -- Ratio de séchage électrique (not used in computations)
     , ratioIroning : Split -- Ratio de repassage (not used in computations)
     , timeIroning : Duration -- Temps de repassage (not used in computations)
-    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (not used in computations)
+    , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
     }
 
 
@@ -54,16 +54,16 @@ type alias EndOfLifeOptions =
 
 
 type alias Product =
-    { id : Id
+    { dyeing : DyeingOptions
+    , economics : Economics
+    , endOfLife : EndOfLifeOptions
+    , fabric : Fabric
+    , id : Id
+    , making : MakingOptions
     , name : String
     , surfaceMass : Unit.SurfaceMass
-    , yarnSize : Unit.YarnSize
-    , fabric : Fabric
-    , economics : Economics
-    , dyeing : DyeingOptions
-    , making : MakingOptions
     , use : UseOptions
-    , endOfLife : EndOfLifeOptions
+    , yarnSize : Unit.YarnSize
     }
 
 
@@ -99,21 +99,21 @@ decodeDyeingOptions =
 decodeMakingOptions : Decoder MakingOptions
 decodeMakingOptions =
     Decode.succeed MakingOptions
-        |> Pipe.required "pcrWaste" Split.decodeFloat
         |> Pipe.required "complexity" MakingComplexity.decode
+        |> Pipe.required "pcrWaste" Split.decodeFloat
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
 decodeUseOptions processes =
     Decode.succeed UseOptions
+        |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
+        |> Pipe.required "defaultNbCycles" Decode.int
         |> Pipe.required "ironingElecInMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "nonIroningProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "wearsPerCycle" Decode.int
-        |> Pipe.required "defaultNbCycles" Decode.int
         |> Pipe.required "ratioDryer" Split.decodeFloat
         |> Pipe.required "ratioIroning" Split.decodeFloat
         |> Pipe.required "timeIroning" (Decode.map Duration.hours Decode.float)
-        |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
+        |> Pipe.required "wearsPerCycle" Decode.int
 
 
 decodeEndOfLifeOptions : Decoder EndOfLifeOptions
@@ -125,16 +125,16 @@ decodeEndOfLifeOptions =
 decode : List Process -> Decoder Product
 decode processes =
     Decode.succeed Product
+        |> Pipe.required "dyeing" decodeDyeingOptions
+        |> Pipe.required "economics" Economics.decode
+        |> Pipe.required "endOfLife" decodeEndOfLifeOptions
+        |> Pipe.required "fabric" Fabric.decode
         |> Pipe.required "id" (Decode.map Id Decode.string)
+        |> Pipe.required "making" decodeMakingOptions
         |> Pipe.required "name" Decode.string
         |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
-        |> Pipe.required "yarnSize" Unit.decodeYarnSize
-        |> Pipe.required "fabric" Fabric.decode
-        |> Pipe.required "economics" Economics.decode
-        |> Pipe.required "dyeing" decodeDyeingOptions
-        |> Pipe.required "making" decodeMakingOptions
         |> Pipe.required "use" (decodeUseOptions processes)
-        |> Pipe.required "endOfLife" decodeEndOfLifeOptions
+        |> Pipe.required "yarnSize" Unit.decodeYarnSize
 
 
 decodeList : List Process -> Decoder (List Product)

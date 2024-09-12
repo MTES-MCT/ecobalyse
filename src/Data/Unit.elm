@@ -124,8 +124,8 @@ type NonPhysicalDurability
 
 
 type alias HolisticDurability =
-    { physical : PhysicalDurability
-    , nonPhysical : NonPhysicalDurability
+    { nonPhysical : NonPhysicalDurability
+    , physical : PhysicalDurability
     }
 
 
@@ -155,7 +155,7 @@ nonPhysicalDurability value =
 
 
 floatDurabilityFromHolistic : HolisticDurability -> Float
-floatDurabilityFromHolistic { physical, nonPhysical } =
+floatDurabilityFromHolistic { nonPhysical, physical } =
     min (physicalDurabilityToFloat physical) (nonPhysicalDurabilityToFloat nonPhysical)
 
 

@@ -9,10 +9,10 @@ import Data.Env as Env
 
 
 type alias Page =
-    { title : String
-    , description : Maybe String
+    { description : Maybe String
     , markdown : String
     , path : Path
+    , title : String
     }
 
 
@@ -40,11 +40,11 @@ type Path
     | TextileFabric -- Tissage/Tricotage textile
     | TextileFabricWaste -- Taux de perte en tissage/tricotage textile
     | TextileHeat -- Chaleur textile
-    | TextileMaterial -- Matière textile
     | TextileMaking -- Confection textile
     | TextileMakingComplexity -- Complexité de la confection textile
     | TextileMakingDeadStock -- Deadstock lors de la confection textile
     | TextileMakingWaste -- Taux de perte en confection textile
+    | TextileMaterial -- Matière textile
     | TextileSpinning -- Filature textile
     | TextileTransport -- Transport textile
     | TextileUse -- Utilisation textile
@@ -104,11 +104,11 @@ pathToString path =
         TextileEnnobling ->
             "textile/etapes-du-cycle-de-vie/ennoblissement"
 
-        TextileEnnoblingToxicity ->
-            "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis"
-
         TextileEnnoblingCountriesAquaticPollution ->
             "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis#pays-less-than-greater-than-taux-de-pollution-aquatique"
+
+        TextileEnnoblingToxicity ->
+            "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis"
 
         TextileExamples ->
             "textile/exemples"
@@ -122,9 +122,6 @@ pathToString path =
         TextileHeat ->
             "textile/parametres-transverses/chaleur"
 
-        TextileMaterial ->
-            "textile/etapes-du-cycle-de-vie/etape-1-matieres"
-
         TextileMaking ->
             "textile/etapes-du-cycle-de-vie/confection"
 
@@ -136,6 +133,9 @@ pathToString path =
 
         TextileMakingWaste ->
             "textile/parametres-transverses/pertes-et-rebus"
+
+        TextileMaterial ->
+            "textile/etapes-du-cycle-de-vie/etape-1-matieres"
 
         TextileSpinning ->
             "textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new"

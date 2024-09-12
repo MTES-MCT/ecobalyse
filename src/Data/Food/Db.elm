@@ -10,12 +10,13 @@ import Data.Food.Query as Query exposing (Query)
 import Data.Food.WellKnown as WellKnown exposing (WellKnown)
 import Data.Impact as Impact
 import Json.Decode as Decode
+import Result.Extra as RE
 
 
 type alias Db =
-    { processes : List Process
-    , examples : List (Example Query)
+    { examples : List (Example Query)
     , ingredients : List Ingredient
+    , processes : List Process
     , wellKnown : WellKnown
     }
 
@@ -27,8 +28,16 @@ buildFromJson exampleProductsJson foodProcessesJson ingredientsJson =
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->
-                Result.map3 (Db processes)
-                    (exampleProductsJson |> Example.decodeListFromJsonString Query.decode)
-                    (ingredientsJson |> Decode.decodeString (Ingredient.decodeIngredients processes) |> Result.mapError Decode.errorToString)
-                    (WellKnown.load processes)
+                Ok Db
+                    |> RE.andMap
+                        (exampleProductsJson
+                            |> Example.decodeListFromJsonString Query.decode
+                        )
+                    |> RE.andMap
+                        (ingredientsJson
+                            |> Decode.decodeString (Ingredient.decodeIngredients processes)
+                            |> Result.mapError Decode.errorToString
+                        )
+                    |> RE.andMap (Ok processes)
+                    |> RE.andMap (WellKnown.load processes)
             )

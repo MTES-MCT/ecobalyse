@@ -28,8 +28,8 @@ type alias Model =
 
 type Msg
     = ApiStats (WebData (List Matomo.Stat))
-    | WebStats (WebData (List Matomo.Stat))
     | ToggleMode Mode
+    | WebStats (WebData (List Matomo.Stat))
 
 
 type Mode
@@ -58,24 +58,24 @@ update session msg model =
         ApiStats apiStats ->
             ( { model | apiStats = apiStats }, session, Cmd.none )
 
-        WebStats webStats ->
-            ( { model | webStats = webStats }, session, Cmd.none )
-
         ToggleMode mode ->
             ( { model | mode = mode }, session, Cmd.none )
+
+        WebStats webStats ->
+            ( { model | webStats = webStats }, session, Cmd.none )
 
 
 viewStats : { heading : String, unit : String } -> WebData (List Matomo.Stat) -> Html Msg
 viewStats { heading, unit } webData =
     case webData of
-        RemoteData.NotAsked ->
-            text ""
+        RemoteData.Failure err ->
+            Alert.httpError err
 
         RemoteData.Loading ->
             Spinner.view
 
-        RemoteData.Failure err ->
-            Alert.httpError err
+        RemoteData.NotAsked ->
+            text ""
 
         RemoteData.Success stats ->
             node "chart-stats"
@@ -112,14 +112,6 @@ view { matomo } { mode, apiStats, webStats } =
                 ]
             , div [ class "border border-top-0 rounded p-2" ]
                 [ case mode of
-                    Simple ->
-                        div []
-                            [ webStats
-                                |> viewStats { heading = "Fréquentation", unit = "visite" }
-                            , apiStats
-                                |> viewStats { heading = "Traffic sur l'API", unit = "requête" }
-                            ]
-
                     Advanced ->
                         let
                             matomoBaseUrl =
@@ -189,6 +181,14 @@ view { matomo } { mode, apiStats, webStats } =
                                     ]
                                     []
                                 ]
+                            ]
+
+                    Simple ->
+                        div []
+                            [ webStats
+                                |> viewStats { heading = "Fréquentation", unit = "visite" }
+                            , apiStats
+                                |> viewStats { heading = "Traffic sur l'API", unit = "requête" }
                             ]
                 ]
             ]

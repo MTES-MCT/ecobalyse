@@ -45,12 +45,12 @@ type Price
 
 
 type Business
-    = -- PME/TPE
-      SmallBusiness
-      -- Grande entreprise avec service de réparation
-    | LargeBusinessWithServices
+    = -- Grande entreprise avec service de réparation
+      LargeBusinessWithServices
       -- Grande entreprise sans service de réparation
     | LargeBusinessWithoutServices
+      -- PME/TPE
+    | SmallBusiness
 
 
 businessFromString : String -> Result String Business
@@ -72,27 +72,27 @@ businessFromString string =
 businessToLabel : Business -> String
 businessToLabel business =
     case business of
-        SmallBusiness ->
-            "PME/TPE"
-
         LargeBusinessWithServices ->
             "Grande entreprise avec service de réparation"
 
         LargeBusinessWithoutServices ->
             "Grande entreprise sans service de réparation"
 
+        SmallBusiness ->
+            "PME/TPE"
+
 
 businessToString : Business -> String
 businessToString business =
     case business of
-        SmallBusiness ->
-            "small-business"
-
         LargeBusinessWithServices ->
             "large-business-with-services"
 
         LargeBusinessWithoutServices ->
             "large-business-without-services"
+
+        SmallBusiness ->
+            "small-business"
 
 
 computeNonPhysicalDurabilityIndex : Economics -> Unit.NonPhysicalDurability
@@ -144,11 +144,11 @@ computeRepairCostIndex business price repairCost =
     in
     Unit.ratio <|
         case business of
-            LargeBusinessWithoutServices ->
-                repairabilityIndice * 0.67
-
             LargeBusinessWithServices ->
                 repairabilityIndice * 0.67 + 0.33
+
+            LargeBusinessWithoutServices ->
+                repairabilityIndice * 0.67
 
             SmallBusiness ->
                 repairabilityIndice

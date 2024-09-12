@@ -167,11 +167,11 @@ decodeFloat =
         |> Decode.andThen
             (\result ->
                 case result of
-                    Ok split ->
-                        Decode.succeed split
-
                     Err error ->
                         Decode.fail error
+
+                    Ok split ->
+                        Decode.succeed split
             )
 
 

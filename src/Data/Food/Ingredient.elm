@@ -33,17 +33,17 @@ import Length
 
 
 type alias Ingredient =
-    { id : Id
-    , name : String
-    , categories : List IngredientCategory.Category
+    { categories : List IngredientCategory.Category
     , default : Process
     , defaultOrigin : Origin
-    , inediblePart : Split
-    , rawToCookedRatio : Unit.Ratio
     , density : Density
+    , ecosystemicServices : EcosystemicServices
+    , id : Id
+    , inediblePart : Split
+    , name : String
+    , rawToCookedRatio : Unit.Ratio
     , transportCooling : TransportCooling
     , visible : Bool
-    , ecosystemicServices : EcosystemicServices
     }
 
 
@@ -52,15 +52,15 @@ type Id
 
 
 type PlaneTransport
-    = PlaneNotApplicable
-    | ByPlane
+    = ByPlane
     | NoPlane
+    | PlaneNotApplicable
 
 
 type TransportCooling
-    = NoCooling
-    | AlwaysCool
+    = AlwaysCool
     | CoolOnceTransformed
+    | NoCooling
 
 
 byPlaneAllowed : PlaneTransport -> Ingredient -> Result String PlaneTransport
@@ -100,14 +100,14 @@ encodeId (Id str) =
 encodePlaneTransport : PlaneTransport -> Maybe Encode.Value
 encodePlaneTransport planeTransport =
     case planeTransport of
-        PlaneNotApplicable ->
-            Nothing
-
         ByPlane ->
             Just <| Encode.string "byPlane"
 
         NoPlane ->
             Just <| Encode.string "noPlane"
+
+        PlaneNotApplicable ->
+            Nothing
 
 
 idFromString : String -> Id
@@ -134,17 +134,17 @@ decodeIngredients processes =
 decodeIngredient : Dict String Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
-        |> Pipe.required "id" decodeId
-        |> Pipe.required "name" Decode.string
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
-        |> Pipe.required "inedible_part" Split.decodeFloat
-        |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "density" (Decode.float |> Decode.map gramsPerCubicCentimeter)
+        |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
+        |> Pipe.required "id" decodeId
+        |> Pipe.required "inedible_part" Split.decodeFloat
+        |> Pipe.required "name" Decode.string
+        |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "transport_cooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
-        |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
 
 
 decodeTransportCooling : Decoder TransportCooling
@@ -182,18 +182,18 @@ getDefaultOriginTransport planeTransport origin =
             Transport.default Impact.empty
     in
     case origin of
-        Origin.France ->
-            default
-
         Origin.EuropeAndMaghreb ->
             { default | road = Length.kilometers 2500 }
+
+        Origin.France ->
+            default
 
         Origin.OutOfEuropeAndMaghreb ->
             { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
 
         Origin.OutOfEuropeAndMaghrebByPlane ->
             if planeTransport == ByPlane then
-                { default | road = Length.kilometers 2500, air = Length.kilometers 18000 }
+                { default | air = Length.kilometers 18000, road = Length.kilometers 2500 }
 
             else
                 { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }

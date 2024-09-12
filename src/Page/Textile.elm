@@ -85,11 +85,11 @@ type alias Model =
 
 
 type Modal
-    = NoModal
-    | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    = AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
     | ComparatorModal
     | ConfirmSwitchToRegulatoryModal
     | ExplorerDetailsTab Material
+    | NoModal
     | SelectExampleModal (Autocomplete Query)
     | SelectProductModal (Autocomplete Product)
 
@@ -131,14 +131,14 @@ type Msg
     | UpdateBusiness (Result String Economics.Business)
     | UpdateDyeingMedium DyeingMedium
     | UpdateFabricProcess Fabric
-    | UpdatePhysicalDurability (Maybe Unit.PhysicalDurability)
     | UpdateMakingComplexity MakingComplexity
-    | UpdateMakingWaste (Maybe Split)
     | UpdateMakingDeadStock (Maybe Split)
+    | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial MaterialQuery MaterialQuery
     | UpdateMaterialSpinning Material Spinning
     | UpdateNumberOfReferences (Maybe Int)
+    | UpdatePhysicalDurability (Maybe Unit.PhysicalDurability)
     | UpdatePrice (Maybe Economics.Price)
     | UpdatePrinting (Maybe Printing)
     | UpdateStepCountry Label Country.Code
@@ -191,15 +191,15 @@ init trigram maybeUrlQuery session =
                     identity
            )
     , case maybeUrlQuery of
-        -- If we don't have an URL query, we may be coming from another app page, so we should
-        -- reposition the viewport at the top.
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
-
         -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
         -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
         Just _ ->
             Cmd.none
+
+        -- If we don't have an URL query, we may be coming from another app page, so we should
+        -- reposition the viewport at the top.
+        Nothing ->
+            Ports.scrollTo { x = 0, y = 0 }
     )
 
 
@@ -1147,12 +1147,18 @@ view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
             (case model.simulator of
+                Err error ->
+                    [ Alert.simple
+                        { level = Alert.Danger
+                        , close = Nothing
+                        , title = Just "Erreur"
+                        , content = [ text error ]
+                        }
+                    ]
+
                 Ok simulator ->
                     [ simulatorView session model simulator
                     , case model.modal of
-                        NoModal ->
-                            text ""
-
                         AddMaterialModal _ autocompleteState ->
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
@@ -1230,6 +1236,9 @@ view session model =
                                 , footer = []
                                 }
 
+                        NoModal ->
+                            text ""
+
                         SelectExampleModal autocompleteState ->
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
@@ -1266,15 +1275,6 @@ view session model =
                                 , toLabel = .name
                                 , toCategory = always ""
                                 }
-                    ]
-
-                Err error ->
-                    [ Alert.simple
-                        { level = Alert.Danger
-                        , close = Nothing
-                        , title = Just "Erreur"
-                        , content = [ text error ]
-                        }
                     ]
             )
       ]

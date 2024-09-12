@@ -66,11 +66,11 @@ succeed =
 parseFoodQuery : List Country -> Food.Db -> Parser (Result Errors BuilderQuery.Query)
 parseFoodQuery countries food =
     succeed (Ok BuilderQuery.Query)
-        |> apply (ingredientListParser "ingredients" countries food)
-        |> apply (maybeTransformParser "transform" food.processes)
-        |> apply (packagingListParser "packaging" food.processes)
         |> apply (distributionParser "distribution")
+        |> apply (ingredientListParser "ingredients" countries food)
+        |> apply (packagingListParser "packaging" food.processes)
         |> apply (preparationListParser "preparation")
+        |> apply (maybeTransformParser "transform" food.processes)
 
 
 ingredientListParser : String -> List Country -> Food.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
@@ -98,9 +98,9 @@ ingredientParser countries food string =
                         |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
+                |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
 
         [ id, mass, countryCode ] ->
@@ -110,9 +110,9 @@ ingredientParser countries food string =
                         |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
+                |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
 
         [ id, mass, countryCode, byPlane ] ->
@@ -122,9 +122,9 @@ ingredientParser countries food string =
                         |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
+                |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (countryParser countries Scope.Food countryCode)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
 
         [ "" ] ->
@@ -608,11 +608,11 @@ maybeDyeingMedium key =
             (Maybe.map
                 (\str ->
                     case DyeingMedium.fromString str of
-                        Ok dyeingMedium ->
-                            Ok (Just dyeingMedium)
-
                         Err err ->
                             Err ( key, err )
+
+                        Ok dyeingMedium ->
+                            Ok (Just dyeingMedium)
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
@@ -625,11 +625,11 @@ maybePrinting key =
             (Maybe.map
                 (\str ->
                     case Printing.fromStringParam str of
-                        Ok printing ->
-                            Ok (Just printing)
-
                         Err err ->
                             Err ( key, err )
+
+                        Ok printing ->
+                            Ok (Just printing)
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
@@ -658,11 +658,11 @@ maybeMakingComplexityParser key =
             (Maybe.map
                 (\str ->
                     case MakingComplexity.fromString str of
-                        Ok printing ->
-                            Ok (Just printing)
-
                         Err err ->
                             Err ( key, err )
+
+                        Ok printing ->
+                            Ok (Just printing)
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
@@ -823,11 +823,11 @@ maybeFabricParser key =
             (Maybe.map
                 (\str ->
                     case Fabric.fromString str of
-                        Ok fabric ->
-                            Ok (Just fabric)
-
                         Err err ->
                             Err ( key, err )
+
+                        Ok fabric ->
+                            Ok (Just fabric)
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

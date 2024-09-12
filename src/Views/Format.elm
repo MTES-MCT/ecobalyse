@@ -44,13 +44,13 @@ import Quantity
 import Volume exposing (Volume)
 
 
-formatImpactFloat : { a | unit : String, decimals : Int } -> Float -> Html msg
-formatImpactFloat { unit, decimals } =
+formatImpactFloat : { a | decimals : Int, unit : String } -> Float -> Html msg
+formatImpactFloat { decimals, unit } =
     formatRichFloat decimals unit
 
 
 formatImpact : Definition -> Impacts -> Html msg
-formatImpact { trigram, unit, decimals } =
+formatImpact { decimals, trigram, unit } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit

@@ -23,8 +23,8 @@ type alias Errors =
 
 
 type AuthResponse
-    = SuccessResponse String
-    | ErrorResponse String Errors
+    = ErrorResponse String Errors
+    | SuccessResponse String
 
 
 decodeAuthResponse : Decoder AuthResponse
@@ -46,46 +46,46 @@ decodeAuthResponse =
 login : (Result Http.Error AuthResponse -> msg) -> String -> Cmd msg
 login event email =
     Http.post
-        { url = "/accounts/login/"
-        , body = Http.jsonBody (Encode.object [ ( "email", Encode.string email ) ])
+        { body = Http.jsonBody (Encode.object [ ( "email", Encode.string email ) ])
         , expect = Http.expectJson event decodeAuthResponse
+        , url = "/accounts/login/"
         }
 
 
 logout : msg -> Cmd msg
 logout event =
     Http.post
-        { url = "/accounts/logout/"
-        , body = Http.emptyBody
+        { body = Http.emptyBody
         , expect = Http.expectWhatever (always event)
+        , url = "/accounts/logout/"
         }
 
 
 processes : (Result Http.Error RawJsonProcesses -> msg) -> String -> Cmd msg
 processes event token =
     Http.request
-        { method = "GET"
-        , url = "processes/processes.json"
-        , headers = [ Http.header "token" token ]
-        , body = Http.emptyBody
+        { body = Http.emptyBody
         , expect = Http.expectJson event Db.decodeRawJsonProcesses
+        , headers = [ Http.header "token" token ]
+        , method = "GET"
         , timeout = Nothing
         , tracker = Nothing
+        , url = "processes/processes.json"
         }
 
 
 profile : (Result Http.Error User -> msg) -> Cmd msg
 profile event =
     Http.get
-        { url = "/accounts/profile/"
-        , expect = Http.expectJson event User.decode
+        { expect = Http.expectJson event User.decode
+        , url = "/accounts/profile/"
         }
 
 
 register : (Result Http.Error AuthResponse -> msg) -> Encode.Value -> Cmd msg
 register event userForm =
     Http.post
-        { url = "/accounts/register/"
-        , body = Http.jsonBody userForm
+        { body = Http.jsonBody userForm
         , expect = Http.expectJson event decodeAuthResponse
+        , url = "/accounts/register/"
         }

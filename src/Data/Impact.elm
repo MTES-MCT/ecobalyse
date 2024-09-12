@@ -56,30 +56,26 @@ import Url.Parser as Parser exposing (Parser)
 type alias ComplementsImpacts =
     -- Note: these are always expressed in ecoscore (ecs) Pts
     { -- Ecosystemic services impacts
-      hedges : Unit.Impact
-    , plotSize : Unit.Impact
-    , cropDiversity : Unit.Impact
-    , permanentPasture : Unit.Impact
+      cropDiversity : Unit.Impact
+    , hedges : Unit.Impact
     , livestockDensity : Unit.Impact
-
-    -- Other impacts
     , microfibers : Unit.Impact
     , outOfEuropeEOL : Unit.Impact
+    , permanentPasture : Unit.Impact
+    , plotSize : Unit.Impact
     }
 
 
 addComplementsImpacts : ComplementsImpacts -> ComplementsImpacts -> ComplementsImpacts
 addComplementsImpacts a b =
     { -- Ecosystemic services impacts
-      hedges = Quantity.plus a.hedges b.hedges
-    , plotSize = Quantity.plus a.plotSize b.plotSize
-    , cropDiversity = Quantity.plus a.cropDiversity b.cropDiversity
-    , permanentPasture = Quantity.plus a.permanentPasture b.permanentPasture
+      cropDiversity = Quantity.plus a.cropDiversity b.cropDiversity
+    , hedges = Quantity.plus a.hedges b.hedges
     , livestockDensity = Quantity.plus a.livestockDensity b.livestockDensity
-
-    -- Other impacts
     , microfibers = Quantity.plus a.microfibers b.microfibers
     , outOfEuropeEOL = Quantity.plus a.outOfEuropeEOL b.outOfEuropeEOL
+    , permanentPasture = Quantity.plus a.permanentPasture b.permanentPasture
+    , plotSize = Quantity.plus a.plotSize b.plotSize
     }
 
 
@@ -106,41 +102,38 @@ encodeComplementsImpacts complementsImpact =
             negateComplementsImpacts complementsImpact
     in
     Encode.object
-        -- Ecosystemic services
-        [ ( "hedges", Unit.encodeImpact negated.hedges )
-        , ( "plotSize", Unit.encodeImpact negated.plotSize )
-        , ( "cropDiversity", Unit.encodeImpact negated.cropDiversity )
-        , ( "permanentPasture", Unit.encodeImpact negated.permanentPasture )
+        [ ( "cropDiversity", Unit.encodeImpact negated.cropDiversity )
+        , ( "hedges", Unit.encodeImpact negated.hedges )
         , ( "livestockDensity", Unit.encodeImpact negated.livestockDensity )
-
-        -- Textile complements
         , ( "microfibers", Unit.encodeImpact negated.microfibers )
         , ( "outOfEuropeEOL", Unit.encodeImpact negated.outOfEuropeEOL )
+        , ( "permanentPasture", Unit.encodeImpact negated.permanentPasture )
+        , ( "plotSize", Unit.encodeImpact negated.plotSize )
         ]
 
 
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
 getTotalComplementsImpacts complementsImpacts =
     Quantity.sum
-        [ complementsImpacts.hedges
-        , complementsImpacts.plotSize
-        , complementsImpacts.cropDiversity
-        , complementsImpacts.permanentPasture
+        [ complementsImpacts.cropDiversity
+        , complementsImpacts.hedges
         , complementsImpacts.livestockDensity
         , complementsImpacts.microfibers
         , complementsImpacts.outOfEuropeEOL
+        , complementsImpacts.permanentPasture
+        , complementsImpacts.plotSize
         ]
 
 
 mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
 mapComplementsImpacts fn ci =
-    { hedges = fn ci.hedges
-    , plotSize = fn ci.plotSize
-    , cropDiversity = fn ci.cropDiversity
-    , permanentPasture = fn ci.permanentPasture
+    { cropDiversity = fn ci.cropDiversity
+    , hedges = fn ci.hedges
     , livestockDensity = fn ci.livestockDensity
     , microfibers = fn ci.microfibers
     , outOfEuropeEOL = fn ci.outOfEuropeEOL
+    , permanentPasture = fn ci.permanentPasture
+    , plotSize = fn ci.plotSize
     }
 
 
@@ -151,13 +144,13 @@ negateComplementsImpacts =
 
 noComplementsImpacts : ComplementsImpacts
 noComplementsImpacts =
-    { hedges = Unit.impact 0
-    , plotSize = Unit.impact 0
-    , cropDiversity = Unit.impact 0
-    , permanentPasture = Unit.impact 0
+    { cropDiversity = Unit.impact 0
+    , hedges = Unit.impact 0
     , livestockDensity = Unit.impact 0
     , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
+    , permanentPasture = Unit.impact 0
+    , plotSize = Unit.impact 0
     }
 
 
@@ -179,31 +172,31 @@ impactsWithComplements complementsImpacts impacts =
 sumEcosystemicImpacts : ComplementsImpacts -> Unit.Impact
 sumEcosystemicImpacts c =
     Quantity.sum
-        [ c.hedges
-        , c.plotSize
-        , c.cropDiversity
-        , c.permanentPasture
+        [ c.cropDiversity
+        , c.hedges
         , c.livestockDensity
+        , c.permanentPasture
+        , c.plotSize
         ]
 
 
-complementsImpactAsChartEntries : ComplementsImpacts -> List { name : String, value : Float, color : String }
+complementsImpactAsChartEntries : ComplementsImpacts -> List { color : String, name : String, value : Float }
 complementsImpactAsChartEntries c =
     -- Notes:
     -- - We want those complements/bonuses to appear as negative values on the chart
     -- - We want to sum ecosystemic service components impacts to only have a single entry in the charts
-    [ { name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)), color = "#606060" }
-    , { name = "Complément microfibres", value = -(Unit.impactToFloat c.microfibers), color = "#c0c0c0" }
-    , { name = "Complément export hors-Europe", value = -(Unit.impactToFloat c.outOfEuropeEOL), color = "#e0e0e0" }
+    [ { color = "#606060", name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)) }
+    , { color = "#c0c0c0", name = "Complément microfibres", value = -(Unit.impactToFloat c.microfibers) }
+    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = -(Unit.impactToFloat c.outOfEuropeEOL) }
     ]
 
 
-totalComplementsImpactAsChartEntry : ComplementsImpacts -> { name : String, value : Float, color : String }
+totalComplementsImpactAsChartEntry : ComplementsImpacts -> { color : String, name : String, value : Float }
 totalComplementsImpactAsChartEntry complementsImpacts =
     -- We want bonuses to appear as negative values on the chart, maluses as positive ones
-    { name = "Compléments"
+    { color = "#808080"
+    , name = "Compléments"
     , value = -(Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts))
-    , color = "#808080"
     }
 
 
@@ -212,13 +205,13 @@ totalComplementsImpactAsChartEntry complementsImpacts =
 
 
 type alias Steps a =
-    { materials : a
-    , transform : a
-    , packaging : a
-    , transports : a
-    , distribution : a
-    , usage : a
+    { distribution : a
     , endOfLife : a
+    , materials : a
+    , packaging : a
+    , transform : a
+    , transports : a
+    , usage : a
     }
 
 
@@ -228,25 +221,25 @@ type alias StepsImpacts =
 
 mapSteps : (a -> a) -> Steps a -> Steps a
 mapSteps fn steps =
-    { materials = fn steps.materials
-    , transform = fn steps.transform
-    , packaging = fn steps.packaging
-    , transports = fn steps.transports
-    , distribution = fn steps.distribution
-    , usage = fn steps.usage
+    { distribution = fn steps.distribution
     , endOfLife = fn steps.endOfLife
+    , materials = fn steps.materials
+    , packaging = fn steps.packaging
+    , transform = fn steps.transform
+    , transports = fn steps.transports
+    , usage = fn steps.usage
     }
 
 
 noStepsImpacts : StepsImpacts
 noStepsImpacts =
-    { materials = Nothing
-    , transform = Nothing
-    , packaging = Nothing
-    , transports = Nothing
-    , distribution = Nothing
-    , usage = Nothing
+    { distribution = Nothing
     , endOfLife = Nothing
+    , materials = Nothing
+    , packaging = Nothing
+    , transform = Nothing
+    , transports = Nothing
+    , usage = Nothing
     }
 
 
@@ -261,17 +254,17 @@ type alias StepsColors =
 
 stepsColors : StepsColors
 stepsColors =
-    { materials = Color.purple
-    , transform = Color.pink
-    , packaging = Color.blue
-    , transports = Color.green
-    , distribution = Color.red
-    , usage = Color.yellow
+    { distribution = Color.red
     , endOfLife = Color.turquoise
+    , materials = Color.purple
+    , packaging = Color.blue
+    , transform = Color.pink
+    , transports = Color.green
+    , usage = Color.yellow
     }
 
 
-stepsImpactsAsChartEntries : StepsImpacts -> List { name : String, value : Float, color : String }
+stepsImpactsAsChartEntries : StepsImpacts -> List { color : String, name : String, value : Float }
 stepsImpactsAsChartEntries stepsImpacts =
     [ ( "Matières premières", stepsImpacts.materials, stepsColors.materials )
     , ( "Transformation", stepsImpacts.transform, stepsColors.transform )
@@ -283,8 +276,8 @@ stepsImpactsAsChartEntries stepsImpacts =
     ]
         |> List.map
             (\( label, maybeValue, color ) ->
-                { name = label
-                , color = color
+                { color = color
+                , name = label
                 , value =
                     -- All categories MUST be filled in order to allow comparing Food and Textile simulations
                     -- So, when we don't have a value for a given step, we fallback to zero
@@ -301,10 +294,10 @@ stepsImpactsAsChartEntries stepsImpacts =
 
 type alias ProtectionAreas =
     -- Protection Areas is basically scientific slang for subscores
-    { climate : Unit.Impact -- Climat
-    , biodiversity : Unit.Impact -- Biodiversité
-    , resources : Unit.Impact -- Ressources
+    { biodiversity : Unit.Impact -- Biodiversité
+    , climate : Unit.Impact -- Climat
     , health : Unit.Impact -- Santé environnementale
+    , resources : Unit.Impact -- Ressources
     }
 
 
@@ -317,11 +310,7 @@ toProtectionAreas definitions (Impacts impactsPerKgWithoutComplements) =
                 |> Impacts
                 |> computeAggregatedScore definitions .ecoscoreData
     in
-    { climate =
-        pick
-            [ Definition.Cch -- Climate change
-            ]
-    , biodiversity =
+    { biodiversity =
         pick
             [ Definition.Acd -- Acidification
             , Definition.Tre -- Terrestrial eutrophication
@@ -329,6 +318,10 @@ toProtectionAreas definitions (Impacts impactsPerKgWithoutComplements) =
             , Definition.Swe -- Marine eutrophication
             , Definition.EtfC -- Ecotoxicity: freshwater
             , Definition.Ldu -- Land use
+            ]
+    , climate =
+        pick
+            [ Definition.Cch -- Climate change
             ]
     , health =
         pick
@@ -471,12 +464,12 @@ getAggregatedScoreData definitions getter (Impacts impacts) =
             in
             case getter def of
                 Just { normalization, weighting, color } ->
-                    { name = def.label
+                    { color = color ++ "bb" -- pastelization through slight transparency
+                    , name = def.label
                     , value =
                         impact
                             |> Unit.impactAggregateScore normalization weighting
                             |> Unit.impactToFloat
-                    , color = color ++ "bb" -- pastelization through slight transparency
                     }
                         :: acc
 
@@ -487,7 +480,7 @@ getAggregatedScoreData definitions getter (Impacts impacts) =
         impacts
 
 
-encodeAggregatedScoreChartEntry : { name : String, value : Float, color : String } -> Encode.Value
+encodeAggregatedScoreChartEntry : { color : String, name : String, value : Float } -> Encode.Value
 encodeAggregatedScoreChartEntry entry =
     -- This is to be easily used with Highcharts.js in a Web Component
     Encode.object

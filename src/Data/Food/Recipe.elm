@@ -56,33 +56,33 @@ france =
 
 
 type alias Packaging =
-    { process : Process.Process
-    , mass : Mass
+    { mass : Mass
+    , process : Process.Process
     }
 
 
 type alias RecipeIngredient =
-    { ingredient : Ingredient
+    { country : Maybe Country
+    , ingredient : Ingredient
     , mass : Mass
-    , country : Maybe Country
     , planeTransport : Ingredient.PlaneTransport
     }
 
 
 type alias Recipe =
-    { ingredients : List RecipeIngredient
-    , transform : Maybe Transform
+    { distribution : Maybe Retail.Distribution
+    , ingredients : List RecipeIngredient
     , packaging : List Packaging
-    , distribution : Maybe Retail.Distribution
     , preparation : List Preparation
+    , transform : Maybe Transform
     }
 
 
 type alias Results =
-    { total : Impacts
+    { distribution : { total : Impacts, transports : Transport }
+    , packaging : Impacts
     , perKg : Impacts
-    , scoring : Scoring
-    , totalMass : Mass
+    , preparation : Impacts
     , preparedMass : Mass
     , recipe :
         { total : Impacts
@@ -96,19 +96,16 @@ type alias Results =
         , transports : Transport
         , transformedMass : Mass
         }
-    , packaging : Impacts
-    , distribution :
-        { total : Impacts
-        , transports : Transport
-        }
-    , preparation : Impacts
+    , scoring : Scoring
+    , total : Impacts
+    , totalMass : Mass
     , transports : Transport
     }
 
 
 type alias Transform =
-    { process : Process.Process
-    , mass : Mass
+    { mass : Mass
+    , process : Process.Process
     }
 
 
@@ -248,55 +245,46 @@ compute db =
                                 (Impact.getTotalComplementsImpacts totalComplementsImpactPerKg)
                 in
                 ( recipe
-                , { total = totalImpacts
+                , { distribution = { total = distributionImpacts, transports = distributionTransport }
+                  , packaging = packagingImpacts
                   , perKg = impactsPerKg
-                  , scoring = scoring
-                  , totalMass = getMassAtPackaging recipe
+                  , preparation = preparationImpacts
                   , preparedMass = preparedMass
                   , recipe =
-                        { total = addIngredientsComplements recipeImpacts
-                        , initialMass = recipe.ingredients |> List.map .mass |> Quantity.sum
-                        , edibleMass = removeIngredientsInedibleMass recipe.ingredients |> List.map .mass |> Quantity.sum
-                        , ingredientsTotal = addIngredientsComplements ingredientsTotalImpacts
+                        { edibleMass = removeIngredientsInedibleMass recipe.ingredients |> List.map .mass |> Quantity.sum
                         , ingredients = ingredientsImpacts
+                        , ingredientsTotal = addIngredientsComplements ingredientsTotalImpacts
+                        , initialMass = recipe.ingredients |> List.map .mass |> Quantity.sum
+                        , total = addIngredientsComplements recipeImpacts
                         , totalComplementsImpact = totalComplementsImpact
                         , totalComplementsImpactPerKg = totalComplementsImpactPerKg
                         , transform = transformImpacts
-                        , transports = ingredientsTransport
                         , transformedMass = transformedIngredientsMass
+                        , transports = ingredientsTransport
                         }
-                  , packaging = packagingImpacts
-                  , distribution =
-                        { total = distributionImpacts
-                        , transports = distributionTransport
-                        }
-                  , preparation = preparationImpacts
-                  , transports =
-                        Transport.sum
-                            [ ingredientsTransport
-                            , distributionTransport
-                            ]
+                  , scoring = scoring
+                  , total = totalImpacts
+                  , totalMass = getMassAtPackaging recipe
+                  , transports = Transport.sum [ ingredientsTransport, distributionTransport ]
                   }
                 )
             )
 
 
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Impact.ComplementsImpacts
-computeIngredientComplementsImpacts { hedges, plotSize, cropDiversity, permanentPasture, livestockDensity } ingredientMass =
+computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, permanentPasture, plotSize } ingredientMass =
     let
         apply coeff =
             Quantity.multiplyBy (Mass.inKilograms ingredientMass)
                 >> Quantity.multiplyBy (Unit.ratioToFloat coeff)
     in
-    { hedges = apply EcosystemicServices.coefficients.hedges hedges
-    , plotSize = apply EcosystemicServices.coefficients.plotSize plotSize
-    , cropDiversity = apply EcosystemicServices.coefficients.cropDiversity cropDiversity
-    , permanentPasture = apply EcosystemicServices.coefficients.permanentPasture permanentPasture
+    { cropDiversity = apply EcosystemicServices.coefficients.cropDiversity cropDiversity
+    , hedges = apply EcosystemicServices.coefficients.hedges hedges
     , livestockDensity = apply EcosystemicServices.coefficients.livestockDensity livestockDensity
-
-    -- Note: these complements don't apply to ingredients
     , microfibers = Unit.impact 0
     , outOfEuropeEOL = Unit.impact 0
+    , permanentPasture = apply EcosystemicServices.coefficients.permanentPasture permanentPasture
+    , plotSize = apply EcosystemicServices.coefficients.plotSize plotSize
     }
 
 
@@ -307,7 +295,7 @@ computeImpact mass _ =
         >> Unit.impact
 
 
-computeProcessImpacts : { a | process : Process, mass : Mass } -> Impacts
+computeProcessImpacts : { a | mass : Mass, process : Process } -> Impacts
 computeProcessImpacts item =
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
@@ -333,7 +321,7 @@ computeIngredientsTotalComplements =
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
-computeIngredientTransport db { ingredient, country, mass, planeTransport } =
+computeIngredientTransport db { country, ingredient, mass, planeTransport } =
     let
         emptyImpacts =
             Impact.empty
@@ -466,11 +454,11 @@ encodeScoring scoring =
 fromQuery : Db -> Query -> Result String Recipe
 fromQuery db query =
     Ok Recipe
-        |> RE.andMap (ingredientListFromQuery db query)
-        |> RE.andMap (transformFromQuery db.food query)
-        |> RE.andMap (packagingListFromQuery db.food query)
         |> RE.andMap (Ok query.distribution)
+        |> RE.andMap (ingredientListFromQuery db query)
+        |> RE.andMap (packagingListFromQuery db.food query)
         |> RE.andMap (preparationListFromQuery query)
+        |> RE.andMap (transformFromQuery db.food query)
 
 
 getMassAtPackaging : Recipe -> Mass
@@ -579,14 +567,12 @@ ingredientListFromQuery db =
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery db { id, mass, country, planeTransport } =
+ingredientFromQuery db { country, id, mass, planeTransport } =
     let
         ingredientResult =
             Ingredient.findByID id db.food.ingredients
     in
     Ok RecipeIngredient
-        |> RE.andMap ingredientResult
-        |> RE.andMap (Ok mass)
         |> RE.andMap
             (case Maybe.map (\c -> Country.findByCode c db.countries) country of
                 Just (Ok country_) ->
@@ -598,6 +584,8 @@ ingredientFromQuery db { id, mass, country, planeTransport } =
                 Nothing ->
                     Ok Nothing
             )
+        |> RE.andMap ingredientResult
+        |> RE.andMap (Ok mass)
         |> RE.andMap
             (ingredientResult
                 |> Result.andThen (Ingredient.byPlaneAllowed planeTransport)
@@ -606,9 +594,9 @@ ingredientFromQuery db { id, mass, country, planeTransport } =
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
 ingredientQueryFromIngredient ingredient =
-    { id = ingredient.id
+    { country = Nothing
+    , id = ingredient.id
     , mass = Mass.grams 100
-    , country = Nothing
     , planeTransport = Ingredient.byPlaneByDefault ingredient
     }
 
@@ -624,9 +612,9 @@ packagingListFromQuery db query =
 
 packagingFromQuery : Food.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { code, mass } =
-    Result.map2 Packaging
-        (Process.findByIdentifier code processes)
-        (Ok mass)
+    processes
+        |> Process.findByIdentifier code
+        |> Result.map (Packaging mass)
 
 
 processQueryFromProcess : Process -> BuilderQuery.ProcessQuery
@@ -653,18 +641,18 @@ toStepsImpacts trigram results =
             Impact.getImpact trigram
                 >> Just
     in
-    { materials = getImpact results.recipe.ingredientsTotal
-    , transform = getImpact results.recipe.transform
-    , packaging = getImpact results.packaging
-    , transports = getImpact results.transports.impacts
-    , distribution = getImpact results.distribution.total
-    , usage = getImpact results.preparation
+    { distribution = getImpact results.distribution.total
     , endOfLife = Nothing
+    , materials = getImpact results.recipe.ingredientsTotal
+    , packaging = getImpact results.packaging
+    , transform = getImpact results.recipe.transform
+    , transports = getImpact results.transports.impacts
+    , usage = getImpact results.preparation
     }
 
 
 toString : Recipe -> String
-toString { ingredients, transform, packaging } =
+toString { ingredients, packaging, transform } =
     let
         formatMass =
             Mass.inGrams >> round >> String.fromInt
@@ -678,7 +666,7 @@ toString { ingredients, transform, packaging } =
         |> SE.nonEmpty
     , transform
         |> Maybe.map
-            (\{ process, mass } ->
+            (\{ mass, process } ->
                 Process.getDisplayName process ++ "(" ++ formatMass mass ++ ")"
             )
     , packaging
@@ -699,9 +687,8 @@ transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
             (\transform ->
-                Result.map2 Transform
-                    (Process.findByIdentifier transform.code processes)
-                    (Ok transform.mass)
-                    |> Result.map Just
+                processes
+                    |> Process.findByIdentifier transform.code
+                    |> Result.map (Transform transform.mass >> Just)
             )
         |> Maybe.withDefault (Ok Nothing)
