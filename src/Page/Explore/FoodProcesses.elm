@@ -2,7 +2,7 @@ module Page.Explore.FoodProcesses exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
-import Data.Food.Process as FoodProcess exposing (getDisplayName)
+import Data.Food.Process as FoodProcess
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Table)
@@ -28,8 +28,8 @@ table _ { detailed, scope } =
                             [ code [] [ text (FoodProcess.identifierToString process.identifier) ] ]
           }
         , { label = "Nom"
-          , toValue = Table.StringValue getDisplayName
-          , toCell = getDisplayName >> text
+          , toValue = Table.StringValue FoodProcess.getDisplayName
+          , toCell = FoodProcess.getDisplayName >> text
           }
         , { label = "Catégorie"
           , toValue = Table.StringValue <| .category >> FoodProcess.categoryToLabel
