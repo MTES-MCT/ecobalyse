@@ -231,22 +231,5 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
-  },
-  {
-    "id": "ei-viscose-r",
-    "materialProcessUuid": "7e2fdd1e285fd01e8852977a584a9ae3",
-    "recycledProcessUuid": null,
-    "recycledFrom": "ei-viscose",
-    "name": "Viscose recyclée",
-    "shortName": "Viscose recyclée",
-    "origin": "ArtificialFromOrganic",
-    "primary": true,
-    "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
   }
 ]
