@@ -8,6 +8,7 @@ module Data.Textile.Process exposing
     , encodeUuid
     , findByAlias
     , findByUuid
+    , getDisplayName
     , getImpact
     , uuidToString
     )
@@ -25,6 +26,7 @@ import Json.Encode.Extra as EncodeExtra
 
 type alias Process =
     { name : String
+    , displayName : Maybe String
     , info : String
     , unit : String
     , source : String
@@ -92,6 +94,7 @@ decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "name" Decode.string
+        |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "info" Decode.string
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "source" Decode.string
@@ -104,6 +107,12 @@ decode impactsDecoder =
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "waste" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
+
+
+getDisplayName : Process -> String
+getDisplayName process =
+    process.displayName
+        |> Maybe.withDefault process.name
 
 
 decodeList : Decoder Impact.Impacts -> Decoder (List Process)
@@ -135,6 +144,7 @@ encode : Process -> Encode.Value
 encode process =
     Encode.object
         [ ( "name", Encode.string process.name )
+        , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "info", Encode.string process.info )
         , ( "unit", Encode.string process.unit )
         , ( "source", Encode.string process.source )

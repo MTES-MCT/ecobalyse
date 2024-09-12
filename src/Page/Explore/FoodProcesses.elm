@@ -28,8 +28,8 @@ table _ { detailed, scope } =
                             [ code [] [ text (FoodProcess.identifierToString process.identifier) ] ]
           }
         , { label = "Nom"
-          , toValue = Table.StringValue getDisplayName
-          , toCell = getDisplayName >> text
+          , toValue = Table.StringValue FoodProcess.getDisplayName
+          , toCell = FoodProcess.getDisplayName >> text
           }
         , { label = "Catégorie"
           , toValue = Table.StringValue <| .category >> FoodProcess.categoryToLabel
@@ -57,13 +57,3 @@ table _ { detailed, scope } =
           }
         ]
     }
-
-
-getDisplayName : FoodProcess.Process -> String
-getDisplayName process =
-    case process.displayName of
-        Just displayName ->
-            displayName
-
-        Nothing ->
-            FoodProcess.nameToString process.name
