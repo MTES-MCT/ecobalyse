@@ -147,7 +147,7 @@ mainMenuLinks { enableFoodSection } =
 
 secondaryMenuLinks : List MenuLink
 secondaryMenuLinks =
-    [ Internal "Changelog" Route.Changelog Changelog
+    [ Internal "Versions" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.communityUrl
@@ -263,7 +263,12 @@ pageFooter session =
                 |> List.map (List.singleton >> li [])
                 |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
-            , versionLink session.currentVersion
+            , div [ class "d-flex align-items-center gap-1 fs-9 mb-2" ]
+                [ versionLink session.currentVersion
+                , text "("
+                , Link.internal [ Route.href Route.Changelog ] [ text "changelog" ]
+                , text ")"
+                ]
             ]
         ]
 
@@ -274,13 +279,11 @@ versionLink version =
         Version versionData ->
             let
                 displayLink url linkText =
-                    p [ class "fs-9 text-muted" ]
-                        [ Link.external
-                            [ class "text-decoration-none"
-                            , href url
-                            ]
-                            [ text <| "Version\u{00A0}: " ++ linkText ]
+                    Link.external
+                        [ class "text-decoration-none"
+                        , href url
                         ]
+                        [ text <| "Version\u{00A0}: " ++ linkText ]
             in
             case ( versionData.hash, versionData.tag ) of
                 -- If we have a tag provided, display it by default
