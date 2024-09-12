@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Pied 70cm creux (bois)",
+    "process_name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
+    "amount": 0.000079,
+    "unit": "m3"
+  },
+  {
+    "name": "Pied 70cm plein (bois)",
+    "process_name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
+    "amount": 0.00022,
+    "unit": "m3"
+  },
+  {
+    "name": "Dossier plastique (PP)",
+    "process_name": "Plastic frame (PP)",
+    "amount": 0.73,
+    "unit": "kg"
+  },
+  {
+    "name": "Assise plastique (PP)",
+    "process_name": "Plastic frame (PP)",
+    "amount": 0.91,
+    "unit": "kg"
+  },
+  {
+    "name": "Pied 90cm plein (bois)",
+    "process_name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
+    "amount": 0.007065,
+    "unit": "m3"
+  },
+  {
+    "name": "Plateau 200x100 (chêne)",
+    "process_name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
+    "amount": 0.14,
+    "unit": "m3"
+  },
+  {
+    "name": "Plateau 200x100 (chêne)",
+    "process_name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
+    "amount": 0.14,
+    "unit": "m3"
+  },
+  {
+    "name": "Chassis, carosserie",
+    "process_name": "Metal frame (steel)",
+    "amount": 0.14,
+    "unit": "kg"
+  }
+]

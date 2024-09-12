@@ -1,0 +1,59 @@
+[
+  {
+    "id": "618cf02f-3683-4528-a791-4de83b5405fb",
+    "name": "Chaise",
+    "recipe": {
+      "components": [
+        {
+          "name": "Pied 70cm plein (bois)",
+          "amount": 4
+        },
+        {
+          "name": "Dossier plastique (PP)",
+          "amount": 1
+        },
+        {
+          "name": "Assise plastique (PP)",
+          "amount": 1
+        }
+      ],
+      "assembly": {
+        "elec_kWh": 5
+      }
+    }
+  },
+  {
+    "id": "4aadab70-8716-45b2-82ac-750a48fa32b8",
+    "name": "Table",
+    "recipe": {
+      "components": [
+        {
+          "name": "Pied 70cm plein (bois)",
+          "amount": 4
+        },
+        {
+          "name": "Plateau 200x100 (chêne)",
+          "amount": 1
+        }
+      ],
+      "assembly": {
+        "elec_kWh": 1
+      }
+    }
+  },
+  {
+    "id": "4aad3b70-8716-45b2-82ac-750a48fa32b8",
+    "name": "Vélo",
+    "recipe": {
+      "processes": [
+        {
+          "name": "Chassis, carosserie",
+          "amount": 4
+        }
+      ],
+      "assembly": {
+        "elec_kWh": 1
+      }
+    }
+  }
+]
