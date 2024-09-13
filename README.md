@@ -10,7 +10,7 @@ description: >-
 
 ### Un outil d'évaluation environnementale produit accessible
 
-Ecobalyse permet **d’estimer rapidement les impacts environnementaux** d’un produit à partir de quelques critères simples : poids, composition, lieu d'assemblage, etc.
+Ecobalyse permet **d’estimer rapidement les impacts environnementaux** d’un produit à partir de quelques critères simples : masse, composition, lieu de confection, ect.
 
 Deux secteurs sont actuellement couverts : le **Textile** et l'**Alimentaire**. L'ouverture à de nouveaux secteurs est envisagée.&#x20;
 
@@ -27,9 +27,9 @@ Les entreprises souhaitant aller plus loin pourront se tourner vers les acteurs 
 
 ### Un outil **pédagogique**
 
-En décomposant chaque étape du cycle de vie et en calculant leur impact en fonction du paramétrage, Ecobalyse facilite l'appréhension de la modélisation par analye du cycle de vie, complétée sur certains aspects (services écosystémiques, export hors Europe...).
+En décomposant chaque étape du cycle de vie et en calculant leur impact en fonction du paramétrage, Ecobalyse facilite l'appréhension de la modélisation par analyse du cycle de vie, complétée sur certains aspects (services écosystémiques, export hors Europe...).
 
-La méthodologie exposée mobilise les **méthodes de référence pré-existantes** (socle technique Ademe 2018) ou en construction ([PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/)).
+La méthodologie exposée mobilise les **méthodes de référence pré-existantes** (socle technique ADEME 2018) ou en construction ([PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/)).
 
 Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) et à l’[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile) doit en outre permettre d’expliciter et de partager les orientations prises dans le but de simplifier les calculs.
 
