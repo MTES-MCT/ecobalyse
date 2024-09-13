@@ -95,6 +95,40 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 </details>
 
+<details>
+
+<summary>Pièce plastique (polyethylene terephthalate)</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée => 1 kg de matière plastique \
+  Procédé Ecoinvent => _market for polyethylene terephthalate, granulate, bottle grade, GLO_&#x20;
+* Etape de transformation additionnelle => thermoformage\
+  Procédé Ecoinvent => _market for injection moulding, GLO_
+
+</details>
+
+<details>
+
+<summary>Pièce plastique (polypropylene) </summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée => 1 kg de matière plastique \
+  Procédé Ecoinvent => _market for polypropylene, granulate, GLO_
+* Etape de transformation additionnelle => thermoformage\
+  Procédé Ecoinvent => _market for injection moulding, GLO_
+
+</details>
+
+<details>
+
+<summary>Pièce en aluminium (à compléter)</summary>
+
+
+
+</details>
+
 <mark style="color:red;">**A compléter**</mark>
 
 ### Coût environnemental des composants dans Ecobalyse :&#x20;
@@ -113,18 +147,24 @@ cf. l'Explorateur pour accéder à la liste des composant en bois disponibles da
 
 <details>
 
-<summary>Procédés de transformation</summary>
+<summary>Procédés de transformation / formage</summary>
 
 La grande majorité des composants en plastique ou métal sont créés en transformant de la matière grâce à un ou plusieurs procédés de transformation.&#x20;
 
 Afin de proposer des modélisations précises et accessibles, Ecobalyse permet de préciser quel(s) procédé(s) de transformation sont utilisés pour obtenir un composant en plastique ou métal :&#x20;
 
 * **Moulage** de pièces,\
-  Consiste à couler du métal à l'état liquide dans un moule
+  Consiste à couler des matériaux (métal, plastique, etc.) à l'état liquide dans un moule
 * **Usinage** de pièces (fraisage, tournage, perçage, etc.),\
   Consiste à obtenir des surfaces fonctionnelles de bonne précision par enlèvement de matière&#x20;
 * **Formage** de pièces (estampage, matriçage, filage, etc.),\
-  Consiste à obtenir des pièces par des actions mécaniques appliquées à la matière
+  Consiste à obtenir des pièces par des actions mécaniques appliquées à la matière.&#x20;
+  * laminage => le matériau passe à travers une paire de rouleaux,
+  * extrusion => le matériau est poussé par un orifice,
+  * matriçage => le matériau est pressé/estampé autour ou sur une matrice,
+  * forgeage => le matériau est compressé localement,
+  * poinçonnage => un outil est enfoncé dans le matériau,
+  * calandrage => le matériau est pressé dans des rouleaux pour créer des feuilles/films&#x20;
 
 </details>
 
@@ -149,7 +189,7 @@ Afin de proposer des modélisations précises et accessibles, Ecobalyse permet d
 
 Plusieurs procédés de finition sont utilisés selon les matériaux.
 
-**COMPOSANTS EN BOIS**&#x20;
+**COMPOSANTS EN BOIS ET/OU PLASTIQUE**
 
 * laquage
 * vernissage
@@ -157,6 +197,7 @@ Plusieurs procédés de finition sont utilisés selon les matériaux.
 * huilage / cire
 * placage
 * sablage
+* sérigraphie
 
 **COMPOSANTS EN METAL**
 
