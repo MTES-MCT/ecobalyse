@@ -235,6 +235,11 @@ Outre le rapport entre le coût de réparation et le prix neuf, la mise à dispo
 
 ### Formule de calcul
 
+{% hint style="info" %}
+**Qu'est-ce qu'une PME ?**\
+La définition considérée est la [définition réglementaire du décret n°2008-1353 du 18 décembre 2008](https://www.economie.gouv.fr/cedef/definition-petites-et-moyennes-entreprises) : une **PME** est une entreprise dont l’effectif est inférieur à 250 personnes et dont le chiffre d’affaires annuel n'excède pas 50 millions d'euros ou dont le total de bilan n'excède pas 43 millions d'euros.&#x20;
+{% endhint %}
+
 Lorsqu'un vêtement est commercialisé par une marque qui n'est pas une PME ou une TPE, l'indice "incitation à la réparation" est composé :&#x20;
 
 * à 66% de l'indice résultant de la partie 1/2, c'est à dire l'indice établi à partir du rapport entre le coût de réparation et le prix neuf
