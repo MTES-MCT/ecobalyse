@@ -170,6 +170,7 @@ encode query =
     , ( "mass", query.mass |> Mass.inKilograms |> Encode.float |> Just )
     , ( "materials", query.materials |> Encode.list encodeMaterialQuery |> Just )
     , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
+    , ( "physicalDurability", query.physicalDurability |> Maybe.map Unit.encodePhysicalDurability )
     , ( "price", query.price |> Maybe.map Economics.encodePrice )
     , ( "printing", query.printing |> Maybe.map Printing.encode )
     , ( "product", query.product |> Product.idToString |> Encode.string |> Just )

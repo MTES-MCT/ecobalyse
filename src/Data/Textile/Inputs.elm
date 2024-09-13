@@ -257,6 +257,13 @@ stepsToStrings inputs =
                 else
                     ""
                )
+            ++ (case inputs.physicalDurability of
+                    Just physicalDurability ->
+                        ", durabilité physique " ++ String.fromFloat (Unit.physicalDurabilityToFloat physicalDurability)
+
+                    Nothing ->
+                        ""
+               )
       , Format.kgToString inputs.mass
       ]
     , ifStepEnabled Label.Material
@@ -500,6 +507,7 @@ encode inputs =
         , ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "materials", Encode.list encodeMaterialInput inputs.materials )
         , ( "numberOfReferences", inputs.numberOfReferences |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
+        , ( "physicalDurability", inputs.physicalDurability |> Maybe.map Unit.encodePhysicalDurability |> Maybe.withDefault Encode.null )
         , ( "price", inputs.price |> Maybe.map Economics.encodePrice |> Maybe.withDefault Encode.null )
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         , ( "product", Product.encode inputs.product )
