@@ -11,11 +11,14 @@ if (process.env.SENTRY_DSN) {
     allowUrls: [
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
       /^https:\/\/staging-ecobalyse\.incubateur\.net/,
+      // Review apps
+      /^https:\/\/ecobalyse-pr.*\.osc-fr1\.scalingo\.io/,
     ],
     ignoreErrors: [
       // Most often due to DOM-aggressive browser extensions
       /_VirtualDom_applyPatch/,
     ],
+    environment: process.env.IS_REVIEW_APP ? "review-app" : NODE_ENV || "development",
   });
 }
 
