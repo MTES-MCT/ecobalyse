@@ -76,56 +76,41 @@ Dès lors, Ecobalyse se concentre sur la mise à disposition de "procédés gén
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée => 1kg d'acier faiblement allié laminé à chaud\
-  Procédé Ecoinvent => _market for steel, low-alloyed, hot rolled, GLO_)&#x20;
+  Procédé Ecoinvent => _steel production, converter, low-alloyed, hot rolled, RER_ \
+  Quantité => 1kg
 * Etape de transformation additionnelle => laminage à froid de 1kg d'acier\
-  Procédé Ecoinvent => _market for sheet rolling, steel, GLO_
+  Procédé Ecoinvent => _sheet rolling, steel, RER_\
+  Quantité => 1kg
 
 </details>
 
 <details>
 
-<summary>Pièce métallique en acier inoxydable</summary>
-
-Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
-
-* Matière transformée => 1kg d'acier inoxydable laminé à chaud\
-  Procédé Ecoinvent => _market for steel, chromium steel 18/8, hot rolled,  GLO_&#x20;
-* Etape de transformation additionnelle => laminage à froid de 1kg d'acier\
-  Procédé Ecoinvent => _market for sheet rolling, chromium steel, GLO_
-
-</details>
-
-<details>
-
-<summary>Pièce plastique (polyethylene terephthalate)</summary>
+<summary>Pièce plastique</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée => 1 kg de matière plastique \
-  Procédé Ecoinvent => _market for polyethylene terephthalate, granulate, bottle grade, GLO_&#x20;
+  Procédé Ecoinvent => _polypropylene production, granulate, RER_\
+  Quantité => 1kg
 * Etape de transformation additionnelle => thermoformage\
-  Procédé Ecoinvent => _market for injection moulding, GLO_
+  Procédé Ecoinvent => I_njection moulding, RER_\
+  Quantité => 1kg
 
 </details>
 
 <details>
 
-<summary>Pièce plastique (polypropylene) </summary>
+<summary>Pièce en aluminium</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
-* Matière transformée => 1 kg de matière plastique \
-  Procédé Ecoinvent => _market for polypropylene, granulate, GLO_
-* Etape de transformation additionnelle => thermoformage\
-  Procédé Ecoinvent => _market for injection moulding, GLO_
-
-</details>
-
-<details>
-
-<summary>Pièce en aluminium (à compléter)</summary>
-
-
+* Matière transformée \
+  Procédé Ecoinvent => _Aluminium production, primary, ingot_**,** _IAIA Area, EU27 & EFTA_\
+  Quantité => 1kg
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent => _sheet rolling, aluminium**,** ReR_\
+  Quantité => 1kg
 
 </details>
 
@@ -135,13 +120,9 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 cf. l'Explorateur pour accéder à la liste des composant en bois disponibles dans Ecobalyse.&#x20;
 
+<figure><img src="../../.gitbook/assets/Coût environnemental (uPts _ kg) (1).png" alt=""><figcaption></figcaption></figure>
+
 <mark style="color:red;">**A actualiser**</mark>
-
-<figure><img src="../../.gitbook/assets/Coût environnemental des composants autres que ceux en bois (uPts _ kg).png" alt=""><figcaption></figcaption></figure>
-
-<figure><img src="../../.gitbook/assets/Coût environnemental de tous les composants (uPts _ kg) (1).png" alt=""><figcaption><p>Les composants en bois (exprimés en uPts / m3) ont été convertiés en Upts / kg via une densité par défaut (cf. Explorateur)</p></figcaption></figure>
-
-
 
 ## Focus techniques
 
