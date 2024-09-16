@@ -18,7 +18,7 @@ if (process.env.SENTRY_DSN) {
       // Most often due to DOM-aggressive browser extensions
       /_VirtualDom_applyPatch/,
     ],
-    environment: process.env.IS_REVIEW_APP ? "review-app" : NODE_ENV || "development",
+    environment: process.env.IS_REVIEW_APP ? "review-app" : process.env.NODE_ENV || "development",
   });
 }
 
@@ -67,6 +67,15 @@ app.ports.appStarted.subscribe(() => {
   _paq.push(["disableCookies"]);
   _paq.push(["setSiteId", process.env.MATOMO_SITE_ID]);
   loadScript(u + "matomo.js");
+
+  var footer = document.getElementsByClassName("Footer");
+  footer[0].addEventListener(
+    "click",
+    function (e) {
+      throw new Error("Sentry Test");
+    },
+    false,
+  );
 });
 
 app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
