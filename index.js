@@ -6,6 +6,8 @@ import Charts from "./lib/charts";
 if (process.env.SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
+    integrations: [Sentry.browserTracingIntegration()],
+    tracesSampleRate: 0,
     allowUrls: [
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
       /^https:\/\/staging-ecobalyse\.incubateur\.net/,
