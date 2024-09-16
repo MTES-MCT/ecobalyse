@@ -1,0 +1,222 @@
+[
+  {
+    "name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Planche (bois de feuillus)",
+    "Nom anglais": "Beam (hardwood)",
+    "unit": "m3",
+    "density": 600,
+    "impacts": { "ecs": 22733 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Sawnwood, board, softwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, softwood, dried (u=10%), planed | Cut-off, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Planche (bois de résineux)",
+    "Nom anglais": "Beam (softwood)",
+    "unit": "m3",
+    "density": 450,
+    "impacts": { "ecs": 17202 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Oriented strand board {RER}| market for oriented strand board | APOS, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Panneau (OSB)",
+    "Nom anglais": "Oriented strand board (OSB)",
+    "unit": "m3",
+    "density": 607,
+    "impacts": { "ecs": 64851 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Plywood {RER}| market for plywood | APOS, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Panneau (Contreplaqué)",
+    "Nom anglais": "Plywood",
+    "unit": "m3",
+    "density": 500,
+    "impacts": { "ecs": 78973 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Particleboard, uncoated {RER}| market for particleboard, uncoated | APOS, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Panneau (aggloméré sans revêtement)",
+    "Nom anglais": "Particleboard (uncoated)",
+    "unit": "m3",
+    "density": 637,
+    "impacts": { "ecs": 46808 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Medium density fibreboard {RER}| market for medium density fibreboard | APOS, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Panneau (MDF)",
+    "Nom anglais": "Medium density fibreboard (MDF)",
+    "unit": "m3",
+    "density": 750,
+    "impacts": { "ecs": 81372 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Glued laminated timber, average glue mix {Europe without Switzerland}| market for glued laminated timber, average glue mix | APOS, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Panneau (lamellé-collé)",
+    "Nom anglais": "Glued laminated timber",
+    "unit": "m3",
+    "density": 500,
+    "impacts": { "ecs": 90814 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Cross-laminated timber {RER}| market for cross-laminated timber | APOS, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Panneau (lamellé-croisé)",
+    "Nom anglais": "Cross laminated timber",
+    "unit": "m3",
+    "density": 500,
+    "impacts": { "ecs": 31444 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Fibreboard, hard {RER}| market for fibreboard, hard | APOS, U",
+    "step_usage": "Production des composants",
+    "Nom français": "Panneau (fibres dures)",
+    "Nom anglais": "Fibreboard (hard)",
+    "unit": "m3",
+    "density": 956,
+    "impacts": { "ecs": 102394 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Fibreboard, soft {RER}| market for fibreboard, soft | APOS, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Panneau (fibres tendres)",
+    "Nom anglais": "Fibreboard (soft)",
+    "unit": "m3",
+    "density": 159,
+    "impacts": { "ecs": 98524 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Corrugated board box {RER}| market for corrugated board box | APOS, S",
+    "step_usage": "Production des composants",
+    "Nom français": "Emballage (carton ondulé)",
+    "Nom anglais": "Corrugated board box",
+    "unit": "kg",
+    "density": 400,
+    "impacts": { "ecs": 103 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Packaging film, low density polyethylene {GLO}| market for | APOS, U",
+    "step_usage": "Production des composants",
+    "Nom français": "Emballage (film plastique)",
+    "Nom anglais": "Packaging film (low density PET)",
+    "unit": "kg",
+    "density": 940,
+    "impacts": { "ecs": 289 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Polyurethane, flexible foam {RER}| market for polyurethane, flexible foam | APOS, U",
+    "step_usage": "Production des composants",
+    "Nom français": "Mousse PUR (flexible)",
+    "Nom anglais": "Mousse PUR (flexible)",
+    "unit": "kg",
+    "density": 80,
+    "impacts": { "ecs": 1058 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Polyurethane, rigid foam {RER}| market for polyurethane, rigid foam | APOS, U",
+    "step_usage": "Production des composants",
+    "Nom français": "Mousse PUR (rigide)",
+    "Nom anglais": "Mousse PUR (rigide)",
+    "unit": "kg",
+    "density": 35,
+    "impacts": { "ecs": 1646 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Acrylic filler {RER}| market for acrylic filler | Cut-off, U",
+    "step_usage": "Production des composants",
+    "Nom français": "Mastic (acrylique)",
+    "Nom anglais": "Acrylic filler",
+    "unit": "kg",
+    "density": 750,
+    "impacts": { "ecs": 57 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Synthetic rubber {GLO}| market for | APOS, U",
+    "step_usage": "Production des composants",
+    "Nom français": "Caoutchouc",
+    "Nom anglais": "Synthetic rubber",
+    "unit": "kg",
+    "density": 1000,
+    "impacts": { "ecs": 341 },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "name": "Plastic frame (PE)",
+    "step_usage": "Production des composants",
+    "Nom français": "Composant en plastique (PE)",
+    "Nom anglais": "Plastic frame (PE)",
+    "unit": "kg",
+    "density": 920,
+    "impacts": { "ecs": 325 },
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (+ d'info dans la Doc)"
+  },
+  {
+    "name": "Plastic frame (PP)",
+    "step_usage": "Production des composants",
+    "Nom français": "Composant en plastique (PP)",
+    "Nom anglais": "Plastic frame (PP)",
+    "unit": "kg",
+    "density": 900,
+    "impacts": { "ecs": 382 },
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (+ d'info dans la Doc)"
+  },
+  {
+    "name": "Metal frame (aluminium)",
+    "step_usage": "Production des composants",
+    "Nom français": "Composant en aluminium",
+    "Nom anglais": "Metal frame (aluminium)",
+    "unit": "kg",
+    "density": 2700,
+    "impacts": { "ecs": 1150 },
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (+ d'info dans la Doc)"
+  },
+  {
+    "name": "Metal frame (steel)",
+    "step_usage": "Production des composants",
+    "Nom français": "Composant en acier",
+    "Nom anglais": "Metal frame (steel)",
+    "unit": "kg",
+    "density": 7800,
+    "impacts": { "ecs": 501 },
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (+ d'info dans la Doc)"
+  }
+]
