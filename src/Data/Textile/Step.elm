@@ -224,15 +224,12 @@ computeTransportSummary step transport =
     let
         noTransports =
             Transport.default step.transport.impacts
-
-        defaultInland =
-            Transport.default step.transport.impacts
-                |> Transport.add { noTransports | road = Length.kilometers 500 }
     in
     case step.label of
         Label.Distribution ->
-            -- Product Distribution leverages no transports
+            -- Add default road transport to materialize transport to/from a warehouse
             noTransports
+                |> Transport.add { noTransports | road = Length.kilometers 500 }
 
         Label.EndOfLife ->
             -- End of life leverages no transports
@@ -242,10 +239,6 @@ computeTransportSummary step transport =
             -- Air transport only applies between the Making and the Distribution steps
             transport
                 |> Formula.transportRatio step.airTransportRatio
-                -- Added intermediary inland transport distances to materialize
-                -- transport to the "distribution" step
-                -- Also ensure we don't add unnecessary air transport
-                |> Transport.add { defaultInland | air = Quantity.zero }
 
         Label.Use ->
             -- Product Use leverages no transports
