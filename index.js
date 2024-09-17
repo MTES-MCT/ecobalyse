@@ -67,15 +67,6 @@ app.ports.appStarted.subscribe(() => {
   _paq.push(["disableCookies"]);
   _paq.push(["setSiteId", process.env.MATOMO_SITE_ID]);
   loadScript(u + "matomo.js");
-
-  var footer = document.getElementsByClassName("Footer");
-  footer[0].addEventListener(
-    "click",
-    function (e) {
-      throw new Error("Sentry Test");
-    },
-    false,
-  );
 });
 
 app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
