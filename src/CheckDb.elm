@@ -1,6 +1,6 @@
 port module CheckDb exposing (main)
 
-import Static.Db as StaticDb
+import Static.Db as StaticDb exposing (Db)
 import Static.Json as StaticJson
 
 
@@ -10,30 +10,33 @@ type alias Flags =
     }
 
 
-checkDbs : Flags -> Result String StaticDb.Db
-checkDbs detailedRawProcessesJson =
-    StaticDb.db StaticJson.rawJsonProcesses
-        |> Result.mapError (\err -> "Non-detailed Db is invalid: " ++ err)
-        |> Result.andThen
-            (StaticDb.db detailedRawProcessesJson
-                |> Result.mapError (\err -> "Detailed Db is invalid: " ++ err)
-                |> always
-            )
+init : Flags -> ( (), Cmd () )
+init flags =
+    ( ()
+    , case checkStaticDatabases flags of
+        Err error ->
+            logAndExit { message = error, status = 1 }
+
+        Ok _ ->
+            logAndExit { message = "Dbs look fine", status = 0 }
+    )
+
+
+checkStaticDatabases : Flags -> Result String ( Db, Db )
+checkStaticDatabases detailedRawJsonProcesses =
+    Result.map2 Tuple.pair
+        (StaticDb.db StaticJson.rawJsonProcesses
+            |> Result.mapError (\err -> "Non-detailed Db is invalid: " ++ err)
+        )
+        (StaticDb.db detailedRawJsonProcesses
+            |> Result.mapError (\err -> "Detailed Db is invalid: " ++ err)
+        )
 
 
 main : Program Flags () ()
 main =
     Platform.worker
-        { init =
-            \flags ->
-                ( ()
-                , case checkDbs flags of
-                    Err error ->
-                        logAndExit { message = "Db is dubious: " ++ error, status = 1 }
-
-                    Ok _ ->
-                        logAndExit { message = "Db is fine", status = 0 }
-                )
+        { init = init
         , subscriptions = always Sub.none
         , update = \_ _ -> ( (), Cmd.none )
         }

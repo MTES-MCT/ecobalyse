@@ -19,7 +19,7 @@
     "decrypt": "./bin/decrypt",
     "encrypt": "./bin/encrypt",
     "db:build": "./bin/build-db && npm run db:check",
-    "db:check": "elm make src/CheckDb.elm --output=check-db-app.js 1> /dev/null && node check-db.js",
+    "db:check": "elm make src/CheckDb.elm --optimize --output=check-db-app.js 1> /dev/null && node check-db.js",
     "lint:openapi": "npx swagger-cli validate openapi.yaml",
     "lint:prettier": "prettier --config .prettierrc --check",
     "lint:prettier:all": "npm run lint:prettier -- .",
