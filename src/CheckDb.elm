@@ -1,6 +1,7 @@
 port module CheckDb exposing (main)
 
 import Static.Db as StaticDb
+import Static.Json as StaticJson
 
 
 type alias Flags =
@@ -9,13 +10,24 @@ type alias Flags =
     }
 
 
+checkDbs : Flags -> Result String StaticDb.Db
+checkDbs detailedRawProcessesJson =
+    StaticDb.db StaticJson.rawJsonProcesses
+        |> Result.mapError (\err -> "Non-detailed Db is invalid: " ++ err)
+        |> Result.andThen
+            (StaticDb.db detailedRawProcessesJson
+                |> Result.mapError (\err -> "Detailed Db is invalid: " ++ err)
+                |> always
+            )
+
+
 main : Program Flags () ()
 main =
     Platform.worker
         { init =
             \flags ->
                 ( ()
-                , case StaticDb.db flags of
+                , case checkDbs flags of
                     Err error ->
                         logAndExit { message = "Db is dubious: " ++ error, status = 1 }
 
