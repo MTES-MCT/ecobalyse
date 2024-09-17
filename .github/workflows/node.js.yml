@@ -91,9 +91,6 @@ jobs:
     - name: Build app
       run: npm run build --if-present
 
-    - name: Build Elm static Db
-      run: npm run db:build
-
     - name: Run prettier, openapi & ruff formatting check
       run: npm run lint:all
 
