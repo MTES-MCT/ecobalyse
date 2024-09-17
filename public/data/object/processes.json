@@ -1,0 +1,222 @@
+[
+  {
+    "id": "process_dwEemLKPKGWwcqACfezzx5",
+    "name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
+    "display_name": "Planche (bois de feuillus)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 22733
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_6HFhUUeYHuw7W3eNNs2JdL",
+    "name": "Sawnwood, board, softwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, softwood, dried (u=10%), planed | Cut-off, S",
+    "display_name": "Planche (bois de résineux)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 17202
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_memkhXpaebz84YoyBycK2w",
+    "name": "Oriented strand board {RER}| market for oriented strand board | APOS, S",
+    "display_name": "Panneau (OSB)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 64851
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_DqXRFVkCHhU4CMLy5Wx4Y4",
+    "name": "Plywood {RER}| market for plywood | APOS, S",
+    "display_name": "Panneau (Contreplaqué)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 78973
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_QD9aVSnC9idpfiLT37pKG5",
+    "name": "Particleboard, uncoated {RER}| market for particleboard, uncoated | APOS, S",
+    "display_name": "Panneau (aggloméré sans revêtement)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 46808
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_5stSMFfBuQ8ym5u8pE8QAa",
+    "name": "Medium density fibreboard {RER}| market for medium density fibreboard | APOS, S",
+    "display_name": "Panneau (MDF)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 81372
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_GPcNVL94g9fEmkpL4pcKLL",
+    "name": "Glued laminated timber, average glue mix {Europe without Switzerland}| market for glued laminated timber, average glue mix | APOS, S",
+    "display_name": "Panneau (lamellé-collé)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 90814
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_6mBnZZ7JSrE7GQuyB8MS9q",
+    "name": "Cross-laminated timber {RER}| market for cross-laminated timber | APOS, S",
+    "display_name": "Panneau (lamellé-croisé)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 31444
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_9BM4cdRG24GPn9fE965RCW",
+    "name": "Fibreboard, hard {RER}| market for fibreboard, hard | APOS, U",
+    "display_name": "Panneau (fibres dures)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 102394
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_9Wj9QeNVZ78z9rcLuYtiEW",
+    "name": "Fibreboard, soft {RER}| market for fibreboard, soft | APOS, S",
+    "display_name": "Panneau (fibres tendres)",
+    "unit": "m3",
+    "impacts": {
+      "ecs": 98524
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_8LmBtQCLgMEXVvmoQu84ZS",
+    "name": "Corrugated board box {RER}| market for corrugated board box | APOS, S",
+    "display_name": "Emballage (carton ondulé)",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 103
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_NuqbeUFbnLxz45CUjLmLx7",
+    "name": "Packaging film, low density polyethylene {GLO}| market for | APOS, U",
+    "display_name": "Emballage (film plastique)",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 289
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_bNSDeUSEjioA2dX4dqJYPd",
+    "name": "Polyurethane, flexible foam {RER}| market for polyurethane, flexible foam | APOS, U",
+    "display_name": "Mousse PUR (flexible)",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 1058
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_oUPg6jcMD5sLnKKGJunWko",
+    "name": "Polyurethane, rigid foam {RER}| market for polyurethane, rigid foam | APOS, U",
+    "display_name": "Mousse PUR (rigide)",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 1646
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_UBXkge9c48q6x274aSQbo6",
+    "name": "Acrylic filler {RER}| market for acrylic filler | Cut-off, U",
+    "display_name": "Mastic (acrylique)",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 57
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_95BBQMv6AeHqQxeEYiWZc7",
+    "name": "Synthetic rubber {GLO}| market for | APOS, U",
+    "display_name": "Caoutchouc",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 341
+    },
+    "source": "Ecoinvent",
+    "comment": ""
+  },
+  {
+    "id": "process_2GUiechuyLpVqezNQ5j3ti",
+    "name": "Plastic frame (PE)",
+    "display_name": "Composant en plastique (PE)",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 325
+    },
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (voir documentation)"
+  },
+  {
+    "id": "process_AdGA4bHWktPSZSeqaNKysh",
+    "name": "Plastic frame (PP)",
+    "display_name": "Composant en plastique (PP)",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 382
+    },
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (voir documentation)"
+  },
+  {
+    "id": "process_gcToZWLyQq6pNLhcUuS5QL",
+    "name": "Metal frame (aluminium)",
+    "display_name": "Composant en aluminium",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 1150
+    },
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (voir documentation)"
+  },
+  {
+    "id": "process_GV8GkBSuSJnHK6VughYRW2",
+    "name": "Metal frame (steel)",
+    "display_name": "Composant en acier",
+    "unit": "kg",
+    "impacts": {
+      "ecs": 501
+    },
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (voir documentation)"
+  }
+]
