@@ -224,7 +224,7 @@ computeMakingAirTransportRatio ({ inputs } as simulator) =
                             -- User-provided value always takes precedence
                             step.airTransportRatio
 
-                        else if Country.iSEuropeOrTurkey country then
+                        else if Country.isEuropeOrTurkey country then
                             -- If Making country is Europe or Turquey, airTransportRatio is always 0
                             Split.zero
 
