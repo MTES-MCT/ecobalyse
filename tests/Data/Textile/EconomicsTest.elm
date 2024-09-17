@@ -17,14 +17,14 @@ suite : Test
 suite =
     describe "Data.Textile.Economics"
         [ describe "computeDurabilityIndex"
-            [ Economics.computeDurabilityIndex
+            [ Economics.computeNonPhysicalDurabilityIndex
                 { business = SmallBusiness
                 , numberOfReferences = 20000
                 , price = priceFromFloat 100
                 , repairCost = priceFromFloat 10
                 , traceability = False
                 }
-                |> Unit.durabilityToFloat
+                |> Unit.nonPhysicalDurabilityToFloat
                 |> Expect.within (Expect.Absolute 0.01) 1.1
                 |> asTest "should compute durability index"
             ]

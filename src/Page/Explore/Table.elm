@@ -37,8 +37,8 @@ type alias Column data comparable msg =
 type Value comparable data
     = FloatValue (data -> Float)
     | IntValue (data -> Int)
-    | StringValue (data -> String)
     | NoValue
+    | StringValue (data -> String)
 
 
 type alias Config data msg =
@@ -169,8 +169,8 @@ valueToString item toValue =
         IntValue getInt ->
             getInt item |> String.fromInt
 
-        StringValue getString ->
-            getString item
-
         NoValue ->
             "N/A"
+
+        StringValue getString ->
+            getString item

@@ -78,19 +78,19 @@ type alias Model =
 
 
 type Modal
-    = NoModal
-    | AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
+    = AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
     | ComparatorModal
     | ExplorerDetailsModal Ingredient
+    | NoModal
     | SelectExampleModal (Autocomplete Query)
 
 
 type Msg
-    = AddIngredient Ingredient
+    = AddDistribution
+    | AddIngredient Ingredient
     | AddPackaging
     | AddPreparation
     | AddTransform
-    | AddDistribution
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
@@ -104,8 +104,8 @@ type Msg
     | OnStepClick String
     | OpenComparator
     | Reset
-    | ResetTransform
     | ResetDistribution
+    | ResetTransform
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
@@ -117,11 +117,11 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateDistribution String
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
-    | UpdateDistribution String
 
 
 init : Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
@@ -149,11 +149,11 @@ init session trigram maybeQuery =
       }
     , session |> Session.updateFoodQuery query
     , case maybeQuery of
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
-
         Just _ ->
             Cmd.none
+
+        Nothing ->
+            Ports.scrollTo { x = 0, y = 0 }
     )
 
 
@@ -195,6 +195,10 @@ update ({ db, queries } as session) msg model =
                 |> Maybe.withDefault ( model, session, Cmd.none )
     in
     case msg of
+        AddDistribution ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.setDistribution Retail.ambient query)
+
         AddIngredient ingredient ->
             update session (SetModal NoModal) model
                 |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
@@ -238,10 +242,6 @@ update ({ db, queries } as session) msg model =
             in
             firstTransform
                 |> maybeUpdateQuery (\transform -> Query.setTransform transform query)
-
-        AddDistribution ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.setDistribution Retail.ambient query)
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
@@ -365,12 +365,6 @@ update ({ db, queries } as session) msg model =
         SelectNoBookmarks ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
-        SetModal NoModal ->
-            ( { model | modal = NoModal }
-            , session
-            , commandsForNoModal model.modal
-            )
-
         SetModal ComparatorModal ->
             ( { model | modal = ComparatorModal }
             , session
@@ -391,6 +385,12 @@ update ({ db, queries } as session) msg model =
                 , Dom.focus "element-search"
                     |> Task.attempt (always NoOp)
                 ]
+            )
+
+        SetModal NoModal ->
+            ( { model | modal = NoModal }
+            , session
+            , commandsForNoModal model.modal
             )
 
         SetModal (SelectExampleModal autocomplete) ->
@@ -1349,21 +1349,21 @@ mainView ({ db } as session) model =
                     }
                 }
             , case computed of
-                Ok ( recipe, results ) ->
-                    stepListView db session model recipe results
-
                 Err error ->
                     errorView error
+
+                Ok ( recipe, results ) ->
+                    stepListView db session model recipe results
             , session.queries.food
                 |> debugQueryView db
             ]
         , div [ class "col-lg-4 d-flex flex-column gap-3" ]
             [ case computed of
-                Ok ( _, results ) ->
-                    sidebarView session model results
-
                 Err error ->
                     errorView error
+
+                Ok ( _, results ) ->
+                    sidebarView session model results
             ]
         ]
 
@@ -1514,8 +1514,23 @@ view session model =
     , [ Container.centered [ class "pb-3" ]
             [ mainView session model
             , case model.modal of
-                NoModal ->
-                    text ""
+                AddIngredientModal _ autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , footer = []
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompleteIngredient
+                        , onAutocompleteSelect = OnAutocompleteSelect
+                        , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
+                        , title = "Sélectionnez un ingrédient"
+                        , toLabel = .name
+                        , toCategory =
+                            .categories
+                                >> List.head
+                                >> Maybe.map IngredientCategory.toLabel
+                                >> Maybe.withDefault ""
+                        }
 
                 ComparatorModal ->
                     ModalView.view
@@ -1551,23 +1566,8 @@ view session model =
                         , footer = []
                         }
 
-                AddIngredientModal _ autocompleteState ->
-                    AutocompleteSelectorView.view
-                        { autocompleteState = autocompleteState
-                        , closeModal = SetModal NoModal
-                        , footer = []
-                        , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteIngredient
-                        , onAutocompleteSelect = OnAutocompleteSelect
-                        , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
-                        , title = "Sélectionnez un ingrédient"
-                        , toLabel = .name
-                        , toCategory =
-                            .categories
-                                >> List.head
-                                >> Maybe.map IngredientCategory.toLabel
-                                >> Maybe.withDefault ""
-                        }
+                NoModal ->
+                    text ""
 
                 SelectExampleModal autocompleteState ->
                     AutocompleteSelectorView.view

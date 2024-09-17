@@ -8,14 +8,14 @@ import Result.Extra as RE
 
 
 type alias WellKnown =
-    { lorryTransport : Process
+    { boatCoolingTransport : Process
     , boatTransport : Process
-    , planeTransport : Process
-    , lorryCoolingTransport : Process
-    , boatCoolingTransport : Process
-    , water : Process
-    , lowVoltageElectricity : Process
     , domesticGasHeat : Process
+    , lorryCoolingTransport : Process
+    , lorryTransport : Process
+    , lowVoltageElectricity : Process
+    , planeTransport : Process
+    , water : Process
     }
 
 
@@ -26,11 +26,11 @@ load processes =
             RE.andMap (Process.findById processes id_)
     in
     Ok WellKnown
-        |> resolve "lorry"
-        |> resolve "boat"
-        |> resolve "plane"
-        |> resolve "lorry-cooling"
         |> resolve "boat-cooling"
-        |> resolve "tap-water"
-        |> resolve "low-voltage-electricity"
+        |> resolve "boat"
         |> resolve "domestic-gas-heat"
+        |> resolve "lorry-cooling"
+        |> resolve "lorry"
+        |> resolve "low-voltage-electricity"
+        |> resolve "plane"
+        |> resolve "tap-water"

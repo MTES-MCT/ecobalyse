@@ -29,6 +29,7 @@ km =
 noOpProcess : Process
 noOpProcess =
     { name = "Default"
+    , displayName = Just "Default"
     , info = ""
     , unit = ""
     , uuid = Process.Uuid ""

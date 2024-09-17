@@ -16,11 +16,7 @@ table { detailed, scope } =
     , toRoute = .uuid >> Just >> Dataset.TextileProcesses >> Route.Explore scope
     , legend = []
     , columns =
-        [ { label = "Étape"
-          , toValue = Table.StringValue <| .stepUsage
-          , toCell = .stepUsage >> text
-          }
-        , { label = "Identifiant"
+        [ { label = "Identifiant"
           , toValue = Table.StringValue <| .uuid >> Process.uuidToString
           , toCell =
                 .uuid
@@ -35,6 +31,14 @@ table { detailed, scope } =
                        )
           }
         , { label = "Nom"
+          , toValue = Table.StringValue Process.getDisplayName
+          , toCell = Process.getDisplayName >> text
+          }
+        , { label = "Étape"
+          , toValue = Table.StringValue .stepUsage
+          , toCell = .stepUsage >> text
+          }
+        , { label = "Nom technique"
           , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
@@ -44,15 +48,15 @@ table { detailed, scope } =
                 \process ->
                     span [ title process.source ] [ text process.source ]
           }
+        , { label = "Unité"
+          , toValue = Table.StringValue .unit
+          , toCell = .unit >> text
+          }
         , { label = "Correctif"
           , toValue = Table.StringValue .correctif
           , toCell =
                 \process ->
                     span [ title process.correctif ] [ text process.correctif ]
-          }
-        , { label = "Unité"
-          , toValue = Table.StringValue .unit
-          , toCell = .unit >> text
           }
         ]
     }

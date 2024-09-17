@@ -29,14 +29,14 @@ It's used by Page.Explore and related routes.
 -}
 type Dataset
     = Countries (Maybe Country.Code)
-    | Impacts (Maybe Definition.Trigram)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe FoodProcess.Identifier)
+    | Impacts (Maybe Definition.Trigram)
     | TextileExamples (Maybe Uuid)
-    | TextileProducts (Maybe Product.Id)
     | TextileMaterials (Maybe Material.Id)
     | TextileProcesses (Maybe Process.Uuid)
+    | TextileProducts (Maybe Product.Id)
 
 
 datasets : Scope -> List Dataset
@@ -66,26 +66,26 @@ fromSlug string =
         "countries" ->
             Countries Nothing
 
-        "impacts" ->
-            Impacts Nothing
-
         "food-examples" ->
             FoodExamples Nothing
-
-        "ingredients" ->
-            FoodIngredients Nothing
 
         "food-processes" ->
             FoodProcesses Nothing
 
-        "products" ->
-            TextileProducts Nothing
+        "impacts" ->
+            Impacts Nothing
+
+        "ingredients" ->
+            FoodIngredients Nothing
 
         "materials" ->
             TextileMaterials Nothing
 
         "processes" ->
             TextileProcesses Nothing
+
+        "products" ->
+            TextileProducts Nothing
 
         _ ->
             TextileExamples Nothing
@@ -97,9 +97,6 @@ isDetailed dataset =
         Countries (Just _) ->
             True
 
-        Impacts (Just _) ->
-            True
-
         FoodExamples (Just _) ->
             True
 
@@ -109,16 +106,19 @@ isDetailed dataset =
         FoodProcesses (Just _) ->
             True
 
-        TextileExamples (Just _) ->
+        Impacts (Just _) ->
             True
 
-        TextileProducts (Just _) ->
+        TextileExamples (Just _) ->
             True
 
         TextileMaterials (Just _) ->
             True
 
         TextileProcesses (Just _) ->
+            True
+
+        TextileProducts (Just _) ->
             True
 
         _ ->
@@ -141,9 +141,6 @@ reset dataset =
         Countries _ ->
             Countries Nothing
 
-        Impacts _ ->
-            Impacts Nothing
-
         FoodExamples _ ->
             FoodExamples Nothing
 
@@ -153,11 +150,11 @@ reset dataset =
         FoodProcesses _ ->
             FoodProcesses Nothing
 
+        Impacts _ ->
+            Impacts Nothing
+
         TextileExamples _ ->
             TextileExamples Nothing
-
-        TextileProducts _ ->
-            TextileProducts Nothing
 
         TextileMaterials _ ->
             TextileMaterials Nothing
@@ -165,14 +162,14 @@ reset dataset =
         TextileProcesses _ ->
             TextileProcesses Nothing
 
+        TextileProducts _ ->
+            TextileProducts Nothing
+
 
 same : Dataset -> Dataset -> Bool
 same a b =
     case ( a, b ) of
         ( Countries _, Countries _ ) ->
-            True
-
-        ( Impacts _, Impacts _ ) ->
             True
 
         ( FoodExamples _, FoodExamples _ ) ->
@@ -184,16 +181,19 @@ same a b =
         ( FoodProcesses _, FoodProcesses _ ) ->
             True
 
-        ( TextileExamples _, TextileExamples _ ) ->
+        ( Impacts _, Impacts _ ) ->
             True
 
-        ( TextileProducts _, TextileProducts _ ) ->
+        ( TextileExamples _, TextileExamples _ ) ->
             True
 
         ( TextileMaterials _, TextileMaterials _ ) ->
             True
 
         ( TextileProcesses _, TextileProcesses _ ) ->
+            True
+
+        ( TextileProducts _, TextileProducts _ ) ->
             True
 
         _ ->
@@ -206,9 +206,6 @@ setIdFromString idString dataset =
         Countries _ ->
             Countries (Just (Country.codeFromString idString))
 
-        Impacts _ ->
-            Impacts (Definition.toTrigram idString |> Result.toMaybe)
-
         FoodExamples _ ->
             FoodExamples (Uuid.fromString idString)
 
@@ -218,11 +215,11 @@ setIdFromString idString dataset =
         FoodProcesses _ ->
             FoodProcesses (Just (FoodProcess.identifierFromString idString))
 
+        Impacts _ ->
+            Impacts (Definition.toTrigram idString |> Result.toMaybe)
+
         TextileExamples _ ->
             TextileExamples (Uuid.fromString idString)
-
-        TextileProducts _ ->
-            TextileProducts (Just (Product.Id idString))
 
         TextileMaterials _ ->
             TextileMaterials (Just (Material.Id idString))
@@ -230,96 +227,99 @@ setIdFromString idString dataset =
         TextileProcesses _ ->
             TextileProcesses (Just (Process.Uuid idString))
 
+        TextileProducts _ ->
+            TextileProducts (Just (Product.Id idString))
+
 
 slug : Dataset -> String
 slug =
     strings >> .slug
 
 
-strings : Dataset -> { slug : String, label : String }
+strings : Dataset -> { label : String, slug : String }
 strings dataset =
     case dataset of
         Countries _ ->
-            { slug = "countries", label = "Pays" }
-
-        Impacts _ ->
-            { slug = "impacts", label = "Impacts" }
+            { label = "Pays", slug = "countries" }
 
         FoodExamples _ ->
-            { slug = "food-examples", label = "Exemples" }
+            { label = "Exemples", slug = "food-examples" }
 
         FoodIngredients _ ->
-            { slug = "ingredients", label = "Ingrédients" }
+            { label = "Ingrédients", slug = "ingredients" }
 
         FoodProcesses _ ->
-            { slug = "food-processes", label = "Procédés" }
+            { label = "Procédés", slug = "food-processes" }
+
+        Impacts _ ->
+            { label = "Impacts", slug = "impacts" }
 
         TextileExamples _ ->
-            { slug = "textile-examples", label = "Exemples" }
-
-        TextileProducts _ ->
-            { slug = "products", label = "Produits" }
+            { label = "Exemples", slug = "textile-examples" }
 
         TextileMaterials _ ->
-            { slug = "materials", label = "Matières" }
+            { label = "Matières", slug = "materials" }
 
         TextileProcesses _ ->
-            { slug = "processes", label = "Procédés" }
+            { label = "Procédés", slug = "processes" }
+
+        TextileProducts _ ->
+            { label = "Produits", slug = "products" }
 
 
 toRoutePath : Dataset -> List String
 toRoutePath dataset =
     case dataset of
-        Countries Nothing ->
-            [ slug dataset ]
-
         Countries (Just code) ->
             [ slug dataset, Country.codeToString code ]
 
-        FoodExamples Nothing ->
+        Countries Nothing ->
             [ slug dataset ]
 
         FoodExamples (Just id) ->
             [ slug dataset, Uuid.toString id ]
 
-        FoodIngredients Nothing ->
+        FoodExamples Nothing ->
             [ slug dataset ]
 
         FoodIngredients (Just id) ->
             [ slug dataset, Ingredient.idToString id ]
 
-        FoodProcesses Nothing ->
+        FoodIngredients Nothing ->
             [ slug dataset ]
 
         FoodProcesses (Just id) ->
             [ slug dataset, FoodProcess.identifierToString id ]
 
-        Impacts Nothing ->
+        FoodProcesses Nothing ->
             [ slug dataset ]
 
         Impacts (Just trigram) ->
             [ slug dataset, Definition.toString trigram ]
 
-        TextileExamples Nothing ->
+        Impacts Nothing ->
             [ slug dataset ]
 
         TextileExamples (Just id) ->
             [ slug dataset, Uuid.toString id ]
 
-        TextileProducts Nothing ->
-            [ slug dataset ]
-
-        TextileProducts (Just id) ->
-            [ slug dataset, Product.idToString id ]
-
-        TextileMaterials Nothing ->
+        TextileExamples Nothing ->
             [ slug dataset ]
 
         TextileMaterials (Just id) ->
             [ slug dataset, Material.idToString id ]
 
-        TextileProcesses Nothing ->
+        TextileMaterials Nothing ->
             [ slug dataset ]
 
         TextileProcesses (Just id) ->
             [ slug dataset, Process.uuidToString id ]
+
+        TextileProcesses Nothing ->
+            [ slug dataset ]
+
+        TextileProducts (Just id) ->
+            [ slug dataset, Product.idToString id ]
+
+        TextileProducts Nothing ->
+            [ slug dataset ]

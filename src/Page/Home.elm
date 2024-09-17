@@ -37,8 +37,8 @@ type Msg
 
 type Modal
     = CalculatorPickerModal
-    | PresentationVideoModal
     | NoModal
+    | PresentationVideoModal
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -101,9 +101,6 @@ viewHero { enableFoodSection } modal =
                 ]
             ]
         , case modal of
-            NoModal ->
-                text ""
-
             CalculatorPickerModal ->
                 ModalView.view
                     { size = ModalView.Large
@@ -115,6 +112,9 @@ viewHero { enableFoodSection } modal =
                     , content = [ calculatorPickerModalContent ]
                     , footer = []
                     }
+
+            NoModal ->
+                text ""
 
             PresentationVideoModal ->
                 ModalView.view

@@ -1,5 +1,6 @@
 module Views.RangeSlider exposing
     ( percent
+    , physicalDurability
     , surfaceMass
     , yarnSize
     )
@@ -12,22 +13,20 @@ import Html.Events exposing (..)
 
 
 type alias PercentConfig msg =
-    { id : String
+    { disabled : Bool
+    , id : String
+    , max : Int
+    , min : Int
+    , toString : Split -> String
     , update : Maybe Split -> msg
     , value : Split
-    , toString : Split -> String
-    , disabled : Bool
-    , min : Int
-    , max : Int
     }
 
 
 percent : PercentConfig msg -> Html msg
 percent config =
-    layout
-        { id = config.id
-        , label = config.toString config.value
-        , attributes =
+    narrowLayout
+        { attributes =
             [ onInput (String.toFloat >> Maybe.andThen (Split.fromPercent >> Result.toMaybe) >> config.update)
             , Attr.min (String.fromInt config.min)
             , Attr.max (String.fromInt config.max)
@@ -38,24 +37,24 @@ percent config =
             , value (String.fromFloat (Split.toPercent config.value))
             , Attr.disabled config.disabled
             ]
+        , id = config.id
+        , label = config.toString config.value
         }
 
 
 type alias SurfaceMassConfig msg =
-    { id : String
+    { disabled : Bool
+    , id : String
+    , toString : Unit.SurfaceMass -> String
     , update : Maybe Unit.SurfaceMass -> msg
     , value : Unit.SurfaceMass
-    , toString : Unit.SurfaceMass -> String
-    , disabled : Bool
     }
 
 
 surfaceMass : SurfaceMassConfig msg -> Html msg
 surfaceMass config =
-    layout
-        { id = config.id
-        , label = config.toString config.value
-        , attributes =
+    narrowLayout
+        { attributes =
             [ onInput (String.toInt >> Maybe.map Unit.gramsPerSquareMeter >> config.update)
             , Attr.min (String.fromInt (Unit.surfaceMassInGramsPerSquareMeters Unit.minSurfaceMass))
             , Attr.max (String.fromInt (Unit.surfaceMassInGramsPerSquareMeters Unit.maxSurfaceMass))
@@ -66,24 +65,24 @@ surfaceMass config =
             , value (String.fromInt (Unit.surfaceMassInGramsPerSquareMeters config.value))
             , Attr.disabled config.disabled
             ]
+        , id = config.id
+        , label = config.toString config.value
         }
 
 
 type alias YarnSizeConfig msg =
-    { id : String
+    { disabled : Bool
+    , id : String
+    , toString : Unit.YarnSize -> String
     , update : Maybe Unit.YarnSize -> msg
     , value : Unit.YarnSize
-    , toString : Unit.YarnSize -> String
-    , disabled : Bool
     }
 
 
 yarnSize : YarnSizeConfig msg -> Html msg
 yarnSize config =
-    layout
-        { id = config.id
-        , label = config.toString config.value
-        , attributes =
+    narrowLayout
+        { attributes =
             [ onInput (String.toFloat >> Maybe.map Unit.yarnSizeKilometersPerKg >> config.update)
             , Attr.min (String.fromFloat (Unit.yarnSizeInKilometers Unit.minYarnSize))
             , Attr.max (String.fromFloat (Unit.yarnSizeInKilometers Unit.maxYarnSize))
@@ -94,24 +93,69 @@ yarnSize config =
             , value (String.fromFloat (Unit.yarnSizeInKilometers config.value))
             , Attr.disabled config.disabled
             ]
+        , id = config.id
+        , label = config.toString config.value
         }
 
 
-layout : { id : String, label : String, attributes : List (Attribute msg) } -> Html msg
-layout { id, label, attributes } =
+type alias PhysicalDurabilityConfig msg =
+    { disabled : Bool
+    , id : String
+    , toString : Unit.PhysicalDurability -> String
+    , update : Maybe Unit.PhysicalDurability -> msg
+    , value : Unit.PhysicalDurability
+    }
+
+
+physicalDurability : PhysicalDurabilityConfig msg -> Html msg
+physicalDurability config =
+    wideLayout
+        { attributes =
+            [ onInput (String.toFloat >> Maybe.map Unit.physicalDurability >> config.update)
+            , Attr.min (String.fromFloat (Unit.physicalDurabilityToFloat (Unit.minDurability Unit.PhysicalDurability)))
+            , Attr.max (String.fromFloat (Unit.physicalDurabilityToFloat (Unit.maxDurability Unit.PhysicalDurability)))
+
+            -- WARNING: be careful when reordering attributes: for obscure reasons,
+            -- the `value` one MUST be set AFTER the `step` one.
+            , step "0.01"
+            , value (String.fromFloat (Unit.physicalDurabilityToFloat config.value))
+            , Attr.disabled config.disabled
+            ]
+        , id = config.id
+        , label = config.toString config.value
+        }
+
+
+narrowLayout : { attributes : List (Attribute msg), id : String, label : String } -> Html msg
+narrowLayout { attributes, id, label } =
     div [ class "RangeSlider row" ]
         [ div [ class "col-xxl-6" ]
             [ Html.label [ for id, class "form-label text-nowrap fs-7 mb-0" ]
                 [ text label ]
             ]
         , div [ class "col-xxl-6" ]
-            [ input
-                (type_ "range"
-                    :: class "d-block form-range"
-                    :: style "margin-top" "2px"
-                    :: Attr.id id
-                    :: attributes
-                )
-                []
-            ]
+            [ rangeInput (Attr.id id :: attributes) ]
         ]
+
+
+wideLayout : { attributes : List (Attribute msg), id : String, label : String } -> Html msg
+wideLayout { attributes, id, label } =
+    div [ class "RangeSlider row", style "flex-grow" "1" ]
+        [ div [ class "col-xxl-2" ]
+            [ Html.label [ for id, class "form-label text-nowrap mb-0" ]
+                [ text label ]
+            ]
+        , div [ class "col-xxl-10" ]
+            [ rangeInput (Attr.id id :: attributes) ]
+        ]
+
+
+rangeInput : List (Attribute msg) -> Html msg
+rangeInput attributes =
+    input
+        (type_ "range"
+            :: class "d-block form-range"
+            :: style "margin-top" "2px"
+            :: attributes
+        )
+        []

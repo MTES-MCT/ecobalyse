@@ -94,9 +94,6 @@ table db { detailed, scope } =
           , toCell =
                 \material ->
                     case Country.findByCode material.defaultCountry db.countries of
-                        Ok country ->
-                            text country.name
-
                         Err error ->
                             Alert.simple
                                 { level = Alert.Danger
@@ -104,6 +101,9 @@ table db { detailed, scope } =
                                 , title = Nothing
                                 , content = [ text error ]
                                 }
+
+                        Ok country ->
+                            text country.name
           }
         , { label = "CFF: Coefficient d'allocation"
           , toValue =

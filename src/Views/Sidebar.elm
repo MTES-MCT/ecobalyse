@@ -15,30 +15,22 @@ import Views.Score as ScoreView
 
 
 type alias Config msg =
-    { session : Session
-    , scope : Scope
-
-    -- Impact selector
-    , selectedImpact : Definition
-    , switchImpact : Result String Trigram -> msg
-
-    -- Score
-    , customScoreInfo : Maybe (Html msg)
-    , productMass : Mass
-    , totalImpacts : Impacts
-
-    -- Impacts tabs
-    , impactTabsConfig : ImpactTabs.Config msg
-
-    -- Bookmarks
-    , activeBookmarkTab : BookmarkView.ActiveTab
+    { activeBookmarkTab : BookmarkView.ActiveTab
     , bookmarkName : String
-    , copyToClipBoard : String -> msg
     , compareBookmarks : msg
+    , copyToClipBoard : String -> msg
+    , customScoreInfo : Maybe (Html msg)
     , deleteBookmark : Bookmark -> msg
+    , impactTabsConfig : ImpactTabs.Config msg
+    , productMass : Mass
     , saveBookmark : msg
-    , updateBookmarkName : String -> msg
+    , scope : Scope
+    , selectedImpact : Definition
+    , session : Session
     , switchBookmarkTab : BookmarkView.ActiveTab -> msg
+    , switchImpact : Result String Trigram -> msg
+    , totalImpacts : Impacts
+    , updateBookmarkName : String -> msg
     }
 
 
@@ -64,22 +56,22 @@ view config =
         , ScoreView.view
             { customInfo = config.customScoreInfo
             , impactDefinition = config.selectedImpact
-            , score = config.totalImpacts
             , mass = config.productMass
+            , score = config.totalImpacts
             }
         , config.impactTabsConfig
             |> ImpactTabs.view db.definitions
         , BookmarkView.view
-            { session = config.session
-            , activeTab = config.activeBookmarkTab
+            { activeTab = config.activeBookmarkTab
             , bookmarkName = config.bookmarkName
-            , impact = config.selectedImpact
-            , scope = config.scope
-            , copyToClipBoard = config.copyToClipBoard
             , compare = config.compareBookmarks
+            , copyToClipBoard = config.copyToClipBoard
             , delete = config.deleteBookmark
+            , impact = config.selectedImpact
             , save = config.saveBookmark
-            , update = config.updateBookmarkName
+            , scope = config.scope
+            , session = config.session
             , switchTab = config.switchBookmarkTab
+            , update = config.updateBookmarkName
             }
         ]

@@ -47,7 +47,7 @@ apiDocUrl =
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
-sendResponse httpStatus { method, url, jsResponseHandler } body =
+sendResponse httpStatus { jsResponseHandler, method, url } body =
     Encode.object
         [ ( "status", Encode.int httpStatus )
         , ( "method", Encode.string method )
@@ -69,15 +69,15 @@ encodeStringError error =
 toResponse : Result String Encode.Value -> JsonResponse
 toResponse encodedResult =
     case encodedResult of
-        Ok encoded ->
-            ( 200, encoded )
-
         Err error ->
             ( 400, encodeStringError error )
 
+        Ok encoded ->
+            ( 200, encoded )
+
 
 toAllImpactsSimple : Simulator -> Encode.Value
-toAllImpactsSimple { inputs, impacts } =
+toAllImpactsSimple { impacts, inputs } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
         , ( "impacts", Impact.encode impacts )
@@ -101,7 +101,7 @@ toTextileWebUrl maybeTrigram textileQuery =
 
 
 toSingleImpactSimple : Definition.Trigram -> Simulator -> Encode.Value
-toSingleImpactSimple trigram { inputs, impacts } =
+toSingleImpactSimple trigram { impacts, inputs } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl (Just trigram) inputs |> Encode.string )
         , ( "impacts"
@@ -205,96 +205,96 @@ handleRequest : Db -> Request -> JsonResponse
 handleRequest db request =
     case Route.endpoint db request of
         -- GET routes
-        Just Route.GetFoodCountryList ->
+        Just Route.FoodGetCountryList ->
             db.countries
                 |> Scope.only Scope.Food
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
-        Just Route.GetFoodIngredientList ->
+        Just Route.FoodGetIngredientList ->
             db.food.ingredients
                 |> encodeIngredients
                 |> respondWith 200
 
-        Just Route.GetFoodPackagingList ->
+        Just Route.FoodGetPackagingList ->
             db.food.processes
                 |> List.filter (.category >> (==) FoodProcess.Packaging)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
-        Just Route.GetFoodTransformList ->
+        Just Route.FoodGetTransformList ->
             db.food.processes
                 |> List.filter (.category >> (==) FoodProcess.Transform)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
-        Just (Route.GetFoodRecipe (Ok query)) ->
+        Just (Route.FoodGetRecipe (Ok query)) ->
             query
                 |> executeFoodQuery db (toFoodResults query)
 
-        Just (Route.GetFoodRecipe (Err errors)) ->
+        Just (Route.FoodGetRecipe (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
 
-        Just Route.GetTextileCountryList ->
+        Just Route.TextileGetCountryList ->
             db.countries
                 |> Scope.only Scope.Textile
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
-        Just Route.GetTextileMaterialList ->
+        Just Route.TextileGetMaterialList ->
             db.textile.materials
                 |> Encode.list encodeMaterial
                 |> respondWith 200
 
-        Just Route.GetTextileProductList ->
+        Just Route.TextileGetProductList ->
             db.textile.products
                 |> Encode.list encodeProduct
                 |> respondWith 200
 
-        Just (Route.GetTextileSimulator (Ok query)) ->
+        Just (Route.TextileGetSimulator (Ok query)) ->
             query
                 |> executeTextileQuery db toAllImpactsSimple
 
-        Just (Route.GetTextileSimulator (Err errors)) ->
+        Just (Route.TextileGetSimulator (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
 
-        Just (Route.GetTextileSimulatorDetailed (Ok query)) ->
+        Just (Route.TextileGetSimulatorDetailed (Ok query)) ->
             query
                 |> executeTextileQuery db Simulator.encode
 
-        Just (Route.GetTextileSimulatorDetailed (Err errors)) ->
+        Just (Route.TextileGetSimulatorDetailed (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
 
-        Just (Route.GetTextileSimulatorSingle trigram (Ok query)) ->
+        Just (Route.TextileGetSimulatorSingle trigram (Ok query)) ->
             query
                 |> executeTextileQuery db (toSingleImpactSimple trigram)
 
-        Just (Route.GetTextileSimulatorSingle _ (Err errors)) ->
+        Just (Route.TextileGetSimulatorSingle _ (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
 
         -- POST routes
-        Just Route.PostFoodRecipe ->
+        Just Route.FoodPostRecipe ->
             request.body
                 |> handleDecodeBody BuilderQuery.decode
                     (\query ->
                         executeFoodQuery db (toFoodResults query) query
                     )
 
-        Just Route.PostTextileSimulator ->
+        Just Route.TextilePostSimulator ->
             request.body
                 |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db toAllImpactsSimple)
 
-        Just Route.PostTextileSimulatorDetailed ->
+        Just Route.TextilePostSimulatorDetailed ->
             request.body
                 |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db Simulator.encode)
 
-        Just (Route.PostTextileSimulatorSingle trigram) ->
+        Just (Route.TextilePostSimulatorSingle trigram) ->
             request.body
                 |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db (toSingleImpactSimple trigram))
@@ -307,11 +307,11 @@ handleRequest db request =
 handleDecodeBody : Decode.Decoder a -> (a -> JsonResponse) -> Encode.Value -> JsonResponse
 handleDecodeBody decoder mapper jsonBody =
     case Decode.decodeValue decoder jsonBody of
-        Ok x ->
-            mapper x
-
         Err error ->
             ( 400, Encode.string (Decode.errorToString error) )
+
+        Ok x ->
+            mapper x
 
 
 update : Msg -> Cmd Msg
@@ -319,21 +319,20 @@ update msg =
     case msg of
         Received request ->
             case db request.processes of
-                Ok db ->
-                    cmdRequest db request
-
                 Err error ->
                     encodeStringError error |> sendResponse 503 request
+
+                Ok db ->
+                    cmdRequest db request
 
 
 main : Program () () Msg
 main =
+    -- Note: The Api server being stateless, there's no need for a model
     Platform.worker
         { init = always ( (), Cmd.none )
-
-        -- The Api server being stateless, there's no need of a model
-        , update = \msg _ -> ( (), update msg )
         , subscriptions = always (input Received)
+        , update = \msg _ -> ( (), update msg )
         }
 
 

@@ -66,6 +66,7 @@ import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Markdown as Markdown
 import Views.Modal as ModalView
+import Views.RangeSlider as RangeSlider
 import Views.Sidebar as SidebarView
 import Views.Textile.Step as StepView
 
@@ -84,11 +85,11 @@ type alias Model =
 
 
 type Modal
-    = NoModal
-    | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    = AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
     | ComparatorModal
     | ConfirmSwitchToRegulatoryModal
     | ExplorerDetailsTab Material
+    | NoModal
     | SelectExampleModal (Autocomplete Query)
     | SelectProductModal (Autocomplete Product)
 
@@ -131,12 +132,13 @@ type Msg
     | UpdateDyeingMedium DyeingMedium
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
-    | UpdateMakingWaste (Maybe Split)
     | UpdateMakingDeadStock (Maybe Split)
+    | UpdateMakingWaste (Maybe Split)
     | UpdateMassInput String
     | UpdateMaterial MaterialQuery MaterialQuery
     | UpdateMaterialSpinning Material Spinning
     | UpdateNumberOfReferences (Maybe Int)
+    | UpdatePhysicalDurability (Maybe Unit.PhysicalDurability)
     | UpdatePrice (Maybe Economics.Price)
     | UpdatePrinting (Maybe Printing)
     | UpdateStepCountry Label Country.Code
@@ -189,15 +191,15 @@ init trigram maybeUrlQuery session =
                     identity
            )
     , case maybeUrlQuery of
-        -- If we don't have an URL query, we may be coming from another app page, so we should
-        -- reposition the viewport at the top.
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
-
         -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
         -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
         Just _ ->
             Cmd.none
+
+        -- If we don't have an URL query, we may be coming from another app page, so we should
+        -- reposition the viewport at the top.
+        Nothing ->
+            Ports.scrollTo { x = 0, y = 0 }
     )
 
 
@@ -533,6 +535,10 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | fabricProcess = Just fabricProcess }
 
+        ( UpdatePhysicalDurability physicalDurability, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | physicalDurability = physicalDurability }
+
         ( UpdateMakingComplexity makingComplexity, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingComplexity = Just makingComplexity }
@@ -782,6 +788,19 @@ productPriceField productPrice =
         ]
 
 
+physicalDurabilityField : Unit.PhysicalDurability -> Html Msg
+physicalDurabilityField durability =
+    div [ class "input-group" ]
+        [ RangeSlider.physicalDurability
+            { id = "physicalDurability"
+            , update = UpdatePhysicalDurability
+            , value = durability
+            , toString = Unit.physicalDurabilityToFloat >> String.fromFloat
+            , disabled = False
+            }
+        ]
+
+
 businessField : Economics.Business -> Html Msg
 businessField business =
     [ Economics.SmallBusiness
@@ -932,11 +951,11 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , div [ class "card shadow-sm pb-2 mb-3" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité non-physique" ]
+            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
             , div [ class "d-flex align-items-center gap-2" ]
                 [ span [ class "d-none d-sm-flex text-truncate" ] [ text "Coefficient de durabilité\u{00A0}:" ]
                 , simulator.durability
-                    |> Unit.durabilityToFloat
+                    |> Unit.floatDurabilityFromHolistic
                     |> Format.formatFloat 2
                     |> text
                 , Button.docsPillLink
@@ -994,6 +1013,25 @@ simulatorFormView session model ({ inputs } as simulator) =
                     |> traceabilityField
                 ]
             ]
+        , if model.activeTab == ExploratoryTab then
+            div []
+                [ div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-4" ] [ text "Durabilité non physique" ]
+                    , div [ class "col-md-8" ]
+                        [ simulator.durability.nonPhysical
+                            |> Unit.nonPhysicalDurabilityToFloat
+                            |> String.fromFloat
+                            |> text
+                        ]
+                    ]
+                , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
+                    [ div [ class "col-md-4" ] [ text "Durabilité physique" ]
+                    , div [ class "col-md-8" ] [ physicalDurabilityField simulator.durability.physical ]
+                    ]
+                ]
+
+          else
+            text ""
         ]
     , div []
         [ lifeCycleStepsView session.db model simulator
@@ -1109,12 +1147,18 @@ view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
             (case model.simulator of
+                Err error ->
+                    [ Alert.simple
+                        { level = Alert.Danger
+                        , close = Nothing
+                        , title = Just "Erreur"
+                        , content = [ text error ]
+                        }
+                    ]
+
                 Ok simulator ->
                     [ simulatorView session model simulator
                     , case model.modal of
-                        NoModal ->
-                            text ""
-
                         AddMaterialModal _ autocompleteState ->
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
@@ -1192,6 +1236,9 @@ view session model =
                                 , footer = []
                                 }
 
+                        NoModal ->
+                            text ""
+
                         SelectExampleModal autocompleteState ->
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
@@ -1228,15 +1275,6 @@ view session model =
                                 , toLabel = .name
                                 , toCategory = always ""
                                 }
-                    ]
-
-                Err error ->
-                    [ Alert.simple
-                        { level = Alert.Danger
-                        , close = Nothing
-                        , title = Just "Erreur"
-                        , content = [ text error ]
-                        }
                     ]
             )
       ]

@@ -38,9 +38,9 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias IngredientQuery =
-    { id : Ingredient.Id
+    { country : Maybe Country.Code
+    , id : Ingredient.Id
     , mass : Mass
-    , country : Maybe Country.Code
     , planeTransport : Ingredient.PlaneTransport
     }
 
@@ -52,11 +52,11 @@ type alias ProcessQuery =
 
 
 type alias Query =
-    { ingredients : List IngredientQuery
-    , transform : Maybe ProcessQuery
+    { distribution : Maybe Retail.Distribution
+    , ingredients : List IngredientQuery
     , packaging : List ProcessQuery
-    , distribution : Maybe Retail.Distribution
     , preparation : List Preparation.Id
+    , transform : Maybe ProcessQuery
     }
 
 
@@ -102,11 +102,11 @@ buildApiQuery clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
-        |> Pipe.required "ingredients" (Decode.list decodeIngredient)
-        |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
-        |> Pipe.optional "packaging" (Decode.list decodeProcess) []
         |> Pipe.optional "distribution" (Decode.maybe Retail.decode) Nothing
+        |> Pipe.required "ingredients" (Decode.list decodeIngredient)
+        |> Pipe.optional "packaging" (Decode.list decodeProcess) []
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
+        |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
 
 
 decodePlaneTransport : Decoder Ingredient.PlaneTransport
@@ -153,9 +153,9 @@ decodeProcess =
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
     Decode.succeed IngredientQuery
+        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMassInGrams
-        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
         |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
 
 
@@ -179,11 +179,11 @@ deleteIngredient id query =
 
 empty : Query
 empty =
-    { ingredients = []
-    , transform = Nothing
+    { distribution = Nothing
+    , ingredients = []
     , packaging = []
-    , distribution = Nothing
     , preparation = []
+    , transform = Nothing
     }
 
 

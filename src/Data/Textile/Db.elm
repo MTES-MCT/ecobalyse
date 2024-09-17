@@ -11,12 +11,13 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as Query exposing (Query)
 import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
 import Json.Decode as Decode
+import Result.Extra as RE
 
 
 type alias Db =
-    { processes : List Process
-    , examples : List (Example Query)
+    { examples : List (Example Query)
     , materials : List Material
+    , processes : List Process
     , products : List Product
     , wellKnown : WellKnown
     }
@@ -29,9 +30,21 @@ buildFromJson exampleProductsJson materialsJson productsJson processesJson =
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->
-                Result.map4 (Db processes)
-                    (exampleProductsJson |> Example.decodeListFromJsonString Query.decode)
-                    (Decode.decodeString (Material.decodeList processes) materialsJson |> Result.mapError Decode.errorToString)
-                    (Decode.decodeString (Product.decodeList processes) productsJson |> Result.mapError Decode.errorToString)
-                    (WellKnown.load processes)
+                Ok Db
+                    |> RE.andMap
+                        (exampleProductsJson
+                            |> Example.decodeListFromJsonString Query.decode
+                        )
+                    |> RE.andMap
+                        (materialsJson
+                            |> Decode.decodeString (Material.decodeList processes)
+                            |> Result.mapError Decode.errorToString
+                        )
+                    |> RE.andMap (Ok processes)
+                    |> RE.andMap
+                        (productsJson
+                            |> Decode.decodeString (Product.decodeList processes)
+                            |> Result.mapError Decode.errorToString
+                        )
+                    |> RE.andMap (WellKnown.load processes)
             )

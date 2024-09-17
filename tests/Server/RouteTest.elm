@@ -42,13 +42,13 @@ foodEndpoints : StaticDb.Db -> List Test
 foodEndpoints db =
     [ describe "GET endpoints"
         [ testEndpoint db "GET" Encode.null "/food/ingredients"
-            |> Expect.equal (Just Route.GetFoodIngredientList)
+            |> Expect.equal (Just Route.FoodGetIngredientList)
             |> asTest "should map the /food/ingredients endpoint"
         , testEndpoint db "GET" Encode.null "/food/transforms"
-            |> Expect.equal (Just Route.GetFoodTransformList)
+            |> Expect.equal (Just Route.FoodGetTransformList)
             |> asTest "should map the /food/transforms endpoint"
         , testEndpoint db "GET" Encode.null "/food/packagings"
-            |> Expect.equal (Just Route.GetFoodPackagingList)
+            |> Expect.equal (Just Route.FoodGetPackagingList)
             |> asTest "should map the /food/packagings endpoint"
         , [ "/food?"
           , "ingredients[]=flour;97"
@@ -69,17 +69,17 @@ foodEndpoints db =
           ]
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetFoodRecipe (Ok Fixtures.royalPizza))
+            |> Expect.equal (Just <| Route.FoodGetRecipe (Ok Fixtures.royalPizza))
             |> asTest "should map the /food endpoint"
         ]
     , describe "POST endpoints"
         [ "/food"
             |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.empty)
-            |> Expect.equal (Just Route.PostFoodRecipe)
+            |> Expect.equal (Just Route.FoodPostRecipe)
             |> asTest "should map the POST /food endpoint"
         , "/food"
             |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just Route.PostFoodRecipe)
+            |> Expect.equal (Just Route.FoodPostRecipe)
             |> asTest "should map the POST /food endpoint whatever the request body is"
         ]
     , describe "validation"
@@ -164,7 +164,7 @@ textileEndpoints db =
             , "countryMaking=FR"
             ]
             |> testEndpoint db "GET" Encode.null
-            |> Expect.equal (Just <| Route.GetTextileSimulator (Ok sampleQuery))
+            |> Expect.equal (Just <| Route.TextileGetSimulator (Ok sampleQuery))
             |> asTest "should map the /textile/simulator endpoint"
         , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
@@ -178,7 +178,7 @@ textileEndpoints db =
             |> testEndpoint db "GET" Encode.null
             |> Expect.equal
                 (Just <|
-                    Route.GetTextileSimulator <|
+                    Route.TextileGetSimulator <|
                         Ok { sampleQuery | disabledSteps = [ Label.Making, Label.Ennobling ] }
                 )
             |> asTest "should map the /textile/simulator endpoint with the disabledSteps parameter set"
@@ -193,7 +193,7 @@ textileEndpoints db =
             |> testEndpoint db "GET" Encode.null
             |> Expect.equal
                 (Just <|
-                    Route.GetTextileSimulatorSingle Definition.Fwe <|
+                    Route.TextileGetSimulatorSingle Definition.Fwe <|
                         Ok sampleQuery
                 )
             |> asTest "should map the /textile/simulator/{impact} endpoint"
@@ -208,7 +208,7 @@ textileEndpoints db =
             |> testEndpoint db "GET" Encode.null
             |> Expect.equal
                 (Just <|
-                    Route.GetTextileSimulatorDetailed <|
+                    Route.TextileGetSimulatorDetailed <|
                         Ok sampleQuery
                 )
             |> asTest "should map the /textile/simulator/detailed endpoint"
@@ -216,11 +216,11 @@ textileEndpoints db =
     , describe "POST endpoints"
         [ "/textile/simulator"
             |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
-            |> Expect.equal (Just Route.PostTextileSimulator)
+            |> Expect.equal (Just Route.TextilePostSimulator)
             |> asTest "should map the POST /textile/simulator endpoint"
         , "/textile/simulator"
             |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just Route.PostTextileSimulator)
+            |> Expect.equal (Just Route.TextilePostSimulator)
             |> asTest "should map the POST /textile/simulator endpoint whatever the request body is"
         ]
     , describe "materials param checks"
@@ -330,6 +330,11 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "countryDyeing")
             |> Expect.equal (Just "Le code pays US n'est pas utilisable dans un contexte Textile.")
             |> asTest "should validate that an ingredient country scope is valid"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?physicalDurability=99"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "physicalDurability")
+            |> Expect.equal (Just "La durabilité doit être comprise entre 0.67 et 1.45.")
+            |> asTest "should validate that the physical durability param is invalid"
         ]
     , describe "multiple parameters checks"
         [ testEndpoint db "GET" Encode.null "/textile/simulator"
@@ -397,7 +402,7 @@ testEndpoint dbs method body url =
 extractQuery : Route.Route -> Maybe Query
 extractQuery route =
     case route of
-        Route.GetTextileSimulator (Ok query) ->
+        Route.TextileGetSimulator (Ok query) ->
             Just query
 
         _ ->
@@ -407,7 +412,7 @@ extractQuery route =
 extractFoodErrors : Route.Route -> Maybe (Dict String String)
 extractFoodErrors route =
     case route of
-        Route.GetFoodRecipe (Err errors) ->
+        Route.FoodGetRecipe (Err errors) ->
             Just errors
 
         _ ->
@@ -417,7 +422,7 @@ extractFoodErrors route =
 extractTextileErrors : Route.Route -> Maybe (Dict String String)
 extractTextileErrors route =
     case route of
-        Route.GetTextileSimulator (Err errors) ->
+        Route.TextileGetSimulator (Err errors) ->
             Just errors
 
         _ ->

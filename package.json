@@ -1,6 +1,6 @@
 {
   "name": "ecobalyse",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Accélérer l'affichage environnemental de la filière textile française",
   "author": "Ecobalyse <contact@beta.gouv.fr>",
   "license": "MIT",
@@ -16,10 +16,10 @@
     "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/ && npm run db:build",
     "build:standalone-app": "npm run build && npm run server:build && cp server-app.js dist/ && cp openapi.yaml dist/",
-    "processes:build": "elm make src/ComputeAggregated.elm --output=compute-aggregated-app.js && node compute-aggregated.js",
     "decrypt": "./bin/decrypt",
     "encrypt": "./bin/encrypt",
-    "db:build": "./bin/build-db",
+    "db:build": "./bin/build-db && npm run db:check",
+    "db:check": "elm make src/CheckDb.elm --optimize --output=check-db-app.js 1> /dev/null && node check-db.js",
     "lint:openapi": "npx swagger-cli validate openapi.yaml",
     "lint:prettier": "prettier --config .prettierrc --check",
     "lint:prettier:all": "npm run lint:prettier -- .",
@@ -34,6 +34,7 @@
     "fix:ruff:format": "pipenv run ruff format --force-exclude",
     "fix:all": "npm run fix:ruff:all && npm run fix:prettier:all",
     "format:json": "npx prettier@3.0.3 --write . && pipenv run ruff check --select I --fix && pipenv run ruff format",
+    "processes:build": "elm make src/ComputeAggregated.elm --output=compute-aggregated-app.js 1> /dev/null && node compute-aggregated.js",
     "server:build": "npm run db:build && elm make src/Server.elm --optimize --output=server-app.js",
     "server:dev": "npm run server:build && nodemon server.js --config nodemon.json",
     "server:debug": "elm make src/Server.elm --output=server-app.js && nodemon server.js --config nodemon.json",
@@ -50,23 +51,16 @@
     "test": "npm run test:client && npm run test:backend && npm run test:server"
   },
   "dependencies": {
-    "@parcel/transformer-elm": "^2.12.0",
-    "@parcel/transformer-image": "^2.12.0",
-    "@parcel/transformer-sass": "^2.12.0",
     "@sentry/browser": "^8.27.0",
     "@sentry/node": "^8.27.0",
     "@sentry/profiling-node": "^8.28.0",
     "@sentry/tracing": "^7.114.0",
-    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "elm": "^0.19.1-6",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "express-rate-limit": "^7.4.0",
     "helmet": "^7.1.0",
-    "highcharts": "^11.4.8",
     "js-yaml": "^4.1.0",
-    "parcel": "^2.12.0",
     "piwik": "^1.0.9"
   },
   "devDependencies": {
@@ -82,10 +76,18 @@
     "prettier": "^3.3.3",
     "process": "^0.11.10",
     "rimraf": "^6.0.1",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "parcel": "^2.12.0",
+    "@parcel/transformer-elm": "^2.12.0",
+    "@parcel/transformer-image": "^2.12.0",
+    "@parcel/transformer-sass": "^2.12.0",
+    "highcharts": "^11.4.8",
+    "bootstrap": "^5.3.3",
+    "elm": "^0.19.1-6"
   },
   "cacheDirectories": [
     "node_modules",
-    "~/.elm"
+    "elm-stuff",
+    ".elm"
   ]
 }

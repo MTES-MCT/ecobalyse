@@ -13,9 +13,9 @@ import Quantity
 type alias Scoring =
     { all : Unit.Impact
     , allWithoutComplements : Unit.Impact
-    , complements : Unit.Impact
-    , climate : Unit.Impact
     , biodiversity : Unit.Impact
+    , climate : Unit.Impact
+    , complements : Unit.Impact
     , health : Unit.Impact
     , resources : Unit.Impact
     }
@@ -34,9 +34,9 @@ compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
     in
     { all = Quantity.difference ecsPerKgWithoutComplements totalComplementsImpactPerKg
     , allWithoutComplements = ecsPerKgWithoutComplements
-    , complements = totalComplementsImpactPerKg
-    , climate = subScores.climate
     , biodiversity = subScores.biodiversity
+    , climate = subScores.climate
+    , complements = totalComplementsImpactPerKg
     , health = subScores.health
     , resources = subScores.resources
     }
@@ -46,9 +46,9 @@ empty : Scoring
 empty =
     { all = Unit.impact 0
     , allWithoutComplements = Unit.impact 0
-    , complements = Unit.impact 0
-    , climate = Unit.impact 0
     , biodiversity = Unit.impact 0
+    , climate = Unit.impact 0
+    , complements = Unit.impact 0
     , health = Unit.impact 0
     , resources = Unit.impact 0
     }

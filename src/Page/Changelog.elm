@@ -57,13 +57,13 @@ view _ model =
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Changelog" ]
             , case model.releases of
+                RemoteData.Failure error ->
+                    Alert.httpError error
+
                 RemoteData.Success releases ->
                     releases
                         |> List.map (.markdown >> Markdown.simple [])
                         |> div []
-
-                RemoteData.Failure error ->
-                    Alert.httpError error
 
                 _ ->
                     SpinnerView.view
