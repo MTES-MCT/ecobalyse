@@ -16,6 +16,7 @@ module Data.Unit exposing
     , decodeYarnSize
     , encodeHolisticDurability
     , encodeImpact
+    , encodeNonPhysicalDurability
     , encodePhysicalDurability
     , encodePickPerMeter
     , encodeRatio
