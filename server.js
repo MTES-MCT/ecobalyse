@@ -21,7 +21,14 @@ const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
-const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
+const {
+  ECOBALYSE_DATA_DIR,
+  ENABLE_FOOD_SECTION,
+  MATOMO_HOST,
+  MATOMO_SITE_ID,
+  MATOMO_TOKEN,
+  NODE_ENV,
+} = process.env;
 
 var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -155,8 +162,10 @@ if (fs.existsSync(versionsDir)) {
 
 // API
 
-const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
-openApiContents.version = require("./package.json").version;
+const openApiContents = processOpenApi(
+  yaml.load(fs.readFileSync("openapi.yaml")),
+  require("./package.json").version,
+);
 
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
@@ -185,6 +194,18 @@ const getProcesses = async (token, customProcessesImpacts, customProcesses) => {
     return customProcesses ?? processes;
   }
 };
+
+function processOpenApi(contents, versionNumber) {
+  // Add app version info to openapi docs
+  contents.version = versionNumber;
+  // Remove food api docs if disabled from env
+  if (ENABLE_FOOD_SECTION !== "True") {
+    contents.paths = Object.fromEntries(
+      Object.entries(contents.paths).filter(([path, _]) => !path.startsWith("/food")),
+    );
+  }
+  return contents;
+}
 
 app.get("/processes/processes.json", async (req, res) => {
   return res.status(200).send(await getProcesses(req.headers.token));
@@ -243,7 +264,10 @@ version.use("/:versionNumber", checkVersionAndPath, (req, res, next) => {
 });
 
 version.get("/:versionNumber/api", checkVersionAndPath, (req, res) => {
-  const openApiContents = yaml.load(fs.readFileSync(path.join(req.staticDir, "openapi.yaml")));
+  const openApiContents = processOpenApi(
+    yaml.load(fs.readFileSync(path.join(req.staticDir, "openapi.yaml"))),
+    req.params.versionNumber,
+  );
   res.status(200).send(openApiContents);
 });
 
