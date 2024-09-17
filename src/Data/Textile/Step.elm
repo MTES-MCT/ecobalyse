@@ -50,7 +50,7 @@ type alias Step =
     , complementsImpacts : Impact.ComplementsImpacts
     , country : Country
     , deadstock : Mass
-    , durability : Unit.NonPhysicalDurability
+    , durability : Unit.HolisticDurability
     , dyeingMedium : Maybe DyeingMedium
     , editable : Bool
     , enabled : Bool
@@ -104,7 +104,10 @@ create { country, editable, enabled, label } =
     , complementsImpacts = Impact.noComplementsImpacts
     , country = country
     , deadstock = Quantity.zero
-    , durability = Unit.standardDurability Unit.NonPhysicalDurability
+    , durability =
+        { nonPhysical = Unit.standardDurability Unit.NonPhysicalDurability
+        , physical = Unit.maxDurability Unit.PhysicalDurability
+        }
     , dyeingMedium = Nothing
     , editable = editable
     , enabled = enabled
@@ -475,7 +478,7 @@ encode v =
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "country", Country.encode v.country )
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
-        , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
+        , ( "durability", Unit.encodeHolisticDurability v.durability )
         , ( "editable", Encode.bool v.editable )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "enabled", Encode.bool v.enabled )

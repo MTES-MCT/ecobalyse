@@ -14,8 +14,8 @@ module Data.Unit exposing
     , decodeRatio
     , decodeSurfaceMass
     , decodeYarnSize
+    , encodeHolisticDurability
     , encodeImpact
-    , encodeNonPhysicalDurability
     , encodePhysicalDurability
     , encodePickPerMeter
     , encodeRatio
@@ -199,6 +199,14 @@ encodePhysicalDurability (PhysicalDurability float) =
 encodeNonPhysicalDurability : NonPhysicalDurability -> Encode.Value
 encodeNonPhysicalDurability (NonPhysicalDurability float) =
     Encode.float float
+
+
+encodeHolisticDurability : HolisticDurability -> Encode.Value
+encodeHolisticDurability holisticDurability =
+    Encode.object
+        [ ( "physical", encodePhysicalDurability holisticDurability.physical )
+        , ( "nonPhysical", encodeNonPhysicalDurability holisticDurability.nonPhysical )
+        ]
 
 
 

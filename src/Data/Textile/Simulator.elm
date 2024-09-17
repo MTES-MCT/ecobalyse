@@ -8,6 +8,7 @@ module Data.Textile.Simulator exposing
     )
 
 import Array
+import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -27,6 +28,7 @@ import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Data.Zone as Zone
 import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Encode as Encode
@@ -133,6 +135,8 @@ compute db query =
         -- DURABILITY
         --
         |> next computeDurability
+        -- Compute Making air transport ratio (depends on durability) - Confection
+        |> nextIf Label.Making computeMakingAirTransportRatio
         --
         -- LIFECYCLE STEP IMPACTS
         --
@@ -208,6 +212,36 @@ computeDurability ({ inputs } as simulator) =
         , useNbCycles =
             round (toFloat simulator.useNbCycles * Unit.floatDurabilityFromHolistic newDurability)
     }
+
+
+computeMakingAirTransportRatio : Simulator -> Simulator
+computeMakingAirTransportRatio ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Making
+            (\({ country } as step) ->
+                { step
+                    | airTransportRatio =
+                        let
+                            iSEuropeOrTurquey =
+                                country.zone == Zone.Europe || country.code == Country.codeFromString "TR"
+                        in
+                        -- If Making country is Europe or Turquey, airTransportRatio should always be 0
+                        case ( inputs.airTransportRatio, iSEuropeOrTurquey, Unit.floatDurabilityFromHolistic simulator.durability ) of
+                            ( Just _, _, _ ) ->
+                                step.airTransportRatio
+
+                            ( _, True, _ ) ->
+                                Split.zero
+
+                            -- Else it should depend on the computed durability
+                            ( _, _, durabilty ) ->
+                                if durabilty >= 1 then
+                                    Split.fromFloat 0.33 |> Result.withDefault step.airTransportRatio
+
+                                else
+                                    Split.full
+                }
+            )
 
 
 computeEndOfLifeImpacts : Db -> Simulator -> Simulator
