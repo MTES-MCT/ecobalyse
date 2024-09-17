@@ -28,7 +28,6 @@ import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
-import Data.Zone as Zone
 import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Encode as Encode
@@ -221,22 +220,17 @@ computeMakingAirTransportRatio ({ inputs } as simulator) =
             (\({ country } as step) ->
                 { step
                     | airTransportRatio =
-                        let
-                            iSEuropeOrTurquey =
-                                country.zone == Zone.Europe || country.code == Country.codeFromString "TR"
-                        in
                         if inputs.airTransportRatio /= Nothing then
                             -- User-provided value always takes precedence
                             step.airTransportRatio
 
-                        else if country.zone == Zone.Europe || country.code == Country.codeFromString "TR" then
+                        else if Country.iSEuropeOrTurkey country then
                             -- If Making country is Europe or Turquey, airTransportRatio is always 0
                             Split.zero
 
                         else if Unit.floatDurabilityFromHolistic simulator.durability >= 1 then
                             -- Durable garments outside of Europe and Turquey
-                            Split.fromFloat 0.33
-                                |> Result.withDefault step.airTransportRatio
+                            Split.third
 
                         else
                             Split.full

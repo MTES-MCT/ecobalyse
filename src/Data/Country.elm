@@ -10,6 +10,7 @@ module Data.Country exposing
     , encodeCode
     , findByCode
     , getAquaticPollutionRatio
+    , iSEuropeOrTurkey
     , unknownCountryCode
     )
 
@@ -150,6 +151,11 @@ getAquaticPollutionRatio scenario =
 
         Worst ->
             Split.fromPercent 65 |> Result.withDefault Split.full
+
+
+iSEuropeOrTurkey : Country -> Bool
+iSEuropeOrTurkey country =
+    country.zone == Zone.Europe || country.code == codeFromString "TR"
 
 
 unknownCountryCode : Code
