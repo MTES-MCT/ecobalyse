@@ -651,7 +651,7 @@ def display_main_data(method, impact_category, activity):
             f"<li><b>Name</b>: {input_.get('name', 'N/A')}</li>"
             f"<li><b>Code</b>: {input_.get('code', 'N/A')}</li>"
             f"<li><b>Type</b>: {input_.get('type', 'N/A')}</li>"
-            f"<li><b>Categories</b>: {', '.join(input_.get('categories', 'N/A'))}</li>"
+            f"<li><b>Categories</b>: {', '.join(input_.get('categories', []))}</li>"
             f"<li><b>CAS number</b>: <a href=\"https://pubchem.ncbi.nlm.nih.gov/#query={str(input_.get('CAS number')).lstrip('0')}\">{str(input_.get('CAS number'))}</a></li>"
             f"<li><b>Unit</b>: {input_.get('unit', 'N/A')}</li>"
             f"<li><b>Id</b>: {input_.get('id', 'N/A')}</li>"
@@ -720,7 +720,7 @@ def display_main_data(method, impact_category, activity):
     w_details.clear_output()
     display(
         Markdown(
-            f"# 1 {activity.get('unit', '')} of {activity.get('name', '')} ({', '.join(activity.get('categories', 'N/A'))})"
+            f"# 1 {activity.get('unit', '')} of {activity.get('name', '')} ({', '.join(activity.get('categories', []))})"
         )
     )
     display(
