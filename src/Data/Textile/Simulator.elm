@@ -225,11 +225,12 @@ computeMakingAirTransportRatio ({ inputs } as simulator) =
                             iSEuropeOrTurquey =
                                 country.zone == Zone.Europe || country.code == Country.codeFromString "TR"
                         in
-                        -- If Making country is Europe or Turquey, airTransportRatio should always be 0
                         case ( inputs.airTransportRatio, iSEuropeOrTurquey, Unit.floatDurabilityFromHolistic simulator.durability ) of
+                            -- Value provided by the user should always precede
                             ( Just _, _, _ ) ->
                                 step.airTransportRatio
 
+                            -- If Making country is Europe or Turquey, airTransportRatio should always be 0
                             ( _, True, _ ) ->
                                 Split.zero
 
