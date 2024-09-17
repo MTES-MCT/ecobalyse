@@ -225,22 +225,21 @@ computeMakingAirTransportRatio ({ inputs } as simulator) =
                             iSEuropeOrTurquey =
                                 country.zone == Zone.Europe || country.code == Country.codeFromString "TR"
                         in
-                        case ( inputs.airTransportRatio, iSEuropeOrTurquey, Unit.floatDurabilityFromHolistic simulator.durability ) of
-                            -- Value provided by the user should always precede
-                            ( Just _, _, _ ) ->
-                                step.airTransportRatio
+                        if inputs.airTransportRatio /= Nothing then
+                            -- User-provided value always takes precedence
+                            step.airTransportRatio
 
-                            -- If Making country is Europe or Turquey, airTransportRatio should always be 0
-                            ( _, True, _ ) ->
-                                Split.zero
+                        else if country.zone == Zone.Europe || country.code == Country.codeFromString "TR" then
+                            -- If Making country is Europe or Turquey, airTransportRatio is always 0
+                            Split.zero
 
-                            -- Else it should depend on the computed durability
-                            ( _, _, durabilty ) ->
-                                if durabilty >= 1 then
-                                    Split.fromFloat 0.33 |> Result.withDefault step.airTransportRatio
+                        else if Unit.floatDurabilityFromHolistic simulator.durability >= 1 then
+                            -- Durable garments outside of Europe and Turquey
+                            Split.fromFloat 0.33
+                                |> Result.withDefault step.airTransportRatio
 
-                                else
-                                    Split.full
+                        else
+                            Split.full
                 }
             )
 
