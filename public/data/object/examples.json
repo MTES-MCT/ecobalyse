@@ -1,0 +1,30 @@
+[
+  {
+    "id": "example_Yt6gZ2Bku8QC7FbpkNTaxi",
+    "name": "Chaise",
+    "composition": {
+      "processes": [
+        {
+          "process_id": "process_dwEemLKPKGWwcqACfezzx5",
+          "amount": 0.00088
+        },
+        {
+          "process_id": "process_AdGA4bHWktPSZSeqaNKysh",
+          "amount": 1.645313
+        }
+      ]
+    }
+  },
+  {
+    "id": "example_EmA5jMYc5MMWrZeNS2pVJY",
+    "name": "Table",
+    "composition": {
+      "processes": [
+        {
+          "process_id": "process_dwEemLKPKGWwcqACfezzx5",
+          "amount": 0.002
+        }
+      ]
+    }
+  }
+]
