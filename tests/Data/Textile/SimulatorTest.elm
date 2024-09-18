@@ -1,7 +1,10 @@
 module Data.Textile.SimulatorTest exposing (..)
 
+import Data.Country as Country
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Split as Split
+import Data.Textile.Economics as Economics
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Simulator as Simulator
@@ -80,6 +83,55 @@ suite =
                                 Expect.fail "bogus simulator results"
                         )
                     ]
+                ]
+            , let
+                tShirtCotonWithSmallerPhysicalDurability =
+                    { tShirtCotonFrance
+                        | numberOfReferences = Just 10
+                        , price = Just <| Economics.priceFromFloat 100
+                        , physicalDurability = Just <| Unit.physicalDurability 1
+                    }
+              in
+              describe "compute holistic durability"
+                [ tShirtCotonFrance
+                    |> Simulator.compute db
+                    |> Result.map .durability
+                    |> Expect.equal (Ok { physical = Unit.physicalDurability 1.45, nonPhysical = Unit.nonPhysicalDurability 0.67 })
+                    |> asTest "should have default durability"
+                , { physical = Unit.physicalDurability 1.45, nonPhysical = Unit.nonPhysicalDurability 0.67 }
+                    |> Unit.floatDurabilityFromHolistic
+                    |> Expect.within (Expect.Absolute 0.001) 0.67
+                    |> asTest "should take the min of the two durabilities"
+                , tShirtCotonWithSmallerPhysicalDurability
+                    |> Simulator.compute db
+                    |> Result.map .durability
+                    |> Expect.equal (Ok { physical = Unit.physicalDurability 1, nonPhysical = Unit.nonPhysicalDurability 1.19 })
+                    |> asTest "should take into account when non physical durability changes"
+                , tShirtCotonWithSmallerPhysicalDurability
+                    |> Simulator.compute db
+                    |> Result.map (.durability >> Unit.floatDurabilityFromHolistic)
+                    |> Expect.equal (Ok 1)
+                    |> asTest "should return non physical durability if it is the smallest"
+                ]
+            , describe "compute airTransporRatio"
+                [ tShirtCotonFrance
+                    |> Simulator.compute db
+                    |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
+                    |> Expect.equal (Ok Split.zero)
+                    |> asTest "should be zero for products from Europe or Turkey"
+                , { tShirtCotonFrance | countryMaking = Just (Country.Code "CN") }
+                    |> Simulator.compute db
+                    |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
+                    |> Expect.equal (Ok Split.full)
+                    |> asTest "should be full for products not coming from Europe or Turkey"
+                , { tShirtCotonFrance
+                    | countryMaking = Just (Country.Code "CN")
+                    , airTransportRatio = Just Split.two
+                  }
+                    |> Simulator.compute db
+                    |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
+                    |> Expect.equal (Ok Split.two)
+                    |> asTest "should keep the user provided value"
                 ]
             , describe "getTotalImpactsWithoutComplements"
                 [ tShirtCotonFrance

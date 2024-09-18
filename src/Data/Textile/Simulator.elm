@@ -235,9 +235,9 @@ computeMakingAirTransportRatio ({ durability, inputs } as simulator) =
                                     Split.third
 
                                 else
-                                    -- FIXME: how about faling back to coutry default?
-                                    -- Spli.full ?
-                                    country.airTransportRatio
+                                    -- FIXME: how about falling back to country default?
+                                    -- country.airTransportRatio
+                                    Split.full
                 }
             )
 
