@@ -75,11 +75,11 @@ foodEndpoints db =
     , describe "POST endpoints"
         [ "/food"
             |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.empty)
-            |> Expect.equal (Just Route.FoodPostRecipe)
+            |> Expect.equal (Just (Route.FoodPostRecipe (FoodQuery.encode FoodQuery.empty)))
             |> asTest "should map the POST /food endpoint"
         , "/food"
             |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just Route.FoodPostRecipe)
+            |> Expect.equal (Just (Route.FoodPostRecipe Encode.null))
             |> asTest "should map the POST /food endpoint whatever the request body is"
         ]
     , describe "validation"
@@ -216,11 +216,11 @@ textileEndpoints db =
     , describe "POST endpoints"
         [ "/textile/simulator"
             |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
-            |> Expect.equal (Just Route.TextilePostSimulator)
+            |> Expect.equal (Just (Route.TextilePostSimulator (Query.encode tShirtCotonFrance)))
             |> asTest "should map the POST /textile/simulator endpoint"
         , "/textile/simulator"
             |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just Route.TextilePostSimulator)
+            |> Expect.equal (Just (Route.TextilePostSimulator Encode.null))
             |> asTest "should map the POST /textile/simulator endpoint whatever the request body is"
         ]
     , describe "materials param checks"

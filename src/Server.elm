@@ -277,25 +277,25 @@ handleRequest db request =
                 |> respondWith 400
 
         -- POST routes
-        Just Route.FoodPostRecipe ->
-            request.body
+        Just (Route.FoodPostRecipe jsonBody) ->
+            jsonBody
                 |> handleDecodeBody BuilderQuery.decode
                     (\query ->
                         executeFoodQuery db (toFoodResults query) query
                     )
 
-        Just Route.TextilePostSimulator ->
-            request.body
+        Just (Route.TextilePostSimulator jsonBody) ->
+            jsonBody
                 |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db toAllImpactsSimple)
 
-        Just Route.TextilePostSimulatorDetailed ->
-            request.body
+        Just (Route.TextilePostSimulatorDetailed jsonBody) ->
+            jsonBody
                 |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db Simulator.encode)
 
-        Just (Route.TextilePostSimulatorSingle trigram) ->
-            request.body
+        Just (Route.TextilePostSimulatorSingle jsonBody trigram) ->
+            jsonBody
                 |> handleDecodeBody TextileQuery.decode
                     (executeTextileQuery db (toSingleImpactSimple trigram))
 
