@@ -71,22 +71,52 @@ Dès lors, Ecobalyse se concentre sur la mise à disposition de "procédés gén
 
 <details>
 
-<summary>Pièce métallique en acier</summary>
+<summary>Pièce en acier inoxydable</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée\
+  Procédé Ecoinvent : _steel production, chromium steel 18/8, hot rolled, RER_\
+  Quantité : 1 kg
+* Etape de transformation\
+  Procédé Ecoinvent : _metal working, average for chromium steel product manufacturing, RER_\
+  Quantité : 1 kg
+
+</details>
+
+<details>
+
+<summary>Pièce en acier</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée => 1kg d'acier faiblement allié laminé à chaud\
-  Procédé Ecoinvent => _steel production, converter, low-alloyed, hot rolled, RER_ \
-  Quantité => 1kg
+  Procédé Ecoinvent => _steel production, converter, low-alloyed, RER_ \
+  Quantité : 1 kg
 * Etape de transformation additionnelle => laminage à froid de 1kg d'acier\
-  Procédé Ecoinvent => _sheet rolling, steel, RER_\
+  Procédé Ecoinvent => _metal working, average for steel product manufacturing, RER_\
+  Quantité : 1 kg
+
+</details>
+
+<details>
+
+<summary>Pièce an acier/nickel</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée \
+  Procédé Ecoinvent => _I_**ron-nickel-chromium alloy production, RER**\
+  Quantité => 1kg
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent => _metal working, average for aluminium product manufacturing, RER_\
   Quantité => 1kg
 
 </details>
 
 <details>
 
-<summary>Pièce plastique</summary>
+<summary>Pièce plastique (polypropylene)</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
@@ -109,8 +139,91 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
   Procédé Ecoinvent => _Aluminium production, primary, ingot_**,** _IAIA Area, EU27 & EFTA_\
   Quantité => 1kg
 * Etape de transformation additionnelle\
-  Procédé Ecoinvent => _sheet rolling, aluminium**,** ReR_\
+  Procédé Ecoinvent => _metal working, average for aluminium product manufacturing, RER_\
   Quantité => 1kg
+
+</details>
+
+<details>
+
+<summary>Tissu</summary>
+
+A compléter
+
+</details>
+
+<details>
+
+<summary>Tuyau (polyurethane)</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée \
+  Procédé Ecoinvent => _polyurethane production, flexible foam, MDI-based, RER_\
+  Quantité => 1kg
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent => _extrusion, plastic pipes, RER_\
+  Quantité => 1kg
+
+</details>
+
+<details>
+
+<summary>Pièce en laiton</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée \
+  Procédé Ecoinvent => _Brass production, CH_\
+  Quantité => 1kg
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent => B_rass turning, average, conventional, RER_\
+  Quantité => 1kg
+
+</details>
+
+<details>
+
+<summary>Pièce en plastique (ABS)</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée => 1 kg de matière plastique \
+  Procédé Ecoinvent => A_crylonitrile-butadiene-styrene copolymer production, RER_\
+  Quantité => 1kg
+* Etape de transformation additionnelle => thermoformage\
+  Procédé Ecoinvent => I_njection moulding, RER_\
+  Quantité => 1kg
+
+</details>
+
+<details>
+
+<summary>Pièce en caoutchouc</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée => 1 kg de matière plastique \
+  Procédé Ecoinvent => _Synthetic rubber production, RER_\
+  Quantité => 1kg
+* Etape de transformation additionnelle => thermoformage\
+  Procédé Ecoinvent => I_njection moulding, RER_\
+  Quantité => 1kg
+
+</details>
+
+<details>
+
+<summary>Panneau (polyethylene)</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée\
+  Procédé Ecoinvent : P_olyethylene production, low density, granulate, RER_\
+  Quantité : 1kg
+* Etape de transformation\
+  Procédé Ecoinvent :  _Calendering, rigid sheets, RER_\
+  Quantité : 1kg
 
 </details>
 
@@ -119,6 +232,8 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 ### Coût environnemental des composants dans Ecobalyse :&#x20;
 
 cf. l'Explorateur pour accéder à la liste des composant en bois disponibles dans Ecobalyse.&#x20;
+
+
 
 <figure><img src="../../.gitbook/assets/Coût environnemental (uPts _ kg) (1).png" alt=""><figcaption></figcaption></figure>
 
