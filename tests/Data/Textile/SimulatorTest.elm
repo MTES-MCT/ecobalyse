@@ -113,7 +113,16 @@ suite =
                     |> Expect.equal (Ok 1)
                     |> asTest "should return non physical durability if it is the smallest"
                 ]
-            , describe "compute airTransporRatio"
+            , let
+                tShirtCotonWithSmallerPhysicalDurabilityCn =
+                    { tShirtCotonFrance
+                        | numberOfReferences = Just 10
+                        , price = Just <| Economics.priceFromFloat 100
+                        , physicalDurability = Just <| Unit.physicalDurability 1.1
+                        , countryMaking = Just (Country.Code "CN")
+                    }
+              in
+              describe "compute airTransporRatio"
                 [ tShirtCotonFrance
                     |> Simulator.compute db
                     |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
@@ -124,6 +133,11 @@ suite =
                     |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                     |> Expect.equal (Ok Split.full)
                     |> asTest "should be full for products not coming from Europe or Turkey"
+                , tShirtCotonWithSmallerPhysicalDurabilityCn
+                    |> Simulator.compute db
+                    |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
+                    |> Expect.equal (Ok Split.third)
+                    |> asTest "should be 0.33 for products not coming from Europe or Turkey but with a durability >= 1"
                 , { tShirtCotonFrance
                     | countryMaking = Just (Country.Code "CN")
                     , airTransportRatio = Just Split.two
