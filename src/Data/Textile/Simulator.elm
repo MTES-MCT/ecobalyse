@@ -214,26 +214,30 @@ computeDurability ({ inputs } as simulator) =
 
 
 computeMakingAirTransportRatio : Simulator -> Simulator
-computeMakingAirTransportRatio ({ inputs } as simulator) =
+computeMakingAirTransportRatio ({ durability, inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Making
             (\({ country } as step) ->
                 { step
                     | airTransportRatio =
-                        if inputs.airTransportRatio /= Nothing then
-                            -- User-provided value always takes precedence
-                            step.airTransportRatio
+                        case inputs.airTransportRatio of
+                            Just airTransportRatio ->
+                                -- User-provided value always takes precedence
+                                airTransportRatio
 
-                        else if Country.isEuropeOrTurkey country then
-                            -- If Making country is Europe or Turquey, airTransportRatio is always 0
-                            Split.zero
+                            Nothing ->
+                                if Country.isEuropeOrTurkey country then
+                                    -- If Making country is Europe or Turkey, airTransportRatio is always 0
+                                    Split.zero
 
-                        else if Unit.floatDurabilityFromHolistic simulator.durability >= 1 then
-                            -- Durable garments outside of Europe and Turquey
-                            Split.third
+                                else if Unit.floatDurabilityFromHolistic durability >= 1 then
+                                    -- Durable garments outside of Europe and Turkey
+                                    Split.third
 
-                        else
-                            Split.full
+                                else
+                                    -- FIXME: how about faling back to coutry default?
+                                    -- Spli.full ?
+                                    country.airTransportRatio
                 }
             )
 
