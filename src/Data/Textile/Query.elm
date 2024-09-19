@@ -37,6 +37,7 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import List.Extra as LE
@@ -110,39 +111,46 @@ buildApiQuery clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
-        |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "business" (Decode.maybe Economics.decodeBusiness) Nothing
-        |> Pipe.optional "countryDyeing" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countryFabric" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countryMaking" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countrySpinning" (Decode.maybe Country.decodeCode) Nothing
+        |> strictOptional "airTransportRatio" Split.decodeFloat
+        |> strictOptional "business" Economics.decodeBusiness
+        |> strictOptional "countryDyeing" Country.decodeCode
+        |> strictOptional "countryFabric" Country.decodeCode
+        |> strictOptional "countryMaking" Country.decodeCode
+        |> strictOptional "countrySpinning" Country.decodeCode
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
-        |> Pipe.optional "fabricProcess" (Decode.maybe Fabric.decode) Nothing
-        |> Pipe.optional "fading" (Decode.maybe Decode.bool) Nothing
-        |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
-        |> Pipe.optional "makingDeadStock" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
+        |> strictOptional "dyeingMedium" DyeingMedium.decode
+        |> strictOptional "fabricProcess" Fabric.decode
+        |> strictOptional "fading" Decode.bool
+        |> strictOptional "makingComplexity" MakingComplexity.decode
+        |> strictOptional "makingDeadStock" Split.decodeFloat
+        |> strictOptional "makingWaste" Split.decodeFloat
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
-        |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
-        |> Pipe.optional "physicalDurability" (Decode.maybe Unit.decodePhysicalDurability) Nothing
-        |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
-        |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
+        |> strictOptional "numberOfReferences" Decode.int
+        |> strictOptional "physicalDurability" Unit.decodePhysicalDurability
+        |> strictOptional "price" Economics.decodePrice
+        |> strictOptional "printing" Printing.decode
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.optional "traceability" (Decode.maybe Decode.bool) Nothing
+        |> strictOptional "surfaceMass" Unit.decodeSurfaceMass
+        |> strictOptional "traceability" Decode.bool
         |> Pipe.optional "upcycled" Decode.bool False
-        |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
+        |> strictOptional "yarnSize" Unit.decodeYarnSize
+
+
+strictOptional : String -> Decoder a -> Decoder (Maybe a -> b) -> Decoder b
+strictOptional field decoder =
+    -- Note: Using Json.Decode.Extra's optionalField here because we want
+    -- a failure when a Maybe decoded field value is invalid
+    DE.andMap (DE.optionalField field decoder)
 
 
 decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
-        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
+        |> strictOptional "country" Country.decodeCode
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Split.decodeFloat
-        |> Pipe.optional "spinning" (Decode.maybe Spinning.decode) Nothing
+        |> strictOptional "spinning" Spinning.decode
 
 
 encode : Query -> Encode.Value

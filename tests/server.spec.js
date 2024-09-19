@@ -296,11 +296,6 @@ describe("API", () => {
             airTransportRatio: 0.5,
             durability: 1.2,
             reparability: 1.2,
-            makingWaste: null,
-            makingComplexity: null,
-            yarnSize: null,
-            surfaceMass: null,
-            knittingProcess: null,
             disabledSteps: ["use"],
           });
           expectStatus(response, 200);
