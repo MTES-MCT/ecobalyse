@@ -280,28 +280,32 @@ handleRequest db request =
             executeFoodQuery db (toFoodResults foodQuery) foodQuery
 
         Just (Route.FoodPostRecipe (Err error)) ->
-            ( 400, Encode.string error )
+            Encode.string error
+                |> respondWith 400
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
             textileQuery
                 |> executeTextileQuery db toAllImpactsSimple
 
         Just (Route.TextilePostSimulator (Err error)) ->
-            ( 400, Encode.string error )
+            Encode.string error
+                |> respondWith 400
 
         Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
             textileQuery
                 |> executeTextileQuery db Simulator.encode
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
-            ( 400, Encode.string error )
+            Encode.string error
+                |> respondWith 400
 
         Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
             textileQuery
                 |> executeTextileQuery db (toSingleImpactSimple trigram)
 
         Just (Route.TextilePostSimulatorSingle (Err error) _) ->
-            ( 400, Encode.string error )
+            Encode.string error
+                |> respondWith 400
 
         Nothing ->
             encodeStringError "Endpoint doesn't exist"
