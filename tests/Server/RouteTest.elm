@@ -12,6 +12,7 @@ import Data.Textile.Material.Spinning as Spinning
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Step.Label as Label
+import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
 import Json.Encode as Encode
@@ -216,12 +217,13 @@ textileEndpoints db =
     , describe "POST endpoints"
         [ "/textile/simulator"
             |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
-            |> Expect.equal (Just (Route.TextilePostSimulator (Query.encode tShirtCotonFrance)))
-            |> asTest "should map the POST /textile/simulator endpoint"
+            |> Expect.equal (Just (Route.TextilePostSimulator (Ok tShirtCotonFrance)))
+            |> asTest "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
         , "/textile/simulator"
+            -- FIXME: should fail
             |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just (Route.TextilePostSimulator Encode.null))
-            |> asTest "should map the POST /textile/simulator endpoint whatever the request body is"
+            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the given value:\n\nnull\n\nExpecting an OBJECT with a field named `product`")))
+            |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
         ]
     , describe "materials param checks"
         [ let
@@ -384,6 +386,19 @@ textileEndpoints db =
                     |> Just
                 )
             |> asTest "should expose detailed query validation errors"
+        ]
+    , describe "POST parameters validation"
+        [ "/textile/simulator"
+            |> testEndpoint db
+                "POST"
+                (Query.encode
+                    { tShirtCotonFrance
+                        | physicalDurability =
+                            Just <| Unit.physicalDurability 99
+                    }
+                )
+            |> Expect.equal (Just (Route.TextilePostSimulator (Ok tShirtCotonFrance)))
+            |> asTest "should  the POST /textile/simulator endpoint"
         ]
     ]
 

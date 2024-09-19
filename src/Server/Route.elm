@@ -10,6 +10,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Textile.Db as Textile
 import Data.Textile.Query as TextileQuery
+import Json.Decode as Decode
 import Json.Encode as Encode
 import Server.Query as Query
 import Server.Request exposing (Request)
@@ -57,11 +58,11 @@ type Route
     | TextileGetSimulatorSingle Definition.Trigram (Result Query.Errors TextileQuery.Query)
       --   POST
       --     Textile Simple version of all impacts (POST, JSON body)
-    | TextilePostSimulator Encode.Value
+    | TextilePostSimulator (Result String TextileQuery.Query)
       --     Textile Detailed version for all impacts (POST, JSON body)
-    | TextilePostSimulatorDetailed Encode.Value
-      --     Textile Simple version for one specific impact (POST, JSON bosy)
-    | TextilePostSimulatorSingle Encode.Value Definition.Trigram
+    | TextilePostSimulatorDetailed (Result String TextileQuery.Query)
+      --     Textile Simple version for one specific impact (POST, JSON body)
+    | TextilePostSimulatorSingle (Result String TextileQuery.Query) Definition.Trigram
 
 
 parser : Food.Db -> Textile.Db -> List Country -> Encode.Value -> Parser (Route -> a) a
@@ -88,10 +89,17 @@ parser foodDb textile countries body =
         , Parser.map TextileGetSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery countries textile)
 
         -- POST
-        , Parser.map (TextilePostSimulator body) (s "POST" </> s "textile" </> s "simulator")
-        , Parser.map (TextilePostSimulatorDetailed body) (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
-        , Parser.map (TextilePostSimulatorSingle body) (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
+        -- FIXME: we should parse the body to ensure it's an actual query
+        , Parser.map (TextilePostSimulator (decodeTextileQueryBody body)) (s "POST" </> s "textile" </> s "simulator")
+        , Parser.map (TextilePostSimulatorDetailed (decodeTextileQueryBody body)) (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
+        , Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody body)) (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
         ]
+
+
+decodeTextileQueryBody : Encode.Value -> Result String TextileQuery.Query
+decodeTextileQueryBody body =
+    Decode.decodeValue TextileQuery.decode body
+        |> Result.mapError Decode.errorToString
 
 
 endpoint : Db -> Request -> Maybe Route

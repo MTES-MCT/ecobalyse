@@ -284,20 +284,26 @@ handleRequest db request =
                         executeFoodQuery db (toFoodResults query) query
                     )
 
-        Just (Route.TextilePostSimulator jsonBody) ->
-            jsonBody
-                |> handleDecodeBody TextileQuery.decode
-                    (executeTextileQuery db toAllImpactsSimple)
+        Just (Route.TextilePostSimulator (Ok textileQuery)) ->
+            textileQuery
+                |> executeTextileQuery db toAllImpactsSimple
 
-        Just (Route.TextilePostSimulatorDetailed jsonBody) ->
-            jsonBody
-                |> handleDecodeBody TextileQuery.decode
-                    (executeTextileQuery db Simulator.encode)
+        Just (Route.TextilePostSimulator (Err error)) ->
+            ( 400, Encode.string error )
 
-        Just (Route.TextilePostSimulatorSingle jsonBody trigram) ->
-            jsonBody
-                |> handleDecodeBody TextileQuery.decode
-                    (executeTextileQuery db (toSingleImpactSimple trigram))
+        Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
+            textileQuery
+                |> executeTextileQuery db Simulator.encode
+
+        Just (Route.TextilePostSimulatorDetailed (Err error)) ->
+            ( 400, Encode.string error )
+
+        Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
+            textileQuery
+                |> executeTextileQuery db (toSingleImpactSimple trigram)
+
+        Just (Route.TextilePostSimulatorSingle (Err error) _) ->
+            ( 400, Encode.string error )
 
         Nothing ->
             encodeStringError "Endpoint doesn't exist"
