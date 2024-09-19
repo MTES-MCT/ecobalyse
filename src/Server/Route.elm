@@ -68,29 +68,38 @@ parser db body =
     Parser.oneOf
         [ -- Food
           -- GET
-          Parser.map FoodGetCountryList (s "GET" </> s "food" </> s "countries")
-        , Parser.map FoodGetIngredientList (s "GET" </> s "food" </> s "ingredients")
-        , Parser.map FoodGetTransformList (s "GET" </> s "food" </> s "transforms")
-        , Parser.map FoodGetPackagingList (s "GET" </> s "food" </> s "packagings")
-        , Parser.map FoodGetRecipe (s "GET" </> s "food" <?> Query.parseFoodQuery db)
-
-        -- POST
-        , Parser.map (FoodPostRecipe (decodeFoodQueryBody body)) (s "POST" </> s "food")
+          (s "GET" </> s "food" </> s "countries")
+            |> Parser.map FoodGetCountryList
+        , (s "GET" </> s "food" </> s "ingredients")
+            |> Parser.map FoodGetIngredientList
+        , (s "GET" </> s "food" </> s "transforms")
+            |> Parser.map FoodGetTransformList
+        , (s "GET" </> s "food" </> s "packagings")
+            |> Parser.map FoodGetPackagingList
+        , (s "GET" </> s "food" <?> Query.parseFoodQuery db)
+            |> Parser.map FoodGetRecipe
+        , (s "POST" </> s "food")
+            |> Parser.map (FoodPostRecipe (decodeFoodQueryBody body))
 
         -- Textile
-        -- GET
-        , Parser.map TextileGetCountryList (s "GET" </> s "textile" </> s "countries")
-        , Parser.map TextileGetMaterialList (s "GET" </> s "textile" </> s "materials")
-        , Parser.map TextileGetProductList (s "GET" </> s "textile" </> s "products")
-        , Parser.map TextileGetSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery db)
-        , Parser.map TextileGetSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery db)
-        , Parser.map TextileGetSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery db)
-
-        -- POST
-        -- FIXME: we should parse the body to ensure it's an actual query
-        , Parser.map (TextilePostSimulator (decodeTextileQueryBody db body)) (s "POST" </> s "textile" </> s "simulator")
-        , Parser.map (TextilePostSimulatorDetailed (decodeTextileQueryBody db body)) (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
-        , Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody db body)) (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
+        , (s "GET" </> s "textile" </> s "countries")
+            |> Parser.map TextileGetCountryList
+        , (s "GET" </> s "textile" </> s "materials")
+            |> Parser.map TextileGetMaterialList
+        , (s "GET" </> s "textile" </> s "products")
+            |> Parser.map TextileGetProductList
+        , (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery db)
+            |> Parser.map TextileGetSimulator
+        , (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery db)
+            |> Parser.map TextileGetSimulatorDetailed
+        , (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery db)
+            |> Parser.map TextileGetSimulatorSingle
+        , (s "POST" </> s "textile" </> s "simulator")
+            |> Parser.map (TextilePostSimulator (decodeTextileQueryBody db body))
+        , (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
+            |> Parser.map (TextilePostSimulatorDetailed (decodeTextileQueryBody db body))
+        , (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
+            |> Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody db body))
         ]
 
 
