@@ -77,10 +77,14 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée\
   Procédé Ecoinvent : _steel production, chromium steel 18/8, hot rolled, RER_\
-  Quantité : 1 kg
+  Unité : kg\
+  Quantité : 1,3 kg\
+  Pertes : non applicable
 * Etape de transformation\
   Procédé Ecoinvent : _metal working, average for chromium steel product manufacturing, RER_\
-  Quantité : 1 kg
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 23%
 
 </details>
 
@@ -90,27 +94,35 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
-* Matière transformée => 1kg d'acier faiblement allié laminé à chaud\
-  Procédé Ecoinvent => _steel production, converter, low-alloyed, RER_ \
-  Quantité : 1 kg
-* Etape de transformation additionnelle => laminage à froid de 1kg d'acier\
-  Procédé Ecoinvent => _metal working, average for steel product manufacturing, RER_\
-  Quantité : 1 kg
+* Matière transformée : \
+  Procédé Ecoinvent : Steel production, converter, low-alloyed, RER \
+  Unité : kg\
+  Quantité : 1,3 kg\
+  Pertes : non applicable
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent : Metal working, average for steel product manufacturing, RER\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 23%
 
 </details>
 
 <details>
 
-<summary>Pièce an acier/nickel</summary>
+<summary>Pièce an acier/nickel <mark style="color:orange;">(à préciser)</mark></summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée \
-  Procédé Ecoinvent => _I_**ron-nickel-chromium alloy production, RER**\
-  Quantité => 1kg
+  Procédé Ecoinvent => Iron-nickel-chromium alloy production, RER\
+  Unité : kg\
+  Quantité : <mark style="color:orange;">1kg</mark>\
+  Pertes : non applicable
 * Etape de transformation additionnelle\
-  Procédé Ecoinvent => _metal working, average for aluminium product manufacturing, RER_\
-  Quantité => 1kg
+  Procédé Ecoinvent => Metal working, average for metal product manufacturing, RER\
+  Unité : kg\
+  Quantité : 1 kg\
+  Pertes : <mark style="color:orange;">à préciser</mark>
 
 </details>
 
@@ -120,27 +132,35 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
-* Matière transformée => 1 kg de matière plastique \
-  Procédé Ecoinvent => _polypropylene production, granulate, RER_\
-  Quantité => 1kg
-* Etape de transformation additionnelle => thermoformage\
-  Procédé Ecoinvent => I_njection moulding, RER_\
-  Quantité => 1kg
+* Matière transformée\
+  Procédé Ecoinvent : P_olypropylene production, granulate, RER_\
+  Unité : kg\
+  Quantité : 1,01\
+  Pertes : non applicable
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent :  I_njection moulding,_ RER\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 1%
 
 </details>
 
 <details>
 
-<summary>Pièce en aluminium</summary>
+<summary>Pièce en aluminium (1kg)</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
-* Matière transformée \
-  Procédé Ecoinvent => _Aluminium production, primary, ingot_**,** _IAIA Area, EU27 & EFTA_\
-  Quantité => 1kg
+* Matière transformée\
+  Procédé Ecoinvent : Aluminium production, primary, ingot**,** IAIA Area, EU27 & EFTA\
+  Unité : kg\
+  Quantité : 1,3\
+  Pertes : non applicable
 * Etape de transformation additionnelle\
-  Procédé Ecoinvent => _metal working, average for aluminium product manufacturing, RER_\
-  Quantité => 1kg
+  Procédé Ecoinvent : Metal working, average for aluminium product manufacturing, RER\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 23%
 
 </details>
 
@@ -158,40 +178,32 @@ A compléter
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
-* Matière transformée \
-  Procédé Ecoinvent => _polyurethane production, flexible foam, MDI-based, RER_\
-  Quantité => 1kg
+* Matière transformée\
+  Procédé Ecoinvent : P_olyurethane production, flexible foam, MDI-based, RER_\
+  Unité : kg\
+  Quantité : 1,02\
+  Pertes : non applicable
+
+<!---->
+
 * Etape de transformation additionnelle\
-  Procédé Ecoinvent => _extrusion, plastic pipes, RER_\
-  Quantité => 1kg
+  Procédé Ecoinvent : _Extrusion, plastic pipes, RER_\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 2%
 
 </details>
 
 <details>
 
-<summary>Pièce en laiton</summary>
-
-Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
-
-* Matière transformée \
-  Procédé Ecoinvent => _Brass production, CH_\
-  Quantité => 1kg
-* Etape de transformation additionnelle\
-  Procédé Ecoinvent => B_rass turning, average, conventional, RER_\
-  Quantité => 1kg
-
-</details>
-
-<details>
-
-<summary>Pièce en plastique (ABS)</summary>
+<summary>Pièce en plastique (ABS) </summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée => 1 kg de matière plastique \
   Procédé Ecoinvent => A_crylonitrile-butadiene-styrene copolymer production, RER_\
   Quantité => 1kg
-* Etape de transformation additionnelle => thermoformage\
+* Etape de transformation additionnelle\
   Procédé Ecoinvent => I_njection moulding, RER_\
   Quantité => 1kg
 
