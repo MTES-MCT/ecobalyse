@@ -110,12 +110,6 @@ buildApiQuery clientUrl query =
 
 decode : Decoder Query
 decode =
-    let
-        -- Note: Using Json.Decode.Extra's optionalField here because we want
-        -- a failure when a Maybe decoded field value is invalid
-        strictOptional field decoder =
-            DE.andMap (DE.optionalField field decoder)
-    in
     Decode.succeed Query
         |> strictOptional "airTransportRatio" Split.decodeFloat
         |> strictOptional "business" Economics.decodeBusiness
@@ -143,13 +137,20 @@ decode =
         |> strictOptional "yarnSize" Unit.decodeYarnSize
 
 
+strictOptional : String -> Decoder a -> Decoder (Maybe a -> b) -> Decoder b
+strictOptional field decoder =
+    -- Note: Using Json.Decode.Extra's optionalField here because we want
+    -- a failure when a Maybe decoded field value is invalid
+    DE.andMap (DE.optionalField field decoder)
+
+
 decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
-        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
+        |> strictOptional "country" Country.decodeCode
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Split.decodeFloat
-        |> Pipe.optional "spinning" (Decode.maybe Spinning.decode) Nothing
+        |> strictOptional "spinning" Spinning.decode
 
 
 encode : Query -> Encode.Value

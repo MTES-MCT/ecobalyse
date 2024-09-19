@@ -233,7 +233,33 @@ textileEndpoints db =
                     }
                 )
             |> expectTextileSingleErrorContains "physicalDurability"
-            |> asTest "should reject invalid POST body"
+            |> asTest "should reject invalid physicalDurability"
+        , "/textile/simulator"
+            |> testEndpoint db
+                "POST"
+                (Query.encode
+                    { tShirtCotonFrance
+                        | countrySpinning = Just (Country.Code "invalid")
+                    }
+                )
+            |> expectTextileSingleErrorContains "materials"
+            |> asTest "should reject invalid spinning country"
+        , "/textile/simulator"
+            |> testEndpoint db
+                "POST"
+                (Query.encode
+                    { tShirtCotonFrance
+                        | materials =
+                            [ { country = Just (Country.Code "invalid")
+                              , id = Material.Id "ei-coton"
+                              , share = Split.full
+                              , spinning = Nothing
+                              }
+                            ]
+                    }
+                )
+            |> expectTextileSingleErrorContains "materials"
+            |> asTest "should reject invalid materials country"
         ]
     , describe "materials param checks"
         [ let
