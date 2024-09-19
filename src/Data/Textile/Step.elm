@@ -349,11 +349,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 , makingWaste = makingWaste
                 , processInfo =
                     { defaultProcessInfo
-                        | airTransportRatio =
-                            country.airTransportRatio
-                                |> airTransportRatioToString
-                                |> Just
-                        , countryElec = Just country.electricityProcess.name
+                        | countryElec = Just country.electricityProcess.name
                         , fading = Just wellKnown.fading.name
                     }
             }
