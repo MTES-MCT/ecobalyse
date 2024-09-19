@@ -40,7 +40,7 @@ type Route
     | FoodGetTransformList
       --   POST
       --     Food recipe builder (POST, JSON body)
-    | FoodPostRecipe Encode.Value
+    | FoodPostRecipe (Result String BuilderQuery.Query)
       --
       -- Textile Routes
       --   GET
@@ -77,7 +77,7 @@ parser foodDb textile countries body =
         , Parser.map FoodGetRecipe (s "GET" </> s "food" <?> Query.parseFoodQuery countries foodDb)
 
         -- POST
-        , Parser.map (FoodPostRecipe body) (s "POST" </> s "food")
+        , Parser.map (FoodPostRecipe (decodeFoodQueryBody body)) (s "POST" </> s "food")
 
         -- Textile
         -- GET
@@ -94,6 +94,12 @@ parser foodDb textile countries body =
         , Parser.map (TextilePostSimulatorDetailed (decodeTextileQueryBody body)) (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
         , Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody body)) (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
         ]
+
+
+decodeFoodQueryBody : Encode.Value -> Result String BuilderQuery.Query
+decodeFoodQueryBody body =
+    Decode.decodeValue BuilderQuery.decode body
+        |> Result.mapError Decode.errorToString
 
 
 decodeTextileQueryBody : Encode.Value -> Result String TextileQuery.Query

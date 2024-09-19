@@ -19,7 +19,6 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
-import Json.Decode as Decode
 import Json.Encode as Encode
 import Route as WebRoute
 import Server.Query as Query
@@ -277,12 +276,11 @@ handleRequest db request =
                 |> respondWith 400
 
         -- POST routes
-        Just (Route.FoodPostRecipe jsonBody) ->
-            jsonBody
-                |> handleDecodeBody BuilderQuery.decode
-                    (\query ->
-                        executeFoodQuery db (toFoodResults query) query
-                    )
+        Just (Route.FoodPostRecipe (Ok foodQuery)) ->
+            executeFoodQuery db (toFoodResults foodQuery) foodQuery
+
+        Just (Route.FoodPostRecipe (Err error)) ->
+            ( 400, Encode.string error )
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
             textileQuery
@@ -308,16 +306,6 @@ handleRequest db request =
         Nothing ->
             encodeStringError "Endpoint doesn't exist"
                 |> respondWith 404
-
-
-handleDecodeBody : Decode.Decoder a -> (a -> JsonResponse) -> Encode.Value -> JsonResponse
-handleDecodeBody decoder mapper jsonBody =
-    case Decode.decodeValue decoder jsonBody of
-        Err error ->
-            ( 400, Encode.string (Decode.errorToString error) )
-
-        Ok x ->
-            mapper x
 
 
 update : Msg -> Cmd Msg

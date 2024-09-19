@@ -76,11 +76,11 @@ foodEndpoints db =
     , describe "POST endpoints"
         [ "/food"
             |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.empty)
-            |> Expect.equal (Just (Route.FoodPostRecipe (FoodQuery.encode FoodQuery.empty)))
+            |> Expect.equal (Just (Route.FoodPostRecipe (Ok FoodQuery.empty)))
             |> asTest "should map the POST /food endpoint"
         , "/food"
             |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just (Route.FoodPostRecipe Encode.null))
+            |> Expect.equal (Just (Route.FoodPostRecipe (Err "Problem with the given value:\n\nnull\n\nExpecting an OBJECT with a field named `ingredients`")))
             |> asTest "should map the POST /food endpoint whatever the request body is"
         ]
     , describe "validation"
