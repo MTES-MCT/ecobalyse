@@ -31,23 +31,29 @@ jobs:
         pip install pipenv
         pipenv --version
 
-    - name: Debug virtual environment
+    - name: Check Pipfile and Pipfile.lock
       run: |
-        pipenv --venv
-        pipenv run which python
-        pipenv run python --version
+        cat Pipfile
+        echo "---"
+        cat Pipfile.lock
+
+    - name: Check project structure
+      run: |
+        pwd
+        ls -R
 
     - name: Install dependencies
-      run: pipenv install -d
-
-    - name: Run tests
-      run: pipenv run python -m pytest
+      run: |
+        pipenv --python 3.12
+        pipenv install -d -v
 
     - name: Debug environment
-      if: failure()
+      if: always()
       run: |
         env
         pipenv --where
-        pipenv --venv
-        ls -la $(pipenv --venv)
-        ls -la $(pipenv --venv)/bin
+        pipenv --venv || echo "No virtualenv found"
+        pipenv graph
+
+    - name: Run tests
+      run: pipenv run python -m pytest
