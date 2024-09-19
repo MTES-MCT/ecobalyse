@@ -4,7 +4,7 @@ description: >-
   les sections précédentes.
 ---
 
-# Composants spécifiques véhicules
+# 🛺 Composants spécifiques véhicules
 
 ### Procédés spécifiques :
 
