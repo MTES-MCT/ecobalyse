@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 
+from os.path import join
+
 import bw2data
 import bw2io
 from bw2data.project import projects
@@ -21,12 +23,12 @@ def main():
     add_missing_substances(PROJECT, BIOSPHERE)
 
     if (db := "Ecoinvent 3.9.1") not in bw2data.databases:
-        import_simapro_csv(EI391, db)
+        import_simapro_csv(join("dbfiles", EI391), db)
     else:
         print(f"{db} already imported")
 
     if (db := "Ecoinvent 3.10") not in bw2data.databases:
-        import_simapro_csv(EI310, db)
+        import_simapro_csv(join("dbfiles", EI310), db)
 
     else:
         print(f"{db} already imported")

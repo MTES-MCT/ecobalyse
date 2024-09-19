@@ -24,7 +24,7 @@ PROJECT = "default"
 # Agribalyse
 BIOSPHERE = "biosphere3"
 METHODNAME = "Environmental Footprint 3.1 (adapted) patch wtu"  # defined inside the csv
-METHODPATH = METHODNAME + ".CSV.zip"
+METHODPATH = os.path.join("dbfiles", METHODNAME + ".CSV.zip")
 
 # excluded strategies and migrations
 EXCLUDED_FOOD = [

@@ -16,14 +16,14 @@ else \
 endef
 
 all: import export
-import : image import_agribalyse import_ecoinvent import_method sync_datapackages
+import : image import_food import_ecoinvent import_method sync_datapackages
 export: export_food format
 
 image:
 	docker build -t $(NAME) docker
 
-import_agribalyse:
-	@$(call DOCKER,python3 import_agribalyse.py --recreate-activities)
+import_food:
+	@$(call DOCKER,python3 import_food.py --recreate-activities)
 
 import_method:
 	@$(call DOCKER,python3 import_method.py)
