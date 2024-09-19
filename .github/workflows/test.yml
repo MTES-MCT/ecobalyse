@@ -1,0 +1,53 @@
+name: Python application
+
+on:
+  push:
+    branches: [debug-python-venv]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Verify Python installation
+      run: |
+        python --version
+        which python
+        pip --version
+
+    - name: List system Python versions
+      run: ls /usr/bin/python*
+
+    - name: Verify pip and pipenv
+      run: |
+        pip install --upgrade pip
+        pip install pipenv
+        pipenv --version
+
+    - name: Debug virtual environment
+      run: |
+        pipenv --venv
+        pipenv run which python
+        pipenv run python --version
+
+    - name: Install dependencies
+      run: pipenv install -d
+
+    - name: Run tests
+      run: pipenv run python -m pytest
+
+    - name: Debug environment
+      if: failure()
+      run: |
+        env
+        pipenv --where
+        pipenv --venv
+        ls -la $(pipenv --venv)
+        ls -la $(pipenv --venv)/bin
