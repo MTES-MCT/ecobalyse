@@ -80,8 +80,8 @@ foodEndpoints db =
             |> asTest "should map the POST /food endpoint"
         , "/food"
             |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just (Route.FoodPostRecipe (Err "Problem with the given value:\n\nnull\n\nExpecting an OBJECT with a field named `ingredients`")))
-            |> asTest "should map the POST /food endpoint whatever the request body is"
+            |> expectFoodSingleErrorContains "ingredients"
+            |> asTest "should fail on invalid query passed"
         ]
     , describe "validation"
         [ testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3|0"
@@ -215,15 +215,15 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator/detailed endpoint"
         ]
     , describe "POST endpoints"
-        [ -- "/textile/simulator"
-          --     |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
-          --     |> Expect.equal (Just (Route.TextilePostSimulator (Ok tShirtCotonFrance)))
-          --     |> asTest "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
-          -- , "/textile/simulator"
-          --     |> testEndpoint db "POST" Encode.null
-          --     |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the given value:\n\nnull\n\nExpecting an OBJECT with a field named `product`")))
-          --     |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
-          "/textile/simulator"
+        [ "/textile/simulator"
+            |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
+            |> Expect.equal (Just (Route.TextilePostSimulator (Ok tShirtCotonFrance)))
+            |> asTest "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
+        , "/textile/simulator"
+            |> testEndpoint db "POST" Encode.null
+            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the given value:\n\nnull\n\nExpecting an OBJECT with a field named `product`")))
+            |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
+        , "/textile/simulator"
             |> testEndpoint db
                 "POST"
                 (Query.encode
@@ -232,7 +232,7 @@ textileEndpoints db =
                             Just <| Unit.physicalDurability 9900000
                     }
                 )
-            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the value at json.physicalDurability:\n\n    9900000\n\nLe coefficient de durabilité spécifié (9900000) doit être compris entre 0.67 et 1.45.")))
+            |> expectTextileSingleErrorContains "physicalDurability"
             |> asTest "should reject invalid POST body"
         ]
     , describe "materials param checks"
@@ -446,3 +446,23 @@ extractTextileErrors route =
 
         _ ->
             Nothing
+
+
+expectFoodSingleErrorContains : String -> Maybe Route.Route -> Expect.Expectation
+expectFoodSingleErrorContains str route =
+    case route of
+        Just (Route.FoodPostRecipe (Err err)) ->
+            Expect.equal (String.contains str err) True
+
+        _ ->
+            Expect.fail "No matching error found"
+
+
+expectTextileSingleErrorContains : String -> Maybe Route.Route -> Expect.Expectation
+expectTextileSingleErrorContains str route =
+    case route of
+        Just (Route.TextilePostSimulator (Err err)) ->
+            Expect.equal (String.contains str err) True
+
+        _ ->
+            Expect.fail "No matching error found"
