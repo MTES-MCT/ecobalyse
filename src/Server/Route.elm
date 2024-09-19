@@ -3,12 +3,10 @@ module Server.Route exposing
     , endpoint
     )
 
-import Data.Country exposing (Country)
-import Data.Food.Db as Food
 import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Textile.Db as Textile
+import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode
 import Json.Encode as Encode
@@ -65,8 +63,8 @@ type Route
     | TextilePostSimulatorSingle (Result String TextileQuery.Query) Definition.Trigram
 
 
-parser : Food.Db -> Textile.Db -> List Country -> Encode.Value -> Parser (Route -> a) a
-parser foodDb textile countries body =
+parser : Db -> Encode.Value -> Parser (Route -> a) a
+parser db body =
     Parser.oneOf
         [ -- Food
           -- GET
@@ -74,7 +72,7 @@ parser foodDb textile countries body =
         , Parser.map FoodGetIngredientList (s "GET" </> s "food" </> s "ingredients")
         , Parser.map FoodGetTransformList (s "GET" </> s "food" </> s "transforms")
         , Parser.map FoodGetPackagingList (s "GET" </> s "food" </> s "packagings")
-        , Parser.map FoodGetRecipe (s "GET" </> s "food" <?> Query.parseFoodQuery countries foodDb)
+        , Parser.map FoodGetRecipe (s "GET" </> s "food" <?> Query.parseFoodQuery db)
 
         -- POST
         , Parser.map (FoodPostRecipe (decodeFoodQueryBody body)) (s "POST" </> s "food")
@@ -84,35 +82,38 @@ parser foodDb textile countries body =
         , Parser.map TextileGetCountryList (s "GET" </> s "textile" </> s "countries")
         , Parser.map TextileGetMaterialList (s "GET" </> s "textile" </> s "materials")
         , Parser.map TextileGetProductList (s "GET" </> s "textile" </> s "products")
-        , Parser.map TextileGetSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery countries textile)
-        , Parser.map TextileGetSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery countries textile)
-        , Parser.map TextileGetSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery countries textile)
+        , Parser.map TextileGetSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery db)
+        , Parser.map TextileGetSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery db)
+        , Parser.map TextileGetSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery db)
 
         -- POST
         -- FIXME: we should parse the body to ensure it's an actual query
-        , Parser.map (TextilePostSimulator (decodeTextileQueryBody body)) (s "POST" </> s "textile" </> s "simulator")
-        , Parser.map (TextilePostSimulatorDetailed (decodeTextileQueryBody body)) (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
-        , Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody body)) (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
+        , Parser.map (TextilePostSimulator (decodeTextileQueryBody db body)) (s "POST" </> s "textile" </> s "simulator")
+        , Parser.map (TextilePostSimulatorDetailed (decodeTextileQueryBody db body)) (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
+        , Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody db body)) (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
         ]
 
 
 decodeFoodQueryBody : Encode.Value -> Result String BuilderQuery.Query
-decodeFoodQueryBody body =
-    Decode.decodeValue BuilderQuery.decode body
-        |> Result.mapError Decode.errorToString
+decodeFoodQueryBody =
+    Decode.decodeValue BuilderQuery.decode
+        >> Result.mapError Decode.errorToString
 
 
-decodeTextileQueryBody : Encode.Value -> Result String TextileQuery.Query
-decodeTextileQueryBody body =
-    Decode.decodeValue TextileQuery.decode body
-        |> Result.mapError Decode.errorToString
+decodeTextileQueryBody : Db -> Encode.Value -> Result String TextileQuery.Query
+decodeTextileQueryBody db =
+    Decode.decodeValue TextileQuery.decode
+        >> Result.mapError Decode.errorToString
+        -- Note: Using inputs mapping to act as query validation
+        >> Result.andThen (Inputs.fromQuery db)
+        >> Result.map Inputs.toQuery
 
 
 endpoint : Db -> Request -> Maybe Route
-endpoint { countries, food, textile } { body, method, url } =
+endpoint db { body, method, url } =
     -- Notes:
     -- - Url.fromString can't build a Url without a fully qualified URL, so as we only have the
     --   request path from Express, we build a fake URL with a fake protocol and hostname.
     -- - We update the path appending the HTTP method to it, for simpler, cheaper route parsing.
     Url.fromString ("http://x/" ++ method ++ url)
-        |> Maybe.andThen (Parser.parse (parser food textile countries body))
+        |> Maybe.andThen (Parser.parse (parser db body))

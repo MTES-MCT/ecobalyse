@@ -242,7 +242,7 @@ textileEndpoints db =
                         | countrySpinning = Just (Country.Code "invalid")
                     }
                 )
-            |> expectTextileSingleErrorContains "materials"
+            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Code pays invalide: invalid.")))
             |> asTest "should reject invalid spinning country"
         , "/textile/simulator"
             |> testEndpoint db
@@ -258,7 +258,7 @@ textileEndpoints db =
                             ]
                     }
                 )
-            |> expectTextileSingleErrorContains "materials"
+            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Code pays invalide: invalid.")))
             |> asTest "should reject invalid materials country"
         ]
     , describe "materials param checks"
