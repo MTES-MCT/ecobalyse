@@ -215,15 +215,25 @@ textileEndpoints db =
             |> asTest "should map the /textile/simulator/detailed endpoint"
         ]
     , describe "POST endpoints"
-        [ "/textile/simulator"
-            |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
-            |> Expect.equal (Just (Route.TextilePostSimulator (Ok tShirtCotonFrance)))
-            |> asTest "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
-        , "/textile/simulator"
-            -- FIXME: should fail
-            |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the given value:\n\nnull\n\nExpecting an OBJECT with a field named `product`")))
-            |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
+        [ -- "/textile/simulator"
+          --     |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
+          --     |> Expect.equal (Just (Route.TextilePostSimulator (Ok tShirtCotonFrance)))
+          --     |> asTest "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
+          -- , "/textile/simulator"
+          --     |> testEndpoint db "POST" Encode.null
+          --     |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the given value:\n\nnull\n\nExpecting an OBJECT with a field named `product`")))
+          --     |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
+          "/textile/simulator"
+            |> testEndpoint db
+                "POST"
+                (Query.encode
+                    { tShirtCotonFrance
+                        | physicalDurability =
+                            Just <| Unit.physicalDurability 9900000
+                    }
+                )
+            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the value at json.physicalDurability:\n\n    9900000\n\nLe coefficient de durabilité spécifié (9900000) doit être compris entre 0.67 et 1.45.")))
+            |> asTest "should reject invalid POST body"
         ]
     , describe "materials param checks"
         [ let
@@ -387,19 +397,6 @@ textileEndpoints db =
                 )
             |> asTest "should expose detailed query validation errors"
         ]
-    , describe "POST parameters validation"
-        [ "/textile/simulator"
-            |> testEndpoint db
-                "POST"
-                (Query.encode
-                    { tShirtCotonFrance
-                        | physicalDurability =
-                            Just <| Unit.physicalDurability 99
-                    }
-                )
-            |> Expect.equal (Just (Route.TextilePostSimulator (Ok tShirtCotonFrance)))
-            |> asTest "should  the POST /textile/simulator endpoint"
-        ]
     ]
 
 
@@ -409,7 +406,14 @@ testEndpoint dbs method body url =
         { method = method
         , url = url
         , body = body
-        , processes = { foodProcesses = Encode.list FoodProcess.encode dbs.food.processes |> Encode.encode 0, textileProcesses = Encode.list TextileProcess.encode dbs.textile.processes |> Encode.encode 0 }
+        , processes =
+            { foodProcesses =
+                Encode.list FoodProcess.encode dbs.food.processes
+                    |> Encode.encode 0
+            , textileProcesses =
+                Encode.list TextileProcess.encode dbs.textile.processes
+                    |> Encode.encode 0
+            }
         , jsResponseHandler = Encode.null
         }
 

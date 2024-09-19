@@ -296,11 +296,6 @@ describe("API", () => {
             airTransportRatio: 0.5,
             durability: 1.2,
             reparability: 1.2,
-            makingWaste: null,
-            makingComplexity: null,
-            yarnSize: null,
-            surfaceMass: null,
-            knittingProcess: null,
             disabledSteps: ["use"],
           });
           expectStatus(response, 200);
@@ -619,7 +614,7 @@ async function expectListResponseContains(path, object) {
 
 function expectStatus(response, expectedCode, type = "application/json") {
   if (response.status === 400 && expectedCode != 400) {
-    expect(response.body).toHaveProperty("errors", "");
+    expect(response.body).not.toHaveProperty("errors", "");
   }
   expect(response.type).toBe(type);
   expect(response.statusCode).toBe(expectedCode);

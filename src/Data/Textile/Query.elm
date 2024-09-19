@@ -37,6 +37,7 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import List.Extra as LE
@@ -109,31 +110,33 @@ buildApiQuery clientUrl query =
 
 decode : Decoder Query
 decode =
+    -- Note: We're using Json.Decode.Extra's optionalField here because we want
+    -- a failure when an optional decoded field value is invalid
     Decode.succeed Query
-        |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "business" (Decode.maybe Economics.decodeBusiness) Nothing
-        |> Pipe.optional "countryDyeing" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countryFabric" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countryMaking" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countrySpinning" (Decode.maybe Country.decodeCode) Nothing
+        |> DE.andMap (DE.optionalField "airTransportRatio" Split.decodeFloat)
+        |> DE.andMap (DE.optionalField "business" Economics.decodeBusiness)
+        |> DE.andMap (DE.optionalField "countryDyeing" Country.decodeCode)
+        |> DE.andMap (DE.optionalField "countryFabric" Country.decodeCode)
+        |> DE.andMap (DE.optionalField "countryMaking" Country.decodeCode)
+        |> DE.andMap (DE.optionalField "countrySpinning" Country.decodeCode)
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
-        |> Pipe.optional "fabricProcess" (Decode.maybe Fabric.decode) Nothing
-        |> Pipe.optional "fading" (Decode.maybe Decode.bool) Nothing
-        |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
-        |> Pipe.optional "makingDeadStock" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
+        |> DE.andMap (DE.optionalField "dyeingMedium" DyeingMedium.decode)
+        |> DE.andMap (DE.optionalField "fabricProcess" Fabric.decode)
+        |> DE.andMap (DE.optionalField "fading" Decode.bool)
+        |> DE.andMap (DE.optionalField "makingComplexity" MakingComplexity.decode)
+        |> DE.andMap (DE.optionalField "makingDeadStock" Split.decodeFloat)
+        |> DE.andMap (DE.optionalField "makingWaste" Split.decodeFloat)
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
-        |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
-        |> Pipe.optional "physicalDurability" (Decode.maybe Unit.decodePhysicalDurability) Nothing
-        |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
-        |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
+        |> DE.andMap (DE.optionalField "numberOfReferences" Decode.int)
+        |> DE.andMap (DE.optionalField "physicalDurability" Unit.decodePhysicalDurability)
+        |> DE.andMap (DE.optionalField "price" Economics.decodePrice)
+        |> DE.andMap (DE.optionalField "printing" Printing.decode)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.optional "traceability" (Decode.maybe Decode.bool) Nothing
+        |> DE.andMap (DE.optionalField "surfaceMass" Unit.decodeSurfaceMass)
+        |> DE.andMap (DE.optionalField "traceability" Decode.bool)
         |> Pipe.optional "upcycled" Decode.bool False
-        |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
+        |> DE.andMap (DE.optionalField "yarnSize" Unit.decodeYarnSize)
 
 
 decodeMaterialQuery : Decoder MaterialQuery
