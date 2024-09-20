@@ -16,7 +16,6 @@ type Path
     | FoodTransformation -- Transformation des ingrédients
     | FoodTransport -- Transport entre étapes
     | FoodUse -- Consommation
-    | TextileAerialTransport -- Part du transport aérien textile
     | TextileComplementMicrofibers -- Complément textile microfibres
     | TextileDistribution -- Distribution textile
     | TextileDurability -- Durabilité textile
@@ -69,9 +68,6 @@ pathToString path =
 
         FoodUse ->
             "alimentaire/etapes-du-cycles-de-vie/consommation"
-
-        TextileAerialTransport ->
-            "textile/parametres-transverses/transport#part-du-transport-aerien"
 
         TextileComplementMicrofibers ->
             "textile/complements-hors-acv/microfibres"
