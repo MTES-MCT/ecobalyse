@@ -24,6 +24,7 @@ module Data.Food.Query exposing
     )
 
 import Base64
+import Data.Common.DecodeUtils as DU
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
@@ -102,11 +103,11 @@ buildApiQuery clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
-        |> Pipe.optional "distribution" (Decode.maybe Retail.decode) Nothing
+        |> DU.strictOptional "distribution" Retail.decode
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "packaging" (Decode.list decodeProcess) []
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
-        |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
+        |> DU.strictOptional "transform" decodeProcess
 
 
 decodePlaneTransport : Decoder Ingredient.PlaneTransport
@@ -153,7 +154,7 @@ decodeProcess =
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
     Decode.succeed IngredientQuery
-        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
+        |> DU.strictOptional "country" Country.decodeCode
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMassInGrams
         |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
