@@ -120,5 +120,6 @@
 * [🪚 Objet / Ameublement](alimentaire-en-construction/etape-2-fabrication-du-fil/README.md)
   * [🪵 Composants en bois](alimentaire-en-construction/etape-2-fabrication-du-fil/composants-en-bois.md)
   * [⚙️ Autres composants](alimentaire-en-construction/etape-2-fabrication-du-fil/autres-composants.md)
+  * [🔩 Aluminium - Méthodes détaillées](alimentaire-en-construction/etape-2-fabrication-du-fil/aluminium-methodes-detaillees.md)
   * [🛺 Composants spécifiques véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil/composants-specifiques-vehicules.md)
   * [🚚 Transport](alimentaire-en-construction/etape-2-fabrication-du-fil/transport.md)
