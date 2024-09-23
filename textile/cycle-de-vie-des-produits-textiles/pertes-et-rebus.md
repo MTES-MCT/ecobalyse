@@ -2,7 +2,7 @@
 description: Vision d'ensemble de la gestion des pertes et rebut dans l'outil
 ---
 
-# 🗑️ Pertes et rebut
+# 🗑️ Taux de perte et rebut
 
 A chaque étape de la production, des pertes et rebut sont pris en compte. Les formules de calcul sont développées dans chaque page dédiée au procédé en question (cf. tableau ci-après) :
 
@@ -15,12 +15,10 @@ A chaque étape de la production, des pertes et rebut sont pris en compte. Les f
 | Tissu          | Habit          | [Confection](confection.md)                                                                                           |
 | Habit          | Habit          | [Distribution](distribution.md)                                                                                       |
 
-
-
 {% hint style="info" %}
 Dans cette documentation le taux de perte $$T$$ vaut :
 
-&#x20;$$T=\frac{m_{perte}}{m_{entrante}}$$$$m_entrante -> procédé -> m_sortante$$
+&#x20;$$T=\frac{m_{perte}}{m_{entrante}}$$
 
 Un taux de perte $$T$$ de 10% correspond à ce cas de figure :&#x20;
 
