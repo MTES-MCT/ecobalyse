@@ -28,18 +28,24 @@ Il est modélisé de la façon suivante :&#x20;
 
 <summary>Batterie</summary>
 
-Le coût environnement de la batterie est évaluée d'après sa chimie, sa capacité et son pays de fabrication (assemblage du pack batterie).&#x20;
+Le coût environnement de la batterie est évaluée d'après sa chimie, sa capacité (en kWh) et son pays de fabrication (assemblage du pack batterie).
 
-Les sites et méthodes de fabrication des modules, cellules, ainsi que les sites et méthode d'extraction et de rafinage des matières premières ont également une réelle influence sur le coût environnemental. \
+Les chimies de batterie suivantes sont différenciées : NMC532, NMC622, NMC811, LFP.
+
+Les sites et méthodes de fabrication des modules et cellules de batterie, ainsi que les sites et méthode d'extraction et de raffinage des matières premières ont également une réelle influence sur le coût environnemental. \
 Cependant, par souci de simplification et compte-tenu de la difficulté à détailler la chaine de valeur de fabrication, ils ne sont pas utilisés comme paramètres dans Ecobalyse.
 
-Les données sont issues de la Base Empreinte.
+Les données sur l'impact environnemental sont issues de la Base Empreinte.
 
 </details>
 
 <details>
 
 <summary>Moteur</summary>
+
+Le cout environnemental du moteur est calculé en fonction de son poids, en kg.
+
+Les données sur l'impact environnemental par kg sont issues de la base de données Ecoinvent.
 
 Ecoinvent propose 2 jeux de données pour les moteurs électriques :&#x20;
 
@@ -56,6 +62,8 @@ Le second jeu de données est utilisé car il est mieux détaillé, plus récent
 <details>
 
 <summary>Pneumatique</summary>
+
+Le cout environnemental des pneumatiques est calculé en fonction de leur poids, en kg.
 
 Les proportions de chaque matériau dépendent des types de pneus. Les proportions suivantes peuvent être retenue :&#x20;
 
@@ -76,6 +84,17 @@ A des fins de simplification, la modélisation suivante a été retenue
   * _20% Polyester_
     * market for fibre, polyester, GLO _(ecoinvent), 0.15kg_
 * Etape de transformation additionnelle => thermoformage Procédé Ecoinvent => I_njection moulding, RER_ Quantité => 1kg
+
+Le cout environnemental des pneus prend en compte leur remplacement au cours de la vie du véhicule. Par défaut, Ecobalyse prend en compte que 8 pneus par roue sont utilisés, soit 7 remplacement.
+
+Le cout environnemental des pneus se calcule donc ainsi :\
+CE = M x R x ICV x N, avec
+
+* CE le cout environnemental, exprimé en mPts
+* M la masse d'un pneumatique
+* R le nombre de roues
+* ICV le cout environnemental par kg de pneumatique
+* N le nombre de roues utilisées sur la vie du véhicule.
 
 
 
