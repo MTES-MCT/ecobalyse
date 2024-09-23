@@ -123,3 +123,5 @@
   * [🔩 Acier et Aluminium - Méthodes détaillées](alimentaire-en-construction/etape-2-fabrication-du-fil/acier-et-aluminium-methodes-detaillees.md)
   * [🛺 Composants spécifiques véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil/composants-specifiques-vehicules.md)
   * [🚚 Transport](alimentaire-en-construction/etape-2-fabrication-du-fil/transport.md)
+  * [🛺 Durée de vie des véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil/duree-de-vie-des-vehicules.md)
+  * [⚡ Consommation des véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil/consommation-des-vehicules.md)
