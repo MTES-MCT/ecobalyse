@@ -28,7 +28,7 @@
   * [♻️ Etape 7 - Fin de vie](textile/cycle-de-vie-des-produits-textiles/etape-7-fin-de-vie.md)
   * [⚡ Electricité](textile/cycle-de-vie-des-produits-textiles/electricite.md)
   * [🔥 Chaleur](textile/cycle-de-vie-des-produits-textiles/chaleur.md)
-  * [🗑️ Pertes et rebut](textile/cycle-de-vie-des-produits-textiles/pertes-et-rebus.md)
+  * [🗑️ Taux de perte et rebut](textile/cycle-de-vie-des-produits-textiles/pertes-et-rebus.md)
   * [🤯 Circular Footpring Formula (CFF)](textile/cycle-de-vie-des-produits-textiles/circular-footpring-formula-cff.md)
   * [🚢 Transport](textile/cycle-de-vie-des-produits-textiles/transport.md)
   * [👘 Stocks dormants / Deadstock](textile/cycle-de-vie-des-produits-textiles/stocks-dormants-deadstock.md)
