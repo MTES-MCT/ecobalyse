@@ -446,7 +446,7 @@ getOutOfEuropeEOLProbability materialInputs =
                 |> getMaterialCategoryShare Origin.Synthetic
     in
     Split.fromFloat
-        (if Split.toPercent syntheticMaterialsShare >= 10 then
+        (if Split.toPercent syntheticMaterialsShare >= 50 then
             0.121
 
          else
