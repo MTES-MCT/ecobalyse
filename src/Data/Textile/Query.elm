@@ -24,6 +24,7 @@ module Data.Textile.Query exposing
     )
 
 import Base64
+import Data.Common.DecodeUtils as DU
 import Data.Country as Country
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -37,7 +38,6 @@ import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import List.Extra as LE
@@ -111,46 +111,39 @@ buildApiQuery clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
-        |> strictOptional "airTransportRatio" Split.decodeFloat
-        |> strictOptional "business" Economics.decodeBusiness
-        |> strictOptional "countryDyeing" Country.decodeCode
-        |> strictOptional "countryFabric" Country.decodeCode
-        |> strictOptional "countryMaking" Country.decodeCode
-        |> strictOptional "countrySpinning" Country.decodeCode
+        |> DU.strictOptional "airTransportRatio" Split.decodeFloat
+        |> DU.strictOptional "business" Economics.decodeBusiness
+        |> DU.strictOptional "countryDyeing" Country.decodeCode
+        |> DU.strictOptional "countryFabric" Country.decodeCode
+        |> DU.strictOptional "countryMaking" Country.decodeCode
+        |> DU.strictOptional "countrySpinning" Country.decodeCode
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> strictOptional "dyeingMedium" DyeingMedium.decode
-        |> strictOptional "fabricProcess" Fabric.decode
-        |> strictOptional "fading" Decode.bool
-        |> strictOptional "makingComplexity" MakingComplexity.decode
-        |> strictOptional "makingDeadStock" Split.decodeFloat
-        |> strictOptional "makingWaste" Split.decodeFloat
+        |> DU.strictOptional "dyeingMedium" DyeingMedium.decode
+        |> DU.strictOptional "fabricProcess" Fabric.decode
+        |> DU.strictOptional "fading" Decode.bool
+        |> DU.strictOptional "makingComplexity" MakingComplexity.decode
+        |> DU.strictOptional "makingDeadStock" Split.decodeFloat
+        |> DU.strictOptional "makingWaste" Split.decodeFloat
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
-        |> strictOptional "numberOfReferences" Decode.int
-        |> strictOptional "physicalDurability" Unit.decodePhysicalDurability
-        |> strictOptional "price" Economics.decodePrice
-        |> strictOptional "printing" Printing.decode
+        |> DU.strictOptional "numberOfReferences" Decode.int
+        |> DU.strictOptional "physicalDurability" Unit.decodePhysicalDurability
+        |> DU.strictOptional "price" Economics.decodePrice
+        |> DU.strictOptional "printing" Printing.decode
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> strictOptional "surfaceMass" Unit.decodeSurfaceMass
-        |> strictOptional "traceability" Decode.bool
+        |> DU.strictOptional "surfaceMass" Unit.decodeSurfaceMass
+        |> DU.strictOptional "traceability" Decode.bool
         |> Pipe.optional "upcycled" Decode.bool False
-        |> strictOptional "yarnSize" Unit.decodeYarnSize
-
-
-strictOptional : String -> Decoder a -> Decoder (Maybe a -> b) -> Decoder b
-strictOptional field decoder =
-    -- Note: Using Json.Decode.Extra's optionalField here because we want
-    -- a failure when a Maybe decoded field value is invalid
-    DE.andMap (DE.optionalField field decoder)
+        |> DU.strictOptional "yarnSize" Unit.decodeYarnSize
 
 
 decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
-        |> strictOptional "country" Country.decodeCode
+        |> DU.strictOptional "country" Country.decodeCode
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Split.decodeFloat
-        |> strictOptional "spinning" Spinning.decode
+        |> DU.strictOptional "spinning" Spinning.decode
 
 
 encode : Query -> Encode.Value
