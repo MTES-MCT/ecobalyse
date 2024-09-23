@@ -129,7 +129,8 @@ Les valeurs ProbaDéchet par type de fibre sont calculés sur la base de 3 hypot
 * sa probabilité de terminer sa fin de vie hors Europe sous forme de déchets, dont la valeur par défaut dépend de la classification du produit (matières synthétiques ou naturelles)&#x20;
 
 {% hint style="warning" %}
-On considère que le vêtement rentre dans la catégorie "matières synthétiques" dès lors que les matières synthétiques représentent plus de 10% de sa composition.
+On considère que le vêtement rentre dans la catégorie "matières synthétiques" dès lors que les matières synthétiques représentent plus de 50% de sa composition.\
+Initialement, un seuil de 10% était appliqué dans la première version de la méthodologie mise en ligne au printemps 2024. Le seuil de 50% a été proposé pendant la concertation, en soulignant qu'il fait écho au seuil réglementaire à partir duquel une information sur la présence de microfibres plastiques doit être présentée. [décret n° 2022-748 du 29 avril 2022 relatif à l'information du consommateur sur les qualités et caractéristiques des produits générateurs de déchets](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045726094)&#x20;
 {% endhint %}
 
 $$
