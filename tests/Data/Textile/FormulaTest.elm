@@ -59,7 +59,7 @@ suite =
                 [ kg 1
                     |> Formula.genericWaste Split.half
                     |> Expect.equal { mass = kg 2, waste = kg 1 }
-                    |> asTest "should compute material waste"
+                    |> asTest "should compute generic waste using input waste ratio"
                 ]
             , describe "Formula.makingDeadStock"
                 [ kg 1
