@@ -15,31 +15,29 @@ A chaque étape de la production, des pertes et rebut sont pris en compte. Les f
 | Tissu          | Habit          | [Confection](confection.md)                                                                                           |
 | Habit          | Habit          | [Distribution](distribution.md)                                                                                       |
 
-Le paramètre proposé dans le paramétrage du calculateur en ligne est la masse du vêtement, donc la masse à la fin des différentes étapes. Le calcul des masses se fait donc **en remontant la chaîne de production** : d'abord la masse du vêtement, puis la masse d'étoffe, puis la masse de fil, puis la masse de matière première.
 
 
+{% hint style="info" %}
+Dans cette documentation le taux de perte $$T$$ vaut :
 
-{% hint style="danger" %}
-Dans cette documentation les taux de pertes sont exprimés de cette manière  $$Tx_{entrante}=m_{perte}/m_{entrante}$$, que l'on nommera taux de perte "masse entrante". 10% de taux de perte "masse entrante" correspond à ce cas de figure :&#x20;
+&#x20;$$T=\frac{m_{perte}}{m_{entrante}}$$$$m_entrante -> procédé -> m_sortante$$
 
-* 1 kg -> procédé -> 0.9 kg
+Un taux de perte $$T$$ de 10% correspond à ce cas de figure :&#x20;
 
-Mais dans les procédés visibles sur github le paramètre \`waste\` correspond à une autre définition du taux de perte qui vient de la Base Impacts : le taux de perte "masse sortante" :  $$Tx_{sortante}=m_{perte}/m_{sortante}$$
+m\_entrante -> procédé -> m\_sortante
 
-![](<../../.gitbook/assets/image (111).png>)&#x20;
-
-Un taux de perte "masse sortante" de 10% (un paramètre \`waste\` de 10%) correspond à ce cas de figure :
-
-* 1,1 kg -> procédé -> 1 kg
-
-Ce qui correspond à un taux de perte "masse entrante" de 0.1/1.1\~9%
-
-
-
-On peut montrer que&#x20;
-
-$$Tx_{entrante}= \frac{Tx_{sortante}}{1+Tx_{sortante}}$$
+1 kg -> procédé -> 0.9 kg
 {% endhint %}
+
+## Calcul des masses
+
+Le paramètre proposé dans le paramétrage du calculateur en ligne est la masse du vêtement, donc la masse à la fin des différentes étapes.&#x20;
+
+Le calcul des masses se fait donc **en remontant la chaîne de production** : d'abord la masse du vêtement, puis la masse d'étoffe, puis la masse de fil, puis la masse de matière première.
+
+Pour remonter la chaîne de production, on déduit la masse entrante à partir de la masse sortante et du taux de perte $$T$$ de l'étape en utilisant cette formule :\
+\
+$$m_{entrante} = \frac{m_{sortante}}{1- T}$$
 
 
 
