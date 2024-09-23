@@ -15,6 +15,7 @@ module Data.Split exposing
     , quarter
     , sixty
     , tenth
+    , third
     , thirty
     , toFloat
     , toFloatString
@@ -76,6 +77,11 @@ quarter =
 thirty : Split
 thirty =
     Split 30
+
+
+third : Split
+third =
+    Split 33
 
 
 fourty : Split
