@@ -1,0 +1,98 @@
+name: Generate changelog
+
+on:
+  push:
+    branches: [ master, staging ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  changelog:
+    name: Generate changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate the full changelog
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          config: cliff.toml
+          args: --verbose --exclude-path "data/" --bump
+        env:
+          OUTPUT: CHANGELOG-cliff.md
+
+      - name: Generate latest changes
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff-latest
+        with:
+          config: cliff.toml
+          args: --verbose --exclude-path "data/" --bump --unreleased
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: |
+            CHANGELOG-cliff.md
+          base: master
+          commit-message: 'chore: update changelog for ${{ steps.git-cliff.outputs.version }}'
+          signoff: false
+          branch: chore/update-changelog-${{ steps.git-cliff.outputs.version }}
+          delete-branch: true
+          title: 'chore(release): release ${{ steps.git-cliff.outputs.version }}'
+          body: ${{ steps.git-cliff-latest.outputs.content }}
+          labels: |
+            pending-release
+            automated pr
+
+
+      # - name: Commit the changelog
+      #   run: |
+      #     git checkout ${{ steps.extract_branch.outputs.branch }}
+      #     git config user.name 'github-actions[bot]'
+      #     git config user.email 'github-actions[bot]@users.noreply.github.com'
+      #     set +e
+      #     git add CHANGELOG-cliff.md
+      #     git commit -m "Update changelog"
+      #     git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.extract_branch.outputs.branch }}
+      #
+      # - name: Tag the next version
+      #   run: |
+      #     git checkout ${{ steps.extract_branch.outputs.branch }}
+      #     git config user.name 'github-actions[bot]'
+      #     git config user.email 'github-actions[bot]@users.noreply.github.com'
+      #     set +e
+      #     git tag -f ${{ steps.git-cliff.outputs.version }}-cliff-test
+      #     git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git ${{ steps.git-cliff.outputs.version }}-cliff-test
+      #
+      # - name: Create dist archive
+      #   uses: ./.github/actions/build-release
+      #   id: create-dist-archive
+      #   with:
+      #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
+      #     commit_sha: ${{ github.event.pull_request.head.sha }}
+      #     encryption_key: ${{ secrets.ENCRYPTION_KEY }}
+      #     private_ssh_key: ${{ secrets.PRIVATE_SSH_KEY }}
+      #
+      #
+      # - name: Upload the release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     file: ${{ steps.create-dist-archive.outputs.dist-archive}}
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     tag: ${{ steps.git-cliff.outputs.version }}-cliff-test
+      #     body: ${{ steps.git-cliff-latest.outputs.content }}
+      #     draft: true
