@@ -69,6 +69,9 @@ byPlaneAllowed planeTransport ingredient =
         ( ByPlane, PlaneNotApplicable ) ->
             Err "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas."
 
+        -- Note: PlaneNotApplicable is used for conveying both the absence of air transport AND impossible plane transport;
+        --       here we treat it as the equivalent of a `Nothing` where the ingredient default origin would suggest a
+        --       transport by air (eg. Non-EU Mango)
         ( PlaneNotApplicable, ByPlane ) ->
             Ok ByPlane
 
