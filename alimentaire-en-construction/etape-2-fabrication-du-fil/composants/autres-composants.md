@@ -90,12 +90,31 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 <details>
 
-<summary>Pièce en acier</summary>
+<summary>Pièce en acier (faiblement allié)</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée : \
   Procédé Ecoinvent : Steel production, converter, low-alloyed, RER \
+  Unité : kg\
+  Quantité : 1,3 kg\
+  Pertes : non applicable
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent : Metal working, average for steel product manufacturing, RER\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 23%
+
+</details>
+
+<details>
+
+<summary>Pièce en acier (non allié)</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée : \
+  Procédé Ecoinvent : Steel production, converter, unalloyed, RER \
   Unité : kg\
   Quantité : 1,3 kg\
   Pertes : non applicable
@@ -147,6 +166,44 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 <details>
 
+<summary>Pièce plastique (polyethylene)</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée\
+  Procédé Ecoinvent : Polyethylene production, high density, granulate_, RER_\
+  Unité : kg\
+  Quantité : 1,01\
+  Pertes : non applicable
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent :  _Injection moulding,_ RER\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 1%
+
+</details>
+
+<details>
+
+<summary>Pièce plastique (polyethylene terephthalate)</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée\
+  Procédé Ecoinvent : _Polyethylene terephthalate production, granulate, amorphous, RER_\
+  Unité : kg\
+  Quantité : 1,01\
+  Pertes : non applicable
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent :  _Injection moulding,_ RER\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 1%
+
+</details>
+
+<details>
+
 <summary>Pièce en aluminium (1kg)</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
@@ -174,12 +231,34 @@ A compléter
 
 <details>
 
-<summary>Tuyau (polyurethane)</summary>
+<summary>Pièce en polyurethane (flexible)</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée\
   Procédé Ecoinvent : P_olyurethane production, flexible foam, MDI-based, RER_\
+  Unité : kg\
+  Quantité : 1,02\
+  Pertes : non applicable
+
+<!---->
+
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent : _Extrusion, plastic pipes, RER_\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 2%
+
+</details>
+
+<details>
+
+<summary>Pièce en polyurethane (rigide)</summary>
+
+Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
+
+* Matière transformée\
+  Procédé Ecoinvent : P_olyurethane production, rigid foam, RER_\
   Unité : kg\
   Quantité : 1,02\
   Pertes : non applicable
@@ -247,7 +326,7 @@ cf. l'Explorateur pour accéder à la liste des composant en bois disponibles da
 
 
 
-<figure><img src="../../.gitbook/assets/Coût environnemental (uPts _ kg) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts _ kg) (1).png" alt=""><figcaption></figcaption></figure>
 
 <mark style="color:red;">**A actualiser**</mark>
 
