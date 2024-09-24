@@ -65,11 +65,15 @@ type TransportCooling
 
 byPlaneAllowed : PlaneTransport -> Ingredient -> Result String PlaneTransport
 byPlaneAllowed planeTransport ingredient =
-    if byPlaneByDefault ingredient == PlaneNotApplicable && planeTransport /= PlaneNotApplicable then
-        Err byPlaneErrorMessage
+    case ( planeTransport, byPlaneByDefault ingredient ) of
+        ( ByPlane, PlaneNotApplicable ) ->
+            Err "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas."
 
-    else
-        Ok planeTransport
+        ( PlaneNotApplicable, ByPlane ) ->
+            Ok ByPlane
+
+        _ ->
+            Ok planeTransport
 
 
 byPlaneByDefault : Ingredient -> PlaneTransport
@@ -79,11 +83,6 @@ byPlaneByDefault ingredient =
 
     else
         PlaneNotApplicable
-
-
-byPlaneErrorMessage : String
-byPlaneErrorMessage =
-    "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas."
 
 
 decodeId : Decode.Decoder Id

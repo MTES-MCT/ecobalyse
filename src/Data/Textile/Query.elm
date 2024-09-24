@@ -99,7 +99,7 @@ addMaterial material query =
 
 buildApiQuery : String -> Query -> String
 buildApiQuery clientUrl query =
-    """curl -X POST %apiUrl% \\
+    """curl -sS -X POST %apiUrl% \\
   -H "accept: application/json" \\
   -H "content-type: application/json" \\
   -d '%json%'

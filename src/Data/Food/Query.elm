@@ -91,7 +91,7 @@ addPackaging packaging query =
 
 buildApiQuery : String -> Query -> String
 buildApiQuery clientUrl query =
-    """curl -X POST %apiUrl% \\
+    """curl -sS -X POST %apiUrl% \\
   -H "accept: application/json" \\
   -H "content-type: application/json" \\
   -d '%json%'
@@ -127,15 +127,7 @@ decodePlaneTransport =
                             Ingredient.PlaneNotApplicable
                 )
         )
-        |> Decode.map
-            (\maybe ->
-                case maybe of
-                    Just planeTransport ->
-                        planeTransport
-
-                    Nothing ->
-                        Ingredient.PlaneNotApplicable
-            )
+        |> Decode.map (Maybe.withDefault Ingredient.PlaneNotApplicable)
 
 
 decodeMassInGrams : Decoder Mass
