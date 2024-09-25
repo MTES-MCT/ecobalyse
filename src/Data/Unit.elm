@@ -62,6 +62,7 @@ module Data.Unit exposing
     )
 
 import Area exposing (Area)
+import Data.Split as Split exposing (Split)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -88,21 +89,9 @@ ratioToFloat (Ratio float) =
     float
 
 
-decodeRatio : { percentage : Bool } -> Decoder Ratio
-decodeRatio { percentage } =
+decodeRatio : Decoder Ratio
+decodeRatio =
     Decode.float
-        |> Decode.andThen
-            (\float ->
-                if percentage && (float < 0 || float > 1) then
-                    Decode.fail
-                        ("Le ratio spécifié ("
-                            ++ String.fromFloat float
-                            ++ ") doit être compris entre 0 et 1."
-                        )
-
-                else
-                    Decode.succeed float
-            )
         |> Decode.map ratio
 
 
@@ -420,10 +409,10 @@ impactToFloat (Quantity value) =
     value
 
 
-impactAggregateScore : Impact -> Ratio -> Impact -> Impact
+impactAggregateScore : Impact -> Split -> Impact -> Impact
 impactAggregateScore normalization weighting =
     Quantity.divideBy (impactToFloat normalization)
-        >> Quantity.multiplyBy (ratioToFloat weighting)
+        >> Quantity.multiplyBy (Split.toFloat weighting)
         -- Raw aggregate scores like PEF are expressed in Pt (points); we want Pts (micropoints)
         >> Quantity.multiplyBy 1000000
 
