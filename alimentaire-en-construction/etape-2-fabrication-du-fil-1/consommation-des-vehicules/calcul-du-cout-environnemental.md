@@ -1,2 +1,0 @@
-# Calcul du cout environnemental
-

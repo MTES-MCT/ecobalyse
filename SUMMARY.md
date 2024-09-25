@@ -128,6 +128,4 @@
   * [🔩 Acier et Aluminium - Méthodes détaillées](alimentaire-en-construction/etape-2-fabrication-du-fil-1/acier-et-aluminium-methodes-detaillees.md)
   * [🛺 Composants spécifiques véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil-1/composants-specifiques-vehicules.md)
   * [⚡ Consommation des véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil-1/consommation-des-vehicules/README.md)
-    * [Calcul du cout environnemental](alimentaire-en-construction/etape-2-fabrication-du-fil-1/consommation-des-vehicules/calcul-du-cout-environnemental.md)
-    * [⚡ Calcul de la consommation électrique](alimentaire-en-construction/etape-2-fabrication-du-fil-1/consommation-des-vehicules/calcul-de-la-consommation-electrique.md)
     * [☀️ Energie apportée par des panneaux solaires photovoltaïque](alimentaire-en-construction/etape-2-fabrication-du-fil-1/consommation-des-vehicules/energie-apportee-par-des-panneaux-solaires-photovoltaique.md)

@@ -136,9 +136,8 @@ impact = impact_ironing + impact_élec_non_ironing + impact_eaux_lessive_non_iro
 
 #### Procédé de repassage (ironing)
 
-```
-impact_ironing = élec_ironing * P_élec_fr_cch
-Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
+<pre><code><strong>impact_ironing = élec_ironing * P_élec_fr_cch
+</strong>Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
 
 élec_ironing = n_cycles * P_ironing_élec
 Avec  P_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l'étape repassage du cycle d'entretien d'une jupe.
@@ -150,7 +149,7 @@ Avec  P_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l'ét
 d'où
 impact_ironing = 0.47 * 0.081
 impact_ironing = 0.038 kgCO2e
-```
+</code></pre>
 
 #### Procédé hors repassage (non ironing)
 
