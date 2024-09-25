@@ -1,7 +1,22 @@
 ---
-description: Cette page décrit les méthodes relatives à l'utilisation des véhicules.
+description: Cette page décrit les hypothèses relatives à la durée de vie des véhicules.
 ---
 
-# 🛺 Durée de vie des véhicules
+# 🔄 Durée de vie des véhicules
 
-<table><thead><tr><th width="127">Catégories</th><th width="251">Nom</th><th width="131">Kilométrage annuel</th><th width="130">Durée de vie par défaut</th><th width="116">Durée de vie par défaut</th></tr></thead><tbody><tr><td> </td><td> </td><td>km/an</td><td>années</td><td>km</td></tr><tr><td>VAE</td><td> </td><td>2 000</td><td>30</td><td>60 000</td></tr><tr><td>L1e</td><td>Deux-roues motorisé léger</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L1e-A</td><td>Vélo à moteur</td><td>2 000</td><td>30</td><td>60 000</td></tr><tr><td>L1e-B</td><td>Cyclomoteur à deux roues</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L2e</td><td>Cyclomoteur à trois roues</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L2e-P</td><td>Cyclomoteur à trois roues conçus pour le transport de voyageurs</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L2e-U</td><td>Cyclomoteur à trois roues conçus à des fins utilitaires</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L3e</td><td>Motocycle à deux roues</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L3e-A1</td><td>Motocycle à performances réduites</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L3e-A2</td><td>Motocycle à performances moyennes</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L3e-A3</td><td>Motocycle à performances élevées</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L4e</td><td>Motocycles à deux roues avec side-car</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L5e</td><td>Tricycle motorisé</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L5e-A</td><td>Tricycle</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L5e-B</td><td>Tricycle utilitaire</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L6e</td><td>Quadricycle léger </td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L6e-A</td><td>Quad routier léger</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L6e-B</td><td>Quadricycle léger</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L6e-BP</td><td>Quadrimobile léger pour le transport de personnes</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L6e-BU</td><td>Quadrimobile léger pour le transport de marchandises</td><td>5 000</td><td>30</td><td>150 000</td></tr><tr><td>L7e</td><td>Quadricycle lourd</td><td>10 000</td><td>30</td><td>300 000</td></tr><tr><td>L7e-C</td><td>Quadrimobile lourd</td><td>10 000</td><td>30</td><td>300 000</td></tr><tr><td>L7e-CP</td><td>Quadrimobile lourd pour le transport de personnes</td><td>10 000</td><td>30</td><td>300 000</td></tr><tr><td>L7e-CU</td><td>Quadrimobile lourd pour le transport de marchandises</td><td>10 000</td><td>30</td><td>300 000</td></tr></tbody></table>
+Des durées de vie par défaut sont définies ci-dessous. Elles sont modifiables par l'utilisateur dans Ecobalyse
+
+La durée de vie en kilomètre s'exprime de la façon suivante :&#x20;
+
+$$
+Tkm=K*Ta
+$$
+
+Avec :&#x20;
+
+* Tkm la durée de vie en kilomètres
+* K le kilométrage annuel
+* Ta la durée de vie de années
+
+<table><thead><tr><th width="166">Catégories</th><th width="316">Kilométrage annuel par défaut (km/h)</th><th>Durée de vie par défaut (ans)</th></tr></thead><tbody><tr><td>VAE</td><td>2 000</td><td>30</td></tr><tr><td>L1e</td><td>5 000</td><td>30</td></tr><tr><td>L1e-A</td><td>2 000</td><td>30</td></tr><tr><td>L1e-B</td><td>5 000</td><td>30</td></tr><tr><td>L2e</td><td>5 000</td><td>30</td></tr><tr><td>L3e</td><td>5 000</td><td>30</td></tr><tr><td>L4e</td><td>5 000</td><td>30</td></tr><tr><td>L5e</td><td>5 000</td><td>30</td></tr><tr><td>L6e</td><td>5 000</td><td>30</td></tr><tr><td>L7e</td><td>10 000</td><td>30</td></tr><tr><td>Autre</td><td>15000</td><td>20</td></tr></tbody></table>
+
