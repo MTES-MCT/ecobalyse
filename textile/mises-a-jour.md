@@ -13,6 +13,7 @@ description: >-
 <summary>v2.2.0</summary>
 
 * Ajout du sélecteur de durabilité physique en mode exploratoire
+* Mise à jour du [calcul du coton recyclé](https://fabrique-numerique.gitbook.io/ecobalyse/textile/correctifs-donnees/corr1-coton-recycle) issus de la Base Impact&#x20;
 
 </details>
 
