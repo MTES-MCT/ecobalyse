@@ -1,4 +1,4 @@
-# Procédés de transformation/finition
+# Transformation / Finition
 
 L'utilisateur a la possibilité de préciser la modélisation des composants proposés dans Ecobalyse.&#x20;
 
@@ -67,10 +67,60 @@ _Pertes : 2%_
 
 <details>
 
-<summary>Moulage</summary>
+<summary>Moulage par injection </summary>
 
 Procédé Ecoinvent : _Injection moulding, RER_\
 _Unité : kg_\
 _Pertes : 1%_
+
+
+
+**Illustration du procédé**
+
+![](<../../../.gitbook/assets/image (116).png>)
+
+</details>
+
+<details>
+
+<summary>Moulage par extrusion</summary>
+
+Procédé Ecoinvent : _Extrusion, plastic pipes, RER_\
+_Unité : kg_\
+_Pertes : 2%_
+
+
+
+**Illustration du procédé**
+
+![](<../../../.gitbook/assets/image (119).png>)
+
+
+
+
+
+</details>
+
+<details>
+
+<summary>Thermoformage</summary>
+
+Procédé Ecoinvent : _Thermoforming, with calendering, RER_\
+_Unité : kg_\
+_Pertes : 0%_
+
+
+
+**Illustration du procédé**
+
+![](<../../../.gitbook/assets/image (117).png>)
+
+</details>
+
+<details>
+
+<summary>Extrusion </summary>
+
+
 
 </details>

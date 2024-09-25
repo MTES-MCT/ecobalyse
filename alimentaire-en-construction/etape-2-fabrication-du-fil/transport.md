@@ -14,8 +14,8 @@ L'utilisateur a la possibilité de préciser l'origine de deux paramètres dans 
 
 Les étapes de transport prisent en compte dans le coût environnemental du produit sont :&#x20;
 
-* le transport de chaque composant depuis son site de fabrication et le site d'assemblage du produit fini,
-* le transpor du produit fini depuis le site d'assemblage jusqu'à sa fin de vie.&#x20;
+* le transport des composant depuis leur site de fabrication et le site d'assemblage du meuble,
+* le transport du meuble (produit fini) depuis le site d'assemblage jusqu'à sa fin de vie.&#x20;
 
 ### Modes de transport <a href="#procedes" id="procedes"></a>
 
@@ -107,20 +107,4 @@ La masse transportée s'exprime en **tonnes**. Une conversion est donc à prendr
 Pour la distribution, il est considéré une distance par défaut de 500 km, effectuée en camion entre un entrepôt situé quelque part en France et un magasin ou point de retrait plus proche du consommateur.
 
 Cette hypothèse est conforme à la méthodologie ADEME (cf. méthodologie d'évaluation des impacts environnementaux des articles d'habillement - section A.2.b.2 p30).
-
-
-
-## **OLD**&#x20;
-
-Les scénarios par défaut retenus par Ecobalyse s'inspirent de ceux proposés par référentiel "Meubles Meublants ADEME-FCBA" mis à jour en novembre 2023.&#x20;
-
-### Etapes d'approvisionnement (transport en amont du site assemblage)
-
-<table><thead><tr><th>Scénario</th><th width="181">France</th><th>Europe</th><th>Afrique du Nord</th><th>Hors Europe</th></tr></thead><tbody><tr><td>France</td><td>1,000km en camion</td><td>2,000km en camion</td><td>2500km bateau<br>1000km camion</td><td>18000 km bateau<br>1500km camion</td></tr><tr><td>Europe</td><td>2,000km en camion</td><td>2,000km en camion</td><td>2500km bateau<br>1000km camion</td><td>18000 km bateau<br>1500km camion</td></tr><tr><td>Afrique du Nord</td><td>2500km bateau<br>1000km camion</td><td>2500km bateau<br>1000km camion</td><td>2,000km en camion</td><td>18000 km bateau<br>1500km camion</td></tr><tr><td>Hors Europe</td><td>18000 km bateau<br>1500km camion</td><td>18000 km bateau<br>1500km camion</td><td>18000 km bateau<br>1500km camion</td><td>5,000km en camion</td></tr></tbody></table>
-
-### Etapes de distribution
-
-<table><thead><tr><th width="123">Scénario</th><th width="129">France</th><th width="151">Europe</th><th>Afrique du Nord &#x3C;=> Europe</th><th>Hors Europe &#x3C;=> Europe </th></tr></thead><tbody><tr><td>France</td><td>1000 km camion</td><td>2000km camion</td><td>2500km bateau<br>1000km camion</td><td>18000 km bateau<br>1500km camion</td></tr></tbody></table>
-
-
 
