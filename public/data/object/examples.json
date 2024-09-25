@@ -15,7 +15,8 @@
 =======
     "id": "example_Yt6gZ2Bku8QC7FbpkNTaxi",
     "name": "Chaise",
-    "composition": {
+    "category": "",
+    "query": {
       "processes": [
         {
           "process_id": "process_dwEemLKPKGWwcqACfezzx5",
@@ -41,7 +42,8 @@
 =======
     "id": "example_EmA5jMYc5MMWrZeNS2pVJY",
     "name": "Table",
-    "composition": {
+    "category": "",
+    "query": {
       "processes": [
         {
           "process_id": "process_dwEemLKPKGWwcqACfezzx5",
