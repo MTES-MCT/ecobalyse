@@ -58,14 +58,8 @@ suite =
             [ describe "Formula.genericWaste"
                 [ kg 1
                     |> Formula.genericWaste Split.half
-                    |> Expect.equal { mass = kg 1.5, waste = kg 0.5 }
-                    |> asTest "should compute material waste"
-                ]
-            , describe "Formula.makingWaste"
-                [ kg 1
-                    |> Formula.makingWaste Split.half
                     |> Expect.equal { mass = kg 2, waste = kg 1 }
-                    |> asTest "should compute material waste from material and product waste data"
+                    |> asTest "should compute generic waste using input waste ratio"
                 ]
             , describe "Formula.makingDeadStock"
                 [ kg 1
