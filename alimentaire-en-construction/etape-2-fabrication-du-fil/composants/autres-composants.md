@@ -1,4 +1,4 @@
-# ⚙️ Autres composants
+# 🧱 Autres composants
 
 ## Généralités
 

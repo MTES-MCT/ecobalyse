@@ -1,4 +1,4 @@
-# Transformation / Finition
+# ⚙️ Transformation / Finition
 
 L'utilisateur a la possibilité de préciser la modélisation des composants proposés dans Ecobalyse.&#x20;
 
@@ -13,17 +13,7 @@ Ces procédés peuvent être de différentes natures : &#x20;
 * procédé de **finition.**\
   (ex : ajouter une étape de galvanisation sur sa pièce métallique en acier)
 
-Liste de procédés optionnels disponibles dans Ecobalyse :&#x20;
-
-<details>
-
-<summary>Galvanisation</summary>
-
-Procédé Ecoinvent : _Zinc coating, pieces, RER_\
-_Unité : m2_\
-_Pertes : 0%_
-
-</details>
+### Procédés mobilisables pour des pièces métalliques
 
 <details>
 
@@ -54,6 +44,40 @@ _Unité : kg_\
 _Pertes : 0%_
 
 </details>
+
+<details>
+
+<summary>Galvanisation</summary>
+
+Procédé Ecoinvent : _Zinc coating, pieces, RER_\
+_Unité : m2_\
+_Pertes : 0%_
+
+</details>
+
+<details>
+
+<summary>Thermolaquage (revêtement en poudre)  <mark style="color:orange;">à préciser</mark> </summary>
+
+
+
+
+
+Revêtement par poudre très résistant et souvent utilisé par l'industrie.
+
+</details>
+
+<details>
+
+<summary>Patine <mark style="color:orange;">à préciser</mark> </summary>
+
+
+
+Revêtement consistant à appliquer un produit oxydant sur la pièce métallique puis à la recouvrir de couches successives de vernis. La patine est réservée à un usage intérieur et est moins résistante que le thermolaquage.
+
+</details>
+
+### Procédés mobilisables pour des pièces plastiques
 
 <details>
 
@@ -124,3 +148,6 @@ _Pertes : 0%_
 
 
 </details>
+
+### Autres procédés
+
