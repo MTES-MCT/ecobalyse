@@ -187,9 +187,8 @@ decodePhysicalDurability =
                         )
 
                 else
-                    Decode.succeed float
+                    Decode.succeed (physicalDurability float)
             )
-        |> Decode.map physicalDurability
 
 
 encodePhysicalDurability : PhysicalDurability -> Encode.Value

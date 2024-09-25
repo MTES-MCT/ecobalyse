@@ -24,6 +24,7 @@ module Data.Food.Query exposing
     )
 
 import Base64
+import Data.Common.DecodeUtils as DU
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
@@ -90,7 +91,7 @@ addPackaging packaging query =
 
 buildApiQuery : String -> Query -> String
 buildApiQuery clientUrl query =
-    """curl -X POST %apiUrl% \\
+    """curl -sS -X POST %apiUrl% \\
   -H "accept: application/json" \\
   -H "content-type: application/json" \\
   -d '%json%'
@@ -102,11 +103,11 @@ buildApiQuery clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
-        |> Pipe.optional "distribution" (Decode.maybe Retail.decode) Nothing
+        |> DU.strictOptional "distribution" Retail.decode
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "packaging" (Decode.list decodeProcess) []
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
-        |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
+        |> DU.strictOptional "transform" decodeProcess
 
 
 decodePlaneTransport : Decoder Ingredient.PlaneTransport
@@ -126,15 +127,7 @@ decodePlaneTransport =
                             Ingredient.PlaneNotApplicable
                 )
         )
-        |> Decode.map
-            (\maybe ->
-                case maybe of
-                    Just planeTransport ->
-                        planeTransport
-
-                    Nothing ->
-                        Ingredient.PlaneNotApplicable
-            )
+        |> Decode.map (Maybe.withDefault Ingredient.PlaneNotApplicable)
 
 
 decodeMassInGrams : Decoder Mass
@@ -153,7 +146,7 @@ decodeProcess =
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
     Decode.succeed IngredientQuery
-        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
+        |> DU.strictOptional "country" Country.decodeCode
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMassInGrams
         |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable

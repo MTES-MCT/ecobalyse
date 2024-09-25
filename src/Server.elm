@@ -19,7 +19,6 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
-import Json.Decode as Decode
 import Json.Encode as Encode
 import Route as WebRoute
 import Server.Query as Query
@@ -277,41 +276,40 @@ handleRequest db request =
                 |> respondWith 400
 
         -- POST routes
-        Just Route.FoodPostRecipe ->
-            request.body
-                |> handleDecodeBody BuilderQuery.decode
-                    (\query ->
-                        executeFoodQuery db (toFoodResults query) query
-                    )
+        Just (Route.FoodPostRecipe (Ok foodQuery)) ->
+            executeFoodQuery db (toFoodResults foodQuery) foodQuery
 
-        Just Route.TextilePostSimulator ->
-            request.body
-                |> handleDecodeBody TextileQuery.decode
-                    (executeTextileQuery db toAllImpactsSimple)
+        Just (Route.FoodPostRecipe (Err error)) ->
+            Encode.string error
+                |> respondWith 400
 
-        Just Route.TextilePostSimulatorDetailed ->
-            request.body
-                |> handleDecodeBody TextileQuery.decode
-                    (executeTextileQuery db Simulator.encode)
+        Just (Route.TextilePostSimulator (Ok textileQuery)) ->
+            textileQuery
+                |> executeTextileQuery db toAllImpactsSimple
 
-        Just (Route.TextilePostSimulatorSingle trigram) ->
-            request.body
-                |> handleDecodeBody TextileQuery.decode
-                    (executeTextileQuery db (toSingleImpactSimple trigram))
+        Just (Route.TextilePostSimulator (Err error)) ->
+            Encode.string error
+                |> respondWith 400
+
+        Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
+            textileQuery
+                |> executeTextileQuery db Simulator.encode
+
+        Just (Route.TextilePostSimulatorDetailed (Err error)) ->
+            Encode.string error
+                |> respondWith 400
+
+        Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
+            textileQuery
+                |> executeTextileQuery db (toSingleImpactSimple trigram)
+
+        Just (Route.TextilePostSimulatorSingle (Err error) _) ->
+            Encode.string error
+                |> respondWith 400
 
         Nothing ->
             encodeStringError "Endpoint doesn't exist"
                 |> respondWith 404
-
-
-handleDecodeBody : Decode.Decoder a -> (a -> JsonResponse) -> Encode.Value -> JsonResponse
-handleDecodeBody decoder mapper jsonBody =
-    case Decode.decodeValue decoder jsonBody of
-        Err error ->
-            ( 400, Encode.string (Decode.errorToString error) )
-
-        Ok x ->
-            mapper x
 
 
 update : Msg -> Cmd Msg

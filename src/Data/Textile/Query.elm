@@ -24,6 +24,7 @@ module Data.Textile.Query exposing
     )
 
 import Base64
+import Data.Common.DecodeUtils as DU
 import Data.Country as Country
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -98,7 +99,7 @@ addMaterial material query =
 
 buildApiQuery : String -> Query -> String
 buildApiQuery clientUrl query =
-    """curl -X POST %apiUrl% \\
+    """curl -sS -X POST %apiUrl% \\
   -H "accept: application/json" \\
   -H "content-type: application/json" \\
   -d '%json%'
@@ -110,39 +111,39 @@ buildApiQuery clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
-        |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "business" (Decode.maybe Economics.decodeBusiness) Nothing
-        |> Pipe.optional "countryDyeing" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countryFabric" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countryMaking" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countrySpinning" (Decode.maybe Country.decodeCode) Nothing
+        |> DU.strictOptional "airTransportRatio" Split.decodeFloat
+        |> DU.strictOptional "business" Economics.decodeBusiness
+        |> DU.strictOptional "countryDyeing" Country.decodeCode
+        |> DU.strictOptional "countryFabric" Country.decodeCode
+        |> DU.strictOptional "countryMaking" Country.decodeCode
+        |> DU.strictOptional "countrySpinning" Country.decodeCode
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
-        |> Pipe.optional "fabricProcess" (Decode.maybe Fabric.decode) Nothing
-        |> Pipe.optional "fading" (Decode.maybe Decode.bool) Nothing
-        |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
-        |> Pipe.optional "makingDeadStock" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
+        |> DU.strictOptional "dyeingMedium" DyeingMedium.decode
+        |> DU.strictOptional "fabricProcess" Fabric.decode
+        |> DU.strictOptional "fading" Decode.bool
+        |> DU.strictOptional "makingComplexity" MakingComplexity.decode
+        |> DU.strictOptional "makingDeadStock" Split.decodeFloat
+        |> DU.strictOptional "makingWaste" Split.decodeFloat
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
-        |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
-        |> Pipe.optional "physicalDurability" (Decode.maybe Unit.decodePhysicalDurability) Nothing
-        |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
-        |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
+        |> DU.strictOptional "numberOfReferences" Decode.int
+        |> DU.strictOptional "physicalDurability" Unit.decodePhysicalDurability
+        |> DU.strictOptional "price" Economics.decodePrice
+        |> DU.strictOptional "printing" Printing.decode
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.optional "traceability" (Decode.maybe Decode.bool) Nothing
+        |> DU.strictOptional "surfaceMass" Unit.decodeSurfaceMass
+        |> DU.strictOptional "traceability" Decode.bool
         |> Pipe.optional "upcycled" Decode.bool False
-        |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
+        |> DU.strictOptional "yarnSize" Unit.decodeYarnSize
 
 
 decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
-        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
+        |> DU.strictOptional "country" Country.decodeCode
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Split.decodeFloat
-        |> Pipe.optional "spinning" (Decode.maybe Spinning.decode) Nothing
+        |> DU.strictOptional "spinning" Spinning.decode
 
 
 encode : Query -> Encode.Value

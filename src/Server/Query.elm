@@ -15,7 +15,6 @@ import Data.Food.Query as BuilderQuery
 import Data.Food.Retail as Retail exposing (Distribution)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
-import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
@@ -33,6 +32,7 @@ import Mass exposing (Mass)
 import Quantity
 import Regex
 import Result.Extra as RE
+import Static.Db exposing (Db)
 import Url.Parser.Query as Query exposing (Parser)
 
 
@@ -63,8 +63,8 @@ succeed =
     always >> Query.custom ""
 
 
-parseFoodQuery : List Country -> Food.Db -> Parser (Result Errors BuilderQuery.Query)
-parseFoodQuery countries food =
+parseFoodQuery : Db -> Parser (Result Errors BuilderQuery.Query)
+parseFoodQuery { countries, food } =
     succeed (Ok BuilderQuery.Query)
         |> apply (distributionParser "distribution")
         |> apply (ingredientListParser "ingredients" countries food)
@@ -281,9 +281,8 @@ validatePhysicalDurability string =
                         )
 
                 else
-                    Ok durability
+                    Ok (Unit.PhysicalDurability durability)
             )
-        |> Result.map Unit.PhysicalDurability
 
 
 maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe BuilderQuery.ProcessQuery))
@@ -384,8 +383,8 @@ parseTransform_ transforms string =
             Err <| "Format de procédé de transformation invalide : " ++ string ++ "."
 
 
-parseTextileQuery : List Country -> Textile.Db -> Parser (Result Errors TextileQuery.Query)
-parseTextileQuery countries textile =
+parseTextileQuery : Db -> Parser (Result Errors TextileQuery.Query)
+parseTextileQuery { countries, textile } =
     succeed (Ok TextileQuery.Query)
         |> apply (maybeSplitParser "airTransportRatio")
         |> apply (maybeBusiness "business")
@@ -884,7 +883,6 @@ encodeErrors : Errors -> Encode.Value
 encodeErrors errors =
     Encode.object
         [ ( "errors"
-          , errors
-                |> Encode.dict identity Encode.string
+          , errors |> Encode.dict identity Encode.string
           )
         ]
