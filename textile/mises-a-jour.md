@@ -10,6 +10,16 @@ description: >-
 
 <details>
 
+<summary>v2.3.0</summary>
+
+* [Transport aérien](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport) adapté en fonction de la durabilité
+* Réorganisation des colonnes dans l['explorateur textile](https://ecobalyse.beta.gouv.fr/#/explore/textile)
+* Correction de bug: Ajout dans l'étape de distribution des étapes de transport routier
+
+</details>
+
+<details>
+
 <summary>v2.2.0</summary>
 
 * Ajout du sélecteur de durabilité physique en mode exploratoire
