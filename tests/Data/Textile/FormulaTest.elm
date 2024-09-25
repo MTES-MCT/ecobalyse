@@ -28,20 +28,20 @@ km =
 
 noOpProcess : Process
 noOpProcess =
-    { name = "Default"
+    { alias = Nothing
+    , correctif = ""
     , displayName = Just "Default"
+    , elec = Energy.megajoules 0
+    , elec_pppm = 0
+    , heat = Energy.megajoules 0
+    , impacts = Impact.empty
     , info = ""
+    , name = "Default"
+    , source = ""
+    , stepUsage = ""
     , unit = ""
     , uuid = Process.Uuid ""
-    , source = ""
-    , correctif = ""
-    , stepUsage = ""
-    , impacts = Impact.empty
-    , heat = Energy.megajoules 0
-    , elec_pppm = 0
-    , elec = Energy.megajoules 0
-    , waste = Unit.ratio 0
-    , alias = Nothing
+    , waste = Split.zero
     }
 
 
@@ -57,7 +57,7 @@ suite =
             in
             [ describe "Formula.genericWaste"
                 [ kg 1
-                    |> Formula.genericWaste (Unit.ratio 0.5)
+                    |> Formula.genericWaste Split.half
                     |> Expect.equal { mass = kg 1.5, waste = kg 0.5 }
                     |> asTest "should compute material waste"
                 ]
