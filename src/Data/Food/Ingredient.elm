@@ -144,7 +144,7 @@ decodeIngredient processes =
         |> Pipe.required "id" decodeId
         |> Pipe.required "inedible_part" Split.decodeFloat
         |> Pipe.required "name" Decode.string
-        |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
+        |> Pipe.required "raw_to_cooked_ratio" Unit.decodeRatio
         |> Pipe.required "transport_cooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
 
