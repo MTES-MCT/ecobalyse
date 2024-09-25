@@ -78,26 +78,6 @@ _"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fa
 
 ### Part du transport aérien
 
-<details>
-
-<summary>Actuel</summary>
-
-Une part de transport aérien est considérée :
-
-* Seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
-* Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](distribution.md))
-
-La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est de :&#x20;
-
-* 0% pour les pays situés en Europe ou Afrique,
-* 33% pour les autres pays.
-
-</details>
-
-<details>
-
-<summary>Prochainement (à valider)</summary>
-
 Une part de transport aérien est considérée :
 
 * Seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
@@ -114,8 +94,6 @@ La part de **transport aérien (`a`)**, par rapport au transport "aérien + terr
 
 * 0% pour les pays situés en Europe ou Afrique,
 * 100% pour les autres pays.
-
-</details>
 
 {% hint style="info" %}
 Un curseur permettant d'ajuster la part du transport aérien en sortie de confection est proposé dans Ecobalyse
