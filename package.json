@@ -89,5 +89,8 @@
     "node_modules",
     "elm-stuff",
     ".elm"
-  ]
+  ],
+  "jest": {
+    "testTimeout": 350
+  }
 }
