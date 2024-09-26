@@ -123,6 +123,7 @@
     * [🧱 Autres composants](alimentaire-en-construction/etape-2-fabrication-du-fil/composants/autres-composants.md)
     * [⚙️ Transformation / Finition](alimentaire-en-construction/etape-2-fabrication-du-fil/composants/transformation-finition.md)
   * [🚚 Transport](alimentaire-en-construction/etape-2-fabrication-du-fil/transport.md)
+  * [🔨 Assemblage](alimentaire-en-construction/etape-2-fabrication-du-fil/assemblage.md)
 * [🛺 VeLI / Véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil-1/README.md)
   * [🔄 Durée de vie des véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil-1/duree-de-vie-des-vehicules.md)
   * [🔩 Acier et Aluminium - Méthodes détaillées](alimentaire-en-construction/etape-2-fabrication-du-fil-1/acier-et-aluminium-methodes-detaillees.md)

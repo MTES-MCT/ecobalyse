@@ -13,7 +13,32 @@ Ces procédés peuvent être de différentes natures : &#x20;
 * procédé de **finition.**\
   (ex : ajouter une étape de galvanisation sur sa pièce métallique en acier)
 
-### Procédés mobilisables pour des pièces métalliques
+<details>
+
+<summary>Généralités sur la transformation de matières </summary>
+
+La grande majorité des composants en plastique ou métal sont créés en transformant de la matière grâce à un ou plusieurs procédés de transformation.&#x20;
+
+Les trois principales familles de transformation de matières en composants sont :&#x20;
+
+* **Moulage** de pièces,\
+  Consiste à couler des matériaux (métal, plastique, etc.) à l'état liquide dans un moule
+* **Usinage** de pièces (fraisage, tournage, perçage, etc.),\
+  Consiste à obtenir des surfaces fonctionnelles de bonne précision par enlèvement de matière&#x20;
+* **Formage** de pièces,\
+  Consiste à obtenir des pièces par des actions mécaniques appliquées à la matière.&#x20;
+  * laminage => le matériau passe à travers une paire de rouleaux,
+  * extrusion => le matériau est poussé par un orifice,
+  * matriçage => le matériau est pressé/estampé autour ou sur une matrice,
+  * forgeage => le matériau est compressé localement,
+  * poinçonnage => un outil est enfoncé dans le matériau,
+  * calandrage => le matériau est pressé dans des rouleaux pour créer des feuilles/films&#x20;
+
+</details>
+
+### Pièces métalliques
+
+#### Procédés de transformation&#x20;
 
 <details>
 
@@ -21,7 +46,11 @@ Ces procédés peuvent être de différentes natures : &#x20;
 
 Procédé Ecoinvent : _Sheet rolling, aluminium, RER_\
 _Unité : kg_\
-_Pertes : 0%_
+_Pertes :  <mark style="color:orange;">A définir</mark>_
+
+Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
+
+![](<../../../.gitbook/assets/image (121).png>)
 
 </details>
 
@@ -31,7 +60,11 @@ _Pertes : 0%_
 
 Procédé Ecoinvent : _Sheet rolling, steel, RER_\
 _Unité : kg_\
-_Pertes : 0%_
+_Pertes : <mark style="color:orange;">A définir</mark>_
+
+Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
+
+![](<../../../.gitbook/assets/image (121).png>)
 
 </details>
 
@@ -41,9 +74,43 @@ _Pertes : 0%_
 
 Procédé Ecoinvent : _Sheet rolling, chromium steel, RER_\
 _Unité : kg_\
-_Pertes : 0%_
+_Pertes : <mark style="color:orange;">A définir</mark>_
+
+Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
+
+![](<../../../.gitbook/assets/image (121).png>)
 
 </details>
+
+<details>
+
+<summary>Extrusion métallique (aluminium)</summary>
+
+Procédé Ecoinvent : S_ection bar extrusion, aluminium, RER_\
+_Unité : kg_\
+_Pertes : <mark style="color:orange;">A définir</mark>_
+
+Consiste à pousser la matière grâce à un piston à travers une filière pour lui donner la forme souhaitée. Pour les pièces métalliques, l'extrusion peut être faite à chaud ou à froid et permet d'obtenir des profilés, des barres, des tubes, etc.&#x20;
+
+![](<../../../.gitbook/assets/image (120).png>)
+
+</details>
+
+<details>
+
+<summary>Extrusion métallique (acier)</summary>
+
+Procédé Ecoinvent : _Impact extrusion of steel, hot, 2 strokes,_ _RER_\
+_Unité : kg_\
+_Pertes : <mark style="color:orange;">A définir</mark>_
+
+Consiste à pousser la matière grâce à un piston à travers une filière pour lui donner la forme souhaitée. Pour les pièces métalliques, l'extrusion peut être faite à chaud ou à froid et permet d'obtenir des profilés, des barres, des tubes, etc.&#x20;
+
+![](<../../../.gitbook/assets/image (120).png>)
+
+</details>
+
+#### Procédés de finition
 
 <details>
 
@@ -53,23 +120,52 @@ Procédé Ecoinvent : _Zinc coating, pieces, RER_\
 _Unité : m2_\
 _Pertes : 0%_
 
-</details>
-
-<details>
-
-<summary>Thermolaquage (revêtement en poudre)  <mark style="color:orange;">à préciser</mark> </summary>
-
-
-
-
-
-Revêtement par poudre très résistant et souvent utilisé par l'industrie.
+La galvanisation consiste à recouvrir une pièce d'une couche de zinc dans le but de la protéger contre la corrosion.
 
 </details>
 
 <details>
 
-<summary>Patine <mark style="color:orange;">à préciser</mark> </summary>
+<summary>Thermolaquage (aluminium) </summary>
+
+Procédé Ecoinvent : _Powder coating, aluminium sheet, RER_\
+_Unité : m2_\
+_Pertes : 0%_
+
+Consiste à déposer une peinture poudre à la surface de l'objet métallique en utilisant de l'électricité pour fixer électrostatiquement la poudre à la surface. \
+Ce revêtement est très résistant et souvent utilisé par l'industrie.
+
+</details>
+
+<details>
+
+<summary>Thermolaquage (acier) </summary>
+
+Procédé Ecoinvent : _Powder coating, steel, RER_\
+_Unité : m2_\
+_Pertes : 0%_
+
+Consiste à déposer une peinture poudre à la surface de l'objet métallique en utilisant de l'électricité pour fixer électrostatiquement la poudre à la surface. \
+Ce revêtement est très résistant et souvent utilisé par l'industrie.
+
+</details>
+
+<details>
+
+<summary>Traitement anti-corrosion <mark style="color:orange;">A préciser</mark> </summary>
+
+Procédé Ecoinvent : _<mark style="color:orange;">A compléter</mark>_\
+_Unité : <mark style="color:orange;">A compléter</mark>_\
+_Pertes : <mark style="color:orange;">A compléter</mark>_&#x20;
+
+Consiste à protéger les surfaces de l'oxydation, la corrosition, l'abrasion, etc.\
+Cette technique nécessite le traitement préalable des pièces métalliques par sablage ou grenaillage.
+
+</details>
+
+<details>
+
+<summary>Patine <mark style="color:orange;">A préciser</mark> </summary>
 
 
 
@@ -77,51 +173,37 @@ Revêtement consistant à appliquer un produit oxydant sur la pièce métallique
 
 </details>
 
-### Procédés mobilisables pour des pièces plastiques
+
+
+### Pièces plastiques
+
+#### Procédés de transformation
 
 <details>
 
 <summary>Extrusion plastique</summary>
 
-Procédé Ecoinvent : _Extrusion, plastic pipes, RER_\
+Procédé Ecoinvent : _Extrusion, plastic film, RER_\
 _Unité : kg_\
 _Pertes : 2%_
+
+Consiste à faire fondre les granulés de plastique et à les compresser à travers une filière pour créer la forme souhaitée. Pour les pièces plastiques, l'extrusion permet d'obtenir une grande variété de produits tels que des tubesn feuilles, films, etc.
+
+![](<../../../.gitbook/assets/image (123).png>)
 
 </details>
 
 <details>
 
-<summary>Moulage par injection </summary>
+<summary>Injection plastique</summary>
 
 Procédé Ecoinvent : _Injection moulding, RER_\
 _Unité : kg_\
 _Pertes : 1%_
 
-
-
-**Illustration du procédé**
+Aussi appelé moulage par injection, l'injection plastique consiste à chauffer et fondre des granulés plastique puis à les injecter dans un moule afin d'obtenir la forme souhaitée lorsque la matière refroidit et durcit.
 
 ![](<../../../.gitbook/assets/image (116).png>)
-
-</details>
-
-<details>
-
-<summary>Moulage par extrusion</summary>
-
-Procédé Ecoinvent : _Extrusion, plastic pipes, RER_\
-_Unité : kg_\
-_Pertes : 2%_
-
-
-
-**Illustration du procédé**
-
-![](<../../../.gitbook/assets/image (119).png>)
-
-
-
-
 
 </details>
 
@@ -133,21 +215,15 @@ Procédé Ecoinvent : _Thermoforming, with calendering, RER_\
 _Unité : kg_\
 _Pertes : 0%_
 
+Consiste à chauffer une feuille plastique et à lui donner la forme souhaitée à l'aide d'un moule dès que la matière a refroidi.&#x20;
 
-
-**Illustration du procédé**
-
-![](<../../../.gitbook/assets/image (117).png>)
+![](<../../../.gitbook/assets/image (124).png>)
 
 </details>
 
-<details>
-
-<summary>Extrusion </summary>
+#### Procédés de finition
 
 
-
-</details>
 
 ### Autres procédés
 

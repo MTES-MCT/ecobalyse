@@ -90,26 +90,7 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 <details>
 
-<summary>Pièce en acier (faiblement allié)</summary>
-
-Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
-
-* Matière transformée : \
-  Procédé Ecoinvent : Steel production, converter, low-alloyed, RER \
-  Unité : kg\
-  Quantité : 1,3 kg\
-  Pertes : non applicable
-* Etape de transformation additionnelle\
-  Procédé Ecoinvent : Metal working, average for steel product manufacturing, RER\
-  Unité : kg\
-  Quantité : 1kg\
-  Pertes : 23%
-
-</details>
-
-<details>
-
-<summary>Pièce en acier (non allié)</summary>
+<summary>Pièce en acier</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
@@ -204,7 +185,7 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 <details>
 
-<summary>Pièce en aluminium (1kg)</summary>
+<summary>Pièce en aluminium</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
@@ -231,7 +212,7 @@ A compléter
 
 <details>
 
-<summary>Pièce en polyurethane (flexible)</summary>
+<summary>Pièce en polyurethane</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
@@ -253,38 +234,20 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 <details>
 
-<summary>Pièce en polyurethane (rigide)</summary>
-
-Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
-
-* Matière transformée\
-  Procédé Ecoinvent : P_olyurethane production, rigid foam, RER_\
-  Unité : kg\
-  Quantité : 1,02\
-  Pertes : non applicable
-
-<!---->
-
-* Etape de transformation additionnelle\
-  Procédé Ecoinvent : _Extrusion, plastic pipes, RER_\
-  Unité : kg\
-  Quantité : 1kg\
-  Pertes : 2%
-
-</details>
-
-<details>
-
 <summary>Pièce en plastique (ABS) </summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
-* Matière transformée => 1 kg de matière plastique \
-  Procédé Ecoinvent => A_crylonitrile-butadiene-styrene copolymer production, RER_\
-  Quantité => 1kg
+* Matière transformé\
+  Procédé Ecoinvent : A_crylonitrile-butadiene-styrene copolymer production, RER_\
+  _Unité : kg_\
+  _Quantité : 1,01_\
+  _Pertes : non applicable_
 * Etape de transformation additionnelle\
-  Procédé Ecoinvent => I_njection moulding, RER_\
-  Quantité => 1kg
+  Procédé Ecoinvent :  _Injection moulding,_ RER\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 1%
 
 </details>
 
@@ -305,16 +268,20 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 <details>
 
-<summary>Panneau (polyethylene)</summary>
+<summary>Pièce en plastique (polystyrène)</summary>
 
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
-* Matière transformée\
-  Procédé Ecoinvent : P_olyethylene production, low density, granulate, RER_\
-  Quantité : 1kg
-* Etape de transformation\
-  Procédé Ecoinvent :  _Calendering, rigid sheets, RER_\
-  Quantité : 1kg
+* Matière transformé\
+  Procédé Ecoinvent : Polystyrene production, expandable_, RER_\
+  _Unité : kg_\
+  _Quantité : 1,01_\
+  _Pertes : non applicable_
+* Etape de transformation additionnelle\
+  Procédé Ecoinvent :  _Injection moulding,_ RER\
+  Unité : kg\
+  Quantité : 1kg\
+  Pertes : 1%
 
 </details>
 
@@ -329,83 +296,6 @@ cf. l'Explorateur pour accéder à la liste des composant en bois disponibles da
 <figure><img src="../../../.gitbook/assets/Coût environnemental (uPts _ kg) (1).png" alt=""><figcaption></figcaption></figure>
 
 <mark style="color:red;">**A actualiser**</mark>
-
-## Focus techniques
-
-<details>
-
-<summary>Procédés de transformation / formage</summary>
-
-La grande majorité des composants en plastique ou métal sont créés en transformant de la matière grâce à un ou plusieurs procédés de transformation.&#x20;
-
-Afin de proposer des modélisations précises et accessibles, Ecobalyse permet de préciser quel(s) procédé(s) de transformation sont utilisés pour obtenir un composant en plastique ou métal :&#x20;
-
-* **Moulage** de pièces,\
-  Consiste à couler des matériaux (métal, plastique, etc.) à l'état liquide dans un moule
-* **Usinage** de pièces (fraisage, tournage, perçage, etc.),\
-  Consiste à obtenir des surfaces fonctionnelles de bonne précision par enlèvement de matière&#x20;
-* **Formage** de pièces (estampage, matriçage, filage, etc.),\
-  Consiste à obtenir des pièces par des actions mécaniques appliquées à la matière.&#x20;
-  * laminage => le matériau passe à travers une paire de rouleaux,
-  * extrusion => le matériau est poussé par un orifice,
-  * matriçage => le matériau est pressé/estampé autour ou sur une matrice,
-  * forgeage => le matériau est compressé localement,
-  * poinçonnage => un outil est enfoncé dans le matériau,
-  * calandrage => le matériau est pressé dans des rouleaux pour créer des feuilles/films&#x20;
-
-</details>
-
-<details>
-
-<summary>Procédés d'assemblage</summary>
-
-Différents types d'assemblage existent (assemblage par sertissage, par rivetage, par soudage, par collage, etc.).&#x20;
-
-Afin de proposer des modélisations précises et accessibles, Ecobalyse permet de préciser certains procédés d'assemblage :&#x20;
-
-* Assemblage par soudage\
-  Consiste à assembler deux ou plusieurs pièces par chauffage et/ou pression. Le soudage par chauffage est la méthode la plus courante.
-* Assemblage par collage\
-  Consiste à lier deux pièces par l'apport de matière adhésive (colle). &#x20;
-
-</details>
-
-<details>
-
-<summary>Procédés de finition</summary>
-
-Plusieurs procédés de finition sont utilisés selon les matériaux.
-
-**COMPOSANTS EN BOIS ET/OU PLASTIQUE**
-
-* laquage
-* vernissage
-* teinture / peinture
-* huilage / cire
-* placage
-* sablage
-* sérigraphie
-
-**COMPOSANTS EN METAL**
-
-* **Galvanoplastie**\
-  Consiste à recouvrir un objet d'une fiche couche de métal par électrodéposition.\
-  Plusieurs techniques existent :&#x20;
-  * chromage,
-  * zingage,
-  * polissage,
-  * dorure,
-  * nickelage
-* **Thermolaquage**,\
-  Consiste à déposer une peinture poudre à la surface de l'objet métallique en utilisant de l'électricité pour fixer électrostatiquement la poudre à la surface. \
-  Cette technique nécessite le traitement préalable des pièces métalliques par sablage-grenaillage et/ou métallisation-galvanisation.
-* **Traitement anti-corrosion**\
-  Consiste à protéger les surfaces de l'oxydation, la corrosition, l'abrasion, etc.\
-  Cette technique nécessite le traitement préalable des pièces métalliques par sablage ou grenaillage.
-* **Sablage**\
-  Consiste à projeter un abrasif à grande vitesse, par jet d'air comprimé. Le sablage a pour effet de nettoyer, décaper, désoxyder, supprimer les couches superficielles fragiles (ex : peinture) mais aussi d'apporter de la rugosité.
-
-</details>
 
 [^1]: alban.fournier@beta.gouv.fr
 
