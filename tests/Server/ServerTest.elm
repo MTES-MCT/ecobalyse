@@ -68,19 +68,17 @@ suite =
 
 request : StaticDb.Db -> String -> Encode.Value -> String -> Request
 request dbs method body url =
+    let
+        encode encoder =
+            Encode.list encoder >> Encode.encode 0
+    in
     { method = method
     , url = url
     , body = body
     , processes =
-        { foodProcesses =
-            Encode.list FoodProcess.encode dbs.food.processes
-                |> Encode.encode 0
-        , objectProcesses =
-            Encode.list ObjectProcess.encode dbs.object.processes
-                |> Encode.encode 0
-        , textileProcesses =
-            Encode.list TextileProcess.encode dbs.textile.processes
-                |> Encode.encode 0
+        { foodProcesses = dbs.food.processes |> encode FoodProcess.encode
+        , objectProcesses = dbs.object.processes |> encode ObjectProcess.encode
+        , textileProcesses = dbs.textile.processes |> encode TextileProcess.encode
         }
     , jsResponseHandler = Encode.null
     }
