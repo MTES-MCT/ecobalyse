@@ -2,6 +2,7 @@ module Data.Object.Query exposing
     ( Amount
     , Item
     , Query
+    , amountToFloat
     , decode
     )
 
@@ -22,6 +23,11 @@ type alias Item =
 
 type Amount
     = Amount Float
+
+
+amountToFloat : Amount -> Float
+amountToFloat (Amount float) =
+    float
 
 
 decode : Decoder Query
