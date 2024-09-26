@@ -128,5 +128,7 @@
   * [🔄 Durée de vie des véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil-1/duree-de-vie-des-vehicules.md)
   * [🔩 Acier et Aluminium - Méthodes détaillées](alimentaire-en-construction/etape-2-fabrication-du-fil-1/acier-et-aluminium-methodes-detaillees.md)
   * [🛺 Composants spécifiques véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil-1/composants-specifiques-vehicules.md)
+  * [🚚 Transport des composants](alimentaire-en-construction/etape-2-fabrication-du-fil-1/transport-des-composants.md)
+  * [🚚 Transport des véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil-1/transport-des-vehicules.md)
   * [⚡ Consommation des véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil-1/consommation-des-vehicules/README.md)
     * [☀️ Energie apportée par des panneaux solaires photovoltaïque](alimentaire-en-construction/etape-2-fabrication-du-fil-1/consommation-des-vehicules/energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
