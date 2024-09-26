@@ -6,6 +6,7 @@ import Static.Json as StaticJson
 
 type alias Flags =
     { foodProcesses : String
+    , objectProcesses : String
     , textileProcesses : String
     }
 

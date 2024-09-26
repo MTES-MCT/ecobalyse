@@ -15,8 +15,9 @@ try {
 
 const elmApp = Elm.CheckDb.init({
   flags: {
-    textileProcesses: fs.readFileSync(dataFiles.textileDetailed, "utf-8"),
     foodProcesses: fs.readFileSync(dataFiles.foodDetailed, "utf-8"),
+    objectProcesses: fs.readFileSync(dataFiles.objectDetailed, "utf-8"),
+    textileProcesses: fs.readFileSync(dataFiles.textileDetailed, "utf-8"),
   },
 });
 

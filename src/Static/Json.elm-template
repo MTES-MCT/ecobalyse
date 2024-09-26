@@ -8,17 +8,20 @@ module Static.Json exposing
     )
 
 import Data.Food.Db as FoodDb
+import Data.Object.Db as ObjectDb
 import Data.Textile.Db as TextileDb
 
 
 type alias Db =
     { foodDb : FoodDb.Db
+    , objectDb : ObjectDb.Db
     , textileDb : TextileDb.Db
     }
 
 
 type alias RawJsonProcesses =
     { foodProcesses : String
+    , objectProcesses : String
     , textileProcesses : String
     }
 
@@ -83,13 +86,27 @@ transportsJson =
     """%transportsJson%"""
 
 
+objectProcessesJson : String
+objectProcessesJson =
+    """%objectProcessesJson%"""
+
+
+objectDb : String -> Result String ObjectDb.Db
+objectDb objectProcesses =
+    ObjectDb.buildFromJson objectProcesses
+
+
 rawJsonProcesses : RawJsonProcesses
 rawJsonProcesses =
     { foodProcesses = foodProcessesJson
+    , objectProcesses = objectProcessesJson
     , textileProcesses = textileProcessesJson
     }
 
 
 db : RawJsonProcesses -> Result String Db
-db { foodProcesses, textileProcesses } =
-    Result.map2 Db (foodDb foodProcesses) (textileDb textileProcesses)
+db { foodProcesses, objectProcesses, textileProcesses } =
+    Result.map3 Db
+        (foodDb foodProcesses)
+        (objectDb objectProcesses)
+        (textileDb textileProcesses)

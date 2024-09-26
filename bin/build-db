@@ -62,6 +62,14 @@ const elmWithFixtures = elmTemplate
     parseAndValidate(NODE_ENV === "test" ? dataFiles.foodDetailed : dataFiles.foodNoDetails, "id"),
   )
   .replace("%foodProductExamplesJson%", parseAndValidate("public/data/food/examples.json", "id"))
+  // Object JSON data
+  .replace(
+    "%objectProcessesJson%",
+    parseAndValidate(
+      NODE_ENV === "test" ? dataFiles.objectDetailed : dataFiles.objectNoDetails,
+      "id",
+    ),
+  )
   // Textile JSON data
   .replace("%textileMaterialsJson%", parseAndValidate("public/data/textile/materials.json", "id"))
   .replace(

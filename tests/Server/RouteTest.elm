@@ -5,6 +5,7 @@ import Data.Food.Fixtures as Fixtures
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
+import Data.Object.Process as ObjectProcess
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
@@ -435,6 +436,9 @@ testEndpoint dbs method body url =
         , processes =
             { foodProcesses =
                 Encode.list FoodProcess.encode dbs.food.processes
+                    |> Encode.encode 0
+            , objectProcesses =
+                Encode.list ObjectProcess.encode dbs.object.processes
                     |> Encode.encode 0
             , textileProcesses =
                 Encode.list TextileProcess.encode dbs.textile.processes

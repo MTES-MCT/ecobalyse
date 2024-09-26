@@ -35,6 +35,7 @@
     "id": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
     "name": "Plastic frame (PP)",
     "display_name": "Composant en plastique (PP)",
+    "density": 900,
     "unit": "kg",
     "impacts": {
       "acd": 0,
