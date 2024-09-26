@@ -11,7 +11,7 @@
 La quantité maximale d'électricité fournie par les panneaux solaires photovoltaïque se calcule de la façon suivante : &#x20;
 
 $$
-Epv=(S.ir*UF.ir*η.ss*mP.p*cos(Φ)/S.ir.stc)*SCC/(24*365/K.an)
+Epv.m=(S.ir*UF.ir*η.ss*mP.p*cos(Φ)/S.ir.stc)*SCC/(24*365/K.an)
 $$
 
 Avec :&#x20;

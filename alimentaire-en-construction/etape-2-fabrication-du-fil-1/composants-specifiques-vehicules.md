@@ -17,7 +17,7 @@ description: >-
 Le verre utilisé pour les véhicules est généralement du verre trempé.\
 Il est modélisé de la façon suivante :&#x20;
 
-* Matiériau transformé : Verre
+* Matériau transformé : Verre
   * market for Flat glass, uncoated, RER (ecoinvent), 1kg
 * Procédé de transformation : trempe du verre
   * market for Tempering, flat glass, GLO (ecoinvent), 1kg
@@ -97,5 +97,19 @@ CE = M x R x ICV x N, avec
 * N le nombre de roues utilisées sur la vie du véhicule.
 
 
+
+</details>
+
+<details>
+
+<summary>Panneaux photovoltaïques</summary>
+
+Le cout environnemental des panneaux photovoltaïques est calculé en fonction de leur puissance nominale, en Wc.
+
+1Wc est modélisé de la façon suivante :&#x20;
+
+* photovoltaic module production, building-integrated, for slanted-roof installation\
+  unité : m²\
+  Quantité :&#x20;
 
 </details>

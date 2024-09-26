@@ -24,7 +24,7 @@ Avec&#x20;
 La consommation électrique est définit comme suit :&#x20;
 
 $$
-C_r = Cwmtc-Ep-Epv
+C_r = max (0;Cwmtc-Ep-Epv.m)
 $$
 
 Avec :&#x20;
@@ -32,7 +32,7 @@ Avec :&#x20;
 * C\_r : la consommation l'électricité par recharge sur le réseau électrique
 * Cwmtc : La consommation du véhicule selon le cycle WMTC, retenu comme référence pour la consommation des VeLI. Cela signifie que les constructeurs indiquent la consommation de leurs véhicules lorsque celui-ci suit ce cycle, selon la classe du cycle qui correspond au véhicule.
 * Ep : l'énergie apportée par pédalage, pour les véhicules à pédale, établie par la classe WMTC. Les données par catégorie de véhicules sont fournies dans le tableau ci-dessous
-* Epv : l'énergie apportée par des panneaux solaires photovoltaïques, selon le calcul détaillé dans la section dédiée
+* Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, selon le calcul détaillé dans la section dédiée
 
 ### Données clés par catégorie de véhicule
 
