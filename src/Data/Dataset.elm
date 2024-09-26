@@ -50,6 +50,11 @@ datasets scope =
             , FoodProcesses Nothing
             ]
 
+        Scope.Object ->
+            [ Impacts Nothing
+            , Countries Nothing
+            ]
+
         Scope.Textile ->
             [ TextileExamples Nothing
             , Impacts Nothing
