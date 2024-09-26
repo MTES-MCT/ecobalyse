@@ -25,7 +25,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 22733
+      "ecs": 22733,
+      "pef": 0
     },
     "source": "Ecoinvent",
     "comment": ""
@@ -55,7 +56,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 382
+      "ecs": 382,
+      "pef": 0
     },
     "source": "Ecobalyse",
     "comment": "modélisation d'un composant générique (voir documentation)"
