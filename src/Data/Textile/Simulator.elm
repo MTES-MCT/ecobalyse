@@ -592,7 +592,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
 
         { mass, waste } =
             inputs.mass
-                |> Formula.makingWaste
+                |> Formula.genericWaste
                     (fabricProcess
                         |> Fabric.getMakingWaste product.making.pcrWaste makingWaste
                     )

@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.2.0...v2.3.0) (2024-09-25)
+
+
+### Features
+
+* add link to changelog in app footer. ([#748](https://github.com/MTES-MCT/ecobalyse/issues/748)) ([efe88f5](https://github.com/MTES-MCT/ecobalyse/commit/efe88f57d4f61e74e84f62c5334a89d36fd767ee))
+* airTransportRatio should depend on durability ([#757](https://github.com/MTES-MCT/ecobalyse/issues/757)) ([a0761d1](https://github.com/MTES-MCT/ecobalyse/commit/a0761d169469fddff7b9158f21de26d96a98ae0f))
+* displayName in the textile explorer, reordered columns ([#737](https://github.com/MTES-MCT/ecobalyse/issues/737)) ([65d0ed5](https://github.com/MTES-MCT/ecobalyse/commit/65d0ed547566c193c5617147a35604e26b0bbe6d))
+
+
+### Bug Fixes
+
+* **api:** handle ingredient plane transport in food POST api. ([#769](https://github.com/MTES-MCT/ecobalyse/issues/769)) ([62587e2](https://github.com/MTES-MCT/ecobalyse/commit/62587e23593e459d66726b2221932092393790e5))
+* check db integrity after building it ([#753](https://github.com/MTES-MCT/ecobalyse/issues/753)) ([5b41ef6](https://github.com/MTES-MCT/ecobalyse/commit/5b41ef6a6e1d4e799ed2abe7f21a321a87f9ae83))
+* check uniqueness of JSON db primary keys at build time. ([#766](https://github.com/MTES-MCT/ecobalyse/issues/766)) ([0927954](https://github.com/MTES-MCT/ecobalyse/commit/0927954dfe472557f0e7c2e5e4aa24d1ce8572c2))
+* decode and validate all optionals. ([#764](https://github.com/MTES-MCT/ecobalyse/issues/764)) ([87a7c6a](https://github.com/MTES-MCT/ecobalyse/commit/87a7c6af3e6edc12c2daa36192ad7f18fdefc444))
+* encode physicalDurability parameter. ([#751](https://github.com/MTES-MCT/ecobalyse/issues/751)) ([f6750b8](https://github.com/MTES-MCT/ecobalyse/commit/f6750b8aea6dc0a4500a23465bfdbc0f0b627743))
+* fix github CI python build setup. ([#762](https://github.com/MTES-MCT/ecobalyse/issues/762)) ([ea2cd9f](https://github.com/MTES-MCT/ecobalyse/commit/ea2cd9ff566129081ccf37caef25377717933c9d))
+* fixed brightway explorer notebook error (wrong key) ([#745](https://github.com/MTES-MCT/ecobalyse/issues/745)) ([bc436c2](https://github.com/MTES-MCT/ecobalyse/commit/bc436c2d1520efb9de269cdadccf6587d1904468))
+* in brightway explorer: improve display of compartment categories, if any ([#754](https://github.com/MTES-MCT/ecobalyse/issues/754)) ([757d5a6](https://github.com/MTES-MCT/ecobalyse/commit/757d5a6b50363995011e23bd5719adedb44d296f))
+* stricter validation of POST json body passed to the textile API. ([#760](https://github.com/MTES-MCT/ecobalyse/issues/760)) ([a85bd8a](https://github.com/MTES-MCT/ecobalyse/commit/a85bd8aa506ce87b9b1310b6a4a933a591ce442e))
+* **textile:** distribution step had no inland road transports added. ([#761](https://github.com/MTES-MCT/ecobalyse/issues/761)) ([d789d7d](https://github.com/MTES-MCT/ecobalyse/commit/d789d7d63a3dede6a4c2b07d43f6f43b9328a519))
+* Update export outside of EU probability. ([#765](https://github.com/MTES-MCT/ecobalyse/issues/765)) ([c3fd9f2](https://github.com/MTES-MCT/ecobalyse/commit/c3fd9f2d5d0cc01232b31f9aa1ef657b33796292))
+
 ## [2.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.1.1...v2.2.0) (2024-09-12)
 
 
