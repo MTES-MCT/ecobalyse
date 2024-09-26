@@ -26,8 +26,12 @@ def download_file(url, destination_directory=None):
     logger.debug(f"-> Downloading {url} to {local_filename}")
 
     with requests.get(url, stream=True) as r:
-        with open(local_filename, "wb") as f:
-            shutil.copyfileobj(r.raw, f)
+        if r.status_code == 200:
+            with open(local_filename, "wb") as f:
+                shutil.copyfileobj(r.raw, f)
+        else:
+            logger.error(f"Status: {r.status_code}, body: {r.text}")
+            return None
 
     return local_filename
 
@@ -68,6 +72,11 @@ if __name__ == "__main__":
     nb_releases_extracted = 0
     for release in releases:
         if release.tag_name is None:
+            logger.info("Skipping release without a tag.")
+            continue
+
+        if release.draft:
+            logger.info("Skipping draft release.")
             continue
 
         for asset in release.assets:
@@ -75,6 +84,12 @@ if __name__ == "__main__":
                 file_path = download_file(
                     asset.browser_download_url, args.destination_directory
                 )
+                if not file_path:
+                    logger.error(
+                        f"Error downloading {asset.browser_download_url}, skipping."
+                    )
+                    continue
+
                 # 'dist' is the name of the directory contained in the archive
                 unpacked_destination_directory = os.path.join(
                     args.destination_directory, "dist"
