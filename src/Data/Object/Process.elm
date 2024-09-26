@@ -4,6 +4,7 @@ module Data.Object.Process exposing
     , decodeId
     , decodeList
     , encode
+    , findById
     )
 
 import Data.Impact as Impact exposing (Impacts)
@@ -69,3 +70,16 @@ encode process =
 encodeId : Id -> Encode.Value
 encodeId (Id uuid) =
     Uuid.encoder uuid
+
+
+findById : List Process -> Id -> Result String Process
+findById processes id =
+    processes
+        |> List.filter (.id >> (==) id)
+        |> List.head
+        |> Result.fromMaybe ("Procédé introuvable par id : " ++ idToString id)
+
+
+idToString : Id -> String
+idToString (Id uuid) =
+    Uuid.toString uuid
