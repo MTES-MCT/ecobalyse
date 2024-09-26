@@ -1,13 +1,19 @@
 module TestUtils exposing
     ( asTest
+    , createServerRequest
     , expectImpactsEqual
     , suiteWithDb
     )
 
+import Data.Food.Process as FoodProcess
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
+import Data.Object.Process as ObjectProcess
+import Data.Textile.Process as TextileProcess
 import Data.Unit as Unit
 import Expect exposing (Expectation)
+import Json.Encode as Encode
+import Server.Request exposing (Request)
 import Static.Db as StaticDb exposing (Db)
 import Static.Json as StaticJson
 import Test exposing (..)
@@ -41,3 +47,21 @@ expectImpactsEqual impacts subject =
         |> (\expectations ->
                 Expect.all expectations subject
            )
+
+
+createServerRequest : StaticDb.Db -> String -> Encode.Value -> String -> Request
+createServerRequest dbs method body url =
+    let
+        encode encoder =
+            Encode.list encoder >> Encode.encode 0
+    in
+    { body = body
+    , jsResponseHandler = Encode.null
+    , method = method
+    , processes =
+        { foodProcesses = dbs.food.processes |> encode FoodProcess.encode
+        , objectProcesses = dbs.object.processes |> encode ObjectProcess.encode
+        , textileProcesses = dbs.textile.processes |> encode TextileProcess.encode
+        }
+    , url = url
+    }

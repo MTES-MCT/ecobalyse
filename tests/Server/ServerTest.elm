@@ -1,16 +1,11 @@
 module Server.ServerTest exposing (..)
 
-import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
-import Data.Object.Process as ObjectProcess
-import Data.Textile.Process as TextileProcess
 import Expect
 import Json.Encode as Encode
 import Server
-import Server.Request exposing (Request)
-import Static.Db as StaticDb
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithDb)
+import TestUtils exposing (asTest, createServerRequest, suiteWithDb)
 
 
 suite : Test
@@ -28,7 +23,7 @@ suite =
                 ]
             , describe "handleRequest"
                 [ "/invalid"
-                    |> request dbs "GET" Encode.null
+                    |> createServerRequest dbs "GET" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 404
@@ -36,13 +31,13 @@ suite =
 
                 -- GET queries
                 , "/food?ingredients[]=invalid"
-                    |> request dbs "GET" Encode.null
+                    |> createServerRequest dbs "GET" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
                     |> asTest "should reject an invalid GET query"
                 , "/food?ingredients[]=egg-indoor-code3;120"
-                    |> request dbs "GET" Encode.null
+                    |> createServerRequest dbs "GET" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 200
@@ -50,13 +45,13 @@ suite =
 
                 -- POST queries
                 , "/food"
-                    |> request dbs "POST" Encode.null
+                    |> createServerRequest dbs "POST" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
                     |> asTest "should reject an invalid POST query"
                 , "/food"
-                    |> request dbs "POST" (FoodQuery.encode FoodQuery.empty)
+                    |> createServerRequest dbs "POST" (FoodQuery.encode FoodQuery.empty)
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 200
@@ -64,21 +59,3 @@ suite =
                 ]
             ]
         )
-
-
-request : StaticDb.Db -> String -> Encode.Value -> String -> Request
-request dbs method body url =
-    let
-        encode encoder =
-            Encode.list encoder >> Encode.encode 0
-    in
-    { method = method
-    , url = url
-    , body = body
-    , processes =
-        { foodProcesses = dbs.food.processes |> encode FoodProcess.encode
-        , objectProcesses = dbs.object.processes |> encode ObjectProcess.encode
-        , textileProcesses = dbs.textile.processes |> encode TextileProcess.encode
-        }
-    , jsResponseHandler = Encode.null
-    }
