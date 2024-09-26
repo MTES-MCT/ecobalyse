@@ -68,6 +68,11 @@ if __name__ == "__main__":
     nb_releases_extracted = 0
     for release in releases:
         if release.tag_name is None:
+            logger.info("Skipping release without a tag.")
+            continue
+
+        if release.draft:
+            logger.info("Skipping draft release.")
             continue
 
         for asset in release.assets:
