@@ -86,6 +86,11 @@ transportsJson =
     """%transportsJson%"""
 
 
+objectExamplesJson : String
+objectExamplesJson =
+   """%objectExamplesJson%"""
+
+
 objectProcessesJson : String
 objectProcessesJson =
     """%objectProcessesJson%"""
@@ -93,7 +98,7 @@ objectProcessesJson =
 
 objectDb : String -> Result String ObjectDb.Db
 objectDb objectProcesses =
-    ObjectDb.buildFromJson objectProcesses
+    ObjectDb.buildFromJson objectExamplesJson objectProcesses
 
 
 rawJsonProcesses : RawJsonProcesses
