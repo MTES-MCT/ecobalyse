@@ -39,51 +39,52 @@ import Views.Format as Format
 
 
 type alias MaterialInput =
-    { material : Material
+    { country : Maybe Country
+    , material : Material
     , share : Split
     , spinning : Maybe Spinning
-    , country : Maybe Country
     }
 
 
 type alias Inputs =
-    { mass : Mass
-    , materials : List MaterialInput
-    , product : Product
+    { airTransportRatio : Maybe Split
+    , business : Maybe Economics.Business
+    , countryDistribution : Country
+    , countryDyeing : Country
+    , countryEndOfLife : Country
+    , countryFabric : Country
+    , countryMaking : Country
 
     -- TODO: countryMaterial isn't used anymore, but we still need it because `countryList` uses it,
     -- which in turn is used to build the lifecycle, which needs a country for each step.
     , countryMaterial : Country
     , countrySpinning : Country
-    , countryFabric : Country
-    , countryDyeing : Country
-    , countryMaking : Country
-    , countryDistribution : Country
     , countryUse : Country
-    , countryEndOfLife : Country
-    , airTransportRatio : Maybe Split
-    , makingWaste : Maybe Split
-    , makingDeadStock : Maybe Split
-    , makingComplexity : Maybe MakingComplexity
-    , yarnSize : Maybe Unit.YarnSize
-    , surfaceMass : Maybe Unit.SurfaceMass
-    , fabricProcess : Maybe Fabric
     , disabledSteps : List Label
-    , fading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
-    , printing : Maybe Printing
-    , business : Maybe Economics.Business
+    , fabricProcess : Maybe Fabric
+    , fading : Maybe Bool
+    , makingComplexity : Maybe MakingComplexity
+    , makingDeadStock : Maybe Split
+    , makingWaste : Maybe Split
+    , mass : Mass
+    , materials : List MaterialInput
     , numberOfReferences : Maybe Int
+    , physicalDurability : Maybe Unit.PhysicalDurability
     , price : Maybe Economics.Price
+    , printing : Maybe Printing
+    , product : Product
+    , surfaceMass : Maybe Unit.SurfaceMass
     , traceability : Maybe Bool
     , upcycled : Bool
+    , yarnSize : Maybe Unit.YarnSize
     }
 
 
 fromMaterialQuery : List Material -> List Country -> List MaterialQuery -> Result String (List MaterialInput)
 fromMaterialQuery materials countries =
     List.map
-        (\{ id, share, spinning, country } ->
+        (\{ country, id, share, spinning } ->
             let
                 countryResult =
                     case country of
@@ -96,10 +97,10 @@ fromMaterialQuery materials countries =
             in
             Result.map2
                 (\material_ country_ ->
-                    { material = material_
+                    { country = country_
+                    , material = material_
                     , share = share
                     , spinning = spinning
-                    , country = country_
                     }
                 )
                 (Material.findById id materials)
@@ -111,11 +112,11 @@ fromMaterialQuery materials countries =
 toMaterialQuery : List MaterialInput -> List MaterialQuery
 toMaterialQuery =
     List.map
-        (\{ material, share, spinning, country } ->
-            { id = material.id
+        (\{ country, material, share, spinning } ->
+            { country = country |> Maybe.andThen (.code >> toQueryCountryCode)
+            , id = material.id
             , share = share
             , spinning = spinning
-            , country = country |> Maybe.andThen (.code >> toQueryCountryCode)
             }
         )
 
@@ -165,66 +166,68 @@ fromQuery { countries, textile } query =
                     fallbackResult
     in
     Ok Inputs
-        |> RE.andMap (Ok query.mass)
-        |> RE.andMap materials_
-        |> RE.andMap (textile.products |> Product.findById query.product)
+        |> RE.andMap (Ok query.airTransportRatio)
+        |> RE.andMap (Ok query.business)
+        -- The distribution country is always France
+        |> RE.andMap franceResult
+        |> RE.andMap (getCountryResult unknownCountryResult query.countryDyeing)
+        -- The end of life country is always France
+        |> RE.andMap franceResult
+        |> RE.andMap (getCountryResult unknownCountryResult query.countryFabric)
+        |> RE.andMap (getCountryResult unknownCountryResult query.countryMaking)
         -- Material country is constrained to be the first material's default country
         |> RE.andMap mainMaterialCountry
         -- Spinning country is either provided by query or fallbacks to material's default
         -- country, making the parameter optional
         |> RE.andMap (getCountryResult mainMaterialCountry query.countrySpinning)
-        |> RE.andMap (getCountryResult unknownCountryResult query.countryFabric)
-        |> RE.andMap (getCountryResult unknownCountryResult query.countryDyeing)
-        |> RE.andMap (getCountryResult unknownCountryResult query.countryMaking)
-        -- The distribution country is always France
-        |> RE.andMap franceResult
         -- The use country is always France
         |> RE.andMap franceResult
-        -- The end of life country is always France
-        |> RE.andMap franceResult
-        |> RE.andMap (Ok query.airTransportRatio)
-        |> RE.andMap (Ok query.makingWaste)
-        |> RE.andMap (Ok query.makingDeadStock)
-        |> RE.andMap (Ok query.makingComplexity)
-        |> RE.andMap (Ok query.yarnSize)
-        |> RE.andMap (Ok query.surfaceMass)
-        |> RE.andMap (Ok query.fabricProcess)
         |> RE.andMap (Ok query.disabledSteps)
-        |> RE.andMap (Ok query.fading)
         |> RE.andMap (Ok query.dyeingMedium)
-        |> RE.andMap (Ok query.printing)
-        |> RE.andMap (Ok query.business)
+        |> RE.andMap (Ok query.fabricProcess)
+        |> RE.andMap (Ok query.fading)
+        |> RE.andMap (Ok query.makingComplexity)
+        |> RE.andMap (Ok query.makingDeadStock)
+        |> RE.andMap (Ok query.makingWaste)
+        |> RE.andMap (Ok query.mass)
+        |> RE.andMap materials_
         |> RE.andMap (Ok query.numberOfReferences)
+        |> RE.andMap (Ok query.physicalDurability)
         |> RE.andMap (Ok query.price)
+        |> RE.andMap (Ok query.printing)
+        |> RE.andMap (textile.products |> Product.findById query.product)
+        |> RE.andMap (Ok query.surfaceMass)
         |> RE.andMap (Ok query.traceability)
         |> RE.andMap (Ok query.upcycled)
+        |> RE.andMap (Ok query.yarnSize)
 
 
 toQuery : Inputs -> Query
 toQuery inputs =
-    { mass = inputs.mass
-    , materials = toMaterialQuery inputs.materials
-    , product = inputs.product.id
-    , countrySpinning = toQueryCountryCode inputs.countrySpinning.code
-    , countryFabric = toQueryCountryCode inputs.countryFabric.code
-    , countryDyeing = toQueryCountryCode inputs.countryDyeing.code
-    , countryMaking = toQueryCountryCode inputs.countryMaking.code
-    , airTransportRatio = inputs.airTransportRatio
-    , makingWaste = inputs.makingWaste
-    , makingDeadStock = inputs.makingDeadStock
-    , makingComplexity = inputs.makingComplexity
-    , yarnSize = inputs.yarnSize
-    , surfaceMass = inputs.surfaceMass
-    , fabricProcess = inputs.fabricProcess
-    , disabledSteps = inputs.disabledSteps
-    , fading = inputs.fading
-    , dyeingMedium = inputs.dyeingMedium
-    , printing = inputs.printing
+    { airTransportRatio = inputs.airTransportRatio
     , business = inputs.business
+    , countryDyeing = toQueryCountryCode inputs.countryDyeing.code
+    , countryFabric = toQueryCountryCode inputs.countryFabric.code
+    , countryMaking = toQueryCountryCode inputs.countryMaking.code
+    , countrySpinning = toQueryCountryCode inputs.countrySpinning.code
+    , disabledSteps = inputs.disabledSteps
+    , dyeingMedium = inputs.dyeingMedium
+    , fabricProcess = inputs.fabricProcess
+    , fading = inputs.fading
+    , makingComplexity = inputs.makingComplexity
+    , makingDeadStock = inputs.makingDeadStock
+    , makingWaste = inputs.makingWaste
+    , mass = inputs.mass
+    , materials = toMaterialQuery inputs.materials
     , numberOfReferences = inputs.numberOfReferences
+    , physicalDurability = inputs.physicalDurability
     , price = inputs.price
+    , printing = inputs.printing
+    , product = inputs.product.id
+    , surfaceMass = inputs.surfaceMass
     , traceability = inputs.traceability
     , upcycled = inputs.upcycled
+    , yarnSize = inputs.yarnSize
     }
 
 
@@ -253,6 +256,13 @@ stepsToStrings inputs =
 
                 else
                     ""
+               )
+            ++ (case inputs.physicalDurability of
+                    Just physicalDurability ->
+                        ", durabilité physique " ++ String.fromFloat (Unit.physicalDurabilityToFloat physicalDurability)
+
+                    Nothing ->
+                        ""
                )
       , Format.kgToString inputs.mass
       ]
@@ -327,7 +337,7 @@ materialsToString materials =
     materials
         |> List.filter (\{ share } -> Split.toFloat share > 0)
         |> List.map
-            (\{ material, share, country } ->
+            (\{ country, material, share } ->
                 let
                     countryName =
                         country
@@ -344,7 +354,7 @@ materialsToString materials =
 
 
 makingOptionsToString : Inputs -> String
-makingOptionsToString { makingWaste, makingDeadStock, makingComplexity, airTransportRatio, fading } =
+makingOptionsToString { airTransportRatio, fading, makingComplexity, makingDeadStock, makingWaste } =
     [ makingWaste
         |> Maybe.map (Split.toPercentString 0 >> (\s -> s ++ "\u{202F}% de perte"))
     , makingDeadStock
@@ -436,7 +446,7 @@ getOutOfEuropeEOLProbability materialInputs =
                 |> getMaterialCategoryShare Origin.Synthetic
     in
     Split.fromFloat
-        (if Split.toPercent syntheticMaterialsShare >= 10 then
+        (if Split.toPercent syntheticMaterialsShare >= 50 then
             0.121
 
          else
@@ -456,7 +466,7 @@ getOutOfEuropeEOLComplement { mass, materials } =
 
 
 computeMaterialTransport : Distances -> Country.Code -> MaterialInput -> Transport
-computeMaterialTransport distances nextCountryCode { material, country, share } =
+computeMaterialTransport distances nextCountryCode { country, material, share } =
     if share /= Split.zero then
         let
             emptyImpacts =
@@ -482,37 +492,38 @@ isFabricOfType fabric { fabricProcess, product } =
 encode : Inputs -> Encode.Value
 encode inputs =
     Encode.object
-        [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
-        , ( "materials", Encode.list encodeMaterialInput inputs.materials )
-        , ( "product", Product.encode inputs.product )
-        , ( "countryFabric", Country.encode inputs.countryFabric )
-        , ( "countryDyeing", Country.encode inputs.countryDyeing )
-        , ( "countryMaking", Country.encode inputs.countryMaking )
-        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "makingDeadStock", inputs.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
-        , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
-        , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "fabricProcess", inputs.fabricProcess |> Maybe.map Fabric.encode |> Maybe.withDefault Encode.null )
-        , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
-        , ( "fading", inputs.fading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
-        , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
-        , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
+        [ ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "business", inputs.business |> Maybe.map Economics.encodeBusiness |> Maybe.withDefault Encode.null )
+        , ( "countryDyeing", Country.encode inputs.countryDyeing )
+        , ( "countryFabric", Country.encode inputs.countryFabric )
+        , ( "countryMaking", Country.encode inputs.countryMaking )
+        , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
+        , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
+        , ( "fabricProcess", inputs.fabricProcess |> Maybe.map Fabric.encode |> Maybe.withDefault Encode.null )
+        , ( "fading", inputs.fading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
+        , ( "makingComplexity", inputs.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) |> Maybe.withDefault Encode.null )
+        , ( "makingDeadStock", inputs.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
+        , ( "materials", Encode.list encodeMaterialInput inputs.materials )
         , ( "numberOfReferences", inputs.numberOfReferences |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
+        , ( "physicalDurability", inputs.physicalDurability |> Maybe.map Unit.encodePhysicalDurability |> Maybe.withDefault Encode.null )
         , ( "price", inputs.price |> Maybe.map Economics.encodePrice |> Maybe.withDefault Encode.null )
+        , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
+        , ( "product", Product.encode inputs.product )
+        , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "traceability", inputs.traceability |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "upcycled", Encode.bool inputs.upcycled )
+        , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         ]
 
 
 encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
-    [ ( "material", Material.encode v.material |> Just )
+    [ ( "country", v.country |> Maybe.map (.code >> Country.encodeCode) )
+    , ( "material", Material.encode v.material |> Just )
     , ( "share", Split.encodeFloat v.share |> Just )
     , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
-    , ( "country", v.country |> Maybe.map (.code >> Country.encodeCode) )
     ]
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
         |> Encode.object

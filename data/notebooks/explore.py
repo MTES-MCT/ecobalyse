@@ -112,12 +112,14 @@ def w_csv_button(contents, columns):
 def display_results(database, search, limit):
     """display the list of search results in the w_results widget"""
     results = list(bw2data.Database(database).search(search, limit=limit))
+    for a in results:
+        a["categories"] = ", ".join(a.get("categories", []))
     w_results.clear_output()
     w_details.clear_output()
     w_activity.options = [("", "")] + [
         (
-            str(i)
-            + f" {a.get('name', '')} {'(' if a.get('categories') else ''}{', '.join(a.get('categories', []))}{')' if a.get('categories') else ''}",
+            str(i) + f" {a.get('name', '')} "
+            f"{('(in ' + a.get('categories', []) + ')') if a.get('categories') else ''}",
             a,
         )
         for i, a in enumerate(results)
@@ -128,7 +130,7 @@ def display_results(database, search, limit):
         display(
             Markdown(f"## {('+' if len(results)==LIMIT else '')}{len(results)} results")
         )
-        columns = ["name", "code", "location"]
+        columns = ["name", "categories", "code", "location"]
         html = pandas.io.formats.style.Styler(
             pandas.DataFrame(results, columns=columns)
         )
@@ -651,7 +653,7 @@ def display_main_data(method, impact_category, activity):
             f"<li><b>Name</b>: {input_.get('name', 'N/A')}</li>"
             f"<li><b>Code</b>: {input_.get('code', 'N/A')}</li>"
             f"<li><b>Type</b>: {input_.get('type', 'N/A')}</li>"
-            f"<li><b>Categories</b>: {', '.join(input_.get('categories', 'N/A'))}</li>"
+            f"<li><b>Categories</b>: {', '.join(input_.get('categories', []))}</li>"
             f"<li><b>CAS number</b>: <a href=\"https://pubchem.ncbi.nlm.nih.gov/#query={str(input_.get('CAS number')).lstrip('0')}\">{str(input_.get('CAS number'))}</a></li>"
             f"<li><b>Unit</b>: {input_.get('unit', 'N/A')}</li>"
             f"<li><b>Id</b>: {input_.get('id', 'N/A')}</li>"
@@ -720,7 +722,8 @@ def display_main_data(method, impact_category, activity):
     w_details.clear_output()
     display(
         Markdown(
-            f"# 1 {activity.get('unit', '')} of {activity.get('name', '')} ({', '.join(activity.get('categories', 'N/A'))})"
+            f"# 1 {activity.get('unit', '')} of {activity.get('name', '')} "
+            f"{('(in ' + ', '.join(activity.get('categories', [])) + ')') if activity.get('categories') else ''}"
         )
     )
     display(

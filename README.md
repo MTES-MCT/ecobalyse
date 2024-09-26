@@ -14,11 +14,11 @@ Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vo
 
 ### Frontend
 
-    $ npm install
+    $ NODE_ENV=development npm install
 
 ### Backend
 
-    $ pipenv install
+    $ pipenv install -d
 
 Assurez-vous d'avoir un PostgreSQL >=16 qui tourne localement si vous souhaitez vous rapprocher de l'environnement de production. À défaut, `sqlite` sera utilisé.
 
@@ -49,10 +49,11 @@ Les variables d'environnement suivantes doivent être définies :
 - `EMAIL_HOST` : le host SMTP pour envoyer les mail liés à l'authentification
 - `EMAIL_HOST_USER`: l'utilisateur du compte SMTP
 - `EMAIL_HOST_PASSWORD` : le mot de passe du compte SMTP pour envoyer les mail liés à l'authentification
+- `ENABLE_FOOD_SECTION` : affichage ou non de la section expérimentale dédiée à l'alimentaire (valeur `True` ou `False`, par défault `False`)
 - `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
 - `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
 - `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
-- `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `production`)
+- `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `development`)
 - `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
 
@@ -129,13 +130,13 @@ Pour ajouter une variable d'environnement sur une application, il est recommand�
 
     scalingo --app ecobalyse env-set "MY_VAR=$(cat fichier.key)"
 
-### Lien avec ecobalyse_private
+### Lien avec ecobalyse-private
 
-Lorsqu'un déploiement est effectué sur une branche, les données utilisées du dépôt `ecobalyse_private` sont celles de la branche `main`. Cependant, si la description de la Pull Request sur le repo `ecobalyse` mentionne `ecobalyse_data: branch-a` avec branch-a étant une branche du dépôt `ecobalyse_private`, alors la PR utilisera les données de la branche `branch-a` du dépôt `ecobalyse_private`.
+Lorsqu'un déploiement est effectué sur une branche, les données utilisées du dépôt `ecobalyse-private` sont celles de la branche `main`. Cependant, si la description de la Pull Request sur le repo `ecobalyse` mentionne `ecobalyse_data: branch-a` avec branch-a étant une branche du dépôt `ecobalyse-private`, alors la PR utilisera les données de la branche `branch-a` du dépôt `ecobalyse-private`.
 
 #### Points d'attention
 
-Lors du merge d'une PR, il est important de merger d'abord la PR correspondante sur ecobalyse_private, puis celle sur ecobalyse.
+Lors du merge d'une PR, il est important de merger d'abord la PR correspondante sur ecobalyse-private, puis celle sur ecobalyse.
 
 # Serveur de production
 

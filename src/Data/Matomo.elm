@@ -9,8 +9,8 @@ import Time exposing (Posix)
 
 
 type alias Stat =
-    { label : String
-    , hits : Int
+    { hits : Int
+    , label : String
     , time : Posix
     }
 
@@ -29,18 +29,20 @@ decodeStats key =
             (Dict.toList
                 >> List.map
                     (\( label, hits ) ->
-                        Iso8601.toTime label
-                            |> Result.map (Stat label hits)
+                        Ok Stat
+                            |> RE.andMap (Ok hits)
+                            |> RE.andMap (Ok label)
+                            |> RE.andMap (Iso8601.toTime label)
                             |> Result.mapError (always ("Format de date invalide: " ++ label))
                     )
                 >> RE.combine
                 >> (\res ->
                         case res of
-                            Ok list ->
-                                Decode.succeed list
-
                             Err err ->
                                 Decode.fail err
+
+                            Ok list ->
+                                Decode.succeed list
                    )
             )
 
@@ -49,7 +51,7 @@ encodeStats : List Stat -> String
 encodeStats stats =
     stats
         |> Encode.list
-            (\{ time, hits } ->
+            (\{ hits, time } ->
                 -- The format for Highcharts' line chart is [[timestamp, value], …]
                 Encode.list Encode.int [ Time.posixToMillis time, hits ]
             )

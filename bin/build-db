@@ -22,35 +22,60 @@ try {
   process.exit(1);
 }
 
-function getJson(path) {
+function parseAndValidate(path, idKeyName = "id") {
   const raw = JSON.parse(fs.readFileSync(path).toString());
+  if (idKeyName && Array.isArray(raw)) {
+    try {
+      validatePrimaryKeys(raw, idKeyName);
+    } catch (err) {
+      console.error(`🚨 ERROR building ${path}:\n   ${err}`);
+      process.exit(1);
+    }
+  }
   // Adapts a standard JSON string to what is expected to be the format
   // used in Elm's template strings (`"""{}"""`).
   return JSON.stringify(raw).replaceAll("\\", "\\\\");
+}
+
+/**
+ * Validates that unique identifiers are actually unique in provided datasource.
+ */
+function validatePrimaryKeys(records, idKeyName) {
+  const ids = records.map((record) => record[idKeyName]).sort();
+  const duplicates = ids.filter((item, index) => ids.indexOf(item) !== index);
+  if (duplicates.length > 0) {
+    throw new Error(`Duplicate ${idKeyName}: ${duplicates}`);
+  }
 }
 
 const targetDbFile = "src/Static/Json.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
   // Transverse JSON data
-  .replace("%countriesJson%", getJson("public/data/countries.json"))
-  .replace("%impactsJson%", getJson("public/data/impacts.json"))
-  .replace("%transportsJson%", getJson("public/data/transports.json"))
+  .replace("%countriesJson%", parseAndValidate("public/data/countries.json", "code"))
+  .replace("%impactsJson%", parseAndValidate("public/data/impacts.json"))
+  .replace("%transportsJson%", parseAndValidate("public/data/transports.json"))
   // Food JSON data
-  .replace("%foodIngredientsJson%", getJson("public/data/food/ingredients.json"))
+  .replace("%foodIngredientsJson%", parseAndValidate("public/data/food/ingredients.json", "id"))
   .replace(
     "%foodProcessesJson%",
-    getJson(NODE_ENV === "test" ? dataFiles.foodDetailed : dataFiles.foodNoDetails),
+    parseAndValidate(NODE_ENV === "test" ? dataFiles.foodDetailed : dataFiles.foodNoDetails, "id"),
   )
-  .replace("%foodProductExamplesJson%", getJson("public/data/food/examples.json"))
+  .replace("%foodProductExamplesJson%", parseAndValidate("public/data/food/examples.json", "id"))
   // Textile JSON data
-  .replace("%textileMaterialsJson%", getJson("public/data/textile/materials.json"))
+  .replace("%textileMaterialsJson%", parseAndValidate("public/data/textile/materials.json", "id"))
   .replace(
     "%textileProcessesJson%",
-    getJson(NODE_ENV === "test" ? dataFiles.textileDetailed : dataFiles.textileNoDetails),
+    parseAndValidate(
+      NODE_ENV === "test" ? dataFiles.textileDetailed : dataFiles.textileNoDetails,
+      "uuid",
+    ),
   )
-  .replace("%textileProductExamplesJson%", getJson("public/data/textile/examples.json"))
-  .replace("%textileProductsJson%", getJson("public/data/textile/products.json"));
+  .replace(
+    "%textileProductExamplesJson%",
+    parseAndValidate("public/data/textile/examples.json", "id"),
+  )
+  .replace("%textileProductsJson%", parseAndValidate("public/data/textile/products.json", "id"));
 
 const header =
   "---- THIS FILE WAS GENERATED FROM THE FILE `Json.elm-template` BY THE `/bin/build-db` SCRIPT";

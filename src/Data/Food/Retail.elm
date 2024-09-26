@@ -46,10 +46,10 @@ type Type
 
 type alias Needs =
     --- what it needs to store a product at the retail store
-    { energy : Quantity Float (Rate Joules CubicMeters)
-    , cooling : Quantity Float (Rate Joules CubicMeters)
-    , water : Float
+    { cooling : Quantity Float (Rate Joules CubicMeters)
+    , energy : Quantity Float (Rate Joules CubicMeters)
     , transport : Length
+    , water : Float
     }
 
 
@@ -60,30 +60,30 @@ type alias Needs =
 ambient : Distribution
 ambient =
     Distribution Ambient
-        { energy = rate (kilowattHours 123.08) (cubicMeters 1)
-        , cooling = rate (kilowattHours 0) (cubicMeters 1)
-        , water = ratio (liters 561.5) (cubicMeters 1)
+        { cooling = rate (kilowattHours 0) (cubicMeters 1)
+        , energy = rate (kilowattHours 123.08) (cubicMeters 1)
         , transport = Length.kilometers 600
+        , water = ratio (liters 561.5) (cubicMeters 1)
         }
 
 
 fresh : Distribution
 fresh =
     Distribution Fresh
-        { energy = rate (kilowattHours 46.15) (cubicMeters 1)
-        , cooling = rate (kilowattHours 219.23) (cubicMeters 1)
-        , water = ratio (liters 210.6) (cubicMeters 1)
+        { cooling = rate (kilowattHours 219.23) (cubicMeters 1)
+        , energy = rate (kilowattHours 46.15) (cubicMeters 1)
         , transport = Length.kilometers 600
+        , water = ratio (liters 210.6) (cubicMeters 1)
         }
 
 
 frozen : Distribution
 frozen =
     Distribution Frozen
-        { energy = rate (kilowattHours 61.54) (cubicMeters 1)
-        , cooling = rate (kilowattHours 415.38) (cubicMeters 1)
-        , water = ratio (liters 280.8) (cubicMeters 1)
+        { cooling = rate (kilowattHours 415.38) (cubicMeters 1)
+        , energy = rate (kilowattHours 61.54) (cubicMeters 1)
         , transport = Length.kilometers 600
+        , water = ratio (liters 280.8) (cubicMeters 1)
         }
 
 

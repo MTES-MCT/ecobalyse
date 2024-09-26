@@ -23,12 +23,12 @@ import Json.Encode as Encode
 
 
 type Fabric
-    = Weaving
-    | KnittingCircular
+    = KnittingCircular
     | KnittingFullyFashioned
-    | KnittingMix
     | KnittingIntegral
+    | KnittingMix
     | KnittingStraight
+    | Weaving
 
 
 decode : Decoder Fabric
@@ -61,8 +61,8 @@ fabricProcesses =
 fromString : String -> Result String Fabric
 fromString string =
     case string of
-        "knitting-mix" ->
-            Ok KnittingMix
+        "knitting-circular" ->
+            Ok KnittingCircular
 
         "knitting-fully-fashioned" ->
             Ok KnittingFullyFashioned
@@ -70,8 +70,8 @@ fromString string =
         "knitting-integral" ->
             Ok KnittingIntegral
 
-        "knitting-circular" ->
-            Ok KnittingCircular
+        "knitting-mix" ->
+            Ok KnittingMix
 
         "knitting-straight" ->
             Ok KnittingStraight
@@ -124,8 +124,8 @@ getMakingWaste defaultWaste maybeCustomWaste maybeFabric =
 getProcess : WellKnown -> Fabric -> Process
 getProcess wellKnown fabric =
     case fabric of
-        KnittingMix ->
-            wellKnown.knittingMix
+        KnittingCircular ->
+            wellKnown.knittingCircular
 
         KnittingFullyFashioned ->
             wellKnown.knittingFullyFashioned
@@ -133,8 +133,8 @@ getProcess wellKnown fabric =
         KnittingIntegral ->
             wellKnown.knittingSeamless
 
-        KnittingCircular ->
-            wellKnown.knittingCircular
+        KnittingMix ->
+            wellKnown.knittingMix
 
         KnittingStraight ->
             wellKnown.knittingStraight
@@ -156,8 +156,8 @@ isKnitted fabric =
 toLabel : Fabric -> String
 toLabel fabricProcess =
     case fabricProcess of
-        KnittingMix ->
-            "Tricotage moyen (par défaut)"
+        KnittingCircular ->
+            "Tricotage Circulaire"
 
         KnittingFullyFashioned ->
             "Tricotage Fully fashioned / Seamless"
@@ -165,8 +165,8 @@ toLabel fabricProcess =
         KnittingIntegral ->
             "Tricotage Intégral / Whole garment"
 
-        KnittingCircular ->
-            "Tricotage Circulaire"
+        KnittingMix ->
+            "Tricotage moyen (par défaut)"
 
         KnittingStraight ->
             "Tricotage Rectiligne"
@@ -178,8 +178,8 @@ toLabel fabricProcess =
 toString : Fabric -> String
 toString fabricProcess =
     case fabricProcess of
-        KnittingMix ->
-            "knitting-mix"
+        KnittingCircular ->
+            "knitting-circular"
 
         KnittingFullyFashioned ->
             "knitting-fully-fashioned"
@@ -187,8 +187,8 @@ toString fabricProcess =
         KnittingIntegral ->
             "knitting-integral"
 
-        KnittingCircular ->
-            "knitting-circular"
+        KnittingMix ->
+            "knitting-mix"
 
         KnittingStraight ->
             "knitting-straight"

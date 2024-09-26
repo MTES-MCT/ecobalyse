@@ -9,8 +9,8 @@ import Json.Decode.Extra as DE
 
 
 type Origin
-    = France
-    | EuropeAndMaghreb
+    = EuropeAndMaghreb
+    | France
     | OutOfEuropeAndMaghreb
     | OutOfEuropeAndMaghrebByPlane
 
@@ -24,11 +24,11 @@ decode =
 fromString : String -> Result String Origin
 fromString string =
     case string of
-        "France" ->
-            Ok France
-
         "EuropeAndMaghreb" ->
             Ok EuropeAndMaghreb
+
+        "France" ->
+            Ok France
 
         "OutOfEuropeAndMaghreb" ->
             Ok OutOfEuropeAndMaghreb
@@ -43,11 +43,11 @@ fromString string =
 toLabel : Origin -> String
 toLabel origin =
     case origin of
-        France ->
-            "France"
-
         EuropeAndMaghreb ->
             "Europe et Maghreb"
+
+        France ->
+            "France"
 
         OutOfEuropeAndMaghreb ->
             "Hors Europe et Maghreb"

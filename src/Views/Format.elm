@@ -16,7 +16,6 @@ module Views.Format exposing
     , percent
     , picking
     , priceInEUR
-    , ratio
     , splitAsFloat
     , splitAsPercentage
     , squareMeters
@@ -44,13 +43,13 @@ import Quantity
 import Volume exposing (Volume)
 
 
-formatImpactFloat : { a | unit : String, decimals : Int } -> Float -> Html msg
-formatImpactFloat { unit, decimals } =
+formatImpactFloat : { a | decimals : Int, unit : String } -> Float -> Html msg
+formatImpactFloat { decimals, unit } =
     formatRichFloat decimals unit
 
 
 formatImpact : Definition -> Impacts -> Html msg
-formatImpact { trigram, unit, decimals } =
+formatImpact { decimals, trigram, unit } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit
@@ -211,17 +210,6 @@ picking =
 yarnSize : Unit.YarnSize -> Html msg
 yarnSize =
     Unit.yarnSizeInKilometers >> formatRichFloat 0 "Nm"
-
-
-ratio : Unit.Ratio -> Html msg
-ratio =
-    ratioToDecimals 2
-
-
-ratioToDecimals : Int -> Unit.Ratio -> Html msg
-ratioToDecimals decimals (Unit.Ratio float) =
-    (float * 100)
-        |> formatRichFloat decimals "%"
 
 
 splitAsFloat : Int -> Split -> Html msg

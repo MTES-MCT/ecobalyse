@@ -1,5 +1,6 @@
 module Data.UnitTest exposing (..)
 
+import Data.Split as Split
 import Data.Unit as Unit
 import Energy
 import Expect exposing (Expectation)
@@ -20,19 +21,10 @@ suite =
     describe "Data.Unit"
         [ describe "Decoder validation"
             [ "-7"
-                |> Decode.decodeString Unit.decodeDurability
+                |> Decode.decodeString Unit.decodePhysicalDurability
                 |> Result.mapError Decode.errorToString
                 |> Expect.err
                 |> asTest "should discard erroneous Durability value"
-            , "1.1"
-                |> Decode.decodeString (Unit.decodeRatio { percentage = True })
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
-                |> asTest "should discard erroneous Ratio value"
-            , "1.1"
-                |> Decode.decodeString (Unit.decodeRatio { percentage = False })
-                |> Expect.ok
-                |> asTest "should not discard a non-percentage value"
             , "8868687687"
                 |> Decode.decodeString Unit.decodeSurfaceMass
                 |> Result.mapError Decode.errorToString
@@ -48,15 +40,15 @@ suite =
                 ]
             , describe "Unit.impactAggregateScore"
                 [ Unit.impact 1
-                    |> Unit.impactAggregateScore (Unit.impact 1) (Unit.ratio 1)
+                    |> Unit.impactAggregateScore (Unit.impact 1) Split.full
                     |> Expect.equal (Unit.impact 1000000)
                     |> asTest "should compute impact aggregate score (1, 1)"
                 , Unit.impact 1
-                    |> Unit.impactAggregateScore (Unit.impact 2) (Unit.ratio 0.5)
+                    |> Unit.impactAggregateScore (Unit.impact 2) Split.half
                     |> Expect.equal (Unit.impact 250000)
                     |> asTest "should compute impact aggregate score (1, 0.5)"
                 , Unit.impact 1
-                    |> Unit.impactAggregateScore (Unit.impact 0.25) (Unit.ratio 0.75)
+                    |> Unit.impactAggregateScore (Unit.impact 0.25) (Split.fromFloat 0.75 |> Result.withDefault Split.zero)
                     |> Expect.equal (Unit.impact 3000000)
                     |> asTest "should compute impact aggregate score (0.25, 0.75)"
                 ]

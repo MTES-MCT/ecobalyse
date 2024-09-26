@@ -22,11 +22,11 @@ import Mass exposing (Mass)
 
 
 type alias Preparation =
-    { id : Id
-    , name : String
+    { applyRawToCookedRatio : Bool
     , elec : ( Energy, Split )
     , heat : ( Energy, Split )
-    , applyRawToCookedRatio : Bool
+    , id : Id
+    , name : String
     }
 
 
@@ -37,47 +37,47 @@ type Id
 all : List Preparation
 all =
     -- see https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/consommation#preparations-de-preparation
-    [ { id = Id "frying"
-      , name = "Friture"
+    [ { applyRawToCookedRatio = True
       , elec = ( Energy.kilowattHours 0.667, Split.full )
       , heat = ( Energy.megajoules 0, Split.zero )
-      , applyRawToCookedRatio = True
+      , id = Id "frying"
+      , name = "Friture"
       }
-    , { id = Id "pan-cooking"
-      , name = "Cuisson à la poêle"
+    , { applyRawToCookedRatio = True
       , elec = ( Energy.kilowattHours 0.44, Split.fourty )
       , heat = ( Energy.megajoules 1.584, Split.complement Split.fourty )
-      , applyRawToCookedRatio = True
+      , id = Id "pan-cooking"
+      , name = "Cuisson à la poêle"
       }
-    , { id = Id "pan-warming"
-      , name = "Réchauffage à la poêle"
+    , { applyRawToCookedRatio = False
       , elec = ( Energy.kilowattHours 0.08, Split.fourty )
       , heat = ( Energy.megajoules 0.288, Split.complement Split.fourty )
-      , applyRawToCookedRatio = False
+      , id = Id "pan-warming"
+      , name = "Réchauffage à la poêle"
       }
-    , { id = Id "oven"
-      , name = "Cuisson au four"
+    , { applyRawToCookedRatio = True
       , elec = ( Energy.kilowattHours 0.999, Split.full )
       , heat = ( Energy.megajoules 0, Split.zero )
-      , applyRawToCookedRatio = True
+      , id = Id "oven"
+      , name = "Cuisson au four"
       }
-    , { id = Id "microwave"
-      , name = "Cuisson au four micro-ondes"
+    , { applyRawToCookedRatio = True
       , elec = ( Energy.kilowattHours 0.128, Split.full )
       , heat = ( Energy.megajoules 0, Split.zero )
-      , applyRawToCookedRatio = True
+      , id = Id "microwave"
+      , name = "Cuisson au four micro-ondes"
       }
-    , { id = Id "refrigeration"
-      , name = "Réfrigération"
+    , { applyRawToCookedRatio = False
       , elec = ( Energy.kilowattHours 0.0777, Split.full )
       , heat = ( Energy.megajoules 0, Split.zero )
-      , applyRawToCookedRatio = False
+      , id = Id "refrigeration"
+      , name = "Réfrigération"
       }
-    , { id = Id "freezing"
-      , name = "Congélation"
+    , { applyRawToCookedRatio = False
       , elec = ( Energy.kilowattHours 0.294, Split.full )
       , heat = ( Energy.megajoules 0, Split.zero )
-      , applyRawToCookedRatio = False
+      , id = Id "freezing"
+      , name = "Congélation"
       }
     ]
 

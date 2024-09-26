@@ -10,9 +10,9 @@ type alias Request =
     -- - `url` is ExpressJS' request `url` string
     -- - `body` is the JSON body; if no JSON body exist in the request, fallbacks to `{}`
     -- - `jsResponseHandler` is an ExpressJS response callback function
-    { method : String
-    , url : String
-    , body : Encode.Value
-    , processes : StaticJson.RawJsonProcesses
+    { body : Encode.Value
     , jsResponseHandler : Encode.Value
+    , method : String
+    , processes : StaticJson.RawJsonProcesses
+    , url : String
     }

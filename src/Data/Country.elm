@@ -10,6 +10,7 @@ module Data.Country exposing
     , encodeCode
     , findByCode
     , getAquaticPollutionRatio
+    , isEuropeOrTurkey
     , unknownCountryCode
     )
 
@@ -28,20 +29,19 @@ type Code
 
 
 type AquaticPollutionScenario
-    = Best
-    | Average
+    = Average
+    | Best
     | Worst
 
 
 type alias Country =
-    { code : Code
-    , name : String
-    , zone : Zone
+    { aquaticPollutionScenario : AquaticPollutionScenario
+    , code : Code
     , electricityProcess : Process
     , heatProcess : Process
-    , airTransportRatio : Split
+    , name : String
     , scopes : List Scope
-    , aquaticPollutionScenario : AquaticPollutionScenario
+    , zone : Zone
     }
 
 
@@ -65,14 +65,13 @@ findByCode code =
 decode : List Process -> Decoder Country
 decode processes =
     Decode.succeed Country
+        |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
         |> Pipe.required "code" decodeCode
-        |> Pipe.required "name" Decode.string
-        |> Pipe.required "zone" Zone.decode
         |> Pipe.required "electricityProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "heatProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "airTransportRatio" Split.decodeFloat
+        |> Pipe.required "name" Decode.string
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
-        |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
+        |> Pipe.required "zone" Zone.decode
 
 
 decodeCode : Decoder Code
@@ -88,13 +87,12 @@ decodeList processes =
 encode : Country -> Encode.Value
 encode v =
     Encode.object
-        [ ( "code", encodeCode v.code )
-        , ( "name", Encode.string v.name )
+        [ ( "aquaticPollutionScenario", v.aquaticPollutionScenario |> aquaticPollutionScenarioToString |> Encode.string )
+        , ( "code", encodeCode v.code )
         , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
-        , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
+        , ( "name", Encode.string v.name )
         , ( "scopes", v.scopes |> Encode.list Scope.encode )
-        , ( "aquaticPollutionScenario", v.aquaticPollutionScenario |> aquaticPollutionScenarioToString |> Encode.string )
         ]
 
 
@@ -113,11 +111,11 @@ decodeAquaticPollutionScenario =
 aquaticPollutionScenarioFromString : String -> Result String AquaticPollutionScenario
 aquaticPollutionScenarioFromString string =
     case string of
-        "Best" ->
-            Ok Best
-
         "Average" ->
             Ok Average
+
+        "Best" ->
+            Ok Best
 
         "Worst" ->
             Ok Worst
@@ -129,11 +127,11 @@ aquaticPollutionScenarioFromString string =
 aquaticPollutionScenarioToString : AquaticPollutionScenario -> String
 aquaticPollutionScenarioToString scenario =
     case scenario of
-        Best ->
-            "Best"
-
         Average ->
             "Average"
+
+        Best ->
+            "Best"
 
         Worst ->
             "Worst"
@@ -142,14 +140,19 @@ aquaticPollutionScenarioToString scenario =
 getAquaticPollutionRatio : AquaticPollutionScenario -> Split
 getAquaticPollutionRatio scenario =
     case scenario of
-        Best ->
-            Split.tenth
-
         Average ->
             Split.fromPercent 36 |> Result.withDefault Split.full
 
+        Best ->
+            Split.tenth
+
         Worst ->
             Split.fromPercent 65 |> Result.withDefault Split.full
+
+
+isEuropeOrTurkey : Country -> Bool
+isEuropeOrTurkey country =
+    country.zone == Zone.Europe || country.code == codeFromString "TR"
 
 
 unknownCountryCode : Code

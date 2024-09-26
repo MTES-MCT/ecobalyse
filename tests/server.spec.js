@@ -229,6 +229,14 @@ describe("API", () => {
           );
         });
 
+        it("should validate the physicalDurability param range", async () => {
+          expectFieldErrorMessage(
+            await makeRequest("/api/textile/simulator", ["physicalDurability=2"]),
+            "physicalDurability",
+            /doit être comprise entre/,
+          );
+        });
+
         it("should accept the yarnSize param without any unit", async () => {
           const response = await makeRequest("/api/textile/simulator", ["yarnSize=9"]);
         });
@@ -288,11 +296,6 @@ describe("API", () => {
             airTransportRatio: 0.5,
             durability: 1.2,
             reparability: 1.2,
-            makingWaste: null,
-            makingComplexity: null,
-            yarnSize: null,
-            surfaceMass: null,
-            knittingProcess: null,
             disabledSteps: ["use"],
           });
           expectStatus(response, 200);

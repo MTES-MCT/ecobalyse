@@ -5,7 +5,7 @@ module Data.Textile.Economics exposing
     , businessFromString
     , businessToLabel
     , businessToString
-    , computeDurabilityIndex
+    , computeNonPhysicalDurabilityIndex
     , computeNumberOfReferencesIndex
     , computeRepairCostIndex
     , decode
@@ -45,12 +45,12 @@ type Price
 
 
 type Business
-    = -- PME/TPE
-      SmallBusiness
-      -- Grande entreprise avec service de réparation
-    | LargeBusinessWithServices
+    = -- Grande entreprise avec service de réparation
+      LargeBusinessWithServices
       -- Grande entreprise sans service de réparation
     | LargeBusinessWithoutServices
+      -- PME/TPE
+    | SmallBusiness
 
 
 businessFromString : String -> Result String Business
@@ -72,35 +72,35 @@ businessFromString string =
 businessToLabel : Business -> String
 businessToLabel business =
     case business of
-        SmallBusiness ->
-            "PME/TPE"
-
         LargeBusinessWithServices ->
             "Grande entreprise avec service de réparation"
 
         LargeBusinessWithoutServices ->
             "Grande entreprise sans service de réparation"
 
+        SmallBusiness ->
+            "PME/TPE"
+
 
 businessToString : Business -> String
 businessToString business =
     case business of
-        SmallBusiness ->
-            "small-business"
-
         LargeBusinessWithServices ->
             "large-business-with-services"
 
         LargeBusinessWithoutServices ->
             "large-business-without-services"
 
+        SmallBusiness ->
+            "small-business"
 
-computeDurabilityIndex : Economics -> Unit.Durability
-computeDurabilityIndex economics =
+
+computeNonPhysicalDurabilityIndex : Economics -> Unit.NonPhysicalDurability
+computeNonPhysicalDurabilityIndex economics =
     let
         ( minDurability, maxDurability ) =
-            ( Unit.durabilityToFloat Unit.minDurability
-            , Unit.durabilityToFloat Unit.maxDurability
+            ( Unit.nonPhysicalDurabilityToFloat (Unit.minDurability Unit.NonPhysicalDurability)
+            , Unit.nonPhysicalDurabilityToFloat (Unit.maxDurability Unit.NonPhysicalDurability)
             )
 
         finalIndex =
@@ -119,7 +119,7 @@ computeDurabilityIndex economics =
         + finalIndex
         * (maxDurability - minDurability)
         |> formatIndex
-        |> Unit.durability
+        |> Unit.nonPhysicalDurability
 
 
 computeRepairCostIndex : Business -> Price -> Price -> Unit.Ratio
@@ -144,11 +144,11 @@ computeRepairCostIndex business price repairCost =
     in
     Unit.ratio <|
         case business of
-            LargeBusinessWithoutServices ->
-                repairabilityIndice * 0.67
-
             LargeBusinessWithServices ->
                 repairabilityIndice * 0.67 + 0.33
+
+            LargeBusinessWithoutServices ->
+                repairabilityIndice * 0.67
 
             SmallBusiness ->
                 repairabilityIndice

@@ -13,16 +13,16 @@ import Views.Icon as Icon
 
 
 type alias BaseElement element quantity =
-    { element : element
+    { country : Maybe Country
+    , element : element
     , quantity : quantity
-    , country : Maybe Country
     }
 
 
 type alias Db element =
-    { elements : List element
-    , countries : List Country
+    { countries : List Country
     , definitions : Definitions
+    , elements : List element
     }
 
 
@@ -34,12 +34,10 @@ type alias Config element quantity msg =
     , delete : element -> msg
     , excluded : List element
     , impact : Impacts
-
-    -- TODO: introduce complementsView
     , openExplorerDetails : element -> msg
     , quantityView : { quantity : quantity, onChange : Maybe quantity -> msg } -> Html msg
-    , selectedImpact : Definition
     , selectElement : element -> Autocomplete element -> msg
+    , selectedImpact : Definition
     , toId : element -> String
     , toString : element -> String
     , toTooltip : element -> String
@@ -64,8 +62,7 @@ view ({ baseElement, db, impact } as config) =
     in
     [ span [ class "QuantityInputWrapper" ]
         [ config.quantityView
-            { quantity = baseElement.quantity
-            , onChange =
+            { onChange =
                 \maybeQuantity ->
                     case maybeQuantity of
                         Just quantity ->
@@ -73,6 +70,7 @@ view ({ baseElement, db, impact } as config) =
 
                         _ ->
                             updateEvent baseElement
+            , quantity = baseElement.quantity
             }
         ]
     , autocompleteState
@@ -133,7 +131,7 @@ deleteItemButton { disabled } event =
 
 
 selectorView : Config element quantity msg -> msg -> Html msg
-selectorView { baseElement, openExplorerDetails, toId, toTooltip, toString } selectElement =
+selectorView { baseElement, openExplorerDetails, toId, toString, toTooltip } selectElement =
     let
         { element } =
             baseElement

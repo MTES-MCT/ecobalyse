@@ -1,19 +1,9 @@
 module Data.Gitbook exposing
-    ( Page
-    , Path(..)
-    , handleMarkdownGitbookLink
+    ( Path(..)
     , publicUrlFromPath
     )
 
 import Data.Env as Env
-
-
-type alias Page =
-    { title : String
-    , description : Maybe String
-    , markdown : String
-    , path : Path
-    }
 
 
 type Path
@@ -26,7 +16,6 @@ type Path
     | FoodTransformation -- Transformation des ingrédients
     | FoodTransport -- Transport entre étapes
     | FoodUse -- Consommation
-    | TextileAerialTransport -- Part du transport aérien textile
     | TextileComplementMicrofibers -- Complément textile microfibres
     | TextileDistribution -- Distribution textile
     | TextileDurability -- Durabilité textile
@@ -40,11 +29,11 @@ type Path
     | TextileFabric -- Tissage/Tricotage textile
     | TextileFabricWaste -- Taux de perte en tissage/tricotage textile
     | TextileHeat -- Chaleur textile
-    | TextileMaterial -- Matière textile
     | TextileMaking -- Confection textile
     | TextileMakingComplexity -- Complexité de la confection textile
     | TextileMakingDeadStock -- Deadstock lors de la confection textile
     | TextileMakingWaste -- Taux de perte en confection textile
+    | TextileMaterial -- Matière textile
     | TextileSpinning -- Filature textile
     | TextileTransport -- Transport textile
     | TextileUse -- Utilisation textile
@@ -80,9 +69,6 @@ pathToString path =
         FoodUse ->
             "alimentaire/etapes-du-cycles-de-vie/consommation"
 
-        TextileAerialTransport ->
-            "textile/parametres-transverses/transport#part-du-transport-aerien"
-
         TextileComplementMicrofibers ->
             "textile/complements-hors-acv/microfibres"
 
@@ -104,11 +90,11 @@ pathToString path =
         TextileEnnobling ->
             "textile/etapes-du-cycle-de-vie/ennoblissement"
 
-        TextileEnnoblingToxicity ->
-            "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis"
-
         TextileEnnoblingCountriesAquaticPollution ->
             "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis#pays-less-than-greater-than-taux-de-pollution-aquatique"
+
+        TextileEnnoblingToxicity ->
+            "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis"
 
         TextileExamples ->
             "textile/exemples"
@@ -122,9 +108,6 @@ pathToString path =
         TextileHeat ->
             "textile/parametres-transverses/chaleur"
 
-        TextileMaterial ->
-            "textile/etapes-du-cycle-de-vie/etape-1-matieres"
-
         TextileMaking ->
             "textile/etapes-du-cycle-de-vie/confection"
 
@@ -137,6 +120,9 @@ pathToString path =
         TextileMakingWaste ->
             "textile/parametres-transverses/pertes-et-rebus"
 
+        TextileMaterial ->
+            "textile/etapes-du-cycle-de-vie/etape-1-matieres"
+
         TextileSpinning ->
             "textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new"
 
@@ -147,11 +133,6 @@ pathToString path =
             "textile/etapes-du-cycle-de-vie/etape-6-utilisation"
 
 
-pathPrefixes : List String
-pathPrefixes =
-    [ "faq", "glossaire", "methodologie" ]
-
-
 publicUrlFromPath : Path -> String
 publicUrlFromPath =
     pathToString >> publicUrlFromString
@@ -160,37 +141,3 @@ publicUrlFromPath =
 publicUrlFromString : String -> String
 publicUrlFromString path =
     Env.gitbookUrl ++ "/" ++ path
-
-
-handleMarkdownGitbookLink : Maybe Path -> String -> String
-handleMarkdownGitbookLink maybePath link =
-    if List.any (\x -> String.startsWith x link) pathPrefixes then
-        publicUrlFromString link
-
-    else if String.endsWith ".md" link then
-        case maybePath of
-            Just path ->
-                -- check for current folder, eg. "filature.md", "../faq.md", "methodologie/transport.md"
-                (extractLinkFolder path ++ [ String.replace ".md" "" link ])
-                    |> String.join "/"
-                    |> publicUrlFromString
-
-            Nothing ->
-                publicUrlFromString link
-
-    else
-        link
-
-
-extractLinkFolder : Path -> List String
-extractLinkFolder path =
-    case String.split "/" (pathToString path) of
-        folder :: _ ->
-            if folder == ".." then
-                []
-
-            else
-                [ folder ]
-
-        _ ->
-            []

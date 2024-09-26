@@ -1,26 +1,27 @@
 module Data.Unit exposing
-    ( Durability(..)
+    ( HolisticDurability
     , Impact
     , ImpactUnit(..)
+    , NonPhysicalDurability(..)
+    , PhysicalDurability(..)
     , PickPerMeter(..)
     , Ratio(..)
     , SurfaceMass
     , ThreadDensity(..)
     , YarnSize
-    , decodeDurability
     , decodeImpact
+    , decodePhysicalDurability
     , decodeRatio
     , decodeSurfaceMass
     , decodeYarnSize
-    , durability
-    , durabilityToFloat
-    , encodeDurability
     , encodeImpact
+    , encodeNonPhysicalDurability
+    , encodePhysicalDurability
     , encodePickPerMeter
-    , encodeRatio
     , encodeSurfaceMass
     , encodeThreadDensity
     , encodeYarnSize
+    , floatDurabilityFromHolistic
     , forKWh
     , forKg
     , forKgAndDistance
@@ -35,6 +36,10 @@ module Data.Unit exposing
     , minDurability
     , minSurfaceMass
     , minYarnSize
+    , nonPhysicalDurability
+    , nonPhysicalDurabilityToFloat
+    , physicalDurability
+    , physicalDurabilityToFloat
     , pickPerMeter
     , pickPerMeterToFloat
     , ratio
@@ -57,6 +62,7 @@ module Data.Unit exposing
     )
 
 import Area exposing (Area)
+import Data.Split as Split exposing (Split)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -83,86 +89,98 @@ ratioToFloat (Ratio float) =
     float
 
 
-decodeRatio : { percentage : Bool } -> Decoder Ratio
-decodeRatio { percentage } =
+decodeRatio : Decoder Ratio
+decodeRatio =
     Decode.float
-        |> Decode.andThen
-            (\float ->
-                if percentage && (float < 0 || float > 1) then
-                    Decode.fail
-                        ("Le ratio spécifié ("
-                            ++ String.fromFloat float
-                            ++ ") doit être compris entre 0 et 1."
-                        )
-
-                else
-                    Decode.succeed float
-            )
         |> Decode.map ratio
-
-
-encodeRatio : Ratio -> Encode.Value
-encodeRatio =
-    ratioToFloat >> Encode.float
 
 
 
 -- Durability
 
 
-type Durability
-    = Durability Float
+type PhysicalDurability
+    = PhysicalDurability Float
 
 
-minDurability : Durability
-minDurability =
-    Durability 0.67
+type NonPhysicalDurability
+    = NonPhysicalDurability Float
 
 
-standardDurability : Durability
-standardDurability =
-    Durability 1
+type alias HolisticDurability =
+    { nonPhysical : NonPhysicalDurability
+    , physical : PhysicalDurability
+    }
 
 
-maxDurability : Durability
-maxDurability =
-    Durability 1.45
+minDurability : (Float -> a) -> a
+minDurability dur =
+    dur 0.67
 
 
-durability : Float -> Durability
-durability =
-    Durability
+standardDurability : (Float -> a) -> a
+standardDurability dur =
+    dur 1
 
 
-durabilityToFloat : Durability -> Float
-durabilityToFloat (Durability float) =
+maxDurability : (Float -> a) -> a
+maxDurability dur =
+    dur 1.45
+
+
+physicalDurability : Float -> PhysicalDurability
+physicalDurability value =
+    PhysicalDurability value
+
+
+nonPhysicalDurability : Float -> NonPhysicalDurability
+nonPhysicalDurability value =
+    NonPhysicalDurability value
+
+
+floatDurabilityFromHolistic : HolisticDurability -> Float
+floatDurabilityFromHolistic { nonPhysical, physical } =
+    min (physicalDurabilityToFloat physical) (nonPhysicalDurabilityToFloat nonPhysical)
+
+
+physicalDurabilityToFloat : PhysicalDurability -> Float
+physicalDurabilityToFloat (PhysicalDurability float) =
     float
 
 
-decodeDurability : Decoder Durability
-decodeDurability =
+nonPhysicalDurabilityToFloat : NonPhysicalDurability -> Float
+nonPhysicalDurabilityToFloat (NonPhysicalDurability float) =
+    float
+
+
+decodePhysicalDurability : Decoder PhysicalDurability
+decodePhysicalDurability =
     Decode.float
         |> Decode.andThen
             (\float ->
-                if float < durabilityToFloat minDurability || float > durabilityToFloat maxDurability then
+                if float < physicalDurabilityToFloat (minDurability PhysicalDurability) || float > physicalDurabilityToFloat (maxDurability PhysicalDurability) then
                     Decode.fail
                         ("Le coefficient de durabilité spécifié ("
                             ++ String.fromFloat float
-                            ++ ") doit être comprise entre "
-                            ++ String.fromFloat (durabilityToFloat minDurability)
+                            ++ ") doit être compris entre "
+                            ++ String.fromFloat (physicalDurabilityToFloat (minDurability PhysicalDurability))
                             ++ " et "
-                            ++ String.fromFloat (durabilityToFloat maxDurability)
+                            ++ String.fromFloat (physicalDurabilityToFloat (maxDurability PhysicalDurability))
                             ++ "."
                         )
 
                 else
-                    Decode.succeed float
+                    Decode.succeed (physicalDurability float)
             )
-        |> Decode.map durability
 
 
-encodeDurability : Durability -> Encode.Value
-encodeDurability (Durability float) =
+encodePhysicalDurability : PhysicalDurability -> Encode.Value
+encodePhysicalDurability (PhysicalDurability float) =
+    Encode.float float
+
+
+encodeNonPhysicalDurability : NonPhysicalDurability -> Encode.Value
+encodeNonPhysicalDurability (NonPhysicalDurability float) =
     Encode.float float
 
 
@@ -391,10 +409,10 @@ impactToFloat (Quantity value) =
     value
 
 
-impactAggregateScore : Impact -> Ratio -> Impact -> Impact
+impactAggregateScore : Impact -> Split -> Impact -> Impact
 impactAggregateScore normalization weighting =
     Quantity.divideBy (impactToFloat normalization)
-        >> Quantity.multiplyBy (ratioToFloat weighting)
+        >> Quantity.multiplyBy (Split.toFloat weighting)
         -- Raw aggregate scores like PEF are expressed in Pt (points); we want Pts (micropoints)
         >> Quantity.multiplyBy 1000000
 

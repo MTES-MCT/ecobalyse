@@ -11,8 +11,8 @@ import Quantity
 
 type alias Flags =
     { definitionsString : String
-    , textileProcessesString : String
     , foodProcessesString : String
+    , textileProcessesString : String
     }
 
 
@@ -49,7 +49,7 @@ keepOnlyAggregated processes =
 
 
 toExport : Flags -> Result Decode.Error Encode.Value
-toExport { definitionsString, textileProcessesString, foodProcessesString } =
+toExport { definitionsString, foodProcessesString, textileProcessesString } =
     definitionsString
         |> Decode.decodeString Definition.decode
         |> Result.andThen
@@ -87,11 +87,6 @@ toExport { definitionsString, textileProcessesString, foodProcessesString } =
 init : Flags -> ( (), Cmd () )
 init flags =
     case toExport flags of
-        Ok encodedValue ->
-            ( ()
-            , export encodedValue
-            )
-
         Err error ->
             ( ()
             , error
@@ -100,13 +95,18 @@ init flags =
                 |> logError
             )
 
+        Ok encodedValue ->
+            ( ()
+            , export encodedValue
+            )
+
 
 main : Program Flags () ()
 main =
     Platform.worker
         { init = init
-        , update = \_ _ -> ( (), Cmd.none )
         , subscriptions = always Sub.none
+        , update = \_ _ -> ( (), Cmd.none )
         }
 
 

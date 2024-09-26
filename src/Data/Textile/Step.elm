@@ -38,6 +38,7 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
+import Length
 import Mass exposing (Mass)
 import Quantity
 import Static.Db exposing (Db)
@@ -45,106 +46,106 @@ import Views.Format as Format
 
 
 type alias Step =
-    { label : Label
-    , enabled : Bool
-    , country : Country
-    , editable : Bool
-    , inputMass : Mass
-    , outputMass : Mass
-    , waste : Mass
-    , deadstock : Mass
-    , transport : Transport
-    , impacts : Impacts
+    { airTransportRatio : Split
     , complementsImpacts : Impact.ComplementsImpacts
-    , heat : Energy
-    , kwh : Energy
-    , processInfo : ProcessInfo
-    , airTransportRatio : Split -- FIXME: why not Maybe?
-    , durability : Unit.Durability
-    , makingComplexity : Maybe MakingComplexity
-    , makingWaste : Maybe Split
-    , makingDeadStock : Maybe Split
-    , picking : Maybe Unit.PickPerMeter
-    , threadDensity : Maybe Unit.ThreadDensity
-    , yarnSize : Maybe Unit.YarnSize
-    , surfaceMass : Maybe Unit.SurfaceMass
+    , country : Country
+    , deadstock : Mass
+    , durability : Unit.NonPhysicalDurability
     , dyeingMedium : Maybe DyeingMedium
+    , editable : Bool
+    , enabled : Bool
+    , heat : Energy
+    , impacts : Impacts
+    , inputMass : Mass
+    , kwh : Energy
+    , label : Label
+    , makingComplexity : Maybe MakingComplexity
+    , makingDeadStock : Maybe Split
+    , makingWaste : Maybe Split
+    , outputMass : Mass
+    , picking : Maybe Unit.PickPerMeter
     , printing : Maybe Printing
+    , processInfo : ProcessInfo
+    , surfaceMass : Maybe Unit.SurfaceMass
+    , threadDensity : Maybe Unit.ThreadDensity
+    , transport : Transport
+    , waste : Mass
+    , yarnSize : Maybe Unit.YarnSize
     }
 
 
 type alias ProcessInfo =
-    { countryElec : Maybe String
-    , countryHeat : Maybe String
+    { airTransport : Maybe String
     , airTransportRatio : Maybe String
-    , airTransport : Maybe String
-    , seaTransport : Maybe String
-    , roadTransport : Maybe String
-    , useIroning : Maybe String
-    , useNonIroning : Maybe String
-    , passengerCar : Maybe String
+    , countryElec : Maybe String
+    , countryHeat : Maybe String
+    , distribution : Maybe String
+    , dyeing : Maybe String
     , endOfLife : Maybe String
     , fabric : Maybe String
-    , dyeing : Maybe String
-    , making : Maybe String
-    , distribution : Maybe String
     , fading : Maybe String
+    , making : Maybe String
+    , passengerCar : Maybe String
     , printing : Maybe String
+    , roadTransport : Maybe String
+    , seaTransport : Maybe String
+    , useIroning : Maybe String
+    , useNonIroning : Maybe String
     }
 
 
-create : { label : Label, editable : Bool, country : Country, enabled : Bool } -> Step
-create { label, editable, country, enabled } =
+create : { country : Country, editable : Bool, enabled : Bool, label : Label } -> Step
+create { country, editable, enabled, label } =
     let
         defaultImpacts =
             Impact.empty
     in
-    { label = label
-    , enabled = enabled
-    , country = country
-    , editable = editable
-    , inputMass = Quantity.zero
-    , outputMass = Quantity.zero
-    , waste = Quantity.zero
-    , deadstock = Quantity.zero
-    , transport = Transport.default defaultImpacts
-    , impacts = defaultImpacts
+    { airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
     , complementsImpacts = Impact.noComplementsImpacts
-    , heat = Quantity.zero
-    , kwh = Quantity.zero
-    , processInfo = defaultProcessInfo
-    , airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
-    , durability = Unit.standardDurability
-    , makingComplexity = Nothing
-    , makingWaste = Nothing
-    , makingDeadStock = Nothing
-    , picking = Nothing
-    , threadDensity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
+    , country = country
+    , deadstock = Quantity.zero
+    , durability = Unit.standardDurability Unit.NonPhysicalDurability
     , dyeingMedium = Nothing
+    , editable = editable
+    , enabled = enabled
+    , heat = Quantity.zero
+    , impacts = defaultImpacts
+    , inputMass = Quantity.zero
+    , kwh = Quantity.zero
+    , label = label
+    , makingComplexity = Nothing
+    , makingDeadStock = Nothing
+    , makingWaste = Nothing
+    , outputMass = Quantity.zero
+    , picking = Nothing
     , printing = Nothing
+    , processInfo = defaultProcessInfo
+    , surfaceMass = Nothing
+    , threadDensity = Nothing
+    , transport = Transport.default defaultImpacts
+    , waste = Quantity.zero
+    , yarnSize = Nothing
     }
 
 
 defaultProcessInfo : ProcessInfo
 defaultProcessInfo =
-    { countryElec = Nothing
-    , countryHeat = Nothing
+    { airTransport = Nothing
     , airTransportRatio = Nothing
-    , airTransport = Nothing
-    , seaTransport = Nothing
-    , roadTransport = Nothing
-    , useIroning = Nothing
-    , useNonIroning = Nothing
-    , passengerCar = Nothing
+    , countryElec = Nothing
+    , countryHeat = Nothing
+    , distribution = Nothing
+    , dyeing = Nothing
     , endOfLife = Nothing
     , fabric = Nothing
-    , dyeing = Nothing
-    , making = Nothing
-    , distribution = Nothing
     , fading = Nothing
+    , making = Nothing
+    , passengerCar = Nothing
     , printing = Nothing
+    , roadTransport = Nothing
+    , seaTransport = Nothing
+    , useIroning = Nothing
+    , useNonIroning = Nothing
     }
 
 
@@ -187,21 +188,17 @@ computeTransports db inputs next ({ processInfo } as current) =
     { current
         | processInfo =
             { processInfo
-                | roadTransport = Just db.textile.wellKnown.roadTransport.name
+                | airTransport = Just db.textile.wellKnown.airTransport.name
+                , roadTransport = Just db.textile.wellKnown.roadTransport.name
                 , seaTransport = Just db.textile.wellKnown.seaTransport.name
-                , airTransport = Just db.textile.wellKnown.airTransport.name
             }
         , transport = transport
     }
 
 
 computeTransportImpacts : Impacts -> WellKnown -> Process -> Mass -> Transport -> Transport
-computeTransportImpacts impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
-    { road = road
-    , roadCooled = Quantity.zero
-    , sea = sea
-    , seaCooled = Quantity.zero
-    , air = air
+computeTransportImpacts impacts { airTransport, seaTransport } roadProcess mass { air, road, sea } =
+    { air = air
     , impacts =
         impacts
             |> Impact.mapImpacts
@@ -215,37 +212,36 @@ computeTransportImpacts impacts { seaTransport, airTransport } roadProcess mass 
                     in
                     Quantity.sum [ roadImpact, seaImpact, airImpact ]
                 )
+    , road = road
+    , roadCooled = Quantity.zero
+    , sea = sea
+    , seaCooled = Quantity.zero
     }
 
 
 computeTransportSummary : Step -> Transport -> Transport
 computeTransportSummary step transport =
     let
-        ( noTransports, defaultInland ) =
-            ( Transport.default step.transport.impacts
-            , Transport.default step.transport.impacts
-            )
+        noTransports =
+            Transport.default step.transport.impacts
     in
     case step.label of
+        Label.Distribution ->
+            -- Add default road transport to materialize transport to/from a warehouse
+            noTransports
+                |> Transport.add { noTransports | road = Length.kilometers 500 }
+
+        Label.EndOfLife ->
+            -- End of life leverages no transports
+            noTransports
+
         Label.Making ->
             -- Air transport only applies between the Making and the Distribution steps
             transport
                 |> Formula.transportRatio step.airTransportRatio
-                -- Added intermediary inland transport distances to materialize
-                -- transport to the "distribution" step
-                -- Also ensure we don't add unnecessary air transport
-                |> Transport.add { defaultInland | air = Quantity.zero }
-
-        Label.Distribution ->
-            -- Product Distribution leverages no transports
-            noTransports
 
         Label.Use ->
             -- Product Use leverages no transports
-            noTransports
-
-        Label.EndOfLife ->
-            -- End of life leverages no transports
             noTransports
 
         _ ->
@@ -281,40 +277,28 @@ getTransportedMass inputs { label, outputMass } =
 updateFromInputs : Textile.Db -> Inputs -> Step -> Step
 updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
     let
-        { airTransportRatio, makingComplexity, makingWaste, makingDeadStock, yarnSize, surfaceMass, dyeingMedium, printing } =
+        { dyeingMedium, makingComplexity, makingDeadStock, makingWaste, printing, surfaceMass, yarnSize } =
             inputs
     in
     case label of
-        Label.Material ->
+        Label.Distribution ->
+            { step
+                | processInfo =
+                    { defaultProcessInfo | distribution = Just wellKnown.distribution.name }
+            }
+
+        Label.EndOfLife ->
             { step
                 | complementsImpacts =
                     { complementsImpacts
-                      -- Note: no other steps than the Material one generate microfibers pollution
-                        | microfibers = Inputs.getTotalMicrofibersComplement inputs
+                        | outOfEuropeEOL = Inputs.getOutOfEuropeEOLComplement inputs
                     }
-            }
-
-        Label.Spinning ->
-            { step
-                | yarnSize = yarnSize
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                    }
-            }
-
-        Label.Fabric ->
-            { step
-                | yarnSize = yarnSize
-                , surfaceMass = surfaceMass
-                , processInfo =
-                    { defaultProcessInfo
-                        | countryElec = Just country.electricityProcess.name
-                        , fabric =
-                            inputs.product.fabric
-                                |> Fabric.getProcess wellKnown
-                                |> .name
-                                |> Just
+                        , countryHeat = Just country.heatProcess.name
+                        , endOfLife = Just wellKnown.endOfLife.name
+                        , passengerCar = Just "Transport en voiture vers point de collecte (1km)"
                     }
             }
 
@@ -324,8 +308,8 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 , printing = printing
                 , processInfo =
                     { defaultProcessInfo
-                        | countryHeat = Just country.heatProcess.name
-                        , countryElec = Just country.electricityProcess.name
+                        | countryElec = Just country.electricityProcess.name
+                        , countryHeat = Just country.heatProcess.name
                         , dyeing =
                             wellKnown
                                 |> WellKnown.getDyeingProcess
@@ -343,28 +327,46 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                     }
             }
 
+        Label.Fabric ->
+            { step
+                | processInfo =
+                    { defaultProcessInfo
+                        | countryElec = Just country.electricityProcess.name
+                        , fabric =
+                            inputs.product.fabric
+                                |> Fabric.getProcess wellKnown
+                                |> .name
+                                |> Just
+                    }
+                , surfaceMass = surfaceMass
+                , yarnSize = yarnSize
+            }
+
         Label.Making ->
             { step
-                | airTransportRatio =
-                    airTransportRatio |> Maybe.withDefault country.airTransportRatio
-                , makingWaste = makingWaste
+                | makingComplexity = makingComplexity
                 , makingDeadStock = makingDeadStock
-                , makingComplexity = makingComplexity
+                , makingWaste = makingWaste
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , fading = Just wellKnown.fading.name
-                        , airTransportRatio =
-                            country.airTransportRatio
-                                |> airTransportRatioToString
-                                |> Just
                     }
             }
 
-        Label.Distribution ->
+        Label.Material ->
             { step
-                | processInfo =
-                    { defaultProcessInfo | distribution = Just wellKnown.distribution.name }
+                | complementsImpacts =
+                    { complementsImpacts
+                      -- Note: no other steps than the Material one generate microfibers pollution
+                        | microfibers = Inputs.getTotalMicrofibersComplement inputs
+                    }
+            }
+
+        Label.Spinning ->
+            { step
+                | processInfo = { defaultProcessInfo | countryElec = Just country.electricityProcess.name }
+                , yarnSize = yarnSize
             }
 
         Label.Use ->
@@ -383,21 +385,6 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                     }
             }
 
-        Label.EndOfLife ->
-            { step
-                | complementsImpacts =
-                    { complementsImpacts
-                        | outOfEuropeEOL = Inputs.getOutOfEuropeEOLComplement inputs
-                    }
-                , processInfo =
-                    { defaultProcessInfo
-                        | passengerCar = Just "Transport en voiture vers point de collecte (1km)"
-                        , countryElec = Just country.electricityProcess.name
-                        , countryHeat = Just country.heatProcess.name
-                        , endOfLife = Just wellKnown.endOfLife.name
-                    }
-            }
-
 
 initMass : Mass -> Step -> Step
 initMass mass step =
@@ -410,9 +397,9 @@ initMass mass step =
 updateWasteAndMasses : Mass -> Mass -> Step -> Step
 updateWasteAndMasses waste mass step =
     { step
-        | waste = waste
-        , inputMass = mass
+        | inputMass = mass
         , outputMass = Quantity.difference mass waste
+        , waste = waste
     }
 
 
@@ -426,7 +413,7 @@ updateDeadStock deadstock mass step =
 
 
 airTransportDisabled : Step -> Bool
-airTransportDisabled { enabled, label, country } =
+airTransportDisabled { country, enabled, label } =
     not enabled
         || -- Note: disallow air transport from France to France at the Making step
            (label == Label.Making && country.code == Country.codeFromString "FR")
@@ -478,32 +465,28 @@ yarnSizeToDtexString yarnSize =
 encode : Step -> Encode.Value
 encode v =
     Encode.object
-        [ ( "label", Encode.string (Label.toString v.label) )
-        , ( "enabled", Encode.bool v.enabled )
-        , ( "country", Country.encode v.country )
-        , ( "editable", Encode.bool v.editable )
-        , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
-        , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
-        , ( "waste", Encode.float (Mass.inKilograms v.waste) )
-        , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
-        , ( "transport", Transport.encode v.transport )
-        , ( "impacts"
-          , v.impacts
-                |> Impact.applyComplements (Impact.getTotalComplementsImpacts v.complementsImpacts)
-                |> Impact.encode
-          )
+        [ ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
-        , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
+        , ( "country", Country.encode v.country )
+        , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
+        , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
+        , ( "editable", Encode.bool v.editable )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
-        , ( "processInfo", encodeProcessInfo v.processInfo )
-        , ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
-        , ( "durability", Unit.encodeDurability v.durability )
-        , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "enabled", Encode.bool v.enabled )
+        , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
+        , ( "impacts", v.impacts |> Impact.applyComplements (Impact.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
+        , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
+        , ( "label", Encode.string (Label.toString v.label) )
         , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
+        , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
-        , ( "threadDensity", v.threadDensity |> Maybe.map Unit.encodeThreadDensity |> Maybe.withDefault Encode.null )
-        , ( "yarnSize", v.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
+        , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "threadDensity", v.threadDensity |> Maybe.map Unit.encodeThreadDensity |> Maybe.withDefault Encode.null )
+        , ( "transport", Transport.encode v.transport )
+        , ( "waste", Encode.float (Mass.inKilograms v.waste) )
+        , ( "yarnSize", v.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -514,20 +497,20 @@ encodeProcessInfo v =
             Maybe.map Encode.string >> Maybe.withDefault Encode.null
     in
     Encode.object
-        [ ( "countryElec", encodeMaybeString v.countryElec )
-        , ( "countryHeat", encodeMaybeString v.countryHeat )
+        [ ( "airTransport", encodeMaybeString v.airTransport )
         , ( "airTransportRatio", encodeMaybeString v.airTransportRatio )
-        , ( "airTransport", encodeMaybeString v.airTransport )
-        , ( "seaTransport", encodeMaybeString v.seaTransport )
-        , ( "roadTransport", encodeMaybeString v.roadTransport )
-        , ( "useIroning", encodeMaybeString v.useIroning )
-        , ( "useNonIroning", encodeMaybeString v.useNonIroning )
-        , ( "passengerCar", encodeMaybeString v.passengerCar )
+        , ( "countryElec", encodeMaybeString v.countryElec )
+        , ( "countryHeat", encodeMaybeString v.countryHeat )
+        , ( "distribution", encodeMaybeString v.distribution )
         , ( "endOfLife", encodeMaybeString v.endOfLife )
         , ( "fabric", encodeMaybeString v.fabric )
-        , ( "making", encodeMaybeString v.making )
-        , ( "distribution", encodeMaybeString v.distribution )
         , ( "fading", encodeMaybeString v.fading )
+        , ( "making", encodeMaybeString v.making )
+        , ( "passengerCar", encodeMaybeString v.passengerCar )
+        , ( "roadTransport", encodeMaybeString v.roadTransport )
+        , ( "seaTransport", encodeMaybeString v.seaTransport )
+        , ( "useIroning", encodeMaybeString v.useIroning )
+        , ( "useNonIroning", encodeMaybeString v.useNonIroning )
         ]
 
 

@@ -8,6 +8,7 @@ module Data.Textile.Simulator exposing
     )
 
 import Array
+import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -36,13 +37,13 @@ import Static.Db exposing (Db)
 
 
 type alias Simulator =
-    { inputs : Inputs
-    , lifeCycle : LifeCycle
-    , impacts : Impacts
-    , complementsImpacts : Impact.ComplementsImpacts
-    , durability : Unit.Durability
-    , transport : Transport
+    { complementsImpacts : Impact.ComplementsImpacts
     , daysOfWear : Duration
+    , durability : Unit.HolisticDurability
+    , impacts : Impacts
+    , inputs : Inputs
+    , lifeCycle : LifeCycle
+    , transport : Transport
     , useNbCycles : Int
     }
 
@@ -50,13 +51,13 @@ type alias Simulator =
 encode : Simulator -> Encode.Value
 encode v =
     Encode.object
-        [ ( "inputs", Inputs.encode v.inputs )
-        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "impacts", Impact.encode v.impacts )
-        , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
-        , ( "transport", Transport.encode v.transport )
-        , ( "durability", v.durability |> Unit.durabilityToFloat |> Encode.float )
+        [ ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
+        , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float )
+        , ( "impacts", Impact.encode v.impacts )
+        , ( "inputs", Inputs.encode v.inputs )
+        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
+        , ( "transport", Transport.encode v.transport )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
@@ -70,13 +71,16 @@ init db =
                 inputs
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
-                            { inputs = inputs
-                            , lifeCycle = lifeCycle
-                            , impacts = Impact.empty
-                            , complementsImpacts = Impact.noComplementsImpacts
-                            , durability = Unit.standardDurability
-                            , transport = Transport.default Impact.empty
+                            { complementsImpacts = Impact.noComplementsImpacts
                             , daysOfWear = inputs.product.use.daysOfWear
+                            , durability =
+                                { nonPhysical = Unit.standardDurability Unit.NonPhysicalDurability
+                                , physical = inputs.physicalDurability |> Maybe.withDefault (Unit.maxDurability Unit.PhysicalDurability)
+                                }
+                            , impacts = Impact.empty
+                            , inputs = inputs
+                            , lifeCycle = lifeCycle
+                            , transport = Transport.default Impact.empty
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
                        )
@@ -130,6 +134,8 @@ compute db query =
         -- DURABILITY
         --
         |> next computeDurability
+        -- Compute Making air transport ratio (depends on durability) - Confection
+        |> nextIf Label.Making computeMakingAirTransportRatio
         --
         -- LIFECYCLE STEP IMPACTS
         --
@@ -175,8 +181,8 @@ initializeFinalMass ({ inputs } as simulator) =
 computeDurability : Simulator -> Simulator
 computeDurability ({ inputs } as simulator) =
     let
-        durability =
-            Economics.computeDurabilityIndex
+        nonPhysicalDurability =
+            Economics.computeNonPhysicalDurabilityIndex
                 { business =
                     inputs.business
                         |> Maybe.withDefault inputs.product.economics.business
@@ -191,14 +197,49 @@ computeDurability ({ inputs } as simulator) =
                     inputs.traceability
                         |> Maybe.withDefault inputs.product.economics.traceability
                 }
+
+        newDurability =
+            { nonPhysical = nonPhysicalDurability
+            , physical = simulator.durability.physical
+            }
     in
     { simulator
-        | durability = durability
-        , daysOfWear =
-            simulator.daysOfWear |> Quantity.multiplyBy (Unit.durabilityToFloat durability)
+        | daysOfWear =
+            simulator.daysOfWear
+                |> Quantity.multiplyBy (Unit.floatDurabilityFromHolistic newDurability)
+        , durability = newDurability
         , useNbCycles =
-            round (toFloat simulator.useNbCycles * Unit.durabilityToFloat durability)
+            round (toFloat simulator.useNbCycles * Unit.floatDurabilityFromHolistic newDurability)
     }
+
+
+computeMakingAirTransportRatio : Simulator -> Simulator
+computeMakingAirTransportRatio ({ durability, inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Making
+            (\({ country } as step) ->
+                { step
+                    | airTransportRatio =
+                        case inputs.airTransportRatio of
+                            Just airTransportRatio ->
+                                -- User-provided value always takes precedence
+                                airTransportRatio
+
+                            Nothing ->
+                                if Country.isEuropeOrTurkey country then
+                                    -- If Making country is Europe or Turkey, airTransportRatio is always 0
+                                    Split.zero
+
+                                else if Unit.floatDurabilityFromHolistic durability >= 1 then
+                                    -- Durable garments outside of Europe and Turkey
+                                    Split.third
+
+                                else
+                                    -- FIXME: how about falling back to country default?
+                                    -- country.airTransportRatio
+                                    Split.full
+                }
+            )
 
 
 computeEndOfLifeImpacts : Db -> Simulator -> Simulator
@@ -207,20 +248,20 @@ computeEndOfLifeImpacts { textile } simulator =
         |> updateLifeCycleStep Label.EndOfLife
             (\({ country } as step) ->
                 let
-                    { kwh, heat, impacts } =
+                    { heat, impacts, kwh } =
                         step.outputMass
                             |> Formula.endOfLifeImpacts step.impacts
-                                { volume = simulator.inputs.product.endOfLife.volume
-                                , passengerCar = textile.wellKnown.passengerCar
+                                { countryElecProcess = country.electricityProcess
                                 , endOfLife = textile.wellKnown.endOfLife
-                                , countryElecProcess = country.electricityProcess
                                 , heatProcess = country.heatProcess
+                                , passengerCar = textile.wellKnown.passengerCar
+                                , volume = simulator.inputs.product.endOfLife.volume
                                 }
                 in
                 { step
-                    | impacts = impacts
+                    | heat = heat
+                    , impacts = impacts
                     , kwh = kwh
-                    , heat = heat
                 }
             )
 
@@ -231,13 +272,13 @@ computeUseImpacts ({ inputs, useNbCycles } as simulator) =
         |> updateLifeCycleStep Label.Use
             (\({ country } as step) ->
                 let
-                    { kwh, impacts } =
+                    { impacts, kwh } =
                         step.outputMass
                             |> Formula.useImpacts step.impacts
-                                { useNbCycles = useNbCycles
+                                { countryElecProcess = country.electricityProcess
                                 , ironingElec = inputs.product.use.ironingElec
                                 , nonIroningProcess = inputs.product.use.nonIroningProcess
-                                , countryElecProcess = country.electricityProcess
+                                , useNbCycles = useNbCycles
                                 }
                 in
                 { step | impacts = impacts, kwh = kwh }
@@ -250,12 +291,11 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
         |> updateLifeCycleStep Label.Making
             (\({ country } as step) ->
                 let
-                    { kwh, heat, impacts } =
+                    { heat, impacts, kwh } =
                         step.outputMass
                             |> Formula.makingImpacts step.impacts
-                                { makingComplexity =
-                                    inputs.fabricProcess
-                                        |> Fabric.getMakingComplexity inputs.product.making.complexity inputs.makingComplexity
+                                { countryElecProcess = country.electricityProcess
+                                , countryHeatProcess = country.heatProcess
                                 , fadingProcess =
                                     -- Note: in the future, we may have distinct fading processes per countries
                                     if inputs.fading == Just True then
@@ -263,11 +303,12 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
 
                                     else
                                         Nothing
-                                , countryElecProcess = country.electricityProcess
-                                , countryHeatProcess = country.heatProcess
+                                , makingComplexity =
+                                    inputs.fabricProcess
+                                        |> Fabric.getMakingComplexity inputs.product.making.complexity inputs.makingComplexity
                                 }
                 in
-                { step | impacts = impacts, kwh = kwh, heat = heat }
+                { step | heat = heat, impacts = impacts, kwh = kwh }
             )
 
 
@@ -293,20 +334,20 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                             |> List.map
                                 (\{ material, share } ->
                                     Formula.materialDyeingToxicityImpacts step.impacts
-                                        { dyeingToxicityProcess =
+                                        { aquaticPollutionScenario = step.country.aquaticPollutionScenario
+                                        , dyeingToxicityProcess =
                                             if Origin.isSynthetic material.origin then
                                                 textile.wellKnown.dyeingSynthetic
 
                                             else
                                                 textile.wellKnown.dyeingCellulosic
-                                        , aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                         }
                                         step.outputMass
                                         share
                                 )
                             |> Impact.sumImpacts
 
-                    { heat, kwh, impacts } =
+                    { heat, impacts, kwh } =
                         step.outputMass
                             |> Formula.dyeingImpacts step.impacts
                                 dyeingProcess
@@ -315,8 +356,8 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                 in
                 { step
                     | heat = step.heat |> Quantity.plus heat
-                    , kwh = step.kwh |> Quantity.plus kwh
                     , impacts = Impact.sumImpacts [ step.impacts, impacts, dyeingToxicity ]
+                    , kwh = step.kwh |> Quantity.plus kwh
                 }
             )
 
@@ -332,29 +373,29 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                             { printingProcess, printingToxicityProcess } =
                                 WellKnown.getPrintingProcess kind textile.wellKnown
 
-                            { heat, kwh, impacts } =
+                            { heat, impacts, kwh } =
                                 step.outputMass
                                     |> Formula.printingImpacts step.impacts
-                                        { printingProcess = printingProcess
+                                        { elecProcess = country.electricityProcess
                                         , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
-                                        , elecProcess = country.electricityProcess
-                                        , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
+                                        , printingProcess = printingProcess
                                         , ratio = ratio
+                                        , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
                                         }
 
                             printingToxicity =
                                 step.outputMass
                                     |> Formula.materialPrintingToxicityImpacts
                                         step.impacts
-                                        { printingToxicityProcess = printingToxicityProcess
-                                        , aquaticPollutionScenario = step.country.aquaticPollutionScenario
+                                        { aquaticPollutionScenario = step.country.aquaticPollutionScenario
+                                        , printingToxicityProcess = printingToxicityProcess
                                         }
                                         ratio
                         in
                         { step
                             | heat = step.heat |> Quantity.plus heat
-                            , kwh = step.kwh |> Quantity.plus kwh
                             , impacts = Impact.sumImpacts [ step.impacts, impacts, printingToxicity ]
+                            , kwh = step.kwh |> Quantity.plus kwh
                         }
 
                     Nothing ->
@@ -368,18 +409,18 @@ computeFinishingImpacts { textile } simulator =
         |> updateLifeCycleStep Label.Ennobling
             (\({ country } as step) ->
                 let
-                    { heat, kwh, impacts } =
+                    { heat, impacts, kwh } =
                         step.outputMass
                             |> Formula.finishingImpacts step.impacts
-                                { finishingProcess = textile.wellKnown.finishing
+                                { elecProcess = country.electricityProcess
+                                , finishingProcess = textile.wellKnown.finishing
                                 , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
-                                , elecProcess = country.electricityProcess
                                 }
                 in
                 { step
                     | heat = step.heat |> Quantity.plus heat
-                    , kwh = step.kwh |> Quantity.plus kwh
                     , impacts = Impact.sumImpacts [ step.impacts, impacts ]
+                    , kwh = step.kwh |> Quantity.plus kwh
                 }
             )
 
@@ -393,8 +434,8 @@ computeBleachingImpacts { textile } simulator =
                     impacts =
                         step.outputMass
                             |> Formula.bleachingImpacts step.impacts
-                                { bleachingProcess = textile.wellKnown.bleaching
-                                , aquaticPollutionScenario = step.country.aquaticPollutionScenario
+                                { aquaticPollutionScenario = step.country.aquaticPollutionScenario
+                                , bleachingProcess = textile.wellKnown.bleaching
                                 }
                 in
                 { step
@@ -406,19 +447,19 @@ computeBleachingImpacts { textile } simulator =
 stepMaterialImpacts : Db -> Material -> Step -> Impacts
 stepMaterialImpacts { textile } material step =
     case Material.getRecyclingData material textile.materials of
-        -- Non-recycled Material
-        Nothing ->
-            step.outputMass
-                |> Formula.pureMaterialImpacts step.impacts material.materialProcess
-
         -- Recycled material: apply CFF
         Just ( sourceMaterial, cffData ) ->
             step.outputMass
                 |> Formula.recycledMaterialImpacts step.impacts
-                    { recycledProcess = material.materialProcess
+                    { cffData = cffData
                     , nonRecycledProcess = sourceMaterial.materialProcess
-                    , cffData = cffData
+                    , recycledProcess = material.materialProcess
                     }
+
+        -- Non-recycled Material
+        Nothing ->
+            step.outputMass
+                |> Formula.pureMaterialImpacts step.impacts material.materialProcess
 
 
 computeMaterialImpacts : Db -> Simulator -> Simulator
@@ -440,7 +481,7 @@ computeMaterialImpacts db ({ inputs } as simulator) =
             )
 
 
-stepSpinningImpacts : Material -> Maybe Spinning -> Product -> Step -> { impacts : Impacts, kwh : Energy }
+stepSpinningImpacts : Material -> Maybe Spinning -> Product -> Step -> { heat : Energy, impacts : Impacts, kwh : Energy }
 stepSpinningImpacts material maybeSpinning product step =
     let
         yarnSize =
@@ -457,8 +498,8 @@ stepSpinningImpacts material maybeSpinning product step =
                 |> Energy.kilowattHours
     in
     Formula.spinningImpacts step.impacts
-        { spinningKwh = kwh
-        , countryElecProcess = step.country.electricityProcess
+        { countryElecProcess = step.country.electricityProcess
+        , spinningKwh = kwh
         }
 
 
@@ -468,17 +509,7 @@ computeSpinningImpacts ({ inputs } as simulator) =
         |> updateLifeCycleStep Label.Spinning
             (\step ->
                 { step
-                    | kwh =
-                        inputs.materials
-                            |> List.map
-                                (\{ material, share, spinning } ->
-                                    step
-                                        |> stepSpinningImpacts material spinning inputs.product
-                                        |> .kwh
-                                        |> Quantity.multiplyBy (Split.toFloat share)
-                                )
-                            |> List.foldl Quantity.plus Quantity.zero
-                    , impacts =
+                    | impacts =
                         inputs.materials
                             |> List.map
                                 (\{ material, share, spinning } ->
@@ -488,6 +519,16 @@ computeSpinningImpacts ({ inputs } as simulator) =
                                         |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat share))
                                 )
                             |> Impact.sumImpacts
+                    , kwh =
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share, spinning } ->
+                                    step
+                                        |> stepSpinningImpacts material spinning inputs.product
+                                        |> .kwh
+                                        |> Quantity.multiplyBy (Split.toFloat share)
+                                )
+                            |> List.foldl Quantity.plus Quantity.zero
                 }
             )
 
@@ -508,17 +549,17 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
                             |> Maybe.withDefault inputs.product.fabric
                             |> Fabric.getProcess textile.wellKnown
 
-                    { kwh, threadDensity, picking, impacts } =
+                    { impacts, kwh, picking, threadDensity } =
                         if
                             inputs.fabricProcess
                                 |> Maybe.withDefault inputs.product.fabric
                                 |> Fabric.isKnitted
                         then
-                            Formula.knittingImpacts step.impacts
-                                { elec = process.elec
-                                , countryElecProcess = country.electricityProcess
-                                }
-                                step.outputMass
+                            step.outputMass
+                                |> Formula.knittingImpacts step.impacts
+                                    { countryElecProcess = country.electricityProcess
+                                    , elec = process.elec
+                                    }
 
                         else
                             let
@@ -534,19 +575,24 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
                                 , yarnSize = inputs.yarnSize |> Maybe.withDefault inputs.product.yarnSize
                                 }
                 in
-                { step | impacts = impacts, threadDensity = threadDensity, kwh = kwh, picking = picking }
+                { step
+                    | impacts = impacts
+                    , kwh = kwh
+                    , picking = picking
+                    , threadDensity = threadDensity
+                }
             )
 
 
 computeMakingStepWaste : Simulator -> Simulator
 computeMakingStepWaste ({ inputs } as simulator) =
     let
-        { product, makingWaste, fabricProcess } =
+        { fabricProcess, makingWaste, product } =
             inputs
 
         { mass, waste } =
             inputs.mass
-                |> Formula.makingWaste
+                |> Formula.genericWaste
                     (fabricProcess
                         |> Fabric.getMakingWaste product.making.pcrWaste makingWaste
                     )
@@ -559,7 +605,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
 computeMakingStepDeadStock : Simulator -> Simulator
 computeMakingStepDeadStock ({ inputs, lifeCycle } as simulator) =
     let
-        { mass, deadstock } =
+        { deadstock, mass } =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
                 |> Formula.makingDeadStock (Maybe.withDefault Env.defaultDeadStock inputs.makingDeadStock)
@@ -645,8 +691,8 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                                                 |> Split.divideBy (Mass.inKilograms outputMaterialMass)
                                                 |> Mass.kilograms
                                     in
-                                    { waste = Quantity.difference inputMaterialMass outputMaterialMass
-                                    , mass = inputMaterialMass
+                                    { mass = inputMaterialMass
+                                    , waste = Quantity.difference inputMaterialMass outputMaterialMass
                                     }
                                 )
                             |> List.foldl
@@ -683,14 +729,14 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
             lifeCycle
                 |> Array.filter .enabled
                 |> LifeCycle.sumComplementsImpacts
-                |> Impact.divideComplementsImpactsBy (Unit.durabilityToFloat durability)
+                |> Impact.divideComplementsImpactsBy (Unit.floatDurabilityFromHolistic durability)
     in
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
             lifeCycle
                 |> LifeCycle.computeFinalImpacts
-                |> Impact.divideBy (Unit.durabilityToFloat durability)
+                |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
                 |> Impact.impactsWithComplements complementsImpacts
     }
 
@@ -702,7 +748,7 @@ getTotalImpactsWithoutComplements { durability, lifeCycle } =
         |> Array.map Step.getTotalImpactsWithoutComplements
         |> Array.toList
         |> Impact.sumImpacts
-        |> Impact.divideBy (Unit.durabilityToFloat durability)
+        |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator
@@ -739,17 +785,23 @@ toStepsImpacts trigram simulator =
                 Maybe.map
                     (Quantity.minus
                         (complementImpact
-                            |> Quantity.multiplyBy (Unit.durabilityToFloat simulator.durability)
+                            |> Quantity.multiplyBy (Unit.floatDurabilityFromHolistic simulator.durability)
                         )
                     )
 
             else
                 identity
     in
-    { materials =
+    { distribution = Nothing
+    , endOfLife =
+        getImpacts Label.EndOfLife
+            |> getImpact
+            |> applyComplement simulator.complementsImpacts.outOfEuropeEOL
+    , materials =
         getImpacts Label.Material
             |> getImpact
             |> applyComplement simulator.complementsImpacts.microfibers
+    , packaging = Nothing
     , transform =
         [ getImpacts Label.Spinning
         , getImpacts Label.Fabric
@@ -758,13 +810,7 @@ toStepsImpacts trigram simulator =
         ]
             |> Impact.sumImpacts
             |> getImpact
-    , packaging = Nothing
     , transports = getImpact simulator.transport.impacts
-    , distribution = Nothing
     , usage = getImpacts Label.Use |> getImpact
-    , endOfLife =
-        getImpacts Label.EndOfLife
-            |> getImpact
-            |> applyComplement simulator.complementsImpacts.outOfEuropeEOL
     }
-        |> Impact.divideStepsImpactsBy (Unit.durabilityToFloat simulator.durability)
+        |> Impact.divideStepsImpactsBy (Unit.floatDurabilityFromHolistic simulator.durability)

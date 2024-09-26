@@ -9,8 +9,8 @@ import Views.Format as Format
 
 
 type alias Config msg =
-    { impactDefinition : Definition
-    , customInfo : Maybe (Html msg)
+    { customInfo : Maybe (Html msg)
+    , impactDefinition : Definition
     , mass : Mass
     , score : Impacts
     }

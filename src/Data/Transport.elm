@@ -36,23 +36,23 @@ type alias Distances =
 
 
 type alias Transport =
-    { road : Length
+    { air : Length
+    , impacts : Impacts
+    , road : Length
     , roadCooled : Length
     , sea : Length
     , seaCooled : Length
-    , air : Length
-    , impacts : Impacts
     }
 
 
 default : Impacts -> Transport
 default impacts =
-    { road = Quantity.zero
+    { air = Quantity.zero
+    , impacts = impacts
+    , road = Quantity.zero
     , roadCooled = Quantity.zero
     , sea = Quantity.zero
     , seaCooled = Quantity.zero
-    , air = Quantity.zero
-    , impacts = impacts
     }
 
 
@@ -60,21 +60,21 @@ erroneous : Impacts -> Transport
 erroneous impacts =
     -- FIXME temporary data to display something weird instead of zero, until
     -- we use of a Result String Transport in the transport computations
-    { road = Quantity.infinity
+    { air = Quantity.infinity
+    , impacts = impacts
+    , road = Quantity.infinity
     , roadCooled = Quantity.infinity
     , sea = Quantity.infinity
     , seaCooled = Quantity.infinity
-    , air = Quantity.infinity
-    , impacts = impacts
     }
 
 
 add : Transport -> Transport -> Transport
 add a b =
     { b
-        | road = b.road |> Quantity.plus a.road
+        | air = b.air |> Quantity.plus a.air
+        , road = b.road |> Quantity.plus a.road
         , sea = b.sea |> Quantity.plus a.sea
-        , air = b.air |> Quantity.plus a.air
     }
 
 
@@ -116,21 +116,21 @@ computeImpacts { wellKnown } mass transport =
 sum : List Transport -> Transport
 sum =
     List.foldl
-        (\{ road, roadCooled, sea, seaCooled, air, impacts } acc ->
+        (\{ air, impacts, road, roadCooled, sea, seaCooled } acc ->
             { acc
-                | road = acc.road |> Quantity.plus road
+                | air = acc.air |> Quantity.plus air
+                , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
+                , road = acc.road |> Quantity.plus road
                 , roadCooled = acc.roadCooled |> Quantity.plus roadCooled
                 , sea = acc.sea |> Quantity.plus sea
                 , seaCooled = acc.seaCooled |> Quantity.plus seaCooled
-                , air = acc.air |> Quantity.plus air
-                , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
             }
         )
         (default Impact.empty)
 
 
 totalKm : Transport -> Float
-totalKm { road, sea, air } =
+totalKm { air, road, sea } =
     Quantity.sum [ road, sea, air ]
         |> Length.inKilometers
 
@@ -205,25 +205,25 @@ encodeKm =
 decode : Decoder Transport
 decode =
     Decode.map6 Transport
+        (Decode.field "air" decodeKm)
+        (Decode.succeed Impact.empty)
         (Decode.field "road" decodeKm)
         -- roadCooled
         (Decode.succeed Quantity.zero)
         (Decode.field "sea" decodeKm)
         -- seaCooled
         (Decode.succeed Quantity.zero)
-        (Decode.field "air" decodeKm)
-        (Decode.succeed Impact.empty)
 
 
 encode : Transport -> Encode.Value
 encode v =
     Encode.object
-        [ ( "road", encodeKm v.road )
+        [ ( "air", encodeKm v.air )
+        , ( "impacts", Impact.encode v.impacts )
+        , ( "road", encodeKm v.road )
         , ( "roadCooled", encodeKm v.roadCooled )
         , ( "sea", encodeKm v.sea )
         , ( "seaCooled", encodeKm v.seaCooled )
-        , ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encode v.impacts )
         ]
 
 

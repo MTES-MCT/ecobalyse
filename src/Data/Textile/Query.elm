@@ -24,6 +24,7 @@ module Data.Textile.Query exposing
     )
 
 import Base64
+import Data.Common.DecodeUtils as DU
 import Data.Country as Country
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -45,37 +46,38 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias MaterialQuery =
-    { id : Material.Id
+    { country : Maybe Country.Code
+    , id : Material.Id
     , share : Split
     , spinning : Maybe Spinning
-    , country : Maybe Country.Code
     }
 
 
 type alias Query =
-    { mass : Mass
-    , materials : List MaterialQuery
-    , product : Product.Id
-    , countrySpinning : Maybe Country.Code
-    , countryFabric : Maybe Country.Code
-    , countryDyeing : Maybe Country.Code
-    , countryMaking : Maybe Country.Code
-    , airTransportRatio : Maybe Split
-    , makingWaste : Maybe Split
-    , makingDeadStock : Maybe Split
-    , makingComplexity : Maybe MakingComplexity
-    , yarnSize : Maybe Unit.YarnSize
-    , surfaceMass : Maybe Unit.SurfaceMass
-    , fabricProcess : Maybe Fabric
-    , disabledSteps : List Label
-    , fading : Maybe Bool
-    , dyeingMedium : Maybe DyeingMedium
-    , printing : Maybe Printing
+    { airTransportRatio : Maybe Split
     , business : Maybe Economics.Business
+    , countryDyeing : Maybe Country.Code
+    , countryFabric : Maybe Country.Code
+    , countryMaking : Maybe Country.Code
+    , countrySpinning : Maybe Country.Code
+    , disabledSteps : List Label
+    , dyeingMedium : Maybe DyeingMedium
+    , fabricProcess : Maybe Fabric
+    , fading : Maybe Bool
+    , makingComplexity : Maybe MakingComplexity
+    , makingDeadStock : Maybe Split
+    , makingWaste : Maybe Split
+    , mass : Mass
+    , materials : List MaterialQuery
     , numberOfReferences : Maybe Int
+    , physicalDurability : Maybe Unit.PhysicalDurability
     , price : Maybe Economics.Price
+    , printing : Maybe Printing
+    , product : Product.Id
+    , surfaceMass : Maybe Unit.SurfaceMass
     , traceability : Maybe Bool
     , upcycled : Bool
+    , yarnSize : Maybe Unit.YarnSize
     }
 
 
@@ -83,10 +85,10 @@ addMaterial : Material -> Query -> Query
 addMaterial material query =
     let
         materialQuery =
-            { id = material.id
+            { country = Nothing
+            , id = material.id
             , share = Split.zero
             , spinning = Nothing
-            , country = Nothing
             }
     in
     { query
@@ -97,7 +99,7 @@ addMaterial material query =
 
 buildApiQuery : String -> Query -> String
 buildApiQuery clientUrl query =
-    """curl -X POST %apiUrl% \\
+    """curl -sS -X POST %apiUrl% \\
   -H "accept: application/json" \\
   -H "content-type: application/json" \\
   -d '%json%'
@@ -109,56 +111,49 @@ buildApiQuery clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
+        |> DU.strictOptional "airTransportRatio" Split.decodeFloat
+        |> DU.strictOptional "business" Economics.decodeBusiness
+        |> DU.strictOptional "countryDyeing" Country.decodeCode
+        |> DU.strictOptional "countryFabric" Country.decodeCode
+        |> DU.strictOptional "countryMaking" Country.decodeCode
+        |> DU.strictOptional "countrySpinning" Country.decodeCode
+        |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
+        |> DU.strictOptional "dyeingMedium" DyeingMedium.decode
+        |> DU.strictOptional "fabricProcess" Fabric.decode
+        |> DU.strictOptional "fading" Decode.bool
+        |> DU.strictOptional "makingComplexity" MakingComplexity.decode
+        |> DU.strictOptional "makingDeadStock" Split.decodeFloat
+        |> DU.strictOptional "makingWaste" Split.decodeFloat
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
+        |> DU.strictOptional "numberOfReferences" Decode.int
+        |> DU.strictOptional "physicalDurability" Unit.decodePhysicalDurability
+        |> DU.strictOptional "price" Economics.decodePrice
+        |> DU.strictOptional "printing" Printing.decode
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.optional "countrySpinning" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countryFabric" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countryDyeing" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "countryMaking" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "makingDeadStock" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "makingComplexity" (Decode.maybe MakingComplexity.decode) Nothing
-        |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
-        |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.optional "fabricProcess" (Decode.maybe Fabric.decode) Nothing
-        |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> Pipe.optional "fading" (Decode.maybe Decode.bool) Nothing
-        |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
-        |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
-        |> Pipe.optional "business" (Decode.maybe Economics.decodeBusiness) Nothing
-        |> Pipe.optional "numberOfReferences" (Decode.maybe Decode.int) Nothing
-        |> Pipe.optional "price" (Decode.maybe Economics.decodePrice) Nothing
-        |> Pipe.optional "traceability" (Decode.maybe Decode.bool) Nothing
+        |> DU.strictOptional "surfaceMass" Unit.decodeSurfaceMass
+        |> DU.strictOptional "traceability" Decode.bool
         |> Pipe.optional "upcycled" Decode.bool False
+        |> DU.strictOptional "yarnSize" Unit.decodeYarnSize
 
 
 decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
+        |> DU.strictOptional "country" Country.decodeCode
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Split.decodeFloat
-        |> Pipe.optional "spinning" (Decode.maybe Spinning.decode) Nothing
-        |> Pipe.optional "country" (Decode.maybe Country.decodeCode) Nothing
+        |> DU.strictOptional "spinning" Spinning.decode
 
 
 encode : Query -> Encode.Value
 encode query =
-    [ ( "mass", query.mass |> Mass.inKilograms |> Encode.float |> Just )
-    , ( "materials", query.materials |> Encode.list encodeMaterialQuery |> Just )
-    , ( "product", query.product |> Product.idToString |> Encode.string |> Just )
-    , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode )
-    , ( "countryFabric", query.countryFabric |> Maybe.map Country.encodeCode )
+    [ ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
+    , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
     , ( "countryDyeing", query.countryDyeing |> Maybe.map Country.encodeCode )
+    , ( "countryFabric", query.countryFabric |> Maybe.map Country.encodeCode )
     , ( "countryMaking", query.countryMaking |> Maybe.map Country.encodeCode )
-    , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
-    , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
-    , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
-    , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
-    , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
-    , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
-    , ( "fabricProcess", query.fabricProcess |> Maybe.map Fabric.encode )
+    , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode )
     , ( "disabledSteps"
       , case query.disabledSteps of
             [] ->
@@ -167,14 +162,23 @@ encode query =
             list ->
                 Encode.list Label.encode list |> Just
       )
-    , ( "fading", query.fading |> Maybe.map Encode.bool )
     , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode )
-    , ( "printing", query.printing |> Maybe.map Printing.encode )
-    , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
+    , ( "fabricProcess", query.fabricProcess |> Maybe.map Fabric.encode )
+    , ( "fading", query.fading |> Maybe.map Encode.bool )
+    , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
+    , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
+    , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
+    , ( "mass", query.mass |> Mass.inKilograms |> Encode.float |> Just )
+    , ( "materials", query.materials |> Encode.list encodeMaterialQuery |> Just )
     , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
+    , ( "physicalDurability", query.physicalDurability |> Maybe.map Unit.encodePhysicalDurability )
     , ( "price", query.price |> Maybe.map Economics.encodePrice )
+    , ( "printing", query.printing |> Maybe.map Printing.encode )
+    , ( "product", query.product |> Product.idToString |> Encode.string |> Just )
+    , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
     , ( "traceability", query.traceability |> Maybe.map Encode.bool )
     , ( "upcycled", Encode.bool query.upcycled |> Just )
+    , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
     ]
         -- For concision, drop keys where no param is defined
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
@@ -183,10 +187,10 @@ encode query =
 
 encodeMaterialQuery : MaterialQuery -> Encode.Value
 encodeMaterialQuery v =
-    [ ( "id", Material.encodeId v.id |> Just )
+    [ ( "country", v.country |> Maybe.map Country.encodeCode )
+    , ( "id", Material.encodeId v.id |> Just )
     , ( "share", Split.encodeFloat v.share |> Just )
     , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
-    , ( "country", v.country |> Maybe.map Country.encodeCode )
     ]
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
         |> Encode.object
@@ -216,7 +220,7 @@ handleUpcycling query =
     if query.upcycled then
         { query
             | disabledSteps = LE.unique <| Label.upcyclables ++ query.disabledSteps
-            , makingComplexity = Just MakingComplexity.High
+            , makingComplexity = query.makingComplexity |> Maybe.withDefault MakingComplexity.High |> Just
         }
 
     else
@@ -226,15 +230,15 @@ handleUpcycling query =
 isAdvancedQuery : Query -> Bool
 isAdvancedQuery query =
     List.any identity
-        [ query.materials |> List.any (.spinning >> (/=) Nothing)
-        , query.makingWaste /= Nothing
-        , query.makingDeadStock /= Nothing
-        , query.makingComplexity /= Nothing
-        , query.yarnSize /= Nothing
-        , query.surfaceMass /= Nothing
+        [ query.dyeingMedium /= Nothing
         , query.fabricProcess /= Nothing
+        , query.makingComplexity /= Nothing
+        , query.makingDeadStock /= Nothing
+        , query.makingWaste /= Nothing
+        , query.materials |> List.any (.spinning >> (/=) Nothing)
+        , query.surfaceMass /= Nothing
         , not query.upcycled && List.length query.disabledSteps > 0
-        , query.dyeingMedium /= Nothing
+        , query.yarnSize /= Nothing
         ]
 
 
@@ -243,15 +247,15 @@ isAdvancedQuery query =
 regulatory : Query -> Query
 regulatory query =
     { query
-        | materials = query.materials |> List.map (\m -> { m | spinning = Nothing })
-        , makingWaste = Nothing
-        , makingDeadStock = Nothing
-        , makingComplexity = Nothing
-        , yarnSize = Nothing
-        , surfaceMass = Nothing
-        , fabricProcess = Nothing
-        , disabledSteps = []
+        | disabledSteps = []
         , dyeingMedium = Nothing
+        , fabricProcess = Nothing
+        , makingComplexity = Nothing
+        , makingDeadStock = Nothing
+        , makingWaste = Nothing
+        , materials = query.materials |> List.map (\m -> { m | spinning = Nothing })
+        , surfaceMass = Nothing
+        , yarnSize = Nothing
     }
 
 
@@ -272,10 +276,10 @@ updateMaterial oldMaterialId newMaterial =
     updateMaterialQuery oldMaterialId
         (\materialQuery ->
             { materialQuery
-                | id = newMaterial.id
+                | country = newMaterial.country
+                , id = newMaterial.id
                 , share = newMaterial.share
                 , spinning = Nothing
-                , country = newMaterial.country
             }
         )
 
@@ -312,15 +316,15 @@ updateProduct product query =
     if product.id /= query.product then
         -- Product category has changed, reset a bunch of related query params
         { query
-            | product = product.id
-            , makingWaste = Nothing
-            , makingDeadStock = Nothing
-            , makingComplexity = Nothing
-            , yarnSize = Nothing
-            , surfaceMass = Nothing
+            | dyeingMedium = Nothing
             , fabricProcess = Nothing
-            , dyeingMedium = Nothing
+            , makingComplexity = Nothing
+            , makingDeadStock = Nothing
+            , makingWaste = Nothing
             , printing = Nothing
+            , product = product.id
+            , surfaceMass = Nothing
+            , yarnSize = Nothing
         }
 
     else
@@ -338,26 +342,26 @@ updateStepCountry label code query =
                 Just code
     in
     case label of
-        Label.Spinning ->
-            { query | countrySpinning = maybeCode }
+        Label.Ennobling ->
+            { query | countryDyeing = maybeCode }
 
         Label.Fabric ->
             { query | countryFabric = maybeCode }
 
-        Label.Ennobling ->
-            { query | countryDyeing = maybeCode }
-
         Label.Making ->
             { query
-                | countryMaking = maybeCode
-                , airTransportRatio =
+                | airTransportRatio =
                     if query.countryMaking /= maybeCode then
                         -- reset custom value as we just switched country
                         Nothing
 
                     else
                         query.airTransportRatio
+                , countryMaking = maybeCode
             }
+
+        Label.Spinning ->
+            { query | countrySpinning = maybeCode }
 
         _ ->
             query
@@ -392,54 +396,55 @@ validateMaterials materials =
 
 default : Query
 default =
-    { mass = Mass.kilograms 0.17
+    { airTransportRatio = Nothing
+    , business = Nothing
+    , countryDyeing = Just (Country.Code "CN")
+    , countryFabric = Just (Country.Code "CN")
+    , countryMaking = Just (Country.Code "CN")
+    , countrySpinning = Just (Country.Code "CN")
+    , disabledSteps = []
+    , dyeingMedium = Nothing
+    , fabricProcess = Nothing
+    , fading = Nothing
+    , makingComplexity = Nothing
+    , makingDeadStock = Nothing
+    , makingWaste = Nothing
+    , mass = Mass.kilograms 0.17
     , materials =
-        [ { id = Material.Id "ei-coton"
+        [ { country = Nothing
+          , id = Material.Id "ei-coton"
           , share = Split.full
           , spinning = Nothing
-          , country = Nothing
           }
         ]
-    , product = Product.Id "tshirt"
-    , countrySpinning = Just (Country.Code "CN")
-    , countryFabric = Just (Country.Code "CN")
-    , countryDyeing = Just (Country.Code "CN")
-    , countryMaking = Just (Country.Code "CN")
-    , airTransportRatio = Nothing
-    , makingWaste = Nothing
-    , makingDeadStock = Nothing
-    , makingComplexity = Nothing
-    , yarnSize = Nothing
-    , surfaceMass = Nothing
-    , fabricProcess = Nothing
-    , disabledSteps = []
-    , fading = Nothing
-    , dyeingMedium = Nothing
-    , printing = Nothing
-    , business = Nothing
     , numberOfReferences = Nothing
+    , physicalDurability = Nothing
     , price = Nothing
+    , printing = Nothing
+    , product = Product.Id "tshirt"
+    , surfaceMass = Nothing
     , traceability = Nothing
     , upcycled = False
+    , yarnSize = Nothing
     }
 
 
 jupeCotonAsie : Query
 jupeCotonAsie =
     { default
-        | mass = Mass.kilograms 0.3
+        | fabricProcess = Just Fabric.Weaving
+        , mass = Mass.kilograms 0.3
         , product = Product.Id "jupe"
-        , fabricProcess = Just Fabric.Weaving
     }
 
 
 tShirtCotonFrance : Query
 tShirtCotonFrance =
     { default
-        | countrySpinning = Just (Country.Code "FR")
+        | countryDyeing = Just (Country.Code "FR")
         , countryFabric = Just (Country.Code "FR")
-        , countryDyeing = Just (Country.Code "FR")
         , countryMaking = Just (Country.Code "FR")
+        , countrySpinning = Just (Country.Code "FR")
     }
 
 
