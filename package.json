@@ -91,6 +91,6 @@
     ".elm"
   ],
   "jest": {
-    "testTimeout": 350
+    "testTimeout": 50
   }
 }
