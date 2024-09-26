@@ -1,11 +1,25 @@
-module Data.Object.Simulator exposing (compute)
+module Data.Object.Simulator exposing
+    ( availableProcesses
+    , compute
+    , computeItemImpacts
+    )
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Object.Db exposing (Db)
-import Data.Object.Process as Process
+import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Item, Query)
 import Quantity
 import Result.Extra as RE
+
+
+availableProcesses : Db -> Query -> List Process
+availableProcesses db query =
+    let
+        usedIds =
+            List.map .processId query.items
+    in
+    db.processes
+        |> List.filter (\{ id } -> not (List.member id usedIds))
 
 
 compute : Db -> Query -> Result String Impacts
