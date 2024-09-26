@@ -12,6 +12,7 @@ import Data.Textile.Material.Spinning as Spinning
 import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Step.Label as Label
+import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
 import Json.Encode as Encode
@@ -75,12 +76,12 @@ foodEndpoints db =
     , describe "POST endpoints"
         [ "/food"
             |> testEndpoint db "POST" (FoodQuery.encode FoodQuery.empty)
-            |> Expect.equal (Just Route.FoodPostRecipe)
+            |> Expect.equal (Just (Route.FoodPostRecipe (Ok FoodQuery.empty)))
             |> asTest "should map the POST /food endpoint"
         , "/food"
             |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just Route.FoodPostRecipe)
-            |> asTest "should map the POST /food endpoint whatever the request body is"
+            |> expectFoodSingleErrorContains "ingredients"
+            |> asTest "should fail on invalid query passed"
         ]
     , describe "validation"
         [ testEndpoint db "GET" Encode.null "/food?ingredients[]=egg-indoor-code3|0"
@@ -216,12 +217,49 @@ textileEndpoints db =
     , describe "POST endpoints"
         [ "/textile/simulator"
             |> testEndpoint db "POST" (Query.encode tShirtCotonFrance)
-            |> Expect.equal (Just Route.TextilePostSimulator)
-            |> asTest "should map the POST /textile/simulator endpoint"
+            |> Expect.equal (Just (Route.TextilePostSimulator (Ok tShirtCotonFrance)))
+            |> asTest "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
         , "/textile/simulator"
             |> testEndpoint db "POST" Encode.null
-            |> Expect.equal (Just Route.TextilePostSimulator)
-            |> asTest "should map the POST /textile/simulator endpoint whatever the request body is"
+            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the given value:\n\nnull\n\nExpecting an OBJECT with a field named `product`")))
+            |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
+        , "/textile/simulator"
+            |> testEndpoint db
+                "POST"
+                (Query.encode
+                    { tShirtCotonFrance
+                        | physicalDurability =
+                            Just <| Unit.physicalDurability 9900000
+                    }
+                )
+            |> expectTextileSingleErrorContains "physicalDurability"
+            |> asTest "should reject invalid physicalDurability"
+        , "/textile/simulator"
+            |> testEndpoint db
+                "POST"
+                (Query.encode
+                    { tShirtCotonFrance
+                        | countrySpinning = Just (Country.Code "invalid")
+                    }
+                )
+            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Code pays invalide: invalid.")))
+            |> asTest "should reject invalid spinning country"
+        , "/textile/simulator"
+            |> testEndpoint db
+                "POST"
+                (Query.encode
+                    { tShirtCotonFrance
+                        | materials =
+                            [ { country = Just (Country.Code "invalid")
+                              , id = Material.Id "ei-coton"
+                              , share = Split.full
+                              , spinning = Nothing
+                              }
+                            ]
+                    }
+                )
+            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Code pays invalide: invalid.")))
+            |> asTest "should reject invalid materials country"
         ]
     , describe "materials param checks"
         [ let
@@ -394,7 +432,14 @@ testEndpoint dbs method body url =
         { method = method
         , url = url
         , body = body
-        , processes = { foodProcesses = Encode.list FoodProcess.encode dbs.food.processes |> Encode.encode 0, textileProcesses = Encode.list TextileProcess.encode dbs.textile.processes |> Encode.encode 0 }
+        , processes =
+            { foodProcesses =
+                Encode.list FoodProcess.encode dbs.food.processes
+                    |> Encode.encode 0
+            , textileProcesses =
+                Encode.list TextileProcess.encode dbs.textile.processes
+                    |> Encode.encode 0
+            }
         , jsResponseHandler = Encode.null
         }
 
@@ -427,3 +472,23 @@ extractTextileErrors route =
 
         _ ->
             Nothing
+
+
+expectFoodSingleErrorContains : String -> Maybe Route.Route -> Expect.Expectation
+expectFoodSingleErrorContains str route =
+    case route of
+        Just (Route.FoodPostRecipe (Err err)) ->
+            Expect.equal (String.contains str err) True
+
+        _ ->
+            Expect.fail "No matching error found"
+
+
+expectTextileSingleErrorContains : String -> Maybe Route.Route -> Expect.Expectation
+expectTextileSingleErrorContains str route =
+    case route of
+        Just (Route.TextilePostSimulator (Err err)) ->
+            Expect.equal (String.contains str err) True
+
+        _ ->
+            Expect.fail "No matching error found"

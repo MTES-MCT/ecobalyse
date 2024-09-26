@@ -3,13 +3,13 @@ module Server.Route exposing
     , endpoint
     )
 
-import Data.Country exposing (Country)
-import Data.Food.Db as Food
 import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Textile.Db as Textile
+import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
+import Json.Decode as Decode
+import Json.Encode as Encode
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Static.Db exposing (Db)
@@ -38,7 +38,7 @@ type Route
     | FoodGetTransformList
       --   POST
       --     Food recipe builder (POST, JSON body)
-    | FoodPostRecipe
+    | FoodPostRecipe (Result String BuilderQuery.Query)
       --
       -- Textile Routes
       --   GET
@@ -56,42 +56,73 @@ type Route
     | TextileGetSimulatorSingle Definition.Trigram (Result Query.Errors TextileQuery.Query)
       --   POST
       --     Textile Simple version of all impacts (POST, JSON body)
-    | TextilePostSimulator
+    | TextilePostSimulator (Result String TextileQuery.Query)
       --     Textile Detailed version for all impacts (POST, JSON body)
-    | TextilePostSimulatorDetailed
-      --     Textile Simple version for one specific impact (POST, JSON bosy)
-    | TextilePostSimulatorSingle Definition.Trigram
+    | TextilePostSimulatorDetailed (Result String TextileQuery.Query)
+      --     Textile Simple version for one specific impact (POST, JSON body)
+    | TextilePostSimulatorSingle (Result String TextileQuery.Query) Definition.Trigram
 
 
-parser : Food.Db -> Textile.Db -> List Country -> Parser (Route -> a) a
-parser foodDb textile countries =
+parser : Db -> Encode.Value -> Parser (Route -> a) a
+parser db body =
     Parser.oneOf
         [ -- Food
-          Parser.map FoodGetCountryList (s "GET" </> s "food" </> s "countries")
-        , Parser.map FoodGetIngredientList (s "GET" </> s "food" </> s "ingredients")
-        , Parser.map FoodGetTransformList (s "GET" </> s "food" </> s "transforms")
-        , Parser.map FoodGetPackagingList (s "GET" </> s "food" </> s "packagings")
-        , Parser.map FoodGetRecipe (s "GET" </> s "food" <?> Query.parseFoodQuery countries foodDb)
-        , Parser.map FoodPostRecipe (s "POST" </> s "food")
+          -- GET
+          (s "GET" </> s "food" </> s "countries")
+            |> Parser.map FoodGetCountryList
+        , (s "GET" </> s "food" </> s "ingredients")
+            |> Parser.map FoodGetIngredientList
+        , (s "GET" </> s "food" </> s "transforms")
+            |> Parser.map FoodGetTransformList
+        , (s "GET" </> s "food" </> s "packagings")
+            |> Parser.map FoodGetPackagingList
+        , (s "GET" </> s "food" <?> Query.parseFoodQuery db)
+            |> Parser.map FoodGetRecipe
+        , (s "POST" </> s "food")
+            |> Parser.map (FoodPostRecipe (decodeFoodQueryBody body))
 
         -- Textile
-        , Parser.map TextileGetCountryList (s "GET" </> s "textile" </> s "countries")
-        , Parser.map TextileGetMaterialList (s "GET" </> s "textile" </> s "materials")
-        , Parser.map TextileGetProductList (s "GET" </> s "textile" </> s "products")
-        , Parser.map TextileGetSimulator (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery countries textile)
-        , Parser.map TextileGetSimulatorDetailed (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery countries textile)
-        , Parser.map TextileGetSimulatorSingle (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery countries textile)
-        , Parser.map TextilePostSimulator (s "POST" </> s "textile" </> s "simulator")
-        , Parser.map TextilePostSimulatorDetailed (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
-        , Parser.map TextilePostSimulatorSingle (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
+        , (s "GET" </> s "textile" </> s "countries")
+            |> Parser.map TextileGetCountryList
+        , (s "GET" </> s "textile" </> s "materials")
+            |> Parser.map TextileGetMaterialList
+        , (s "GET" </> s "textile" </> s "products")
+            |> Parser.map TextileGetProductList
+        , (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery db)
+            |> Parser.map TextileGetSimulator
+        , (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery db)
+            |> Parser.map TextileGetSimulatorDetailed
+        , (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery db)
+            |> Parser.map TextileGetSimulatorSingle
+        , (s "POST" </> s "textile" </> s "simulator")
+            |> Parser.map (TextilePostSimulator (decodeTextileQueryBody db body))
+        , (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
+            |> Parser.map (TextilePostSimulatorDetailed (decodeTextileQueryBody db body))
+        , (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
+            |> Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody db body))
         ]
 
 
+decodeFoodQueryBody : Encode.Value -> Result String BuilderQuery.Query
+decodeFoodQueryBody =
+    Decode.decodeValue BuilderQuery.decode
+        >> Result.mapError Decode.errorToString
+
+
+decodeTextileQueryBody : Db -> Encode.Value -> Result String TextileQuery.Query
+decodeTextileQueryBody db =
+    Decode.decodeValue TextileQuery.decode
+        >> Result.mapError Decode.errorToString
+        -- Note: Using inputs mapping to act as query validation
+        >> Result.andThen (Inputs.fromQuery db)
+        >> Result.map Inputs.toQuery
+
+
 endpoint : Db -> Request -> Maybe Route
-endpoint { countries, food, textile } { method, url } =
+endpoint db { body, method, url } =
     -- Notes:
     -- - Url.fromString can't build a Url without a fully qualified URL, so as we only have the
     --   request path from Express, we build a fake URL with a fake protocol and hostname.
     -- - We update the path appending the HTTP method to it, for simpler, cheaper route parsing.
     Url.fromString ("http://x/" ++ method ++ url)
-        |> Maybe.andThen (Parser.parse (parser food textile countries))
+        |> Maybe.andThen (Parser.parse (parser db body))

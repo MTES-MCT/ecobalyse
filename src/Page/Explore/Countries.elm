@@ -69,18 +69,6 @@ table distances countries { detailed, scope } =
               else
                 Nothing
             , Just
-                { label = "Part du transport aérien"
-                , toValue = Table.FloatValue (.airTransportRatio >> Split.toPercent)
-                , toCell =
-                    \country ->
-                        div [ classList [ ( "text-end", not detailed ) ] ]
-                            [ Format.splitAsPercentage 0 country.airTransportRatio
-                            , Link.smallPillExternal
-                                [ href (Gitbook.publicUrlFromPath Gitbook.TextileAerialTransport) ]
-                                [ Icon.info ]
-                            ]
-                }
-            , Just
                 { label = "Domaines"
                 , toValue = Table.StringValue <| .scopes >> List.map Scope.toLabel >> String.join "/"
                 , toCell = Common.scopesView
