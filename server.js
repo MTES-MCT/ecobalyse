@@ -116,35 +116,55 @@ if (fs.existsSync(versionsDir)) {
   const dirs = fs.readdirSync(versionsDir);
   for (const dir of dirs) {
     const currentVersionDir = path.join(versionsDir, dir);
+
     const foodNoDetails = path.join(currentVersionDir, "data/food/processes.json");
+    const objectNoDetails = path.join(currentVersionDir, "data/object/processes.json");
     const textileNoDetails = path.join(currentVersionDir, "data/textile/processes.json");
 
     const foodDetailed = path.join(currentVersionDir, "data/food/processes_impacts.json");
+    const objectDetailed = path.join(currentVersionDir, "data/object/processes_impacts.json");
     const textileDetailed = path.join(currentVersionDir, "data/textile/processes_impacts.json");
 
     const foodDetailedEnc = path.join(currentVersionDir, "processes_impacts_food.json.enc");
+    const objectDetailedEnc = path.join(currentVersionDir, "processes_impacts_object.json.enc");
     const textileDetailedEnc = path.join(currentVersionDir, "processes_impacts_textile.json.enc");
 
-    if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
+    if (
+      !fs.existsSync(foodNoDetails) ||
+      !fs.existsSync(objectNoDetails) ||
+      !fs.existsSync(textileNoDetails)
+    ) {
       console.error(
         `🚨 ERROR: processes files without details missing for version ${dir}. Skipping version.`,
       );
     }
     let processesImpacts;
 
-    if (fs.existsSync(foodDetailedEnc) && fs.existsSync(textileDetailedEnc)) {
-      console.log(`Encrypted files found for ${dir}: ${foodDetailedEnc} && ${textileDetailedEnc}`);
+    if (
+      fs.existsSync(foodDetailedEnc) &&
+      fs.existsSync(objectDetailedEnc) &&
+      fs.existsSync(textileDetailedEnc)
+    ) {
+      console.log(
+        `Encrypted files found for ${dir}: ${foodDetailedEnc} && ${objectDetailedEnc} && ${textileDetailedEnc}`,
+      );
       // Encrypted files exist, use them
       processesImpacts = {
         foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
+        objectProcesses: decrypt(JSON.parse(fs.readFileSync(objectDetailedEnc).toString("utf-8"))),
         textileProcesses: decrypt(
           JSON.parse(fs.readFileSync(textileDetailedEnc).toString("utf-8")),
         ),
       };
-    } else if (fs.existsSync(foodDetailed) || fs.existsSync(textileDetailed)) {
+    } else if (
+      fs.existsSync(foodDetailed) ||
+      fs.existsSync(objectDetailed) ||
+      fs.existsSync(textileDetailed)
+    ) {
       // Or use old files
       processesImpacts = {
         foodProcesses: fs.readFileSync(foodDetailed, "utf8"),
+        objectProcesses: fs.readFileSync(objectDetailed, "utf8"),
         textileProcesses: fs.readFileSync(textileDetailed, "utf8"),
       };
     }
@@ -153,6 +173,7 @@ if (fs.existsSync(versionsDir)) {
       dir,
       processes: {
         foodProcesses: fs.readFileSync(foodNoDetails, "utf8"),
+        objectProcesses: fs.readFileSync(objectNoDetails, "utf8"),
         textileProcesses: fs.readFileSync(textileNoDetails, "utf8"),
       },
       processesImpacts,
@@ -172,11 +193,13 @@ const apiTracker = lib.setupTracker(openApiContents);
 
 const processesImpacts = {
   foodProcesses: fs.readFileSync(dataFiles.foodDetailed, "utf8"),
+  objectProcesses: fs.readFileSync(dataFiles.objectDetailed, "utf8"),
   textileProcesses: fs.readFileSync(dataFiles.textileDetailed, "utf8"),
 };
 
 const processes = {
   foodProcesses: fs.readFileSync(dataFiles.foodNoDetails, "utf8"),
+  objectProcesses: fs.readFileSync(dataFiles.objectNoDetails, "utf8"),
   textileProcesses: fs.readFileSync(dataFiles.textileNoDetails, "utf8"),
 };
 
@@ -275,14 +298,14 @@ version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), asy
   const foodProcesses = fs
     .readFileSync(path.join(req.staticDir, "data", "food", "processes_impacts.json"))
     .toString();
+  const objectProcesses = fs
+    .readFileSync(path.join(req.staticDir, "data", "object", "processes_impacts.json"))
+    .toString();
   const textileProcesses = fs
     .readFileSync(path.join(req.staticDir, "data", "textile", "processes_impacts.json"))
     .toString();
 
-  const processes = {
-    foodProcesses: foodProcesses,
-    textileProcesses: textileProcesses,
-  };
+  const processes = { foodProcesses, objectProcesses, textileProcesses };
 
   const { Elm } = require(path.join(req.staticDir, "server-app"));
 
@@ -298,7 +321,7 @@ version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), asy
     method: req.method,
     url: urlWithoutPrefix,
     body: req.body,
-    processes: processes,
+    processes,
     jsResponseHandler: ({ status, body }) => {
       res.status(status).send(body);
     },
