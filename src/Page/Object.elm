@@ -18,7 +18,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Db exposing (Db)
-import Data.Object.Process as Process
+import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
 import Data.Scope as Scope
@@ -303,103 +303,100 @@ simulatorView session model =
         ]
 
 
-itemListView : Db -> Definition -> Query -> List (Html Msg)
-itemListView db selectedImpact query =
+addItemButton : Db -> Query -> Html Msg
+addItemButton db query =
     let
         firstAvailableProcess =
             query
                 |> Simulator.availableProcesses db
                 |> List.head
     in
-    [ div
-        [ class "card-header d-flex align-items-center justify-content-between"
+    li [ class "list-group-item p-0" ]
+        [ button
+            [ class "btn btn-outline-primary"
+            , class "d-flex justify-content-center align-items-center"
+            , class " gap-1 w-100"
+            , id "add-new-element"
+            , disabled <| firstAvailableProcess == Nothing
+            , onClick <|
+                case firstAvailableProcess of
+                    Just process ->
+                        AddItem (Query.defaultItem process)
+
+                    Nothing ->
+                        NoOp
+            ]
+            [ i [ class "icon icon-plus" ] []
+            , text "Ajouter un élément"
+            ]
         ]
-        [ h2 [ class "h5 mb-0" ] [ text "Éléments" ]
-        ]
+
+
+itemListView : Db -> Definition -> Query -> List (Html Msg)
+itemListView db selectedImpact query =
+    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
     , ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty query.items then
             [ li [ class "list-group-item" ] [ text "Aucun éléments" ] ]
 
          else
-            let
-                results =
-                    query.items
-                        |> List.map
-                            ((\{ amount, processId } -> ( amount, processId ))
-                                >> RE.combineMapSecond (Process.findById db.processes)
-                            )
-                        |> RE.combine
-            in
-            case results of
+            case
+                query.items
+                    |> List.map (\{ amount, processId } -> ( amount, processId ))
+                    |> List.map (RE.combineMapSecond (Process.findById db.processes))
+                    |> RE.combine
+            of
                 Err error ->
                     [ text error ]
 
                 Ok items ->
-                    (items
-                        |> List.map
-                            (\( amount, process ) ->
-                                li [ class "list-group-item d-flex align-items-center gap-2" ]
-                                    [ div [ class "input-group w-33" ]
-                                        [ input
-                                            [ type_ "number"
-                                            , class "form-control"
-                                            , amount |> Query.amountToFloat |> String.fromFloat |> value
-                                            , step <|
-                                                case process.unit of
-                                                    "kg" ->
-                                                        "0.01"
-
-                                                    "m3" ->
-                                                        "0.00001"
-
-                                                    _ ->
-                                                        "1"
-                                            , onInput <|
-                                                \str ->
-                                                    case String.toFloat str of
-                                                        Just float ->
-                                                            UpdateItem { amount = Query.amount float, processId = process.id }
-
-                                                        Nothing ->
-                                                            NoOp
-                                            ]
-                                            []
-                                        , span [ class "input-group-text" ] [ text process.unit ]
-                                        ]
-                                    , span [ class "flex-fill text-nowrap" ] [ text process.displayName ]
-                                    , span []
-                                        [ itemImpactView db selectedImpact { amount = amount, processId = process.id }
-                                        ]
-                                    , button
-                                        [ class "btn btn-outline-secondary"
-                                        , onClick (RemoveItem process.id)
-                                        ]
-                                        [ Icon.trash ]
-                                    ]
-                            )
-                    )
-                        ++ [ li [ class "list-group-item p-0" ]
-                                [ button
-                                    [ class "btn btn-outline-primary"
-                                    , class "d-flex justify-content-center align-items-center"
-                                    , class " gap-1 w-100"
-                                    , id "add-new-element"
-                                    , disabled <| firstAvailableProcess == Nothing
-                                    , onClick <|
-                                        case firstAvailableProcess of
-                                            Just process ->
-                                                AddItem (Query.defaultItem process)
-
-                                            Nothing ->
-                                                NoOp
-                                    ]
-                                    [ i [ class "icon icon-plus" ] []
-                                    , text "Ajouter un élément"
-                                    ]
-                                ]
-                           ]
+                    List.map (itemView db selectedImpact) items ++ [ addItemButton db query ]
         )
     ]
+
+
+itemView : Db -> Definition -> ( Query.Amount, Process ) -> Html Msg
+itemView db selectedImpact ( amount, process ) =
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
+        [ div [ class "input-group w-33" ]
+            [ input
+                [ type_ "number"
+                , class "form-control"
+                , amount |> Query.amountToFloat |> String.fromFloat |> value
+                , step <|
+                    case process.unit of
+                        "kg" ->
+                            "0.01"
+
+                        "m3" ->
+                            "0.00001"
+
+                        _ ->
+                            "1"
+                , onInput <|
+                    \str ->
+                        case String.toFloat str of
+                            Just float ->
+                                UpdateItem { amount = Query.amount float, processId = process.id }
+
+                            Nothing ->
+                                NoOp
+                ]
+                []
+            , span [ class "input-group-text" ] [ text process.unit ]
+            ]
+        , span [ class "flex-fill text-nowrap" ] [ text process.displayName ]
+        , span []
+            [ { amount = amount, processId = process.id }
+                |> itemImpactView db selectedImpact
+            ]
+        , button
+            [ class "btn btn-outline-secondary"
+            , onClick (RemoveItem process.id)
+            ]
+            [ Icon.trash ]
+        ]
 
 
 itemImpactView : Db -> Definition -> Query.Item -> Html Msg
