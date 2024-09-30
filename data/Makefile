@@ -47,7 +47,7 @@ compare_food:
 	@$(call DOCKER,python3 export.py compare)
 
 format:
-	npm run format:json
+	npm run fix:all
 
 python:
 	echo Running Python inside the container...
@@ -94,4 +94,3 @@ clean_image:
 	docker image rm $(NAME)
 
 clean: clean_data clean_image
-

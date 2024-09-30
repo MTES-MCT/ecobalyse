@@ -16,7 +16,6 @@ module Views.Format exposing
     , percent
     , picking
     , priceInEUR
-    , ratio
     , splitAsFloat
     , splitAsPercentage
     , squareMeters
@@ -211,17 +210,6 @@ picking =
 yarnSize : Unit.YarnSize -> Html msg
 yarnSize =
     Unit.yarnSizeInKilometers >> formatRichFloat 0 "Nm"
-
-
-ratio : Unit.Ratio -> Html msg
-ratio =
-    ratioToDecimals 2
-
-
-ratioToDecimals : Int -> Unit.Ratio -> Html msg
-ratioToDecimals decimals (Unit.Ratio float) =
-    (float * 100)
-        |> formatRichFloat decimals "%"
 
 
 splitAsFloat : Int -> Split -> Html msg

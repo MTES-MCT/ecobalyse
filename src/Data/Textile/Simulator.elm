@@ -8,6 +8,7 @@ module Data.Textile.Simulator exposing
     )
 
 import Array
+import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -133,6 +134,8 @@ compute db query =
         -- DURABILITY
         --
         |> next computeDurability
+        -- Compute Making air transport ratio (depends on durability) - Confection
+        |> nextIf Label.Making computeMakingAirTransportRatio
         --
         -- LIFECYCLE STEP IMPACTS
         --
@@ -208,6 +211,35 @@ computeDurability ({ inputs } as simulator) =
         , useNbCycles =
             round (toFloat simulator.useNbCycles * Unit.floatDurabilityFromHolistic newDurability)
     }
+
+
+computeMakingAirTransportRatio : Simulator -> Simulator
+computeMakingAirTransportRatio ({ durability, inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Making
+            (\({ country } as step) ->
+                { step
+                    | airTransportRatio =
+                        case inputs.airTransportRatio of
+                            Just airTransportRatio ->
+                                -- User-provided value always takes precedence
+                                airTransportRatio
+
+                            Nothing ->
+                                if Country.isEuropeOrTurkey country then
+                                    -- If Making country is Europe or Turkey, airTransportRatio is always 0
+                                    Split.zero
+
+                                else if Unit.floatDurabilityFromHolistic durability >= 1 then
+                                    -- Durable garments outside of Europe and Turkey
+                                    Split.third
+
+                                else
+                                    -- FIXME: how about falling back to country default?
+                                    -- country.airTransportRatio
+                                    Split.full
+                }
+            )
 
 
 computeEndOfLifeImpacts : Db -> Simulator -> Simulator
@@ -560,7 +592,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
 
         { mass, waste } =
             inputs.mass
-                |> Formula.makingWaste
+                |> Formula.genericWaste
                     (fabricProcess
                         |> Fabric.getMakingWaste product.making.pcrWaste makingWaste
                     )

@@ -17,6 +17,7 @@ module Data.Food.Process exposing
     , nameToString
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -184,8 +185,8 @@ decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "category" decodeCategory
-        |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
-        |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
+        |> DU.strictOptional "comment" Decode.string
+        |> DU.strictOptional "displayName" Decode.string
         |> Pipe.required "id" Decode.string
         |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "impacts" impactsDecoder
