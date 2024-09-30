@@ -8,7 +8,7 @@ Les composants en bois proposées dans Ecobalyse sont issues de bois d'oeuvre ay
 2. Première transformation : consiste à exploiter le bois en forêt et à le débiter en scierie de telle sorte qu'il soit ensuite transformés selon les débouchés (ameublement, bâtiment, etc.),&#x20;
 3. Deuxième transformation : consiste à conférer de la valeur ajoutée aux bois et à le rendre exploitable pour le consommateur final.&#x20;
 
-<figure><img src="../../../.gitbook/assets/schema-filiere-bois.jpg" alt=""><figcaption><p>Schéma simplifié du cycle de vie du bois d'oeuvre </p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/schema-filiere-bois.jpg" alt=""><figcaption><p>Schéma simplifié du cycle de vie du bois d'oeuvre </p></figcaption></figure>
 
 ## Modélisation Ecobalyse
 
@@ -38,4 +38,18 @@ Production 1kg de planche de feuillus : &#x20;
 
 cf. l'Explorateur pour accéder à la liste des composant en bois disponibles dans Ecobalyse.&#x20;
 
-<figure><img src="../../../.gitbook/assets/Coût environnemental de composants en bois (uPts _ m3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/Coût environnemental de composants en bois (uPts _ m3) (1).png" alt=""><figcaption></figcaption></figure>
+
+<details>
+
+<summary>Focus sur les résines et colles utilisées dans les panneaux (aggloméré, MDF, etc.)</summary>
+
+Les principales résines synthétiques utilisées dans les panneaux pour maintenir les fibres/particules de bois ensemble et permettre au panneau d'acquérir les propriétés souhaitées sont :&#x20;
+
+* l'urée formaldéhyde (UF),
+* l'urée-formaldéhyde mélaminique (MUF),&#x20;
+* le phénol-formaldéhyde (PF),
+* l'urée-mélamine-phénol-formaldéhyde (UMPF),
+* les composés isocyanate et isocyanates
+
+</details>

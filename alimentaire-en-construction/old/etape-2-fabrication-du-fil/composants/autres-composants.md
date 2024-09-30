@@ -293,7 +293,7 @@ cf. l'Explorateur pour accéder à la liste des composant en bois disponibles da
 
 
 
-<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts _ kg) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/Coût environnemental (uPts _ kg) (1).png" alt=""><figcaption></figcaption></figure>
 
 <mark style="color:red;">**A actualiser**</mark>
 

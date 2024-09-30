@@ -36,6 +36,32 @@ Les trois principales familles de transformation de matières en composants sont
 
 </details>
 
+### Pièces en bois
+
+#### Procédés de finition
+
+<details>
+
+<summary>Mélaminé</summary>
+
+Procédé Ecoinvent : non applicable
+
+Procédé créé par Ecobalyse : Wood panel lamination, RER&#x20;
+
+La modélisation de ce procédé repose sur une étude réalisée sur une usine turque de fabrication de panneaux MDF en 2003 (Source : [Study _\_Turkey \__ 2023](#user-content-fn-1)[^1]).&#x20;
+
+Les paramètres clés retenus pour laminer 1m3 de panneau sont les suivants :&#x20;
+
+* 43 kWh d'électricité,
+* 5,6kg de résine Melamine-Urea-Formaldehyde (MUF),
+* 6,7kg de résine Melamine Formaldehyde (MF).
+
+Procédé détaillé de stratification d'un aggloméré/MDF :&#x20;
+
+![](<../../../../.gitbook/assets/image (125).png>)
+
+</details>
+
 ### Pièces métalliques
 
 #### Procédés de transformation&#x20;
@@ -50,7 +76,7 @@ _Pertes :  <mark style="color:orange;">A définir</mark>_
 
 Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
 
-![](<../../../.gitbook/assets/image (121).png>)
+![](<../../../../.gitbook/assets/image (121).png>)
 
 </details>
 
@@ -64,7 +90,7 @@ _Pertes : <mark style="color:orange;">A définir</mark>_
 
 Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
 
-![](<../../../.gitbook/assets/image (121).png>)
+![](<../../../../.gitbook/assets/image (121).png>)
 
 </details>
 
@@ -78,7 +104,7 @@ _Pertes : <mark style="color:orange;">A définir</mark>_
 
 Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
 
-![](<../../../.gitbook/assets/image (121).png>)
+![](<../../../../.gitbook/assets/image (121).png>)
 
 </details>
 
@@ -92,7 +118,7 @@ _Pertes : <mark style="color:orange;">A définir</mark>_
 
 Consiste à pousser la matière grâce à un piston à travers une filière pour lui donner la forme souhaitée. Pour les pièces métalliques, l'extrusion peut être faite à chaud ou à froid et permet d'obtenir des profilés, des barres, des tubes, etc.&#x20;
 
-![](<../../../.gitbook/assets/image (120).png>)
+![](<../../../../.gitbook/assets/image (120).png>)
 
 </details>
 
@@ -106,7 +132,7 @@ _Pertes : <mark style="color:orange;">A définir</mark>_
 
 Consiste à pousser la matière grâce à un piston à travers une filière pour lui donner la forme souhaitée. Pour les pièces métalliques, l'extrusion peut être faite à chaud ou à froid et permet d'obtenir des profilés, des barres, des tubes, etc.&#x20;
 
-![](<../../../.gitbook/assets/image (120).png>)
+![](<../../../../.gitbook/assets/image (120).png>)
 
 </details>
 
@@ -150,31 +176,6 @@ Ce revêtement est très résistant et souvent utilisé par l'industrie.
 
 </details>
 
-<details>
-
-<summary>Traitement anti-corrosion <mark style="color:orange;">A préciser</mark> </summary>
-
-Procédé Ecoinvent : _<mark style="color:orange;">A compléter</mark>_\
-_Unité : <mark style="color:orange;">A compléter</mark>_\
-_Pertes : <mark style="color:orange;">A compléter</mark>_&#x20;
-
-Consiste à protéger les surfaces de l'oxydation, la corrosition, l'abrasion, etc.\
-Cette technique nécessite le traitement préalable des pièces métalliques par sablage ou grenaillage.
-
-</details>
-
-<details>
-
-<summary>Patine <mark style="color:orange;">A préciser</mark> </summary>
-
-
-
-Revêtement consistant à appliquer un produit oxydant sur la pièce métallique puis à la recouvrir de couches successives de vernis. La patine est réservée à un usage intérieur et est moins résistante que le thermolaquage.
-
-</details>
-
-
-
 ### Pièces plastiques
 
 #### Procédés de transformation
@@ -189,7 +190,7 @@ _Pertes : 2%_
 
 Consiste à faire fondre les granulés de plastique et à les compresser à travers une filière pour créer la forme souhaitée. Pour les pièces plastiques, l'extrusion permet d'obtenir une grande variété de produits tels que des tubesn feuilles, films, etc.
 
-![](<../../../.gitbook/assets/image (123).png>)
+![](<../../../../.gitbook/assets/image (123).png>)
 
 </details>
 
@@ -203,7 +204,7 @@ _Pertes : 1%_
 
 Aussi appelé moulage par injection, l'injection plastique consiste à chauffer et fondre des granulés plastique puis à les injecter dans un moule afin d'obtenir la forme souhaitée lorsque la matière refroidit et durcit.
 
-![](<../../../.gitbook/assets/image (116).png>)
+![](<../../../../.gitbook/assets/image (116).png>)
 
 </details>
 
@@ -217,7 +218,7 @@ _Pertes : 0%_
 
 Consiste à chauffer une feuille plastique et à lui donner la forme souhaitée à l'aide d'un moule dès que la matière a refroidi.&#x20;
 
-![](<../../../.gitbook/assets/image (124).png>)
+![](<../../../../.gitbook/assets/image (124).png>)
 
 </details>
 
@@ -227,3 +228,6 @@ Consiste à chauffer une feuille plastique et à lui donner la forme souhaitée 
 
 ### Autres procédés
 
+
+
+[^1]: Environmental impact assessment of melamine coated medium density fiberboard (MDF-LAM) production and cumulative energy demand: A case study in Türkiye.
