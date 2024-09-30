@@ -24,4 +24,4 @@ Ce programme inclut notamment un groupe de travail sur l'impact environnemental,
 
 Une description des types de véhicules concernés est disponible ici : [https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L](https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L)
 
-Les catégories utilisées pour Ecobalyses sont listées dans la page Caractérisation du véhicule.
+Les catégories utilisées pour Ecobalyse sont listées dans la page [Caractérisation du véhicule](../old/etape-2-fabrication-du-fil-1/caracteristiques-du-vehicule.md).

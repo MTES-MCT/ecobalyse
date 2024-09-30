@@ -2,7 +2,18 @@
 description: Cette page décrit les méthodes relatives à la consommation des véhicules
 ---
 
-# ⚡ Consommation des véhicules
+# ⚡ Utilisation du véhicule
+
+## Modélisation Ecobalyse
+
+### Données renseignées par l'utilisateurs
+
+L'utilisateur renseigne les informations suivantes :
+
+* Consommation du véhicule selon le cycle WMTP (kWh/km)
+* Apport d'énergie par pédalage (Oui/Non)
+* Durée de vie du véhicule (en années)
+* Kilométrage annuel (en km/an)
 
 ## Calcul de l'impact de la consommation électrique
 
@@ -15,7 +26,7 @@ $$
 Avec&#x20;
 
 * C\_r : la consommation l'électricité par recharge sur le réseau électrique, en kWh/km.
-* Tkm : la durée de vie du véhicule en km
+* Tkm : la durée de vie du véhicule, en km. Le calcul de la durée de vie du véhicule est détaillée dans la [page dédiée](duree-de-vie-des-vehicules.md).
 * PélecFRcch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
 
 ## Calcul de la consommation électrique
@@ -33,7 +44,7 @@ Avec :&#x20;
 * C\_r : la consommation l'électricité par recharge sur le réseau électrique
 * Cwmtc : La consommation du véhicule selon le cycle WMTC, retenu comme référence pour la consommation des VeLI. Cela signifie que les constructeurs indiquent la consommation de leurs véhicules lorsque celui-ci suit ce cycle, selon la classe du cycle qui correspond au véhicule.
 * Ep : l'énergie apportée par pédalage, pour les véhicules à pédale, établie par la classe WMTC. Les données par catégorie de véhicules sont fournies dans le tableau ci-dessous
-* Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, selon le calcul détaillé dans la section dédiée
+* Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
 
 ### Données clés par catégorie de véhicule
 

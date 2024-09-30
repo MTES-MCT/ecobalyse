@@ -2,7 +2,7 @@
 
 ## Méthodologie de référence
 
-
+Ecobalyse a construit sa méthode sur la base de la méthode détaillée dans le document suivant :
 
 [https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX:32016D1926\&qid=1694748250886](https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX:32016D1926\&qid=1694748250886)
 

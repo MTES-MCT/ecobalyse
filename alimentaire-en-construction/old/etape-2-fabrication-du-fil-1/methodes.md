@@ -22,6 +22,9 @@ Les étapes et analyses suivantes ne sont à ce stade pas prise en compte :
 * Le remplacement d'autres composants que les pneumatiques
 * La fin de vie des véhicules
 * La durabilité des véhicules
+* Le processus d'assemblage
+
+Seuls les véhicules électriques peuvent être évalués.
 
 ## Unité de calcul du coût environnemental
 
