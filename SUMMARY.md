@@ -125,6 +125,7 @@
   * [🚚 Transport](alimentaire-en-construction/etape-2-fabrication-du-fil/transport.md)
   * [🔨 Assemblage](alimentaire-en-construction/etape-2-fabrication-du-fil/assemblage.md)
 * [🛺 VeLI / Véhicules](alimentaire-en-construction/etape-2-fabrication-du-fil-1/README.md)
+  * [📐 Méthodes](alimentaire-en-construction/etape-2-fabrication-du-fil-1/methodes.md)
   * [🔧 Fabrication des composants](alimentaire-en-construction/etape-2-fabrication-du-fil-1/fabrication-des-composants/README.md)
     * [🚙 Châssis-Carrosserie](alimentaire-en-construction/etape-2-fabrication-du-fil-1/composants-specifiques-vehicules.md)
       * [🔩 Acier et Aluminium - Méthodes détaillées](alimentaire-en-construction/etape-2-fabrication-du-fil-1/acier-et-aluminium-methodes-detaillees.md)
