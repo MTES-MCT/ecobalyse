@@ -9,12 +9,13 @@ description: Cette page décrit les méthodes relatives à la consommation des v
 Le coût environnemental de la consommation électrique se calcule comme suit (exemple pour l'impact sur le changement climatique) :
 
 $$
-ImpactElec = C_r*PelecFRcch
+ImpactElec = C_r*Tkm*PelecFRcch
 $$
 
 Avec&#x20;
 
-* C\_r la consommation l'électricité par recharge sur le réseau électrique
+* C\_r : la consommation l'électricité par recharge sur le réseau électrique, en kWh/km.
+* Tkm : la durée de vie du véhicule en km
 * PélecFRcch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
 
 ## Calcul de la consommation électrique

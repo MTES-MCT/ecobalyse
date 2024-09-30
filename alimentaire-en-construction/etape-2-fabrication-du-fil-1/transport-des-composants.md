@@ -96,5 +96,3 @@ $$
 La masse transportée s'exprime en **tonnes**. Une conversion est donc à prendre en compte par rapport à la masse, considérée en kg dans les autres parties des calculs.
 {% endhint %}
 
-### &#x20;<a href="#distribution" id="distribution"></a>
-
