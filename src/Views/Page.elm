@@ -91,12 +91,14 @@ frame ({ activePage } as config) ( title, content ) =
     }
 
 
+isStaging : Session -> Bool
+isStaging session =
+    String.contains "ecobalyse-pr" session.clientUrl || String.contains "staging-ecobalyse" session.clientUrl
+
+
 stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
-    if
-        String.contains "ecobalyse-pr" session.clientUrl
-            || String.contains "staging-ecobalyse" session.clientUrl
-    then
+    if isStaging session then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
             , button
@@ -203,7 +205,16 @@ pageFooter session =
                     a [ class "text-decoration-none", href <| "mailto:" ++ email ]
                         [ text label ]
     in
-    footer [ class "Footer" ]
+    footer
+        (class "Footer"
+            :: -- Add bottom padding to avoid StagingAlert to hide the version details
+               (if isStaging session then
+                    [ class "pb-5" ]
+
+                else
+                    []
+               )
+        )
         [ div [ class "FooterNavigation" ]
             [ Container.centered []
                 [ div [ class "row" ]
