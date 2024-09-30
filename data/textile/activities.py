@@ -7,7 +7,7 @@ from bw2data.project import projects
 
 projects.create_project("textile", activate=True, exist_ok=True)
 
-with open("../../public/data/textile/processes_impacts.json") as f:
+with open("../../../ecobalyse-private/data/textile/processes_impacts.json") as f:
     processes = json.loads(f.read())
 with open("../../public/data/textile/materials.json") as f:
     materials = {m["name"]: m for m in json.loads(f.read())}
@@ -16,8 +16,8 @@ with open("codes.json") as f:
 
 
 # check no missing process
-for material in materials.keys():
-    if material not in [p["name"] for p in processes]:
+for material in materials.values():
+    if material["materialProcessUuid"] not in [p["uuid"] for p in processes]:
         print(f"missing process: {material}")
 
 for process in processes:
