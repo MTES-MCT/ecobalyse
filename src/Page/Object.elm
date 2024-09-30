@@ -338,7 +338,7 @@ itemListView db selectedImpact query =
         [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
     , ul [ class "CardList list-group list-group-flush" ]
         (if List.isEmpty query.items then
-            [ li [ class "list-group-item" ] [ text "Aucun éléments" ] ]
+            [ li [ class "list-group-item" ] [ text "Aucun élément" ] ]
 
          else
             case
