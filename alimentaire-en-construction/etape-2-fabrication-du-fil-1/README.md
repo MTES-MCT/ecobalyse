@@ -22,7 +22,6 @@ Ce programme inclut notamment un groupe de travail sur l'impact environnemental,
 
 ## Types de véhicules concernés
 
-<table><thead><tr><th width="318">Catégories</th><th>Nom</th></tr></thead><tbody><tr><td>VAE</td><td>Cycles à assistance électrique</td></tr><tr><td>L1e</td><td>Deux-roues motorisé léger</td></tr><tr><td>L1e-A</td><td>Vélo à moteur</td></tr><tr><td>L1e-B</td><td>Cyclomoteur à deux roues</td></tr><tr><td>L2e</td><td>Cyclomoteur à trois roues</td></tr><tr><td>L3e</td><td>Motocycle à deux roues</td></tr><tr><td>L4e</td><td>Motocycles à deux roues avec side-car</td></tr><tr><td>L5e</td><td>Tricycle motorisé</td></tr><tr><td>L6e</td><td>Quadricycle léger</td></tr><tr><td>L7e</td><td>Quadricycle lourd</td></tr></tbody></table>
+Une description des types de véhicules concernés est disponible ici : [https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L](https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L)
 
-Une description plus détaillée est disponible ici : [https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L](https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L)
-
+Les catégories utilisées pour Ecobalyses sont listées dans la page Caractérisation du véhicule.
