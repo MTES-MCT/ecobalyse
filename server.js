@@ -121,59 +121,39 @@ if (fs.existsSync(versionsDir)) {
     const objectNoDetails = path.join(currentVersionDir, "data/object/processes.json");
     const textileNoDetails = path.join(currentVersionDir, "data/textile/processes.json");
 
-    const foodDetailed = path.join(currentVersionDir, "data/food/processes_impacts.json");
-    const objectDetailed = path.join(currentVersionDir, "data/object/processes_impacts.json");
-    const textileDetailed = path.join(currentVersionDir, "data/textile/processes_impacts.json");
-
     const foodDetailedEnc = path.join(currentVersionDir, "processes_impacts_food.json.enc");
     const objectDetailedEnc = path.join(currentVersionDir, "processes_impacts_object.json.enc");
     const textileDetailedEnc = path.join(currentVersionDir, "processes_impacts_textile.json.enc");
 
-    if (
-      !fs.existsSync(foodNoDetails) ||
-      !fs.existsSync(objectNoDetails) ||
-      !fs.existsSync(textileNoDetails)
-    ) {
+    // We should not check for the existence of objectNoDetails because old versions don't have it
+    // and it's expected
+    if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
       console.error(
         `🚨 ERROR: processes files without details missing for version ${dir}. Skipping version.`,
       );
+      continue;
     }
     let processesImpacts;
 
-    if (
-      fs.existsSync(foodDetailedEnc) &&
-      fs.existsSync(objectDetailedEnc) &&
-      fs.existsSync(textileDetailedEnc)
-    ) {
-      console.log(
-        `Encrypted files found for ${dir}: ${foodDetailedEnc} && ${objectDetailedEnc} && ${textileDetailedEnc}`,
-      );
-      // Encrypted files exist, use them
-      processesImpacts = {
-        foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
-        objectProcesses: decrypt(JSON.parse(fs.readFileSync(objectDetailedEnc).toString("utf-8"))),
-        textileProcesses: decrypt(
-          JSON.parse(fs.readFileSync(textileDetailedEnc).toString("utf-8")),
-        ),
-      };
-    } else if (
-      fs.existsSync(foodDetailed) ||
-      fs.existsSync(objectDetailed) ||
-      fs.existsSync(textileDetailed)
-    ) {
-      // Or use old files
-      processesImpacts = {
-        foodProcesses: fs.readFileSync(foodDetailed, "utf8"),
-        objectProcesses: fs.readFileSync(objectDetailed, "utf8"),
-        textileProcesses: fs.readFileSync(textileDetailed, "utf8"),
-      };
-    }
+    // Encrypted files exist, use them
+    processesImpacts = {
+      foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
+      // Old versions don't have the object files
+      objectProcesses: fs.existsSync(objectDetailedEnc)
+        ? decrypt(JSON.parse(fs.readFileSync(objectDetailedEnc).toString("utf-8")))
+        : null,
+      textileProcesses: decrypt(JSON.parse(fs.readFileSync(textileDetailedEnc).toString("utf-8"))),
+    };
 
     availableVersions.push({
       dir,
       processes: {
         foodProcesses: fs.readFileSync(foodNoDetails, "utf8"),
-        objectProcesses: fs.readFileSync(objectNoDetails, "utf8"),
+        // Old versions don't have the object files
+        objectProcesses: fs.existsSync(objectNoDetails)
+          ? fs.readFileSync(objectNoDetails, "utf8")
+          : null,
+
         textileProcesses: fs.readFileSync(textileNoDetails, "utf8"),
       },
       processesImpacts,
