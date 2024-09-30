@@ -1,6 +1,6 @@
 # 🚚 Transport des véhicules
 
-Cette page porte sur le transport du véhicule (produit fini) depuis le site d'assemblage vers le lieu d'utilisation.
+Cette page porte sur le transport du véhicule (produit fini) depuis le site d'assemblage vers le site de distribution en France (le cas échéant, puis vers le consommateur final.
 
 ## Généralités
 
@@ -10,17 +10,19 @@ Les véhicules les plus grands, à l'instar des voitures, sont transporté dans 
 
 Le transport des composants vers le site d'assemblage est traité dans la [page précédente](transport-des-composants.md).
 
-### Eléments sur l'impact environnemental du transport de véhicules
+### Éléments sur l'impact environnemental du transport de véhicules
 
+#### Transport maritime de voitures
 
+Le transport de voitures s'effectue dans des navires dédiés, dont la capacité est de 10 000 à 20 000 tonnes. Par comparaison, la capacité des portes-conteneur est de 7 000 à 300 000 t, avec une capacité moyenne de 64 000 tonnes (4600 EVP).
 
-#### Transport maritine
+Comme tous les navires opérant en Europe, ces navires sont tenus de déclarer leur consommation de carburant, les émissions de gaz à effet de serre associées, ainsi que le tonnage moyen annuel.
 
-Le transport de voitures s'effectue dans des navires dédiés.&#x20;
+Il en ressort des émissions essentiellement situées entre 20gCO2/tkm et 50gCO2e/tkm en 2022. Par comparaison, les émissions du transport de marchandise par conteneurs maritime sont de l'ordre de 10g/m3.
 
-Comme tous les navires opérant en Europe, ces navire sont tenus de déclarer leur consommation de carburant, les émissions de gaz à effet de serre associées, ainsi que le tonnage moyen annuel.
+#### Transport de vélos assemblés à 80%
 
-Il en ressort des émissions essentiellement situées entre 20gCO2/tkm et 50gCO2e/tkm en 2022.
+Sur de grandes distances, les vélos sont transportés partiellement assemblés, dans des cartons. Par exemple, un vélo de 20kg sera emballé dans un carton de 0.25m3, soit 80kg/m3. Par comparaison, un conteneur est chargé en moyenne à hauteur de 200kg/m3.
 
 ## Modélisation Ecobalyse
 

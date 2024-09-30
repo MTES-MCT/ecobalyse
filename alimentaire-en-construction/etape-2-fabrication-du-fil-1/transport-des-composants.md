@@ -96,9 +96,5 @@ $$
 La masse transportée s'exprime en **tonnes**. Une conversion est donc à prendre en compte par rapport à la masse, considérée en kg dans les autres parties des calculs.
 {% endhint %}
 
-### Etape Distribution <a href="#distribution" id="distribution"></a>
-
-Pour la distribution, il est considéré une distance par défaut de 500 km, effectuée en camion entre un entrepôt situé quelque part en France et un magasin ou point de retrait plus proche du consommateur.
-
-Cette hypothèse est conforme à la méthodologie ADEME (cf. méthodologie d'évaluation des impacts environnementaux des articles d'habillement - section A.2.b.2 p30).
+### &#x20;<a href="#distribution" id="distribution"></a>
 

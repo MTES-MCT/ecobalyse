@@ -45,7 +45,7 @@ Le cout environnemental des cellules photovoltaïques peut s'exprimer :
 * en fonction de la puissance installée, exprimée en watt-crete (Wc ou kWc), selon la norme IEC 61836. Il s'agit de l'unité la plus commune pour les professionnels de l'énergie. Compte-tenu des progrès techniques sur la filière, le coût environnemental par kWc baisse rapidement (-80% à -90% en 20 ans), notamment en raison de l'augmentation de la puissance par unité de surface.
 * en fonction de la surface de cellules photovoltaïques, en m². Il s'agit de l'unité la plus utilisée dans l'analyse environnementale des procédés industriels de la filière. Elle est utilisée par ecoinvent notamment. Le coût environnemental par m² baisse, à un rythme lent (baisse de l'ordre de -50% en 20ans).
 
-La puissance des cellules photovoltaïques est une donnée nécessaire au calcul de la [consommation d'électricité du véhicule](../../consommation-des-vehicules/energie-apportee-par-des-panneaux-solaires-photovoltaique.md).&#x20;
+La puissance des cellules photovoltaïques est une donnée nécessaire au calcul de la [consommation d'électricité du véhicule](consommation-des-vehicules/energie-apportee-par-des-panneaux-solaires-photovoltaique.md).&#x20;
 
 A des fins de simplification pour l'utilisateur, seule la puissance doit être renseignée dans Ecobalyse.
 
