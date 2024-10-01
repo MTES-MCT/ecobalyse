@@ -12,12 +12,12 @@ import Autocomplete exposing (Autocomplete)
 import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
 import Data.Example as Example
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Db exposing (Db)
 import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
@@ -31,37 +31,55 @@ import Ports
 import Quantity
 import Result.Extra as RE
 import Route
+import Static.Db exposing (Db)
 import Task
+import Time exposing (Posix)
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Bookmark as BookmarkView
+import Views.Comparator as ComparatorView
 import Views.Container as Container
 import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
 
 
 type alias Model =
-    { initialQuery : Query
+    { bookmarkName : String
+    , bookmarkTab : BookmarkView.ActiveTab
+    , comparisonType : ComparatorView.ComparisonType
     , impact : Definition
+    , initialQuery : Query
     , modal : Modal
     }
 
 
 type Modal
-    = NoModal
+    = ComparatorModal
+    | NoModal
     | SelectExampleModal (Autocomplete Query)
 
 
 type Msg
     = AddItem Query.Item
     | CopyToClipBoard String
+    | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
+    | OpenComparator
     | RemoveItem Process.Id
+    | SaveBookmark
+    | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SelectAllBookmarks
+    | SelectNoBookmarks
     | SetModal Modal
+    | SwitchBookmarksTab BookmarkView.ActiveTab
+    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
+    | ToggleComparedSimulation Bookmark Bool
+    | UpdateBookmarkName String
     | UpdateItem Query.Item
 
 
@@ -74,8 +92,16 @@ init trigram maybeUrlQuery session =
             maybeUrlQuery
                 |> Maybe.withDefault session.queries.object
     in
-    ( { initialQuery = initialQuery
+    ( { bookmarkName = initialQuery |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType =
+            if Session.isAuthenticated session then
+                ComparatorView.Subscores
+
+            else
+                ComparatorView.Steps
       , impact = Definition.get trigram session.db.definitions
+      , initialQuery = initialQuery
       , modal = NoModal
       }
     , session
@@ -105,14 +131,25 @@ initFromExample session uuid =
                 |> Result.map .query
                 |> Result.withDefault session.queries.object
     in
-    ( { initialQuery = exampleQuery
+    ( { bookmarkName = exampleQuery |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
       , impact = Definition.get Definition.Ecs session.db.definitions
+      , initialQuery = exampleQuery
       , modal = NoModal
       }
     , session
         |> Session.updateObjectQuery exampleQuery
     , Ports.scrollTo { x = 0, y = 0 }
     )
+
+
+findExistingBookmarkName : Session -> Query -> String
+findExistingBookmarkName { store } query =
+    store.bookmarks
+        |> Bookmark.findByObjectQuery query
+        |> Maybe.map .name
+        |> Maybe.withDefault (query |> Query.toString)
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -136,6 +173,12 @@ update ({ queries, navKey } as session) msg model =
 
         ( CopyToClipBoard shareableLink, _ ) ->
             ( model, session, Ports.copyToClipboard shareableLink )
+
+        ( DeleteBookmark bookmark, _ ) ->
+            ( model
+            , session |> Session.deleteBookmark bookmark
+            , Cmd.none
+            )
 
         ( NoOp, _ ) ->
             ( model, session, Cmd.none )
@@ -162,9 +205,48 @@ update ({ queries, navKey } as session) msg model =
         ( OnAutocompleteSelect, _ ) ->
             ( model, session, Cmd.none )
 
+        ( OpenComparator, _ ) ->
+            ( { model | modal = ComparatorModal }
+            , session |> Session.checkComparedSimulations
+            , Cmd.none
+            )
+
         ( RemoveItem processId, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeItem processId query)
+
+        ( SaveBookmark, _ ) ->
+            ( model
+            , session
+            , Time.now
+                |> Task.perform
+                    (SaveBookmarkWithTime model.bookmarkName
+                        (Bookmark.Object query)
+                    )
+            )
+
+        ( SaveBookmarkWithTime name objectQuery now, _ ) ->
+            ( model
+            , session
+                |> Session.saveBookmark
+                    { name = String.trim name
+                    , query = objectQuery
+                    , created = now
+                    }
+            , Cmd.none
+            )
+
+        ( SelectAllBookmarks, _ ) ->
+            ( model, Session.selectAllBookmarks session, Cmd.none )
+
+        ( SelectNoBookmarks, _ ) ->
+            ( model, Session.selectNoBookmarks session, Cmd.none )
+
+        ( SetModal ComparatorModal, _ ) ->
+            ( { model | modal = ComparatorModal }
+            , session
+            , Ports.addBodyClass "prevent-scrolling"
+            )
 
         ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
@@ -177,6 +259,15 @@ update ({ queries, navKey } as session) msg model =
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
+
+        ( SwitchBookmarksTab bookmarkTab, _ ) ->
+            ( { model | bookmarkTab = bookmarkTab }
+            , session
+            , Cmd.none
+            )
+
+        ( SwitchComparisonType displayChoice, _ ) ->
+            ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
         ( SwitchImpact (Ok trigram), _ ) ->
             ( model
@@ -192,6 +283,15 @@ update ({ queries, navKey } as session) msg model =
             , session |> Session.notifyError "Erreur de sélection d'impact: " error
             , Cmd.none
             )
+
+        ( ToggleComparedSimulation bookmark checked, _ ) ->
+            ( model
+            , session |> Session.toggleComparedSimulation bookmark checked
+            , Cmd.none
+            )
+
+        ( UpdateBookmarkName newName, _ ) ->
+            ( { model | bookmarkName = newName }, session, Cmd.none )
 
         ( UpdateItem item, _ ) ->
             ( model, session, Cmd.none )
@@ -267,13 +367,13 @@ simulatorView session model =
                     }
                 ]
             , session.queries.object
-                |> itemListView session.db.object model.impact
+                |> itemListView session.db model.impact
                 |> div [ class "d-flex flex-column bg-white" ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
                 { session = session
-                , scope = Scope.Textile
+                , scope = Scope.Object
 
                 -- Impact selector
                 , selectedImpact = model.impact
@@ -283,21 +383,21 @@ simulatorView session model =
                 , customScoreInfo = Nothing
                 , productMass = Quantity.zero
                 , totalImpacts =
-                    Simulator.compute session.db.object session.queries.object
+                    Simulator.compute session.db session.queries.object
                         |> Result.withDefault Impact.empty
 
                 -- Impacts tabs
                 , impactTabsConfig = Nothing
 
-                -- FIXME: bookmarks
-                , activeBookmarkTab = BookmarkView.ShareTab
-                , bookmarkName = ""
+                -- Bookmarks
+                , activeBookmarkTab = model.bookmarkTab
+                , bookmarkName = model.bookmarkName
                 , copyToClipBoard = CopyToClipBoard
-                , compareBookmarks = NoOp
-                , deleteBookmark = always NoOp
-                , saveBookmark = NoOp
-                , updateBookmarkName = always NoOp
-                , switchBookmarkTab = always NoOp
+                , compareBookmarks = OpenComparator
+                , deleteBookmark = DeleteBookmark
+                , saveBookmark = SaveBookmark
+                , updateBookmarkName = UpdateBookmarkName
+                , switchBookmarkTab = SwitchBookmarksTab
                 }
             ]
         ]
@@ -344,7 +444,7 @@ itemListView db selectedImpact query =
             case
                 query.items
                     |> List.map (\{ amount, processId } -> ( amount, processId ))
-                    |> List.map (RE.combineMapSecond (Process.findById db.processes))
+                    |> List.map (RE.combineMapSecond (Process.findById db.object.processes))
                     |> RE.combine
             of
                 Err error ->
@@ -413,6 +513,28 @@ view session model =
     , [ Container.centered [ class "Simulator pb-3" ]
             [ simulatorView session model
             , case model.modal of
+                ComparatorModal ->
+                    ModalView.view
+                        { size = ModalView.ExtraLarge
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = "Comparateur de simulations sauvegardées"
+                        , subTitle = Just "en score d'impact, par produit"
+                        , formAction = Nothing
+                        , content =
+                            [ ComparatorView.view
+                                { session = session
+                                , impact = model.impact
+                                , comparisonType = model.comparisonType
+                                , selectAll = SelectAllBookmarks
+                                , selectNone = SelectNoBookmarks
+                                , switchComparisonType = SwitchComparisonType
+                                , toggle = ToggleComparedSimulation
+                                }
+                            ]
+                        , footer = []
+                        }
+
                 NoModal ->
                     text ""
 
