@@ -12,7 +12,4 @@ fi
 mkdir -p /home/jovyan/.npm
 chown -R jovyan:100 "/home/jovyan/.npm"
 
-# Clear npm cache
-su jovyan -c "npm cache clean --force"
-
 exec gosu jovyan "$@"

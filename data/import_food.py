@@ -3,6 +3,7 @@
 import argparse
 import copy
 import functools
+from os.path import join
 
 import bw2data
 import bw2io
@@ -15,7 +16,8 @@ from common.import_ import (
 )
 
 PROJECT = "default"
-AGRIBALYSE = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse
+AGRIBALYSE31 = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse 3.1
+AGRIBALYSE32 = "AGB32beta_08082024.CSV.zip"  # Agribalyse 3.2
 GINKO = "CSV_369p_et_298chapeaux_final.csv.zip"  # additional organic processes
 PASTOECO = [
     "CONVEN~1.CSV.zip",
@@ -178,6 +180,19 @@ def remove_negative_land_use_on_tomato(db):
     return new_db
 
 
+def remove_some_processes(db):
+    """Some processes make the whole import fail
+    due to inability to parse the Input and Calculated parameters"""
+    new_db = []
+    for ds in db:
+        new_ds = copy.deepcopy(ds)
+        if ds.get("simapro metadata", {}).get("Process identifier") not in (
+            "EI3CQUNI000025017103662",
+        ):
+            new_db.append(new_ds)
+    return new_db
+
+
 GINKO_STRATEGIES = [
     remove_negative_land_use_on_tomato,
     remove_azadirachtine,
@@ -205,12 +220,25 @@ if __name__ == "__main__":
     bw2io.bw2setup()
     add_missing_substances(PROJECT, BIOSPHERE)
 
-    # AGRIBALYSE
+    # AGRIBALYSE 3.1.1
     if (db := "Agribalyse 3.1.1") not in bw2data.databases:
         import_simapro_csv(
-            AGRIBALYSE,
+            join("..", "..", "dbfiles", AGRIBALYSE31),
             db,
             migrations=AGRIBALYSE_MIGRATIONS,
+            excluded_strategies=EXCLUDED,
+            other_strategies=AGB_STRATEGIES,
+        )
+    else:
+        print(f"{db} already imported")
+
+    # AGRIBALYSE 3.2
+    if (db := "Agribalyse 3.2 beta 08/08/2024") not in bw2data.databases:
+        import_simapro_csv(
+            join("..", "..", "dbfiles", AGRIBALYSE32),
+            db,
+            migrations=AGRIBALYSE_MIGRATIONS,
+            first_strategies=[remove_some_processes],
             excluded_strategies=EXCLUDED,
             other_strategies=AGB_STRATEGIES,
         )
@@ -220,14 +248,16 @@ if __name__ == "__main__":
     # PASTO ECO
     if (db := "PastoEco") not in bw2data.databases:
         for p in PASTOECO:
-            import_simapro_csv(p, db, excluded_strategies=EXCLUDED)
+            import_simapro_csv(
+                join("..", "..", "dbfiles", p), db, excluded_strategies=EXCLUDED
+            )
     else:
         print(f"{db} already imported")
 
     # GINKO
     if (db := "Ginko") not in bw2data.databases:
         import_simapro_csv(
-            GINKO,
+            join("..", "..", "dbfiles", GINKO),
             db,
             excluded_strategies=EXCLUDED,
             other_strategies=GINKO_STRATEGIES,
@@ -238,13 +268,17 @@ if __name__ == "__main__":
 
     # CTCPA
     if (db := "CTCPA") not in bw2data.databases:
-        import_simapro_csv(CTCPA, db, excluded_strategies=EXCLUDED)
+        import_simapro_csv(
+            join("..", "..", "dbfiles", CTCPA), db, excluded_strategies=EXCLUDED
+        )
     else:
         print(f"{db} already imported")
 
     # WFLDB
     if (db := "WFLDB") not in bw2data.databases:
-        import_simapro_csv(WFLDB, db, excluded_strategies=EXCLUDED)
+        import_simapro_csv(
+            join("..", "..", "dbfiles", WFLDB), db, excluded_strategies=EXCLUDED
+        )
     else:
         print(f"{db} already imported")
 
