@@ -133,7 +133,7 @@
         * [⚙️ Transformation / Finition](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/chassis-carrosserie/transformation-finition.md)
       * [🔋 Batterie](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/batterie.md)
       * [⚙️ Moteur](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/moteur.md)
-      * [🛞 Moyeu et jantes](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/moyeu-et-jantes.md)
+      * [🛞 Jantes](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/jantes.md)
       * [🛞 Pneumatiques](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/pneumatiques.md)
       * [💺 Assise](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/assise.md)
       * [💠 Cellules photovoltaïques](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/cellules-photovoltaiques.md)

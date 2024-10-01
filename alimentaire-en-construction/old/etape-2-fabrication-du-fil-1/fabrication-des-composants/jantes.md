@@ -4,7 +4,7 @@ description: >-
   les sections précédentes.
 ---
 
-# 🛞 Moyeu et jantes
+# 🛞 Jantes
 
 ## Généralités
 
@@ -18,5 +18,8 @@ Le cout environnemental du moteur est calculé en fonction de son poids, en kg.
 
 ### Procédé utilisé pour la modélisation
 
-
+* Acier
+* Aluminium
+* Carbone
+* Plastique ?
 
