@@ -61,7 +61,7 @@
     "express-rate-limit": "^7.4.0",
     "helmet": "^7.1.0",
     "js-yaml": "^4.1.0",
-    "piwik": "^1.0.9"
+    "piwik": "^1.0.10"
   },
   "devDependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
