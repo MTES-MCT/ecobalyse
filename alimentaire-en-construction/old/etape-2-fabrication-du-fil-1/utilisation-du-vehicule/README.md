@@ -30,7 +30,7 @@ Il est donc retenu comme hypothèse que les véhicules équipés de pédales per
 
 ## Modélisation Ecobalyse
 
-### Données renseignées par l'utilisateurs
+### Données renseignées par l’utilisateur
 
 L'utilisateur renseigne les informations suivantes :
 
@@ -40,7 +40,7 @@ L'utilisateur renseigne les informations suivantes :
 * Durée de vie du véhicule (en années)
 * Kilométrage annuel (en km/an)
 
-## Calcul de l'impact de la consommation électrique
+### Calcul de l'impact de la consommation électrique
 
 Le coût environnemental de la consommation électrique se calcule comme suit (exemple pour l'impact sur le changement climatique) :
 
@@ -51,12 +51,34 @@ $$
 Avec&#x20;
 
 * C\_r : la consommation l'électricité par recharge sur le réseau électrique, en kWh/km.
-* Tkm : la durée de vie du véhicule, en km. Le calcul de la durée de vie du véhicule est détaillée dans la [page dédiée](duree-de-vie-des-vehicules.md).
+* Tkm : la durée de vie du véhicule, en km. Le calcul de la durée de vie du véhicule est détaillée dans la [page dédiée](broken-reference).
 * PélecFRcch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
 
-## Calcul de la consommation électrique
+### Durée de vie des véhicules
 
-### Formule de calcul
+#### Formule de calcul
+
+La durée de vie en kilomètre s'exprime de la façon suivante :&#x20;
+
+$$
+Tkm=K*Ta
+$$
+
+Avec :&#x20;
+
+* Tkm : la durée de vie, en km
+* K : le kilométrage annuel, en km\
+  Les valeurs par défaut sont définies par véhicule dans le tableau ci-dessous. Elles sont modifiables par l'utilisateur dans Ecobalyse.
+* Ta : la durée de vie par défaut du véhicule, en années\
+  Les valeurs par défaut sont définies par véhicule dans le tableau ci-dessous. Elles sont modifiables par l'utilisateur dans Ecobalyse.
+
+#### Données par défaut
+
+<table><thead><tr><th width="166">Catégories</th><th width="316">Kilométrage annuel par défaut (km/h)</th><th>Durée de vie par défaut (ans)</th></tr></thead><tbody><tr><td>VAE</td><td>2 000</td><td>30</td></tr><tr><td>L1e</td><td>5 000</td><td>30</td></tr><tr><td>L1e-A</td><td>2 000</td><td>30</td></tr><tr><td>L1e-B</td><td>5 000</td><td>30</td></tr><tr><td>L2e</td><td>5 000</td><td>30</td></tr><tr><td>L3e</td><td>5 000</td><td>30</td></tr><tr><td>L4e</td><td>5 000</td><td>30</td></tr><tr><td>L5e</td><td>5 000</td><td>30</td></tr><tr><td>L6e</td><td>5 000</td><td>30</td></tr><tr><td>L7e</td><td>10 000</td><td>30</td></tr><tr><td>Autre</td><td>15000</td><td>20</td></tr></tbody></table>
+
+### Consommation électrique par km
+
+#### Formule de calcul
 
 La consommation électrique est définit comme suit :&#x20;
 
@@ -71,7 +93,15 @@ Avec :&#x20;
 * Ep : l'énergie apportée par pédalage, pour les véhicules à pédale, établie par la classe WMTC. Les données par catégorie de véhicules sont fournies dans le tableau ci-dessous
 * Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
 
-### Données clés par catégorie de véhicule
+#### Energie apportée par pédalage par catégorie de véhicule
+
+L'énergie apportée par pédalage est calculée pour chaque catégorie de véhicule à partir de
+
+* la vitesse moyenne (km/h) sur le cycle WMTC&#x20;
+* la part (%) de maintien de vitesse ou d'accélération sur le cycle
+* l'énergie apportée par pédalage (100Wh/h dans les phases de maintien de vitesse ou d'accélération sur le cycle)
+
+Les résultats sont détaillés dans le tableau suivant :
 
 <table><thead><tr><th width="140">Catégories</th><th width="138">Classe WMTC</th><th>Vitesse moyenne WMTC (km/h</th><th>% maintien de vitesse ou accélération WMTC</th><th>Energie par pédalage (Wh/km)</th></tr></thead><tbody><tr><td>VAE</td><td>Class1-25</td><td>17.6</td><td>70%</td><td>4.0</td></tr><tr><td>L1e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L1e-A</td><td>Class1-25</td><td>17.6</td><td>70%</td><td>4.0</td></tr><tr><td>L1e-B</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L2e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L3e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr><tr><td>L4e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr><tr><td>L5e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr><tr><td>L6e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L7e</td><td>Class2-2-90</td><td>39.4</td><td>50%</td><td>1.3</td></tr><tr><td>Autre</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr></tbody></table>
 

@@ -141,6 +141,4 @@
     * [🚚 Transport des composants](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/transport-des-composants.md)
     * [🚚 Transport des véhicules](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/transport-des-vehicules.md)
     * [⚡ Utilisation du véhicule](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/utilisation-du-vehicule/README.md)
-      * [🔄 Durée de vie des véhicules](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/utilisation-du-vehicule/duree-de-vie-des-vehicules.md)
-      * [WMTC](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/utilisation-du-vehicule/wmtc.md)
       * [☀️ Energie apportée par des panneaux solaires photovoltaïque](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/utilisation-du-vehicule/energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
