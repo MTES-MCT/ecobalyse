@@ -8,7 +8,7 @@ description: >-
 
 ## Généralités
 
-
+L'assise peut représenter une part significative du coût environnemental du véhicule sur certains véhicules. Il est donc utile de pouvoir la distinguer des autres parties du véhicule. De plus, l'assise est généralement composé d'un nombre limité de matériaux identifiés
 
 ## Modélisation Ecobalyse
 
@@ -16,9 +16,5 @@ description: >-
 
 Le cout environnemental de l'assise est la somme du coût environnemental de ses composants.
 
-
-
-### Procédés utilisés
-
-
+La méthodologie et les procédés pouvant être mis en œuvre sont les mêmes que pour le [châssis et la carrosserie](chassis-carrosserie/).
 

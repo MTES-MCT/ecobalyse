@@ -55,7 +55,7 @@ Par défault, Ecobalyse priorise la mise à disposition de procédés Ecoinvent.
 
 Une infinité de procédés pourraient être disponibles dans Ecobalyse car les pratiques des industries sont variées. Deux principaux paramètres expliquent cette multitude de scénarios :&#x20;
 
-* des **origines** diverses pour un même procédé/composant (ex : produir une pièce métallique en acier en Chine ou en France engendre des impacts environnementaux significativement différents du fait des mix énergétiques nationaux),
+* des **origines** diverses pour un même procédé/composant (ex : produire une pièce métallique en acier en Chine ou en France engendre des impacts environnementaux significativement différents du fait des mix énergétiques nationaux),
 * &#x20;des **procédés/techniques** diverses (ex : produit une pièce métallique en acier laminé à chaud, laminé à froid ou extrudé engendre des impacts environnementaux significativement différents du fait d'étapes de production différentes). &#x20;
 
 Dès lors, Ecobalyse se concentre sur la mise à disposition de "procédés génériques" reflétant les principales pratiques constatées sur une industrie donnée.&#x20;

@@ -1,18 +1,14 @@
----
-description: Les caractéristiques suivantes du véhicules sont collectées
----
-
 # 📋 Caractéristiques du véhicule
 
-Les caractéristiques suivantes du véhicules sont collectées :
+Les caractéristiques suivantes du véhicules sont collectées dans Ecobalyse :
 
-* Catégorie de véhicule
-* Conception du véhicule : transport de marchandise ou transport de personnes
-* Capacité d'emport, en kg ou en nombre de passagers (selon le type de conception retenu)
-* Poids du véhicule, en kg
-* Pays d'assemblage
+* Catégorie de véhicule,
+* Conception du véhicule : transport de marchandise ou transport de personnes,
+* Capacité d'emport, en kg ou en nombre de passagers (selon le type de conception retenu),
+* Poids du véhicule, en kg,
+* Pays d'assemblage.
 
-### Choix du type de véhicule
+### Choix de la catégorie de véhicule
 
 La catégorie de véhicule est à choisir dans la liste suivante :
 

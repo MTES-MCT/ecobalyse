@@ -130,6 +130,7 @@
     * [🔧 Fabrication des composants](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/README.md)
       * [🚙 Châssis-Carrosserie](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/chassis-carrosserie/README.md)
         * [🔩 Acier et Aluminium - Méthodes détaillées](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/chassis-carrosserie/acier-et-aluminium-methodes-detaillees.md)
+        * [⚙️ Transformation / Finition](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/chassis-carrosserie/transformation-finition.md)
       * [🔋 Batterie](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/batterie.md)
       * [⚙️ Moteur](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/moteur.md)
       * [🛞 Moyeu et jantes](alimentaire-en-construction/old/etape-2-fabrication-du-fil-1/fabrication-des-composants/moyeu-et-jantes.md)
