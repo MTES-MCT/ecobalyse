@@ -64,12 +64,12 @@ jupyter_password:
 start_notebook:
 	@docker run --rm -it -d \
     -v $(NAME):/home/jovyan \
+    -v $$PWD/../../dbfiles:/home/jovyan/dbfiles \
     -v $$PWD/../:/home/jovyan/ecobalyse \
     -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private \
     -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ \
     -e JUPYTER_PORT=$(JUPYTER_PORT) \
     -e JUPYTER_ENABLE_LAB=yes \
-    -w /home/jovyan/ecobalyse/data \
     -p $(JUPYTER_PORT):$(JUPYTER_PORT) \
     --name $(NAME) \
     $(NAME) start-notebook.sh --collaborative
