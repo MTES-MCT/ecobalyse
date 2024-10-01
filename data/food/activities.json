@@ -1198,7 +1198,7 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
+    "database": "Ecobalyse",
     "crop_group": "DIVERS",
     "scenario": "organic"
   },
