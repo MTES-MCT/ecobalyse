@@ -8,7 +8,7 @@ description: >-
 
 ## Généralités
 
-
+Le moteur représente de l'ordre de 5% du coût environnemental.
 
 ## Modélisation Ecobalyse
 

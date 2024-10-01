@@ -6,21 +6,21 @@ description: >-
 
 # 🛺 VeLI / Véhicules
 
-## Périmètre
+## Objectif
 
-Ecobalyse vise à évaluer le coût environnemental des véhicules intermédiaires, et par extension une gamme plus large de véhicules, dans la mesure où les méthodes leur sont applicables.
+Ecobalyse vise à évaluer le coût environnemental des Véhicules Légers Intermédiaires (VeLI), et par extension une gamme plus large de véhicules, dans la mesure où les méthodes leur sont applicables.
 
-Les Véhicules Intermédiaires Légers sont les véhicules correspondant aux catégories VAE et L1 à L7e. Ils sont entre le vélo et la voiture.
+Les Véhicules Légers Intermédiaires sont les véhicules correspondant aux catégories VAE et L1 à L7e. Ils sont entre le vélo et la voiture.
 
 ## Ecosystème
 
-L'écosystème des VeLI est accompagné en France par le programme Xtreme Défi, de l'ADEME.
+L'écosystème des VeLIs est accompagné en France par le programme Xtreme Défi, de l'ADEME.
 
 Pour plus d'informations : [https://xd.ademe.fr/](https://xd.ademe.fr/)
 
-Ce programme inclut notamment un groupe de travail sur l'impact environnemental, qui a permi de construire l'essentiel des méthodes utilisées dans Ecobalyse. Le détail des travaux de ce groupe de travail est disponible ici : [https://wikixd.fabmob.io/wiki/GT\_Label\_et\_ACV](https://wikixd.fabmob.io/wiki/GT\_Label\_et\_ACV)
+Ce programme inclut notamment un groupe de travail sur l'impact environnemental, qui a permis de construire l'essentiel des méthodes utilisées dans Ecobalyse. Le détail des travaux de ce groupe de travail est disponible ici : [https://wikixd.fabmob.io/wiki/GT\_Label\_et\_ACV](https://wikixd.fabmob.io/wiki/GT\_Label\_et\_ACV)
 
-## Types de véhicules concernés
+## Panel de véhicules concernés
 
 Une description des types de véhicules concernés est disponible ici : [https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L](https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L)
 

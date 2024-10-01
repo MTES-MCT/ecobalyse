@@ -4,19 +4,21 @@ description: >-
   châssis et de la carrosserie des véhicules.
 ---
 
-# 🚙 Châssis-Carrosserie
+# 🚙 Châssis & carrosserie
 
 ## Généralités
+
+Le terme châssis et carrosserie inclut les cadres de cycles, ainsi que les moyeux.
 
 Le châssis et la carrosserie des nouveaux véhicules intermédiaires peuvent être composés de matériaux très diversifiés : métaux, plastiques, bois, matériaux composites, verre...
 
 ### Composants et procédés disponibles
 
-De nombreux composants ne sont pas directement disponibles dans Ecoinvent sous la forme d'un procédé.
+Ecobalyse intègre une bibliothèque de composants pertinents pour la fabrication des chassis et carosseries, construite sur la base de données d'ICV Ecoinvent.&#x20;
 
-Dès lors, une infinité de composants et de procédés peuvent être proposés par Ecobalyse afin de répondre aux différentes conceptions de véhicules.
+De nombreux composants ne sont cependant pas directement disponibles dans Ecoinvent sous la forme d'un procédé, et ont été construits par Ecobalyse. Dès lors, une infinité de composants et de procédés peuvent être proposés par Ecobalyse afin de répondre aux différentes conceptions de véhicules.
 
-Les ressources d'Ecobalyse étant limitées, nous nous concentrons sur la mise à disposition de composants génériques permettant de couvrir un large éventail de véhicules.
+Les ressources d'Ecobalyse étant limitées, nous nous concentrons sur la mise à disposition de composants génériques permettant de couvrir un large éventail de conception de véhicules.
 
 {% hint style="info" %}
 Vous souhaitez proposer un nouveau composant ou préciser les composants actuellement proposés dans Ecobalsye ?&#x20;
@@ -42,8 +44,6 @@ Les procédés disponibles dans Ecobalyse peuvent être : &#x20;
 
 * issus d'un procédé Ecoinvent inchangé (Exemple : Mousse PUR -rigide-),
 * créés par Ecobalyse (Exemple : Composant en plastique -PE-).
-
-Les procédés utilisés sont détaillés dans l'Explorateur Véhicules.
 
 {% hint style="info" %}
 Par défault, Ecobalyse priorise la mise à disposition de procédés Ecoinvent. S'il n'existe pas, un procédé est créé par Ecobalyse.
@@ -277,10 +277,15 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 Le verre utilisé pour les véhicules est généralement du verre trempé.\
 Il est modélisé de la façon suivante :&#x20;
 
-* Matériau transformé : Verre
-  * market for Flat glass, uncoated, RER (ecoinvent), 1kg
-* Procédé de transformation : trempe du verre
-  * market for Tempering, flat glass, GLO (ecoinvent), 1kg
+* Matériau transformé : Verre\
+  Procédé Ecoinvent Flat glass, uncoated, RER (ecoinvent),\
+  Unité : kg\
+  Quantité : 1kg
+*   Procédé de transformation : trempe du verre
+
+    Tempering, flat glass, GLO (ecoinvent)\
+    Unité : kg\
+    Quantité : 1kg
 
 </details>
 

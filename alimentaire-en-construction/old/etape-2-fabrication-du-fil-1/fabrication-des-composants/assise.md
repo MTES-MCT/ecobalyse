@@ -16,5 +16,5 @@ L'assise peut représenter une part significative du coût environnemental du v�
 
 Le cout environnemental de l'assise est la somme du coût environnemental de ses composants.
 
-La méthodologie et les procédés pouvant être mis en œuvre sont les mêmes que pour le [châssis et la carrosserie](chassis-carrosserie/).
+La méthodologie et les procédés pouvant être mis en œuvre sont les mêmes que pour le [châssis et la carrosserie](chassis-and-carrosserie/).
 

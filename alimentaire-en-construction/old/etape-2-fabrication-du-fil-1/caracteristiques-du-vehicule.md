@@ -1,12 +1,18 @@
+---
+description: >-
+  Cette page décrit les données à fournir par l'utilisateur sur le véhicule dont
+  il souhaite calculer le coût environnemental.
+---
+
 # 📋 Caractéristiques du véhicule
 
-Les caractéristiques suivantes du véhicules sont collectées dans Ecobalyse :
+Les caractéristiques suivantes du véhicules sont collectées dans Ecobalyse (les données obligatoires sont indiquées par le symbole \*) :
 
-* Catégorie de véhicule,
+* Catégorie de véhicule\*,
 * Conception du véhicule : transport de marchandise ou transport de personnes,
 * Capacité d'emport, en kg ou en nombre de passagers (selon le type de conception retenu),
-* Poids du véhicule, en kg,
-* Pays d'assemblage.
+* Poids du véhicule\*, en kg,
+* Pays d'assemblage\*.
 
 ### Choix de la catégorie de véhicule
 

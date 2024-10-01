@@ -12,7 +12,7 @@ La batterie représente 10% à 50% du coût environnemental d'un véhicule élec
 
 ### Méthodologie de calcul <a href="#methodologie-de-calcul" id="methodologie-de-calcul"></a>
 
-Le coût environnement de la batterie est évaluée d'après sa chimie, sa capacité (en kWh) et son pays de fabrication (assemblage du pack batterie).
+Le coût environnement de la batterie est évalué d'après sa chimie, sa capacité (en kWh) et son pays de fabrication (assemblage du pack batterie).
 
 Les chimies de batterie suivantes sont différenciées : NMC532, NMC622, NMC811, LFP.
 
@@ -25,7 +25,7 @@ En plus de la capacité et du pays de fabrication, l'utilisateur doit renseigner
 
 Les données sur l'impact environnemental sont issues de la Base Empreinte.
 
-L'impact sur le changement climatique issu de ces procédés, exprimé en kgCO2e, est détaillé dans le tableau suivant en fonction de la chimie et du pays de fabrication de la batterie.&#x20;
+L'impact sur le changement climatique de ces procédés, exprimé en kgCO2e, est détaillé dans le tableau suivant en fonction de la chimie et du pays de fabrication de la batterie.&#x20;
 
 Ces procédés ont été construits pour des batteries de voitures. Dans leur construction, il est considéré que le pays de fabrication des cellules et du pack batterie est le même.
 
