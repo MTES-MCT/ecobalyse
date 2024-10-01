@@ -4,13 +4,38 @@ description: Cette page décrit les méthodes relatives à la consommation des v
 
 # ⚡ Utilisation du véhicule
 
+## Généralités
+
+Les véhicules électriques nécessitent pour la plupart de se recharger en électricité pour rouler. Cette consommation d'électricité dépend de la consommation du véhicule, mais aussi de la présence éventuelle d'un apport d'énergie par pédalage ou par des cellules photovoltaïques.
+
+### Cycle de test de référence : le WMTC&#x20;
+
+le WMTC révisé est aujourd’hui le cycle de référence pour tous les nouveaux véhicules de catégorie L, et ce depuis la norme euro5.
+
+La documentation technique est disponible ici :  [https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs](https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs)
+
+Un rapport de la Commission EU de 2018 sur « les effets de la phase environnementale Euro 5 en ce qui concerne les véhicules de catégorie L » indique : « Les résultats de l’étude ont établi que l’utilisation du cycle WMTC était pertinente pour tous les véhicules de catégorie L. Il contribue à une meilleure protection de l’environnement dans des conditions d’utilisation réelles que les cycles de conduite actuellement utilisés. » [https://www.europarl.europa.eu/RegData/docs\_autres\_institutions/commission\_europeenne/com/2018/0136/COM\_COM(2018)0136\_FR.pdf](https://www.europarl.europa.eu/RegData/docs\_autres\_institutions/commission\_europeenne/com/2018/0136/COM\_COM\(2018\)0136\_FR.pdf)
+
+Le cycle comporte 3 phases, applicable ou non selon la vitesse maximale du véhicule. De plus les vitesses sont tronquées pour les véhicules limités à 45km/h. Cependant, je n’ai pas réussi à trouver très concrètement comment le WMTC est tronqué en termes de vitesse maximale pour correspondre aux différentes catégories (voir graphique ci-dessous).
+
+<figure><img src="../../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+### Energie musculaire par pédalage
+
+L’énergie musculaire apportée au vélo serait de l’ordre de 100W. C’est ce qui est retenu dans la thèse suivante par exemple : [2014LIMO4007.pdf](https://aurore.unilim.fr/theses/nxfile/default/e64bb679-1855-427d-93c0-36b85f2dbe69/blobholder:0/2014LIMO4007.pdf). A ce stade aucune étude plus détaillée n’a été identifiée, indiquant les niveaux de puissance en fonction du profil de cycliste et de motif de déplacement par exemple.
+
+Cette valeur de 100W a été présentée au groupe de travail et validée à titre provisoire. Elle pourra être revue une fois davantage de données collectées sur ce sujet.
+
+Il est donc retenu comme hypothèse que les véhicules équipés de pédales permettent de réduire la puissance moteur de 100W sur les phases d’accélération et de maintien de vitesse du cycle WMTC.
+
 ## Modélisation Ecobalyse
 
 ### Données renseignées par l'utilisateurs
 
 L'utilisateur renseigne les informations suivantes :
 
-* Consommation du véhicule selon le cycle WMTP (kWh/km)
+* Consommation du véhicule selon le cycle WMTC (kWh/km)\
+  Des informations supplémentaires sur ce cycle sont fournies sur cette page
 * Apport d'énergie par pédalage (Oui/Non)
 * Durée de vie du véhicule (en années)
 * Kilométrage annuel (en km/an)

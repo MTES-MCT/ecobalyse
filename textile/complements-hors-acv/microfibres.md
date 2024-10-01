@@ -116,7 +116,7 @@ Ecobalyse propose ainsi en première approche une évaluation semi-quantitative 
 Données moyenne de biodégradabilité ("Degradation rate") utilisées dans les travaux MariLCA pour différents types de microfibres de taille 10µm. \
 Ces données sont issues de tests sur le compartiment Marin/Marine et peuvent varier de manière significative selon différents paramètres (ex : température de l'eau, exposition à la lumière/UV, etc.).
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Ces premières études mettent en avant de fortes disparités en termes de persistance/biodégradabilité entre les fibres synthétiques (ex : polyester) et naturelles (ex : coton).\
