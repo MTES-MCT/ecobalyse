@@ -1,18 +1,22 @@
 ---
 description: >-
-  Cette page décrit les composants spécifiques aux véhicules, non traités dans
-  les sections précédentes.
+  Cette page décrit les méthodes pour le calcul du coût environnemental du
+  châssis et de la carrosserie des véhicules.
 ---
 
 # 🚙 Châssis-Carrosserie
 
 ## Généralités
 
+Le châssis et la carrosserie des nouveaux véhicules intermédiaires peuvent être composés de matériaux très diversifiés : métaux, plastiques, bois, matériaux composites, verre...
+
+### Composants et procédés disponibles
+
 De nombreux composants ne sont pas directement disponibles dans Ecoinvent sous la forme d'un procédé.
 
-Dès lors, une infinité de composants et de procédés peuvent être proposés par Ecobalyse afin de répondre aux différents cas d'usage.
+Dès lors, une infinité de composants et de procédés peuvent être proposés par Ecobalyse afin de répondre aux différentes conceptions de véhicules.
 
-Les ressources d'Ecobalyse étant limitées, nous nous concentrons sur la mise à disposition de composants génériques permettant de couvrir un large éventail de scénarios.
+Les ressources d'Ecobalyse étant limitées, nous nous concentrons sur la mise à disposition de composants génériques permettant de couvrir un large éventail de véhicules.
 
 {% hint style="info" %}
 Vous souhaitez proposer un nouveau composant ou préciser les composants actuellement proposés dans Ecobalsye ?&#x20;
