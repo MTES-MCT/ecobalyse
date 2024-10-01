@@ -74,7 +74,7 @@ Avec :&#x20;
 
 #### Données par défaut
 
-<table><thead><tr><th width="166">Catégories</th><th width="316">Kilométrage annuel par défaut (km/h)</th><th>Durée de vie par défaut (ans)</th></tr></thead><tbody><tr><td>VAE</td><td>2 000</td><td>30</td></tr><tr><td>L1e</td><td>5 000</td><td>30</td></tr><tr><td>L1e-A</td><td>2 000</td><td>30</td></tr><tr><td>L1e-B</td><td>5 000</td><td>30</td></tr><tr><td>L2e</td><td>5 000</td><td>30</td></tr><tr><td>L3e</td><td>5 000</td><td>30</td></tr><tr><td>L4e</td><td>5 000</td><td>30</td></tr><tr><td>L5e</td><td>5 000</td><td>30</td></tr><tr><td>L6e</td><td>5 000</td><td>30</td></tr><tr><td>L7e</td><td>10 000</td><td>30</td></tr><tr><td>Autre</td><td>15000</td><td>20</td></tr></tbody></table>
+<table><thead><tr><th width="166">Catégories</th><th width="316">Kilométrage annuel par défaut (km/h)</th><th>Durée de vie par défaut (ans)</th></tr></thead><tbody><tr><td>VAE</td><td>2 000</td><td>30</td></tr><tr><td>L1e-A</td><td>2 000</td><td>30</td></tr><tr><td>L1e-B</td><td>5 000</td><td>30</td></tr><tr><td>L2e</td><td>5 000</td><td>30</td></tr><tr><td>L3e</td><td>5 000</td><td>30</td></tr><tr><td>L4e</td><td>5 000</td><td>30</td></tr><tr><td>L5e</td><td>5 000</td><td>30</td></tr><tr><td>L6e</td><td>5 000</td><td>30</td></tr><tr><td>L7e</td><td>10 000</td><td>30</td></tr><tr><td>Autre</td><td>15000</td><td>20</td></tr></tbody></table>
 
 ### Consommation électrique par km
 
@@ -93,6 +93,23 @@ Avec :&#x20;
 * Ep : l'énergie apportée par pédalage, pour les véhicules à pédale, établie par la classe WMTC. Les données par catégorie de véhicules sont fournies dans le tableau ci-dessous
 * Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
 
+#### Consommation du véhicule par défaut
+
+La consommation des véhicules électriques s'exprime en kWh pour 100km. Une consommation par défaut est proposé pour chaque catégorie de véhicule (tableau ci-dessous). La consommation peut être modifiée par l'utilisateur.
+
+| Catégories | Consommation par défaut (kWh/100km) |
+| ---------- | ----------------------------------- |
+| VAE        | 3,0                                 |
+| L1e-A      | 4,0                                 |
+| L1e-B      | 4,0                                 |
+| L2e        | 5,0                                 |
+| L3e        | 8,0                                 |
+| L4e        | 10,0                                |
+| L5e        | 10,0                                |
+| L6e        | 9,0                                 |
+| L7e        | 12,0                                |
+| Autre      | 20,0                                |
+
 #### Energie apportée par pédalage par catégorie de véhicule
 
 L'énergie apportée par pédalage est calculée pour chaque catégorie de véhicule à partir de
@@ -103,5 +120,5 @@ L'énergie apportée par pédalage est calculée pour chaque catégorie de véhi
 
 Les résultats sont détaillés dans le tableau suivant :
 
-<table><thead><tr><th width="140">Catégories</th><th width="138">Classe WMTC</th><th>Vitesse moyenne WMTC (km/h</th><th>% maintien de vitesse ou accélération WMTC</th><th>Energie par pédalage (Wh/km)</th></tr></thead><tbody><tr><td>VAE</td><td>Class1-25</td><td>17.6</td><td>70%</td><td>4.0</td></tr><tr><td>L1e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L1e-A</td><td>Class1-25</td><td>17.6</td><td>70%</td><td>4.0</td></tr><tr><td>L1e-B</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L2e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L3e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr><tr><td>L4e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr><tr><td>L5e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr><tr><td>L6e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L7e</td><td>Class2-2-90</td><td>39.4</td><td>50%</td><td>1.3</td></tr><tr><td>Autre</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr></tbody></table>
+<table><thead><tr><th width="140">Catégories</th><th width="138">Classe WMTC</th><th>Vitesse moyenne WMTC (km/h</th><th>% maintien de vitesse ou accélération WMTC</th><th>Energie par pédalage (Wh/km)</th></tr></thead><tbody><tr><td>VAE</td><td>Class1-25</td><td>17.6</td><td>70%</td><td>4.0</td></tr><tr><td>L1e-A</td><td>Class1-25</td><td>17.6</td><td>70%</td><td>4.0</td></tr><tr><td>L1e-B</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L2e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L3e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr><tr><td>L4e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr><tr><td>L5e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr><tr><td>L6e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>2.2</td></tr><tr><td>L7e</td><td>Class2-2-90</td><td>39.4</td><td>50%</td><td>1.3</td></tr><tr><td>Autre</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.9</td></tr></tbody></table>
 
