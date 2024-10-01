@@ -15,8 +15,6 @@ Ecobalyse intègre les étapes suivantes de la vie du véhicule :&#x20;
 * Le transport des composants et du véhicule
 * La consommation d'électricité du véhicule
 
-La durée de vie du véhicule est indiquée en nombre de kilomètres. Une valeur par défaut est fournie en fonction de la catégorie de véhicule. Cette valeur est modifiable par l'utilisateur.
-
 Les étapes et analyses suivantes ne sont à ce stade pas prise en compte :
 
 * Le remplacement d'autres composants que les pneumatiques
@@ -28,14 +26,15 @@ Seuls les véhicules électriques peuvent être évalués.
 
 ## Unité de calcul du coût environnemental
 
-Le coût environnemental est calculé en premier lieu selon les deux unités suivantes :
+Le coût environnemental est calculé en premier lieu par véhicule, puis par kilomètre parcouru en divisant le cout environnemental par véhicule par la durée de vie du véhicule en kilomètres.
 
-* Coût environnemental par véhicule
-* Coût environnemental par km parcouru
+Une durée de vie par défaut est calculée en fonction de la catégorie de véhicule, et modifiable par l'utilisateur.
 
 Il pourra également être calculé par tonne.km ou par passager.km.
 
 ## Enjeu de comparaison des véhicules
 
-Deux véhicules, quelle que soit leurs tailles respectives, devraient se comparer pour un usage donné, c'est à dire avec un kilométrage identique et un remplacement de composant lié à ce kilométrage.
+La comparaison de véhicules-types de catégories différentes sur la base du coût environnemental par kilomètre est à éviter ou nécessite des précautions. En effet, les kilométrages par défaut sont plus élevés pour les véhicules les plus lourds, ce qui est de nature à réduire significativement leur coût environnemental en comparaison des véhicules plus légers. Cependant, pour un usage donné, un véhicule plus léger aura en général un cout environnemental plus faible, et devrait être privilégié.
+
+Deux véhicules, quelle que soit leurs tailles respectives, devraient donc se comparer avec un kilométrage identique et un remplacement de composants lié à ce kilométrage.
 
