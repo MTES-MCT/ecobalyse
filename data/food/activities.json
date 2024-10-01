@@ -240,7 +240,8 @@
     "animal_group1": "cattle",
     "animal_group2": "cow",
     "animal_product": "meat",
-    "scenario": "import"
+    "scenario": "import",
+    "land_occupation": 27.37470331
   },
   {
     "id": "ground-beef-grass-fed",
@@ -1200,7 +1201,8 @@
     "visible": true,
     "database": "Ecobalyse",
     "crop_group": "DIVERS",
-    "scenario": "organic"
+    "scenario": "organic",
+    "land_occupation": 1.042772152
   },
   {
     "id": "tea-dried",
