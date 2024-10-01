@@ -14,7 +14,11 @@ description: >-
 
 ### Méthodologie de calcul <a href="#methodologie-de-calcul" id="methodologie-de-calcul"></a>
 
-Le cout environnemental du châssis est la somme du coût environnemental de ses composants.
+Le cout environnemental du châssis est la somme du coût environnemental des matériaux qui le composent.
+
+L'utilisateur peut ajouter autant de matériaux qu'il le souhaite.
+
+
 
 
 

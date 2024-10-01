@@ -6,7 +6,7 @@ Une partie des constructeurs intègrent des cellules photovoltaïques sur le toi
 
 Cette section présente les méthodes de calcul de l'impact environnemental de la fabrication des cellules.
 
-Les méthodes associées à la réduction du besoin de recharge sont détaillée dans la [partie utilisation du véhicule](../../utilisation-du-vehicule/).
+Les méthodes associées à la réduction du besoin de recharge sont détaillée dans la [partie utilisation du véhicule](../utilisation-du-vehicule/).
 
 ## Modélisation Ecobalyse
 
