@@ -78,6 +78,20 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Encode.encode 2
                     )
 
+                Scope.Object ->
+                    ( Just session.queries.object
+                        |> Route.ObjectSimulator impact.trigram
+                        |> Route.toString
+                        |> (++) session.clientUrl
+                      -- FIXME: make this a maybe
+                    , session.queries.textile
+                        |> TextileQuery.buildApiQuery session.clientUrl
+                      -- FIXME: make this a maybe
+                    , session.queries.textile
+                        |> TextileQuery.encode
+                        |> Encode.encode 2
+                    )
+
                 Scope.Textile ->
                     ( Just session.queries.textile
                         |> Route.TextileSimulator impact.trigram
@@ -271,6 +285,10 @@ queryFromScope session scope =
         Scope.Food ->
             Bookmark.Food session.queries.food
 
+        Scope.Object ->
+            -- FIXME: object bookmarks
+            Bookmark.Textile session.queries.textile
+
         Scope.Textile ->
             Bookmark.Textile session.queries.textile
 
@@ -282,6 +300,10 @@ scopedBookmarks session scope =
             (case scope of
                 Scope.Food ->
                     Bookmark.isFood
+
+                Scope.Object ->
+                    -- FIXME: object bookmarks
+                    always False
 
                 Scope.Textile ->
                     Bookmark.isTextile

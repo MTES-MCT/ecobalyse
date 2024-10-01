@@ -2,14 +2,12 @@ module Server.RouteTest exposing (..)
 
 import Data.Country as Country
 import Data.Food.Fixtures as Fixtures
-import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning
-import Data.Textile.Process as TextileProcess
 import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
@@ -19,7 +17,7 @@ import Json.Encode as Encode
 import Server.Route as Route
 import Static.Db as StaticDb
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithDb)
+import TestUtils exposing (asTest, createServerRequest, suiteWithDb)
 
 
 sampleQuery : Query
@@ -427,21 +425,8 @@ textileEndpoints db =
 
 
 testEndpoint : StaticDb.Db -> String -> Encode.Value -> String -> Maybe Route.Route
-testEndpoint dbs method body url =
-    Route.endpoint dbs
-        { method = method
-        , url = url
-        , body = body
-        , processes =
-            { foodProcesses =
-                Encode.list FoodProcess.encode dbs.food.processes
-                    |> Encode.encode 0
-            , textileProcesses =
-                Encode.list TextileProcess.encode dbs.textile.processes
-                    |> Encode.encode 0
-            }
-        , jsResponseHandler = Encode.null
-        }
+testEndpoint dbs method body =
+    createServerRequest dbs method body >> Route.endpoint dbs
 
 
 extractQuery : Route.Route -> Maybe Query

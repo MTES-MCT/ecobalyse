@@ -148,6 +148,10 @@ update session msg model =
                         Scope.Food ->
                             Dataset.FoodExamples Nothing
 
+                        -- FIXME: object examples explorer page
+                        Scope.Object ->
+                            Dataset.TextileExamples Nothing
+
                         Scope.Textile ->
                             Dataset.TextileExamples Nothing
               )

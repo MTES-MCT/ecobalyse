@@ -44,7 +44,7 @@ ecs =
 
 suite : Test
 suite =
-    suiteWithDb "Data.Simulator"
+    suiteWithDb "Data.Textile.Simulator"
         (\db ->
             [ describe "Simulator.compute"
                 [ { tShirtCotonFrance
