@@ -6,6 +6,7 @@ import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
 import Data.Impact as Impact
+import Data.Object.Query as ObjectQuery
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -17,6 +18,7 @@ import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food as FoodBuilder
 import Page.Home as Home
+import Page.Object as ObjectSimulator
 import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
@@ -50,6 +52,7 @@ type Page
     | HomePage Home.Model
     | LoadingPage
     | NotFoundPage
+    | ObjectSimulatorPage ObjectSimulator.Model
     | StatsPage Stats.Model
     | TextileSimulatorPage TextileSimulator.Model
 
@@ -81,6 +84,7 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
+    | ObjectSimulatorMsg ObjectSimulator.Msg
     | OpenMobileNavigation
     | ReleasesReceived (WebData (List Github.Release))
     | ReloadPage
@@ -146,6 +150,7 @@ setupSession navKey flags db =
     , notifications = []
     , queries =
         { food = FoodQuery.empty
+        , object = ObjectQuery.default
         , textile =
             db.textile.examples
                 |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
@@ -185,9 +190,17 @@ setRoute url ( { state } as model, cmds ) =
                     )
             in
             case Route.fromUrl url of
+                Just Route.Api ->
+                    Api.init session
+                        |> toPage ApiPage ApiMsg
+
                 Just (Route.Auth data) ->
                     Auth.init session data
                         |> toPage AuthPage AuthMsg
+
+                Just Route.Changelog ->
+                    Changelog.init session
+                        |> toPage ChangelogPage ChangelogMsg
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
@@ -205,22 +218,6 @@ setRoute url ( { state } as model, cmds ) =
                     FoodBuilder.initFromExample session uuid
                         |> toPage FoodBuilderPage FoodBuilderMsg
 
-                Just (Route.TextileSimulator trigram maybeQuery) ->
-                    TextileSimulator.init trigram maybeQuery session
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
-
-                Just (Route.TextileSimulatorExample uuid) ->
-                    TextileSimulator.initFromExample session uuid
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
-
-                Just Route.Api ->
-                    Api.init session
-                        |> toPage ApiPage ApiMsg
-
-                Just Route.Changelog ->
-                    Changelog.init session
-                        |> toPage ChangelogPage ChangelogMsg
-
                 Just Route.FoodBuilderHome ->
                     FoodBuilder.init session Impact.default Nothing
                         |> toPage FoodBuilderPage FoodBuilderMsg
@@ -229,9 +226,29 @@ setRoute url ( { state } as model, cmds ) =
                     Home.init session
                         |> toPage HomePage HomeMsg
 
+                Just (Route.ObjectSimulator trigram maybeQuery) ->
+                    ObjectSimulator.init trigram maybeQuery session
+                        |> toPage ObjectSimulatorPage ObjectSimulatorMsg
+
+                Just (Route.ObjectSimulatorExample uuid) ->
+                    ObjectSimulator.initFromExample session uuid
+                        |> toPage ObjectSimulatorPage ObjectSimulatorMsg
+
+                Just Route.ObjectSimulatorHome ->
+                    ObjectSimulator.init Impact.default Nothing session
+                        |> toPage ObjectSimulatorPage ObjectSimulatorMsg
+
                 Just Route.Stats ->
                     Stats.init session
                         |> toPage StatsPage StatsMsg
+
+                Just (Route.TextileSimulator trigram maybeQuery) ->
+                    TextileSimulator.init trigram maybeQuery session
+                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+
+                Just (Route.TextileSimulatorExample uuid) ->
+                    TextileSimulator.initFromExample session uuid
+                        |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 Just Route.TextileSimulatorHome ->
                     TextileSimulator.init Impact.default Nothing session
@@ -306,8 +323,14 @@ update rawMsg ({ state } as model) =
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage FoodBuilderPage FoodBuilderMsg
 
-                ( TextileSimulatorMsg counterMsg, TextileSimulatorPage counterModel ) ->
-                    TextileSimulator.update session counterMsg counterModel
+                -- Object
+                ( ObjectSimulatorMsg objectMsg, ObjectSimulatorPage objectModel ) ->
+                    ObjectSimulator.update session objectMsg objectModel
+                        |> toPage ObjectSimulatorPage ObjectSimulatorMsg
+
+                -- Textile
+                ( TextileSimulatorMsg textileMsg, TextileSimulatorPage textileModel ) ->
+                    TextileSimulator.update session textileMsg textileModel
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 -- Stats
@@ -420,6 +443,10 @@ subscriptions { state } =
                 FoodBuilder.subscriptions subModel
                     |> Sub.map FoodBuilderMsg
 
+            Loaded _ (ObjectSimulatorPage subModel) ->
+                ObjectSimulator.subscriptions subModel
+                    |> Sub.map ObjectSimulatorMsg
+
             Loaded _ (TextileSimulatorPage subModel) ->
                 TextileSimulator.subscriptions subModel
                     |> Sub.map TextileSimulatorMsg
@@ -498,6 +525,11 @@ view { mobileNavigationOpened, state } =
                 NotFoundPage ->
                     ( "Page manquante", [ Page.notFound ] )
                         |> Page.frame (pageConfig Page.Other)
+
+                ObjectSimulatorPage simulatorModel ->
+                    ObjectSimulator.view session simulatorModel
+                        |> mapMsg ObjectSimulatorMsg
+                        |> Page.frame (pageConfig Page.Object)
 
                 StatsPage statsModel ->
                     Stats.view session statsModel

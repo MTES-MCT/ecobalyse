@@ -1127,6 +1127,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
                         |> ImpactTabs.forTextile session.db.definitions simulator
+                        |> Just
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab

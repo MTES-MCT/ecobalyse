@@ -1413,6 +1413,7 @@ sidebarView session model results =
             SwitchImpactsTab
                 |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
                 |> ImpactTabs.forFood results
+                |> Just
 
         -- Bookmarks
         , activeBookmarkTab = model.bookmarkTab

@@ -19,6 +19,7 @@ module Data.Session exposing
     , serializeStore
     , toggleComparedSimulation
     , updateFoodQuery
+    , updateObjectQuery
     , updateTextileQuery
     )
 
@@ -26,6 +27,7 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
+import Data.Object.Query as ObjectQuery
 import Data.Textile.Query as TextileQuery
 import Data.User as User exposing (User)
 import Json.Decode as Decode exposing (Decoder)
@@ -38,6 +40,13 @@ import Static.Db as StaticDb exposing (Db)
 import Static.Json as StaticJson exposing (RawJsonProcesses)
 
 
+type alias Queries =
+    { food : FoodQuery.Query
+    , object : ObjectQuery.Query
+    , textile : TextileQuery.Query
+    }
+
+
 type alias Session =
     { clientUrl : String
     , currentVersion : Version
@@ -46,7 +55,7 @@ type alias Session =
     , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
     , notifications : List Notification
-    , queries : { food : FoodQuery.Query, textile : TextileQuery.Query }
+    , queries : Queries
     , releases : WebData (List Github.Release)
     , store : Store
     }
@@ -109,6 +118,11 @@ saveBookmark bookmark =
 updateFoodQuery : FoodQuery.Query -> Session -> Session
 updateFoodQuery foodQuery ({ queries } as session) =
     { session | queries = { queries | food = foodQuery } }
+
+
+updateObjectQuery : ObjectQuery.Query -> Session -> Session
+updateObjectQuery objectQuery ({ queries } as session) =
+    { session | queries = { queries | object = objectQuery } }
 
 
 updateTextileQuery : TextileQuery.Query -> Session -> Session

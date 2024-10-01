@@ -33,6 +33,7 @@ type ActivePage
     | Explore
     | FoodBuilder
     | Home
+    | Object
     | Other
     | Stats
     | TextileSimulator

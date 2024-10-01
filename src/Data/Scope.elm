@@ -16,6 +16,7 @@ import Url.Parser as Parser exposing (Parser)
 
 type Scope
     = Food
+    | Object
     | Textile
 
 
@@ -33,11 +34,14 @@ encode =
 fromString : String -> Result String Scope
 fromString string =
     case string of
-        "textile" ->
-            Ok Textile
-
         "food" ->
             Ok Food
+
+        "object" ->
+            Ok Object
+
+        "textile" ->
+            Ok Textile
 
         _ ->
             Err <| "Couldn't decode unknown scope " ++ string
@@ -60,6 +64,9 @@ toLabel scope =
         Food ->
             "Alimentaire"
 
+        Object ->
+            "Objets"
+
         Textile ->
             "Textile"
 
@@ -69,6 +76,9 @@ toString scope =
     case scope of
         Food ->
             "food"
+
+        Object ->
+            "object"
 
         Textile ->
             "textile"
