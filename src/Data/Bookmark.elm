@@ -4,8 +4,10 @@ module Data.Bookmark exposing
     , decode
     , encode
     , findByFoodQuery
+    , findByObjectQuery
     , findByTextileQuery
     , isFood
+    , isObject
     , isTextile
     , sort
     , toId
@@ -14,6 +16,7 @@ module Data.Bookmark exposing
 
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
+import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
@@ -32,6 +35,7 @@ type alias Bookmark =
 
 type Query
     = Food FoodQuery.Query
+    | Object ObjectQuery.Query
     | Textile TextileQuery.Query
 
 
@@ -47,6 +51,7 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.oneOf
         [ Decode.map Food FoodQuery.decode
+        , Decode.map Object ObjectQuery.decode
         , Decode.map Textile TextileQuery.decode
         ]
 
@@ -66,6 +71,9 @@ encodeQuery v =
         Food query ->
             FoodQuery.encode query
 
+        Object query ->
+            ObjectQuery.encode query
+
         Textile query ->
             TextileQuery.encode query
 
@@ -74,6 +82,16 @@ isFood : Bookmark -> Bool
 isFood { query } =
     case query of
         Food _ ->
+            True
+
+        _ ->
+            False
+
+
+isObject : Bookmark -> Bool
+isObject { query } =
+    case query of
+        Object _ ->
             True
 
         _ ->
@@ -101,6 +119,11 @@ findByFoodQuery foodQuery =
     findByQuery (Food foodQuery)
 
 
+findByObjectQuery : ObjectQuery.Query -> List Bookmark -> Maybe Bookmark
+findByObjectQuery objectQuery =
+    findByQuery (Object objectQuery)
+
+
 findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
 findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
@@ -111,6 +134,9 @@ scope bookmark =
     case bookmark.query of
         Food _ ->
             Scope.Food
+
+        Object _ ->
+            Scope.Object
 
         Textile _ ->
             Scope.Textile
@@ -134,6 +160,10 @@ toQueryDescription db bookmark =
                 |> Recipe.fromQuery db
                 |> Result.map Recipe.toString
                 |> Result.withDefault bookmark.name
+
+        Object objectQuery ->
+            objectQuery
+                |> ObjectQuery.toString
 
         Textile textileQuery ->
             textileQuery

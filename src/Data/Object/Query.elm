@@ -5,11 +5,14 @@ module Data.Object.Query exposing
     , amount
     , amountToFloat
     , b64encode
+    , buildApiQuery
     , decode
     , default
     , defaultItem
+    , encode
     , parseBase64Query
     , removeItem
+    , toString
     , updateItem
     )
 
@@ -43,6 +46,17 @@ amount =
 amountToFloat : Amount -> Float
 amountToFloat (Amount float) =
     float
+
+
+buildApiQuery : String -> Query -> String
+buildApiQuery clientUrl query =
+    """curl -sS -X POST %apiUrl% \\
+  -H "accept: application/json" \\
+  -H "content-type: application/json" \\
+  -d '%json%'
+"""
+        |> String.replace "%apiUrl%" (clientUrl ++ "api/object/simulator")
+        |> String.replace "%json%" (encode query |> Encode.encode 0)
 
 
 decode : Decoder Query
@@ -104,6 +118,23 @@ updateItem newItem query =
                             item
                     )
     }
+
+
+toString : Query -> String
+toString query =
+    query.items
+        |> List.map
+            (\i ->
+                (i.amount
+                    |> amountToFloat
+                    |> String.fromFloat
+                )
+                    ++ " "
+                    ++ (i.processId
+                            |> Process.idToString
+                       )
+            )
+        |> String.join " - "
 
 
 
