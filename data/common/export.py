@@ -2,10 +2,16 @@
 import functools
 import json
 import logging
+import urllib
 
+import bw2calc
 import bw2data
+import requests
 from bw2io.utils import activity_hash
 from frozendict import frozendict
+
+from common.impacts import bytrigram, main_method
+from common.impacts import impacts as definitions
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -135,6 +141,31 @@ def display_changes(key, oldprocesses, processes):
         print("==".join(["=" * widths[key] for key in keys]))
         print("Please review the impact changes above")
         print("==".join(["=" * widths[key] for key in keys]))
+
+
+def compute_simapro_impacts(activity, method):
+    strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
+    project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
+    method = urllib.parse.quote(main_method, encoding=None, errors=None)
+    return bytrigram(
+        definitions,
+        json.loads(
+            requests.get(
+                f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
+            ).content
+        ),
+    )
+
+
+def compute_brightway_impacts(activity, method):
+    results = dict()
+    lca = bw2calc.LCA({activity: 1})
+    lca.lci()
+    for key, method in definitions.items():
+        lca.switch_method(method)
+        lca.lcia()
+        results[key] = float("{:.10g}".format(lca.score))
+    return results
 
 
 def create_activity(dbname, new_activity_name, base_activity=None):
