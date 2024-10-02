@@ -21,7 +21,7 @@ type alias Config msg =
     , copyToClipBoard : String -> msg
     , customScoreInfo : Maybe (Html msg)
     , deleteBookmark : Bookmark -> msg
-    , impactTabsConfig : ImpactTabs.Config msg
+    , impactTabsConfig : Maybe (ImpactTabs.Config msg)
     , productMass : Mass
     , saveBookmark : msg
     , scope : Scope
@@ -59,8 +59,12 @@ view config =
             , mass = config.productMass
             , score = config.totalImpacts
             }
-        , config.impactTabsConfig
-            |> ImpactTabs.view db.definitions
+        , case config.impactTabsConfig of
+            Just impactTabsConfig ->
+                ImpactTabs.view db.definitions impactTabsConfig
+
+            Nothing ->
+                text ""
         , BookmarkView.view
             { activeTab = config.activeBookmarkTab
             , bookmarkName = config.bookmarkName

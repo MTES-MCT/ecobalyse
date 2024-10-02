@@ -51,17 +51,17 @@
     "test": "npm run test:client && npm run test:backend && npm run test:server"
   },
   "dependencies": {
-    "@sentry/browser": "^8.27.0",
-    "@sentry/node": "^8.27.0",
-    "@sentry/profiling-node": "^8.28.0",
-    "@sentry/tracing": "^7.114.0",
+    "@sentry/browser": "^8.28.0",
+    "@sentry/node": "^8.29.0",
+    "@sentry/tracing": "^7.119.0",
+    "@sentry/profiling-node": "^8.29.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "express-rate-limit": "^7.4.0",
     "helmet": "^7.1.0",
     "js-yaml": "^4.1.0",
-    "piwik": "^1.0.9"
+    "piwik": "^1.0.10"
   },
   "devDependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
@@ -89,5 +89,8 @@
     "node_modules",
     "elm-stuff",
     ".elm"
-  ]
+  ],
+  "jest": {
+    "testTimeout": 50
+  }
 }

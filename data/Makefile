@@ -12,18 +12,18 @@ env | grep ECOBALYSE_DATA_DIR || exit
 	docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ -w /home/jovyan/ecobalyse/data $(NAME) $(1);\
 else \
 	echo "(Creating a new container)" &&\
-	docker run --rm -it -v $(NAME):/home/jovyan -v $$PWD/../:/home/jovyan/ecobalyse -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ -w /home/jovyan/ecobalyse/data $(NAME) $(1); fi
+  docker run --rm -it -v $(NAME):/home/jovyan -v $$PWD/../:/home/jovyan/ecobalyse -v $$PWD/../../dbfiles/:/home/jovyan/dbfiles -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ -w /home/jovyan/ecobalyse/data $(NAME) $(1); fi
 endef
 
 all: import export
-import : image import_agribalyse import_ecoinvent import_method sync_datapackages
+import : image import_food import_ecoinvent import_method sync_datapackages
 export: export_food format
 
 image:
 	docker build -t $(NAME) docker
 
-import_agribalyse:
-	@$(call DOCKER,python3 import_agribalyse.py --recreate-activities)
+import_food:
+	@$(call DOCKER,python3 import_food.py --recreate-activities)
 
 import_method:
 	@$(call DOCKER,python3 import_method.py)
@@ -64,12 +64,12 @@ jupyter_password:
 start_notebook:
 	@docker run --rm -it -d \
     -v $(NAME):/home/jovyan \
+    -v $$PWD/../../dbfiles:/home/jovyan/dbfiles \
     -v $$PWD/../:/home/jovyan/ecobalyse \
     -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private \
     -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ \
     -e JUPYTER_PORT=$(JUPYTER_PORT) \
     -e JUPYTER_ENABLE_LAB=yes \
-    -w /home/jovyan/ecobalyse/data \
     -p $(JUPYTER_PORT):$(JUPYTER_PORT) \
     --name $(NAME) \
     $(NAME) start-notebook.sh --collaborative

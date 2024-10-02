@@ -10,6 +10,7 @@ import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.Uuid as Uuid exposing (Uuid)
@@ -29,6 +30,9 @@ type Route
     | FoodBuilderExample Uuid
     | FoodBuilderHome
     | Home
+    | ObjectSimulator Definition.Trigram (Maybe ObjectQuery.Query)
+    | ObjectSimulatorExample Uuid
+    | ObjectSimulatorHome
     | Stats
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | TextileSimulatorExample Uuid
@@ -58,6 +62,10 @@ parser =
                             Scope.Food ->
                                 Dataset.FoodExamples Nothing
 
+                            Scope.Object ->
+                                -- FIXME: object process examples page
+                                Dataset.TextileExamples Nothing
+
                             Scope.Textile ->
                                 Dataset.TextileExamples Nothing
                         )
@@ -78,6 +86,20 @@ parser =
             )
         , Parser.map FoodBuilderExample
             (Parser.s "food"
+                </> Parser.s "edit-example"
+                </> Example.parseUuid
+            )
+
+        -- Object specific routes
+        , Parser.map ObjectSimulatorHome
+            (Parser.s "object" </> Parser.s "simulator")
+        , Parser.map ObjectSimulator <|
+            Parser.s "object"
+                </> Parser.s "simulator"
+                </> Impact.parseTrigram
+                </> ObjectQuery.parseBase64Query
+        , Parser.map ObjectSimulatorExample
+            (Parser.s "object"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
@@ -213,6 +235,25 @@ toString route =
 
                 Home ->
                     []
+
+                ObjectSimulator trigram (Just query) ->
+                    [ "object"
+                    , "simulator"
+                    , Definition.toString trigram
+                    , ObjectQuery.b64encode query
+                    ]
+
+                ObjectSimulator trigram Nothing ->
+                    [ "object"
+                    , "simulator"
+                    , Definition.toString trigram
+                    ]
+
+                ObjectSimulatorExample uuid ->
+                    [ "object", "edit-example", Uuid.toString uuid ]
+
+                ObjectSimulatorHome ->
+                    [ "object", "simulator" ]
 
                 Stats ->
                     [ "stats" ]
