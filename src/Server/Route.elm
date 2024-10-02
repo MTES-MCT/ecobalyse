@@ -6,6 +6,7 @@ module Server.Route exposing
 import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Object.Query as ObjectQuery
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode
@@ -39,6 +40,11 @@ type Route
       --   POST
       --     Food recipe builder (POST, JSON body)
     | FoodPostRecipe (Result String BuilderQuery.Query)
+      --
+      -- Object Routes
+      --   GET
+      --     Textile Simple version of all impacts (GET, query string)
+    | ObjectGetSimulator (Result Query.Errors ObjectQuery.Query)
       --
       -- Textile Routes
       --   GET
@@ -100,6 +106,10 @@ parser db body =
             |> Parser.map (TextilePostSimulatorDetailed (decodeTextileQueryBody db body))
         , (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
             |> Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody db body))
+
+        -- Object
+        , (s "GET" </> s "object" </> s "simulator" <?> Query.parseObjectQuery)
+            |> Parser.map ObjectGetSimulator
         ]
 
 
