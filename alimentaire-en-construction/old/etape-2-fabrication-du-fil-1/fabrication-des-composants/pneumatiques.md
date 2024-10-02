@@ -45,7 +45,7 @@ Avec :
 
 ### Procédé utilisé pour la modélisation
 
-A des fins de simplification, la modélisation suivante a été retenue
+A des fins de simplification, et en l'absence de procédé Ecoinvent spécifique, un procédé a été  modélisé de la façon suivante :
 
 * Matière transformée
   * 80%\*50% kg de caoutchouc synthétique
@@ -56,9 +56,13 @@ A des fins de simplification, la modélisation suivante a été retenue
     * _carbon black production, GLO (ecoinvent), 0.3 kg_
   * _20% Polyester_
     * market for fibre, polyester, GLO _(ecoinvent), 0.15kg_
-* Etape de transformation additionnelle => thermoformage Procédé Ecoinvent => I_njection moulding, RER_ Quantité => 1kg
+* Etape de transformation additionnelle
+  * thermoformage \
+    _Injection moulding, RER, 1 kg_
 
 ### Nombre de roues R par catégorie de véhicule
+
+Un nombre de roues est fixé par défaut par véhicule :
 
 | Catégories | Nb de roues |
 | ---------- | ----------- |
@@ -73,6 +77,3 @@ A des fins de simplification, la modélisation suivante a été retenue
 | L6e        | 4           |
 | L7e        | 4           |
 | Autre      | 4\*         |
-
-
-
