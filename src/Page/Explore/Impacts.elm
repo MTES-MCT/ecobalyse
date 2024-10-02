@@ -61,7 +61,7 @@ table { detailed, scope } =
                         >> Maybe.withDefault 0
           , toCell = .pefData >> Maybe.map (.weighting >> Format.splitAsPercentage 2) >> Maybe.withDefault (text "N/A")
           }
-        , { label = "Normalisation (Sc. Imp.)"
+        , { label = "Normalisation (Coût Evt)"
           , toValue =
                 Table.FloatValue <|
                     .ecoscoreData
@@ -73,7 +73,7 @@ table { detailed, scope } =
                         |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
                         |> Maybe.withDefault (text "N/A")
           }
-        , { label = "Pondération (Sc. Imp.)"
+        , { label = "Pondération (Coût Evt)"
           , toValue =
                 Table.FloatValue <|
                     .ecoscoreData
