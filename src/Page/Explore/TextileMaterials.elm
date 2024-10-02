@@ -28,6 +28,12 @@ recycledToString maybeMaterialID =
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
 table db { detailed, scope } =
+    let
+        withPill url content =
+            div
+                [ classList [ ( "text-center", not detailed ) ] ]
+                [ content, Link.smallPillExternal [ href (Gitbook.publicUrlFromPath url) ] [ Icon.question ] ]
+    in
     { filename = "materials"
     , toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
@@ -67,26 +73,19 @@ table db { detailed, scope } =
         , { label = "Complément Microfibres"
           , toValue = Table.FloatValue <| .origin >> Origin.toMicrofibersComplement >> Unit.impactToFloat
           , toCell =
-                \{ origin } ->
-                    div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Origin.toMicrofibersComplement origin
-                            |> Unit.impactToFloat
-                            |> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
-                        , Link.smallPillExternal
-                            [ href (Gitbook.publicUrlFromPath Gitbook.TextileComplementMicrofibers) ]
-                            [ Icon.question ]
-                        ]
+                .origin
+                    >> Origin.toMicrofibersComplement
+                    >> Unit.impactToFloat
+                    >> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
+                    >> withPill Gitbook.TextileComplementMicrofibers
           }
         , { label = "Procédé de fabrication du fil"
           , toValue = Table.StringValue <| .origin >> Origin.threadProcess
           , toCell =
-                \{ origin } ->
-                    div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Origin.threadProcess origin |> text
-                        , Link.smallPillExternal
-                            [ href (Gitbook.publicUrlFromPath Gitbook.TextileSpinning) ]
-                            [ Icon.question ]
-                        ]
+                .origin
+                    >> Origin.threadProcess
+                    >> text
+                    >> withPill Gitbook.TextileSpinning
           }
         , { label = "Procédé de recyclage"
           , toValue = Table.StringValue <| .recycledProcess >> Maybe.map .name >> Maybe.withDefault "N/A"
@@ -125,18 +124,13 @@ table db { detailed, scope } =
                         >> Maybe.map (.manufacturerAllocation >> Split.toFloat)
                         >> Maybe.withDefault 0
           , toCell =
-                \{ cffData } ->
-                    case cffData of
-                        Just { manufacturerAllocation } ->
-                            div [ classList [ ( "text-center", not detailed ) ] ]
-                                [ manufacturerAllocation |> Format.splitAsFloat 1
-                                , Link.smallPillExternal
-                                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileCircularFootprintFormula) ]
-                                    [ Icon.question ]
-                                ]
-
-                        Nothing ->
-                            text "N/A"
+                .cffData
+                    >> Maybe.map
+                        (.manufacturerAllocation
+                            >> Format.splitAsFloat 1
+                            >> withPill Gitbook.TextileCircularFootprintFormula
+                        )
+                    >> Maybe.withDefault (text "N/A")
           }
         , { label = "CFF: Rapport de qualité"
           , toValue =
@@ -145,18 +139,13 @@ table db { detailed, scope } =
                         >> Maybe.map (.recycledQualityRatio >> Split.toFloat)
                         >> Maybe.withDefault 0
           , toCell =
-                \{ cffData } ->
-                    case cffData of
-                        Just { recycledQualityRatio } ->
-                            div [ classList [ ( "text-center", not detailed ) ] ]
-                                [ recycledQualityRatio |> Format.splitAsFloat 1
-                                , Link.smallPillExternal
-                                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileMaterialCFF) ]
-                                    [ Icon.question ]
-                                ]
-
-                        Nothing ->
-                            text "N/A"
+                .cffData
+                    >> Maybe.map
+                        (.recycledQualityRatio
+                            >> Format.splitAsFloat 1
+                            >> withPill Gitbook.TextileCircularFootprintFormula
+                        )
+                    >> Maybe.withDefault (text "N/A")
           }
         ]
     }
