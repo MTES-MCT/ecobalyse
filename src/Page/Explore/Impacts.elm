@@ -41,26 +41,6 @@ table { detailed, scope } =
           , toValue = Table.StringValue <| .unit
           , toCell = \def -> code [] [ text def.unit ]
           }
-        , { label = "Normalisation (PEF)"
-          , toValue =
-                Table.FloatValue <|
-                    .pefData
-                        >> Maybe.map (.normalization >> Unit.impactToFloat)
-                        >> Maybe.withDefault 0
-          , toCell =
-                \def ->
-                    def.pefData
-                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
-                        |> Maybe.withDefault (text "N/A")
-          }
-        , { label = "Pondération (PEF)"
-          , toValue =
-                Table.FloatValue <|
-                    .pefData
-                        >> Maybe.map (.weighting >> Split.toFloat)
-                        >> Maybe.withDefault 0
-          , toCell = .pefData >> Maybe.map (.weighting >> Format.splitAsPercentage 2) >> Maybe.withDefault (text "N/A")
-          }
         , { label = "Normalisation (Coût Evt)"
           , toValue =
                 Table.FloatValue <|
@@ -80,6 +60,26 @@ table { detailed, scope } =
                         >> Maybe.map (.weighting >> Split.toFloat)
                         >> Maybe.withDefault 0
           , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.splitAsPercentage 2) >> Maybe.withDefault (text "N/A")
+          }
+        , { label = "Normalisation (PEF)"
+          , toValue =
+                Table.FloatValue <|
+                    .pefData
+                        >> Maybe.map (.normalization >> Unit.impactToFloat)
+                        >> Maybe.withDefault 0
+          , toCell =
+                \def ->
+                    def.pefData
+                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                        |> Maybe.withDefault (text "N/A")
+          }
+        , { label = "Pondération (PEF)"
+          , toValue =
+                Table.FloatValue <|
+                    .pefData
+                        >> Maybe.map (.weighting >> Split.toFloat)
+                        >> Maybe.withDefault 0
+          , toCell = .pefData >> Maybe.map (.weighting >> Format.splitAsPercentage 2) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Description"
           , toValue = Table.StringValue .description
