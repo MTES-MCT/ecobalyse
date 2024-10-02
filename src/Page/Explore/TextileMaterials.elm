@@ -2,6 +2,7 @@ module Page.Explore.TextileMaterials exposing (table)
 
 import Data.Country as Country
 import Data.Dataset as Dataset
+import Data.Gitbook as Gitbook
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Material as Material exposing (Material)
@@ -14,6 +15,8 @@ import Route
 import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
+import Views.Icon as Icon
+import Views.Link as Link
 
 
 recycledToString : Maybe Material.Id -> String
@@ -69,11 +72,21 @@ table db { detailed, scope } =
                         [ Origin.toMicrofibersComplement origin
                             |> Unit.impactToFloat
                             |> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
+                        , Link.smallPillExternal
+                            [ href (Gitbook.publicUrlFromPath Gitbook.TextileComplementMicrofibers) ]
+                            [ Icon.question ]
                         ]
           }
         , { label = "Procédé de fabrication du fil"
           , toValue = Table.StringValue <| .origin >> Origin.threadProcess
-          , toCell = .origin >> Origin.threadProcess >> text
+          , toCell =
+                \{ origin } ->
+                    div [ classList [ ( "text-center", not detailed ) ] ]
+                        [ Origin.threadProcess origin |> text
+                        , Link.smallPillExternal
+                            [ href (Gitbook.publicUrlFromPath Gitbook.TextileSpinning) ]
+                            [ Icon.question ]
+                        ]
           }
         , { label = "Procédé de recyclage"
           , toValue = Table.StringValue <| .recycledProcess >> Maybe.map .name >> Maybe.withDefault "N/A"
@@ -115,8 +128,12 @@ table db { detailed, scope } =
                 \{ cffData } ->
                     case cffData of
                         Just { manufacturerAllocation } ->
-                            manufacturerAllocation
-                                |> Format.splitAsFloat 1
+                            div [ classList [ ( "text-center", not detailed ) ] ]
+                                [ manufacturerAllocation |> Format.splitAsFloat 1
+                                , Link.smallPillExternal
+                                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileCircularFootprintFormula) ]
+                                    [ Icon.question ]
+                                ]
 
                         Nothing ->
                             text "N/A"
@@ -131,8 +148,12 @@ table db { detailed, scope } =
                 \{ cffData } ->
                     case cffData of
                         Just { recycledQualityRatio } ->
-                            recycledQualityRatio
-                                |> Format.splitAsFloat 1
+                            div [ classList [ ( "text-center", not detailed ) ] ]
+                                [ recycledQualityRatio |> Format.splitAsFloat 1
+                                , Link.smallPillExternal
+                                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileCircularFootprintFormula2) ]
+                                    [ Icon.question ]
+                                ]
 
                         Nothing ->
                             text "N/A"
