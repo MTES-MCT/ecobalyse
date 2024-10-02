@@ -143,7 +143,7 @@ table db { detailed, scope } =
                     >> Maybe.map
                         (.recycledQualityRatio
                             >> Format.splitAsFloat 1
-                            >> withPill Gitbook.TextileCircularFootprintFormula
+                            >> withPill Gitbook.TextileMaterialCFF
                         )
                     >> Maybe.withDefault (text "N/A")
           }
