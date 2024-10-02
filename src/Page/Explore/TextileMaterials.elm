@@ -151,7 +151,7 @@ table db { detailed, scope } =
                             div [ classList [ ( "text-center", not detailed ) ] ]
                                 [ recycledQualityRatio |> Format.splitAsFloat 1
                                 , Link.smallPillExternal
-                                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileCircularFootprintFormula2) ]
+                                    [ href (Gitbook.publicUrlFromPath Gitbook.TextileMaterialCFF) ]
                                     [ Icon.question ]
                                 ]
 
