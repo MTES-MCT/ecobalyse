@@ -47,24 +47,7 @@ with open(CONFIG["IMPACTS_FILE"]) as f:
 
 def create_process_list(activities):
     print("Creating process list...")
-    return frozendict(
-        {
-            activity["id"]: process_activity_for_processes(activity)
-            for activity in activities
-        }
-    )
-
-
-def process_activity_for_processes(activity):
-    return {
-        "id": activity["id"],
-        "name": activity["name"],
-        "display_name": activity["display_name"],
-        "density": activity["density"],
-        "unit": activity["unit"],
-        "database": activity["database"],
-        "comment": activity.get("comment", ""),
-    }
+    return frozendict({activity["id"]: activity for activity in activities})
 
 
 def compute_simapro_impacts(activity, method):
