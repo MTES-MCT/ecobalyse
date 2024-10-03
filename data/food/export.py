@@ -47,7 +47,7 @@ if not ECOBALYSE_DATA_DIR:
 
 # Configuration
 PROJECT = ("default",)
-AGRIBALYSE = ("Agribalyse 3.1.1",)
+DEFAULT_DB = ("Agribalyse 3.1.1",)
 BIOSPHERE = ("biosphere3",)
 ACTIVITIES_FILE = (f"{PROJECT_ROOT_DIR}/data/food/activities.json",)
 COMPARED_IMPACTS_FILE = (f"{PROJECT_ROOT_DIR}/data/food/compared_impacts.csv",)
@@ -102,7 +102,7 @@ def process_activity_for_ingredient(activity):
         "name": activity["name"],
         "categories": [c for c in activity["categories"] if c != "ingredient"],
         "search": activity["search"],
-        "default": find_id(activity.get("database", AGRIBALYSE), activity),
+        "default": find_id(activity.get("database", DEFAULT_DB), activity),
         "default_origin": activity["default_origin"],
         "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
         "density": activity["density"],
@@ -131,7 +131,7 @@ def compute_land_occupation(activities_tuple):
             lca = bw2calc.LCA(
                 {
                     cached_search(
-                        activity.get("database", AGRIBALYSE),
+                        activity.get("database", DEFAULT_DB),
                         activity["search"],
                     ): 1
                 }
@@ -169,16 +169,16 @@ def create_process_list(activities):
 def process_activity_for_processes(activity):
     return {
         "id": activity["id"],
-        "name": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
+        "name": cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
             "name"
         ],
         "displayName": activity["name"],
-        "unit": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
+        "unit": cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
             "unit"
         ],
-        "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
+        "identifier": find_id(activity.get("database", DEFAULT_DB), activity),
         "system_description": cached_search(
-            activity.get("database", AGRIBALYSE), activity["search"]
+            activity.get("database", DEFAULT_DB), activity["search"]
         )["System description"],
         "category": activity.get("category"),
         "categories": activity.get("categories"),
@@ -187,13 +187,13 @@ def process_activity_for_processes(activity):
             if (
                 prod := list(
                     cached_search(
-                        activity.get("database", AGRIBALYSE), activity["search"]
+                        activity.get("database", DEFAULT_DB), activity["search"]
                     ).production()
                 )
             )
             else activity.get("comment", "")
         ),
-        "source": activity.get("database", AGRIBALYSE),
+        "source": activity.get("database", DEFAULT_DB),
         # those are removed at the end:
         "search": activity["search"],
     }
@@ -231,7 +231,7 @@ def compare_impacts(processes_fd):
     for index, (key, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
         # simapro
-        activity = cached_search(process.get("source", AGRIBALYSE), process["search"])
+        activity = cached_search(process.get("source", DEFAULT_DB), process["search"])
         results = compute_simapro_impacts(activity, main_method)
         print(f"got impacts from SimaPro for: {process['name']}")
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
@@ -287,7 +287,7 @@ def compute_impacts(processes_fd):
     for index, (_, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
         # simapro
-        activity = cached_search(process.get("source", AGRIBALYSE), process["search"])
+        activity = cached_search(process.get("source", DEFAULT_DB), process["search"])
         results = compute_simapro_impacts(activity, main_method)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kilowatt hour" and isinstance(results, dict):
