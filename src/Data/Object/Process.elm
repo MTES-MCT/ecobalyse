@@ -6,6 +6,7 @@ module Data.Object.Process exposing
     , encode
     , encodeId
     , findById
+    , idFromString
     , idToString
     )
 
@@ -85,3 +86,9 @@ findById processes id =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
+
+
+idFromString : String -> Maybe Id
+idFromString string =
+    Uuid.fromString string
+        |> Maybe.map Id

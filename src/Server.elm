@@ -11,14 +11,16 @@ import Data.Food.Origin as Origin
 import Data.Food.Process as FoodProcess
 import Data.Food.Query as BuilderQuery
 import Data.Food.Recipe as BuilderRecipe
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
+import Data.Object.Query as ObjectQuery
+import Data.Object.Simulator as ObjectSimulator
 import Data.Scope as Scope
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Query as TextileQuery
-import Data.Textile.Simulator as Simulator exposing (Simulator)
+import Data.Textile.Simulator as TextileSimulator
 import Json.Encode as Encode
 import Route as WebRoute
 import Server.Query as Query
@@ -75,13 +77,21 @@ toResponse encodedResult =
             ( 200, encoded )
 
 
-toAllImpactsSimple : Simulator -> Encode.Value
-toAllImpactsSimple { impacts, inputs } =
+toAllTextileImpactsSimple : TextileSimulator.Simulator -> Encode.Value
+toAllTextileImpactsSimple { impacts, inputs } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
         , ( "impacts", Impact.encode impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
+        ]
+
+
+toAllObjectImpactsSimple : Impacts -> Encode.Value
+toAllObjectImpactsSimple impacts =
+    Encode.object
+        [ -- FIXME: add webUrl/description/query
+          ( "impacts", Impact.encode impacts )
         ]
 
 
@@ -99,7 +109,7 @@ toTextileWebUrl maybeTrigram textileQuery =
         |> WebRoute.toString
 
 
-toSingleImpactSimple : Definition.Trigram -> Simulator -> Encode.Value
+toSingleImpactSimple : Definition.Trigram -> TextileSimulator.Simulator -> Encode.Value
 toSingleImpactSimple trigram { impacts, inputs } =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toTextileWebUrl (Just trigram) inputs |> Encode.string )
@@ -128,9 +138,16 @@ executeFoodQuery db encoder =
         >> toResponse
 
 
-executeTextileQuery : Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
+executeTextileQuery : Db -> (TextileSimulator.Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
 executeTextileQuery db encoder =
-    Simulator.compute db
+    TextileSimulator.compute db
+        >> Result.map encoder
+        >> toResponse
+
+
+executeObjectQuery : Db -> (Impacts -> Encode.Value) -> ObjectQuery.Query -> JsonResponse
+executeObjectQuery db encoder =
+    ObjectSimulator.compute db
         >> Result.map encoder
         >> toResponse
 
@@ -253,7 +270,7 @@ handleRequest db request =
 
         Just (Route.TextileGetSimulator (Ok query)) ->
             query
-                |> executeTextileQuery db toAllImpactsSimple
+                |> executeTextileQuery db toAllTextileImpactsSimple
 
         Just (Route.TextileGetSimulator (Err errors)) ->
             Query.encodeErrors errors
@@ -261,7 +278,7 @@ handleRequest db request =
 
         Just (Route.TextileGetSimulatorDetailed (Ok query)) ->
             query
-                |> executeTextileQuery db Simulator.encode
+                |> executeTextileQuery db TextileSimulator.encode
 
         Just (Route.TextileGetSimulatorDetailed (Err errors)) ->
             Query.encodeErrors errors
@@ -275,6 +292,14 @@ handleRequest db request =
             Query.encodeErrors errors
                 |> respondWith 400
 
+        Just (Route.ObjectGetSimulator (Ok query)) ->
+            query
+                |> executeObjectQuery db toAllObjectImpactsSimple
+
+        Just (Route.ObjectGetSimulator (Err errors)) ->
+            Query.encodeErrors errors
+                |> respondWith 400
+
         -- POST routes
         Just (Route.FoodPostRecipe (Ok foodQuery)) ->
             executeFoodQuery db (toFoodResults foodQuery) foodQuery
@@ -285,7 +310,7 @@ handleRequest db request =
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery db toAllImpactsSimple
+                |> executeTextileQuery db toAllTextileImpactsSimple
 
         Just (Route.TextilePostSimulator (Err error)) ->
             Encode.string error
@@ -293,7 +318,7 @@ handleRequest db request =
 
         Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery db Simulator.encode
+                |> executeTextileQuery db TextileSimulator.encode
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
             Encode.string error
