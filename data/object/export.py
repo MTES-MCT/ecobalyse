@@ -25,6 +25,7 @@ from common.export import (
 from common.impacts import bytrigram, main_method
 from common.impacts import impacts as definitions
 from frozendict import frozendict
+from loguru import logger
 
 # Add the 'data' directory to the Python path
 PROJECT_ROOT_DIR = dirname(dirname(dirname(abspath(__file__))))
@@ -45,8 +46,14 @@ with open(CONFIG["IMPACTS_FILE"]) as f:
     IMPACTS_DEF_ECOBALYSE = json.load(f)
 
 
+# Configure logger
+logger.remove()  # Remove default handler
+logger.add(sys.stderr, format="{time} {level} {message}", level="INFO")
+logger.add("export.log", rotation="10 MB", level="DEBUG")
+
+
 def create_process_list(activities):
-    print("Creating process list...")
+    logger.info("Creating process list...")
     return frozendict({activity["id"]: activity for activity in activities})
 
 
@@ -56,7 +63,7 @@ def compute_simapro_impacts(activity, method):
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
 
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
-    print(api_request)
+    logger.debug(f"SimaPro API request: {api_request}")
     return bytrigram(
         definitions,
         json.loads(requests.get(api_request).content),
@@ -71,12 +78,13 @@ def compute_brightway_impacts(activity, method):
         lca.switch_method(method)
         lca.lcia()
         results[key] = float("{:.10g}".format(lca.score))
+    logger.debug(f"Computing Brightway impacts for {activity}")
     return results
 
 
 def compute_impacts(processes_fd):
     processes = dict(processes_fd)
-    print("Computing impacts:")
+    logger.info(f"Computing impacts for {len(processes)} processes:")
     for index, (_, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
 
@@ -94,9 +102,9 @@ def compute_impacts(processes_fd):
         process["impacts"] = results
 
         if isinstance(results, dict) and results:
-            print(f"got impacts from simapro for: {process['name']}")
+            logger.info(f"Got impacts from Brightway for: {process['name_brightway']}")
         else:
-            print(f"failed to get impacts for: {process['name']}")
+            logger.warning(f"Failed to get impacts for: {process['name_brightway']}")
 
         process["impacts"] = with_subimpacts(process["impacts"])
 
@@ -104,6 +112,7 @@ def compute_impacts(processes_fd):
 
 
 if __name__ == "__main__":
+    logger.info("Starting export process")
     projects.set_current(CONFIG["PROJECT"])
     # Load activities
     activities = load_json(CONFIG["ACTIVITIES_FILE"])
@@ -128,4 +137,4 @@ if __name__ == "__main__":
     # Export results
     export_json(list(processes_corrected_impacts.values()), CONFIG["PROCESSES_FILE"])
 
-    print("Export completed successfully.")
+    logger.info("Export completed successfully.")
