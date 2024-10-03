@@ -1,4 +1,4 @@
-# ♻ Etape 7 - Fin de vie
+# ♻️ Etape 7 - Fin de vie
 
 L'impact de la fin de vie se décompose en deux modules :&#x20;
 
@@ -30,7 +30,7 @@ Scénarios considérés pour la fin de vie d'un vêtement :&#x20;
 
 <summary>Recyclage</summary>
 
-Pour le recyclage, 2 circuits sont proposés ici : le recyclage en chiffons (wipers) et en matériaux d'isolation (insulation). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](etape-1-matieres/calcul-de-limpact-matiere-circular-footprint-formula-cff/circular-footprint-formula-cff-matiere-1.md)
+Pour le recyclage, 2 circuits sont proposés ici : le recyclage en chiffons (wipers) et en matériaux d'isolation (insulation). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](etape-1-matieres/circular-footprint-formula-cff-matiere-1.md)
 
 </details>
 

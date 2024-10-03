@@ -4,7 +4,7 @@ description: >-
   la CFF ?
 ---
 
-# 📚 Utilisation de matière recyclée - M1 et M2
+# Utilisation de matière recyclée - M1 et M2
 
 On s'intéresse dans un premier temps aux deux premiers termes de cette formule : M1 et M2
 
