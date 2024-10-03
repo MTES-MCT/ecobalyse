@@ -13,6 +13,7 @@ import bw2calc
 import requests
 from bw2data.project import projects
 from common.export import (
+    cached_search,
     display_changes,
     export_json,
     load_json,
@@ -37,6 +38,7 @@ CONFIG = {
     "ACTIVITIES_FILE": f"{PROJECT_ROOT_DIR}/data/object/activities.json",
     "PROCESSES_FILE": f"{PROJECT_ROOT_DIR}/public/data/object/processes.json",
     "IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/impacts.json",
+    "ECOINVENT": "Ecoinvent 3.9.1",
 }
 
 with open(CONFIG["IMPACTS_FILE"]) as f:
@@ -80,7 +82,7 @@ def compute_simapro_impacts(activity, method):
 
 def compute_brightway_impacts(activity, method):
     results = dict()
-    lca = bw2calc.LCA({activity: 1})
+    lca = bw2calc.LCA({activity["name"]: 1})
     lca.lci()
     for key, method in definitions.items():
         lca.switch_method(method)
@@ -95,7 +97,11 @@ def compute_impacts(processes_fd):
     for index, (_, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
 
-        results = compute_brightway_impacts(process, main_method)
+        activity = cached_search(
+            process.get("database", CONFIG["ECOINVENT"]), process["name"]
+        )
+
+        results = compute_brightway_impacts(activity, main_method)
 
         if process["unit"] == "kilowatt hour" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
