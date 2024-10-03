@@ -84,18 +84,18 @@ itemListParser key =
 itemParser : String -> Result String ObjectQuery.Item
 itemParser string =
     case String.split ";" string of
-        [ id, amount ] ->
+        [ amount, id ] ->
             Ok ObjectQuery.Item
                 |> RE.andMap
                     (amount
                         |> String.toFloat
                         |> Maybe.map ObjectQuery.amount
-                        |> Result.fromMaybe ("Format de quantité invalide, nombre flottant attendu\u{202F}: " ++ string ++ ".")
+                        |> Result.fromMaybe ("Format de quantité invalide, nombre flottant attendu\u{202F}: " ++ amount ++ ".")
                     )
                 |> RE.andMap
                     (id
                         |> ObjectProcess.idFromString
-                        |> Result.fromMaybe ("Format de process invalide, UUID attendu\u{202F}: " ++ string ++ ".")
+                        |> Result.fromMaybe ("Format de process invalide, UUID attendu\u{202F}: " ++ id ++ ".")
                     )
 
         [ "" ] ->
