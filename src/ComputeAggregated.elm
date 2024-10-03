@@ -4,6 +4,7 @@ import Data.Food.Process as FoodProcess
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Textile.Process as TextileProcess
+import Data.Object.Process as ObjectProcess
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Quantity
@@ -13,6 +14,7 @@ type alias Flags =
     { definitionsString : String
     , foodProcessesString : String
     , textileProcessesString : String
+    , objectProcessesString : String
     }
 
 
@@ -49,7 +51,7 @@ keepOnlyAggregated processes =
 
 
 toExport : Flags -> Result Decode.Error Encode.Value
-toExport { definitionsString, foodProcessesString, textileProcessesString } =
+toExport { definitionsString, foodProcessesString, textileProcessesString, objectProcessesString } =
     definitionsString
         |> Decode.decodeString Definition.decode
         |> Result.andThen
@@ -60,9 +62,12 @@ toExport { definitionsString, foodProcessesString, textileProcessesString } =
 
                     foodProcessesResult =
                         decodeProcesses (FoodProcess.decodeList Impact.decodeWithoutAggregated) definitions foodProcessesString
+
+                    objectProcessesResult =
+                        decodeProcesses (ObjectProcess.decodeList Impact.decodeWithoutAggregated) definitions objectProcessesString
                 in
-                Result.map2
-                    (\textileProcesses foodProcesses ->
+                Result.map3
+                    (\textileProcesses foodProcesses objectProcesses ->
                         let
                             textileProcessesOnlyAggregated =
                                 textileProcesses
@@ -71,16 +76,23 @@ toExport { definitionsString, foodProcessesString, textileProcessesString } =
                             foodProcessesOnlyAggregated =
                                 foodProcesses
                                     |> keepOnlyAggregated
+
+                            objectProcessesOnlyAggregated =
+                                objectProcesses
+                                    |> keepOnlyAggregated
                         in
                         Encode.object
                             [ ( "textileProcesses", Encode.list TextileProcess.encode textileProcesses )
                             , ( "foodProcesses", Encode.list FoodProcess.encode foodProcesses )
+                            , ( "objectProcesses", Encode.list ObjectProcess.encode objectProcesses )
                             , ( "textileProcessesOnlyAggregated", Encode.list TextileProcess.encode textileProcessesOnlyAggregated )
                             , ( "foodProcessesOnlyAggregated", Encode.list FoodProcess.encode foodProcessesOnlyAggregated )
+                            , ( "objectProcessesOnlyAggregated", Encode.list ObjectProcess.encode objectProcessesOnlyAggregated )
                             ]
                     )
                     textileProcessesResult
                     foodProcessesResult
+                    objectProcessesResult
             )
 
 
