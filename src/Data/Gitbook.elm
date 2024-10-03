@@ -16,6 +16,7 @@ type Path
     | FoodTransformation -- Transformation des ingrédients
     | FoodTransport -- Transport entre étapes
     | FoodUse -- Consommation
+    | TextileCircularFootprintFormula -- Circular Footprint Formula (CFF)
     | TextileComplementMicrofibers -- Complément textile microfibres
     | TextileDistribution -- Distribution textile
     | TextileDurability -- Durabilité textile
@@ -68,6 +69,9 @@ pathToString path =
 
         FoodUse ->
             "alimentaire/etapes-du-cycles-de-vie/consommation"
+
+        TextileCircularFootprintFormula ->
+            "textile/cycle-de-vie-des-produits-textiles/circular-footpring-formula-cff"
 
         TextileComplementMicrofibers ->
             "textile/complements-hors-acv/microfibres"
@@ -124,7 +128,7 @@ pathToString path =
             "textile/etapes-du-cycle-de-vie/etape-1-matieres"
 
         TextileSpinning ->
-            "textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new"
+            "textile/cycle-de-vie-des-produits-textiles/etape-2-fabrication-du-fil"
 
         TextileTransport ->
             "textile/parametres-transverses/transport"
