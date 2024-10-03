@@ -74,11 +74,10 @@ def find_id(dbname, activity):
 
 def create_ingredient_list(activities_tuple):
     print("Creating ingredient list...")
-    activities = list(activities_tuple)
     return tuple(
         [
             process_activity_for_ingredient(activity)
-            for activity in activities
+            for activity in list(activities_tuple)
             if activity["category"] == "ingredient"
         ]
     )
