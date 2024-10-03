@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-"""Export des ingrédients et des processes de l'alimentaire"""
+"""Ingredients and processes export for food"""
 
 import json
 import os
@@ -46,22 +46,23 @@ if not ECOBALYSE_DATA_DIR:
     sys.exit(1)
 
 # Configuration
-CONFIG = {
-    "PROJECT": "default",
-    "AGRIBALYSE": "Agribalyse 3.1.1",
-    "BIOSPHERE": "Agribalyse 3.1.1 biosphere",
-    "ACTIVITIES_FILE": f"{PROJECT_ROOT_DIR}/data/food/activities.json",
-    "COMPARED_IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/data/food/compared_impacts.csv",
-    "IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/impacts.json",
-    "ECOSYSTEMIC_FACTORS_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ecosystemic_factors.csv",
-    "FEED_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",
-    "UGB_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv",
-    "INGREDIENTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",
-    "PROCESSES_FILE": f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json",
-    "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
-    "GRAPH_FOLDER": f"{PROJECT_ROOT_DIR}/data/food/impact_comparison",
-}
-with open(CONFIG["IMPACTS_FILE"]) as f:
+PROJECT = ("default",)
+AGRIBALYSE = ("Agribalyse 3.1.1",)
+BIOSPHERE = ("biosphere3",)
+ACTIVITIES_FILE = (f"{PROJECT_ROOT_DIR}/data/food/activities.json",)
+COMPARED_IMPACTS_FILE = (f"{PROJECT_ROOT_DIR}/data/food/compared_impacts.csv",)
+IMPACTS_FILE = (f"{PROJECT_ROOT_DIR}/public/data/impacts.json",)
+ECOSYSTEMIC_FACTORS_FILE = (
+    f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ecosystemic_factors.csv",
+)
+FEED_FILE = (f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",)
+UGB_FILE = (f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv",)
+INGREDIENTS_FILE = (f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",)
+PROCESSES_FILE = (f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json",)
+LAND_OCCUPATION_METHOD = (("selected LCI results", "resource", "land occupation"),)
+GRAPH_FOLDER = (f"{PROJECT_ROOT_DIR}/data/food/impact_comparison",)
+
+with open(IMPACTS_FILE) as f:
     IMPACTS_DEF_ECOBALYSE = json.load(f)
 
 
@@ -101,7 +102,7 @@ def process_activity_for_ingredient(activity):
         "name": activity["name"],
         "categories": [c for c in activity["categories"] if c != "ingredient"],
         "search": activity["search"],
-        "default": find_id(activity.get("database", CONFIG["AGRIBALYSE"]), activity),
+        "default": find_id(activity.get("database", AGRIBALYSE), activity),
         "default_origin": activity["default_origin"],
         "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
         "density": activity["density"],
@@ -130,13 +131,13 @@ def compute_land_occupation(activities_tuple):
             lca = bw2calc.LCA(
                 {
                     cached_search(
-                        activity.get("database", CONFIG["AGRIBALYSE"]),
+                        activity.get("database", AGRIBALYSE),
                         activity["search"],
                     ): 1
                 }
             )
             lca.lci()
-            lca.switch_method(CONFIG["LAND_OCCUPATION_METHOD"])
+            lca.switch_method(LAND_OCCUPATION_METHOD)
             lca.lcia()
             activity["land_occupation"] = float("{:.10g}".format(lca.score))
         updated_activities.append(frozendict(activity))
@@ -166,7 +167,6 @@ def create_process_list(activities):
 
 
 def process_activity_for_processes(activity):
-    AGRIBALYSE = CONFIG["AGRIBALYSE"]
     return {
         "id": activity["id"],
         "name": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
@@ -231,9 +231,7 @@ def compare_impacts(processes_fd):
     for index, (key, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
         # simapro
-        activity = cached_search(
-            process.get("source", CONFIG["AGRIBALYSE"]), process["search"]
-        )
+        activity = cached_search(process.get("source", AGRIBALYSE), process["search"])
         results = compute_simapro_impacts(activity, main_method)
         print(f"got impacts from SimaPro for: {process['name']}")
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
@@ -289,9 +287,7 @@ def compute_impacts(processes_fd):
     for index, (_, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
         # simapro
-        activity = cached_search(
-            process.get("source", CONFIG["AGRIBALYSE"]), process["search"]
-        )
+        activity = cached_search(process.get("source", AGRIBALYSE), process["search"])
         results = compute_simapro_impacts(activity, main_method)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kilowatt hour" and isinstance(results, dict):
@@ -349,7 +345,7 @@ def plot_impacts(ingredient_name, impacts_smp, impacts_bw):
     ax.legend()
 
     matplotlib.pyplot.tight_layout()
-    matplotlib.pyplot.savefig(f"{CONFIG['GRAPH_FOLDER']}/{ingredient_name}.png")
+    matplotlib.pyplot.savefig(f"{GRAPH_FOLDER}/{ingredient_name}.png")
     matplotlib.pyplot.close()
 
 
@@ -374,27 +370,27 @@ def csv_export_impact_comparison(compared_impacts):
             rows.append(row)
 
     df = pd.DataFrame(rows)
-    df.to_csv(CONFIG["COMPARED_IMPACTS_FILE"], index=False)
+    df.to_csv(COMPARED_IMPACTS_FILE, index=False)
 
 
 if __name__ == "__main__":
-    projects.set_current(CONFIG["PROJECT"])
-    bw2data.config.p["biosphere_database"] = CONFIG["BIOSPHERE"]
+    projects.set_current(PROJECT)
+    bw2data.config.p["biosphere_database"] = BIOSPHERE
 
     # keep the previous processes with old impacts
-    oldprocesses = load_json(CONFIG["PROCESSES_FILE"])
-    activities = tuple(load_json(CONFIG["ACTIVITIES_FILE"]))
+    oldprocesses = load_json(PROCESSES_FILE)
+    activities = tuple(load_json(ACTIVITIES_FILE))
 
     activities_land_occ = compute_land_occupation(activities)
     ingredients = create_ingredient_list(activities_land_occ)
 
-    ecosystemic_factors = load_ecosystemic_dic(CONFIG["ECOSYSTEMIC_FACTORS_FILE"])
+    ecosystemic_factors = load_ecosystemic_dic(ECOSYSTEMIC_FACTORS_FILE)
     ingredients_veg_es = compute_vegetal_ecosystemic_services(
         ingredients, ecosystemic_factors
     )
 
-    feed_file = load_json(CONFIG["FEED_FILE"])
-    ugb = load_ugb_dic(CONFIG["UGB_FILE"])
+    feed_file = load_json(FEED_FILE)
+    ugb = load_ugb_dic(UGB_FILE)
     ingredients_animal_es = compute_animal_ecosystemic_services(
         ingredients_veg_es, activities_land_occ, ecosystemic_factors, feed_file, ugb
     )
@@ -411,7 +407,7 @@ if __name__ == "__main__":
             print(f"Plotting {ingredient_name}")
             simapro_impacts = values["simapro_impacts"]
             brightway_impacts = values["brightway_impacts"]
-            os.makedirs(CONFIG["GRAPH_FOLDER"], exist_ok=True)
+            os.makedirs(GRAPH_FOLDER, exist_ok=True)
             plot_impacts(ingredient_name, simapro_impacts, brightway_impacts)
             print("Charts have been generated and saved as PNG files.")
         sys.exit(0)
@@ -425,7 +421,7 @@ if __name__ == "__main__":
 
     # Export
 
-    export_json(activities_land_occ, CONFIG["ACTIVITIES_FILE"])
-    export_json(ingredients_animal_es, CONFIG["INGREDIENTS_FILE"])
+    export_json(activities_land_occ, ACTIVITIES_FILE)
+    export_json(ingredients_animal_es, INGREDIENTS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
-    export_json(list(processes_corrected_impacts.values()), CONFIG["PROCESSES_FILE"])
+    export_json(list(processes_corrected_impacts.values()), PROCESSES_FILE)
