@@ -82,7 +82,7 @@ def compute_simapro_impacts(activity, method):
 
 def compute_brightway_impacts(activity, method):
     results = dict()
-    lca = bw2calc.LCA({activity["name"]: 1})
+    lca = bw2calc.LCA({activity: 1})
     lca.lci()
     for key, method in definitions.items():
         lca.switch_method(method)
@@ -98,7 +98,7 @@ def compute_impacts(processes_fd):
         progress_bar(index, len(processes))
 
         activity = cached_search(
-            process.get("database", CONFIG["ECOINVENT"]), process["name"]
+            process.get("database", CONFIG["ECOINVENT"]), process["name_brightway"]
         )
 
         results = compute_brightway_impacts(activity, main_method)
