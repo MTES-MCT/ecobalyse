@@ -36,7 +36,7 @@ decodeProcess impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "density" Decode.float
-        |> Pipe.required "display_name" Decode.string
+        |> Pipe.required "displayName" Decode.string
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" Decode.string

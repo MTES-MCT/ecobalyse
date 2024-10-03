@@ -1,10 +1,9 @@
 [
   {
-    "id": "07e9e916-e02b-45e2-a298-2b5084de6242",
-    "name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
-    "display_name": "Planche (bois de feuillus)",
+    "comment": "",
     "density": 600,
-    "unit": "m3",
+    "displayName": "Planche (bois de feuillus)",
+    "id": "07e9e916-e02b-45e2-a298-2b5084de6242",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25,18 +24,18 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 22733,
-      "pef": 0
+      "ecs": 22146.70516849376,
+      "pef": 26128.099289871014
     },
+    "name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
     "source": "Ecoinvent",
-    "comment": ""
+    "unit": "m3"
   },
   {
-    "id": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
-    "name": "Plastic frame (PP)",
-    "display_name": "Composant en plastique (PP)",
+    "comment": "modélisation d'un composant générique (voir documentation)",
     "density": 900,
-    "unit": "kg",
+    "displayName": "Composant en plastique (PP)",
+    "id": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -57,10 +56,11 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 382,
-      "pef": 0
+      "ecs": 382.4041328694935,
+      "pef": 361.05514298380615
     },
+    "name": "Plastic frame (PP)",
     "source": "Ecobalyse",
-    "comment": "modélisation d'un composant générique (voir documentation)"
+    "unit": "kg"
   }
 ]

@@ -89,7 +89,7 @@ def compute_impacts(processes_fd):
         progress_bar(index, len(processes))
 
         activity = cached_search(
-            process.get("database", CONFIG["ECOINVENT"]), process["name_brightway"]
+            process.get("database", CONFIG["ECOINVENT"]), process["name"]
         )
 
         results = compute_brightway_impacts(activity, main_method)
@@ -102,9 +102,9 @@ def compute_impacts(processes_fd):
         process["impacts"] = results
 
         if isinstance(results, dict) and results:
-            logger.info(f"Got impacts from Brightway for: {process['name_brightway']}")
+            logger.info(f"Got impacts from Brightway for: {process['name']}")
         else:
-            logger.warning(f"Failed to get impacts for: {process['name_brightway']}")
+            logger.warning(f"Failed to get impacts for: {process['name']}")
 
         process["impacts"] = with_subimpacts(process["impacts"])
 
