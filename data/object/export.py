@@ -15,9 +15,9 @@ from bw2data.project import projects
 from common.export import (
     display_changes,
     export_json,
-    get_simapro_project,
     load_json,
     progress_bar,
+    spproject,
     with_corrected_impacts,
     with_subimpacts,
 )
@@ -66,9 +66,7 @@ def process_activity_for_processes(activity):
 
 def compute_simapro_impacts(activity, method):
     strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-    project = urllib.parse.quote(
-        get_simapro_project(activity), encoding=None, errors=None
-    )
+    project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
 
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
