@@ -33,6 +33,7 @@ sys.path.append(DATA_DIR)
 
 # Configuration
 CONFIG = {
+    "PROJECT": "default",
     "ACTIVITIES_FILE": f"{PROJECT_ROOT_DIR}/data/object/activities.json",
     "PROCESSES_FILE": f"{PROJECT_ROOT_DIR}/public/data/object/processes.json",
     "IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/impacts.json",
