@@ -49,7 +49,6 @@ with open(CONFIG["IMPACTS_FILE"]) as f:
 # Configure logger
 logger.remove()  # Remove default handler
 logger.add(sys.stderr, format="{time} {level} {message}", level="INFO")
-logger.add("export.log", rotation="10 MB", level="DEBUG")
 
 
 def create_process_list(activities):
