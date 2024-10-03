@@ -35,7 +35,6 @@ type Path
     | TextileMakingDeadStock -- Deadstock lors de la confection textile
     | TextileMakingWaste -- Taux de perte en confection textile
     | TextileMaterial -- Matière textile
-    | TextileMaterialCFF -- Circular Footprint Formula (CFF)
     | TextileSpinning -- Filature textile
     | TextileTransport -- Transport textile
     | TextileUse -- Utilisation textile
@@ -127,9 +126,6 @@ pathToString path =
 
         TextileMaterial ->
             "textile/etapes-du-cycle-de-vie/etape-1-matieres"
-
-        TextileMaterialCFF ->
-            "textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/calcul-de-limpact-matiere-circular-footprint-formula-cff"
 
         TextileSpinning ->
             "textile/cycle-de-vie-des-produits-textiles/etape-2-fabrication-du-fil"
