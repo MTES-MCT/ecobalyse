@@ -18,6 +18,7 @@ const elmApp = Elm.ComputeAggregated.init({
     definitionsString: fs.readFileSync("public/data/impacts.json", "utf-8"),
     textileProcessesString: fs.readFileSync(dataFiles.textileDetailed, "utf-8"),
     foodProcessesString: fs.readFileSync(dataFiles.foodDetailed, "utf-8"),
+    objectProcessesString: fs.readFileSync(dataFiles.objectDetailed, "utf-8"),
   },
 });
 
@@ -33,19 +34,25 @@ elmApp.ports.export.subscribe(
     foodProcesses,
     textileProcessesOnlyAggregated,
     foodProcessesOnlyAggregated,
+    objectProcesses,
+    objectProcessesOnlyAggregated,
   }) => {
     try {
       exportJson(dataFiles.textileDetailed, textileProcesses);
       exportJson(dataFiles.foodDetailed, foodProcesses);
+      exportJson(dataFiles.objectDetailed, objectProcesses);
       exportJson(dataFiles.textileNoDetails, textileProcessesOnlyAggregated);
       exportJson(dataFiles.foodNoDetails, foodProcessesOnlyAggregated);
+      exportJson(dataFiles.objectNoDetails, objectProcessesOnlyAggregated);
       console.log(`
 4 files exported to:
 
 - ${dataFiles.textileDetailed}
 - ${dataFiles.foodDetailed}
+- ${dataFiles.objectDetailed}
 - ${dataFiles.textileNoDetails}
 - ${dataFiles.foodNoDetails}
+- ${dataFiles.objectNoDetails}
 
 ⚠️ Be sure to commit the detailed impacts 'processes_impacts.json' files in the 'ecobalyse-private' repo`);
     } catch (err) {
