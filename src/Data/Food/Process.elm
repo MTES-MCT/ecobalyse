@@ -17,6 +17,7 @@ module Data.Food.Process exposing
     , nameToString
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -30,16 +31,16 @@ A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
-    { name : ProcessName
-    , displayName : Maybe String
-    , impacts : Impacts
-    , unit : String
-    , identifier : Identifier
-    , category : Category
-    , systemDescription : String
+    { category : Category
     , comment : Maybe String
+    , displayName : Maybe String
     , id_ : String
+    , identifier : Identifier
+    , impacts : Impacts
+    , name : ProcessName
     , source : String
+    , systemDescription : String
+    , unit : String
     }
 
 
@@ -183,31 +184,31 @@ encodeCategory =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
-        |> Pipe.required "name" (Decode.map nameFromString Decode.string)
-        |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
-        |> Pipe.required "impacts" impactsDecoder
-        |> Pipe.required "unit" decodeStringUnit
-        |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "category" decodeCategory
-        |> Pipe.required "system_description" Decode.string
-        |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
+        |> DU.strictOptional "comment" Decode.string
+        |> DU.strictOptional "displayName" Decode.string
         |> Pipe.required "id" Decode.string
+        |> Pipe.required "identifier" decodeIdentifier
+        |> Pipe.required "impacts" impactsDecoder
+        |> Pipe.required "name" (Decode.map nameFromString Decode.string)
         |> Pipe.required "source" Decode.string
+        |> Pipe.required "system_description" Decode.string
+        |> Pipe.required "unit" decodeStringUnit
 
 
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "name", Encode.string (nameToString process.name) )
-        , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "impacts", Impact.encode process.impacts )
-        , ( "unit", encodeStringUnit process.unit )
-        , ( "identifier", encodeIdentifier process.identifier )
-        , ( "category", encodeCategory process.category )
-        , ( "system_description", Encode.string process.systemDescription )
+        [ ( "category", encodeCategory process.category )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "id", Encode.string process.id_ )
+        , ( "identifier", encodeIdentifier process.identifier )
+        , ( "impacts", Impact.encode process.impacts )
+        , ( "name", Encode.string (nameToString process.name) )
         , ( "source", Encode.string process.source )
+        , ( "system_description", Encode.string process.systemDescription )
+        , ( "unit", encodeStringUnit process.unit )
         ]
 
 
@@ -306,12 +307,8 @@ encodeStringUnit unit =
 
 getDisplayName : Process -> String
 getDisplayName process =
-    case process.displayName of
-        Just displayName ->
-            displayName
-
-        Nothing ->
-            nameToString process.name
+    process.displayName
+        |> Maybe.withDefault (nameToString process.name)
 
 
 listByCategory : Category -> List Process -> List Process

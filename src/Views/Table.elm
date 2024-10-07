@@ -10,9 +10,9 @@ import Views.Format as Format
 
 
 type alias DataPoint msg =
-    { name : String
+    { entryAttributes : List (Attribute msg)
+    , name : String
     , value : Float
-    , entryAttributes : List (Attribute msg)
     }
 
 
@@ -47,9 +47,10 @@ percentageTable impactDefinition data =
             [ table [ class "table table-hover w-100 m-0" ]
                 [ data
                     |> List.map
-                        (\{ name, value, entryAttributes } ->
-                            { name = name
+                        (\{ entryAttributes, name, value } ->
+                            { entryAttributes = entryAttributes
                             , impact = value
+                            , name = name
                             , percent = value / total * 100
                             , width =
                                 if value < 0 then
@@ -57,11 +58,10 @@ percentageTable impactDefinition data =
 
                                 else
                                     value / maximum * 100
-                            , entryAttributes = entryAttributes
                             }
                         )
                     |> List.map
-                        (\{ name, impact, percent, width, entryAttributes } ->
+                        (\{ entryAttributes, impact, name, percent, width } ->
                             let
                                 entryTitle =
                                     name

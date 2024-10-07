@@ -2,6 +2,7 @@ module Page.Explore.TextileMaterials exposing (table)
 
 import Data.Country as Country
 import Data.Dataset as Dataset
+import Data.Gitbook as Gitbook
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Material as Material exposing (Material)
@@ -14,6 +15,8 @@ import Route
 import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
+import Views.Icon as Icon
+import Views.Link as Link
 
 
 recycledToString : Maybe Material.Id -> String
@@ -25,6 +28,12 @@ recycledToString maybeMaterialID =
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
 table db { detailed, scope } =
+    let
+        withPill url content =
+            div
+                [ classList [ ( "text-center", not detailed ) ] ]
+                [ content, Link.smallPillExternal [ href (Gitbook.publicUrlFromPath url) ] [ Icon.question ] ]
+    in
     { filename = "materials"
     , toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
@@ -64,16 +73,19 @@ table db { detailed, scope } =
         , { label = "Complément Microfibres"
           , toValue = Table.FloatValue <| .origin >> Origin.toMicrofibersComplement >> Unit.impactToFloat
           , toCell =
-                \{ origin } ->
-                    div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Origin.toMicrofibersComplement origin
-                            |> Unit.impactToFloat
-                            |> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
-                        ]
+                .origin
+                    >> Origin.toMicrofibersComplement
+                    >> Unit.impactToFloat
+                    >> Format.formatImpactFloat { unit = "\u{202F}Pts/kg", decimals = 2 }
+                    >> withPill Gitbook.TextileComplementMicrofibers
           }
         , { label = "Procédé de fabrication du fil"
           , toValue = Table.StringValue <| .origin >> Origin.threadProcess
-          , toCell = .origin >> Origin.threadProcess >> text
+          , toCell =
+                .origin
+                    >> Origin.threadProcess
+                    >> text
+                    >> withPill Gitbook.TextileSpinning
           }
         , { label = "Procédé de recyclage"
           , toValue = Table.StringValue <| .recycledProcess >> Maybe.map .name >> Maybe.withDefault "N/A"
@@ -94,9 +106,6 @@ table db { detailed, scope } =
           , toCell =
                 \material ->
                     case Country.findByCode material.defaultCountry db.countries of
-                        Ok country ->
-                            text country.name
-
                         Err error ->
                             Alert.simple
                                 { level = Alert.Danger
@@ -104,6 +113,9 @@ table db { detailed, scope } =
                                 , title = Nothing
                                 , content = [ text error ]
                                 }
+
+                        Ok country ->
+                            text country.name
           }
         , { label = "CFF: Coefficient d'allocation"
           , toValue =
@@ -112,14 +124,13 @@ table db { detailed, scope } =
                         >> Maybe.map (.manufacturerAllocation >> Split.toFloat)
                         >> Maybe.withDefault 0
           , toCell =
-                \{ cffData } ->
-                    case cffData of
-                        Just { manufacturerAllocation } ->
-                            manufacturerAllocation
-                                |> Format.splitAsFloat 1
-
-                        Nothing ->
-                            text "N/A"
+                .cffData
+                    >> Maybe.map
+                        (.manufacturerAllocation
+                            >> Format.splitAsFloat 1
+                            >> withPill Gitbook.TextileCircularFootprintFormula
+                        )
+                    >> Maybe.withDefault (text "N/A")
           }
         , { label = "CFF: Rapport de qualité"
           , toValue =
@@ -128,14 +139,13 @@ table db { detailed, scope } =
                         >> Maybe.map (.recycledQualityRatio >> Split.toFloat)
                         >> Maybe.withDefault 0
           , toCell =
-                \{ cffData } ->
-                    case cffData of
-                        Just { recycledQualityRatio } ->
-                            recycledQualityRatio
-                                |> Format.splitAsFloat 1
-
-                        Nothing ->
-                            text "N/A"
+                .cffData
+                    >> Maybe.map
+                        (.recycledQualityRatio
+                            >> Format.splitAsFloat 1
+                            >> withPill Gitbook.TextileCircularFootprintFormula
+                        )
+                    >> Maybe.withDefault (text "N/A")
           }
         ]
     }

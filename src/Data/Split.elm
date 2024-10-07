@@ -15,6 +15,7 @@ module Data.Split exposing
     , quarter
     , sixty
     , tenth
+    , third
     , thirty
     , toFloat
     , toFloatString
@@ -35,6 +36,7 @@ module Data.Split exposing
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Encode as Encode
 import Quantity exposing (Quantity)
 
@@ -76,6 +78,11 @@ quarter =
 thirty : Split
 thirty =
     Split 30
+
+
+third : Split
+third =
+    Split 33
 
 
 fourty : Split
@@ -135,9 +142,8 @@ toFloatString =
 
 
 toPercentString : Int -> Split -> String
-toPercentString decimals (Split float) =
-    float
-        |> FormatNumber.format { frenchLocale | decimals = Exact decimals }
+toPercentString decimals =
+    toPercent >> FormatNumber.format { frenchLocale | decimals = Exact decimals }
 
 
 complement : Split -> Split
@@ -163,16 +169,7 @@ divideBy input split =
 decodeFloat : Decoder Split
 decodeFloat =
     Decode.float
-        |> Decode.map fromFloat
-        |> Decode.andThen
-            (\result ->
-                case result of
-                    Ok split ->
-                        Decode.succeed split
-
-                    Err error ->
-                        Decode.fail error
-            )
+        |> Decode.andThen (fromFloat >> DE.fromResult)
 
 
 encodeFloat : Split -> Encode.Value

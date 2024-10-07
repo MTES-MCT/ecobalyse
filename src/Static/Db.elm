@@ -8,19 +8,22 @@ import Data.Common.Db as Common
 import Data.Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Impact.Definition exposing (Definitions)
+import Data.Object.Db as ObjectDb
 import Data.Textile.Db as TextileDb
 import Data.Transport exposing (Distances)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
+import Result.Extra as RE
 import Static.Json as StaticJson exposing (RawJsonProcesses)
 
 
 type alias Db =
-    { definitions : Definitions
-    , textile : TextileDb.Db
-    , food : FoodDb.Db
-    , countries : List Country
+    { countries : List Country
+    , definitions : Definitions
     , distances : Distances
+    , food : FoodDb.Db
+    , object : ObjectDb.Db
+    , textile : TextileDb.Db
     }
 
 
@@ -28,14 +31,14 @@ db : StaticJson.RawJsonProcesses -> Result String Db
 db procs =
     StaticJson.db procs
         |> Result.andThen
-            (\{ foodDb, textileDb } ->
-                Result.map3
-                    (\okImpactDefinitions okCountries okDistances ->
-                        Db okImpactDefinitions textileDb foodDb okCountries okDistances
-                    )
-                    impactDefinitions
-                    (countries textileDb)
-                    distances
+            (\{ foodDb, objectDb, textileDb } ->
+                Ok Db
+                    |> RE.andMap (countries textileDb)
+                    |> RE.andMap impactDefinitions
+                    |> RE.andMap distances
+                    |> RE.andMap (Ok foodDb)
+                    |> RE.andMap (Ok objectDb)
+                    |> RE.andMap (Ok textileDb)
             )
 
 
@@ -43,6 +46,7 @@ decodeRawJsonProcesses : Decoder RawJsonProcesses
 decodeRawJsonProcesses =
     Decode.succeed RawJsonProcesses
         |> JDP.required "foodProcesses" Decode.string
+        |> JDP.required "objectProcesses" Decode.string
         |> JDP.required "textileProcesses" Decode.string
 
 

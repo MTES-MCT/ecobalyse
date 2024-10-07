@@ -3,18 +3,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[requires]
+python_version = "3.12"
+
 [packages]
 django = ">=5.0.8,<6"
 django-mail-auth = ">=3.2,<3.3"
 gunicorn = ">=22,<23"
 psycopg2-binary = "2.9.9"
 python-decouple = ">=3,<4"
-ruff = "*"
-SQLAlchemy = "2.0.30"
-pandas = "1.5.3"
 GitPython = "3.1.43"
-pre-commit = "*"
-numpy = ">=1,<2"
 pytest-django = "*"
 pygithub = "*"
 ecobalyse = {file = "packages/python/ecobalyse"}
@@ -22,3 +20,8 @@ typer = "*"
 pytest-mock = "*"
 
 [dev-packages]
+numpy = ">=1,<2"
+pre-commit = "*"
+pandas = "1.5.3"
+ruff = "*"
+SQLAlchemy = "2.0.30"

@@ -10,6 +10,7 @@ import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.Uuid as Uuid exposing (Uuid)
@@ -20,19 +21,22 @@ import Url.Parser as Parser exposing ((</>), Parser)
 
 
 type Route
-    = Home
-    | Api
+    = Api
     | Auth { authenticated : Bool }
     | Changelog
     | Editorial String
     | Explore Scope Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
-    | FoodBuilderHome
     | FoodBuilderExample Uuid
-    | TextileSimulatorHome
+    | FoodBuilderHome
+    | Home
+    | ObjectSimulator Definition.Trigram (Maybe ObjectQuery.Query)
+    | ObjectSimulatorExample Uuid
+    | ObjectSimulatorHome
+    | Stats
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | TextileSimulatorExample Uuid
-    | Stats
+    | TextileSimulatorHome
 
 
 parser : Parser (Route -> a) a
@@ -58,6 +62,10 @@ parser =
                             Scope.Food ->
                                 Dataset.FoodExamples Nothing
 
+                            Scope.Object ->
+                                -- FIXME: object process examples page
+                                Dataset.TextileExamples Nothing
+
                             Scope.Textile ->
                                 Dataset.TextileExamples Nothing
                         )
@@ -78,6 +86,20 @@ parser =
             )
         , Parser.map FoodBuilderExample
             (Parser.s "food"
+                </> Parser.s "edit-example"
+                </> Example.parseUuid
+            )
+
+        -- Object specific routes
+        , Parser.map ObjectSimulatorHome
+            (Parser.s "object" </> Parser.s "simulator")
+        , Parser.map ObjectSimulator <|
+            Parser.s "object"
+                </> Parser.s "simulator"
+                </> Impact.parseTrigram
+                </> ObjectQuery.parseBase64Query
+        , Parser.map ObjectSimulatorExample
+            (Parser.s "object"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
@@ -172,9 +194,6 @@ toString route =
     let
         pieces =
             case route of
-                Home ->
-                    []
-
                 Api ->
                     [ "api" ]
 
@@ -202,9 +221,6 @@ toString route =
                 Explore scope dataset ->
                     "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
 
-                FoodBuilderHome ->
-                    [ "food" ]
-
                 FoodBuilder trigram Nothing ->
                     [ "food", Definition.toString trigram ]
 
@@ -214,8 +230,33 @@ toString route =
                 FoodBuilderExample uuid ->
                     [ "food", "edit-example", Uuid.toString uuid ]
 
-                TextileSimulatorHome ->
-                    [ "textile", "simulator" ]
+                FoodBuilderHome ->
+                    [ "food" ]
+
+                Home ->
+                    []
+
+                ObjectSimulator trigram (Just query) ->
+                    [ "object"
+                    , "simulator"
+                    , Definition.toString trigram
+                    , ObjectQuery.b64encode query
+                    ]
+
+                ObjectSimulator trigram Nothing ->
+                    [ "object"
+                    , "simulator"
+                    , Definition.toString trigram
+                    ]
+
+                ObjectSimulatorExample uuid ->
+                    [ "object", "edit-example", Uuid.toString uuid ]
+
+                ObjectSimulatorHome ->
+                    [ "object", "simulator" ]
+
+                Stats ->
+                    [ "stats" ]
 
                 TextileSimulator trigram (Just query) ->
                     [ "textile"
@@ -233,7 +274,7 @@ toString route =
                 TextileSimulatorExample uuid ->
                     [ "textile", "edit-example", Uuid.toString uuid ]
 
-                Stats ->
-                    [ "stats" ]
+                TextileSimulatorHome ->
+                    [ "textile", "simulator" ]
     in
     "#/" ++ String.join "/" pieces

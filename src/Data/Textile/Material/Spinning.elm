@@ -22,8 +22,8 @@ import Mass exposing (Mass)
 
 type Spinning
     = Conventional
-    | Unconventional
     | Synthetic
+    | Unconventional
 
 
 type alias ProcessData =
@@ -36,11 +36,11 @@ fromString string =
         "ConventionalSpinning" ->
             Ok Conventional
 
-        "UnconventionalSpinning" ->
-            Ok Unconventional
-
         "SyntheticSpinning" ->
             Ok Synthetic
+
+        "UnconventionalSpinning" ->
+            Ok Unconventional
 
         other ->
             Err <| "Le procédé de filature ou filage " ++ other ++ " n'est pas valide"
@@ -52,11 +52,11 @@ toString spinning =
         Conventional ->
             "ConventionalSpinning"
 
-        Unconventional ->
-            "UnconventionalSpinning"
-
         Synthetic ->
             "SyntheticSpinning"
+
+        Unconventional ->
+            "UnconventionalSpinning"
 
 
 toLabel : Spinning -> String
@@ -65,11 +65,11 @@ toLabel spinning =
         Conventional ->
             "Filature conventionnelle"
 
-        Unconventional ->
-            "Filature non conventionnelle"
-
         Synthetic ->
             "Filage"
+
+        Unconventional ->
+            "Filature non conventionnelle"
 
 
 decode : Decoder Spinning
@@ -83,13 +83,13 @@ encode =
     toString >> Encode.string
 
 
-processesData : { conventional : ProcessData, unconventional : ProcessData, synthetic : ProcessData }
+processesData : { conventional : ProcessData, synthetic : ProcessData, unconventional : ProcessData }
 processesData =
     -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#consommation-delectricite
     -- and https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#taux-de-pertes
     { conventional = { normalization = 4, waste = Split.fromPercent 12 |> Result.withDefault Split.zero }
-    , unconventional = { normalization = 2, waste = Split.fromPercent 12 |> Result.withDefault Split.zero }
     , synthetic = { normalization = 1.5, waste = Split.fromPercent 3 |> Result.withDefault Split.zero }
+    , unconventional = { normalization = 2, waste = Split.fromPercent 12 |> Result.withDefault Split.zero }
     }
 
 
@@ -123,11 +123,11 @@ normalization spinning =
         Conventional ->
             processesData.conventional.normalization
 
-        Unconventional ->
-            processesData.unconventional.normalization
-
         Synthetic ->
             processesData.synthetic.normalization
+
+        Unconventional ->
+            processesData.unconventional.normalization
 
 
 waste : Spinning -> Split
@@ -136,11 +136,11 @@ waste spinning =
         Conventional ->
             processesData.conventional.waste
 
-        Unconventional ->
-            processesData.unconventional.waste
-
         Synthetic ->
             processesData.synthetic.waste
+
+        Unconventional ->
+            processesData.unconventional.waste
 
 
 getElec : Mass -> Unit.YarnSize -> Spinning -> Float

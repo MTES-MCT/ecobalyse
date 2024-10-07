@@ -21,6 +21,7 @@ module Data.Impact.Definition exposing
     , update
     )
 
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -35,7 +36,7 @@ import Json.Encode as Encode
 type alias AggregatedScoreData =
     { color : String
     , normalization : Unit.Impact
-    , weighting : Unit.Ratio
+    , weighting : Split
     }
 
 
@@ -554,7 +555,7 @@ decodeAggregatedScoreData =
     Decode.map3 AggregatedScoreData
         (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
-        (Decode.field "weighting" (Unit.decodeRatio { percentage = True }))
+        (Decode.field "weighting" Split.decodeFloat)
 
 
 decodeDefinition : String -> Decoder Definition

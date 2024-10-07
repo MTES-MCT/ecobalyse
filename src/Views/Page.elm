@@ -33,14 +33,15 @@ type ActivePage
     | Explore
     | FoodBuilder
     | Home
+    | Object
     | Other
     | Stats
     | TextileSimulator
 
 
 type MenuLink
-    = Internal String Route.Route ActivePage
-    | External String String
+    = External String String
+    | Internal String Route.Route ActivePage
     | MailTo String String
 
 
@@ -91,12 +92,14 @@ frame ({ activePage } as config) ( title, content ) =
     }
 
 
+isStaging : Session -> Bool
+isStaging session =
+    String.contains "ecobalyse-pr" session.clientUrl || String.contains "staging-ecobalyse" session.clientUrl
+
+
 stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
-    if
-        String.contains "ecobalyse-pr" session.clientUrl
-            || String.contains "staging-ecobalyse" session.clientUrl
-    then
+    if isStaging session then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
             , button
@@ -147,7 +150,7 @@ mainMenuLinks { enableFoodSection } =
 
 secondaryMenuLinks : List MenuLink
 secondaryMenuLinks =
-    [ Internal "Changelog" Route.Changelog Changelog
+    [ Internal "Versions" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.communityUrl
@@ -191,19 +194,28 @@ pageFooter session =
     let
         makeLink link =
             case link of
-                Internal label route _ ->
-                    Link.internal [ class "text-decoration-none", Route.href route ]
-                        [ text label ]
-
                 External label url ->
                     Link.external [ class "text-decoration-none", href url ]
+                        [ text label ]
+
+                Internal label route _ ->
+                    Link.internal [ class "text-decoration-none", Route.href route ]
                         [ text label ]
 
                 MailTo label email ->
                     a [ class "text-decoration-none", href <| "mailto:" ++ email ]
                         [ text label ]
     in
-    footer [ class "Footer" ]
+    footer
+        (class "Footer"
+            :: -- Add bottom padding to avoid StagingAlert to hide the version details
+               (if isStaging session then
+                    [ class "pb-5" ]
+
+                else
+                    []
+               )
+        )
         [ div [ class "FooterNavigation" ]
             [ Container.centered []
                 [ div [ class "row" ]
@@ -263,7 +275,12 @@ pageFooter session =
                 |> List.map (List.singleton >> li [])
                 |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
-            , versionLink session.currentVersion
+            , div [ class "d-flex align-items-center gap-1 fs-9 mb-2" ]
+                [ versionLink session.currentVersion
+                , text "("
+                , Link.internal [ Route.href Route.Changelog ] [ text "changelog" ]
+                , text ")"
+                ]
             ]
         ]
 
@@ -274,13 +291,11 @@ versionLink version =
         Version versionData ->
             let
                 displayLink url linkText =
-                    p [ class "fs-9 text-muted" ]
-                        [ Link.external
-                            [ class "text-decoration-none"
-                            , href url
-                            ]
-                            [ text <| "Version\u{00A0}: " ++ linkText ]
+                    Link.external
+                        [ class "text-decoration-none"
+                        , href url
                         ]
+                        [ text <| "Version\u{00A0}: " ++ linkText ]
             in
             case ( versionData.hash, versionData.tag ) of
                 -- If we have a tag provided, display it by default
@@ -373,6 +388,10 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
 viewNavigationLink : ActivePage -> MenuLink -> Html msg
 viewNavigationLink activePage link =
     case link of
+        External label url ->
+            Link.external [ class "nav-link link-external-muted", href url ]
+                [ text label ]
+
         Internal label route page ->
             Link.internal
                 (class "nav-link"
@@ -385,10 +404,6 @@ viewNavigationLink activePage link =
                             []
                        )
                 )
-                [ text label ]
-
-        External label url ->
-            Link.external [ class "nav-link link-external-muted", href url ]
                 [ text label ]
 
         MailTo label email ->

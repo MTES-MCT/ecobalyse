@@ -16,29 +16,24 @@ type alias Config element msg =
     , onAutocompleteSelect : msg
     , placeholderText : String
     , title : String
-    , toLabel : element -> String
     , toCategory : element -> String
+    , toLabel : element -> String
     }
 
 
 view : Config element msg -> Html msg
 view ({ autocompleteState, closeModal, footer, noOp, onAutocomplete, onAutocompleteSelect, placeholderText, title } as config) =
     ModalView.view
-        { size = ModalView.Large
-        , close = closeModal
-        , noOp = noOp
-        , title = title
-        , subTitle = Nothing
-        , formAction = Nothing
+        { close = closeModal
         , content =
             let
-                { query, choices, selectedIndex } =
+                { choices, query, selectedIndex } =
                     Autocomplete.viewState autocompleteState
 
-                { inputEvents, choiceEvents } =
+                { choiceEvents, inputEvents } =
                     AutocompleteView.events
-                        { onSelect = onAutocompleteSelect
-                        , mapHtml = onAutocomplete
+                        { mapHtml = onAutocomplete
+                        , onSelect = onAutocompleteSelect
                         }
             in
             [ input
@@ -60,11 +55,16 @@ view ({ autocompleteState, closeModal, footer, noOp, onAutocomplete, onAutocompl
                 |> div [ class "ElementAutocomplete", id "element-autocomplete-choices" ]
             ]
         , footer = footer
+        , formAction = Nothing
+        , noOp = noOp
+        , size = ModalView.Large
+        , subTitle = Nothing
+        , title = title
         }
 
 
 renderChoice : Config element msg -> (Int -> List (Attribute msg)) -> Maybe Int -> Int -> element -> Html msg
-renderChoice { toLabel, toCategory } events selectedIndex_ index element =
+renderChoice { toCategory, toLabel } events selectedIndex_ index element =
     let
         selected =
             Autocomplete.isSelected selectedIndex_ index

@@ -10,18 +10,18 @@ import Json.Decode.Extra as DE
 
 type Category
     = AnimalProduct
+    | BleuBlancCoeur
     | Conventional
     | DairyProduct
-    | GrainRaw
     | GrainProcessed
+    | GrainRaw
     | Misc
-    | NutOilseedRaw
     | NutOilseedProcessed
+    | NutOilseedRaw
+    | Organic
     | SpiceCondimentOrAdditive
     | VegetableFresh
     | VegetableProcessed
-    | Organic
-    | BleuBlancCoeur
 
 
 fromString : String -> Result String Category
@@ -76,26 +76,32 @@ toLabel category =
         AnimalProduct ->
             "Viandes, œufs, poissons, et dérivés"
 
+        BleuBlancCoeur ->
+            "Bleu-Blanc-Cœur"
+
         Conventional ->
             "Conventionnel"
 
         DairyProduct ->
             "Lait et ingrédients laitiers"
 
-        GrainRaw ->
-            "Céréales brutes"
-
         GrainProcessed ->
             "Céréales transformées"
+
+        GrainRaw ->
+            "Céréales brutes"
 
         Misc ->
             "Divers"
 
+        NutOilseedProcessed ->
+            "Graisses végétales et oléoprotéagineux transformés"
+
         NutOilseedRaw ->
             "Fruits à coque et oléoprotéagineux bruts"
 
-        NutOilseedProcessed ->
-            "Graisses végétales et oléoprotéagineux transformés"
+        Organic ->
+            "Bio"
 
         SpiceCondimentOrAdditive ->
             "Condiments, épices, additifs"
@@ -105,12 +111,6 @@ toLabel category =
 
         VegetableProcessed ->
             "Fruits et légumes transformés"
-
-        Organic ->
-            "Bio"
-
-        BleuBlancCoeur ->
-            "Bleu-Blanc-Cœur"
 
 
 decode : Decoder Category

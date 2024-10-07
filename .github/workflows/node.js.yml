@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x]
-        python-version: [3.11]
+        python-version: [3.12]
 
     steps:
     - uses: actions/checkout@v4
@@ -53,15 +53,13 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-${{ matrix.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pipenv-
+        key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
 
     - name: Install Node dependencies
       run: npm ci --prefer-offline --no-audit
 
     - name: Install Python dependencies
-      run: pip install pipenv && pipenv install
+      run: pip install pipenv && pipenv install -d
 
     - name: Install Ubuntu dependencies
       run: |
@@ -90,9 +88,6 @@ jobs:
 
     - name: Build app
       run: npm run build --if-present
-
-    - name: Build Elm static Db
-      run: npm run db:build
 
     - name: Run prettier, openapi & ruff formatting check
       run: npm run lint:all

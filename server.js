@@ -21,7 +21,14 @@ const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
-const { ECOBALYSE_DATA_DIR, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
+const {
+  ECOBALYSE_DATA_DIR,
+  ENABLE_FOOD_SECTION,
+  MATOMO_HOST,
+  MATOMO_SITE_ID,
+  MATOMO_TOKEN,
+  NODE_ENV,
+} = process.env;
 
 var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -109,43 +116,44 @@ if (fs.existsSync(versionsDir)) {
   const dirs = fs.readdirSync(versionsDir);
   for (const dir of dirs) {
     const currentVersionDir = path.join(versionsDir, dir);
+
     const foodNoDetails = path.join(currentVersionDir, "data/food/processes.json");
+    const objectNoDetails = path.join(currentVersionDir, "data/object/processes.json");
     const textileNoDetails = path.join(currentVersionDir, "data/textile/processes.json");
 
-    const foodDetailed = path.join(currentVersionDir, "data/food/processes_impacts.json");
-    const textileDetailed = path.join(currentVersionDir, "data/textile/processes_impacts.json");
-
     const foodDetailedEnc = path.join(currentVersionDir, "processes_impacts_food.json.enc");
+    const objectDetailedEnc = path.join(currentVersionDir, "processes_impacts_object.json.enc");
     const textileDetailedEnc = path.join(currentVersionDir, "processes_impacts_textile.json.enc");
 
+    // We should not check for the existence of objectNoDetails because old versions don't have it
+    // and it's expected
     if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
       console.error(
         `🚨 ERROR: processes files without details missing for version ${dir}. Skipping version.`,
       );
+      continue;
     }
     let processesImpacts;
 
-    if (fs.existsSync(foodDetailedEnc) && fs.existsSync(textileDetailedEnc)) {
-      console.log(`Encrypted files found for ${dir}: ${foodDetailedEnc} && ${textileDetailedEnc}`);
-      // Encrypted files exist, use them
-      processesImpacts = {
-        foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
-        textileProcesses: decrypt(
-          JSON.parse(fs.readFileSync(textileDetailedEnc).toString("utf-8")),
-        ),
-      };
-    } else if (fs.existsSync(foodDetailed) || fs.existsSync(textileDetailed)) {
-      // Or use old files
-      processesImpacts = {
-        foodProcesses: fs.readFileSync(foodDetailed, "utf8"),
-        textileProcesses: fs.readFileSync(textileDetailed, "utf8"),
-      };
-    }
+    // Encrypted files exist, use them
+    processesImpacts = {
+      foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
+      // Old versions don't have the object files
+      objectProcesses: fs.existsSync(objectDetailedEnc)
+        ? decrypt(JSON.parse(fs.readFileSync(objectDetailedEnc).toString("utf-8")))
+        : null,
+      textileProcesses: decrypt(JSON.parse(fs.readFileSync(textileDetailedEnc).toString("utf-8"))),
+    };
 
     availableVersions.push({
       dir,
       processes: {
         foodProcesses: fs.readFileSync(foodNoDetails, "utf8"),
+        // Old versions don't have the object files
+        objectProcesses: fs.existsSync(objectNoDetails)
+          ? fs.readFileSync(objectNoDetails, "utf8")
+          : null,
+
         textileProcesses: fs.readFileSync(textileNoDetails, "utf8"),
       },
       processesImpacts,
@@ -155,19 +163,23 @@ if (fs.existsSync(versionsDir)) {
 
 // API
 
-const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
-openApiContents.version = require("./package.json").version;
+const openApiContents = processOpenApi(
+  yaml.load(fs.readFileSync("openapi.yaml")),
+  require("./package.json").version,
+);
 
 // Matomo
 const apiTracker = lib.setupTracker(openApiContents);
 
 const processesImpacts = {
   foodProcesses: fs.readFileSync(dataFiles.foodDetailed, "utf8"),
+  objectProcesses: fs.readFileSync(dataFiles.objectDetailed, "utf8"),
   textileProcesses: fs.readFileSync(dataFiles.textileDetailed, "utf8"),
 };
 
 const processes = {
   foodProcesses: fs.readFileSync(dataFiles.foodNoDetails, "utf8"),
+  objectProcesses: fs.readFileSync(dataFiles.objectNoDetails, "utf8"),
   textileProcesses: fs.readFileSync(dataFiles.textileNoDetails, "utf8"),
 };
 
@@ -185,6 +197,18 @@ const getProcesses = async (token, customProcessesImpacts, customProcesses) => {
     return customProcesses ?? processes;
   }
 };
+
+function processOpenApi(contents, versionNumber) {
+  // Add app version info to openapi docs
+  contents.version = versionNumber;
+  // Remove food api docs if disabled from env
+  if (ENABLE_FOOD_SECTION !== "True") {
+    contents.paths = Object.fromEntries(
+      Object.entries(contents.paths).filter(([path, _]) => !path.startsWith("/food")),
+    );
+  }
+  return contents;
+}
 
 app.get("/processes/processes.json", async (req, res) => {
   return res.status(200).send(await getProcesses(req.headers.token));
@@ -243,7 +267,10 @@ version.use("/:versionNumber", checkVersionAndPath, (req, res, next) => {
 });
 
 version.get("/:versionNumber/api", checkVersionAndPath, (req, res) => {
-  const openApiContents = yaml.load(fs.readFileSync(path.join(req.staticDir, "openapi.yaml")));
+  const openApiContents = processOpenApi(
+    yaml.load(fs.readFileSync(path.join(req.staticDir, "openapi.yaml"))),
+    req.params.versionNumber,
+  );
   res.status(200).send(openApiContents);
 });
 
@@ -251,14 +278,14 @@ version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), asy
   const foodProcesses = fs
     .readFileSync(path.join(req.staticDir, "data", "food", "processes_impacts.json"))
     .toString();
+  const objectProcesses = fs
+    .readFileSync(path.join(req.staticDir, "data", "object", "processes_impacts.json"))
+    .toString();
   const textileProcesses = fs
     .readFileSync(path.join(req.staticDir, "data", "textile", "processes_impacts.json"))
     .toString();
 
-  const processes = {
-    foodProcesses: foodProcesses,
-    textileProcesses: textileProcesses,
-  };
+  const processes = { foodProcesses, objectProcesses, textileProcesses };
 
   const { Elm } = require(path.join(req.staticDir, "server-app"));
 
@@ -274,7 +301,7 @@ version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), asy
     method: req.method,
     url: urlWithoutPrefix,
     body: req.body,
-    processes: processes,
+    processes,
     jsResponseHandler: ({ status, body }) => {
       res.status(status).send(body);
     },

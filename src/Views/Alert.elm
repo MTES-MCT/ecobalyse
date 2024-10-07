@@ -15,10 +15,10 @@ import Views.Icon as Icon
 
 
 type alias Config msg =
-    { level : Level
-    , close : Maybe msg
-    , title : Maybe String
+    { close : Maybe msg
     , content : List (Html msg)
+    , level : Level
+    , title : Maybe String
     }
 
 
@@ -44,9 +44,7 @@ icon level =
 httpError : Http.Error -> Html msg
 httpError error =
     simple
-        { title = Just "Erreur de chargement des données"
-        , close = Nothing
-        , level = Info
+        { close = Nothing
         , content =
             case error |> HttpCommon.errorToString |> String.lines of
                 [] ->
@@ -76,6 +74,8 @@ httpError error =
                             [ text "Envoyer un rapport d'incident" ]
                         ]
                     ]
+        , level = Info
+        , title = Just "Erreur de chargement des données"
         }
 
 
@@ -85,7 +85,7 @@ preformatted config =
 
 
 simple : Config msg -> Html msg
-simple { level, content, title, close } =
+simple { close, content, level, title } =
     div
         [ class <| "alert alert-" ++ levelToClass level
         , classList [ ( "alert-dismissible", close /= Nothing ) ]

@@ -7,14 +7,14 @@ import Json.Decode as Decode
 
 
 type alias Config msg =
-    { size : Size
-    , close : msg
-    , noOp : msg
-    , title : String
-    , subTitle : Maybe String
+    { close : msg
     , content : List (Html msg)
     , footer : List (Html msg)
     , formAction : Maybe msg
+    , noOp : msg
+    , size : Size
+    , subTitle : Maybe String
+    , title : String
     }
 
 
@@ -33,8 +33,8 @@ view config =
             , custom "mouseup"
                 (Decode.succeed
                     { message = config.noOp
-                    , stopPropagation = True
                     , preventDefault = True
+                    , stopPropagation = True
                     }
                 )
             ]
@@ -56,8 +56,8 @@ view config =
             , custom "mouseup"
                 (Decode.succeed
                     { message = config.close
-                    , stopPropagation = True
                     , preventDefault = True
+                    , stopPropagation = True
                     }
                 )
             ]

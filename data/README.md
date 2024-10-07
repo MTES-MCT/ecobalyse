@@ -6,8 +6,8 @@ Comment générer les données json utilisées par le frontal elm :
 - Si vous êtes sur Mac avec architecture ARM, affectez 6Go de RAM à Docker dans Docker Desktop :
   Settings → Ressources → Advanced → Memory = 6G
 - Préparez les bases de données à importer, elle ne font pas partie du dépôt :
-  - Agribalyse : compressé dans un fichier `AGB3.1.1.20230306.CSV.zip` dans ce dossier data/
-  - Autres bases alimentaire : consultez les noms de fichier dans `import_agribalyse.py`
+  - Agribalyse : compressé dans un fichier `AGB3.1.1.20230306.CSV.zip` dans un dossier `dbfiles/` au dessus du dépôt
+  - Autres bases alimentaire : consultez les noms de fichier dans `import_food.py`
   - Ecoinvent : décompressé dans un dossier `ECOINVENT3.9.1` dans ce même dossier
 - Lancez **`make`** ce qui va successivement :
   - construire l'image docker ;
@@ -20,14 +20,14 @@ d'abord un `make clean_data` (qui supprime le volume docker).
 ## Autres commandes :
 
 - `make image` : pour construire l'image docker choisie
-- `make import_agribalyse` : pour importer les bases de données alimentaire dans Brightway.
-  Assurez-vous d'avoir les bon fichiers de données dans `data/`
-- `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. dans Brightway. Assurez-vous
-  d'avoir le bon dossier de données dans `data/`
+- `make import_food` : pour importer les bases de données alimentaire dans Brightway.
+  Assurez-vous d'avoir les bon fichiers de données dans `dbfiles/` au dessus du dépôt
+- `make import_ecoinvent` : pour importer Ecoinvent 3.9.1. dans Brightway.
+  Assurez-vous d'avoir le bon dossier de données dans `dbfiles/` au dessus du dépôt
 - `make import_method` : pour importer EF 3.1 adapted dans Brightway.
-  Assurez-vous d'avoir le bon fichier de données dans `data/`
+  Assurez-vous d'avoir le bon fichier de données dans `dbfiles/` au dessus du dépôt
 - `make export_food` : pour exporter les json pour le builder alimentaire
-- `make delete_database DB=<dbname>` : pour supprimer une base de données
+- `make delete_database DB=<dbname>` : pour supprimer une base de données (Ex avec espace: make delete_database DB="Ecoinvent\ 3.9.1")
 - `make delete_method` : pour supprimer la méthode EF3.1
 - `make sync_datapackages` : lance un fix parfois nécessaire pour la synchro brightway
 - `make import` : lance toutes les commandes d'import

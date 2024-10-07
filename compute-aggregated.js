@@ -41,7 +41,7 @@ elmApp.ports.export.subscribe(
       exportJson(dataFiles.foodNoDetails, foodProcessesOnlyAggregated);
       console.log(`
 4 files exported to:
-x"
+
 - ${dataFiles.textileDetailed}
 - ${dataFiles.foodDetailed}
 - ${dataFiles.textileNoDetails}

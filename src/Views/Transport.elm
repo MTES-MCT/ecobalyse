@@ -9,17 +9,17 @@ import Views.Icon as Icon
 
 
 type alias Config =
-    { fullWidth : Bool
-    , onlyIcons : Bool
+    { airTransportLabel : Maybe String
+    , fullWidth : Bool
     , hideNoLength : Bool
-    , airTransportLabel : Maybe String
-    , seaTransportLabel : Maybe String
+    , onlyIcons : Bool
     , roadTransportLabel : Maybe String
+    , seaTransportLabel : Maybe String
     }
 
 
 viewDetails : Config -> Transport -> List (Html msg)
-viewDetails { onlyIcons, hideNoLength, airTransportLabel, seaTransportLabel, roadTransportLabel } { air, sea, seaCooled, road, roadCooled } =
+viewDetails { airTransportLabel, hideNoLength, onlyIcons, roadTransportLabel, seaTransportLabel } { air, road, roadCooled, sea, seaCooled } =
     [ { distance = air, icon = Icon.plane, label = Maybe.withDefault "Transport aérien" airTransportLabel }
     , { distance = sea, icon = Icon.boat, label = Maybe.withDefault "Transport maritime" seaTransportLabel }
     , { distance = seaCooled, icon = Icon.boatCooled, label = "Transport maritime réfrigéré" }
@@ -32,20 +32,20 @@ viewDetails { onlyIcons, hideNoLength, airTransportLabel, seaTransportLabel, roa
                     Nothing
 
                 else
-                    Just <| entry { onlyIcons = onlyIcons, distance = distance, icon = icon, label = label }
+                    Just <| entry { distance = distance, icon = icon, label = label, onlyIcons = onlyIcons }
             )
 
 
 type alias EntryConfig msg =
-    { onlyIcons : Bool
-    , distance : Length
+    { distance : Length
     , icon : Html msg
     , label : String
+    , onlyIcons : Bool
     }
 
 
 entry : EntryConfig msg -> Html msg
-entry { onlyIcons, distance, icon, label } =
+entry { distance, icon, label, onlyIcons } =
     span
         [ class "d-flex align-items-center gap-1", title label ]
         [ span [ style "cursor" "help" ] [ icon ]

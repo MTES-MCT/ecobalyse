@@ -3,6 +3,7 @@ module Page.Explore.Impacts exposing (table)
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Scope exposing (Scope)
+import Data.Split as Split
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -40,6 +41,26 @@ table { detailed, scope } =
           , toValue = Table.StringValue <| .unit
           , toCell = \def -> code [] [ text def.unit ]
           }
+        , { label = "Normalisation (Coût Evt)"
+          , toValue =
+                Table.FloatValue <|
+                    .ecoscoreData
+                        >> Maybe.map (.normalization >> Unit.impactToFloat)
+                        >> Maybe.withDefault 0
+          , toCell =
+                \def ->
+                    def.ecoscoreData
+                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                        |> Maybe.withDefault (text "N/A")
+          }
+        , { label = "Pondération (Coût Evt)"
+          , toValue =
+                Table.FloatValue <|
+                    .ecoscoreData
+                        >> Maybe.map (.weighting >> Split.toFloat)
+                        >> Maybe.withDefault 0
+          , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.splitAsPercentage 2) >> Maybe.withDefault (text "N/A")
+          }
         , { label = "Normalisation (PEF)"
           , toValue =
                 Table.FloatValue <|
@@ -56,29 +77,9 @@ table { detailed, scope } =
           , toValue =
                 Table.FloatValue <|
                     .pefData
-                        >> Maybe.map (.weighting >> Unit.ratioToFloat)
+                        >> Maybe.map (.weighting >> Split.toFloat)
                         >> Maybe.withDefault 0
-          , toCell = .pefData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
-          }
-        , { label = "Normalisation (Sc. Imp.)"
-          , toValue =
-                Table.FloatValue <|
-                    .ecoscoreData
-                        >> Maybe.map (.normalization >> Unit.impactToFloat)
-                        >> Maybe.withDefault 0
-          , toCell =
-                \def ->
-                    def.ecoscoreData
-                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
-                        |> Maybe.withDefault (text "N/A")
-          }
-        , { label = "Pondération (Sc. Imp.)"
-          , toValue =
-                Table.FloatValue <|
-                    .ecoscoreData
-                        >> Maybe.map (.weighting >> Unit.ratioToFloat)
-                        >> Maybe.withDefault 0
-          , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.ratio) >> Maybe.withDefault (text "N/A")
+          , toCell = .pefData >> Maybe.map (.weighting >> Format.splitAsPercentage 2) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Description"
           , toValue = Table.StringValue .description

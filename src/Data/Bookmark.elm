@@ -24,8 +24,8 @@ import Time exposing (Posix)
 
 
 type alias Bookmark =
-    { name : String
-    , created : Posix
+    { created : Posix
+    , name : String
     , query : Query
     }
 
@@ -38,8 +38,8 @@ type Query
 decode : Decoder Bookmark
 decode =
     Decode.map3 Bookmark
-        (Decode.field "name" Decode.string)
         (Decode.field "created" (Decode.map Time.millisToPosix Decode.int))
+        (Decode.field "name" Decode.string)
         (Decode.field "query" decodeQuery)
 
 
@@ -54,8 +54,8 @@ decodeQuery =
 encode : Bookmark -> Encode.Value
 encode v =
     Encode.object
-        [ ( "name", Encode.string v.name )
-        , ( "created", Encode.int <| Time.posixToMillis v.created )
+        [ ( "created", Encode.int <| Time.posixToMillis v.created )
+        , ( "name", Encode.string v.name )
         , ( "query", encodeQuery v.query )
         ]
 

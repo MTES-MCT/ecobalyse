@@ -60,8 +60,8 @@ type alias Model =
 
 
 type Msg
-    = NoOp
-    | CloseModal
+    = CloseModal
+    | NoOp
     | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
@@ -75,9 +75,6 @@ init scope dataset session =
                 Dataset.Countries _ ->
                     "Nom"
 
-                Dataset.Impacts _ ->
-                    "Code"
-
                 Dataset.FoodExamples _ ->
                     "Coût Environnemental"
 
@@ -87,17 +84,20 @@ init scope dataset session =
                 Dataset.FoodProcesses _ ->
                     "Nom"
 
+                Dataset.Impacts _ ->
+                    "Code"
+
                 Dataset.TextileExamples _ ->
                     "Coût Environnemental"
-
-                Dataset.TextileProducts _ ->
-                    "Identifiant"
 
                 Dataset.TextileMaterials _ ->
                     "Identifiant"
 
                 Dataset.TextileProcesses _ ->
                     "Nom"
+
+                Dataset.TextileProducts _ ->
+                    "Identifiant"
     in
     ( { dataset = dataset
       , scope = scope
@@ -111,9 +111,6 @@ init scope dataset session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        NoOp ->
-            ( model, session, Cmd.none )
-
         CloseModal ->
             ( model
             , session
@@ -123,6 +120,9 @@ update session msg model =
                 |> Route.toString
                 |> Nav.pushUrl session.navKey
             )
+
+        NoOp ->
+            ( model, session, Cmd.none )
 
         OpenDetail route ->
             ( model
@@ -147,6 +147,10 @@ update session msg model =
                     case scope of
                         Scope.Food ->
                             Dataset.FoodExamples Nothing
+
+                        -- FIXME: object examples explorer page
+                        Scope.Object ->
+                            Dataset.TextileExamples Nothing
 
                         Scope.Textile ->
                             Dataset.TextileExamples Nothing
@@ -248,12 +252,12 @@ countriesExplorer { distances, countries } tableConfig tableState scope maybeCod
         Just code ->
             detailsModal
                 (case Country.findByCode code countries of
+                    Err error ->
+                        alert error
+
                     Ok country ->
                         country
                             |> Table.viewDetails scope (ExploreCountries.table distances countries)
-
-                    Err error ->
-                        alert error
                 )
 
         Nothing ->
@@ -321,6 +325,9 @@ foodExamplesExplorer db tableConfig tableState maybeId =
         Just id ->
             detailsModal
                 (case Example.findByUuid id db.food.examples of
+                    Err error ->
+                        alert error
+
                     Ok example ->
                         Table.viewDetails Scope.Food
                             (FoodExamples.table max)
@@ -329,9 +336,6 @@ foodExamplesExplorer db tableConfig tableState maybeId =
                               , per100g = getFoodScorePer100g db example
                               }
                             )
-
-                    Err error ->
-                        alert error
                 )
 
         Nothing ->
@@ -353,11 +357,11 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
         Just id ->
             detailsModal
                 (case Ingredient.findByID id food.ingredients of
-                    Ok ingredient ->
-                        foodIngredientDetails food ingredient
-
                     Err error ->
                         alert error
+
+                    Ok ingredient ->
+                        foodIngredientDetails food ingredient
                 )
 
         Nothing ->
@@ -384,12 +388,12 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
         Just id ->
             detailsModal
                 (case FoodProcess.findByIdentifier id food.processes of
+                    Err error ->
+                        alert error
+
                     Ok process ->
                         process
                             |> Table.viewDetails Scope.Food (FoodProcesses.table food)
-
-                    Err error ->
-                        alert error
                 )
 
         Nothing ->
@@ -437,6 +441,9 @@ textileExamplesExplorer db tableConfig tableState maybeId =
         Just id ->
             detailsModal
                 (case Example.findByUuid id db.textile.examples of
+                    Err error ->
+                        alert error
+
                     Ok example ->
                         Table.viewDetails Scope.Textile
                             (TextileExamples.table max)
@@ -445,9 +452,6 @@ textileExamplesExplorer db tableConfig tableState maybeId =
                               , per100g = getTextileScorePer100g db example
                               }
                             )
-
-                    Err error ->
-                        alert error
                 )
 
         Nothing ->
@@ -468,11 +472,11 @@ textileProductsExplorer db tableConfig tableState maybeId =
         Just id ->
             detailsModal
                 (case Product.findById id db.textile.products of
-                    Ok product ->
-                        Table.viewDetails Scope.Textile (TextileProducts.table db) product
-
                     Err error ->
                         alert error
+
+                    Ok product ->
+                        Table.viewDetails Scope.Textile (TextileProducts.table db) product
                 )
 
         Nothing ->
@@ -493,11 +497,11 @@ textileMaterialsExplorer db tableConfig tableState maybeId =
         Just id ->
             detailsModal
                 (case Material.findById id db.textile.materials of
-                    Ok material ->
-                        textileMaterialDetails db material
-
                     Err error ->
                         alert error
+
+                    Ok material ->
+                        textileMaterialDetails db material
                 )
 
         Nothing ->
@@ -523,12 +527,12 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
         Just id ->
             detailsModal
                 (case Process.findByUuid id textile.processes of
+                    Err error ->
+                        alert error
+
                     Ok process ->
                         process
                             |> Table.viewDetails Scope.Textile TextileProcesses.table
-
-                    Err error ->
-                        alert error
                 )
 
         Nothing ->
@@ -603,9 +607,6 @@ explore { db } { scope, dataset, tableState } =
         Dataset.Countries maybeCode ->
             countriesExplorer db tableConfig tableState scope maybeCode
 
-        Dataset.Impacts maybeTrigram ->
-            impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
-
         Dataset.FoodExamples maybeId ->
             foodExamplesExplorer db tableConfig tableState maybeId
 
@@ -615,17 +616,20 @@ explore { db } { scope, dataset, tableState } =
         Dataset.FoodProcesses maybeId ->
             foodProcessesExplorer db tableConfig tableState maybeId
 
+        Dataset.Impacts maybeTrigram ->
+            impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
+
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileMaterials maybeId ->
             textileMaterialsExplorer db tableConfig tableState maybeId
 
-        Dataset.TextileProducts maybeId ->
-            textileProductsExplorer db tableConfig tableState maybeId
-
         Dataset.TextileProcesses maybeId ->
             textileProcessesExplorer db tableConfig tableState maybeId
+
+        Dataset.TextileProducts maybeId ->
+            textileProductsExplorer db tableConfig tableState maybeId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

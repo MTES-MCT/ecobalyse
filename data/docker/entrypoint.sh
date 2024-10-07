@@ -8,6 +8,8 @@ if [ $ECOBALYSE_ID -ne $JOVYAN_ID ]; then
     usermod -u $ECOBALYSE_ID jovyan
 fi
 
-chown -R 1000:100 "/home/jovyan/.npm"
+# Ensure .npm directory is owned by jovyan
+mkdir -p /home/jovyan/.npm
+chown -R jovyan:100 "/home/jovyan/.npm"
 
-gosu jovyan "$@"
+exec gosu jovyan "$@"
