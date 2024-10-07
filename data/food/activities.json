@@ -225,6 +225,25 @@
     "scenario": "import"
   },
   {
+    "id": "ground-beef-eu",
+    "name": "Boeuf haché cru UE Conv.",
+    "database": "Ecobalyse",
+    "search": "Ground beef fresh case ready for direct consumption at plant [eu], constructed by Ecobalyse",
+    "category": "ingredient",
+    "categories": ["animal_product"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "visible": true,
+    "animal_group1": "cattle",
+    "animal_group2": "cow",
+    "animal_product": "meat",
+    "scenario": "import",
+    "land_occupation": 27.37470331
+  },
+  {
     "id": "ground-beef-grass-fed",
     "name": "Boeuf haché cru - v. de réforme 100% herbe FR Conv.",
     "database": "Ecobalyse",
@@ -1167,6 +1186,23 @@
     "land_occupation": 1.541979267,
     "crop_group": "DIVERS",
     "scenario": "import"
+  },
+  {
+    "id": "cane-sugar-organic",
+    "name": "Sucre de canne Hors UE Bio",
+    "search": "brown sugar organic",
+    "category": "ingredient",
+    "categories": ["vegetable_processed"],
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "database": "Ecobalyse",
+    "crop_group": "DIVERS",
+    "scenario": "organic",
+    "land_occupation": 1.042772152
   },
   {
     "id": "tea-dried",
