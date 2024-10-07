@@ -49,7 +49,6 @@ with open(CONFIG["IMPACTS_FILE"]) as f:
 # Configure logger
 logger.remove()  # Remove default handler
 logger.add(sys.stderr, format="{time} {level} {message}", level="INFO")
-logger.add("export.log", rotation="10 MB", level="DEBUG")
 
 
 def create_process_list(activities):
@@ -78,7 +77,7 @@ def compute_brightway_impacts(activity, method):
         lca.switch_method(method)
         lca.lcia()
         results[key] = float("{:.10g}".format(lca.score))
-    logger.debug(f"Computing Brightway impacts for {activity}")
+        logger.debug(f"{activity}  {key}: {lca.score}")
     return results
 
 
