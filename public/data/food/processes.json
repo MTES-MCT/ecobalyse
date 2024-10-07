@@ -1700,7 +1700,7 @@
     "unit": "kilogram"
   },
   {
-    "categories": ["energy", "packaging"],
+    "categories": ["energy"],
     "comment": "",
     "displayName": "Gaz de ville",
     "id": "domestic-gas-heat",
