@@ -126,9 +126,9 @@ addToComparison session label query =
             objectQuery
                 |> ObjectSimulator.compute session.db
                 |> Result.map
-                    (\_ ->
+                    (\impacts ->
                         { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = Impact.empty
+                        , impacts = impacts
                         , label = label
                         , stepsImpacts = Impact.noStepsImpacts
                         }

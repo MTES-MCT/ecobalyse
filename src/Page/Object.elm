@@ -149,7 +149,7 @@ findExistingBookmarkName { store } query =
     store.bookmarks
         |> Bookmark.findByObjectQuery query
         |> Maybe.map .name
-        |> Maybe.withDefault (query |> Query.toString)
+        |> Maybe.withDefault (Query.toString query)
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
