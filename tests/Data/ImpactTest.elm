@@ -27,13 +27,13 @@ suite =
             [ describe "computeAggregatedScore"
                 [ defaultImpacts
                     |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 1)
-                    |> Impact.getImpact Definition.Pef
+                    |> Impact.getImpact Definition.Ecs
                     |> expectScoreEquals 27.88266508497196
                     |> asTest "should compute aggregate score from cch impact"
                 , defaultImpacts
                     |> Impact.updateImpact db.definitions Definition.Fwe (Unit.impact 1)
-                    |> Impact.getImpact Definition.Pef
-                    |> expectScoreEquals 17425.397516880857
+                    |> Impact.getImpact Definition.Ecs
+                    |> expectScoreEquals 13815.850888384108
                     |> asTest "should compute aggregate score from fwe impact"
                 ]
             , describe "mapImpacts"
@@ -90,25 +90,11 @@ suite =
                     |> Impact.getImpact Definition.Ecs
                     |> expectScoreEquals 13843.73355346908
                     |> asTest "should update EcoScore"
-                , impacts
-                    |> Impact.getImpact Definition.Pef
-                    |> expectScoreEquals 17453.28018196583
-                    |> asTest "should update PEF score"
                 ]
             , describe "total weighting for impacts' ecoscoreData"
                 [ Definition.trigrams
                     |> List.map (\trigram -> Definition.get trigram db.definitions)
                     |> List.filterMap .ecoscoreData
-                    |> List.map .weighting
-                    |> List.map Split.toFloat
-                    |> List.sum
-                    |> Expect.within (Expect.Absolute 0.01) 1
-                    |> asTest "should be 1"
-                ]
-            , describe "total weighting for impacts' pefData"
-                [ Definition.trigrams
-                    |> List.map (\trigram -> Definition.get trigram db.definitions)
-                    |> List.filterMap .pefData
                     |> List.map .weighting
                     |> List.map Split.toFloat
                     |> List.sum

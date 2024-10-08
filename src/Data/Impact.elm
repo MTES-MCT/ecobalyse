@@ -419,7 +419,6 @@ decodeWithoutAggregated =
     Definition.decodeWithoutAggregated (always Unit.decodeImpact)
         -- Those aggregated impacts will have to be computed after the decoding
         |> Pipe.hardcoded Quantity.zero
-        |> Pipe.hardcoded Quantity.zero
         |> Decode.map Impacts
 
 
@@ -446,7 +445,6 @@ updateAggregatedScores definitions impacts =
     in
     impacts
         |> aggregateScore .ecoscoreData Definition.Ecs
-        |> aggregateScore .pefData Definition.Pef
 
 
 getAggregatedScoreData :
