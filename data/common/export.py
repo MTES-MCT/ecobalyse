@@ -2,6 +2,7 @@
 import functools
 import json
 import logging
+import os
 import urllib
 
 import bw2calc
@@ -29,13 +30,14 @@ def spproject(activity):
 
 
 def export_json(data, filename):
-    """
-    Export data to a JSON file, with added newline at the end.
-    """
-    with open(filename, "w", encoding="utf-8") as file:
-        json.dump(data, file, indent=2, ensure_ascii=False)
-        file.write("\n")  # Add a newline at the end of the file
-    print(f"\nExported {len(data)} elements to {filename}")
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+    # Write the data to the file
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+    print(f"Data exported to {filename}")
 
 
 def load_json(filename):

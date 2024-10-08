@@ -5,7 +5,7 @@
     "displayName": "Planche (bois de feuillus)",
     "density": 600,
     "unit": "m3",
-    "database": "Ecoinvent 3.9.1",
+    "source": "Ecoinvent 3.9.1",
     "comment": ""
   }
 ]
