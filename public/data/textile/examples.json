@@ -64,7 +64,6 @@
       "countryFabric": "RAS",
       "countryDyeing": "RAS",
       "countryMaking": "RAS",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -89,7 +88,6 @@
       "countryFabric": "CN",
       "countryDyeing": "CN",
       "countryMaking": "CN",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 115,
       "numberOfReferences": 12000,
@@ -118,7 +116,6 @@
       "countryFabric": "CN",
       "countryDyeing": "CN",
       "countryMaking": "CN",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 115,
       "numberOfReferences": 12000,
@@ -244,7 +241,6 @@
       "countryFabric": "RAS",
       "countryDyeing": "RAS",
       "countryMaking": "RAS",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -273,7 +269,6 @@
       "countryFabric": "CN",
       "countryDyeing": "CN",
       "countryMaking": "CN",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 115,
       "numberOfReferences": 12000,
@@ -342,7 +337,6 @@
         }
       ],
       "product": "jupe",
-      "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 15
@@ -361,7 +355,6 @@
         }
       ],
       "product": "chemise",
-      "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 15
@@ -381,7 +374,6 @@
       ],
       "product": "jean",
       "fading": true,
-      "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 20
@@ -400,7 +392,6 @@
         }
       ],
       "product": "pantalon",
-      "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 20
@@ -419,7 +410,6 @@
         }
       ],
       "product": "manteau",
-      "airTransportRatio": 1,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 40
@@ -438,7 +428,6 @@
         }
       ],
       "product": "tshirt",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -463,7 +452,6 @@
       "countryFabric": "---",
       "countryDyeing": "---",
       "countryMaking": "---",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -485,7 +473,6 @@
         }
       ],
       "product": "pull",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -506,7 +493,6 @@
         }
       ],
       "product": "chaussettes",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -527,7 +513,6 @@
         }
       ],
       "product": "calecon",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -548,7 +533,6 @@
         }
       ],
       "product": "slip",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
@@ -569,7 +553,6 @@
         }
       ],
       "product": "maillot-de-bain",
-      "airTransportRatio": 1,
       "business": "large-business-without-services",
       "marketingDuration": 65,
       "numberOfReferences": 100000,

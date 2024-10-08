@@ -236,6 +236,7 @@ isAdvancedQuery query =
         , query.makingDeadStock /= Nothing
         , query.makingWaste /= Nothing
         , query.materials |> List.any (.spinning >> (/=) Nothing)
+        , query.physicalDurability /= Nothing
         , query.surfaceMass /= Nothing
         , not query.upcycled && List.length query.disabledSteps > 0
         , query.yarnSize /= Nothing
@@ -254,6 +255,7 @@ regulatory query =
         , makingDeadStock = Nothing
         , makingWaste = Nothing
         , materials = query.materials |> List.map (\m -> { m | spinning = Nothing })
+        , physicalDurability = Nothing
         , surfaceMass = Nothing
         , yarnSize = Nothing
     }
