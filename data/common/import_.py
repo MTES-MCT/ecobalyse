@@ -3,15 +3,15 @@ import json
 import os
 import re
 import sys
+from os.path import dirname
 from subprocess import call
 from zipfile import ZipFile
 
 import bw2data
 import bw2io
 from bw2io.strategies.generic import link_technosphere_by_activity_hash
-from tqdm import tqdm
-
 from common.export import create_activity, delete_exchange, new_exchange, search
+from tqdm import tqdm
 
 BIOSPHERE = "biosphere3"
 AGRIBALYSE_PACKAGINGS = [
@@ -187,7 +187,7 @@ def import_simapro_csv(
     # unzip
     with ZipFile(datapath) as zf:
         print("### Extracting the zip file...")
-        zf.extractall(path=os.path.dirname(datapath))
+        zf.extractall(path=dirname(datapath))
         unzipped = datapath[0:-4]
 
     if "AGB" in datapath:
