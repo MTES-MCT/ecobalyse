@@ -7,6 +7,7 @@ import json
 import os
 import sys
 import urllib.parse
+from collections import OrderedDict
 from os.path import abspath, dirname
 
 sys.path.append(dirname(dirname(abspath(__file__))))
@@ -169,35 +170,37 @@ def create_process_list(activities):
 
 def process_activity_for_processes(activity):
     AGRIBALYSE = CONFIG["AGRIBALYSE"]
-    return {
-        "id": activity["id"],
-        "name": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
-            "name"
-        ],
-        "displayName": activity["name"],
-        "unit": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
-            "unit"
-        ],
-        "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
-        "system_description": cached_search(
-            activity.get("database", AGRIBALYSE), activity["search"]
-        )["System description"],
-        "categories": activity.get("process_categories"),
-        "comment": (
-            prod[0]["comment"]
-            if (
-                prod := list(
-                    cached_search(
-                        activity.get("database", AGRIBALYSE), activity["search"]
-                    ).production()
+    return OrderedDict(
+        {
+            "id": activity["id"],
+            "name": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["name"],
+            "displayName": activity["name"],
+            "unit": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["unit"],
+            "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
+            "system_description": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["System description"],
+            "categories": activity.get("process_categories"),
+            "comment": (
+                prod[0]["comment"]
+                if (
+                    prod := list(
+                        cached_search(
+                            activity.get("database", AGRIBALYSE), activity["search"]
+                        ).production()
+                    )
                 )
-            )
-            else activity.get("comment", "")
-        ),
-        "source": activity.get("database", AGRIBALYSE),
-        # those are removed at the end:
-        "search": activity["search"],
-    }
+                else activity.get("comment", "")
+            ),
+            "source": activity.get("database", AGRIBALYSE),
+            # those are removed at the end:
+            "search": activity["search"],
+        }
+    )
 
 
 def compute_simapro_impacts(activity, method):
