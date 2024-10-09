@@ -101,5 +101,3 @@ jobs:
           files: ${{ steps.git_cliff.outputs.version }}-dist.tar.gz
           generate_release_notes: false
           make_latest: true
-          # For testing purposes, always create a draft release for now
-          draft: true
