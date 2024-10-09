@@ -47,7 +47,7 @@ jobs:
           branch: chore/next-release-changelog
           delete-branch: true
           title: "chore(release): release ${{ steps.git_cliff.outputs.version }}"
-          body: ${{ steps.git_cliff-latest.outputs.content }}
+          body: ${{ steps.git_cliff_latest.outputs.content }}
           labels: |
             pending-release
             automated
