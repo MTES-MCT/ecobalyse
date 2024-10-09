@@ -41,7 +41,7 @@ jobs:
         with:
           add-paths: |
             CHANGELOG-cliff.md
-          base: main
+          base: master
           commit-message: "chore: update CHANGELOG.md for ${{ steps.git_cliff.outputs.version }}"
           signoff: false
           branch: chore/next-release-changelog
