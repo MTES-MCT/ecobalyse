@@ -2,9 +2,7 @@ name: Create tag and release
 
 on:
   pull_request:
-    # @FIX: add types back before merging
-    # types: [closed]
-  workflow_dispatch:
+    types: [closed]
 
 permissions:
   contents: write
@@ -17,8 +15,7 @@ jobs:
   create_tag_and_release:
     # The tag and the release should be created only when the automated PR created by `create_pr_for_changelog` is merged
     # Or to test it for now, by triggering a workflow dispatch by hand
-    # @FIX: remove the workflow dispatch and test PR detection "improve changelog by using" before merging
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.title, 'improve changelog by using') || (github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)') && contains(github.event.pull_request.labels.*.name, 'automated') && contains(github.event.pull_request.labels.*.name, 'pending-release'))
+    if: (github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)') && contains(github.event.pull_request.labels.*.name, 'automated') && contains(github.event.pull_request.labels.*.name, 'pending-release'))
     runs-on: ubuntu-latest
     strategy:
       matrix:

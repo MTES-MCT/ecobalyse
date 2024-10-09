@@ -26,7 +26,7 @@ jobs:
           config: cliff.toml
           args: --verbose --exclude-path "data/" --bump
         env:
-          OUTPUT: CHANGELOG-cliff.md
+          OUTPUT: CHANGELOG.md
 
       - name: Generate latest changes
         uses: orhun/git-cliff-action@v4
