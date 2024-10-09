@@ -7,7 +7,8 @@ import json
 import os
 import sys
 import urllib.parse
-from os.path import dirname
+from collections import OrderedDict
+from os.path import abspath, dirname
 
 import bw2calc
 import bw2data
@@ -28,14 +29,13 @@ from common.export import (
 )
 from common.impacts import bytrigram, main_method
 from common.impacts import impacts as definitions
-from frozendict import frozendict
-
 from food.ecosystemic_services.ecosystemic_services import (
     compute_animal_ecosystemic_services,
     compute_vegetal_ecosystemic_services,
     load_ecosystemic_dic,
     load_ugb_dic,
 )
+from frozendict import frozendict
 
 PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
 ECOBALYSE_DATA_DIR = os.environ.get("ECOBALYSE_DATA_DIR")
@@ -180,8 +180,7 @@ def process_activity_for_processes(activity):
         "system_description": cached_search(
             activity.get("database", AGRIBALYSE), activity["search"]
         )["System description"],
-        "category": activity.get("category"),
-        "categories": activity.get("categories"),
+        "categories": activity.get("process_categories"),
         "comment": (
             prod[0]["comment"]
             if (
