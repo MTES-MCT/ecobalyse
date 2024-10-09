@@ -23,6 +23,7 @@ from common.export import (
     export_json,
     load_json,
     progress_bar,
+    remove_detailed_impacts,
     spproject,
     with_corrected_impacts,
     with_subimpacts,
@@ -58,6 +59,7 @@ CONFIG = {
     "UGB_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv",
     "INGREDIENTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",
     "PROCESSES_FILE": f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json",
+    "AGGREGATED": f"{PROJECT_ROOT_DIR}/public/data/food/processes.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
     "GRAPH_FOLDER": f"{PROJECT_ROOT_DIR}/data/food/impact_comparison",
 }
@@ -428,3 +430,7 @@ if __name__ == "__main__":
     export_json(ingredients_animal_es, CONFIG["INGREDIENTS_FILE"])
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(list(processes_corrected_impacts.values()), CONFIG["PROCESSES_FILE"])
+    export_json(
+        remove_detailed_impacts(list(processes_corrected_impacts.values())),
+        CONFIG["AGGREGATED"],
+    )

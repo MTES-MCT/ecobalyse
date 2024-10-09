@@ -2,6 +2,8 @@
 import functools
 import json
 import logging
+from collections import OrderedDict
+from copy import deepcopy
 
 import bw2data
 from bw2io.utils import activity_hash
@@ -20,6 +22,17 @@ def spproject(activity):
             return "EcobalyseIsNotASimaProProject"
         case _:
             return "AGB3.1.1 2023-03-06"
+
+
+def remove_detailed_impacts(processes):
+    result = list()
+    for process in processes:
+        new_process = OrderedDict(deepcopy(process))
+        for k in new_process["impacts"].keys():
+            if k not in ("pef", "ecs"):
+                new_process["impacts"][k] = 0
+        result.append(new_process)
+    return result
 
 
 def export_json(data, filename):
