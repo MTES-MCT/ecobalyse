@@ -40,7 +40,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           add-paths: |
-            CHANGELOG-cliff.md
+            CHANGELOG.md
           base: master
           commit-message: "chore: update CHANGELOG.md for ${{ steps.git_cliff.outputs.version }}"
           signoff: false
