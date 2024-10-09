@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.4.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.3.0...v2.4.0) (2024-10-09)
+
+
+### Features
+
+* introduce first version of object interface ([#756](https://github.com/MTES-MCT/ecobalyse/issues/756)) ([cff1761](https://github.com/MTES-MCT/ecobalyse/commit/cff1761534cabe44e293e8efa496b4a2bdddefac))
+
+
+### Bug Fixes
+
+* **api,food:** nullable fields weren't nullable anymore. ([#789](https://github.com/MTES-MCT/ecobalyse/issues/789)) ([3bcc269](https://github.com/MTES-MCT/ecobalyse/commit/3bcc2693d20d8720c4a83d36153abfa8e09b5a8d))
+* don't hide version information on staging ([#778](https://github.com/MTES-MCT/ecobalyse/issues/778)) ([381a2d0](https://github.com/MTES-MCT/ecobalyse/commit/381a2d0c926b3131e7c4e118bb356e7edac14260))
+* reset physical durablility in regulatory mode ([#786](https://github.com/MTES-MCT/ecobalyse/issues/786)) ([eae49d0](https://github.com/MTES-MCT/ecobalyse/commit/eae49d012072a4e601434467ec22ce914fc95d02))
+* sync food ([#759](https://github.com/MTES-MCT/ecobalyse/issues/759)) ([13bbb14](https://github.com/MTES-MCT/ecobalyse/commit/13bbb146e4e4d8151613d244c7a1cdc818d8717e))
+
 ## [2.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.2.0...v2.3.0) (2024-09-25)
 
 
