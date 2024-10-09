@@ -3,7 +3,7 @@ name: Create tag and release
 on:
   pull_request:
     # @FIX: add types back before merging
-    types: [closed]
+    # types: [closed]
   workflow_dispatch:
 
 permissions:
