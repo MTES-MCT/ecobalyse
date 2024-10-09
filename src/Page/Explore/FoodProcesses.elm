@@ -31,9 +31,19 @@ table _ { detailed, scope } =
           , toValue = Table.StringValue FoodProcess.getDisplayName
           , toCell = FoodProcess.getDisplayName >> text
           }
-        , { label = "Catégorie"
-          , toValue = Table.StringValue <| .category >> FoodProcess.categoryToLabel
-          , toCell = .category >> FoodProcess.categoryToLabel >> text
+        , { label = "Catégories"
+          , toValue =
+                Table.StringValue <|
+                    .categories
+                        >> List.map FoodProcess.categoryToLabel
+                        >> List.intersperse ", "
+                        >> String.concat
+          , toCell =
+                .categories
+                    >> List.map FoodProcess.categoryToLabel
+                    >> List.intersperse ", "
+                    >> String.concat
+                    >> text
           }
         , { label = "Nom technique"
           , toValue = Table.StringValue <| .name >> FoodProcess.nameToString

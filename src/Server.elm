@@ -217,13 +217,13 @@ handleRequest db request =
 
         Just Route.FoodGetPackagingList ->
             db.food.processes
-                |> List.filter (.category >> (==) FoodProcess.Packaging)
+                |> List.filter (.categories >> List.member FoodProcess.Packaging)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
         Just Route.FoodGetTransformList ->
             db.food.processes
-                |> List.filter (.category >> (==) FoodProcess.Transform)
+                |> List.filter (.categories >> List.member FoodProcess.Transform)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
