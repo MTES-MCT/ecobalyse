@@ -10,7 +10,13 @@ $$
 
 Le coût environnemental est exprimé en _**points d'impacts**_.&#x20;
 
-Ce _**point d'impact**_ provient du "micro-point PEF". Le point PEF correspond à l’impact environnemental annuel d'un habitant européen.
+Ce _**point d'impact**_ provient du "micro-point PEF" . Le point PEF correspond à l’impact environnemental annuel d'un habitant européen.
+
+Le "micro-point PEF" est exprimé avec l'unité "µPt" et correspond à 10^-6 Pt PEF. &#x20;
+
+$$
+Point d'impact (µPt) = 1 Pt PEF / 1 000 000
+$$
 
 ## Indicateurs ACV et correctifs&#x20;
 
