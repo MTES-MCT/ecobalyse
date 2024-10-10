@@ -163,7 +163,8 @@ toQueryDescription db bookmark =
 
         Object objectQuery ->
             objectQuery
-                |> ObjectQuery.toString
+                |> ObjectQuery.toString db.object.processes
+                |> Result.withDefault "N/A"
 
         Textile textileQuery ->
             textileQuery

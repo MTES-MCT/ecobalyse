@@ -171,7 +171,8 @@ suggestBookmarkName { db, store } query =
             name
 
         _ ->
-            Query.toString query
+            Query.toString db.object.processes query
+                |> Result.withDefault "N/A"
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
