@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [2.5.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.4.0..v2.5.0) (2024-10-10)
+
+
+
+### 🚀 Features
+
+- Add bookmarks for objects ([#781](https://github.com/MTES-MCT/ecobalyse/issues/781))
+
+### 🪲 Bug Fixes
+
+- Create object encrypted file for versions ([#800](https://github.com/MTES-MCT/ecobalyse/issues/800))
+
+
 ## [2.4.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.3.0..v2.4.0) (2024-10-10)
 
 
