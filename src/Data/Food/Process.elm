@@ -170,23 +170,23 @@ nameToString (ProcessName name) =
     name
 
 
-decodeCategory : Decoder (List Category)
-decodeCategory =
+decodeCategories : Decoder (List Category)
+decodeCategories =
     Decode.list
         (Decode.string
             |> Decode.andThen (categoryFromString >> DE.fromResult)
         )
 
 
-encodeCategory : Category -> Encode.Value
-encodeCategory =
+encodeCategories : Category -> Encode.Value
+encodeCategories =
     categoryToString >> Encode.string
 
 
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
-        |> Pipe.required "categories" decodeCategory
+        |> Pipe.required "categories" decodeCategories
         |> DU.strictOptional "comment" Decode.string
         |> DU.strictOptional "displayName" Decode.string
         |> Pipe.required "id" Decode.string
@@ -201,16 +201,16 @@ decodeProcess impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "categories", Encode.list encodeCategory process.categories )
-        , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        [ ( "name", Encode.string (nameToString process.name) )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "id", Encode.string process.id_ )
-        , ( "identifier", encodeIdentifier process.identifier )
         , ( "impacts", Impact.encode process.impacts )
-        , ( "name", Encode.string (nameToString process.name) )
-        , ( "source", Encode.string process.source )
-        , ( "system_description", Encode.string process.systemDescription )
         , ( "unit", encodeStringUnit process.unit )
+        , ( "identifier", encodeIdentifier process.identifier )
+        , ( "categories", Encode.list encodeCategories process.categories )
+        , ( "system_description", Encode.string process.systemDescription )
+        , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        , ( "id", Encode.string process.id_ )
+        , ( "source", Encode.string process.source )
         ]
 
 
