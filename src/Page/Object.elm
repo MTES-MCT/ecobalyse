@@ -92,7 +92,7 @@ init trigram maybeUrlQuery session =
             maybeUrlQuery
                 |> Maybe.withDefault session.queries.object
     in
-    ( { bookmarkName = initialQuery |> findExistingBookmarkName session
+    ( { bookmarkName = initialQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
             if Session.isAuthenticated session then
@@ -131,7 +131,7 @@ initFromExample session uuid =
                 |> Result.map .query
                 |> Result.withDefault session.queries.object
     in
-    ( { bookmarkName = exampleQuery |> findExistingBookmarkName session
+    ( { bookmarkName = exampleQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , impact = Definition.get Definition.Ecs session.db.definitions
@@ -144,12 +144,29 @@ initFromExample session uuid =
     )
 
 
-findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { store } query =
-    store.bookmarks
-        |> Bookmark.findByObjectQuery query
-        |> Maybe.map .name
-        |> Maybe.withDefault (Query.toString query)
+suggestBookmarkName : Session -> Query -> String
+suggestBookmarkName { db, store } query =
+    let
+        -- Existing user bookmark?
+        userBookmark =
+            store.bookmarks
+                |> Bookmark.findByObjectQuery query
+
+        -- Matching product example name?
+        exampleName =
+            db.object.examples
+                |> Example.findByQuery query
+                |> Result.toMaybe
+    in
+    case ( userBookmark, exampleName ) of
+        ( Just { name }, _ ) ->
+            name
+
+        ( _, Just { name } ) ->
+            name
+
+        _ ->
+            Query.toString query
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -196,8 +213,6 @@ update ({ queries, navKey } as session) msg model =
         ( OnAutocompleteExample _, _ ) ->
             ( model, session, Cmd.none )
 
-        -- ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
-        --     updateMaterial query model session maybeOldMaterial autocompleteState
         ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
             ( model, session, Cmd.none )
                 |> selectExample autocompleteState
@@ -315,35 +330,17 @@ commandsForNoModal modal =
 selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectExample autocompleteState ( model, session, _ ) =
     let
-        example =
+        exampleQuery =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Query.default
     in
-    update session (SetModal NoModal) { model | initialQuery = example }
-        |> updateQuery example
-
-
-
--- massField : String -> Html Msg
--- massField massInput =
---     div [ class "d-flex flex-column" ]
---         [ label [ for "mass", class "form-label text-truncate" ]
---             [ text "Masse du produit fini" ]
---         , div
---             [ class "input-group" ]
---             [ input
---                 [ type_ "number"
---                 , class "form-control"
---                 , id "mass"
---                 , Attr.min "0.01"
---                 , step "0.01"
---                 , value massInput
---                 , onInput UpdateAmount
---                 ]
---                 []
---             , span [ class "input-group-text" ] [ text "kg" ]
---             ]
---         ]
+    update session
+        (SetModal NoModal)
+        { model
+            | initialQuery = exampleQuery
+            , bookmarkName = exampleQuery |> suggestBookmarkName session
+        }
+        |> updateQuery exampleQuery
 
 
 simulatorView : Session -> Model -> Html Msg
@@ -366,9 +363,11 @@ simulatorView session model =
                         }
                     }
                 ]
-            , session.queries.object
-                |> itemListView session.db model.impact
-                |> div [ class "d-flex flex-column bg-white" ]
+            , div [ class "card shadow-sm" ]
+                [ session.queries.object
+                    |> itemListView session.db model.impact
+                    |> div [ class "d-flex flex-column bg-white" ]
+                ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
