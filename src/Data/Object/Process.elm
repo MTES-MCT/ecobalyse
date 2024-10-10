@@ -6,6 +6,7 @@ module Data.Object.Process exposing
     , encode
     , encodeId
     , findById
+    , idToString
     )
 
 import Data.Impact as Impact exposing (Impacts)

@@ -5,20 +5,20 @@ module Data.Object.Simulator exposing
     )
 
 import Data.Impact as Impact exposing (Impacts)
-import Data.Object.Db exposing (Db)
 import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Item, Query)
 import Quantity
 import Result.Extra as RE
+import Static.Db exposing (Db)
 
 
 availableProcesses : Db -> Query -> List Process
-availableProcesses db query =
+availableProcesses { object } query =
     let
         usedIds =
             List.map .processId query.items
     in
-    db.processes
+    object.processes
         |> List.filter (\{ id } -> not (List.member id usedIds))
 
 
@@ -31,9 +31,9 @@ compute db query =
 
 
 computeItemImpacts : Db -> Item -> Result String Impacts
-computeItemImpacts db { amount, processId } =
+computeItemImpacts { object } { amount, processId } =
     processId
-        |> Process.findById db.processes
+        |> Process.findById object.processes
         |> Result.map
             (.impacts
                 >> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Query.amountToFloat amount))
