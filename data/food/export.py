@@ -7,8 +7,7 @@ import json
 import os
 import sys
 import urllib.parse
-from collections import OrderedDict
-from os.path import abspath, dirname
+from os.path import dirname
 
 import bw2calc
 import bw2data
@@ -25,18 +24,20 @@ from common.export import (
     progress_bar,
     remove_detailed_impacts,
     spproject,
+    with_aggregated_impacts,
     with_corrected_impacts,
     with_subimpacts,
 )
 from common.impacts import bytrigram, main_method
 from common.impacts import impacts as definitions
+from frozendict import frozendict
+
 from food.ecosystemic_services.ecosystemic_services import (
     compute_animal_ecosystemic_services,
     compute_vegetal_ecosystemic_services,
     load_ecosystemic_dic,
     load_ugb_dic,
 )
-from frozendict import frozendict
 
 PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
 ECOBALYSE_DATA_DIR = os.environ.get("ECOBALYSE_DATA_DIR")
@@ -58,8 +59,8 @@ CONFIG = {
     "FEED_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",
     "UGB_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv",
     "INGREDIENTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",
-    "PROCESSES_FILE": f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json",
-    "AGGREGATED": f"{PROJECT_ROOT_DIR}/public/data/food/processes.json",
+    "PROCESSES_IMPACTS": f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json",
+    "PROCESSES_AGGREGATED": f"{PROJECT_ROOT_DIR}/public/data/food/processes.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
     "GRAPH_FOLDER": f"{PROJECT_ROOT_DIR}/data/food/impact_comparison",
 }
@@ -383,7 +384,7 @@ if __name__ == "__main__":
     bw2data.config.p["biosphere_database"] = CONFIG["BIOSPHERE"]
 
     # keep the previous processes with old impacts
-    oldprocesses = load_json(CONFIG["PROCESSES_FILE"])
+    oldprocesses = load_json(CONFIG["PROCESSES_IMPACTS"])
     activities = tuple(load_json(CONFIG["ACTIVITIES_FILE"]))
 
     activities_land_occ = compute_land_occupation(activities)
@@ -423,14 +424,19 @@ if __name__ == "__main__":
     processes_corrected_impacts = with_corrected_impacts(
         IMPACTS_DEF_ECOBALYSE, processes_impacts
     )
+    processes_aggregated_impacts = with_aggregated_impacts(
+        IMPACTS_DEF_ECOBALYSE, processes_corrected_impacts
+    )
 
     # Export
 
     export_json(activities_land_occ, CONFIG["ACTIVITIES_FILE"])
     export_json(ingredients_animal_es, CONFIG["INGREDIENTS_FILE"])
     display_changes("id", oldprocesses, processes_corrected_impacts)
-    export_json(list(processes_corrected_impacts.values()), CONFIG["PROCESSES_FILE"])
     export_json(
-        remove_detailed_impacts(list(processes_corrected_impacts.values())),
-        CONFIG["AGGREGATED"],
+        list(processes_aggregated_impacts.values()), CONFIG["PROCESSES_IMPACTS"]
+    )
+    export_json(
+        remove_detailed_impacts(list(processes_aggregated_impacts.values())),
+        CONFIG["PROCESSES_AGGREGATED"],
     )
