@@ -469,8 +469,10 @@ itemListView db selectedImpact query =
                     [ text error ]
 
                 Ok items ->
-                    List.map (itemView db selectedImpact) items ++ [ addItemButton db query ]
+                    items
+                        |> List.map (itemView db selectedImpact)
         )
+    , addItemButton db query
     ]
 
 
