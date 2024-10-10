@@ -1,5 +1,13 @@
 [
   {
+    "id": "0d08a9ff-5683-4d3d-a7b8-dce74f37cd3b",
+    "name": "Produit vide",
+    "category": "",
+    "query": {
+      "processes": []
+    }
+  },
+  {
     "id": "7d78d30e-7c35-451f-b8ab-e590f39ed0e8",
     "name": "Chaise",
     "category": "",

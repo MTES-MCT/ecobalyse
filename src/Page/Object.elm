@@ -41,12 +41,14 @@ import Views.Container as Container
 import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
 
 
 type alias Model =
-    { bookmarkName : String
+    { activeImpactsTab : ImpactTabs.Tab
+    , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
     , impact : Definition
@@ -78,6 +80,7 @@ type Msg
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
+    | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateItem Query.Item
@@ -92,7 +95,8 @@ init trigram maybeUrlQuery session =
             maybeUrlQuery
                 |> Maybe.withDefault session.queries.object
     in
-    ( { bookmarkName = initialQuery |> findExistingBookmarkName session
+    ( { activeImpactsTab = ImpactTabs.StepImpactsTab
+      , bookmarkName = initialQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
             if Session.isAuthenticated session then
@@ -131,7 +135,8 @@ initFromExample session uuid =
                 |> Result.map .query
                 |> Result.withDefault session.queries.object
     in
-    ( { bookmarkName = exampleQuery |> findExistingBookmarkName session
+    ( { activeImpactsTab = ImpactTabs.StepImpactsTab
+      , bookmarkName = exampleQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , impact = Definition.get Definition.Ecs session.db.definitions
@@ -144,17 +149,35 @@ initFromExample session uuid =
     )
 
 
-findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { store } query =
-    store.bookmarks
-        |> Bookmark.findByObjectQuery query
-        |> Maybe.map .name
-        |> Maybe.withDefault (Query.toString query)
+suggestBookmarkName : Session -> Query -> String
+suggestBookmarkName { db, store } query =
+    let
+        -- Existing user bookmark?
+        userBookmark =
+            store.bookmarks
+                |> Bookmark.findByObjectQuery query
+
+        -- Matching product example name?
+        exampleName =
+            db.object.examples
+                |> Example.findByQuery query
+                |> Result.toMaybe
+    in
+    case ( userBookmark, exampleName ) of
+        ( Just { name }, _ ) ->
+            name
+
+        ( _, Just { name } ) ->
+            name
+
+        _ ->
+            Query.toString db.object.processes query
+                |> Result.withDefault "N/A"
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
-    ( { model | initialQuery = query }
+    ( { model | initialQuery = query, bookmarkName = query |> suggestBookmarkName session }
     , session |> Session.updateObjectQuery query
     , commands
     )
@@ -196,8 +219,6 @@ update ({ queries, navKey } as session) msg model =
         ( OnAutocompleteExample _, _ ) ->
             ( model, session, Cmd.none )
 
-        -- ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
-        --     updateMaterial query model session maybeOldMaterial autocompleteState
         ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
             ( model, session, Cmd.none )
                 |> selectExample autocompleteState
@@ -284,6 +305,12 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
+        ( SwitchImpactsTab impactsTab, _ ) ->
+            ( { model | activeImpactsTab = impactsTab }
+            , session
+            , Cmd.none
+            )
+
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             ( model
             , session |> Session.toggleComparedSimulation bookmark checked
@@ -315,35 +342,12 @@ commandsForNoModal modal =
 selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectExample autocompleteState ( model, session, _ ) =
     let
-        example =
+        exampleQuery =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Query.default
     in
-    update session (SetModal NoModal) { model | initialQuery = example }
-        |> updateQuery example
-
-
-
--- massField : String -> Html Msg
--- massField massInput =
---     div [ class "d-flex flex-column" ]
---         [ label [ for "mass", class "form-label text-truncate" ]
---             [ text "Masse du produit fini" ]
---         , div
---             [ class "input-group" ]
---             [ input
---                 [ type_ "number"
---                 , class "form-control"
---                 , id "mass"
---                 , Attr.min "0.01"
---                 , step "0.01"
---                 , value massInput
---                 , onInput UpdateAmount
---                 ]
---                 []
---             , span [ class "input-group-text" ] [ text "kg" ]
---             ]
---         ]
+    update session (SetModal NoModal) { model | initialQuery = exampleQuery }
+        |> updateQuery exampleQuery
 
 
 simulatorView : Session -> Model -> Html Msg
@@ -366,9 +370,11 @@ simulatorView session model =
                         }
                     }
                 ]
-            , session.queries.object
-                |> itemListView session.db model.impact
-                |> div [ class "d-flex flex-column bg-white" ]
+            , div [ class "card shadow-sm" ]
+                [ session.queries.object
+                    |> itemListView session.db model.impact
+                    |> div [ class "d-flex flex-column bg-white" ]
+                ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
@@ -387,7 +393,14 @@ simulatorView session model =
                         |> Result.withDefault Impact.empty
 
                 -- Impacts tabs
-                , impactTabsConfig = Nothing
+                , impactTabsConfig =
+                    SwitchImpactsTab
+                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
+                        |> ImpactTabs.forObject
+                            (Simulator.compute session.db session.queries.object
+                                |> Result.withDefault Impact.empty
+                            )
+                        |> Just
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab
@@ -451,8 +464,10 @@ itemListView db selectedImpact query =
                     [ text error ]
 
                 Ok items ->
-                    List.map (itemView db selectedImpact) items ++ [ addItemButton db query ]
+                    items
+                        |> List.map (itemView db selectedImpact)
         )
+    , addItemButton db query
     ]
 
 

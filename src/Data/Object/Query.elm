@@ -20,6 +20,7 @@ import Base64
 import Data.Object.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -120,21 +121,23 @@ updateItem newItem query =
     }
 
 
-toString : Query -> String
-toString query =
-    query.items
-        |> List.map
-            (\i ->
-                (i.amount
-                    |> amountToFloat
-                    |> String.fromFloat
-                )
-                    ++ " "
-                    ++ (i.processId
-                            |> Process.idToString
-                       )
+toString : List Process -> Query -> Result String String
+toString processes =
+    .items
+        >> List.map
+            (\item ->
+                item.processId
+                    |> Process.findById processes
+                    |> Result.map
+                        (\process ->
+                            String.fromFloat (amountToFloat item.amount)
+                                ++ process.unit
+                                ++ " "
+                                ++ process.displayName
+                        )
             )
-        |> String.join " - "
+        >> RE.combine
+        >> Result.map (String.join ", ")
 
 
 
