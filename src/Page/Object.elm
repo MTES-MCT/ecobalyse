@@ -177,7 +177,7 @@ suggestBookmarkName { db, store } query =
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
-    ( { model | initialQuery = query }
+    ( { model | initialQuery = query, bookmarkName = query |> suggestBookmarkName session }
     , session |> Session.updateObjectQuery query
     , commands
     )
@@ -346,12 +346,7 @@ selectExample autocompleteState ( model, session, _ ) =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Query.default
     in
-    update session
-        (SetModal NoModal)
-        { model
-            | initialQuery = exampleQuery
-            , bookmarkName = exampleQuery |> suggestBookmarkName session
-        }
+    update session (SetModal NoModal) { model | initialQuery = exampleQuery }
         |> updateQuery exampleQuery
 
 
