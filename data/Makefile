@@ -41,7 +41,7 @@ delete_method:
 	@$(call DOCKER,python3 common/delete_methods.py)
 
 export_food:
-	@$(call DOCKER,bash -c "python3 food/export.py && npm run processes:build")
+	@$(call DOCKER,bash -c "python3 food/export.py")
 
 compare_food:
 	@$(call DOCKER,python3 export.py compare)
