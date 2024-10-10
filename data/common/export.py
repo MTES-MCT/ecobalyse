@@ -107,6 +107,49 @@ def with_corrected_impacts(impacts_ecobalyse, processes_fd, impacts_key="impacts
     return frozendict(processes_updated)
 
 
+def with_aggregated_impacts(impacts_ecobalyse, processes_fd, impacts_key="impacts"):
+    """Add aggregated impacts to the processes"""
+
+    # Pre-compute normalization factors
+    normalization_factors = {
+        "ecs": {
+            k: v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
+            for k, v in impacts_ecobalyse.items()
+            if "ecoscore" in v
+        },
+        "pef": {
+            k: v["pef"]["weighting"] / v["pef"]["normalization"]
+            for k, v in impacts_ecobalyse.items()
+            if "pef" in v
+        },
+    }
+
+    processes_updated = {}
+    for key, process in processes_fd.items():
+        updated_process = process.copy()
+        updated_impacts = updated_process[impacts_key].copy()
+
+        updated_impacts["pef"] = calculate_aggregate(
+            updated_impacts, normalization_factors["pef"]
+        )
+        updated_impacts["ecs"] = calculate_aggregate(
+            updated_impacts, normalization_factors["ecs"]
+        )
+
+        updated_process[impacts_key] = updated_impacts
+        processes_updated[key] = updated_process
+
+    return frozendict(processes_updated)
+
+
+def calculate_aggregate(process_impacts, normalization_factors):
+    # We multiply by 10**6 to get the result in µPts
+    return sum(
+        10**6 * process_impacts.get(impact, 0) * normalization_factors.get(impact, 0)
+        for impact in normalization_factors
+    )
+
+
 def display_changes(key, oldprocesses, processes):
     """Display a nice sorted table of impact changes to review
     key is the field to display (id for food, uuid for textile)"""
