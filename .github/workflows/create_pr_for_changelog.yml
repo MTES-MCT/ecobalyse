@@ -42,7 +42,8 @@ jobs:
             CHANGELOG.md
           base: master
           commit-message: "chore: update CHANGELOG.md for ${{ steps.git_cliff.outputs.version }}"
-          signoff: false
+          signoff: true
+          sign-commits: true
           branch: chore/next-release-changelog
           delete-branch: true
           title: "chore(release): release ${{ steps.git_cliff.outputs.version }}"
