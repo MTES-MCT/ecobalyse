@@ -3,6 +3,7 @@ module Views.ImpactTabs exposing
     , Tab(..)
     , createConfig
     , forFood
+    , forObject
     , forTextile
     , view
     )
@@ -185,6 +186,24 @@ forFood results config =
         , scoring = results.scoring
         , stepsImpacts = Recipe.toStepsImpacts config.impactDefinition.trigram results
         , total = results.total
+    }
+
+
+forObject : Impacts -> Config msg -> Config msg
+forObject impacts config =
+    { config
+        | stepsImpacts =
+            { distribution = Nothing
+            , endOfLife = Nothing
+            , materials =
+                impacts
+                    |> Impact.getImpact config.impactDefinition.trigram
+                    |> Just
+            , packaging = Nothing
+            , transform = Nothing
+            , transports = Nothing
+            , usage = Nothing
+            }
     }
 
 

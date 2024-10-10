@@ -41,12 +41,14 @@ import Views.Container as Container
 import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
 
 
 type alias Model =
-    { bookmarkName : String
+    { activeImpactsTab : ImpactTabs.Tab
+    , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
     , impact : Definition
@@ -78,6 +80,7 @@ type Msg
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
+    | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateItem Query.Item
@@ -92,7 +95,8 @@ init trigram maybeUrlQuery session =
             maybeUrlQuery
                 |> Maybe.withDefault session.queries.object
     in
-    ( { bookmarkName = initialQuery |> suggestBookmarkName session
+    ( { activeImpactsTab = ImpactTabs.StepImpactsTab
+      , bookmarkName = initialQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
             if Session.isAuthenticated session then
@@ -131,7 +135,8 @@ initFromExample session uuid =
                 |> Result.map .query
                 |> Result.withDefault session.queries.object
     in
-    ( { bookmarkName = exampleQuery |> suggestBookmarkName session
+    ( { activeImpactsTab = ImpactTabs.StepImpactsTab
+      , bookmarkName = exampleQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
       , impact = Definition.get Definition.Ecs session.db.definitions
@@ -299,6 +304,12 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
+        ( SwitchImpactsTab impactsTab, _ ) ->
+            ( { model | activeImpactsTab = impactsTab }
+            , session
+            , Cmd.none
+            )
+
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             ( model
             , session |> Session.toggleComparedSimulation bookmark checked
@@ -386,7 +397,14 @@ simulatorView session model =
                         |> Result.withDefault Impact.empty
 
                 -- Impacts tabs
-                , impactTabsConfig = Nothing
+                , impactTabsConfig =
+                    SwitchImpactsTab
+                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
+                        |> ImpactTabs.forObject
+                            (Simulator.compute session.db session.queries.object
+                                |> Result.withDefault Impact.empty
+                            )
+                        |> Just
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab
