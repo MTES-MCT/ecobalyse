@@ -19,7 +19,7 @@ from bw2data.project import projects
 from common.export import (
     cached_search,
     display_changes,
-    export_json,
+    export_json_ordered,
     load_json,
     progress_bar,
     remove_detailed_impacts,
@@ -430,13 +430,13 @@ if __name__ == "__main__":
 
     # Export
 
-    export_json(activities_land_occ, CONFIG["ACTIVITIES_FILE"])
-    export_json(ingredients_animal_es, CONFIG["INGREDIENTS_FILE"])
+    export_json_ordered(activities_land_occ, CONFIG["ACTIVITIES_FILE"])
+    export_json_ordered(ingredients_animal_es, CONFIG["INGREDIENTS_FILE"])
     display_changes("id", oldprocesses, processes_corrected_impacts)
-    export_json(
+    export_json_ordered(
         list(processes_aggregated_impacts.values()), CONFIG["PROCESSES_IMPACTS"]
     )
-    export_json(
+    export_json_ordered(
         remove_detailed_impacts(list(processes_aggregated_impacts.values())),
         CONFIG["PROCESSES_AGGREGATED"],
     )

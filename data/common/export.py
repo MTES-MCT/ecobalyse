@@ -35,14 +35,61 @@ def remove_detailed_impacts(processes):
     return result
 
 
-def export_json(data, filename):
+def export_json_ordered(data, filename):
     """
     Export data to a JSON file, with added newline at the end.
+    Make sure to sort impacts in the json file
     """
+    print(f"Exporting {filename}")
+    if isinstance(data, list):
+        sorted_data = [
+            {**item, "impacts": sort_impacts(item["impacts"])}
+            if "impacts" in item
+            else item
+            for item in data
+        ]
+    elif isinstance(data, dict):
+        sorted_data = {
+            key: {**value, "impacts": sort_impacts(value["impacts"])}
+            if "impacts" in value
+            else value
+            for key, value in data.items()
+        }
+    else:
+        sorted_data = data
+
     with open(filename, "w", encoding="utf-8") as file:
-        json.dump(data, file, indent=2, ensure_ascii=False)
+        json.dump(sorted_data, file, indent=2, ensure_ascii=False)
         file.write("\n")  # Add a newline at the end of the file
     print(f"\nExported {len(data)} elements to {filename}")
+
+
+def sort_impacts(impacts):
+    # Define the desired order of impact keys
+    impact_order = [
+        "acd",
+        "cch",
+        "etf",
+        "etf-c",
+        "fru",
+        "fwe",
+        "htc",
+        "htc-c",
+        "htn",
+        "htn-c",
+        "ior",
+        "ldu",
+        "mru",
+        "ozd",
+        "pco",
+        "pma",
+        "swe",
+        "tre",
+        "wtu",
+        "pef",
+        "ecs",
+    ]
+    return OrderedDict((key, impacts[key]) for key in impact_order if key in impacts)
 
 
 def load_json(filename):
@@ -115,18 +162,18 @@ def with_aggregated_impacts(impacts_ecobalyse, processes_fd, impacts_key="impact
         "ecs": {
             k: v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
             for k, v in impacts_ecobalyse.items()
-            if "ecoscore" in v
+            if v["ecoscore"] is not None
         },
         "pef": {
             k: v["pef"]["weighting"] / v["pef"]["normalization"]
             for k, v in impacts_ecobalyse.items()
-            if "pef" in v
+            if v["pef"] is not None
         },
     }
 
     processes_updated = {}
     for key, process in processes_fd.items():
-        updated_process = process.copy()
+        updated_process = dict(process)
         updated_impacts = updated_process[impacts_key].copy()
 
         updated_impacts["pef"] = calculate_aggregate(
