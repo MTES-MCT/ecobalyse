@@ -1,16 +1,15 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 """Export des ingrédients et des processes de l'alimentaire"""
 
-import json
+import json  # noqa: I001
 import os
 import sys
-import urllib.parse
-from collections import OrderedDict
 from os.path import abspath, dirname
 
 sys.path.append(dirname(dirname(abspath(__file__))))
+import urllib.parse
+from collections import OrderedDict
 
 import bw2calc
 import bw2data

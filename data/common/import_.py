@@ -1,4 +1,4 @@
-import functools
+import functools  # noqa: I001
 import json
 import os
 import re
