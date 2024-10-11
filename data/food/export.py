@@ -2,13 +2,13 @@
 
 """Export des ingrédients et des processes de l'alimentaire"""
 
-import json  # noqa: I001
+import json
 import os
 import sys
 from os.path import abspath, dirname
 
 sys.path.append(dirname(dirname(abspath(__file__))))
-import urllib.parse
+import urllib.parse  # noqa: I001
 from collections import OrderedDict
 
 import bw2calc
