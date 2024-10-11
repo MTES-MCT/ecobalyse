@@ -13,7 +13,6 @@ from bw2io.strategies.generic import link_technosphere_by_activity_hash
 from common.export import create_activity, delete_exchange, new_exchange, search
 from tqdm import tqdm
 
-BIOSPHERE = "biosphere3"
 AGRIBALYSE_PACKAGINGS = [
     "PS",
     "LDPE",
@@ -173,7 +172,7 @@ def add_variant_activity(activity_data, dbname):
 def import_simapro_csv(
     datapath,
     dbname,
-    biosphere=BIOSPHERE,
+    biosphere="biosphere3",
     migrations=[],
     first_strategies=[],
     excluded_strategies=[],

@@ -11,6 +11,7 @@ from collections import OrderedDict
 from os.path import abspath, dirname
 
 sys.path.append(dirname(dirname(abspath(__file__))))
+
 import bw2calc
 import bw2data
 import matplotlib
