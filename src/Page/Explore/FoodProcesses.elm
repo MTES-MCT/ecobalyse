@@ -36,13 +36,11 @@ table _ { detailed, scope } =
                 Table.StringValue <|
                     .categories
                         >> List.map FoodProcess.categoryToLabel
-                        >> List.intersperse ", "
-                        >> String.concat
+                        >> String.join ", "
           , toCell =
                 .categories
                     >> List.map FoodProcess.categoryToLabel
-                    >> List.intersperse ", "
-                    >> String.concat
+                    >> String.join ", "
                     >> text
           }
         , { label = "Nom technique"
