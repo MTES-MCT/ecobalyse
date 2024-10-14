@@ -17,7 +17,7 @@ import pandas as pd
 import requests
 from bw2data.project import projects
 
-sys.path.append(dirname(dirname(abspath(__file__))))
+sys.path.append(dirname(dirname(abspath(__file__))))  #  noqa: I001
 from common.export import (
     cached_search,
     display_changes,
