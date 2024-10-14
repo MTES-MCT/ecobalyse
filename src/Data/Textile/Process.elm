@@ -27,19 +27,19 @@ import Json.Encode.Extra as EncodeExtra
 
 type alias Process =
     { alias : Maybe Alias
-    , uuid : Uuid
+    , correctif : String
     , displayName : Maybe String
+    , elec : Energy
+    , elec_pppm : Float
+    , heat : Energy
+    , impacts : Impacts
+    , info : String
     , name : String
     , source : String
     , stepUsage : String
     , unit : String
-    , elec : Energy -- MJ per kg of material to process
-    , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
-    , heat : Energy --  MJ per kg of material to process
-    , waste : Split -- share of raw material wasted when initially processed
-    , correctif : String
-    , info : String
-    , impacts : Impacts
+    , uuid : Uuid
+    , waste : Split
     }
 
 
@@ -95,19 +95,19 @@ decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
-        |> Pipe.required "uuid" decodeUuid
+        |> Pipe.required "correctif" Decode.string
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
+        |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "elec_pppm" Decode.float
+        |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "impacts" impactsDecoder
+        |> Pipe.required "info" Decode.string
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
         |> Pipe.required "step_usage" Decode.string
         |> Pipe.required "unit" Decode.string
-        |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "elec_pppm" Decode.float
-        |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "uuid" decodeUuid
         |> Pipe.required "waste" Split.decodeFloat
-        |> Pipe.required "correctif" Decode.string
-        |> Pipe.required "info" Decode.string
-        |> Pipe.required "impacts" impactsDecoder
 
 
 getDisplayName : Process -> String

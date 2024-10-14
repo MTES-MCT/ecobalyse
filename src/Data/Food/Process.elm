@@ -31,16 +31,16 @@ A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
-    { id_ : String
-    , name : ProcessName
-    , displayName : Maybe String
-    , category : Category
-    , unit : String
-    , identifier : Identifier
-    , systemDescription : String
+    { category : Category
     , comment : Maybe String
-    , source : String
+    , displayName : Maybe String
+    , id_ : String
+    , identifier : Identifier
     , impacts : Impacts
+    , name : ProcessName
+    , source : String
+    , systemDescription : String
+    , unit : String
     }
 
 
@@ -184,16 +184,16 @@ encodeCategory =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
-        |> Pipe.required "id" Decode.string
-        |> Pipe.required "name" (Decode.map nameFromString Decode.string)
-        |> DU.strictOptional "displayName" Decode.string
         |> Pipe.required "category" decodeCategory
-        |> Pipe.required "unit" decodeStringUnit
-        |> Pipe.required "identifier" decodeIdentifier
-        |> Pipe.required "system_description" Decode.string
         |> DU.strictOptional "comment" Decode.string
-        |> Pipe.required "source" Decode.string
+        |> DU.strictOptional "displayName" Decode.string
+        |> Pipe.required "id" Decode.string
+        |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "impacts" impactsDecoder
+        |> Pipe.required "name" (Decode.map nameFromString Decode.string)
+        |> Pipe.required "source" Decode.string
+        |> Pipe.required "system_description" Decode.string
+        |> Pipe.required "unit" decodeStringUnit
 
 
 encode : Process -> Encode.Value
