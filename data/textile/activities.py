@@ -26,6 +26,7 @@ for process in processes.values():
         del activity["unit"]
 
     activities[activity["uuid"]] = activity
+    activities[activity["uuid"]]["category"] = "process"
 
 for material in materials:
     puuid = material["materialProcessUuid"]
@@ -35,6 +36,7 @@ for material in materials:
         sys.exit()
 
     activities[puuid]["material_id"] = material["id"]
+    activities[puuid]["category"] = "material"
     if (r := material["recycledProcessUuid"]) is not None and r in processes:
         activities[puuid]["recycledProcessUuid"] = r
         del r
