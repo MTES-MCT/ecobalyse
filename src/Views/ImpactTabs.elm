@@ -11,9 +11,10 @@ module Views.ImpactTabs exposing
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
+import Data.Object.Simulator as ObjectSimulator
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Session as Session exposing (Session)
-import Data.Textile.Simulator as Simulator exposing (Simulator)
+import Data.Textile.Simulator as TextileSimulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -189,14 +190,14 @@ forFood results config =
     }
 
 
-forObject : Impacts -> Config msg -> Config msg
-forObject impacts config =
+forObject : ObjectSimulator.Results -> Config msg -> Config msg
+forObject results config =
     { config
         | stepsImpacts =
             { distribution = Nothing
             , endOfLife = Nothing
             , materials =
-                impacts
+                ObjectSimulator.extractImpacts results
                     |> Impact.getImpact config.impactDefinition.trigram
                     |> Just
             , packaging = Nothing
@@ -211,7 +212,7 @@ forTextile : Definitions -> Simulator -> Config msg -> Config msg
 forTextile definitions simulator config =
     let
         totalImpactsWithoutComplements =
-            Simulator.getTotalImpactsWithoutComplements simulator
+            TextileSimulator.getTotalImpactsWithoutComplements simulator
     in
     { config
         | complementsImpact = simulator.complementsImpacts
@@ -220,6 +221,6 @@ forTextile definitions simulator config =
                 |> Scoring.compute definitions (Impact.getTotalComplementsImpacts simulator.complementsImpacts)
         , stepsImpacts =
             simulator
-                |> Simulator.toStepsImpacts config.impactDefinition.trigram
+                |> TextileSimulator.toStepsImpacts config.impactDefinition.trigram
         , total = totalImpactsWithoutComplements
     }

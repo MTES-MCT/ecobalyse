@@ -126,12 +126,14 @@ addToComparison session label query =
             objectQuery
                 |> ObjectSimulator.compute session.db
                 |> Result.map
-                    (\impacts ->
-                        { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = impacts
-                        , label = label
-                        , stepsImpacts = Impact.noStepsImpacts
-                        }
+                    (ObjectSimulator.extractImpacts
+                        >> (\impacts ->
+                                { complementsImpact = Impact.noComplementsImpacts
+                                , impacts = impacts
+                                , label = label
+                                , stepsImpacts = Impact.noStepsImpacts
+                                }
+                           )
                     )
 
         Bookmark.Textile textileQuery ->

@@ -387,9 +387,13 @@ simulatorView session model =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Quantity.zero
+                , productMass =
+                    Simulator.compute session.db session.queries.object
+                        |> Result.map Simulator.extractMass
+                        |> Result.withDefault Quantity.zero
                 , totalImpacts =
                     Simulator.compute session.db session.queries.object
+                        |> Result.map Simulator.extractImpacts
                         |> Result.withDefault Impact.empty
 
                 -- Impacts tabs
@@ -398,7 +402,7 @@ simulatorView session model =
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
                         |> ImpactTabs.forObject
                             (Simulator.compute session.db session.queries.object
-                                |> Result.withDefault Impact.empty
+                                |> Result.withDefault Simulator.emptyResults
                             )
                         |> Just
 
@@ -518,7 +522,7 @@ itemImpactView : Db -> Definition -> Query.Item -> Html Msg
 itemImpactView db selectedImpact item =
     item
         |> Simulator.computeItemImpacts db
-        |> Result.map (Format.formatImpact selectedImpact)
+        |> Result.map (Simulator.extractImpacts >> Format.formatImpact selectedImpact)
         |> Result.withDefault (text "N/A")
 
 
