@@ -27,19 +27,19 @@ import Json.Encode.Extra as EncodeExtra
 
 type alias Process =
     { alias : Maybe Alias
-    , correctif : String
+    , uuid : Uuid
     , displayName : Maybe String
-    , elec : Energy -- MJ per kg of material to process
-    , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
-    , heat : Energy --  MJ per kg of material to process
-    , impacts : Impacts
-    , info : String
     , name : String
     , source : String
     , stepUsage : String
     , unit : String
-    , uuid : Uuid
+    , elec : Energy -- MJ per kg of material to process
+    , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
+    , heat : Energy --  MJ per kg of material to process
     , waste : Split -- share of raw material wasted when initially processed
+    , correctif : String
+    , info : String
+    , impacts : Impacts
     }
 
 
@@ -95,19 +95,19 @@ decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
-        |> Pipe.required "correctif" Decode.string
+        |> Pipe.required "uuid" decodeUuid
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
-        |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "elec_pppm" Decode.float
-        |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "impacts" impactsDecoder
-        |> Pipe.required "info" Decode.string
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
         |> Pipe.required "step_usage" Decode.string
         |> Pipe.required "unit" Decode.string
-        |> Pipe.required "uuid" decodeUuid
+        |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "elec_pppm" Decode.float
+        |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "waste" Split.decodeFloat
+        |> Pipe.required "correctif" Decode.string
+        |> Pipe.required "info" Decode.string
+        |> Pipe.required "impacts" impactsDecoder
 
 
 getDisplayName : Process -> String
@@ -145,17 +145,17 @@ encode : Process -> Encode.Value
 encode process =
     Encode.object
         [ ( "alias", EncodeExtra.maybe encodeAlias process.alias )
-        , ( "correctif", Encode.string process.correctif )
+        , ( "uuid", encodeUuid process.uuid )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
-        , ( "elec_pppm", Encode.float process.elec_pppm )
-        , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )
-        , ( "impacts", Impact.encode process.impacts )
-        , ( "info", Encode.string process.info )
         , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
         , ( "step_usage", Encode.string process.stepUsage )
         , ( "unit", Encode.string process.unit )
-        , ( "uuid", encodeUuid process.uuid )
+        , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
+        , ( "elec_pppm", Encode.float process.elec_pppm )
+        , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "waste", Split.encodeFloat process.waste )
+        , ( "correctif", Encode.string process.correctif )
+        , ( "info", Encode.string process.info )
+        , ( "impacts", Impact.encode process.impacts )
         ]

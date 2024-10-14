@@ -31,16 +31,16 @@ A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
-    { category : Category
-    , comment : Maybe String
-    , displayName : Maybe String
-    , id_ : String
-    , identifier : Identifier
-    , impacts : Impacts
+    { id_ : String
     , name : ProcessName
-    , source : String
-    , systemDescription : String
+    , displayName : Maybe String
+    , category : Category
     , unit : String
+    , identifier : Identifier
+    , systemDescription : String
+    , comment : Maybe String
+    , source : String
+    , impacts : Impacts
     }
 
 
@@ -184,31 +184,31 @@ encodeCategory =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
-        |> Pipe.required "category" decodeCategory
-        |> DU.strictOptional "comment" Decode.string
-        |> DU.strictOptional "displayName" Decode.string
         |> Pipe.required "id" Decode.string
-        |> Pipe.required "identifier" decodeIdentifier
-        |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" (Decode.map nameFromString Decode.string)
-        |> Pipe.required "source" Decode.string
-        |> Pipe.required "system_description" Decode.string
+        |> DU.strictOptional "displayName" Decode.string
+        |> Pipe.required "category" decodeCategory
         |> Pipe.required "unit" decodeStringUnit
+        |> Pipe.required "identifier" decodeIdentifier
+        |> Pipe.required "system_description" Decode.string
+        |> DU.strictOptional "comment" Decode.string
+        |> Pipe.required "source" Decode.string
+        |> Pipe.required "impacts" impactsDecoder
 
 
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "category", encodeCategory process.category )
-        , ( "comment", EncodeExtra.maybe Encode.string process.comment )
-        , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "id", Encode.string process.id_ )
-        , ( "identifier", encodeIdentifier process.identifier )
-        , ( "impacts", Impact.encode process.impacts )
+        [ ( "id", Encode.string process.id_ )
         , ( "name", Encode.string (nameToString process.name) )
-        , ( "source", Encode.string process.source )
-        , ( "system_description", Encode.string process.systemDescription )
+        , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
+        , ( "category", encodeCategory process.category )
         , ( "unit", encodeStringUnit process.unit )
+        , ( "identifier", encodeIdentifier process.identifier )
+        , ( "system_description", Encode.string process.systemDescription )
+        , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        , ( "source", Encode.string process.source )
+        , ( "impacts", Impact.encode process.impacts )
         ]
 
 

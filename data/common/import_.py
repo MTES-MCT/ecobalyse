@@ -9,9 +9,8 @@ from zipfile import ZipFile
 import bw2data
 import bw2io
 from bw2io.strategies.generic import link_technosphere_by_activity_hash
-from tqdm import tqdm
-
 from common.export import create_activity, delete_exchange, new_exchange, search
+from tqdm import tqdm
 
 BIOSPHERE = "biosphere3"
 AGRIBALYSE_PACKAGINGS = [
