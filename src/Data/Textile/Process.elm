@@ -29,9 +29,9 @@ type alias Process =
     { alias : Maybe Alias
     , correctif : String
     , displayName : Maybe String
-    , elec : Energy
-    , elec_pppm : Float
-    , heat : Energy
+    , elec : Energy -- MJ per kg of material to process
+    , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
+    , heat : Energy --  MJ per kg of material to process
     , impacts : Impacts
     , info : String
     , name : String
@@ -39,7 +39,7 @@ type alias Process =
     , stepUsage : String
     , unit : String
     , uuid : Uuid
-    , waste : Split
+    , waste : Split -- share of raw material wasted when initially processed
     }
 
 
