@@ -6,8 +6,10 @@
 import json
 import os
 import sys
-import urllib.parse
 from os.path import abspath, dirname
+
+sys.path.append(dirname(dirname(abspath(__file__))))
+import urllib.parse  #  noqa: I001
 
 import bw2calc
 import bw2data
@@ -17,7 +19,6 @@ import pandas as pd
 import requests
 from bw2data.project import projects
 
-sys.path.append(dirname(dirname(abspath(__file__))))  #  noqa: I001
 from common.export import (
     cached_search,
     display_changes,
