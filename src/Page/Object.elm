@@ -384,7 +384,7 @@ simulatorView session model =
                         }
                     }
                 ]
-            , div [ class "card shadow-sm" ]
+            , div [ class "card shadow-sm mb-3" ]
                 [ session.queries.object
                     |> itemListView session.db model.impact model.results
                     |> div [ class "d-flex flex-column bg-white" ]
@@ -433,24 +433,22 @@ addItemButton db query =
                 |> Simulator.availableProcesses db
                 |> List.head
     in
-    li [ class "list-group-item p-0" ]
-        [ button
-            [ class "btn btn-outline-primary"
-            , class "d-flex justify-content-center align-items-center"
-            , class " gap-1 w-100"
-            , id "add-new-element"
-            , disabled <| firstAvailableProcess == Nothing
-            , onClick <|
-                case firstAvailableProcess of
-                    Just process ->
-                        AddItem (Query.defaultItem process)
+    button
+        [ class "btn btn-outline-primary w-100"
+        , class "d-flex justify-content-center align-items-center"
+        , class " gap-1 w-100"
+        , id "add-new-element"
+        , disabled <| firstAvailableProcess == Nothing
+        , onClick <|
+            case firstAvailableProcess of
+                Just process ->
+                    AddItem (Query.defaultItem process)
 
-                    Nothing ->
-                        NoOp
-            ]
-            [ i [ class "icon icon-plus" ] []
-            , text "Ajouter un élément"
-            ]
+                Nothing ->
+                    NoOp
+        ]
+        [ i [ class "icon icon-plus" ] []
+        , text "Ajouter un élément"
         ]
 
 
@@ -458,34 +456,39 @@ itemListView : Db -> Definition -> Results -> Query -> List (Html Msg)
 itemListView db selectedImpact results query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
-    , ul [ class "CardList list-group list-group-flush" ]
-        (if List.isEmpty query.items then
-            [ li [ class "list-group-item" ] [ text "Aucun élément" ] ]
+    , div [ class "table-responsive" ]
+        [ table [ class "table mb-0" ]
+            [ tbody []
+                (if List.isEmpty query.items then
+                    [ tr [] [ td [] [ text "Aucun élément." ] ] ]
 
-         else
-            case
-                query.items
-                    |> List.map (\{ amount, processId } -> ( amount, processId ))
-                    |> List.map (RE.combineMapSecond (Process.findById db.object.processes))
-                    |> RE.combine
-            of
-                Err error ->
-                    [ text error ]
+                 else
+                    case
+                        query.items
+                            |> List.map (\{ amount, processId } -> ( amount, processId ))
+                            |> List.map (RE.combineMapSecond (Process.findById db.object.processes))
+                            |> RE.combine
+                    of
+                        Err error ->
+                            [ tr [] [ td [] [ text error ] ] ]
 
-                Ok items ->
-                    List.map2 (itemView selectedImpact) items (Simulator.extractItems results)
-        )
+                        Ok items ->
+                            Simulator.extractItems results
+                                |> List.map2 (itemView selectedImpact) items
+                )
+            ]
+        ]
     , addItemButton db query
     ]
 
 
 itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
 itemView selectedImpact ( amount, process ) itemResults =
-    li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ div [ class "input-group w-33" ]
+    tr []
+        [ td [ class "input-group", style "width" "200px" ]
             [ input
                 [ type_ "number"
-                , class "form-control"
+                , class "form-control text-end"
                 , amount |> Query.amountToFloat |> String.fromFloat |> value
                 , step <|
                     case process.unit of
@@ -509,18 +512,14 @@ itemView selectedImpact ( amount, process ) itemResults =
                 []
             , span [ class "input-group-text" ] [ text process.unit ]
             ]
-        , span [ class "flex-fill text-nowrap" ] [ text process.displayName ]
-        , span []
-            [ Format.kg <| Simulator.extractMass itemResults
-            ]
-        , span []
-            [ Format.formatImpact selectedImpact <| Simulator.extractImpacts itemResults
-            ]
-        , button
-            [ class "btn btn-outline-secondary"
-            , onClick (RemoveItem process.id)
-            ]
-            [ Icon.trash ]
+        , td [ class "align-middle text-truncate w-100" ]
+            [ text process.displayName ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ Format.kg <| Simulator.extractMass itemResults ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ Format.formatImpact selectedImpact <| Simulator.extractImpacts itemResults ]
+        , td [ class "align-middle text-nowrap" ]
+            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ] [ Icon.trash ] ]
         ]
 
 
