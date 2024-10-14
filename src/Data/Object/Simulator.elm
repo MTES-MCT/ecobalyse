@@ -7,9 +7,11 @@ module Data.Object.Simulator exposing
     , extractImpacts
     , extractItems
     , extractMass
+    , toStepsImpacts
     )
 
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
+import Data.Impact.Definition as Definition
 import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Item, Query)
 import Mass exposing (Mass)
@@ -108,3 +110,14 @@ extractItems (Results { items }) =
 extractMass : Results -> Mass
 extractMass (Results { mass }) =
     mass
+
+
+toStepsImpacts : Definition.Trigram -> Results -> Impact.StepsImpacts
+toStepsImpacts trigram results =
+    { noStepsImpacts
+      -- FIXME: for now, as we only have materials, assign everything to the material step
+        | materials =
+            extractImpacts results
+                |> Impact.getImpact trigram
+                |> Just
+    }
