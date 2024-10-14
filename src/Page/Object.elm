@@ -31,6 +31,7 @@ import Route
 import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
+import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
@@ -435,7 +436,7 @@ addItemButton db query =
     button
         [ class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
-        , class " gap-1 w-100"
+        , class "gap-1 w-100"
         , id "add-new-element"
         , disabled <| firstAvailableProcess == Nothing
         , onClick <|
@@ -455,33 +456,37 @@ itemListView : Db -> Definition -> Results -> Query -> List (Html Msg)
 itemListView db selectedImpact results query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
-    , div [ class "table-responsive" ]
-        [ table [ class "table mb-0" ]
-            [ thead []
-                [ tr [ class "fs-7 text-muted" ]
-                    [ th [] [ text "Quantité" ]
-                    , th [] [ text "Procédé" ]
-                    , th [] [ text "Densité" ]
-                    , th [] [ text "Masse" ]
-                    , th [] [ text "Impact" ]
-                    , th [] []
+    , if List.isEmpty query.items then
+        div [ class "card-body" ] [ text "Aucun élément." ]
+
+      else
+        case Simulator.expandItems db query of
+            Err error ->
+                Alert.simple
+                    { close = Nothing
+                    , content = [ text error ]
+                    , level = Alert.Danger
+                    , title = Just "Erreur"
+                    }
+
+            Ok items ->
+                div [ class "table-responsive" ]
+                    [ table [ class "table mb-0" ]
+                        [ thead []
+                            [ tr [ class "fs-7 text-muted" ]
+                                [ th [] [ text "Quantité" ]
+                                , th [] [ text "Procédé" ]
+                                , th [] [ text "Densité" ]
+                                , th [] [ text "Masse" ]
+                                , th [] [ text "Impact" ]
+                                , th [] []
+                                ]
+                            ]
+                        , Simulator.extractItems results
+                            |> List.map2 (itemView selectedImpact) items
+                            |> tbody []
+                        ]
                     ]
-                ]
-            , tbody []
-                (if List.isEmpty query.items then
-                    [ tr [] [ td [] [ text "Aucun élément." ] ] ]
-
-                 else
-                    case Simulator.expandItems db query of
-                        Err error ->
-                            [ tr [] [ td [ class "text-danger" ] [ text "Error: ", text error ] ] ]
-
-                        Ok items ->
-                            Simulator.extractItems results
-                                |> List.map2 (itemView selectedImpact) items
-                )
-            ]
-        ]
     , addItemButton db query
     ]
 
@@ -489,33 +494,35 @@ itemListView db selectedImpact results query =
 itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
 itemView selectedImpact ( amount, process ) itemResults =
     tr []
-        [ td [ class "input-group text-nowrap", style "min-width" "180px" ]
-            [ input
-                [ type_ "number"
-                , class "form-control text-end"
-                , amount |> Query.amountToFloat |> String.fromFloat |> value
-                , step <|
-                    case process.unit of
-                        "kg" ->
-                            "0.01"
+        [ td [class "align-middle"]
+            [ div [ class "input-group", style "min-width" "180px" ]
+                [ input
+                    [ type_ "number"
+                    , class "form-control text-end"
+                    , amount |> Query.amountToFloat |> String.fromFloat |> value
+                    , step <|
+                        case process.unit of
+                            "kg" ->
+                                "0.01"
 
-                        "m3" ->
-                            "0.00001"
+                            "m3" ->
+                                "0.00001"
 
-                        _ ->
-                            "1"
-                , onInput <|
-                    \str ->
-                        case String.toFloat str of
-                            Just float ->
-                                UpdateItem { amount = Query.amount float, processId = process.id }
+                            _ ->
+                                "1"
+                    , onInput <|
+                        \str ->
+                            case String.toFloat str of
+                                Just float ->
+                                    UpdateItem { amount = Query.amount float, processId = process.id }
 
-                            Nothing ->
-                                NoOp
+                                Nothing ->
+                                    NoOp
+                    ]
+                    []
+                , span [ class "input-group-text justify-content-center fs-8", style "width" "38px" ]
+                    [ text process.unit ]
                 ]
-                []
-            , span [ class "input-group-text justify-content-center fs-8", style "width" "38px" ]
-                [ text process.unit ]
             ]
         , td [ class "align-middle text-truncate w-100" ]
             [ text process.displayName ]
