@@ -2,9 +2,9 @@ module Data.Object.Simulator exposing
     ( Results(..)
     , availableProcesses
     , compute
-    , computeItemResults
     , emptyResults
     , extractImpacts
+    , extractItems
     , extractMass
     )
 
@@ -41,7 +41,7 @@ compute db query =
         |> List.map (computeItemResults db)
         |> RE.combine
         |> Result.map
-            (List.foldl
+            (List.foldr
                 (\(Results { impacts, mass }) (Results acc) ->
                     Results
                         { acc
@@ -89,6 +89,11 @@ emptyResults =
 extractImpacts : Results -> Impacts
 extractImpacts (Results { impacts }) =
     impacts
+
+
+extractItems : Results -> List Results
+extractItems (Results { items }) =
+    items
 
 
 extractMass : Results -> Mass

@@ -386,7 +386,7 @@ simulatorView session model =
                 ]
             , div [ class "card shadow-sm" ]
                 [ session.queries.object
-                    |> itemListView session.db model.impact
+                    |> itemListView session.db model.impact model.results
                     |> div [ class "d-flex flex-column bg-white" ]
                 ]
             ]
@@ -454,8 +454,8 @@ addItemButton db query =
         ]
 
 
-itemListView : Db -> Definition -> Query -> List (Html Msg)
-itemListView db selectedImpact query =
+itemListView : Db -> Definition -> Results -> Query -> List (Html Msg)
+itemListView db selectedImpact results query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
     , ul [ class "CardList list-group list-group-flush" ]
@@ -473,15 +473,14 @@ itemListView db selectedImpact query =
                     [ text error ]
 
                 Ok items ->
-                    items
-                        |> List.map (itemView db selectedImpact)
+                    List.map2 (itemView selectedImpact) items (Simulator.extractItems results)
         )
     , addItemButton db query
     ]
 
 
-itemView : Db -> Definition -> ( Query.Amount, Process ) -> Html Msg
-itemView db selectedImpact ( amount, process ) =
+itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
+itemView selectedImpact ( amount, process ) itemResults =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ div [ class "input-group w-33" ]
             [ input
@@ -512,8 +511,10 @@ itemView db selectedImpact ( amount, process ) =
             ]
         , span [ class "flex-fill text-nowrap" ] [ text process.displayName ]
         , span []
-            [ { amount = amount, processId = process.id }
-                |> itemImpactView db selectedImpact
+            [ Format.kg <| Simulator.extractMass itemResults
+            ]
+        , span []
+            [ Format.formatImpact selectedImpact <| Simulator.extractImpacts itemResults
             ]
         , button
             [ class "btn btn-outline-secondary"
@@ -521,14 +522,6 @@ itemView db selectedImpact ( amount, process ) =
             ]
             [ Icon.trash ]
         ]
-
-
-itemImpactView : Db -> Definition -> Query.Item -> Html Msg
-itemImpactView db selectedImpact item =
-    item
-        |> Simulator.computeItemResults db
-        |> Result.map (Simulator.extractImpacts >> Format.formatImpact selectedImpact)
-        |> Result.withDefault (text "N/A")
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
