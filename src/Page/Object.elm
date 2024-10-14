@@ -27,7 +27,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
-import Result.Extra as RE
 import Route
 import Static.Db exposing (Db)
 import Task
@@ -458,19 +457,23 @@ itemListView db selectedImpact results query =
         [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
     , div [ class "table-responsive" ]
         [ table [ class "table mb-0" ]
-            [ tbody []
+            [ thead []
+                [ tr [ class "fs-7 text-muted" ]
+                    [ th [] [ text "Quantité" ]
+                    , th [] [ text "Procédé" ]
+                    , th [] [ text "Masse" ]
+                    , th [] [ text "Impact" ]
+                    , th [] []
+                    ]
+                ]
+            , tbody []
                 (if List.isEmpty query.items then
                     [ tr [] [ td [] [ text "Aucun élément." ] ] ]
 
                  else
-                    case
-                        query.items
-                            |> List.map (\{ amount, processId } -> ( amount, processId ))
-                            |> List.map (RE.combineMapSecond (Process.findById db.object.processes))
-                            |> RE.combine
-                    of
+                    case Simulator.expandItems db query of
                         Err error ->
-                            [ tr [] [ td [] [ text error ] ] ]
+                            [ tr [] [ td [ class "text-danger" ] [ text "Error: ", text error ] ] ]
 
                         Ok items ->
                             Simulator.extractItems results
@@ -485,7 +488,7 @@ itemListView db selectedImpact results query =
 itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
 itemView selectedImpact ( amount, process ) itemResults =
     tr []
-        [ td [ class "input-group", style "width" "200px" ]
+        [ td [ class "input-group text-nowrap", style "min-width" "180px" ]
             [ input
                 [ type_ "number"
                 , class "form-control text-end"
@@ -510,7 +513,8 @@ itemView selectedImpact ( amount, process ) itemResults =
                                 NoOp
                 ]
                 []
-            , span [ class "input-group-text" ] [ text process.unit ]
+            , span [ class "input-group-text justify-content-center fs-8", style "width" "38px" ]
+                [ text process.unit ]
             ]
         , td [ class "align-middle text-truncate w-100" ]
             [ text process.displayName ]

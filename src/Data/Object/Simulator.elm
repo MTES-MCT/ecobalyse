@@ -3,6 +3,7 @@ module Data.Object.Simulator exposing
     , availableProcesses
     , compute
     , emptyResults
+    , expandItems
     , extractImpacts
     , extractItems
     , extractMass
@@ -84,6 +85,14 @@ emptyResults =
         , items = []
         , mass = Quantity.zero
         }
+
+
+expandItems : Db -> Query -> Result String (List ( Query.Amount, Process ))
+expandItems db =
+    .items
+        >> List.map (\{ amount, processId } -> ( amount, processId ))
+        >> List.map (RE.combineMapSecond (Process.findById db.object.processes))
+        >> RE.combine
 
 
 extractImpacts : Results -> Impacts
