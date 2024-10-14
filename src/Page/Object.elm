@@ -461,6 +461,7 @@ itemListView db selectedImpact results query =
                 [ tr [ class "fs-7 text-muted" ]
                     [ th [] [ text "Quantité" ]
                     , th [] [ text "Procédé" ]
+                    , th [] [ text "Densité" ]
                     , th [] [ text "Masse" ]
                     , th [] [ text "Impact" ]
                     , th [] []
@@ -518,6 +519,13 @@ itemView selectedImpact ( amount, process ) itemResults =
             ]
         , td [ class "align-middle text-truncate w-100" ]
             [ text process.displayName ]
+        , td [ class "align-middle text-end" ]
+            [ if process.unit /= "kg" then
+                process.density |> Format.formatRichFloat 0 ("kg/" ++ process.unit)
+
+              else
+                text ""
+            ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Simulator.extractMass itemResults ]
         , td [ class "text-end align-middle text-nowrap" ]
