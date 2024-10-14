@@ -2,7 +2,7 @@ module Data.Object.Simulator exposing
     ( Results(..)
     , availableProcesses
     , compute
-    , computeItemImpacts
+    , computeItemResults
     , emptyResults
     , extractImpacts
     , extractMass
@@ -38,7 +38,7 @@ availableProcesses { object } query =
 compute : Db -> Query -> Result String Results
 compute db query =
     query.items
-        |> List.map (computeItemImpacts db)
+        |> List.map (computeItemResults db)
         |> RE.combine
         |> Result.map
             (List.foldl
@@ -54,8 +54,8 @@ compute db query =
             )
 
 
-computeItemImpacts : Db -> Item -> Result String Results
-computeItemImpacts { object } { amount, processId } =
+computeItemResults : Db -> Item -> Result String Results
+computeItemResults { object } { amount, processId } =
     processId
         |> Process.findById object.processes
         |> Result.map

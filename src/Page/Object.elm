@@ -15,12 +15,11 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
 import Data.Example as Example
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
-import Data.Object.Simulator as Simulator
+import Data.Object.Simulator as Simulator exposing (Results)
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -28,7 +27,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
-import Quantity
 import Result.Extra as RE
 import Route
 import Static.Db exposing (Db)
@@ -54,6 +52,7 @@ type alias Model =
     , impact : Definition
     , initialQuery : Query
     , modal : Modal
+    , results : Results
     }
 
 
@@ -107,6 +106,9 @@ init trigram maybeUrlQuery session =
       , impact = Definition.get trigram session.db.definitions
       , initialQuery = initialQuery
       , modal = NoModal
+      , results =
+            Simulator.compute session.db initialQuery
+                |> Result.withDefault Simulator.emptyResults
       }
     , session
         |> Session.updateObjectQuery initialQuery
@@ -142,6 +144,9 @@ initFromExample session uuid =
       , impact = Definition.get Definition.Ecs session.db.definitions
       , initialQuery = exampleQuery
       , modal = NoModal
+      , results =
+            Simulator.compute session.db exampleQuery
+                |> Result.withDefault Simulator.emptyResults
       }
     , session
         |> Session.updateObjectQuery exampleQuery
@@ -177,7 +182,16 @@ suggestBookmarkName { db, store } query =
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
-    ( { model | initialQuery = query, bookmarkName = query |> suggestBookmarkName session }
+    ( { model
+        | initialQuery = query
+        , bookmarkName =
+            query
+                |> suggestBookmarkName session
+        , results =
+            query
+                |> Simulator.compute session.db
+                |> Result.withDefault Simulator.emptyResults
+      }
     , session |> Session.updateObjectQuery query
     , commands
     )
@@ -387,23 +401,14 @@ simulatorView session model =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass =
-                    Simulator.compute session.db session.queries.object
-                        |> Result.map Simulator.extractMass
-                        |> Result.withDefault Quantity.zero
-                , totalImpacts =
-                    Simulator.compute session.db session.queries.object
-                        |> Result.map Simulator.extractImpacts
-                        |> Result.withDefault Impact.empty
+                , productMass = Simulator.extractMass model.results
+                , totalImpacts = Simulator.extractImpacts model.results
 
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
-                        |> ImpactTabs.forObject
-                            (Simulator.compute session.db session.queries.object
-                                |> Result.withDefault Simulator.emptyResults
-                            )
+                        |> ImpactTabs.forObject model.results
                         |> Just
 
                 -- Bookmarks
@@ -521,7 +526,7 @@ itemView db selectedImpact ( amount, process ) =
 itemImpactView : Db -> Definition -> Query.Item -> Html Msg
 itemImpactView db selectedImpact item =
     item
-        |> Simulator.computeItemImpacts db
+        |> Simulator.computeItemResults db
         |> Result.map (Simulator.extractImpacts >> Format.formatImpact selectedImpact)
         |> Result.withDefault (text "N/A")
 
