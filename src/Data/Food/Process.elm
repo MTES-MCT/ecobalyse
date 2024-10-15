@@ -178,8 +178,8 @@ decodeCategories =
         )
 
 
-encodeCategories : Category -> Encode.Value
-encodeCategories =
+encodeCategory : Category -> Encode.Value
+encodeCategory =
     categoryToString >> Encode.string
 
 
@@ -206,7 +206,7 @@ encode process =
         , ( "impacts", Impact.encode process.impacts )
         , ( "unit", encodeStringUnit process.unit )
         , ( "identifier", encodeIdentifier process.identifier )
-        , ( "categories", Encode.list encodeCategories process.categories )
+        , ( "categories", Encode.list encodeCategory process.categories )
         , ( "system_description", Encode.string process.systemDescription )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
         , ( "id", Encode.string process.id_ )
