@@ -30,14 +30,13 @@ from common.export import (
 )
 from common.impacts import bytrigram, main_method
 from common.impacts import impacts as definitions
-from frozendict import frozendict
-
 from food.ecosystemic_services.ecosystemic_services import (
     compute_animal_ecosystemic_services,
     compute_vegetal_ecosystemic_services,
     load_ecosystemic_dic,
     load_ugb_dic,
 )
+from frozendict import frozendict
 
 PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
 ECOBALYSE_DATA_DIR = os.environ.get("ECOBALYSE_DATA_DIR")
