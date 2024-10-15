@@ -1,4 +1,5 @@
 # Only pure functions here
+import decimal
 import functools
 import json
 import logging
@@ -34,10 +35,18 @@ def remove_detailed_impacts(processes):
     return result
 
 
+class CustomJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (float, decimal.Decimal)):
+            # Format to 6 significant figures
+            return f"{obj:.6g}"
+        return super().default(obj)
+
+
 def export_json_ordered(data, filename):
     """
     Export data to a JSON file, with added newline at the end.
-    Make sure to sort impacts in the json file
+    Make sure to sort impacts in the json file and format numbers consistently.
     """
     print(f"Exporting {filename}")
     if isinstance(data, list):
@@ -58,7 +67,9 @@ def export_json_ordered(data, filename):
         sorted_data = data
 
     with open(filename, "w", encoding="utf-8") as file:
-        json.dump(sorted_data, file, indent=2, ensure_ascii=False)
+        json.dump(
+            sorted_data, file, indent=2, ensure_ascii=False, cls=CustomJSONEncoder
+        )
         file.write("\n")  # Add a newline at the end of the file
     print(f"\nExported {len(data)} elements to {filename}")
 
