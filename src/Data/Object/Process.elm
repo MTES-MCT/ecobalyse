@@ -1,11 +1,13 @@
 module Data.Object.Process exposing
-    ( Id
+    ( Id(..)
     , Process
     , decodeId
     , decodeList
     , encode
     , encodeId
     , findById
+    , idFromString
+    , idToString
     )
 
 import Data.Impact as Impact exposing (Impacts)
@@ -79,6 +81,11 @@ findById processes id =
         |> List.filter (.id >> (==) id)
         |> List.head
         |> Result.fromMaybe ("Procédé introuvable par id : " ++ idToString id)
+
+
+idFromString : String -> Maybe Id
+idFromString =
+    Uuid.fromString >> Maybe.map Id
 
 
 idToString : Id -> String

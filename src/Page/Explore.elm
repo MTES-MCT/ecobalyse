@@ -22,6 +22,7 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
+import Data.Object.Process as ObjectProcess
 import Data.Object.Query as ObjectQuery
 import Data.Object.Simulator as ObjectSimulator
 import Data.Scope as Scope exposing (Scope)
@@ -42,6 +43,7 @@ import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.ObjectExamples as ObjectExamples
+import Page.Explore.ObjectProcesses as ObjectProcesses
 import Page.Explore.Table as Table
 import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
@@ -92,6 +94,9 @@ init scope dataset session =
 
                 Dataset.ObjectExamples _ ->
                     "Coût Environnemental"
+
+                Dataset.ObjectProcesses _ ->
+                    "Identifiant"
 
                 Dataset.TextileExamples _ ->
                     "Coût Environnemental"
@@ -457,6 +462,32 @@ objectExamplesExplorer db tableConfig tableState maybeId =
     ]
 
 
+objectProcessesExplorer :
+    Db
+    -> Table.Config ObjectProcess.Process Msg
+    -> SortableTable.State
+    -> Maybe ObjectProcess.Id
+    -> List (Html Msg)
+objectProcessesExplorer { object } tableConfig tableState maybeId =
+    [ object.processes
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Object ObjectProcesses.table
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case ObjectProcess.findById object.processes id of
+                    Err error ->
+                        alert error
+
+                    Ok process ->
+                        process
+                            |> Table.viewDetails Scope.Object ObjectProcesses.table
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
 textileExamplesExplorer :
     Db
     -> Table.Config ( Example TextileQuery.Query, { score : Float, per100g : Float } ) Msg
@@ -685,6 +716,9 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.ObjectExamples maybeId ->
             objectExamplesExplorer db tableConfig tableState maybeId
+
+        Dataset.ObjectProcesses maybeId ->
+            objectProcessesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer db tableConfig tableState maybeId
