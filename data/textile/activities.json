@@ -12,7 +12,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Afrique",
@@ -27,7 +28,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Moyen-Orient",
@@ -42,7 +44,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Amérique latine",
@@ -57,7 +60,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Amérique du nord",
@@ -72,7 +76,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Australie",
@@ -87,7 +92,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Chine",
@@ -102,7 +108,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Albanie",
@@ -117,7 +124,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Pérou",
@@ -132,7 +140,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Nouvelle-Zélande",
@@ -147,7 +156,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Maroc",
@@ -162,7 +172,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Kenya",
@@ -177,7 +188,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Italie",
@@ -192,7 +204,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Europe",
@@ -207,7 +220,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Espagne",
@@ -222,7 +236,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, France",
@@ -237,7 +252,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Myanmar",
@@ -252,7 +268,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Inde",
@@ -267,7 +284,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Elasthane (Lycra)",
@@ -307,7 +325,8 @@
     "shortName": "Acrylique",
     "origin": "Synthetic",
     "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "unit": "kg"
   },
   {
     "displayName": "Production de jute, rouissage",
@@ -327,7 +346,8 @@
     "shortName": "Jute",
     "origin": "NaturalFromVegetal",
     "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "unit": "kg"
   },
   {
     "displayName": "Production de polypropylène, granulés",
@@ -347,7 +367,8 @@
     "shortName": "Polypropylène",
     "origin": "Synthetic",
     "geographicOrigin": "Europe",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "unit": "kg"
   },
   {
     "displayName": "Production de PET, granulés, amorphe",
@@ -370,7 +391,8 @@
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 80
+    "priority": 80,
+    "unit": "kg"
   },
   {
     "displayName": "Production de PET recyclé, granulés, amorphe",
@@ -397,7 +419,8 @@
     "cff": {
       "manufacturerAllocation": 0.5,
       "recycledQualityRatio": 1
-    }
+    },
+    "unit": "kg"
   },
   {
     "displayName": "Production de nylon 6-6",
@@ -418,7 +441,8 @@
     "origin": "Synthetic",
     "primary": true,
     "geographicOrigin": "Europe",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "unit": "kg"
   },
   {
     "displayName": "Production de fibres de lin, rouissage",
@@ -439,7 +463,8 @@
     "origin": "NaturalFromVegetal",
     "primary": true,
     "geographicOrigin": "Europe",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "unit": "kg"
   },
   {
     "displayName": "Laine par défaut",
@@ -458,7 +483,8 @@
     "shortName": "Laine par défaut",
     "origin": "NaturalFromAnimal",
     "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "unit": "kg"
   },
   {
     "displayName": "Laine nouvelle filière",
@@ -478,7 +504,8 @@
     "origin": "NaturalFromAnimal",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "unit": "kg"
   },
   {
     "displayName": "Production de fibres de coton",
@@ -501,7 +528,8 @@
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 100
+    "priority": 100,
+    "unit": "kg"
   },
   {
     "displayName": "Production de fibres de coton bio",
@@ -522,7 +550,8 @@
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 100
+    "priority": 100,
+    "unit": "kg"
   },
   {
     "displayName": "Production de chanvre",
@@ -543,7 +572,8 @@
     "origin": "NaturalFromVegetal",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "unit": "kg"
   },
   {
     "displayName": "Fibre de viscose",
@@ -565,7 +595,8 @@
     "origin": "ArtificialFromOrganic",
     "primary": true,
     "geographicOrigin": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "unit": "kg"
   },
   {
     "displayName": "Production de coton recyclé (déchets post-consommation)",
@@ -590,7 +621,8 @@
     "cff": {
       "manufacturerAllocation": 0.8,
       "recycledQualityRatio": 0.5
-    }
+    },
+    "unit": "kg"
   },
   {
     "displayName": "Production de coton recyclé (déchets de production)",
@@ -615,7 +647,8 @@
     "cff": {
       "manufacturerAllocation": 0.8,
       "recycledQualityRatio": 0.5
-    }
+    },
+    "unit": "kg"
   },
   {
     "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
@@ -629,7 +662,8 @@
     "elec_MJ": 8.64,
     "waste": 0.0576,
     "alias": "knitting-mix",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Tricotage fully-fashioned",
@@ -643,7 +677,8 @@
     "elec_MJ": 6.06443,
     "waste": 0.00502513,
     "alias": "knitting-fully-fashioned",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Tricotage seamless",
@@ -657,7 +692,8 @@
     "elec_MJ": 13.2112,
     "waste": 0.00502513,
     "alias": "knitting-seamless",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Tissage (habillement)",
@@ -671,7 +707,8 @@
     "elec_MJ": 0,
     "waste": 0.0667,
     "alias": "weaving",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "name": "Teinture sur étoffe",
@@ -803,7 +840,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": "sea-transport",
-    "category": "process"
+    "category": "process",
+    "unit": "t*km"
   },
   {
     "displayName": "transport aérien long-courrier",
@@ -818,7 +856,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": "air-transport",
-    "category": "process"
+    "category": "process",
+    "unit": "t*km"
   },
   {
     "displayName": "transport ferroviaire",
@@ -833,7 +872,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": "train-transport",
-    "category": "process"
+    "category": "process",
+    "unit": "t*km"
   },
   {
     "displayName": "transport routier",
@@ -848,7 +888,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": "road-transport",
-    "category": "process"
+    "category": "process",
+    "unit": "t*km"
   },
   {
     "name": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
@@ -902,7 +943,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Turquie",
@@ -917,7 +959,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Bangladesh",
@@ -932,7 +975,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Brésil",
@@ -947,7 +991,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, République Tchèque",
@@ -962,7 +1007,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Éthiopie",
@@ -977,7 +1023,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Cambodge",
@@ -992,7 +1039,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Sri Lanka",
@@ -1007,7 +1055,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Pakistan",
@@ -1022,7 +1071,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, USA",
@@ -1037,7 +1087,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Électricité moyenne tension, Viet Nam",
@@ -1052,7 +1103,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kWh"
   },
   {
     "displayName": "Mix chaleur (Europe)",
@@ -1066,7 +1118,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": "heat-europe",
-    "category": "process"
+    "category": "process",
+    "unit": "MJ"
   },
   {
     "displayName": "Mix chaleur (Monde)",
@@ -1080,7 +1133,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": "heat-row",
-    "category": "process"
+    "category": "process",
+    "unit": "MJ"
   },
   {
     "displayName": "Utilisation : Impact hors repassage (Chemisier)",
@@ -1094,7 +1148,8 @@
     "elec_MJ": 0.80952,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Utilisation : Impact hors repassage (Jean)",
@@ -1108,7 +1163,8 @@
     "elec_MJ": 1.0266,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Utilisation : Impact hors repassage (Jupe)",
@@ -1122,7 +1178,8 @@
     "elec_MJ": 0.80952,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Utilisation : Impact hors repassage (Manteau)",
@@ -1136,7 +1193,8 @@
     "elec_MJ": 0.9663,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Utilisation : Impact hors repassage (Pantalon)",
@@ -1150,7 +1208,8 @@
     "elec_MJ": 1.0266,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Utilisation : Impact hors repassage (Pull)",
@@ -1164,7 +1223,8 @@
     "elec_MJ": 1.0266,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Utilisation : Impact hors repassage (Robe)",
@@ -1178,7 +1238,8 @@
     "elec_MJ": 0.80952,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Utilisation : Impact hors repassage (T-shirt)",
@@ -1192,7 +1253,8 @@
     "elec_MJ": 1.0266,
     "waste": 0,
     "alias": null,
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "name": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
@@ -1245,7 +1307,8 @@
     "elec_MJ": 0,
     "waste": 0,
     "alias": "end-of-life",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Tricotage rectiligne",
@@ -1259,7 +1322,8 @@
     "elec_MJ": 4.194,
     "waste": 0.0417,
     "alias": "knitting-straight",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Tricotage circulaire",
@@ -1273,7 +1337,8 @@
     "elec_MJ": 4.25101,
     "waste": 0.0351967,
     "alias": "knitting-circular",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "name": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
@@ -1443,7 +1508,8 @@
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "dyeing-synthetic-fiber",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Teinture fibres cellulosiques",
@@ -1457,7 +1523,8 @@
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "dyeing-cellulosic-fiber",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Blanchiment",
@@ -1472,7 +1539,8 @@
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "bleaching",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Impression (pigmentaire)",
@@ -1486,7 +1554,8 @@
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "printing-paste",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   },
   {
     "displayName": "Impression fixé-lavé (colorants)",
@@ -1500,6 +1569,7 @@
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "printing-dyes",
-    "category": "process"
+    "category": "process",
+    "unit": "kg"
   }
 ]
