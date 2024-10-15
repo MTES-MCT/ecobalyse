@@ -172,10 +172,9 @@ nameToString (ProcessName name) =
 
 decodeCategories : Decoder (List Category)
 decodeCategories =
-    Decode.list
-        (Decode.string
-            |> Decode.andThen (categoryFromString >> DE.fromResult)
-        )
+    Decode.string
+        |> Decode.andThen (categoryFromString >> DE.fromResult)
+        |> Decode.list
 
 
 encodeCategory : Category -> Encode.Value
