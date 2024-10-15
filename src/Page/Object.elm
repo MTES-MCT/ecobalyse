@@ -40,6 +40,7 @@ import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
+import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
 
@@ -455,7 +456,16 @@ addItemButton db query =
 itemListView : Db -> Definition -> Results -> Query -> List (Html Msg)
 itemListView db selectedImpact results query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
+        [ h2 [ class "h5 mb-0" ]
+            [ text "Éléments"
+            , Link.smallPillExternal
+                [ Route.href (Route.Explore Scope.Object (Dataset.ObjectProcesses Nothing))
+                , title "Explorer"
+                , attribute "aria-label" "Explorer"
+                ]
+                [ Icon.search ]
+            ]
+        ]
     , if List.isEmpty query.items then
         div [ class "card-body" ] [ text "Aucun élément." ]
 
