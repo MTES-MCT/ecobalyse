@@ -385,11 +385,9 @@ simulatorView session model =
                         }
                     }
                 ]
-            , div [ class "card shadow-sm mb-3" ]
-                [ session.queries.object
-                    |> itemListView session.db model.impact model.results
-                    |> div [ class "d-flex flex-column bg-white" ]
-                ]
+            , session.queries.object
+                |> itemListView session.db model.impact model.results
+                |> div [ class "card shadow-sm mb-3" ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
@@ -484,12 +482,12 @@ itemListView db selectedImpact results query =
                     [ table [ class "table mb-0" ]
                         [ thead []
                             [ tr [ class "fs-7 text-muted" ]
-                                [ th [] [ text "Quantité" ]
-                                , th [] [ text "Procédé" ]
-                                , th [] [ text "Densité" ]
-                                , th [] [ text "Masse" ]
-                                , th [] [ text "Impact" ]
-                                , th [] []
+                                [ th [ class "ps-3", scope "col" ] [ text "Quantité" ]
+                                , th [ scope "col" ] [ text "Procédé" ]
+                                , th [ scope "col" ] [ text "Densité" ]
+                                , th [ scope "col" ] [ text "Masse" ]
+                                , th [ scope "col" ] [ text "Impact" ]
+                                , th [ scope "col" ] []
                                 ]
                             ]
                         , Simulator.extractItems results
@@ -504,7 +502,7 @@ itemListView db selectedImpact results query =
 itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
 itemView selectedImpact ( amount, process ) itemResults =
     tr []
-        [ td [ class "align-middle" ]
+        [ td [ class "ps-3 align-middle" ]
             [ div [ class "input-group", style "min-width" "180px" ]
                 [ input
                     [ type_ "number"
@@ -542,7 +540,7 @@ itemView selectedImpact ( amount, process ) itemResults =
             [ Format.kg <| Simulator.extractMass itemResults ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Format.formatImpact selectedImpact <| Simulator.extractImpacts itemResults ]
-        , td [ class "align-middle text-nowrap" ]
+        , td [ class "pe-3 align-middle text-nowrap" ]
             [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ] [ Icon.trash ] ]
         ]
 
