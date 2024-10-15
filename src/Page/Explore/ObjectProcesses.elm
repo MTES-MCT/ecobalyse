@@ -6,6 +6,7 @@ import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
+import Views.Format as Format
 
 
 table : { detailed : Bool, scope : Scope } -> Table ObjectProcess.Process String msg
@@ -31,16 +32,26 @@ table { detailed, scope } =
           , toCell = .displayName >> text
           }
         , { label = "Nom technique"
-          , toValue = Table.StringValue <| .name
+          , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
         , { label = "Source"
-          , toValue = Table.StringValue <| .source
+          , toValue = Table.StringValue .source
           , toCell = .source >> text
           }
         , { label = "Unité"
-          , toValue = Table.StringValue <| .unit
+          , toValue = Table.StringValue .unit
           , toCell = .unit >> text
+          }
+        , { label = "Densité"
+          , toValue = Table.FloatValue .density
+          , toCell =
+                \{ density, unit } ->
+                    if unit /= "kg" then
+                        Format.formatRichFloat 0 ("kg/" ++ unit) density
+
+                    else
+                        text "N/A"
           }
         , { label = "Commentaire"
           , toValue = Table.StringValue .comment
