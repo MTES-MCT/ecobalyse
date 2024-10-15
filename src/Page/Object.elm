@@ -527,12 +527,7 @@ itemView selectedImpact ( amount, process ) itemResults =
         , td [ class "align-middle text-truncate w-100" ]
             [ text process.displayName ]
         , td [ class "align-middle text-end" ]
-            [ if process.unit /= "kg" then
-                process.density |> Format.formatRichFloat 0 ("kg/" ++ process.unit)
-
-              else
-                text ""
-            ]
+            [ Format.density process ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Simulator.extractMass itemResults ]
         , td [ class "text-end align-middle text-nowrap" ]

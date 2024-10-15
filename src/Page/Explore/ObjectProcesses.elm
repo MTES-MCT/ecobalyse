@@ -45,13 +45,7 @@ table { detailed, scope } =
           }
         , { label = "Densité"
           , toValue = Table.FloatValue .density
-          , toCell =
-                \{ density, unit } ->
-                    if unit /= "kg" then
-                        Format.formatRichFloat 0 ("kg/" ++ unit) density
-
-                    else
-                        text "N/A"
+          , toCell = Format.density
           }
         , { label = "Commentaire"
           , toValue = Table.StringValue .comment
