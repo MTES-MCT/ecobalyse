@@ -195,10 +195,14 @@ datasetsMenuView { scope, dataset } =
 
 
 scopesMenuView : Session -> Model -> Html Msg
-scopesMenuView { enableFoodSection } model =
-    [ Scope.Food, Scope.Object, Scope.Textile ]
+scopesMenuView { enableFoodSection, enableObjectSection } model =
+    [ ( Scope.Food, enableFoodSection )
+    , ( Scope.Object, enableObjectSection )
+    , ( Scope.Textile, True )
+    ]
+        |> List.filter Tuple.second
         |> List.map
-            (\scope ->
+            (\( scope, _ ) ->
                 label []
                     [ input
                         [ class "form-check-input ms-1 ms-sm-3 me-1"
@@ -212,13 +216,7 @@ scopesMenuView { enableFoodSection } model =
                     ]
             )
         |> (::) (strong [ class "d-block d-sm-inline" ] [ text "Secteur d'activité" ])
-        |> nav
-            (if enableFoodSection then
-                []
-
-             else
-                [ class "d-none" ]
-            )
+        |> nav []
 
 
 detailsModal : Html Msg -> Html Msg

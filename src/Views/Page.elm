@@ -133,12 +133,17 @@ newVersionAlert { session, reloadPage } =
 
 
 mainMenuLinks : Session -> List MenuLink
-mainMenuLinks { enableFoodSection } =
+mainMenuLinks { enableFoodSection, enableObjectSection } =
     List.filterMap identity
         [ Just <| Internal "Accueil" Route.Home Home
         , Just <| Internal "Textile" Route.TextileSimulatorHome TextileSimulator
         , if enableFoodSection then
             Just <| Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
+
+          else
+            Nothing
+        , if enableObjectSection then
+            Just <| Internal "Objets" Route.ObjectSimulatorHome Object
 
           else
             Nothing
