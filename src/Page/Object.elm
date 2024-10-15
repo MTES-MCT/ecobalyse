@@ -522,13 +522,19 @@ itemView selectedImpact ( amount, process ) itemResults =
                         \str ->
                             case String.toFloat str of
                                 Just float ->
-                                    UpdateItem { amount = Query.amount float, processId = process.id }
+                                    UpdateItem
+                                        { amount = Query.amount float
+                                        , processId = process.id
+                                        }
 
                                 Nothing ->
                                     NoOp
                     ]
                     []
-                , span [ class "input-group-text justify-content-center fs-8", style "width" "38px" ]
+                , span
+                    [ class "input-group-text justify-content-center fs-8"
+                    , style "width" "38px"
+                    ]
                     [ text process.unit ]
                 ]
             ]
@@ -539,9 +545,13 @@ itemView selectedImpact ( amount, process ) itemResults =
         , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Simulator.extractMass itemResults ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.formatImpact selectedImpact <| Simulator.extractImpacts itemResults ]
+            [ Simulator.extractImpacts itemResults
+                |> Format.formatImpact selectedImpact
+            ]
         , td [ class "pe-3 align-middle text-nowrap" ]
-            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ] [ Icon.trash ] ]
+            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ]
+                [ Icon.trash ]
+            ]
         ]
 
 
