@@ -272,10 +272,11 @@
   {
     "displayName": "Elasthane (Lycra)",
     "info": "Textile > Matières > Matières synthétiques",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Matières",
     "uuid": "elasthane-lycra",
+    "unit": "kg",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -443,7 +444,7 @@
   {
     "displayName": "Laine par défaut",
     "info": "Textile > Matières > Matières naturelles",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Matières",
     "uuid": "wool-default",
@@ -462,7 +463,7 @@
   {
     "displayName": "Laine nouvelle filière",
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Matières",
     "uuid": "wool-new",
@@ -505,7 +506,7 @@
   {
     "displayName": "Production de fibres de coton bio",
     "info": "Textile > Matières > Matières naturelles",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Matières",
     "uuid": "coton-bio",
@@ -569,7 +570,7 @@
   {
     "displayName": "Production de coton recyclé (déchets post-consommation)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature",
     "step_usage": "Matières",
     "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
@@ -594,7 +595,7 @@
   {
     "displayName": "Production de coton recyclé (déchets de production)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature",
     "step_usage": "Matières",
     "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
@@ -619,7 +620,7 @@
   {
     "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
     "info": "Textile > Mise en forme > Tricotage",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
     "uuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
@@ -633,7 +634,7 @@
   {
     "displayName": "Tricotage fully-fashioned",
     "info": "Textile > Mise en forme > Tricotage",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
     "uuid": "6524ac1e-cc95-4b5a-b462-2fccad7a0bce",
@@ -647,7 +648,7 @@
   {
     "displayName": "Tricotage seamless",
     "info": "Textile > Mise en forme > Tricotage",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
     "uuid": "11648b33-f117-4eca-bb09-233c0ad0757f",
@@ -661,7 +662,7 @@
   {
     "displayName": "Tissage (habillement)",
     "info": "Textile > Mise en forme > Tissage",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
     "uuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
@@ -1056,7 +1057,7 @@
   {
     "displayName": "Mix chaleur (Europe)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "Reconstitution du mix depuis Ecoinvent 3.9.1",
     "step_usage": "Energie",
     "uuid": "heat-europe",
@@ -1070,7 +1071,7 @@
   {
     "displayName": "Mix chaleur (Monde)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "Reconstitution du mix depuis Ecoinvent 3.9.1",
     "step_usage": "Energie",
     "uuid": "heat-row",
@@ -1084,7 +1085,7 @@
   {
     "displayName": "Utilisation : Impact hors repassage (Chemisier)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "406d1f98-1052-458d-8f50-1901853d896d",
@@ -1098,7 +1099,7 @@
   {
     "displayName": "Utilisation : Impact hors repassage (Jean)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
@@ -1112,7 +1113,7 @@
   {
     "displayName": "Utilisation : Impact hors repassage (Jupe)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
@@ -1126,7 +1127,7 @@
   {
     "displayName": "Utilisation : Impact hors repassage (Manteau)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
@@ -1140,7 +1141,7 @@
   {
     "displayName": "Utilisation : Impact hors repassage (Pantalon)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
@@ -1154,7 +1155,7 @@
   {
     "displayName": "Utilisation : Impact hors repassage (Pull)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
@@ -1168,7 +1169,7 @@
   {
     "displayName": "Utilisation : Impact hors repassage (Robe)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
@@ -1182,7 +1183,7 @@
   {
     "displayName": "Utilisation : Impact hors repassage (T-shirt)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
     "uuid": "7f76529e-521d-4795-bb36-ff896c4692da",
@@ -1235,7 +1236,7 @@
   {
     "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "info": "Fin de vie > Aggrégation multi-impacts > ",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
     "step_usage": "Fin de vie",
     "uuid": "266fa378-77c0-11ec-90d6-0242ac120003",
@@ -1249,7 +1250,7 @@
   {
     "displayName": "Tricotage rectiligne",
     "info": "Textile > Mise en forme > Tricotage",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
     "uuid": "364298ad-2058-4ec4-b2d0-47f5214abffb",
@@ -1263,7 +1264,7 @@
   {
     "displayName": "Tricotage circulaire",
     "info": "Textile > Mise en forme > Tricotage",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
     "uuid": "2e16787c-7a89-4883-acdf-37d3d362bdab",
@@ -1433,7 +1434,7 @@
   {
     "displayName": "Teinture fibres synthétiques",
     "info": "Textile > Ennoblissement > Teinture",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "Inventaires enrichis (substances chimiques)",
     "step_usage": "Ennoblissement",
     "uuid": "ecobalyse-teinture-fibres-synthetiques",
@@ -1447,7 +1448,7 @@
   {
     "displayName": "Teinture fibres cellulosiques",
     "info": "Textile > Ennoblissement > Teinture",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "Inventaires enrichis (substances chimiques)",
     "step_usage": "Ennoblissement",
     "uuid": "ecobalyse-teinture-fibres-cellulosiques",
@@ -1476,7 +1477,7 @@
   {
     "displayName": "Impression (pigmentaire)",
     "info": "Textile > Ennoblissement > Impression",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "Inventaires enrichis (substances chimiques)",
     "step_usage": "Ennoblissement",
     "uuid": "ecobalyse-impression-pigmentaire",
@@ -1490,7 +1491,7 @@
   {
     "displayName": "Impression fixé-lavé (colorants)",
     "info": "Textile > Ennoblissement > Impression",
-    "source": "Ecobalyse",
+    "source": "Custom",
     "correctif": "Inventaires enrichis (substances chimiques)",
     "step_usage": "Ennoblissement",
     "uuid": "ecobalyse-impression-fixe-lave-colorants",
