@@ -419,13 +419,7 @@ objectExamplesExplorer db tableConfig tableState maybeId =
     let
         scoredExamples =
             db.object.examples
-                |> List.map
-                    (\example ->
-                        ( example
-                        , { score = getObjectScore db example
-                          }
-                        )
-                    )
+                |> List.map (\example -> ( example, { score = getObjectScore db example } ))
                 |> List.sortBy (Tuple.first >> .name)
 
         max =
@@ -447,12 +441,8 @@ objectExamplesExplorer db tableConfig tableState maybeId =
                         alert error
 
                     Ok example ->
-                        Table.viewDetails Scope.Object
-                            (ObjectExamples.table max)
-                            ( example
-                            , { score = getObjectScore db example
-                              }
-                            )
+                        ( example, { score = getObjectScore db example } )
+                            |> Table.viewDetails Scope.Object (ObjectExamples.table max)
                 )
 
         Nothing ->
