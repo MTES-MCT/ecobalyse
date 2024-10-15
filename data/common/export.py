@@ -2,7 +2,6 @@
 import functools
 import json
 import logging
-from collections import OrderedDict
 from copy import deepcopy
 
 import bw2data
@@ -27,7 +26,7 @@ def spproject(activity):
 def remove_detailed_impacts(processes):
     result = list()
     for process in processes:
-        new_process = OrderedDict(deepcopy(process))
+        new_process = deepcopy(process)
         for k in new_process["impacts"].keys():
             if k not in ("pef", "ecs"):
                 new_process["impacts"][k] = 0
@@ -89,7 +88,7 @@ def sort_impacts(impacts):
         "pef",
         "ecs",
     ]
-    return OrderedDict((key, impacts[key]) for key in impact_order if key in impacts)
+    return {key: impacts[key] for key in impact_order if key in impacts}
 
 
 def load_json(filename):
