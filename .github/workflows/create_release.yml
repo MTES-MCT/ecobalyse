@@ -1,0 +1,104 @@
+name: Create tag and release
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  ECOBALYSE_DATA_DIR: ./ecobalyse-private
+
+jobs:
+  create_tag_and_release:
+    # The tag and the release should be created only when the automated PR created by `create_pr_for_changelog` is merged
+    # Or to test it for now, by triggering a workflow dispatch by hand
+    if: (github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)') && contains(github.event.pull_request.labels.*.name, 'automated') && contains(github.event.pull_request.labels.*.name, 'pending-release'))
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest version
+        uses: orhun/git-cliff-action@v4
+        id: git_cliff
+        with:
+          config: cliff.toml
+          args: -vv --latest --strip header --exclude-path "data/" --bump --unreleased
+
+      - name: Set up Git
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Create and push tag
+        # If something went wrong when getting the latest version from `git-cliff`
+        # don't create a messy tag
+        if: steps.git_cliff.outputs.version != 'null'
+        id: tag_creation
+        run: |
+          git tag -a "${{ steps.git_cliff.outputs.version }}" -m "Release ${{ steps.git_cliff.outputs.version }}"
+          git push origin "${{ steps.git_cliff.outputs.version }}"
+          echo "tag_created=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+        if: steps.tag_creation.outputs.tag_created
+
+      - name: Install Node dependencies
+        if: steps.tag_creation.outputs.tag_created
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Clone the detailed impacts
+        if: steps.tag_creation.outputs.tag_created
+        run: |
+          eval `ssh-agent -s`
+          ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
+          git clone git@github.com:MTES-MCT/ecobalyse-private.git
+
+      - name: Build app
+        if: steps.tag_creation.outputs.tag_created
+        env:
+          # Specify the created SHA to correctly update version.json
+          SOURCE_VERSION: ${{ steps.git_cliff.outputs.sha }}
+          TAG: ${{ steps.git_cliff.outputs.version }}
+        run: |
+          npm run build:standalone-app
+
+      - name: Encrypt the impacts files
+        if: steps.tag_creation.outputs.tag_created
+        env:
+          ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+        run : |
+          # We include the encrypted detailed processes with the dist
+          # so that people with the encryption key could later on use the app with the exact
+          # files it was using on production
+          npm run encrypt $ECOBALYSE_DATA_DIR/data/textile/processes_impacts.json dist/processes_impacts_textile.json.enc
+          npm run encrypt $ECOBALYSE_DATA_DIR/data/food/processes_impacts.json dist/processes_impacts_food.json.enc
+          npm run encrypt $ECOBALYSE_DATA_DIR/data/object/processes_impacts.json dist/processes_impacts_object.json.enc
+
+      - name: Generate dist archive
+        if: steps.tag_creation.outputs.tag_created
+        run: |
+          tar czvf ${{ steps.git_cliff.outputs.version }}-dist.tar.gz dist
+
+      - name: Create release
+        if: steps.tag_creation.outputs.tag_created
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.git_cliff.outputs.version }}
+          body: ${{ steps.git_cliff.outputs.content }}
+          files: ${{ steps.git_cliff.outputs.version }}-dist.tar.gz
+          generate_release_notes: false
+          make_latest: true

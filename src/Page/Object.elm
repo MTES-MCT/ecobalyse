@@ -12,15 +12,14 @@ import Autocomplete exposing (Autocomplete)
 import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
 import Data.Example as Example
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Db exposing (Db)
 import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
-import Data.Object.Simulator as Simulator
+import Data.Object.Simulator as Simulator exposing (Results)
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -28,40 +27,61 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
-import Quantity
-import Result.Extra as RE
 import Route
+import Static.Db exposing (Db)
 import Task
+import Time exposing (Posix)
+import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Bookmark as BookmarkView
+import Views.Comparator as ComparatorView
 import Views.Container as Container
 import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.ImpactTabs as ImpactTabs
+import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
 
 
 type alias Model =
-    { initialQuery : Query
+    { activeImpactsTab : ImpactTabs.Tab
+    , bookmarkName : String
+    , bookmarkTab : BookmarkView.ActiveTab
+    , comparisonType : ComparatorView.ComparisonType
     , impact : Definition
+    , initialQuery : Query
     , modal : Modal
+    , results : Results
     }
 
 
 type Modal
-    = NoModal
+    = ComparatorModal
+    | NoModal
     | SelectExampleModal (Autocomplete Query)
 
 
 type Msg
     = AddItem Query.Item
     | CopyToClipBoard String
+    | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
+    | OpenComparator
     | RemoveItem Process.Id
+    | SaveBookmark
+    | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SelectAllBookmarks
+    | SelectNoBookmarks
     | SetModal Modal
+    | SwitchBookmarksTab BookmarkView.ActiveTab
+    | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
+    | SwitchImpactsTab ImpactTabs.Tab
+    | ToggleComparedSimulation Bookmark Bool
+    | UpdateBookmarkName String
     | UpdateItem Query.Item
 
 
@@ -74,9 +94,21 @@ init trigram maybeUrlQuery session =
             maybeUrlQuery
                 |> Maybe.withDefault session.queries.object
     in
-    ( { initialQuery = initialQuery
+    ( { activeImpactsTab = ImpactTabs.StepImpactsTab
+      , bookmarkName = initialQuery |> suggestBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType =
+            if Session.isAuthenticated session then
+                ComparatorView.Subscores
+
+            else
+                ComparatorView.Steps
       , impact = Definition.get trigram session.db.definitions
+      , initialQuery = initialQuery
       , modal = NoModal
+      , results =
+            Simulator.compute session.db initialQuery
+                |> Result.withDefault Simulator.emptyResults
       }
     , session
         |> Session.updateObjectQuery initialQuery
@@ -105,9 +137,16 @@ initFromExample session uuid =
                 |> Result.map .query
                 |> Result.withDefault session.queries.object
     in
-    ( { initialQuery = exampleQuery
+    ( { activeImpactsTab = ImpactTabs.StepImpactsTab
+      , bookmarkName = exampleQuery |> suggestBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
+      , comparisonType = ComparatorView.Subscores
       , impact = Definition.get Definition.Ecs session.db.definitions
+      , initialQuery = exampleQuery
       , modal = NoModal
+      , results =
+            Simulator.compute session.db exampleQuery
+                |> Result.withDefault Simulator.emptyResults
       }
     , session
         |> Session.updateObjectQuery exampleQuery
@@ -115,9 +154,44 @@ initFromExample session uuid =
     )
 
 
+suggestBookmarkName : Session -> Query -> String
+suggestBookmarkName { db, store } query =
+    let
+        -- Existing user bookmark?
+        userBookmark =
+            store.bookmarks
+                |> Bookmark.findByObjectQuery query
+
+        -- Matching product example name?
+        exampleName =
+            db.object.examples
+                |> Example.findByQuery query
+                |> Result.toMaybe
+    in
+    case ( userBookmark, exampleName ) of
+        ( Just { name }, _ ) ->
+            name
+
+        ( _, Just { name } ) ->
+            name
+
+        _ ->
+            Query.toString db.object.processes query
+                |> Result.withDefault "N/A"
+
+
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, commands ) =
-    ( { model | initialQuery = query }
+    ( { model
+        | initialQuery = query
+        , bookmarkName =
+            query
+                |> suggestBookmarkName session
+        , results =
+            query
+                |> Simulator.compute session.db
+                |> Result.withDefault Simulator.emptyResults
+      }
     , session |> Session.updateObjectQuery query
     , commands
     )
@@ -137,6 +211,12 @@ update ({ queries, navKey } as session) msg model =
         ( CopyToClipBoard shareableLink, _ ) ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
+        ( DeleteBookmark bookmark, _ ) ->
+            ( model
+            , session |> Session.deleteBookmark bookmark
+            , Cmd.none
+            )
+
         ( NoOp, _ ) ->
             ( model, session, Cmd.none )
 
@@ -153,8 +233,6 @@ update ({ queries, navKey } as session) msg model =
         ( OnAutocompleteExample _, _ ) ->
             ( model, session, Cmd.none )
 
-        -- ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
-        --     updateMaterial query model session maybeOldMaterial autocompleteState
         ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
             ( model, session, Cmd.none )
                 |> selectExample autocompleteState
@@ -162,9 +240,48 @@ update ({ queries, navKey } as session) msg model =
         ( OnAutocompleteSelect, _ ) ->
             ( model, session, Cmd.none )
 
+        ( OpenComparator, _ ) ->
+            ( { model | modal = ComparatorModal }
+            , session |> Session.checkComparedSimulations
+            , Cmd.none
+            )
+
         ( RemoveItem processId, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeItem processId query)
+
+        ( SaveBookmark, _ ) ->
+            ( model
+            , session
+            , Time.now
+                |> Task.perform
+                    (SaveBookmarkWithTime model.bookmarkName
+                        (Bookmark.Object query)
+                    )
+            )
+
+        ( SaveBookmarkWithTime name objectQuery now, _ ) ->
+            ( model
+            , session
+                |> Session.saveBookmark
+                    { name = String.trim name
+                    , query = objectQuery
+                    , created = now
+                    }
+            , Cmd.none
+            )
+
+        ( SelectAllBookmarks, _ ) ->
+            ( model, Session.selectAllBookmarks session, Cmd.none )
+
+        ( SelectNoBookmarks, _ ) ->
+            ( model, Session.selectNoBookmarks session, Cmd.none )
+
+        ( SetModal ComparatorModal, _ ) ->
+            ( { model | modal = ComparatorModal }
+            , session
+            , Ports.addBodyClass "prevent-scrolling"
+            )
 
         ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
@@ -177,6 +294,15 @@ update ({ queries, navKey } as session) msg model =
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
+
+        ( SwitchBookmarksTab bookmarkTab, _ ) ->
+            ( { model | bookmarkTab = bookmarkTab }
+            , session
+            , Cmd.none
+            )
+
+        ( SwitchComparisonType displayChoice, _ ) ->
+            ( { model | comparisonType = displayChoice }, session, Cmd.none )
 
         ( SwitchImpact (Ok trigram), _ ) ->
             ( model
@@ -192,6 +318,21 @@ update ({ queries, navKey } as session) msg model =
             , session |> Session.notifyError "Erreur de sélection d'impact: " error
             , Cmd.none
             )
+
+        ( SwitchImpactsTab impactsTab, _ ) ->
+            ( { model | activeImpactsTab = impactsTab }
+            , session
+            , Cmd.none
+            )
+
+        ( ToggleComparedSimulation bookmark checked, _ ) ->
+            ( model
+            , session |> Session.toggleComparedSimulation bookmark checked
+            , Cmd.none
+            )
+
+        ( UpdateBookmarkName newName, _ ) ->
+            ( { model | bookmarkName = newName }, session, Cmd.none )
 
         ( UpdateItem item, _ ) ->
             ( model, session, Cmd.none )
@@ -215,35 +356,12 @@ commandsForNoModal modal =
 selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectExample autocompleteState ( model, session, _ ) =
     let
-        example =
+        exampleQuery =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Query.default
     in
-    update session (SetModal NoModal) { model | initialQuery = example }
-        |> updateQuery example
-
-
-
--- massField : String -> Html Msg
--- massField massInput =
---     div [ class "d-flex flex-column" ]
---         [ label [ for "mass", class "form-label text-truncate" ]
---             [ text "Masse du produit fini" ]
---         , div
---             [ class "input-group" ]
---             [ input
---                 [ type_ "number"
---                 , class "form-control"
---                 , id "mass"
---                 , Attr.min "0.01"
---                 , step "0.01"
---                 , value massInput
---                 , onInput UpdateAmount
---                 ]
---                 []
---             , span [ class "input-group-text" ] [ text "kg" ]
---             ]
---         ]
+    update session (SetModal NoModal) { model | initialQuery = exampleQuery }
+        |> updateQuery exampleQuery
 
 
 simulatorView : Session -> Model -> Html Msg
@@ -266,14 +384,16 @@ simulatorView session model =
                         }
                     }
                 ]
-            , session.queries.object
-                |> itemListView session.db.object model.impact
-                |> div [ class "d-flex flex-column bg-white" ]
+            , div [ class "card shadow-sm mb-3" ]
+                [ session.queries.object
+                    |> itemListView session.db model.impact model.results
+                    |> div [ class "d-flex flex-column bg-white" ]
+                ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
                 { session = session
-                , scope = Scope.Textile
+                , scope = Scope.Object
 
                 -- Impact selector
                 , selectedImpact = model.impact
@@ -281,23 +401,25 @@ simulatorView session model =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Quantity.zero
-                , totalImpacts =
-                    Simulator.compute session.db.object session.queries.object
-                        |> Result.withDefault Impact.empty
+                , productMass = Simulator.extractMass model.results
+                , totalImpacts = Simulator.extractImpacts model.results
 
                 -- Impacts tabs
-                , impactTabsConfig = Nothing
+                , impactTabsConfig =
+                    SwitchImpactsTab
+                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
+                        |> ImpactTabs.forObject model.results
+                        |> Just
 
-                -- FIXME: bookmarks
-                , activeBookmarkTab = BookmarkView.ShareTab
-                , bookmarkName = ""
+                -- Bookmarks
+                , activeBookmarkTab = model.bookmarkTab
+                , bookmarkName = model.bookmarkName
                 , copyToClipBoard = CopyToClipBoard
-                , compareBookmarks = NoOp
-                , deleteBookmark = always NoOp
-                , saveBookmark = NoOp
-                , updateBookmarkName = always NoOp
-                , switchBookmarkTab = always NoOp
+                , compareBookmarks = OpenComparator
+                , deleteBookmark = DeleteBookmark
+                , saveBookmark = SaveBookmark
+                , updateBookmarkName = UpdateBookmarkName
+                , switchBookmarkTab = SwitchBookmarksTab
                 }
             ]
         ]
@@ -311,100 +433,113 @@ addItemButton db query =
                 |> Simulator.availableProcesses db
                 |> List.head
     in
-    li [ class "list-group-item p-0" ]
-        [ button
-            [ class "btn btn-outline-primary"
-            , class "d-flex justify-content-center align-items-center"
-            , class " gap-1 w-100"
-            , id "add-new-element"
-            , disabled <| firstAvailableProcess == Nothing
-            , onClick <|
-                case firstAvailableProcess of
-                    Just process ->
-                        AddItem (Query.defaultItem process)
+    button
+        [ class "btn btn-outline-primary w-100"
+        , class "d-flex justify-content-center align-items-center"
+        , class "gap-1 w-100"
+        , id "add-new-element"
+        , disabled <| firstAvailableProcess == Nothing
+        , onClick <|
+            case firstAvailableProcess of
+                Just process ->
+                    AddItem (Query.defaultItem process)
 
-                    Nothing ->
-                        NoOp
-            ]
-            [ i [ class "icon icon-plus" ] []
-            , text "Ajouter un élément"
-            ]
+                Nothing ->
+                    NoOp
+        ]
+        [ i [ class "icon icon-plus" ] []
+        , text "Ajouter un élément"
         ]
 
 
-itemListView : Db -> Definition -> Query -> List (Html Msg)
-itemListView db selectedImpact query =
+itemListView : Db -> Definition -> Results -> Query -> List (Html Msg)
+itemListView db selectedImpact results query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
-    , ul [ class "CardList list-group list-group-flush" ]
-        (if List.isEmpty query.items then
-            [ li [ class "list-group-item" ] [ text "Aucun élément" ] ]
+    , if List.isEmpty query.items then
+        div [ class "card-body" ] [ text "Aucun élément." ]
 
-         else
-            case
-                query.items
-                    |> List.map (\{ amount, processId } -> ( amount, processId ))
-                    |> List.map (RE.combineMapSecond (Process.findById db.processes))
-                    |> RE.combine
-            of
-                Err error ->
-                    [ text error ]
+      else
+        case Simulator.expandItems db query of
+            Err error ->
+                Alert.simple
+                    { close = Nothing
+                    , content = [ text error ]
+                    , level = Alert.Danger
+                    , title = Just "Erreur"
+                    }
 
-                Ok items ->
-                    List.map (itemView db selectedImpact) items ++ [ addItemButton db query ]
-        )
+            Ok items ->
+                div [ class "table-responsive" ]
+                    [ table [ class "table mb-0" ]
+                        [ thead []
+                            [ tr [ class "fs-7 text-muted" ]
+                                [ th [] [ text "Quantité" ]
+                                , th [] [ text "Procédé" ]
+                                , th [] [ text "Densité" ]
+                                , th [] [ text "Masse" ]
+                                , th [] [ text "Impact" ]
+                                , th [] []
+                                ]
+                            ]
+                        , Simulator.extractItems results
+                            |> List.map2 (itemView selectedImpact) items
+                            |> tbody []
+                        ]
+                    ]
+    , addItemButton db query
     ]
 
 
-itemView : Db -> Definition -> ( Query.Amount, Process ) -> Html Msg
-itemView db selectedImpact ( amount, process ) =
-    li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ div [ class "input-group w-33" ]
-            [ input
-                [ type_ "number"
-                , class "form-control"
-                , amount |> Query.amountToFloat |> String.fromFloat |> value
-                , step <|
-                    case process.unit of
-                        "kg" ->
-                            "0.01"
+itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
+itemView selectedImpact ( amount, process ) itemResults =
+    tr []
+        [ td [class "align-middle"]
+            [ div [ class "input-group", style "min-width" "180px" ]
+                [ input
+                    [ type_ "number"
+                    , class "form-control text-end"
+                    , amount |> Query.amountToFloat |> String.fromFloat |> value
+                    , step <|
+                        case process.unit of
+                            "kg" ->
+                                "0.01"
 
-                        "m3" ->
-                            "0.00001"
+                            "m3" ->
+                                "0.00001"
 
-                        _ ->
-                            "1"
-                , onInput <|
-                    \str ->
-                        case String.toFloat str of
-                            Just float ->
-                                UpdateItem { amount = Query.amount float, processId = process.id }
+                            _ ->
+                                "1"
+                    , onInput <|
+                        \str ->
+                            case String.toFloat str of
+                                Just float ->
+                                    UpdateItem { amount = Query.amount float, processId = process.id }
 
-                            Nothing ->
-                                NoOp
+                                Nothing ->
+                                    NoOp
+                    ]
+                    []
+                , span [ class "input-group-text justify-content-center fs-8", style "width" "38px" ]
+                    [ text process.unit ]
                 ]
-                []
-            , span [ class "input-group-text" ] [ text process.unit ]
             ]
-        , span [ class "flex-fill text-nowrap" ] [ text process.displayName ]
-        , span []
-            [ { amount = amount, processId = process.id }
-                |> itemImpactView db selectedImpact
+        , td [ class "align-middle text-truncate w-100" ]
+            [ text process.displayName ]
+        , td [ class "align-middle text-end" ]
+            [ if process.unit /= "kg" then
+                process.density |> Format.formatRichFloat 0 ("kg/" ++ process.unit)
+
+              else
+                text ""
             ]
-        , button
-            [ class "btn btn-outline-secondary"
-            , onClick (RemoveItem process.id)
-            ]
-            [ Icon.trash ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ Format.kg <| Simulator.extractMass itemResults ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ Format.formatImpact selectedImpact <| Simulator.extractImpacts itemResults ]
+        , td [ class "align-middle text-nowrap" ]
+            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ] [ Icon.trash ] ]
         ]
-
-
-itemImpactView : Db -> Definition -> Query.Item -> Html Msg
-itemImpactView db selectedImpact item =
-    item
-        |> Simulator.computeItemImpacts db
-        |> Result.map (Format.formatImpact selectedImpact)
-        |> Result.withDefault (text "N/A")
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -413,6 +548,28 @@ view session model =
     , [ Container.centered [ class "Simulator pb-3" ]
             [ simulatorView session model
             , case model.modal of
+                ComparatorModal ->
+                    ModalView.view
+                        { size = ModalView.ExtraLarge
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = "Comparateur de simulations sauvegardées"
+                        , subTitle = Just "en score d'impact, par produit"
+                        , formAction = Nothing
+                        , content =
+                            [ ComparatorView.view
+                                { session = session
+                                , impact = model.impact
+                                , comparisonType = model.comparisonType
+                                , selectAll = SelectAllBookmarks
+                                , selectNone = SelectNoBookmarks
+                                , switchComparisonType = SwitchComparisonType
+                                , toggle = ToggleComparedSimulation
+                                }
+                            ]
+                        , footer = []
+                        }
+
                 NoModal ->
                     text ""
 
