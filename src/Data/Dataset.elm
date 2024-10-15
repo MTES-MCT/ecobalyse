@@ -33,6 +33,7 @@ type Dataset
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe FoodProcess.Identifier)
     | Impacts (Maybe Definition.Trigram)
+    | ObjectExamples (Maybe Uuid)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProcesses (Maybe Process.Uuid)
@@ -51,7 +52,8 @@ datasets scope =
             ]
 
         Scope.Object ->
-            [ Impacts Nothing
+            [ ObjectExamples Nothing
+            , Impacts Nothing
             , Countries Nothing
             ]
 
@@ -86,6 +88,9 @@ fromSlug string =
         "materials" ->
             TextileMaterials Nothing
 
+        "object-examples" ->
+            ObjectExamples Nothing
+
         "processes" ->
             TextileProcesses Nothing
 
@@ -112,6 +117,9 @@ isDetailed dataset =
             True
 
         Impacts (Just _) ->
+            True
+
+        ObjectExamples (Just _) ->
             True
 
         TextileExamples (Just _) ->
@@ -158,6 +166,9 @@ reset dataset =
         Impacts _ ->
             Impacts Nothing
 
+        ObjectExamples _ ->
+            ObjectExamples Nothing
+
         TextileExamples _ ->
             TextileExamples Nothing
 
@@ -192,6 +203,9 @@ same a b =
         ( TextileExamples _, TextileExamples _ ) ->
             True
 
+        ( ObjectExamples _, ObjectExamples _ ) ->
+            True
+
         ( TextileMaterials _, TextileMaterials _ ) ->
             True
 
@@ -222,6 +236,9 @@ setIdFromString idString dataset =
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
+
+        ObjectExamples _ ->
+            ObjectExamples (Uuid.fromString idString)
 
         TextileExamples _ ->
             TextileExamples (Uuid.fromString idString)
@@ -258,6 +275,9 @@ strings dataset =
 
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
+
+        ObjectExamples _ ->
+            { label = "Exemples", slug = "object-examples" }
 
         TextileExamples _ ->
             { label = "Exemples", slug = "textile-examples" }
@@ -303,6 +323,12 @@ toRoutePath dataset =
             [ slug dataset, Definition.toString trigram ]
 
         Impacts Nothing ->
+            [ slug dataset ]
+
+        ObjectExamples (Just id) ->
+            [ slug dataset, Uuid.toString id ]
+
+        ObjectExamples Nothing ->
             [ slug dataset ]
 
         TextileExamples (Just id) ->

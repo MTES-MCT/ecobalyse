@@ -494,7 +494,7 @@ itemListView db selectedImpact results query =
 itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
 itemView selectedImpact ( amount, process ) itemResults =
     tr []
-        [ td [class "align-middle"]
+        [ td [ class "align-middle" ]
             [ div [ class "input-group", style "min-width" "180px" ]
                 [ input
                     [ type_ "number"

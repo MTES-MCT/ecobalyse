@@ -22,6 +22,8 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
+import Data.Object.Query as ObjectQuery
+import Data.Object.Simulator as ObjectSimulator
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
@@ -39,6 +41,7 @@ import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
+import Page.Explore.ObjectExamples as ObjectExamples
 import Page.Explore.Table as Table
 import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
@@ -86,6 +89,9 @@ init scope dataset session =
 
                 Dataset.Impacts _ ->
                     "Code"
+
+                Dataset.ObjectExamples _ ->
+                    "Coût Environnemental"
 
                 Dataset.TextileExamples _ ->
                     "Coût Environnemental"
@@ -148,9 +154,8 @@ update session msg model =
                         Scope.Food ->
                             Dataset.FoodExamples Nothing
 
-                        -- FIXME: object examples explorer page
                         Scope.Object ->
-                            Dataset.TextileExamples Nothing
+                            Dataset.ObjectExamples Nothing
 
                         Scope.Textile ->
                             Dataset.TextileExamples Nothing
@@ -186,7 +191,7 @@ datasetsMenuView { scope, dataset } =
 
 scopesMenuView : Session -> Model -> Html Msg
 scopesMenuView { enableFoodSection } model =
-    [ Scope.Food, Scope.Textile ]
+    [ Scope.Food, Scope.Object, Scope.Textile ]
         |> List.map
             (\scope ->
                 label []
@@ -401,6 +406,57 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
     ]
 
 
+objectExamplesExplorer :
+    Db
+    -> Table.Config ( Example ObjectQuery.Query, { score : Float } ) Msg
+    -> SortableTable.State
+    -> Maybe Uuid
+    -> List (Html Msg)
+objectExamplesExplorer db tableConfig tableState maybeId =
+    let
+        scoredExamples =
+            db.object.examples
+                |> List.map
+                    (\example ->
+                        ( example
+                        , { score = getObjectScore db example
+                          }
+                        )
+                    )
+                |> List.sortBy (Tuple.first >> .name)
+
+        max =
+            { maxScore =
+                scoredExamples
+                    |> List.map (Tuple.second >> .score)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            }
+    in
+    [ scoredExamples
+        |> List.sortBy (Tuple.first >> .name)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Object (ObjectExamples.table max)
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case Example.findByUuid id db.object.examples of
+                    Err error ->
+                        alert error
+
+                    Ok example ->
+                        Table.viewDetails Scope.Object
+                            (ObjectExamples.table max)
+                            ( example
+                            , { score = getObjectScore db example
+                              }
+                            )
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
 textileExamplesExplorer :
     Db
     -> Table.Config ( Example TextileQuery.Query, { score : Float, per100g : Float } ) Msg
@@ -566,6 +622,14 @@ getFoodScorePer100g db =
         >> Result.withDefault 0
 
 
+getObjectScore : Db -> Example ObjectQuery.Query -> Float
+getObjectScore db =
+    .query
+        >> ObjectSimulator.compute db
+        >> Result.map (ObjectSimulator.extractImpacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+        >> Result.withDefault 0
+
+
 getTextileScore : Db -> Example TextileQuery.Query -> Float
 getTextileScore db =
     .query
@@ -618,6 +682,9 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
+
+        Dataset.ObjectExamples maybeId ->
+            objectExamplesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer db tableConfig tableState maybeId
