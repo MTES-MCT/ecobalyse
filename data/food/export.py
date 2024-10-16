@@ -182,7 +182,7 @@ def process_activity_for_processes(activity):
         "system_description": cached_search(
             activity.get("database", AGRIBALYSE), activity["search"]
         )["System description"],
-        "categories": activity.get("process_categories"),
+        "category": activity.get("category"),
         "comment": (
             prod[0]["comment"]
             if (
