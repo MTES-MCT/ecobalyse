@@ -62,7 +62,6 @@ type Trigram
     | Wtu
       -- Aggregated scores
     | Ecs
-    | Pef
 
 
 type alias Definition =
@@ -71,7 +70,6 @@ type alias Definition =
     , description : String
     , unit : String
     , decimals : Int
-    , pefData : Maybe AggregatedScoreData
     , ecoscoreData : Maybe AggregatedScoreData
     }
 
@@ -103,7 +101,6 @@ type alias Trigrams a =
 
     -- Aggregated scores
     , ecs : a
-    , pef : a
     }
 
 
@@ -139,7 +136,6 @@ init a =
 
     -- Aggregated scores
     , ecs = a
-    , pef = a
     }
 
 
@@ -207,9 +203,6 @@ update trigram updateFunc definitions =
         Ecs ->
             { definitions | ecs = updateFunc definitions.ecs }
 
-        Pef ->
-            { definitions | pef = updateFunc definitions.pef }
-
 
 trigrams : List Trigram
 trigrams =
@@ -235,7 +228,6 @@ trigrams =
 
     -- Aggregated scores
     , Ecs
-    , Pef
     ]
 
 
@@ -309,9 +301,6 @@ get trigram definitions =
         Ecs ->
             definitions.ecs
 
-        Pef ->
-            definitions.pef
-
 
 map : (Trigram -> a -> b) -> Trigrams a -> Trigrams b
 map func definitions =
@@ -337,7 +326,6 @@ map func definitions =
 
     -- Aggregated scores
     , ecs = func Ecs definitions.ecs
-    , pef = func Pef definitions.pef
     }
 
 
@@ -430,9 +418,6 @@ toString trigram =
         Ecs ->
             "ecs"
 
-        Pef ->
-            "pef"
-
 
 toTrigram : String -> Result String Trigram
 toTrigram str =
@@ -498,23 +483,20 @@ toTrigram str =
         "ecs" ->
             Ok Ecs
 
-        "pef" ->
-            Ok Pef
-
         _ ->
             Err <| "Trigramme d'impact inconnu: " ++ str
 
 
 isAggregate : Trigram -> Bool
 isAggregate trigram =
-    trigram == Pef || trigram == Ecs
+    trigram == Ecs
 
 
 
 ---- Decoders
 
 
-decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> a -> Trigrams a)
+decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> Trigrams a)
 decodeWithoutAggregated decoder =
     Decode.succeed Trigrams
         |> Pipe.required "acd" (decoder "acd")
@@ -542,7 +524,6 @@ decodeBase : (String -> Decoder a) -> Decoder (Trigrams a)
 decodeBase decoder =
     decodeWithoutAggregated decoder
         |> Pipe.required "ecs" (decoder "ecs")
-        |> Pipe.required "pef" (decoder "pef")
 
 
 decode : Decoder Definitions
@@ -566,7 +547,6 @@ decodeDefinition trigram =
         |> Pipe.required "description_fr" Decode.string
         |> Pipe.required "short_unit" Decode.string
         |> Pipe.required "decimals" Decode.int
-        |> Pipe.required "pef" (Decode.maybe decodeAggregatedScoreData)
         |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
 
 
