@@ -6,7 +6,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105149",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -40,7 +40,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104145",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -74,7 +74,7 @@
     "unit": "kilogram",
     "identifier": "843986b19b3ea959b8817afda669dead",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -108,7 +108,7 @@
     "unit": "kilogram",
     "identifier": "carrot-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -142,7 +142,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116999",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -176,7 +176,7 @@
     "unit": "kilogram",
     "identifier": "4a9ea0a29fbde60e2d1fc5c33d8a4f3a",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -210,7 +210,7 @@
     "unit": "kilogram",
     "identifier": "sunflower-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -244,7 +244,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115221",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -278,7 +278,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200196",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -312,7 +312,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107081",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -346,7 +346,7 @@
     "unit": "kilogram",
     "identifier": "67f1a99d8093f1b2b3e4e7f8b292953c",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -380,7 +380,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104412",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "material",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -414,7 +414,7 @@
     "unit": "kilogram",
     "identifier": "6fcaacd84b90aec94cf924041ff09fc9",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -448,7 +448,7 @@
     "unit": "kilogram",
     "identifier": "51c8f8e74c9ade89850e7b4b8a4efc59",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -482,7 +482,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103910",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Product already packed.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -516,7 +516,7 @@
     "unit": "kilogram",
     "identifier": "3fc68b77b276cfc781ed546ec32b84f5",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Product already packed.",
     "source": "Ecobalyse",
     "impacts": {
@@ -550,7 +550,7 @@
     "unit": "kilogram",
     "identifier": "bbbce945e38218c05c671aa17bcedbe2",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Product already packed.",
     "source": "Ecobalyse",
     "impacts": {
@@ -584,7 +584,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109221",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -618,7 +618,7 @@
     "unit": "kilogram",
     "identifier": "d41682caea2d55a3b95173f276b9d903",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -652,7 +652,7 @@
     "unit": "kilogram",
     "identifier": "fc9b8a819a1ba51b4fbca210d0771198",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -686,7 +686,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112448",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -720,7 +720,7 @@
     "unit": "kilogram",
     "identifier": "425b95709f7882fa60c6b42f3add1873",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "source": "Ecobalyse",
     "impacts": {
@@ -754,7 +754,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115182",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -788,7 +788,7 @@
     "unit": "kilogram",
     "identifier": "2735a9eb9848c97f9e70fd94f051fb2a",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "source": "Ecobalyse",
     "impacts": {
@@ -822,7 +822,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200219",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -856,7 +856,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110947",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -890,7 +890,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200102",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -924,7 +924,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102321",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -958,7 +958,7 @@
     "unit": "kilogram",
     "identifier": "4ada2b1db5db813770f5ec73a5b1c109",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -992,7 +992,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114927",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1026,7 +1026,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110698",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1060,7 +1060,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111575",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1094,7 +1094,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110706",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1128,7 +1128,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111571",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1162,7 +1162,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104019",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1196,7 +1196,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108113",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1230,7 +1230,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111586",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1264,7 +1264,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111562",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1298,7 +1298,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1332,7 +1332,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100294",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "packaging",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1366,7 +1366,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102449",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "transformation",
     "comment": "\"Functional Unit\nTo obtain 1kg of canned vegetable or fruit. \nAn input of 0,626kg of food is required. Added packaging should account for the 1% loss.\n\nBoundaries\nFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).\nContrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.\nwe considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1400,7 +1400,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100079",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "transformation",
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1434,7 +1434,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103966",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "transformation",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1468,7 +1468,7 @@
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115929",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "transport",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1502,7 +1502,7 @@
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115957",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "transport",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1536,7 +1536,7 @@
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115903",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "transport",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1570,7 +1570,7 @@
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115959",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "transport",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1604,7 +1604,7 @@
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115944",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "transport",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1638,7 +1638,7 @@
     "unit": "kilowatt hour",
     "identifier": "AGRIBALU000000003105270",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "energy",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1672,7 +1672,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115449",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1706,7 +1706,7 @@
     "unit": "megajoule",
     "identifier": "AGRIBALU000000003107383",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "energy",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1740,7 +1740,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103732",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1774,7 +1774,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105529",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1808,7 +1808,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110032",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1842,7 +1842,7 @@
     "unit": "kilogram",
     "identifier": "beetroot-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -1876,7 +1876,7 @@
     "unit": "kilogram",
     "identifier": "celeriac-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -1910,7 +1910,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102611",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1944,7 +1944,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200193",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1978,7 +1978,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003101321",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 34497462272",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2012,7 +2012,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200128",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2046,7 +2046,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114674",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Rdt mean = 2,25 t/ha",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2080,7 +2080,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200001",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 76692414464",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2114,7 +2114,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200302",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 76692414464",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2148,7 +2148,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114580",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2182,7 +2182,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003113461",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "None",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2216,7 +2216,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115859",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "The CIQUAL food item 'Toulouse sausage, raw' matches with a recipe from ANSES.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2250,7 +2250,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115854",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "The CIQUAL food item 'Toulouse sausage, cooked' matches with a recipe from ANSES.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2284,7 +2284,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111467",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "\"This dataset represents plant-based sausage production from Tofu. The recipe was determined with OpenFoodFact, 2021 based on 2 industrial recipes and assumptions. \"",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2318,7 +2318,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115655",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2352,7 +2352,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115656",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2386,7 +2386,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109214",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2420,7 +2420,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109219",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This dataset includes packaging",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2454,7 +2454,7 @@
     "unit": "kilogram",
     "identifier": "f66ba18359adc61e5988ed8a7cf24b3e",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This dataset includes packaging",
     "source": "Ecobalyse",
     "impacts": {
@@ -2488,7 +2488,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105079",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2522,7 +2522,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109942",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Economic allocation",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2556,7 +2556,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104662",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2590,7 +2590,7 @@
     "unit": "kilogram",
     "identifier": "b9f380cbd26fef2f30b16cbe06edd732",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -2624,7 +2624,7 @@
     "unit": "kilogram",
     "identifier": "862a53ceeeaf072c8528a71d2fa6a027",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -2658,7 +2658,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102182",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2692,7 +2692,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115509",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 1436769536",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2726,7 +2726,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103623",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2760,7 +2760,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003101545",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This process describes the average consumption mix of black pepper imported to France. Transport is added from the farm gate (in the producing country) to a french plant in Carpentras.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2794,7 +2794,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109401",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This process describes the production of Milk, powder, skimmed in France.\nIncluded activities are : production in country of origin and transport",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2828,7 +2828,7 @@
     "unit": "litre",
     "identifier": "AGRIBALU000000003112590",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "(4,4,2,1,2),",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2862,7 +2862,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106282",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2896,7 +2896,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108470",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2930,7 +2930,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105152",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2964,7 +2964,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105151",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2998,7 +2998,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105153",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3032,7 +3032,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105163",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3066,7 +3066,7 @@
     "unit": "kilogram",
     "identifier": "wine-grape-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -3100,7 +3100,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109223",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3134,7 +3134,7 @@
     "unit": "kilogram",
     "identifier": "f025b4a41c45eabdb2510795b3353ca4",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -3168,7 +3168,7 @@
     "unit": "kilogram",
     "identifier": "pear-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -3202,7 +3202,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3236,7 +3236,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102563",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3270,7 +3270,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 18370729984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3304,7 +3304,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3338,7 +3338,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3372,7 +3372,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111019",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3406,7 +3406,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111005",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 48205 kg/ha table fruit quality\nProduction Volume Amount: 277274240",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3440,7 +3440,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110952",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3474,7 +3474,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110917",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 27000 kg/ha table fruit quality\nProduction Volume Amount: 1257250944",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3508,7 +3508,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109266",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3542,7 +3542,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109266",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3576,7 +3576,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200170",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3610,7 +3610,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200169",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3644,7 +3644,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111897",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3678,7 +3678,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117048",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3712,7 +3712,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110467",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3746,7 +3746,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110441",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 55000 kg/ha\nProduction Volume Amount: 1402423040",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3780,7 +3780,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110442",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 38596923392",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3814,7 +3814,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3848,7 +3848,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3882,7 +3882,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3916,7 +3916,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3950,7 +3950,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3984,7 +3984,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108668",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4018,7 +4018,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 23622365184",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4052,7 +4052,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 23622365184",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4086,7 +4086,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200024",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4120,7 +4120,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200024",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4154,7 +4154,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102916",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4188,7 +4188,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108561",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 37000 kg/ha\nProduction Volume Amount: 674371008",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4222,7 +4222,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102916",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4256,7 +4256,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4290,7 +4290,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4324,7 +4324,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200219",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4358,7 +4358,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115752",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4392,7 +4392,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115753",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4426,7 +4426,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115743",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Yield = 165000.0 kg/haOutput of tomato, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 4255320576",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4460,7 +4460,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100510",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4494,7 +4494,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100510",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4528,7 +4528,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107313",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "FAOstats average 2013-2017",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4562,7 +4562,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107312",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "FAOstats average 2013 - 2017",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4596,7 +4596,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107318",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Dataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Turkey and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4630,7 +4630,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107319",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4664,7 +4664,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102661",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4698,7 +4698,7 @@
     "unit": "kilogram",
     "identifier": "artichoke-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -4732,7 +4732,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4766,7 +4766,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4800,7 +4800,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108547",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4834,7 +4834,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4868,7 +4868,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4902,7 +4902,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102563",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4936,7 +4936,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 18370729984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4970,7 +4970,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5004,7 +5004,7 @@
     "unit": "kilogram",
     "identifier": "chinese-cabbage-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -5038,7 +5038,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102347",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 28512262144",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5072,7 +5072,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5106,7 +5106,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5140,7 +5140,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102346",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 28983492608",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5174,7 +5174,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110467",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5208,7 +5208,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110507",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "SPAIN",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5242,7 +5242,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110506",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Orange, fresh grade, South African production. Output of orange, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 1645182976",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5276,7 +5276,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110400",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit quality\nProduction Volume Amount: 6459754496",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5310,7 +5310,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112430",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "EcoSpold01Location=FR\nProduction Volume Amount: 4532871168",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5344,7 +5344,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112456",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5378,7 +5378,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112455",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "CANADA",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5412,7 +5412,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110959",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 3470 kg/ha\nProduction Volume Amount: 15861245952",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5446,7 +5446,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110960",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 1000 kg/ha\nProduction Volume Amount: 6338124800",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5480,7 +5480,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105719",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Data representative of virgin olive oil consumption in France. Virgin Olive oil consumption mix is determined from average FAOSTAT data over 4 years (2014-2018) from production and importation of virgin olive oil in France. Average consumption mix for virgin olive oil in France is : Spain, 65%, Italy, 20%, others origins, 15%. The coverage market mix of virgin olive  oil consumed in France is 85%.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5514,7 +5514,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100748",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 3840904960",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5548,7 +5548,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200192",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5582,7 +5582,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115216",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5616,7 +5616,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115218",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "HUNGARY",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5650,7 +5650,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115217",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5684,7 +5684,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108090",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5718,7 +5718,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108089",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 1350206976",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5752,7 +5752,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108089",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 1350206976",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5786,7 +5786,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109086",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "BRAZIL",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5820,7 +5820,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114717",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 18088361984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5854,7 +5854,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105790",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 240114696192",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5888,7 +5888,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105790",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 240114696192",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5922,7 +5922,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102101",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 18174699520",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5956,7 +5956,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003101680",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5990,7 +5990,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112470",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6024,7 +6024,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200014",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6058,7 +6058,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200015",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6092,7 +6092,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100930",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6126,7 +6126,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100924",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)\nIndia is considered since it is a major banana producer, with 29% of global production.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6160,7 +6160,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115753",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6194,7 +6194,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104392",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 57559834624",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6228,7 +6228,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104392",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 57559834624",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6262,7 +6262,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200146",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6296,7 +6296,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115025",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6330,7 +6330,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102720",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 8969982976",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6364,7 +6364,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102720",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 8969982976",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6398,7 +6398,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6432,7 +6432,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102563",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6466,7 +6466,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 18370729984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6500,7 +6500,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116663",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6534,7 +6534,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116668",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6568,7 +6568,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116668",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6602,7 +6602,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116662",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6636,7 +6636,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109060",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Reference flow: Yield = 30000 kg/ha table fruit quality\nProduction Volume Amount: 2046639488",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6670,7 +6670,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100184",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. \nThis dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. \nThe infrastructure are excluded as well as the mushroom packaging.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6704,7 +6704,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6738,7 +6738,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6772,7 +6772,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200192",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6806,7 +6806,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6840,7 +6840,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6874,7 +6874,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6908,7 +6908,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103409",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "MOROCCO",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6942,7 +6942,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108668",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6976,7 +6976,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 23622365184",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7010,7 +7010,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106864",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7044,7 +7044,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108668",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7078,7 +7078,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 23622365184",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7112,7 +7112,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200100",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7146,7 +7146,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106825",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7180,7 +7180,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109026",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Economic allocation based on Whitman et al. 2011, assuming 15% stover removed from the field and 65 $/t stover",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7214,7 +7214,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111295",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Yield from Ingwersen 2012.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7248,7 +7248,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105780",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 4",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7282,7 +7282,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105780",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 4",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7316,7 +7316,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114717",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 18088361984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7350,7 +7350,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114717",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 18088361984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7384,7 +7384,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105780",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 4",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7418,7 +7418,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105780",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 4",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7452,7 +7452,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112687",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production Volume Amount: 8769999872",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7486,7 +7486,7 @@
     "unit": "kilogram",
     "identifier": "bdd14c2017eaf0cda1e207e74012c391",
     "system_description": "Ecobalyse",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -7520,7 +7520,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200247",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7554,7 +7554,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117044",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7588,7 +7588,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200066",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7622,7 +7622,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105055",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Economic allocation for wheat based on FEFAC (2015)",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7656,7 +7656,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105051",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Economic allocation for wheat based on FEFAC (2015)\nYield, irrigation (no irrigation in Australia), fertilizers (type and amount) and pesticides (total amount) application, diesel consumption and seed consumption based on the PEF Screening report for dry pasta.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7690,7 +7690,7 @@
     "unit": "kilogram",
     "identifier": "apple-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7724,7 +7724,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100459",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7758,7 +7758,7 @@
     "unit": "kilogram",
     "identifier": "potato-table-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7792,7 +7792,7 @@
     "unit": "kilogram",
     "identifier": "potato-industry-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7826,7 +7826,7 @@
     "unit": "kilogram",
     "identifier": "kiwi-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7860,7 +7860,7 @@
     "unit": "kilogram",
     "identifier": "red-cabbage-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7894,7 +7894,7 @@
     "unit": "kilogram",
     "identifier": "sugar-beet-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7928,7 +7928,7 @@
     "unit": "kilogram",
     "identifier": "papaya-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7962,7 +7962,7 @@
     "unit": "kilogram",
     "identifier": "tomato-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7996,7 +7996,7 @@
     "unit": "kilogram",
     "identifier": "pineapple-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8030,7 +8030,7 @@
     "unit": "kilogram",
     "identifier": "garden-peas-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8064,7 +8064,7 @@
     "unit": "kilogram",
     "identifier": "almond-inshell-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8098,7 +8098,7 @@
     "unit": "kilogram",
     "identifier": "lettuce-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8132,7 +8132,7 @@
     "unit": "kilogram",
     "identifier": "mango-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8166,7 +8166,7 @@
     "unit": "kilogram",
     "identifier": "lychee-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8200,7 +8200,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109086",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "BRAZIL",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8234,7 +8234,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110378",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8268,7 +8268,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114832",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8302,7 +8302,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100974",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8336,7 +8336,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100976",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8370,7 +8370,7 @@
     "unit": "kilogram",
     "identifier": "banana-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8404,7 +8404,7 @@
     "unit": "kilogram",
     "identifier": "orange-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8438,7 +8438,7 @@
     "unit": "kilogram",
     "identifier": "lemon-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8472,7 +8472,7 @@
     "unit": "kilogram",
     "identifier": "celery-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8506,7 +8506,7 @@
     "unit": "kilogram",
     "identifier": "olive-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8540,7 +8540,7 @@
     "unit": "kilogram",
     "identifier": "peanut-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8574,7 +8574,7 @@
     "unit": "kilogram",
     "identifier": "raspberry-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8608,7 +8608,7 @@
     "unit": "kilogram",
     "identifier": "lambs-lettuce-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8642,7 +8642,7 @@
     "unit": "kilogram",
     "identifier": "endive-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8676,7 +8676,7 @@
     "unit": "kilogram",
     "identifier": "durum-wheat-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8710,7 +8710,7 @@
     "unit": "kilogram",
     "identifier": "onion-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8744,7 +8744,7 @@
     "unit": "kilogram",
     "identifier": "rice-basmati-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8778,7 +8778,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100967",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Economic allocation based on FEFAC (2015)",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8812,7 +8812,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116024",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8846,7 +8846,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105752",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8880,7 +8880,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110915",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8914,7 +8914,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100242",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8948,7 +8948,7 @@
     "unit": "kilogram",
     "identifier": "radish-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8982,7 +8982,7 @@
     "unit": "kilogram",
     "identifier": "lentils-uncooked-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9016,7 +9016,7 @@
     "unit": "kilogram",
     "identifier": "apricot-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9050,7 +9050,7 @@
     "unit": "kilogram",
     "identifier": "leek-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9084,7 +9084,7 @@
     "unit": "kilogram",
     "identifier": "cherry-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9118,7 +9118,7 @@
     "unit": "kilogram",
     "identifier": "plum-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9152,7 +9152,7 @@
     "unit": "kilogram",
     "identifier": "shallot-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9186,7 +9186,7 @@
     "unit": "kilogram",
     "identifier": "blueberry-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9220,7 +9220,7 @@
     "unit": "kilogram",
     "identifier": "spinach-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9254,7 +9254,7 @@
     "unit": "kilogram",
     "identifier": "watermelon-organic",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9288,7 +9288,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200246",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9322,7 +9322,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200246",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9356,7 +9356,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110393",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Feed mixture inventory is built for 1 kg DM, but contains inputs with various DM content, for a total fresh matter above 1 kg.\nThe average DM of this mixture is 0.89, hence transport modelling should add an additional mass of 0.11 kg/kg DM for the water content.\nGross energy content is 19.70 MJ/kg DM and crude protein content is 46.4%.\nProportions between the oilseeds estimated based on FAOSTAT 2017 data at global level",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9390,7 +9390,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200276",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9424,7 +9424,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106967",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9458,7 +9458,7 @@
     "unit": "kilogram",
     "identifier": "WFLDBQUA000001234500334",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Average yield for sweet and sour cherries according to faostat data from 2012 to 2016.",
     "source": "WFLDB",
     "impacts": {
@@ -9492,7 +9492,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105775",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Modification : ITERG\n\nIncluded processes: This process includes the refining of crude palm oil, in Europe. Transport of inputs are considered. System boundary is at the oil mill.\nRemark: Inventory refers to the production of 1 kg refined palm oil, respectively 0,07 kg of Fatty Acids Distallates.   \nEconomic allocation : Economic Allocation between refined palm oil and palm oil fatty acids distillates\nPalm oil : 803/T",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9526,7 +9526,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108737",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Dataset of the production of refined linseed oil in France. It includes crushing of linseed grain, representative of French consumption mix, and refining of crude oil. \n3,36 kg of linseed are needed for the production of 1kg of refined Linseed oil and Linseed oil cake.\nEconomic allocation is made between oil, cake and refining co-products\nPrice for 1 kg Linseed oil = 1,49 /kg ; price for 1 kg Linseed oil cake = 0,286/kg, according to WFLDB economic value. Price for soap stocks and deodorization condensates were approximated from the economic values of rapeseed co-products: 0,2179 /kg Linseed soap stock, 0,2179 /kg Linseed deodorisation condensates.\nIncluding consumptions at crushing and refining\nData for crushing come from AGRIBALYSE 1.4 datateset  \"Flaxseed crushing, processing/FR U\", from AGRIBALYSE 1.4, based on expert informations. Data from crude Linseed oil refining are based on industrial data for 2013, representative of refining step for linseed oil in France.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9560,7 +9560,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106915",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Data are representative of refined grapeseed oil production from dry grapeseed. 7,18kg of dry grapeseed are needed to produce 1kg of refined grapeseed oil and 5,87 of grapeseed oil meal. Data source : Data source : industrial data, representative for crushing and refining of grapeseed oil in France.\nEconomic Allocation\nEconomic value from AGECO report : 1,71/kg of refined grapeseed oil, 0,212/kg of grapeseed oil meal, 0,21792/kg of grapeseed soap stock, 0,21792/kg of grapeseed deodorization condensate\nData source : industrial data, representative for grapeseed drying. Reference year : 2014",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9594,7 +9594,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114609",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Data are representative of refined soybean oil production from soybean seeds. 5,4k g of soybean seeds are needed to produce 1 kg of refined soybean oil and 4,24 kg of soybean oil cake. \nData source : industrial data, representative for crushing and refining of soybean oil in Europe. Data from FEDIOL, 2013. Life cycle assessment of EU Oilseed Crushing and Vegetable oil refining. Final report 59 pages\nEconomic Allocation\nEconomic value from FEDIOL report : 0,809/kg of refined soybean oil, 0,297/kg of soybean oil meal, 0,6/kg of soybean lecithin, 0,35/kg of soybean soap stock\n\nThe consumption mix of soybean oil in France was determined with importation and production data from FAOSTAT (average 2015-2019). The average conusmption mix (2015-2019) was : France, 70%, Spain, 12%, others origins (mainly UE countries)  : 18%. Only French  origin are considered in this datasets, representing 70% of market mix",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9628,7 +9628,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107299",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Dataset of the production of crude hazelnut oil in France. It includes crushing of unshelled hazelnut kernel, by mechanical cold pressing. \n2,5 kg of unshelled hazelnut are needed for the production of 1 kg of crude hazelnut oil and 1,5 of hazelnut oil cake. \n\nEconomic allocation is made between oil and cake\nPrice for 1 kg crude Hazelnut  oil = 4  TL/ kg (0,4/kg) \n Price for 1 kg Hazelnut oil  cake = 1 TL/kg ( 0,10/kg). Source : Turkish Grain Board (TMO)\nData from ITERG, based on cold pressing for rapeseed seeds",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9662,7 +9662,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110968",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "Production of 1kg refined peanut oil in Senegal\nSource : Schmidt, J. H. (2015). Life cycle assessment of five vegetable oils\nAllocation is based on the price ratio of cake : oil = 0.10\nEconomic allocation is applied. Price for 1 kg Peanut oil = 0.51 US $/pound; price for 1 kg Peanut oil cake = 0.05 US $/pound.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9696,7 +9696,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115161",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9517/kg of refined sunflower oil",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9730,7 +9730,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112440",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9192/kg of refined rapeseed oil",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9764,7 +9764,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105717",
     "system_description": "",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This dataset represents the virgin oil extraction in Spain from olive produced in Spain. \n\nIncluded processes: This process includes the production of olive in Spain, cleaning and rinsing of harvest olives and Extra Virgin Olive Oil extraction from two phases process. \nRemark : Inventory refers to the production of 1kg of Extra Virgin Olive Oil and 4,46 kg of pomace from 5,83 kg of harvest olives. System boundary is at Spain mill. Electricity, water consumption and extraction Yield_ are based on default value proposed by PEFCR for Olive rules (3rd Draft, 2016). \nEconomic Allocation is applied between Extra Virgin Olive Oil and pomace, based on price proposed in PEFCR : Extra Virgin Olive Oil : 1,88/kg and Pomace : 0,01/kg\nGeography: Extra Virgin Olive Oil production in Spain\nTechnology: Extra Virgin Olive Oil extraction two phases, representative of extraction process in Spain. \nTime period: Data from PEFCR Olive Oil, 2016,",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9798,7 +9798,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106208",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This process describes the production of Fresh cream cheese, plain, creamy, around 8% fat in France.\nIncluded activities are : production in country of origin and transport",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9832,7 +9832,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110475",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "This process describes the average consumption mix of dried Onions in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9866,7 +9866,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103004",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9900,7 +9900,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105140",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9934,7 +9934,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105126",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9968,7 +9968,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105535",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "(3,3,2,1,2),",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -10002,7 +10002,7 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103498",
     "system_description": "AGRIBALYSE",
-    "categories": null,
+    "category": "ingredient",
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
