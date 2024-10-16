@@ -18,6 +18,8 @@ def spproject(activity):
         case "Ecobalyse":
             # return a non existing project to force looking at brightway
             return "EcobalyseIsNotASimaProProject"
+        case "Ecoinvent 3.9.1":
+            return "ADEME UPR"
         case _:
             return "AGB3.1.1 2023-03-06"
 
