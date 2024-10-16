@@ -431,6 +431,7 @@ objectExamplesExplorer db tableConfig tableState maybeId =
             }
     in
     [ scoredExamples
+        |> List.filter (Tuple.first >> .query >> (/=) ObjectQuery.default)
         |> List.sortBy (Tuple.first >> .name)
         |> Table.viewList OpenDetail tableConfig tableState Scope.Object (ObjectExamples.table max)
     , case maybeId of
