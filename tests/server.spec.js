@@ -554,11 +554,11 @@ describe("API", () => {
 
           // Add tolerance check for impacts
           Object.entries(impacts).forEach(([key, value]) => {
-            expect(response.body.results.total[key]).toBeCloseTo(value, 6);
+            expect(response.body.results.total[key]).toBeCloseTo(value, 12);
           });
 
           Object.entries(scoring).forEach(([key, value]) => {
-            expect(response.body.results.scoring[key]).toBeCloseTo(value, 6);
+            expect(response.body.results.scoring[key]).toBeCloseTo(value, 12);
           });
         });
       }
