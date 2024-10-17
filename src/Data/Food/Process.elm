@@ -200,16 +200,16 @@ decodeProcess impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "name", Encode.string (nameToString process.name) )
-        , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "impacts", Impact.encode process.impacts )
-        , ( "unit", encodeStringUnit process.unit )
-        , ( "identifier", encodeIdentifier process.identifier )
-        , ( "categories", Encode.list encodeCategory process.categories )
-        , ( "system_description", Encode.string process.systemDescription )
+        [ ( "categories", Encode.list encodeCategory process.categories )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "id", Encode.string process.id_ )
+        , ( "identifier", encodeIdentifier process.identifier )
+        , ( "impacts", Impact.encode process.impacts )
+        , ( "name", Encode.string (nameToString process.name) )
         , ( "source", Encode.string process.source )
+        , ( "system_description", Encode.string process.systemDescription )
+        , ( "unit", encodeStringUnit process.unit )
         ]
 
 
