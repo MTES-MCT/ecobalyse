@@ -1,6 +1,5 @@
 [
   {
-    "uuid": "elec-medium-region-asia",
     "name": "electricity, medium voltage//[RAS] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Asie",
     "info": "Energie > Electricité > Mix moyen",
@@ -8,6 +7,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "elec-medium-region-asia",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -38,7 +38,6 @@
     }
   },
   {
-    "uuid": "elec-medium-region-africa",
     "name": "electricity, medium voltage//[RAF] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Afrique",
     "info": "Energie > Electricité > Mix moyen",
@@ -46,6 +45,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "elec-medium-region-africa",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -76,7 +76,6 @@
     }
   },
   {
-    "uuid": "elec-medium-region-middle-east",
     "name": "electricity, medium voltage//[RME] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Moyen-Orient",
     "info": "Energie > Electricité > Mix moyen",
@@ -84,6 +83,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "elec-medium-region-middle-east",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -114,7 +114,6 @@
     }
   },
   {
-    "uuid": "elec-medium-region-latin-america",
     "name": "electricity, medium voltage//[RLA] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Amérique latine",
     "info": "Energie > Electricité > Mix moyen",
@@ -122,6 +121,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "elec-medium-region-latin-america",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -152,7 +152,6 @@
     }
   },
   {
-    "uuid": "elec-medium-region-north-america",
     "name": "electricity, medium voltage//[RNA] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Amérique du nord",
     "info": "Energie > Electricité > Mix moyen",
@@ -160,6 +159,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "elec-medium-region-north-america",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -190,7 +190,6 @@
     }
   },
   {
-    "uuid": "53c7378e585cf74cea4837819be6e631",
     "name": "electricity, medium voltage//[AU] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Australie",
     "info": "Energie > Electricité > Mix moyen",
@@ -198,6 +197,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "53c7378e585cf74cea4837819be6e631",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -228,7 +228,6 @@
     }
   },
   {
-    "uuid": "8bbc2475141687462993329f9b7c2ddf",
     "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Chine",
     "info": "Energie > Electricité > Mix moyen",
@@ -236,6 +235,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "8bbc2475141687462993329f9b7c2ddf",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -266,7 +266,6 @@
     }
   },
   {
-    "uuid": "d33cefdc558e3fe890174e6f1e205015",
     "name": "electricity, medium voltage//[AL] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Albanie",
     "info": "Energie > Electricité > Mix moyen",
@@ -274,6 +273,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "d33cefdc558e3fe890174e6f1e205015",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -304,7 +304,6 @@
     }
   },
   {
-    "uuid": "debdaaba938a58ac1ab0131e47186092",
     "name": "electricity, medium voltage//[PE] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Pérou",
     "info": "Energie > Electricité > Mix moyen",
@@ -312,6 +311,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "debdaaba938a58ac1ab0131e47186092",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -342,7 +342,6 @@
     }
   },
   {
-    "uuid": "609797e4710a81c9903bc72c141ff191",
     "name": "electricity, medium voltage//[NZ] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Nouvelle-Zélande",
     "info": "Energie > Electricité > Mix moyen",
@@ -350,6 +349,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "609797e4710a81c9903bc72c141ff191",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -380,7 +380,6 @@
     }
   },
   {
-    "uuid": "d3287580187139b11ce76f80013510d0",
     "name": "electricity, medium voltage//[MA] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Maroc",
     "info": "Energie > Electricité > Mix moyen",
@@ -388,6 +387,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "d3287580187139b11ce76f80013510d0",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -418,7 +418,6 @@
     }
   },
   {
-    "uuid": "e5f92d33532b4e649da2541b264fa363",
     "name": "electricity, medium voltage//[KE] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Kenya",
     "info": "Energie > Electricité > Mix moyen",
@@ -426,6 +425,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "e5f92d33532b4e649da2541b264fa363",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -456,7 +456,6 @@
     }
   },
   {
-    "uuid": "ae9240745e54987338d2228c3be2a5ec",
     "name": "electricity, medium voltage//[IT] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Italie",
     "info": "Energie > Electricité > Mix moyen",
@@ -464,6 +463,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "ae9240745e54987338d2228c3be2a5ec",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -494,7 +494,6 @@
     }
   },
   {
-    "uuid": "region-elec-west-europe",
     "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Europe",
     "info": "Energie > Electricité > Mix moyen",
@@ -502,6 +501,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "region-elec-west-europe",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -532,7 +532,6 @@
     }
   },
   {
-    "uuid": "80ff4bc21a0e197ea3f69d809fd8d4f1",
     "name": "electricity, medium voltage//[ES] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Espagne",
     "info": "Energie > Electricité > Mix moyen",
@@ -540,6 +539,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "80ff4bc21a0e197ea3f69d809fd8d4f1",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -570,7 +570,6 @@
     }
   },
   {
-    "uuid": "3c131d87f8dd997d14d2ffc3477f83e6",
     "name": "electricity, medium voltage//[FR] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, France",
     "info": "Energie > Electricité > Mix moyen",
@@ -578,6 +577,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "3c131d87f8dd997d14d2ffc3477f83e6",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -608,7 +608,6 @@
     }
   },
   {
-    "uuid": "4968e9f8cf72cb72700d94b242048db0",
     "name": "electricity, medium voltage//[MM] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Myanmar",
     "info": "Energie > Electricité > Mix moyen",
@@ -616,6 +615,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "4968e9f8cf72cb72700d94b242048db0",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -646,7 +646,6 @@
     }
   },
   {
-    "uuid": "4ee8150b0cbf3603e03345d780ba7a61",
     "name": "electricity, medium voltage//[IN] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Inde",
     "info": "Energie > Electricité > Mix moyen",
@@ -654,6 +653,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "4ee8150b0cbf3603e03345d780ba7a61",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -684,7 +684,6 @@
     }
   },
   {
-    "uuid": "elasthane-lycra",
     "name": "Elasthane (Lycra)",
     "displayName": "Elasthane (Lycra)",
     "info": "Textile > Matières > Matières synthétiques",
@@ -692,11 +691,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Matières",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0.270519,
-    "alias": null,
+    "uuid": "elasthane-lycra",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -719,10 +714,14 @@
       "wtu": 0,
       "pef": 656.9997972762471,
       "ecs": 465.1927137565123
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0.270519,
+    "alias": null
   },
   {
-    "uuid": "75b27555d86fe1c66686cdf4339efc89",
     "name": "polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
     "displayName": "Production de plexiglas (Polyméthacrylate de méthyle)",
     "info": "Textile > Matières > Matières synthétiques",
@@ -730,6 +729,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "75b27555d86fe1c66686cdf4339efc89",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -760,7 +760,6 @@
     }
   },
   {
-    "uuid": "4d81aa5f76872e1e4c0e1bb14b01e93b",
     "name": "fibre, jute//[RoW] fibre production, jute, retting",
     "displayName": "Production de jute, rouissage",
     "info": "Textile > Matières > Matières naturelles",
@@ -768,6 +767,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "4d81aa5f76872e1e4c0e1bb14b01e93b",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -798,7 +798,6 @@
     }
   },
   {
-    "uuid": "6e442b958af0d26f85ecacce2eeb23d0",
     "name": "polypropylene, granulate//[RoW] polypropylene production, granulate",
     "displayName": "Production de polypropylène, granulés",
     "info": "Textile > Matières > Matières synthétiques",
@@ -806,6 +805,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "6e442b958af0d26f85ecacce2eeb23d0",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -836,7 +836,6 @@
     }
   },
   {
-    "uuid": "f32024fc5e736e01fa14321363900581",
     "name": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous",
     "displayName": "Production de PET, granulés, amorphe",
     "info": "Textile > Matières > Matières synthétiques",
@@ -844,6 +843,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "f32024fc5e736e01fa14321363900581",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -874,7 +874,6 @@
     }
   },
   {
-    "uuid": "087896096b5bede914ef3ec1062b1c02",
     "name": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled",
     "displayName": "Production de PET recyclé, granulés, amorphe",
     "info": "Textile > Matières > Matières synthétiques",
@@ -882,6 +881,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "087896096b5bede914ef3ec1062b1c02",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -912,7 +912,6 @@
     }
   },
   {
-    "uuid": "88a1395a1c61be31b0bc692e977dd10b",
     "name": "nylon 6-6//[RoW] nylon 6-6 production",
     "displayName": "Production de nylon 6-6",
     "info": "Textile > Matières > Matières synthétiques",
@@ -920,6 +919,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "88a1395a1c61be31b0bc692e977dd10b",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -950,7 +950,6 @@
     }
   },
   {
-    "uuid": "cf76c9e1872effbd04d49aec742e7952",
     "name": "fibre, flax//[RoW] fibre production, flax, retting",
     "displayName": "Production de fibres de lin, rouissage",
     "info": "Textile > Matières > Matières naturelles",
@@ -958,6 +957,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "cf76c9e1872effbd04d49aec742e7952",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -988,7 +988,6 @@
     }
   },
   {
-    "uuid": "wool-default",
     "name": "Laine par défaut",
     "displayName": "Laine par défaut",
     "info": "Textile > Matières > Matières naturelles",
@@ -996,11 +995,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Matières",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0.538462,
-    "alias": null,
+    "uuid": "wool-default",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1023,10 +1018,14 @@
       "wtu": 0,
       "pef": 4646.846238265962,
       "ecs": 3897.0533539547723
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0.538462,
+    "alias": null
   },
   {
-    "uuid": "wool-new",
     "name": "Laine nouvelle filière",
     "displayName": "Laine nouvelle filière",
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
@@ -1034,11 +1033,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Matières",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0.538462,
-    "alias": null,
+    "uuid": "wool-new",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1061,10 +1056,14 @@
       "wtu": 0,
       "pef": 502.36175453936755,
       "ecs": 421.303024942336
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0.538462,
+    "alias": null
   },
   {
-    "uuid": "a211822aabe83653a6079b9d5677daed",
     "name": "fibre, cotton//[RoW] fibre production, cotton, ginning",
     "displayName": "Production de fibres de coton",
     "info": "Textile > Matières > Matières naturelles",
@@ -1072,6 +1071,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "a211822aabe83653a6079b9d5677daed",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1102,7 +1102,6 @@
     }
   },
   {
-    "uuid": "coton-bio",
     "name": "Production de fibres de coton bio",
     "displayName": "Production de fibres de coton bio",
     "info": "Textile > Matières > Matières naturelles",
@@ -1110,11 +1109,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Matières",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0.105105,
-    "alias": null,
+    "uuid": "coton-bio",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1137,10 +1132,14 @@
       "wtu": 0,
       "pef": 736.2192841211813,
       "ecs": 607.6646898409342
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0.105105,
+    "alias": null
   },
   {
-    "uuid": "fa590941e8bbf72c8956b5c3ba793eb7",
     "name": "sunn hemp plant, harvested//[RoW] sunn hemp production",
     "displayName": "Production de chanvre",
     "info": "Textile > Matières > Matières naturelles",
@@ -1148,6 +1147,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "fa590941e8bbf72c8956b5c3ba793eb7",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1178,7 +1178,6 @@
     }
   },
   {
-    "uuid": "f89bba0c170190e003fa3f643591cca5",
     "name": "fibre, viscose//[GLO] market for fibre, viscose",
     "displayName": "Fibre de viscose",
     "info": "Textile > Matières > Matières synthétiques",
@@ -1186,6 +1185,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
+    "uuid": "f89bba0c170190e003fa3f643591cca5",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1216,7 +1216,6 @@
     }
   },
   {
-    "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "name": "Production de coton recyclé (déchets post-consommation)",
     "displayName": "Production de coton recyclé (déchets post-consommation)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
@@ -1224,11 +1223,7 @@
     "source": "Custom",
     "correctif": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature",
     "step_usage": "Matières",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0.631206,
-    "alias": null,
+    "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1251,10 +1246,14 @@
       "wtu": 0,
       "pef": 221.26277508920253,
       "ecs": 179.4597612653979
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0.631206,
+    "alias": null
   },
   {
-    "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "name": "Production de coton recyclé (déchets de production)",
     "displayName": "Production de coton recyclé (déchets de production)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
@@ -1262,11 +1261,7 @@
     "source": "Custom",
     "correctif": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature",
     "step_usage": "Matières",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0.21716,
-    "alias": null,
+    "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1289,10 +1284,14 @@
       "wtu": 0,
       "pef": 185.4743814674453,
       "ecs": 147.0722431566515
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0.21716,
+    "alias": null
   },
   {
-    "uuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
     "name": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
     "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
     "info": "Textile > Mise en forme > Tricotage",
@@ -1300,11 +1299,7 @@
     "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 8.64,
-    "waste": 0.0576,
-    "alias": "knitting-mix",
+    "uuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1327,10 +1322,14 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 8.64,
+    "waste": 0.0576,
+    "alias": "knitting-mix"
   },
   {
-    "uuid": "6524ac1e-cc95-4b5a-b462-2fccad7a0bce",
     "name": "Tricotage fully-fashioned",
     "displayName": "Tricotage fully-fashioned",
     "info": "Textile > Mise en forme > Tricotage",
@@ -1338,11 +1337,7 @@
     "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 6.06443,
-    "waste": 0.00502513,
-    "alias": "knitting-fully-fashioned",
+    "uuid": "6524ac1e-cc95-4b5a-b462-2fccad7a0bce",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1365,10 +1360,14 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 6.06443,
+    "waste": 0.00502513,
+    "alias": "knitting-fully-fashioned"
   },
   {
-    "uuid": "11648b33-f117-4eca-bb09-233c0ad0757f",
     "name": "Tricotage seamless",
     "displayName": "Tricotage seamless",
     "info": "Textile > Mise en forme > Tricotage",
@@ -1376,11 +1375,7 @@
     "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 13.2112,
-    "waste": 0.00502513,
-    "alias": "knitting-seamless",
+    "uuid": "11648b33-f117-4eca-bb09-233c0ad0757f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1403,10 +1398,14 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 13.2112,
+    "waste": 0.00502513,
+    "alias": "knitting-seamless"
   },
   {
-    "uuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "name": "Tissage (habillement)",
     "displayName": "Tissage (habillement)",
     "info": "Textile > Mise en forme > Tissage",
@@ -1414,11 +1413,7 @@
     "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
-    "heat_MJ": 0,
-    "elec_pppm": 0.0003145,
-    "elec_MJ": 0,
-    "waste": 0.0667,
-    "alias": "weaving",
+    "uuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1441,10 +1436,14 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0.0003145,
+    "elec_MJ": 0,
+    "waste": 0.0667,
+    "alias": "weaving"
   },
   {
-    "uuid": "03c769d5-46b6-4cf9-80f8-f2712692a6ab",
     "name": "Teinture sur étoffe",
     "displayName": "Teinture sur étoffe",
     "info": "Textile > Ennoblissement > Teinture",
@@ -1452,11 +1451,7 @@
     "source": "Base Impacts 2.01",
     "correctif": "non applicable",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 25.87,
-    "elec_pppm": 0,
-    "elec_MJ": 7.17,
-    "waste": 0,
-    "alias": "dyeing-fabric",
+    "uuid": "03c769d5-46b6-4cf9-80f8-f2712692a6ab",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1479,10 +1474,14 @@
       "wtu": 0,
       "pef": 60.189078724645206,
       "ecs": 49.99898649279352
-    }
+    },
+    "heat_MJ": 25.87,
+    "elec_pppm": 0,
+    "elec_MJ": 7.17,
+    "waste": 0,
+    "alias": "dyeing-fabric"
   },
   {
-    "uuid": "af54556c-5f74-4f2c-8531-d002eda9d793",
     "name": "Teinture sur pièce",
     "displayName": "Teinture sur pièce",
     "info": "Textile > Ennoblissement > Teinture",
@@ -1490,11 +1489,7 @@
     "source": "Base Impacts 2.01",
     "correctif": "non applicable",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 30.06,
-    "elec_pppm": 0,
-    "elec_MJ": 9.22,
-    "waste": 0,
-    "alias": "dyeing-article",
+    "uuid": "af54556c-5f74-4f2c-8531-d002eda9d793",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1517,10 +1512,14 @@
       "wtu": 0,
       "pef": 94.30202340574051,
       "ecs": 78.78597840930105
-    }
+    },
+    "heat_MJ": 30.06,
+    "elec_pppm": 0,
+    "elec_MJ": 9.22,
+    "waste": 0,
+    "alias": "dyeing-article"
   },
   {
-    "uuid": "b15afd1b-e7c0-4fbf-9f7b-b2a8b7e74bc7",
     "name": "Teinture sur fil",
     "displayName": "Teinture sur fil",
     "info": "Textile > Ennoblissement > Teinture",
@@ -1528,11 +1527,7 @@
     "source": "Base Impacts 2.01",
     "correctif": "non applicable",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 33.42,
-    "elec_pppm": 0,
-    "elec_MJ": 10.15,
-    "waste": 0,
-    "alias": "dyeing-yarn",
+    "uuid": "b15afd1b-e7c0-4fbf-9f7b-b2a8b7e74bc7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1555,10 +1550,14 @@
       "wtu": 0,
       "pef": 72.46288021314761,
       "ecs": 60.47104887932729
-    }
+    },
+    "heat_MJ": 33.42,
+    "elec_pppm": 0,
+    "elec_MJ": 10.15,
+    "waste": 0,
+    "alias": "dyeing-yarn"
   },
   {
-    "uuid": "86ac591e1e5c1d96a0d004ac830563d9",
     "name": "transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
     "displayName": "transport maritime",
     "info": "Transport > Maritime > Flotte moyenne",
@@ -1566,6 +1565,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "non applicable",
     "step_usage": "Transport",
+    "uuid": "86ac591e1e5c1d96a0d004ac830563d9",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1596,7 +1596,6 @@
     }
   },
   {
-    "uuid": "d3130e7ed9686fcc4bbe980e0375ad88",
     "name": "transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
     "displayName": "transport aérien long-courrier",
     "info": "Transport > Aérien > Flotte moyenne",
@@ -1604,6 +1603,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "non applicable",
     "step_usage": "Transport",
+    "uuid": "d3130e7ed9686fcc4bbe980e0375ad88",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1634,7 +1634,6 @@
     }
   },
   {
-    "uuid": "7037ea59d8d644fd35f80fd1982f9fe9",
     "name": "transport, freight train//[GLO] market group for transport, freight train",
     "displayName": "transport ferroviaire",
     "info": "Transport > Train > Flotte moyenne",
@@ -1642,6 +1641,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "non applicable",
     "step_usage": "Transport",
+    "uuid": "7037ea59d8d644fd35f80fd1982f9fe9",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1672,7 +1672,6 @@
     }
   },
   {
-    "uuid": "f37aba954435f9f158c19a9449d373b2",
     "name": "transport, freight, lorry, unspecified//[GLO] market group for transport, freight, lorry, unspecified",
     "displayName": "transport routier",
     "info": "Transport > Routier > Flotte moyenne continentale",
@@ -1680,6 +1679,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "non applicable",
     "step_usage": "Transport",
+    "uuid": "f37aba954435f9f158c19a9449d373b2",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1710,7 +1710,6 @@
     }
   },
   {
-    "uuid": "f49b27fa-f22e-c6e1-ab4b-e9f873e2e648",
     "name": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
     "displayName": "Transport en camion non spécifié France",
     "info": "Transport > Routier > Flotte moyenne française",
@@ -1718,11 +1717,7 @@
     "source": "Base Impacts 2.01",
     "correctif": "non applicable",
     "step_usage": "Transport",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0,
-    "alias": "distribution",
+    "uuid": "f49b27fa-f22e-c6e1-ab4b-e9f873e2e648",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1745,10 +1740,14 @@
       "wtu": 0,
       "pef": 24.033004439288668,
       "ecs": 20.604275167344298
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "distribution"
   },
   {
-    "uuid": "b42506cbed4b459815c78d741b453e8e",
     "name": "electricity, medium voltage//[TN] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Tunisie",
     "info": "Energie > Electricité > Mix moyen",
@@ -1756,6 +1755,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "b42506cbed4b459815c78d741b453e8e",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1786,7 +1786,6 @@
     }
   },
   {
-    "uuid": "32644303e316aebb9ffa31e9856c8f6b",
     "name": "electricity, medium voltage//[TR] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Turquie",
     "info": "Energie > Electricité > Mix moyen",
@@ -1794,6 +1793,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "32644303e316aebb9ffa31e9856c8f6b",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1824,7 +1824,6 @@
     }
   },
   {
-    "uuid": "0b69950358f3e8f0d3fb049d71481186",
     "name": "electricity, medium voltage//[BD] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Bangladesh",
     "info": "Energie > Electricité > Mix moyen",
@@ -1832,6 +1831,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "0b69950358f3e8f0d3fb049d71481186",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1862,7 +1862,6 @@
     }
   },
   {
-    "uuid": "825dae104f028cb558dac151f7c45f03",
     "name": "electricity, medium voltage//[BR] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Brésil",
     "info": "Energie > Electricité > Mix moyen",
@@ -1870,6 +1869,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "825dae104f028cb558dac151f7c45f03",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1900,7 +1900,6 @@
     }
   },
   {
-    "uuid": "2764d908c1a6fe88976d6eabf16295da",
     "name": "electricity, medium voltage//[CZ] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, République Tchèque",
     "info": "Energie > Electricité > Mix moyen",
@@ -1908,6 +1907,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "2764d908c1a6fe88976d6eabf16295da",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1938,7 +1938,6 @@
     }
   },
   {
-    "uuid": "2c27aa8ba10e717c63b8508b487909bd",
     "name": "electricity, medium voltage//[ET] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Éthiopie",
     "info": "Energie > Electricité > Mix moyen",
@@ -1946,6 +1945,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "2c27aa8ba10e717c63b8508b487909bd",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -1976,7 +1976,6 @@
     }
   },
   {
-    "uuid": "de2cd7848f853b1c9b8a5d7b0f255144",
     "name": "electricity, medium voltage//[KH] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Cambodge",
     "info": "Energie > Electricité > Mix moyen",
@@ -1984,6 +1983,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "de2cd7848f853b1c9b8a5d7b0f255144",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -2014,7 +2014,6 @@
     }
   },
   {
-    "uuid": "e0f11b283ad36b3da097649bee199149",
     "name": "electricity, medium voltage//[SK] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Sri Lanka",
     "info": "Energie > Electricité > Mix moyen",
@@ -2022,6 +2021,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "e0f11b283ad36b3da097649bee199149",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -2052,7 +2052,6 @@
     }
   },
   {
-    "uuid": "028c9bf863a1ab77a0e636029afc5839",
     "name": "electricity, medium voltage//[PK] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Pakistan",
     "info": "Energie > Electricité > Mix moyen",
@@ -2060,6 +2059,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "028c9bf863a1ab77a0e636029afc5839",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -2090,7 +2090,6 @@
     }
   },
   {
-    "uuid": "99b549d4ba7a0f5f4ab6050d6a6689ad",
     "name": "electricity, medium voltage//[US] market group for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, USA",
     "info": "Energie > Electricité > Mix moyen",
@@ -2098,6 +2097,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "99b549d4ba7a0f5f4ab6050d6a6689ad",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -2128,7 +2128,6 @@
     }
   },
   {
-    "uuid": "3f90d52cc1dfe32119bf53db2713c407",
     "name": "electricity, medium voltage//[VN] market for electricity, medium voltage",
     "displayName": "Électricité moyenne tension, Viet Nam",
     "info": "Energie > Electricité > Mix moyen",
@@ -2136,6 +2135,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Energie",
+    "uuid": "3f90d52cc1dfe32119bf53db2713c407",
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
@@ -2166,7 +2166,6 @@
     }
   },
   {
-    "uuid": "heat-europe",
     "name": "Mix chaleur (Europe)",
     "displayName": "Mix chaleur (Europe)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
@@ -2174,11 +2173,7 @@
     "source": "Custom",
     "correctif": "Reconstitution du mix depuis Ecoinvent 3.9.1",
     "step_usage": "Energie",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0,
-    "alias": "heat-europe",
+    "uuid": "heat-europe",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2201,10 +2196,14 @@
       "wtu": 0,
       "pef": 4.443660504016495,
       "ecs": 3.798902256178208
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "heat-europe"
   },
   {
-    "uuid": "heat-row",
     "name": "Mix chaleur (Monde)",
     "displayName": "Mix chaleur (Monde)",
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
@@ -2212,11 +2211,7 @@
     "source": "Custom",
     "correctif": "Reconstitution du mix depuis Ecoinvent 3.9.1",
     "step_usage": "Energie",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0,
-    "alias": "heat-row",
+    "uuid": "heat-row",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2239,10 +2234,14 @@
       "wtu": 0,
       "pef": 7.827383319524371,
       "ecs": 6.571481291074802
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "heat-row"
   },
   {
-    "uuid": "406d1f98-1052-458d-8f50-1901853d896d",
     "name": "Utilisation : Impact hors repassage (Chemisier)",
     "displayName": "Utilisation : Impact hors repassage (Chemisier)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
@@ -2250,11 +2249,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0.80952,
-    "waste": 0,
-    "alias": null,
+    "uuid": "406d1f98-1052-458d-8f50-1901853d896d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2277,10 +2272,14 @@
       "wtu": 0,
       "pef": 18.84986033179577,
       "ecs": 15.133534579300138
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0.80952,
+    "waste": 0,
+    "alias": null
   },
   {
-    "uuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
     "name": "Utilisation : Impact hors repassage (Jean)",
     "displayName": "Utilisation : Impact hors repassage (Jean)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
@@ -2288,11 +2287,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 1.0266,
-    "waste": 0,
-    "alias": null,
+    "uuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2315,10 +2310,14 @@
       "wtu": 0,
       "pef": 18.84986033179577,
       "ecs": 15.133534579300138
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 1.0266,
+    "waste": 0,
+    "alias": null
   },
   {
-    "uuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
     "name": "Utilisation : Impact hors repassage (Jupe)",
     "displayName": "Utilisation : Impact hors repassage (Jupe)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
@@ -2326,11 +2325,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0.80952,
-    "waste": 0,
-    "alias": null,
+    "uuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2353,10 +2348,14 @@
       "wtu": 0,
       "pef": 18.84986033179577,
       "ecs": 15.133534579300138
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0.80952,
+    "waste": 0,
+    "alias": null
   },
   {
-    "uuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
     "name": "Utilisation : Impact hors repassage (Manteau)",
     "displayName": "Utilisation : Impact hors repassage (Manteau)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
@@ -2364,11 +2363,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0.9663,
-    "waste": 0,
-    "alias": null,
+    "uuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2391,10 +2386,14 @@
       "wtu": 0,
       "pef": 18.84986033179577,
       "ecs": 15.133534579300138
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0.9663,
+    "waste": 0,
+    "alias": null
   },
   {
-    "uuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
     "name": "Utilisation : Impact hors repassage (Pantalon)",
     "displayName": "Utilisation : Impact hors repassage (Pantalon)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
@@ -2402,11 +2401,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 1.0266,
-    "waste": 0,
-    "alias": null,
+    "uuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2429,10 +2424,14 @@
       "wtu": 0,
       "pef": 18.84986033179577,
       "ecs": 15.133534579300138
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 1.0266,
+    "waste": 0,
+    "alias": null
   },
   {
-    "uuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
     "name": "Utilisation : Impact hors repassage (Pull)",
     "displayName": "Utilisation : Impact hors repassage (Pull)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
@@ -2440,11 +2439,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 1.0266,
-    "waste": 0,
-    "alias": null,
+    "uuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2467,10 +2462,14 @@
       "wtu": 0,
       "pef": 18.84986033179577,
       "ecs": 15.133534579300138
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 1.0266,
+    "waste": 0,
+    "alias": null
   },
   {
-    "uuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
     "name": "Utilisation : Impact hors repassage (Robe)",
     "displayName": "Utilisation : Impact hors repassage (Robe)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
@@ -2478,11 +2477,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0.80952,
-    "waste": 0,
-    "alias": null,
+    "uuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2505,10 +2500,14 @@
       "wtu": 0,
       "pef": 18.84986033179577,
       "ecs": 15.133534579300138
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0.80952,
+    "waste": 0,
+    "alias": null
   },
   {
-    "uuid": "7f76529e-521d-4795-bb36-ff896c4692da",
     "name": "Utilisation : Impact hors repassage (T-shirt)",
     "displayName": "Utilisation : Impact hors repassage (T-shirt)",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
@@ -2516,11 +2515,7 @@
     "source": "Custom",
     "correctif": "",
     "step_usage": "Utilisation",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 1.0266,
-    "waste": 0,
-    "alias": null,
+    "uuid": "7f76529e-521d-4795-bb36-ff896c4692da",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2543,10 +2538,14 @@
       "wtu": 0,
       "pef": 18.84986033179577,
       "ecs": 15.133534579300138
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 1.0266,
+    "waste": 0,
+    "alias": null
   },
   {
-    "uuid": "1ead35dd-fc71-4b0c-9410-7e39da95c7dc",
     "name": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "displayName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "info": "Transport > Routier > Voiture individuelle",
@@ -2554,11 +2553,7 @@
     "source": "Base Impacts 2.01",
     "correctif": "non applicable",
     "step_usage": "Transport",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0,
-    "alias": "passenger-car",
+    "uuid": "1ead35dd-fc71-4b0c-9410-7e39da95c7dc",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2581,10 +2576,14 @@
       "wtu": 0,
       "pef": 2.184273654856301,
       "ecs": 1.9419221655062295
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "passenger-car"
   },
   {
-    "uuid": "266fa378-77c0-11ec-90d6-0242ac120003",
     "name": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "info": "Fin de vie > Aggrégation multi-impacts > ",
@@ -2592,11 +2591,7 @@
     "source": "Custom",
     "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
     "step_usage": "Fin de vie",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0,
-    "alias": "end-of-life",
+    "uuid": "266fa378-77c0-11ec-90d6-0242ac120003",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2619,10 +2614,14 @@
       "wtu": 0,
       "pef": 33.28066255209558,
       "ecs": 33.109583129370755
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "end-of-life"
   },
   {
-    "uuid": "364298ad-2058-4ec4-b2d0-47f5214abffb",
     "name": "Tricotage rectiligne",
     "displayName": "Tricotage rectiligne",
     "info": "Textile > Mise en forme > Tricotage",
@@ -2630,11 +2629,7 @@
     "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 4.194,
-    "waste": 0.0417,
-    "alias": "knitting-straight",
+    "uuid": "364298ad-2058-4ec4-b2d0-47f5214abffb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2657,10 +2652,14 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 4.194,
+    "waste": 0.0417,
+    "alias": "knitting-straight"
   },
   {
-    "uuid": "2e16787c-7a89-4883-acdf-37d3d362bdab",
     "name": "Tricotage circulaire",
     "displayName": "Tricotage circulaire",
     "info": "Textile > Mise en forme > Tricotage",
@@ -2668,11 +2667,7 @@
     "source": "Custom",
     "correctif": "non applicable",
     "step_usage": "Tissage / Tricotage",
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 4.25101,
-    "waste": 0.0351967,
-    "alias": "knitting-circular",
+    "uuid": "2e16787c-7a89-4883-acdf-37d3d362bdab",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2695,10 +2690,14 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 4.25101,
+    "waste": 0.0351967,
+    "alias": "knitting-circular"
   },
   {
-    "uuid": "49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb",
     "name": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
     "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
     "info": "Textile > Ennoblissement > Delavage",
@@ -2706,11 +2705,7 @@
     "source": "Base Impacts 2.01",
     "correctif": "non applicable",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 37.81,
-    "elec_pppm": 0,
-    "elec_MJ": 6.53,
-    "waste": 0,
-    "alias": "fading",
+    "uuid": "49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2733,10 +2728,14 @@
       "wtu": 0,
       "pef": 22.661695754677325,
       "ecs": 19.026268193565436
-    }
+    },
+    "heat_MJ": 37.81,
+    "elec_pppm": 0,
+    "elec_MJ": 6.53,
+    "waste": 0,
+    "alias": "fading"
   },
   {
-    "uuid": "710987ca-f483-4f1c-9122-38b620f4062b",
     "name": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
     "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
     "info": "Textile > Ennoblissement > Impression",
@@ -2744,11 +2743,7 @@
     "source": "Base Impacts 2.01",
     "correctif": "non applicable",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 7.25,
-    "elec_pppm": 0,
-    "elec_MJ": 4.56,
-    "waste": 0,
-    "alias": "printing-pigment",
+    "uuid": "710987ca-f483-4f1c-9122-38b620f4062b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2771,10 +2766,14 @@
       "wtu": 0,
       "pef": 8.354115771936371,
       "ecs": 6.9820662806393665
-    }
+    },
+    "heat_MJ": 7.25,
+    "elec_pppm": 0,
+    "elec_MJ": 4.56,
+    "waste": 0,
+    "alias": "printing-pigment"
   },
   {
-    "uuid": "0810b8e5-a3d9-4607-bccc-83d112573260",
     "name": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
     "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
     "info": "Textile > Ennoblissement > Impression",
@@ -2782,11 +2781,7 @@
     "source": "Base Impacts 2.01",
     "correctif": "non applicable",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 8.72,
-    "elec_pppm": 0,
-    "elec_MJ": 5.22,
-    "waste": 0,
-    "alias": "printing-substantive",
+    "uuid": "0810b8e5-a3d9-4607-bccc-83d112573260",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2809,10 +2804,14 @@
       "wtu": 0,
       "pef": 8.180265537420423,
       "ecs": 6.703583334489572
-    }
+    },
+    "heat_MJ": 8.72,
+    "elec_pppm": 0,
+    "elec_MJ": 5.22,
+    "waste": 0,
+    "alias": "printing-substantive"
   },
   {
-    "uuid": "63baddae-e05d-404b-a73f-371044a24fe9",
     "name": "Apprêt anti-tache, procédé représentatif, traitement moyen des eaux usées",
     "displayName": "Apprêt anti-tache, procédé représentatif, traitement moyen des eaux usées",
     "info": "Textile > Ennoblissement > Appret chimique",
@@ -2820,11 +2819,7 @@
     "source": "Base Impacts 2.01",
     "correctif": "non applicable",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 10.74,
-    "elec_pppm": 0,
-    "elec_MJ": 1.61,
-    "waste": 0,
-    "alias": "finishing",
+    "uuid": "63baddae-e05d-404b-a73f-371044a24fe9",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2847,10 +2842,14 @@
       "wtu": 0,
       "pef": 353.9410037138773,
       "ecs": 305.51384409572677
-    }
+    },
+    "heat_MJ": 10.74,
+    "elec_pppm": 0,
+    "elec_MJ": 1.61,
+    "waste": 0,
+    "alias": "finishing"
   },
   {
-    "uuid": "ecobalyse-teinture-fibres-synthetiques",
     "name": "Teinture fibres synthétiques",
     "displayName": "Teinture fibres synthétiques",
     "info": "Textile > Ennoblissement > Teinture",
@@ -2858,11 +2857,7 @@
     "source": "Custom",
     "correctif": "Inventaires enrichis (substances chimiques)",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 10.74,
-    "elec_pppm": 0,
-    "elec_MJ": 1.61,
-    "waste": 0,
-    "alias": "dyeing-synthetic-fiber",
+    "uuid": "ecobalyse-teinture-fibres-synthetiques",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2885,10 +2880,14 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 10.74,
+    "elec_pppm": 0,
+    "elec_MJ": 1.61,
+    "waste": 0,
+    "alias": "dyeing-synthetic-fiber"
   },
   {
-    "uuid": "ecobalyse-teinture-fibres-cellulosiques",
     "name": "Teinture fibres cellulosiques",
     "displayName": "Teinture fibres cellulosiques",
     "info": "Textile > Ennoblissement > Teinture",
@@ -2896,11 +2895,7 @@
     "source": "Custom",
     "correctif": "Inventaires enrichis (substances chimiques)",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 10.74,
-    "elec_pppm": 0,
-    "elec_MJ": 1.61,
-    "waste": 0,
-    "alias": "dyeing-cellulosic-fiber",
+    "uuid": "ecobalyse-teinture-fibres-cellulosiques",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2923,10 +2918,14 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 10.74,
+    "elec_pppm": 0,
+    "elec_MJ": 1.61,
+    "waste": 0,
+    "alias": "dyeing-cellulosic-fiber"
   },
   {
-    "uuid": "blanchiment",
     "name": "bleaching, textile//[RoW] bleaching, textile",
     "displayName": "Blanchiment",
     "info": "Textile > Ennoblissement > Blanchiment",
@@ -2934,6 +2933,7 @@
     "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Ennoblissement",
+    "uuid": "blanchiment",
     "heat_MJ": 10.74,
     "elec_pppm": 0,
     "elec_MJ": 1.61,
@@ -2964,7 +2964,6 @@
     }
   },
   {
-    "uuid": "ecobalyse-impression-pigmentaire",
     "name": "Impression (pigmentaire)",
     "displayName": "Impression (pigmentaire)",
     "info": "Textile > Ennoblissement > Impression",
@@ -2972,11 +2971,7 @@
     "source": "Custom",
     "correctif": "Inventaires enrichis (substances chimiques)",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 10.74,
-    "elec_pppm": 0,
-    "elec_MJ": 1.61,
-    "waste": 0,
-    "alias": "printing-paste",
+    "uuid": "ecobalyse-impression-pigmentaire",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2999,10 +2994,14 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 10.74,
+    "elec_pppm": 0,
+    "elec_MJ": 1.61,
+    "waste": 0,
+    "alias": "printing-paste"
   },
   {
-    "uuid": "ecobalyse-impression-fixe-lave-colorants",
     "name": "Impression fixé-lavé (colorants)",
     "displayName": "Impression fixé-lavé (colorants)",
     "info": "Textile > Ennoblissement > Impression",
@@ -3010,11 +3009,7 @@
     "source": "Custom",
     "correctif": "Inventaires enrichis (substances chimiques)",
     "step_usage": "Ennoblissement",
-    "heat_MJ": 10.74,
-    "elec_pppm": 0,
-    "elec_MJ": 1.61,
-    "waste": 0,
-    "alias": "printing-dyes",
+    "uuid": "ecobalyse-impression-fixe-lave-colorants",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3037,6 +3032,11 @@
       "wtu": 0,
       "pef": 0.0,
       "ecs": 0.0
-    }
+    },
+    "heat_MJ": 10.74,
+    "elec_pppm": 0,
+    "elec_MJ": 1.61,
+    "waste": 0,
+    "alias": "printing-dyes"
   }
 ]
