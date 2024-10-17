@@ -1,4 +1,4 @@
-import functools  # noqa: I001
+import functools
 import json
 import os
 import re
@@ -10,8 +10,9 @@ from zipfile import ZipFile
 import bw2data
 import bw2io
 from bw2io.strategies.generic import link_technosphere_by_activity_hash
-from common.export import create_activity, delete_exchange, new_exchange, search
 from tqdm import tqdm
+
+from common.export import create_activity, delete_exchange, new_exchange, search
 
 AGRIBALYSE_PACKAGINGS = [
     "PS",
