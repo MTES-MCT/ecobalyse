@@ -2,13 +2,87 @@
 import functools
 import json
 import logging
+import urllib.parse
 from copy import deepcopy
+from os.path import dirname
 
+import bw2calc
 import bw2data
+import matplotlib
+import numpy
+import pandas as pd
+import requests
 from bw2io.utils import activity_hash
 from frozendict import frozendict
 
+from common.impacts import impacts as impact_definitions
+
+from .impacts import bytrigram, main_method
+
 logging.basicConfig(level=logging.ERROR)
+
+PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
+IMPACTS_FILE = f"{PROJECT_ROOT_DIR}/public/data/impacts.json"
+COMPARED_IMPACTS_FILE = "compared_impacts.csv"
+
+
+with open(IMPACTS_FILE) as f:
+    IMPACTS_DEF_ECOBALYSE = json.load(f)
+
+
+def find_id(dbname, activity):
+    return cached_search(dbname, activity["search"]).get(
+        "Process identifier", activity["id"]
+    )
+
+
+def compute_simapro_impacts(activity, method):
+    strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
+    project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
+    method = urllib.parse.quote(main_method, encoding=None, errors=None)
+    return bytrigram(
+        impact_definitions,
+        json.loads(
+            requests.get(
+                f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
+            ).content
+        ),
+    )
+
+
+def compute_brightway_impacts(activity, method):
+    results = dict()
+    lca = bw2calc.LCA({activity: 1})
+    lca.lci()
+    for key, method in impact_definitions.items():
+        lca.switch_method(method)
+        lca.lcia()
+        results[key] = float("{:.10g}".format(lca.score))
+    return results
+
+
+def check_ids(ingredients):
+    # Check the id is lowercase and does not contain space
+    for ingredient in ingredients:
+        if (
+            ingredient["id"].lower() != ingredient["id"]
+            or ingredient["id"].replace(" ", "") != ingredient["id"]
+        ):
+            raise ValueError(
+                f"This identifier is not lowercase or contains spaces: {ingredient['id']}"
+            )
+
+
+def compute_normalization_factors():
+    normalization_factors = {}
+    for k, v in IMPACTS_DEF_ECOBALYSE.items():
+        if v["ecoscore"]:
+            normalization_factors[k] = (
+                v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
+            )
+        else:
+            normalization_factors[k] = 0
+    return normalization_factors
 
 
 def spproject(activity):
@@ -321,3 +395,152 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
     )
     new_exchange.save()
     logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
+
+
+def compute_impacts(frozen_processes, default_db):
+    """Add impacts to processes dictionary
+
+    Args:
+        frozen_processes (frozendict): dictionary of processes of which we want to compute the impacts
+    Returns:
+    dictionary of processes with impacts. Example :
+
+    {"sunflower-oil-organic": {
+        "id": "sunflower-oil-organic",
+        name": "...",
+        "impacts": {
+            "acd": 3.14,
+            ...
+            "ecs": 34.3,
+        },
+        "unit": ...
+        },
+    "tomato":{
+    ...
+    }
+    """
+    processes = dict(frozen_processes)
+    print("Computing impacts:")
+    for index, (_, process) in enumerate(processes.items()):
+        progress_bar(index, len(processes))
+        # simapro
+        activity = cached_search(process.get("source", default_db), process["search"])
+        results = compute_simapro_impacts(activity, main_method)
+        # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
+        if process["unit"] == "kilowatt hour" and isinstance(results, dict):
+            results = {k: v * 3.6 for k, v in results.items()}
+        if process["unit"] == "litre" and isinstance(results, dict):
+            results = {k: v / 1000 for k, v in results.items()}
+
+        process["impacts"] = results
+
+        if isinstance(results, dict) and results:
+            # simapro succeeded
+            process["impacts"] = results
+            print(f"got impacts from simapro for: {process['name']}")
+        else:
+            # simapro failed (unexisting Ecobalyse project or some other reason)
+            # brightway
+            process["impacts"] = compute_brightway_impacts(activity, main_method)
+            print(f"got impacts from brightway for: {process['name']}")
+
+        # compute subimpacts
+        process["impacts"] = with_subimpacts(process["impacts"])
+
+        # remove unneeded attributes
+        for attribute in ["search"]:
+            if attribute in process:
+                del process[attribute]
+
+    return frozendict({k: frozendict(v) for k, v in processes.items()})
+
+
+def compare_impacts(frozen_processes, default_db):
+    """This is compute_impacts slightly modified to store impacts from both bw and wp"""
+    processes = dict(frozen_processes)
+    print("Computing impacts:")
+    for index, (key, process) in enumerate(processes.items()):
+        progress_bar(index, len(processes))
+        # simapro
+        activity = cached_search(process.get("source", default_db), process["search"])
+        results = compute_simapro_impacts(activity, main_method)
+        print(f"got impacts from SimaPro for: {process['name']}")
+        # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
+        if process["unit"] == "kilowatt hour" and isinstance(results, dict):
+            results = {k: v * 3.6 for k, v in results.items()}
+        if process["unit"] == "litre" and isinstance(results, dict):
+            results = {k: v / 1000 for k, v in results.items()}
+
+        process["simapro_impacts"] = results
+
+        # brightway
+        process["brightway_impacts"] = compute_brightway_impacts(activity, main_method)
+        print(f"got impacts from Brightway for: {process['name']}")
+
+        # compute subimpacts
+        process["simapro_impacts"] = with_subimpacts(process["simapro_impacts"])
+        process["brightway_impacts"] = with_subimpacts(process["brightway_impacts"])
+
+    processes_corrected_simapro = with_corrected_impacts(
+        IMPACTS_DEF_ECOBALYSE, processes, "simapro_impacts"
+    )
+    processes_corrected_smp_bw = with_corrected_impacts(
+        IMPACTS_DEF_ECOBALYSE, processes_corrected_simapro, "brightway_impacts"
+    )
+
+    return frozendict({k: frozendict(v) for k, v in processes_corrected_smp_bw.items()})
+
+
+def plot_impacts(ingredient_name, impacts_smp, impacts_bw, folder):
+    impact_labels = impacts_smp.keys()
+    normalization_factors = compute_normalization_factors()
+
+    simapro_values = [
+        impacts_smp[label] * normalization_factors[label] for label in impact_labels
+    ]
+    brightway_values = [
+        impacts_bw[label] * normalization_factors[label] for label in impact_labels
+    ]
+
+    x = numpy.arange(len(impact_labels))
+    width = 0.35
+
+    fig, ax = matplotlib.pyplot.subplots(figsize=(12, 8))
+
+    ax.bar(x - width / 2, simapro_values, width, label="SimaPro")
+    ax.bar(x + width / 2, brightway_values, width, label="Brightway")
+
+    ax.set_xlabel("Impact Categories")
+    ax.set_ylabel("Impact Values")
+    ax.set_title(f"Environmental Impacts for {ingredient_name}")
+    ax.set_xticks(x)
+    ax.set_xticklabels(impact_labels, rotation=90)
+    ax.legend()
+
+    matplotlib.pyplot.tight_layout()
+    matplotlib.pyplot.savefig(f"{folder}/{ingredient_name}.png")
+    matplotlib.pyplot.close()
+
+
+def csv_export_impact_comparison(compared_impacts, folder):
+    rows = []
+    for product_id, process in compared_impacts.items():
+        simapro_impacts = process.get("simapro_impacts", {})
+        brightway_impacts = process.get("brightway_impacts", {})
+        for impact in simapro_impacts:
+            row = {
+                "id": product_id,
+                "name": process["name"],
+                "impact": impact,
+                "simapro": simapro_impacts.get(impact),
+                "brightway": brightway_impacts.get(impact),
+            }
+            row["diff_abs"] = abs(row["simapro"] - row["brightway"])
+            row["diff_rel"] = (
+                row["diff_abs"] / abs(row["simapro"]) if row["simapro"] != 0 else None
+            )
+
+            rows.append(row)
+
+    df = pd.DataFrame(rows)
+    df.to_csv(f"{PROJECT_ROOT_DIR}/data/{folder}/{COMPARED_IMPACTS_FILE}", index=False)
