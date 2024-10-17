@@ -69,7 +69,7 @@ def create_ingredient_list(activities_tuple):
         [
             to_ingredient(activity)
             for activity in list(activities_tuple)
-            if activity["category"] == "ingredient"
+            if "ingredient" in activity.get("process_categories", [])
         ]
     )
 
@@ -78,7 +78,7 @@ def to_ingredient(activity):
     return {
         "id": activity["id"],
         "name": activity["name"],
-        "categories": [c for c in activity["categories"] if c != "ingredient"],
+        "categories": activity.get("ingredient_categories", []),
         "search": activity["search"],
         "default": find_id(activity.get("database", DEFAULT_DB), activity),
         "default_origin": activity["default_origin"],
@@ -141,7 +141,7 @@ def to_process(activity):
         "system_description": cached_search(
             activity.get("database", DEFAULT_DB), activity["search"]
         )["System description"],
-        "category": activity.get("category"),
+        "categories": activity.get("process_categories"),
         "comment": (
             prod[0]["comment"]
             if (
