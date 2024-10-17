@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 """Ingredients and processes export for food"""
 
@@ -18,9 +17,10 @@ from common.export import (
     compute_impacts,
     csv_export_impact_comparison,
     display_changes,
-    export_json_ordered,
+    export_json,
     find_id,
     load_json,
+    order_json,
     plot_impacts,
     progress_bar,
     remove_detailed_impacts,
@@ -209,11 +209,15 @@ if __name__ == "__main__":
 
     # Export
 
-    export_json_ordered(activities_land_occ, ACTIVITIES_FILE)
-    export_json_ordered(ingredients_animal_es, INGREDIENTS_FILE)
+    export_json(order_json(activities_land_occ, ACTIVITIES_FILE))
+    export_json(order_json(ingredients_animal_es, INGREDIENTS_FILE))
     display_changes("id", oldprocesses, processes_corrected_impacts)
-    export_json_ordered(list(processes_aggregated_impacts.values()), PROCESSES_IMPACTS)
-    export_json_ordered(
-        remove_detailed_impacts(list(processes_aggregated_impacts.values())),
-        PROCESSES_AGGREGATED,
+    export_json(
+        order_json(list(processes_aggregated_impacts.values()), PROCESSES_IMPACTS)
+    )
+    export_json(
+        order_json(
+            remove_detailed_impacts(list(processes_aggregated_impacts.values())),
+            PROCESSES_AGGREGATED,
+        )
     )

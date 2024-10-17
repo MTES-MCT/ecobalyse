@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 """Materials and processes export for textile"""
 
@@ -16,13 +15,15 @@ from common.export import (
     compare_impacts,
     compute_impacts,
     display_changes,
-    export_json_ordered,
+    export_json,
     load_json,
+    order_json,
     plot_impacts,
     remove_detailed_impacts,
     with_aggregated_impacts,
     with_corrected_impacts,
 )
+from common.impacts import impacts as impact_definitions
 from frozendict import frozendict
 
 BW_DATABASES = bw2data.databases
@@ -146,9 +147,11 @@ if __name__ == "__main__":
     processes = create_process_list(activities)
 
     if len(sys.argv) == 1:  # just export.py
-        processes_impacts = compute_impacts(processes, DEFAULT_DB)
+        processes_impacts = compute_impacts(processes, DEFAULT_DB, impact_definitions)
     elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
-        impacts_compared_dic = compare_impacts(processes, DEFAULT_DB)
+        impacts_compared_dic = compare_impacts(
+            processes, DEFAULT_DB, impact_definitions
+        )
         csv_export_impact_comparison(impacts_compared_dic)
         for material_name, values in impacts_compared_dic.items():
             print(f"Plotting {material_name}")
@@ -173,11 +176,15 @@ if __name__ == "__main__":
 
     # Export
 
-    export_json_ordered(activities, ACTIVITIES_FILE)
-    export_json_ordered(materials, MATERIALS_FILE)
+    export_json(order_json(activities, ACTIVITIES_FILE))
+    export_json(order_json(materials, MATERIALS_FILE))
     display_changes("id", oldprocesses, processes_corrected_impacts)
-    export_json_ordered(list(processes_aggregated_impacts.values()), PROCESSES_IMPACTS)
-    export_json_ordered(
-        remove_detailed_impacts(list(processes_aggregated_impacts.values())),
-        PROCESSES_AGGREGATED,
+    export_json(
+        order_json(list(processes_aggregated_impacts.values()), PROCESSES_IMPACTS)
+    )
+    export_json(
+        order_json(
+            remove_detailed_impacts(list(processes_aggregated_impacts.values())),
+            PROCESSES_AGGREGATED,
+        )
     )

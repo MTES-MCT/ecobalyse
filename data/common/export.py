@@ -1,4 +1,3 @@
-# Only pure functions here
 import functools
 import json
 import logging
@@ -15,8 +14,6 @@ import requests
 from bw2io.utils import activity_hash
 from frozendict import frozendict
 
-from common.impacts import impacts as impact_definitions
-
 from .impacts import bytrigram, main_method
 
 logging.basicConfig(level=logging.ERROR)
@@ -24,41 +21,6 @@ logging.basicConfig(level=logging.ERROR)
 PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
 IMPACTS_FILE = f"{PROJECT_ROOT_DIR}/public/data/impacts.json"
 COMPARED_IMPACTS_FILE = "compared_impacts.csv"
-
-
-with open(IMPACTS_FILE) as f:
-    IMPACTS_DEF_ECOBALYSE = json.load(f)
-
-
-def find_id(dbname, activity):
-    return cached_search(dbname, activity["search"]).get(
-        "Process identifier", activity["id"]
-    )
-
-
-def compute_simapro_impacts(activity, method):
-    strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-    project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
-    method = urllib.parse.quote(main_method, encoding=None, errors=None)
-    return bytrigram(
-        impact_definitions,
-        json.loads(
-            requests.get(
-                f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
-            ).content
-        ),
-    )
-
-
-def compute_brightway_impacts(activity, method):
-    results = dict()
-    lca = bw2calc.LCA({activity: 1})
-    lca.lci()
-    for key, method in impact_definitions.items():
-        lca.switch_method(method)
-        lca.lcia()
-        results[key] = float("{:.10g}".format(lca.score))
-    return results
 
 
 def check_ids(ingredients):
@@ -73,9 +35,9 @@ def check_ids(ingredients):
             )
 
 
-def compute_normalization_factors():
+def compute_normalization_factors(impact_defs):
     normalization_factors = {}
-    for k, v in IMPACTS_DEF_ECOBALYSE.items():
+    for k, v in impact_defs.items():
         if v["ecoscore"]:
             normalization_factors[k] = (
                 v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
@@ -110,12 +72,11 @@ def remove_detailed_impacts(processes):
     return result
 
 
-def export_json_ordered(data, filename):
+def order_json(data, filename):
     """
     Export data to a JSON file, with added newline at the end.
     Make sure to sort impacts in the json file
     """
-    print(f"Exporting {filename}")
     if isinstance(data, list):
         sorted_data = [
             {**item, "impacts": sort_impacts(item["impacts"])}
@@ -132,11 +93,7 @@ def export_json_ordered(data, filename):
         }
     else:
         sorted_data = data
-
-    with open(filename, "w", encoding="utf-8") as file:
-        json.dump(sorted_data, file, indent=2, ensure_ascii=False)
-        file.write("\n")  # Add a newline at the end of the file
-    print(f"\nExported {len(data)} elements to {filename}")
+    return sorted_data
 
 
 def sort_impacts(impacts):
@@ -165,14 +122,6 @@ def sort_impacts(impacts):
         "ecs",
     ]
     return {key: impacts[key] for key in impact_order if key in impacts}
-
-
-def load_json(filename):
-    """
-    Load JSON data from a file.
-    """
-    with open(filename, "r") as file:
-        return json.load(file)
 
 
 def progress_bar(index, total):
@@ -397,7 +346,7 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
     logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
 
 
-def compute_impacts(frozen_processes, default_db):
+def compute_impacts(frozen_processes, default_db, impact_defs):
     """Add impacts to processes dictionary
 
     Args:
@@ -428,7 +377,7 @@ def compute_impacts(frozen_processes, default_db):
             continue
         # simapro
         activity = cached_search(process.get("source", default_db), process["search"])
-        results = compute_simapro_impacts(activity, main_method)
+        results = compute_simapro_impacts(activity, main_method, impact_defs)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kilowatt hour" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
@@ -444,7 +393,9 @@ def compute_impacts(frozen_processes, default_db):
         else:
             # simapro failed (unexisting Ecobalyse project or some other reason)
             # brightway
-            process["impacts"] = compute_brightway_impacts(activity, main_method)
+            process["impacts"] = compute_brightway_impacts(
+                activity, main_method, impact_defs
+            )
             print(f"got impacts from brightway for: {process['name']}")
 
         # compute subimpacts
@@ -458,7 +409,7 @@ def compute_impacts(frozen_processes, default_db):
     return frozendict({k: frozendict(v) for k, v in processes.items()})
 
 
-def compare_impacts(frozen_processes, default_db):
+def compare_impacts(frozen_processes, default_db, impact_defs):
     """This is compute_impacts slightly modified to store impacts from both bw and wp"""
     processes = dict(frozen_processes)
     print("Computing impacts:")
@@ -466,7 +417,7 @@ def compare_impacts(frozen_processes, default_db):
         progress_bar(index, len(processes))
         # simapro
         activity = cached_search(process.get("source", default_db), process["search"])
-        results = compute_simapro_impacts(activity, main_method)
+        results = compute_simapro_impacts(activity, main_method, impact_defs)
         print(f"got impacts from SimaPro for: {process['name']}")
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kilowatt hour" and isinstance(results, dict):
@@ -477,7 +428,9 @@ def compare_impacts(frozen_processes, default_db):
         process["simapro_impacts"] = results
 
         # brightway
-        process["brightway_impacts"] = compute_brightway_impacts(activity, main_method)
+        process["brightway_impacts"] = compute_brightway_impacts(
+            activity, main_method, impact_defs
+        )
         print(f"got impacts from Brightway for: {process['name']}")
 
         # compute subimpacts
@@ -485,18 +438,18 @@ def compare_impacts(frozen_processes, default_db):
         process["brightway_impacts"] = with_subimpacts(process["brightway_impacts"])
 
     processes_corrected_simapro = with_corrected_impacts(
-        IMPACTS_DEF_ECOBALYSE, processes, "simapro_impacts"
+        impact_defs, processes, "simapro_impacts"
     )
     processes_corrected_smp_bw = with_corrected_impacts(
-        IMPACTS_DEF_ECOBALYSE, processes_corrected_simapro, "brightway_impacts"
+        impact_defs, processes_corrected_simapro, "brightway_impacts"
     )
 
     return frozendict({k: frozendict(v) for k, v in processes_corrected_smp_bw.items()})
 
 
-def plot_impacts(ingredient_name, impacts_smp, impacts_bw, folder):
+def plot_impacts(ingredient_name, impacts_smp, impacts_bw, folder, impact_defs):
     impact_labels = impacts_smp.keys()
-    normalization_factors = compute_normalization_factors()
+    normalization_factors = compute_normalization_factors(impact_defs)
 
     simapro_values = [
         impacts_smp[label] * normalization_factors[label] for label in impact_labels
@@ -547,3 +500,50 @@ def csv_export_impact_comparison(compared_impacts, folder):
 
     df = pd.DataFrame(rows)
     df.to_csv(f"{PROJECT_ROOT_DIR}/data/{folder}/{COMPARED_IMPACTS_FILE}", index=False)
+
+
+def export_json(json_data, filename):
+    print(f"Exporting {filename}")
+    with open(filename, "w", encoding="utf-8") as file:
+        json.dump(json_data, file, indent=2, ensure_ascii=False)
+        file.write("\n")  # Add a newline at the end of the file
+    print(f"\nExported {len(json_data)} elements to {filename}")
+
+
+def load_json(filename):
+    """
+    Load JSON data from a file.
+    """
+    with open(filename, "r") as file:
+        return json.load(file)
+
+
+def find_id(dbname, activity):
+    return cached_search(dbname, activity["search"]).get(
+        "Process identifier", activity["id"]
+    )
+
+
+def compute_simapro_impacts(activity, method, impact_defs):
+    strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
+    project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
+    method = urllib.parse.quote(main_method, encoding=None, errors=None)
+    return bytrigram(
+        impact_defs,
+        json.loads(
+            requests.get(
+                f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
+            ).content
+        ),
+    )
+
+
+def compute_brightway_impacts(activity, method, impact_defs):
+    results = dict()
+    lca = bw2calc.LCA({activity: 1})
+    lca.lci()
+    for key, method in impact_defs.items():
+        lca.switch_method(method)
+        lca.lcia()
+        results[key] = float("{:.10g}".format(lca.score))
+    return results
