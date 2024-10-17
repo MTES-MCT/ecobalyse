@@ -40,6 +40,7 @@ import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
+import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
 
@@ -384,11 +385,9 @@ simulatorView session model =
                         }
                     }
                 ]
-            , div [ class "card shadow-sm mb-3" ]
-                [ session.queries.object
-                    |> itemListView session.db model.impact model.results
-                    |> div [ class "d-flex flex-column bg-white" ]
-                ]
+            , session.queries.object
+                |> itemListView session.db model.impact model.results
+                |> div [ class "card shadow-sm mb-3" ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
@@ -455,7 +454,16 @@ addItemButton db query =
 itemListView : Db -> Definition -> Results -> Query -> List (Html Msg)
 itemListView db selectedImpact results query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
+        [ h2 [ class "h5 mb-0" ]
+            [ text "Éléments"
+            , Link.smallPillExternal
+                [ Route.href (Route.Explore Scope.Object (Dataset.ObjectProcesses Nothing))
+                , title "Explorer"
+                , attribute "aria-label" "Explorer"
+                ]
+                [ Icon.search ]
+            ]
+        ]
     , if List.isEmpty query.items then
         div [ class "card-body" ] [ text "Aucun élément." ]
 
@@ -474,12 +482,12 @@ itemListView db selectedImpact results query =
                     [ table [ class "table mb-0" ]
                         [ thead []
                             [ tr [ class "fs-7 text-muted" ]
-                                [ th [] [ text "Quantité" ]
-                                , th [] [ text "Procédé" ]
-                                , th [] [ text "Densité" ]
-                                , th [] [ text "Masse" ]
-                                , th [] [ text "Impact" ]
-                                , th [] []
+                                [ th [ class "ps-3", scope "col" ] [ text "Quantité" ]
+                                , th [ scope "col" ] [ text "Procédé" ]
+                                , th [ scope "col" ] [ text "Densité" ]
+                                , th [ scope "col" ] [ text "Masse" ]
+                                , th [ scope "col" ] [ text "Impact" ]
+                                , th [ scope "col" ] []
                                 ]
                             ]
                         , Simulator.extractItems results
@@ -494,7 +502,7 @@ itemListView db selectedImpact results query =
 itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
 itemView selectedImpact ( amount, process ) itemResults =
     tr []
-        [ td [class "align-middle"]
+        [ td [ class "ps-3 align-middle" ]
             [ div [ class "input-group", style "min-width" "180px" ]
                 [ input
                     [ type_ "number"
@@ -514,31 +522,36 @@ itemView selectedImpact ( amount, process ) itemResults =
                         \str ->
                             case String.toFloat str of
                                 Just float ->
-                                    UpdateItem { amount = Query.amount float, processId = process.id }
+                                    UpdateItem
+                                        { amount = Query.amount float
+                                        , processId = process.id
+                                        }
 
                                 Nothing ->
                                     NoOp
                     ]
                     []
-                , span [ class "input-group-text justify-content-center fs-8", style "width" "38px" ]
+                , span
+                    [ class "input-group-text justify-content-center fs-8"
+                    , style "width" "38px"
+                    ]
                     [ text process.unit ]
                 ]
             ]
         , td [ class "align-middle text-truncate w-100" ]
             [ text process.displayName ]
         , td [ class "align-middle text-end" ]
-            [ if process.unit /= "kg" then
-                process.density |> Format.formatRichFloat 0 ("kg/" ++ process.unit)
-
-              else
-                text ""
-            ]
+            [ Format.density process ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Simulator.extractMass itemResults ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.formatImpact selectedImpact <| Simulator.extractImpacts itemResults ]
-        , td [ class "align-middle text-nowrap" ]
-            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ] [ Icon.trash ] ]
+            [ Simulator.extractImpacts itemResults
+                |> Format.formatImpact selectedImpact
+            ]
+        , td [ class "pe-3 align-middle text-nowrap" ]
+            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ]
+                [ Icon.trash ]
+            ]
         ]
 
 
