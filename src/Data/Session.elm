@@ -52,6 +52,7 @@ type alias Session =
     , currentVersion : Version
     , db : Db
     , enableFoodSection : Bool
+    , enableObjectSection : Bool
     , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
     , notifications : List Notification

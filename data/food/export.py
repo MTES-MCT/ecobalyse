@@ -1,13 +1,14 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 """Export des ingrédients et des processes de l'alimentaire"""
 
 import json
 import os
 import sys
+from os.path import abspath, dirname
+
+sys.path.append(dirname(dirname(abspath(__file__))))
 import urllib.parse
-from os.path import dirname
 
 import bw2calc
 import bw2data
@@ -81,7 +82,7 @@ def create_ingredient_list(activities_tuple):
         [
             process_activity_for_ingredient(activity)
             for activity in activities
-            if activity["category"] == "ingredient"
+            if "ingredient" in activity["process_categories"]
         ]
     )
 
@@ -102,7 +103,9 @@ def process_activity_for_ingredient(activity):
     return {
         "id": activity["id"],
         "name": activity["name"],
-        "categories": [c for c in activity["categories"] if c != "ingredient"],
+        "categories": [
+            c for c in activity["ingredient_categories"] if c != "ingredient"
+        ],
         "search": activity["search"],
         "default": find_id(activity.get("database", CONFIG["AGRIBALYSE"]), activity),
         "default_origin": activity["default_origin"],

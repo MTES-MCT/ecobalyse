@@ -1,12 +1,6 @@
 [
   {
-    "id": "egg-bleublanccoeur",
-    "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
-    "displayName": "Oeuf Bleu-Blanc-Cœur FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105149",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -34,13 +28,7 @@
     }
   },
   {
-    "id": "milk",
-    "name": "Cow milk, national average, at farm gate {FR} U",
-    "displayName": "Lait FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003104145",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -68,6 +56,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Lait FR ou UE ou Hors UE Bio",
     "id": "milk-organic",
     "name": "Cow milk, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "displayName": "Lait FR ou UE ou Hors UE Bio",
@@ -102,15 +93,98 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
+    "displayName": "Carotte FR ou UE ou Hors UE Bio",
     "id": "carrot-organic",
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "displayName": "Carotte FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "carrot-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Farine UE Conv.",
+    "id": "flour",
+    "identifier": "AGRIBALU000000003116999",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 105.19820289192933,
+      "pef": 80.00147574034824
+    },
+    "name": "Wheat flour, at industrial mill {FR} U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "AGRIBALYSE",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Farine FR ou UE ou Hors UE Bio",
+    "id": "flour-organic",
+    "identifier": "4a9ea0a29fbde60e2d1fc5c33d8a4f3a",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 75.09113339163017,
+      "pef": 98.6365873674314
+    },
+    "name": "Wheat flour, at industrial mill {FR} U [organic], constructed by Ecobalyse",
+    "source": "Ecobalyse",
+    "system_description": "Ecobalyse",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
+    "system_description": "",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Tournesol FR ou UE ou Hors UE Bio",
+    "id": "sunflower-feed-organic",
+    "identifier": "AGRIBALU000000003115221",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -136,13 +210,75 @@
     }
   },
   {
-    "id": "flour",
-    "name": "Wheat flour, at industrial mill {FR} U",
-    "displayName": "Farine UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003116999",
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Colza FR ou UE ou Hors UE Bio",
+    "id": "rapeseed-organic",
+    "identifier": "AGRIBALU000024985200196",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 119.00957972053897,
+      "pef": 149.00738961540029
+    },
+    "name": "Winter rapeseed, organic, at farm gate {FR} U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Boeuf haché cru FR Conv.",
+    "id": "ground-beef",
+    "identifier": "AGRIBALU000000003107081",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 3024.9111891091306,
+      "pef": 3032.253863153226
+    },
+    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
+    "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -170,217 +306,7 @@
     }
   },
   {
-    "id": "flour-organic",
-    "name": "Wheat flour, at industrial mill {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Farine FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "4a9ea0a29fbde60e2d1fc5c33d8a4f3a",
-    "system_description": "Ecobalyse",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Ecobalyse",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 98.6365873674314,
-      "ecs": 75.09113339163017
-    }
-  },
-  {
-    "id": "sunflower-organic",
-    "name": "Sunflower grain, consumption mix, organic 2023 {FR} U",
-    "displayName": "Tournesol FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "sunflower-organic",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "source": "Ginko",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 148.32081139883704,
-      "ecs": 158.66882985735518
-    }
-  },
-  {
-    "id": "sunflower-feed-organic",
-    "name": "Sunflower, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Tournesol FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115221",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 112.2808691171095,
-      "ecs": 93.45778017599187
-    }
-  },
-  {
-    "id": "rapeseed-organic",
-    "name": "Winter rapeseed, organic, at farm gate {FR} U",
-    "displayName": "Colza FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200196",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 149.00738961540023,
-      "ecs": 119.00957972053897
-    }
-  },
-  {
-    "id": "ground-beef",
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
-    "displayName": "Boeuf haché cru FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003107081",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 3032.2538631532266,
-      "ecs": 3024.911189109131
-    }
-  },
-  {
-    "id": "ground-beef-organic",
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Boeuf haché cru FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "67f1a99d8093f1b2b3e4e7f8b292953c",
-    "system_description": "Ecobalyse",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Ecobalyse",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 2809.4160542324425,
-      "ecs": 2423.4656387064624
-    }
-  },
-  {
-    "id": "cull-cow-organic",
-    "name": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
-    "displayName": "Vache de réforme bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003104412",
-    "system_description": "AGRIBALYSE",
-    "category": "material",
+    "categories": ["material"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -408,13 +334,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Boeuf haché cru Hors UE Conv.",
     "id": "ground-beef-feedlot",
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [feedlot], constructed by Ecobalyse",
     "displayName": "Boeuf haché cru Hors UE Conv.",
     "unit": "kilogram",
     "identifier": "6fcaacd84b90aec94cf924041ff09fc9",
     "system_description": "Ecobalyse",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -476,13 +408,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Product already packed.",
+    "displayName": "Jambon cuit FR Conv.",
     "id": "cooked-ham",
     "name": "Cooked ham, case ready, at plant {FR} U",
     "displayName": "Jambon cuit FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103910",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Product already packed.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -516,7 +454,10 @@
     "unit": "kilogram",
     "identifier": "3fc68b77b276cfc781ed546ec32b84f5",
     "system_description": "Ecobalyse",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Product already packed.",
     "source": "Ecobalyse",
     "impacts": {
@@ -578,13 +519,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Blanc de poulet cru FR Conv.",
     "id": "chicken-breast",
     "name": "Meat without bone, chicken, for direct consumption {FR} U",
     "displayName": "Blanc de poulet cru FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109221",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -618,7 +565,10 @@
     "unit": "kilogram",
     "identifier": "d41682caea2d55a3b95173f276b9d903",
     "system_description": "Ecobalyse",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -652,7 +602,146 @@
     "unit": "kilogram",
     "identifier": "fc9b8a819a1ba51b4fbca210d0771198",
     "system_description": "Ecobalyse",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
+    "displayName": "Huile de colza Hors UE Conv.",
+    "id": "rapeseed-oil",
+    "identifier": "AGRIBALU000000003112448",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 430.3338526141934,
+      "pef": 462.55622413719834
+    },
+    "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
+    "displayName": "Huile de colza FR ou UE ou Hors UE Bio",
+    "id": "rapeseed-oil-organic",
+    "identifier": "425b95709f7882fa60c6b42f3add1873",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 210.05192070912295,
+      "pef": 261.13204060072036
+    },
+    "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
+    "source": "Ecobalyse",
+    "system_description": "Ecobalyse",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
+    "displayName": "Huile de tournesol Hors UE Conv.",
+    "id": "sunflower-oil",
+    "identifier": "AGRIBALU000000003115182",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 942.0457866166045,
+      "pef": 505.79929142657846
+    },
+    "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
+    "displayName": "Huile de tournesol FR ou UE ou Hors UE Bio",
+    "id": "sunflower-oil-organic",
+    "identifier": "2735a9eb9848c97f9e70fd94f051fb2a",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 312.52984554113317,
+      "pef": 360.4590660434512
+    },
+    "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
+    "source": "Ecobalyse",
+    "system_description": "Ecobalyse",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -680,183 +769,7 @@
     }
   },
   {
-    "id": "rapeseed-oil",
-    "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "displayName": "Huile de colza Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003112448",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 462.5562241371983,
-      "ecs": 430.3338526141934
-    }
-  },
-  {
-    "id": "rapeseed-oil-organic",
-    "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
-    "displayName": "Huile de colza FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "425b95709f7882fa60c6b42f3add1873",
-    "system_description": "Ecobalyse",
-    "category": "ingredient",
-    "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
-    "source": "Ecobalyse",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 261.13204060072036,
-      "ecs": 210.05192070912287
-    }
-  },
-  {
-    "id": "sunflower-oil",
-    "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "displayName": "Huile de tournesol Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115182",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 505.7992914265785,
-      "ecs": 942.0457866166042
-    }
-  },
-  {
-    "id": "sunflower-oil-organic",
-    "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
-    "displayName": "Huile de tournesol FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "2735a9eb9848c97f9e70fd94f051fb2a",
-    "system_description": "Ecobalyse",
-    "category": "ingredient",
-    "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
-    "source": "Ecobalyse",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 360.4590660434512,
-      "ecs": 312.52984554113317
-    }
-  },
-  {
-    "id": "zucchini-organic",
-    "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
-    "displayName": "Courgette FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200219",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 23.755447115550382,
-      "ecs": 20.61790199404379
-    }
-  },
-  {
-    "id": "peach-organic",
-    "name": "Peach, organic, national average, at orchard {FR} U",
-    "displayName": "Pêche FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110947",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -884,13 +797,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Melon FR ou UE ou Hors UE Bio",
     "id": "melon-organic",
     "name": "Melon, organic, at farm gate {FR} U",
     "displayName": "Melon FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200102",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -924,7 +843,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102321",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -986,13 +908,19 @@
     }
   },
   {
+    "categories": ["packaging"],
+    "comment": "",
+    "displayName": "Acier",
     "id": "steel",
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent U",
     "displayName": "Acier",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114927",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1026,7 +954,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110698",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1060,7 +991,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111575",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1094,7 +1028,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110706",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1128,7 +1065,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111571",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1162,7 +1102,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104019",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1196,7 +1139,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108113",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1230,7 +1176,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111586",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1264,7 +1213,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111562",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1298,7 +1250,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111564",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["packaging"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1326,47 +1281,7 @@
     }
   },
   {
-    "id": "aluminium",
-    "name": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
-    "displayName": "Aluminium",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100294",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "packaging",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 1778.9122405084688,
-      "ecs": 1581.6529964075614
-    }
-  },
-  {
-    "id": "canning",
-    "name": "Canning fruits or vegetables, industrial, 1kg of canned product {FR} U",
-    "displayName": "Mise en conserve",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102449",
-    "system_description": "AGRIBALYSE",
-    "category": "transformation",
+    "categories": ["transformation"],
     "comment": "\"Functional Unit\nTo obtain 1kg of canned vegetable or fruit. \nAn input of 0,626kg of food is required. Added packaging should account for the 1% loss.\n\nBoundaries\nFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).\nContrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.\nwe considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1394,13 +1309,7 @@
     }
   },
   {
-    "id": "mixing",
-    "name": "[Dummy] Mixing, processing, at plant {FR} U",
-    "displayName": "Mélange",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100079",
-    "system_description": "AGRIBALYSE",
-    "category": "transformation",
+    "categories": ["transformation"],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1428,13 +1337,7 @@
     }
   },
   {
-    "id": "cooking",
-    "name": "Cooking, industrial, 1kg of cooked product {FR} U",
-    "displayName": "Cuisson",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003103966",
-    "system_description": "AGRIBALYSE",
-    "category": "transformation",
+    "categories": ["transformation"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1462,13 +1365,19 @@
     }
   },
   {
+    "categories": ["transport"],
+    "comment": "",
+    "displayName": "Camion",
     "id": "lorry",
     "name": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
     "displayName": "Camion",
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115929",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "transport",
+    "unit": "ton kilometer"
+  },
+  {
+    "categories": ["transport"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1502,7 +1411,10 @@
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115957",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "transport",
+    "unit": "ton kilometer"
+  },
+  {
+    "categories": ["transport"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1536,7 +1448,10 @@
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115903",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "transport",
+    "unit": "ton kilometer"
+  },
+  {
+    "categories": ["transport"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1570,7 +1485,10 @@
     "unit": "ton kilometer",
     "identifier": "AGRIBALU000000003115959",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "transport",
+    "unit": "ton kilometer"
+  },
+  {
+    "categories": ["transport"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1632,13 +1550,53 @@
     }
   },
   {
+    "categories": ["energy"],
+    "comment": "",
+    "displayName": "Electricité basse tension",
     "id": "low-voltage-electricity",
     "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U",
     "displayName": "Electricité basse tension",
     "unit": "kilowatt hour",
     "identifier": "AGRIBALU000000003105270",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "energy",
+    "unit": "kilowatt hour"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Eau du robinet UE Conv.",
+    "id": "tap-water",
+    "identifier": "AGRIBALU000000003115449",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 0.28316945990608366,
+      "pef": 0.35589128361361144
+    },
+    "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["energy"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1672,7 +1630,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115449",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "megajoule"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1740,7 +1701,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103732",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1774,7 +1738,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105529",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1836,13 +1803,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
+    "displayName": "Betterave rouge FR ou UE ou Hors UE Bio",
     "id": "beetroot-organic",
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "displayName": "Betterave rouge FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "beetroot-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -1904,13 +1877,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Navet FR ou UE ou Hors UE Bio",
     "id": "turnip-organic",
     "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
     "displayName": "Navet FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102611",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -1938,47 +1917,7 @@
     }
   },
   {
-    "id": "chickpea-organic",
-    "name": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
-    "displayName": "Pois chiche FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200193",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 49.24712177006622,
-      "ecs": 40.555714265853396
-    }
-  },
-  {
-    "id": "bellpepper-unheated-greenhouse",
-    "name": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Poivron sous serre non chauffée FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003101321",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 34497462272",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2006,13 +1945,7 @@
     }
   },
   {
-    "id": "soybean-humanconsumption",
-    "name": "Soybean, national average, animal feed, at farm gate {FR} U",
-    "displayName": "Soja FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200128",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2040,13 +1973,7 @@
     }
   },
   {
-    "id": "soybean-organic",
-    "name": "Soybean, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Soja FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003114674",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Rdt mean = 2,25 t/ha",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2074,13 +2001,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 76692414464",
+    "displayName": "Soja (non déforestant) Hors UE Conv.",
     "id": "soybean-br-no-deforestation",
     "name": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
     "displayName": "Soja (non déforestant) Hors UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200001",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 76692414464",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2108,47 +2041,7 @@
     }
   },
   {
-    "id": "soybean-br-deforestation",
-    "name": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Soja déforestant Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200302",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
-    "comment": "Production Volume Amount: 76692414464",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 194.46230182615702,
-      "ecs": 489.4070683537393
-    }
-  },
-  {
-    "id": "soybean-feed",
-    "name": "Soybean grain dried, stored and transported, processing {FR} U",
-    "displayName": "Soja feed Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003114580",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2176,13 +2069,7 @@
     }
   },
   {
-    "id": "sausage-meat",
-    "name": "Sausage meat, raw, at plant {FR} U",
-    "displayName": "Chair à saucisse crue FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003113461",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "None",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2210,13 +2097,7 @@
     }
   },
   {
-    "id": "sausage-toulouse",
-    "name": "Toulouse sausage, raw, at plant {FR} U",
-    "displayName": "Saucisse de Toulouse (crue) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115859",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Toulouse sausage, raw' matches with a recipe from ANSES.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2244,13 +2125,7 @@
     }
   },
   {
-    "id": "sausage-toulouse-cooked",
-    "name": "Toulouse sausage, cooked, at plant {FR} U",
-    "displayName": "Saucisse de Toulouse (cuite) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115854",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Toulouse sausage, cooked' matches with a recipe from ANSES.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2278,13 +2153,7 @@
     }
   },
   {
-    "id": "sausage-tofu",
-    "name": "Plant-based sausage with tofu (vegan), at plant {FR} U",
-    "displayName": "Saucisse végétale tofu FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003111467",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "\"This dataset represents plant-based sausage production from Tofu. The recipe was determined with OpenFoodFact, 2021 based on 2 industrial recipes and assumptions. \"",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2312,13 +2181,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
+    "displayName": "Purée de tomates Hors UE Conv.",
     "id": "tomato-paste",
     "name": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "displayName": "Purée de tomates Hors UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115655",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2380,13 +2255,87 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Viande de boeuf avec os (crue) FR Conv.",
     "id": "beef-with-bone",
     "name": "Meat with bone, beef, for direct consumption {FR} U",
     "displayName": "Viande de boeuf avec os (crue) FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109214",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "This dataset includes packaging",
+    "displayName": "Viande de boeuf sans os (crue) FR Conv.",
+    "id": "beef-without-bone",
+    "identifier": "AGRIBALU000000003109219",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 2446.875616510269,
+      "pef": 2447.106268630926
+    },
+    "name": "Meat without bone, beef, for direct consumption {FR} U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "AGRIBALYSE",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "This dataset includes packaging",
+    "displayName": "Viande de boeuf sans os FR ou UE ou Hors UE Bio (crue)",
+    "id": "beef-without-bone-organic",
+    "identifier": "f66ba18359adc61e5988ed8a7cf24b3e",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 1956.6522284266964,
+      "pef": 2265.525824415107
+    },
+    "name": "Meat without bone, beef, for direct consumption {FR} U [organic], constructed by Ecobalyse",
+    "source": "Ecobalyse",
+    "system_description": "Ecobalyse",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2414,115 +2363,7 @@
     }
   },
   {
-    "id": "beef-without-bone",
-    "name": "Meat without bone, beef, for direct consumption {FR} U",
-    "displayName": "Viande de boeuf sans os (crue) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003109219",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "This dataset includes packaging",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 2447.1062686309256,
-      "ecs": 2446.8756165102686
-    }
-  },
-  {
-    "id": "beef-without-bone-organic",
-    "name": "Meat without bone, beef, for direct consumption {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Viande de boeuf sans os FR ou UE ou Hors UE Bio (crue)",
-    "unit": "kilogram",
-    "identifier": "f66ba18359adc61e5988ed8a7cf24b3e",
-    "system_description": "Ecobalyse",
-    "category": "ingredient",
-    "comment": "This dataset includes packaging",
-    "source": "Ecobalyse",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 2265.5258244151064,
-      "ecs": 1956.6522284266962
-    }
-  },
-  {
-    "id": "durum-wheat-semolina",
-    "name": "Durum wheat, semolina, at plant {FR} U",
-    "displayName": "Semoule de blé dur FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105079",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 192.16577622075008,
-      "ecs": 182.83376189686146
-    }
-  },
-  {
-    "id": "sugar",
-    "name": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
-    "displayName": "Sucre de betterave FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003109942",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Economic allocation",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2550,13 +2391,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Chocolat noir UE Conv.",
     "id": "dark-chocolate",
     "name": "Dark chocolate, at plant {FR} U",
     "displayName": "Chocolat noir UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104662",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2590,7 +2437,10 @@
     "unit": "kilogram",
     "identifier": "b9f380cbd26fef2f30b16cbe06edd732",
     "system_description": "Ecobalyse",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -2624,7 +2474,10 @@
     "unit": "kilogram",
     "identifier": "862a53ceeeaf072c8528a71d2fa6a027",
     "system_description": "Ecobalyse",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -2652,47 +2505,7 @@
     }
   },
   {
-    "id": "cane-sugar",
-    "name": "Brown sugar, production, at plant {FR} U",
-    "displayName": "Sucre de canne Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102182",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 361.71176498771126,
-      "ecs": 1905.9977705947435
-    }
-  },
-  {
-    "id": "tea-dried",
-    "name": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Thé (feuilles) UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115509",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 1436769536",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2720,13 +2533,7 @@
     }
   },
   {
-    "id": "coffee-ground",
-    "name": "Coffee, roast and ground, at plant {FR} U",
-    "displayName": "Café moulu Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003103623",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2754,13 +2561,7 @@
     }
   },
   {
-    "id": "black-pepper",
-    "name": "Black pepper, dried, consumption mix {FR} U",
-    "displayName": "Poivre noir Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003101545",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of black pepper imported to France. Transport is added from the farm gate (in the producing country) to a french plant in Carpentras.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2788,13 +2589,7 @@
     }
   },
   {
-    "id": "milk-powder",
-    "name": "Milk, powder, skimmed, non rehydrated, at plant {FR} U",
-    "displayName": "Poudre de lait écrémé FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003109401",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "This process describes the production of Milk, powder, skimmed in France.\nIncluded activities are : production in country of origin and transport",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2822,13 +2617,7 @@
     }
   },
   {
-    "id": "red-wine",
-    "name": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
-    "displayName": "Vin rouge FR Conv.",
-    "unit": "litre",
-    "identifier": "AGRIBALU000000003112590",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "(4,4,2,1,2),",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2856,13 +2645,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Crevettes fraîches Hors UE Conv.",
     "id": "fresh-shrimps",
     "name": "Fresh shrimps, China production {FR} U",
     "displayName": "Crevettes fraîches Hors UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003106282",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2896,7 +2691,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108470",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2930,7 +2728,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105152",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2964,7 +2765,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105151",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -2998,7 +2802,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105153",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3060,13 +2867,87 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
+    "displayName": "Raisin de cuve FR ou UE ou Hors UE Bio",
     "id": "wine-grape-organic",
     "name": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "displayName": "Raisin de cuve FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "wine-grape-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Viande d'agneau (désossée) FR Conv.",
+    "id": "lamb-meat-without-bone",
+    "identifier": "AGRIBALU000000003109223",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 4107.6172057659305,
+      "pef": 4303.9849164004345
+    },
+    "name": "Meat without bone, lamb {FR} U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "AGRIBALYSE",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Viande d'agneau FR ou UE ou Hors UE Bio (désossée)",
+    "id": "lamb-meat-without-bone-organic",
+    "identifier": "f025b4a41c45eabdb2510795b3353ca4",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 2780.43749192331,
+      "pef": 3315.2687054260427
+    },
+    "name": "Meat without bone, lamb {FR} U [organic], constructed by Ecobalyse",
+    "source": "Ecobalyse",
+    "system_description": "Ecobalyse",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -3094,13 +2975,7 @@
     }
   },
   {
-    "id": "lamb-meat-without-bone",
-    "name": "Meat without bone, lamb {FR} U",
-    "displayName": "Viande d'agneau (désossée) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003109223",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3128,115 +3003,7 @@
     }
   },
   {
-    "id": "lamb-meat-without-bone-organic",
-    "name": "Meat without bone, lamb {FR} U [organic], constructed by Ecobalyse",
-    "displayName": "Viande d'agneau FR ou UE ou Hors UE Bio (désossée)",
-    "unit": "kilogram",
-    "identifier": "f025b4a41c45eabdb2510795b3353ca4",
-    "system_description": "Ecobalyse",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Ecobalyse",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 3315.2687054260427,
-      "ecs": 2780.43749192331
-    }
-  },
-  {
-    "id": "pear-organic",
-    "name": "Pear, consumption mix, organic 2023 {FR} U",
-    "displayName": "Poire FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "pear-organic",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "source": "Ginko",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 40.79877780981382,
-      "ecs": 43.46995904714033
-    }
-  },
-  {
-    "id": "carrot-fr",
-    "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Carotte FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102592",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 17.81850610595258,
-      "ecs": 64.98479572456807
-    }
-  },
-  {
-    "id": "carrot-eu",
-    "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Carotte UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102563",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3264,13 +3031,7 @@
     }
   },
   {
-    "id": "carrot-non-ue",
-    "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Carotte Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102564",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18370729984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3298,13 +3059,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Courgette FR Conv.",
     "id": "zucchini-fr",
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "displayName": "Courgette FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3338,7 +3105,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3366,47 +3136,7 @@
     }
   },
   {
-    "id": "pear-fr",
-    "name": "Pear, conventional, at orchard {FR} U",
-    "displayName": "Poire FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003111019",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 21.62263161962437,
-      "ecs": 21.184724199100767
-    }
-  },
-  {
-    "id": "pear-eu",
-    "name": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Poire UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003111005",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 48205 kg/ha table fruit quality\nProduction Volume Amount: 277274240",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3434,13 +3164,7 @@
     }
   },
   {
-    "id": "peach-fr",
-    "name": "Peach, production mix, national average, at orchard {FR} U",
-    "displayName": "Pêche FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110952",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3468,13 +3192,7 @@
     }
   },
   {
-    "id": "peach-eu",
-    "name": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Pêche UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110917",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 27000 kg/ha table fruit quality\nProduction Volume Amount: 1257250944",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3502,6 +3220,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Melon FR Conv.",
     "id": "melon-fr",
     "name": "Melon, conventional, national average, at farm gate {FR} U",
     "displayName": "Melon FR Conv.",
@@ -3536,13 +3257,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Melon UE Conv.",
     "id": "melon-eu",
     "name": "Melon, conventional, national average, at farm gate {FR} U",
     "displayName": "Melon UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003109266",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3576,7 +3303,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200170",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3610,7 +3340,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200169",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3644,7 +3377,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003111897",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3678,7 +3414,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117048",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3706,47 +3445,7 @@
     }
   },
   {
-    "id": "onion-fr",
-    "name": "Onion, national average, at farm {FR} U",
-    "displayName": "Oignon FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110467",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 18.376791757746535,
-      "ecs": 21.412666296293644
-    }
-  },
-  {
-    "id": "onion-eu",
-    "name": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Oignon UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110441",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 55000 kg/ha\nProduction Volume Amount: 1402423040",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3774,13 +3473,7 @@
     }
   },
   {
-    "id": "onion-non-ue",
-    "name": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Oignon Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110442",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 38596923392",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3808,6 +3501,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Aubergine FR Conv.",
     "id": "eggplant-fr",
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "displayName": "Aubergine FR Conv.",
@@ -3842,13 +3538,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Aubergine UE Conv.",
     "id": "eggplant-eu",
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "displayName": "Aubergine UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -3910,6 +3612,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Haricot vert UE Conv.",
     "id": "french-bean-eu",
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "displayName": "Haricot vert UE Conv.",
@@ -3944,13 +3649,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Haricot vert Hors UE Conv.",
     "id": "french-bean-non-eu",
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "displayName": "Haricot vert Hors UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200072",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4012,13 +3723,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 23622365184",
+    "displayName": "Laitue UE Conv.",
     "id": "lettuce-eu",
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Laitue UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 23622365184",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4080,6 +3797,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Petit pois FR Conv.",
     "id": "garden-peas-fr",
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "displayName": "Petit pois FR Conv.",
@@ -4114,13 +3834,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Petit pois UE Conv.",
     "id": "garden-peas-eu",
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "displayName": "Petit pois UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200024",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4148,47 +3874,7 @@
     }
   },
   {
-    "id": "cherry-fr",
-    "name": "Cherry, conventional, national average, at orchard {FR} U",
-    "displayName": "Cerise FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102916",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 178.21142637929523,
-      "ecs": 403.91671616583545
-    }
-  },
-  {
-    "id": "lemon-eu",
-    "name": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Citron UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003108561",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 37000 kg/ha\nProduction Volume Amount: 674371008",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4216,13 +3902,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Prune FR Conv.",
     "id": "plum-fr",
     "name": "Cherry, conventional, national average, at orchard {FR} U",
     "displayName": "Prune FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102916",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4256,7 +3948,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200218",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4290,7 +3985,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117541",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4324,7 +4022,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200219",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4358,7 +4059,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115752",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4386,47 +4090,7 @@
     }
   },
   {
-    "id": "tomato-greenhouse-fr",
-    "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "displayName": "Tomate sous serre non chauffée FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115753",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 20.25467418923414,
-      "ecs": 18.408796254149188
-    }
-  },
-  {
-    "id": "tomato-greenhouse-eu",
-    "name": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Tomate UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115743",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Yield = 165000.0 kg/haOutput of tomato, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 4255320576",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4454,13 +4118,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
+    "displayName": "Abricot FR Conv.",
     "id": "apricot-fr",
     "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Abricot FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100510",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4488,47 +4158,7 @@
     }
   },
   {
-    "id": "apricot-eu",
-    "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Abricot UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100510",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
-    "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 38.923787461868606,
-      "ecs": 108.59904581833044
-    }
-  },
-  {
-    "id": "hazelnut-non-eu",
-    "name": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
-    "displayName": "Noisette avec coque Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003107313",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "FAOstats average 2013-2017",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4556,13 +4186,7 @@
     }
   },
   {
-    "id": "hazelnut-eu",
-    "name": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
-    "displayName": "Noisette avec coque UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003107312",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "FAOstats average 2013 - 2017",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4590,13 +4214,7 @@
     }
   },
   {
-    "id": "hazelnut-unshelled-eu",
-    "name": "Hazelnut, unshelled, at plant {IT} U",
-    "displayName": "Noisette décortiquée UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003107318",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Dataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Turkey and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4624,13 +4242,7 @@
     }
   },
   {
-    "id": "hazelnut-unshelled-non-eu",
-    "name": "Hazelnut, unshelled, at plant {TR} U",
-    "displayName": "Noisette décortiquée Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003107319",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4658,13 +4270,7 @@
     }
   },
   {
-    "id": "artichoke-fr",
-    "name": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "displayName": "Artichaut FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102661",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4692,13 +4298,7 @@
     }
   },
   {
-    "id": "artichoke-organic",
-    "name": "Cauliflower, organic 2023, national average, at farm gate {FR} U",
-    "displayName": "Artichaut FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "artichoke-organic",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -4726,13 +4326,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Chou-fleur FR ou UE ou Hors UE Bio",
     "id": "cauliflower-organic",
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "displayName": "Chou-fleur FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4766,7 +4372,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4800,7 +4409,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108547",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4834,7 +4446,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003102592",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4862,47 +4477,7 @@
     }
   },
   {
-    "id": "turnip-fr",
-    "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Navet FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102592",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 17.81850610595258,
-      "ecs": 64.98479572456807
-    }
-  },
-  {
-    "id": "turnip-eu",
-    "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Navet UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102563",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4930,13 +4505,7 @@
     }
   },
   {
-    "id": "turnip-non-eu",
-    "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Navet Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102564",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18370729984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4964,13 +4533,7 @@
     }
   },
   {
-    "id": "chinese-cabbage-fr",
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "displayName": "Chou chinois FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200045",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -4998,13 +4561,7 @@
     }
   },
   {
-    "id": "chinese-cabbage-organic",
-    "name": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR} U",
-    "displayName": "Chou chinois FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "chinese-cabbage-organic",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -5032,13 +4589,7 @@
     }
   },
   {
-    "id": "white-cabbage-non-eu",
-    "name": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Chou blanc Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102347",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 28512262144",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5066,13 +4617,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Chou vert FR Conv.",
     "id": "green-cabbage-fr",
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "displayName": "Chou vert FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5100,47 +4657,7 @@
     }
   },
   {
-    "id": "green-cabbage-organic",
-    "name": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "displayName": "Chou vert FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200052",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 45.64929474214634,
-      "ecs": 38.00111644532398
-    }
-  },
-  {
-    "id": "red-cabbage-non-eu",
-    "name": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Chou rouge Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102346",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 28983492608",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5168,13 +4685,7 @@
     }
   },
   {
-    "id": "shallot-fr",
-    "name": "Onion, national average, at farm {FR} U",
-    "displayName": "Echalote FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110467",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5202,13 +4713,7 @@
     }
   },
   {
-    "id": "orange-eu",
-    "name": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
-    "displayName": "Orange UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110507",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "SPAIN",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5236,13 +4741,7 @@
     }
   },
   {
-    "id": "orange-non-eu",
-    "name": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Orange Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110506",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Orange, fresh grade, South African production. Output of orange, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 1645182976",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5270,13 +4769,7 @@
     }
   },
   {
-    "id": "olive-eu",
-    "name": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Olive UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110400",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit quality\nProduction Volume Amount: 6459754496",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5304,13 +4797,7 @@
     }
   },
   {
-    "id": "rapeseed-fr",
-    "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Colza FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003112430",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "EcoSpold01Location=FR\nProduction Volume Amount: 4532871168",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5338,13 +4825,7 @@
     }
   },
   {
-    "id": "rapeseed-eu",
-    "name": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Colza UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003112456",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5372,13 +4853,7 @@
     }
   },
   {
-    "id": "rapeseed-non-eu",
-    "name": "Rapeseed, at farm {CA} - Adapted from WFLDB U",
-    "displayName": "Colza Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003112455",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "CANADA",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5406,13 +4881,7 @@
     }
   },
   {
-    "id": "pistachio-non-eu",
-    "name": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Pistache avec coque Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110959",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 3470 kg/ha\nProduction Volume Amount: 15861245952",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5440,13 +4909,7 @@
     }
   },
   {
-    "id": "peanut-non-eu",
-    "name": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Arachide avec coque Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110960",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 1000 kg/ha\nProduction Volume Amount: 6338124800",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5474,13 +4937,7 @@
     }
   },
   {
-    "id": "olive-oil-eu",
-    "name": "Extra Virgin Olive Oil, consumption mix {FR} U",
-    "displayName": "Huile d'olive UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105719",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Data representative of virgin olive oil consumption in France. Virgin Olive oil consumption mix is determined from average FAOSTAT data over 4 years (2014-2018) from production and importation of virgin olive oil in France. Average consumption mix for virgin olive oil in France is : Spain, 65%, Italy, 20%, others origins, 15%. The coverage market mix of virgin olive  oil consumed in France is 85%.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5508,13 +4965,7 @@
     }
   },
   {
-    "id": "avocado-non-eu",
-    "name": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Avocat Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100748",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 3840904960",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5542,13 +4993,7 @@
     }
   },
   {
-    "id": "chickpea-fr",
-    "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "displayName": "Pois chiche FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200192",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5576,13 +5021,7 @@
     }
   },
   {
-    "id": "sunflower-fr",
-    "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
-    "displayName": "Tournesol FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115216",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5610,13 +5049,7 @@
     }
   },
   {
-    "id": "sunflower-eu",
-    "name": "Sunflower, at farm {HU} - Adapted from WFLDB U",
-    "displayName": "Tournesol UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115218",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "HUNGARY",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5644,13 +5077,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Tournesol Hors UE Conv.",
     "id": "sunflower-non-eu",
     "name": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
     "displayName": "Tournesol Hors UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115217",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5712,13 +5151,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 1350206976",
+    "displayName": "Kiwi UE Conv.",
     "id": "kiwi-eu",
     "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Kiwi UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003108089",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 1350206976",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5746,47 +5191,7 @@
     }
   },
   {
-    "id": "kiwi-non-eu",
-    "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Kiwi Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003108089",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
-    "comment": "Production Volume Amount: 1350206976",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 69.789234429814,
-      "ecs": 63.14378360175055
-    }
-  },
-  {
-    "id": "mango-non-eu",
-    "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Mangue Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003109086",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "BRAZIL",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5814,13 +5219,7 @@
     }
   },
   {
-    "id": "spinach-non-eu",
-    "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Epinard Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003114717",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18088361984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5848,13 +5247,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 240114696192",
+    "displayName": "Fenouil FR Conv.",
     "id": "fennel-fr",
     "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Fenouil FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105790",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 240114696192",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5882,47 +5287,7 @@
     }
   },
   {
-    "id": "fennel-eu",
-    "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Fenouil UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105790",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
-    "comment": "Production Volume Amount: 240114696192",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 56.5640472642581,
-      "ecs": 114.44232058920515
-    }
-  },
-  {
-    "id": "broccoli-eu",
-    "name": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Brocoli UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102101",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18174699520",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5950,13 +5315,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Myrtille Hors UE Conv.",
     "id": "blueberry-non-eu",
     "name": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "displayName": "Myrtille Hors UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003101680",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -5990,7 +5361,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003112470",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6024,7 +5398,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200014",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6058,7 +5435,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200015",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6086,47 +5466,7 @@
     }
   },
   {
-    "id": "banana-wi",
-    "name": "Banana, mixed production, West Indies, at farm gate {WI} U",
-    "displayName": "Banane hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100930",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 44.14135180247622,
-      "ecs": 70.56312226998747
-    }
-  },
-  {
-    "id": "banana-non-eu",
-    "name": "Banana, at farm {GLO} - Adapted from WFLDB U",
-    "displayName": "Banane Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100924",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)\nIndia is considered since it is a major banana producer, with 29% of global production.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6154,6 +5494,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Concombre de saison FR Conv.",
     "id": "cucumber-fr-inseason",
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "displayName": "Concombre de saison FR Conv.",
@@ -6188,13 +5531,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 57559834624",
+    "displayName": "Concombre hors saison FR Conv.",
     "id": "cucumber-fr-offseason",
     "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Concombre hors saison FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003104392",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 57559834624",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6256,13 +5605,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Fraise de saison FR  Conv.",
     "id": "strawberry-fr-inseason",
     "name": "Strawberry, open field, conventional, at farm gate {FR} U",
     "displayName": "Fraise de saison FR  Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200146",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6296,7 +5651,78 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003115025",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 8969982976",
+    "displayName": "Céleri branche FR Conv.",
+    "id": "celery-fr",
+    "identifier": "AGRIBALU000000003102720",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 49.2400645867597,
+      "pef": 44.55037087096618
+    },
+    "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 8969982976",
+    "displayName": "Céleri branche UE Conv.",
+    "id": "celery-eu",
+    "identifier": "AGRIBALU000000003102720",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 49.2400645867597,
+      "pef": 44.55037087096618
+    },
+    "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6324,115 +5750,7 @@
     }
   },
   {
-    "id": "celery-fr",
-    "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Céleri branche FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102720",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
-    "comment": "Production Volume Amount: 8969982976",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 44.55037087096618,
-      "ecs": 49.24006458675971
-    }
-  },
-  {
-    "id": "celery-eu",
-    "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Céleri branche UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102720",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
-    "comment": "Production Volume Amount: 8969982976",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 44.55037087096618,
-      "ecs": 49.24006458675971
-    }
-  },
-  {
-    "id": "celeriac-fr",
-    "name": "Carrot, conventional, national average, at farm gate {FR} U",
-    "displayName": "Céleri-rave FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102592",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 17.81850610595258,
-      "ecs": 64.98479572456807
-    }
-  },
-  {
-    "id": "celeriac-eu",
-    "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Céleri-rave UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102563",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6460,13 +5778,7 @@
     }
   },
   {
-    "id": "celeriac-non-eu",
-    "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "displayName": "Céleri-rave Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003102564",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18370729984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6494,13 +5806,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Noix avec coque FR Conv.",
     "id": "walnut-inshell-fr",
     "name": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "displayName": "Noix avec coque FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116663",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6562,13 +5880,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Châtaigne décortiquée FR Conv.",
     "id": "chestnut-husked-fr",
     "name": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
     "displayName": "Châtaigne décortiquée FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116668",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6596,47 +5920,7 @@
     }
   },
   {
-    "id": "chestnut-inshell-fr",
-    "name": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "displayName": "Châtaigne avec coque FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003116662",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 271.0618311698035,
-      "ecs": 259.73512030860064
-    }
-  },
-  {
-    "id": "mandarin-eu",
-    "name": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Mandarine UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003109060",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 30000 kg/ha table fruit quality\nProduction Volume Amount: 2046639488",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6664,13 +5948,7 @@
     }
   },
   {
-    "id": "mushroom-eu",
-    "name": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
-    "displayName": "Champignon frais UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100184",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. \nThis dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. \nThe infrastructure are excluded as well as the mushroom packaging.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6698,6 +5976,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Chou de Bruxelles FR Conv.",
     "id": "brussels-sprout-fr",
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "displayName": "Chou de Bruxelles FR Conv.",
@@ -6732,6 +6013,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Chou de Bruxelles FR ou UE ou Hors UE Bio",
     "id": "brussels-sprout-organic",
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "displayName": "Chou de Bruxelles FR ou UE ou Hors UE Bio",
@@ -6766,13 +6050,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Lentilles FR Conv.",
     "id": "lentils-uncooked-fr",
     "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "displayName": "Lentilles FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200192",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6806,7 +6096,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200045",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6840,7 +6133,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200052",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6868,47 +6164,7 @@
     }
   },
   {
-    "id": "pumpkin-fr",
-    "name": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "displayName": "Citrouille FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003117541",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 25.202985524893382,
-      "ecs": 24.997074386706196
-    }
-  },
-  {
-    "id": "clementine-non-eu",
-    "name": "Clementine, export quality, Souss, at orchard {MA} U",
-    "displayName": "Clémentine Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003103409",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "MOROCCO",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -6936,6 +6192,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Endive FR Conv.",
     "id": "endive-fr",
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "displayName": "Endive FR Conv.",
@@ -6970,13 +6229,87 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 23622365184",
+    "displayName": "Endive UE Conv.",
     "id": "endive-eu",
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Endive UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003107604",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Raisin de cuve FR Conv.",
+    "id": "wine-grape-fr",
+    "identifier": "AGRIBALU000000003106864",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 40.236846179316856,
+      "pef": 39.922827407839684
+    },
+    "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "AGRIBALYSE",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Mâche FR Conv.",
+    "id": "lambs-lettuce-fr",
+    "identifier": "AGRIBALU000000003108668",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 26.789910014404725,
+      "pef": 26.024518039534165
+    },
+    "name": "Lettuce, conventional, national average, at farm gate {FR} U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "AGRIBALYSE",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 23622365184",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7004,13 +6337,41 @@
     }
   },
   {
-    "id": "wine-grape-fr",
-    "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
-    "displayName": "Raisin de cuve FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003106864",
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Maïs doux FR Conv.",
+    "id": "sweet-corn-fr",
+    "identifier": "AGRIBALU000024985200100",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 130.2933172738426,
+      "pef": 66.48721182769629
+    },
+    "name": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
+    "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7038,149 +6399,7 @@
     }
   },
   {
-    "id": "lambs-lettuce-fr",
-    "name": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "displayName": "Mâche FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003108668",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 26.02451803953416,
-      "ecs": 26.78991001440472
-    }
-  },
-  {
-    "id": "lambs-lettuce-eu",
-    "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Mâche UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003107604",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
-    "comment": "Production Volume Amount: 23622365184",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 20.339888618375657,
-      "ecs": 24.50587629640328
-    }
-  },
-  {
-    "id": "sweet-corn-fr",
-    "name": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
-    "displayName": "Maïs doux FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200100",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 66.4872118276963,
-      "ecs": 130.2933172738426
-    }
-  },
-  {
-    "id": "sweet-corn-organic-fr",
-    "name": "Grain maize, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Maïs doux FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003106825",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 59.958897338643055,
-      "ecs": 43.427431523367616
-    }
-  },
-  {
-    "id": "sweet-corn-br",
-    "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
-    "displayName": "Maïs doux Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003109026",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Economic allocation based on Whitman et al. 2011, assuming 15% stover removed from the field and 65 $/t stover",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7208,13 +6427,7 @@
     }
   },
   {
-    "id": "pineapple-non-eu",
-    "name": "Pineapple, at farm {CR} - Adapted from WFLDB U",
-    "displayName": "Ananas Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003111295",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Yield from Ingwersen 2012.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7242,6 +6455,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 4",
+    "displayName": "Fève UE Conv.",
     "id": "broad-beans-eu",
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Fève UE Conv.",
@@ -7276,6 +6492,9 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 4",
+    "displayName": "Fève FR Conv.",
     "id": "broad-beans-fr",
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Fève FR Conv.",
@@ -7310,13 +6529,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 18088361984",
+    "displayName": "Blette UE Conv.",
     "id": "swiss-chard-eu",
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Blette UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114717",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18088361984",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7378,13 +6603,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "Production Volume Amount: 4",
+    "displayName": "Haricot flageolet UE Conv.",
     "id": "flageolet-bean-eu",
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "displayName": "Haricot flageolet UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105780",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 4",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7412,47 +6643,7 @@
     }
   },
   {
-    "id": "flageolet-bean-fr",
-    "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Haricot flageolet FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105780",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
-    "comment": "Production Volume Amount: 4",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 71.85195836687184,
-      "ecs": 73.8062393083272
-    }
-  },
-  {
-    "id": "rice-basmati-non-eu",
-    "name": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "displayName": "Riz basmati Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003112687",
-    "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production Volume Amount: 8769999872",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7480,13 +6671,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Blé tendre FR ou UE ou Hors UE Bio",
     "id": "soft-wheat-organic",
     "name": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "displayName": "Blé tendre FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "bdd14c2017eaf0cda1e207e74012c391",
     "system_description": "Ecobalyse",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Ecobalyse",
     "impacts": {
@@ -7520,7 +6717,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200247",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7554,7 +6754,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003117044",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7582,47 +6785,7 @@
     }
   },
   {
-    "id": "durum-wheat-fr",
-    "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
-    "displayName": "Blé dur FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200066",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 91.13193677617065,
-      "ecs": 91.44951647633499
-    }
-  },
-  {
-    "id": "durum-wheat-eu",
-    "name": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
-    "displayName": "Blé dur UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105055",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Economic allocation for wheat based on FEFAC (2015)",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7650,13 +6813,7 @@
     }
   },
   {
-    "id": "durum-wheat-non-eu",
-    "name": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
-    "displayName": "Blé dur Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105051",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Economic allocation for wheat based on FEFAC (2015)\nYield, irrigation (no irrigation in Australia), fertilizers (type and amount) and pesticides (total amount) application, diesel consumption and seed consumption based on the PEF Screening report for dry pasta.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7684,13 +6841,7 @@
     }
   },
   {
-    "id": "apple-organic",
-    "name": "Table apple, consumption mix, organic 2023 {FR} U",
-    "displayName": "Pomme FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "apple-organic",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7718,13 +6869,7 @@
     }
   },
   {
-    "id": "apple-fr",
-    "name": "Apple, conventional, national average, at orchard {FR} U",
-    "displayName": "Pomme FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100459",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "FRANCE",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -7752,13 +6897,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
+    "displayName": "Pomme de terre de table FR ou UE ou Hors UE Bio",
     "id": "potato-table-organic",
     "name": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR} U",
     "displayName": "Pomme de terre de table FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "potato-table-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7792,7 +6943,10 @@
     "unit": "kilogram",
     "identifier": "potato-industry-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7826,7 +6980,10 @@
     "unit": "kilogram",
     "identifier": "kiwi-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7860,7 +7017,10 @@
     "unit": "kilogram",
     "identifier": "red-cabbage-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7894,7 +7054,10 @@
     "unit": "kilogram",
     "identifier": "sugar-beet-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7928,7 +7091,10 @@
     "unit": "kilogram",
     "identifier": "papaya-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7962,7 +7128,10 @@
     "unit": "kilogram",
     "identifier": "tomato-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -7996,7 +7165,10 @@
     "unit": "kilogram",
     "identifier": "pineapple-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8030,7 +7202,10 @@
     "unit": "kilogram",
     "identifier": "garden-peas-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8064,7 +7239,10 @@
     "unit": "kilogram",
     "identifier": "almond-inshell-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8098,7 +7276,10 @@
     "unit": "kilogram",
     "identifier": "lettuce-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8132,7 +7313,10 @@
     "unit": "kilogram",
     "identifier": "mango-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8160,47 +7344,7 @@
     }
   },
   {
-    "id": "lychee-organic",
-    "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Litchi Hors FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "lychee-organic",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "source": "Ginko",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 57.481539548758015,
-      "ecs": 46.37216992167492
-    }
-  },
-  {
-    "id": "lychee-non-eu",
-    "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "displayName": "Litchi Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003109086",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "BRAZIL",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8228,13 +7372,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Avoine Hors UE Conv.",
     "id": "oats-glo",
     "name": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "displayName": "Avoine Hors UE Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110378",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8268,7 +7418,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003114832",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8302,7 +7455,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003100974",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8330,47 +7486,19 @@
     }
   },
   {
-    "id": "barley-organic",
-    "name": "Barley, organic, animal feed, at farm gate {FR} U",
-    "displayName": "Orge FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100976",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 66.9979080868876,
-      "ecs": 52.524212928156665
-    }
-  },
-  {
+    "categories": ["ingredient"],
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
+    "displayName": "Banane FR ou UE ou Hors UE Bio",
     "id": "banana-organic",
     "name": "Banana, consumption mix, organic 2023 {FR} U",
     "displayName": "Banane FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "banana-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8404,7 +7532,10 @@
     "unit": "kilogram",
     "identifier": "orange-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8438,7 +7569,10 @@
     "unit": "kilogram",
     "identifier": "lemon-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8472,7 +7606,10 @@
     "unit": "kilogram",
     "identifier": "celery-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8506,7 +7643,10 @@
     "unit": "kilogram",
     "identifier": "olive-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8540,7 +7680,10 @@
     "unit": "kilogram",
     "identifier": "peanut-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8574,7 +7717,10 @@
     "unit": "kilogram",
     "identifier": "raspberry-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8636,13 +7782,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
+    "displayName": "Endive FR ou UE ou Hors UE Bio",
     "id": "endive-organic",
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "displayName": "Endive FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "endive-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8676,7 +7828,10 @@
     "unit": "kilogram",
     "identifier": "durum-wheat-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8710,7 +7865,10 @@
     "unit": "kilogram",
     "identifier": "onion-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8738,47 +7896,7 @@
     }
   },
   {
-    "id": "rice-basmati-organic",
-    "name": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati | Cut-off, U",
-    "displayName": "Riz basmati FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "rice-basmati-organic",
-    "system_description": "",
-    "category": "ingredient",
-    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "source": "Ginko",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 409.7881963407181,
-      "ecs": 330.0516233983951
-    }
-  },
-  {
-    "id": "barley-de",
-    "name": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
-    "displayName": "Orge UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003100967",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Economic allocation based on FEFAC (2015)",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8806,13 +7924,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Triricale FR ou UE ou Hors UE Bio",
     "id": "triticale-organic",
     "name": "Triticale, organic, animal feed, at farm gate {FR} U",
     "displayName": "Triricale FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003116024",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8846,7 +7970,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105752",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8880,7 +8007,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003110915",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -8942,13 +8072,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
+    "displayName": "Radis FR ou UE ou Hors UE Bio",
     "id": "radish-organic",
     "name": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse | Cut-off, U",
     "displayName": "Radis FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "radish-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -8982,7 +8118,10 @@
     "unit": "kilogram",
     "identifier": "lentils-uncooked-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9016,7 +8155,10 @@
     "unit": "kilogram",
     "identifier": "apricot-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9050,7 +8192,10 @@
     "unit": "kilogram",
     "identifier": "leek-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9112,13 +8257,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
+    "displayName": "Prune FR ou UE ou Hors UE Bio",
     "id": "plum-organic",
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
     "displayName": "Prune FR ou UE ou Hors UE Bio",
     "unit": "kilogram",
     "identifier": "plum-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9152,7 +8303,10 @@
     "unit": "kilogram",
     "identifier": "shallot-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9186,7 +8340,10 @@
     "unit": "kilogram",
     "identifier": "blueberry-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9220,7 +8377,10 @@
     "unit": "kilogram",
     "identifier": "spinach-organic",
     "system_description": "",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "source": "Ginko",
     "impacts": {
@@ -9282,13 +8442,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Ensilage maïs FR Conv.",
     "id": "silage-maize-fr",
     "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "displayName": "Ensilage maïs FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200246",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9316,47 +8482,7 @@
     }
   },
   {
-    "id": "silage-maize-organic",
-    "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "displayName": "Ensilage maïs FR ou UE ou Hors UE Bio",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000024985200246",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 55.38493684327017,
-      "ecs": 102.11527714745658
-    }
-  },
-  {
-    "id": "oilseed-feed",
-    "name": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
-    "displayName": "Soja FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110393",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Feed mixture inventory is built for 1 kg DM, but contains inputs with various DM content, for a total fresh matter above 1 kg.\nThe average DM of this mixture is 0.89, hence transport modelling should add an additional mass of 0.11 kg/kg DM for the water content.\nGross energy content is 19.70 MJ/kg DM and crude protein content is 46.4%.\nProportions between the oilseeds estimated based on FAOSTAT 2017 data at global level",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9384,13 +8510,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Herbe de prairie temporaire FR Conv.",
     "id": "grazed-grass-temporary",
     "name": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
     "displayName": "Herbe de prairie temporaire FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000024985200276",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9418,47 +8550,7 @@
     }
   },
   {
-    "id": "grazed-grass-permanent",
-    "name": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
-    "displayName": "Herbe de prairie permanente FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003106967",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 26.7219167940208,
-      "ecs": 19.685924789237824
-    }
-  },
-  {
-    "id": "cherry-tr",
-    "name": "Cherry, at farm (WFLDB)",
-    "displayName": "Cerise Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "WFLDBQUA000001234500334",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Average yield for sweet and sour cherries according to faostat data from 2012 to 2016.",
     "source": "WFLDB",
     "impacts": {
@@ -9486,13 +8578,7 @@
     }
   },
   {
-    "id": "refined-palm-oil",
-    "name": "Palm oil, refined, processed in EU, at plant {RER} U",
-    "displayName": "Huile de palme (raffinée) UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105775",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Modification : ITERG\n\nIncluded processes: This process includes the refining of crude palm oil, in Europe. Transport of inputs are considered. System boundary is at the oil mill.\nRemark: Inventory refers to the production of 1 kg refined palm oil, respectively 0,07 kg of Fatty Acids Distallates.   \nEconomic allocation : Economic Allocation between refined palm oil and palm oil fatty acids distillates\nPalm oil : 803/T",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9520,13 +8606,7 @@
     }
   },
   {
-    "id": "refined-linseed-oil",
-    "name": "Linseed oil, refined, at oil mill { FR} U",
-    "displayName": "Huile de lin (raffinée) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003108737",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Dataset of the production of refined linseed oil in France. It includes crushing of linseed grain, representative of French consumption mix, and refining of crude oil. \n3,36 kg of linseed are needed for the production of 1kg of refined Linseed oil and Linseed oil cake.\nEconomic allocation is made between oil, cake and refining co-products\nPrice for 1 kg Linseed oil = 1,49 /kg ; price for 1 kg Linseed oil cake = 0,286/kg, according to WFLDB economic value. Price for soap stocks and deodorization condensates were approximated from the economic values of rapeseed co-products: 0,2179 /kg Linseed soap stock, 0,2179 /kg Linseed deodorisation condensates.\nIncluding consumptions at crushing and refining\nData for crushing come from AGRIBALYSE 1.4 datateset  \"Flaxseed crushing, processing/FR U\", from AGRIBALYSE 1.4, based on expert informations. Data from crude Linseed oil refining are based on industrial data for 2013, representative of refining step for linseed oil in France.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9554,13 +8634,7 @@
     }
   },
   {
-    "id": "refined-grapeseed-oil",
-    "name": "Grapeseed oil, refined at plant {FR} U",
-    "displayName": "Huile de pépin de raisin (raffinée) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003106915",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Data are representative of refined grapeseed oil production from dry grapeseed. 7,18kg of dry grapeseed are needed to produce 1kg of refined grapeseed oil and 5,87 of grapeseed oil meal. Data source : Data source : industrial data, representative for crushing and refining of grapeseed oil in France.\nEconomic Allocation\nEconomic value from AGECO report : 1,71/kg of refined grapeseed oil, 0,212/kg of grapeseed oil meal, 0,21792/kg of grapeseed soap stock, 0,21792/kg of grapeseed deodorization condensate\nData source : industrial data, representative for grapeseed drying. Reference year : 2014",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9588,13 +8662,7 @@
     }
   },
   {
-    "id": "refined-soybean-oil",
-    "name": "Soybean oil, refined, at plant  {FR} U",
-    "displayName": "Huile de soja (raffinée) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003114609",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Data are representative of refined soybean oil production from soybean seeds. 5,4k g of soybean seeds are needed to produce 1 kg of refined soybean oil and 4,24 kg of soybean oil cake. \nData source : industrial data, representative for crushing and refining of soybean oil in Europe. Data from FEDIOL, 2013. Life cycle assessment of EU Oilseed Crushing and Vegetable oil refining. Final report 59 pages\nEconomic Allocation\nEconomic value from FEDIOL report : 0,809/kg of refined soybean oil, 0,297/kg of soybean oil meal, 0,6/kg of soybean lecithin, 0,35/kg of soybean soap stock\n\nThe consumption mix of soybean oil in France was determined with importation and production data from FAOSTAT (average 2015-2019). The average conusmption mix (2015-2019) was : France, 70%, Spain, 12%, others origins (mainly UE countries)  : 18%. Only French  origin are considered in this datasets, representing 70% of market mix",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9622,13 +8690,7 @@
     }
   },
   {
-    "id": "virgin-hazelnut-oil",
-    "name": "Hazelnut oil, crude, at plant {FR} U",
-    "displayName": "Huile de noisette (vierge) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003107299",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Dataset of the production of crude hazelnut oil in France. It includes crushing of unshelled hazelnut kernel, by mechanical cold pressing. \n2,5 kg of unshelled hazelnut are needed for the production of 1 kg of crude hazelnut oil and 1,5 of hazelnut oil cake. \n\nEconomic allocation is made between oil and cake\nPrice for 1 kg crude Hazelnut  oil = 4  TL/ kg (0,4/kg) \n Price for 1 kg Hazelnut oil  cake = 1 TL/kg ( 0,10/kg). Source : Turkish Grain Board (TMO)\nData from ITERG, based on cold pressing for rapeseed seeds",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9656,13 +8718,7 @@
     }
   },
   {
-    "id": "refined-peanut-oil",
-    "name": "Peanut oil, at oil mill {SN} U",
-    "displayName": "Huile d'arachide (raffinée) Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110968",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "Production of 1kg refined peanut oil in Senegal\nSource : Schmidt, J. H. (2015). Life cycle assessment of five vegetable oils\nAllocation is based on the price ratio of cake : oil = 0.10\nEconomic allocation is applied. Price for 1 kg Peanut oil = 0.51 US $/pound; price for 1 kg Peanut oil cake = 0.05 US $/pound.",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9690,13 +8746,7 @@
     }
   },
   {
-    "id": "refined-sunflower-oil",
-    "name": "Sunflower oil, refined, low dehulling at plant {FR} U",
-    "displayName": "Huile de tournesol (raffinée) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003115161",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9517/kg of refined sunflower oil",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9724,13 +8774,7 @@
     }
   },
   {
-    "id": "refined-rapeseed-oil",
-    "name": "Rapeseed oil, refined, at oil mill {FR} U",
-    "displayName": "Huile de colza (raffinée) FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003112440",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9192/kg of refined rapeseed oil",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9758,13 +8802,7 @@
     }
   },
   {
-    "id": "extra-virgin-olive-oil",
-    "name": "Extra Virgin Olive Oil, at plant {ES} U",
-    "displayName": "Huile d'olive (extra vierge) UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105717",
-    "system_description": "",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "This dataset represents the virgin oil extraction in Spain from olive produced in Spain. \n\nIncluded processes: This process includes the production of olive in Spain, cleaning and rinsing of harvest olives and Extra Virgin Olive Oil extraction from two phases process. \nRemark : Inventory refers to the production of 1kg of Extra Virgin Olive Oil and 4,46 kg of pomace from 5,83 kg of harvest olives. System boundary is at Spain mill. Electricity, water consumption and extraction Yield_ are based on default value proposed by PEFCR for Olive rules (3rd Draft, 2016). \nEconomic Allocation is applied between Extra Virgin Olive Oil and pomace, based on price proposed in PEFCR : Extra Virgin Olive Oil : 1,88/kg and Pomace : 0,01/kg\nGeography: Extra Virgin Olive Oil production in Spain\nTechnology: Extra Virgin Olive Oil extraction two phases, representative of extraction process in Spain. \nTime period: Data from PEFCR Olive Oil, 2016,",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9792,13 +8830,7 @@
     }
   },
   {
-    "id": "fresh-cream-cheese",
-    "name": "Fresh cream cheese, plain, creamy, around 8% fat, at plant {FR} U",
-    "displayName": "Crème fraiche FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003106208",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "This process describes the production of Fresh cream cheese, plain, creamy, around 8% fat in France.\nIncluded activities are : production in country of origin and transport",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9826,13 +8858,7 @@
     }
   },
   {
-    "id": "onion-dried-hors-ue",
-    "name": "Onions, dried, consumption mix {FR} U",
-    "displayName": "Oignons déshydratés Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003110475",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of dried Onions in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9860,13 +8886,19 @@
     }
   },
   {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Oeuf cru décoquillé FR Conv.",
     "id": "egg-without-shell-fr",
     "name": "Chicken egg, raw, without shell, at plant {FR} U",
     "displayName": "Oeuf cru décoquillé FR Conv.",
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003103004",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9900,7 +8932,10 @@
     "unit": "kilogram",
     "identifier": "AGRIBALU000000003105140",
     "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "unit": "kilogram"
+  },
+  {
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9928,47 +8963,7 @@
     }
   },
   {
-    "id": "egg-white-powder-fr",
-    "name": "Egg white, powder, at plant {FR} U",
-    "displayName": "poudre de blanc d'oeuf FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105126",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
-    "comment": "",
-    "source": "Agribalyse 3.1.1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "pef": 503.39228637897634,
-      "ecs": 672.2964545916598
-    }
-  },
-  {
-    "id": "emmental-grated-fr",
-    "name": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
-    "displayName": "Emmental rapé FR Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003105535",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "(3,3,2,1,2),",
     "source": "Agribalyse 3.1.1",
     "impacts": {
@@ -9996,13 +8991,7 @@
     }
   },
   {
-    "id": "cocoa-powder-non-ue",
-    "name": "Cocoa powder, at plant {FR} U",
-    "displayName": "Poudre de cacao Hors UE Conv.",
-    "unit": "kilogram",
-    "identifier": "AGRIBALU000000003103498",
-    "system_description": "AGRIBALYSE",
-    "category": "ingredient",
+    "categories": ["ingredient"],
     "comment": "",
     "source": "Agribalyse 3.1.1",
     "impacts": {
