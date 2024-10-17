@@ -19,10 +19,12 @@ from bw2data.project import projects
 from common.export import (
     cached_search,
     display_changes,
-    export_json,
+    export_json_ordered,
     load_json,
     progress_bar,
+    remove_detailed_impacts,
     spproject,
+    with_aggregated_impacts,
     with_corrected_impacts,
     with_subimpacts,
 )
@@ -46,21 +48,21 @@ if not ECOBALYSE_DATA_DIR:
     sys.exit(1)
 
 # Configuration
-PROJECT = ("default",)
-DEFAULT_DB = ("Agribalyse 3.1.1",)
-BIOSPHERE = ("biosphere3",)
-ACTIVITIES_FILE = (f"{PROJECT_ROOT_DIR}/data/food/activities.json",)
-COMPARED_IMPACTS_FILE = (f"{PROJECT_ROOT_DIR}/data/food/compared_impacts.csv",)
-IMPACTS_FILE = (f"{PROJECT_ROOT_DIR}/public/data/impacts.json",)
+PROJECT = "default"
+DEFAULT_DB = "Agribalyse 3.1.1"
+ACTIVITIES_FILE = f"{PROJECT_ROOT_DIR}/data/food/activities.json"
+COMPARED_IMPACTS_FILE = f"{PROJECT_ROOT_DIR}/data/food/compared_impacts.csv"
+IMPACTS_FILE = f"{PROJECT_ROOT_DIR}/public/data/impacts.json"
 ECOSYSTEMIC_FACTORS_FILE = (
-    f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ecosystemic_factors.csv",
+    f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ecosystemic_factors.csv"
 )
-FEED_FILE = (f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",)
-UGB_FILE = (f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv",)
-INGREDIENTS_FILE = (f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",)
-PROCESSES_FILE = (f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json",)
-LAND_OCCUPATION_METHOD = (("selected LCI results", "resource", "land occupation"),)
-GRAPH_FOLDER = (f"{PROJECT_ROOT_DIR}/data/food/impact_comparison",)
+FEED_FILE = f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json"
+UGB_FILE = f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv"
+INGREDIENTS_FILE = f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json"
+PROCESSES_IMPACTS = f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json"
+PROCESSES_AGGREGATED = f"{PROJECT_ROOT_DIR}/public/data/food/processes.json"
+LAND_OCCUPATION_METHOD = ("selected LCI results", "resource", "land occupation")
+GRAPH_FOLDER = f"{PROJECT_ROOT_DIR}/data/food/impact_comparison"
 
 with open(IMPACTS_FILE) as f:
     IMPACTS_DEF_ECOBALYSE = json.load(f)
@@ -180,7 +182,6 @@ def process_activity_for_processes(activity):
             activity.get("database", DEFAULT_DB), activity["search"]
         )["System description"],
         "category": activity.get("category"),
-        "categories": activity.get("categories"),
         "comment": (
             prod[0]["comment"]
             if (
@@ -374,10 +375,10 @@ def csv_export_impact_comparison(compared_impacts):
 
 if __name__ == "__main__":
     projects.set_current(PROJECT)
-    bw2data.config.p["biosphere_database"] = BIOSPHERE
+    bw2data.config.p["biosphere_database"] = "biosphere3"
 
     # keep the previous processes with old impacts
-    oldprocesses = load_json(PROCESSES_FILE)
+    oldprocesses = load_json(PROCESSES_IMPACTS)
     activities = tuple(load_json(ACTIVITIES_FILE))
 
     activities_land_occ = compute_land_occupation(activities)
@@ -417,10 +418,17 @@ if __name__ == "__main__":
     processes_corrected_impacts = with_corrected_impacts(
         IMPACTS_DEF_ECOBALYSE, processes_impacts
     )
+    processes_aggregated_impacts = with_aggregated_impacts(
+        IMPACTS_DEF_ECOBALYSE, processes_corrected_impacts
+    )
 
     # Export
 
-    export_json(activities_land_occ, ACTIVITIES_FILE)
-    export_json(ingredients_animal_es, INGREDIENTS_FILE)
+    export_json_ordered(activities_land_occ, ACTIVITIES_FILE)
+    export_json_ordered(ingredients_animal_es, INGREDIENTS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
-    export_json(list(processes_corrected_impacts.values()), PROCESSES_FILE)
+    export_json_ordered(list(processes_aggregated_impacts.values()), PROCESSES_IMPACTS)
+    export_json_ordered(
+        remove_detailed_impacts(list(processes_aggregated_impacts.values())),
+        PROCESSES_AGGREGATED,
+    )
