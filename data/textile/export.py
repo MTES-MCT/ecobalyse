@@ -8,8 +8,14 @@ from os.path import dirname
 
 import bw2data
 import pandas as pd
+from common import (
+    order_json,
+    remove_detailed_impacts,
+    with_aggregated_impacts,
+    with_corrected_impacts,
+)
 from common.export import (
-    IMPACTS_DEF_ECOBALYSE,
+    IMPACTS_JSON,
     cached_search,
     check_ids,
     compare_impacts,
@@ -17,13 +23,9 @@ from common.export import (
     display_changes,
     export_json,
     load_json,
-    order_json,
     plot_impacts,
-    remove_detailed_impacts,
-    with_aggregated_impacts,
-    with_corrected_impacts,
 )
-from common.impacts import impacts as impact_definitions
+from common.impacts import impacts as impacts_py
 from frozendict import frozendict
 
 BW_DATABASES = bw2data.databases
@@ -147,11 +149,9 @@ if __name__ == "__main__":
     processes = create_process_list(activities)
 
     if len(sys.argv) == 1:  # just export.py
-        processes_impacts = compute_impacts(processes, DEFAULT_DB, impact_definitions)
+        processes_impacts = compute_impacts(processes, DEFAULT_DB, impacts_py)
     elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
-        impacts_compared_dic = compare_impacts(
-            processes, DEFAULT_DB, impact_definitions
-        )
+        impacts_compared_dic = compare_impacts(processes, DEFAULT_DB, impacts_py)
         csv_export_impact_comparison(impacts_compared_dic)
         for material_name, values in impacts_compared_dic.items():
             print(f"Plotting {material_name}")
@@ -168,23 +168,24 @@ if __name__ == "__main__":
         sys.exit(1)
 
     processes_corrected_impacts = with_corrected_impacts(
-        IMPACTS_DEF_ECOBALYSE, processes_impacts
+        IMPACTS_JSON, processes_impacts
     )
     processes_aggregated_impacts = with_aggregated_impacts(
-        IMPACTS_DEF_ECOBALYSE, processes_corrected_impacts
+        IMPACTS_JSON, processes_corrected_impacts
     )
 
     # Export
 
-    export_json(order_json(activities, ACTIVITIES_FILE))
-    export_json(order_json(materials, MATERIALS_FILE))
+    export_json(order_json(activities), ACTIVITIES_FILE)
+    export_json(order_json(materials), MATERIALS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
-        order_json(list(processes_aggregated_impacts.values()), PROCESSES_IMPACTS)
+        order_json(list(processes_aggregated_impacts.values())), PROCESSES_IMPACTS
     )
+
     export_json(
         order_json(
-            remove_detailed_impacts(list(processes_aggregated_impacts.values())),
-            PROCESSES_AGGREGATED,
-        )
+            remove_detailed_impacts(list(processes_aggregated_impacts.values()))
+        ),
+        PROCESSES_AGGREGATED,
     )

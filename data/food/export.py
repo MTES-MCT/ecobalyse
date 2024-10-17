@@ -9,8 +9,14 @@ from os.path import dirname
 import bw2calc
 import bw2data
 from bw2data.project import projects
+from common import (
+    order_json,
+    remove_detailed_impacts,
+    with_aggregated_impacts,
+    with_corrected_impacts,
+)
 from common.export import (
-    IMPACTS_DEF_ECOBALYSE,
+    IMPACTS_JSON,
     cached_search,
     check_ids,
     compare_impacts,
@@ -20,13 +26,10 @@ from common.export import (
     export_json,
     find_id,
     load_json,
-    order_json,
     plot_impacts,
     progress_bar,
-    remove_detailed_impacts,
-    with_aggregated_impacts,
-    with_corrected_impacts,
 )
+from common.impacts import impacts as impacts_py
 from frozendict import frozendict
 
 from food.ecosystemic_services.ecosystemic_services import (
@@ -182,9 +185,9 @@ if __name__ == "__main__":
     processes = create_process_list(activities_land_occ)
 
     if len(sys.argv) == 1:  # just export.py
-        processes_impacts = compute_impacts(processes, DEFAULT_DB)
+        processes_impacts = compute_impacts(processes, DEFAULT_DB, impacts_py)
     elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
-        impacts_compared_dic = compare_impacts(processes, DEFAULT_DB)
+        impacts_compared_dic = compare_impacts(processes, DEFAULT_DB, impacts_py)
         csv_export_impact_comparison(impacts_compared_dic, "food")
         for ingredient_name, values in impacts_compared_dic.items():
             print(f"Plotting {ingredient_name}")
@@ -201,23 +204,24 @@ if __name__ == "__main__":
         sys.exit(1)
 
     processes_corrected_impacts = with_corrected_impacts(
-        IMPACTS_DEF_ECOBALYSE, processes_impacts
+        IMPACTS_JSON, processes_impacts
     )
     processes_aggregated_impacts = with_aggregated_impacts(
-        IMPACTS_DEF_ECOBALYSE, processes_corrected_impacts
+        IMPACTS_JSON, processes_corrected_impacts
     )
 
     # Export
 
-    export_json(order_json(activities_land_occ, ACTIVITIES_FILE))
-    export_json(order_json(ingredients_animal_es, INGREDIENTS_FILE))
+    export_json(order_json(activities_land_occ), ACTIVITIES_FILE)
+    export_json(order_json(ingredients_animal_es), INGREDIENTS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
-        order_json(list(processes_aggregated_impacts.values()), PROCESSES_IMPACTS)
+        order_json(list(processes_aggregated_impacts.values())), PROCESSES_IMPACTS
     )
+
     export_json(
         order_json(
-            remove_detailed_impacts(list(processes_aggregated_impacts.values())),
-            PROCESSES_AGGREGATED,
-        )
+            remove_detailed_impacts(list(processes_aggregated_impacts.values()))
+        ),
+        PROCESSES_AGGREGATED,
     )
