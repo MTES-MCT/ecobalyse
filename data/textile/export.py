@@ -85,7 +85,6 @@ def create_process_list(activities):
 
 def to_process(activity):
     return {
-        "uuid": activity["uuid"],
         "name": cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
             "name"
         ]
@@ -101,6 +100,8 @@ def to_process(activity):
         "source": activity["source"],
         "correctif": activity["correctif"],
         "step_usage": activity["step_usage"],
+        "uuid": activity["uuid"],
+        **({"impacts": activity["impacts"].copy()} if "impacts" in activity else {}),
         "heat_MJ": activity["heat_MJ"],
         "elec_pppm": activity["elec_pppm"],
         "elec_MJ": activity["elec_MJ"],
@@ -108,7 +109,6 @@ def to_process(activity):
         "alias": activity["alias"],
         # those are removed at the end:
         **({"search": activity["search"]} if "search" in activity else {}),
-        **({"impacts": activity["impacts"].copy()} if "impacts" in activity else {}),
     }
 
 
