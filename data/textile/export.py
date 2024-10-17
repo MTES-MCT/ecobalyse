@@ -18,10 +18,13 @@ import requests
 from common.export import (
     cached_search,
     display_changes,
-    export_json,
+    export_json_ordered,
     load_json,
     progress_bar,
+    remove_detailed_impacts,
     spproject,
+    with_aggregated_impacts,
+    with_corrected_impacts,
     with_subimpacts,
 )
 from common.impacts import bytrigram, main_method
@@ -43,8 +46,12 @@ ACTIVITIES_FILE = f"{PROJECT_ROOT_DIR}/data/textile/activities.json"
 COMPARED_IMPACTS_FILE = f"{PROJECT_ROOT_DIR}/data/textile/compared_impacts.csv"
 IMPACTS_FILE = f"{PROJECT_ROOT_DIR}/public/data/impacts.json"
 MATERIALS_FILE = f"{PROJECT_ROOT_DIR}/public/data/textile/materials.json"
-PROCESSES_FILE = f"{ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json"
+PROCESSES_IMPACTS = f"{ECOBALYSE_DATA_DIR}/data/textile/processes_impacts.json"
+PROCESSES_AGGREGATED = f"{PROJECT_ROOT_DIR}/public/data/textile/processes.json"
 GRAPH_FOLDER = f"{PROJECT_ROOT_DIR}/data/textile/impact_comparison"
+
+with open(IMPACTS_FILE) as f:
+    IMPACTS_DEF_ECOBALYSE = json.load(f)
 
 with open(IMPACTS_FILE) as f:
     impact_definitions = json.load(f)
@@ -320,7 +327,7 @@ if __name__ == "__main__":
     # bw2data.config.p["biosphere_database"] = "biosphere3"
 
     # keep the previous processes with old impacts
-    oldprocesses = load_json(PROCESSES_FILE)
+    oldprocesses = load_json(PROCESSES_IMPACTS)
     activities = tuple(load_json(ACTIVITIES_FILE))
 
     materials = create_material_list(activities)
@@ -345,9 +352,20 @@ if __name__ == "__main__":
         print("Wrong argument: either no args or 'compare'")
         sys.exit(1)
 
+    processes_corrected_impacts = with_corrected_impacts(
+        IMPACTS_DEF_ECOBALYSE, processes_impacts
+    )
+    processes_aggregated_impacts = with_aggregated_impacts(
+        IMPACTS_DEF_ECOBALYSE, processes_corrected_impacts
+    )
+
     # Export
 
-    export_json(activities, ACTIVITIES_FILE)
-    export_json(materials, MATERIALS_FILE)
-    display_changes("id", oldprocesses, processes)
-    export_json(list(processes.values()), PROCESSES_FILE)
+    export_json_ordered(activities, ACTIVITIES_FILE)
+    export_json_ordered(materials, MATERIALS_FILE)
+    display_changes("id", oldprocesses, processes_corrected_impacts)
+    export_json_ordered(list(processes_aggregated_impacts.values()), PROCESSES_IMPACTS)
+    export_json_ordered(
+        remove_detailed_impacts(list(processes_aggregated_impacts.values())),
+        PROCESSES_AGGREGATED,
+    )
