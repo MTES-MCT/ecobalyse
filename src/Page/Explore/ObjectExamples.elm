@@ -14,10 +14,10 @@ import Views.Icon as Icon
 
 
 table :
-    { maxScore : Float }
+    { maxScore : Float, maxPer100g : Float }
     -> { detailed : Bool, scope : Scope }
-    -> Table ( Example Query, { score : Float } ) String msg
-table { maxScore } { detailed, scope } =
+    -> Table ( Example Query, { score : Float, per100g : Float } ) String msg
+table { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.ObjectExamples >> Route.Explore scope
@@ -36,6 +36,12 @@ table { maxScore } { detailed, scope } =
           , toCell =
                 \( _, { score } ) ->
                     Common.impactBarGraph detailed maxScore score
+          }
+        , { label = "Coût Environnemental/100g"
+          , toValue = Table.FloatValue (Tuple.second >> .per100g)
+          , toCell =
+                \( _, { per100g } ) ->
+                    Common.impactBarGraph detailed maxPer100g per100g
           }
         , { label = ""
           , toValue = Table.NoValue

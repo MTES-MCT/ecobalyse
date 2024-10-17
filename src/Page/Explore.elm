@@ -300,16 +300,16 @@ foodExamplesExplorer :
     -> List (Html Msg)
 foodExamplesExplorer db tableConfig tableState maybeId =
     let
+        exampleScores example =
+            ( example
+            , { score = getFoodScore db example
+              , per100g = getFoodScorePer100g db example
+              }
+            )
+
         scoredExamples =
             db.food.examples
-                |> List.map
-                    (\example ->
-                        ( example
-                        , { score = getFoodScore db example
-                          , per100g = getFoodScorePer100g db example
-                          }
-                        )
-                    )
+                |> List.map exampleScores
                 |> List.sortBy (Tuple.first >> .name)
 
         max =
@@ -337,13 +337,8 @@ foodExamplesExplorer db tableConfig tableState maybeId =
                         alert error
 
                     Ok example ->
-                        Table.viewDetails Scope.Food
-                            (FoodExamples.table max)
-                            ( example
-                            , { score = getFoodScore db example
-                              , per100g = getFoodScorePer100g db example
-                              }
-                            )
+                        exampleScores example
+                            |> Table.viewDetails Scope.Food (FoodExamples.table max)
                 )
 
         Nothing ->
@@ -411,21 +406,34 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
 
 objectExamplesExplorer :
     Db
-    -> Table.Config ( Example ObjectQuery.Query, { score : Float } ) Msg
+    -> Table.Config ( Example ObjectQuery.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
     -> Maybe Uuid
     -> List (Html Msg)
 objectExamplesExplorer db tableConfig tableState maybeId =
     let
+        exampleScores example =
+            ( example
+            , { score = getObjectScore db example
+              , per100g = getObjectScorePer100g db example
+              }
+            )
+
         scoredExamples =
             db.object.examples
-                |> List.map (\example -> ( example, { score = getObjectScore db example } ))
+                |> List.filter (.query >> (/=) ObjectQuery.default)
+                |> List.map exampleScores
                 |> List.sortBy (Tuple.first >> .name)
 
         max =
             { maxScore =
                 scoredExamples
                     |> List.map (Tuple.second >> .score)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            , maxPer100g =
+                scoredExamples
+                    |> List.map (Tuple.second >> .per100g)
                     |> List.maximum
                     |> Maybe.withDefault 0
             }
@@ -442,7 +450,7 @@ objectExamplesExplorer db tableConfig tableState maybeId =
                         alert error
 
                     Ok example ->
-                        ( example, { score = getObjectScore db example } )
+                        exampleScores example
                             |> Table.viewDetails Scope.Object (ObjectExamples.table max)
                 )
 
@@ -485,16 +493,16 @@ textileExamplesExplorer :
     -> List (Html Msg)
 textileExamplesExplorer db tableConfig tableState maybeId =
     let
+        exampleScores example =
+            ( example
+            , { score = getTextileScore db example
+              , per100g = getTextileScorePer100g db example
+              }
+            )
+
         scoredExamples =
             db.textile.examples
-                |> List.map
-                    (\example ->
-                        ( example
-                        , { score = getTextileScore db example
-                          , per100g = getTextileScorePer100g db example
-                          }
-                        )
-                    )
+                |> List.map exampleScores
                 |> List.sortBy (Tuple.first >> .name)
 
         max =
@@ -521,13 +529,8 @@ textileExamplesExplorer db tableConfig tableState maybeId =
                         alert error
 
                     Ok example ->
-                        Table.viewDetails Scope.Textile
-                            (TextileExamples.table max)
-                            ( example
-                            , { score = getTextileScore db example
-                              , per100g = getTextileScorePer100g db example
-                              }
-                            )
+                        exampleScores example
+                            |> Table.viewDetails Scope.Textile (TextileExamples.table max)
                 )
 
         Nothing ->
@@ -648,6 +651,22 @@ getObjectScore db =
         >> ObjectSimulator.compute db
         >> Result.map (ObjectSimulator.extractImpacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
         >> Result.withDefault 0
+
+
+getObjectScorePer100g : Db -> Example ObjectQuery.Query -> Float
+getObjectScorePer100g db { query } =
+    query
+        |> Debug.log "query"
+        |> ObjectSimulator.compute db
+        |> Result.map
+            (\(ObjectSimulator.Results { impacts, mass }) ->
+                impacts
+                    |> Impact.per100grams mass
+                    |> Impact.getImpact Definition.Ecs
+                    |> Debug.log "ecs"
+                    |> Unit.impactToFloat
+            )
+        |> Result.withDefault 0
 
 
 getTextileScore : Db -> Example TextileQuery.Query -> Float
