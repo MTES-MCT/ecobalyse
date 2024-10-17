@@ -101,7 +101,11 @@ def to_process(activity):
         "correctif": activity["correctif"],
         "step_usage": activity["step_usage"],
         "uuid": activity["uuid"],
-        **({"impacts": activity["impacts"].copy()} if "impacts" in activity else {}),
+        **(
+            {"impacts": activity["impacts"].copy()}
+            if "impacts" in activity
+            else {"impacts": {}}
+        ),
         "heat_MJ": activity["heat_MJ"],
         "elec_pppm": activity["elec_pppm"],
         "elec_MJ": activity["elec_MJ"],
