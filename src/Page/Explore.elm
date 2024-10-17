@@ -656,14 +656,12 @@ getObjectScore db =
 getObjectScorePer100g : Db -> Example ObjectQuery.Query -> Float
 getObjectScorePer100g db { query } =
     query
-        |> Debug.log "query"
         |> ObjectSimulator.compute db
         |> Result.map
             (\(ObjectSimulator.Results { impacts, mass }) ->
                 impacts
                     |> Impact.per100grams mass
                     |> Impact.getImpact Definition.Ecs
-                    |> Debug.log "ecs"
                     |> Unit.impactToFloat
             )
         |> Result.withDefault 0
