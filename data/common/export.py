@@ -213,9 +213,9 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
         activity = cached_search(process.get("source", default_db), process["search"])
         results = compute_simapro_impacts(activity, main_method, impact_defs)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
-        if process["unit"] == "kilowatt hour" and isinstance(results, dict):
+        if process["unit"] == "kWh" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
-        if process["unit"] == "litre" and isinstance(results, dict):
+        if process["unit"] == "L" and isinstance(results, dict):
             results = {k: v / 1000 for k, v in results.items()}
 
         process["impacts"] = results

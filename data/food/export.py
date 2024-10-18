@@ -10,6 +10,7 @@ import bw2calc
 import bw2data
 from bw2data.project import projects
 from common import (
+    fix_unit,
     order_json,
     remove_detailed_impacts,
     with_aggregated_impacts,
@@ -134,9 +135,11 @@ def to_process(activity):
             "name"
         ],
         "displayName": activity["name"],
-        "unit": cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
-            "unit"
-        ],
+        "unit": fix_unit(
+            cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
+                "unit"
+            ]
+        ),
         "identifier": find_id(activity.get("database", DEFAULT_DB), activity),
         "system_description": cached_search(
             activity.get("database", DEFAULT_DB), activity["search"]

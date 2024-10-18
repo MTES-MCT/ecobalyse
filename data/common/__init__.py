@@ -182,3 +182,23 @@ def with_aggregated_impacts(impact_defs, processes_fd, impacts="impacts"):
         processes_updated[key] = updated_process
 
     return frozendict(processes_updated)
+
+
+def fix_unit(unit):
+    match unit:
+        case "cubic meter":
+            return "m³"
+        case "kilogram":
+            return "kg"
+        case "kilometer":
+            return "km"
+        case "kilowatt hour":
+            return "kWh"
+        case "litre":
+            return "L"
+        case "megajoule":
+            return "MJ"
+        case "ton kilometer":
+            return "t⋅km"
+        case _:
+            return unit

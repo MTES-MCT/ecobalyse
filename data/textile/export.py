@@ -9,6 +9,7 @@ from os.path import dirname
 import bw2data
 import pandas as pd
 from common import (
+    fix_unit,
     order_json,
     remove_detailed_impacts,
     with_aggregated_impacts,
@@ -92,11 +93,13 @@ def to_process(activity):
         else activity.get("name", activity["displayName"]),
         "displayName": activity["displayName"],
         "info": activity["info"],
-        "unit": cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
-            "unit"
-        ]
-        if "search" in activity and activity["source"] in BW_DATABASES
-        else activity["unit"],
+        "unit": fix_unit(
+            cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
+                "unit"
+            ]
+            if "search" in activity and activity["source"] in BW_DATABASES
+            else activity["unit"]
+        ),
         "source": activity["source"],
         "correctif": activity["correctif"],
         "step_usage": activity["step_usage"],
