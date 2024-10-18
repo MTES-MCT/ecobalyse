@@ -718,7 +718,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.270519,
+    "waste": 0.21292,
     "alias": null
   },
   {
@@ -756,7 +756,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.270519,
+    "waste": 0.21292,
     "alias": null
   },
   {
@@ -794,7 +794,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.270519,
+    "waste": 0.21292,
     "alias": null
   },
   {
@@ -1022,7 +1022,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.538462,
+    "waste": 0.35,
     "alias": null
   },
   {
@@ -1060,7 +1060,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.538462,
+    "waste": 0.35,
     "alias": null
   },
   {
@@ -1098,7 +1098,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.201201,
+    "waste": 0.1675,
     "alias": null
   },
   {
@@ -1136,7 +1136,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.105105,
+    "waste": 0.09511,
     "alias": null
   },
   {
@@ -1174,7 +1174,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.221094,
+    "waste": 0.18106,
     "alias": null
   },
   {
@@ -1212,7 +1212,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.0582011,
+    "waste": 0.055,
     "alias": null
   },
   {
@@ -1250,7 +1250,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.631206,
+    "waste": 0.38696,
     "alias": null
   },
   {
@@ -1288,7 +1288,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 0,
-    "waste": 0.21716,
+    "waste": 0.17842,
     "alias": null
   },
   {
@@ -1326,7 +1326,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 8.64,
-    "waste": 0.0576,
+    "waste": 0.05446,
     "alias": "knitting-mix"
   },
   {
@@ -1364,7 +1364,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 6.06443,
-    "waste": 0.00502513,
+    "waste": 0.005,
     "alias": "knitting-fully-fashioned"
   },
   {
@@ -1402,7 +1402,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 13.2112,
-    "waste": 0.00502513,
+    "waste": 0.005,
     "alias": "knitting-seamless"
   },
   {
@@ -1440,7 +1440,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0.0003145,
     "elec_MJ": 0,
-    "waste": 0.0667,
+    "waste": 0.06253,
     "alias": "weaving"
   },
   {
@@ -2656,7 +2656,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 4.194,
-    "waste": 0.0417,
+    "waste": 0.04003,
     "alias": "knitting-straight"
   },
   {
@@ -2694,7 +2694,7 @@
     "heat_MJ": 0,
     "elec_pppm": 0,
     "elec_MJ": 4.25101,
-    "waste": 0.0351967,
+    "waste": 0.034,
     "alias": "knitting-circular"
   },
   {
