@@ -17,7 +17,7 @@ endef
 
 all: import export
 import : image import_food import_ecoinvent import_method sync_datapackages
-export: export_food format
+export: export_food export_textile format
 
 image:
 	docker build -t $(NAME) docker
