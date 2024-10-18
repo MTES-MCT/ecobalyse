@@ -130,20 +130,6 @@ def create_process_list(activities):
 
 def to_process(activity):
     return {
-        "id": activity["id"],
-        "name": cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
-            "name"
-        ],
-        "displayName": activity["name"],
-        "unit": fix_unit(
-            cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
-                "unit"
-            ]
-        ),
-        "identifier": find_id(activity.get("database", DEFAULT_DB), activity),
-        "system_description": cached_search(
-            activity.get("database", DEFAULT_DB), activity["search"]
-        )["System description"],
         "categories": activity.get("process_categories"),
         "comment": (
             prod[0]["comment"]
@@ -156,7 +142,22 @@ def to_process(activity):
             )
             else activity.get("comment", "")
         ),
+        "displayName": activity["name"],
+        "id": activity["id"],
+        "identifier": find_id(activity.get("database", DEFAULT_DB), activity),
+        "impacts": {},
+        "name": cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
+            "name"
+        ],
         "source": activity.get("database", DEFAULT_DB),
+        "system_description": cached_search(
+            activity.get("database", DEFAULT_DB), activity["search"]
+        )["System description"],
+        "unit": fix_unit(
+            cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
+                "unit"
+            ]
+        ),
         # those are removed at the end:
         "search": activity["search"],
     }
