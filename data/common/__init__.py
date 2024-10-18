@@ -88,8 +88,8 @@ def sort_impacts(impacts):
         "swe",
         "tre",
         "wtu",
-        "pef",
         "ecs",
+        "pef",
     ]
     return {key: impacts[key] for key in impact_order if key in impacts}
 
