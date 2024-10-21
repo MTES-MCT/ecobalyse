@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import functools
 import os
+from os.path import dirname, join
 from zipfile import ZipFile
 
 import bw2data
@@ -24,7 +25,7 @@ PROJECT = "default"
 # Agribalyse
 BIOSPHERE = "biosphere3"
 METHODNAME = "Environmental Footprint 3.1 (adapted) patch wtu"  # defined inside the csv
-METHODPATH = os.path.join("..", "..", "dbfiles", METHODNAME + ".CSV.zip")
+METHODPATH = join("..", "..", "dbfiles", METHODNAME + ".CSV.zip")
 
 # excluded strategies and migrations
 EXCLUDED_FOOD = [
@@ -45,7 +46,7 @@ def import_method(project, datapath=METHODPATH, biosphere=BIOSPHERE):
     # unzip
     with ZipFile(datapath) as zf:
         print("### Extracting the zip file...")
-        zf.extractall()
+        zf.extractall(path=dirname(datapath))
         unzipped = datapath[0:-4]
 
     # projects.create_project(project, activate=True, exist_ok=True)

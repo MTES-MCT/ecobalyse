@@ -37,6 +37,7 @@ import Views.Page as Page
 type alias Flags =
     { clientUrl : String
     , enableFoodSection : Bool
+    , enableObjectSection : Bool
     , matomo : { host : String, siteId : String }
     , rawStore : String
     }
@@ -145,6 +146,7 @@ setupSession navKey flags db =
     , currentVersion = Request.Version.Unknown
     , db = db
     , enableFoodSection = flags.enableFoodSection
+    , enableObjectSection = flags.enableObjectSection
     , matomo = flags.matomo
     , navKey = navKey
     , notifications = []

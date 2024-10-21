@@ -5,11 +5,14 @@ module Data.Object.Query exposing
     , amount
     , amountToFloat
     , b64encode
+    , buildApiQuery
     , decode
     , default
     , defaultItem
+    , encode
     , parseBase64Query
     , removeItem
+    , toString
     , updateItem
     )
 
@@ -17,6 +20,7 @@ import Base64
 import Data.Object.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -43,6 +47,17 @@ amount =
 amountToFloat : Amount -> Float
 amountToFloat (Amount float) =
     float
+
+
+buildApiQuery : String -> Query -> String
+buildApiQuery clientUrl query =
+    """curl -sS -X POST %apiUrl% \\
+  -H "accept: application/json" \\
+  -H "content-type: application/json" \\
+  -d '%json%'
+"""
+        |> String.replace "%apiUrl%" (clientUrl ++ "api/object/simulator")
+        |> String.replace "%json%" (encode query |> Encode.encode 0)
 
 
 decode : Decoder Query
@@ -104,6 +119,25 @@ updateItem newItem query =
                             item
                     )
     }
+
+
+toString : List Process -> Query -> Result String String
+toString processes =
+    .items
+        >> List.map
+            (\item ->
+                item.processId
+                    |> Process.findById processes
+                    |> Result.map
+                        (\process ->
+                            String.fromFloat (amountToFloat item.amount)
+                                ++ process.unit
+                                ++ " "
+                                ++ process.displayName
+                        )
+            )
+        >> RE.combine
+        >> Result.map (String.join ", ")
 
 
 

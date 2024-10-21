@@ -1,6 +1,7 @@
 module Views.Format exposing
     ( complement
     , days
+    , density
     , formatFloat
     , formatImpact
     , formatImpactFloat
@@ -198,8 +199,8 @@ surfaceMass =
 
 
 threadDensity : Unit.ThreadDensity -> Html msg
-threadDensity (Unit.ThreadDensity density) =
-    density |> formatRichFloat 0 "#/cm"
+threadDensity (Unit.ThreadDensity density_) =
+    density_ |> formatRichFloat 0 "#/cm"
 
 
 picking : Unit.PickPerMeter -> Html msg
@@ -239,3 +240,12 @@ hours =
 minutes : Duration -> Html msg
 minutes =
     Duration.inMinutes >> formatRichFloat 0 "min"
+
+
+density : { a | density : Float, unit : String } -> Html msg
+density process =
+    if process.unit /= "kg" then
+        formatRichFloat 0 ("kg/" ++ process.unit) process.density
+
+    else
+        text "N/A"

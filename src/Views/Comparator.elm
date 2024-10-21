@@ -7,8 +7,9 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
+import Data.Object.Simulator as ObjectSimulator
 import Data.Session as Session exposing (Session)
-import Data.Textile.Simulator as Simulator
+import Data.Textile.Simulator as TextileSimulator
 import Data.Unit as Unit
 import Dict
 import Html exposing (..)
@@ -121,9 +122,23 @@ addToComparison session label query =
                         }
                     )
 
+        Bookmark.Object objectQuery ->
+            objectQuery
+                |> ObjectSimulator.compute session.db
+                |> Result.map
+                    (\results ->
+                        { complementsImpact = Impact.noComplementsImpacts
+                        , impacts = ObjectSimulator.extractImpacts results
+                        , label = label
+                        , stepsImpacts =
+                            results
+                                |> ObjectSimulator.toStepsImpacts Definition.Ecs
+                        }
+                    )
+
         Bookmark.Textile textileQuery ->
             textileQuery
-                |> Simulator.compute session.db
+                |> TextileSimulator.compute session.db
                 |> Result.map
                     (\simulator ->
                         { complementsImpact = simulator.complementsImpacts
@@ -131,7 +146,7 @@ addToComparison session label query =
                         , label = label
                         , stepsImpacts =
                             simulator
-                                |> Simulator.toStepsImpacts Definition.Ecs
+                                |> TextileSimulator.toStepsImpacts Definition.Ecs
                         }
                     )
 

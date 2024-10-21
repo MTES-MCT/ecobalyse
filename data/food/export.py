@@ -1,13 +1,15 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 """Export des ingrédients et des processes de l'alimentaire"""
 
 import json
 import os
 import sys
+from os.path import abspath, dirname
+
+sys.path.append(dirname(dirname(abspath(__file__))))
 import urllib.parse
-from os.path import dirname
+from collections import OrderedDict
 
 import bw2calc
 import bw2data
@@ -78,7 +80,7 @@ def create_ingredient_list(activities_tuple):
         [
             process_activity_for_ingredient(activity)
             for activity in activities
-            if activity["category"] == "ingredient"
+            if "ingredient" in activity["process_categories"]
         ]
     )
 
@@ -99,7 +101,9 @@ def process_activity_for_ingredient(activity):
     return {
         "id": activity["id"],
         "name": activity["name"],
-        "categories": [c for c in activity["categories"] if c != "ingredient"],
+        "categories": [
+            c for c in activity["ingredient_categories"] if c != "ingredient"
+        ],
         "search": activity["search"],
         "default": find_id(activity.get("database", CONFIG["AGRIBALYSE"]), activity),
         "default_origin": activity["default_origin"],
@@ -167,36 +171,37 @@ def create_process_list(activities):
 
 def process_activity_for_processes(activity):
     AGRIBALYSE = CONFIG["AGRIBALYSE"]
-    return {
-        "id": activity["id"],
-        "name": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
-            "name"
-        ],
-        "displayName": activity["name"],
-        "unit": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
-            "unit"
-        ],
-        "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
-        "system_description": cached_search(
-            activity.get("database", AGRIBALYSE), activity["search"]
-        )["System description"],
-        "category": activity.get("category"),
-        "categories": activity.get("categories"),
-        "comment": (
-            prod[0]["comment"]
-            if (
-                prod := list(
-                    cached_search(
-                        activity.get("database", AGRIBALYSE), activity["search"]
-                    ).production()
+    return OrderedDict(
+        {
+            "id": activity["id"],
+            "name": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["name"],
+            "displayName": activity["name"],
+            "unit": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["unit"],
+            "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
+            "system_description": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["System description"],
+            "categories": activity.get("process_categories"),
+            "comment": (
+                prod[0]["comment"]
+                if (
+                    prod := list(
+                        cached_search(
+                            activity.get("database", AGRIBALYSE), activity["search"]
+                        ).production()
+                    )
                 )
-            )
-            else activity.get("comment", "")
-        ),
-        "source": activity.get("database", AGRIBALYSE),
-        # those are removed at the end:
-        "search": activity["search"],
-    }
+                else activity.get("comment", "")
+            ),
+            "source": activity.get("database", AGRIBALYSE),
+            # those are removed at the end:
+            "search": activity["search"],
+        }
+    )
 
 
 def compute_simapro_impacts(activity, method):

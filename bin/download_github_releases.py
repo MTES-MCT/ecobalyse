@@ -81,6 +81,9 @@ if __name__ == "__main__":
 
         for asset in release.assets:
             if "-dist.tar.gz" in asset.browser_download_url:
+                logger.info(
+                    f"Downloading {asset.browser_download_url} to {args.destination_directory}."
+                )
                 file_path = download_file(
                     asset.browser_download_url, args.destination_directory
                 )
