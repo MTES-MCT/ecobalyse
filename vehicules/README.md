@@ -2,9 +2,10 @@
 description: >-
   Les Véhicules Intermédiaires Légers sont les véhicules correspondant aux
   catégories VAE et L1 à L7e. Ils sont entre le vélo et la voiture.
+hidden: true
 ---
 
-# 🛺 VeLI / Véhicules
+# 🛺 VELI/VEHICULES - EN CONSTRUCTION
 
 ## Objectif
 

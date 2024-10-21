@@ -1,4 +1,8 @@
-# 🪚 Objet / Ameublement
+---
+hidden: true
+---
+
+# 🪚 AMEUBLEMENT - EN CONSTRUCTION
 
 ## Périmètre du modèle
 
