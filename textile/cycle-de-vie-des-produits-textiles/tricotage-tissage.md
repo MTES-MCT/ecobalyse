@@ -88,14 +88,14 @@ Les principales armures sont le jersey, l'interlock ou la côte 1x1 (tricot à m
 **Tricotage à mailles cueillies (ou tricots « trame »)**\
 Il n'emploie qu’un seul fil issu d’une bobine pour former des boucles et travaille dans le sens des rangées (largeur de l’étoffe). Ces tricots sont facilement détricotables. Les sous-vêtements, t-shirts, pulls et chaussettes sont généralement en mailles cueillies.
 
-![](<../../.gitbook/assets/image (9) (1) (1) (1) (1) (1) (1).png>)
+![](<../../.gitbook/assets/image (157).png>)
 
 
 
 **Tricotage à mailles jetée (ou tricots « chaîne » ou tricots « indémaillables »)**\
 Il s'obtient par le tricotage simultané de 2000 à 3000 fils issus d’ensouples et travaille dans le sens des colonnes (longueur de l’étoffe). Ces tricots sont indémaillables. Les vêtements de sport, maillots de bain et lingerie sont généralement en mailles jetées.&#x20;
 
-![](<../../.gitbook/assets/image (6) (2).png>)
+![](<../../.gitbook/assets/image (136).png>)
 
 </details>
 
@@ -124,7 +124,7 @@ Chacun de ces machines est équipée d’une jauge qui détermine la finesse du 
 
 **Techniques de tricotage (schéma simplifié)**
 
-![](<../../.gitbook/assets/image (3) (2).png>)
+![](<../../.gitbook/assets/image (179).png>)
 
 </details>
 
@@ -147,7 +147,7 @@ Ces étoffes sont notamment appréciées dans les secteurs de la construction, d
 
 **Exemple d'application :**&#x20;
 
-![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8) (2).png>)
+![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (191).png>)
 
 </details>
 
@@ -314,7 +314,7 @@ Cette valeur correspond au grammage de l'étoffe constaté sur le produit fini.
 Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénario incohérent. \
 En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la surface d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
 
-![](<../../.gitbook/assets/image (4) (3) (3).png>)
+![](<../../.gitbook/assets/image (186).png>)
 
 </details>
 
@@ -386,7 +386,7 @@ Permettre de préciser la quantité (g) à produire et le type de machine utilis
 
 **Consommation d'énergie**
 
-![](<../../.gitbook/assets/image (2) (4) (2).png>)
+![](<../../.gitbook/assets/image (138).png>)
 
 _Une revue bibliographique effectuée par Ecobalyse fait ressortir une consommation moyenne d'électricité pour produire 1kg d'étoffe 2 à 5 fois plus faible pour du tricotage par rapport au tissage._&#x20;
 

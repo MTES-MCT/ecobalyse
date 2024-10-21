@@ -8,7 +8,7 @@ La fibre de laine représente 1,1% de la production mondiale de fibres textile e
 
 <summary>Production mondiale par pays</summary>
 
-![](<../../../.gitbook/assets/image (1) (1) (1) (1) (1).png>)
+![](<../../../.gitbook/assets/image (12).png>)
 
 </details>
 
@@ -126,7 +126,7 @@ Bien que des modifications des inventaires soient proposées pour prendre en com
 
 L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci-dessous. &#x20;
 
-<figure><img src="../../../.gitbook/assets/image (86).png" alt=""><figcaption><p>Source : Food and Agriculture Organization of the UN (V1 GHG emissions and fossil energy use from small ruminant supply chains)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (278).png" alt=""><figcaption><p>Source : Food and Agriculture Organization of the UN (V1 GHG emissions and fossil energy use from small ruminant supply chains)</p></figcaption></figure>
 
 ### Scénarios proposés
 

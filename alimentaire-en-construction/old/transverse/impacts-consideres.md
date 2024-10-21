@@ -63,7 +63,7 @@ En l’état, les résultats des indicateurs de toxicité humaine\[1] (cancer et
 
 **=> il est donc proposé de retirer temporairement les deux indicateurs de toxicité humaine (cancer et non cancer), le temps que la communauté scientifique améliore la prise en compte des métaux dans la méthode PEF (travaux en cours).**
 
-<figure><img src="../../../.gitbook/assets/image (19) (1) (1) (1).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (207).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/Screenshot 2023-08-23 at 18.05.16.png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine non cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
 

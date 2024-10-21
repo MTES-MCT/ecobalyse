@@ -29,5 +29,5 @@ Une fois inscrit et connecté :
     {% hint style="info" %}
     Pour rejoindre un canal, il suffit de s'y rendre en suivant les liens ci-dessus, ou alors d'utiliser le moteur de recherche de Mattermost pour les retrouver : \
     \
-    ![](<.gitbook/assets/ezgif-2-b290f475bf (1).gif>)
+    ![](.gitbook/assets/ezgif-2-b290f475bf.gif)
     {% endhint %}

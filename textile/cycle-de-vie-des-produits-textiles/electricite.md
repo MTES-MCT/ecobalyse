@@ -15,7 +15,7 @@ Dans ce cas précis, la quantité d'électricité nécessaire pour actionner le 
 
 Le flux externe d'électricité mobilisé correspond au mix électrique de la zone géographique sélectionnée par l'utilisateur.  &#x20;
 
-<figure><img src="../../.gitbook/assets/image (93).png" alt=""><figcaption><p>Illustration de la zone géographique à préciser par l'utilisateur</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (290).png" alt=""><figcaption><p>Illustration de la zone géographique à préciser par l'utilisateur</p></figcaption></figure>
 
 ### Procédés mobilisés
 

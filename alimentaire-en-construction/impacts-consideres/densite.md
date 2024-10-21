@@ -2,7 +2,7 @@
 description: Comment connaître la densité d'un ingrédient
 ---
 
-# 🚣‍♀️ Densité (OLD - à vérifier)
+# 🚣‍♀️ Densité (draft)
 
 La densité `d` d'un ingrédient est nécessaire pour calculer l'impact à la distribution ou à la vente au détail. En effet les consommations d'énergie et d'eau sont proportionnels au volume `V` du produit dont jusqu'ici nous ne connaissions que la masse `m`.
 
@@ -14,11 +14,11 @@ $$V = \frac{m}{d}$$
 
 ##
 
-<figure><img src="../../.gitbook/assets/image (8) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_MAIN-CLEAN-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (142).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_MAIN-CLEAN-vf2.pdf</p></figcaption></figure>
 
 Pour connaître la densité `d`, on utilise les hypothèses de la documentation Agribalyse :
 
-<figure><img src="../../.gitbook/assets/image (4) (4).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (172).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 ## Règles
 

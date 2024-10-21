@@ -2,7 +2,7 @@
 
 Le paramétrage peut se faire "de zéro" (produit personnalisé) ou mobiliser la fonction "exemples" de l'outil qui permet de partir d'un produit pré-paramétré.
 
-<figure><img src="../../.gitbook/assets/image (110).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (309).png" alt=""><figcaption></figcaption></figure>
 
 
 

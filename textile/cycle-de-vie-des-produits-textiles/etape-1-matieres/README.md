@@ -18,11 +18,11 @@ En effet, des compléments ont été ajoutés dans la méthode de calcul afin de
 
 **Production mondiale de fibres en 2022 (**[**source**](#user-content-fn-1)[^1]**)**
 
-![](<../../../.gitbook/assets/image (95).png>)
+![](<../../../.gitbook/assets/image (292).png>)
 
 **Une hausse marquée des volumes depuis les années 2000  (**[**source**](#user-content-fn-2)[^2]**)**
 
-![](<../../../.gitbook/assets/image (97).png>)
+![](<../../../.gitbook/assets/image (294).png>)
 
 </details>
 

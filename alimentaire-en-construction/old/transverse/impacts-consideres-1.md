@@ -15,13 +15,13 @@ Ecobalyse offre la possibilité de visualiser la contribution au coût environne
     * changement climatique, écotoxicité, acidification, particules, etc. (partie ACV)&#x20;
     * services écosystémiques (partie hors ACV)
 
-    <figure><img src="../../../.gitbook/assets/image (92).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../../.gitbook/assets/image (284).png" alt=""><figcaption></figcaption></figure>
 
 ## Comparaison des impacts
 
 La fonction "Comparer" proposée dans Ecobalyse permet de comparer les **scores d'impacts** différentes simulations préalablement sauvegardées.&#x20;
 
-![](<../../../.gitbook/assets/image (18) (1) (1) (1) (1).png>)
+![](<../../../.gitbook/assets/image (204).png>)
 
 Cette fonction plusieurs options de comparaison :&#x20;
 

@@ -6,7 +6,7 @@ description: Page introduisant la notion d'exemples proposés au début du simul
 
 Le premier champ proposé sur le simulateur Ecobalyse textile propose de sélectionner un exemple.
 
-<figure><img src="../.gitbook/assets/image (1) (7).png" alt=""><figcaption><p>Capture d'écran (01/04/2024)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (295).png" alt=""><figcaption><p>Capture d'écran (01/04/2024)</p></figcaption></figure>
 
 Les différents exemples proposés permettent d'initier la modélisation d'un vêtement à partir d'un exemple similaire (un jean pour un jean, un Tshirt pour un Tshirt...). **Ce choix initial permet de faciliter les modélisation mais ne remplace ensuite pas le paramétrage de chacun des champs proposés**. La page de documentation "[Paramétrage](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/887/textile/parametrage)" précise les paramètres qui peuvent ou doivent être renseignés suivant l'utilisation qui est faite de l'outil.
 
@@ -19,7 +19,7 @@ Deux types d'exemples sont proposés en première approche :
 
 Ces exemples "par défaut", sont définis, dans leur dénomination même, à travers les seuls paramètres qui les caractérisent :
 
-<figure><img src="../.gitbook/assets/image (1) (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (296).png" alt=""><figcaption></figcaption></figure>
 
 * Catégorie de produit -> Le choix de ce paramètre permet de fixer, par défaut, la valeur de nombreux autres paramètres proposés dans la suite du calculateur. L'ensemble de ces valeurs par défaut sont accessibles dans la [rubrique "Produits" de l'explorateur](https://ecobalyse-v2.osc-fr1.scalingo.io/#/explore/textile/products).
 

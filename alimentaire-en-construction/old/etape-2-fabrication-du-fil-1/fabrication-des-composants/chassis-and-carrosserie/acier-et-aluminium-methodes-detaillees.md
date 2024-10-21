@@ -57,25 +57,23 @@ Le taux de perte et le procédé de transformation final sont également signifi
 
 Compte-tenu de la difficulté à connaitre le pays de fabrication de l'aluminium primaire ou de l'acier brut et le taux de recyclage, Ecobalyse ne propose pas de différencier les deux métaux sur ces critères.&#x20;
 
-A court terme, trois procédés uniques sont proposés, avec un procédé de transformation moyen proposé par Ecoinvent :
+A court terme, les procédés suivants sont proposés dans Ecobalyse. Les trois premiers sont construits avec un procédé de transformation moyen proposé par Ecoinvent :
 
-* Aluminium
+* Aluminium moyen
 * Acier (moins de 5% d'éléments d'alliage)
 * Acier inoxydable (68.6% Fe, 9.3% Ni, 19.0% Cr, 0.08% C)
+* Aluminium extrudé (profilé)
+* Aluminium laminé (tôle)
 
-A moyen terme, il pourrait être proposé&#x20;
+A moyen terme, il pourrait être proposé :
 
 * ou bien de sélectionner le procédé de transformation et les pertes associées, en priorité pour l'acier.
 * ou bien de proposer des procédés différenciés en fonction du pays d'achat du métal transformé, prenant en compte les sources approvisionnement en métal brut pour ce pays.
 
-### Modification des procédés de transformation Ecoinvent
+### Modélisation des pertes dans Ecoinvent
 
-Dans Ecoinvent, les pertes lors des étapes de transformation finale de l'aluminium ou de l'acier sont intégrées dans le procédé de transformation. Par exemple, le procédé "metal working, average for aluminium product manufacturing" inclut 0.23kg d'aluminium, correspondant aux pertes suposées dans ce processus de transformation.
+Dans Ecoinvent, les pertes lors des étapes de transformation finale de l'aluminium ou de l'acier sont intégrées dans le procédé de transformation. Par exemple, le procédé "metal working, average for aluminium product manufacturing" inclut 0.23kg d'aluminium, correspondant aux pertes supposées dans ce processus de transformation.
 
-A des fins de transparence et de capacité à paramétrer les pertes dans les étapes de transformation finale, les procédés Ecoinvent de transformation sont modifiés pour en exclure les pertes de métaux en intrant. Ces pertes sont prises en compte dans la quantité de métaux mis en œuvre.
+Les schémas ci-dessous illustre cette modélisation :&#x20;
 
-Les schémas ci-dessous illustre cette modification pour l'aluminium :&#x20;
-
-<figure><img src="../../../../../.gitbook/assets/image (128).png" alt=""><figcaption><p>Procédés ecoinvent mis en œuvre pour modéliser 1kg d'aluminium </p></figcaption></figure>
-
-<figure><img src="../../../../../.gitbook/assets/image (129).png" alt=""><figcaption><p>Procédés ecoinvent et procédé de transformation modifiés mis en œuvre pour modéliser 1kg d'aluminium dans Ecobalyse</p></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/image (327).png" alt=""><figcaption><p>Procédés ecoinvent mis en œuvre pour modéliser 1kg d'aluminium </p></figcaption></figure>

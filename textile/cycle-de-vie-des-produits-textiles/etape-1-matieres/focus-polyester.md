@@ -8,7 +8,7 @@ La consommation de polyester est en croissance et gagne des parts de marché. Ce
 
 Les fibres de polyester sont par ailleurs utilisées dans différents domaines tels que le transport (pneus, ceintures, etc.), l'ameublement (rembourrage), les emballages, la construction (isolants, piscines), etc.)&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption><p>Source : Textile Exchange (market report 2023)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (14).png" alt=""><figcaption><p>Source : Textile Exchange (market report 2023)</p></figcaption></figure>
 
 Dans le textile, les termes PET (polyethylène téréphtalate) et PES (polyester) sont utilisés pour désigner cette fibre.&#x20;
 
@@ -62,7 +62,7 @@ Procédé Ecoinvent => _polyethylene terephthalate production, granulate, amorph
 
 ### Mieux comprendre les impacts dans Ecobalyse
 
-<figure><img src="../../../.gitbook/assets/image (85).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (277).png" alt=""><figcaption></figcaption></figure>
 
 **Principaux enseignements**
 

@@ -1,4 +1,4 @@
-# ♻️ Etape 7 - Fin de vie
+# ♻️ Etape 8 - Fin de vie
 
 L'impact de la fin de vie se décompose en deux modules :&#x20;
 
@@ -19,7 +19,7 @@ Cf. la [page](../complements-hors-acv/export-hors-europe.md) dédiée dans la ru
 
 Scénarios considérés pour la fin de vie d'un vêtement :&#x20;
 
-![PEFCR v1.3 p121](<../../.gitbook/assets/image (5) (1) (1) (1) (1) (1) (1) (1) (1).png>)
+![PEFCR v1.3 p121](<../../.gitbook/assets/image (163).png>)
 
 &#x20;On prend en compte ces 2 scénarios :&#x20;
 
@@ -51,11 +51,11 @@ Pour évaluer l'impact de l'incinération et de la mise en décharge, on prend e
 
 **Distance transport (Table 41 / p. 122)**
 
-![](<../../.gitbook/assets/image (26).png>)
+![](<../../.gitbook/assets/image (213).png>)
 
 **Volume produit (Table 40 / p. 121)**
 
-![](<../../.gitbook/assets/image (25).png>)
+![](<../../.gitbook/assets/image (212).png>)
 
 #### Transport en camion
 

@@ -10,7 +10,7 @@ Les principaux pays producteurs sont la Chine, l'Inde et les Etats-Unis. Une vin
 
 <summary>Production mondiale de coton par pays (source : FAO, 2021)</summary>
 
-![](<../../../.gitbook/assets/image (83).png>)
+![](<../../../.gitbook/assets/image (270).png>)
 
 </details>
 
