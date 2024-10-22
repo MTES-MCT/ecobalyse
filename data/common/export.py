@@ -206,7 +206,8 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
     print("Computing impacts:")
     for index, (_, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
-        if "search" not in process:
+        # Don't compute impacts if its a hardcoded activity
+        if process["impacts"]:
             print(f"This process has hardcoded impacts: {process['displayName']}")
             continue
         # simapro

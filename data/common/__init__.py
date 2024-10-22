@@ -49,16 +49,20 @@ def order_json(data):
     """
     if isinstance(data, list):
         sorted_data = [
-            {**item, "impacts": sort_impacts(item["impacts"])}
-            if "impacts" in item
-            else item
+            (
+                {**item, "impacts": sort_impacts(item["impacts"])}
+                if "impacts" in item
+                else item
+            )
             for item in data
         ]
     elif isinstance(data, dict):
         sorted_data = {
-            key: {**value, "impacts": sort_impacts(value["impacts"])}
-            if "impacts" in value
-            else value
+            key: (
+                {**value, "impacts": sort_impacts(value["impacts"])}
+                if "impacts" in value
+                else value
+            )
             for key, value in data.items()
         }
     else:
@@ -119,14 +123,18 @@ def with_corrected_impacts(impact_defs, processes_fd, impacts="impacts"):
     for key, process in processes.items():
         # compute corrected impacts
         for impact_to_correct, correction in corrections.items():
-            corrected_impact = 0
-            for correction_item in correction:  # For each sub-impact and its weighting
-                sub_impact_name = correction_item["sub-impact"]
-                if sub_impact_name in process[impacts]:
-                    sub_impact = process[impacts].get(sub_impact_name, 1)
-                    corrected_impact += sub_impact * correction_item["weighting"]
-                    del process[impacts][sub_impact_name]
-            process[impacts][impact_to_correct] = corrected_impact
+            # only correct if the impact is not already computed
+            if impact_to_correct not in process[impacts]:
+                corrected_impact = 0
+                for (
+                    correction_item
+                ) in correction:  # For each sub-impact and its weighting
+                    sub_impact_name = correction_item["sub-impact"]
+                    if sub_impact_name in process[impacts]:
+                        sub_impact = process[impacts].get(sub_impact_name, 1)
+                        corrected_impact += sub_impact * correction_item["weighting"]
+                        del process[impacts][sub_impact_name]
+                process[impacts][impact_to_correct] = corrected_impact
         processes_updated[key] = process
     return frozendict(processes_updated)
 
