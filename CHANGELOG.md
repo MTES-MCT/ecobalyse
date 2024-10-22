@@ -1,6 +1,36 @@
 # Changelog
 
 
+## [2.5.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.4.0..v2.5.0) (2024-10-22)
+
+
+
+### 🚀 Features
+
+- Add bookmarks for objects ([#781](https://github.com/MTES-MCT/ecobalyse/issues/781))
+- Add object explorer pages. ([#803](https://github.com/MTES-MCT/ecobalyse/issues/803))
+
+### 🪲 Bug Fixes
+
+- Create object encrypted file for versions ([#800](https://github.com/MTES-MCT/ecobalyse/issues/800))
+- Improve object simulator. ([#799](https://github.com/MTES-MCT/ecobalyse/issues/799))
+
+### 🚜 Refactor
+
+- Aggregate in python ([#794](https://github.com/MTES-MCT/ecobalyse/issues/794))
+- Turn food process category into a list ([#795](https://github.com/MTES-MCT/ecobalyse/issues/795))
+- Aggregate in python ([#807](https://github.com/MTES-MCT/ecobalyse/issues/807))
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade dependencies to their latest version, Oct. 2024. ([#801](https://github.com/MTES-MCT/ecobalyse/issues/801))
+- Add tolerance to tests comparison ([#810](https://github.com/MTES-MCT/ecobalyse/issues/810))
+
+### ◀️ Revert
+
+- "refactor: aggregate in python" ([#806](https://github.com/MTES-MCT/ecobalyse/issues/806))
+
+
 ## [2.4.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.3.0..v2.4.0) (2024-10-10)
 
 
