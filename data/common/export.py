@@ -1,6 +1,6 @@
 import functools
 import json
-import logging
+import sys
 import urllib.parse
 from os.path import dirname
 
@@ -12,6 +12,7 @@ import pandas as pd
 import requests
 from bw2io.utils import activity_hash
 from frozendict import frozendict
+from loguru import logger
 
 from . import (
     bytrigram,
@@ -22,7 +23,9 @@ from . import (
 )
 from .impacts import main_method
 
-logging.basicConfig(level=logging.ERROR)
+# Configure logger
+logger.remove()  # Remove default handler
+logger.add(sys.stderr, format="{time} {level} {message}", level="INFO")
 
 PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
 COMPARED_IMPACTS_FILE = "compared_impacts.csv"
@@ -98,31 +101,6 @@ def display_changes(key, oldprocesses, processes):
         print("==".join(["=" * widths[key] for key in keys]))
 
 
-def compute_simapro_impacts(activity, method):
-    strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
-    project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
-    method = urllib.parse.quote(main_method, encoding=None, errors=None)
-    return bytrigram(
-        definitions,
-        json.loads(
-            requests.get(
-                f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
-            ).content
-        ),
-    )
-
-
-def compute_brightway_impacts(activity, method):
-    results = dict()
-    lca = bw2calc.LCA({activity: 1})
-    lca.lci()
-    for key, method in definitions.items():
-        lca.switch_method(method)
-        lca.lcia()
-        results[key] = float("{:.10g}".format(lca.score))
-    return results
-
-
 def create_activity(dbname, new_activity_name, base_activity=None):
     """Creates a new activity by copying a base activity or from nothing. Returns the created activity"""
     if "constructed by Ecobalyse" not in new_activity_name:
@@ -152,7 +130,7 @@ def create_activity(dbname, new_activity_name, base_activity=None):
         new_activity["code"] = code
     new_activity["Process identifier"] = code
     new_activity.save()
-    logging.info(f"Created activity {new_activity}")
+    logger.info(f"Created activity {new_activity}")
     return new_activity
 
 
@@ -165,16 +143,16 @@ def delete_exchange(activity, activity_to_delete, amount=False):
                 and exchange["amount"] == amount
             ):
                 exchange.delete()
-                logging.info(f"Deleted {exchange}")
+                logger.info(f"Deleted {exchange}")
                 return
 
     else:
         for exchange in activity.exchanges():
             if exchange.input["name"] == activity_to_delete["name"]:
                 exchange.delete()
-                logging.info(f"Deleted {exchange}")
+                logger.info(f"Deleted {exchange}")
                 return
-    logging.error(f"Did not find exchange {activity_to_delete}. No exchange deleted")
+    logger.error(f"Did not find exchange {activity_to_delete}. No exchange deleted")
 
 
 def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=None):
@@ -188,7 +166,7 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
                 new_amount = exchange["amount"]
                 break
         else:
-            logging.error(
+            logger.error(
                 f"Exchange to duplicate from :{activity_to_copy_from} not found. No exchange added"
             )
             return
@@ -202,7 +180,7 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
         comment="added by Ecobalyse",
     )
     new_exchange.save()
-    logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
+    logger.info(f"Exchange {new_activity} added with amount: {new_amount}")
 
 
 def compute_impacts(frozen_processes, default_db, impact_defs):
@@ -228,15 +206,17 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
     }
     """
     processes = dict(frozen_processes)
-    print("Computing impacts:")
+    logger.info("Computing impacts:")
     for index, (_, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
         # Don't compute impacts if its a hardcoded activity
-        if process["impacts"]:
-            print(f"This process has hardcoded impacts: {process['displayName']}")
+        if process.get("impacts"):
+            logger.info(f"This process has hardcoded impacts: {process['displayName']}")
             continue
         # simapro
-        activity = cached_search(process.get("source", default_db), process["search"])
+        activity = cached_search(
+            process.get("source", default_db), process.get("search", process["name"])
+        )
         results = compute_simapro_impacts(activity, main_method, impact_defs)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kWh" and isinstance(results, dict):
@@ -249,14 +229,14 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
         if isinstance(results, dict) and results:
             # simapro succeeded
             process["impacts"] = results
-            print(f"got impacts from simapro for: {process['name']}")
+            logger.info(f"got impacts from simapro for: {process['name']}")
         else:
             # simapro failed (unexisting Ecobalyse project or some other reason)
             # brightway
             process["impacts"] = compute_brightway_impacts(
                 activity, main_method, impact_defs
             )
-            print(f"got impacts from brightway for: {process['name']}")
+            logger.info(f"got impacts from brightway for: {process['name']}")
 
         # compute subimpacts
         process["impacts"] = with_subimpacts(process["impacts"])
@@ -272,13 +252,13 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
 def compare_impacts(frozen_processes, default_db, impact_defs):
     """This is compute_impacts slightly modified to store impacts from both bw and wp"""
     processes = dict(frozen_processes)
-    print("Computing impacts:")
+    logger.info("Computing impacts:")
     for index, (key, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
         # simapro
         activity = cached_search(process.get("source", default_db), process["search"])
         results = compute_simapro_impacts(activity, main_method, impact_defs)
-        print(f"got impacts from SimaPro for: {process['name']}")
+        logger.info(f"got impacts from SimaPro for: {process['name']}")
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kilowatt hour" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
@@ -291,7 +271,7 @@ def compare_impacts(frozen_processes, default_db, impact_defs):
         process["brightway_impacts"] = compute_brightway_impacts(
             activity, main_method, impact_defs
         )
-        print(f"got impacts from Brightway for: {process['name']}")
+        logger.info(f"got impacts from Brightway for: {process['name']}")
 
         # compute subimpacts
         process["simapro_impacts"] = with_subimpacts(process["simapro_impacts"])
@@ -359,11 +339,11 @@ def csv_export_impact_comparison(compared_impacts, folder):
 
 
 def export_json(json_data, filename):
-    print(f"Exporting {filename}")
+    logger.info(f"Exporting {filename}")
     with open(filename, "w", encoding="utf-8") as file:
         json.dump(json_data, file, indent=2, ensure_ascii=False)
         file.write("\n")  # Add a newline at the end of the file
-    print(f"\nExported {len(json_data)} elements to {filename}")
+    logger.info(f"\nExported {len(json_data)} elements to {filename}")
 
 
 def load_json(filename):
@@ -389,13 +369,11 @@ def compute_simapro_impacts(activity, method, impact_defs):
     strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
     project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
+    api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
+    logger.debug(f"SimaPro API request: {api_request}")
     return bytrigram(
         impact_defs,
-        json.loads(
-            requests.get(
-                f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
-            ).content
-        ),
+        json.loads(requests.get(api_request).content),
     )
 
 
@@ -407,4 +385,5 @@ def compute_brightway_impacts(activity, method, impact_defs):
         lca.switch_method(method)
         lca.lcia()
         results[key] = float("{:.10g}".format(lca.score))
+        logger.debug(f"{activity}  {key}: {lca.score}")
     return results

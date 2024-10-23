@@ -24,43 +24,11 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 22146.70516849376,
-      "pef": 26128.099289871014
+      "ecs": 23650.509942608358,
+      "pef": 27363.30583909167
     },
-    "name": "Sawnwood, board, hardwood, dried (u=10%), planed {Europe without Switzerland}| market for sawnwood, board, hardwood, dried (u=10%), planed | Cut-off, S",
-    "source": "Ecoinvent",
+    "name": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
+    "source": "Ecoinvent 3.9.1",
     "unit": "m3"
-  },
-  {
-    "comment": "modélisation d'un composant générique (voir documentation)",
-    "density": 900,
-    "displayName": "Composant en plastique (PP)",
-    "id": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "ecs": 382.4041328694935,
-      "pef": 361.05514298380615
-    },
-    "name": "Plastic frame (PP)",
-    "source": "Ecobalyse",
-    "unit": "kg"
   }
 ]
