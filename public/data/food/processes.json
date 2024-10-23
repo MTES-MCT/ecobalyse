@@ -25,13 +25,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 482.0806163407891,
-      "pef": 404.2689900739915
+      "ecs": 482.08061634078916,
+      "pef": 404.2689900739916
     },
     "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -60,12 +60,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 129.48432437479158,
-      "pef": 100.8744234517829
+      "pef": 100.87442345178292
     },
     "name": "Cow milk, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -99,7 +99,7 @@
     "name": "Cow milk, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -128,12 +128,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 13.032834134308757,
-      "pef": 15.090184627616896
+      "pef": 15.0901846276169
     },
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -161,13 +161,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 105.19820289192933,
+      "ecs": 105.1982028919293,
       "pef": 80.00147574034824
     },
     "name": "Wheat flour, at industrial mill {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -201,7 +201,7 @@
     "name": "Wheat flour, at industrial mill {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -229,13 +229,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 158.6688298573552,
-      "pef": 148.32081139883707
+      "ecs": 158.66882985735518,
+      "pef": 148.32081139883704
     },
     "name": "Sunflower grain, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -269,7 +269,7 @@
     "name": "Sunflower, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -298,12 +298,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 119.00957972053897,
-      "pef": 149.00738961540029
+      "pef": 149.00738961540023
     },
     "name": "Winter rapeseed, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -331,13 +331,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 3024.9111891091306,
-      "pef": 3032.253863153226
+      "ecs": 3024.911189109131,
+      "pef": 3032.2538631532266
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -365,13 +365,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 2423.465638706463,
-      "pef": 2809.416054232443
+      "ecs": 2423.4656387064624,
+      "pef": 2809.4160542324425
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["material"],
@@ -399,13 +399,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1171.334968928874,
-      "pef": 1365.0583752846944
+      "ecs": 1171.3349689288743,
+      "pef": 1365.0583752846949
     },
     "name": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -433,13 +433,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 5454.76888170201,
-      "pef": 5866.962929357456
+      "ecs": 5454.768881702009,
+      "pef": 5866.962929357459
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [feedlot], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -467,13 +467,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1022.8928544825393,
-      "pef": 1128.3099123709333
+      "ecs": 1022.8928544825391,
+      "pef": 1128.309912370933
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [grass-fed], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -501,13 +501,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1043.5126910351305,
-      "pef": 889.2035037022283
+      "ecs": 1043.5126910351307,
+      "pef": 889.2035037022284
     },
     "name": "Cooked ham, case ready, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -535,13 +535,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1146.0764688094807,
+      "ecs": 1146.076468809481,
       "pef": 1332.9783574432186
     },
     "name": "Cooked ham, case ready, at plant {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -569,13 +569,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 967.2093886660132,
-      "pef": 875.6073918482264
+      "ecs": 967.2093886660133,
+      "pef": 875.6073918482263
     },
     "name": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -603,13 +603,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1114.8106857579344,
-      "pef": 763.0764466053245
+      "ecs": 1114.8106857579342,
+      "pef": 763.0764466053243
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -637,13 +637,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1002.7966067829354,
-      "pef": 1152.6303736892075
+      "ecs": 1002.7966067829357,
+      "pef": 1152.630373689208
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -677,7 +677,7 @@
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse [fr-organic]",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -706,12 +706,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 430.3338526141934,
-      "pef": 462.55622413719834
+      "pef": 462.5562241371983
     },
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -739,13 +739,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 210.05192070912295,
+      "ecs": 210.05192070912287,
       "pef": 261.13204060072036
     },
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -773,13 +773,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 942.0457866166045,
-      "pef": 505.79929142657846
+      "ecs": 942.0457866166042,
+      "pef": 505.7992914265785
     },
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -813,7 +813,7 @@
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -841,13 +841,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 20.617901994043795,
+      "ecs": 20.61790199404379,
       "pef": 23.755447115550382
     },
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -876,12 +876,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 57.124371220502454,
-      "pef": 69.3425333350802
+      "pef": 69.34253333508022
     },
     "name": "Peach, organic, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -915,7 +915,7 @@
     "name": "Melon, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -944,12 +944,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 871.4251639682516,
-      "pef": 686.5752145660014
+      "pef": 686.5752145660015
     },
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -977,13 +977,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 501.46375407409084,
+      "ecs": 501.4637540740909,
       "pef": 585.6945053650963
     },
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1012,12 +1012,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 121.50585817435886,
-      "pef": 143.88102281053918
+      "pef": 143.8810228105392
     },
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1046,12 +1046,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 271.5375310800338,
-      "pef": 306.3852532983294
+      "pef": 306.3852532983293
     },
     "name": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1079,13 +1079,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 247.8623691646641,
+      "ecs": 247.86236916466407,
       "pef": 284.949378734688
     },
     "name": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1113,13 +1113,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 88.55200834650874,
-      "pef": 95.1349700737809
+      "ecs": 88.5520083465087,
+      "pef": 95.13497007378089
     },
     "name": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1148,12 +1148,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 178.18145962377145,
-      "pef": 208.34431090459944
+      "pef": 208.34431090459947
     },
     "name": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1181,13 +1181,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 91.72303477509108,
+      "ecs": 91.72303477509107,
       "pef": 91.76476355591325
     },
     "name": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1215,13 +1215,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 88.25250225882223,
-      "pef": 98.87885585685956
+      "ecs": 88.25250225882226,
+      "pef": 98.87885585685957
     },
     "name": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1249,13 +1249,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 217.36933127930504,
-      "pef": 245.14827023795368
+      "ecs": 217.369331279305,
+      "pef": 245.14827023795374
     },
     "name": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1283,13 +1283,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 584.6177614958613,
-      "pef": 703.6186085850575
+      "ecs": 584.6177614958614,
+      "pef": 703.6186085850576
     },
     "name": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1317,13 +1317,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 181.74429515002336,
-      "pef": 211.9915559914887
+      "ecs": 181.7442951500233,
+      "pef": 211.99155599148867
     },
     "name": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["packaging"],
@@ -1357,7 +1357,7 @@
     "name": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["transformation"],
@@ -1385,13 +1385,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 31.38576338197455,
-      "pef": 38.269026985234284
+      "ecs": 31.385763381974535,
+      "pef": 38.26902698523428
     },
     "name": "Canning fruits or vegetables, industrial, 1kg of canned product {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["transformation"],
@@ -1419,13 +1419,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 0,
-      "pef": 0
+      "ecs": 0.0,
+      "pef": 0.0
     },
     "name": "[Dummy] Mixing, processing, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["transformation"],
@@ -1454,12 +1454,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 24.225350669195503,
-      "pef": 28.41251135425378
+      "pef": 28.412511354253777
     },
     "name": "Cooking, industrial, 1kg of cooked product {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["transport"],
@@ -1487,13 +1487,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 13.939612327318024,
+      "ecs": 13.93961232731802,
       "pef": 14.217243686020684
     },
     "name": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "ton kilometer"
+    "unit": "t⋅km"
   },
   {
     "categories": ["transport"],
@@ -1521,13 +1521,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1.2366399058232693,
-      "pef": 1.3992971563133287
+      "ecs": 1.236639905823269,
+      "pef": 1.399297156313329
     },
     "name": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "ton kilometer"
+    "unit": "t⋅km"
   },
   {
     "categories": ["transport"],
@@ -1555,13 +1555,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 53.46775452152509,
+      "ecs": 53.46775452152507,
       "pef": 54.29010065781355
     },
     "name": "Transport, freight, aircraft, unspecified {GLO}| market for transport, freight, aircraft, unspecified | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "ton kilometer"
+    "unit": "t⋅km"
   },
   {
     "categories": ["transport"],
@@ -1589,13 +1589,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 2.4787760834132193,
-      "pef": 2.7469819739874204
+      "ecs": 2.4787760834132198,
+      "pef": 2.74698197398742
     },
     "name": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "ton kilometer"
+    "unit": "t⋅km"
   },
   {
     "categories": ["transport"],
@@ -1623,13 +1623,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 22.46207868250126,
-      "pef": 22.637819753439373
+      "ecs": 22.462078682501264,
+      "pef": 22.63781975343938
     },
     "name": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "ton kilometer"
+    "unit": "t⋅km"
   },
   {
     "categories": ["energy"],
@@ -1663,7 +1663,7 @@
     "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilowatt hour"
+    "unit": "kWh"
   },
   {
     "categories": ["ingredient"],
@@ -1692,12 +1692,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 0.28316945990608366,
-      "pef": 0.35589128361361144
+      "pef": 0.35589128361361155
     },
     "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["energy"],
@@ -1726,12 +1726,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 4.505715956676105,
-      "pef": 4.244465029201733
+      "pef": 4.2444650292017325
     },
     "name": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "megajoule"
+    "unit": "MJ"
   },
   {
     "categories": ["ingredient"],
@@ -1759,13 +1759,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 623.8601122452482,
+      "ecs": 623.860112245248,
       "pef": 501.69304798545176
     },
     "name": "Comte cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -1793,13 +1793,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 653.0420990279583,
+      "ecs": 653.0420990279582,
       "pef": 523.4522162300182
     },
     "name": "Emmental cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -1827,13 +1827,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 477.8983479228089,
-      "pef": 383.3898575988132
+      "ecs": 477.89834792280885,
+      "pef": 383.3898575988133
     },
     "name": "Mozzarella cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -1862,12 +1862,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 13.032834134308757,
-      "pef": 15.090184627616896
+      "pef": 15.0901846276169
     },
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -1896,12 +1896,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 13.032834134308757,
-      "pef": 15.090184627616896
+      "pef": 15.0901846276169
     },
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -1929,13 +1929,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 12.588610858389908,
+      "ecs": 12.58861085838991,
       "pef": 12.591749875827201
     },
     "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -1963,13 +1963,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 40.5557142658534,
+      "ecs": 40.555714265853396,
       "pef": 49.24712177006622
     },
     "name": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -1997,13 +1997,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 53.02961304851451,
-      "pef": 56.28631578307503
+      "ecs": 53.02961304851452,
+      "pef": 56.28631578307504
     },
     "name": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2037,7 +2037,7 @@
     "name": "Soybean, national average, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2065,13 +2065,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 115.33712697697422,
+      "ecs": 115.33712697697423,
       "pef": 136.43216223167863
     },
     "name": "Soybean, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2099,13 +2099,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 427.2156604473987,
+      "ecs": 427.21566044739865,
       "pef": 122.85469020017466
     },
     "name": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2133,13 +2133,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 489.40706835373936,
-      "pef": 194.46230182615696
+      "ecs": 489.4070683537393,
+      "pef": 194.46230182615702
     },
     "name": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2168,12 +2168,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 77.15577351297308,
-      "pef": 69.51737699966561
+      "pef": 69.51737699966563
     },
     "name": "Soybean grain dried, stored and transported, processing {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2207,7 +2207,7 @@
     "name": "Sausage meat, raw, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2236,12 +2236,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 2099.3512657815277,
-      "pef": 1857.6721986102461
+      "pef": 1857.6721986102464
     },
     "name": "Toulouse sausage, raw, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2269,13 +2269,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 2123.576615660449,
-      "pef": 1886.0847087530829
+      "ecs": 2123.5766156604486,
+      "pef": 1886.0847087530826
     },
     "name": "Toulouse sausage, cooked, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2303,13 +2303,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 118.2514145205723,
+      "ecs": 118.25141452057227,
       "pef": 99.18069025582145
     },
     "name": "Plant-based sausage with tofu (vegan), at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2343,7 +2343,7 @@
     "name": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2377,7 +2377,7 @@
     "name": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2405,13 +2405,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1953.7986977698026,
+      "ecs": 1953.7986977698022,
       "pef": 1955.2669596997257
     },
     "name": "Meat with bone, beef, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2439,13 +2439,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 2446.875616510269,
-      "pef": 2447.106268630926
+      "ecs": 2446.8756165102686,
+      "pef": 2447.1062686309256
     },
     "name": "Meat without bone, beef, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2473,13 +2473,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1956.6522284266964,
-      "pef": 2265.525824415107
+      "ecs": 1956.6522284266962,
+      "pef": 2265.5258244151064
     },
     "name": "Meat without bone, beef, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2513,7 +2513,7 @@
     "name": "Durum wheat, semolina, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2541,13 +2541,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 148.39172813220918,
-      "pef": 147.80202535474598
+      "ecs": 148.39172813220915,
+      "pef": 147.802025354746
     },
     "name": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2575,13 +2575,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 821.3039627054468,
+      "ecs": 821.3039627054469,
       "pef": 815.7641303963198
     },
     "name": "Dark chocolate, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2609,13 +2609,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1589.659056438474,
-      "pef": 974.702423314601
+      "ecs": 1589.6590564384737,
+      "pef": 974.7024233146012
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [br-max], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2644,12 +2644,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 859.8812762958948,
-      "pef": 680.728622263604
+      "pef": 680.7286222636042
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2677,13 +2677,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1905.997770594743,
-      "pef": 361.7117649877112
+      "ecs": 1905.9977705947435,
+      "pef": 361.71176498771126
     },
     "name": "Brown sugar, production, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2711,13 +2711,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1381.990648859779,
-      "pef": 676.8829609153015
+      "ecs": 1381.9906488597785,
+      "pef": 676.8829609153016
     },
     "name": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2746,12 +2746,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 3165.914670980986,
-      "pef": 1798.4199344820058
+      "pef": 1798.419934482006
     },
     "name": "Coffee, roast and ground, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2780,12 +2780,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 1226.5149792757582,
-      "pef": 1130.1851485397242
+      "pef": 1130.1851485397244
     },
     "name": "Black pepper, dried, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2814,12 +2814,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 1251.7720741272337,
-      "pef": 1495.535809227004
+      "pef": 1495.5358092270042
     },
     "name": "Milk, powder, skimmed, non rehydrated, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2847,13 +2847,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 151.97209204488766,
+      "ecs": 151.9720920448877,
       "pef": 155.2173279408098
     },
     "name": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "litre"
+    "unit": "L"
   },
   {
     "categories": ["ingredient"],
@@ -2887,7 +2887,7 @@
     "name": "Fresh shrimps, China production {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2916,12 +2916,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 542.7480745452824,
-      "pef": 501.7299438098156
+      "pef": 501.72994380981555
     },
     "name": "Large trout, 2-4kg, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2949,13 +2949,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 649.9474216018835,
+      "ecs": 649.9474216018834,
       "pef": 471.2837857332832
     },
     "name": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -2983,13 +2983,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 520.4285655604239,
+      "ecs": 520.428565560424,
       "pef": 369.64232150226667
     },
     "name": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3017,13 +3017,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 619.2337280221162,
-      "pef": 449.501321030061
+      "ecs": 619.2337280221161,
+      "pef": 449.50132103006086
     },
     "name": "Egg, conventional, outdoor system, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3052,12 +3052,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 339.3585332826367,
-      "pef": 413.8080275781894
+      "pef": 413.80802757818947
     },
     "name": "Egg, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3085,13 +3085,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 71.71553116984859,
+      "ecs": 71.7155311698486,
       "pef": 82.14988484686424
     },
     "name": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3120,12 +3120,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 4107.6172057659305,
-      "pef": 4303.9849164004345
+      "pef": 4303.984916400434
     },
     "name": "Meat without bone, lamb {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3159,7 +3159,7 @@
     "name": "Meat without bone, lamb {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3187,13 +3187,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 43.469959047140335,
-      "pef": 40.798777809813814
+      "ecs": 43.46995904714033,
+      "pef": 40.79877780981382
     },
     "name": "Pear, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3221,13 +3221,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 64.98479572456809,
-      "pef": 17.818506105952576
+      "ecs": 64.98479572456807,
+      "pef": 17.81850610595258
     },
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3255,13 +3255,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 30.91362948963839,
+      "ecs": 30.913629489638385,
       "pef": 19.724450306619094
     },
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3295,7 +3295,7 @@
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3324,12 +3324,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 24.03280371085538,
-      "pef": 25.318947711892537
+      "pef": 25.31894771189254
     },
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3357,13 +3357,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 24.9970743867062,
-      "pef": 25.20298552489338
+      "ecs": 24.997074386706196,
+      "pef": 25.202985524893382
     },
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3391,13 +3391,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 21.18472419910076,
+      "ecs": 21.184724199100767,
       "pef": 21.62263161962437
     },
     "name": "Pear, conventional, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3431,7 +3431,7 @@
     "name": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3459,13 +3459,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 61.72658634769158,
-      "pef": 51.231280397804156
+      "ecs": 61.726586347691565,
+      "pef": 51.23128039780415
     },
     "name": "Peach, production mix, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3493,13 +3493,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 204.38748519642667,
-      "pef": 144.97598542413007
+      "ecs": 204.3874851964266,
+      "pef": 144.97598542413004
     },
     "name": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3528,12 +3528,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 31.102909624216796,
-      "pef": 32.634099319199194
+      "pef": 32.6340993191992
     },
     "name": "Melon, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3562,12 +3562,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 31.102909624216796,
-      "pef": 32.634099319199194
+      "pef": 32.6340993191992
     },
     "name": "Melon, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3596,12 +3596,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 18.668974385921725,
-      "pef": 14.231181517455987
+      "pef": 14.23118151745599
     },
     "name": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3629,13 +3629,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 18.708274892165,
-      "pef": 14.283346497425526
+      "ecs": 18.708274892164997,
+      "pef": 14.283346497425525
     },
     "name": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3663,13 +3663,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 492.97646064295486,
+      "ecs": 492.976460642955,
       "pef": 345.3386678700623
     },
     "name": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3697,13 +3697,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 153.3690003805198,
-      "pef": 170.68198537282348
+      "ecs": 153.36900038051974,
+      "pef": 170.6819853728235
     },
     "name": "Wheat grain, feed {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3731,13 +3731,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 21.41266629629364,
-      "pef": 18.37679175774654
+      "ecs": 21.412666296293644,
+      "pef": 18.376791757746535
     },
     "name": "Onion, national average, at farm {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3771,7 +3771,7 @@
     "name": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3799,13 +3799,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 60.186176613708085,
-      "pef": 67.12923161761331
+      "ecs": 60.1861766137081,
+      "pef": 67.12923161761333
     },
     "name": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3834,12 +3834,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 24.03280371085538,
-      "pef": 25.318947711892537
+      "pef": 25.31894771189254
     },
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3868,12 +3868,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 24.03280371085538,
-      "pef": 25.318947711892537
+      "pef": 25.31894771189254
     },
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3901,13 +3901,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 43.47025936799168,
-      "pef": 38.783993950411116
+      "ecs": 43.47025936799167,
+      "pef": 38.78399395041111
     },
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3935,13 +3935,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 43.47025936799168,
-      "pef": 38.783993950411116
+      "ecs": 43.47025936799167,
+      "pef": 38.78399395041111
     },
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -3969,13 +3969,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 43.47025936799168,
-      "pef": 38.783993950411116
+      "ecs": 43.47025936799167,
+      "pef": 38.78399395041111
     },
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4003,13 +4003,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 26.789910014404725,
-      "pef": 26.024518039534165
+      "ecs": 26.78991001440472,
+      "pef": 26.02451803953416
     },
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4038,12 +4038,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 24.50587629640328,
-      "pef": 20.339888618375653
+      "pef": 20.339888618375657
     },
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4072,12 +4072,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 24.50587629640328,
-      "pef": 20.339888618375653
+      "pef": 20.339888618375657
     },
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4106,12 +4106,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 83.82782485359631,
-      "pef": 61.62593073097711
+      "pef": 61.62593073097713
     },
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4140,12 +4140,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 83.82782485359631,
-      "pef": 61.62593073097711
+      "pef": 61.62593073097713
     },
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4173,13 +4173,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 403.91671616583557,
-      "pef": 178.21142637929526
+      "ecs": 403.91671616583545,
+      "pef": 178.21142637929523
     },
     "name": "Cherry, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4207,13 +4207,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 113.68544810511234,
+      "ecs": 113.68544810511233,
       "pef": 83.51864905413399
     },
     "name": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4241,13 +4241,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 403.91671616583557,
-      "pef": 178.21142637929526
+      "ecs": 403.91671616583545,
+      "pef": 178.21142637929523
     },
     "name": "Cherry, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4276,12 +4276,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 24.03280371085538,
-      "pef": 25.318947711892537
+      "pef": 25.31894771189254
     },
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4309,13 +4309,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 24.9970743867062,
-      "pef": 25.20298552489338
+      "ecs": 24.997074386706196,
+      "pef": 25.202985524893382
     },
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4343,13 +4343,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 20.617901994043795,
+      "ecs": 20.61790199404379,
       "pef": 23.755447115550382
     },
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4377,13 +4377,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 107.74562630247809,
-      "pef": 117.23387573386084
+      "ecs": 107.7456263024781,
+      "pef": 117.23387573386083
     },
     "name": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4417,7 +4417,7 @@
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4445,13 +4445,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 107.55272230490948,
+      "ecs": 107.55272230490945,
       "pef": 75.84811435164055
     },
     "name": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4480,12 +4480,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 108.59904581833044,
-      "pef": 38.92378746186861
+      "pef": 38.923787461868606
     },
     "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4514,12 +4514,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 108.59904581833044,
-      "pef": 38.92378746186861
+      "pef": 38.923787461868606
     },
     "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4548,12 +4548,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 480.03446716210834,
-      "pef": 383.07620990473544
+      "pef": 383.07620990473555
     },
     "name": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4582,12 +4582,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 673.6431190066502,
-      "pef": 482.75165520554884
+      "pef": 482.7516552055489
     },
     "name": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4621,7 +4621,7 @@
     "name": "Hazelnut, unshelled, at plant {IT} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4650,12 +4650,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 978.5779026716257,
-      "pef": 778.2426910261761
+      "pef": 778.242691026176
     },
     "name": "Hazelnut, unshelled, at plant {TR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4689,7 +4689,7 @@
     "name": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4718,12 +4718,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 31.775500033680625,
-      "pef": 38.77766977404585
+      "pef": 38.77766977404584
     },
     "name": "Cauliflower, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4751,13 +4751,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 38.00111644532399,
-      "pef": 45.64929474214633
+      "ecs": 38.00111644532398,
+      "pef": 45.64929474214634
     },
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4786,12 +4786,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 37.3791875173583,
-      "pef": 36.46550937097049
+      "pef": 36.4655093709705
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4819,13 +4819,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 59.761125000613454,
-      "pef": 42.517162246503354
+      "ecs": 59.76112500061345,
+      "pef": 42.51716224650336
     },
     "name": "Leek, national average, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4853,13 +4853,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 64.98479572456809,
-      "pef": 17.818506105952576
+      "ecs": 64.98479572456807,
+      "pef": 17.81850610595258
     },
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4887,13 +4887,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 64.98479572456809,
-      "pef": 17.818506105952576
+      "ecs": 64.98479572456807,
+      "pef": 17.81850610595258
     },
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4921,13 +4921,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 30.91362948963839,
+      "ecs": 30.913629489638385,
       "pef": 19.724450306619094
     },
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4961,7 +4961,7 @@
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -4990,12 +4990,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 37.3791875173583,
-      "pef": 36.46550937097049
+      "pef": 36.4655093709705
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5023,13 +5023,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 33.95576726027551,
+      "ecs": 33.9557672602755,
       "pef": 40.97632816660858
     },
     "name": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5057,13 +5057,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 38.07769049175317,
-      "pef": 26.127393374521276
+      "ecs": 38.07769049175316,
+      "pef": 26.127393374521265
     },
     "name": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5092,12 +5092,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 37.3791875173583,
-      "pef": 36.46550937097049
+      "pef": 36.4655093709705
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5125,13 +5125,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 38.00111644532399,
-      "pef": 45.64929474214633
+      "ecs": 38.00111644532398,
+      "pef": 45.64929474214634
     },
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5159,13 +5159,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 43.48960193036809,
-      "pef": 31.71892524822795
+      "ecs": 43.48960193036811,
+      "pef": 31.718925248227954
     },
     "name": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5193,13 +5193,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 21.41266629629364,
-      "pef": 18.37679175774654
+      "ecs": 21.412666296293644,
+      "pef": 18.376791757746535
     },
     "name": "Onion, national average, at farm {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5227,13 +5227,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 92.12680618672238,
-      "pef": 85.43454887721843
+      "ecs": 92.12680618672239,
+      "pef": 85.43454887721842
     },
     "name": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5267,7 +5267,7 @@
     "name": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5295,13 +5295,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 86.79637154123566,
-      "pef": 83.9592632712171
+      "ecs": 86.79637154123564,
+      "pef": 83.95926327121711
     },
     "name": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5330,12 +5330,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 363.49982562802563,
-      "pef": 201.86389727905396
+      "pef": 201.86389727905393
     },
     "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5364,12 +5364,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 251.77037698736473,
-      "pef": 270.4523255134388
+      "pef": 270.45232551343884
     },
     "name": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5398,12 +5398,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 233.19899119754137,
-      "pef": 290.75891808106377
+      "pef": 290.7589180810637
     },
     "name": "Rapeseed, at farm {CA} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5437,7 +5437,7 @@
     "name": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5466,12 +5466,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 391.9975033813963,
-      "pef": 460.3479443555943
+      "pef": 460.34794435559434
     },
     "name": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5499,13 +5499,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 538.9219120994727,
+      "ecs": 538.9219120994726,
       "pef": 531.7720661349202
     },
     "name": "Extra Virgin Olive Oil, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5533,13 +5533,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 208.91102179612875,
+      "ecs": 208.91102179612872,
       "pef": 242.63543961664107
     },
     "name": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5567,13 +5567,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 115.68533895585982,
-      "pef": 65.58800107029506
+      "ecs": 115.68533895585978,
+      "pef": 65.58800107029508
     },
     "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5601,13 +5601,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 313.85688315437477,
-      "pef": 220.02316869876853
+      "ecs": 313.8568831543747,
+      "pef": 220.0231686987685
     },
     "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5635,13 +5635,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 359.14720087954805,
-      "pef": 113.52571934510964
+      "ecs": 359.14720087954794,
+      "pef": 113.52571934510965
     },
     "name": "Sunflower, at farm {HU} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5669,13 +5669,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 339.867245256912,
+      "ecs": 339.86724525691193,
       "pef": 157.8379333318282
     },
     "name": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5704,12 +5704,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 57.78976770749293,
-      "pef": 62.3665458468155
+      "pef": 62.366545846815505
     },
     "name": "Kiwi FR, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5743,7 +5743,7 @@
     "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5777,7 +5777,7 @@
     "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5805,13 +5805,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 57.283597104847225,
+      "ecs": 57.28359710484723,
       "pef": 37.79527562631753
     },
     "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5845,7 +5845,7 @@
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5873,13 +5873,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 114.44232058920514,
+      "ecs": 114.44232058920515,
       "pef": 56.5640472642581
     },
     "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5907,13 +5907,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 114.44232058920514,
+      "ecs": 114.44232058920515,
       "pef": 56.5640472642581
     },
     "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5942,12 +5942,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 50.32044745743751,
-      "pef": 48.32066659259582
+      "pef": 48.320666592595835
     },
     "name": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -5976,12 +5976,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 929.4161817810746,
-      "pef": 229.17723317759965
+      "pef": 229.17723317759962
     },
     "name": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6009,13 +6009,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 446.82832955318037,
-      "pef": 240.1940349133587
+      "ecs": 446.8283295531803,
+      "pef": 240.19403491335868
     },
     "name": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6043,13 +6043,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 82.20013540076334,
-      "pef": 64.04592650383397
+      "ecs": 82.20013540076332,
+      "pef": 64.04592650383395
     },
     "name": "Strawberry for processing, open field, conventional, at farm gate {ES} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6077,13 +6077,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 73.16460011899035,
-      "pef": 53.81072558615533
+      "ecs": 73.16460011899034,
+      "pef": 53.81072558615532
     },
     "name": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6111,13 +6111,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 70.56312226998749,
+      "ecs": 70.56312226998747,
       "pef": 44.14135180247622
     },
     "name": "Banana, mixed production, West Indies, at farm gate {WI} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6145,13 +6145,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 82.18896908055613,
+      "ecs": 82.18896908055615,
       "pef": 43.63394511587758
     },
     "name": "Banana, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6185,7 +6185,7 @@
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6219,7 +6219,7 @@
     "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6253,7 +6253,7 @@
     "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6282,12 +6282,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 72.10774008058554,
-      "pef": 52.608877763316684
+      "pef": 52.60887776331667
     },
     "name": "Strawberry, open field, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6316,12 +6316,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 292.94609530081806,
-      "pef": 274.14864404821805
+      "pef": 274.148644048218
     },
     "name": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6349,13 +6349,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 49.2400645867597,
+      "ecs": 49.24006458675971,
       "pef": 44.55037087096618
     },
     "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6383,13 +6383,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 49.2400645867597,
+      "ecs": 49.24006458675971,
       "pef": 44.55037087096618
     },
     "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6417,13 +6417,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 64.98479572456809,
-      "pef": 17.818506105952576
+      "ecs": 64.98479572456807,
+      "pef": 17.81850610595258
     },
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6451,13 +6451,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 30.91362948963839,
+      "ecs": 30.913629489638385,
       "pef": 19.724450306619094
     },
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6491,7 +6491,7 @@
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6525,7 +6525,7 @@
     "name": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6559,7 +6559,7 @@
     "name": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6593,7 +6593,7 @@
     "name": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6621,13 +6621,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 259.7351203086006,
-      "pef": 271.06183116980344
+      "ecs": 259.73512030860064,
+      "pef": 271.0618311698035
     },
     "name": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6655,13 +6655,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 122.28053245052378,
+      "ecs": 122.2805324505238,
       "pef": 82.81268409001734
     },
     "name": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6689,13 +6689,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 417.735731292906,
+      "ecs": 417.73573129290594,
       "pef": 398.35078655633237
     },
     "name": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6724,12 +6724,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 37.3791875173583,
-      "pef": 36.46550937097049
+      "pef": 36.4655093709705
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6757,13 +6757,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 38.00111644532399,
-      "pef": 45.64929474214633
+      "ecs": 38.00111644532398,
+      "pef": 45.64929474214634
     },
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6791,13 +6791,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 115.68533895585982,
-      "pef": 65.58800107029506
+      "ecs": 115.68533895585978,
+      "pef": 65.58800107029508
     },
     "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6826,12 +6826,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 37.3791875173583,
-      "pef": 36.46550937097049
+      "pef": 36.4655093709705
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6859,13 +6859,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 38.00111644532399,
-      "pef": 45.64929474214633
+      "ecs": 38.00111644532398,
+      "pef": 45.64929474214634
     },
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6893,13 +6893,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 24.9970743867062,
-      "pef": 25.20298552489338
+      "ecs": 24.997074386706196,
+      "pef": 25.202985524893382
     },
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6927,13 +6927,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 489.70573375225365,
+      "ecs": 489.7057337522536,
       "pef": 89.30645718963102
     },
     "name": "Clementine, export quality, Souss, at orchard {MA} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6961,13 +6961,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 26.789910014404725,
-      "pef": 26.024518039534165
+      "ecs": 26.78991001440472,
+      "pef": 26.02451803953416
     },
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -6996,12 +6996,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 24.50587629640328,
-      "pef": 20.339888618375653
+      "pef": 20.339888618375657
     },
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7029,13 +7029,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 40.236846179316856,
-      "pef": 39.922827407839684
+      "ecs": 40.23684617931685,
+      "pef": 39.92282740783969
     },
     "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7063,13 +7063,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 26.789910014404725,
-      "pef": 26.024518039534165
+      "ecs": 26.78991001440472,
+      "pef": 26.02451803953416
     },
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7098,12 +7098,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 24.50587629640328,
-      "pef": 20.339888618375653
+      "pef": 20.339888618375657
     },
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7132,12 +7132,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 130.2933172738426,
-      "pef": 66.48721182769629
+      "pef": 66.4872118276963
     },
     "name": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7171,7 +7171,7 @@
     "name": "Grain maize, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7199,13 +7199,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 406.0786977264272,
-      "pef": 158.8797808084243
+      "ecs": 406.0786977264271,
+      "pef": 158.87978080842427
     },
     "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7233,13 +7233,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 172.72958625243965,
+      "ecs": 172.7295862524396,
       "pef": 88.17693372059504
     },
     "name": "Pineapple, at farm {CR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7268,12 +7268,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 73.8062393083272,
-      "pef": 71.85195836687183
+      "pef": 71.85195836687184
     },
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7302,12 +7302,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 73.8062393083272,
-      "pef": 71.85195836687183
+      "pef": 71.85195836687184
     },
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7341,7 +7341,7 @@
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7375,7 +7375,7 @@
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7404,12 +7404,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 73.8062393083272,
-      "pef": 71.85195836687183
+      "pef": 71.85195836687184
     },
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7438,12 +7438,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 73.8062393083272,
-      "pef": 71.85195836687183
+      "pef": 71.85195836687184
     },
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7471,13 +7471,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1456.9254009392578,
-      "pef": 1549.3741063525922
+      "ecs": 1456.9254009392575,
+      "pef": 1549.3741063525924
     },
     "name": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7505,13 +7505,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 56.86371542054134,
-      "pef": 75.11819304767269
+      "ecs": 56.86371542054135,
+      "pef": 75.11819304767268
     },
     "name": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "source": "Ecobalyse",
     "system_description": "Ecobalyse",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7545,7 +7545,7 @@
     "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7579,7 +7579,7 @@
     "name": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7607,13 +7607,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 91.449516476335,
+      "ecs": 91.44951647633499,
       "pef": 91.13193677617065
     },
     "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7641,13 +7641,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 120.40966248702925,
-      "pef": 129.43233413217854
+      "ecs": 120.40966248702924,
+      "pef": 129.43233413217857
     },
     "name": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7675,13 +7675,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 127.79130744252004,
-      "pef": 132.01581571235295
+      "ecs": 127.79130744252005,
+      "pef": 132.01581571235292
     },
     "name": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7709,13 +7709,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 39.27697557786902,
+      "ecs": 39.276975577869024,
       "pef": 32.64459013777798
     },
     "name": "Table apple, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7743,13 +7743,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 40.73726906886751,
-      "pef": 18.19554642311913
+      "ecs": 40.737269068867505,
+      "pef": 18.195546423119126
     },
     "name": "Apple, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7783,7 +7783,7 @@
     "name": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7817,7 +7817,7 @@
     "name": "Ware potato, organic 2023, for industrial use, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7845,13 +7845,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 77.61064729781062,
+      "ecs": 77.61064729781063,
       "pef": 95.20576599892593
     },
     "name": "Kiwi, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7879,13 +7879,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 39.18411423246975,
-      "pef": 47.19999714789498
+      "ecs": 39.18411423246976,
+      "pef": 47.19999714789499
     },
     "name": "Red Cabbage, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7914,12 +7914,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 5.052019800220155,
-      "pef": 6.68825998360644
+      "pef": 6.688259983606439
     },
     "name": "Sugar beet, organic 2023 {FR}| sugar beet production | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7948,12 +7948,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 56.164260929150835,
-      "pef": 67.61263707040484
+      "pef": 67.61263707040482
     },
     "name": "Papaya, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -7982,12 +7982,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 37.74306720879688,
-      "pef": 43.65892588599403
+      "pef": 43.65892588599402
     },
     "name": "Fresh tomato, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8016,12 +8016,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 14.745408880330562,
-      "pef": 19.158317815189964
+      "pef": 19.158317815189967
     },
     "name": "Pineapple, organic 2023 {GLO}| production | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8049,13 +8049,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 63.890379018589854,
-      "pef": 72.01087473124622
+      "ecs": 63.89037901858987,
+      "pef": 72.0108747312462
     },
     "name": "Garden peas, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8089,7 +8089,7 @@
     "name": "Almonds, in shell, at farm, organic 2023 {CN}",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8123,7 +8123,7 @@
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8152,12 +8152,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 46.37216992167492,
-      "pef": 57.48153954875802
+      "pef": 57.481539548758015
     },
     "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8186,12 +8186,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 46.37216992167492,
-      "pef": 57.48153954875802
+      "pef": 57.481539548758015
     },
     "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8219,13 +8219,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 57.283597104847225,
+      "ecs": 57.28359710484723,
       "pef": 37.79527562631753
     },
     "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8253,13 +8253,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 121.11558400083139,
+      "ecs": 121.11558400083138,
       "pef": 142.70724663411804
     },
     "name": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8293,7 +8293,7 @@
     "name": "Spring oats, organic, national average, at feed plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8327,7 +8327,7 @@
     "name": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8355,13 +8355,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 52.52421292815667,
-      "pef": 66.99790808688762
+      "ecs": 52.524212928156665,
+      "pef": 66.9979080868876
     },
     "name": "Barley, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8389,13 +8389,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 44.568261546546765,
-      "pef": 54.22578689055046
+      "ecs": 44.56826154654676,
+      "pef": 54.22578689055047
     },
     "name": "Banana, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8423,13 +8423,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 81.39278004014616,
-      "pef": 104.75378389302493
+      "ecs": 81.39278004014615,
+      "pef": 104.75378389302492
     },
     "name": "Orange, fresh grade, at farm, organic 2023 {ES}",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8457,13 +8457,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 69.52898023898268,
-      "pef": 89.8839988071446
+      "ecs": 69.52898023898267,
+      "pef": 89.88399880714461
     },
     "name": "Lemon, organic 2023 {ES}| lemon production | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8492,12 +8492,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 47.958000270347725,
-      "pef": 58.49349299004285
+      "pef": 58.49349299004286
     },
     "name": "Celery, organic 2023 {GLO}| 675 production | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8525,13 +8525,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 107.32813005134935,
-      "pef": 144.7268925249307
+      "ecs": 107.32813005134938,
+      "pef": 144.72689252493072
     },
     "name": "Olive, organic 2023 {ES}| olive production | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8560,12 +8560,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 175.10870728815954,
-      "pef": 231.19184556360216
+      "pef": 231.19184556360213
     },
     "name": "Peanut, organic 2023 {RoW}| peanut production | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8593,13 +8593,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 213.91073679328815,
+      "ecs": 213.91073679328812,
       "pef": 275.535286380428
     },
     "name": "Raspberry, at farm, organic 2023 {RS}",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8633,7 +8633,7 @@
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8667,7 +8667,7 @@
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8695,13 +8695,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 114.50144970254986,
-      "pef": 152.68235309327792
+      "ecs": 114.50144970254988,
+      "pef": 152.68235309327795
     },
     "name": "Durum wheat grain, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8735,7 +8735,7 @@
     "name": "Onion, national average, at farm, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8764,12 +8764,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 330.0516233983951,
-      "pef": 409.78819634071806
+      "pef": 409.7881963407181
     },
     "name": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8797,13 +8797,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 81.68050714392672,
-      "pef": 80.16881048512721
+      "ecs": 81.68050714392669,
+      "pef": 80.16881048512722
     },
     "name": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8837,7 +8837,7 @@
     "name": "Triticale, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8866,12 +8866,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 110.68864373316993,
-      "pef": 49.04549734707372
+      "pef": 49.04549734707373
     },
     "name": "Faba bean, grain stored and transported, processing {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8899,13 +8899,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 43.68627073021544,
+      "ecs": 43.68627073021545,
       "pef": 52.415160274461705
     },
     "name": "Pea, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8933,13 +8933,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 24.417559334860933,
-      "pef": 28.197592330969627
+      "ecs": 24.41755933486093,
+      "pef": 28.19759233096963
     },
     "name": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -8967,13 +8967,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 33.372801820326224,
-      "pef": 37.51231372346278
+      "ecs": 33.37280182032623,
+      "pef": 37.512313723462796
     },
     "name": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9007,7 +9007,7 @@
     "name": "Lentil, organic 2023 {RoW}| lentil production | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9035,13 +9035,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 106.62716637209665,
-      "pef": 47.91630650737909
+      "ecs": 106.62716637209662,
+      "pef": 47.9163065073791
     },
     "name": "Apricot, organic 2023 {FR}| apricot production | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9070,12 +9070,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 22.96220337431388,
-      "pef": 27.360582218368563
+      "pef": 27.360582218368567
     },
     "name": "Leek, national average, at plant, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9103,13 +9103,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 327.9277307806046,
-      "pef": 490.3317516066382
+      "ecs": 327.92773078060463,
+      "pef": 490.33175160663825
     },
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9137,13 +9137,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 327.9277307806046,
-      "pef": 490.3317516066382
+      "ecs": 327.92773078060463,
+      "pef": 490.33175160663825
     },
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9177,7 +9177,7 @@
     "name": "Onion, national average, at farm, organic 2023 {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9205,13 +9205,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 117.85366734873357,
+      "ecs": 117.8536673487336,
       "pef": 135.38306372394482
     },
     "name": "Blueberry, at farm, organic 2023 {CA}",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9239,13 +9239,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 15.009343591936,
-      "pef": 20.73494695373161
+      "ecs": 15.009343591936002,
+      "pef": 20.734946953731605
     },
     "name": "Spinach, organic 2023 {GLO}| production | Cut-off, U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9273,13 +9273,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 33.53971191893091,
-      "pef": 39.554873115525766
+      "ecs": 33.539711918930905,
+      "pef": 39.55487311552576
     },
     "name": "Melon, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9308,12 +9308,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 102.11527714745658,
-      "pef": 55.384936843270154
+      "pef": 55.38493684327017
     },
     "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9342,12 +9342,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 102.11527714745658,
-      "pef": 55.384936843270154
+      "pef": 55.38493684327017
     },
     "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9375,13 +9375,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 185.8826977526642,
-      "pef": 162.8931540357909
+      "ecs": 185.88269775266423,
+      "pef": 162.89315403579087
     },
     "name": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9415,7 +9415,7 @@
     "name": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9449,7 +9449,7 @@
     "name": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9483,7 +9483,7 @@
     "name": "Cherry, at farm (WFLDB)",
     "source": "WFLDB",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9511,13 +9511,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 407.5721772670124,
-      "pef": 383.3875068031456
+      "ecs": 407.5721772670125,
+      "pef": 383.38750680314564
     },
     "name": "Palm oil, refined, processed in EU, at plant {RER} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9545,13 +9545,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 548.2282130945532,
-      "pef": 551.880203118828
+      "ecs": 548.2282130945533,
+      "pef": 551.8802031188281
     },
     "name": "Linseed oil, refined, at oil mill { FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9579,13 +9579,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 113.41314745319481,
-      "pef": 127.20421480060831
+      "ecs": 113.4131474531948,
+      "pef": 127.20421480060834
     },
     "name": "Grapeseed oil, refined at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9613,13 +9613,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 726.1918471255068,
-      "pef": 314.10370154397583
+      "ecs": 726.1918471255067,
+      "pef": 314.10370154397594
     },
     "name": "Soybean oil, refined, at plant  {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9647,13 +9647,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1934.5404492223076,
-      "pef": 1505.4431245216037
+      "ecs": 1934.5404492223074,
+      "pef": 1505.443124521604
     },
     "name": "Hazelnut oil, crude, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9687,7 +9687,7 @@
     "name": "Peanut oil, at oil mill {SN} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9715,13 +9715,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 475.26606721012996,
-      "pef": 318.71916478927307
+      "ecs": 475.2660672101299,
+      "pef": 318.719164789273
     },
     "name": "Sunflower oil, refined, low dehulling at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9749,13 +9749,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 380.3900012747494,
+      "ecs": 380.39000127474935,
       "pef": 276.4928867752055
     },
     "name": "Rapeseed oil, refined, at oil mill {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9783,13 +9783,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 503.14942261453183,
+      "ecs": 503.1494226145319,
       "pef": 487.1034904691177
     },
     "name": "Extra Virgin Olive Oil, at plant {ES} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9817,13 +9817,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 216.74496581528857,
-      "pef": 178.17749595620128
+      "ecs": 216.7449658152886,
+      "pef": 178.17749595620123
     },
     "name": "Fresh cream cheese, plain, creamy, around 8% fat, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9852,12 +9852,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 631.3772011936228,
-      "pef": 686.1046949964716
+      "pef": 686.1046949964714
     },
     "name": "Onions, dried, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9891,7 +9891,7 @@
     "name": "Chicken egg, raw, without shell, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9920,12 +9920,12 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 672.2074141794261,
-      "pef": 503.3278638031698
+      "pef": 503.32786380316986
     },
     "name": "Egg yolk, powder, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9953,13 +9953,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 672.2964545916599,
-      "pef": 503.3922863789764
+      "ecs": 672.2964545916598,
+      "pef": 503.39228637897634
     },
     "name": "Egg white, powder, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -9993,7 +9993,7 @@
     "name": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
@@ -10027,6 +10027,6 @@
     "name": "Cocoa powder, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "kilogram"
+    "unit": "kg"
   }
 ]
