@@ -95,7 +95,7 @@ init scope trigram maybeUrlQuery session =
             -- If we received a serialized query from the URL, use it
             -- Otherwise, fallback to use session query
             maybeUrlQuery
-                |> Maybe.withDefault session.queries.object
+                |> Maybe.withDefault (Session.objectQueryFromScope scope session)
 
         examples =
             session.db.object.examples
@@ -120,7 +120,7 @@ init scope trigram maybeUrlQuery session =
       , scope = scope
       }
     , session
-        |> Session.updateObjectQuery initialQuery
+        |> Session.updateObjectQuery scope initialQuery
     , case maybeUrlQuery of
         -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
         -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
@@ -148,7 +148,7 @@ initFromExample session scope uuid =
         exampleQuery =
             example
                 |> Result.map .query
-                |> Result.withDefault session.queries.object
+                |> Result.withDefault (Session.objectQueryFromScope scope session)
     in
     ( { activeImpactsTab = ImpactTabs.StepImpactsTab
       , bookmarkName = exampleQuery |> suggestBookmarkName session examples
@@ -164,7 +164,7 @@ initFromExample session scope uuid =
       , scope = scope
       }
     , session
-        |> Session.updateObjectQuery exampleQuery
+        |> Session.updateObjectQuery scope exampleQuery
     , Ports.scrollTo { x = 0, y = 0 }
     )
 
@@ -207,16 +207,17 @@ updateQuery query ( model, session, commands ) =
                 |> Simulator.compute session.db
                 |> Result.withDefault Simulator.emptyResults
       }
-    , session |> Session.updateObjectQuery query
+    , session |> Session.updateObjectQuery model.scope query
     , commands
     )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries, navKey } as session) msg model =
+update ({ navKey } as session) msg model =
     let
         query =
-            queries.object
+            session
+                |> Session.objectQueryFromScope model.scope
     in
     case ( msg, model.modal ) of
         ( AddItem item, _ ) ->
@@ -386,7 +387,7 @@ simulatorView session model =
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view
-                    { currentQuery = session.queries.object
+                    { currentQuery = session |> Session.objectQueryFromScope model.scope
                     , emptyQuery = Query.default
                     , examples = model.examples
                     , helpUrl = Nothing
@@ -399,7 +400,8 @@ simulatorView session model =
                         }
                     }
                 ]
-            , session.queries.object
+            , session
+                |> Session.objectQueryFromScope model.scope
                 |> itemListView session.db model.impact model.results
                 |> div [ class "card shadow-sm mb-3" ]
             ]

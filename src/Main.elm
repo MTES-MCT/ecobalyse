@@ -158,6 +158,7 @@ setupSession navKey flags db =
                 |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
                 |> Result.map .query
                 |> Result.withDefault TextileQuery.default
+        , veli = ObjectQuery.default
         }
     , releases = RemoteData.NotAsked
     , store = store
