@@ -29,7 +29,17 @@ table { maxScore } { detailed, scope } =
           }
         , { label = "Catégorie"
           , toValue = Table.StringValue (Tuple.first >> .category)
-          , toCell = Tuple.first >> .category >> text
+          , toCell =
+                \( { category }, _ ) ->
+                    if category == "" then
+                        i [ class "text-muted" ] [ text "non-renseigné" ]
+
+                    else
+                        text category
+          }
+        , { label = "Type"
+          , toValue = Table.StringValue (Tuple.first >> .scope >> Scope.toLabel)
+          , toCell = Tuple.first >> .scope >> Scope.toLabel >> text
           }
         , { label = "Coût Environnemental"
           , toValue = Table.FloatValue (Tuple.second >> .score)
