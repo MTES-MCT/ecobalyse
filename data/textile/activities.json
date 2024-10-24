@@ -475,7 +475,7 @@
     "displayName": "Production de fibres de lin, rouissage",
     "info": "Textile > Matières > Matières naturelles",
     "source": "Ecoinvent 3.9.1",
-    "search": "\"flax, fibre\" retting RoW",
+    "search": "flax, fibre retting RoW",
     "correctif": "",
     "step_usage": "Matières",
     "uuid": "cf76c9e1872effbd04d49aec742e7952",
