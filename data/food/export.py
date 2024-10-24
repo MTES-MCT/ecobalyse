@@ -195,12 +195,13 @@ if __name__ == "__main__":
         impacts_compared_dic = compare_impacts(processes, DEFAULT_DB, impacts_py)
         csv_export_impact_comparison(impacts_compared_dic, "food")
         for process_name, values in impacts_compared_dic.items():
-            print(f"Plotting {process_name}")
+            name = processes[process_name]["name"]
+            print(f"Plotting {name}")
             simapro_impacts = values["simapro_impacts"]
             brightway_impacts = values["brightway_impacts"]
             os.makedirs(GRAPH_FOLDER, exist_ok=True)
             plot_impacts(
-                process_name,
+                name,
                 simapro_impacts,
                 brightway_impacts,
                 GRAPH_FOLDER,
