@@ -27,6 +27,10 @@ table { maxScore } { detailed, scope } =
           , toValue = Table.StringValue (Tuple.first >> .name)
           , toCell = Tuple.first >> .name >> text
           }
+        , { label = "Famille"
+          , toValue = Table.StringValue (Tuple.first >> .scope >> Scope.toLabel)
+          , toCell = Tuple.first >> .scope >> Scope.toLabel >> text
+          }
         , { label = "Catégorie"
           , toValue = Table.StringValue (Tuple.first >> .category)
           , toCell =
@@ -37,10 +41,6 @@ table { maxScore } { detailed, scope } =
                     else
                         text category
           }
-        , { label = "Type"
-          , toValue = Table.StringValue (Tuple.first >> .scope >> Scope.toLabel)
-          , toCell = Tuple.first >> .scope >> Scope.toLabel >> text
-          }
         , { label = "Coût Environnemental"
           , toValue = Table.FloatValue (Tuple.second >> .score)
           , toCell =
@@ -50,13 +50,13 @@ table { maxScore } { detailed, scope } =
         , { label = ""
           , toValue = Table.NoValue
           , toCell =
-                \( { id, name }, _ ) ->
+                \( example, _ ) ->
                     a
                         [ class "btn btn-light btn-sm w-100"
 
                         -- FIXME: multiple exlorer for Veli
-                        , Route.href <| Route.ObjectSimulatorExample Scope.Object id
-                        , title <| "Charger " ++ name
+                        , Route.href <| Route.ObjectSimulatorExample example.scope example.id
+                        , title <| "Charger " ++ example.name
                         ]
                         [ Icon.search ]
           }
