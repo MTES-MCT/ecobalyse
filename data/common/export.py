@@ -6,7 +6,7 @@ from os.path import dirname
 
 import bw2calc
 import bw2data
-import matplotlib
+import matplotlib.pyplot
 import numpy
 import pandas as pd
 import requests
@@ -51,7 +51,9 @@ def search(dbname, name, excluded_term=None):
     results = bw2data.Database(dbname).search(name)
     if excluded_term:
         results = [res for res in results if excluded_term not in res["name"]]
-    assert len(results) >= 1, f"'{name}' was not found in Brightway"
+    if not results:
+        print(f"Not found in brightway : '{name}'")
+        return None
     return results[0]
 
 
@@ -212,6 +214,9 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
             continue
         # simapro
         activity = cached_search(process.get("source", default_db), process["search"])
+        if not activity:
+            raise Exception(f"This process was not found in brightway: {process}")
+
         results = compute_simapro_impacts(activity, main_method, impact_defs)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kWh" and isinstance(results, dict):
@@ -251,7 +256,13 @@ def compare_impacts(frozen_processes, default_db, impact_defs):
     for index, (key, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
         # simapro
-        activity = cached_search(process.get("source", default_db), process["search"])
+        activity = cached_search(
+            process.get("source", default_db),
+            process.get("search", process["name"]),
+        )
+        if not activity:
+            print(f"{process['name']} does not exist in brightway")
+            continue
         results = compute_simapro_impacts(activity, main_method, impact_defs)
         print(f"got impacts from SimaPro for: {process['name']}")
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
@@ -282,14 +293,18 @@ def compare_impacts(frozen_processes, default_db, impact_defs):
     return frozendict({k: frozendict(v) for k, v in processes_corrected_smp_bw.items()})
 
 
-def plot_impacts(ingredient_name, impacts_smp, impacts_bw, folder, impact_defs):
-    impact_labels = impacts_smp.keys()
+def plot_impacts(process_name, impacts_smp, impacts_bw, folder, impact_defs):
+    trigrams = [
+        t
+        for t in impact_defs.keys()
+        if t in impacts_smp.keys() and t in impacts_bw.keys()
+    ]
     nf = normalization_factors(impact_defs)
 
-    simapro_values = [impacts_smp[label] * nf[label] for label in impact_labels]
-    brightway_values = [impacts_bw[label] * nf[label] for label in impact_labels]
+    simapro_values = [impacts_smp[label] * nf[label] for label in trigrams]
+    brightway_values = [impacts_bw[label] * nf[label] for label in trigrams]
 
-    x = numpy.arange(len(impact_labels))
+    x = numpy.arange(len(trigrams))
     width = 0.35
 
     fig, ax = matplotlib.pyplot.subplots(figsize=(12, 8))
@@ -299,13 +314,13 @@ def plot_impacts(ingredient_name, impacts_smp, impacts_bw, folder, impact_defs):
 
     ax.set_xlabel("Impact Categories")
     ax.set_ylabel("Impact Values")
-    ax.set_title(f"Environmental Impacts for {ingredient_name}")
+    ax.set_title(f"Environmental Impacts for {process_name}")
     ax.set_xticks(x)
-    ax.set_xticklabels(impact_labels, rotation=90)
+    ax.set_xticklabels(trigrams, rotation=90)
     ax.legend()
 
     matplotlib.pyplot.tight_layout()
-    matplotlib.pyplot.savefig(f"{folder}/{ingredient_name}.png")
+    matplotlib.pyplot.savefig(f"{folder}/{process_name}.png")
     matplotlib.pyplot.close()
 
 

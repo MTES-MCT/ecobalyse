@@ -8,7 +8,7 @@ from frozendict import frozendict
 def normalization_factors(impact_defs):
     normalization_factors = {}
     for k, v in impact_defs.items():
-        if v["ecoscore"]:
+        if v.get("ecoscore"):
             normalization_factors[k] = (
                 v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
             )

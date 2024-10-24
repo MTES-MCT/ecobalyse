@@ -49,7 +49,7 @@ export_textile:
 compare_food:
 	@$(call DOCKER,bash -c "python3 food/export.py compare")
 
-compare_food:
+compare_textile:
 	@$(call DOCKER,bash -c "python3 textile/export.py compare")
 
 format:
