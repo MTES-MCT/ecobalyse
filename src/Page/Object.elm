@@ -408,7 +408,7 @@ simulatorView session model =
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
                 { session = session
-                , scope = Scope.Object
+                , scope = model.scope
 
                 -- Impact selector
                 , selectedImpact = model.impact
@@ -473,6 +473,7 @@ itemListView db selectedImpact results query =
         [ h2 [ class "h5 mb-0" ]
             [ text "Éléments"
             , Link.smallPillExternal
+                -- FIXME: link to Veli explorer?
                 [ Route.href (Route.Explore Scope.Object (Dataset.ObjectProcesses Nothing))
                 , title "Explorer"
                 , attribute "aria-label" "Explorer"

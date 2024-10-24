@@ -68,54 +68,58 @@ shareTabView { copyToClipBoard, impact, scope, session } =
         ( shareableLink, apiCall, jsonParams ) =
             case scope of
                 Scope.Food ->
-                    ( Just session.queries.food
+                    let
+                        query =
+                            session.queries.food
+                    in
+                    ( Just query
                         |> Route.FoodBuilder impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
-                    , session.queries.food
-                        |> FoodQuery.buildApiQuery session.clientUrl
-                    , session.queries.food
-                        |> FoodQuery.encode
+                    , FoodQuery.buildApiQuery session.clientUrl query
+                    , FoodQuery.encode query
                         |> Encode.encode 2
                     )
 
                 Scope.Object ->
-                    ( Just session.queries.object
-                        |> Route.ObjectSimulator Scope.Object impact.trigram
+                    let
+                        query =
+                            session.queries.object
+                    in
+                    ( Just query
+                        |> Route.ObjectSimulator scope impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
-                      -- FIXME: make this a maybe
-                    , session.queries.object
-                        |> ObjectQuery.buildApiQuery session.clientUrl
-                      -- FIXME: make this a maybe
-                    , session.queries.object
-                        |> ObjectQuery.encode
+                    , ObjectQuery.buildApiQuery scope session.clientUrl query
+                    , ObjectQuery.encode query
                         |> Encode.encode 2
                     )
 
                 Scope.Textile ->
-                    ( Just session.queries.textile
+                    let
+                        query =
+                            session.queries.textile
+                    in
+                    ( Just query
                         |> Route.TextileSimulator impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
-                    , session.queries.textile
-                        |> TextileQuery.buildApiQuery session.clientUrl
-                    , session.queries.textile
-                        |> TextileQuery.encode
+                    , TextileQuery.buildApiQuery session.clientUrl query
+                    , TextileQuery.encode query
                         |> Encode.encode 2
                     )
 
                 Scope.Veli ->
-                    ( Just session.queries.object
-                        |> Route.ObjectSimulator Scope.Veli impact.trigram
+                    let
+                        query =
+                            session.queries.veli
+                    in
+                    ( Just query
+                        |> Route.ObjectSimulator scope impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
-                      -- FIXME: make this a maybe
-                    , session.queries.object
-                        |> ObjectQuery.buildApiQuery session.clientUrl
-                      -- FIXME: make this a maybe
-                    , session.queries.object
-                        |> ObjectQuery.encode
+                    , ObjectQuery.buildApiQuery scope session.clientUrl query
+                    , ObjectQuery.encode query
                         |> Encode.encode 2
                     )
     in
