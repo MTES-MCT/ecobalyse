@@ -10,7 +10,7 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Github as Github
-import Data.Scope as Scope
+import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -33,7 +33,7 @@ type ActivePage
     | Explore
     | FoodBuilder
     | Home
-    | Object
+    | Object Scope
     | Other
     | Stats
     | TextileSimulator
@@ -143,7 +143,18 @@ mainMenuLinks { enableFoodSection, enableObjectSection } =
           else
             Nothing
         , if enableObjectSection then
-            Just <| Internal "Objets" Route.ObjectSimulatorHome Object
+            Just <|
+                Internal "Objets"
+                    (Route.ObjectSimulatorHome Scope.Object)
+                    (Object Scope.Object)
+
+          else
+            Nothing
+        , if enableObjectSection then
+            Just <|
+                Internal "Véhicule intermédiaire"
+                    (Route.ObjectSimulatorHome Scope.Veli)
+                    (Object Scope.Veli)
 
           else
             Nothing

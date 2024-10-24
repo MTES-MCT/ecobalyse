@@ -160,10 +160,15 @@ update session msg model =
                             Dataset.FoodExamples Nothing
 
                         Scope.Object ->
+                            -- FIXME: meubles examples only
                             Dataset.ObjectExamples Nothing
 
                         Scope.Textile ->
                             Dataset.TextileExamples Nothing
+
+                        Scope.Veli ->
+                            -- FIXME: veli examples only
+                            Dataset.ObjectExamples Nothing
               )
                 |> Route.Explore scope
                 |> Route.toString

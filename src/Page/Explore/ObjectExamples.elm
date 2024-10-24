@@ -3,7 +3,7 @@ module Page.Explore.ObjectExamples exposing (table)
 import Data.Dataset as Dataset
 import Data.Example exposing (Example)
 import Data.Object.Query exposing (Query)
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Uuid as Uuid
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -27,9 +27,19 @@ table { maxScore } { detailed, scope } =
           , toValue = Table.StringValue (Tuple.first >> .name)
           , toCell = Tuple.first >> .name >> text
           }
+        , { label = "Famille"
+          , toValue = Table.StringValue (Tuple.first >> .scope >> Scope.toLabel)
+          , toCell = Tuple.first >> .scope >> Scope.toLabel >> text
+          }
         , { label = "Catégorie"
           , toValue = Table.StringValue (Tuple.first >> .category)
-          , toCell = Tuple.first >> .category >> text
+          , toCell =
+                \( { category }, _ ) ->
+                    if category == "" then
+                        i [ class "text-muted" ] [ text "non-renseigné" ]
+
+                    else
+                        text category
           }
         , { label = "Coût Environnemental"
           , toValue = Table.FloatValue (Tuple.second >> .score)
@@ -40,11 +50,13 @@ table { maxScore } { detailed, scope } =
         , { label = ""
           , toValue = Table.NoValue
           , toCell =
-                \( { id, name }, _ ) ->
+                \( example, _ ) ->
                     a
                         [ class "btn btn-light btn-sm w-100"
-                        , Route.href <| Route.ObjectSimulatorExample id
-                        , title <| "Charger " ++ name
+
+                        -- FIXME: multiple exlorer for Veli
+                        , Route.href <| Route.ObjectSimulatorExample example.scope example.id
+                        , title <| "Charger " ++ example.name
                         ]
                         [ Icon.search ]
           }

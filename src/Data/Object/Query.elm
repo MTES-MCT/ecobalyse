@@ -18,6 +18,7 @@ module Data.Object.Query exposing
 
 import Base64
 import Data.Object.Process as Process exposing (Process)
+import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Result.Extra as RE
@@ -49,14 +50,14 @@ amountToFloat (Amount float) =
     float
 
 
-buildApiQuery : String -> Query -> String
-buildApiQuery clientUrl query =
+buildApiQuery : Scope -> String -> Query -> String
+buildApiQuery scope clientUrl query =
     """curl -sS -X POST %apiUrl% \\
   -H "accept: application/json" \\
   -H "content-type: application/json" \\
   -d '%json%'
 """
-        |> String.replace "%apiUrl%" (clientUrl ++ "api/object/simulator")
+        |> String.replace "%apiUrl%" (clientUrl ++ "api/" ++ Scope.toString scope ++ "/simulator")
         |> String.replace "%json%" (encode query |> Encode.encode 0)
 
 
