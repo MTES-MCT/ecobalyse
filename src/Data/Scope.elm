@@ -44,6 +44,9 @@ fromString string =
         "textile" ->
             Ok Textile
 
+        "veli" ->
+            Ok Veli
+
         _ ->
             Err <| "Couldn't decode unknown scope " ++ string
 

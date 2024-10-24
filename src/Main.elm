@@ -228,16 +228,16 @@ setRoute url ( { state } as model, cmds ) =
                     Home.init session
                         |> toPage HomePage HomeMsg
 
-                Just (Route.ObjectSimulator trigram maybeQuery) ->
-                    ObjectSimulator.init trigram maybeQuery session
+                Just (Route.ObjectSimulator scope trigram maybeQuery) ->
+                    ObjectSimulator.init scope trigram maybeQuery session
                         |> toPage ObjectSimulatorPage ObjectSimulatorMsg
 
-                Just (Route.ObjectSimulatorExample uuid) ->
-                    ObjectSimulator.initFromExample session uuid
+                Just (Route.ObjectSimulatorExample scope uuid) ->
+                    ObjectSimulator.initFromExample session scope uuid
                         |> toPage ObjectSimulatorPage ObjectSimulatorMsg
 
-                Just Route.ObjectSimulatorHome ->
-                    ObjectSimulator.init Impact.default Nothing session
+                Just (Route.ObjectSimulatorHome scope) ->
+                    ObjectSimulator.init scope Impact.default Nothing session
                         |> toPage ObjectSimulatorPage ObjectSimulatorMsg
 
                 Just Route.Stats ->
@@ -531,7 +531,7 @@ view { mobileNavigationOpened, state } =
                 ObjectSimulatorPage simulatorModel ->
                     ObjectSimulator.view session simulatorModel
                         |> mapMsg ObjectSimulatorMsg
-                        |> Page.frame (pageConfig Page.Object)
+                        |> Page.frame (pageConfig (Page.Object simulatorModel.scope))
 
                 StatsPage statsModel ->
                     Stats.view session statsModel

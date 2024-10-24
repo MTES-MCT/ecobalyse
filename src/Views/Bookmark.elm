@@ -81,7 +81,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
 
                 Scope.Object ->
                     ( Just session.queries.object
-                        |> Route.ObjectSimulator impact.trigram
+                        |> Route.ObjectSimulator Scope.Object impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
                       -- FIXME: make this a maybe
@@ -107,7 +107,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
 
                 Scope.Veli ->
                     ( Just session.queries.object
-                        |> Route.ObjectSimulator impact.trigram
+                        |> Route.ObjectSimulator Scope.Veli impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
                       -- FIXME: make this a maybe
@@ -259,13 +259,14 @@ bookmarkView cfg ({ name, query } as bookmark) =
 
         bookmarkRoute =
             case query of
+                -- FIXME: introduce Veli bookmarks
                 Bookmark.Food foodQuery ->
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
                 Bookmark.Object objectQuery ->
                     Just objectQuery
-                        |> Route.ObjectSimulator cfg.impact.trigram
+                        |> Route.ObjectSimulator Scope.Object cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery

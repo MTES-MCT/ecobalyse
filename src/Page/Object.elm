@@ -14,13 +14,13 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
-import Data.Example as Example
+import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator exposing (Results)
-import Data.Scope as Scope
+import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
@@ -50,10 +50,12 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , examples : List (Example Query)
     , impact : Definition
     , initialQuery : Query
     , modal : Modal
     , results : Results
+    , scope : Scope
     }
 
 
@@ -86,17 +88,21 @@ type Msg
     | UpdateItem Query.Item
 
 
-init : Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
-init trigram maybeUrlQuery session =
+init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
+init scope trigram maybeUrlQuery session =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
             -- Otherwise, fallback to use session query
             maybeUrlQuery
                 |> Maybe.withDefault session.queries.object
+
+        examples =
+            session.db.object.examples
+                |> Example.forScope scope
     in
     ( { activeImpactsTab = ImpactTabs.StepImpactsTab
-      , bookmarkName = initialQuery |> suggestBookmarkName session
+      , bookmarkName = initialQuery |> suggestBookmarkName session examples
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
             if Session.isAuthenticated session then
@@ -104,12 +110,14 @@ init trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
+      , examples = examples
       , impact = Definition.get trigram session.db.definitions
       , initialQuery = initialQuery
       , modal = NoModal
       , results =
             Simulator.compute session.db initialQuery
                 |> Result.withDefault Simulator.emptyResults
+      , scope = scope
       }
     , session
         |> Session.updateObjectQuery initialQuery
@@ -126,11 +134,15 @@ init trigram maybeUrlQuery session =
     )
 
 
-initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
-initFromExample session uuid =
+initFromExample : Session -> Scope -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample session scope uuid =
     let
-        example =
+        examples =
             session.db.object.examples
+                |> Example.forScope scope
+
+        example =
+            examples
                 |> Example.findByUuid uuid
 
         exampleQuery =
@@ -139,15 +151,17 @@ initFromExample session uuid =
                 |> Result.withDefault session.queries.object
     in
     ( { activeImpactsTab = ImpactTabs.StepImpactsTab
-      , bookmarkName = exampleQuery |> suggestBookmarkName session
+      , bookmarkName = exampleQuery |> suggestBookmarkName session examples
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
+      , examples = examples
       , impact = Definition.get Definition.Ecs session.db.definitions
       , initialQuery = exampleQuery
       , modal = NoModal
       , results =
             Simulator.compute session.db exampleQuery
                 |> Result.withDefault Simulator.emptyResults
+      , scope = scope
       }
     , session
         |> Session.updateObjectQuery exampleQuery
@@ -155,8 +169,8 @@ initFromExample session uuid =
     )
 
 
-suggestBookmarkName : Session -> Query -> String
-suggestBookmarkName { db, store } query =
+suggestBookmarkName : Session -> List (Example Query) -> Query -> String
+suggestBookmarkName { db, store } examples query =
     let
         -- Existing user bookmark?
         userBookmark =
@@ -165,7 +179,7 @@ suggestBookmarkName { db, store } query =
 
         -- Matching product example name?
         exampleName =
-            db.object.examples
+            examples
                 |> Example.findByQuery query
                 |> Result.toMaybe
     in
@@ -187,7 +201,7 @@ updateQuery query ( model, session, commands ) =
         | initialQuery = query
         , bookmarkName =
             query
-                |> suggestBookmarkName session
+                |> suggestBookmarkName session model.examples
         , results =
             query
                 |> Simulator.compute session.db
@@ -309,7 +323,7 @@ update ({ queries, navKey } as session) msg model =
             ( model
             , session
             , Just query
-                |> Route.ObjectSimulator trigram
+                |> Route.ObjectSimulator model.scope trigram
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -374,14 +388,14 @@ simulatorView session model =
                 [ ExampleView.view
                     { currentQuery = session.queries.object
                     , emptyQuery = Query.default
-                    , examples = session.db.object.examples
+                    , examples = model.examples
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> SetModal
                     , routes =
-                        -- FIXME: explore route
-                        { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
-                        , load = Route.ObjectSimulatorExample
-                        , scopeHome = Route.ObjectSimulatorHome
+                        -- FIXME: explore route object/veli
+                        { explore = Route.Explore model.scope (Dataset.ObjectExamples Nothing)
+                        , load = Route.ObjectSimulatorExample model.scope
+                        , scopeHome = Route.ObjectSimulatorHome model.scope
                         }
                     }
                 ]
@@ -596,8 +610,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = Example.toName session.db.object.examples
-                        , toCategory = Example.toCategory session.db.object.examples
+                        , toLabel = Example.toName model.examples
+                        , toCategory = Example.toCategory model.examples
                         }
             ]
       ]

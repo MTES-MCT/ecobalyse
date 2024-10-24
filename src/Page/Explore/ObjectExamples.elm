@@ -3,7 +3,7 @@ module Page.Explore.ObjectExamples exposing (table)
 import Data.Dataset as Dataset
 import Data.Example exposing (Example)
 import Data.Object.Query exposing (Query)
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Uuid as Uuid
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -43,7 +43,9 @@ table { maxScore } { detailed, scope } =
                 \( { id, name }, _ ) ->
                     a
                         [ class "btn btn-light btn-sm w-100"
-                        , Route.href <| Route.ObjectSimulatorExample id
+
+                        -- FIXME: multiple exlorer for Veli
+                        , Route.href <| Route.ObjectSimulatorExample Scope.Object id
                         , title <| "Charger " ++ name
                         ]
                         [ Icon.search ]
