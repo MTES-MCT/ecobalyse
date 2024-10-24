@@ -194,7 +194,7 @@ decodeProcess impactsDecoder =
         |> Pipe.required "name" (Decode.map nameFromString Decode.string)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "system_description" Decode.string
-        |> Pipe.required "unit" decodeStringUnit
+        |> Pipe.required "unit" Decode.string
 
 
 encode : Process -> Encode.Value
@@ -209,7 +209,7 @@ encode process =
         , ( "name", Encode.string (nameToString process.name) )
         , ( "source", Encode.string process.source )
         , ( "system_description", Encode.string process.systemDescription )
-        , ( "unit", encodeStringUnit process.unit )
+        , ( "unit", Encode.string process.unit )
         ]
 
 
@@ -243,67 +243,6 @@ findByIdentifier ((Identifier identifierString) as identifier) processes =
         |> List.filter (.identifier >> (==) identifier)
         |> List.head
         |> Result.fromMaybe ("Procédé introuvable par code : " ++ identifierString)
-
-
-decodeStringUnit : Decoder String
-decodeStringUnit =
-    Decode.string
-        |> Decode.andThen
-            (\str ->
-                -- TODO : modify the export to have the proper unit instead of converting here?
-                case str of
-                    "cubic meter" ->
-                        Decode.succeed "m³"
-
-                    "kilogram" ->
-                        Decode.succeed "kg"
-
-                    "kilometer" ->
-                        Decode.succeed "km"
-
-                    "kilowatt hour" ->
-                        Decode.succeed "kWh"
-
-                    "litre" ->
-                        Decode.succeed "l"
-
-                    "megajoule" ->
-                        Decode.succeed "MJ"
-
-                    "ton kilometer" ->
-                        Decode.succeed "ton.km"
-
-                    _ ->
-                        Decode.fail <| "Could not decode unit " ++ str
-            )
-
-
-encodeStringUnit : String -> Encode.Value
-encodeStringUnit unit =
-    case unit of
-        "m³" ->
-            Encode.string "cubic meter"
-
-        "kg" ->
-            Encode.string "kilogram"
-
-        "km" ->
-            Encode.string "kilometer"
-
-        "kWh" ->
-            Encode.string "kilowatt hour"
-
-        "l" ->
-            Encode.string "litre"
-
-        "MJ" ->
-            Encode.string "megajoule"
-
-        "ton.km" ->
-            Encode.string "ton kilometer"
-
-        _ ->
-            Encode.string "Could not decode unit"
 
 
 getDisplayName : Process -> String

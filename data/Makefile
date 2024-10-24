@@ -17,7 +17,7 @@ endef
 
 all: import export
 import : image import_food import_ecoinvent import_method sync_datapackages
-export: export_food format
+export: export_food export_textile export_object format
 
 image:
 	docker build -t $(NAME) docker
@@ -42,6 +42,12 @@ delete_method:
 
 export_food:
 	@$(call DOCKER,bash -c "python3 food/export.py")
+
+export_textile:
+	@$(call DOCKER,bash -c "python3 textile/export.py")
+
+export_object:
+	@$(call DOCKER,bash -c "python3 object/export.py && npm run processes:build")
 
 compare_food:
 	@$(call DOCKER,python3 export.py compare)
