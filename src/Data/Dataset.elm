@@ -68,6 +68,10 @@ datasets scope =
             , TextileProducts Nothing
             ]
 
+        Scope.Veli ->
+            [ Impacts Nothing
+            ]
+
 
 fromSlug : String -> Dataset
 fromSlug string =

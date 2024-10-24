@@ -63,11 +63,13 @@ parser =
                                 Dataset.FoodExamples Nothing
 
                             Scope.Object ->
-                                -- FIXME: object process examples page
-                                Dataset.TextileExamples Nothing
+                                Dataset.ObjectExamples Nothing
 
                             Scope.Textile ->
                                 Dataset.TextileExamples Nothing
+
+                            Scope.Veli ->
+                                Dataset.ObjectExamples Nothing
                         )
                 )
         , Parser.map Explore

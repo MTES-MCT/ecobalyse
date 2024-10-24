@@ -104,6 +104,20 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> TextileQuery.encode
                         |> Encode.encode 2
                     )
+
+                Scope.Veli ->
+                    ( Just session.queries.object
+                        |> Route.ObjectSimulator impact.trigram
+                        |> Route.toString
+                        |> (++) session.clientUrl
+                      -- FIXME: make this a maybe
+                    , session.queries.object
+                        |> ObjectQuery.buildApiQuery session.clientUrl
+                      -- FIXME: make this a maybe
+                    , session.queries.object
+                        |> ObjectQuery.encode
+                        |> Encode.encode 2
+                    )
     in
     div []
         [ div [ class "card-body pt-0 pb-2" ]
@@ -296,6 +310,9 @@ queryFromScope session scope =
         Scope.Textile ->
             Bookmark.Textile session.queries.textile
 
+        Scope.Veli ->
+            Bookmark.Object session.queries.object
+
 
 scopedBookmarks : Session -> Scope -> List Bookmark
 scopedBookmarks session scope =
@@ -310,5 +327,8 @@ scopedBookmarks session scope =
 
                 Scope.Textile ->
                     Bookmark.isTextile
+
+                Scope.Veli ->
+                    Bookmark.isObject
             )
         |> Bookmark.sort

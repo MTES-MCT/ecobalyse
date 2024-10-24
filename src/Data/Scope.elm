@@ -18,6 +18,7 @@ type Scope
     = Food
     | Object
     | Textile
+    | Veli
 
 
 decode : Decoder Scope
@@ -70,6 +71,9 @@ toLabel scope =
         Textile ->
             "Textile"
 
+        Veli ->
+            "Véhicule intermédiaire"
+
 
 toString : Scope -> String
 toString scope =
@@ -82,3 +86,6 @@ toString scope =
 
         Textile ->
             "textile"
+
+        Veli ->
+            "veli"
