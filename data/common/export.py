@@ -320,7 +320,7 @@ def plot_impacts(process_name, impacts_smp, impacts_bw, folder, impact_defs):
     ax.legend()
 
     matplotlib.pyplot.tight_layout()
-    matplotlib.pyplot.savefig(f'{folder}/"{process_name.replace("/", "\/")}".png')
+    matplotlib.pyplot.savefig(f'{folder}/{process_name.replace("/", "_")}.png')
     matplotlib.pyplot.close()
 
 
