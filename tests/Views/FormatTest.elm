@@ -19,8 +19,8 @@ suite =
                 |> asTest "should format zero"
             , 5
                 |> Format.formatFloat 2
-                |> Expect.equal "5,00"
-                |> asTest "should not format an int rendering a specific number of 0 decimals"
+                |> Expect.equal "5"
+                |> asTest "should format an integer with no decimals"
             , 5.02
                 |> Format.formatFloat 2
                 |> Expect.equal "5,02"
