@@ -1,4 +1,4 @@
-# 🌈 Etape 3 - Ennoblissement
+# 🌈 Etape 4 - Ennoblissement
 
 L’ennoblissement consiste à donner aux tissus l'aspect visuel et les propriétés physiques et esthétiques exigées par les consommateurs. Il peut s'agir d'opérations mécaniques ou chimiques.
 
@@ -153,14 +153,12 @@ La version actuelle de l'outil Ecobalyse n'intègre pas encore les pré-traiteme
 * Désencollage (desizing)\
   Appliqué par défaut pour toutes les étoffes tissées.&#x20;
 
-**Procédés de Teinture / Impression <=> Type de fibres (synthétique, naturelle origine animale, etc.)**
+**Procédés de Teinture / Impression**
 
-* Teinture en discontinue (Batch dyeing)\
-  Appliqué par défaut pour les fibres synthétiques
-* Teinture en continue (Continuous dyeing)\
-  Appliqué par défaut pour les autres fibres&#x20;
-* Impression pigmentaire (optionnel = à ajouter par l'utilisateur)
-* Impression fixé-lavé (optionnel = à ajouter par l'utilisateur)
+* Teinture en discontinue (Batch dyeing) => Appliquée par défaut
+* Teinture en continue (Continuous dyeing) => Mobilisable en _Niveau 2_
+* Impression pigmentaire => Optionnelle (à ajouter par l'utilisateur)
+* Impression fixé-lavé => Optionnelle (ajouter par l'utilisateur)
 
 #### Consommations d'énergie (électricité et chaleur)
 

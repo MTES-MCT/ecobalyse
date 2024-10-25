@@ -2,6 +2,8 @@
 
 ## Généralités
 
+Les composants en bois sont ceux majoritairement utilisés dans l'industrie du meuble (61% des meubles mis sur le marché en 2022 sont majoritairement constitués de bois -source[^1]-).
+
 Les composants en bois proposées dans Ecobalyse sont issues de bois d'oeuvre ayant subis plusieurs étapes de transformation :&#x20;
 
 1. Sylviculture : consiste à gérer les forêts (dont un des objectifs est de produire du bois),
@@ -53,3 +55,5 @@ Les principales résines synthétiques utilisées dans les panneaux pour mainten
 * les composés isocyanate et isocyanates
 
 </details>
+
+[^1]: Bilan annuel 2022 _Filière des éléments d'ameublement_ Ademe

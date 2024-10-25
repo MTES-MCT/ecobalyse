@@ -120,9 +120,10 @@
 ***
 
 * [🪚 AMEUBLEMENT - EN CONSTRUCTION](ameublement/README.md)
-  * [Composants](ameublement/composants/README.md)
-    * [🪵 Composants en bois](ameublement/composants/composants-en-bois.md)
-    * [🧱 Autres composants](ameublement/composants/autres-composants.md)
+  * [Fin de vie](ameublement/fin-de-vie.md)
+  * [Composants](alimentaire-en-construction/old/etape-2-fabrication-du-fil/composants/README.md)
+    * [🪵 Composants en bois](alimentaire-en-construction/old/etape-2-fabrication-du-fil/composants/composants-en-bois.md)
+    * [🧱 Autres composants](alimentaire-en-construction/old/etape-2-fabrication-du-fil/composants/autres-composants.md)
     * [⚙️ Transformation / Finition](ameublement/composants/transformation-finition.md)
   * [🚚 Transport](ameublement/transport.md)
   * [🔨 Assemblage](ameublement/assemblage.md)
