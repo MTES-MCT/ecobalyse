@@ -56,6 +56,7 @@ encode v =
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
         , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float )
         , ( "impacts", Impact.encode v.impacts )
+        , ( "impactsWithoutDurability", Impact.encode (getTotalImpactsWithoutDurability v.lifeCycle) )
         , ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "transport", Transport.encode v.transport )
@@ -752,8 +753,8 @@ getTotalImpactsWithoutComplements { durability, lifeCycle } =
         |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
 
 
-getTotalImpactsWithoutDurability : Simulator -> Impacts
-getTotalImpactsWithoutDurability { lifeCycle } =
+getTotalImpactsWithoutDurability : LifeCycle -> Impacts
+getTotalImpactsWithoutDurability lifeCycle =
     let
         complementsImpactsWithoutDurability =
             lifeCycle
