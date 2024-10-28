@@ -28,3 +28,17 @@ Avec :&#x20;
 
 Calcul à compléter. SCC est fixé à ce stade à 1.
 
+Rref
+
+
+
+$$
+Rref = (Cref/Ccor) * Cap*1000/mP.p
+$$
+
+Avec :&#x20;
+
+Rref le&#x20;
+
+<table><thead><tr><th width="372">Rref, en Wh/Wp</th><th>SCC</th></tr></thead><tbody><tr><td>0</td><td>0</td></tr><tr><td>1.2</td><td>0.481</td></tr><tr><td>2.4</td><td>0.656</td></tr><tr><td>3.6</td><td>0.784</td></tr><tr><td>4.8</td><td>0.873</td></tr><tr><td>6</td><td>0.934</td></tr><tr><td>7.2</td><td>0.977</td></tr><tr><td>7.992</td><td>1</td></tr></tbody></table>
+
