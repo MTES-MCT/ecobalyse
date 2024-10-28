@@ -267,9 +267,9 @@ def compare_impacts(frozen_processes, default_db, impacts_py, impacts_json):
         print(f"got impacts from SimaPro for: {process['name']}")
 
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
-        if process["unit"] == "kilowatt hour" and isinstance(results, dict):
+        if process["unit"] == "kWh" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
-        if process["unit"] == "litre" and isinstance(results, dict):
+        if process["unit"] == "L" and isinstance(results, dict):
             results = {k: v / 1000 for k, v in results.items()}
 
         process["simapro_impacts"] = results
