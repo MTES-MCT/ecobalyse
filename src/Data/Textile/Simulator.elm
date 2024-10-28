@@ -3,6 +3,7 @@ module Data.Textile.Simulator exposing
     , compute
     , encode
     , getTotalImpactsWithoutComplements
+    , getTotalImpactsWithoutDurability
     , stepMaterialImpacts
     , toStepsImpacts
     )
@@ -10,7 +11,7 @@ module Data.Textile.Simulator exposing
 import Array
 import Data.Country as Country
 import Data.Env as Env
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact exposing (ComplementsImpacts, Impacts)
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Economics as Economics
@@ -749,6 +750,19 @@ getTotalImpactsWithoutComplements { durability, lifeCycle } =
         |> Array.toList
         |> Impact.sumImpacts
         |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
+
+
+getTotalImpactsWithoutDurability : Simulator -> Impacts
+getTotalImpactsWithoutDurability { lifeCycle } =
+    let
+        complementsImpactsWithoutDurability =
+            lifeCycle
+                |> Array.filter .enabled
+                |> LifeCycle.sumComplementsImpacts
+    in
+    lifeCycle
+        |> LifeCycle.computeFinalImpacts
+        |> Impact.impactsWithComplements complementsImpactsWithoutDurability
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator

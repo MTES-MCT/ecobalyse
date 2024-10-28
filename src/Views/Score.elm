@@ -13,14 +13,20 @@ type alias Config msg =
     , impactDefinition : Definition
     , mass : Mass
     , score : Impacts
+    , scoreWithoutDurability : Maybe Impacts
     }
 
 
 view : Config msg -> Html msg
-view { customInfo, impactDefinition, mass, score } =
+view { customInfo, impactDefinition, mass, score, scoreWithoutDurability } =
     div [ class "card bg-secondary shadow-sm" ]
         [ div [ class "card-body text-center text-nowrap text-white" ]
             [ div [ class "display-3 lh-1" ] [ Format.formatImpact impactDefinition score ]
+            , div []
+                [ scoreWithoutDurability
+                    |> Maybe.map (\s -> span [] [ Format.formatImpact impactDefinition s, text " hors durabilité" ])
+                    |> Maybe.withDefault (text "")
+                ]
             , small [] [ text "Pour ", Format.kg mass ]
             ]
         , case customInfo of
