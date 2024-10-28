@@ -124,17 +124,18 @@ def with_corrected_impacts(impact_defs, frozen_processes, impacts="impacts"):
         # compute corrected impacts
         for impact_to_correct, correction in corrections.items():
             # only correct if the impact is not already computed
-            if impact_to_correct not in process[impacts]:
+            dimpacts = process.get(impacts, {})
+            if impact_to_correct not in dimpacts:
                 corrected_impact = 0
                 for (
                     correction_item
                 ) in correction:  # For each sub-impact and its weighting
                     sub_impact_name = correction_item["sub-impact"]
-                    if sub_impact_name in process[impacts]:
-                        sub_impact = process[impacts].get(sub_impact_name, 1)
+                    if sub_impact_name in dimpacts:
+                        sub_impact = dimpacts.get(sub_impact_name, 1)
                         corrected_impact += sub_impact * correction_item["weighting"]
-                        del process[impacts][sub_impact_name]
-                process[impacts][impact_to_correct] = corrected_impact
+                        del dimpacts[sub_impact_name]
+                dimpacts[impact_to_correct] = corrected_impact
         processes_updated[key] = process
     return frozendict(processes_updated)
 
