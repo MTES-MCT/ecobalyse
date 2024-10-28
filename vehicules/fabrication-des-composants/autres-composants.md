@@ -11,11 +11,11 @@ description: >-
 Un véhicule est composé d'un grand nombre de composants supplémentaires non quantifiés directement dans Ecobalyse, notamment :
 
 * composants électroniques (chargeur, écran, compteur, ...),
-* transmission (courroie, chaine, cardan selon les véhicules) et freins,
+* transmissions (courroie, chaine, cardan selon les véhicules) et freins,
 * éléments réglementaires et de sécurité (phares, plaques d'immatriculation...)
 * direction (volant ou guidon, autres éléments de commande)
 
-Il est difficile de quantifier leur coût environnemental de façon exhaustive et précise, d'une part en raison de la difficulté à en faire un inventaire complet, et d'autre part en raison de la difficulté à modéliser les composants concernés, souvent composés de divers matériaux (métaux, plastique, électronique).
+Il est difficile de quantifier leur coût environnemental de façon exhaustive et précise, d'une part en raison de la difficulté à en faire un inventaire complet, et d'autre part en raison de la difficulté à modéliser les composants concernés, souvent composés de divers matériaux (métaux, plastiques, électronique).
 
 Le groupe de travail constitué de constructeurs de véhicules intermédiaire a retenu comme hypothèse que ces composants sont composés de 40% d'acier inoxydable, de 30% de plastiques et de 30% de composants électroniques.
 
@@ -47,7 +47,7 @@ Un procédé spécifique est modélisé, à partir des procédés Ecoinvent suiv
   Procédé Ecobalyse Acier inoxydable\
   0.4kg
 * Plastiques\
-  Procédé Ecobalyse Plastique PP\
+  Procédé Ecobalyse Plastique PP (polypropylene)\
   0.3kg
 * Composants électroniques\
   Procédé Ecoinvent "electronic component production, passive, unspecified, GLO"\
@@ -57,4 +57,4 @@ NB : les éventuelles pertes sont intégrées dans la modélisation des trois pr
 
 ### Origine des composants non quantifiés
 
-L'origine des composants non quantifiés directement est définie comme inconnue.
+L'origine des composants non quantifiés directement est définie comme inconnue pour le calcul du coût environnemental du transport des composants.

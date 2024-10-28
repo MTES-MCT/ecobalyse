@@ -1,12 +1,12 @@
 # 🚚 Transport des véhicules
 
-Cette page porte sur le transport du véhicule (produit fini) depuis le site d'assemblage vers le site de distribution en France (le cas échéant, puis vers le consommateur final.
+Cette page porte sur le transport du véhicule (produit fini) depuis le site d'assemblage vers le site de distribution en France (le cas échéant), puis vers le consommateur final.
 
 ## Généralités
 
 Le transport de véhicules assemblés est spécifique à ce secteur. En effet, dans la plupart des cas, le volume à transporter est conséquent par rapport au poids, ce qui implique un transport fortement sous-capacitaire en termes de poids transporté.&#x20;
 
-Les véhicules les plus grands, à l'instar des voitures, sont transporté dans des moyens de transports spécifiques.
+Les véhicules les plus grands, à l'instar des voitures, sont transportés dans des moyens de transports spécifiques.
 
 Le transport des composants vers le site d'assemblage est traité dans la [page précédente](transport-des-composants.md).
 
@@ -18,7 +18,7 @@ Le transport de voitures s'effectue dans des navires dédiés, dont la capacité
 
 Comme tous les navires opérant en Europe, ces navires sont tenus de déclarer leur consommation de carburant, les émissions de gaz à effet de serre associées, ainsi que le tonnage moyen annuel.
 
-Il en ressort des émissions essentiellement situées entre 20gCO2/tkm et 50gCO2e/tkm en 2022. Par comparaison, les émissions du transport de marchandise par conteneurs maritime sont de l'ordre de 10g/m3.
+Il en ressort des émissions essentiellement situées entre 20gCO2/tkm et 50gCO2e/tkm en 2022. Par comparaison, les émissions du transport de marchandise par conteneurs maritime sont de l'ordre de 10g/tkm.
 
 #### Transport de vélos assemblés à 80%
 
@@ -26,52 +26,21 @@ Sur de grandes distances, les vélos sont transportés partiellement assemblés,
 
 ## Modélisation Ecobalyse
 
-L'utilisateur a la possibilité de préciser le lieu d'assemblage du produit dans le calculateur.&#x20;
+L'utilisateur précise le lieu d'assemblage du produit dans Ecobalyse.&#x20;
 
 Le lieu d'utilisation est toujours considéré comme étant la France hexagonale.
 
 ### Modes de transport <a href="#procedes" id="procedes"></a>
 
-Chaque mode de transport possible est a été modélisé sur la base d'un procédé Ecoinvent, et multiplié par un facteur multiplicatif permettant de rendre compte du caractère faiblement capacitaire voire spécifique du transport de véhicules.
+Chaque mode de transport possible est modélisé sur la base d'un procédé Ecoinvent, et multiplié par un facteur multiplicatif permettant de rendre compte du caractère faiblement capacitaire voire spécifique du transport de véhicules.
 
 <table><thead><tr><th width="199">Type de transport</th><th width="328">Procédé</th><th>Facteur multiplicatif</th></tr></thead><tbody><tr><td>Terrestre</td><td>transport, freight, lorry, unspecified, RoW</td><td>2.0</td></tr><tr><td>Maritime</td><td>transport, freight, sea, container ship, GLO</td><td>5.0</td></tr><tr><td>Ferroviaire</td><td>transport, freight train, GLO</td><td>2.0</td></tr></tbody></table>
 
 ### Calcul des distances <a href="#distribution" id="distribution"></a>
 
-La répartition des deux types de transport (terrestre et maritime) est ajustée en fonction des pays de départ et d'arrivée pour chaque étape de transport.
+La répartition des deux types de transport (terrestre et maritime) est ajustée en fonction du pays d'assemblage.
 
-Des scénarios par défaut sont proposés pour répondre aux différents cas d'usage rencontrés sur le cycle de vie d'un meuble :&#x20;
-
-<details>
-
-<summary>Je connais le pays d'où provient le composant</summary>
-
-Option 1 => le pays est proposé dans Ecobalyse => je le sélectionne
-
-Option 2 => le pays n'est pas proposé dans Ecobalyse => je sélectionne la région (ex : _Europe de l'Ouest_ pour _la Croatie_)
-
-Afin de définir les distances et modes de transport utilisés pour chaque région, un pays est défini en arrière plan :
-
-* Europe de l'Ouest = Espagne
-* Europe de l'Est = République Tchèque
-* Asie = Chine
-* Afrique = Ethiopie
-* Amérique du Nord = Etats-Unis
-* Amérique latine = Brésil
-* Océanie = Australie
-* Moyen-Orient = Turquie
-
-</details>
-
-<details>
-
-<summary>Je ne connais pas le pays d'où provient le composant</summary>
-
-Je sélectionne l'option _Inconnu (par défaut)._
-
-L'Inde est utilisé en arrière plan pour définir les distances et modes de transport utilisés pour cette option.
-
-</details>
+Des scénarios par défaut sont proposés pour répondre aux différents cas d'usage rencontrés :&#x20;
 
 La part du **transport terrestre (t)**, par rapport au transport "terrestre + maritime", est établie comme suit :
 

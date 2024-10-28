@@ -39,11 +39,11 @@ Avec :
 
 * Impactjj : l'impact environnemental des pneumatiques sur la durée de vie du véhicule
 * P : le poids d'un pneumatique, en kg
-* R : le nombre de roues, fixé par défaut en fonction de la catégorie de véhicule (voir tableau dans la section suivante)
+* R : le nombre de roues, fixé dans les caractéristiques du véhicule
 * N : le nombre de pneus utilisées par roue, sur la vie du véhicule, fixé par défaut à 8
 * ICV\_j le cout environnemental par kg de pneumatique
 
-### Procédé utilisé pour la modélisation
+### Matière des pneumatique - procédé utilisé pour la modélisation
 
 A des fins de simplification, et en l'absence de procédé Ecoinvent spécifique, un procédé a été  modélisé de la façon suivante :
 
@@ -60,20 +60,3 @@ A des fins de simplification, et en l'absence de procédé Ecoinvent spécifique
   * thermoformage \
     _Injection moulding, RER, 1 kg_
 
-### Nombre de roues R par catégorie de véhicule
-
-Un nombre de roues est fixé par défaut par véhicule :
-
-| Catégories | Nb de roues |
-| ---------- | ----------- |
-| VAE        | 3\*         |
-| L1e        | 2           |
-| L1e-A      | 2           |
-| L1e-B      | 2           |
-| L2e        | 3           |
-| L3e        | 2           |
-| L4e        | 3           |
-| L5e        | 3           |
-| L6e        | 4           |
-| L7e        | 4           |
-| Autre      | 4\*         |

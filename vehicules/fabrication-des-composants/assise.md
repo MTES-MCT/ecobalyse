@@ -8,7 +8,7 @@ description: >-
 
 ## Généralités
 
-L'assise peut représenter une part significative du coût environnemental du véhicule sur certains véhicules. Il est donc utile de pouvoir la distinguer des autres parties du véhicule. De plus, l'assise est généralement composé d'un nombre limité de matériaux identifiés
+L'assise peut représenter une part significative du coût environnemental du véhicule. Il est donc utile de pouvoir la distinguer des autres parties du véhicule. De plus, l'assise est généralement composé d'un nombre limité de matériaux identifiés
 
 ## Modélisation Ecobalyse
 

@@ -28,16 +28,16 @@ $$
 
 Avec :
 
-* Impactjj : l'impact environnemental des jantes à la fabrication
+* Impact\_j : l'impact environnemental des jantes à la fabrication
 * P : le poids d'une jante, en kg par roue
-* R : le nombre de roues, fixé par défaut en fonction de la catégorie de véhicule (voir tableau dans la page précédente sur les pneumatiques)
+* R : le nombre de roues, fixé dans les caractéristiques du véhicule
 * ICV\_j le cout environnemental par kg de jante
 
-### Procédé utilisé pour la modélisation
+### Matières utilisées pour la modélisation
 
 * Acier embouti
 * Acier inoxydable
 * Aluminium, moulé ou extrudé,
-* Carbone
+* Fibre de carbone,
 * Plastique renforcé de fibres de verre
 

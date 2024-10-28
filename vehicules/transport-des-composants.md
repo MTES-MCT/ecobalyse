@@ -4,13 +4,13 @@
 
 Le transport des composants peut représenter un enjeu significatif du coût environnemental d'un véhicule.&#x20;
 
-L'utilisateur a la possibilité de préciser l'origine de deux paramètres dans le calculateur :&#x20;
+L'utilisateur a la possibilité de préciser dans le Ecobalyse :&#x20;
 
 * l'origine des composants entrant dans la composition de son produit,\
   (ex : l'origine du chassis aluminium)
 * le lieu d'assemblage du produit.
 
-### Etapes considérées <a href="#distribution" id="distribution"></a>
+### Étapes considérées <a href="#distribution" id="distribution"></a>
 
 Les étapes de transport prisent en compte dans le coût environnemental du produit sont :&#x20;
 
@@ -19,17 +19,16 @@ Les étapes de transport prisent en compte dans le coût environnemental du prod
 
 ### Modes de transport <a href="#procedes" id="procedes"></a>
 
-4 modes de transport sont modélisables dans Ecobalyse. \
-Chaque mode de transport correspond à un procédé Ecoinvent.&#x20;
+Il est retenu comme hypothèse que tous les composants sont transportés par voie terrestre ou terrestre + maritime.
+
+Ces modes de transport correspondent aux procédés Ecoinvent suivants :
 
 | Type de transport | Procédé                                      |
 | ----------------- | -------------------------------------------- |
 | Terrestre         | transport, freight, lorry, unspecified, RoW  |
 | Maritime          | transport, freight, sea, container ship, GLO |
-| Aérien            | transport, freight, aircraft, long haul, GLO |
-| Ferroviaire       | transport, freight train, GLO                |
 
-<figure><img src="../../../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 
 ### Calcul des distances <a href="#distribution" id="distribution"></a>
 
