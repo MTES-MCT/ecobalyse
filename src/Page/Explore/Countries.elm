@@ -9,7 +9,6 @@ import Data.Transport as Transport
 import Dict.Any as Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Table)
 import Route
 import Views.Format as Format
@@ -68,11 +67,6 @@ table distances countries { detailed, scope } =
 
               else
                 Nothing
-            , Just
-                { label = "Domaines"
-                , toValue = Table.StringValue <| .scopes >> List.map Scope.toLabel >> String.join "/"
-                , toCell = Common.scopesView
-                }
             , if detailed then
                 Just
                     { label = "Distances"

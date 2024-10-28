@@ -2,6 +2,7 @@
 import functools
 import json
 import logging
+from copy import deepcopy
 
 import bw2data
 from bw2io.utils import activity_hash
@@ -22,14 +23,72 @@ def spproject(activity):
             return "AGB3.1.1 2023-03-06"
 
 
-def export_json(data, filename):
+def remove_detailed_impacts(processes):
+    result = list()
+    for process in processes:
+        new_process = deepcopy(process)
+        for k in new_process["impacts"].keys():
+            if k not in ("pef", "ecs"):
+                new_process["impacts"][k] = 0
+        result.append(new_process)
+    return result
+
+
+def export_json_ordered(data, filename):
     """
     Export data to a JSON file, with added newline at the end.
+    Make sure to sort impacts in the json file
     """
+    print(f"Exporting {filename}")
+    if isinstance(data, list):
+        sorted_data = [
+            {**item, "impacts": sort_impacts(item["impacts"])}
+            if "impacts" in item
+            else item
+            for item in data
+        ]
+    elif isinstance(data, dict):
+        sorted_data = {
+            key: {**value, "impacts": sort_impacts(value["impacts"])}
+            if "impacts" in value
+            else value
+            for key, value in data.items()
+        }
+    else:
+        sorted_data = data
+
     with open(filename, "w", encoding="utf-8") as file:
-        json.dump(data, file, indent=2, ensure_ascii=False)
+        json.dump(sorted_data, file, indent=2, ensure_ascii=False)
         file.write("\n")  # Add a newline at the end of the file
     print(f"\nExported {len(data)} elements to {filename}")
+
+
+def sort_impacts(impacts):
+    # Define the desired order of impact keys
+    impact_order = [
+        "acd",
+        "cch",
+        "etf",
+        "etf-c",
+        "fru",
+        "fwe",
+        "htc",
+        "htc-c",
+        "htn",
+        "htn-c",
+        "ior",
+        "ldu",
+        "mru",
+        "ozd",
+        "pco",
+        "pma",
+        "swe",
+        "tre",
+        "wtu",
+        "pef",
+        "ecs",
+    ]
+    return {key: impacts[key] for key in impact_order if key in impacts}
 
 
 def load_json(filename):
@@ -92,6 +151,49 @@ def with_corrected_impacts(impacts_ecobalyse, processes_fd, impacts_key="impacts
             process[impacts_key][impact_to_correct] = corrected_impact
         processes_updated[key] = process
     return frozendict(processes_updated)
+
+
+def with_aggregated_impacts(impacts_ecobalyse, processes_fd, impacts_key="impacts"):
+    """Add aggregated impacts to the processes"""
+
+    # Pre-compute normalization factors
+    normalization_factors = {
+        "ecs": {
+            k: v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
+            for k, v in impacts_ecobalyse.items()
+            if v["ecoscore"] is not None
+        },
+        "pef": {
+            k: v["pef"]["weighting"] / v["pef"]["normalization"]
+            for k, v in impacts_ecobalyse.items()
+            if v["pef"] is not None
+        },
+    }
+
+    processes_updated = {}
+    for key, process in processes_fd.items():
+        updated_process = dict(process)
+        updated_impacts = updated_process[impacts_key].copy()
+
+        updated_impacts["pef"] = calculate_aggregate(
+            updated_impacts, normalization_factors["pef"]
+        )
+        updated_impacts["ecs"] = calculate_aggregate(
+            updated_impacts, normalization_factors["ecs"]
+        )
+
+        updated_process[impacts_key] = updated_impacts
+        processes_updated[key] = updated_process
+
+    return frozendict(processes_updated)
+
+
+def calculate_aggregate(process_impacts, normalization_factors):
+    # We multiply by 10**6 to get the result in µPts
+    return sum(
+        10**6 * process_impacts.get(impact, 0) * normalization_factors.get(impact, 0)
+        for impact in normalization_factors
+    )
 
 
 def display_changes(key, oldprocesses, processes):

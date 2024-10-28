@@ -60,7 +60,7 @@ sendResponse httpStatus { jsResponseHandler, method, url } body =
 encodeStringError : String -> Encode.Value
 encodeStringError error =
     Encode.object
-        [ ( "error", error |> String.lines |> Encode.list Encode.string )
+        [ ( "error", error |> String.lines |> List.filter ((/=) "") |> Encode.list Encode.string )
         , ( "documentation", Encode.string apiDocUrl )
         ]
 
@@ -217,13 +217,13 @@ handleRequest db request =
 
         Just Route.FoodGetPackagingList ->
             db.food.processes
-                |> List.filter (.category >> (==) FoodProcess.Packaging)
+                |> List.filter (.categories >> List.member FoodProcess.Packaging)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
         Just Route.FoodGetTransformList ->
             db.food.processes
-                |> List.filter (.category >> (==) FoodProcess.Transform)
+                |> List.filter (.categories >> List.member FoodProcess.Transform)
                 |> encodeFoodProcessList
                 |> respondWith 200
 
@@ -280,7 +280,7 @@ handleRequest db request =
             executeFoodQuery db (toFoodResults foodQuery) foodQuery
 
         Just (Route.FoodPostRecipe (Err error)) ->
-            Encode.string error
+            encodeStringError error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
@@ -288,7 +288,7 @@ handleRequest db request =
                 |> executeTextileQuery db toAllImpactsSimple
 
         Just (Route.TextilePostSimulator (Err error)) ->
-            Encode.string error
+            encodeStringError error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
@@ -296,7 +296,7 @@ handleRequest db request =
                 |> executeTextileQuery db Simulator.encode
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
-            Encode.string error
+            encodeStringError error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
@@ -304,7 +304,7 @@ handleRequest db request =
                 |> executeTextileQuery db (toSingleImpactSimple trigram)
 
         Just (Route.TextilePostSimulatorSingle (Err error) _) ->
-            Encode.string error
+            encodeStringError error
                 |> respondWith 400
 
         Nothing ->

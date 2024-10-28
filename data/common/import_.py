@@ -3,6 +3,7 @@ import json
 import os
 import re
 import sys
+from os.path import dirname
 from subprocess import call
 from zipfile import ZipFile
 
@@ -13,7 +14,6 @@ from tqdm import tqdm
 
 from common.export import create_activity, delete_exchange, new_exchange, search
 
-BIOSPHERE = "biosphere3"
 AGRIBALYSE_PACKAGINGS = [
     "PS",
     "LDPE",
@@ -173,7 +173,7 @@ def add_variant_activity(activity_data, dbname):
 def import_simapro_csv(
     datapath,
     dbname,
-    biosphere=BIOSPHERE,
+    biosphere="biosphere3",
     migrations=[],
     first_strategies=[],
     excluded_strategies=[],
@@ -187,7 +187,7 @@ def import_simapro_csv(
     # unzip
     with ZipFile(datapath) as zf:
         print("### Extracting the zip file...")
-        zf.extractall(path=os.path.dirname(datapath))
+        zf.extractall(path=dirname(datapath))
         unzipped = datapath[0:-4]
 
     if "AGB" in datapath:

@@ -3,6 +3,7 @@ module Views.Bookmark exposing (ActiveTab(..), view)
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
+import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Query as TextileQuery
@@ -84,11 +85,11 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Route.toString
                         |> (++) session.clientUrl
                       -- FIXME: make this a maybe
-                    , session.queries.textile
-                        |> TextileQuery.buildApiQuery session.clientUrl
+                    , session.queries.object
+                        |> ObjectQuery.buildApiQuery session.clientUrl
                       -- FIXME: make this a maybe
-                    , session.queries.textile
-                        |> TextileQuery.encode
+                    , session.queries.object
+                        |> ObjectQuery.encode
                         |> Encode.encode 2
                     )
 
@@ -248,6 +249,10 @@ bookmarkView cfg ({ name, query } as bookmark) =
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
+                Bookmark.Object objectQuery ->
+                    Just objectQuery
+                        |> Route.ObjectSimulator cfg.impact.trigram
+
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
                         |> Route.TextileSimulator cfg.impact.trigram
@@ -286,8 +291,7 @@ queryFromScope session scope =
             Bookmark.Food session.queries.food
 
         Scope.Object ->
-            -- FIXME: object bookmarks
-            Bookmark.Textile session.queries.textile
+            Bookmark.Object session.queries.object
 
         Scope.Textile ->
             Bookmark.Textile session.queries.textile
@@ -302,8 +306,7 @@ scopedBookmarks session scope =
                     Bookmark.isFood
 
                 Scope.Object ->
-                    -- FIXME: object bookmarks
-                    always False
+                    Bookmark.isObject
 
                 Scope.Textile ->
                     Bookmark.isTextile

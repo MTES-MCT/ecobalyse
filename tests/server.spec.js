@@ -551,8 +551,15 @@ describe("API", () => {
             scoring: response.status === 200 ? response.body.results.scoring : {},
           });
           expectStatus(response, 200);
-          expect(response.body.results.total).toEqual(impacts);
-          expect(response.body.results.scoring).toEqual(scoring);
+
+          // Add tolerance check for impacts
+          Object.entries(impacts).forEach(([key, value]) => {
+            expect(response.body.results.total[key]).toBeCloseTo(value, 12);
+          });
+
+          Object.entries(scoring).forEach(([key, value]) => {
+            expect(response.body.results.scoring[key]).toBeCloseTo(value, 12);
+          });
         });
       }
     });

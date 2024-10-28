@@ -31,7 +31,7 @@ A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
-    { category : Category
+    { categories : List Category
     , comment : Maybe String
     , displayName : Maybe String
     , id_ : String
@@ -170,10 +170,11 @@ nameToString (ProcessName name) =
     name
 
 
-decodeCategory : Decoder Category
-decodeCategory =
+decodeCategories : Decoder (List Category)
+decodeCategories =
     Decode.string
         |> Decode.andThen (categoryFromString >> DE.fromResult)
+        |> Decode.list
 
 
 encodeCategory : Category -> Encode.Value
@@ -184,7 +185,7 @@ encodeCategory =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
-        |> Pipe.required "category" decodeCategory
+        |> Pipe.required "categories" decodeCategories
         |> DU.strictOptional "comment" Decode.string
         |> DU.strictOptional "displayName" Decode.string
         |> Pipe.required "id" Decode.string
@@ -199,7 +200,7 @@ decodeProcess impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "category", encodeCategory process.category )
+        [ ( "categories", Encode.list encodeCategory process.categories )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "id", Encode.string process.id_ )
@@ -313,4 +314,4 @@ getDisplayName process =
 
 listByCategory : Category -> List Process -> List Process
 listByCategory category =
-    List.filter (.category >> (==) category)
+    List.filter (.categories >> List.member category)

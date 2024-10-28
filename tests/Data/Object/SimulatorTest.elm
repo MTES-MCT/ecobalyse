@@ -14,8 +14,11 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 getEcsImpact : Db -> Query -> Result String Float
 getEcsImpact db =
-    Simulator.compute db.object
-        >> Result.map (Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+    Simulator.compute db
+        >> Result.map
+            (Simulator.extractImpacts
+                >> (Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+            )
 
 
 suite : Test

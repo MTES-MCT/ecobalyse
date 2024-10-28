@@ -37,6 +37,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          cache: 'pipenv'
+
 
       - name: Cache node_modules
         id: cache-node_modules
@@ -52,14 +54,6 @@ jobs:
           path: ~/.elm
           key: elm-cache-${{ hashFiles('elm.json') }}
           restore-keys: elm-cache-
-
-      - name: Cache pipenv virtualenv
-        uses: actions/cache@v4
-        with:
-          path: ~/.local/share/virtualenvs
-          key: ${{ runner.os }}-${{ matrix.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pipenv-
 
       - name: Install Node dependencies
         run: npm ci --prefer-offline --no-audit

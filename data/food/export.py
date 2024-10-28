@@ -1,13 +1,15 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 """Export des ingrédients et des processes de l'alimentaire"""
 
 import json
 import os
 import sys
+from os.path import abspath, dirname
+
+sys.path.append(dirname(dirname(abspath(__file__))))
 import urllib.parse
-from os.path import dirname
+from collections import OrderedDict
 
 import bw2calc
 import bw2data
@@ -19,10 +21,12 @@ from bw2data.project import projects
 from common.export import (
     cached_search,
     display_changes,
-    export_json,
+    export_json_ordered,
     load_json,
     progress_bar,
+    remove_detailed_impacts,
     spproject,
+    with_aggregated_impacts,
     with_corrected_impacts,
     with_subimpacts,
 )
@@ -57,7 +61,8 @@ CONFIG = {
     "FEED_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/feed.json",
     "UGB_FILE": f"{PROJECT_ROOT_DIR}/data/food/ecosystemic_services/ugb.csv",
     "INGREDIENTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/food/ingredients.json",
-    "PROCESSES_FILE": f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json",
+    "PROCESSES_IMPACTS": f"{ECOBALYSE_DATA_DIR}/data/food/processes_impacts.json",
+    "PROCESSES_AGGREGATED": f"{PROJECT_ROOT_DIR}/public/data/food/processes.json",
     "LAND_OCCUPATION_METHOD": ("selected LCI results", "resource", "land occupation"),
     "GRAPH_FOLDER": f"{PROJECT_ROOT_DIR}/data/food/impact_comparison",
 }
@@ -78,7 +83,7 @@ def create_ingredient_list(activities_tuple):
         [
             process_activity_for_ingredient(activity)
             for activity in activities
-            if activity["category"] == "ingredient"
+            if "ingredient" in activity["process_categories"]
         ]
     )
 
@@ -99,7 +104,9 @@ def process_activity_for_ingredient(activity):
     return {
         "id": activity["id"],
         "name": activity["name"],
-        "categories": [c for c in activity["categories"] if c != "ingredient"],
+        "categories": [
+            c for c in activity["ingredient_categories"] if c != "ingredient"
+        ],
         "search": activity["search"],
         "default": find_id(activity.get("database", CONFIG["AGRIBALYSE"]), activity),
         "default_origin": activity["default_origin"],
@@ -167,36 +174,37 @@ def create_process_list(activities):
 
 def process_activity_for_processes(activity):
     AGRIBALYSE = CONFIG["AGRIBALYSE"]
-    return {
-        "id": activity["id"],
-        "name": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
-            "name"
-        ],
-        "displayName": activity["name"],
-        "unit": cached_search(activity.get("database", AGRIBALYSE), activity["search"])[
-            "unit"
-        ],
-        "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
-        "system_description": cached_search(
-            activity.get("database", AGRIBALYSE), activity["search"]
-        )["System description"],
-        "category": activity.get("category"),
-        "categories": activity.get("categories"),
-        "comment": (
-            prod[0]["comment"]
-            if (
-                prod := list(
-                    cached_search(
-                        activity.get("database", AGRIBALYSE), activity["search"]
-                    ).production()
+    return OrderedDict(
+        {
+            "id": activity["id"],
+            "name": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["name"],
+            "displayName": activity["name"],
+            "unit": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["unit"],
+            "identifier": find_id(activity.get("database", AGRIBALYSE), activity),
+            "system_description": cached_search(
+                activity.get("database", AGRIBALYSE), activity["search"]
+            )["System description"],
+            "categories": activity.get("process_categories"),
+            "comment": (
+                prod[0]["comment"]
+                if (
+                    prod := list(
+                        cached_search(
+                            activity.get("database", AGRIBALYSE), activity["search"]
+                        ).production()
+                    )
                 )
-            )
-            else activity.get("comment", "")
-        ),
-        "source": activity.get("database", AGRIBALYSE),
-        # those are removed at the end:
-        "search": activity["search"],
-    }
+                else activity.get("comment", "")
+            ),
+            "source": activity.get("database", AGRIBALYSE),
+            # those are removed at the end:
+            "search": activity["search"],
+        }
+    )
 
 
 def compute_simapro_impacts(activity, method):
@@ -382,7 +390,7 @@ if __name__ == "__main__":
     bw2data.config.p["biosphere_database"] = CONFIG["BIOSPHERE"]
 
     # keep the previous processes with old impacts
-    oldprocesses = load_json(CONFIG["PROCESSES_FILE"])
+    oldprocesses = load_json(CONFIG["PROCESSES_IMPACTS"])
     activities = tuple(load_json(CONFIG["ACTIVITIES_FILE"]))
 
     activities_land_occ = compute_land_occupation(activities)
@@ -422,10 +430,19 @@ if __name__ == "__main__":
     processes_corrected_impacts = with_corrected_impacts(
         IMPACTS_DEF_ECOBALYSE, processes_impacts
     )
+    processes_aggregated_impacts = with_aggregated_impacts(
+        IMPACTS_DEF_ECOBALYSE, processes_corrected_impacts
+    )
 
     # Export
 
-    export_json(activities_land_occ, CONFIG["ACTIVITIES_FILE"])
-    export_json(ingredients_animal_es, CONFIG["INGREDIENTS_FILE"])
+    export_json_ordered(activities_land_occ, CONFIG["ACTIVITIES_FILE"])
+    export_json_ordered(ingredients_animal_es, CONFIG["INGREDIENTS_FILE"])
     display_changes("id", oldprocesses, processes_corrected_impacts)
-    export_json(list(processes_corrected_impacts.values()), CONFIG["PROCESSES_FILE"])
+    export_json_ordered(
+        list(processes_aggregated_impacts.values()), CONFIG["PROCESSES_IMPACTS"]
+    )
+    export_json_ordered(
+        remove_detailed_impacts(list(processes_aggregated_impacts.values())),
+        CONFIG["PROCESSES_AGGREGATED"],
+    )

@@ -197,6 +197,7 @@ mkdir -p $VERSION_DIR
 
 npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/textile/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_textile.json.enc
 npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/food/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_food.json.enc
+npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/object/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_object.json.enc
 
 # Never ship detailed impacts
 rm -f -- $PUBLIC_GIT_CLONE_DIR/data/textile/processes_impacts.json
