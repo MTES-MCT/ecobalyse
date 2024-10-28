@@ -227,10 +227,10 @@ managerView cfg =
 
 
 bookmarksView : ManagerConfig msg -> Html msg
-bookmarksView cfg =
+bookmarksView ({ compare, scope, session } as cfg) =
     let
         bookmarks =
-            scopedBookmarks cfg.session cfg.scope
+            scopedBookmarks session scope
     in
     div []
         [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center" ]
@@ -239,7 +239,7 @@ bookmarksView cfg =
                 [ class "btn btn-sm btn-primary"
                 , title "Comparer vos simulations sauvegardées"
                 , disabled (List.isEmpty bookmarks)
-                , onClick cfg.compare
+                , onClick compare
                 ]
                 [ span [ class "me-1" ] [ Icon.stats ]
                 , text "Comparer"
@@ -247,6 +247,18 @@ bookmarksView cfg =
             ]
         , bookmarks
             |> Bookmark.sort
+            |> List.filter
+                (\{ subScope } ->
+                    case subScope of
+                        Just Scope.Object ->
+                            scope == Scope.Object
+
+                        Just Scope.Veli ->
+                            scope == Scope.Veli
+
+                        _ ->
+                            True
+                )
             |> List.map (bookmarkView cfg)
             |> ul
                 [ class "list-group list-group-flush rounded-bottom overflow-auto"
@@ -263,7 +275,6 @@ bookmarkView cfg ({ name, query } as bookmark) =
 
         bookmarkRoute =
             case query of
-                -- FIXME: introduce Veli bookmarks
                 Bookmark.Food foodQuery ->
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
@@ -275,6 +286,10 @@ bookmarkView cfg ({ name, query } as bookmark) =
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
                         |> Route.TextileSimulator cfg.impact.trigram
+
+                Bookmark.Veli veliQuery ->
+                    Just veliQuery
+                        |> Route.ObjectSimulator Scope.Veli cfg.impact.trigram
     in
     li
         [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"
@@ -316,7 +331,7 @@ queryFromScope session scope =
             Bookmark.Textile session.queries.textile
 
         Scope.Veli ->
-            Bookmark.Object session.queries.object
+            Bookmark.Veli session.queries.veli
 
 
 scopedBookmarks : Session -> Scope -> List Bookmark
@@ -334,6 +349,6 @@ scopedBookmarks session scope =
                     Bookmark.isTextile
 
                 Scope.Veli ->
-                    Bookmark.isObject
+                    Bookmark.isVeli
             )
         |> Bookmark.sort

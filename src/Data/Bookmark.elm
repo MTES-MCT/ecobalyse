@@ -9,6 +9,7 @@ module Data.Bookmark exposing
     , isFood
     , isObject
     , isTextile
+    , isVeli
     , sort
     , toId
     , toQueryDescription
@@ -21,6 +22,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Static.Db exposing (Db)
 import Time exposing (Posix)
@@ -30,6 +32,7 @@ type alias Bookmark =
     { created : Posix
     , name : String
     , query : Query
+    , subScope : Maybe Scope
     }
 
 
@@ -37,14 +40,25 @@ type Query
     = Food FoodQuery.Query
     | Object ObjectQuery.Query
     | Textile TextileQuery.Query
+    | Veli ObjectQuery.Query
 
 
 decode : Decoder Bookmark
 decode =
-    Decode.map3 Bookmark
-        (Decode.field "created" (Decode.map Time.millisToPosix Decode.int))
-        (Decode.field "name" Decode.string)
-        (Decode.field "query" decodeQuery)
+    Decode.succeed Bookmark
+        |> JDP.required "created" (Decode.map Time.millisToPosix Decode.int)
+        |> JDP.required "name" Decode.string
+        |> JDP.required "query" decodeQuery
+        |> JDP.optional "subScope" (Decode.maybe Scope.decode) Nothing
+        |> Decode.map
+            (\bookmark ->
+                case ( bookmark.query, bookmark.subScope ) of
+                    ( Object q, Just Scope.Veli ) ->
+                        { bookmark | query = Veli q }
+
+                    _ ->
+                        bookmark
+            )
 
 
 decodeQuery : Decoder Query
@@ -62,6 +76,17 @@ encode v =
         [ ( "created", Encode.int <| Time.posixToMillis v.created )
         , ( "name", Encode.string v.name )
         , ( "query", encodeQuery v.query )
+        , ( "subScope"
+          , case v.subScope of
+                Just Scope.Object ->
+                    Scope.encode Scope.Object
+
+                Just Scope.Veli ->
+                    Scope.encode Scope.Veli
+
+                _ ->
+                    Encode.null
+          )
         ]
 
 
@@ -76,6 +101,9 @@ encodeQuery v =
 
         Textile query ->
             TextileQuery.encode query
+
+        Veli query ->
+            ObjectQuery.encode query
 
 
 isFood : Bookmark -> Bool
@@ -102,6 +130,16 @@ isTextile : Bookmark -> Bool
 isTextile { query } =
     case query of
         Textile _ ->
+            True
+
+        _ ->
+            False
+
+
+isVeli : Bookmark -> Bool
+isVeli { query } =
+    case query of
+        Veli _ ->
             True
 
         _ ->
@@ -141,6 +179,9 @@ scope bookmark =
         Textile _ ->
             Scope.Textile
 
+        Veli _ ->
+            Scope.Veli
+
 
 sort : List Bookmark -> List Bookmark
 sort =
@@ -171,3 +212,8 @@ toQueryDescription db bookmark =
                 |> Inputs.fromQuery db
                 |> Result.map Inputs.toString
                 |> Result.withDefault bookmark.name
+
+        Veli objectQuery ->
+            objectQuery
+                |> ObjectQuery.toString db.object.processes
+                |> Result.withDefault "N/A"

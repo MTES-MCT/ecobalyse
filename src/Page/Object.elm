@@ -272,7 +272,12 @@ update ({ navKey } as session) msg model =
             , Time.now
                 |> Task.perform
                     (SaveBookmarkWithTime model.bookmarkName
-                        (Bookmark.Object query)
+                        (if model.scope == Scope.Veli then
+                            Bookmark.Veli query
+
+                         else
+                            Bookmark.Object query
+                        )
                     )
             )
 
@@ -283,6 +288,7 @@ update ({ navKey } as session) msg model =
                     { name = String.trim name
                     , query = objectQuery
                     , created = now
+                    , subScope = Just model.scope
                     }
             , Cmd.none
             )
