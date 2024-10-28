@@ -11,7 +11,7 @@ module Data.Textile.Simulator exposing
 import Array
 import Data.Country as Country
 import Data.Env as Env
-import Data.Impact as Impact exposing (ComplementsImpacts, Impacts)
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Economics as Economics
