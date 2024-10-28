@@ -190,9 +190,11 @@ if __name__ == "__main__":
     )
 
     if len(sys.argv) == 1:  # just export.py
-        processes_impacts = compute_impacts(processes, DEFAULT_DB, impacts_py)
+        processes_impacts = compute_impacts(processes, DEFAULT_DB, IMPACTS_JSON)
     elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
-        impacts_compared_dic = compare_impacts(processes, DEFAULT_DB, impacts_py)
+        impacts_compared_dic = compare_impacts(
+            processes, DEFAULT_DB, impacts_py, IMPACTS_JSON
+        )
         csv_export_impact_comparison(impacts_compared_dic, "food")
         for process_name, values in impacts_compared_dic.items():
             name = processes[process_name]["name"]

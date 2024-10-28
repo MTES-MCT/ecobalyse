@@ -182,7 +182,7 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
     logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
 
 
-def compute_impacts(frozen_processes, default_db, impact_defs):
+def compute_impacts(frozen_processes, default_db, impacts_py):
     """Add impacts to processes dictionary
 
     Args:
@@ -217,7 +217,7 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
         if not activity:
             raise Exception(f"This process was not found in brightway: {process}")
 
-        results = compute_simapro_impacts(activity, main_method, impact_defs)
+        results = compute_simapro_impacts(activity, main_method, impacts_py)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kWh" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
@@ -234,7 +234,7 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
             # simapro failed (unexisting Ecobalyse project or some other reason)
             # brightway
             process["impacts"] = compute_brightway_impacts(
-                activity, main_method, impact_defs
+                activity, main_method, impacts_py
             )
             print(f"got impacts from brightway for: {process['name']}")
 
@@ -249,8 +249,8 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
     return frozendict({k: frozendict(v) for k, v in processes.items()})
 
 
-def compare_impacts(frozen_processes, default_db, impact_defs):
-    """This is compute_impacts slightly modified to store impacts from both bw and wp"""
+def compare_impacts(frozen_processes, default_db, impacts_py, impacts_json):
+    """This is compute_impacts slightly modified to store impacts from both bw and sp"""
     processes = dict(frozen_processes)
     print("Computing impacts:")
     for index, (key, process) in enumerate(processes.items()):
@@ -263,8 +263,9 @@ def compare_impacts(frozen_processes, default_db, impact_defs):
         if not activity:
             print(f"{process['name']} does not exist in brightway")
             continue
-        results = compute_simapro_impacts(activity, main_method, impact_defs)
+        results = compute_simapro_impacts(activity, main_method, impacts_py)
         print(f"got impacts from SimaPro for: {process['name']}")
+
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kilowatt hour" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
@@ -275,7 +276,7 @@ def compare_impacts(frozen_processes, default_db, impact_defs):
 
         # brightway
         process["brightway_impacts"] = compute_brightway_impacts(
-            activity, main_method, impact_defs
+            activity, main_method, impacts_py
         )
         print(f"got impacts from Brightway for: {process['name']}")
 
@@ -284,10 +285,10 @@ def compare_impacts(frozen_processes, default_db, impact_defs):
         process["brightway_impacts"] = with_subimpacts(process["brightway_impacts"])
 
     processes_corrected_simapro = with_corrected_impacts(
-        impact_defs, processes, "simapro_impacts"
+        impacts_json, processes, "simapro_impacts"
     )
     processes_corrected_smp_bw = with_corrected_impacts(
-        impact_defs, processes_corrected_simapro, "brightway_impacts"
+        impacts_json, processes_corrected_simapro, "brightway_impacts"
     )
 
     return frozendict({k: frozendict(v) for k, v in processes_corrected_smp_bw.items()})
