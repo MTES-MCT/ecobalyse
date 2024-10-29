@@ -173,7 +173,11 @@ if __name__ == "__main__":
 
     activities_land_occ = compute_land_occupation(activities)
     ingredients = create_ingredient_list(activities_land_occ)
+    check_ids(ingredients)
 
+    processes = create_process_list(activities_land_occ)
+
+    # ecosystemic factors
     ecosystemic_factors = load_ecosystemic_dic(ECOSYSTEMIC_FACTORS_FILE)
     ingredients_veg_es = compute_vegetal_ecosystemic_services(
         ingredients, ecosystemic_factors
@@ -185,23 +189,27 @@ if __name__ == "__main__":
         ingredients_veg_es, activities_land_occ, ecosystemic_factors, feed_file, ugb
     )
 
-    check_ids(ingredients_animal_es)
-    processes = create_process_list(activities_land_occ)
-
     if len(sys.argv) == 1:  # just export.py
         processes_impacts = compute_impacts(processes, DEFAULT_DB, impacts_py)
     elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
-        impacts_compared_dic = compare_impacts(processes, DEFAULT_DB, impacts_py)
+        impacts_compared_dic = compare_impacts(
+            processes, DEFAULT_DB, impacts_py, IMPACTS_JSON
+        )
         csv_export_impact_comparison(impacts_compared_dic, "food")
-        for ingredient_name, values in impacts_compared_dic.items():
-            print(f"Plotting {ingredient_name}")
+        for process_name, values in impacts_compared_dic.items():
+            name = processes[process_name]["name"]
+            print(f"Plotting {name}")
             simapro_impacts = values["simapro_impacts"]
             brightway_impacts = values["brightway_impacts"]
             os.makedirs(GRAPH_FOLDER, exist_ok=True)
             plot_impacts(
-                ingredient_name, simapro_impacts, brightway_impacts, GRAPH_FOLDER
+                name,
+                simapro_impacts,
+                brightway_impacts,
+                GRAPH_FOLDER,
+                IMPACTS_JSON,
             )
-            print("Charts have been generated and saved as PNG files.")
+        print("Charts have been generated and saved as PNG files.")
         sys.exit(0)
     else:
         print("Wrong argument: either no args or 'compare'")

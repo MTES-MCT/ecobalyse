@@ -7,7 +7,7 @@ from frozendict import frozendict
 def normalization_factors(impact_defs):
     normalization_factors = {}
     for k, v in impact_defs.items():
-        if v["ecoscore"]:
+        if v.get("ecoscore"):
             normalization_factors[k] = (
                 v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
             )
@@ -112,28 +112,29 @@ def with_subimpacts(impacts):
     return impacts
 
 
-def with_corrected_impacts(impact_defs, processes_fd, impacts="impacts"):
+def with_corrected_impacts(impact_defs, frozen_processes, impacts="impacts"):
     """Add corrected impacts to the processes"""
     corrections = {
         k: v["correction"] for (k, v) in impact_defs.items() if "correction" in v
     }
-    processes = dict(processes_fd)
+    processes = dict(frozen_processes)
     processes_updated = {}
     for key, process in processes.items():
         # compute corrected impacts
         for impact_to_correct, correction in corrections.items():
             # only correct if the impact is not already computed
-            if impact_to_correct not in process[impacts]:
+            dimpacts = process.get(impacts, {})
+            if impact_to_correct not in dimpacts:
                 corrected_impact = 0
                 for (
                     correction_item
                 ) in correction:  # For each sub-impact and its weighting
                     sub_impact_name = correction_item["sub-impact"]
-                    if sub_impact_name in process[impacts]:
-                        sub_impact = process[impacts].get(sub_impact_name, 1)
+                    if sub_impact_name in dimpacts:
+                        sub_impact = dimpacts.get(sub_impact_name, 1)
                         corrected_impact += sub_impact * correction_item["weighting"]
-                        del process[impacts][sub_impact_name]
-                process[impacts][impact_to_correct] = corrected_impact
+                        del dimpacts[sub_impact_name]
+                dimpacts[impact_to_correct] = corrected_impact
         processes_updated[key] = process
     return frozendict(processes_updated)
 
@@ -156,7 +157,7 @@ def bytrigram(definitions, bynames):
     }
 
 
-def with_aggregated_impacts(impact_defs, processes_fd, impacts="impacts"):
+def with_aggregated_impacts(impact_defs, frozen_processes, impacts="impacts"):
     """Add aggregated impacts to the processes"""
 
     # Pre-compute normalization factors
@@ -174,7 +175,7 @@ def with_aggregated_impacts(impact_defs, processes_fd, impacts="impacts"):
     }
 
     processes_updated = {}
-    for key, process in processes_fd.items():
+    for key, process in frozen_processes.items():
         updated_process = dict(process)
         updated_impacts = updated_process[impacts].copy()
 

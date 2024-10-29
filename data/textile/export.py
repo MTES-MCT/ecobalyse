@@ -158,15 +158,25 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:  # just export.py
         processes_impacts = compute_impacts(processes, DEFAULT_DB, impacts_py)
     elif len(sys.argv) > 1 and sys.argv[1] == "compare":  # export.py compare
-        impacts_compared_dic = compare_impacts(processes, DEFAULT_DB, impacts_py)
+        impacts_compared_dic = compare_impacts(
+            processes, DEFAULT_DB, impacts_py, IMPACTS_JSON
+        )
         csv_export_impact_comparison(impacts_compared_dic)
-        for material_name, values in impacts_compared_dic.items():
-            print(f"Plotting {material_name}")
+        for process_name, values in impacts_compared_dic.items():
+            displayName = processes[process_name]["displayName"]
+            print(f"Plotting {displayName}")
+            if "simapro_impacts" not in values and "brightway_impacts" not in values:
+                print(f"This hardcopied process cannot be plot: {displayName}")
+                continue
             simapro_impacts = values["simapro_impacts"]
             brightway_impacts = values["brightway_impacts"]
             os.makedirs(GRAPH_FOLDER, exist_ok=True)
             plot_impacts(
-                material_name, simapro_impacts, brightway_impacts, GRAPH_FOLDER
+                displayName,
+                simapro_impacts,
+                brightway_impacts,
+                GRAPH_FOLDER,
+                IMPACTS_JSON,
             )
             print("Charts have been generated and saved as PNG files.")
         sys.exit(0)

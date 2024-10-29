@@ -6,7 +6,7 @@ from os.path import dirname
 
 import bw2calc
 import bw2data
-import matplotlib
+import matplotlib.pyplot
 import numpy
 import pandas as pd
 import requests
@@ -54,7 +54,9 @@ def search(dbname, name, excluded_term=None):
     results = bw2data.Database(dbname).search(name)
     if excluded_term:
         results = [res for res in results if excluded_term not in res["name"]]
-    assert len(results) >= 1, f"'{name}' was not found in Brightway"
+    if not results:
+        print(f"Not found in brightway : '{name}'")
+        return None
     return results[0]
 
 
@@ -183,7 +185,7 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
     logger.info(f"Exchange {new_activity} added with amount: {new_amount}")
 
 
-def compute_impacts(frozen_processes, default_db, impact_defs):
+def compute_impacts(frozen_processes, default_db, impacts_py):
     """Add impacts to processes dictionary
 
     Args:
@@ -217,7 +219,10 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
         activity = cached_search(
             process.get("source", default_db), process.get("search", process["name"])
         )
-        results = compute_simapro_impacts(activity, main_method, impact_defs)
+        if not activity:
+            raise Exception(f"This process was not found in brightway: {process}")
+
+        results = compute_simapro_impacts(activity, main_method, impacts_py)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kWh" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
@@ -234,7 +239,7 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
             # simapro failed (unexisting Ecobalyse project or some other reason)
             # brightway
             process["impacts"] = compute_brightway_impacts(
-                activity, main_method, impact_defs
+                activity, main_method, impacts_py
             )
             logger.info(f"got impacts from brightway for: {process['name']}")
 
@@ -249,27 +254,34 @@ def compute_impacts(frozen_processes, default_db, impact_defs):
     return frozendict({k: frozendict(v) for k, v in processes.items()})
 
 
-def compare_impacts(frozen_processes, default_db, impact_defs):
-    """This is compute_impacts slightly modified to store impacts from both bw and wp"""
+def compare_impacts(frozen_processes, default_db, impacts_py, impacts_json):
+    """This is compute_impacts slightly modified to store impacts from both bw and sp"""
     processes = dict(frozen_processes)
     logger.info("Computing impacts:")
     for index, (key, process) in enumerate(processes.items()):
         progress_bar(index, len(processes))
         # simapro
-        activity = cached_search(process.get("source", default_db), process["search"])
-        results = compute_simapro_impacts(activity, main_method, impact_defs)
+        activity = cached_search(
+            process.get("source", default_db),
+            process.get("search", process["name"]),
+        )
+        if not activity:
+            logger.info(f"{process['name']} does not exist in brightway")
+            continue
+        results = compute_simapro_impacts(activity, main_method, impacts_py)
         logger.info(f"got impacts from SimaPro for: {process['name']}")
+
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
-        if process["unit"] == "kilowatt hour" and isinstance(results, dict):
+        if process["unit"] == "kWh" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
-        if process["unit"] == "litre" and isinstance(results, dict):
+        if process["unit"] == "L" and isinstance(results, dict):
             results = {k: v / 1000 for k, v in results.items()}
 
         process["simapro_impacts"] = results
 
         # brightway
         process["brightway_impacts"] = compute_brightway_impacts(
-            activity, main_method, impact_defs
+            activity, main_method, impacts_py
         )
         logger.info(f"got impacts from Brightway for: {process['name']}")
 
@@ -278,23 +290,27 @@ def compare_impacts(frozen_processes, default_db, impact_defs):
         process["brightway_impacts"] = with_subimpacts(process["brightway_impacts"])
 
     processes_corrected_simapro = with_corrected_impacts(
-        impact_defs, processes, "simapro_impacts"
+        impacts_json, processes, "simapro_impacts"
     )
     processes_corrected_smp_bw = with_corrected_impacts(
-        impact_defs, processes_corrected_simapro, "brightway_impacts"
+        impacts_json, processes_corrected_simapro, "brightway_impacts"
     )
 
     return frozendict({k: frozendict(v) for k, v in processes_corrected_smp_bw.items()})
 
 
-def plot_impacts(ingredient_name, impacts_smp, impacts_bw, folder, impact_defs):
-    impact_labels = impacts_smp.keys()
-    nf = normalization_factors(impact_defs)
+def plot_impacts(process_name, impacts_smp, impacts_bw, folder, impacts_py):
+    trigrams = [
+        t
+        for t in impacts_py.keys()
+        if t in impacts_smp.keys() and t in impacts_bw.keys()
+    ]
+    nf = normalization_factors(impacts_py)
 
-    simapro_values = [impacts_smp[label] * nf[label] for label in impact_labels]
-    brightway_values = [impacts_bw[label] * nf[label] for label in impact_labels]
+    simapro_values = [impacts_smp[label] * nf[label] for label in trigrams]
+    brightway_values = [impacts_bw[label] * nf[label] for label in trigrams]
 
-    x = numpy.arange(len(impact_labels))
+    x = numpy.arange(len(trigrams))
     width = 0.35
 
     fig, ax = matplotlib.pyplot.subplots(figsize=(12, 8))
@@ -304,13 +320,13 @@ def plot_impacts(ingredient_name, impacts_smp, impacts_bw, folder, impact_defs):
 
     ax.set_xlabel("Impact Categories")
     ax.set_ylabel("Impact Values")
-    ax.set_title(f"Environmental Impacts for {ingredient_name}")
+    ax.set_title(f"Environmental Impacts for {process_name}")
     ax.set_xticks(x)
-    ax.set_xticklabels(impact_labels, rotation=90)
+    ax.set_xticklabels(trigrams, rotation=90)
     ax.legend()
 
     matplotlib.pyplot.tight_layout()
-    matplotlib.pyplot.savefig(f"{folder}/{ingredient_name}.png")
+    matplotlib.pyplot.savefig(f'{folder}/{process_name.replace("/", "_")}.png')
     matplotlib.pyplot.close()
 
 
@@ -365,23 +381,23 @@ def find_id(dbname, activity):
     )
 
 
-def compute_simapro_impacts(activity, method, impact_defs):
+def compute_simapro_impacts(activity, method, impacts_py):
     strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
     project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
     logger.debug(f"SimaPro API request: {api_request}")
     return bytrigram(
-        impact_defs,
+        impacts_py,
         json.loads(requests.get(api_request).content),
     )
 
 
-def compute_brightway_impacts(activity, method, impact_defs):
+def compute_brightway_impacts(activity, method, impacts_py):
     results = dict()
     lca = bw2calc.LCA({activity: 1})
     lca.lci()
-    for key, method in impact_defs.items():
+    for key, method in impacts_py.items():
         lca.switch_method(method)
         lca.lcia()
         results[key] = float("{:.10g}".format(lca.score))
