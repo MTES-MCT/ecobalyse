@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import functools
 import os
 from os.path import dirname, join
 from zipfile import ZipFile
@@ -7,19 +6,6 @@ from zipfile import ZipFile
 import bw2data
 import bw2io
 from bw2data.project import projects
-from bw2io.strategies import (
-    drop_unspecified_subcategories,
-    # fix_localized_water_flows,
-    link_iterable_by_fields,
-    match_subcategories,
-    # migrate_exchanges,
-    # normalize_biosphere_categories,
-    normalize_biosphere_names,
-    normalize_simapro_biosphere_categories,
-    normalize_simapro_biosphere_names,
-    normalize_units,
-    set_biosphere_type,
-)
 
 PROJECT = "default"
 # Agribalyse
