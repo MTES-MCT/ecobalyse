@@ -139,7 +139,7 @@
     * [🛞 Pneumatiques](vehicules/fabrication-des-composants/pneumatiques.md)
     * [🛞 Jantes / Roues](vehicules/fabrication-des-composants/jantes-roues.md)
     * [💺 Assise](vehicules/fabrication-des-composants/assise.md)
-    * [💠 Cellules photovoltaïques](vehicules/fabrication-des-composants/cellules-photovoltaiques.md)
+    * [💠 Système photovoltaïques](vehicules/fabrication-des-composants/systeme-photovoltaiques.md)
     * [⛓️ Autres composants](vehicules/fabrication-des-composants/autres-composants.md)
   * [🚚 Transport des composants](vehicules/transport-des-composants.md)
   * [🚚 Transport des véhicules](vehicules/transport-des-vehicules.md)

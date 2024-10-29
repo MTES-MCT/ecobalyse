@@ -45,13 +45,13 @@ L'utilisateur renseigne les informations suivantes :
 Le coût environnemental de la consommation électrique se calcule comme suit (exemple pour l'impact sur le changement climatique) :
 
 $$
-ImpactElec = C_r*100*Tkm*PelecFRcch
+ImpactElec = C_r*100*D.vie*PelecFRcch
 $$
 
 Avec&#x20;
 
 * C\_r : la consommation l'électricité par recharge sur le réseau électrique, en kWh/100km.
-* Tkm : la durée de vie du véhicule, en km. Le calcul de la durée de vie du véhicule est détaillé ci-dessous
+* D.vie : la durée de vie du véhicule, en km. Le calcul de la durée de vie du véhicule est détaillé ci-dessous
 * PélecFRcch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
 
 ### Durée de vie des véhicules
@@ -61,20 +61,20 @@ Avec&#x20;
 La durée de vie en kilomètre s'exprime de la façon suivante :&#x20;
 
 $$
-Tkm=K*Ta
+D.vie=D.an*T.vie
 $$
 
 Avec :&#x20;
 
-* Tkm : la durée de vie, en km
-* K : le kilométrage annuel, en km\
+* D.vie : la durée de vie, en km
+* D.an : le kilométrage annuel, en km\
   Les valeurs par défaut sont définies par véhicule dans le tableau ci-dessous. Elles sont modifiables par l'utilisateur dans Ecobalyse.
-* Ta : la durée de vie par défaut du véhicule, en années\
+* T.vie : la durée de vie par défaut du véhicule, en années\
   Les valeurs par défaut sont définies par véhicule dans le tableau ci-dessous. Elles sont modifiables par l'utilisateur dans Ecobalyse.
 
 #### Données par défaut
 
-<table><thead><tr><th width="166">Catégories</th><th width="316">Kilométrage annuel par défaut (km/h)</th><th>Durée de vie par défaut (ans)</th></tr></thead><tbody><tr><td>VAE</td><td>2 000</td><td>30</td></tr><tr><td>L1e-A</td><td>2 000</td><td>30</td></tr><tr><td>L1e-B</td><td>5 000</td><td>30</td></tr><tr><td>L2e</td><td>5 000</td><td>30</td></tr><tr><td>L3e</td><td>5 000</td><td>30</td></tr><tr><td>L4e</td><td>5 000</td><td>30</td></tr><tr><td>L5e</td><td>5 000</td><td>30</td></tr><tr><td>L6e</td><td>5 000</td><td>30</td></tr><tr><td>L7e</td><td>10 000</td><td>30</td></tr><tr><td>Autre</td><td>15000</td><td>20</td></tr></tbody></table>
+<table><thead><tr><th width="166">Catégories</th><th width="316">D.an par défaut (km/an)</th><th>T.vie par défaut (ans)</th></tr></thead><tbody><tr><td>VAE</td><td>2 000</td><td>30</td></tr><tr><td>L1e-A</td><td>2 000</td><td>30</td></tr><tr><td>L1e-B</td><td>5 000</td><td>30</td></tr><tr><td>L2e</td><td>5 000</td><td>30</td></tr><tr><td>L3e</td><td>5 000</td><td>30</td></tr><tr><td>L4e</td><td>5 000</td><td>30</td></tr><tr><td>L5e</td><td>5 000</td><td>30</td></tr><tr><td>L6e</td><td>5 000</td><td>30</td></tr><tr><td>L7e</td><td>10 000</td><td>30</td></tr><tr><td>Autre</td><td>15000</td><td>20</td></tr></tbody></table>
 
 ### Consommation électrique par km
 

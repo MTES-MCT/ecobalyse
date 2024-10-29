@@ -32,8 +32,8 @@ Des données par défaut sont proposées pour chaque catégorie de véhicule, su
 [assise.md](assise.md)
 {% endcontent-ref %}
 
-{% content-ref url="cellules-photovoltaiques.md" %}
-[cellules-photovoltaiques.md](cellules-photovoltaiques.md)
+{% content-ref url="systeme-photovoltaiques.md" %}
+[systeme-photovoltaiques.md](systeme-photovoltaiques.md)
 {% endcontent-ref %}
 
 {% content-ref url="../../alimentaire-en-construction/old/etape-2-fabrication-du-fil/composants/autres-composants.md" %}
