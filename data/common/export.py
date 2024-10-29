@@ -294,13 +294,13 @@ def compare_impacts(frozen_processes, default_db, impacts_py, impacts_json):
     return frozendict({k: frozendict(v) for k, v in processes_corrected_smp_bw.items()})
 
 
-def plot_impacts(process_name, impacts_smp, impacts_bw, folder, impact_defs):
+def plot_impacts(process_name, impacts_smp, impacts_bw, folder, impacts_py):
     trigrams = [
         t
-        for t in impact_defs.keys()
+        for t in impacts_py.keys()
         if t in impacts_smp.keys() and t in impacts_bw.keys()
     ]
-    nf = normalization_factors(impact_defs)
+    nf = normalization_factors(impacts_py)
 
     simapro_values = [impacts_smp[label] * nf[label] for label in trigrams]
     brightway_values = [impacts_bw[label] * nf[label] for label in trigrams]
@@ -376,12 +376,12 @@ def find_id(dbname, activity):
     )
 
 
-def compute_simapro_impacts(activity, method, impact_defs):
+def compute_simapro_impacts(activity, method, impacts_py):
     strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
     project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
     return bytrigram(
-        impact_defs,
+        impacts_py,
         json.loads(
             requests.get(
                 f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
@@ -390,11 +390,11 @@ def compute_simapro_impacts(activity, method, impact_defs):
     )
 
 
-def compute_brightway_impacts(activity, method, impact_defs):
+def compute_brightway_impacts(activity, method, impacts_py):
     results = dict()
     lca = bw2calc.LCA({activity: 1})
     lca.lci()
-    for key, method in impact_defs.items():
+    for key, method in impacts_py.items():
         lca.switch_method(method)
         lca.lcia()
         results[key] = float("{:.10g}".format(lca.score))
