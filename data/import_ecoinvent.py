@@ -14,8 +14,6 @@ EI310 = "./Ecoinvent3.10.CSV.zip"
 BIOSPHERE = "biosphere3"
 PROJECT = "default"
 EXCLUDED = [
-    "normalize_simapro_biosphere_names",
-    "normalize_biosphere_names",
     "fix_localized_water_flows",  # both agb and ef31 adapted have localized wf
     "simapro-water",
 ]

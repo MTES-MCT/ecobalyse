@@ -29,8 +29,6 @@ METHODPATH = join("..", "..", "dbfiles", METHODNAME + ".CSV.zip")
 
 # excluded strategies and migrations
 EXCLUDED = [
-    "normalize_simapro_biosphere_names",
-    "normalize_biosphere_names",
     "fix_localized_water_flows",
     "simapro-water",
 ]
