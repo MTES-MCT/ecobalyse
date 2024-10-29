@@ -143,5 +143,6 @@
     * [⛓️ Autres composants](vehicules/fabrication-des-composants/autres-composants.md)
   * [🚚 Transport des composants](vehicules/transport-des-composants.md)
   * [🚚 Transport des véhicules](vehicules/transport-des-vehicules.md)
+  * [Durabilité physique](vehicules/durabilite-physique.md)
   * [⚡ Utilisation du véhicule](vehicules/utilisation-du-vehicule/README.md)
     * [☀️ Energie apportée par des panneaux solaires photovoltaïque](vehicules/utilisation-du-vehicule/energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
