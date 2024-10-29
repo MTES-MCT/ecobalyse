@@ -55,7 +55,12 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "5 septembre 2024"
+    [ { date = "29 octobre 2024"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md = "Ajout du champ `impactsWithoutDurability` dans la réponse des calculs détaillés. Ce champ a le même format que le champ `impacts` mais contient les scores avant application du coefficient de durabilité."
+      }
+    , { date = "5 septembre 2024"
       , level = "minor"
       , domains = [ "Textile" ]
       , md = "Ajout du champ `physicalDurability` qui permet de préciser la durabilité physique d'un vêtement."
