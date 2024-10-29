@@ -11,8 +11,8 @@
     "inedible_part": 0.2,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 1.8435287700000003,
-      "plotSize": 2.4546577,
+      "hedges": 1.8747976500000003,
+      "plotSize": 2.4987717,
       "cropDiversity": 10.603858,
       "permanentPasture": 0,
       "livestockDensity": -0.007728
@@ -730,27 +730,6 @@
     "land_occupation": 2.362643424,
     "crop_group": "LEGUMINEUSES A GRAIN",
     "scenario": "organic",
-    "visible": true
-  },
-  {
-    "id": "bellpepper-unheated-greenhouse",
-    "name": "Poivron sous serre non chauffée FR Conv.",
-    "categories": ["vegetable_fresh"],
-    "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
-    "default": "AGRIBALU000000003101321",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.295,
-    "inedible_part": 0.03,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.020184,
-      "plotSize": 0.05046,
-      "cropDiversity": 0.0
-    },
-    "land_occupation": 0.08073666082,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference",
     "visible": true
   },
   {
@@ -4898,27 +4877,6 @@
     "visible": true
   },
   {
-    "id": "barley-de",
-    "name": "Orge UE Conv.",
-    "categories": ["grain_raw"],
-    "search": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
-    "default": "AGRIBALU000000003100967",
-    "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 2.259,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
-    },
-    "land_occupation": 1.358825431,
-    "crop_group": "ORGE",
-    "scenario": "import",
-    "visible": false
-  },
-  {
     "id": "triticale-organic",
     "name": "Triricale FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
@@ -4937,27 +4895,6 @@
     "land_occupation": 3.166417803,
     "crop_group": "AUTRES CEREALES",
     "scenario": "organic",
-    "visible": false
-  },
-  {
-    "id": "bean",
-    "name": "Pois Hors UE Conv.",
-    "categories": ["grain_raw"],
-    "search": "Faba bean, grain stored and transported, processing {FR} U",
-    "default": "AGRIBALU000000003105752",
-    "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 2.259,
-    "density": 1,
-    "inedible_part": 0,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.92548,
-      "plotSize": 1.3061,
-      "cropDiversity": 0.0
-    },
-    "land_occupation": 2.089788637,
-    "crop_group": "AUTRES CEREALES",
-    "scenario": "reference",
     "visible": false
   },
   {
@@ -5540,27 +5477,6 @@
     "transport_cooling": "always",
     "ecosystemicServices": {},
     "land_occupation": 2.090359642651662,
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "onion-dried-hors-ue",
-    "name": "Oignons déshydratés Hors UE Conv.",
-    "categories": ["vegetable_processed"],
-    "search": "onions dried",
-    "default": "AGRIBALU000000003110475",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 0.856,
-    "density": 0.6195,
-    "inedible_part": 0.1,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.62787,
-      "plotSize": 1.5697,
-      "cropDiversity": 0.0
-    },
-    "land_occupation": 2.5114890758258803,
-    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
   },
@@ -6741,9 +6657,9 @@
   },
   {
     "id": "walnut-inshell-organic",
-    "name": "Châtaigne avec coque FR ou UE ou Hors UE Bio",
+    "name": "Noix avec coque FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
-    "search": "Walnut, dried inshell, traditional varieties, organic 2023, at farm gate {FR} U",
+    "search": "Walnut, dried inshell, organic 2023, national average, at farm gate {FR} U",
     "default": "walnut-inshell-organic",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
@@ -6751,11 +6667,11 @@
     "inedible_part": 0.5,
     "transport_cooling": "none",
     "ecosystemicServices": {
-      "hedges": 3.8651,
-      "plotSize": 11.273,
+      "hedges": 3.3334,
+      "plotSize": 9.7223,
       "cropDiversity": 0.0
     },
-    "land_occupation": 12.883668758288307,
+    "land_occupation": 11.11119623815259,
     "crop_group": "FRUITS A COQUES",
     "scenario": "reference",
     "visible": true
@@ -7510,6 +7426,736 @@
     "ecosystemicServices": {},
     "land_occupation": 0.034270541927866376,
     "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "mandarin-non-eu",
+    "name": "Mandarine Hors UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Mandarin, at farm (WFLDB) cn",
+    "default": "WFLDBQUA000001234501557",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.575,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 1.2835049654870558,
+    "crop_group": "VERGERS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "melon-non-eu",
+    "name": "Melon Hors UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Melon {GLO}| melon production | Cut-off, U",
+    "default": "EI3ARUNI000011519604743",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.4,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.07662568174847609,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "blueberry-eu",
+    "name": "Myrtille UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
+    "default": "AGRIBALU000000003101680",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 3.45,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "blueberry-fr",
+    "name": "Myrtille FR Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
+    "default": "AGRIBALU000000003101680",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.03,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 3.45,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "hazelnut-organic",
+    "name": "Noisette avec coque FR ou UE ou Hors UE Bio",
+    "categories": ["nut_oilseed_raw", "organic"],
+    "search": "Hazelnut, in shell, at farm, organic 2023 {IT}",
+    "default": "hazelnut-organic",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 3.8359,
+      "plotSize": 11.188,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 12.786222813769792,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "organic",
+    "visible": true
+  },
+  {
+    "id": "hazelnut-unshelled-organic",
+    "name": "Noisette décortiquée FR ou UE ou Hors UE Bio",
+    "categories": ["nut_oilseed_raw", "organic"],
+    "search": "Hazelnut, unshelled, consumption mix, organic 2023 {FR} U",
+    "default": "hazelnut-unshelled-organic",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 8.2358,
+      "plotSize": 24.021,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 27.452820544205917,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "organic",
+    "visible": true
+  },
+  {
+    "id": "hazelnut-unshelled-fr",
+    "name": "Noisette décortiquée FR Conv.",
+    "categories": ["nut_oilseed_raw"],
+    "search": "Hazelnut, unshelled, consumption mix {FR} U",
+    "default": "AGRIBALU000000003107320",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 4.7393,
+      "plotSize": 13.823,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 15.797535970246324,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "chesnut-inshell-organic",
+    "name": "Châtaigne avec coque FR ou UE ou Hors UE Bio",
+    "categories": ["nut_oilseed_raw", "organic"],
+    "search": "Walnut, dried inshell, traditional varieties, organic 2023, at farm gate {FR} U",
+    "default": "chesnut-inshell-organic",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 3.8651,
+      "plotSize": 11.273,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 12.883668758288307,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "walnut-inshell-eu",
+    "name": "Noix avec coque UE Conv.",
+    "categories": ["nut_oilseed_raw"],
+    "search": "Walnut, in shell, dried, at farm (WFLDB)",
+    "default": "WFLDBQUA000001234502444",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 6.53,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "walnut-inshell-non-eu",
+    "name": "Noix avec coque Hors UE Conv.",
+    "categories": ["nut_oilseed_raw"],
+    "search": "Walnut, in shell, dried, at farm (WFLDB)",
+    "default": "WFLDBQUA000001234502444",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 6.53,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "olive-fr",
+    "name": "Olive UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Olive {ES}| olive production | Cut-off, U",
+    "default": "AGRIBALU000000003110400",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.447,
+    "inedible_part": 0.5,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.98447,
+      "plotSize": 1.7735,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 2.026852436246489,
+    "crop_group": "OLIVIERS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "barley-eu",
+    "name": "Orge UE Conv.",
+    "categories": ["grain_raw"],
+    "search": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
+    "default": "AGRIBALU000000003100967",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 1.358825431,
+    "crop_group": "ORGE",
+    "scenario": "import",
+    "visible": false
+  },
+  {
+    "id": "barley-non-eu",
+    "name": "Orge Hors UE Conv.",
+    "categories": ["grain_raw"],
+    "search": "Barley grain, at farm (WFLDB)",
+    "default": "AGRIBALU000000003100967",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 1.359133343343334,
+    "crop_group": "ORGE",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "pistachio-organic",
+    "name": "Pistache avec coque FR ou UE ou Hors UE Bio",
+    "categories": ["nut_oilseed_raw"],
+    "search": "Peanut, in shell, at farm, organic 2023 {GLO}",
+    "default": "pistachio-organic",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.24,
+    "inedible_part": 0.5,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 1.6852,
+      "plotSize": 4.9151,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 5.61720941810067,
+    "crop_group": "FRUITS A COQUES",
+    "scenario": "organic",
+    "visible": true
+  },
+  {
+    "id": "leek-eu",
+    "name": "Poireau UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Autumn- Winter leek seedling, conventional, at production site",
+    "default": "AGRIBALU000000003100718",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6195,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.0010386589833496953,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "leek-non-eu",
+    "name": "Poireau Hors UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Leek, early seedling, conventional, at production site {MA} U",
+    "default": "AGRIBALU000000003108540",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6195,
+    "inedible_part": 0.2,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 9.601097650918058e-5,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "bean-non-eu",
+    "name": "Pois Hors UE Conv.",
+    "categories": ["grain_raw"],
+    "search": "protein pea//[ES] protein pea production",
+    "default": "EI3ARUNI000011519600047",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 3.6477,
+      "plotSize": 5.148,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 8.236801046935755,
+    "crop_group": "AUTRES CEREALES",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "bean-eu",
+    "name": "Pois UE Conv.",
+    "categories": ["grain_raw"],
+    "search": "protein pea//[ES] protein pea production",
+    "default": "EI3ARUNI000011519600047",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 8.236801046935755,
+    "crop_group": "AUTRES CEREALES",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "bean-fr",
+    "name": "Pois FR Conv.",
+    "categories": ["grain_raw"],
+    "search": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
+    "default": "AGRIBALU000024985200250",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 1.0396,
+      "plotSize": 1.4671,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 2.3473724104444607,
+    "crop_group": "AUTRES CEREALES",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "chickpea-non-eu",
+    "name": "Pois chiche Hors UE Conv.",
+    "categories": ["nut_oilseed_raw"],
+    "search": "chickpea//[RoW] chickpea production",
+    "default": "EI3ARUNI000011519617720",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.33,
+    "density": 0.24,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 1.239813132891294,
+    "crop_group": "LEGUMINEUSES A GRAIN",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "bellpepper-unheated-greenhouse-fr",
+    "name": "Poivron sous serre non chauffée FR Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
+    "default": "AGRIBALU000000003101321",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.295,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.020184,
+      "plotSize": 0.05046,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.08073666082,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "bellpepper-unheated-greenhouse-eu",
+    "name": "Poivron sous serre non chauffée UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
+    "default": "AGRIBALU000000003101321",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.295,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.08073666082,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "bellpepper-unheated-greenhouse-non-eu",
+    "name": "Poivron sous serre non chauffée Hors UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
+    "default": "AGRIBALU000000003101321",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.295,
+    "inedible_part": 0.03,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.08073666082,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "apple-non-eu",
+    "name": "Pomme Hors UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Apple, at farm CN",
+    "default": "WFLDBQUA000001234500066",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.1,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.7807598486678216,
+    "crop_group": "VERGERS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "potato-table-eu",
+    "name": "Pomme de terre de table UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Potato, at farm (WFLDB) nl",
+    "default": "WFLDBQUA000001234501989",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.24723968060867527,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "potato-table-non-eu",
+    "name": "Pomme de terre de table Hors UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Potato, at farm (WFLDB) cn",
+    "default": "WFLDBQUA000001234501984",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.6201212501873025,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "chicken-breast-eu",
+    "name": "Blanc de poulet cru UE Conv.",
+    "categories": ["animal_product"],
+    "search": "Chicken, fresh meat, at slaughterhouse (WFLDB) code:f3c6*",
+    "default": "WFLDBQUA000001234500348",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.755,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "always",
+    "ecosystemicServices": {},
+    "land_occupation": 6.890448507567749,
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "tomato-paste-fr",
+    "name": "Purée de tomates FR Conv.",
+    "categories": ["vegetable_processed"],
+    "search": "Tomato puree, canned, processed in FR | Ambient (long) | Steel | at packaging {FR} U",
+    "default": "AGRIBALU000000003115672",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.016926,
+      "plotSize": 0.042315,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.06770441921449913,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "radish-fr",
+    "name": "Radis FR Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Radish, consumption mix {FR} U",
+    "default": "AGRIBALU000000003112396",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.011541,
+      "plotSize": 0.028853,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.046165237138977196,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
+    "visible": true
+  },
+  {
+    "id": "radish-eu",
+    "name": "Radis UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "Radish {GLO}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
+    "default": "AGRIBALU000000003112391",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.6375,
+    "inedible_part": 0.1,
+    "transport_cooling": "always",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 0.04436116539049033,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "rice-basmati-eu",
+    "name": "Riz basmati UE Conv.",
+    "categories": ["grain_raw"],
+    "search": "Basmati rice, consumption mix {FR} U",
+    "default": "AGRIBALU000000003100993",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 1.2133344991347652,
+    "crop_group": "RIZ",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "durum-wheat-semolina-non-eu",
+    "name": "Semoule de blé dur Hors UE Conv.",
+    "categories": ["grain_processed"],
+    "search": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
+    "default": "AGRIBALU000000003105072",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 3.797493963861995,
+    "crop_group": "AUTRES CEREALES",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "durum-wheat-semolina-eu",
+    "name": "Semoule de blé dur UE Conv.",
+    "categories": ["grain_processed"],
+    "search": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
+    "default": "AGRIBALU000000003105072",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 0.24,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 3.797493963861995,
+    "crop_group": "AUTRES CEREALES",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "plum-eu",
+    "name": "Prune UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "cherry at farm code:cb6b*",
+    "default": "WFLDBQUA000001234500333",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 1.4918332600789956,
+    "crop_group": "VERGERS",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "plum-non-eu",
+    "name": "Prune Hors UE Conv.",
+    "categories": ["vegetable_fresh"],
+    "search": "cherry at farm code:221a*",
+    "default": "WFLDBQUA000001234500335",
+    "default_origin": "OutOfEuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
+    "density": 0.447,
+    "inedible_part": 0.2,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 1.2557111799651013,
+    "crop_group": "VERGERS",
+    "scenario": "import",
     "visible": true
   }
 ]
