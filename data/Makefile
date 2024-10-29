@@ -16,20 +16,23 @@ else \
 endef
 
 all: import export
-import : image import_food import_ecoinvent import_method sync_datapackages
+import : image import_food import_ecoinvent import_method create_activities sync_datapackages
 export: export_food export_textile export_object format
 
 image:
 	docker build -t $(NAME) docker
 
 import_food:
-	@$(call DOCKER,python3 import_food.py --recreate-activities)
+	@$(call DOCKER,python3 import_food.py)
 
 import_method:
 	@$(call DOCKER,python3 import_method.py)
 
 import_ecoinvent:
 	@$(call DOCKER,python3 import_ecoinvent.py)
+
+create_activities:
+	@$(call DOCKER,python3 create_activities.py)
 
 sync_datapackages:
 	@$(call DOCKER,python3 common/sync_datapackages.py)
