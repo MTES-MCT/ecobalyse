@@ -111,19 +111,24 @@ def cleanup_json(activities):
     """consistency of the json file"""
     for i, a in enumerate(activities):
         # remove categories for non-ingredients
-        if a["category"] != "ingredient":
+        if "ingredient" not in a["process_categories"]:
             for x in (
-                "categories",
+                "ingredient_categories",
                 "raw_to_cooked_ratio",
                 "density",
                 "inedible_part",
                 "transport_cooling",
                 "visible",
                 "explain",
+                "animal_group1",
+                "animal_group2",
+                "animal_product",
+                "crop_group",
+                "land_occupation",
+                "scenario",
             ):
                 if x in a:
                     del activities[i][x]
-                # _ = activities[i].pop(x, None)
     return activities
 
 
@@ -159,9 +164,9 @@ FIELDS = {
     "database": "Base de données",
     "search": "Termes de recherche",
     "default_origin": "Origine par défaut",
-    "category": "Catégorie de procédé",
+    "process_categories": "Catégories de procédé",
     # ingredients attributes
-    "categories": "Catégories d'ingrédient",
+    "ingredient_categories": "Catégories d'ingrédient",
     "raw_to_cooked_ratio": "Cooked/Raw ratio",
     "density": "Densité",
     "inedible_part": "Part non comestible",
@@ -272,19 +277,21 @@ w_default_origin = ipywidgets.Dropdown(
     ],
     style=style,
 )
-w_category = ipywidgets.Dropdown(
-    options=[
-        ("Ingrédient", "ingredient"),
-        ("Matériau", "material"),
-        ("Énergie", "energy"),
-        ("Emballage", "packaging"),
-        ("Traitement", "processing"),
-        ("Transformation", "transformation"),
-        ("Transport", "transport"),
-        ("Traitement des déchets", "waste treatment"),
+w_process_categories = ipywidgets.TagsInput(
+    allowed_tags=[
+        "ingredient",
+        "material",
+        "energy",
+        "packaging",
+        "processing",
+        "transformation",
+        "transport",
+        "waste treatment",
     ],
+    style=style,
+    allow_duplicates=False,
 )
-w_categories = ipywidgets.TagsInput(
+w_ingredient_categories = ipywidgets.TagsInput(
     allowed_tags=[
         "animal_product",
         "dairy_product",
@@ -543,8 +550,8 @@ def clear_form():
     w_search.value = ""
     w_results.options = [""]
     w_results.value = ""
-    w_category.value = None
-    w_categories.value = []
+    w_process_categories.value = []
+    w_ingredient_categories.value = []
     w_explain.value = ""
     w_default_origin.value = "EuropeAndMaghreb"
     w_raw_to_cooked_ratio.value = 1
@@ -583,11 +590,11 @@ def change_contributor(_):
 w_contributor.observe(change_contributor, names="value")
 
 
-def change_categories(_):
+def change_ingredient_categories(_):
     pass
 
 
-w_categories.observe(change_categories, names="value")
+w_ingredient_categories.observe(change_ingredient_categories, names="value")
 
 
 def change_id(change):
@@ -608,8 +615,8 @@ def change_id(change):
         w_results.options = []
     set_field(w_default_origin, i.get("default_origin"), "EuropeAndMaghreb")
     set_field(w_explain, i.get("explain"), "")
-    set_field(w_category, i.get("category"), "")
-    set_field(w_categories, i.get("categories"), [])
+    set_field(w_process_categories, i.get("category"), [])
+    set_field(w_ingredient_categories, i.get("categories"), [])
     set_field(w_raw_to_cooked_ratio, i.get("raw_to_cooked_ratio"), 1)
     set_field(w_density, i.get("density"), 0)
     set_field(w_inedible, i.get("inedible_part"), 0)
@@ -667,8 +674,8 @@ def add_activity(_):
         "name": w_name.value.strip(),
         "database": w_database.value,
         "search": w_search.value.strip(),
-        "category": w_category.value,
-        "categories": w_categories.value,
+        "process_categories": w_process_categories.value,
+        "ingredient_categories": w_ingredient_categories.value,
         "default_origin": w_default_origin.value,
         "raw_to_cooked_ratio": w_raw_to_cooked_ratio.value,
         "density": w_density.value,
@@ -685,8 +692,8 @@ def add_activity(_):
             "animal_group2": w_animal_group2.value,
             "animal_product": w_animal_product.value,
         }
-        if "animal_product" in w_categories.value
-        or "dairy_product" in w_categories.value
+        if "animal_product" in w_ingredient_categories.value
+        or "dairy_product" in w_ingredient_categories.value
         else {
             "crop_group": w_cropGroup.value,
         }
@@ -1049,9 +1056,9 @@ def display_main():
                         ipywidgets.HBox(
                             (
                                 ipywidgets.Label(
-                                    FIELDS["category"],
+                                    FIELDS["process_categories"],
                                 ),
-                                w_category,
+                                w_process_categories,
                             ),
                         ),
                         ipywidgets.Accordion(
@@ -1083,9 +1090,9 @@ def display_main():
                                         ipywidgets.HBox(
                                             (
                                                 ipywidgets.Label(
-                                                    FIELDS["categories"],
+                                                    FIELDS["ingredient_categories"],
                                                 ),
-                                                w_categories,
+                                                w_ingredient_categories,
                                             ),
                                         ),
                                         ipywidgets.HTML(
