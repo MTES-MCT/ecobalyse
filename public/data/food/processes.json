@@ -93,8 +93,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 73.28220920830047,
-      "pef": 85.56984419203104
+      "ecs": 72.51645463142076,
+      "pef": 84.5040530773064
     },
     "name": "Cow milk, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -195,8 +195,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 75.09113339163017,
-      "pef": 98.6365873674314
+      "ecs": 74.5803845507415,
+      "pef": 96.93789298753752
     },
     "name": "Wheat flour, at industrial mill {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -365,8 +365,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 2423.4656387064624,
-      "pef": 2809.4160542324425
+      "ecs": 2409.010003799407,
+      "pef": 2789.0265289467357
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -433,8 +433,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 5454.768881702009,
-      "pef": 5866.962929357459
+      "ecs": 5003.273445349865,
+      "pef": 5706.4526563003565
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [feedlot], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -467,8 +467,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1022.8928544825391,
-      "pef": 1128.309912370933
+      "ecs": 1021.4120282377946,
+      "pef": 1126.5338527007336
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [grass-fed], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -535,8 +535,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1146.076468809481,
-      "pef": 1332.9783574432186
+      "ecs": 1142.8480565000814,
+      "pef": 1328.1525903768934
     },
     "name": "Cooked ham, case ready, at plant {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -569,8 +569,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 967.2093886660133,
-      "pef": 875.6073918482263
+      "ecs": 917.3258163363533,
+      "pef": 844.7541235336494
     },
     "name": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -637,8 +637,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1002.7966067829357,
-      "pef": 1152.630373689208
+      "ecs": 987.2624495223083,
+      "pef": 1133.1091290859547
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -671,8 +671,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1038.2786524697924,
-      "pef": 1187.559011478903
+      "ecs": 1029.229708826484,
+      "pef": 1176.039227898165
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse [fr-organic]",
     "source": "Ecobalyse",
@@ -739,8 +739,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 210.05192070912287,
-      "pef": 261.13204060072036
+      "ecs": 212.0123358406498,
+      "pef": 263.4751401796689
     },
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -807,8 +807,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 312.52984554113317,
-      "pef": 360.4590660434512
+      "ecs": 312.6447198842142,
+      "pef": 359.68869106393646
     },
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -977,8 +977,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 501.4637540740909,
-      "pef": 585.6945053650963
+      "ecs": 496.29704452768004,
+      "pef": 578.5857139611874
     },
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -2473,8 +2473,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1956.6522284266962,
-      "pef": 2265.5258244151064
+      "ecs": 1945.089775553823,
+      "pef": 2249.1721457060557
     },
     "name": "Meat without bone, beef, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -2609,8 +2609,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1589.6590564384737,
-      "pef": 974.7024233146012
+      "ecs": 1142.4285630030897,
+      "pef": 873.769853721031
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [br-max], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -2643,8 +2643,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 859.8812762958948,
-      "pef": 680.7286222636042
+      "ecs": 824.6234391256212,
+      "pef": 666.3275219912294
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -3153,8 +3153,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 2780.43749192331,
-      "pef": 3315.2687054260427
+      "ecs": 2773.7065208448694,
+      "pef": 3302.998910798106
     },
     "name": "Meat without bone, lamb {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -7505,8 +7505,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 56.86371542054135,
-      "pef": 75.11819304767268
+      "ecs": 56.529630881818676,
+      "pef": 73.92713541613122
     },
     "name": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -9477,8 +9477,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1055.1748133055262,
-      "pef": 396.812784387594
+      "ecs": 321.0327715605974,
+      "pef": 207.31338943289109
     },
     "name": "Cherry, at farm (WFLDB)",
     "source": "WFLDB",
