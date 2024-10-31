@@ -88,6 +88,10 @@ formatFloat decimals float =
     else if float == 0 then
         "0"
 
+    else if toFloat (round float) == float then
+        -- flpat is an int, no need for decimals
+        simpleFmt 0 float
+
     else if abs float >= 100 then
         simpleFmt 0 float
 
