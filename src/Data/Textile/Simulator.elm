@@ -3,6 +3,7 @@ module Data.Textile.Simulator exposing
     , compute
     , encode
     , getTotalImpactsWithoutComplements
+    , getTotalImpactsWithoutDurability
     , stepMaterialImpacts
     , toStepsImpacts
     )
@@ -55,6 +56,7 @@ encode v =
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
         , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float )
         , ( "impacts", Impact.encode v.impacts )
+        , ( "impactsWithoutDurability", Impact.encode (getTotalImpactsWithoutDurability v.lifeCycle) )
         , ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "transport", Transport.encode v.transport )
@@ -749,6 +751,19 @@ getTotalImpactsWithoutComplements { durability, lifeCycle } =
         |> Array.toList
         |> Impact.sumImpacts
         |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
+
+
+getTotalImpactsWithoutDurability : LifeCycle -> Impacts
+getTotalImpactsWithoutDurability lifeCycle =
+    let
+        complementsImpactsWithoutDurability =
+            lifeCycle
+                |> Array.filter .enabled
+                |> LifeCycle.sumComplementsImpacts
+    in
+    lifeCycle
+        |> LifeCycle.computeFinalImpacts
+        |> Impact.impactsWithComplements complementsImpactsWithoutDurability
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator

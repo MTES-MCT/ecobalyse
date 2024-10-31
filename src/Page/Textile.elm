@@ -1122,6 +1122,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                         )
                 , productMass = inputs.mass
                 , totalImpacts = impacts
+                , totalImpactsWithoutDurability = Just <| Simulator.getTotalImpactsWithoutDurability simulator.lifeCycle
 
                 -- Impacts tabs
                 , impactTabsConfig =

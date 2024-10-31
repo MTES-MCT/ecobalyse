@@ -424,6 +424,7 @@ simulatorView session model =
                 , customScoreInfo = Nothing
                 , productMass = Simulator.extractMass model.results
                 , totalImpacts = Simulator.extractImpacts model.results
+                , totalImpactsWithoutDurability = Nothing
 
                 -- Impacts tabs
                 , impactTabsConfig =

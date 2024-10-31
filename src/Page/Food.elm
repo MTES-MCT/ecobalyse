@@ -1408,6 +1408,7 @@ sidebarView session model results =
         , customScoreInfo = Nothing
         , productMass = results.preparedMass
         , totalImpacts = results.total
+        , totalImpactsWithoutDurability = Nothing
 
         -- Impacts tabs
         , impactTabsConfig =
