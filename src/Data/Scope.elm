@@ -75,7 +75,7 @@ toLabel scope =
             "Textile"
 
         Veli ->
-            "Véhicule intermédiaire"
+            "Véhicules intermédiaires"
 
 
 toString : Scope -> String

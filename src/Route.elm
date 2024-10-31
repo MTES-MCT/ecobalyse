@@ -253,23 +253,23 @@ toString route =
                     []
 
                 ObjectSimulator scope trigram (Just query) ->
-                    [ objectPrefixPath scope
+                    [ Scope.toString scope
                     , "simulator"
                     , Definition.toString trigram
                     , ObjectQuery.b64encode query
                     ]
 
                 ObjectSimulator scope trigram Nothing ->
-                    [ objectPrefixPath scope
+                    [ Scope.toString scope
                     , "simulator"
                     , Definition.toString trigram
                     ]
 
                 ObjectSimulatorExample scope uuid ->
-                    [ objectPrefixPath scope, "edit-example", Uuid.toString uuid ]
+                    [ Scope.toString scope, "edit-example", Uuid.toString uuid ]
 
                 ObjectSimulatorHome scope ->
-                    [ objectPrefixPath scope, "simulator" ]
+                    [ Scope.toString scope, "simulator" ]
 
                 Stats ->
                     [ "stats" ]
@@ -294,12 +294,3 @@ toString route =
                     [ "textile", "simulator" ]
     in
     "#/" ++ String.join "/" pieces
-
-
-objectPrefixPath : Scope -> String
-objectPrefixPath scope =
-    if scope == Scope.Veli then
-        "veli"
-
-    else
-        "object"

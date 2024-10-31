@@ -39,7 +39,7 @@ const app = Elm.Main.init({
     clientUrl: location.origin + location.pathname,
     enabledSections: {
       food: process.env.ENABLE_FOOD_SECTION === "True",
-      objects: process.env.ENABLE_OBJECT_SECTION === "True",
+      objects: process.env.ENABLE_OBJECTS_SECTION === "True",
       textile: true, // always enabled
       veli: process.env.ENABLE_VELI_SECTION === "True",
     },

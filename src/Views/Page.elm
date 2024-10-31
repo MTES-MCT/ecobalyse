@@ -151,7 +151,7 @@ mainMenuLinks { enabledSections } =
         , addRouteIf enabledSections.objects <|
             Internal "Objets" (Route.ObjectSimulatorHome Scope.Object) (Object Scope.Object)
         , addRouteIf enabledSections.veli <|
-            Internal "Véhicule intermédiaire" (Route.ObjectSimulatorHome Scope.Veli) (Object Scope.Veli)
+            Internal "Véhicules intermédiaires" (Route.ObjectSimulatorHome Scope.Veli) (Object Scope.Veli)
         , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal "API" Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
