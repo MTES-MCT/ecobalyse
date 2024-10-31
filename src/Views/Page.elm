@@ -133,31 +133,25 @@ newVersionAlert { session, reloadPage } =
 
 
 mainMenuLinks : Session -> List MenuLink
-mainMenuLinks { enableFoodSection, enableObjectSection } =
+mainMenuLinks { enabledSections } =
+    let
+        addRouteIf flag route =
+            if flag then
+                Just route
+
+            else
+                Nothing
+    in
     List.filterMap identity
         [ Just <| Internal "Accueil" Route.Home Home
-        , Just <| Internal "Textile" Route.TextileSimulatorHome TextileSimulator
-        , if enableFoodSection then
-            Just <| Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
-
-          else
-            Nothing
-        , if enableObjectSection then
-            Just <|
-                Internal "Objets"
-                    (Route.ObjectSimulatorHome Scope.Object)
-                    (Object Scope.Object)
-
-          else
-            Nothing
-        , if enableObjectSection then
-            Just <|
-                Internal "Véhicule intermédiaire"
-                    (Route.ObjectSimulatorHome Scope.Veli)
-                    (Object Scope.Veli)
-
-          else
-            Nothing
+        , addRouteIf enabledSections.textile <|
+            Internal "Textile" Route.TextileSimulatorHome TextileSimulator
+        , addRouteIf enabledSections.food <|
+            Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
+        , addRouteIf enabledSections.objects <|
+            Internal "Objets" (Route.ObjectSimulatorHome Scope.Object) (Object Scope.Object)
+        , addRouteIf enabledSections.veli <|
+            Internal "Véhicule intermédiaire" (Route.ObjectSimulatorHome Scope.Veli) (Object Scope.Veli)
         , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal "API" Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail

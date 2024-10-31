@@ -200,9 +200,9 @@ datasetsMenuView { scope, dataset } =
 
 
 scopesMenuView : Session -> Model -> Html Msg
-scopesMenuView { enableFoodSection, enableObjectSection } model =
-    [ ( Scope.Food, enableFoodSection )
-    , ( Scope.Object, enableObjectSection )
+scopesMenuView { enabledSections } model =
+    [ ( Scope.Food, enabledSections.food )
+    , ( Scope.Object, enabledSections.objects )
     , ( Scope.Textile, True )
     ]
         |> List.filter Tuple.second

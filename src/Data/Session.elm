@@ -1,5 +1,6 @@
 module Data.Session exposing
     ( Auth(..)
+    , EnabledSections
     , Notification(..)
     , Session
     , Store
@@ -54,14 +55,21 @@ type alias Session =
     { clientUrl : String
     , currentVersion : Version
     , db : Db
-    , enableFoodSection : Bool
-    , enableObjectSection : Bool
+    , enabledSections : EnabledSections
     , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
     , notifications : List Notification
     , queries : Queries
     , releases : WebData (List Github.Release)
     , store : Store
+    }
+
+
+type alias EnabledSections =
+    { food : Bool
+    , objects : Bool
+    , textile : Bool
+    , veli : Bool
     }
 
 
