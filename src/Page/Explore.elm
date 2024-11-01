@@ -160,10 +160,15 @@ update session msg model =
                             Dataset.FoodExamples Nothing
 
                         Scope.Object ->
+                            -- FIXME: meubles examples only
                             Dataset.ObjectExamples Nothing
 
                         Scope.Textile ->
                             Dataset.TextileExamples Nothing
+
+                        Scope.Veli ->
+                            -- FIXME: veli examples only
+                            Dataset.ObjectExamples Nothing
               )
                 |> Route.Explore scope
                 |> Route.toString
@@ -195,9 +200,9 @@ datasetsMenuView { scope, dataset } =
 
 
 scopesMenuView : Session -> Model -> Html Msg
-scopesMenuView { enableFoodSection, enableObjectSection } model =
-    [ ( Scope.Food, enableFoodSection )
-    , ( Scope.Object, enableObjectSection )
+scopesMenuView { enabledSections } model =
+    [ ( Scope.Food, enabledSections.food )
+    , ( Scope.Object, enabledSections.objects )
     , ( Scope.Textile, True )
     ]
         |> List.filter Tuple.second

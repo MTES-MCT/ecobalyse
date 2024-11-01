@@ -150,6 +150,20 @@ addToComparison session label query =
                         }
                     )
 
+        Bookmark.Veli objectQuery ->
+            objectQuery
+                |> ObjectSimulator.compute session.db
+                |> Result.map
+                    (\results ->
+                        { complementsImpact = Impact.noComplementsImpacts
+                        , impacts = ObjectSimulator.extractImpacts results
+                        , label = label
+                        , stepsImpacts =
+                            results
+                                |> ObjectSimulator.toStepsImpacts Definition.Ecs
+                        }
+                    )
+
 
 comparatorView : Config msg -> List (Html msg)
 comparatorView config =

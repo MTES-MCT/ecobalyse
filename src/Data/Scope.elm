@@ -18,6 +18,7 @@ type Scope
     = Food
     | Object
     | Textile
+    | Veli
 
 
 decode : Decoder Scope
@@ -42,6 +43,9 @@ fromString string =
 
         "textile" ->
             Ok Textile
+
+        "veli" ->
+            Ok Veli
 
         _ ->
             Err <| "Couldn't decode unknown scope " ++ string
@@ -70,6 +74,9 @@ toLabel scope =
         Textile ->
             "Textile"
 
+        Veli ->
+            "Véhicules intermédiaires"
+
 
 toString : Scope -> String
 toString scope =
@@ -82,3 +89,6 @@ toString scope =
 
         Textile ->
             "textile"
+
+        Veli ->
+            "veli"
