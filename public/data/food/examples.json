@@ -2,6 +2,7 @@
   {
     "id": "1d04242a-6312-4d92-9233-8b485d128e65",
     "name": "Produit vide",
+    "scope": "food",
     "category": "",
     "query": {
       "ingredients": []
@@ -10,6 +11,7 @@
   {
     "id": "b2b9f235-e7c4-4727-aa7a-1f7c8b5a9812",
     "name": "Farine de blé bio FR (1kg) - 20",
+    "scope": "food",
     "category": "Produits céréaliers",
     "query": {
       "ingredients": [
@@ -31,6 +33,7 @@
   {
     "id": "3c7d4110-6064-45a2-a7de-6649fa72ca1a",
     "name": "Farine de blé FR (1kg) - 22",
+    "scope": "food",
     "category": "Produits céréaliers",
     "query": {
       "ingredients": [
@@ -52,6 +55,7 @@
   {
     "id": "e2de4127-69e0-4436-b814-efb648ac9ff7",
     "name": "Farine de blé origine Ukraine (1kg) - 22",
+    "scope": "food",
     "category": "Produits céréaliers",
     "query": {
       "ingredients": [
@@ -72,6 +76,7 @@
   {
     "id": "55539367-a21b-4da1-8009-e2620c18404f",
     "name": "Filets de poulet FR (250g) - 96",
+    "scope": "food",
     "category": "Volaille",
     "query": {
       "ingredients": [
@@ -94,6 +99,7 @@
   {
     "id": "af215046-d6af-470c-975f-643ad0be35e5",
     "name": "Filets de poulet origine Brésil (250g) - 100",
+    "scope": "food",
     "category": "Volaille",
     "query": {
       "ingredients": [
@@ -116,6 +122,7 @@
   {
     "id": "b9966def-463f-4ad0-b225-5da94f80de73",
     "name": "Pizza bolognese (375g) - 21",
+    "scope": "food",
     "category": "Produit surgelé",
     "query": {
       "ingredients": [
@@ -181,6 +188,7 @@
   {
     "id": "6fb777d4-eae2-4594-9f0c-7fc4e2853b97",
     "name": "Pizza bolognese FR (375g) - 21",
+    "scope": "food",
     "category": "Produit surgelé",
     "query": {
       "ingredients": [
@@ -257,6 +265,7 @@
   {
     "id": "786839bf-f348-4609-b2d4-75d3f35c692d",
     "name": "Pizza bolognese FR bio (375g) - 21",
+    "scope": "food",
     "category": "Produit surgelé",
     "query": {
       "ingredients": [
@@ -333,6 +342,7 @@
   {
     "id": "4ce49252-07c4-4e2a-a451-dc26f1550889",
     "name": "Pizza royale (350g) - 6",
+    "scope": "food",
     "category": "Produit surgelé",
     "query": {
       "ingredients": [
@@ -390,6 +400,7 @@
   {
     "id": "d97ee8a2-1e8b-425c-9ea4-c1d67d2640f9",
     "name": "Pizza royale FR (350g) - 6",
+    "scope": "food",
     "category": "Produit surgelé",
     "query": {
       "ingredients": [
@@ -455,6 +466,7 @@
   {
     "id": "1a2911dd-d32b-4e4e-9c31-a5eceaea66bb",
     "name": "Pizza végétale (385g) - 19",
+    "scope": "food",
     "category": "Produit surgelé",
     "query": {
       "ingredients": [
@@ -520,6 +532,7 @@
   {
     "id": "dafff308-db3f-4c3d-aa9c-b626c1b4ae17",
     "name": "Pizza végétale FR (385g) - 19",
+    "scope": "food",
     "category": "Produit surgelé",
     "query": {
       "ingredients": [
@@ -595,6 +608,7 @@
   {
     "id": "b375f93b-b8c2-4849-ab32-8a731a8212ca",
     "name": "Steak haché surgelé origine Brésil (200g) - 82",
+    "scope": "food",
     "category": "Viande bovine",
     "query": {
       "ingredients": [
@@ -617,6 +631,7 @@
   {
     "id": "f5872248-3fa2-49cd-928e-df1adb9c7094",
     "name": "Steak haché surgelé FR (250g) - 95",
+    "scope": "food",
     "category": "Viande bovine",
     "query": {
       "ingredients": [
@@ -639,6 +654,7 @@
   {
     "id": "2fd25fd5-48fa-49b5-b5f2-e9b1fc5db166",
     "name": "Steak haché surgelé bio FR (200g) - 78",
+    "scope": "food",
     "category": "Viande bovine",
     "query": {
       "ingredients": [

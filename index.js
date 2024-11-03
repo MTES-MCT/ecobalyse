@@ -37,8 +37,12 @@ const storeKey = "store";
 const app = Elm.Main.init({
   flags: {
     clientUrl: location.origin + location.pathname,
-    enableFoodSection: process.env.ENABLE_FOOD_SECTION === "True",
-    enableObjectSection: process.env.ENABLE_OBJECT_SECTION === "True",
+    enabledSections: {
+      food: process.env.ENABLE_FOOD_SECTION === "True",
+      objects: process.env.ENABLE_OBJECTS_SECTION === "True",
+      textile: true, // always enabled
+      veli: process.env.ENABLE_VELI_SECTION === "True",
+    },
     rawStore: localStorage[storeKey] || "null",
     matomo: {
       host: process.env.MATOMO_HOST || "",
