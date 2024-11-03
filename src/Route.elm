@@ -30,9 +30,9 @@ type Route
     | FoodBuilderExample Uuid
     | FoodBuilderHome
     | Home
-    | ObjectSimulator Definition.Trigram (Maybe ObjectQuery.Query)
-    | ObjectSimulatorExample Uuid
-    | ObjectSimulatorHome
+    | ObjectSimulator Scope Definition.Trigram (Maybe ObjectQuery.Query)
+    | ObjectSimulatorExample Scope Uuid
+    | ObjectSimulatorHome Scope
     | Stats
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | TextileSimulatorExample Uuid
@@ -63,11 +63,13 @@ parser =
                                 Dataset.FoodExamples Nothing
 
                             Scope.Object ->
-                                -- FIXME: object process examples page
-                                Dataset.TextileExamples Nothing
+                                Dataset.ObjectExamples Nothing
 
                             Scope.Textile ->
                                 Dataset.TextileExamples Nothing
+
+                            Scope.Veli ->
+                                Dataset.ObjectExamples Nothing
                         )
                 )
         , Parser.map Explore
@@ -91,14 +93,14 @@ parser =
             )
 
         -- Object specific routes
-        , Parser.map ObjectSimulatorHome
+        , Parser.map (ObjectSimulatorHome Scope.Object)
             (Parser.s "object" </> Parser.s "simulator")
-        , Parser.map ObjectSimulator <|
+        , Parser.map (ObjectSimulator Scope.Object) <|
             Parser.s "object"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> ObjectQuery.parseBase64Query
-        , Parser.map ObjectSimulatorExample
+        , Parser.map (ObjectSimulatorExample Scope.Object)
             (Parser.s "object"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
@@ -110,6 +112,20 @@ parser =
         , parseTextileSimulator
         , Parser.map TextileSimulatorExample
             (Parser.s "textile"
+                </> Parser.s "edit-example"
+                </> Example.parseUuid
+            )
+
+        -- Veli specific routes
+        , Parser.map (ObjectSimulatorHome Scope.Veli)
+            (Parser.s "veli" </> Parser.s "simulator")
+        , Parser.map (ObjectSimulator Scope.Veli) <|
+            Parser.s "veli"
+                </> Parser.s "simulator"
+                </> Impact.parseTrigram
+                </> ObjectQuery.parseBase64Query
+        , Parser.map (ObjectSimulatorExample Scope.Veli)
+            (Parser.s "veli"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
@@ -236,24 +252,24 @@ toString route =
                 Home ->
                     []
 
-                ObjectSimulator trigram (Just query) ->
-                    [ "object"
+                ObjectSimulator scope trigram (Just query) ->
+                    [ Scope.toString scope
                     , "simulator"
                     , Definition.toString trigram
                     , ObjectQuery.b64encode query
                     ]
 
-                ObjectSimulator trigram Nothing ->
-                    [ "object"
+                ObjectSimulator scope trigram Nothing ->
+                    [ Scope.toString scope
                     , "simulator"
                     , Definition.toString trigram
                     ]
 
-                ObjectSimulatorExample uuid ->
-                    [ "object", "edit-example", Uuid.toString uuid ]
+                ObjectSimulatorExample scope uuid ->
+                    [ Scope.toString scope, "edit-example", Uuid.toString uuid ]
 
-                ObjectSimulatorHome ->
-                    [ "object", "simulator" ]
+                ObjectSimulatorHome scope ->
+                    [ Scope.toString scope, "simulator" ]
 
                 Stats ->
                     [ "stats" ]

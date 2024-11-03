@@ -68,40 +68,58 @@ shareTabView { copyToClipBoard, impact, scope, session } =
         ( shareableLink, apiCall, jsonParams ) =
             case scope of
                 Scope.Food ->
-                    ( Just session.queries.food
+                    let
+                        query =
+                            session.queries.food
+                    in
+                    ( Just query
                         |> Route.FoodBuilder impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
-                    , session.queries.food
-                        |> FoodQuery.buildApiQuery session.clientUrl
-                    , session.queries.food
-                        |> FoodQuery.encode
+                    , FoodQuery.buildApiQuery session.clientUrl query
+                    , FoodQuery.encode query
                         |> Encode.encode 2
                     )
 
                 Scope.Object ->
-                    ( Just session.queries.object
-                        |> Route.ObjectSimulator impact.trigram
+                    let
+                        query =
+                            session.queries.object
+                    in
+                    ( Just query
+                        |> Route.ObjectSimulator scope impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
-                      -- FIXME: make this a maybe
-                    , session.queries.object
-                        |> ObjectQuery.buildApiQuery session.clientUrl
-                      -- FIXME: make this a maybe
-                    , session.queries.object
-                        |> ObjectQuery.encode
+                    , ObjectQuery.buildApiQuery scope session.clientUrl query
+                    , ObjectQuery.encode query
                         |> Encode.encode 2
                     )
 
                 Scope.Textile ->
-                    ( Just session.queries.textile
+                    let
+                        query =
+                            session.queries.textile
+                    in
+                    ( Just query
                         |> Route.TextileSimulator impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
-                    , session.queries.textile
-                        |> TextileQuery.buildApiQuery session.clientUrl
-                    , session.queries.textile
-                        |> TextileQuery.encode
+                    , TextileQuery.buildApiQuery session.clientUrl query
+                    , TextileQuery.encode query
+                        |> Encode.encode 2
+                    )
+
+                Scope.Veli ->
+                    let
+                        query =
+                            session.queries.veli
+                    in
+                    ( Just query
+                        |> Route.ObjectSimulator scope impact.trigram
+                        |> Route.toString
+                        |> (++) session.clientUrl
+                    , ObjectQuery.buildApiQuery scope session.clientUrl query
+                    , ObjectQuery.encode query
                         |> Encode.encode 2
                     )
     in
@@ -209,10 +227,10 @@ managerView cfg =
 
 
 bookmarksView : ManagerConfig msg -> Html msg
-bookmarksView cfg =
+bookmarksView ({ compare, scope, session } as cfg) =
     let
         bookmarks =
-            scopedBookmarks cfg.session cfg.scope
+            scopedBookmarks session scope
     in
     div []
         [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center" ]
@@ -221,7 +239,7 @@ bookmarksView cfg =
                 [ class "btn btn-sm btn-primary"
                 , title "Comparer vos simulations sauvegardées"
                 , disabled (List.isEmpty bookmarks)
-                , onClick cfg.compare
+                , onClick compare
                 ]
                 [ span [ class "me-1" ] [ Icon.stats ]
                 , text "Comparer"
@@ -229,6 +247,18 @@ bookmarksView cfg =
             ]
         , bookmarks
             |> Bookmark.sort
+            |> List.filter
+                (\{ subScope } ->
+                    case subScope of
+                        Just Scope.Object ->
+                            scope == Scope.Object
+
+                        Just Scope.Veli ->
+                            scope == Scope.Veli
+
+                        _ ->
+                            True
+                )
             |> List.map (bookmarkView cfg)
             |> ul
                 [ class "list-group list-group-flush rounded-bottom overflow-auto"
@@ -251,11 +281,15 @@ bookmarkView cfg ({ name, query } as bookmark) =
 
                 Bookmark.Object objectQuery ->
                     Just objectQuery
-                        |> Route.ObjectSimulator cfg.impact.trigram
+                        |> Route.ObjectSimulator Scope.Object cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
                         |> Route.TextileSimulator cfg.impact.trigram
+
+                Bookmark.Veli veliQuery ->
+                    Just veliQuery
+                        |> Route.ObjectSimulator Scope.Veli cfg.impact.trigram
     in
     li
         [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"
@@ -296,6 +330,9 @@ queryFromScope session scope =
         Scope.Textile ->
             Bookmark.Textile session.queries.textile
 
+        Scope.Veli ->
+            Bookmark.Veli session.queries.veli
+
 
 scopedBookmarks : Session -> Scope -> List Bookmark
 scopedBookmarks session scope =
@@ -310,5 +347,8 @@ scopedBookmarks session scope =
 
                 Scope.Textile ->
                     Bookmark.isTextile
+
+                Scope.Veli ->
+                    Bookmark.isVeli
             )
         |> Bookmark.sort

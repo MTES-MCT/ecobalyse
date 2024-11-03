@@ -30,6 +30,7 @@ type alias Config msg =
     , switchBookmarkTab : BookmarkView.ActiveTab -> msg
     , switchImpact : Result String Trigram -> msg
     , totalImpacts : Impacts
+    , totalImpactsWithoutDurability : Maybe Impacts
     , updateBookmarkName : String -> msg
     }
 
@@ -58,6 +59,7 @@ view config =
             , impactDefinition = config.selectedImpact
             , mass = config.productMass
             , score = config.totalImpacts
+            , scoreWithoutDurability = config.totalImpactsWithoutDurability
             }
         , case config.impactTabsConfig of
             Just impactTabsConfig ->

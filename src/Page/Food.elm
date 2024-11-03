@@ -355,6 +355,7 @@ update ({ db, queries } as session) msg model =
                     { name = String.trim name
                     , query = foodQuery
                     , created = now
+                    , subScope = Nothing
                     }
             , Cmd.none
             )
@@ -1407,6 +1408,7 @@ sidebarView session model results =
         , customScoreInfo = Nothing
         , productMass = results.preparedMass
         , totalImpacts = results.total
+        , totalImpactsWithoutDurability = Nothing
 
         -- Impacts tabs
         , impactTabsConfig =

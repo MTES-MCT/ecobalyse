@@ -6,6 +6,7 @@ from zipfile import ZipFile
 import bw2data
 import bw2io
 from bw2data.project import projects
+from frozendict import frozendict
 
 PROJECT = "default"
 # Agribalyse
@@ -52,6 +53,12 @@ def import_method(project, datapath=METHODPATH, biosphere=BIOSPHERE):
     # ef.write_excel(METHODNAME)
     # drop CFs which are not linked to a biosphere substance
     ef.drop_unlinked()
+    # remove duplicates in exchanges
+    for m in ef.data:
+        m["exchanges"] = [
+            dict(f) for f in list(set([frozendict(d) for d in m["exchanges"]]))
+        ]
+
     ef.write_methods()
     print(f"### Finished importing {METHODNAME}\n")
 

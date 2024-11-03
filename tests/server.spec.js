@@ -320,6 +320,14 @@ describe("API", () => {
         expectStatus(response, 200);
         expect(response.body.lifeCycle).toHaveLength(8);
       });
+
+      it("should expose impacts without durability", async () => {
+        const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
+
+        expectStatus(response, 200);
+        expect(response.body.impacts.ecs).toBeCloseTo(1574.39, 1);
+        expect(response.body.impactsWithoutDurability.ecs).toBeCloseTo(1054.84, 1);
+      });
     });
 
     describe("End to end textile simulations", () => {
