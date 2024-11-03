@@ -877,10 +877,5 @@
   ["water", "Titanium", "Titanium, ion"],
   ["water", "Toluene, 2-chloro-", "Toluene, 2-chloro"],
   ["water", "Vanadium", "Vanadium, ion"],
-  ["water", "Zinc", "Zinc, ion"],
-  [
-    "air",
-    "NMVOC, non-methane volatile organic compounds, unspecified origin",
-    "NMVOC, non-methane volatile organic compounds"
-  ]
+  ["water", "Zinc", "Zinc, ion"]
 ]
