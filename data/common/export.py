@@ -33,6 +33,9 @@ COMPARED_IMPACTS_FILE = "compared_impacts.csv"
 with open(f"{PROJECT_ROOT_DIR}/public/data/impacts.json") as f:
     IMPACTS_JSON = json.load(f)
 
+PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
+COMPARED_IMPACTS_FILE = "compared_impacts.csv"
+
 
 def check_ids(ingredients):
     # Check the id is lowercase and does not contain space
@@ -241,7 +244,7 @@ def compute_impacts(frozen_processes, default_db, impacts_py):
             process["impacts"] = compute_brightway_impacts(
                 activity, main_method, impacts_py
             )
-            logger.info(f"got impacts from brightway for: {process['name']}")
+            print(f"got impacts from brightway for: {process['name']}")
 
         # compute subimpacts
         process["impacts"] = with_subimpacts(process["impacts"])

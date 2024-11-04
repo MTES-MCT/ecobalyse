@@ -50,7 +50,7 @@ export_textile:
 	@$(call DOCKER,bash -c "python3 textile/export.py")
 
 export_object:
-	@$(call DOCKER,bash -c "python3 object/export.py && npm run processes:build")
+	@$(call DOCKER,bash -c "python3 object/export.py")
 
 compare_food:
 	@$(call DOCKER,bash -c "python3 food/export.py compare")
