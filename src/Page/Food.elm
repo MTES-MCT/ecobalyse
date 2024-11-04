@@ -1331,32 +1331,46 @@ consumptionView db selectedImpact recipe results =
 mainView : Session -> Model -> Html Msg
 mainView ({ db } as session) model =
     let
-        computed =
+        query =
             session.queries.food
-                |> Recipe.compute db
+
+        computed =
+            Recipe.compute db query
     in
     div [ class "row gap-3 gap-lg-0" ]
-        [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ ExampleView.view
-                { currentQuery = session.queries.food
-                , emptyQuery = Query.empty
-                , examples = db.food.examples
-                , helpUrl = Nothing
-                , onOpen = SelectExampleModal >> SetModal
-                , routes =
-                    { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
-                    , load = Route.FoodBuilderExample
-                    , scopeHome = Route.FoodBuilderHome
-                    }
-                }
+        [ div [ class "col-lg-8" ]
+            [ div [ class "row pb-3 g-2" ]
+                [ div [ class "col-lg-7" ]
+                    [ ExampleView.view
+                        { currentQuery = query
+                        , emptyQuery = Query.empty
+                        , examples = db.food.examples
+                        , helpUrl = Nothing
+                        , onOpen = SelectExampleModal >> SetModal
+                        , routes =
+                            { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                            , load = Route.FoodBuilderExample
+                            , scopeHome = Route.FoodBuilderHome
+                            }
+                        }
+                    ]
+                , label [ class "col-lg-5 d-flex justify-content-between align-items-center gap-2" ]
+                    [ span [ class "text-nowrap" ] [ text "Masse du produit fini" ]
+                    , MassInput.view
+                        -- query.mass
+                        { mass = Quantity.zero
+                        , onChange = always NoOp
+                        , disabled = False
+                        }
+                    ]
+                ]
             , case computed of
                 Err error ->
                     errorView error
 
                 Ok ( recipe, results ) ->
                     stepListView db session model recipe results
-            , session.queries.food
-                |> debugQueryView db
+            , debugQueryView db query
             ]
         , div [ class "col-lg-4 d-flex flex-column gap-3" ]
             [ case computed of
