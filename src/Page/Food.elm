@@ -119,6 +119,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDistribution String
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
+    | UpdateMass (Maybe Mass)
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
@@ -450,6 +451,13 @@ update ({ db, queries } as session) msg model =
         UpdateIngredient oldIngredient newIngredient ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
+
+        UpdateMass (Just mass) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateMass mass query)
+
+        UpdateMass Nothing ->
+            ( model, session, Cmd.none )
 
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
@@ -1358,7 +1366,7 @@ mainView ({ db } as session) model =
                     [ span [ class "text-nowrap" ] [ text "Masse du produit fini" ]
                     , MassInput.view
                         { mass = query.mass
-                        , onChange = always NoOp
+                        , onChange = UpdateMass
                         , disabled = False
                         }
                     ]

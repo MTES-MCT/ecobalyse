@@ -18,6 +18,7 @@ module Data.Food.Query exposing
     , setTransform
     , updateDistribution
     , updateIngredient
+    , updateMass
     , updatePackaging
     , updatePreparation
     , updateTransform
@@ -251,6 +252,12 @@ setTransform transform query =
 setDistribution : Retail.Distribution -> Query -> Query
 setDistribution distribution query =
     { query | distribution = Just distribution }
+
+
+updateMass : Mass -> Query -> Query
+updateMass mass query =
+    -- FIXME: update ingredient masses from product final mass
+    { query | mass = mass }
 
 
 updatePreparation : Preparation.Id -> Preparation.Id -> Query -> Query

@@ -35,7 +35,11 @@
   },
   {
     "name": "Mango from default origin, but by boat",
-    "query": ["mass=1000", "ingredients[]=mango-non-eu;120;;noPlane", "category=fruitsAndVegetables"],
+    "query": [
+      "mass=1000",
+      "ingredients[]=mango-non-eu;120;;noPlane",
+      "category=fruitsAndVegetables"
+    ],
     "impacts": {
       "acd": 0.0016648344354554664,
       "cch": 0.16906826360893284,
