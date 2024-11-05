@@ -8,6 +8,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 482.08061634078916,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21,12 +22,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 404.2689900739916,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 482.08061634078916,
-      "pef": 404.2689900739916
+      "wtu": 0
     },
     "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -42,6 +42,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 129.48432437479158,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -55,12 +56,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 100.87442345178292,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 129.48432437479158,
-      "pef": 100.87442345178292
+      "wtu": 0
     },
     "name": "Cow milk, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -76,6 +76,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 73.37087081936893,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -89,12 +90,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 85.63684863108533,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 73.37087081936893,
-      "pef": 85.63684863108533
+      "wtu": 0
     },
     "name": "Cow milk, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -110,6 +110,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 13.032834134308757,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -123,12 +124,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 15.0901846276169,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 13.032834134308757,
-      "pef": 15.0901846276169
+      "wtu": 0
     },
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -144,6 +144,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 105.1982028919293,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -157,12 +158,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 80.00147574034824,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 105.1982028919293,
-      "pef": 80.00147574034824
+      "wtu": 0
     },
     "name": "Wheat flour, at industrial mill {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -178,6 +178,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 75.26055864681251,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -191,12 +192,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 98.72849240984114,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 75.26055864681251,
-      "pef": 98.72849240984114
+      "wtu": 0
     },
     "name": "Wheat flour, at industrial mill {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -212,6 +212,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 158.66882985735518,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -225,12 +226,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 148.32081139883704,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 158.66882985735518,
-      "pef": 148.32081139883704
+      "wtu": 0
     },
     "name": "Sunflower grain, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -246,6 +246,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 93.45778017599187,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -259,12 +260,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 112.2808691171095,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 93.45778017599187,
-      "pef": 112.2808691171095
+      "wtu": 0
     },
     "name": "Sunflower, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -280,6 +280,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 119.00957972053897,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -293,12 +294,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 149.00738961540023,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 119.00957972053897,
-      "pef": 149.00738961540023
+      "wtu": 0
     },
     "name": "Winter rapeseed, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -314,6 +314,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 3024.911189109131,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -327,12 +328,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 3032.2538631532266,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 3024.911189109131,
-      "pef": 3032.2538631532266
+      "wtu": 0
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -348,6 +348,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 2425.823485043942,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -361,12 +362,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 2811.3582150323687,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 2425.823485043942,
-      "pef": 2811.3582150323687
+      "wtu": 0
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -382,6 +382,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1171.3349689288743,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -395,12 +396,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1365.0583752846949,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1171.3349689288743,
-      "pef": 1365.0583752846949
+      "wtu": 0
     },
     "name": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -416,6 +416,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 5461.590204460072,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -429,12 +430,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 5876.92060513087,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 5461.590204460072,
-      "pef": 5876.92060513087
+      "wtu": 0
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [feedlot], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -450,6 +450,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1022.9573861772992,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -463,12 +464,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1128.5107935598958,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1022.9573861772992,
-      "pef": 1128.5107935598958
+      "wtu": 0
     },
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [grass-fed], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -484,6 +484,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1043.5126910351307,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -497,12 +498,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 889.2035037022284,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1043.5126910351307,
-      "pef": 889.2035037022284
+      "wtu": 0
     },
     "name": "Cooked ham, case ready, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -518,6 +518,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1147.3723979011559,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -531,12 +532,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1334.581025512258,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1147.3723979011559,
-      "pef": 1334.581025512258
+      "wtu": 0
     },
     "name": "Cooked ham, case ready, at plant {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -552,6 +552,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 968.0164716710459,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -565,12 +566,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 876.8363268873853,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 968.0164716710459,
-      "pef": 876.8363268873853
+      "wtu": 0
     },
     "name": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -586,6 +586,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1114.8106857579342,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -599,12 +600,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 763.0764466053243,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1114.8106857579342,
-      "pef": 763.0764466053243
+      "wtu": 0
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -620,6 +620,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1004.8585091973191,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -633,12 +634,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1154.2152105956693,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1004.8585091973191,
-      "pef": 1154.2152105956693
+      "wtu": 0
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -654,6 +654,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1040.3769070155245,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -667,12 +668,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1189.0632572471125,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1040.3769070155245,
-      "pef": 1189.0632572471125
+      "wtu": 0
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse [fr-organic]",
     "source": "Ecobalyse",
@@ -688,6 +688,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 430.3338526141934,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -701,12 +702,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 462.5562241371983,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 430.3338526141934,
-      "pef": 462.5562241371983
+      "wtu": 0
     },
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -722,6 +722,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 210.4036173333553,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -735,12 +736,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 261.37176890654104,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 210.4036173333553,
-      "pef": 261.37176890654104
+      "wtu": 0
     },
     "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -756,6 +756,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 942.0457866166042,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -769,12 +770,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 505.7992914265785,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 942.0457866166042,
-      "pef": 505.7992914265785
+      "wtu": 0
     },
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -790,6 +790,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 314.0785985341947,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -803,12 +804,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 361.7983584694989,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 314.0785985341947,
-      "pef": 361.7983584694989
+      "wtu": 0
     },
     "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -824,6 +824,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 20.61790199404379,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -837,12 +838,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 23.755447115550382,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 20.61790199404379,
-      "pef": 23.755447115550382
+      "wtu": 0
     },
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -858,6 +858,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 57.124371220502454,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -871,12 +872,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 69.34253333508022,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 57.124371220502454,
-      "pef": 69.34253333508022
+      "wtu": 0
     },
     "name": "Peach, organic, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -892,6 +892,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 25.66289567999664,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -905,12 +906,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 31.02454966019247,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 25.66289567999664,
-      "pef": 31.02454966019247
+      "wtu": 0
     },
     "name": "Melon, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -926,6 +926,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 871.4251639682516,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -939,12 +940,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 686.5752145660015,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 871.4251639682516,
-      "pef": 686.5752145660015
+      "wtu": 0
     },
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -960,6 +960,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 502.1102282218812,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -973,12 +974,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 586.2879422944784,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 502.1102282218812,
-      "pef": 586.2879422944784
+      "wtu": 0
     },
     "name": "Butter, 82% fat, unsalted, at dairy {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -994,6 +994,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 121.50585817435886,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1007,12 +1008,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 143.8810228105392,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 121.50585817435886,
-      "pef": 143.8810228105392
+      "wtu": 0
     },
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1028,6 +1028,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 271.5375310800338,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1041,12 +1042,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 306.3852532983293,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 271.5375310800338,
-      "pef": 306.3852532983293
+      "wtu": 0
     },
     "name": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1062,6 +1062,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 247.86236916466407,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1075,12 +1076,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 284.949378734688,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 247.86236916466407,
-      "pef": 284.949378734688
+      "wtu": 0
     },
     "name": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1096,6 +1096,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 88.5520083465087,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1109,12 +1110,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 95.13497007378089,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 88.5520083465087,
-      "pef": 95.13497007378089
+      "wtu": 0
     },
     "name": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1130,6 +1130,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 178.18145962377145,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1143,12 +1144,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 208.34431090459947,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 178.18145962377145,
-      "pef": 208.34431090459947
+      "wtu": 0
     },
     "name": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1164,6 +1164,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 91.72303477509107,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1177,12 +1178,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 91.76476355591325,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 91.72303477509107,
-      "pef": 91.76476355591325
+      "wtu": 0
     },
     "name": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1198,6 +1198,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 88.25250225882226,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1211,12 +1212,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 98.87885585685957,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 88.25250225882226,
-      "pef": 98.87885585685957
+      "wtu": 0
     },
     "name": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1232,6 +1232,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 217.369331279305,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1245,12 +1246,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 245.14827023795374,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 217.369331279305,
-      "pef": 245.14827023795374
+      "wtu": 0
     },
     "name": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1266,6 +1266,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 584.6177614958614,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1279,12 +1280,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 703.6186085850576,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 584.6177614958614,
-      "pef": 703.6186085850576
+      "wtu": 0
     },
     "name": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1300,6 +1300,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 181.7442951500233,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1313,12 +1314,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 211.99155599148867,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 181.7442951500233,
-      "pef": 211.99155599148867
+      "wtu": 0
     },
     "name": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1334,6 +1334,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1581.6529964075614,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1347,12 +1348,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1778.9122405084688,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1581.6529964075614,
-      "pef": 1778.9122405084688
+      "wtu": 0
     },
     "name": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1368,6 +1368,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 31.385763381974535,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1381,12 +1382,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 38.26902698523428,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 31.385763381974535,
-      "pef": 38.26902698523428
+      "wtu": 0
     },
     "name": "Canning fruits or vegetables, industrial, 1kg of canned product {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -1402,6 +1402,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 0.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1415,12 +1416,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 0.0,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 0.0,
-      "pef": 0.0
+      "wtu": 0
     },
     "name": "[Dummy] Mixing, processing, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -1436,6 +1436,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.225350669195503,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1449,12 +1450,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 28.412511354253777,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.225350669195503,
-      "pef": 28.412511354253777
+      "wtu": 0
     },
     "name": "Cooking, industrial, 1kg of cooked product {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -1470,6 +1470,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 13.93961232731802,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1483,12 +1484,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 14.217243686020684,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 13.93961232731802,
-      "pef": 14.217243686020684
+      "wtu": 0
     },
     "name": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1504,6 +1504,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1.236639905823269,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1517,12 +1518,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1.399297156313329,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1.236639905823269,
-      "pef": 1.399297156313329
+      "wtu": 0
     },
     "name": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1538,6 +1538,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 53.46775452152507,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1551,12 +1552,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 54.29010065781355,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 53.46775452152507,
-      "pef": 54.29010065781355
+      "wtu": 0
     },
     "name": "Transport, freight, aircraft, unspecified {GLO}| market for transport, freight, aircraft, unspecified | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1572,6 +1572,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 2.4787760834132198,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1585,12 +1586,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 2.74698197398742,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 2.4787760834132198,
-      "pef": 2.74698197398742
+      "wtu": 0
     },
     "name": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1606,6 +1606,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 22.462078682501264,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1619,12 +1620,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 22.63781975343938,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 22.462078682501264,
-      "pef": 22.63781975343938
+      "wtu": 0
     },
     "name": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1640,6 +1640,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 25.820876635284137,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1653,12 +1654,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 31.584083204083548,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 25.820876635284137,
-      "pef": 31.584083204083548
+      "wtu": 0
     },
     "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1674,6 +1674,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 0.28316945990608366,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1687,12 +1688,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 0.35589128361361155,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 0.28316945990608366,
-      "pef": 0.35589128361361155
+      "wtu": 0
     },
     "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1708,6 +1708,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 4.505715956676105,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1721,12 +1722,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 4.2444650292017325,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 4.505715956676105,
-      "pef": 4.2444650292017325
+      "wtu": 0
     },
     "name": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -1742,6 +1742,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 623.860112245248,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1755,12 +1756,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 501.69304798545176,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 623.860112245248,
-      "pef": 501.69304798545176
+      "wtu": 0
     },
     "name": "Comte cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -1776,6 +1776,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 653.0420990279582,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1789,12 +1790,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 523.4522162300182,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 653.0420990279582,
-      "pef": 523.4522162300182
+      "wtu": 0
     },
     "name": "Emmental cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -1810,6 +1810,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 477.89834792280885,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1823,12 +1824,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 383.3898575988133,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 477.89834792280885,
-      "pef": 383.3898575988133
+      "wtu": 0
     },
     "name": "Mozzarella cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -1844,6 +1844,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 13.032834134308757,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1857,12 +1858,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 15.0901846276169,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 13.032834134308757,
-      "pef": 15.0901846276169
+      "wtu": 0
     },
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -1878,6 +1878,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 13.032834134308757,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1891,12 +1892,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 15.0901846276169,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 13.032834134308757,
-      "pef": 15.0901846276169
+      "wtu": 0
     },
     "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -1912,6 +1912,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 12.58861085838991,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1925,12 +1926,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 12.591749875827201,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 12.58861085838991,
-      "pef": 12.591749875827201
+      "wtu": 0
     },
     "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -1946,6 +1946,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 40.555714265853396,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1959,12 +1960,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 49.24712177006622,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 40.555714265853396,
-      "pef": 49.24712177006622
+      "wtu": 0
     },
     "name": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -1980,6 +1980,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 53.02961304851452,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1993,12 +1994,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 56.28631578307504,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 53.02961304851452,
-      "pef": 56.28631578307504
+      "wtu": 0
     },
     "name": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -2014,6 +2014,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 76.00444657735915,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2027,12 +2028,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 68.29126821945296,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 76.00444657735915,
-      "pef": 68.29126821945296
+      "wtu": 0
     },
     "name": "Soybean, national average, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2048,6 +2048,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 115.33712697697423,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2061,12 +2062,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 136.43216223167863,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 115.33712697697423,
-      "pef": 136.43216223167863
+      "wtu": 0
     },
     "name": "Soybean, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2082,6 +2082,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 427.21566044739865,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2095,12 +2096,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 122.85469020017466,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 427.21566044739865,
-      "pef": 122.85469020017466
+      "wtu": 0
     },
     "name": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
     "source": "Agribalyse 3.1.1",
@@ -2116,6 +2116,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 489.4070683537393,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2129,12 +2130,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 194.46230182615702,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 489.4070683537393,
-      "pef": 194.46230182615702
+      "wtu": 0
     },
     "name": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -2150,6 +2150,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 77.15577351297308,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2163,12 +2164,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 69.51737699966563,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 77.15577351297308,
-      "pef": 69.51737699966563
+      "wtu": 0
     },
     "name": "Soybean grain dried, stored and transported, processing {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2184,6 +2184,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1321.8702289111702,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2197,12 +2198,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1131.0975385390955,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1321.8702289111702,
-      "pef": 1131.0975385390955
+      "wtu": 0
     },
     "name": "Sausage meat, raw, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2218,6 +2218,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 2099.3512657815277,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2231,12 +2232,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1857.6721986102464,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 2099.3512657815277,
-      "pef": 1857.6721986102464
+      "wtu": 0
     },
     "name": "Toulouse sausage, raw, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2252,6 +2252,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 2123.5766156604486,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2265,12 +2266,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1886.0847087530826,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 2123.5766156604486,
-      "pef": 1886.0847087530826
+      "wtu": 0
     },
     "name": "Toulouse sausage, cooked, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2286,6 +2286,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 118.25141452057227,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2299,12 +2300,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 99.18069025582145,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 118.25141452057227,
-      "pef": 99.18069025582145
+      "wtu": 0
     },
     "name": "Plant-based sausage with tofu (vegan), at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2320,6 +2320,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 265.0904671642133,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2333,12 +2334,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 293.0029435780502,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 265.0904671642133,
-      "pef": 293.0029435780502
+      "wtu": 0
     },
     "name": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -2354,6 +2354,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 411.45133158605597,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2367,12 +2368,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 452.3148770874482,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 411.45133158605597,
-      "pef": 452.3148770874482
+      "wtu": 0
     },
     "name": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -2388,6 +2388,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1953.7986977698022,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2401,12 +2402,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1955.2669596997257,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1953.7986977698022,
-      "pef": 1955.2669596997257
+      "wtu": 0
     },
     "name": "Meat with bone, beef, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2422,6 +2422,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 2446.8756165102686,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2435,12 +2436,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 2447.1062686309256,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 2446.8756165102686,
-      "pef": 2447.1062686309256
+      "wtu": 0
     },
     "name": "Meat without bone, beef, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2456,6 +2456,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1958.5526334520916,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2469,12 +2470,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 2267.051735599336,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1958.5526334520916,
-      "pef": 2267.051735599336
+      "wtu": 0
     },
     "name": "Meat without bone, beef, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -2490,6 +2490,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 182.83376189686146,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2503,12 +2504,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 192.16577622075008,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 182.83376189686146,
-      "pef": 192.16577622075008
+      "wtu": 0
     },
     "name": "Durum wheat, semolina, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2524,6 +2524,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 148.39172813220915,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2537,12 +2538,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 147.802025354746,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 148.39172813220915,
-      "pef": 147.802025354746
+      "wtu": 0
     },
     "name": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -2558,6 +2558,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 821.3039627054469,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2571,12 +2572,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 815.7641303963198,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 821.3039627054469,
-      "pef": 815.7641303963198
+      "wtu": 0
     },
     "name": "Dark chocolate, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2592,6 +2592,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1591.125226714898,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2605,12 +2606,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 976.6095425208241,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1591.125226714898,
-      "pef": 976.6095425208241
+      "wtu": 0
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [br-max], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -2626,6 +2626,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 861.0753030181475,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2639,12 +2640,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 682.1097111642912,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 861.0753030181475,
-      "pef": 682.1097111642912
+      "wtu": 0
     },
     "name": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -2660,6 +2660,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1905.9977705947435,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2673,12 +2674,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 361.71176498771126,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1905.9977705947435,
-      "pef": 361.71176498771126
+      "wtu": 0
     },
     "name": "Brown sugar, production, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2694,6 +2694,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1381.9906488597785,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2707,12 +2708,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 676.8829609153016,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1381.9906488597785,
-      "pef": 676.8829609153016
+      "wtu": 0
     },
     "name": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -2728,6 +2728,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 3165.914670980986,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2741,12 +2742,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1798.419934482006,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 3165.914670980986,
-      "pef": 1798.419934482006
+      "wtu": 0
     },
     "name": "Coffee, roast and ground, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2762,6 +2762,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1226.5149792757582,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2775,12 +2776,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1130.1851485397244,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1226.5149792757582,
-      "pef": 1130.1851485397244
+      "wtu": 0
     },
     "name": "Black pepper, dried, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2796,6 +2796,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1251.7720741272337,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2809,12 +2810,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1495.5358092270042,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1251.7720741272337,
-      "pef": 1495.5358092270042
+      "wtu": 0
     },
     "name": "Milk, powder, skimmed, non rehydrated, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2830,6 +2830,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 151.9720920448877,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2843,12 +2844,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 155.2173279408098,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 151.9720920448877,
-      "pef": 155.2173279408098
+      "wtu": 0
     },
     "name": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2864,6 +2864,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 289.98775169467257,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2877,12 +2878,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 264.39734333926424,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 289.98775169467257,
-      "pef": 264.39734333926424
+      "wtu": 0
     },
     "name": "Fresh shrimps, China production {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2898,6 +2898,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 542.7480745452824,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2911,12 +2912,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 501.72994380981555,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 542.7480745452824,
-      "pef": 501.72994380981555
+      "wtu": 0
     },
     "name": "Large trout, 2-4kg, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2932,6 +2932,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 649.9474216018834,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2945,12 +2946,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 471.2837857332832,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 649.9474216018834,
-      "pef": 471.2837857332832
+      "wtu": 0
     },
     "name": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2966,6 +2966,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 520.428565560424,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2979,12 +2980,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 369.64232150226667,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 520.428565560424,
-      "pef": 369.64232150226667
+      "wtu": 0
     },
     "name": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3000,6 +3000,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 619.2337280221161,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3013,12 +3014,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 449.50132103006086,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 619.2337280221161,
-      "pef": 449.50132103006086
+      "wtu": 0
     },
     "name": "Egg, conventional, outdoor system, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3034,6 +3034,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 339.3585332826367,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3047,12 +3048,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 413.80802757818947,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 339.3585332826367,
-      "pef": 413.80802757818947
+      "wtu": 0
     },
     "name": "Egg, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3068,6 +3068,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 71.7155311698486,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3081,12 +3082,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 82.14988484686424,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 71.7155311698486,
-      "pef": 82.14988484686424
+      "wtu": 0
     },
     "name": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "source": "Ginko",
@@ -3102,6 +3102,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 4107.6172057659305,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3115,12 +3116,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 4303.984916400434,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 4107.6172057659305,
-      "pef": 4303.984916400434
+      "wtu": 0
     },
     "name": "Meat without bone, lamb {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3136,6 +3136,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 2782.6816559031586,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3149,12 +3150,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 3316.623810752744,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 2782.6816559031586,
-      "pef": 3316.623810752744
+      "wtu": 0
     },
     "name": "Meat without bone, lamb {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -3170,6 +3170,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 43.46995904714033,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3183,12 +3184,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 40.79877780981382,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 43.46995904714033,
-      "pef": 40.79877780981382
+      "wtu": 0
     },
     "name": "Pear, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -3204,6 +3204,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 64.98479572456807,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3217,12 +3218,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 17.81850610595258,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 64.98479572456807,
-      "pef": 17.81850610595258
+      "wtu": 0
     },
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3238,6 +3238,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 30.913629489638385,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3251,12 +3252,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 19.724450306619094,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 30.913629489638385,
-      "pef": 19.724450306619094
+      "wtu": 0
     },
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -3272,6 +3272,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 38.398618742819814,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3285,12 +3286,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 30.571496239023755,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 38.398618742819814,
-      "pef": 30.571496239023755
+      "wtu": 0
     },
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -3306,6 +3306,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.03280371085538,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3319,12 +3320,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 25.31894771189254,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.03280371085538,
-      "pef": 25.31894771189254
+      "wtu": 0
     },
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3340,6 +3340,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.997074386706196,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3353,12 +3354,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 25.202985524893382,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.997074386706196,
-      "pef": 25.202985524893382
+      "wtu": 0
     },
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3374,6 +3374,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 21.184724199100767,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3387,12 +3388,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 21.62263161962437,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 21.184724199100767,
-      "pef": 21.62263161962437
+      "wtu": 0
     },
     "name": "Pear, conventional, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3408,6 +3408,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 42.87410310985863,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3421,12 +3422,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 25.039985657174284,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 42.87410310985863,
-      "pef": 25.039985657174284
+      "wtu": 0
     },
     "name": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -3442,6 +3442,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 61.726586347691565,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3455,12 +3456,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 51.23128039780415,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 61.726586347691565,
-      "pef": 51.23128039780415
+      "wtu": 0
     },
     "name": "Peach, production mix, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3476,6 +3476,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 204.3874851964266,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3489,12 +3490,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 144.97598542413004,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 204.3874851964266,
-      "pef": 144.97598542413004
+      "wtu": 0
     },
     "name": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -3510,6 +3510,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 31.102909624216796,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3523,12 +3524,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 32.6340993191992,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 31.102909624216796,
-      "pef": 32.6340993191992
+      "wtu": 0
     },
     "name": "Melon, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3544,6 +3544,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 31.102909624216796,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3557,12 +3558,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 32.6340993191992,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 31.102909624216796,
-      "pef": 32.6340993191992
+      "wtu": 0
     },
     "name": "Melon, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3578,6 +3578,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 18.668974385921725,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3591,12 +3592,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 14.23118151745599,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 18.668974385921725,
-      "pef": 14.23118151745599
+      "wtu": 0
     },
     "name": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3612,6 +3612,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 18.708274892164997,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3625,12 +3626,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 14.283346497425525,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 18.708274892164997,
-      "pef": 14.283346497425525
+      "wtu": 0
     },
     "name": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3646,6 +3646,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 492.976460642955,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3659,12 +3660,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 345.3386678700623,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 492.976460642955,
-      "pef": 345.3386678700623
+      "wtu": 0
     },
     "name": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -3680,6 +3680,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 153.36900038051974,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3693,12 +3694,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 170.6819853728235,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 153.36900038051974,
-      "pef": 170.6819853728235
+      "wtu": 0
     },
     "name": "Wheat grain, feed {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -3714,6 +3714,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 21.412666296293644,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3727,12 +3728,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 18.376791757746535,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 21.412666296293644,
-      "pef": 18.376791757746535
+      "wtu": 0
     },
     "name": "Onion, national average, at farm {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3748,6 +3748,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 40.00755395302994,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3761,12 +3762,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 33.35361891312618,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 40.00755395302994,
-      "pef": 33.35361891312618
+      "wtu": 0
     },
     "name": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -3782,6 +3782,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 60.1861766137081,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3795,12 +3796,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 67.12923161761333,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 60.1861766137081,
-      "pef": 67.12923161761333
+      "wtu": 0
     },
     "name": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -3816,6 +3816,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.03280371085538,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3829,12 +3830,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 25.31894771189254,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.03280371085538,
-      "pef": 25.31894771189254
+      "wtu": 0
     },
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3850,6 +3850,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.03280371085538,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3863,12 +3864,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 25.31894771189254,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.03280371085538,
-      "pef": 25.31894771189254
+      "wtu": 0
     },
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3884,6 +3884,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 43.47025936799167,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3897,12 +3898,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 38.78399395041111,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 43.47025936799167,
-      "pef": 38.78399395041111
+      "wtu": 0
     },
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3918,6 +3918,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 43.47025936799167,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3931,12 +3932,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 38.78399395041111,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 43.47025936799167,
-      "pef": 38.78399395041111
+      "wtu": 0
     },
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3952,6 +3952,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 43.47025936799167,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3965,12 +3966,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 38.78399395041111,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 43.47025936799167,
-      "pef": 38.78399395041111
+      "wtu": 0
     },
     "name": "French bean, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -3986,6 +3986,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 26.78991001440472,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3999,12 +4000,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 26.02451803953416,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 26.78991001440472,
-      "pef": 26.02451803953416
+      "wtu": 0
     },
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4020,6 +4020,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.50587629640328,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4033,12 +4034,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 20.339888618375657,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.50587629640328,
-      "pef": 20.339888618375657
+      "wtu": 0
     },
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -4054,6 +4054,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.50587629640328,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4067,12 +4068,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 20.339888618375657,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.50587629640328,
-      "pef": 20.339888618375657
+      "wtu": 0
     },
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -4088,6 +4088,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 83.82782485359631,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4101,12 +4102,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 61.62593073097713,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 83.82782485359631,
-      "pef": 61.62593073097713
+      "wtu": 0
     },
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4122,6 +4122,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 83.82782485359631,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4135,12 +4136,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 61.62593073097713,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 83.82782485359631,
-      "pef": 61.62593073097713
+      "wtu": 0
     },
     "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4156,6 +4156,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 403.91671616583545,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4169,12 +4170,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 178.21142637929523,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 403.91671616583545,
-      "pef": 178.21142637929523
+      "wtu": 0
     },
     "name": "Cherry, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4190,6 +4190,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 113.68544810511233,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4203,12 +4204,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 83.51864905413399,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 113.68544810511233,
-      "pef": 83.51864905413399
+      "wtu": 0
     },
     "name": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -4224,6 +4224,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 403.91671616583545,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4237,12 +4238,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 178.21142637929523,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 403.91671616583545,
-      "pef": 178.21142637929523
+      "wtu": 0
     },
     "name": "Cherry, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4258,6 +4258,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.03280371085538,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4271,12 +4272,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 25.31894771189254,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.03280371085538,
-      "pef": 25.31894771189254
+      "wtu": 0
     },
     "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4292,6 +4292,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.997074386706196,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4305,12 +4306,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 25.202985524893382,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.997074386706196,
-      "pef": 25.202985524893382
+      "wtu": 0
     },
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4326,6 +4326,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 20.61790199404379,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4339,12 +4340,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 23.755447115550382,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 20.61790199404379,
-      "pef": 23.755447115550382
+      "wtu": 0
     },
     "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4360,6 +4360,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 107.7456263024781,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4373,12 +4374,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 117.23387573386083,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 107.7456263024781,
-      "pef": 117.23387573386083
+      "wtu": 0
     },
     "name": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4394,6 +4394,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 18.408796254149188,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4407,12 +4408,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 20.25467418923414,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 18.408796254149188,
-      "pef": 20.25467418923414
+      "wtu": 0
     },
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4428,6 +4428,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 107.55272230490945,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4441,12 +4442,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 75.84811435164055,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 107.55272230490945,
-      "pef": 75.84811435164055
+      "wtu": 0
     },
     "name": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -4462,6 +4462,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 108.59904581833044,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4475,12 +4476,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 38.923787461868606,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 108.59904581833044,
-      "pef": 38.923787461868606
+      "wtu": 0
     },
     "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -4496,6 +4496,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 108.59904581833044,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4509,12 +4510,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 38.923787461868606,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 108.59904581833044,
-      "pef": 38.923787461868606
+      "wtu": 0
     },
     "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -4530,6 +4530,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 480.03446716210834,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4543,12 +4544,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 383.07620990473555,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 480.03446716210834,
-      "pef": 383.07620990473555
+      "wtu": 0
     },
     "name": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -4564,6 +4564,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 673.6431190066502,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4577,12 +4578,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 482.7516552055489,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 673.6431190066502,
-      "pef": 482.7516552055489
+      "wtu": 0
     },
     "name": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -4598,6 +4598,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1365.7952063414727,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4611,12 +4612,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 977.5935816137436,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1365.7952063414727,
-      "pef": 977.5935816137436
+      "wtu": 0
     },
     "name": "Hazelnut, unshelled, at plant {IT} U",
     "source": "Agribalyse 3.1.1",
@@ -4632,6 +4632,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 978.5779026716257,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4645,12 +4646,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 778.242691026176,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 978.5779026716257,
-      "pef": 778.242691026176
+      "wtu": 0
     },
     "name": "Hazelnut, unshelled, at plant {TR} U",
     "source": "Agribalyse 3.1.1",
@@ -4666,6 +4666,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 36.68427008586407,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4679,12 +4680,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 35.76407596678012,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 36.68427008586407,
-      "pef": 35.76407596678012
+      "wtu": 0
     },
     "name": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4700,6 +4700,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 31.775500033680625,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4713,12 +4714,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 38.77766977404584,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 31.775500033680625,
-      "pef": 38.77766977404584
+      "wtu": 0
     },
     "name": "Cauliflower, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -4734,6 +4734,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 38.00111644532398,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4747,12 +4748,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 45.64929474214634,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 38.00111644532398,
-      "pef": 45.64929474214634
+      "wtu": 0
     },
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4768,6 +4768,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 37.3791875173583,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4781,12 +4782,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 36.4655093709705,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 37.3791875173583,
-      "pef": 36.4655093709705
+      "wtu": 0
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4802,6 +4802,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 59.76112500061345,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4815,12 +4816,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 42.51716224650336,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 59.76112500061345,
-      "pef": 42.51716224650336
+      "wtu": 0
     },
     "name": "Leek, national average, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4836,6 +4836,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 64.98479572456807,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4849,12 +4850,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 17.81850610595258,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 64.98479572456807,
-      "pef": 17.81850610595258
+      "wtu": 0
     },
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4870,6 +4870,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 64.98479572456807,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4883,12 +4884,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 17.81850610595258,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 64.98479572456807,
-      "pef": 17.81850610595258
+      "wtu": 0
     },
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -4904,6 +4904,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 30.913629489638385,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4917,12 +4918,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 19.724450306619094,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 30.913629489638385,
-      "pef": 19.724450306619094
+      "wtu": 0
     },
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -4938,6 +4938,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 38.398618742819814,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4951,12 +4952,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 30.571496239023755,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 38.398618742819814,
-      "pef": 30.571496239023755
+      "wtu": 0
     },
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -4972,6 +4972,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 37.3791875173583,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4985,12 +4986,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 36.4655093709705,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 37.3791875173583,
-      "pef": 36.4655093709705
+      "wtu": 0
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -5006,6 +5006,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 33.9557672602755,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5019,12 +5020,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 40.97632816660858,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 33.9557672602755,
-      "pef": 40.97632816660858
+      "wtu": 0
     },
     "name": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -5040,6 +5040,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 38.07769049175316,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5053,12 +5054,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 26.127393374521265,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 38.07769049175316,
-      "pef": 26.127393374521265
+      "wtu": 0
     },
     "name": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5074,6 +5074,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 37.3791875173583,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5087,12 +5088,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 36.4655093709705,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 37.3791875173583,
-      "pef": 36.4655093709705
+      "wtu": 0
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -5108,6 +5108,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 38.00111644532398,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5121,12 +5122,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 45.64929474214634,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 38.00111644532398,
-      "pef": 45.64929474214634
+      "wtu": 0
     },
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -5142,6 +5142,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 43.48960193036811,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5155,12 +5156,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 31.718925248227954,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 43.48960193036811,
-      "pef": 31.718925248227954
+      "wtu": 0
     },
     "name": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5176,6 +5176,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 21.412666296293644,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5189,12 +5190,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 18.376791757746535,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 21.412666296293644,
-      "pef": 18.376791757746535
+      "wtu": 0
     },
     "name": "Onion, national average, at farm {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -5210,6 +5210,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 92.12680618672239,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5223,12 +5224,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 85.43454887721842,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 92.12680618672239,
-      "pef": 85.43454887721842
+      "wtu": 0
     },
     "name": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -5244,6 +5244,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 73.33766164750413,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5257,12 +5258,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 62.54290142386407,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 73.33766164750413,
-      "pef": 62.54290142386407
+      "wtu": 0
     },
     "name": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5278,6 +5278,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 86.79637154123564,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5291,12 +5292,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 83.95926327121711,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 86.79637154123564,
-      "pef": 83.95926327121711
+      "wtu": 0
     },
     "name": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5312,6 +5312,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 363.49982562802563,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5325,12 +5326,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 201.86389727905393,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 363.49982562802563,
-      "pef": 201.86389727905393
+      "wtu": 0
     },
     "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5346,6 +5346,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 251.77037698736473,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5359,12 +5360,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 270.45232551343884,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 251.77037698736473,
-      "pef": 270.45232551343884
+      "wtu": 0
     },
     "name": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -5380,6 +5380,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 233.19899119754137,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5393,12 +5394,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 290.7589180810637,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 233.19899119754137,
-      "pef": 290.7589180810637
+      "wtu": 0
     },
     "name": "Rapeseed, at farm {CA} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -5414,6 +5414,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 181.01230872671428,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5427,12 +5428,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 213.15904528078175,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 181.01230872671428,
-      "pef": 213.15904528078175
+      "wtu": 0
     },
     "name": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5448,6 +5448,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 391.9975033813963,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5461,12 +5462,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 460.34794435559434,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 391.9975033813963,
-      "pef": 460.34794435559434
+      "wtu": 0
     },
     "name": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5482,6 +5482,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 538.9219120994726,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5495,12 +5496,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 531.7720661349202,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 538.9219120994726,
-      "pef": 531.7720661349202
+      "wtu": 0
     },
     "name": "Extra Virgin Olive Oil, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -5516,6 +5516,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 208.91102179612872,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5529,12 +5530,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 242.63543961664107,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 208.91102179612872,
-      "pef": 242.63543961664107
+      "wtu": 0
     },
     "name": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5550,6 +5550,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 115.68533895585978,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5563,12 +5564,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 65.58800107029508,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 115.68533895585978,
-      "pef": 65.58800107029508
+      "wtu": 0
     },
     "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -5584,6 +5584,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 313.8568831543747,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5597,12 +5598,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 220.0231686987685,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 313.8568831543747,
-      "pef": 220.0231686987685
+      "wtu": 0
     },
     "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -5618,6 +5618,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 359.14720087954794,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5631,12 +5632,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 113.52571934510965,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 359.14720087954794,
-      "pef": 113.52571934510965
+      "wtu": 0
     },
     "name": "Sunflower, at farm {HU} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -5652,6 +5652,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 339.86724525691193,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5665,12 +5666,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 157.8379333318282,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 339.86724525691193,
-      "pef": 157.8379333318282
+      "wtu": 0
     },
     "name": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -5686,6 +5686,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 57.78976770749293,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5699,12 +5700,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 62.366545846815505,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 57.78976770749293,
-      "pef": 62.366545846815505
+      "wtu": 0
     },
     "name": "Kiwi FR, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -5720,6 +5720,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 63.14378360175055,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5733,12 +5734,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 69.789234429814,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 63.14378360175055,
-      "pef": 69.789234429814
+      "wtu": 0
     },
     "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5754,6 +5754,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 63.14378360175055,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5767,12 +5768,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 69.789234429814,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 63.14378360175055,
-      "pef": 69.789234429814
+      "wtu": 0
     },
     "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5788,6 +5788,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 57.28359710484723,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5801,12 +5802,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 37.79527562631753,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 57.28359710484723,
-      "pef": 37.79527562631753
+      "wtu": 0
     },
     "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "source": "Agribalyse 3.1.1",
@@ -5822,6 +5822,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 45.63017702251564,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5835,12 +5836,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 16.060802619719126,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 45.63017702251564,
-      "pef": 16.060802619719126
+      "wtu": 0
     },
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5856,6 +5856,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 114.44232058920515,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5869,12 +5870,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 56.5640472642581,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 114.44232058920515,
-      "pef": 56.5640472642581
+      "wtu": 0
     },
     "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5890,6 +5890,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 114.44232058920515,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5903,12 +5904,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 56.5640472642581,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 114.44232058920515,
-      "pef": 56.5640472642581
+      "wtu": 0
     },
     "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5924,6 +5924,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 50.32044745743751,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5937,12 +5938,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 48.320666592595835,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 50.32044745743751,
-      "pef": 48.320666592595835
+      "wtu": 0
     },
     "name": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -5958,6 +5958,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 929.4161817810746,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5971,12 +5972,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 229.17723317759962,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 929.4161817810746,
-      "pef": 229.17723317759962
+      "wtu": 0
     },
     "name": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -5992,6 +5992,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 446.8283295531803,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6005,12 +6006,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 240.19403491335868,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 446.8283295531803,
-      "pef": 240.19403491335868
+      "wtu": 0
     },
     "name": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -6026,6 +6026,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 82.20013540076332,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6039,12 +6040,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 64.04592650383395,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 82.20013540076332,
-      "pef": 64.04592650383395
+      "wtu": 0
     },
     "name": "Strawberry for processing, open field, conventional, at farm gate {ES} U",
     "source": "Agribalyse 3.1.1",
@@ -6060,6 +6060,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 73.16460011899034,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6073,12 +6074,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 53.81072558615532,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 73.16460011899034,
-      "pef": 53.81072558615532
+      "wtu": 0
     },
     "name": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
     "source": "Agribalyse 3.1.1",
@@ -6094,6 +6094,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 70.56312226998747,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6107,12 +6108,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 44.14135180247622,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 70.56312226998747,
-      "pef": 44.14135180247622
+      "wtu": 0
     },
     "name": "Banana, mixed production, West Indies, at farm gate {WI} U",
     "source": "Agribalyse 3.1.1",
@@ -6128,6 +6128,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 82.18896908055615,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6141,12 +6142,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 43.63394511587758,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 82.18896908055615,
-      "pef": 43.63394511587758
+      "wtu": 0
     },
     "name": "Banana, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -6162,6 +6162,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 18.408796254149188,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6175,12 +6176,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 20.25467418923414,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 18.408796254149188,
-      "pef": 20.25467418923414
+      "wtu": 0
     },
     "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6196,6 +6196,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 205.7208235282172,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6209,12 +6210,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 223.3304294698721,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 205.7208235282172,
-      "pef": 223.3304294698721
+      "wtu": 0
     },
     "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -6230,6 +6230,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 205.7208235282172,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6243,12 +6244,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 223.3304294698721,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 205.7208235282172,
-      "pef": 223.3304294698721
+      "wtu": 0
     },
     "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -6264,6 +6264,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 72.10774008058554,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6277,12 +6278,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 52.60887776331667,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 72.10774008058554,
-      "pef": 52.60887776331667
+      "wtu": 0
     },
     "name": "Strawberry, open field, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6298,6 +6298,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 292.94609530081806,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6311,12 +6312,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 274.148644048218,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 292.94609530081806,
-      "pef": 274.148644048218
+      "wtu": 0
     },
     "name": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6332,6 +6332,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 49.24006458675971,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6345,12 +6346,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 44.55037087096618,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 49.24006458675971,
-      "pef": 44.55037087096618
+      "wtu": 0
     },
     "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -6366,6 +6366,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 49.24006458675971,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6379,12 +6380,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 44.55037087096618,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 49.24006458675971,
-      "pef": 44.55037087096618
+      "wtu": 0
     },
     "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -6400,6 +6400,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 64.98479572456807,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6413,12 +6414,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 17.81850610595258,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 64.98479572456807,
-      "pef": 17.81850610595258
+      "wtu": 0
     },
     "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6434,6 +6434,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 30.913629489638385,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6447,12 +6448,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 19.724450306619094,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 30.913629489638385,
-      "pef": 19.724450306619094
+      "wtu": 0
     },
     "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -6468,6 +6468,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 38.398618742819814,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6481,12 +6482,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 30.571496239023755,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 38.398618742819814,
-      "pef": 30.571496239023755
+      "wtu": 0
     },
     "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -6502,6 +6502,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 258.26464727646476,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6515,12 +6516,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 274.2322037263629,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 258.26464727646476,
-      "pef": 274.2322037263629
+      "wtu": 0
     },
     "name": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6536,6 +6536,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 278.8446573458546,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6549,12 +6550,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 292.3838141648916,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 278.8446573458546,
-      "pef": 292.3838141648916
+      "wtu": 0
     },
     "name": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6570,6 +6570,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 278.8446573458546,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6583,12 +6584,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 292.3838141648916,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 278.8446573458546,
-      "pef": 292.3838141648916
+      "wtu": 0
     },
     "name": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6604,6 +6604,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 259.73512030860064,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6617,12 +6618,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 271.0618311698035,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 259.73512030860064,
-      "pef": 271.0618311698035
+      "wtu": 0
     },
     "name": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6638,6 +6638,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 122.2805324505238,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6651,12 +6652,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 82.81268409001734,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 122.2805324505238,
-      "pef": 82.81268409001734
+      "wtu": 0
     },
     "name": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -6672,6 +6672,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 417.73573129290594,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6685,12 +6686,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 398.35078655633237,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 417.73573129290594,
-      "pef": 398.35078655633237
+      "wtu": 0
     },
     "name": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -6706,6 +6706,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 37.3791875173583,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6719,12 +6720,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 36.4655093709705,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 37.3791875173583,
-      "pef": 36.4655093709705
+      "wtu": 0
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6740,6 +6740,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 38.00111644532398,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6753,12 +6754,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 45.64929474214634,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 38.00111644532398,
-      "pef": 45.64929474214634
+      "wtu": 0
     },
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6774,6 +6774,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 115.68533895585978,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6787,12 +6788,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 65.58800107029508,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 115.68533895585978,
-      "pef": 65.58800107029508
+      "wtu": 0
     },
     "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6808,6 +6808,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 37.3791875173583,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6821,12 +6822,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 36.4655093709705,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 37.3791875173583,
-      "pef": 36.4655093709705
+      "wtu": 0
     },
     "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6842,6 +6842,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 38.00111644532398,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6855,12 +6856,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 45.64929474214634,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 38.00111644532398,
-      "pef": 45.64929474214634
+      "wtu": 0
     },
     "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6876,6 +6876,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.997074386706196,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6889,12 +6890,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 25.202985524893382,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.997074386706196,
-      "pef": 25.202985524893382
+      "wtu": 0
     },
     "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6910,6 +6910,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 489.7057337522536,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6923,12 +6924,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 89.30645718963102,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 489.7057337522536,
-      "pef": 89.30645718963102
+      "wtu": 0
     },
     "name": "Clementine, export quality, Souss, at orchard {MA} U",
     "source": "Agribalyse 3.1.1",
@@ -6944,6 +6944,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 26.78991001440472,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6957,12 +6958,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 26.02451803953416,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 26.78991001440472,
-      "pef": 26.02451803953416
+      "wtu": 0
     },
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -6978,6 +6978,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.50587629640328,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6991,12 +6992,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 20.339888618375657,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.50587629640328,
-      "pef": 20.339888618375657
+      "wtu": 0
     },
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -7012,6 +7012,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 40.23684617931685,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7025,12 +7026,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 39.92282740783969,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 40.23684617931685,
-      "pef": 39.92282740783969
+      "wtu": 0
     },
     "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -7046,6 +7046,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 26.78991001440472,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7059,12 +7060,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 26.02451803953416,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 26.78991001440472,
-      "pef": 26.02451803953416
+      "wtu": 0
     },
     "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -7080,6 +7080,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.50587629640328,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7093,12 +7094,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 20.339888618375657,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.50587629640328,
-      "pef": 20.339888618375657
+      "wtu": 0
     },
     "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -7114,6 +7114,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 130.2933172738426,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7127,12 +7128,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 66.4872118276963,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 130.2933172738426,
-      "pef": 66.4872118276963
+      "wtu": 0
     },
     "name": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -7148,6 +7148,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 43.427431523367616,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7161,12 +7162,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 59.958897338643055,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 43.427431523367616,
-      "pef": 59.958897338643055
+      "wtu": 0
     },
     "name": "Grain maize, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -7182,6 +7182,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 406.0786977264271,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7195,12 +7196,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 158.87978080842427,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 406.0786977264271,
-      "pef": 158.87978080842427
+      "wtu": 0
     },
     "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -7216,6 +7216,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 172.7295862524396,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7229,12 +7230,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 88.17693372059504,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 172.7295862524396,
-      "pef": 88.17693372059504
+      "wtu": 0
     },
     "name": "Pineapple, at farm {CR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -7250,6 +7250,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 73.8062393083272,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7263,12 +7264,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 71.85195836687184,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 73.8062393083272,
-      "pef": 71.85195836687184
+      "wtu": 0
     },
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -7284,6 +7284,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 73.8062393083272,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7297,12 +7298,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 71.85195836687184,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 73.8062393083272,
-      "pef": 71.85195836687184
+      "wtu": 0
     },
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -7318,6 +7318,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 45.63017702251564,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7331,12 +7332,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 16.060802619719126,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 45.63017702251564,
-      "pef": 16.060802619719126
+      "wtu": 0
     },
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -7352,6 +7352,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 45.63017702251564,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7365,12 +7366,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 16.060802619719126,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 45.63017702251564,
-      "pef": 16.060802619719126
+      "wtu": 0
     },
     "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -7386,6 +7386,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 73.8062393083272,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7399,12 +7400,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 71.85195836687184,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 73.8062393083272,
-      "pef": 71.85195836687184
+      "wtu": 0
     },
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -7420,6 +7420,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 73.8062393083272,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7433,12 +7434,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 71.85195836687184,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 73.8062393083272,
-      "pef": 71.85195836687184
+      "wtu": 0
     },
     "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -7454,6 +7454,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1456.9254009392575,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7467,12 +7468,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1549.3741063525924,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1456.9254009392575,
-      "pef": 1549.3741063525924
+      "wtu": 0
     },
     "name": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
@@ -7488,6 +7488,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 56.972307139352274,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7501,12 +7502,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 75.17417092425244,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 56.972307139352274,
-      "pef": 75.17417092425244
+      "wtu": 0
     },
     "name": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -7522,6 +7522,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 87.40067510475018,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7535,12 +7536,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 65.23190875590463,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 87.40067510475018,
-      "pef": 65.23190875590463
+      "wtu": 0
     },
     "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -7556,6 +7556,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 87.59422022223636,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7569,12 +7570,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 91.40931803041477,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 87.59422022223636,
-      "pef": 91.40931803041477
+      "wtu": 0
     },
     "name": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -7590,6 +7590,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 91.44951647633499,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7603,12 +7604,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 91.13193677617065,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 91.44951647633499,
-      "pef": 91.13193677617065
+      "wtu": 0
     },
     "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -7624,6 +7624,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 120.40966248702924,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7637,12 +7638,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 129.43233413217857,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 120.40966248702924,
-      "pef": 129.43233413217857
+      "wtu": 0
     },
     "name": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -7658,6 +7658,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 127.79130744252005,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7671,12 +7672,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 132.01581571235292,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 127.79130744252005,
-      "pef": 132.01581571235292
+      "wtu": 0
     },
     "name": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -7692,6 +7692,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 39.276975577869024,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7705,12 +7706,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 32.64459013777798,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 39.276975577869024,
-      "pef": 32.64459013777798
+      "wtu": 0
     },
     "name": "Table apple, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -7726,6 +7726,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 40.737269068867505,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7739,12 +7740,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 18.195546423119126,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 40.737269068867505,
-      "pef": 18.195546423119126
+      "wtu": 0
     },
     "name": "Apple, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -7760,6 +7760,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 19.400834757951447,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7773,12 +7774,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 22.531275238729474,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 19.400834757951447,
-      "pef": 22.531275238729474
+      "wtu": 0
     },
     "name": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -7794,6 +7794,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 19.974420175456235,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7807,12 +7808,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 23.187571945329438,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 19.974420175456235,
-      "pef": 23.187571945329438
+      "wtu": 0
     },
     "name": "Ware potato, organic 2023, for industrial use, at farm gate {FR} U",
     "source": "Ginko",
@@ -7828,6 +7828,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 77.61064729781063,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7841,12 +7842,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 95.20576599892593,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 77.61064729781063,
-      "pef": 95.20576599892593
+      "wtu": 0
     },
     "name": "Kiwi, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -7862,6 +7862,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 39.18411423246976,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7875,12 +7876,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 47.19999714789499,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 39.18411423246976,
-      "pef": 47.19999714789499
+      "wtu": 0
     },
     "name": "Red Cabbage, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -7896,6 +7896,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 5.052019800220155,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7909,12 +7910,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 6.688259983606439,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 5.052019800220155,
-      "pef": 6.688259983606439
+      "wtu": 0
     },
     "name": "Sugar beet, organic 2023 {FR}| sugar beet production | Cut-off, U",
     "source": "Ginko",
@@ -7930,6 +7930,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 56.164260929150835,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7943,12 +7944,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 67.61263707040482,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 56.164260929150835,
-      "pef": 67.61263707040482
+      "wtu": 0
     },
     "name": "Papaya, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -7964,6 +7964,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 37.74306720879688,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7977,12 +7978,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 43.65892588599402,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 37.74306720879688,
-      "pef": 43.65892588599402
+      "wtu": 0
     },
     "name": "Fresh tomato, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -7998,6 +7998,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 14.745408880330562,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8011,12 +8012,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 19.158317815189967,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 14.745408880330562,
-      "pef": 19.158317815189967
+      "wtu": 0
     },
     "name": "Pineapple, organic 2023 {GLO}| production | Cut-off, U",
     "source": "Ginko",
@@ -8032,6 +8032,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 63.89037901858987,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8045,12 +8046,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 72.0108747312462,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 63.89037901858987,
-      "pef": 72.0108747312462
+      "wtu": 0
     },
     "name": "Garden peas, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -8066,6 +8066,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 343.8709702802648,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8079,12 +8080,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 455.6802457858006,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 343.8709702802648,
-      "pef": 455.6802457858006
+      "wtu": 0
     },
     "name": "Almonds, in shell, at farm, organic 2023 {CN}",
     "source": "Ginko",
@@ -8100,6 +8100,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 16.984993649256353,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8113,12 +8114,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 19.29487034583362,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 16.984993649256353,
-      "pef": 19.29487034583362
+      "wtu": 0
     },
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -8134,6 +8134,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 46.37216992167492,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8147,12 +8148,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 57.481539548758015,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 46.37216992167492,
-      "pef": 57.481539548758015
+      "wtu": 0
     },
     "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "source": "Ginko",
@@ -8168,6 +8168,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 46.37216992167492,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8181,12 +8182,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 57.481539548758015,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 46.37216992167492,
-      "pef": 57.481539548758015
+      "wtu": 0
     },
     "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "source": "Ginko",
@@ -8202,6 +8202,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 57.28359710484723,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8215,12 +8216,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 37.79527562631753,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 57.28359710484723,
-      "pef": 37.79527562631753
+      "wtu": 0
     },
     "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "source": "Agribalyse 3.1.1",
@@ -8236,6 +8236,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 121.11558400083138,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8249,12 +8250,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 142.70724663411804,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 121.11558400083138,
-      "pef": 142.70724663411804
+      "wtu": 0
     },
     "name": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -8270,6 +8270,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 56.46146050018076,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8283,12 +8284,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 89.90593002721727,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 56.46146050018076,
-      "pef": 89.90593002721727
+      "wtu": 0
     },
     "name": "Spring oats, organic, national average, at feed plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -8304,6 +8304,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 73.11368795280814,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8317,12 +8318,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 61.773785787458245,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 73.11368795280814,
-      "pef": 61.773785787458245
+      "wtu": 0
     },
     "name": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -8338,6 +8338,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 52.524212928156665,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8351,12 +8352,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 66.9979080868876,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 52.524212928156665,
-      "pef": 66.9979080868876
+      "wtu": 0
     },
     "name": "Barley, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -8372,6 +8372,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 44.56826154654676,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8385,12 +8386,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 54.22578689055047,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 44.56826154654676,
-      "pef": 54.22578689055047
+      "wtu": 0
     },
     "name": "Banana, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
@@ -8406,6 +8406,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 81.39278004014615,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8419,12 +8420,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 104.75378389302492,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 81.39278004014615,
-      "pef": 104.75378389302492
+      "wtu": 0
     },
     "name": "Orange, fresh grade, at farm, organic 2023 {ES}",
     "source": "Ginko",
@@ -8440,6 +8440,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 69.52898023898267,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8453,12 +8454,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 89.88399880714461,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 69.52898023898267,
-      "pef": 89.88399880714461
+      "wtu": 0
     },
     "name": "Lemon, organic 2023 {ES}| lemon production | Cut-off, U",
     "source": "Ginko",
@@ -8474,6 +8474,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 47.958000270347725,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8487,12 +8488,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 58.49349299004286,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 47.958000270347725,
-      "pef": 58.49349299004286
+      "wtu": 0
     },
     "name": "Celery, organic 2023 {GLO}| 675 production | Cut-off, U",
     "source": "Ginko",
@@ -8508,6 +8508,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 107.32813005134938,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8521,12 +8522,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 144.72689252493072,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 107.32813005134938,
-      "pef": 144.72689252493072
+      "wtu": 0
     },
     "name": "Olive, organic 2023 {ES}| olive production | Cut-off, U",
     "source": "Ginko",
@@ -8542,6 +8542,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 175.10870728815954,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8555,12 +8556,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 231.19184556360213,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 175.10870728815954,
-      "pef": 231.19184556360213
+      "wtu": 0
     },
     "name": "Peanut, organic 2023 {RoW}| peanut production | Cut-off, U",
     "source": "Ginko",
@@ -8576,6 +8576,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 213.91073679328812,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8589,12 +8590,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 275.535286380428,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 213.91073679328812,
-      "pef": 275.535286380428
+      "wtu": 0
     },
     "name": "Raspberry, at farm, organic 2023 {RS}",
     "source": "Ginko",
@@ -8610,6 +8610,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 16.984993649256353,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8623,12 +8624,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 19.29487034583362,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 16.984993649256353,
-      "pef": 19.29487034583362
+      "wtu": 0
     },
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -8644,6 +8644,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 16.984993649256353,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8657,12 +8658,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 19.29487034583362,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 16.984993649256353,
-      "pef": 19.29487034583362
+      "wtu": 0
     },
     "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -8678,6 +8678,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 114.50144970254988,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8691,12 +8692,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 152.68235309327795,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 114.50144970254988,
-      "pef": 152.68235309327795
+      "wtu": 0
     },
     "name": "Durum wheat grain, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -8712,6 +8712,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 14.40237685199719,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8725,12 +8726,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 17.453758088833403,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 14.40237685199719,
-      "pef": 17.453758088833403
+      "wtu": 0
     },
     "name": "Onion, national average, at farm, organic 2023 {FR} U",
     "source": "Ginko",
@@ -8746,6 +8746,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 330.0516233983951,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8759,12 +8760,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 409.7881963407181,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 330.0516233983951,
-      "pef": 409.7881963407181
+      "wtu": 0
     },
     "name": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati | Cut-off, U",
     "source": "Ginko",
@@ -8780,6 +8780,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 81.68050714392669,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8793,12 +8794,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 80.16881048512722,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 81.68050714392669,
-      "pef": 80.16881048512722
+      "wtu": 0
     },
     "name": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -8814,6 +8814,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 51.510203409634705,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8827,12 +8828,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 62.888124265805295,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 51.510203409634705,
-      "pef": 62.888124265805295
+      "wtu": 0
     },
     "name": "Triticale, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -8848,6 +8848,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 110.68864373316993,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8861,12 +8862,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 49.04549734707373,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 110.68864373316993,
-      "pef": 49.04549734707373
+      "wtu": 0
     },
     "name": "Faba bean, grain stored and transported, processing {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -8882,6 +8882,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 43.68627073021545,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8895,12 +8896,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 52.415160274461705,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 43.68627073021545,
-      "pef": 52.415160274461705
+      "wtu": 0
     },
     "name": "Pea, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -8916,6 +8916,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 24.41755933486093,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8929,12 +8930,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 28.19759233096963,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 24.41755933486093,
-      "pef": 28.19759233096963
+      "wtu": 0
     },
     "name": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -8950,6 +8950,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 33.37280182032623,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8963,12 +8964,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 37.512313723462796,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 33.37280182032623,
-      "pef": 37.512313723462796
+      "wtu": 0
     },
     "name": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse | Cut-off, U",
     "source": "Ginko",
@@ -8984,6 +8984,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": -1435.4562253279007,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8997,12 +8998,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": -1814.7275162890037,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": -1435.4562253279007,
-      "pef": -1814.7275162890037
+      "wtu": 0
     },
     "name": "Lentil, organic 2023 {RoW}| lentil production | Cut-off, U",
     "source": "Ginko",
@@ -9018,6 +9018,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 106.62716637209662,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9031,12 +9032,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 47.9163065073791,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 106.62716637209662,
-      "pef": 47.9163065073791
+      "wtu": 0
     },
     "name": "Apricot, organic 2023 {FR}| apricot production | Cut-off, U",
     "source": "Ginko",
@@ -9052,6 +9052,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 22.96220337431388,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9065,12 +9066,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 27.360582218368567,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 22.96220337431388,
-      "pef": 27.360582218368567
+      "wtu": 0
     },
     "name": "Leek, national average, at plant, organic 2023 {FR} U",
     "source": "Ginko",
@@ -9086,6 +9086,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 327.92773078060463,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9099,12 +9100,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 490.33175160663825,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 327.92773078060463,
-      "pef": 490.33175160663825
+      "wtu": 0
     },
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
     "source": "Ginko",
@@ -9120,6 +9120,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 327.92773078060463,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9133,12 +9134,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 490.33175160663825,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 327.92773078060463,
-      "pef": 490.33175160663825
+      "wtu": 0
     },
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
     "source": "Ginko",
@@ -9154,6 +9154,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 14.40237685199719,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9167,12 +9168,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 17.453758088833403,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 14.40237685199719,
-      "pef": 17.453758088833403
+      "wtu": 0
     },
     "name": "Onion, national average, at farm, organic 2023 {FR} U",
     "source": "Ginko",
@@ -9188,6 +9188,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 117.8536673487336,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9201,12 +9202,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 135.38306372394482,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 117.8536673487336,
-      "pef": 135.38306372394482
+      "wtu": 0
     },
     "name": "Blueberry, at farm, organic 2023 {CA}",
     "source": "Ginko",
@@ -9222,6 +9222,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 15.009343591936002,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9235,12 +9236,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 20.734946953731605,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 15.009343591936002,
-      "pef": 20.734946953731605
+      "wtu": 0
     },
     "name": "Spinach, organic 2023 {GLO}| production | Cut-off, U",
     "source": "Ginko",
@@ -9256,6 +9256,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 33.539711918930905,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9269,12 +9270,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 39.55487311552576,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 33.539711918930905,
-      "pef": 39.55487311552576
+      "wtu": 0
     },
     "name": "Melon, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
@@ -9290,6 +9290,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 102.11527714745658,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9303,12 +9304,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 55.38493684327017,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 102.11527714745658,
-      "pef": 55.38493684327017
+      "wtu": 0
     },
     "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9324,6 +9324,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 102.11527714745658,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9337,12 +9338,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 55.38493684327017,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 102.11527714745658,
-      "pef": 55.38493684327017
+      "wtu": 0
     },
     "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9358,6 +9358,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 185.88269775266423,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9371,12 +9372,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 162.89315403579087,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 185.88269775266423,
-      "pef": 162.89315403579087
+      "wtu": 0
     },
     "name": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
@@ -9392,6 +9392,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 33.877602723275864,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9405,12 +9406,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 41.438979513022424,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 33.877602723275864,
-      "pef": 41.438979513022424
+      "wtu": 0
     },
     "name": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9426,6 +9426,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 19.685924789237824,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9439,12 +9440,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 26.7219167940208,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 19.685924789237824,
-      "pef": 26.7219167940208
+      "wtu": 0
     },
     "name": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9460,6 +9460,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1057.8799097933233,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9473,12 +9474,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 405.41441199663086,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1057.8799097933233,
-      "pef": 405.41441199663086
+      "wtu": 0
     },
     "name": "Cherry, at farm (WFLDB)",
     "source": "WFLDB",
@@ -9494,6 +9494,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 407.5721772670125,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9507,12 +9508,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 383.38750680314564,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 407.5721772670125,
-      "pef": 383.38750680314564
+      "wtu": 0
     },
     "name": "Palm oil, refined, processed in EU, at plant {RER} U",
     "source": "Agribalyse 3.1.1",
@@ -9528,6 +9528,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 548.2282130945533,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9541,12 +9542,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 551.8802031188281,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 548.2282130945533,
-      "pef": 551.8802031188281
+      "wtu": 0
     },
     "name": "Linseed oil, refined, at oil mill { FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9562,6 +9562,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 113.4131474531948,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9575,12 +9576,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 127.20421480060834,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 113.4131474531948,
-      "pef": 127.20421480060834
+      "wtu": 0
     },
     "name": "Grapeseed oil, refined at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9596,6 +9596,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 726.1918471255067,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9609,12 +9610,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 314.10370154397594,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 726.1918471255067,
-      "pef": 314.10370154397594
+      "wtu": 0
     },
     "name": "Soybean oil, refined, at plant  {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9630,6 +9630,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1934.5404492223074,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9643,12 +9644,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1505.443124521604,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1934.5404492223074,
-      "pef": 1505.443124521604
+      "wtu": 0
     },
     "name": "Hazelnut oil, crude, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9664,6 +9664,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1062.23288426755,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9677,12 +9678,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 921.4117461887155,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1062.23288426755,
-      "pef": 921.4117461887155
+      "wtu": 0
     },
     "name": "Peanut oil, at oil mill {SN} U",
     "source": "Agribalyse 3.1.1",
@@ -9698,6 +9698,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 475.2660672101299,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9711,12 +9712,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 318.719164789273,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 475.2660672101299,
-      "pef": 318.719164789273
+      "wtu": 0
     },
     "name": "Sunflower oil, refined, low dehulling at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9732,6 +9732,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 380.39000127474935,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9745,12 +9746,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 276.4928867752055,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 380.39000127474935,
-      "pef": 276.4928867752055
+      "wtu": 0
     },
     "name": "Rapeseed oil, refined, at oil mill {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9766,6 +9766,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 503.1494226145319,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9779,12 +9780,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 487.1034904691177,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 503.1494226145319,
-      "pef": 487.1034904691177
+      "wtu": 0
     },
     "name": "Extra Virgin Olive Oil, at plant {ES} U",
     "source": "Agribalyse 3.1.1",
@@ -9800,6 +9800,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 216.7449658152886,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9813,12 +9814,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 178.17749595620123,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 216.7449658152886,
-      "pef": 178.17749595620123
+      "wtu": 0
     },
     "name": "Fresh cream cheese, plain, creamy, around 8% fat, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9834,6 +9834,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 631.3772011936228,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9847,12 +9848,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 686.1046949964714,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 631.3772011936228,
-      "pef": 686.1046949964714
+      "wtu": 0
     },
     "name": "Onions, dried, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9868,6 +9868,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 593.6027482016807,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9881,12 +9882,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 429.48383867791114,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 593.6027482016807,
-      "pef": 429.48383867791114
+      "wtu": 0
     },
     "name": "Chicken egg, raw, without shell, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9902,6 +9902,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 672.2074141794261,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9915,12 +9916,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 503.32786380316986,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 672.2074141794261,
-      "pef": 503.32786380316986
+      "wtu": 0
     },
     "name": "Egg yolk, powder, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9936,6 +9936,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 672.2964545916598,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9949,12 +9950,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 503.39228637897634,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 672.2964545916598,
-      "pef": 503.39228637897634
+      "wtu": 0
     },
     "name": "Egg white, powder, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -9970,6 +9970,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 654.3724238653224,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9983,12 +9984,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 523.8711839742018,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 654.3724238653224,
-      "pef": 523.8711839742018
+      "wtu": 0
     },
     "name": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -10004,6 +10004,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
+      "ecs": 1235.6680735506416,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10017,12 +10018,11 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
+      "pef": 1228.2995950409074,
       "pma": 0,
       "swe": 0,
       "tre": 0,
-      "wtu": 0,
-      "ecs": 1235.6680735506416,
-      "pef": 1228.2995950409074
+      "wtu": 0
     },
     "name": "Cocoa powder, at plant {FR} U",
     "source": "Agribalyse 3.1.1",

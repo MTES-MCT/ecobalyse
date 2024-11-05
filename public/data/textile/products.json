@@ -1,10 +1,8 @@
 [
   {
-    "id": "chemise",
-    "name": "Chemise",
-    "surfaceMass": 200,
-    "yarnSize": 40,
-    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -12,33 +10,33 @@
       "repairCost": 10,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "fabric"
+    "endOfLife": {
+      "volume": 0.006
     },
+    "fabric": "weaving",
+    "id": "chemise",
     "making": {
-      "pcrWaste": 0.2,
-      "complexity": "low"
+      "complexity": "low",
+      "pcrWaste": 0.2
     },
+    "name": "Chemise",
+    "surfaceMass": 200,
     "use": {
-      "ironingElecInMJ": 0.1638,
-      "nonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d",
       "daysOfWear": 40,
       "defaultNbCycles": 20,
+      "ironingElecInMJ": 0.1638,
+      "nonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d",
       "ratioDryer": 0.12,
       "ratioIroning": 0.7,
       "timeIroning": 0.043,
       "wearsPerCycle": 2
     },
-    "endOfLife": {
-      "volume": 0.006
-    }
+    "yarnSize": 40
   },
   {
-    "id": "jean",
-    "name": "Jean",
-    "surfaceMass": 250,
-    "yarnSize": 40,
-    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "yarn"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -46,33 +44,33 @@
       "repairCost": 14,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "yarn"
+    "endOfLife": {
+      "volume": 0.004
     },
+    "fabric": "weaving",
+    "id": "jean",
     "making": {
-      "pcrWaste": 0.22,
-      "complexity": "medium"
+      "complexity": "medium",
+      "pcrWaste": 0.22
     },
+    "name": "Jean",
+    "surfaceMass": 250,
     "use": {
-      "ironingElecInMJ": 0.24381,
-      "nonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
       "daysOfWear": 70,
       "defaultNbCycles": 23,
+      "ironingElecInMJ": 0.24381,
+      "nonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
       "ratioDryer": 0.3,
       "ratioIroning": 0.63,
       "timeIroning": 0.072,
       "wearsPerCycle": 3
     },
-    "endOfLife": {
-      "volume": 0.004
-    }
+    "yarnSize": 40
   },
   {
-    "id": "jupe",
-    "name": "Jupe / Robe",
-    "surfaceMass": 200,
-    "yarnSize": 40,
-    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -80,33 +78,33 @@
       "repairCost": 9,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "fabric"
+    "endOfLife": {
+      "volume": 0.007
     },
+    "fabric": "weaving",
+    "id": "jupe",
     "making": {
-      "pcrWaste": 0.2,
-      "complexity": "low"
+      "complexity": "low",
+      "pcrWaste": 0.2
     },
+    "name": "Jupe / Robe",
+    "surfaceMass": 200,
     "use": {
-      "ironingElecInMJ": 0.0729,
-      "nonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
       "daysOfWear": 70,
       "defaultNbCycles": 23,
+      "ironingElecInMJ": 0.0729,
+      "nonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
       "ratioDryer": 0.12,
       "ratioIroning": 0.18,
       "timeIroning": 0.075,
       "wearsPerCycle": 3
     },
-    "endOfLife": {
-      "volume": 0.007
-    }
+    "yarnSize": 40
   },
   {
-    "id": "manteau",
-    "name": "Manteau / Veste",
-    "surfaceMass": 450,
-    "yarnSize": 30,
-    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -114,33 +112,33 @@
       "repairCost": 31,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "fabric"
+    "endOfLife": {
+      "volume": 0.015
     },
+    "fabric": "weaving",
+    "id": "manteau",
     "making": {
-      "pcrWaste": 0.2,
-      "complexity": "high"
+      "complexity": "high",
+      "pcrWaste": 0.2
     },
+    "name": "Manteau / Veste",
+    "surfaceMass": 450,
     "use": {
-      "ironingElecInMJ": 0.018,
-      "nonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
       "daysOfWear": 100,
       "defaultNbCycles": 5,
+      "ironingElecInMJ": 0.018,
+      "nonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
       "ratioDryer": 0.25,
       "ratioIroning": 0.05,
       "timeIroning": 0.067,
       "wearsPerCycle": 20
     },
-    "endOfLife": {
-      "volume": 0.015
-    }
+    "yarnSize": 30
   },
   {
-    "id": "pantalon",
-    "name": "Pantalon / Short",
-    "surfaceMass": 250,
-    "yarnSize": 40,
-    "fabric": "weaving",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -148,33 +146,33 @@
       "repairCost": 14,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "fabric"
+    "endOfLife": {
+      "volume": 0.004
     },
+    "fabric": "weaving",
+    "id": "pantalon",
     "making": {
-      "pcrWaste": 0.2,
-      "complexity": "medium"
+      "complexity": "medium",
+      "pcrWaste": 0.2
     },
+    "name": "Pantalon / Short",
+    "surfaceMass": 250,
     "use": {
-      "ironingElecInMJ": 0.24381,
-      "nonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
       "daysOfWear": 70,
       "defaultNbCycles": 23,
+      "ironingElecInMJ": 0.24381,
+      "nonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
       "ratioDryer": 0.3,
       "ratioIroning": 0.63,
       "timeIroning": 0.072,
       "wearsPerCycle": 3
     },
-    "endOfLife": {
-      "volume": 0.004
-    }
+    "yarnSize": 40
   },
   {
-    "id": "pull",
-    "name": "Pull",
-    "surfaceMass": 250,
-    "yarnSize": 35,
-    "fabric": "knitting-mix",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -182,33 +180,33 @@
       "repairCost": 15,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "fabric"
+    "endOfLife": {
+      "volume": 0.0102
     },
+    "fabric": "knitting-mix",
+    "id": "pull",
     "making": {
-      "pcrWaste": 0.2,
-      "complexity": "low"
+      "complexity": "low",
+      "pcrWaste": 0.2
     },
+    "name": "Pull",
+    "surfaceMass": 250,
     "use": {
-      "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "daysOfWear": 85,
       "defaultNbCycles": 17,
+      "ironingElecInMJ": 0,
+      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "ratioDryer": 0.3,
       "ratioIroning": 0.0,
       "timeIroning": 0.0,
       "wearsPerCycle": 5
     },
-    "endOfLife": {
-      "volume": 0.0102
-    }
+    "yarnSize": 35
   },
   {
-    "id": "tshirt",
-    "name": "T-shirt / Polo",
-    "surfaceMass": 200,
-    "yarnSize": 40,
-    "fabric": "knitting-mix",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -216,33 +214,33 @@
       "repairCost": 10,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "fabric"
+    "endOfLife": {
+      "volume": 0.0018
     },
+    "fabric": "knitting-mix",
+    "id": "tshirt",
     "making": {
-      "pcrWaste": 0.15,
-      "complexity": "low"
+      "complexity": "low",
+      "pcrWaste": 0.15
     },
+    "name": "T-shirt / Polo",
+    "surfaceMass": 200,
     "use": {
-      "ironingElecInMJ": 0.0936,
-      "nonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da",
       "daysOfWear": 45,
       "defaultNbCycles": 45,
+      "ironingElecInMJ": 0.0936,
+      "nonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da",
       "ratioDryer": 0.3,
       "ratioIroning": 0.4,
       "timeIroning": 0.043,
       "wearsPerCycle": 1
     },
-    "endOfLife": {
-      "volume": 0.0018
-    }
+    "yarnSize": 40
   },
   {
-    "id": "chaussettes",
-    "name": "Chaussettes",
-    "surfaceMass": 250,
-    "yarnSize": 35,
-    "fabric": "knitting-fully-fashioned",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -250,33 +248,67 @@
       "repairCost": 9,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "fabric"
+    "endOfLife": {
+      "volume": 0.002
     },
+    "fabric": "knitting-fully-fashioned",
+    "id": "chaussettes",
     "making": {
-      "pcrWaste": 0.02,
-      "complexity": "very-low"
+      "complexity": "very-low",
+      "pcrWaste": 0.02
     },
+    "name": "Chaussettes",
+    "surfaceMass": 250,
     "use": {
-      "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "daysOfWear": 50,
       "defaultNbCycles": 25,
+      "ironingElecInMJ": 0,
+      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "ratioDryer": 0.3,
       "ratioIroning": 0.0,
       "timeIroning": 0.0,
       "wearsPerCycle": 2
     },
-    "endOfLife": {
-      "volume": 0.002
-    }
+    "yarnSize": 35
   },
   {
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
+    "economics": {
+      "business": "large-business-without-services",
+      "numberOfReferences": 100000,
+      "price": 4,
+      "repairCost": 9,
+      "traceability": false
+    },
+    "endOfLife": {
+      "volume": 0.002
+    },
+    "fabric": "weaving",
     "id": "calecon",
+    "making": {
+      "complexity": "low",
+      "pcrWaste": 0.15
+    },
     "name": "Caleçon (tissé)",
     "surfaceMass": 180,
-    "yarnSize": 45,
-    "fabric": "weaving",
+    "use": {
+      "daysOfWear": 60,
+      "defaultNbCycles": 60,
+      "ironingElecInMJ": 0,
+      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
+      "ratioDryer": 0.3,
+      "ratioIroning": 0.0,
+      "timeIroning": 0.0,
+      "wearsPerCycle": 1
+    },
+    "yarnSize": 45
+  },
+  {
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -284,67 +316,33 @@
       "repairCost": 9,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
-    "making": {
-      "pcrWaste": 0.15,
-      "complexity": "low"
-    },
-    "use": {
-      "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
-      "daysOfWear": 60,
-      "defaultNbCycles": 60,
-      "ratioDryer": 0.3,
-      "ratioIroning": 0.0,
-      "timeIroning": 0.0,
-      "wearsPerCycle": 1
-    },
     "endOfLife": {
       "volume": 0.002
-    }
-  },
-  {
+    },
+    "fabric": "knitting-mix",
     "id": "slip",
+    "making": {
+      "complexity": "low",
+      "pcrWaste": 0.15
+    },
     "name": "Boxer / Slip (tricoté)",
     "surfaceMass": 180,
-    "yarnSize": 45,
-    "fabric": "knitting-mix",
-    "economics": {
-      "business": "large-business-without-services",
-      "numberOfReferences": 100000,
-      "price": 4,
-      "repairCost": 9,
-      "traceability": false
-    },
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
-    "making": {
-      "pcrWaste": 0.15,
-      "complexity": "low"
-    },
     "use": {
-      "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "daysOfWear": 60,
       "defaultNbCycles": 60,
+      "ironingElecInMJ": 0,
+      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "ratioDryer": 0.3,
       "ratioIroning": 0.0,
       "timeIroning": 0.0,
       "wearsPerCycle": 1
     },
-    "endOfLife": {
-      "volume": 0.002
-    }
+    "yarnSize": 45
   },
   {
-    "id": "maillot-de-bain",
-    "name": "Maillot de bain",
-    "surfaceMass": 220,
-    "yarnSize": 40,
-    "fabric": "knitting-mix",
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
@@ -352,25 +350,27 @@
       "repairCost": 9,
       "traceability": false
     },
-    "dyeing": {
-      "defaultMedium": "fabric"
+    "endOfLife": {
+      "volume": 0.004
     },
+    "fabric": "knitting-mix",
+    "id": "maillot-de-bain",
     "making": {
-      "pcrWaste": 0.15,
-      "complexity": "low"
+      "complexity": "low",
+      "pcrWaste": 0.15
     },
+    "name": "Maillot de bain",
+    "surfaceMass": 220,
     "use": {
-      "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "daysOfWear": 30,
       "defaultNbCycles": 30,
+      "ironingElecInMJ": 0,
+      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
       "ratioDryer": 0.3,
       "ratioIroning": 0.0,
       "timeIroning": 0.0,
       "wearsPerCycle": 1
     },
-    "endOfLife": {
-      "volume": 0.004
-    }
+    "yarnSize": 40
   }
 ]
