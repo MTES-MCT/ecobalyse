@@ -634,8 +634,8 @@ def change_id(change):
         w_results.options = []
     set_field(w_default_origin, i.get("default_origin"), "EuropeAndMaghreb")
     set_field(w_explain, i.get("explain"), "")
-    set_field(w_process_categories, i.get("category"), [])
-    set_field(w_ingredient_categories, i.get("categories"), [])
+    set_field(w_process_categories, i.get("process_categories"), [])
+    set_field(w_ingredient_categories, i.get("ingredient_categories"), [])
     set_field(w_raw_to_cooked_ratio, i.get("raw_to_cooked_ratio"), 1)
     set_field(w_density, i.get("density"), 0)
     set_field(w_inedible, i.get("inedible_part"), 0)
