@@ -960,7 +960,7 @@ ingredientListView db selectedImpact recipe results =
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
-            [ li [ class "list-group-item" ] [ text "Aucun ingrédient" ] ]
+            [ li [ class "list-group-item pb-3" ] [ text "Aucun ingrédient" ] ]
 
           else
             recipe.ingredients
@@ -1035,7 +1035,7 @@ packagingListView db selectedImpact recipe results =
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.packaging then
-            [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
+            [ li [ class "list-group-item pb-3" ] [ text "Aucun emballage" ] ]
 
           else
             recipe.packaging
@@ -1287,7 +1287,7 @@ consumptionView db selectedImpact recipe results =
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.preparation then
-            [ li [ class "list-group-item" ] [ text "Aucune préparation" ] ]
+            [ li [ class "list-group-item pb-3" ] [ text "Aucune préparation" ] ]
 
           else
             recipe.preparation
