@@ -7,8 +7,8 @@ import typer
 
 # Tell ruff to not delete the unused import by rexporting it using as
 # See https://docs.astral.sh/ruff/rules/unused-import/
-from ecobalyse import logging_config as logging_config
-from ecobalyse.patch_files import (
+from ecobalyse_lib import logging_config as logging_config
+from ecobalyse_lib.patch_files import (
     add_entry_to_version_file,
     patch_cross_origin_index_html_file,
     patch_elm_version_file,

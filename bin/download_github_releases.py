@@ -11,8 +11,8 @@ import requests
 
 # Tell ruff to not delete the unused import by rexporting it using as
 # See https://docs.astral.sh/ruff/rules/unused-import/
-from ecobalyse import logging_config as logging_config
-from ecobalyse.github import get_github
+from ecobalyse_lib import logging_config as logging_config
+from ecobalyse_lib.github import get_github
 
 logger = logging.getLogger(__name__)
 
