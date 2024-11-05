@@ -1,28 +1,6 @@
 [
   {
-    "id": "Aluminium working, average",
-    "search_in": "Ecoinvent 3.9.1",
-    "search": "metal working, average for aluminium product manufacturing//[RER] metal working, average for aluminium product manufacturing",
-    "suffix": "constructed by Ecobalyse",
-    "subactivities": [],
-    "add": {
-      "aluminium, cast alloy//[GLO] market for aluminium, cast alloy": -0.07264,
-      "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy": -0.15436
-    }
-  },
-  {
-    "id": "Aluminium, average",
-    "search_in": "Ecoinvent 3.9.1",
-    "search": "Aluminium, average working/RER",
-    "suffix": "constructed by Ecobalyse",
-    "subactivities": [],
-    "add": {
-      "aluminium, primary, ingot//[IAI Area, EU27 & EFTA] market for aluminium, primary, ingot": 1.23,
-      "metal working, average for aluminium product manufacturing//[RER], constructed by Ecobalyse": 1
-    }
-  },
-  {
-    "id": "Plastic product, PP",
+    "alias": "plastic-product-pp",
     "search_in": "Ecoinvent 3.9.1",
     "search": "polypropylene product/RER",
     "suffix": "constructed by Ecobalyse",
@@ -30,47 +8,6 @@
     "add": {
       "polypropylene, granulate//[RER] polypropylene production, granulate": 1.01,
       "injection moulding//[RER] injection moulding": 1.01
-    }
-  },
-
-  {
-    "id": "battery, Li-ion//[GLO]",
-    "search_in": "Ecoinvent 3.9.1",
-    "search": "polypropylene product/RER",
-    "suffix": "constructed by Ecobalyse",
-    "subactivities": [],
-    "add": {
-      "battery, Li-ion, NMC811, rechargeable, prismatic//[GLO] market for battery, Li-ion, NMC811, rechargeable, prismatic": 8.772
-    }
-  },
-
-  {
-    "id": "tyre/RER",
-    "search_in": "Ecoinvent 3.9.1",
-    "search": "polypropylene product/RER",
-    "suffix": "constructed by Ecobalyse",
-    "subactivities": [],
-    "add": {
-      "synthetic rubber//[RER] synthetic rubber production": 0.404,
-      "chemical, organic//[GLO] chemical production, organic": 0.101,
-      "carbon black//[GLO] carbon black production": 0.303,
-      "fibre, polyester//[RoW] polyester fibre production, finished": 0.202,
-      "injection moulding//[RER] injection moulding": 1.01
-    }
-  },
-
-  {
-    "id": "Non quantified components, vehicle/GLO",
-    "search_in": "Ecoinvent 3.9.1",
-    "search": "polypropylene product/RER",
-    "suffix": "constructed by Ecobalyse",
-    "subactivities": [],
-    "add": {
-      "steel, chromium steel 18/8, hot rolled//[RER] steel production, chromium steel 18/8, hot rolled": 0.4,
-      "metal working, average for chromium steel product manufacturing//[RER] metal working, average for chromium steel product manufacturing": 0.4,
-      "polypropylene, granulate//[RER] polypropylene production, granulate": 0.3,
-      "injection moulding//[RER] injection moulding": 0.3,
-      "electronic component, passive, unspecified//[GLO] electronic component production, passive, unspecified": 0.3
     }
   }
 ]

@@ -30,5 +30,37 @@
       "ecs": 23650.509942608354,
       "pef": 27363.305839091667
     }
+  },
+  {
+    "id": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
+    "name": "polypropylene product/RER constructed by Ecobalyse",
+    "displayName": "Composant en plastique (PP)",
+    "density": 900,
+    "unit": "kg",
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (voir documentation)",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 543.7665131113854,
+      "pef": 654.8178890944539
+    }
   }
 ]

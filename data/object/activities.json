@@ -7,5 +7,14 @@
     "unit": "m3",
     "source": "Ecoinvent 3.9.1",
     "comment": ""
+  },
+  {
+    "id": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
+    "name": "polypropylene product/RER constructed by Ecobalyse",
+    "displayName": "Composant en plastique (PP)",
+    "density": 900,
+    "unit": "kg",
+    "source": "Ecobalyse",
+    "comment": "modélisation d'un composant générique (voir documentation)"
   }
 ]
