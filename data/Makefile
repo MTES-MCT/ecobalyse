@@ -16,20 +16,23 @@ else \
 endef
 
 all: import export
-import : image import_food import_ecoinvent import_method sync_datapackages
-export: export_food format
+import : image import_food import_ecoinvent import_method create_activities sync_datapackages
+export: export_food export_textile export_object format
 
 image:
 	docker build -t $(NAME) docker
 
 import_food:
-	@$(call DOCKER,python3 import_food.py --recreate-activities)
+	@$(call DOCKER,python3 import_food.py)
 
 import_method:
 	@$(call DOCKER,python3 import_method.py)
 
 import_ecoinvent:
 	@$(call DOCKER,python3 import_ecoinvent.py)
+
+create_activities:
+	@$(call DOCKER,python3 create_activities.py)
 
 sync_datapackages:
 	@$(call DOCKER,python3 common/sync_datapackages.py)
@@ -43,8 +46,17 @@ delete_method:
 export_food:
 	@$(call DOCKER,bash -c "python3 food/export.py")
 
+export_textile:
+	@$(call DOCKER,bash -c "python3 textile/export.py")
+
+export_object:
+	@$(call DOCKER,bash -c "python3 object/export.py")
+
 compare_food:
-	@$(call DOCKER,python3 export.py compare)
+	@$(call DOCKER,bash -c "python3 food/export.py compare")
+
+compare_textile:
+	@$(call DOCKER,bash -c "python3 textile/export.py compare")
 
 format:
 	npm run fix:all
