@@ -50,6 +50,9 @@ foodEndpoints db =
             |> Expect.equal (Just Route.FoodGetPackagingList)
             |> asTest "should map the /food/packagings endpoint"
         , [ "/food?"
+
+          -- FIXME
+          , "mass=1000"
           , "ingredients[]=flour;97"
           , "ingredients[]=tomato-paste;89"
           , "ingredients[]=mozzarella;70"
@@ -78,7 +81,7 @@ foodEndpoints db =
             |> asTest "should map the POST /food endpoint"
         , "/food"
             |> testEndpoint db "POST" Encode.null
-            |> expectFoodSingleErrorContains "ingredients"
+            |> expectFoodSingleErrorContains "mass"
             |> asTest "should fail on invalid query passed"
         ]
     , describe "validation"

@@ -55,6 +55,7 @@ type alias ProcessQuery =
 type alias Query =
     { distribution : Maybe Retail.Distribution
     , ingredients : List IngredientQuery
+    , mass : Mass
     , packaging : List ProcessQuery
     , preparation : List Preparation.Id
     , transform : Maybe ProcessQuery
@@ -105,6 +106,7 @@ decode =
     Decode.succeed Query
         |> DU.strictOptional "distribution" Retail.decode
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
+        |> Pipe.required "mass" (Decode.map Mass.grams Decode.float)
         |> Pipe.optional "packaging" (Decode.list decodeProcess) []
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
         |> DU.strictOptional "transform" decodeProcess
@@ -174,6 +176,7 @@ empty : Query
 empty =
     { distribution = Nothing
     , ingredients = []
+    , mass = Quantity.zero
     , packaging = []
     , preparation = []
     , transform = Nothing
@@ -184,6 +187,7 @@ encode : Query -> Encode.Value
 encode v =
     [ ( "ingredients", Encode.list encodeIngredient v.ingredients |> Just )
     , ( "transform", v.transform |> Maybe.map encodeProcess )
+    , ( "mass", v.mass |> Mass.inGrams |> Encode.float |> Just )
     , ( "packaging"
       , case v.packaging of
             [] ->

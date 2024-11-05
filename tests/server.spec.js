@@ -419,6 +419,7 @@ describe("API", () => {
       describe("GET", () => {
         it("should compute 21 impacts for food", async () => {
           const response = await makeRequest("/api/food", [
+            "mass=1000",
             "ingredients[]=carrot-fr;268",
             "transform=AGRIBALU000000003103966;1050",
             "distribution=ambient",
@@ -520,6 +521,7 @@ describe("API", () => {
       describe("POST", () => {
         it("should compute 21 impacts", async () => {
           const response = await makePostRequest("/api/food", {
+            mass: 1000,
             ingredients: [
               { id: "egg-indoor-code3", mass: 0.12 },
               { id: "soft-wheat-fr", mass: 0.14 },

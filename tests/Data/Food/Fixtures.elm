@@ -57,6 +57,9 @@ royalPizza =
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         ]
+
+    -- FIXME
+    , mass = Mass.grams 1000
     , transform =
         Just
             { code = Process.identifierFromString "AGRIBALU000000003103966"

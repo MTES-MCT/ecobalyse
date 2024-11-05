@@ -68,6 +68,7 @@ parseFoodQuery { countries, food } =
     succeed (Ok BuilderQuery.Query)
         |> apply (distributionParser "distribution")
         |> apply (ingredientListParser "ingredients" countries food)
+        |> apply (massParser Mass.grams "mass")
         |> apply (packagingListParser "packaging" food.processes)
         |> apply (preparationListParser "preparation")
         |> apply (maybeTransformParser "transform" food.processes)
@@ -399,7 +400,7 @@ parseTextileQuery { countries, textile } =
         |> apply (maybeMakingComplexityParser "makingComplexity")
         |> apply (maybeMakingDeadStockParser "makingDeadStock")
         |> apply (maybeMakingWasteParser "makingWaste")
-        |> apply (massParserInKilograms "mass")
+        |> apply (massParser Mass.kilograms "mass")
         |> apply (materialListParser "materials" textile.materials countries)
         |> apply (maybeIntParser "numberOfReferences")
         |> apply (maybePhysicalDurabilityParser "physicalDurability")
@@ -460,18 +461,18 @@ floatParser key =
                     Nothing
 
 
-massParserInKilograms : String -> Parser (ParseResult Mass)
-massParserInKilograms key =
+massParser : (Float -> Mass) -> String -> Parser (ParseResult Mass)
+massParser toMass key =
     floatParser key
         |> Query.map (Result.fromMaybe ( key, "La masse est manquante." ))
         |> Query.map
             (Result.andThen
-                (\mass ->
-                    if mass < 0 then
+                (\float ->
+                    if float < 0 then
                         Err ( key, "La masse doit être supérieure ou égale à zéro." )
 
                     else
-                        Ok <| Mass.kilograms mass
+                        Ok <| toMass float
                 )
             )
 

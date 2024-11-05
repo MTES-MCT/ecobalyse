@@ -1357,8 +1357,7 @@ mainView ({ db } as session) model =
                 , label [ class "col-lg-5 d-flex justify-content-between align-items-center gap-2" ]
                     [ span [ class "text-nowrap" ] [ text "Masse du produit fini" ]
                     , MassInput.view
-                        -- query.mass
-                        { mass = Quantity.zero
+                        { mass = query.mass
                         , onChange = always NoOp
                         , disabled = False
                         }

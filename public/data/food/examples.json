@@ -5,6 +5,7 @@
     "scope": "food",
     "category": "",
     "query": {
+      "mass": 0,
       "ingredients": []
     }
   },
@@ -14,6 +15,7 @@
     "scope": "food",
     "category": "Produits céréaliers",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour-organic",
@@ -36,6 +38,7 @@
     "scope": "food",
     "category": "Produits céréaliers",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour",
@@ -58,6 +61,7 @@
     "scope": "food",
     "category": "Produits céréaliers",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour",
@@ -79,6 +83,7 @@
     "scope": "food",
     "category": "Volaille",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "chicken-breast",
@@ -102,6 +107,7 @@
     "scope": "food",
     "category": "Volaille",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "chicken-breast-br-max",
@@ -125,6 +131,7 @@
     "scope": "food",
     "category": "Produit surgelé",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour",
@@ -191,6 +198,7 @@
     "scope": "food",
     "category": "Produit surgelé",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour",
@@ -268,6 +276,7 @@
     "scope": "food",
     "category": "Produit surgelé",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour-organic",
@@ -345,6 +354,7 @@
     "scope": "food",
     "category": "Produit surgelé",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour",
@@ -403,6 +413,7 @@
     "scope": "food",
     "category": "Produit surgelé",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour",
@@ -469,6 +480,7 @@
     "scope": "food",
     "category": "Produit surgelé",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour",
@@ -535,6 +547,7 @@
     "scope": "food",
     "category": "Produit surgelé",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "flour",
@@ -611,6 +624,7 @@
     "scope": "food",
     "category": "Viande bovine",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "ground-beef-feedlot",
@@ -634,6 +648,7 @@
     "scope": "food",
     "category": "Viande bovine",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "ground-beef",
@@ -657,6 +672,7 @@
     "scope": "food",
     "category": "Viande bovine",
     "query": {
+      "mass": 0,
       "ingredients": [
         {
           "id": "ground-beef-organic",
