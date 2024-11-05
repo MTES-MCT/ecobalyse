@@ -142,6 +142,12 @@ def cleanup_json(activities):
             ):
                 if x in a:
                     del activities[i][x]
+        else:
+            # remove empty SE
+            for x in ("animal_group1", "animal_group2", "animal_product", "crop_group"):
+                if x in a and a[x] is None:
+                    del a[x]
+
     return activities
 
 
