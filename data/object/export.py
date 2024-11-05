@@ -3,18 +3,23 @@
 
 """Export des processes pour les objets"""
 
-import json
 import os
 import sys
 from os.path import abspath, dirname
 
 from bw2data.project import projects
+from common import (
+    order_json,
+    remove_detailed_impacts,
+    with_aggregated_impacts,
+    with_corrected_impacts,
+)
 from common.export import (
+    IMPACTS_JSON,
     compute_impacts,
     display_changes,
     export_json,
     load_json,
-    with_corrected_impacts,
 )
 from common.impacts import impacts as impacts_py
 from frozendict import frozendict
@@ -32,18 +37,12 @@ if not ECOBALYSE_DATA_DIR:
     )
     sys.exit(1)
 
-# Configuration
-CONFIG = {
-    "PROJECT": "default",
-    "ACTIVITIES_FILE": f"{PROJECT_ROOT_DIR}/data/object/activities.json",
-    "PROCESSES_FILE": f"{ECOBALYSE_DATA_DIR}/data/object/processes_impacts.json",
-    "IMPACTS_FILE": f"{PROJECT_ROOT_DIR}/public/data/impacts.json",
-    "ECOINVENT": "Ecoinvent 3.9.1",
-}
-DEFAULT_DB = "Ecoinvent 3.9.1"
-
-with open(CONFIG["IMPACTS_FILE"]) as f:
-    IMPACTS_DEF_ECOBALYSE = json.load(f)
+# Configuration variables
+PROJECT = "default"
+ACTIVITIES_FILE = f"{PROJECT_ROOT_DIR}/data/object/activities.json"
+PROCESSES_IMPACTS = f"{ECOBALYSE_DATA_DIR}/data/object/processes_impacts.json"
+PROCESSES_AGGREGATED = f"{PROJECT_ROOT_DIR}/public/data/object/processes.json"
+ECOINVENT = "Ecoinvent 3.9.1"
 
 
 # Configure logger
@@ -58,28 +57,39 @@ def create_process_list(activities):
 
 if __name__ == "__main__":
     logger.info("Starting export process")
-    projects.set_current(CONFIG["PROJECT"])
+    projects.set_current(PROJECT)
     # Load activities
-    activities = load_json(CONFIG["ACTIVITIES_FILE"])
+    activities = load_json(ACTIVITIES_FILE)
 
     # Create process list
     processes = create_process_list(activities)
 
     # Compute impacts
-    processes_impacts = compute_impacts(processes, DEFAULT_DB, impacts_py)
+    processes_impacts = compute_impacts(processes, ECOINVENT, impacts_py)
 
     # Apply corrections
     processes_corrected_impacts = with_corrected_impacts(
-        IMPACTS_DEF_ECOBALYSE, processes_impacts
+        IMPACTS_JSON, processes_impacts
+    )
+    processes_aggregated_impacts = with_aggregated_impacts(
+        IMPACTS_JSON, processes_corrected_impacts
     )
 
     # Load old processes for comparison
-    oldprocesses = load_json(CONFIG["PROCESSES_FILE"])
+    oldprocesses = load_json(PROCESSES_IMPACTS)
 
     # Display changes
     display_changes("id", oldprocesses, processes_corrected_impacts)
 
     # Export results
-    export_json(list(processes_corrected_impacts.values()), CONFIG["PROCESSES_FILE"])
+    export_json(
+        order_json(list(processes_aggregated_impacts.values())), PROCESSES_IMPACTS
+    )
+    export_json(
+        order_json(
+            remove_detailed_impacts(list(processes_aggregated_impacts.values()))
+        ),
+        PROCESSES_AGGREGATED,
+    )
 
     logger.info("Export completed successfully.")
