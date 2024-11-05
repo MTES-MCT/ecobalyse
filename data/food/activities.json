@@ -202,7 +202,8 @@
     "name": "Vache de réforme bio",
     "process_categories": ["material"],
     "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 28.82249325
   },
   {
     "id": "ground-beef-feedlot",
@@ -510,140 +511,160 @@
     "name": "Acier",
     "process_categories": ["packaging"],
     "search": "Steel unalloyed {RER} steel production converter unalloyed",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.04564122948
   },
   {
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "process_categories": ["packaging"],
     "search": "Packaging film low density polyethylene {RER} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.2292804427
   },
   {
     "id": "ps",
     "name": "Polystyrène",
     "process_categories": ["packaging"],
     "search": "Polystyrene expandable {RER} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.000610793334
   },
   {
     "id": "glass",
     "name": "Verre",
     "process_categories": ["packaging"],
     "search": "Packaging glass white {RER} w/o CH+DE production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.211062261
   },
   {
     "id": "pp",
     "name": "Polypropylène",
     "process_categories": ["packaging"],
     "search": "Polypropylene granulate {RER}| production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.03011341585
   },
   {
     "id": "cardboard",
     "name": "Carton",
     "process_categories": ["packaging"],
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 1.113967426
   },
   {
     "id": "paper",
     "name": "Papier",
     "process_categories": ["packaging"],
     "search": "Kraft paper production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 5.741060888
   },
   {
     "id": "pvc",
     "name": "PVC",
     "process_categories": ["packaging"],
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.08960342165
   },
   {
     "id": "pet",
     "name": "PET",
     "process_categories": ["packaging"],
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.079813952
   },
   {
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "process_categories": ["packaging"],
     "search": "Polyethylene high density granulate {RER} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.03500785459
   },
   {
     "id": "aluminium",
     "name": "Aluminium",
     "process_categories": ["packaging"],
     "search": "Aluminium primary ingot {RoW} production",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.4286118448
   },
   {
     "id": "canning",
     "name": "Mise en conserve",
     "process_categories": ["transformation"],
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.01180912862
   },
   {
     "id": "mixing",
     "name": "Mélange",
     "process_categories": ["transformation"],
     "search": "Mixing processing dummy",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.0
   },
   {
     "id": "cooking",
     "name": "Cuisson",
     "process_categories": ["transformation"],
     "search": "Cooking industrial 1kg of cooked product FR",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.1056149549
   },
   {
     "id": "lorry",
     "name": "Camion",
     "process_categories": ["transport"],
     "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.01022983599
   },
   {
     "id": "boat",
     "name": "Bateau",
     "process_categories": ["transport"],
     "search": "Transport freight sea ship",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 6.245968834e-5
   },
   {
     "id": "plane",
     "name": "Avion",
     "process_categories": ["transport"],
     "search": "Transport freight aircraft",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.00268767529
   },
   {
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
     "process_categories": ["transport"],
     "search": "Transport freight sea ship reefer",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.0001605949799
   },
   {
     "id": "lorry-cooling",
     "process_categories": ["transport"],
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.0117792982
   },
   {
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "process_categories": ["energy"],
     "search": "Electricity low voltage {FR} market",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.009591199223
   },
   {
     "id": "tap-water",
@@ -665,7 +686,8 @@
     "name": "Gaz de ville",
     "process_categories": ["energy"],
     "search": "Heat central or small-scale natural gas Europe market",
-    "database": "Agribalyse 3.1.1"
+    "database": "Agribalyse 3.1.1",
+    "land_occupation": 0.0002758175609
   },
   {
     "id": "comte-aop",

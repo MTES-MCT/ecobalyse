@@ -7726,8 +7726,8 @@
     "id": "leek-eu",
     "name": "Poireau UE Conv.",
     "categories": ["vegetable_fresh"],
-    "search": "Autumn- Winter leek seedling, conventional, at production site",
-    "default": "AGRIBALU000000003100718",
+    "search": "leek, consumption",
+    "default": "AGRIBALU000000003108534",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -7738,7 +7738,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_occupation": 0.0010386589833496953,
+    "land_occupation": 0.17472241925302953,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
@@ -7747,8 +7747,8 @@
     "id": "leek-non-eu",
     "name": "Poireau Hors UE Conv.",
     "categories": ["vegetable_fresh"],
-    "search": "Leek, early seedling, conventional, at production site {MA} U",
-    "default": "AGRIBALU000000003108540",
+    "search": "leek, consumption",
+    "default": "AGRIBALU000000003108534",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -7759,7 +7759,7 @@
       "plotSize": 0.0,
       "cropDiversity": 0.0
     },
-    "land_occupation": 9.601097650918058e-5,
+    "land_occupation": 0.17472241925302953,
     "crop_group": "LEGUMES-FLEURS",
     "scenario": "import",
     "visible": true
