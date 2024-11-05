@@ -61,7 +61,7 @@ encode process =
     Encode.object
         [ ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
-        , ( "display_name", Encode.string process.displayName )
+        , ( "displayName", Encode.string process.displayName )
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )
         , ( "name", Encode.string process.name )
