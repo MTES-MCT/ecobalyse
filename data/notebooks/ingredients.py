@@ -415,8 +415,8 @@ w_explain = ipywidgets.Textarea(
 w_animal_group1 = ipywidgets.Dropdown(options=ANIMAL_GROUP1, value=None)
 w_animal_group2 = ipywidgets.Dropdown(options=ANIMAL_GROUP2, value=None)
 w_animal_product = ipywidgets.Dropdown(options=ANIMAL_PRODUCT, value=None)
-w_cropGroup = ipywidgets.Dropdown(options=CROP_GROUPS, style=style, value=None)
-w_landFootprint = ipywidgets.FloatText()
+w_crop_group = ipywidgets.Dropdown(options=CROP_GROUPS, style=style, value=None)
+w_land_footprint = ipywidgets.FloatText()
 w_scenario = ipywidgets.Dropdown(options=["reference", "organic", "import"], value=None)
 
 # buttons
@@ -562,8 +562,8 @@ def clear_form():
     w_animal_group1.value = None
     w_animal_group2.value = None
     w_animal_product.value = None
-    w_cropGroup.value = None
-    w_landFootprint.value = 0
+    w_crop_group.value = None
+    w_land_footprint.value = 0
     w_scenario.value = None
 
 
@@ -626,8 +626,8 @@ def change_id(change):
     set_field(w_animal_group1, i.get("animal_group1"), None)
     set_field(w_animal_group2, i.get("animal_group2"), None)
     set_field(w_animal_product, i.get("animal_product"), None)
-    set_field(w_cropGroup, i.get("crop_group"), None)
-    set_field(w_landFootprint, i.get("land_occupation"), 0)
+    set_field(w_crop_group, i.get("crop_group"), None)
+    set_field(w_land_footprint, i.get("land_occupation"), 0)
 
 
 w_id.observe(change_id, names="value")
@@ -684,7 +684,7 @@ def add_activity(_):
         "visible": w_visible.value,
         "explain": w_explain.value.strip(),
         "scenario": w_scenario.value,
-        "land_occupation": w_landFootprint.value,
+        "land_occupation": w_land_footprint.value,
     }
     activity.update(
         {
@@ -695,7 +695,7 @@ def add_activity(_):
         if "animal_product" in w_ingredient_categories.value
         or "dairy_product" in w_ingredient_categories.value
         else {
-            "crop_group": w_cropGroup.value,
+            "crop_group": w_crop_group.value,
         }
     )
     activity = {k: v for k, v in activity.items() if v != ""}
@@ -837,7 +837,7 @@ def compute_surface(_):
     except Exception as e:
         spsurface = 0
         spoutput = repr(e)
-    w_landFootprint.value = spsurface or bwsurface
+    w_land_footprint.value = spsurface or bwsurface
     display_surface(bwoutput, spoutput)
     surfacebutton.disabled = False
 
@@ -1197,7 +1197,7 @@ def display_main():
                                                 ipywidgets.Label(
                                                     FIELDS["land_occupation"],
                                                 ),
-                                                w_landFootprint,
+                                                w_land_footprint,
                                             ),
                                         ),
                                         ipywidgets.HBox(
@@ -1257,7 +1257,7 @@ def display_main():
                                                                         "crop_group"
                                                                     ],
                                                                 ),
-                                                                w_cropGroup,
+                                                                w_crop_group,
                                                             ),
                                                         ),
                                                     ]
