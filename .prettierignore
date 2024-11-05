@@ -4,6 +4,9 @@
 *.md
 elm.json
 package-lock.json
+package.json
+tests/e2e-textile.json
+tests/e2e-food.json
 public/icomoon/*
 public/vendor/*
 styles.scss
