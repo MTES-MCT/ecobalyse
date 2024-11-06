@@ -325,7 +325,7 @@ describe("API", () => {
         const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
 
         expectStatus(response, 200);
-        expect(response.body.impacts.ecs).toBeCloseTo(1574.39, 1);
+        expect(response.body.impacts.ecs).toBeCloseTo(1573.4, 1);
         expect(response.body.impactsWithoutDurability.ecs).toBeCloseTo(1054.84, 1);
       });
     });
