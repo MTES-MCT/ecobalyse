@@ -225,7 +225,7 @@ def compute_impacts(frozen_processes, default_db, impacts_py):
         if not activity:
             raise Exception(f"This process was not found in brightway: {process}")
 
-        results = compute_simapro_impacts(activity, main_method, impacts_py)
+        results = None  # compute_simapro_impacts(activity, main_method, impacts_py)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kWh" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
