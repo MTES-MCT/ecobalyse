@@ -1,5 +1,4 @@
 # Please only pure functions here
-
 from copy import deepcopy
 
 from frozendict import frozendict
