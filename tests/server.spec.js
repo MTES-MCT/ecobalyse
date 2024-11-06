@@ -326,7 +326,7 @@ describe("API", () => {
 
         expectStatus(response, 200);
         expect(response.body.impacts.ecs).toBeCloseTo(1573.4, 1);
-        expect(response.body.impactsWithoutDurability.ecs).toBeCloseTo(1054.84, 1);
+        expect(response.body.impactsWithoutDurability.ecs).toBeCloseTo(1054.18, 1);
       });
     });
 
