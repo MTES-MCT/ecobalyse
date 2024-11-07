@@ -10767,10 +10767,10 @@
     "categories": [
       "ingredient"
     ],
-    "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
+    "comment": "The CIQUAL food item 'Diced mixed vegetables, canned, drained' matches with a recipe from ANSES.",
     "displayName": "Mélange de légumes",
     "id": "vegetable-mix",
-    "identifier": "AGRIBALU000000003114305",
+    "identifier": "AGRIBALU000000003104758",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10791,10 +10791,10 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1796.1263043066028,
-      "pef": 1883.2025276135612
+      "ecs": 41.74754449761709,
+      "pef": 28.419413627158033
     },
-    "name": "Soup, mixed vegetables, dehydrated, at plant {FR} U",
+    "name": "Diced mixed vegetables, canned, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
     "unit": "kg"
@@ -10914,7 +10914,7 @@
     "comment": "",
     "displayName": "Foie de porc cru FR Conv.",
     "id": "pork-liver",
-    "identifier": "AGRIBALU000000003108830",
+    "identifier": "AGRIBALU000000003108831",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10935,10 +10935,10 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 276.93345795322284,
-      "pef": 239.2239173577271
+      "ecs": 266.0809632362261,
+      "pef": 228.27278586188717
     },
-    "name": "Liver, pork, raw, processed in FR | Chilled | PS | at distribution {FR} U",
+    "name": "Liver, pork, raw, processed in FR | Chilled | PS | at packaging {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
     "unit": "kg"
@@ -12999,10 +12999,10 @@
     "categories": [
       "ingredient"
     ],
-    "comment": "",
+    "comment": "HUNGARY",
     "displayName": "Maïs doux UE Conv.",
     "id": "sweet-corn-eu",
-    "identifier": "WFLDBQUA000001234502277",
+    "identifier": "WFLDBQUA000001234502278",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13023,8 +13023,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 80.72868523224577,
-      "pef": 46.073785337968566
+      "ecs": 113.52064507126988,
+      "pef": 44.24412272699904
     },
     "name": "Sweet corn, at farm (WFLDB)",
     "source": "WFLDB",
