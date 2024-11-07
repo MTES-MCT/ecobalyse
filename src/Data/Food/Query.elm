@@ -107,7 +107,7 @@ decode =
     Decode.succeed Query
         |> DU.strictOptional "distribution" Retail.decode
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
-        |> Pipe.required "mass" (Decode.map Mass.grams Decode.float)
+        |> Pipe.required "mass" decodeMassInGrams
         |> Pipe.optional "packaging" (Decode.list decodeProcess) []
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
         |> DU.strictOptional "transform" decodeProcess
@@ -166,11 +166,11 @@ deletePreparation preparationId query =
 
 deleteIngredient : Ingredient.Id -> Query -> Query
 deleteIngredient id query =
-    { query
-        | ingredients =
-            query.ingredients |> List.filter (.id >> (/=) id)
-    }
-        |> updateTransformMass
+    updateTransformMass
+        { query
+            | ingredients =
+                query.ingredients |> List.filter (.id >> (/=) id)
+        }
 
 
 empty : Query
@@ -186,8 +186,8 @@ empty =
 
 encode : Query -> Encode.Value
 encode v =
-    [ ( "ingredients", Encode.list encodeIngredient v.ingredients |> Just )
-    , ( "transform", v.transform |> Maybe.map encodeProcess )
+    [ ( "distribution", v.distribution |> Maybe.map Retail.encode )
+    , ( "ingredients", Encode.list encodeIngredient v.ingredients |> Just )
     , ( "mass", v.mass |> Mass.inGrams |> Encode.float |> Just )
     , ( "packaging"
       , case v.packaging of
@@ -197,7 +197,6 @@ encode v =
             list ->
                 Encode.list encodeProcess list |> Just
       )
-    , ( "distribution", v.distribution |> Maybe.map Retail.encode )
     , ( "preparation"
       , case v.preparation of
             [] ->
@@ -206,6 +205,7 @@ encode v =
             list ->
                 Encode.list Preparation.encodeId list |> Just
       )
+    , ( "transform", v.transform |> Maybe.map encodeProcess )
     ]
         -- For concision, drop keys where no param is defined
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))

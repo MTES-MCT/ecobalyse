@@ -486,15 +486,14 @@ commandsForNoModal modal =
         AddIngredientModal maybeOldIngredient _ ->
             Cmd.batch
                 [ Ports.removeBodyClass "prevent-scrolling"
-                , Dom.focus
-                    -- This whole "node to focus" management is happening as a fallback
-                    -- if the modal was closed without choosing anything.
-                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
-                    -- and overload any focus being done here.
-                    (maybeOldIngredient
-                        |> Maybe.map (.ingredient >> .id >> Ingredient.idToString >> (++) "selector-")
-                        |> Maybe.withDefault "add-new-element"
-                    )
+                , -- This whole "node to focus" management is happening as a fallback
+                  -- if the modal was closed without choosing anything.
+                  -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
+                  -- and overload any focus being done here.
+                  maybeOldIngredient
+                    |> Maybe.map (.ingredient >> .id >> Ingredient.idToString >> (++) "selector-")
+                    |> Maybe.withDefault "add-new-element"
+                    |> Dom.focus
                     |> Task.attempt (always NoOp)
                 ]
 
