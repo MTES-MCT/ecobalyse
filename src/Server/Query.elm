@@ -103,6 +103,7 @@ ingredientParser countries food string =
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
+                |> RE.andMap (Ok Split.full)
 
         [ id, mass, countryCode ] ->
             let
@@ -115,6 +116,7 @@ ingredientParser countries food string =
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
+                |> RE.andMap (Ok Split.full)
 
         [ id, mass, countryCode, byPlane ] ->
             let
@@ -127,6 +129,7 @@ ingredientParser countries food string =
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (validateMassInGrams mass)
                 |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
+                |> RE.andMap (Ok Split.full)
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."

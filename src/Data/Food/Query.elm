@@ -31,6 +31,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
+import Data.Split as Split exposing (Split)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -44,6 +45,7 @@ type alias IngredientQuery =
     , id : Ingredient.Id
     , mass : Mass
     , planeTransport : Ingredient.PlaneTransport
+    , share : Split
     }
 
 
@@ -153,6 +155,7 @@ decodeIngredient =
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMassInGrams
         |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
+        |> Pipe.required "share" Split.decodePercent
 
 
 deletePreparation : Preparation.Id -> Query -> Query

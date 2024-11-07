@@ -508,8 +508,8 @@ commandsForNoModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
 
-updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
-updateExistingIngredient query model session oldRecipeIngredient newIngredient =
+updateExistingIngredient : Session -> Model -> Query -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
+updateExistingIngredient session model query oldRecipeIngredient newIngredient =
     -- Update an existing ingredient
     let
         ingredientQuery : Query.IngredientQuery
@@ -517,6 +517,7 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
             { id = newIngredient.id
             , mass = oldRecipeIngredient.mass
             , country = Nothing
+            , share = oldRecipeIngredient.share
             , planeTransport = Ingredient.byPlaneByDefault newIngredient
             }
     in
@@ -533,7 +534,7 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
             Autocomplete.selectedValue autocompleteState
     in
     Maybe.map2
-        (updateExistingIngredient query model session)
+        (updateExistingIngredient session model query)
         maybeOldRecipeIngredient
         maybeSelectedValue
         |> Maybe.withDefault
@@ -732,6 +733,7 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
         ingredientQuery =
             { id = recipeIngredient.ingredient.id
             , mass = recipeIngredient.mass
+            , share = recipeIngredient.share
             , country = recipeIngredient.country |> Maybe.map .code
             , planeTransport = recipeIngredient.planeTransport
             }

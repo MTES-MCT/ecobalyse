@@ -9,6 +9,7 @@ import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Split as Split
 import Data.Unit as Unit
 import Expect
 import Length
@@ -216,11 +217,13 @@ suite =
                           , mass = Mass.grams 120
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , share = Split.zero
                           }
                         , { id = Ingredient.idFromString "soft-wheat-fr"
                           , mass = Mass.grams 140
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , share = Split.zero
                           }
                         ]
 
@@ -266,6 +269,7 @@ suite =
                     , mass = Mass.grams 120
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
+                    , share = Split.zero
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -282,6 +286,7 @@ suite =
                           , mass = Mass.grams 120
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , share = Split.zero
                           }
                         ]
 

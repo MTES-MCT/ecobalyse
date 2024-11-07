@@ -5,6 +5,7 @@ import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Query exposing (Query)
 import Data.Food.Retail as Retail
+import Data.Split as Split
 import Mass
 
 
@@ -13,46 +14,55 @@ royalPizza =
     { ingredients =
         [ { id = Ingredient.idFromString "flour"
           , mass = Mass.grams 97
+          , share = Split.zero
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "tomato-paste"
           , mass = Mass.grams 89
+          , share = Split.zero
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "mozzarella"
           , mass = Mass.grams 70
+          , share = Split.zero
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "cooked-ham"
           , mass = Mass.grams 16
+          , share = Split.zero
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "sugar"
           , mass = Mass.grams 5
+          , share = Split.zero
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "mushroom-eu"
           , mass = Mass.grams 31
+          , share = Split.zero
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "rapeseed-oil"
           , mass = Mass.grams 16
+          , share = Split.zero
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "black-pepper"
           , mass = Mass.grams 1
+          , share = Split.zero
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "tap-water"
           , mass = Mass.grams 22
+          , share = Split.zero
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }

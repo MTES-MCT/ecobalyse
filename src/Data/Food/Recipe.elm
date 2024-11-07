@@ -35,7 +35,7 @@ import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Scoring as Scoring exposing (Scoring)
-import Data.Split as Split
+import Data.Split as Split exposing (Split)
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -66,12 +66,14 @@ type alias RecipeIngredient =
     , ingredient : Ingredient
     , mass : Mass
     , planeTransport : Ingredient.PlaneTransport
+    , share : Split
     }
 
 
 type alias Recipe =
     { distribution : Maybe Retail.Distribution
     , ingredients : List RecipeIngredient
+    , mass : Mass
     , packaging : List Packaging
     , preparation : List Preparation
     , transform : Maybe Transform
@@ -456,6 +458,7 @@ fromQuery db query =
     Ok Recipe
         |> RE.andMap (Ok query.distribution)
         |> RE.andMap (ingredientListFromQuery db query)
+        |> RE.andMap (Ok query.mass)
         |> RE.andMap (packagingListFromQuery db.food query)
         |> RE.andMap (preparationListFromQuery query)
         |> RE.andMap (transformFromQuery db.food query)
@@ -567,7 +570,7 @@ ingredientListFromQuery db =
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery db { country, id, mass, planeTransport } =
+ingredientFromQuery db { country, id, mass, planeTransport, share } =
     let
         ingredientResult =
             Ingredient.findByID id db.food.ingredients
@@ -590,6 +593,7 @@ ingredientFromQuery db { country, id, mass, planeTransport } =
             (ingredientResult
                 |> Result.andThen (Ingredient.byPlaneAllowed planeTransport)
             )
+        |> RE.andMap (Ok share)
 
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
@@ -598,6 +602,7 @@ ingredientQueryFromIngredient ingredient =
     , id = ingredient.id
     , mass = Mass.grams 100
     , planeTransport = Ingredient.byPlaneByDefault ingredient
+    , share = Split.full
     }
 
 
