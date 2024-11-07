@@ -1,5 +1,25 @@
 [project]
+name =  "ecobalyse-app"
 requires-python = ">= 3.11"
+version = "2.4.0"
+dependencies = [
+    "ecobalyse-lib",
+    "pygithub>=2.4.0",
+    "requests>=2.32.3",
+]
 
 [tool.ruff]
 extend-select = ["I"]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+ecobalyse-lib = { workspace = true }
+
+[tool.uv.workspace]
+members = ["packages/python/*"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

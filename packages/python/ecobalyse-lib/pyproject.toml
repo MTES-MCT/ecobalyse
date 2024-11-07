@@ -1,0 +1,8 @@
+[project]
+name =  "ecobalyse-lib"
+requires-python = ">= 3.11"
+version = "2.4.0"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

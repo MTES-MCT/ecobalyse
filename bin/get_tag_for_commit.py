@@ -3,7 +3,7 @@
 import argparse
 import os
 
-from ecobalyse.github import get_github
+from ecobalyse_lib.github import get_github
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Get tag for a specific commit")
