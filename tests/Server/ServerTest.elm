@@ -29,20 +29,6 @@ suite =
                     |> Expect.equal 404
                     |> asTest "should catch invalid endpoints"
 
-                -- GET queries
-                , "/food?ingredients[]=invalid"
-                    |> createServerRequest dbs "GET" Encode.null
-                    |> Server.handleRequest dbs
-                    |> Tuple.first
-                    |> Expect.equal 400
-                    |> asTest "should reject an invalid GET query"
-                , "/food?mass=1000&ingredients[]=egg-indoor-code3;120"
-                    |> createServerRequest dbs "GET" Encode.null
-                    |> Server.handleRequest dbs
-                    |> Tuple.first
-                    |> Expect.equal 200
-                    |> asTest "should accept a valid GET query"
-
                 -- POST queries
                 , "/food"
                     |> createServerRequest dbs "POST" Encode.null

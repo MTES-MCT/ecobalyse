@@ -1,18 +1,11 @@
 module Server.Query exposing
     ( Errors
     , encodeErrors
-    , parseFoodQuery
     , parseTextileQuery
     )
 
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
-import Data.Food.Db as Food
-import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.Preparation as Preparation
-import Data.Food.Process as FoodProcess
-import Data.Food.Query as BuilderQuery
-import Data.Food.Retail as Retail exposing (Distribution)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -63,81 +56,6 @@ succeed =
     always >> Query.custom ""
 
 
-parseFoodQuery : Db -> Parser (Result Errors BuilderQuery.Query)
-parseFoodQuery { countries, food } =
-    succeed (Ok BuilderQuery.Query)
-        |> apply (distributionParser "distribution")
-        |> apply (ingredientListParser "ingredients" countries food)
-        |> apply (massParser Mass.grams "mass")
-        |> apply (packagingListParser "packaging" food.processes)
-        |> apply (preparationListParser "preparation")
-        |> apply (maybeTransformParser "transform" food.processes)
-
-
-ingredientListParser : String -> List Country -> Food.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
-ingredientListParser key countries food =
-    Query.custom (key ++ "[]")
-        (List.map (ingredientParser countries food)
-            >> RE.combine
-            >> Result.mapError (\err -> ( key, err ))
-        )
-
-
-ingredientParser : List Country -> Food.Db -> String -> Result String BuilderQuery.IngredientQuery
-ingredientParser countries food string =
-    let
-        byPlaneParser byPlane ingredient =
-            ingredient
-                |> validateByPlaneValue byPlane
-                |> Result.andThen (\maybeByPlane -> Ingredient.byPlaneAllowed maybeByPlane ingredient)
-    in
-    case String.split ";" string of
-        [ id, mass ] ->
-            let
-                ingredient =
-                    food.ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
-            in
-            Ok BuilderQuery.IngredientQuery
-                |> RE.andMap (Ok Nothing)
-                |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
-                |> RE.andMap (Ok Split.full)
-
-        [ id, mass, countryCode ] ->
-            let
-                ingredient =
-                    food.ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
-            in
-            Ok BuilderQuery.IngredientQuery
-                |> RE.andMap (countryParser countries Scope.Food countryCode)
-                |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
-                |> RE.andMap (Ok Split.full)
-
-        [ id, mass, countryCode, byPlane ] ->
-            let
-                ingredient =
-                    food.ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
-            in
-            Ok BuilderQuery.IngredientQuery
-                |> RE.andMap (countryParser countries Scope.Food countryCode)
-                |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (validateMassInGrams mass)
-                |> RE.andMap (ingredient |> Result.andThen (byPlaneParser byPlane))
-                |> RE.andMap (Ok Split.full)
-
-        [ "" ] ->
-            Err <| "Format d'ingrédient vide."
-
-        _ ->
-            Err <| "Format d'ingrédient invalide : " ++ string ++ "."
-
-
 countryParser : List Country -> Scope -> String -> Result String (Maybe Country.Code)
 countryParser countries scope countryStr =
     if countryStr == "" then
@@ -147,55 +65,6 @@ countryParser countries scope countryStr =
         countries
             |> validateCountry countryStr scope
             |> Result.map Just
-
-
-foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Identifier
-foodProcessCodeParser processes string =
-    processes
-        |> FoodProcess.findByIdentifier (FoodProcess.identifierFromString string)
-        |> Result.map .identifier
-
-
-packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List BuilderQuery.ProcessQuery))
-packagingListParser key packagings =
-    Query.custom (key ++ "[]")
-        (List.map (packagingParser packagings)
-            >> RE.combine
-            >> Result.mapError (\err -> ( key, err ))
-        )
-
-
-preparationListParser : String -> Parser (ParseResult (List Preparation.Id))
-preparationListParser key =
-    Query.custom (key ++ "[]")
-        -- Note: leveraging Preparation.findById for validation
-        (List.map (Preparation.Id >> Preparation.findById >> Result.map .id)
-            >> RE.combine
-            >> Result.andThen
-                (\list ->
-                    if List.length list > 2 then
-                        Err "Deux techniques de préparation maximum."
-
-                    else
-                        Ok list
-                )
-            >> Result.mapError (\err -> ( key, err ))
-        )
-
-
-packagingParser : List FoodProcess.Process -> String -> Result String BuilderQuery.ProcessQuery
-packagingParser packagings string =
-    case String.split ";" string of
-        [ code, mass ] ->
-            Ok BuilderQuery.ProcessQuery
-                |> RE.andMap (foodProcessCodeParser packagings code)
-                |> RE.andMap (validateMassInGrams mass)
-
-        [ "" ] ->
-            Err <| "Format d'emballage vide."
-
-        _ ->
-            Err <| "Format d'emballage invalide : " ++ string ++ "."
 
 
 validateBool : String -> Result String Bool
@@ -209,22 +78,6 @@ validateBool str =
 
         _ ->
             Err "La valeur ne peut être que true ou false."
-
-
-validateByPlaneValue : String -> Ingredient -> Result String Ingredient.PlaneTransport
-validateByPlaneValue str ingredient =
-    case str of
-        "" ->
-            Ok (Ingredient.byPlaneByDefault ingredient)
-
-        "byPlane" ->
-            Ok Ingredient.ByPlane
-
-        "noPlane" ->
-            Ok Ingredient.NoPlane
-
-        _ ->
-            Err "La valeur ne peut être que parmi les choix suivants: '', 'byPlane', 'noPlane'."
 
 
 validateCountry : String -> Scope -> List Country -> Result String Country.Code
@@ -243,22 +96,6 @@ validateCountry countryCode scope =
                         ++ "."
                         |> Err
             )
-
-
-validateMassInGrams : String -> Result String Mass
-validateMassInGrams string =
-    string
-        |> String.toFloat
-        |> Result.fromMaybe ("Masse invalide : " ++ string)
-        |> Result.andThen
-            (\mass ->
-                if mass < 0 then
-                    Err "La masse doit être supérieure ou égale à zéro."
-
-                else
-                    Ok mass
-            )
-        |> Result.map Mass.grams
 
 
 validatePhysicalDurability : String -> Result String Unit.PhysicalDurability
@@ -286,20 +123,6 @@ validatePhysicalDurability string =
 
                 else
                     Ok (Unit.PhysicalDurability durability)
-            )
-
-
-maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe BuilderQuery.ProcessQuery))
-maybeTransformParser key transforms =
-    Query.string key
-        |> Query.map
-            (Maybe.map
-                (\str ->
-                    parseTransform_ transforms str
-                        |> Result.map Just
-                        |> Result.mapError (\err -> ( key, err ))
-                )
-                >> Maybe.withDefault (Ok Nothing)
             )
 
 
@@ -332,19 +155,6 @@ maybePhysicalDurabilityParser key =
             )
 
 
-distributionParser : String -> Parser (ParseResult (Maybe Distribution))
-distributionParser key =
-    Query.string key
-        |> Query.map
-            (Maybe.map
-                (Retail.fromString
-                    >> Result.map Just
-                    >> Result.mapError (\err -> ( key, err ))
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
-
-
 maybeBusiness : String -> Parser (ParseResult (Maybe Economics.Business))
 maybeBusiness key =
     Query.string key
@@ -370,21 +180,6 @@ maybeIntParser key =
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
-
-
-parseTransform_ : List FoodProcess.Process -> String -> Result String BuilderQuery.ProcessQuery
-parseTransform_ transforms string =
-    case String.split ";" string of
-        [ code, mass ] ->
-            Ok BuilderQuery.ProcessQuery
-                |> RE.andMap (foodProcessCodeParser transforms code)
-                |> RE.andMap (validateMassInGrams mass)
-
-        [ "" ] ->
-            Err <| "Code de procédé de transformation manquant."
-
-        _ ->
-            Err <| "Format de procédé de transformation invalide : " ++ string ++ "."
 
 
 parseTextileQuery : Db -> Parser (Result Errors TextileQuery.Query)
