@@ -2153,5 +2153,53 @@
       "ecs": 283.16005100701443,
       "pef": 0
     }
+  },
+  {
+    "displayName": "",
+    "info": "Textile > Trims",
+    "source": "Ecoinvent 3.9.1",
+    "search": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
+    "correctif": "",
+    "step_usage": "Matières",
+    "uuid": "8b91651b-9651-46fc-8bc2-37a141494086",
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "",
+    "category": "process",
+    "unit": "kg"
+  },
+  {
+    "displayName": "",
+    "info": "Textile > Trims",
+    "source": "Ecoinvent 3.9.1",
+    "search": "brass//[RoW] market for brass",
+    "correctif": "",
+    "step_usage": "Matières",
+    "uuid": "2e217ad8-05fa-4a9d-a18d-272fc969848c",
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "",
+    "category": "process",
+    "unit": "kg"
+  },
+  {
+    "displayName": "",
+    "info": "Textile > Trims",
+    "source": "Ecoinvent 3.9.1",
+    "search": "Polyethylene terephthalate production, granulate, amorphous [RoW]",
+    "correctif": "",
+    "step_usage": "Matières",
+    "uuid": "68852bea-1145-4d95-8c9b-187d6fb31710",
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "",
+    "category": "process",
+    "unit": "kg"
   }
 ]
