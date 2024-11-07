@@ -439,10 +439,12 @@ w_land_footprint = ipywidgets.FloatText()
 w_scenario = ipywidgets.Dropdown(options=["reference", "organic", "import"], value=None)
 
 # buttons
+savebuttontooltip = "Enregistre l'ingrédient créé ou modifié"
+savebuttontooltipnonunique = "Vos termes de recherche doivent donner un seul résultat"
 savebutton = ipywidgets.Button(
     description="Enregistrer localement",
     button_style="warning",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip="Enregistre l'ingrédient créé ou modifié",
+    tooltip=savebuttontooltip,
     icon="check",
     layout=ipywidgets.Layout(width="auto"),
 )
@@ -652,30 +654,35 @@ def change_id(change):
 w_id.observe(change_id, names="value")
 
 
-def changed_database_to(field):
-    def changed_database(change):
-        results = list(dbsearch(change.new, w_search.value, limit=10))
-        field.rows = len(results)
-        field.options = [display_of(r) for r in results]
-        if results:
-            activity = results[0]
-            field.value = display_of(activity)
-            setattr(surfacebutton, "activity", activity)
-
-    return changed_database
-
-
 def changed_search_to(field):
     def changed_search(change):
-        results = list(dbsearch(w_database.value, change.new, limit=10))
+        activity = None
+        results = list(dbsearch(w_database.value, w_search.value, limit=10))
+        if w_search.value in [a["name"] for a in results]:
+            exacts = [a for a in results if a["name"] == w_search.value]
+            results = exacts
+            activity = results[0]
+        else:
+            if len(results) == 1:
+                activity = results[0]
+            else:
+                savebutton.disabled = True
+                savebutton.tooltip = savebuttontooltipnonunique
         field.rows = len(results)
         field.options = [display_of(r) for r in results]
-        if results:
-            activity = results[0]
+        if activity is not None:
             field.value = display_of(activity)
             setattr(surfacebutton, "activity", activity)
+            savebutton.disabled = False
+            savebutton.tooltip = savebuttontooltip
+        elif hasattr(surfacebutton, "activity"):
+            field.value = None
+            delattr(surfacebutton, "activity")
 
     return changed_search
+
+
+changed_database_to = changed_search_to
 
 
 def change_filter(change):
