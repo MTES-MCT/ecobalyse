@@ -201,7 +201,7 @@
     "id": "cull-cow-organic",
     "name": "Vache de réforme bio",
     "process_categories": ["material"],
-    "search": "Organic milk system number 1, cull cow, at farm gate {FR} U",
+    "search": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 28.82249325
   },

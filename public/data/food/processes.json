@@ -378,7 +378,7 @@
     "comment": "",
     "displayName": "Vache de réforme bio",
     "id": "cull-cow-organic",
-    "identifier": "AGRIBALU000000003110566",
+    "identifier": "AGRIBALU000000003104412",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -399,13 +399,13 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 0.0,
-      "pef": 0.0
+      "ecs": 1171.3349689288743,
+      "pef": 1365.0583752846949
     },
-    "name": "Organic milk system number 1, cull cow, at farm gate {FR} U",
+    "name": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "unit"
+    "unit": "kg"
   },
   {
     "categories": ["ingredient"],
