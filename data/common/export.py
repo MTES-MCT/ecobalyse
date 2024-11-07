@@ -61,9 +61,14 @@ def search(dbname, search_terms, excluded_term=None):
         print(f"Not found in brightway : '{search_terms}'")
         return None
     if len(results) > 1:
-        raise ValueError(
-            f"This 'search' field returns more than one result: {search_terms}"
-        )
+        # if the search gives more than one results, find the one with exact name
+        exact_results = [a for a in results if a["name"] == search_terms]
+        if len(exact_results) == 1:
+            return exact_results[0]
+        else:
+            raise ValueError(
+                f"This 'search' field returns more than one result in database {dbname}: {search_terms}"
+            )
     return results[0]
 
 

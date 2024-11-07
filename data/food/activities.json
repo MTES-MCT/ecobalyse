@@ -95,7 +95,7 @@
   {
     "id": "flour",
     "name": "Farine UE Conv.",
-    "search": "Wheat flour at industrial mill",
+    "search": "Wheat flour at industrial mill FR",
     "process_categories": [
       "ingredient"
     ],
@@ -255,7 +255,7 @@
     "process_categories": [
       "material"
     ],
-    "search": "Cull cow organic milk system number 1 at farm code:5c5b4e3b445434b613b17824a3b2a9b9",
+    "search": "Organic milk system number 1, cull cow, at farm gate {FR} U",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 28.82249325
   },
@@ -357,7 +357,7 @@
     "id": "cooked-ham-fr",
     "name": "Jambon cuit (alim. ani. 100%FR) FR Conv.",
     "database": "Ecobalyse",
-    "search": "Cooked ham case ready at plant fr, constructed by Ecobalyse",
+    "search": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
     "process_categories": [
       "ingredient"
     ],
@@ -403,7 +403,7 @@
     "id": "chicken-breast-organic",
     "name": "Blanc de poulet cru FR ou UE ou Hors UE Bio",
     "database": "Ecobalyse",
-    "search": "Meat without bone chicken for direct consumption organic, constructed by Ecobalyse",
+    "search": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "process_categories": [
       "ingredient"
     ],
@@ -450,7 +450,7 @@
   {
     "id": "rapeseed-oil",
     "name": "Huile de colza Hors UE Conv.",
-    "search": "Rapeseed oil mill {GLO}",
+    "search": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "process_categories": [
       "ingredient"
     ],
@@ -493,7 +493,7 @@
   {
     "id": "sunflower-oil",
     "name": "Huile de tournesol Hors UE Conv.",
-    "search": "sunflower oil at mill {glo}",
+    "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "process_categories": [
       "ingredient"
     ],
@@ -603,7 +603,7 @@
     "id": "butter",
     "name": "Beurre FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Butter, 82% fat, unsalted, at dairy {FR}",
+    "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -774,7 +774,7 @@
     "process_categories": [
       "transformation"
     ],
-    "search": "Cooking industrial 1kg of cooked product FR",
+    "search": "Cooking, industrial, 1kg of cooked product {FR} U",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.1056149549
   },
@@ -784,7 +784,7 @@
     "process_categories": [
       "transport"
     ],
-    "search": "Transport freight lorry 16-32 metric ton EURO5 {RER} EURO5",
+    "search": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.01022983599
   },
@@ -794,7 +794,7 @@
     "process_categories": [
       "transport"
     ],
-    "search": "Transport freight sea ship",
+    "search": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 6.245968834e-05
   },
@@ -804,7 +804,7 @@
     "process_categories": [
       "transport"
     ],
-    "search": "Transport freight aircraft",
+    "search": "Transport freight aircraft unspecified",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.00268767529
   },
@@ -814,7 +814,7 @@
     "process_categories": [
       "transport"
     ],
-    "search": "Transport freight sea ship reefer",
+    "search": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.0001605949799
   },
@@ -861,14 +861,14 @@
     "process_categories": [
       "energy"
     ],
-    "search": "Heat central or small-scale natural gas Europe market",
+    "search": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
     "database": "Agribalyse 3.1.1",
     "land_occupation": 0.0002758175609
   },
   {
     "id": "comte-aop",
     "name": "Comté FR AOP Conv.",
-    "search": "code:b9b650a42442d76be26feb783620f123",
+    "search": "Comte cheese, from cow's milk, at plant {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -889,7 +889,7 @@
     "id": "emmental",
     "name": "Emmental FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "code:3d72c918ca829647072bab92542bb70e",
+    "search": "Emmental cheese, from cow's milk, at plant {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -908,7 +908,7 @@
   {
     "id": "mozzarella",
     "name": "Mozzarella FR Conv.",
-    "search": "code:5f9448ee99cd739447359929e9c869d3",
+    "search": "Mozzarella cheese, from cow's milk, at plant {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -1040,7 +1040,7 @@
   {
     "id": "soybean-organic",
     "name": "Soja FR ou UE ou Hors UE Bio",
-    "search": "soybean organic animal {FR}",
+    "search": "soybean organic animal at farm gate {FR}",
     "process_categories": [
       "ingredient"
     ],
@@ -1182,7 +1182,7 @@
   {
     "id": "sausage-tofu",
     "name": "Saucisse végétale tofu FR Conv.",
-    "search": "Plant-based sausage with tofu (vegan), at plant {FR} U \t",
+    "search": "Plant-based sausage with tofu (vegan), at plant {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -1331,7 +1331,7 @@
   {
     "id": "sugar",
     "name": "Sucre de betterave FR Conv.",
-    "search": "sugar",
+    "search": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
     "process_categories": [
       "ingredient"
     ],
@@ -1398,7 +1398,7 @@
     "id": "chicken-breast-fr",
     "name": "Blanc de poulet cru (alim. ani. 100%FR) FR Conv.",
     "database": "Ecobalyse",
-    "search": "Meat without bone chicken for direct consumption fr constructed by Ecobalyse",
+    "search": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
     "process_categories": [
       "ingredient"
     ],
@@ -1421,7 +1421,7 @@
   {
     "id": "cane-sugar",
     "name": "Sucre de canne Hors UE Conv.",
-    "search": "brown sugar",
+    "search": "brown sugar at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -1463,7 +1463,7 @@
   {
     "id": "coffee-ground",
     "name": "Café moulu Hors UE Conv.",
-    "search": "Coffee, roast and ground, at plant",
+    "search": "Coffee, roast and ground, at plant {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -1525,7 +1525,7 @@
   {
     "id": "red-wine",
     "name": "Vin rouge FR Conv.",
-    "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine PGi",
+    "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -1609,7 +1609,7 @@
     "id": "egg-indoor-code3",
     "name": "Oeuf (code 3) FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Egg indoor cage",
+    "search": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -1655,7 +1655,7 @@
     "id": "egg-organic-code0",
     "name": "Oeuf FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
-    "search": "Egg organic at farm gate",
+    "search": "Egg, organic, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -1724,7 +1724,7 @@
     "id": "lamb-meat-without-bone-organic",
     "name": "Viande d'agneau FR ou UE ou Hors UE Bio (désossée)",
     "database": "Ecobalyse",
-    "search": "lamb organic",
+    "search": "meat lamb organic",
     "process_categories": [
       "ingredient"
     ],
@@ -2366,7 +2366,7 @@
     "id": "cherry-fr",
     "name": "Cerise FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cherry, conventional, national average, at orchard {FR}",
+    "search": "Cherry, conventional, national average, at orchard {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -2409,7 +2409,7 @@
     "id": "plum-fr",
     "name": "Prune FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cherry, conventional, national average, at orchard ",
+    "search": "Cherry, conventional, national average, at orchard {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -2493,7 +2493,7 @@
     "id": "tomato-heated-greenhouse-fr",
     "name": "Tomate sous serre chauffée Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U code:b489582f34edd951efb90bb7e7225503",
+    "search": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -2856,7 +2856,7 @@
     "id": "turnip-non-eu",
     "name": "Navet Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U ",
+    "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "process_categories": [
       "ingredient"
     ],
@@ -2878,7 +2878,7 @@
     "id": "chinese-cabbage-fr",
     "name": "Chou chinois FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, conventional, at farm gate {FR}",
+    "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -2943,7 +2943,7 @@
     "id": "green-cabbage-fr",
     "name": "Chou vert FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, conventional, at farm gate",
+    "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -2965,7 +2965,7 @@
     "id": "green-cabbage-organic",
     "name": "Chou vert FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, organic, at farm gate",
+    "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -3182,7 +3182,7 @@
     "id": "peanut-non-eu",
     "name": "Arachide avec coque Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Peanut {IN}| peanut production",
+    "search": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "process_categories": [
       "ingredient"
     ],
@@ -3247,7 +3247,7 @@
     "id": "chickpea-fr",
     "name": "Pois chiche FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} ",
+    "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -3268,7 +3268,7 @@
     "id": "sunflower-fr",
     "name": "Tournesol FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Sunflower at farm FR",
+    "search": "Sunflower at farm FR Adapted from WFLDB",
     "process_categories": [
       "ingredient"
     ],
@@ -3398,7 +3398,7 @@
     "id": "mango-non-eu",
     "name": "Mangue Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Mango conventional Val de San Francisco at orchard",
+    "search": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -3595,7 +3595,7 @@
     "id": "banana-wi",
     "name": "Banane hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Banana, mixed production, West Indies, at farm gate {WI}",
+    "search": "Banana, mixed production, West Indies, at farm gate {WI} U",
     "process_categories": [
       "ingredient"
     ],
@@ -3727,7 +3727,7 @@
     "id": "strawberry-fr-offseason",
     "name": "Fraise hors saison FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR}",
+    "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -3837,7 +3837,7 @@
     "id": "celeriac-non-eu",
     "name": "Céleri-rave Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Carrot {RoW}| carrot production | Cut-off, U",
+    "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "process_categories": [
       "ingredient"
     ],
@@ -3989,7 +3989,7 @@
     "id": "brussels-sprout-fr",
     "name": "Chou de Bruxelles FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, conventional, at farm gate {FR}",
+    "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -4052,7 +4052,7 @@
     "id": "curly-kale-fr",
     "name": "Chou frisé FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, conventional, at farm gate {FR}",
+    "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -4074,7 +4074,7 @@
     "id": "curly-kale-organic",
     "name": "Chou frisé FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, organic, at farm gate {FR}",
+    "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -4248,7 +4248,7 @@
     "id": "sweet-corn-fr",
     "name": "Maïs doux FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate",
+    "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -4468,7 +4468,7 @@
     "id": "rice-basmati-non-eu",
     "name": "Riz basmati Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent",
+    "search": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
     "process_categories": [
       "ingredient"
     ],
@@ -4844,7 +4844,7 @@
     "id": "garden-peas-organic",
     "name": "Petit pois FR ou UE ou Hors UE Bio",
     "database": "Ginko",
-    "search": "Garden peas, consumption mix, organic 2023 {FR}",
+    "search": "Garden peas, consumption mix, organic 2023 {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -4912,7 +4912,7 @@
     "id": "mango-organic",
     "name": "Mangue FR ou UE ou Hors UE Bio",
     "database": "Ginko",
-    "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR}",
+    "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -4935,7 +4935,7 @@
     "id": "lychee-organic",
     "name": "Litchi Hors FR ou UE ou Hors UE Bio",
     "database": "Ginko",
-    "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR}",
+    "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -4958,7 +4958,7 @@
     "id": "lychee-non-eu",
     "name": "Litchi Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Mango conventional Val de San Francisco at orchard",
+    "search": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -5068,7 +5068,7 @@
     "id": "banana-organic",
     "name": "Banane FR ou UE ou Hors UE Bio",
     "database": "Ginko",
-    "search": "Banana, consumption mix, organic 2023 {FR}",
+    "search": "Banana, consumption mix, organic 2023 {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -5336,7 +5336,7 @@
   {
     "id": "triticale-organic",
     "name": "Triricale FR ou UE ou Hors UE Bio",
-    "search": "Triticale, organic, animal feed, at farm gate {FR}",
+    "search": "Triticale, organic, animal feed, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -5359,7 +5359,7 @@
   {
     "id": "bean-organic",
     "name": "Pois FR ou UE ou Hors UE Bio",
-    "search": "Pea, organic, animal feed, at farm gate {FR}",
+    "search": "Pea, organic, animal feed, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -5497,7 +5497,7 @@
     "id": "cherry-organic",
     "name": "Cerise FR ou UE ou Hors UE Bio",
     "database": "Ginko",
-    "search": "Cherry, organic 2023, national average, at orchard {FR}",
+    "search": "Cherry, organic 2023, national average, at orchard {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -5959,7 +5959,7 @@
     "id": "fresh-cream-cheese",
     "name": "Crème fraiche FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "fresh cream 8",
+    "search": "fresh cream 8% at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6007,7 +6007,7 @@
     "id": "egg-yolk-powder-fr",
     "name": "poudre de jaune d'oeuf FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "yolk powder",
+    "search": "yolk powder at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6031,7 +6031,7 @@
     "id": "egg-white-powder-fr",
     "name": "poudre de blanc d'oeuf FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "egg white powder",
+    "search": "egg white powder at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6055,7 +6055,7 @@
     "id": "emmental-grated-fr",
     "name": "Emmental rapé FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "emmental grated",
+    "search": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -6078,7 +6078,7 @@
     "id": "cocoa-powder-non-ue",
     "name": "Poudre de cacao Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "cocoa powder",
+    "search": "cocoa powder at plant FR",
     "process_categories": [
       "ingredient"
     ],
@@ -6100,7 +6100,7 @@
     "id": "salt",
     "name": "Sel",
     "database": "Agribalyse 3.1.1",
-    "search": "salt",
+    "search": "Salt {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -6121,7 +6121,7 @@
     "id": "bacon-fr",
     "name": "Poitrine de porc FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "bacon",
+    "search": "bacon at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6165,7 +6165,7 @@
     "id": "apple-compote-fr",
     "name": "Compote de pomme FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "compote apple",
+    "search": "compote apple at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6187,7 +6187,7 @@
     "id": "goat-milk",
     "name": "Lait de chèvre FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "goat milk",
+    "search": "Goat milk, consumption mix {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -6211,7 +6211,7 @@
     "id": "breakfast-cereals",
     "name": "Mélange de céréales FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "cereals rich",
+    "search": "cereals rich at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6232,7 +6232,7 @@
     "id": "pasta",
     "name": "Pâtes FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "pasta dried plant",
+    "search": "pasta dried plant wheat FR",
     "process_categories": [
       "ingredient"
     ],
@@ -6253,7 +6253,7 @@
     "id": "garlic",
     "name": "Ail FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "garlic",
+    "search": "garlic consumption mix",
     "process_categories": [
       "ingredient"
     ],
@@ -6274,7 +6274,7 @@
     "id": "vegetable-mix",
     "name": "Mélange de légumes",
     "database": "Agribalyse 3.1.1",
-    "search": "mixed vegetables",
+    "search": "Diced mixed vegetables canned at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6295,7 +6295,7 @@
     "id": "bolognese",
     "name": "Sauce tomate à la viande FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "tomato sauce bolognese",
+    "search": "tomato sauce bolognese at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6318,7 +6318,7 @@
     "id": "honey",
     "name": "Miel FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "honey",
+    "search": "honey at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6339,7 +6339,7 @@
     "id": "turkey",
     "name": "Viande de dinde FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "turkey conventional",
+    "search": "turkey conventional at farm gate",
     "process_categories": [
       "ingredient"
     ],
@@ -6362,7 +6362,7 @@
     "id": "pork-liver",
     "name": "Foie de porc cru FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "liver pork raw",
+    "search": "liver pork raw at distribution",
     "process_categories": [
       "ingredient"
     ],
@@ -6385,7 +6385,7 @@
     "id": "whey",
     "name": "Poudre de lactosérum FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "whey",
+    "search": "Whey, at plant {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -6408,7 +6408,7 @@
     "id": "strawberry-coulis",
     "name": "Purée de fraise FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "strawberry coulis",
+    "search": "strawberry coulis at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6429,7 +6429,7 @@
     "id": "yogurt",
     "name": "Fromage blanc FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "yogurt milk",
+    "search": "yogurt milk cow at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6452,7 +6452,7 @@
     "id": "goat-cheese",
     "name": "Fromage de chèvre FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "cheese goat consumption mix",
+    "search": "Cheese, from goat's milk, consumption mix {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -6475,7 +6475,7 @@
     "id": "cocoa-butter",
     "name": "Beurre de cacao Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "cocoa butter",
+    "search": "cocoa butter at plant FR",
     "process_categories": [
       "ingredient"
     ],
@@ -6496,7 +6496,7 @@
     "id": "soy-protein",
     "name": "Protéines de soja Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "soy protein dehydrated",
+    "search": "soy protein dehydrated at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6561,7 +6561,7 @@
     "id": "french-fries",
     "name": "Frites de pomme de terre congelées FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "french fries frozen",
+    "search": "french fries frozen at processing",
     "process_categories": [
       "ingredient"
     ],
@@ -6582,7 +6582,7 @@
     "id": "tomato-sauce",
     "name": "Sauce tomate FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "tomato sauce vegetables",
+    "search": "tomato sauce vegetables prepacked at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6603,7 +6603,7 @@
     "id": "mustard",
     "name": "Moutarde FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "mustard",
+    "search": "Mustard, at plant {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -6624,7 +6624,7 @@
     "id": "rice-flour",
     "name": "Farine de riz Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "rice flour fr",
+    "search": "rice flour FR at mill",
     "process_categories": [
       "ingredient"
     ],
@@ -6645,7 +6645,7 @@
     "id": "brie-cheese",
     "name": "Brie FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "brie consumption",
+    "search": "Brie cheese, from cow's milk, consumption mix {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -6668,7 +6668,7 @@
     "id": "turmeric",
     "name": "Curcuma Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "turmeric",
+    "search": "turmeric consumption mix",
     "process_categories": [
       "ingredient"
     ],
@@ -6689,7 +6689,7 @@
     "id": "candied-fruits",
     "name": "Fruits confits FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "candied fruits",
+    "search": "candied fruits at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6710,7 +6710,7 @@
     "id": "reblochon",
     "name": "Reblochon FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "reblochon",
+    "search": "Reblochon cheese, from cow's milk, at plant {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -6733,7 +6733,7 @@
     "id": "fruit-puree",
     "name": "Purée de fruits FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "fruits puree",
+    "search": "fruits puree at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6775,7 +6775,7 @@
     "id": "orange-juice",
     "name": "Jus d'orange Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "orange nectar",
+    "search": "orange nectar at plant",
     "process_categories": [
       "ingredient"
     ],
@@ -6796,7 +6796,7 @@
     "id": "soy-milk",
     "name": "Lait de soja Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "soy drink",
+    "search": "Soy drink, plain, at plant {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -6901,7 +6901,7 @@
     "id": "lamb-meat-without-bone-eu",
     "name": "Viande d'agneau (désossée) UE Conv.",
     "database": "WFLDB",
-    "search": "lamb slaughterhouse  IE",
+    "search": "lamb meat slaughterhouse IE",
     "process_categories": [
       "ingredient"
     ],
@@ -6924,7 +6924,7 @@
     "id": "lamb-meat-without-bone-non-eu",
     "name": "Viande d'agneau (désossée) Hors UE Conv.",
     "database": "WFLDB",
-    "search": "lamb slaughterhouse NZ",
+    "search": "lamb meat slaughterhouse NZ",
     "process_categories": [
       "ingredient"
     ],
@@ -7055,7 +7055,7 @@
     "id": "avocado-organic",
     "name": "Avocat FR ou UE ou Hors UE BIO",
     "database": "Agribalyse 3.1.1",
-    "search": "Avocado mix",
+    "search": "Avocado, consumption mix {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -7164,7 +7164,7 @@
     "id": "broccoli-organic",
     "name": "Brocoli FR ou UE ou Hors UE Bio",
     "database": "Ginko",
-    "search": "Broccoli organic",
+    "search": "Broccoli, consumption mix, organic 2023 {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -7186,7 +7186,7 @@
     "id": "broccoli-fr",
     "name": "Brocoli FR Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Broccoli consumption",
+    "search": "Broccoli, consumption mix {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -7379,7 +7379,7 @@
     "id": "chinese-cabbage-ue",
     "name": "Chou chinois UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, conventional, at farm gate {FR}",
+    "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -7400,7 +7400,7 @@
     "id": "chinese-cabbage-non-ue",
     "name": "Chou chinois Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, conventional, at farm gate {FR}",
+    "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -7421,7 +7421,7 @@
     "id": "brussels-sprout-ue",
     "name": "Chou de Bruxelles UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, conventional, at farm gate {FR}",
+    "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -7442,7 +7442,7 @@
     "id": "brussels-sprout-non-ue",
     "name": "Chou de Bruxelles Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Cauliflower, winter, conventional, at farm gate {FR}",
+    "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -7614,7 +7614,7 @@
     "id": "sweet-corn-eu",
     "name": "Maïs doux UE Conv.",
     "database": "WFLDB",
-    "search": "Sweet corn, at farm (WFLDB)",
+    "search": "Sweet corn GLO",
     "process_categories": [
       "ingredient"
     ],
@@ -7657,7 +7657,7 @@
     "id": "unknown-dairy-product",
     "name": "Autres produits laitiers (non encore répertoriés)",
     "database": "Agribalyse 3.1.1",
-    "search": "Butter, 82% fat, unsalted, at dairy {FR}",
+    "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "process_categories": [
       "ingredient"
     ],
@@ -7834,7 +7834,7 @@
     "id": "unknown-oil",
     "name": "Autres huiles (non encore répertoriées)",
     "database": "Agribalyse 3.1.1",
-    "search": "sunflower oil at mill {glo}",
+    "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "process_categories": [
       "ingredient"
     ],
@@ -8483,7 +8483,7 @@
     "id": "barley-non-eu",
     "name": "Orge Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
-    "search": "Barley grain, at farm (WFLDB)",
+    "search": "Barley grain at farm DE",
     "process_categories": [
       "ingredient"
     ],
@@ -8778,7 +8778,7 @@
     "id": "chicken-breast-eu",
     "name": "Blanc de poulet cru UE Conv.",
     "database": "WFLDB",
-    "search": "Chicken, fresh meat, at slaughterhouse (WFLDB) code:f3c6*",
+    "search": "Chicken meat at slaughterhouse PL",
     "process_categories": [
       "ingredient"
     ],
@@ -8929,7 +8929,7 @@
     "id": "plum-eu",
     "name": "Prune UE Conv.",
     "database": "WFLDB",
-    "search": "cherry at farm code:cb6b*",
+    "search": "cherry at farm GLO",
     "process_categories": [
       "ingredient"
     ],
@@ -8950,7 +8950,7 @@
     "id": "plum-non-eu",
     "name": "Prune Hors UE Conv.",
     "database": "WFLDB",
-    "search": "cherry at farm code:221a*",
+    "search": "cherry at farm GLO",
     "process_categories": [
       "ingredient"
     ],
