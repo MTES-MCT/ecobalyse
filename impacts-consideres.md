@@ -24,8 +24,8 @@ $$
 
 Ecobalyse permet de visualiser **2 impacts agrégés**, c'est à dire regroupant différents impacts après normalisation et pondération :&#x20;
 
-* le **coût environnemental**, qui traduit le calcul d'impacts selon la méthode de l'Etat français ;
-* un **score PEF** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI\_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales.
+* le **coût environnemental**, qui traduit le calcul d'impacts selon la méthode de l'Etat français ; donc en ajustant les pondérations PEF et en ajoutant quelques indicateurs complémentaires.&#x20;
+* un **score "pondération PEF"** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI\_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales. Ce score applique uniquement les indicateurs PEF avec leurs pondérations initiales. A noter qu'il n'a pas été possible d'utiliser les données EF à ce stade pour des raisons de propriété intellectuelle.
 
 **Le détail des catégories d'impacts ACV** peut également être consulté :&#x20;
 
@@ -72,16 +72,6 @@ La modélisation des impacts de toxicité humaine (toxicité humaine cancer et t
 En revanche, l'indicateur d'écotoxicité (écotoxicité eau douce), est lui considéré comme plus robuste par la communauté scientifique, bien que partiel puisque ne prend pas en compte l'ensemble des impacts écotoxiques, notamment sur les milieux terrestres. Par ailleurs, l'absence d'un indicateur de "biodiversité locale" dans le cadre ACV actuellement justifie de considérer temporairement cet indicateur d'écotoxicité comme un "proxy" de la biodiversité locale. Il est donc proposé de réhausser sa pondération à hauteur de 21%, c'est-à-dire au même niveau que l'impact changement climatique.
 
 Pour les produits textiles, il est également proposé d'enrichir les inventaires de l'étape [Ennoblissement](textile/cycle-de-vie-des-produits-textiles/ennoblissement/) afin de mieux prendre en compte l'impact des substances chimiques mobilisées lors du traitement des fibres (plus de détails dans la [partie dédiée](textile/cycle-de-vie-des-produits-textiles/ennoblissement/inventaires-enrichis.md)).
-
-### Correctif sur l'indicateur "consommation d'eau"
-
-Dans les inventaires utilisés, et notamment dans les ICV d'Agribalyse pour la partie alimentaire, les flux de consommation d'eaux étaient des flux mondiaux, même pour des produits français. Étant donné que l'impact de la consommation d'1 litre d'eau mondial est plus impactant (42.95) que la consommation d'1 litre d'eau en France (6.98), l'impact des produits faits en France étaient surestimé.
-
-Pour corriger cela, il est proposé d'appliquer un correctif à la méthode de caractérisation, en modifiant l'impact des flux de consommation d'eaux mondiaux afin que cela corresponde à l'impact de la consommation d'eau en France.
-
-{% hint style="danger" %}
-_Limites_ : pour les produits importés utilisant de l'eau mondiale ({GLO}), les résultats sont faussés. Ce correctif doit rester temporaire en attendant un correctif lors des prochaines mises à jour des données, notamment d'Agribalyse.
-{% endhint %}
 
 ## Compléments hors ACV
 
