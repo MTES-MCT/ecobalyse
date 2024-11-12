@@ -13,7 +13,7 @@ module Data.Object.Simulator exposing
 import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Process as Process exposing (Process)
-import Data.Object.Query as Query exposing (ProcessItem, Query)
+import Data.Object.Query as Query exposing (ProcessItem, Query, quantityToInt)
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
@@ -28,12 +28,9 @@ type Results
         }
 
 
-
--- FIX: implement it for components, don't force unique processes
-
-
 availableProcesses : Db -> Query -> List Process
 availableProcesses { object } query =
+    -- FIX: implement it for components, don't force unique processes
     let
         usedIds =
             List.map .processId (query.items |> List.concatMap .processes)
@@ -45,8 +42,10 @@ availableProcesses { object } query =
 compute : Db -> Query -> Result String Results
 compute db query =
     query.items
-        -- Flatten the processes inside the items
-        |> List.concatMap .processes
+        -- Flatten the processes inside the items, muliplying processes entries by the quantity
+        |> List.concatMap (\item -> List.repeat (quantityToInt item.quantity) item.processes)
+        -- Flatten the list
+        |> List.concat
         |> List.map (computeProcessItemResults db)
         |> RE.combine
         |> Result.map

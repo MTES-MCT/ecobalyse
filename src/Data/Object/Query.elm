@@ -11,6 +11,7 @@ module Data.Object.Query exposing
     , defaultItem
     , encode
     , parseBase64Query
+    , quantityToInt
     , removeItem
     , toString
     , updateItem
