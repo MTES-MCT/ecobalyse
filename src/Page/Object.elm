@@ -542,17 +542,19 @@ itemView selectedImpact ( amount, process ) itemResults =
 
                             _ ->
                                 "1"
-                    , onInput <|
-                        \str ->
-                            case String.toFloat str of
-                                Just float ->
-                                    UpdateItem
-                                        { amount = Query.amount float
-                                        , processId = process.id
-                                        }
 
-                                Nothing ->
-                                    NoOp
+                    -- FIX: add it back for components
+                    -- , onInput <|
+                    --     \str ->
+                    --         case String.toFloat str of
+                    --             Just float ->
+                    --                 UpdateItem
+                    --                     { amount = Query.amount float
+                    --                     , processId = process.id
+                    --                     }
+                    --
+                    --             Nothing ->
+                    --                 NoOp
                     ]
                     []
                 , span

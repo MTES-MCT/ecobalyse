@@ -13,7 +13,7 @@ module Data.Object.Simulator exposing
 import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Process as Process exposing (Process)
-import Data.Object.Query as Query exposing (Item, Query)
+import Data.Object.Query as Query exposing (ProcessItem, Query)
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
@@ -28,11 +28,15 @@ type Results
         }
 
 
+
+-- FIX: implement it for components, don't force unique processes
+
+
 availableProcesses : Db -> Query -> List Process
 availableProcesses { object } query =
     let
         usedIds =
-            List.map .processId query.items
+            List.map .processId (query.items |> List.concatMap .processes)
     in
     object.processes
         |> List.filter (\{ id } -> not (List.member id usedIds))
@@ -41,7 +45,9 @@ availableProcesses { object } query =
 compute : Db -> Query -> Result String Results
 compute db query =
     query.items
-        |> List.map (computeItemResults db)
+        -- Flatten the processes inside the items
+        |> List.concatMap .processes
+        |> List.map (computeProcessItemResults db)
         |> RE.combine
         |> Result.map
             (List.foldr
@@ -57,8 +63,8 @@ compute db query =
             )
 
 
-computeItemResults : Db -> Item -> Result String Results
-computeItemResults { object } { amount, processId } =
+computeProcessItemResults : Db -> ProcessItem -> Result String Results
+computeProcessItemResults { object } { amount, processId } =
     processId
         |> Process.findById object.processes
         |> Result.map
@@ -92,6 +98,8 @@ emptyResults =
 expandItems : Db -> Query -> Result String (List ( Query.Amount, Process ))
 expandItems db =
     .items
+        -- Flatten the processes inside the items
+        >> List.concatMap .processes
         >> List.map (\{ amount, processId } -> ( amount, processId ))
         >> List.map (RE.combineMapSecond (Process.findById db.object.processes))
         >> RE.combine
