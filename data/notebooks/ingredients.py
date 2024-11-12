@@ -441,12 +441,14 @@ w_land_footprint = ipywidgets.FloatText()
 w_scenario = ipywidgets.Dropdown(options=["reference", "organic", "import"], value=None)
 
 # buttons
-savebuttontooltip = "Enregistre l'ingrédient créé ou modifié"
-savebuttontooltipnonunique = "Vos termes de recherche doivent donner un seul résultat"
+save_button_tooltip = "Enregistre l'ingrédient créé ou modifié"
+save_button_tooltip_non_unique = (
+    "Vos termes de recherche doivent donner un seul résultat"
+)
 savebutton = ipywidgets.Button(
     description="Enregistrer localement",
     button_style="warning",  # 'success', 'info', 'warning', 'danger' or ''
-    tooltip=savebuttontooltip,
+    tooltip=save_button_tooltip,
     icon="check",
     layout=ipywidgets.Layout(width="auto"),
 )
@@ -669,14 +671,14 @@ def changed_search_to(field):
                 activity = results[0]
             else:
                 savebutton.disabled = True
-                savebutton.tooltip = savebuttontooltipnonunique
+                savebutton.tooltip = save_button_tooltip_non_unique
         field.rows = len(results)
         field.options = [display_of(r) for r in results]
         if activity is not None:
             field.value = display_of(activity)
             setattr(surfacebutton, "activity", activity)
             savebutton.disabled = False
-            savebutton.tooltip = savebuttontooltip
+            savebutton.tooltip = save_button_tooltip
         elif hasattr(surfacebutton, "activity"):
             field.value = None
             delattr(surfacebutton, "activity")
