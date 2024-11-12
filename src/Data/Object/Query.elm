@@ -20,6 +20,7 @@ import Base64
 import Data.Object.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
@@ -74,8 +75,8 @@ buildApiQuery scope clientUrl query =
 
 decode : Decoder Query
 decode =
-    Decode.map Query
-        (Decode.field "processes" (Decode.list decodeItem))
+    Decode.succeed Query
+        |> Pipe.required "items" (Decode.list decodeItem)
 
 
 decodeItem : Decoder Item
