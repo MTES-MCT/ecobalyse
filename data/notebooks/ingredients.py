@@ -615,13 +615,6 @@ def change_contributor(_):
 w_contributor.observe(change_contributor, names="value")
 
 
-def change_ingredient_categories(_):
-    pass
-
-
-w_ingredient_categories.observe(change_ingredient_categories, names="value")
-
-
 def change_id(change):
     if not change.new:
         clear_form()
