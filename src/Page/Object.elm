@@ -17,7 +17,7 @@ import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Process as Process exposing (Process)
+import Data.Object.Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator exposing (Results)
 import Data.Scope as Scope exposing (Scope)
@@ -73,7 +73,7 @@ type Msg
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OpenComparator
-    | RemoveItem Process.Id
+      -- | RemoveItem Process.Id
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
@@ -265,10 +265,10 @@ update ({ navKey } as session) msg model =
             , Cmd.none
             )
 
-        ( RemoveItem _, _ ) ->
-            ( model, session, Cmd.none )
-
         -- FIX: add it back for components
+        -- ( RemoveItem _, _ ) ->
+        --     ( model, session, Cmd.none )
+        --
         -- |> updateQuery (Query.removeItem processId query)
         ( SaveBookmark, _ ) ->
             ( model
@@ -582,7 +582,9 @@ itemView selectedImpact ( amount, process ) itemResults =
                 |> Format.formatImpact selectedImpact
             ]
         , td [ class "pe-3 align-middle text-nowrap" ]
-            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ]
+            -- FIX: add it back for components
+            -- [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ]
+            [ button [ class "btn btn-outline-secondary" ]
                 [ Icon.trash ]
             ]
         ]
