@@ -2,7 +2,7 @@
 
 ## Qu'est-ce que l'[API Ecobalyse](/#/api) et à quoi sert t-elle ?
 
-L'[API](https://fr.wikipedia.org/wiki/Interface_de_programmation) Ecobalyse est une interface de communication informatique qui permet aux systèmes informatiques d'interroger le moteur de calcul et d'obtenir des scores. Elle utilise le protocole [HTTP/REST](https://en.wikipedia.org/wiki/REST) et expose sa documentation au format [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification).
+L'[API](https://fr.wikipedia.org/wiki/Interface_de_programmation) Ecobalyse est une interface de communication informatique qui permet aux systèmes d'information d'interroger le moteur de calcul et d'obtenir des scores. Elle utilise le protocole [HTTP/REST](https://en.wikipedia.org/wiki/REST) et expose sa documentation au format [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification).
 
 ## Comment puis-je accéder à la documentation de l'API ?
 
