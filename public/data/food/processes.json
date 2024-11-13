@@ -1,6 +1,8 @@
 [
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Oeuf Bleu-Blanc-Cœur FR Conv.",
     "id": "egg-bleublanccoeur",
@@ -34,7 +36,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "FRANCE",
     "displayName": "Lait FR Conv.",
     "id": "milk",
@@ -68,7 +72,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Lait FR ou UE ou Hors UE Bio",
     "id": "milk-organic",
@@ -102,7 +108,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Carotte FR ou UE ou Hors UE Bio",
     "id": "carrot-organic",
@@ -136,7 +144,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Farine UE Conv.",
     "id": "flour",
@@ -170,7 +180,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Farine FR ou UE ou Hors UE Bio",
     "id": "flour-organic",
@@ -204,7 +216,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Tournesol FR ou UE ou Hors UE Bio",
     "id": "sunflower-organic",
@@ -238,7 +252,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Tournesol FR ou UE ou Hors UE Bio",
     "id": "sunflower-feed-organic",
@@ -272,7 +288,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Colza FR ou UE ou Hors UE Bio",
     "id": "rapeseed-organic",
@@ -306,7 +324,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Boeuf haché cru FR Conv.",
     "id": "ground-beef",
@@ -340,7 +360,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Boeuf haché cru FR ou UE ou Hors UE Bio",
     "id": "ground-beef-organic",
@@ -374,7 +396,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["material"],
+    "categories": [
+      "material"
+    ],
     "comment": "",
     "displayName": "Vache de réforme bio",
     "id": "cull-cow-organic",
@@ -408,7 +432,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Boeuf haché cru Hors UE Conv.",
     "id": "ground-beef-feedlot",
@@ -442,7 +468,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Boeuf haché cru - v. de réforme 100% herbe FR Conv.",
     "id": "ground-beef-grass-fed",
@@ -476,7 +504,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Product already packed.",
     "displayName": "Jambon cuit FR Conv.",
     "id": "cooked-ham",
@@ -510,7 +540,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Product already packed.",
     "displayName": "Jambon cuit FR ou UE ou Hors UE Bio",
     "id": "cooked-ham-organic",
@@ -544,7 +576,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Product already packed.",
     "displayName": "Jambon cuit (alim. ani. 100%FR) FR Conv.",
     "id": "cooked-ham-fr",
@@ -578,7 +612,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blanc de poulet cru FR Conv.",
     "id": "chicken-breast",
@@ -612,7 +648,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blanc de poulet cru FR ou UE ou Hors UE Bio",
     "id": "chicken-breast-organic",
@@ -646,7 +684,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR ou UE ou Hors UE Bio",
     "id": "chicken-breast-fr-organic",
@@ -680,7 +720,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "displayName": "Huile de colza Hors UE Conv.",
     "id": "rapeseed-oil",
@@ -714,7 +756,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "displayName": "Huile de colza FR ou UE ou Hors UE Bio",
     "id": "rapeseed-oil-organic",
@@ -748,7 +792,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "displayName": "Huile de tournesol Hors UE Conv.",
     "id": "sunflower-oil",
@@ -782,7 +828,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "displayName": "Huile de tournesol FR ou UE ou Hors UE Bio",
     "id": "sunflower-oil-organic",
@@ -816,7 +864,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Courgette FR ou UE ou Hors UE Bio",
     "id": "zucchini-organic",
@@ -850,7 +900,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "FRANCE",
     "displayName": "Pêche FR ou UE ou Hors UE Bio",
     "id": "peach-organic",
@@ -884,7 +936,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Melon FR ou UE ou Hors UE Bio",
     "id": "melon-organic",
@@ -918,7 +972,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Beurre FR Conv.",
     "id": "butter",
@@ -952,7 +1008,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Beurre FR ou UE ou Hors UE Bio",
     "id": "butter-organic",
@@ -986,7 +1044,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "Acier",
     "id": "steel",
@@ -1020,7 +1080,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "Polyéthylène basse densité",
     "id": "ldpe",
@@ -1054,7 +1116,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "Polystyrène",
     "id": "ps",
@@ -1088,7 +1152,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "Verre",
     "id": "glass",
@@ -1122,7 +1188,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "Polypropylène",
     "id": "pp",
@@ -1156,7 +1224,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "Carton",
     "id": "cardboard",
@@ -1190,7 +1260,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "Papier",
     "id": "paper",
@@ -1224,7 +1296,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "PVC",
     "id": "pvc",
@@ -1258,7 +1332,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "PET",
     "id": "pet",
@@ -1292,7 +1368,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "Polyéthylène haute densité",
     "id": "hdpe",
@@ -1326,7 +1404,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["packaging"],
+    "categories": [
+      "packaging"
+    ],
     "comment": "",
     "displayName": "Aluminium",
     "id": "aluminium",
@@ -1360,7 +1440,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["transformation"],
+    "categories": [
+      "transformation"
+    ],
     "comment": "\"Functional Unit\nTo obtain 1kg of canned vegetable or fruit. \nAn input of 0,626kg of food is required. Added packaging should account for the 1% loss.\n\nBoundaries\nFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).\nContrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.\nwe considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
     "displayName": "Mise en conserve",
     "id": "canning",
@@ -1394,7 +1476,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["transformation"],
+    "categories": [
+      "transformation"
+    ],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "displayName": "Mélange",
     "id": "mixing",
@@ -1428,7 +1512,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["transformation"],
+    "categories": [
+      "transformation"
+    ],
     "comment": "",
     "displayName": "Cuisson",
     "id": "cooking",
@@ -1462,7 +1548,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "comment": "",
     "displayName": "Camion",
     "id": "lorry",
@@ -1496,7 +1584,9 @@
     "unit": "t⋅km"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "comment": "",
     "displayName": "Bateau",
     "id": "boat",
@@ -1530,7 +1620,9 @@
     "unit": "t⋅km"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "comment": "",
     "displayName": "Avion",
     "id": "plane",
@@ -1564,7 +1656,9 @@
     "unit": "t⋅km"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "comment": "",
     "displayName": "Bateau frigorifique",
     "id": "boat-cooling",
@@ -1598,7 +1692,9 @@
     "unit": "t⋅km"
   },
   {
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "comment": "",
     "displayName": "Camion frigorifique",
     "id": "lorry-cooling",
@@ -1632,7 +1728,9 @@
     "unit": "t⋅km"
   },
   {
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "",
     "displayName": "Electricité basse tension",
     "id": "low-voltage-electricity",
@@ -1666,7 +1764,9 @@
     "unit": "kWh"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Eau du robinet UE Conv.",
     "id": "tap-water",
@@ -1700,7 +1800,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "",
     "displayName": "Gaz de ville",
     "id": "domestic-gas-heat",
@@ -1734,7 +1836,9 @@
     "unit": "MJ"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Comté FR AOP Conv.",
     "id": "comte-aop",
@@ -1768,7 +1872,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Emmental FR Conv.",
     "id": "emmental",
@@ -1802,7 +1908,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Mozzarella FR Conv.",
     "id": "mozzarella",
@@ -1836,7 +1944,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Betterave rouge FR ou UE ou Hors UE Bio",
     "id": "beetroot-organic",
@@ -1870,7 +1980,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Céleri-rave FR ou UE ou Hors UE Bio",
     "id": "celeriac-organic",
@@ -1904,7 +2016,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Navet FR ou UE ou Hors UE Bio",
     "id": "turnip-organic",
@@ -1938,7 +2052,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Pois chiche FR ou UE ou Hors UE Bio",
     "id": "chickpea-organic",
@@ -1972,7 +2088,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Soja FR Conv.",
     "id": "soybean-humanconsumption",
@@ -2006,7 +2124,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Rdt mean = 2,25 t/ha",
     "displayName": "Soja FR ou UE ou Hors UE Bio",
     "id": "soybean-organic",
@@ -2040,7 +2160,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 76692414464",
     "displayName": "Soja (non déforestant) Hors UE Conv.",
     "id": "soybean-br-no-deforestation",
@@ -2074,7 +2196,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 76692414464",
     "displayName": "Soja déforestant Hors UE Conv.",
     "id": "soybean-br-deforestation",
@@ -2108,7 +2232,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Soja feed Hors UE Conv.",
     "id": "soybean-feed",
@@ -2142,7 +2268,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "None",
     "displayName": "Chair à saucisse crue FR Conv.",
     "id": "sausage-meat",
@@ -2176,7 +2304,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The CIQUAL food item 'Toulouse sausage, raw' matches with a recipe from ANSES.",
     "displayName": "Saucisse de Toulouse (crue) FR Conv.",
     "id": "sausage-toulouse",
@@ -2210,7 +2340,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The CIQUAL food item 'Toulouse sausage, cooked' matches with a recipe from ANSES.",
     "displayName": "Saucisse de Toulouse (cuite) FR Conv.",
     "id": "sausage-toulouse-cooked",
@@ -2244,7 +2376,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "\"This dataset represents plant-based sausage production from Tofu. The recipe was determined with OpenFoodFact, 2021 based on 2 industrial recipes and assumptions. \"",
     "displayName": "Saucisse végétale tofu FR Conv.",
     "id": "sausage-tofu",
@@ -2278,7 +2412,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "displayName": "Purée de tomates Hors UE Conv.",
     "id": "tomato-paste",
@@ -2312,7 +2448,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "displayName": "Concentré de tomates Hors UE Conv.",
     "id": "tomato-concentrated",
@@ -2346,7 +2484,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Viande de boeuf avec os (crue) FR Conv.",
     "id": "beef-with-bone",
@@ -2380,7 +2520,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This dataset includes packaging",
     "displayName": "Viande de boeuf sans os (crue) FR Conv.",
     "id": "beef-without-bone",
@@ -2414,7 +2556,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This dataset includes packaging",
     "displayName": "Viande de boeuf sans os FR ou UE ou Hors UE Bio (crue)",
     "id": "beef-without-bone-organic",
@@ -2448,7 +2592,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Semoule de blé dur FR Conv.",
     "id": "durum-wheat-semolina",
@@ -2482,7 +2628,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic allocation",
     "displayName": "Sucre de betterave FR Conv.",
     "id": "sugar",
@@ -2516,7 +2664,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chocolat noir Hors UE Conv.",
     "id": "dark-chocolate",
@@ -2550,7 +2700,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blanc de poulet cru (alim. ani. 100%BR) Hors UE Conv.",
     "id": "chicken-breast-br-max",
@@ -2584,7 +2736,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR Conv.",
     "id": "chicken-breast-fr",
@@ -2618,7 +2772,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Sucre de canne Hors UE Conv.",
     "id": "cane-sugar",
@@ -2652,7 +2808,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 1436769536",
     "displayName": "Thé (feuilles) UE Conv.",
     "id": "tea-dried",
@@ -2686,7 +2844,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Café moulu Hors UE Conv.",
     "id": "coffee-ground",
@@ -2720,7 +2880,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of black pepper imported to France. Transport is added from the farm gate (in the producing country) to a french plant in Carpentras.",
     "displayName": "Poivre noir Hors UE Conv.",
     "id": "black-pepper",
@@ -2754,7 +2916,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the production of Milk, powder, skimmed in France.\nIncluded activities are : production in country of origin and transport",
     "displayName": "Poudre de lait écrémé FR Conv.",
     "id": "milk-powder",
@@ -2788,7 +2952,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "(4,4,2,1,2),",
     "displayName": "Vin rouge FR Conv.",
     "id": "red-wine",
@@ -2822,7 +2988,9 @@
     "unit": "L"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Crevettes fraîches Hors UE Conv.",
     "id": "fresh-shrimps",
@@ -2856,7 +3024,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Truite d'élevage FR Conv.",
     "id": "large-trout",
@@ -2890,7 +3060,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Oeuf FR Conv.",
     "id": "egg-indoor-code2",
@@ -2924,7 +3096,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Oeuf (code 3) FR Conv.",
     "id": "egg-indoor-code3",
@@ -2958,7 +3132,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Oeuf (code 1) FR Conv.",
     "id": "egg-outdoor-code1",
@@ -2992,7 +3168,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Oeuf FR ou UE ou Hors UE Bio",
     "id": "egg-organic-code0",
@@ -3026,7 +3204,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Raisin de cuve FR ou UE ou Hors UE Bio",
     "id": "wine-grape-organic",
@@ -3060,7 +3240,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Viande d'agneau (désossée) FR Conv.",
     "id": "lamb-meat-without-bone",
@@ -3094,7 +3276,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Viande d'agneau FR ou UE ou Hors UE Bio (désossée)",
     "id": "lamb-meat-without-bone-organic",
@@ -3128,7 +3312,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Poire FR ou UE ou Hors UE Bio",
     "id": "pear-organic",
@@ -3162,7 +3348,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Carotte FR Conv.",
     "id": "carrot-fr",
@@ -3196,7 +3384,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "displayName": "Carotte UE Conv.",
     "id": "carrot-eu",
@@ -3230,7 +3420,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 18370729984",
     "displayName": "Carotte Hors UE Conv.",
     "id": "carrot-non-ue",
@@ -3264,7 +3456,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Courgette FR Conv.",
     "id": "zucchini-fr",
@@ -3298,7 +3492,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Courgette UE Conv.",
     "id": "zucchini-eu",
@@ -3332,7 +3528,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Poire FR Conv.",
     "id": "pear-fr",
@@ -3366,7 +3564,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 48205 kg/ha table fruit quality\nProduction Volume Amount: 277274240",
     "displayName": "Poire UE Conv.",
     "id": "pear-eu",
@@ -3400,7 +3600,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "FRANCE",
     "displayName": "Pêche FR Conv.",
     "id": "peach-fr",
@@ -3434,7 +3636,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 27000 kg/ha table fruit quality\nProduction Volume Amount: 1257250944",
     "displayName": "Pêche UE Conv.",
     "id": "peach-eu",
@@ -3468,7 +3672,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Melon FR Conv.",
     "id": "melon-fr",
@@ -3502,7 +3708,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Melon UE Conv.",
     "id": "melon-eu",
@@ -3536,7 +3744,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Pomme de terre industrie FR Conv.",
     "id": "potato-industry-fr",
@@ -3570,7 +3780,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Pomme de terre de table FR Conv.",
     "id": "potato-table-fr",
@@ -3604,7 +3816,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Fécule de pomme de terre Hors UE Conv.",
     "id": "potato-starch",
@@ -3638,7 +3852,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blé tendre Hors UE Conv.",
     "id": "wheat-glo",
@@ -3672,7 +3888,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Oignon FR Conv.",
     "id": "onion-fr",
@@ -3706,7 +3924,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 55000 kg/ha\nProduction Volume Amount: 1402423040",
     "displayName": "Oignon UE Conv.",
     "id": "onion-eu",
@@ -3740,7 +3960,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 38596923392",
     "displayName": "Oignon Hors UE Conv.",
     "id": "onion-non-ue",
@@ -3774,7 +3996,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Aubergine FR Conv.",
     "id": "eggplant-fr",
@@ -3808,7 +4032,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Aubergine UE Conv.",
     "id": "eggplant-eu",
@@ -3842,7 +4068,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Haricot vert FR Conv.",
     "id": "french-bean-fr",
@@ -3876,7 +4104,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Haricot vert UE Conv.",
     "id": "french-bean-eu",
@@ -3910,7 +4140,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Haricot vert Hors UE Conv.",
     "id": "french-bean-non-eu",
@@ -3944,7 +4176,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Laitue FR Conv.",
     "id": "lettuce-fr",
@@ -3978,7 +4212,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 23622365184",
     "displayName": "Laitue UE Conv.",
     "id": "lettuce-eu",
@@ -4012,7 +4248,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 23622365184",
     "displayName": "Laitue Hors UE Conv.",
     "id": "lettuce-non-eu",
@@ -4046,7 +4284,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Petit pois FR Conv.",
     "id": "garden-peas-fr",
@@ -4080,7 +4320,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Petit pois UE Conv.",
     "id": "garden-peas-eu",
@@ -4114,7 +4356,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Cerise FR Conv.",
     "id": "cherry-fr",
@@ -4148,7 +4392,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 37000 kg/ha\nProduction Volume Amount: 674371008",
     "displayName": "Citron UE Conv.",
     "id": "lemon-eu",
@@ -4182,7 +4428,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Prune FR Conv.",
     "id": "plum-fr",
@@ -4216,7 +4464,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Courge FR Conv.",
     "id": "squash-fr",
@@ -4250,7 +4500,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Courge UE Conv.",
     "id": "squash-eu",
@@ -4284,7 +4536,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Courge FR ou UE ou Hors UE Bio",
     "id": "squash-organic",
@@ -4318,7 +4572,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Tomate sous serre chauffée Hors UE Conv.",
     "id": "tomato-heated-greenhouse-fr",
@@ -4352,7 +4608,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Tomate sous serre non chauffée FR Conv.",
     "id": "tomato-greenhouse-fr",
@@ -4386,7 +4644,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Yield = 165000.0 kg/haOutput of tomato, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 4255320576",
     "displayName": "Tomate UE Conv.",
     "id": "tomato-greenhouse-eu",
@@ -4420,7 +4680,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
     "displayName": "Abricot FR Conv.",
     "id": "apricot-fr",
@@ -4454,7 +4716,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
     "displayName": "Abricot UE Conv.",
     "id": "apricot-eu",
@@ -4488,7 +4752,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "FAOstats average 2013-2017",
     "displayName": "Noisette avec coque Hors UE Conv.",
     "id": "hazelnut-non-eu",
@@ -4522,7 +4788,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "FAOstats average 2013 - 2017",
     "displayName": "Noisette avec coque UE Conv.",
     "id": "hazelnut-eu",
@@ -4556,7 +4824,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Dataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Turkey and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "displayName": "Noisette décortiquée UE Conv.",
     "id": "hazelnut-unshelled-eu",
@@ -4590,7 +4860,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "displayName": "Noisette décortiquée Hors UE Conv.",
     "id": "hazelnut-unshelled-non-eu",
@@ -4624,7 +4896,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Artichaut FR Conv.",
     "id": "artichoke-fr",
@@ -4658,7 +4932,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Artichaut FR ou UE ou Hors UE Bio",
     "id": "artichoke-organic",
@@ -4692,7 +4968,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou-fleur FR ou UE ou Hors UE Bio",
     "id": "cauliflower-organic",
@@ -4726,7 +5004,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou-fleur FR Conv.",
     "id": "cauliflower-fr",
@@ -4760,7 +5040,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Poireau FR Conv.",
     "id": "leek-fr",
@@ -4794,7 +5076,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Betterave rouge FR Conv.",
     "id": "beetroot-fr",
@@ -4828,7 +5112,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Navet FR Conv.",
     "id": "turnip-fr",
@@ -4862,7 +5148,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "displayName": "Navet UE Conv.",
     "id": "turnip-eu",
@@ -4896,7 +5184,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 18370729984",
     "displayName": "Navet Hors UE Conv.",
     "id": "turnip-non-eu",
@@ -4930,7 +5220,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou chinois FR Conv.",
     "id": "chinese-cabbage-fr",
@@ -4964,7 +5256,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Chou chinois FR ou UE ou Hors UE Bio",
     "id": "chinese-cabbage-organic",
@@ -4998,7 +5292,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 28512262144",
     "displayName": "Chou blanc Hors UE Conv.",
     "id": "white-cabbage-non-eu",
@@ -5032,7 +5328,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou vert FR Conv.",
     "id": "green-cabbage-fr",
@@ -5066,7 +5364,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou vert FR ou UE ou Hors UE Bio",
     "id": "green-cabbage-organic",
@@ -5100,7 +5400,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 28983492608",
     "displayName": "Chou rouge Hors UE Conv.",
     "id": "red-cabbage-non-eu",
@@ -5134,7 +5436,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Echalote FR Conv.",
     "id": "shallot-fr",
@@ -5168,7 +5472,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "SPAIN",
     "displayName": "Orange UE Conv.",
     "id": "orange-eu",
@@ -5202,7 +5508,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Orange, fresh grade, South African production. Output of orange, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 1645182976",
     "displayName": "Orange Hors UE Conv.",
     "id": "orange-non-eu",
@@ -5236,7 +5544,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit quality\nProduction Volume Amount: 6459754496",
     "displayName": "Olive UE Conv.",
     "id": "olive-eu",
@@ -5270,7 +5580,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "EcoSpold01Location=FR\nProduction Volume Amount: 4532871168",
     "displayName": "Colza FR Conv.",
     "id": "rapeseed-fr",
@@ -5304,7 +5616,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Colza UE Conv.",
     "id": "rapeseed-eu",
@@ -5338,7 +5652,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "CANADA",
     "displayName": "Colza Hors UE Conv.",
     "id": "rapeseed-non-eu",
@@ -5372,7 +5688,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 3470 kg/ha\nProduction Volume Amount: 15861245952",
     "displayName": "Pistache avec coque Hors UE Conv.",
     "id": "pistachio-non-eu",
@@ -5406,7 +5724,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 1000 kg/ha\nProduction Volume Amount: 6338124800",
     "displayName": "Arachide avec coque Hors UE Conv.",
     "id": "peanut-non-eu",
@@ -5440,7 +5760,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Data representative of virgin olive oil consumption in France. Virgin Olive oil consumption mix is determined from average FAOSTAT data over 4 years (2014-2018) from production and importation of virgin olive oil in France. Average consumption mix for virgin olive oil in France is : Spain, 65%, Italy, 20%, others origins, 15%. The coverage market mix of virgin olive  oil consumed in France is 85%.",
     "displayName": "Huile d'olive UE Conv.",
     "id": "olive-oil-eu",
@@ -5474,7 +5796,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 3840904960",
     "displayName": "Avocat Hors UE Conv.",
     "id": "avocado-non-eu",
@@ -5508,7 +5832,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Pois chiche FR Conv.",
     "id": "chickpea-fr",
@@ -5542,7 +5868,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "FRANCE",
     "displayName": "Tournesol FR Conv.",
     "id": "sunflower-fr",
@@ -5576,7 +5904,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "HUNGARY",
     "displayName": "Tournesol UE Conv.",
     "id": "sunflower-eu",
@@ -5610,7 +5940,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Tournesol Hors UE Conv.",
     "id": "sunflower-non-eu",
@@ -5644,7 +5976,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Kiwi FR Conv.",
     "id": "kiwi-fr",
@@ -5678,7 +6012,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 1350206976",
     "displayName": "Kiwi UE Conv.",
     "id": "kiwi-eu",
@@ -5712,7 +6048,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 1350206976",
     "displayName": "Kiwi Hors UE Conv.",
     "id": "kiwi-non-eu",
@@ -5746,7 +6084,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "BRAZIL",
     "displayName": "Mangue Hors UE Conv.",
     "id": "mango-non-eu",
@@ -5780,7 +6120,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 18088361984",
     "displayName": "Epinard Hors UE Conv.",
     "id": "spinach-non-eu",
@@ -5814,7 +6156,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 240114696192",
     "displayName": "Fenouil FR Conv.",
     "id": "fennel-fr",
@@ -5848,7 +6192,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 240114696192",
     "displayName": "Fenouil UE Conv.",
     "id": "fennel-eu",
@@ -5882,7 +6228,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 18174699520",
     "displayName": "Brocoli UE Conv.",
     "id": "broccoli-eu",
@@ -5916,7 +6264,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Myrtille Hors UE Conv.",
     "id": "blueberry-non-eu",
@@ -5950,7 +6300,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Framboise UE Conv.",
     "id": "raspberry-eu",
@@ -5984,7 +6336,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Fraise UE Conv.",
     "id": "strawberry-eu",
@@ -6018,7 +6372,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Fraise Hors UE Conv.",
     "id": "strawberry-non-eu",
@@ -6052,7 +6408,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Banane hors UE Conv.",
     "id": "banana-wi",
@@ -6086,7 +6444,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)\nIndia is considered since it is a major banana producer, with 29% of global production.",
     "displayName": "Banane Hors UE Conv.",
     "id": "banana-non-eu",
@@ -6120,7 +6480,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Concombre de saison FR Conv.",
     "id": "cucumber-fr-inseason",
@@ -6154,7 +6516,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 57559834624",
     "displayName": "Concombre hors saison FR Conv.",
     "id": "cucumber-fr-offseason",
@@ -6188,7 +6552,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 57559834624",
     "displayName": "Concombre hors saison UE Conv.",
     "id": "cucumber-eu",
@@ -6222,7 +6588,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Fraise de saison FR  Conv.",
     "id": "strawberry-fr-inseason",
@@ -6256,7 +6624,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Fraise hors saison FR Conv.",
     "id": "strawberry-fr-offseason",
@@ -6290,7 +6660,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 8969982976",
     "displayName": "Céleri branche FR Conv.",
     "id": "celery-fr",
@@ -6324,7 +6696,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 8969982976",
     "displayName": "Céleri branche UE Conv.",
     "id": "celery-eu",
@@ -6358,7 +6732,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Céleri-rave FR Conv.",
     "id": "celeriac-fr",
@@ -6392,7 +6768,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "displayName": "Céleri-rave UE Conv.",
     "id": "celeriac-eu",
@@ -6426,7 +6804,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 18370729984",
     "displayName": "Céleri-rave Hors UE Conv.",
     "id": "celeriac-non-eu",
@@ -6460,7 +6840,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Noix avec coque FR Conv.",
     "id": "walnut-inshell-fr",
@@ -6494,7 +6876,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Noix décortiquées FR Conv.",
     "id": "walnut-husked-fr",
@@ -6528,7 +6912,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Châtaigne décortiquée FR Conv.",
     "id": "chestnut-husked-fr",
@@ -6562,7 +6948,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Châtaigne avec coque FR Conv.",
     "id": "chestnut-inshell-fr",
@@ -6596,7 +6984,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 30000 kg/ha table fruit quality\nProduction Volume Amount: 2046639488",
     "displayName": "Mandarine UE Conv.",
     "id": "mandarin-eu",
@@ -6630,7 +7020,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. \nThis dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. \nThe infrastructure are excluded as well as the mushroom packaging.",
     "displayName": "Champignon frais UE Conv.",
     "id": "mushroom-eu",
@@ -6664,7 +7056,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou de Bruxelles FR Conv.",
     "id": "brussels-sprout-fr",
@@ -6698,7 +7092,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou de Bruxelles FR ou UE ou Hors UE Bio",
     "id": "brussels-sprout-organic",
@@ -6732,7 +7128,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Lentilles FR Conv.",
     "id": "lentils-uncooked-fr",
@@ -6766,7 +7164,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou frisé FR Conv.",
     "id": "curly-kale-fr",
@@ -6800,7 +7200,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou frisé FR ou UE ou Hors UE Bio",
     "id": "curly-kale-organic",
@@ -6834,7 +7236,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Citrouille FR Conv.",
     "id": "pumpkin-fr",
@@ -6868,7 +7272,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "MOROCCO",
     "displayName": "Clémentine Hors UE Conv.",
     "id": "clementine-non-eu",
@@ -6902,7 +7308,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Endive FR Conv.",
     "id": "endive-fr",
@@ -6936,7 +7344,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 23622365184",
     "displayName": "Endive UE Conv.",
     "id": "endive-eu",
@@ -6970,7 +7380,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Raisin de cuve FR Conv.",
     "id": "wine-grape-fr",
@@ -7004,7 +7416,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Mâche FR Conv.",
     "id": "lambs-lettuce-fr",
@@ -7038,7 +7452,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 23622365184",
     "displayName": "Mâche UE Conv.",
     "id": "lambs-lettuce-eu",
@@ -7072,7 +7488,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Maïs doux FR Conv.",
     "id": "sweet-corn-fr",
@@ -7106,7 +7524,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Maïs doux FR ou UE ou Hors UE Bio",
     "id": "sweet-corn-organic-fr",
@@ -7140,7 +7560,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic allocation based on Whitman et al. 2011, assuming 15% stover removed from the field and 65 $/t stover",
     "displayName": "Maïs doux Hors UE Conv.",
     "id": "sweet-corn-br",
@@ -7174,7 +7596,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 23176521728",
     "displayName": "Ananas Hors UE Conv.",
     "id": "pineapple-non-eu",
@@ -7208,7 +7632,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 4",
     "displayName": "Fève UE Conv.",
     "id": "broad-beans-eu",
@@ -7242,7 +7668,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 4",
     "displayName": "Fève FR Conv.",
     "id": "broad-beans-fr",
@@ -7276,7 +7704,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 18088361984",
     "displayName": "Blette UE Conv.",
     "id": "swiss-chard-eu",
@@ -7310,7 +7740,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 18088361984",
     "displayName": "Blette FR Conv.",
     "id": "swiss-chard-fr",
@@ -7344,7 +7776,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 4",
     "displayName": "Haricot flageolet UE Conv.",
     "id": "flageolet-bean-eu",
@@ -7378,7 +7812,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 4",
     "displayName": "Haricot flageolet FR Conv.",
     "id": "flageolet-bean-fr",
@@ -7412,7 +7848,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 8769999872",
     "displayName": "Riz basmati Hors UE Conv.",
     "id": "rice-basmati-non-eu",
@@ -7446,7 +7884,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blé tendre FR ou UE ou Hors UE Bio",
     "id": "soft-wheat-organic",
@@ -7471,8 +7911,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 63.20712158911894,
-      "pef": 82.94843532431611
+      "ecs": 56.972307139352274,
+      "pef": 75.17417092425244
     },
     "name": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
     "source": "Ecobalyse",
@@ -7480,7 +7920,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blé tendre FR Conv.",
     "id": "soft-wheat-fr",
@@ -7514,7 +7956,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blé tendre UE Conv.",
     "id": "soft-wheat-non-eu",
@@ -7548,7 +7992,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Blé dur FR Conv.",
     "id": "durum-wheat-fr",
@@ -7582,7 +8028,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic allocation for wheat based on FEFAC (2015)",
     "displayName": "Blé dur UE Conv.",
     "id": "durum-wheat-eu",
@@ -7616,7 +8064,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic allocation for wheat based on FEFAC (2015)\nYield, irrigation (no irrigation in Australia), fertilizers (type and amount) and pesticides (total amount) application, diesel consumption and seed consumption based on the PEF Screening report for dry pasta.",
     "displayName": "Blé dur Hors UE Conv.",
     "id": "durum-wheat-non-eu",
@@ -7650,7 +8100,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Pomme FR ou UE ou Hors UE Bio",
     "id": "apple-organic",
@@ -7684,7 +8136,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "FRANCE",
     "displayName": "Pomme FR Conv.",
     "id": "apple-fr",
@@ -7718,7 +8172,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Pomme de terre de table FR ou UE ou Hors UE Bio",
     "id": "potato-table-organic",
@@ -7752,7 +8208,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Pomme de terre industrie FR ou UE ou Hors UE Bio",
     "id": "potato-industry-organic",
@@ -7786,7 +8244,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Kiwi FR ou UE ou Hors UE Bio",
     "id": "kiwi-organic",
@@ -7820,7 +8280,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Chou rouge FR ou UE ou Hors UE Bio",
     "id": "red-cabbage-organic",
@@ -7854,7 +8316,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Betterave sucrière FR ou UE ou Hors UE Bio",
     "id": "sugar-beet-organic",
@@ -7888,7 +8352,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Papaye FR ou UE ou Hors UE Bio",
     "id": "papaya-organic",
@@ -7922,7 +8388,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Tomate FR ou UE ou Hors UE Bio",
     "id": "tomato-organic",
@@ -7956,7 +8424,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Ananas FR ou UE ou Hors UE Bio",
     "id": "pineapple-organic",
@@ -7990,7 +8460,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Petit pois FR ou UE ou Hors UE Bio",
     "id": "garden-peas-organic",
@@ -8024,7 +8496,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Amandes en coque FR ou UE ou Hors UE Bio ",
     "id": "almond-inshell-organic",
@@ -8058,7 +8532,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Laitue FR ou UE ou Hors UE Bio",
     "id": "lettuce-organic",
@@ -8092,7 +8568,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Mangue FR ou UE ou Hors UE Bio",
     "id": "mango-organic",
@@ -8126,7 +8604,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Litchi Hors FR ou UE ou Hors UE Bio",
     "id": "lychee-organic",
@@ -8160,7 +8640,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "BRAZIL",
     "displayName": "Litchi Hors UE Conv.",
     "id": "lychee-non-eu",
@@ -8194,7 +8676,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Avoine Hors UE Conv.",
     "id": "oats-glo",
@@ -8228,7 +8712,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Avoine FR ou UE ou Hors UE bio",
     "id": "oats-organic",
@@ -8262,7 +8748,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Orge FR Conv.",
     "id": "barley",
@@ -8296,7 +8784,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Orge FR ou UE ou Hors UE Bio",
     "id": "barley-organic",
@@ -8330,7 +8820,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Banane FR ou UE ou Hors UE Bio",
     "id": "banana-organic",
@@ -8364,7 +8856,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Orange FR ou UE ou Hors UE Bio",
     "id": "orange-organic",
@@ -8398,7 +8892,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Citron FR ou UE ou Hors UE Bio",
     "id": "lemon-organic",
@@ -8432,7 +8928,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Céleri branche FR ou UE ou Hors UE Bio",
     "id": "celery-organic",
@@ -8466,7 +8964,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Olive FR ou UE ou Hors UE Bio",
     "id": "olive-organic",
@@ -8500,7 +9000,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Arachide avec coque FR ou UE ou Hors UE Bio",
     "id": "peanut-organic",
@@ -8534,7 +9036,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Framboise FR ou UE ou Hors UE Bio",
     "id": "raspberry-organic",
@@ -8568,7 +9072,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Mâche FR ou UE ou Hors UE Bio",
     "id": "lambs-lettuce-organic",
@@ -8602,7 +9108,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Endive FR ou UE ou Hors UE Bio",
     "id": "endive-organic",
@@ -8636,7 +9144,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Blé dur FR ou UE ou Hors UE Bio",
     "id": "durum-wheat-organic",
@@ -8670,7 +9180,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Oignon FR ou UE ou Hors UE Bio",
     "id": "onion-organic",
@@ -8704,7 +9216,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Riz basmati FR ou UE ou Hors UE Bio",
     "id": "rice-basmati-organic",
@@ -8738,7 +9252,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Triricale FR ou UE ou Hors UE Bio",
     "id": "triticale-organic",
@@ -8772,7 +9288,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Pois FR ou UE ou Hors UE Bio",
     "id": "bean-organic",
@@ -8806,7 +9324,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Luzerne FR ou UE ou Hors UE Bio",
     "id": "alfalfa-organic",
@@ -8840,7 +9360,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Radis FR ou UE ou Hors UE Bio",
     "id": "radish-organic",
@@ -8874,7 +9396,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Lentilles Hors FR ou UE ou Hors UE Bio",
     "id": "lentils-uncooked-organic",
@@ -8908,7 +9432,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Abricot FR ou UE ou Hors UE Bio",
     "id": "apricot-organic",
@@ -8942,7 +9468,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Poireau FR ou UE ou Hors UE Bio",
     "id": "leek-organic",
@@ -8976,7 +9504,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Cerise FR ou UE ou Hors UE Bio",
     "id": "cherry-organic",
@@ -9010,7 +9540,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Prune FR ou UE ou Hors UE Bio",
     "id": "plum-organic",
@@ -9044,7 +9576,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Echalote FR ou UE ou Hors UE Bio",
     "id": "shallot-organic",
@@ -9078,7 +9612,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Myrtille FR ou UE ou Hors UE Bio",
     "id": "blueberry-organic",
@@ -9112,7 +9648,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Epinard FR ou UE ou Hors UE Bio",
     "id": "spinach-organic",
@@ -9146,7 +9684,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Pastèque FR ou UE ou Hors UE Bio",
     "id": "watermelon-organic",
@@ -9180,7 +9720,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Ensilage maïs FR Conv.",
     "id": "silage-maize-fr",
@@ -9214,7 +9756,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Ensilage maïs FR ou UE ou Hors UE Bio",
     "id": "silage-maize-organic",
@@ -9248,7 +9792,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Feed mixture inventory is built for 1 kg DM, but contains inputs with various DM content, for a total fresh matter above 1 kg.\nThe average DM of this mixture is 0.89, hence transport modelling should add an additional mass of 0.11 kg/kg DM for the water content.\nGross energy content is 19.70 MJ/kg DM and crude protein content is 46.4%.\nProportions between the oilseeds estimated based on FAOSTAT 2017 data at global level",
     "displayName": "Soja FR Conv.",
     "id": "oilseed-feed",
@@ -9282,7 +9828,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Herbe de prairie temporaire FR Conv.",
     "id": "grazed-grass-temporary",
@@ -9316,7 +9864,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Herbe de prairie permanente FR Conv.",
     "id": "grazed-grass-permanent",
@@ -9350,7 +9900,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Average yield for sweet and sour cherries according to faostat data from 2012 to 2016.",
     "displayName": "Cerise Hors UE Conv.",
     "id": "cherry-tr",
@@ -9384,7 +9936,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Modification : ITERG\n\nIncluded processes: This process includes the refining of crude palm oil, in Europe. Transport of inputs are considered. System boundary is at the oil mill.\nRemark: Inventory refers to the production of 1 kg refined palm oil, respectively 0,07 kg of Fatty Acids Distallates.   \nEconomic allocation : Economic Allocation between refined palm oil and palm oil fatty acids distillates\nPalm oil : 803/T",
     "displayName": "Huile de palme (raffinée) UE Conv.",
     "id": "refined-palm-oil",
@@ -9418,7 +9972,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Dataset of the production of refined linseed oil in France. It includes crushing of linseed grain, representative of French consumption mix, and refining of crude oil. \n3,36 kg of linseed are needed for the production of 1kg of refined Linseed oil and Linseed oil cake.\nEconomic allocation is made between oil, cake and refining co-products\nPrice for 1 kg Linseed oil = 1,49 /kg ; price for 1 kg Linseed oil cake = 0,286/kg, according to WFLDB economic value. Price for soap stocks and deodorization condensates were approximated from the economic values of rapeseed co-products: 0,2179 /kg Linseed soap stock, 0,2179 /kg Linseed deodorisation condensates.\nIncluding consumptions at crushing and refining\nData for crushing come from AGRIBALYSE 1.4 datateset  \"Flaxseed crushing, processing/FR U\", from AGRIBALYSE 1.4, based on expert informations. Data from crude Linseed oil refining are based on industrial data for 2013, representative of refining step for linseed oil in France.",
     "displayName": "Huile de lin (raffinée) FR Conv.",
     "id": "refined-linseed-oil",
@@ -9452,7 +10008,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Data are representative of refined grapeseed oil production from dry grapeseed. 7,18kg of dry grapeseed are needed to produce 1kg of refined grapeseed oil and 5,87 of grapeseed oil meal. Data source : Data source : industrial data, representative for crushing and refining of grapeseed oil in France.\nEconomic Allocation\nEconomic value from AGECO report : 1,71/kg of refined grapeseed oil, 0,212/kg of grapeseed oil meal, 0,21792/kg of grapeseed soap stock, 0,21792/kg of grapeseed deodorization condensate\nData source : industrial data, representative for grapeseed drying. Reference year : 2014",
     "displayName": "Huile de pépin de raisin (raffinée) FR Conv.",
     "id": "refined-grapeseed-oil",
@@ -9486,7 +10044,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Data are representative of refined soybean oil production from soybean seeds. 5,4k g of soybean seeds are needed to produce 1 kg of refined soybean oil and 4,24 kg of soybean oil cake. \nData source : industrial data, representative for crushing and refining of soybean oil in Europe. Data from FEDIOL, 2013. Life cycle assessment of EU Oilseed Crushing and Vegetable oil refining. Final report 59 pages\nEconomic Allocation\nEconomic value from FEDIOL report : 0,809/kg of refined soybean oil, 0,297/kg of soybean oil meal, 0,6/kg of soybean lecithin, 0,35/kg of soybean soap stock\n\nThe consumption mix of soybean oil in France was determined with importation and production data from FAOSTAT (average 2015-2019). The average conusmption mix (2015-2019) was : France, 70%, Spain, 12%, others origins (mainly UE countries)  : 18%. Only French  origin are considered in this datasets, representing 70% of market mix",
     "displayName": "Huile de soja (raffinée) FR Conv.",
     "id": "refined-soybean-oil",
@@ -9520,7 +10080,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Dataset of the production of crude hazelnut oil in France. It includes crushing of unshelled hazelnut kernel, by mechanical cold pressing. \n2,5 kg of unshelled hazelnut are needed for the production of 1 kg of crude hazelnut oil and 1,5 of hazelnut oil cake. \n\nEconomic allocation is made between oil and cake\nPrice for 1 kg crude Hazelnut  oil = 4  TL/ kg (0,4/kg) \n Price for 1 kg Hazelnut oil  cake = 1 TL/kg ( 0,10/kg). Source : Turkish Grain Board (TMO)\nData from ITERG, based on cold pressing for rapeseed seeds",
     "displayName": "Huile de noisette (vierge) FR Conv.",
     "id": "virgin-hazelnut-oil",
@@ -9554,7 +10116,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production of 1kg refined peanut oil in Senegal\nSource : Schmidt, J. H. (2015). Life cycle assessment of five vegetable oils\nAllocation is based on the price ratio of cake : oil = 0.10\nEconomic allocation is applied. Price for 1 kg Peanut oil = 0.51 US $/pound; price for 1 kg Peanut oil cake = 0.05 US $/pound.",
     "displayName": "Huile d'arachide (raffinée) Hors UE Conv.",
     "id": "refined-peanut-oil",
@@ -9588,7 +10152,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9517/kg of refined sunflower oil",
     "displayName": "Huile de tournesol (raffinée) FR Conv.",
     "id": "refined-sunflower-oil",
@@ -9622,7 +10188,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9192/kg of refined rapeseed oil",
     "displayName": "Huile de colza (raffinée) FR Conv.",
     "id": "refined-rapeseed-oil",
@@ -9656,7 +10224,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This dataset represents the virgin oil extraction in Spain from olive produced in Spain. \n\nIncluded processes: This process includes the production of olive in Spain, cleaning and rinsing of harvest olives and Extra Virgin Olive Oil extraction from two phases process. \nRemark : Inventory refers to the production of 1kg of Extra Virgin Olive Oil and 4,46 kg of pomace from 5,83 kg of harvest olives. System boundary is at Spain mill. Electricity, water consumption and extraction Yield_ are based on default value proposed by PEFCR for Olive rules (3rd Draft, 2016). \nEconomic Allocation is applied between Extra Virgin Olive Oil and pomace, based on price proposed in PEFCR : Extra Virgin Olive Oil : 1,88/kg and Pomace : 0,01/kg\nGeography: Extra Virgin Olive Oil production in Spain\nTechnology: Extra Virgin Olive Oil extraction two phases, representative of extraction process in Spain. \nTime period: Data from PEFCR Olive Oil, 2016,",
     "displayName": "Huile d'olive (extra vierge) UE Conv.",
     "id": "extra-virgin-olive-oil",
@@ -9690,7 +10260,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the production of Fresh cream cheese, plain, creamy, around 8% fat in France.\nIncluded activities are : production in country of origin and transport",
     "displayName": "Crème fraiche FR Conv.",
     "id": "fresh-cream-cheese",
@@ -9724,7 +10296,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Oeuf cru décoquillé FR Conv.",
     "id": "egg-without-shell-fr",
@@ -9758,7 +10332,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "poudre de jaune d'oeuf FR Conv.",
     "id": "egg-yolk-powder-fr",
@@ -9792,7 +10368,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "poudre de blanc d'oeuf FR Conv.",
     "id": "egg-white-powder-fr",
@@ -9826,7 +10404,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "(3,3,2,1,2),",
     "displayName": "Emmental rapé FR Conv.",
     "id": "emmental-grated-fr",
@@ -9860,7 +10440,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Poudre de cacao Hors UE Conv.",
     "id": "cocoa-powder-non-ue",
@@ -9894,7 +10476,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Sel",
     "id": "salt",
@@ -9928,7 +10512,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Poitrine de porc FR Conv.",
     "id": "bacon-fr",
@@ -9962,7 +10548,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process produced a syrup at 67% DM. The starch enzymatic hydrolysis dataset is fully built by Quantis based on available literature, stoichiometric calculation and partial data from Syral 2014. Enzyme production based on Nielsen et al 2007.",
     "displayName": "Sirop de glucose FR ou UE ou Hors UE Conv.",
     "id": "glucose-syrup",
@@ -9996,7 +10584,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The CIQUAL food item 'Apple compote' matches with a recipe from ANSES.",
     "displayName": "Compote de pomme FR Conv.",
     "id": "apple-compote-fr",
@@ -10030,7 +10620,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of goat milk in France.\nIncluded activities are production in country of origin and transport.",
     "displayName": "Lait de chèvre FR Conv.",
     "id": "goat-milk",
@@ -10064,7 +10656,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The CIQUAL food item 'Breakfast cereals, rich in fibre, with chocolate, fortified with vitamins and chemical elements' matches with a recipe from a retailer.",
     "displayName": "Mélange de céréales FR Conv.",
     "id": "breakfast-cereals",
@@ -10098,7 +10692,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Pâtes FR Conv.",
     "id": "pasta",
@@ -10132,7 +10728,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Garlic in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat\nThe production is assumed to be similar to : onion",
     "displayName": "Ail FR Conv.",
     "id": "garlic",
@@ -10166,7 +10764,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The CIQUAL food item 'Diced mixed vegetables, canned, drained' matches with a recipe from ANSES.",
     "displayName": "Mélange de légumes",
     "id": "vegetable-mix",
@@ -10200,7 +10800,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The CIQUAL food item 'Tomato sauce, with meat or Bolognese sauce, prepacked' matches with a recipe from ANSES.",
     "displayName": "Sauce tomate à la viande FR Conv.",
     "id": "bolognese",
@@ -10234,7 +10836,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Miel FR Conv.",
     "id": "honey",
@@ -10268,7 +10872,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Viande de dinde FR Conv.",
     "id": "turkey",
@@ -10302,7 +10908,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Foie de porc cru FR Conv.",
     "id": "pork-liver",
@@ -10336,7 +10944,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Prices: cheese (emmental): average 2008-2012: 4,37/kg of emmental(FranceAgriMer, 2014), whey: according to an expert: 0,02/kg of whey",
     "displayName": "Poudre de lactosérum FR Conv.",
     "id": "whey",
@@ -10370,7 +10980,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Purée de fraise FR Conv.",
     "id": "strawberry-coulis",
@@ -10404,7 +11016,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the production of Yogurt, from cow milk in France.\nIncluded activities are : production in country of origin and transport",
     "displayName": "Fromage blanc FR Conv.",
     "id": "yogurt",
@@ -10438,7 +11052,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Cheese, from goat's milk in France.\nIncluded activities are production in country of origin and transport.",
     "displayName": "Fromage de chèvre FR Conv.",
     "id": "goat-cheese",
@@ -10472,7 +11088,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Beurre de cacao Hors UE Conv.",
     "id": "cocoa-butter",
@@ -10506,7 +11124,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The dataset corresponds to the production of textured soy protein from soy protein flour by dry extrusion.\nIt includes production of Texturated Soy protein (20% moisture content) after extrusion and drying for production of texturated soy protein with 8% moisture content.\nData from Sarens, 2021, Life cycle assessment of burger patties produced w.pdf",
     "displayName": "Protéines de soja Hors UE Conv.",
     "id": "soy-protein",
@@ -10540,7 +11160,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of vinegar alcohol : 15% sugar beet roots (FR) and 85% tap water",
     "displayName": "Vinaigre d'alcool FR Conv.",
     "id": "vinegar-alcohol",
@@ -10574,7 +11196,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Viande de veau FR Conv.",
     "id": "veal-meat",
@@ -10608,7 +11232,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Frites de pomme de terre congelées FR Conv.",
     "id": "french-fries",
@@ -10642,7 +11268,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The CIQUAL food item 'Tomato sauce, w vegetables, prepacked' matches with a recipe from ANSES.",
     "displayName": "Sauce tomate FR Conv.",
     "id": "tomato-sauce",
@@ -10676,7 +11304,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The CIQUAL food item 'Mustard' matches with a recipe from ANSES.",
     "displayName": "Moutarde FR Conv.",
     "id": "mustard",
@@ -10710,7 +11340,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The process used is adapted from : Wheat flour, at industrial mill (adapted from WFLDB)/GLO U.\nSame mass and economic allocation were kept.",
     "displayName": "Farine de riz Hors UE Conv.",
     "id": "rice-flour",
@@ -10744,7 +11376,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Brie soft cheese in France.\nIncluded activities are production in country of origin and transport.",
     "displayName": "Brie FR Conv.",
     "id": "brie-cheese",
@@ -10778,7 +11412,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Turmeric in France.\nIncluded activities are : production in country of origin and transport\nNo production dataset was found. The proxy used is : Black pepper dried",
     "displayName": "Curcuma Hors UE Conv.",
     "id": "turmeric",
@@ -10812,7 +11448,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "None",
     "displayName": "Fruits confits FR Conv.",
     "id": "candied-fruits",
@@ -10846,7 +11484,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Reblochon FR Conv.",
     "id": "reblochon",
@@ -10880,7 +11520,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "The CIQUAL food item 'Fruits puree, without sugar added' matches with a recipe from ANSES.",
     "displayName": "Purée de fruits FR Conv.",
     "id": "fruit-puree",
@@ -10914,7 +11556,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Jus de pomme FR Conv.",
     "id": "apple-juice",
@@ -10948,7 +11592,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Jus d'orange Hors UE Conv.",
     "id": "orange-juice",
@@ -10982,7 +11628,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic Allocation 99,5% (Based on Rafaiane MacedoGuimarães (2018) Okara: A soybean by-product as an alternative to enrich vegetable paste; 227 US$ / ton okara vs 1960 US$ / ton soymilk ) \nThis process describes the average process of soy beverage production in France. \nTransport for soybeans is not added separatly as it is already counted in the consumption mix. \nConsumptions of electricity, steam and tap water are based are based on the 2010 EcoInvent Process \"Soybean beverage {CA-QC}| production | Cut-off, U - Copied from Ecoinvent\"",
     "displayName": "Lait de soja Hors UE Conv.",
     "id": "soy-milk",
@@ -11016,7 +11664,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Jus de citron UE Conv.",
     "id": "lemon-juice",
@@ -11050,7 +11700,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Jus de tomate UE Conv.",
     "id": "tomato-juice",
@@ -11084,7 +11736,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Vinaigre balsamique FR Conv.",
     "id": "balsamic-vinegar",
@@ -11118,7 +11772,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Abricot Hors UE Conv.",
     "id": "apricot-non-eu",
@@ -11152,7 +11808,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "PEFCR Guidance 6.3, for fresh meat and edible offal",
     "displayName": "Viande d'agneau (désossée) UE Conv.",
     "id": "lamb-meat-without-bone-eu",
@@ -11186,7 +11844,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "PEFCR Guidance 6.3, for fresh meat and edible offal",
     "displayName": "Viande d'agneau (désossée) Hors UE Conv.",
     "id": "lamb-meat-without-bone-non-eu",
@@ -11220,7 +11880,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Almond in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "displayName": "Amandes en coque FR Conv.",
     "id": "almond-inshell-fr",
@@ -11254,7 +11916,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Almond in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "displayName": "Amandes en coque UE Conv.",
     "id": "almond-inshell-ue",
@@ -11288,7 +11952,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Almond in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "displayName": "Amandes en coque Hors UE Conv.",
     "id": "almond-inshell-non-ue",
@@ -11322,7 +11988,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Artichaut UE Conv.",
     "id": "artichoke-eu",
@@ -11356,7 +12024,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Artichaut Hors UE Conv.",
     "id": "artichoke-non-eu",
@@ -11390,7 +12060,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Avocado in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data from technical institutes (Interfel (Agreste) - TradeMap).",
     "displayName": "Avocat FR ou UE ou Hors UE BIO",
     "id": "avocado-organic",
@@ -11424,7 +12096,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 3840904960",
     "displayName": "Avocat UE Conv.",
     "id": "avocado-eu",
@@ -11458,7 +12132,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Avoine UE Conv.",
     "id": "oats-ue",
@@ -11492,7 +12168,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Blette FR ou UE ou Hors UE Bio",
     "id": "chard-organic",
@@ -11526,7 +12204,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 18088361984",
     "displayName": "Blette Hors UE Conv.",
     "id": "swiss-chard-non-eu",
@@ -11560,7 +12240,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Brocoli FR ou UE ou Hors UE Bio",
     "id": "broccoli-organic",
@@ -11594,7 +12276,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Broccoli in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat\nThe production is assumed to be similar to : Cauliflower",
     "displayName": "Brocoli FR Conv.",
     "id": "broccoli-fr",
@@ -11628,7 +12312,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 18174699520",
     "displayName": "Brocoli Hors UE Conv.",
     "id": "broccoli-non-eu",
@@ -11662,7 +12348,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 8969982976",
     "displayName": "Céleri branche Hors UE Conv.",
     "id": "celery-non-eu",
@@ -11696,7 +12384,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Average of modeled countries based on market share of global export --> the 4 countries modeled represent 47.6% of the global export (faostat data 2009-2013)",
     "displayName": "Cerise UE Conv.",
     "id": "cherry-ue",
@@ -11730,7 +12420,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. \nThis dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. \nThe infrastructure are excluded as well as the mushroom packaging.",
     "displayName": "Champignon frais FR Conv.",
     "id": "mushroom-fr",
@@ -11764,7 +12456,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Noix avec coque FR ou UE ou Hors UE Bio",
     "id": "walnut-inshell-organic",
@@ -11798,7 +12492,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 28512262144",
     "displayName": "Chou blanc UE Conv.",
     "id": "white-cabbage-eu",
@@ -11832,7 +12528,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 28512262144",
     "displayName": "Chou blanc FR Conv.",
     "id": "white-cabbage-fr",
@@ -11866,7 +12564,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Chou blanc FR ou UE ou Hors UE Bio",
     "id": "white-cabbage-organic",
@@ -11900,7 +12600,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou chinois UE Conv.",
     "id": "chinese-cabbage-ue",
@@ -11934,7 +12636,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou chinois Hors UE Conv.",
     "id": "chinese-cabbage-non-ue",
@@ -11968,7 +12672,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou de Bruxelles UE Conv.",
     "id": "brussels-sprout-ue",
@@ -12002,7 +12708,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Chou de Bruxelles Hors UE Conv.",
     "id": "brussels-sprout-non-ue",
@@ -12036,7 +12744,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of refined palm oil in France.\nIncluded activity are production of refined palm oil in Europe and transport to France",
     "displayName": "Huile de palme (raffinée) Hors UE Conv.",
     "id": "refined-palm-oil-non-ue",
@@ -12070,7 +12780,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Huile de tournesol UE Conv.",
     "id": "sunflower-oil-eu",
@@ -12104,7 +12816,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Dairy farm archetype IT-154 according to FAO, IDF, IFCN (2014).\n\nIT-154 represents an average-sized farm in northern Italy (Lombardy), having Holstein cows with a milk yield of 8 810 kg milk/cow per year. The cows are kept in a free stall barn where milking is done in a parlour system. The farm operates on 72 ha of land that is very fertile and can also be used for cash crops. About 56 percent of the work on the farm is done by family members.\n\nAllocation for milk based on mass balance (IDF 2015)\nInventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent.",
     "displayName": "Lait UE Conv.",
     "id": "milk-eu",
@@ -12138,7 +12852,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "kg of Fat and Protein Corrected Milk. FPCM is 4.0% fat and 3.3% true protein content. Conversion to FPCM is as follow, according to the International Dairy Federation: FPCM (kg/yr) = Production (kg/yr) x [0.1226 x Fat% + 0.0776 x Protein% + 0.2534]\nRaw milk density: 1031 kg/m3\nProduction Volume Amount: 3011295488",
     "displayName": "Lait Hors UE Conv.",
     "id": "milk-non-eu",
@@ -12172,7 +12888,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Lentilles UE Conv.",
     "id": "lentils-uncooked-eu",
@@ -12206,7 +12924,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Lentilles Hors UE Conv.",
     "id": "lentils-uncooked-non-eu",
@@ -12240,7 +12960,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 23622365184",
     "displayName": "Mâche Hors UE Conv.",
     "id": "lambs-lettuce-non-eu",
@@ -12274,7 +12996,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Maïs doux UE Conv.",
     "id": "sweet-corn-eu",
@@ -12308,7 +13032,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "HUNGARY",
     "displayName": "Autres céréales et produits céréaliers (non encore répertoriés)",
     "id": "unknown-cereals-and-grain-products",
@@ -12342,7 +13068,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Autres produits laitiers (non encore répertoriés)",
     "id": "unknown-dairy-product",
@@ -12376,7 +13104,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "MOROCCO",
     "displayName": "Autres fruits, légumes, légumineuses, oléagineux (non encore répertoriés)",
     "id": "unknown-fruit-vegetable",
@@ -12410,7 +13140,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This dataset includes packaging",
     "displayName": "Autres viandes, oeufs, poissons (non encore répertoriés)",
     "id": "unknown-red-meat",
@@ -12444,7 +13176,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 1436769536",
     "displayName": "Autres ingrédients divers (non encore répertoriés)",
     "id": "unknown-groceries",
@@ -12478,7 +13212,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Autres eaux et autres boissons (non encore répertoriées)",
     "id": "unknown-drink",
@@ -12512,7 +13248,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Autres viandes blanches, oeufs et poisson (non encore répertoriés)Conv.",
     "id": "unknown-white-meat",
@@ -12546,7 +13284,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Autres produits issus de la pêche (non encore répertoriés)",
     "id": "unknwon-fishery-products",
@@ -12580,7 +13320,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "displayName": "Autres fruits secs (non encore répertoriés)",
     "id": "unknown-dried-fruits",
@@ -12614,7 +13356,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "displayName": "Autres huiles (non encore répertoriées)",
     "id": "unknown-oil",
@@ -12648,7 +13392,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of dried Onions in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "displayName": "Oignons déshydratés Hors UE Conv.",
     "id": "onion-dried-hors-eu",
@@ -12682,7 +13428,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Anchovy in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "displayName": "Anchois FR Conv.",
     "id": "anchovy-fr",
@@ -12716,7 +13464,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Anchovy in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "displayName": "Anchois UE Conv.",
     "id": "anchovy-eu",
@@ -12750,7 +13500,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Anchovy in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "displayName": "Anchois Hors UE Conv.",
     "id": "anchovy-non-eu",
@@ -12784,7 +13536,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "European Pilchard - Sardina pilchardus",
     "displayName": "Sardine FR Conv.",
     "id": "sardine-fr",
@@ -12818,7 +13572,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of European pilchard or sardine in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "displayName": "Sardine UE Conv.",
     "id": "sardine-eu",
@@ -12852,7 +13608,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of European pilchard or sardine in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "displayName": "Sardine Hors UE Conv.",
     "id": "sardine-non-eu",
@@ -12886,7 +13644,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Cod in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "displayName": "Morue UE Conv.",
     "id": "cod-eu",
@@ -12920,7 +13680,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Crabe FR Conv.",
     "id": "crab-fr",
@@ -12954,7 +13716,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Crabe UE Conv.",
     "id": "crab-eu",
@@ -12988,7 +13752,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Hake in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "displayName": "Colin UE Conv.",
     "id": "hake-eu",
@@ -13022,7 +13788,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Mass allocation : 94,5%. Source : https://waves-vagues.dfo-mpo.gc.ca/Library/360446.pdf",
     "displayName": "Homard FR Conv.",
     "id": "lobster-fr",
@@ -13056,7 +13824,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Mass allocation : 94,5%. Source : https://waves-vagues.dfo-mpo.gc.ca/Library/360446.pdf",
     "displayName": "Homard UE Conv.",
     "id": "lobster-eu",
@@ -13090,7 +13860,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Only lobsters are caught (there is no brown crab in USA).",
     "displayName": "Homard Hors UE Conv.",
     "id": "lobster-non-eu",
@@ -13124,7 +13896,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Saumon cru UE Conv.",
     "id": "salmon-raw-eu",
@@ -13158,7 +13932,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Squid in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "displayName": "Calmar FR Conv.",
     "id": "squid-fr",
@@ -13192,7 +13968,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "CHINA",
     "displayName": "Mandarine Hors UE Conv.",
     "id": "mandarin-non-eu",
@@ -13226,7 +14004,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.03928 kg C/kg dry mass\nDry mass: 0.08 kg\nWet mass: 1 kg",
     "displayName": "Melon Hors UE Conv.",
     "id": "melon-non-eu",
@@ -13260,7 +14040,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Myrtille UE Conv.",
     "id": "blueberry-eu",
@@ -13294,7 +14076,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Myrtille FR Conv.",
     "id": "blueberry-fr",
@@ -13328,7 +14112,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Noisette avec coque FR ou UE ou Hors UE Bio",
     "id": "hazelnut-organic",
@@ -13362,7 +14148,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Noisette décortiquée FR ou UE ou Hors UE Bio",
     "id": "hazelnut-unshelled-organic",
@@ -13396,7 +14184,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This dataset corresponds to average consumption of hazelnuts, unshelled in France. \nIncluded processes: This process includes the production of hazelnut in shell in Italy and Turkey, shelling process and transport to France. \nRemark: Inventory refers to the production of 1 kg hazelnut, unshelled.\nThe consumption mix was evaluated using data from FAOSTAT (2014-2019) for hazelnut, unshelled in France. \nRelative import share for hazelnut unshelled in France : Italie, 17%, Turkey, 70% (average FAOSTAT data from 2014-2019 )",
     "displayName": "Noisette décortiquée FR Conv.",
     "id": "hazelnut-unshelled-fr",
@@ -13430,7 +14220,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Châtaigne avec coque FR ou UE ou Hors UE Bio",
     "id": "chesnut-inshell-organic",
@@ -13464,7 +14256,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "6720 kg in-shell, dry walnut/ha (Grant 2017). According to Yilmaz 2017, the total fresh walnut, with its green husk is 2.65 times the in-shell dried walnut.",
     "displayName": "Noix avec coque UE Conv.",
     "id": "walnut-inshell-eu",
@@ -13498,7 +14292,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "6720 kg in-shell, dry walnut/ha (Grant 2017). According to Yilmaz 2017, the total fresh walnut, with its green husk is 2.65 times the in-shell dried walnut.",
     "displayName": "Noix avec coque Hors UE Conv.",
     "id": "walnut-inshell-non-eu",
@@ -13532,7 +14328,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit quality\nProduction Volume Amount: 6459754496",
     "displayName": "Olive UE Conv.",
     "id": "olive-fr",
@@ -13566,7 +14364,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic allocation based on FEFAC (2015)",
     "displayName": "Orge UE Conv.",
     "id": "barley-eu",
@@ -13600,7 +14400,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Economic allocation based on FEFAC (2015)",
     "displayName": "Orge Hors UE Conv.",
     "id": "barley-non-eu",
@@ -13634,7 +14436,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "displayName": "Pistache avec coque FR ou UE ou Hors UE Bio",
     "id": "pistachio-organic",
@@ -13668,7 +14472,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Leek in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "displayName": "Poireau UE Conv.",
     "id": "leek-eu",
@@ -13702,7 +14508,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Leek in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "displayName": "Poireau Hors UE Conv.",
     "id": "leek-non-eu",
@@ -13736,7 +14544,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "EcoSpold01Location=ES\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.469420714527217 kg C/kg dry mass\nDry mass: 0.87 kg\nWet mass: 1 kg",
     "displayName": "Pois Hors UE Conv.",
     "id": "bean-non-eu",
@@ -13770,7 +14580,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "EcoSpold01Location=ES\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.469420714527217 kg C/kg dry mass\nDry mass: 0.87 kg\nWet mass: 1 kg",
     "displayName": "Pois UE Conv.",
     "id": "bean-eu",
@@ -13804,7 +14616,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Pois FR Conv.",
     "id": "bean-fr",
@@ -13838,7 +14652,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.475 kg C/kg dry mass\nDry mass: 0.2114 kg\nWet mass: 1 kg",
     "displayName": "Pois chiche Hors UE Conv.",
     "id": "chickpea-non-eu",
@@ -13872,7 +14688,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 34497462272",
     "displayName": "Poivron sous serre non chauffée FR Conv.",
     "id": "bellpepper-unheated-greenhouse-fr",
@@ -13906,7 +14724,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 34497462272",
     "displayName": "Poivron sous serre non chauffée UE Conv.",
     "id": "bellpepper-unheated-greenhouse-eu",
@@ -13940,7 +14760,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 34497462272",
     "displayName": "Poivron sous serre non chauffée Hors UE Conv.",
     "id": "bellpepper-unheated-greenhouse-non-eu",
@@ -13974,7 +14796,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "CHINA",
     "displayName": "Pomme Hors UE Conv.",
     "id": "apple-non-eu",
@@ -14008,7 +14832,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "FAOstat average 2012-2016",
     "displayName": "Pomme de terre de table UE Conv.",
     "id": "potato-table-eu",
@@ -14042,7 +14868,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "CHINA",
     "displayName": "Pomme de terre de table Hors UE Conv.",
     "id": "potato-table-non-eu",
@@ -14076,7 +14904,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "European Fat Processors and Renderers Association (http://www.efpra.eu/)",
     "displayName": "Blanc de poulet cru UE Conv.",
     "id": "chicken-breast-eu",
@@ -14110,7 +14940,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "",
     "displayName": "Purée de tomates FR Conv.",
     "id": "tomato-paste-fr",
@@ -14144,7 +14976,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Radish in France.\nIncluded activities are : production in country of origin and transport",
     "displayName": "Radis FR Conv.",
     "id": "radish-fr",
@@ -14178,7 +15012,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Production Volume Amount: 240114696192",
     "displayName": "Radis UE Conv.",
     "id": "radish-eu",
@@ -14212,7 +15048,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "This process describes the average consumption mix of Basmati rice in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "displayName": "Riz basmati UE Conv.",
     "id": "rice-basmati-eu",
@@ -14246,7 +15084,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Data based on Bevilacqua 2007. Durum wheat semolina production in a mill producing 68'000 tonnes semolina/year. \n9 tonnes durum wheat gives 6.8 tonnes semolina and 2.1 tonnes co-products (mainly bran)\nIncluded steps are: stocking (in silos), cleaning (wheat separated from extraneous materials), conditioning (water addition), grinding, sifting (classification: gives 76% semolina, 24% subproducts). Subproducts are used for catle feed.\nPrice of durum wheat semolina based on alibaba.com, accessed May 2015, 10 first price data considered: 393 EUR/tonne",
     "displayName": "Semoule de blé dur Hors UE Conv.",
     "id": "durum-wheat-semolina-non-eu",
@@ -14280,7 +15120,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Data based on Bevilacqua 2007. Durum wheat semolina production in a mill producing 68'000 tonnes semolina/year. \n9 tonnes durum wheat gives 6.8 tonnes semolina and 2.1 tonnes co-products (mainly bran)\nIncluded steps are: stocking (in silos), cleaning (wheat separated from extraneous materials), conditioning (water addition), grinding, sifting (classification: gives 76% semolina, 24% subproducts). Subproducts are used for catle feed.\nPrice of durum wheat semolina based on alibaba.com, accessed May 2015, 10 first price data considered: 393 EUR/tonne",
     "displayName": "Semoule de blé dur UE Conv.",
     "id": "durum-wheat-semolina-eu",
@@ -14314,7 +15156,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Average of modeled countries based on market share of global export --> the 4 countries modeled represent 47.6% of the global export (faostat data 2009-2013)",
     "displayName": "Prune UE Conv.",
     "id": "plum-eu",
@@ -14348,7 +15192,9 @@
     "unit": "kg"
   },
   {
-    "categories": ["ingredient"],
+    "categories": [
+      "ingredient"
+    ],
     "comment": "Average of modeled countries based on market share of global export --> the 4 countries modeled represent 47.6% of the global export (faostat data 2009-2013)",
     "displayName": "Prune Hors UE Conv.",
     "id": "plum-non-eu",
