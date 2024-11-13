@@ -12,9 +12,9 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , quantityToInt
-    , removeItem
+      -- , removeItem
     , toString
-    , updateItem
+      -- , updateItem
     )
 
 import Base64
@@ -139,34 +139,36 @@ encodeProcessItem processItem =
         ]
 
 
-removeProcessItem : Process.Id -> List ProcessItem -> List ProcessItem
-removeProcessItem processId processes =
-    processes |> List.filter (.processId >> (/=) processId)
 
-
-removeItem : Process.Id -> Query -> Query
-removeItem processId query =
-    -- FIX: implement it for components
-    query
-
-
-updateItem : Item -> Query -> Query
-updateItem newItem query =
-    -- FIX: implement it for components
-    query
-
-
-updateProcessItem : ProcessItem -> List ProcessItem -> List ProcessItem
-updateProcessItem newItem processes =
-    processes
-        |> List.map
-            (\item ->
-                if item.processId == newItem.processId then
-                    newItem
-
-                else
-                    item
-            )
+-- FIX: implement it for components
+-- removeProcessItem : Process.Id -> List ProcessItem -> List ProcessItem
+-- removeProcessItem processId processes =
+--     processes |> List.filter (.processId >> (/=) processId)
+--
+--
+-- removeItem : Process.Id -> Query -> Query
+-- removeItem processId query =
+--     -- FIX: implement it for components
+--     query
+--
+--
+-- updateItem : Item -> Query -> Query
+-- updateItem newItem query =
+--     -- FIX: implement it for components
+--     query
+--
+--
+-- updateProcessItem : ProcessItem -> List ProcessItem -> List ProcessItem
+-- updateProcessItem newItem processes =
+--     processes
+--         |> List.map
+--             (\item ->
+--                 if item.processId == newItem.processId then
+--                     newItem
+--
+--                 else
+--                     item
+--             )
 
 
 toString : List Process -> Query -> Result String String

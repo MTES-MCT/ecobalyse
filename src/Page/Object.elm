@@ -85,7 +85,10 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateItem Query.Item
+
+
+
+-- | UpdateItem Query.Item
 
 
 init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
@@ -262,10 +265,11 @@ update ({ navKey } as session) msg model =
             , Cmd.none
             )
 
-        ( RemoveItem processId, _ ) ->
+        ( RemoveItem _, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.removeItem processId query)
 
+        -- FIX: add it back for components
+        -- |> updateQuery (Query.removeItem processId query)
         ( SaveBookmark, _ ) ->
             ( model
             , session
@@ -356,9 +360,12 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        ( UpdateItem item, _ ) ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.updateItem item query)
+
+
+-- FIX: add it back for components
+-- ( UpdateItem item, _ ) ->
+--     ( model, session, Cmd.none )
+-- |> updateQuery (Query.updateItem item query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
