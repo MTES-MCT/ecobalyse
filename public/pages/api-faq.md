@@ -1,16 +1,16 @@
 # FAQ API
 
-## Qu'est-ce que l'API Ecobalyse et à quoi sert t-elle ?
+## Qu'est-ce que l'[API Ecobalyse](/#/api) et à quoi sert t-elle ?
 
-L'[API](https://fr.wikipedia.org/wiki/Interface_de_programmation) Ecobalyse est une interface de communication informatique qui permet aux systèmes d'informations d'interroger le moteur de calcul et d'obtenir des scores. Elle utilise le protocole [HTTP REST](https://en.wikipedia.org/wiki/REST) et expose sa documentation au format [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification).
+L'[API](https://fr.wikipedia.org/wiki/Interface_de_programmation) Ecobalyse est une interface de communication informatique qui permet aux systèmes informatiques d'interroger le moteur de calcul et d'obtenir des scores. Elle utilise le protocole [HTTP/REST](https://en.wikipedia.org/wiki/REST) et expose sa documentation au format [OpenAPI](https://en.wikipedia.org/wiki/OpenAPI_Specification).
 
 ## Comment puis-je accéder à la documentation de l'API ?
 
-La documentation OpenAPI est accessible sur [la page dédiée à l'API](/#/api).
+La documentation OpenAPI est accessible au format Web sur [la page dédiée à l'API](/#/api), le format de spécification JSON étant lui accessible sur le endpoint racine de l'API.
 
 ## Comment puis-je tester l'API ?
 
-La [documentation est interactive](/#/api) et permet de paramétrer et exécuter des requêtes sur l'API directement.
+La [documentation est interactive](/#/api) et permet de paramétrer et exécuter des requêtes sur l'API depuis l'interface Web directement.
 
 ## L'utilisation de l'API nécessite t-elle une authentification ?
 
@@ -26,9 +26,9 @@ Non, à ce stade de l'expérimentation, nous n'offrons aucune garantie de dispon
 
 ## Qu'est-ce que le versioning de l'API ?
 
-L'API Ecobalyse est *versionnée*, c'est à dire qu'à chaque publication d'une nouvelle version de l'application, la version précédente devient disponible sur sa propre URL et reste stable dans le temps. Cela permet notamment de garantir la compatibilité de l'interfaçage avec vos systèmes d'information ou de tracer les évolutions de scores à travers le temps pourvu que le paramétrage soit compatible, par exemple.
+L'API Ecobalyse est *versionnée*, c'est à dire qu'à chaque publication d'une nouvelle version de l'application, la version précédente devient disponible sur sa propre URL et reste stable dans le temps. Cela permet notamment de garantir la compatibilité de l'interfaçage avec vos systèmes d'information ou de tracer les évolutions de scores à travers le temps pourvu que le paramétrage soit compatible.
 
-## Le format de réponse d'un appel API versionné peut-il changer avec le temps ?
+## Le format de réponse d'un appel vers une version de l'API peut-il changer avec le temps ?
 
 Le format des paramètres d'entrée et de réponses peuvent varier d'une version à l'autre, et c'est là tout l'intérêt du versioning. En revanche, une version figée est idempotente par conception (si ce devait ne pas être le cas, c'est un bug qu'il faut nous remonter).
 
