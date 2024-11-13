@@ -330,3 +330,11 @@ def new_exchange(activity, new_activity, new_amount=None, activity_to_copy_from=
     )
     new_exchange.save()
     logging.info(f"Exchange {new_activity} added with amount: {new_amount}")
+
+
+def format_number(num):
+    if isinstance(num, (int, float)):
+        # Use scientific notation without leading zeros in exponent
+        num_py_g = f"{num:.6g}"
+        return num_py_g.replace("e+0", "e").replace("e-0", "e-").replace("e+", "e")
+    return str(num)
