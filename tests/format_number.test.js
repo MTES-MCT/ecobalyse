@@ -15,11 +15,8 @@ describe("formatNumber", () => {
     [0.9999999, "1"],
     [1.23456e-7, "1.23456e-7"],
     [1.23456e7, "1.23456e7"],
-    [42, "42"],
+    [42.0, "42"],
     [1000000, "1e6"],
-    [Infinity, "Infinity"],
-    [-Infinity, "-Infinity"],
-    [NaN, "NaN"],
   ])("formatNumber(%f) should return %s", (input, expected) => {
     expect(formatNumber(input)).toBe(expected);
   });

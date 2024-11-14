@@ -4,11 +4,7 @@ function formatNumber(num, precision = 6) {
   }
 
   const absNum = Math.abs(num);
-  if (absNum === 0) {
-    return "0";
-  }
-
-  // Python uses scientific notation if exponent >= precision or <= -4
+  // Python general format uses scientific notation if exponent >= precision or <= -4
   const exponent = Math.floor(Math.log10(absNum));
   const useScientific = exponent >= precision || exponent < -4;
 
