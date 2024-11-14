@@ -14,13 +14,13 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
-import Data.Example as Example
+import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator exposing (Results)
-import Data.Scope as Scope
+import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
@@ -40,6 +40,7 @@ import Views.Example as ExampleView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
+import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
 
@@ -49,10 +50,12 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , examples : List (Example Query)
     , impact : Definition
     , initialQuery : Query
     , modal : Modal
     , results : Results
+    , scope : Scope
     }
 
 
@@ -85,17 +88,21 @@ type Msg
     | UpdateItem Query.Item
 
 
-init : Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
-init trigram maybeUrlQuery session =
+init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
+init scope trigram maybeUrlQuery session =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
             -- Otherwise, fallback to use session query
             maybeUrlQuery
-                |> Maybe.withDefault session.queries.object
+                |> Maybe.withDefault (Session.objectQueryFromScope scope session)
+
+        examples =
+            session.db.object.examples
+                |> Example.forScope scope
     in
     ( { activeImpactsTab = ImpactTabs.StepImpactsTab
-      , bookmarkName = initialQuery |> suggestBookmarkName session
+      , bookmarkName = initialQuery |> suggestBookmarkName session examples
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
             if Session.isAuthenticated session then
@@ -103,15 +110,17 @@ init trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
+      , examples = examples
       , impact = Definition.get trigram session.db.definitions
       , initialQuery = initialQuery
       , modal = NoModal
       , results =
             Simulator.compute session.db initialQuery
                 |> Result.withDefault Simulator.emptyResults
+      , scope = scope
       }
     , session
-        |> Session.updateObjectQuery initialQuery
+        |> Session.updateObjectQuery scope initialQuery
     , case maybeUrlQuery of
         -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
         -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
@@ -125,37 +134,43 @@ init trigram maybeUrlQuery session =
     )
 
 
-initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
-initFromExample session uuid =
+initFromExample : Session -> Scope -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample session scope uuid =
     let
-        example =
+        examples =
             session.db.object.examples
+                |> Example.forScope scope
+
+        example =
+            examples
                 |> Example.findByUuid uuid
 
         exampleQuery =
             example
                 |> Result.map .query
-                |> Result.withDefault session.queries.object
+                |> Result.withDefault (Session.objectQueryFromScope scope session)
     in
     ( { activeImpactsTab = ImpactTabs.StepImpactsTab
-      , bookmarkName = exampleQuery |> suggestBookmarkName session
+      , bookmarkName = exampleQuery |> suggestBookmarkName session examples
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
+      , examples = examples
       , impact = Definition.get Definition.Ecs session.db.definitions
       , initialQuery = exampleQuery
       , modal = NoModal
       , results =
             Simulator.compute session.db exampleQuery
                 |> Result.withDefault Simulator.emptyResults
+      , scope = scope
       }
     , session
-        |> Session.updateObjectQuery exampleQuery
+        |> Session.updateObjectQuery scope exampleQuery
     , Ports.scrollTo { x = 0, y = 0 }
     )
 
 
-suggestBookmarkName : Session -> Query -> String
-suggestBookmarkName { db, store } query =
+suggestBookmarkName : Session -> List (Example Query) -> Query -> String
+suggestBookmarkName { db, store } examples query =
     let
         -- Existing user bookmark?
         userBookmark =
@@ -164,7 +179,7 @@ suggestBookmarkName { db, store } query =
 
         -- Matching product example name?
         exampleName =
-            db.object.examples
+            examples
                 |> Example.findByQuery query
                 |> Result.toMaybe
     in
@@ -186,22 +201,23 @@ updateQuery query ( model, session, commands ) =
         | initialQuery = query
         , bookmarkName =
             query
-                |> suggestBookmarkName session
+                |> suggestBookmarkName session model.examples
         , results =
             query
                 |> Simulator.compute session.db
                 |> Result.withDefault Simulator.emptyResults
       }
-    , session |> Session.updateObjectQuery query
+    , session |> Session.updateObjectQuery model.scope query
     , commands
     )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ queries, navKey } as session) msg model =
+update ({ navKey } as session) msg model =
     let
         query =
-            queries.object
+            session
+                |> Session.objectQueryFromScope model.scope
     in
     case ( msg, model.modal ) of
         ( AddItem item, _ ) ->
@@ -256,7 +272,12 @@ update ({ queries, navKey } as session) msg model =
             , Time.now
                 |> Task.perform
                     (SaveBookmarkWithTime model.bookmarkName
-                        (Bookmark.Object query)
+                        (if model.scope == Scope.Veli then
+                            Bookmark.Veli query
+
+                         else
+                            Bookmark.Object query
+                        )
                     )
             )
 
@@ -267,6 +288,7 @@ update ({ queries, navKey } as session) msg model =
                     { name = String.trim name
                     , query = objectQuery
                     , created = now
+                    , subScope = Just model.scope
                     }
             , Cmd.none
             )
@@ -308,7 +330,7 @@ update ({ queries, navKey } as session) msg model =
             ( model
             , session
             , Just query
-                |> Route.ObjectSimulator trigram
+                |> Route.ObjectSimulator model.scope trigram
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -371,29 +393,28 @@ simulatorView session model =
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view
-                    { currentQuery = session.queries.object
+                    { currentQuery = session |> Session.objectQueryFromScope model.scope
                     , emptyQuery = Query.default
-                    , examples = session.db.object.examples
+                    , examples = model.examples
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> SetModal
                     , routes =
-                        -- FIXME: explore route
-                        { explore = Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
-                        , load = Route.ObjectSimulatorExample
-                        , scopeHome = Route.ObjectSimulatorHome
+                        -- FIXME: explore route object/veli
+                        { explore = Route.Explore model.scope (Dataset.ObjectExamples Nothing)
+                        , load = Route.ObjectSimulatorExample model.scope
+                        , scopeHome = Route.ObjectSimulatorHome model.scope
                         }
                     }
                 ]
-            , div [ class "card shadow-sm mb-3" ]
-                [ session.queries.object
-                    |> itemListView session.db model.impact model.results
-                    |> div [ class "d-flex flex-column bg-white" ]
-                ]
+            , session
+                |> Session.objectQueryFromScope model.scope
+                |> itemListView session.db model.impact model.results
+                |> div [ class "card shadow-sm mb-3" ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
                 { session = session
-                , scope = Scope.Object
+                , scope = model.scope
 
                 -- Impact selector
                 , selectedImpact = model.impact
@@ -403,6 +424,7 @@ simulatorView session model =
                 , customScoreInfo = Nothing
                 , productMass = Simulator.extractMass model.results
                 , totalImpacts = Simulator.extractImpacts model.results
+                , totalImpactsWithoutDurability = Nothing
 
                 -- Impacts tabs
                 , impactTabsConfig =
@@ -455,7 +477,17 @@ addItemButton db query =
 itemListView : Db -> Definition -> Results -> Query -> List (Html Msg)
 itemListView db selectedImpact results query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h2 [ class "h5 mb-0" ] [ text "Éléments" ] ]
+        [ h2 [ class "h5 mb-0" ]
+            [ text "Éléments"
+            , Link.smallPillExternal
+                -- FIXME: link to Veli explorer?
+                [ Route.href (Route.Explore Scope.Object (Dataset.ObjectProcesses Nothing))
+                , title "Explorer"
+                , attribute "aria-label" "Explorer"
+                ]
+                [ Icon.search ]
+            ]
+        ]
     , if List.isEmpty query.items then
         div [ class "card-body" ] [ text "Aucun élément." ]
 
@@ -474,12 +506,12 @@ itemListView db selectedImpact results query =
                     [ table [ class "table mb-0" ]
                         [ thead []
                             [ tr [ class "fs-7 text-muted" ]
-                                [ th [] [ text "Quantité" ]
-                                , th [] [ text "Procédé" ]
-                                , th [] [ text "Densité" ]
-                                , th [] [ text "Masse" ]
-                                , th [] [ text "Impact" ]
-                                , th [] []
+                                [ th [ class "ps-3", scope "col" ] [ text "Quantité" ]
+                                , th [ scope "col" ] [ text "Procédé" ]
+                                , th [ scope "col" ] [ text "Densité" ]
+                                , th [ scope "col" ] [ text "Masse" ]
+                                , th [ scope "col" ] [ text "Impact" ]
+                                , th [ scope "col" ] []
                                 ]
                             ]
                         , Simulator.extractItems results
@@ -494,7 +526,7 @@ itemListView db selectedImpact results query =
 itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
 itemView selectedImpact ( amount, process ) itemResults =
     tr []
-        [ td [class "align-middle"]
+        [ td [ class "ps-3 align-middle" ]
             [ div [ class "input-group", style "min-width" "180px" ]
                 [ input
                     [ type_ "number"
@@ -514,31 +546,36 @@ itemView selectedImpact ( amount, process ) itemResults =
                         \str ->
                             case String.toFloat str of
                                 Just float ->
-                                    UpdateItem { amount = Query.amount float, processId = process.id }
+                                    UpdateItem
+                                        { amount = Query.amount float
+                                        , processId = process.id
+                                        }
 
                                 Nothing ->
                                     NoOp
                     ]
                     []
-                , span [ class "input-group-text justify-content-center fs-8", style "width" "38px" ]
+                , span
+                    [ class "input-group-text justify-content-center fs-8"
+                    , style "width" "38px"
+                    ]
                     [ text process.unit ]
                 ]
             ]
         , td [ class "align-middle text-truncate w-100" ]
             [ text process.displayName ]
         , td [ class "align-middle text-end" ]
-            [ if process.unit /= "kg" then
-                process.density |> Format.formatRichFloat 0 ("kg/" ++ process.unit)
-
-              else
-                text ""
-            ]
+            [ Format.density process ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Simulator.extractMass itemResults ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.formatImpact selectedImpact <| Simulator.extractImpacts itemResults ]
-        , td [ class "align-middle text-nowrap" ]
-            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ] [ Icon.trash ] ]
+            [ Simulator.extractImpacts itemResults
+                |> Format.formatImpact selectedImpact
+            ]
+        , td [ class "pe-3 align-middle text-nowrap" ]
+            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ]
+                [ Icon.trash ]
+            ]
         ]
 
 
@@ -583,8 +620,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = Example.toName session.db.object.examples
-                        , toCategory = Example.toCategory session.db.object.examples
+                        , toLabel = Example.toName model.examples
+                        , toCategory = Example.toCategory model.examples
                         }
             ]
       ]

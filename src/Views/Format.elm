@@ -1,6 +1,7 @@
 module Views.Format exposing
     ( complement
     , days
+    , density
     , formatFloat
     , formatImpact
     , formatImpactFloat
@@ -86,6 +87,10 @@ formatFloat decimals float =
 
     else if float == 0 then
         "0"
+
+    else if toFloat (round float) == float then
+        -- flpat is an int, no need for decimals
+        simpleFmt 0 float
 
     else if abs float >= 100 then
         simpleFmt 0 float
@@ -198,8 +203,8 @@ surfaceMass =
 
 
 threadDensity : Unit.ThreadDensity -> Html msg
-threadDensity (Unit.ThreadDensity density) =
-    density |> formatRichFloat 0 "#/cm"
+threadDensity (Unit.ThreadDensity density_) =
+    density_ |> formatRichFloat 0 "#/cm"
 
 
 picking : Unit.PickPerMeter -> Html msg
@@ -239,3 +244,12 @@ hours =
 minutes : Duration -> Html msg
 minutes =
     Duration.inMinutes >> formatRichFloat 0 "min"
+
+
+density : { a | density : Float, unit : String } -> Html msg
+density process =
+    if process.unit /= "kg" then
+        formatRichFloat 0 ("kg/" ++ process.unit) process.density
+
+    else
+        text "N/A"

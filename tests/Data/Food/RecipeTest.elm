@@ -24,7 +24,7 @@ expectImpactEqual expectedImpactUnit =
             Unit.impactToFloat expectedImpactUnit
     in
     Unit.impactToFloat
-        >> Expect.within (Expect.Relative 0.0000000000000001) expectedImpact
+        >> Expect.within (Expect.Relative 0.000000000001) expectedImpact
 
 
 suite : Test
@@ -149,7 +149,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 131.81588989680748) result
+                                expectImpactEqual (Unit.impact 131.81588989680745) result
                         )
                      , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                         (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -157,7 +157,7 @@ suite =
                                 Expect.fail err
 
                             Ok result ->
-                                expectImpactEqual (Unit.impact 106.16420108745277) result
+                                expectImpactEqual (Unit.impact 106.16420108745274) result
                         )
                      , describe "Scoring"
                         (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of

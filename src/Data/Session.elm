@@ -1,5 +1,6 @@
 module Data.Session exposing
     ( Auth(..)
+    , EnabledSections
     , Notification(..)
     , Session
     , Store
@@ -13,6 +14,7 @@ module Data.Session exposing
     , logout
     , notifyError
     , notifyInfo
+    , objectQueryFromScope
     , saveBookmark
     , selectAllBookmarks
     , selectNoBookmarks
@@ -28,6 +30,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
 import Data.Object.Query as ObjectQuery
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.User as User exposing (User)
 import Json.Decode as Decode exposing (Decoder)
@@ -44,6 +47,7 @@ type alias Queries =
     { food : FoodQuery.Query
     , object : ObjectQuery.Query
     , textile : TextileQuery.Query
+    , veli : ObjectQuery.Query
     }
 
 
@@ -51,13 +55,21 @@ type alias Session =
     { clientUrl : String
     , currentVersion : Version
     , db : Db
-    , enableFoodSection : Bool
+    , enabledSections : EnabledSections
     , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
     , notifications : List Notification
     , queries : Queries
     , releases : WebData (List Github.Release)
     , store : Store
+    }
+
+
+type alias EnabledSections =
+    { food : Bool
+    , objects : Bool
+    , textile : Bool
+    , veli : Bool
     }
 
 
@@ -115,14 +127,30 @@ saveBookmark bookmark =
 -- Queries
 
 
+objectQueryFromScope : Scope -> Session -> ObjectQuery.Query
+objectQueryFromScope scope session =
+    if scope == Scope.Veli then
+        session.queries.veli
+
+    else
+        session.queries.object
+
+
 updateFoodQuery : FoodQuery.Query -> Session -> Session
 updateFoodQuery foodQuery ({ queries } as session) =
     { session | queries = { queries | food = foodQuery } }
 
 
-updateObjectQuery : ObjectQuery.Query -> Session -> Session
-updateObjectQuery objectQuery ({ queries } as session) =
-    { session | queries = { queries | object = objectQuery } }
+updateObjectQuery : Scope -> ObjectQuery.Query -> Session -> Session
+updateObjectQuery scope objectQuery ({ queries } as session) =
+    { session
+        | queries =
+            if scope == Scope.Veli then
+                { queries | veli = objectQuery }
+
+            else
+                { queries | object = objectQuery }
+    }
 
 
 updateTextileQuery : TextileQuery.Query -> Session -> Session

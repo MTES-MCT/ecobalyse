@@ -36,7 +36,7 @@ import Views.Page as Page
 
 type alias Flags =
     { clientUrl : String
-    , enableFoodSection : Bool
+    , enabledSections : Session.EnabledSections
     , matomo : { host : String, siteId : String }
     , rawStore : String
     }
@@ -144,7 +144,7 @@ setupSession navKey flags db =
     { clientUrl = flags.clientUrl
     , currentVersion = Request.Version.Unknown
     , db = db
-    , enableFoodSection = flags.enableFoodSection
+    , enabledSections = flags.enabledSections
     , matomo = flags.matomo
     , navKey = navKey
     , notifications = []
@@ -156,6 +156,7 @@ setupSession navKey flags db =
                 |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
                 |> Result.map .query
                 |> Result.withDefault TextileQuery.default
+        , veli = ObjectQuery.default
         }
     , releases = RemoteData.NotAsked
     , store = store
@@ -226,16 +227,16 @@ setRoute url ( { state } as model, cmds ) =
                     Home.init session
                         |> toPage HomePage HomeMsg
 
-                Just (Route.ObjectSimulator trigram maybeQuery) ->
-                    ObjectSimulator.init trigram maybeQuery session
+                Just (Route.ObjectSimulator scope trigram maybeQuery) ->
+                    ObjectSimulator.init scope trigram maybeQuery session
                         |> toPage ObjectSimulatorPage ObjectSimulatorMsg
 
-                Just (Route.ObjectSimulatorExample uuid) ->
-                    ObjectSimulator.initFromExample session uuid
+                Just (Route.ObjectSimulatorExample scope uuid) ->
+                    ObjectSimulator.initFromExample session scope uuid
                         |> toPage ObjectSimulatorPage ObjectSimulatorMsg
 
-                Just Route.ObjectSimulatorHome ->
-                    ObjectSimulator.init Impact.default Nothing session
+                Just (Route.ObjectSimulatorHome scope) ->
+                    ObjectSimulator.init scope Impact.default Nothing session
                         |> toPage ObjectSimulatorPage ObjectSimulatorMsg
 
                 Just Route.Stats ->
@@ -529,7 +530,7 @@ view { mobileNavigationOpened, state } =
                 ObjectSimulatorPage simulatorModel ->
                     ObjectSimulator.view session simulatorModel
                         |> mapMsg ObjectSimulatorMsg
-                        |> Page.frame (pageConfig Page.Object)
+                        |> Page.frame (pageConfig (Page.Object simulatorModel.scope))
 
                 StatsPage statsModel ->
                     Stats.view session statsModel

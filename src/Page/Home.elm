@@ -69,7 +69,7 @@ update session msg model =
 
 
 viewHero : Session -> Modal -> Html Msg
-viewHero { enableFoodSection } modal =
+viewHero { enabledSections } modal =
     Container.centered [ class "pt-4 pb-5" ]
         [ div [ class "px-5" ]
             [ h2 [ class "h1" ]
@@ -81,7 +81,7 @@ viewHero { enableFoodSection } modal =
                     |> Markdown.simple []
                 ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
-                [ if enableFoodSection then
+                [ if enabledSections.food then
                     button [ class "btn btn-lg btn-primary", onClick OpenCalculatorPickerModal ]
                         [ text "Lancer le calculateur" ]
 

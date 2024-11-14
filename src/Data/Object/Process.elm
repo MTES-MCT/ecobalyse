@@ -1,11 +1,13 @@
 module Data.Object.Process exposing
-    ( Id
+    ( Id(..)
     , Process
     , decodeId
     , decodeList
     , encode
     , encodeId
     , findById
+    , idFromString
+    , idToString
     )
 
 import Data.Impact as Impact exposing (Impacts)
@@ -35,8 +37,8 @@ decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "comment" Decode.string
-        |> Pipe.optional "density" Decode.float 1
-        |> Pipe.required "display_name" Decode.string
+        |> Pipe.required "density" Decode.float
+        |> Pipe.required "displayName" Decode.string
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" Decode.string
@@ -79,6 +81,11 @@ findById processes id =
         |> List.filter (.id >> (==) id)
         |> List.head
         |> Result.fromMaybe ("Procédé introuvable par id : " ++ idToString id)
+
+
+idFromString : String -> Maybe Id
+idFromString =
+    Uuid.fromString >> Maybe.map Id
 
 
 idToString : Id -> String

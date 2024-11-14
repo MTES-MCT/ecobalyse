@@ -85,16 +85,3 @@ impacts = {
         "Human toxicity, non-cancer - inorganics",
     ),
 }
-
-
-def bytrigram(definitions, bynames):
-    """takes the definitions above and some impacts by name, return the impacts by trigram"""
-    trigramsByName = {method[1]: trigram for trigram, method in definitions.items()}
-    try:
-        return {
-            trigramsByName.get(name): amount["amount"]
-            for name, amount in bynames.items()
-            if trigramsByName.get(name)
-        }
-    except Exception as e:
-        return str(e)
