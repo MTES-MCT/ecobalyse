@@ -1,11 +1,15 @@
+import sys
+
 import pytest
 
-from data.common.export import format_number
+sys.path.append(".")
+from data.common import format_number
 
 
 @pytest.mark.parametrize(
     "number, expected, test_id",
     [
+        (0.000123456789, "0.000123457", "test_0"),
         (0.0000123456789, "1.23457e-5", "test_1"),
         (0.0000000123456789, "1.23457e-8", "test_2"),
         (123.456789999, "123.457", "test_3"),
@@ -18,7 +22,7 @@ from data.common.export import format_number
         (0.9999999, "1", "test_10"),
         (1.23456e-7, "1.23456e-7", "test_11"),
         (1.23456e7, "1.23456e7", "test_12"),
-        (42, "42", "test_13"),
+        (42.0, "42", "test_13"),
         (1000000, "1e6", "test_14"),
     ],
 )

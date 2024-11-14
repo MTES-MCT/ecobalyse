@@ -10,7 +10,7 @@ function formatNumber(num, precision = 6) {
 
   // Python uses scientific notation if exponent >= precision or <= -4
   const exponent = Math.floor(Math.log10(absNum));
-  const useScientific = exponent >= precision || exponent <= -4;
+  const useScientific = exponent >= precision || exponent < -4;
 
   if (useScientific) {
     // Use scientific notation
@@ -33,27 +33,4 @@ function formatNumber(num, precision = 6) {
   }
 }
 
-// Replace the existing test cases with Jest-style tests
-describe("formatNumber", () => {
-  const testCases = [
-    [0.0000123456789, "1.23457e-5", "test_1"],
-    [0.0000000123456789, "1.23457e-8", "test_2"],
-    [123.456789999, "123.457", "test_3"],
-    [1234567899999, "1.23457e+12", "test_4"],
-    [1.23456789999e-7, "1.23457e-7", "test_5"],
-    [0.1, "0.1", "test_6"],
-    [1, "1", "test_7"],
-    [1.00001, "1.00001", "test_8"],
-    [1.000001, "1", "test_9"],
-    [0.9999999, "1", "test_10"],
-    [1.23456e-7, "1.23456e-7", "test_11"],
-    [1.23456e7, "1.23456e7", "test_12"],
-    [42, "42", "test_13"],
-    [1000000, "1e6", "test_14"],
-  ];
-
-  test.each(testCases)("formats %p to %p (%s)", (number, expected, testId) => {
-    const result = formatNumber(number);
-    expect(result).toBe(expected);
-  });
-});
+module.exports = formatNumber;
