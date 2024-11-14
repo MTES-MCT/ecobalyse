@@ -8,10 +8,11 @@ const yaml = require("js-yaml");
 const helmet = require("helmet");
 const { Elm } = require("./server-app");
 const lib = require("./lib");
+const jsonUtils = require("./lib/json");
 const { decrypt } = require("./lib/crypto");
 const express = require("express");
-
 const rateLimit = require("express-rate-limit");
+
 const app = express(); // web app
 const api = express(); // api app
 const expressHost = "0.0.0.0";
@@ -232,6 +233,12 @@ api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
+const respondWithFormattedJSON = (res, status, body) => {
+  res.status(status);
+  res.setHeader("Content-Type", "application/json");
+  res.send(jsonUtils.serialize(body));
+};
+
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   const processes = await getProcesses(req.headers.token);
@@ -243,7 +250,7 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
     processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
-      res.status(status).send(body);
+      respondWithFormattedJSON(res, status, body);
     },
   });
 });
@@ -303,7 +310,7 @@ version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), asy
     body: req.body,
     processes,
     jsResponseHandler: ({ status, body }) => {
-      res.status(status).send(body);
+      respondWithFormattedJSON(res, status, body);
     },
   });
 });

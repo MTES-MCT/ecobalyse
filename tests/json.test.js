@@ -1,4 +1,4 @@
-const formatNumber = require("../number-formatter.js");
+const { formatNumber } = require("../lib/json");
 
 describe("formatNumber", () => {
   test.each([
