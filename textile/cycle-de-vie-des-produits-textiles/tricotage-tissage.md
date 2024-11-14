@@ -205,7 +205,7 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 <details>
 
-<summary>Titrage fil (Nm)</summary>
+<summary>Titrage fil (Nm) <br><em>Nm 20 = 20 mètres de ce fil pèsent 1 gramme</em>  </summary>
 
 Le titrage du fil est mobilisé à double titre :&#x20;
 
@@ -271,10 +271,20 @@ $$kWh = Duites.m * 0,0003145$$
 
 $$kWh = Densité (fils/cm) * 100 * Surface (m2)   * 0,0003145$$
 
-$$kWh = Grammage (g/m2) * Titrage (Nm) / 2 /1,08*MasseSortanteTissage(g)/ Grammage(g/m2)*0,0003145$$
+$$
+Densité (fils/cm) = Grammage (g/m2) * Titrage (Nm)  / 1,08 / 2 / 100
+$$
+
+$$
+Surface(m2) = MasseSortanteTissage(g) / Grammage(g/m2)
+$$
+
+Ainsi, en simplifiant l'équation suivante, la formule finale est :&#x20;
+
+$$kWh = Grammage (g/m2) * Titrage (Nm) / 1,08 / 2 *MasseSortanteTissage(g)/ Grammage(g/m2)*0,0003145$$
 
 Exemple : Robe / poids 300g / tissu 200g/m2 / fil 40 Nm / tissu à produire 375g : \
-$$kWh = 200 * 40  /2/1,08*375/200*0,0003145=2,18$$
+$$kWh = 200 * 40  /1,08/2*375/200*0,0003145=2,18$$
 
 :bulb: La valeur de 0,0003145 kWh / duites.m est reprise du socle technique Base Impacts (ADEME).
 {% endtab %}

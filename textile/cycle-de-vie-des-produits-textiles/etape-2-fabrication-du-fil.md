@@ -93,7 +93,8 @@ Le titrage indique la grosseur d’un fil textile. L'industrie textile se sert d
 
 Il existe deux systèmes permettant d’exprimer le titrage : \
 \- le système direct : plus le fil est fin, plus le numéro est petit (ex : Dtex)\
-\- le système indirect : plus le fil est fin, plus le numéro est élevé (ex : Nm)
+\- le système indirect : plus le fil est fin, plus le numéro est élevé (ex : Nm)\
+_Nm 20 = 20 mètres de ce fil pèsent 1 gramme_ &#x20;
 
 Ecobalyse permet de préciser le titrage selon les deux systèmes via des unités de référence : le Numéro Metric (Nm) et le Décitex (Dtex).
 
