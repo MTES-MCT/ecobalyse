@@ -2,6 +2,7 @@ module Data.Object.Query exposing
     ( Amount
     , Item
     , ProcessItem
+    , Quantity
     , Query
     , amountToFloat
     , b64encode
@@ -12,7 +13,7 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , quantityToInt
-      -- , removeItem
+    , removeItem
     , toString
       -- , updateItem
     )
@@ -100,17 +101,12 @@ default =
     { items = [] }
 
 
-defaultItem : Process -> Item
-defaultItem process =
+defaultItem : Item
+defaultItem =
     { name = "Composant par défaut"
-    , processes = [ defaultProcessItem process ]
+    , processes = []
     , quantity = Quantity 1
     }
-
-
-defaultProcessItem : Process -> ProcessItem
-defaultProcessItem process =
-    { amount = Amount 1, processId = process.id }
 
 
 encode : Query -> Encode.Value
@@ -139,17 +135,12 @@ encodeProcessItem processItem =
         ]
 
 
+removeItem : String -> Query -> Query
+removeItem name ({ items } as query) =
+    { query | items = items |> List.filter (.name >> (/=) name) }
 
--- FIX: implement it for components
--- removeProcessItem : Process.Id -> List ProcessItem -> List ProcessItem
--- removeProcessItem processId processes =
---     processes |> List.filter (.processId >> (/=) processId)
---
---
--- removeItem : Process.Id -> Query -> Query
--- removeItem processId query =
---     -- FIX: implement it for components
---     query
+
+
 --
 --
 -- updateItem : Item -> Query -> Query
@@ -158,17 +149,6 @@ encodeProcessItem processItem =
 --     query
 --
 --
--- updateProcessItem : ProcessItem -> List ProcessItem -> List ProcessItem
--- updateProcessItem newItem processes =
---     processes
---         |> List.map
---             (\item ->
---                 if item.processId == newItem.processId then
---                     newItem
---
---                 else
---                     item
---             )
 
 
 toString : List Process -> Query -> Result String String

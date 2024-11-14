@@ -1,6 +1,6 @@
 module Data.Object.Simulator exposing
     ( Results(..)
-    , availableProcesses
+    , availableComponents
     , compute
     , emptyResults
     , expandItems
@@ -13,7 +13,8 @@ module Data.Object.Simulator exposing
 import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Process as Process exposing (Process)
-import Data.Object.Query as Query exposing (ProcessItem, Query, quantityToInt)
+import Data.Object.Query as Query exposing (Item, ProcessItem, Query, quantityToInt)
+import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
@@ -28,15 +29,24 @@ type Results
         }
 
 
-availableProcesses : Db -> Query -> List Process
-availableProcesses { object } query =
-    -- FIX: implement it for components, don't force unique processes
+
+-- FIX: read the components from a file
+-- For now take the components from the example and consider that they are unique by name
+
+
+availableComponents : Db -> Query -> List Item
+availableComponents { object } query =
     let
-        usedIds =
-            List.map .processId (query.items |> List.concatMap .processes)
+        -- For now, consider that components are unique by name, we should
+        -- replace it with ids later on
+        usedNames =
+            List.map .name query.items
     in
-    object.processes
-        |> List.filter (\{ id } -> not (List.member id usedIds))
+    object.examples
+        |> List.concatMap (.query >> .items)
+        |> LE.uniqueBy .name
+        |> List.filter (\{ name } -> not (List.member name usedNames))
+        |> List.sortBy .name
 
 
 compute : Db -> Query -> Result String Results
@@ -94,14 +104,23 @@ emptyResults =
         }
 
 
-expandItems : Db -> Query -> Result String (List ( Query.Amount, Process ))
+expandItems : Db -> Query -> Result String (List ( Query.Quantity, String, List ( Query.Amount, Process ) ))
 expandItems db =
     .items
-        -- Flatten the processes inside the items
-        >> List.concatMap .processes
-        >> List.map (\{ amount, processId } -> ( amount, processId ))
-        >> List.map (RE.combineMapSecond (Process.findById db.object.processes))
+        >> List.map
+            (\item ->
+                expandProcesses db item.processes
+                    |> Result.map (\processes -> ( item.quantity, item.name, processes ))
+            )
         >> RE.combine
+
+
+expandProcesses : Db -> List ProcessItem -> Result String (List ( Query.Amount, Process ))
+expandProcesses db processes =
+    processes
+        |> List.map (\{ amount, processId } -> ( amount, processId ))
+        |> List.map (RE.combineMapSecond (Process.findById db.object.processes))
+        |> RE.combine
 
 
 extractImpacts : Results -> Impacts
