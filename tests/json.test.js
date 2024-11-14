@@ -1,6 +1,8 @@
 const { formatNumber, serialize } = require("../lib/json");
 
 const testData = [
+  [NaN, `null`],
+  [0, "0"],
   [0.000123456789, "0.000123457"],
   [0.0000123456789, "1.23457e-5"],
   [0.0000000123456789, "1.23457e-8"],
