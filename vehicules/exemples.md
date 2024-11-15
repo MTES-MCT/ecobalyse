@@ -7,7 +7,7 @@ hidden: true
 
 Le premier champ proposé sur le simulateur Ecobalyse propose de sélectionner un exemple.
 
-<figure><img src="../../.gitbook/assets/image (295).png" alt=""><figcaption><p>Capture d'écran (01/04/2024)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (295).png" alt=""><figcaption><p>Capture d'écran (01/04/2024)</p></figcaption></figure>
 
 Les différents exemples proposés permettent d'initier la modélisation d'un véhicule à partir d'un exemple similaire. **Ce choix initial permet de faciliter les modélisation mais ne remplace ensuite pas le paramétrage de chacun des champs proposés**. La page de documentation "[Paramétrage](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/887/textile/parametrage)" précise les paramètres qui peuvent ou doivent être renseignés suivant l'utilisation qui est faite de l'outil.
 
@@ -46,7 +46,7 @@ Ces exemples illustrent le fonctionnement de la méthode et de l'outil de calcul
 
 Ces exemples s'appuient sur les données recueillies auprès de constructeurs entre Octobre 2024 et Décembre 2024.
 
-Par rapport aux exemples paramétrés de façon "majorante par défaut" (cf. [supra](./#exemples-parametres-de-facon-majorante-par-defaut)), ces exemples sont paramétrés de façon plus précise avec notamment :
+Par rapport aux exemples paramétrés de façon "majorante par défaut" (cf. [supra](exemples.md#exemples-parametres-de-facon-majorante-par-defaut)), ces exemples sont paramétrés de façon plus précise avec notamment :
 
 * des choix de matières plus complexes
 * des origines géographiques plus précises pour l'assemblage du véhicule et/ou l'origine des composants
@@ -60,7 +60,7 @@ Les paramètres exposés ci-après ont une vocation purement illustrative et pé
 
 Les exemples de paramètres suivants sont considérés :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (331).png" alt=""><figcaption><p>CC : Châssis Carrosserie, quantités exprimées en kg, sauf la capacité des batteries, quantités pour les jantes et pneumatiques exprimées par roue.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (331).png" alt=""><figcaption><p>CC : Châssis Carrosserie, quantités exprimées en kg, sauf la capacité des batteries, quantités pour les jantes et pneumatiques exprimées par roue.</p></figcaption></figure>
 
 Pour la catégorie "Autre", les paramètres correspondent aux données du modèle GREET pour un véhicule de 1.6t.
 

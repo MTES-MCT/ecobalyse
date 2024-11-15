@@ -24,7 +24,7 @@ Ce programme inclut notamment un groupe de travail sur l'impact environnemental,
 
 Une description des types de véhicules concernés est disponible ici : [https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L](https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L)
 
-Les catégories utilisées pour Ecobalyse sont listées dans la page [Caractérisation du véhicule](../exemples/caracteristiques-du-vehicule.md).
+Les catégories utilisées pour Ecobalyse sont listées dans la page [Caractérisation du véhicule](../parametrage/caracteristiques-du-vehicule.md).
 
 ## Etapes du cycle de vie
 
@@ -58,8 +58,8 @@ Seuls les véhicules fonctionnant à l'énergie électrique et/ou musculaire peu
 [Broken link](broken-reference)
 {% endcontent-ref %}
 
-{% content-ref url="../exemples/caracteristiques-du-vehicule.md" %}
-[caracteristiques-du-vehicule.md](../exemples/caracteristiques-du-vehicule.md)
+{% content-ref url="../parametrage/caracteristiques-du-vehicule.md" %}
+[caracteristiques-du-vehicule.md](../parametrage/caracteristiques-du-vehicule.md)
 {% endcontent-ref %}
 
 {% content-ref url="fabrication-des-composants/" %}
