@@ -7,13 +7,14 @@ Pour chaque véhicule, un **coefficient de durabilité** $$C_{Durabilité}$$ est
 Le coût environnemental est établi comme suit :&#x20;
 
 $$
-CoûtEnvironnemental = \frac{Somme des Impacts}{C_{Durabilité}}
+CoûtEnvironnemental = \frac{Somme des Impacts(Hors Utilisation)}{C_{Durabilité}}+Somme des Impacts(Utilisation)
 $$
 
 Avec :&#x20;
 
-* $$SommedesImpacts$$ : Somme des impacts du véhicule considéré sur l'ensemble de son cycle de vie
-* $$Coût environnemental$$ : Le coût environnemental ainsi considéré revient à considérer une unité fonctionnelle "utilisation du vêtement sur une durée de X jours", où X est la durée moyenne d'utilisation considérée pour la catégorie de vêtement considérée (cf. nombre de portés et d'utilisation avant lavage spécifiés dans l'[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products), en s'appuyant sur les données du projet de PEFCR Apparel & Footwear lorsqu'elles sont disponibles).
+* $$SommedesImpacts (Hors Utilisation)$$ : Somme des impacts du véhicule considéré sur l'ensemble de son cycle de vie, excepté la phase d'utilisation (renouvellement des pneumatiques, électricité).
+* $$Coût environnemental$$ : Le coût environnemental ainsi considéré revient à considérer une unité fonctionnelle "utilisation du véhicule sur une durée de X années", où X est la durée moyenne d'utilisation considérée.
+* $$SommedesImpacts (Utilisation)$$ : Impacts du véhicule sur la phase d'utilisation (renouvellement des pneumatiques, électricité).
 
 Exemple :&#x20;
 

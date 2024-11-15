@@ -28,7 +28,7 @@ Ces modes de transport correspondent aux procédés Ecoinvent suivants :
 | Terrestre         | transport, freight, lorry, unspecified, RoW  |
 | Maritime          | transport, freight, sea, container ship, GLO |
 
-<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 
 ### Calcul des distances <a href="#distribution" id="distribution"></a>
 

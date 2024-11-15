@@ -19,7 +19,6 @@ Les étapes et analyses suivantes ne sont à ce stade pas prises en compte :
 
 * La maintenance et le remplacement d'autres composants que les pneumatiques
 * La fin de vie des véhicules
-* La durabilité des véhicules
 * Le processus d'assemblage
 * Les infrastructures routières sur lesquelles circulent les véhicules
 
