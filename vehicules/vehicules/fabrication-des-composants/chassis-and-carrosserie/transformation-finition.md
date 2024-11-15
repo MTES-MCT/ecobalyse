@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # ⚙️ Transformation / Finition
 
 L'utilisateur a la possibilité de préciser la modélisation des composants proposés dans Ecobalyse.&#x20;
@@ -58,7 +62,7 @@ Les paramètres clés retenus pour laminer 1m3 de panneau sont les suivants :&#x
 
 Procédé détaillé de stratification d'un aggloméré/MDF :&#x20;
 
-![](<../../../../../.gitbook/assets/image (324).png>)
+![](<../../../../.gitbook/assets/image (324).png>)
 
 </details>
 
@@ -76,7 +80,7 @@ _Pertes :  <mark style="color:orange;">A définir</mark>_
 
 Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
 
-![](<../../../../../.gitbook/assets/image (320).png>)
+![](<../../../../.gitbook/assets/image (320).png>)
 
 </details>
 
@@ -90,7 +94,7 @@ _Pertes : <mark style="color:orange;">A définir</mark>_
 
 Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
 
-![](<../../../../../.gitbook/assets/image (320).png>)
+![](<../../../../.gitbook/assets/image (320).png>)
 
 </details>
 
@@ -104,7 +108,7 @@ _Pertes : <mark style="color:orange;">A définir</mark>_
 
 Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
 
-![](<../../../../../.gitbook/assets/image (320).png>)
+![](<../../../../.gitbook/assets/image (320).png>)
 
 </details>
 
@@ -118,7 +122,7 @@ _Pertes : <mark style="color:orange;">A définir</mark>_
 
 Consiste à pousser la matière grâce à un piston à travers une filière pour lui donner la forme souhaitée. Pour les pièces métalliques, l'extrusion peut être faite à chaud ou à froid et permet d'obtenir des profilés, des barres, des tubes, etc.&#x20;
 
-![](<../../../../../.gitbook/assets/image (319).png>)
+![](<../../../../.gitbook/assets/image (319).png>)
 
 </details>
 
@@ -132,7 +136,7 @@ _Pertes : <mark style="color:orange;">A définir</mark>_
 
 Consiste à pousser la matière grâce à un piston à travers une filière pour lui donner la forme souhaitée. Pour les pièces métalliques, l'extrusion peut être faite à chaud ou à froid et permet d'obtenir des profilés, des barres, des tubes, etc.&#x20;
 
-![](<../../../../../.gitbook/assets/image (319).png>)
+![](<../../../../.gitbook/assets/image (319).png>)
 
 </details>
 
@@ -190,7 +194,7 @@ _Pertes : 2%_
 
 Consiste à faire fondre les granulés de plastique et à les compresser à travers une filière pour créer la forme souhaitée. Pour les pièces plastiques, l'extrusion permet d'obtenir une grande variété de produits tels que des tubesn feuilles, films, etc.
 
-![](<../../../../../.gitbook/assets/image (322).png>)
+![](<../../../../.gitbook/assets/image (322).png>)
 
 </details>
 
@@ -204,7 +208,7 @@ _Pertes : 1%_
 
 Aussi appelé moulage par injection, l'injection plastique consiste à chauffer et fondre des granulés plastique puis à les injecter dans un moule afin d'obtenir la forme souhaitée lorsque la matière refroidit et durcit.
 
-![](<../../../../../.gitbook/assets/image (315).png>)
+![](<../../../../.gitbook/assets/image (315).png>)
 
 </details>
 
@@ -218,7 +222,7 @@ _Pertes : 0%_
 
 Consiste à chauffer une feuille plastique et à lui donner la forme souhaitée à l'aide d'un moule dès que la matière a refroidi.&#x20;
 
-![](<../../../../../.gitbook/assets/image (323).png>)
+![](<../../../../.gitbook/assets/image (323).png>)
 
 </details>
 

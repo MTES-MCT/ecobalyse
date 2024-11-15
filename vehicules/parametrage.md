@@ -1,6 +1,47 @@
+---
+hidden: true
+---
+
 # Paramétrage
 
 La méthodologie exposée à travers l'outil Ecobalyse peut être utilisée en mobilisant des paramètres très différents : catégorie, matériaux, quantités (en masse ou autre), origines, type de transport
+
+## Méthodes de calcul
+
+Des données sont collectées sur les thématiques suivantes (les données obligatoires sont indiquées avec le symbole \*):
+
+* Caractéristiques générales du véhicule\*
+* Données sur les principaux composants du véhicule (poids, origine, matériaux selon les cas) :&#x20;
+  * Châssis - carrosserie\*
+  * Batterie
+  * Moteur
+  * Jantes\*
+  * Pneumatiques\*
+  * Assise\*
+  * Cellules photovoltaïques
+* Utilisation du véhicule\*
+
+L'impact de la fabrication des composants est calculée à partir de l'identification du matériau (et d'un procédé / donnée ICV associé) et de sa quantité. Si l'unité du procédé utilisé n'est pas le kilogramme, une conversion est faite par Ecobalyse. Pour la batterie et cellules photovoltaïque, le poids est à renseigner en complément de la capacité et de la puissance respectivement.
+
+Les caractéristiques générales du véhicule et les données sur les composants permettent de calculer automatiquement :
+
+* [l'impact des composants non quantifiés directement](vehicules/fabrication-des-composants/autres-composants.md) (liste ci-dessus), par différence de poids entre la somme des poids des composants identifiés et le poids total du véhicule,
+* [l'impact du transport des composants](vehicules/transport-des-composants.md), à partir de l'origine de chaque composants et du lieu d'assemblage du véhicule,
+* [l'impact du transport des véhicules](vehicules/transport-des-vehicules.md), à partir du lieu d'assemblage du véhicule.
+
+## Unité de calcul du coût environnemental
+
+Le coût environnemental est calculé en premier lieu par véhicule, puis par kilomètre parcouru sur le cycle de vie, en divisant le cout environnemental par véhicule par la durée de vie du véhicule en kilomètres.
+
+Une durée de vie par défaut est calculée en fonction de la catégorie de véhicule, et modifiable par l'utilisateur.
+
+Le coût environnemental pourra également être calculé par tonne.km ou par passager.km.
+
+## Enjeu de comparaison des véhicules
+
+La comparaison de véhicules-types de catégories différentes sur la base du coût environnemental par kilomètre nécessite des précautions. En effet, les kilométrages par défaut sont plus élevés pour les véhicules les plus lourds, ce qui est de nature à réduire significativement leur coût environnemental en comparaison des véhicules plus légers. Cependant, pour un usage donné, un véhicule plus léger aura en général un cout environnemental plus faible, et devrait être privilégié.
+
+Deux véhicules, quelle que soit leurs tailles respectives, devraient donc se comparer avec un kilométrage identique et un remplacement de composants lié à ce kilométrage.
 
 ## Approche technique, des valeurs par défaut majorantes
 

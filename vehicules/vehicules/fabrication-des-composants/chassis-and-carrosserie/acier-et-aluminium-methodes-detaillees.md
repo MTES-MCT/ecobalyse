@@ -3,6 +3,7 @@ description: >-
   Cette page décrit le processus de fabrication des deux métaux, les facteurs
   déterminants de l'impact environnemental dans leur chaine de valeur, et la
   méthode proposée dans Ecobalyse.
+hidden: true
 ---
 
 # 🔩 Acier et Aluminium - Méthodes détaillées
@@ -76,4 +77,4 @@ Dans Ecoinvent, les pertes lors des étapes de transformation finale de l'alumin
 
 Les schémas ci-dessous illustre cette modélisation :&#x20;
 
-<figure><img src="../../../../../.gitbook/assets/image (327).png" alt=""><figcaption><p>Procédés ecoinvent mis en œuvre pour modéliser 1kg d'aluminium </p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (327).png" alt=""><figcaption><p>Procédés ecoinvent mis en œuvre pour modéliser 1kg d'aluminium </p></figcaption></figure>
