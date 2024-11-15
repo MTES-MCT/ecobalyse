@@ -4,7 +4,7 @@ description: >-
   il souhaite calculer le coût environnemental.
 ---
 
-# 📋 Caractéristiques du véhicule
+# Caractéristiques du véhicule
 
 Les caractéristiques suivantes du véhicules sont collectées dans Ecobalyse (les données obligatoires sont indiquées par le symbole \*) :
 

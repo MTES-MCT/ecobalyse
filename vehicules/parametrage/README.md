@@ -1,8 +1,4 @@
----
-hidden: true
----
-
-# Paramétrage
+# Draft - Paramétrage
 
 La méthodologie exposée à travers l'outil Ecobalyse peut être utilisée en mobilisant des paramètres très différents : catégorie, matériaux, quantités (en masse ou autre), origines, type de transport
 

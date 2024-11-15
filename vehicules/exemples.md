@@ -1,9 +1,8 @@
 ---
 description: Page introduisant la notion d'exemples proposés au début du simulateur
-hidden: true
 ---
 
-# Exemples
+# Draft - Exemples
 
 Le premier champ proposé sur le simulateur Ecobalyse propose de sélectionner un exemple.
 
