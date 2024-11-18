@@ -202,8 +202,7 @@
     "name": "Vache de réforme bio",
     "process_categories": ["material"],
     "search": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 28.82249325
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ground-beef-feedlot",
@@ -511,160 +510,140 @@
     "name": "Acier",
     "process_categories": ["packaging"],
     "search": "Steel unalloyed {RER} steel production converter unalloyed",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.04564122948
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "process_categories": ["packaging"],
     "search": "Packaging film low density polyethylene {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.2292804427
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ps",
     "name": "Polystyrène",
     "process_categories": ["packaging"],
     "search": "Polystyrene expandable {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.000610793334
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "glass",
     "name": "Verre",
     "process_categories": ["packaging"],
     "search": "Packaging glass white {RER} w/o CH+DE production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.211062261
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pp",
     "name": "Polypropylène",
     "process_categories": ["packaging"],
     "search": "Polypropylene granulate {RER}| production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.03011341585
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cardboard",
     "name": "Carton",
     "process_categories": ["packaging"],
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 1.113967426
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "paper",
     "name": "Papier",
     "process_categories": ["packaging"],
     "search": "Kraft paper production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 5.741060888
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pvc",
     "name": "PVC",
     "process_categories": ["packaging"],
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.08960342165
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pet",
     "name": "PET",
     "process_categories": ["packaging"],
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.079813952
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "process_categories": ["packaging"],
     "search": "Polyethylene high density granulate {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.03500785459
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "aluminium",
     "name": "Aluminium",
     "process_categories": ["packaging"],
     "search": "Aluminium primary ingot {RoW} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.4286118448
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "canning",
     "name": "Mise en conserve",
     "process_categories": ["transformation"],
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.01180912862
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "mixing",
     "name": "Mélange",
     "process_categories": ["transformation"],
     "search": "Mixing processing dummy",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cooking",
     "name": "Cuisson",
     "process_categories": ["transformation"],
     "search": "Cooking, industrial, 1kg of cooked product {FR} U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.1056149549
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lorry",
     "name": "Camion",
     "process_categories": ["transport"],
     "search": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.01022983599
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "boat",
     "name": "Bateau",
     "process_categories": ["transport"],
     "search": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 6.245968834e-5
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "plane",
     "name": "Avion",
     "process_categories": ["transport"],
     "search": "Transport freight aircraft unspecified",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.00268767529
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
     "process_categories": ["transport"],
     "search": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0001605949799
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lorry-cooling",
     "process_categories": ["transport"],
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0117792982
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "process_categories": ["energy"],
     "search": "Electricity low voltage {FR} market",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.009591199223
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "tap-water",
@@ -686,8 +665,7 @@
     "name": "Gaz de ville",
     "process_categories": ["energy"],
     "search": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0002758175609
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "comte-aop",
@@ -1092,8 +1070,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": null,
-    "land_occupation": 11.79520862582675,
-    "crop_group": null
+    "land_occupation": 11.79520862582675
   },
   {
     "id": "chicken-breast-br-max",
@@ -3667,12 +3644,12 @@
   },
   {
     "id": "soft-wheat-non-eu",
-    "name": "Blé tendre UE Conv.",
+    "name": "Blé tendre Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "process_categories": ["ingredient"],
     "ingredient_categories": ["grain_raw"],
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1.0,
     "inedible_part": 0,
@@ -6201,10 +6178,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": null,
-    "land_occupation": 9.167676909,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 9.167676909
   },
   {
     "id": "unknown-fruit-vegetable",
@@ -6274,8 +6248,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": null,
-    "land_occupation": 2.10364488e-5,
-    "crop_group": null
+    "land_occupation": 2.10364488e-5
   },
   {
     "id": "unknown-white-meat",
@@ -6311,10 +6284,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": null,
-    "land_occupation": 1.85501141,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 1.85501141
   },
   {
     "id": "unknown-dried-fruits",
@@ -6352,24 +6322,6 @@
     "crop_group": "TOURNESOL"
   },
   {
-    "id": "onion-dried-hors-eu",
-    "name": "Oignons déshydratés Hors UE Conv.",
-    "database": "Agribalyse 3.1.1",
-    "search": "onions dried",
-    "process_categories": ["ingredient"],
-    "ingredient_categories": ["vegetable_processed"],
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 0.6195,
-    "inedible_part": 0,
-    "transport_cooling": "none",
-    "visible": true,
-    "explain": "This process describes the average consumption dried onions, supposed to be the same as the mix of Onions in France.Included activities are : production in country of origin and transport. The consumption mix was evaluated using data extracted from FAOstat\nOrigine : 7kg FR, 1Kg NL",
-    "scenario": "reference",
-    "land_occupation": 2.5114890758258803,
-    "crop_group": "LEGUMES-FLEURS"
-  },
-  {
     "id": "anchovy-fr",
     "name": "Anchois FR Conv.",
     "database": "Agribalyse 3.1.1",
@@ -6383,10 +6335,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.033974262234653045,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.033974262234653045
   },
   {
     "id": "anchovy-eu",
@@ -6402,10 +6351,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.033974262234653045,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.033974262234653045
   },
   {
     "id": "anchovy-non-eu",
@@ -6421,10 +6367,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.033974262234653045,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.033974262234653045
   },
   {
     "id": "sardine-fr",
@@ -6440,10 +6383,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.004036714851529471,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.004036714851529471
   },
   {
     "id": "sardine-eu",
@@ -6459,10 +6399,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.016278296864028784,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.016278296864028784
   },
   {
     "id": "sardine-non-eu",
@@ -6478,10 +6415,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.004036714851529471,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.004036714851529471
   },
   {
     "id": "cod-eu",
@@ -6497,10 +6431,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.034270541927866376,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.034270541927866376
   },
   {
     "id": "crab-fr",
@@ -6516,10 +6447,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.32883605287589174,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.32883605287589174
   },
   {
     "id": "crab-eu",
@@ -6535,10 +6463,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.6205097657790937,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.6205097657790937
   },
   {
     "id": "hake-eu",
@@ -6554,10 +6479,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.02384281457052437,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.02384281457052437
   },
   {
     "id": "lobster-fr",
@@ -6573,10 +6495,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 1.839828202807313,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 1.839828202807313
   },
   {
     "id": "lobster-eu",
@@ -6592,10 +6511,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 1.8321453962646206,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 1.8321453962646206
   },
   {
     "id": "lobster-non-eu",
@@ -6611,10 +6527,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.12544196078231584,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.12544196078231584
   },
   {
     "id": "salmon-raw-eu",
@@ -6630,10 +6543,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 629.0954794051512,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 629.0954794051512
   },
   {
     "id": "squid-fr",
@@ -6649,10 +6559,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.034270541927866376,
-    "animal_group1": null,
-    "animal_group2": null,
-    "animal_product": null
+    "land_occupation": 0.034270541927866376
   },
   {
     "id": "mandarin-non-eu",
@@ -7259,5 +7166,40 @@
     "scenario": "import",
     "land_occupation": 1.2557111799651013,
     "crop_group": "VERGERS"
+  },
+  {
+    "id": "soft-wheat-eu",
+    "name": "Blé tendre UE Conv.",
+    "database": "Agribalyse 3.1.1",
+    "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
+    "process_categories": ["ingredient"],
+    "ingredient_categories": ["grain_raw"],
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "scenario": "import",
+    "land_occupation": 2.7526017487732166,
+    "crop_group": "BLE TENDRE"
+  },
+  {
+    "id": "onion-dried",
+    "name": "Oignons déshydratés Hors UE Conv.",
+    "database": "Agribalyse 3.1.1",
+    "search": "onions dried",
+    "process_categories": ["ingredient"],
+    "ingredient_categories": ["vegetable_processed"],
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.6195,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "visible": true,
+    "explain": "This process describes the average consumption dried onions, supposed to be the same as the mix of Onions in France.Included activities are : production in country of origin and transport. The consumption mix was evaluated using data extracted from FAOstat\nOrigine : 7kg FR, 1Kg NL",
+    "scenario": "reference",
+    "land_occupation": 2.5114890758258803,
+    "crop_group": "LEGUMES-FLEURS"
   }
 ]
