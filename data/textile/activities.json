@@ -586,7 +586,8 @@
   {
     "displayName": "Production de fibres de coton bio",
     "info": "Textile > Matières > Matières naturelles",
-    "source": "Custom",
+    "source": "Ecoinvent 3.9.1",
+    "search": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
     "correctif": "",
     "step_usage": "Matières",
     "uuid": "coton-bio",
@@ -603,30 +604,7 @@
     "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 100,
-    "unit": "kg",
-    "impacts": {
-      "acd": 0.0306797,
-      "cch": 0.680164,
-      "etf": 5.1314,
-      "etf-c": 5.2637,
-      "fru": 1.65306,
-      "fwe": 0.0121382,
-      "htc": 5.32889e-9,
-      "htc-c": 6.73849e-11,
-      "htn": -2.36397e-7,
-      "htn-c": 3.03781e-10,
-      "ior": 0.0037548,
-      "ldu": 696.27,
-      "mru": 9.15075e-7,
-      "ozd": 1.15859e-9,
-      "pco": 0.0042632,
-      "pma": 1.97418e-7,
-      "swe": 0.0813382,
-      "tre": 0.1392,
-      "wtu": 32.2334,
-      "ecs": 618.962439739018,
-      "pef": 736.2192841211813
-    }
+    "unit": "kg"
   },
   {
     "displayName": "Production de chanvre",
