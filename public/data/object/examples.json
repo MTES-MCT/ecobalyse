@@ -1,11 +1,11 @@
 [
   {
     "id": "0d08a9ff-5683-4d3d-a7b8-dce74f37cd3b",
-    "name": "Objet par défaut",
+    "name": "Objet vide",
     "scope": "object",
     "category": "",
     "query": {
-      "items": [{ "name": "Composant par défaut", "processes": [], "quantity": 0 }]
+      "items": []
     }
   },
   {
