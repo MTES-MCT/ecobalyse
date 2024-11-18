@@ -12,10 +12,11 @@ module Data.Object.Query exposing
     , defaultItem
     , encode
     , parseBase64Query
+    , quantity
     , quantityToInt
     , removeItem
     , toString
-      -- , updateItem
+    , updateItem
     )
 
 import Base64
@@ -57,6 +58,11 @@ type Quantity
 amountToFloat : Amount -> Float
 amountToFloat (Amount float) =
     float
+
+
+quantity : Int -> Quantity
+quantity int =
+    Quantity int
 
 
 quantityToInt : Quantity -> Int
@@ -140,15 +146,21 @@ removeItem name ({ items } as query) =
     { query | items = items |> List.filter (.name >> (/=) name) }
 
 
+updateItem : Item -> Query -> Query
+updateItem newItem query =
+    let
+        items =
+            query.items
+                |> List.map
+                    (\item ->
+                        if item.name == newItem.name then
+                            newItem
 
---
---
--- updateItem : Item -> Query -> Query
--- updateItem newItem query =
---     -- FIX: implement it for components
---     query
---
---
+                        else
+                            item
+                    )
+    in
+    { query | items = items }
 
 
 toString : List Process -> Query -> Result String String

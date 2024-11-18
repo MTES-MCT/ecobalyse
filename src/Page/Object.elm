@@ -88,10 +88,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-
-
-
--- | UpdateItem Query.Item
+    | UpdateItem Query.Item
 
 
 init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
@@ -271,7 +268,6 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteSelect, _ ) ->
             ( model, session, Cmd.none )
 
-        -- FIX: select component
         ( OnAutocompleteSelectComponent, AddComponentModal autocompleteState ) ->
             ( model, session, Cmd.none )
                 |> selectComponent query autocompleteState
@@ -385,12 +381,9 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-
-
--- FIX: add it back for components
--- ( UpdateItem item, _ ) ->
---     ( model, session, Cmd.none )
--- |> updateQuery (Query.updateItem item query)
+        ( UpdateItem item, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateItem item query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -562,7 +555,7 @@ itemListView db selectedImpact results query =
 
 
 itemView : Definition -> ( Query.Quantity, String, List ( Query.Amount, Process ) ) -> Results -> Html Msg
-itemView selectedImpact ( quantity, name, _ ) itemResults =
+itemView selectedImpact ( quantity, name, processes ) itemResults =
     tr []
         [ td [ class "ps-3 align-middle" ]
             [ div [ class "input-group", style "min-width" "180px" ]
@@ -571,19 +564,20 @@ itemView selectedImpact ( quantity, name, _ ) itemResults =
                     , class "form-control text-end"
                     , quantity |> Query.quantityToInt |> String.fromInt |> value
                     , step "1"
+                    , onInput <|
+                        \str ->
+                            case String.toInt str of
+                                -- FIX: don't update components based on their name
+                                -- swith to components ids as soon as they are implemented
+                                Just int ->
+                                    UpdateItem
+                                        { name = name
+                                        , quantity = Query.quantity int
+                                        , processes = processes |> List.map (\( amount, process ) -> { amount = amount, processId = process.id })
+                                        }
 
-                    -- FIX: add it back for components
-                    -- , onInput <|
-                    --     \str ->
-                    --         case String.toFloat str of
-                    --             Just float ->
-                    --                 UpdateItem
-                    --                     { amount = Query.amount float
-                    --                     , processId = process.id
-                    --                     }
-                    --
-                    --             Nothing ->
-                    --                 NoOp
+                                Nothing ->
+                                    NoOp
                     ]
                     []
                 ]
@@ -597,72 +591,10 @@ itemView selectedImpact ( quantity, name, _ ) itemResults =
                 |> Format.formatImpact selectedImpact
             ]
         , td [ class "pe-3 align-middle text-nowrap" ]
-            -- FIX: add it back for components
             [ button [ class "btn btn-outline-secondary", onClick (RemoveComponent name) ]
                 [ Icon.trash ]
             ]
         ]
-
-
-
--- processView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
--- processView selectedImpact ( amount, process ) itemResults =
---     tr []
---         [ td [ class "ps-3 align-middle" ]
---             [ div [ class "input-group", style "min-width" "180px" ]
---                 [ input
---                     [ type_ "number"
---                     , class "form-control text-end"
---                     , amount |> Query.amountToFloat |> String.fromFloat |> value
---                     , step <|
---                         case process.unit of
---                             "kg" ->
---                                 "0.01"
---
---                             "m3" ->
---                                 "0.00001"
---
---                             _ ->
---                                 "1"
---
---                     -- FIX: add it back for components
---                     -- , onInput <|
---                     --     \str ->
---                     --         case String.toFloat str of
---                     --             Just float ->
---                     --                 UpdateItem
---                     --                     { amount = Query.amount float
---                     --                     , processId = process.id
---                     --                     }
---                     --
---                     --             Nothing ->
---                     --                 NoOp
---                     ]
---                     []
---                 , span
---                     [ class "input-group-text justify-content-center fs-8"
---                     , style "width" "38px"
---                     ]
---                     [ text process.unit ]
---                 ]
---             ]
---         , td [ class "align-middle text-truncate w-100" ]
---             [ text process.displayName ]
---         , td [ class "align-middle text-end" ]
---             [ Format.density process ]
---         , td [ class "text-end align-middle text-nowrap" ]
---             [ Format.kg <| Simulator.extractMass itemResults ]
---         , td [ class "text-end align-middle text-nowrap" ]
---             [ Simulator.extractImpacts itemResults
---                 |> Format.formatImpact selectedImpact
---             ]
---         , td [ class "pe-3 align-middle text-nowrap" ]
---             -- FIX: add it back for components
---             -- [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ]
---             [ button [ class "btn btn-outline-secondary" ]
---                 [ Icon.trash ]
---             ]
---         ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

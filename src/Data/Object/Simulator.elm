@@ -37,7 +37,7 @@ type Results
 availableComponents : Db -> Query -> List Item
 availableComponents { object } query =
     let
-        -- For now, consider that components are unique by name, we should
+        -- FIX: For now, consider that components are unique by name, we should
         -- replace it with ids later on
         usedNames =
             List.map .name query.items
