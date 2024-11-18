@@ -27,6 +27,7 @@ import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Mass
 import Ports
 import Route
 import Static.Db exposing (Db)
@@ -44,6 +45,7 @@ import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
+import Volume
 
 
 type alias Model =
@@ -606,45 +608,52 @@ itemView selectedImpact ( quantity, name, processes ) itemResults =
                 , div [ class "table-responsive" ]
                     [ table [ class "table mb-0" ]
                         [ thead []
-                            [ tr [ class "fs-7 text-muted" ]
+                            (tr [ class "fs-7 text-muted" ]
                                 [ th [ class "ps-3", scope "col" ] [ text "Quantité" ]
                                 , th [ scope "col" ] [ text "Procédé" ]
                                 , th [ scope "col" ] [ text "Densité" ]
                                 , th [ scope "col" ] [ text "Masse" ]
                                 , th [ scope "col" ] [ text "Impact" ]
                                 ]
-                            ]
-                        , processes
-                            |> List.map
-                                (\( amount, process ) ->
-                                    tr []
-                                        [ td [ class "ps-3 align-middle" ]
-                                            [ text (amount |> Query.amountToFloat |> String.fromFloat)
-                                            , span
-                                                [ class "input-group-text justify-content-center fs-8"
-                                                , style "width" "38px"
-                                                ]
-                                                [ text process.unit ]
-                                            ]
-                                        , td [ class "align-middle text-truncate w-100" ]
-                                            [ text process.displayName ]
-                                        , td [ class "align-middle text-end" ]
-                                            [ Format.density process ]
-                                        , td [ class "text-end align-middle text-nowrap" ]
-                                            [ Format.kg <| Simulator.extractMass itemResults ]
-                                        , td [ class "text-end align-middle text-nowrap" ]
-                                            [ Simulator.extractImpacts itemResults
-                                                |> Format.formatImpact selectedImpact
-                                            ]
-                                        ]
-                                )
-                            |> tbody []
+                                :: List.map2 (processView selectedImpact) processes (Simulator.extractItems itemResults)
+                            )
                         ]
                     ]
                 ]
             ]
         ]
     ]
+
+
+processView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
+processView selectedImpact ( amount, process ) itemResults =
+    let
+        floatAmount =
+            amount |> Query.amountToFloat
+    in
+    tr []
+        [ td [ class "ps-3 align-middle text-nowrap" ]
+            [ case process.unit of
+                "kg" ->
+                    Format.kg (floatAmount |> Mass.kilograms)
+
+                "m3" ->
+                    Format.m3 (floatAmount |> Volume.cubicMeters)
+
+                _ ->
+                    text ((floatAmount |> String.fromFloat) ++ " " ++ process.unit)
+            ]
+        , td [ class "align-middle text-truncate w-100" ]
+            [ text process.displayName ]
+        , td [ class "align-middle text-end text-nowrap" ]
+            [ Format.density process ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ Format.kg <| Simulator.extractMass itemResults ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ Simulator.extractImpacts itemResults
+                |> Format.formatImpact selectedImpact
+            ]
+        ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
