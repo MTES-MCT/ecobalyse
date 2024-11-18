@@ -539,7 +539,6 @@ itemListView db selectedImpact results query =
                             [ tr [ class "fs-7 text-muted" ]
                                 [ th [ class "ps-3", scope "col" ] [ text "Quantité" ]
                                 , th [ scope "col" ] [ text "Composant" ]
-                                , th [ scope "col" ] [ text "Densité" ]
                                 , th [ scope "col" ] [ text "Masse" ]
                                 , th [ scope "col" ] [ text "Impact" ]
                                 , th [ scope "col" ] []
