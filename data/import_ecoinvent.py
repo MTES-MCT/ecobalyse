@@ -20,6 +20,33 @@ EXCLUDED = [
 ]
 
 
+def organic_cotton_irrigation(db):
+    """add irrigation to the organic cotton"""
+    for ds in db:
+        if ds.get("simapro metadata", {}).get("Process identifier") in (
+            "MTE00149000081182217968",  # EI 3.9.1
+            "EI3ARUNI000011519618165",  # EI 3.10
+        ):
+            # add: irrigation//[IN] market for irrigation;m3;0.75;Undefined;0;0;0;;
+            ds["exchanges"].append(
+                {
+                    "amount": 0.75,
+                    "categories": ("Materials/fuels",),
+                    "comment": "",
+                    "loc": 0.75,
+                    "name": "irrigation//[IN] market for irrigation",
+                    "negative": False,
+                    "type": "technosphere",
+                    "uncertainty type": 2,
+                    "unit": "cubic meter",
+                }
+            )
+    return db
+
+
+STRATEGIES = [organic_cotton_irrigation]
+
+
 def main():
     projects.set_current(PROJECT)
     # projects.create_project(PROJECT, activate=True, exist_ok=True)
@@ -31,6 +58,7 @@ def main():
         import_simapro_csv(
             join("..", "..", "dbfiles", EI391),
             db,
+            first_strategies=STRATEGIES,
             excluded_strategies=EXCLUDED,
         )
     else:
@@ -40,6 +68,7 @@ def main():
         import_simapro_csv(
             join("..", "..", "dbfiles", EI310),
             db,
+            first_strategies=STRATEGIES,
             excluded_strategies=EXCLUDED,
         )
 
