@@ -10,6 +10,7 @@ import bw2data
 import pandas as pd
 from common import (
     fix_unit,
+    format_numbers_recursively,
     order_json,
     remove_detailed_impacts,
     with_aggregated_impacts,
@@ -193,16 +194,21 @@ if __name__ == "__main__":
 
     # Export
 
-    export_json(order_json(activities), ACTIVITIES_FILE)
-    export_json(order_json(materials), MATERIALS_FILE)
+    export_json(format_numbers_recursively(order_json(activities)), ACTIVITIES_FILE)
+    export_json(format_numbers_recursively(order_json(materials)), MATERIALS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
-        order_json(list(processes_aggregated_impacts.values())), PROCESSES_IMPACTS
+        format_numbers_recursively(
+            order_json(list(processes_aggregated_impacts.values()))
+        ),
+        PROCESSES_IMPACTS,
     )
 
     export_json(
-        order_json(
-            remove_detailed_impacts(list(processes_aggregated_impacts.values()))
+        format_numbers_recursively(
+            order_json(
+                remove_detailed_impacts(list(processes_aggregated_impacts.values()))
+            )
         ),
         PROCESSES_AGGREGATED,
     )

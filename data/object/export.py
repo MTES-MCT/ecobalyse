@@ -9,6 +9,7 @@ from os.path import abspath, dirname
 
 from bw2data.project import projects
 from common import (
+    format_numbers_recursively,
     order_json,
     remove_detailed_impacts,
     with_aggregated_impacts,
@@ -83,11 +84,16 @@ if __name__ == "__main__":
 
     # Export results
     export_json(
-        order_json(list(processes_aggregated_impacts.values())), PROCESSES_IMPACTS
+        format_numbers_recursively(
+            order_json(list(processes_aggregated_impacts.values()))
+        ),
+        PROCESSES_IMPACTS,
     )
     export_json(
-        order_json(
-            remove_detailed_impacts(list(processes_aggregated_impacts.values()))
+        format_numbers_recursively(
+            order_json(
+                remove_detailed_impacts(list(processes_aggregated_impacts.values()))
+            )
         ),
         PROCESSES_AGGREGATED,
     )

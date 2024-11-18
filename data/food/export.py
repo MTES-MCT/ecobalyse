@@ -224,8 +224,12 @@ if __name__ == "__main__":
 
     # Export
 
-    export_json(order_json(activities_land_occ), ACTIVITIES_FILE)
-    export_json(order_json(ingredients_animal_es), INGREDIENTS_FILE)
+    export_json(
+        format_numbers_recursively(order_json(activities_land_occ), ACTIVITIES_FILE)
+    )
+    export_json(
+        format_numbers_recursively(order_json(ingredients_animal_es)), INGREDIENTS_FILE
+    )
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
         format_numbers_recursively(
