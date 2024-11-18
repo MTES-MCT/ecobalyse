@@ -72,19 +72,24 @@ def display_changes(key, oldprocesses, processes):
     for p in processes:
         for impact in processes[p]["impacts"]:
             if old.get(p, {}).get(impact, {}):
-                percent_change = (
-                    100
-                    * abs(processes[p]["impacts"][impact] - old[p][impact])
-                    / old[p][impact]
-                )
+                # Convert values to float before calculation
+                old_value = float(old[p][impact])
+                new_value = float(processes[p]["impacts"][impact])
+
+                # Handle case where old value is zero
+                if old_value == 0:
+                    percent_change = 100 if new_value != 0 else 0
+                else:
+                    percent_change = 100 * abs(new_value - old_value) / old_value
+
                 if percent_change > 0.1:
                     changes.append(
                         {
                             "trg": impact,
                             "name": p,
                             "%diff": percent_change,
-                            "from": old[p][impact],
-                            "to": processes[p]["impacts"][impact],
+                            "from": old_value,
+                            "to": new_value,
                         }
                     )
                     review = True

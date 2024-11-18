@@ -33,7 +33,7 @@ describe("lib.json", () => {
         return [{ input }, `{"input":${expected}}`];
       }),
     )("serialize(%f) should return %s", (input, expected) => {
-      expect(serialize(input)).toBe(expected);
+      expect(serialize(input, 0)).toBe(expected);
     });
   });
 });

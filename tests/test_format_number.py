@@ -24,6 +24,8 @@ from data.common import format_number
         (1.23456e7, "1.23456e7", "test_12"),
         (42.0, "42", "test_13"),
         (1000000, "1e6", "test_14"),
+        (0, "0", "test_15"),
+        (None, "null", "test_16"),
     ],
 )
 def test_format_number(number, expected, test_id):
