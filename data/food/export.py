@@ -11,6 +11,7 @@ import bw2data
 from bw2data.project import projects
 from common import (
     fix_unit,
+    format_numbers_recursively,
     order_json,
     remove_detailed_impacts,
     with_aggregated_impacts,
@@ -31,14 +32,13 @@ from common.export import (
     progress_bar,
 )
 from common.impacts import impacts as impacts_py
-from frozendict import frozendict
-
 from food.ecosystemic_services.ecosystemic_services import (
     compute_animal_ecosystemic_services,
     compute_vegetal_ecosystemic_services,
     load_ecosystemic_dic,
     load_ugb_dic,
 )
+from frozendict import frozendict
 
 PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
 ECOBALYSE_DATA_DIR = os.environ.get("ECOBALYSE_DATA_DIR")
@@ -228,12 +228,17 @@ if __name__ == "__main__":
     export_json(order_json(ingredients_animal_es), INGREDIENTS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
-        order_json(list(processes_aggregated_impacts.values())), PROCESSES_IMPACTS
+        format_numbers_recursively(
+            order_json(list(processes_aggregated_impacts.values()))
+        ),
+        PROCESSES_IMPACTS,
     )
 
     export_json(
-        order_json(
-            remove_detailed_impacts(list(processes_aggregated_impacts.values()))
+        format_numbers_recursively(
+            order_json(
+                remove_detailed_impacts(list(processes_aggregated_impacts.values()))
+            )
         ),
         PROCESSES_AGGREGATED,
     )

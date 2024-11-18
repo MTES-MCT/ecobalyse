@@ -213,8 +213,33 @@ def fix_unit(unit):
 
 
 def format_number(num):
+    """Format a number to a string using python general format and simplified exponential notation.
+
+    Args:
+        num: A number (int or float) to format
+
+    Returns:
+        str: Formatted number string with:
+        - 6 significant digits (using Python's general format)
+        - Simplified exponential notation to conform to prettier requirements where:
+            - "e+0" becomes "e" (e.g., "1.23e+05" → "1.23e5")
+            - "e-0" becomes "e-" (e.g., "1.23e-05" → "1.23e-5")
+            - "e+" becomes "e" (e.g., "1.23e+5" → "1.23e5")
+    """
     if isinstance(num, (int, float)):
-        # Use scientific notation without leading zeros in exponent
+        # Convert to scientific notation with 6 significant digits
         num_py_g = f"{num:.6g}"
+        # Clean up the exponential notation
         return num_py_g.replace("e+0", "e").replace("e-0", "e-").replace("e+", "e")
     return str(num)
+
+
+def format_numbers_recursively(data):
+    """Recursively format numbers in any JSON-serializable data structure"""
+    if isinstance(data, dict):
+        return {k: format_numbers_recursively(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [format_numbers_recursively(x) for x in data]
+    elif isinstance(data, (int, float)):
+        return format_number(data)
+    return data
