@@ -230,7 +230,9 @@ def format_number(num):
         # Convert to scientific notation with 6 significant digits
         num_py_g = f"{num:.6g}"
         # Clean up the exponential notation
-        return num_py_g.replace("e+0", "e").replace("e-0", "e-").replace("e+", "e")
+        return float(
+            num_py_g.replace("e+0", "e").replace("e-0", "e-").replace("e+", "e")
+        )
     return str(num)
 
 
