@@ -1060,7 +1060,6 @@
     "transport_cooling": "none",
     "ecosystemicServices": {},
     "land_occupation": 11.79520862582675,
-    "crop_group": null,
     "scenario": null,
     "visible": true
   },
@@ -4122,11 +4121,11 @@
   },
   {
     "id": "soft-wheat-non-eu",
-    "name": "Blé tendre UE Conv.",
+    "name": "Blé tendre Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "default": "AGRIBALU000000003117044",
-    "default_origin": "EuropeAndMaghreb",
+    "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 1.0,
     "inedible_part": 0,
@@ -7089,7 +7088,6 @@
     "transport_cooling": "none",
     "ecosystemicServices": {},
     "land_occupation": 2.10364488e-5,
-    "crop_group": null,
     "scenario": null,
     "visible": true
   },
@@ -7164,27 +7162,6 @@
     },
     "land_occupation": 8.588620992,
     "crop_group": "TOURNESOL",
-    "scenario": "reference",
-    "visible": true
-  },
-  {
-    "id": "onion-dried-hors-eu",
-    "name": "Oignons déshydratés Hors UE Conv.",
-    "categories": ["vegetable_processed"],
-    "search": "onions dried",
-    "default": "AGRIBALU000000003110475",
-    "default_origin": "France",
-    "raw_to_cooked_ratio": 1.0,
-    "density": 0.6195,
-    "inedible_part": 0,
-    "transport_cooling": "none",
-    "ecosystemicServices": {
-      "hedges": 0.62787,
-      "plotSize": 1.5697,
-      "cropDiversity": 0.0
-    },
-    "land_occupation": 2.5114890758258803,
-    "crop_group": "LEGUMES-FLEURS",
     "scenario": "reference",
     "visible": true
   },
@@ -8156,6 +8133,48 @@
     "land_occupation": 1.2557111799651013,
     "crop_group": "VERGERS",
     "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "soft-wheat-eu",
+    "name": "Blé tendre UE Conv.",
+    "categories": ["grain_raw"],
+    "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
+    "default": "AGRIBALU000000003117044",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
+    "density": 1.0,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.0,
+      "plotSize": 0.0,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 2.7526017487732166,
+    "crop_group": "BLE TENDRE",
+    "scenario": "import",
+    "visible": true
+  },
+  {
+    "id": "onion-dried",
+    "name": "Oignons déshydratés Hors UE Conv.",
+    "categories": ["vegetable_processed"],
+    "search": "onions dried",
+    "default": "AGRIBALU000000003110475",
+    "default_origin": "France",
+    "raw_to_cooked_ratio": 1.0,
+    "density": 0.6195,
+    "inedible_part": 0,
+    "transport_cooling": "none",
+    "ecosystemicServices": {
+      "hedges": 0.62787,
+      "plotSize": 1.5697,
+      "cropDiversity": 0.0
+    },
+    "land_occupation": 2.5114890758258803,
+    "crop_group": "LEGUMES-FLEURS",
+    "scenario": "reference",
     "visible": true
   }
 ]
