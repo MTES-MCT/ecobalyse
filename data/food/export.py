@@ -225,8 +225,9 @@ if __name__ == "__main__":
     # Export
 
     export_json(
-        format_numbers_recursively(order_json(activities_land_occ), ACTIVITIES_FILE)
+        format_numbers_recursively(order_json(activities_land_occ)), ACTIVITIES_FILE
     )
+
     export_json(
         format_numbers_recursively(order_json(ingredients_animal_es)), INGREDIENTS_FILE
     )
