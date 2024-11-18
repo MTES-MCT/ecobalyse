@@ -52,23 +52,46 @@ availableComponents { object } query =
 compute : Db -> Query -> Result String Results
 compute db query =
     query.items
-        -- Flatten the processes inside the items, muliplying processes entries by the quantity
-        |> List.concatMap (\item -> List.repeat (quantityToInt item.quantity) item.processes)
-        -- Flatten the list
-        |> List.concat
-        |> List.map (computeProcessItemResults db)
+        |> List.map (computeItemResults db)
         |> RE.combine
         |> Result.map
             (List.foldr
-                (\(Results { impacts, mass }) (Results acc) ->
+                (\(Results { impacts, items, mass }) (Results acc) ->
                     Results
                         { acc
                             | impacts = Impact.sumImpacts [ impacts, acc.impacts ]
-                            , items = Results { impacts = impacts, items = [], mass = mass } :: acc.items
+                            , items = Results { impacts = impacts, items = items, mass = mass } :: acc.items
                             , mass = Quantity.sum [ mass, acc.mass ]
                         }
                 )
                 emptyResults
+            )
+
+
+computeItemResults : Db -> Item -> Result String Results
+computeItemResults db item =
+    item.processes
+        |> List.map (computeProcessItemResults db)
+        |> RE.combine
+        |> Result.map
+            (List.foldr
+                (\(Results results) (Results acc) ->
+                    Results
+                        { acc
+                            | impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
+                            , items = Results results :: acc.items
+                            , mass = Quantity.sum [ results.mass, acc.mass ]
+                        }
+                )
+                emptyResults
+            )
+        |> Result.map
+            (\(Results { impacts, mass, items }) ->
+                Results
+                    { impacts = Impact.sumImpacts (List.repeat (quantityToInt item.quantity) impacts)
+                    , items = items
+                    , mass = Quantity.sum (List.repeat (quantityToInt item.quantity) mass)
+                    }
             )
 
 
@@ -78,12 +101,12 @@ computeProcessItemResults { object } { amount, processId } =
         |> Process.findById object.processes
         |> Result.map
             (\process ->
-                Results
-                    { impacts =
+                let
+                    impacts =
                         process.impacts
                             |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Query.amountToFloat amount))
-                    , items = []
-                    , mass =
+
+                    mass =
                         Mass.kilograms <|
                             if process.unit == "kg" then
                                 Query.amountToFloat amount
@@ -91,6 +114,11 @@ computeProcessItemResults { object } { amount, processId } =
                             else
                                 -- apply density
                                 Query.amountToFloat amount * process.density
+                in
+                Results
+                    { impacts = impacts
+                    , items = [ Results { impacts = impacts, items = [], mass = mass } ]
+                    , mass = mass
                     }
             )
 

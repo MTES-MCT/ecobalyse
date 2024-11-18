@@ -533,6 +533,10 @@ itemListView db selectedImpact results query =
                     }
 
             Ok items ->
+                let
+                    resultItems =
+                        Simulator.extractItems results
+                in
                 div [ class "table-responsive" ]
                     [ table [ class "table mb-0" ]
                         [ thead []
@@ -544,8 +548,9 @@ itemListView db selectedImpact results query =
                                 , th [ scope "col" ] []
                                 ]
                             ]
-                        , Simulator.extractItems results
+                        , resultItems
                             |> List.map2 (itemView selectedImpact) items
+                            |> List.concat
                             |> tbody []
                         ]
                     ]
@@ -553,9 +558,9 @@ itemListView db selectedImpact results query =
     ]
 
 
-itemView : Definition -> ( Query.Quantity, String, List ( Query.Amount, Process ) ) -> Results -> Html Msg
+itemView : Definition -> ( Query.Quantity, String, List ( Query.Amount, Process ) ) -> Results -> List (Html Msg)
 itemView selectedImpact ( quantity, name, processes ) itemResults =
-    tr []
+    [ tr []
         [ td [ class "ps-3 align-middle" ]
             [ div [ class "input-group", style "min-width" "180px" ]
                 [ input
@@ -594,6 +599,52 @@ itemView selectedImpact ( quantity, name, processes ) itemResults =
                 [ Icon.trash ]
             ]
         ]
+    , tr []
+        [ td [ colspan 5 ]
+            [ details [ class "mb-2" ]
+                [ summary [] [ text "Procédés" ]
+                , div [ class "table-responsive" ]
+                    [ table [ class "table mb-0" ]
+                        [ thead []
+                            [ tr [ class "fs-7 text-muted" ]
+                                [ th [ class "ps-3", scope "col" ] [ text "Quantité" ]
+                                , th [ scope "col" ] [ text "Procédé" ]
+                                , th [ scope "col" ] [ text "Densité" ]
+                                , th [ scope "col" ] [ text "Masse" ]
+                                , th [ scope "col" ] [ text "Impact" ]
+                                ]
+                            ]
+                        , processes
+                            |> List.map
+                                (\( amount, process ) ->
+                                    tr []
+                                        [ td [ class "ps-3 align-middle" ]
+                                            [ text (amount |> Query.amountToFloat |> String.fromFloat)
+                                            , span
+                                                [ class "input-group-text justify-content-center fs-8"
+                                                , style "width" "38px"
+                                                ]
+                                                [ text process.unit ]
+                                            ]
+                                        , td [ class "align-middle text-truncate w-100" ]
+                                            [ text process.displayName ]
+                                        , td [ class "align-middle text-end" ]
+                                            [ Format.density process ]
+                                        , td [ class "text-end align-middle text-nowrap" ]
+                                            [ Format.kg <| Simulator.extractMass itemResults ]
+                                        , td [ class "text-end align-middle text-nowrap" ]
+                                            [ Simulator.extractImpacts itemResults
+                                                |> Format.formatImpact selectedImpact
+                                            ]
+                                        ]
+                                )
+                            |> tbody []
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
