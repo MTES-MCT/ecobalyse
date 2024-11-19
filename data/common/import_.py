@@ -172,6 +172,7 @@ def add_variant_activity(activity_data, dbname):
 def import_simapro_csv(
     datapath,
     dbname,
+    external_db=None,
     biosphere="biosphere3",
     migrations=[],
     first_strategies=[],
@@ -235,7 +236,11 @@ def import_simapro_csv(
     database.statistics()
     # try to link remaining unlinked technosphere activities
     database.apply_strategy(
-        functools.partial(link_technosphere_by_activity_hash, fields=("name", "unit"))
+        functools.partial(
+            link_technosphere_by_activity_hash,
+            external_db_name=external_db,
+            fields=("name", "unit"),
+        )
     )
     database.apply_strategy(
         functools.partial(
