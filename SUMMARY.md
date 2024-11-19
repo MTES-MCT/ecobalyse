@@ -59,6 +59,7 @@
 * [Compléments hors ACV](alimentaire-en-construction/complements-hors-acv.md)
 * [Paramétrage](alimentaire-en-construction/complements-hors-acv-1/README.md)
   * [🧅 Paramétrage des ingrédients](alimentaire-en-construction/complements-hors-acv-1/complements-hors-acv.md)
+  * [§Recette en pourcentage](alimentaire-en-construction/complements-hors-acv-1/recette-en-pourcentage.md)
   * [🥧 Paramétrage de la transformation (issu de OLD : à vérifier)](alimentaire-en-construction/complements-hors-acv-1/transformation.md)
   * [🥫 Paramétrage des emballages (à remplir une fois les travaux CTCPA implémentés)](alimentaire-en-construction/complements-hors-acv-1/complements-hors-acv-1.md)
   * [🧊 Paramétrage de la conservation à l'étape distribution (cf. parties OLD à ajouter?)](alimentaire-en-construction/complements-hors-acv-1/complements-hors-acv-2.md)
