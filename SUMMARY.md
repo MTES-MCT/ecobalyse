@@ -128,7 +128,7 @@
   * [🚚 Transport](ameublement/transport.md)
   * [🔨 Assemblage](ameublement/assemblage.md)
 
-## 🛺 VELI/VEHICULES - EN CONSTRUCTION <a href="#vehicules" id="vehicules"></a>
+## 🛺 Autres travaux en cours <a href="#vehicules" id="vehicules"></a>
 
 * [Cycle de vie des véhicules](vehicules/cycle-de-vie/README.md)
   * [🔧 Fabrication des composants](vehicules/cycle-de-vie/fabrication-des-composants/README.md)
