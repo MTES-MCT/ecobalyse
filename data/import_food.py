@@ -19,14 +19,7 @@ PROJECT = "default"
 AGRIBALYSE31 = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse 3.1
 AGRIBALYSE32 = "AGB32beta_08082024.CSV.zip"  # Agribalyse 3.2
 GINKO = "CSV_369p_et_298chapeaux_final.csv.zip"  # additional organic processes
-PASTOECO = [
-    "CONVEN~1.CSV.zip",
-    "Cow milk, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
-    "Cow milk, conventional, lowland milk system, silage maize 47%, at farm gate {FR} U.CSV.zip",
-    "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
-    "Lamb, organic, system number 3, at farm gate {FR} U.CSV.zip",
-    "Young suckler bull, label rouge, fattening system, pastoral farming system, at farm gate {FR} U.CSV.zip",
-]
+PASTOECO = "pastoeco.CSV.zip"
 CTCPA = "Export emballages_PACK AGB_CTCPA.CSV.zip"
 WFLDB = "WFLDB.CSV.zip"
 BIOSPHERE = "biosphere3"
@@ -246,10 +239,9 @@ if __name__ == "__main__":
 
     # PASTO ECO
     if (db := "PastoEco") not in bw2data.databases:
-        for p in PASTOECO:
-            import_simapro_csv(
-                join("..", "..", "dbfiles", p), db, excluded_strategies=EXCLUDED
-            )
+        import_simapro_csv(
+            join("..", "..", "dbfiles", PASTOECO), db, excluded_strategies=EXCLUDED
+        )
     else:
         print(f"{db} already imported")
 
