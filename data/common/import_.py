@@ -224,13 +224,13 @@ def import_simapro_csv(
     print("### Applying strategies...")
     # exclude strategies/migrations
     database.strategies = (
-        first_strategies
+        list(first_strategies)
         + [
             s
             for s in database.strategies
             if not any([e in repr(s) for e in excluded_strategies])
         ]
-        + other_strategies
+        + list(other_strategies)
     )
 
     database.apply_strategies()
