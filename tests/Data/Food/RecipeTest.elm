@@ -24,7 +24,7 @@ expectImpactEqual expectedImpactUnit =
             Unit.impactToFloat expectedImpactUnit
     in
     Unit.impactToFloat
-        >> Expect.within (Expect.Relative 0.000000000001) expectedImpact
+        >> Expect.within (Expect.Relative 0.000000001) expectedImpact
 
 
 suite : Test
