@@ -25,7 +25,7 @@ def organic_cotton_irrigation(db):
     for ds in db:
         if ds.get("simapro metadata", {}).get("Process identifier") in (
             "MTE00149000081182217968",  # EI 3.9.1
-            "EI3ARUNI000011519618165",  # EI 3.10
+            "EI3ARUNI000011519618166",  # EI 3.10
         ):
             # add: irrigation//[IN] market for irrigation;m3;0.75;Undefined;0;0;0;;
             ds["exchanges"].append(
