@@ -131,7 +131,7 @@
 
 ## 🛺 Autres travaux en cours <a href="#vehicules" id="vehicules"></a>
 
-* [Cycle de vie des véhicules](vehicules/cycle-de-vie/README.md)
+* [Cycle de vie](vehicules/cycle-de-vie/README.md)
   * [🔧 Fabrication des composants](vehicules/cycle-de-vie/fabrication-des-composants/README.md)
     * [🚙 Châssis & carrosserie](vehicules/cycle-de-vie/fabrication-des-composants/chassis-and-carrosserie/README.md)
       * [🔩 Acier et Aluminium - Méthodes détaillées](vehicules/cycle-de-vie/fabrication-des-composants/chassis-and-carrosserie/acier-et-aluminium-methodes-detaillees.md)
