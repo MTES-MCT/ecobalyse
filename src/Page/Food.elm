@@ -31,6 +31,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Split exposing (Split)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -54,6 +55,7 @@ import Views.Comparator as ComparatorView
 import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
+import Views.Component.SplitInput as SplitInput
 import Views.Component.StepsBorder as StepsBorder
 import Views.Container as Container
 import Views.Example as ExampleView
@@ -202,7 +204,10 @@ update ({ db, queries } as session) msg model =
 
         AddIngredient ingredient ->
             update session (SetModal NoModal) model
-                |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
+                |> updateQuery
+                    (query
+                        |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient)
+                    )
 
         AddPackaging ->
             let
@@ -678,12 +683,12 @@ type alias UpdateIngredientConfig =
     }
 
 
-createElementSelectorConfig : Db -> Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
+createElementSelectorConfig : Db -> Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Split Msg
 createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, impact, selectedImpact } =
     let
         baseElement =
             { element = recipeIngredient.ingredient
-            , quantity = recipeIngredient.mass
+            , quantity = recipeIngredient.share
             , country = recipeIngredient.country
             }
     in
@@ -706,7 +711,16 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
     , openExplorerDetails = ExplorerDetailsModal >> SetModal
     , quantityView =
         \{ quantity, onChange } ->
-            MassInput.view { disabled = False, mass = quantity, onChange = onChange }
+            div []
+                [ SplitInput.view
+                    { disabled = False
+                    , onChange = onChange
+                    , share = quantity
+                    }
+
+                -- FIXME: show ingredient mass
+                -- , Format.kg quantity
+                ]
     , selectedImpact = selectedImpact
     , selectElement =
         \_ autocompleteState ->
@@ -720,7 +734,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
                 ingredientQuery
                 { ingredientQuery
                     | id = newElement.element.id
-                    , mass = newElement.quantity
+                    , share = newElement.quantity
                     , country = Maybe.map .code newElement.country
                 }
     }
@@ -741,7 +755,7 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
         event =
             UpdateIngredient ingredientQuery
 
-        config : BaseElement.Config Ingredient Mass Msg
+        config : BaseElement.Config Ingredient Split Msg
         config =
             createElementSelectorConfig db ingredientQuery updateIngredientConfig
     in

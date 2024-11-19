@@ -76,12 +76,17 @@ addPreparation preparationId query =
 
 addIngredient : IngredientQuery -> Query -> Query
 addIngredient ingredient query =
-    { query
-        | ingredients =
-            query.ingredients
-                ++ [ ingredient ]
-    }
-        |> updateTransformMass
+    updateTransformMass
+        { query
+            | ingredients =
+                query.ingredients ++ [ ingredient ]
+            , mass =
+                if List.isEmpty query.ingredients then
+                    Mass.grams 100
+
+                else
+                    query.mass
+        }
 
 
 addPackaging : ProcessQuery -> Query -> Query
@@ -219,6 +224,7 @@ encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient v =
     [ ( "id", Ingredient.encodeId v.id |> Just )
     , ( "mass", encodeMassAsGrams v.mass |> Just )
+    , ( "share", Split.encodeFloat v.share |> Just )
     , ( "country", v.country |> Maybe.map Country.encodeCode )
     , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
     ]

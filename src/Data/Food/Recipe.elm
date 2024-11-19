@@ -125,7 +125,22 @@ availablePackagings usedProcesses =
 compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
     fromQuery db
+        >> Result.map computeIngredientsMass
         >> Result.map (\recipe -> ( recipe, computeResults db recipe ))
+
+
+computeIngredientsMass : Recipe -> Recipe
+computeIngredientsMass recipe =
+    { recipe
+        | ingredients =
+            recipe.ingredients
+                |> List.map
+                    (\({ share } as recipeIngredient) ->
+                        { recipeIngredient
+                            | mass = share |> Split.applyToQuantity recipe.mass
+                        }
+                    )
+    }
 
 
 computeResults : Db -> Recipe -> Results
@@ -599,7 +614,7 @@ ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
 ingredientQueryFromIngredient ingredient =
     { country = Nothing
     , id = ingredient.id
-    , mass = Mass.grams 100
+    , mass = Mass.grams 0
     , planeTransport = Ingredient.byPlaneByDefault ingredient
     , share = Split.full
     }
