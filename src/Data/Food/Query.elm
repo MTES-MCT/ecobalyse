@@ -18,6 +18,7 @@ module Data.Food.Query exposing
     , setTransform
     , updateDistribution
     , updateIngredient
+    , updateMass
     , updatePackaging
     , updatePreparation
     , updateTransform
@@ -30,6 +31,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
+import Data.Split as Split exposing (Split)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -43,6 +45,7 @@ type alias IngredientQuery =
     , id : Ingredient.Id
     , mass : Mass
     , planeTransport : Ingredient.PlaneTransport
+    , share : Split
     }
 
 
@@ -55,6 +58,7 @@ type alias ProcessQuery =
 type alias Query =
     { distribution : Maybe Retail.Distribution
     , ingredients : List IngredientQuery
+    , mass : Mass
     , packaging : List ProcessQuery
     , preparation : List Preparation.Id
     , transform : Maybe ProcessQuery
@@ -72,12 +76,17 @@ addPreparation preparationId query =
 
 addIngredient : IngredientQuery -> Query -> Query
 addIngredient ingredient query =
-    { query
-        | ingredients =
-            query.ingredients
-                ++ [ ingredient ]
-    }
-        |> updateTransformMass
+    updateTransformMass
+        { query
+            | ingredients =
+                query.ingredients ++ [ ingredient ]
+            , mass =
+                if List.isEmpty query.ingredients then
+                    Mass.grams 100
+
+                else
+                    query.mass
+        }
 
 
 addPackaging : ProcessQuery -> Query -> Query
@@ -105,6 +114,7 @@ decode =
     Decode.succeed Query
         |> DU.strictOptional "distribution" Retail.decode
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
+        |> Pipe.required "mass" decodeMassInGrams
         |> Pipe.optional "packaging" (Decode.list decodeProcess) []
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
         |> DU.strictOptional "transform" decodeProcess
@@ -150,6 +160,7 @@ decodeIngredient =
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMassInGrams
         |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
+        |> Pipe.required "share" Split.decodePercent
 
 
 deletePreparation : Preparation.Id -> Query -> Query
@@ -163,17 +174,18 @@ deletePreparation preparationId query =
 
 deleteIngredient : Ingredient.Id -> Query -> Query
 deleteIngredient id query =
-    { query
-        | ingredients =
-            query.ingredients |> List.filter (.id >> (/=) id)
-    }
-        |> updateTransformMass
+    updateTransformMass
+        { query
+            | ingredients =
+                query.ingredients |> List.filter (.id >> (/=) id)
+        }
 
 
 empty : Query
 empty =
     { distribution = Nothing
     , ingredients = []
+    , mass = Quantity.zero
     , packaging = []
     , preparation = []
     , transform = Nothing
@@ -182,8 +194,9 @@ empty =
 
 encode : Query -> Encode.Value
 encode v =
-    [ ( "ingredients", Encode.list encodeIngredient v.ingredients |> Just )
-    , ( "transform", v.transform |> Maybe.map encodeProcess )
+    [ ( "distribution", v.distribution |> Maybe.map Retail.encode )
+    , ( "ingredients", Encode.list encodeIngredient v.ingredients |> Just )
+    , ( "mass", v.mass |> Mass.inGrams |> Encode.float |> Just )
     , ( "packaging"
       , case v.packaging of
             [] ->
@@ -192,7 +205,6 @@ encode v =
             list ->
                 Encode.list encodeProcess list |> Just
       )
-    , ( "distribution", v.distribution |> Maybe.map Retail.encode )
     , ( "preparation"
       , case v.preparation of
             [] ->
@@ -201,6 +213,7 @@ encode v =
             list ->
                 Encode.list Preparation.encodeId list |> Just
       )
+    , ( "transform", v.transform |> Maybe.map encodeProcess )
     ]
         -- For concision, drop keys where no param is defined
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
@@ -211,6 +224,7 @@ encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient v =
     [ ( "id", Ingredient.encodeId v.id |> Just )
     , ( "mass", encodeMassAsGrams v.mass |> Just )
+    , ( "share", Split.encodeFloat v.share |> Just )
     , ( "country", v.country |> Maybe.map Country.encodeCode )
     , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
     ]
@@ -247,6 +261,12 @@ setTransform transform query =
 setDistribution : Retail.Distribution -> Query -> Query
 setDistribution distribution query =
     { query | distribution = Just distribution }
+
+
+updateMass : Mass -> Query -> Query
+updateMass mass query =
+    -- FIXME: update ingredient masses from product final mass
+    { query | mass = mass }
 
 
 updatePreparation : Preparation.Id -> Preparation.Id -> Query -> Query

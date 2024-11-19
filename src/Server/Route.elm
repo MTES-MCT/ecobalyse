@@ -32,8 +32,6 @@ type Route
     | FoodGetIngredientList
       --     Food packaging list
     | FoodGetPackagingList
-      --     Food recipe builder (GET, query string)
-    | FoodGetRecipe (Result Query.Errors BuilderQuery.Query)
       --     Food transforms list
     | FoodGetTransformList
       --   POST
@@ -76,8 +74,6 @@ parser db body =
             |> Parser.map FoodGetTransformList
         , (s "GET" </> s "food" </> s "packagings")
             |> Parser.map FoodGetPackagingList
-        , (s "GET" </> s "food" <?> Query.parseFoodQuery db)
-            |> Parser.map FoodGetRecipe
         , (s "POST" </> s "food")
             |> Parser.map (FoodPostRecipe (decodeFoodQueryBody body))
 

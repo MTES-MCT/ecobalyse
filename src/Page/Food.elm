@@ -31,6 +31,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Split exposing (Split)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -54,6 +55,7 @@ import Views.Comparator as ComparatorView
 import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
+import Views.Component.SplitInput as SplitInput
 import Views.Component.StepsBorder as StepsBorder
 import Views.Container as Container
 import Views.Example as ExampleView
@@ -119,6 +121,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDistribution String
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
+    | UpdateMass (Maybe Mass)
     | UpdatePackaging Process.Identifier Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
@@ -201,7 +204,10 @@ update ({ db, queries } as session) msg model =
 
         AddIngredient ingredient ->
             update session (SetModal NoModal) model
-                |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
+                |> updateQuery
+                    (query
+                        |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient)
+                    )
 
         AddPackaging ->
             let
@@ -451,6 +457,13 @@ update ({ db, queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
 
+        UpdateMass (Just mass) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateMass mass query)
+
+        UpdateMass Nothing ->
+            ( model, session, Cmd.none )
+
         UpdatePackaging code newPackaging ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updatePackaging code newPackaging query)
@@ -478,15 +491,14 @@ commandsForNoModal modal =
         AddIngredientModal maybeOldIngredient _ ->
             Cmd.batch
                 [ Ports.removeBodyClass "prevent-scrolling"
-                , Dom.focus
-                    -- This whole "node to focus" management is happening as a fallback
-                    -- if the modal was closed without choosing anything.
-                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
-                    -- and overload any focus being done here.
-                    (maybeOldIngredient
-                        |> Maybe.map (.ingredient >> .id >> Ingredient.idToString >> (++) "selector-")
-                        |> Maybe.withDefault "add-new-element"
-                    )
+                , -- This whole "node to focus" management is happening as a fallback
+                  -- if the modal was closed without choosing anything.
+                  -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
+                  -- and overload any focus being done here.
+                  maybeOldIngredient
+                    |> Maybe.map (.ingredient >> .id >> Ingredient.idToString >> (++) "selector-")
+                    |> Maybe.withDefault "add-new-element"
+                    |> Dom.focus
                     |> Task.attempt (always NoOp)
                 ]
 
@@ -501,8 +513,8 @@ commandsForNoModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
 
-updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
-updateExistingIngredient query model session oldRecipeIngredient newIngredient =
+updateExistingIngredient : Session -> Model -> Query -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
+updateExistingIngredient session model query oldRecipeIngredient newIngredient =
     -- Update an existing ingredient
     let
         ingredientQuery : Query.IngredientQuery
@@ -510,6 +522,7 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
             { id = newIngredient.id
             , mass = oldRecipeIngredient.mass
             , country = Nothing
+            , share = oldRecipeIngredient.share
             , planeTransport = Ingredient.byPlaneByDefault newIngredient
             }
     in
@@ -526,7 +539,7 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
             Autocomplete.selectedValue autocompleteState
     in
     Maybe.map2
-        (updateExistingIngredient query model session)
+        (updateExistingIngredient session model query)
         maybeOldRecipeIngredient
         maybeSelectedValue
         |> Maybe.withDefault
@@ -670,12 +683,12 @@ type alias UpdateIngredientConfig =
     }
 
 
-createElementSelectorConfig : Db -> Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
+createElementSelectorConfig : Db -> Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Split Msg
 createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, impact, selectedImpact } =
     let
         baseElement =
             { element = recipeIngredient.ingredient
-            , quantity = recipeIngredient.mass
+            , quantity = recipeIngredient.share
             , country = recipeIngredient.country
             }
     in
@@ -698,7 +711,16 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
     , openExplorerDetails = ExplorerDetailsModal >> SetModal
     , quantityView =
         \{ quantity, onChange } ->
-            MassInput.view { disabled = False, mass = quantity, onChange = onChange }
+            div []
+                [ SplitInput.view
+                    { disabled = False
+                    , onChange = onChange
+                    , share = quantity
+                    }
+
+                -- FIXME: show ingredient mass
+                -- , Format.kg quantity
+                ]
     , selectedImpact = selectedImpact
     , selectElement =
         \_ autocompleteState ->
@@ -712,7 +734,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
                 ingredientQuery
                 { ingredientQuery
                     | id = newElement.element.id
-                    , mass = newElement.quantity
+                    , share = newElement.quantity
                     , country = Maybe.map .code newElement.country
                 }
     }
@@ -725,6 +747,7 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
         ingredientQuery =
             { id = recipeIngredient.ingredient.id
             , mass = recipeIngredient.mass
+            , share = recipeIngredient.share
             , country = recipeIngredient.country |> Maybe.map .code
             , planeTransport = recipeIngredient.planeTransport
             }
@@ -732,7 +755,7 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
         event =
             UpdateIngredient ingredientQuery
 
-        config : BaseElement.Config Ingredient Mass Msg
+        config : BaseElement.Config Ingredient Split Msg
         config =
             createElementSelectorConfig db ingredientQuery updateIngredientConfig
     in
@@ -960,7 +983,7 @@ ingredientListView db selectedImpact recipe results =
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
-            [ li [ class "list-group-item" ] [ text "Aucun ingrédient" ] ]
+            [ li [ class "list-group-item pb-3" ] [ text "Aucun ingrédient" ] ]
 
           else
             recipe.ingredients
@@ -1035,7 +1058,7 @@ packagingListView db selectedImpact recipe results =
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.packaging then
-            [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
+            [ li [ class "list-group-item pb-3" ] [ text "Aucun emballage" ] ]
 
           else
             recipe.packaging
@@ -1287,7 +1310,7 @@ consumptionView db selectedImpact recipe results =
         ]
     , ul [ class "CardList list-group list-group-flush" ]
         ((if List.isEmpty recipe.preparation then
-            [ li [ class "list-group-item" ] [ text "Aucune préparation" ] ]
+            [ li [ class "list-group-item pb-3" ] [ text "Aucune préparation" ] ]
 
           else
             recipe.preparation
@@ -1331,32 +1354,45 @@ consumptionView db selectedImpact recipe results =
 mainView : Session -> Model -> Html Msg
 mainView ({ db } as session) model =
     let
-        computed =
+        query =
             session.queries.food
-                |> Recipe.compute db
+
+        computed =
+            Recipe.compute db query
     in
     div [ class "row gap-3 gap-lg-0" ]
-        [ div [ class "col-lg-8 d-flex flex-column gap-3" ]
-            [ ExampleView.view
-                { currentQuery = session.queries.food
-                , emptyQuery = Query.empty
-                , examples = db.food.examples
-                , helpUrl = Nothing
-                , onOpen = SelectExampleModal >> SetModal
-                , routes =
-                    { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
-                    , load = Route.FoodBuilderExample
-                    , scopeHome = Route.FoodBuilderHome
-                    }
-                }
+        [ div [ class "col-lg-8" ]
+            [ div [ class "row pb-3 g-2" ]
+                [ div [ class "col-lg-7" ]
+                    [ ExampleView.view
+                        { currentQuery = query
+                        , emptyQuery = Query.empty
+                        , examples = db.food.examples
+                        , helpUrl = Nothing
+                        , onOpen = SelectExampleModal >> SetModal
+                        , routes =
+                            { explore = Route.Explore Scope.Food (Dataset.FoodExamples Nothing)
+                            , load = Route.FoodBuilderExample
+                            , scopeHome = Route.FoodBuilderHome
+                            }
+                        }
+                    ]
+                , label [ class "col-lg-5 d-flex justify-content-between align-items-center gap-2" ]
+                    [ span [ class "text-nowrap" ] [ text "Masse du produit fini" ]
+                    , MassInput.view
+                        { mass = query.mass
+                        , onChange = UpdateMass
+                        , disabled = False
+                        }
+                    ]
+                ]
             , case computed of
                 Err error ->
                     errorView error
 
                 Ok ( recipe, results ) ->
                     stepListView db session model recipe results
-            , session.queries.food
-                |> debugQueryView db
+            , debugQueryView db query
             ]
         , div [ class "col-lg-4 d-flex flex-column gap-3" ]
             [ case computed of

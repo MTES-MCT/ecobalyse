@@ -9,6 +9,7 @@ import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Split as Split
 import Data.Unit as Unit
 import Expect
 import Length
@@ -216,13 +217,18 @@ suite =
                           , mass = Mass.grams 120
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , share = Split.zero
                           }
                         , { id = Ingredient.idFromString "soft-wheat-fr"
                           , mass = Mass.grams 140
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , share = Split.zero
                           }
                         ]
+
+                  -- FIXME
+                  , mass = Mass.grams 0
                   , transform = Nothing
                   , packaging = []
                   , distribution = Nothing
@@ -263,6 +269,7 @@ suite =
                     , mass = Mass.grams 120
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
+                    , share = Split.zero
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -279,8 +286,12 @@ suite =
                           , mass = Mass.grams 120
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
+                          , share = Split.zero
                           }
                         ]
+
+                  -- FIXME
+                  , mass = Mass.grams 0
                   , transform = Nothing
                   , packaging = []
                   , distribution = Nothing
@@ -291,6 +302,9 @@ suite =
                     |> Expect.equal (Ok (Just 0))
                     |> asTest "should have no air transport for standard ingredients"
                 , { ingredients = [ mango ]
+
+                  -- FIXME
+                  , mass = Mass.grams 0
                   , transform = Nothing
                   , packaging = []
                   , distribution = Nothing
@@ -301,6 +315,9 @@ suite =
                     |> Expect.equal (Ok (Just 18000))
                     |> asTest "should have air transport for mango from its default origin"
                 , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
+
+                  -- FIXME
+                  , mass = Mass.grams 0
                   , transform = Nothing
                   , packaging = []
                   , distribution = Just Retail.ambient
@@ -311,6 +328,9 @@ suite =
                     |> Expect.equal (Ok (Just 8189))
                     |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
                 , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
+
+                  -- FIXME
+                  , mass = Mass.grams 0
                   , transform = Nothing
                   , packaging = []
                   , distribution = Just Retail.ambient

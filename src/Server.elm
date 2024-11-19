@@ -227,14 +227,6 @@ handleRequest db request =
                 |> encodeFoodProcessList
                 |> respondWith 200
 
-        Just (Route.FoodGetRecipe (Ok query)) ->
-            query
-                |> executeFoodQuery db (toFoodResults query)
-
-        Just (Route.FoodGetRecipe (Err errors)) ->
-            Query.encodeErrors errors
-                |> respondWith 400
-
         Just Route.TextileGetCountryList ->
             db.countries
                 |> Scope.only Scope.Textile
