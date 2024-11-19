@@ -118,7 +118,7 @@ defaultItem =
 encode : Query -> Encode.Value
 encode query =
     Encode.object
-        [ ( "processes"
+        [ ( "items"
           , Encode.list encodeItem query.items
           )
         ]
@@ -129,7 +129,7 @@ encodeItem item =
     Encode.object
         [ ( "name", item.name |> Encode.string )
         , ( "processes", item.processes |> Encode.list encodeProcessItem )
-        , ( "qantity", item.quantity |> quantityToInt |> Encode.int )
+        , ( "quantity", item.quantity |> quantityToInt |> Encode.int )
         ]
 
 
