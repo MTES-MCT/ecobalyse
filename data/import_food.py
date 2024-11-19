@@ -185,15 +185,6 @@ def remove_some_processes(db):
     return new_db
 
 
-GINKO_STRATEGIES = [
-    remove_negative_land_use_on_tomato,
-    remove_azadirachtine,
-    functools.partial(
-        link_technosphere_by_activity_hash,
-        external_db_name="Agribalyse 3.1.1",
-        fields=("name", "unit"),
-    ),
-]
 AGB_STRATEGIES = [remove_negative_land_use_on_tomato]
 
 if __name__ == "__main__":
@@ -240,7 +231,16 @@ if __name__ == "__main__":
     # PASTO ECO
     if (db := "PastoEco") not in bw2data.databases:
         import_simapro_csv(
-            join("..", "..", "dbfiles", PASTOECO), db, excluded_strategies=EXCLUDED
+            join("..", "..", "dbfiles", PASTOECO),
+            db,
+            excluded_strategies=EXCLUDED,
+            other_strategies=[
+                functools.partial(
+                    link_technosphere_by_activity_hash,
+                    external_db_name="Agribalyse 3.1.1",
+                    fields=("name", "unit"),
+                )
+            ],
         )
     else:
         print(f"{db} already imported")
@@ -251,7 +251,15 @@ if __name__ == "__main__":
             join("..", "..", "dbfiles", GINKO),
             db,
             excluded_strategies=EXCLUDED,
-            other_strategies=GINKO_STRATEGIES,
+            other_strategies=[
+                remove_negative_land_use_on_tomato,
+                remove_azadirachtine,
+                functools.partial(
+                    link_technosphere_by_activity_hash,
+                    external_db_name="Agribalyse 3.1.1",
+                    fields=("name", "unit"),
+                ),
+            ],
             migrations=GINKO_MIGRATIONS + AGRIBALYSE_MIGRATIONS,
         )
     else:
