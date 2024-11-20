@@ -988,11 +988,11 @@
     "alias": null
   },
   {
-    "name": "Laine par défaut",
+    "name": "wool; sheep; production mix; at farm; 1 kg greasy wool",
     "displayName": "Laine par défaut",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
-    "source": "Custom",
+    "source": "Woolmark",
     "correctif": "",
     "step_usage": "Matières",
     "uuid": "wool-default",
@@ -1016,8 +1016,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 4263.098561863456,
-      "pef": 4646.846238265962
+      "ecs": 2781.800631273725,
+      "pef": 2931.4802301799327
     },
     "heat_MJ": 0,
     "elec_pppm": 0,

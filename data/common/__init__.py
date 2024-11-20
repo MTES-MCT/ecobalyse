@@ -17,7 +17,7 @@ def normalization_factors(impact_defs):
 
 
 def spproject(activity):
-    """return the current simapro project for an activity"""
+    """return the current simapro project for an activity source database"""
     match activity.get("database"):
         case "Ginko":
             return "Ginko w/o azadirachtin"
@@ -26,6 +26,8 @@ def spproject(activity):
             return "EcobalyseIsNotASimaProProject"
         case "Ecoinvent 3.9.1":
             return "ADEME UPR"
+        case "Woolmark":
+            return "Woolmark"
         case _:
             return "AGB3.1.1 2023-03-06"
 

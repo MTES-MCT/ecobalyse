@@ -1,9 +1,9 @@
 import functools
 import json
-import os
 import re
 import sys
-from os.path import dirname
+import tempfile
+from os.path import basename, join, splitext
 from subprocess import call
 from zipfile import ZipFile
 
@@ -173,6 +173,7 @@ def add_variant_activity(activity_data, dbname):
 def import_simapro_csv(
     datapath,
     dbname,
+    external_db=None,
     biosphere="biosphere3",
     migrations=[],
     first_strategies=[],
@@ -185,29 +186,29 @@ def import_simapro_csv(
     """
     print(f"### Importing {datapath}...")
     # unzip
-    with ZipFile(datapath) as zf:
-        print("### Extracting the zip file...")
-        zf.extractall(path=dirname(datapath))
-        unzipped = datapath[0:-4]
+    with tempfile.TemporaryDirectory() as tempdir:
+        with ZipFile(datapath) as zf:
+            print(f"### Extracting the zip file in {tempdir}...")
+            zf.extractall(path=tempdir)
+            unzipped, _ = splitext(join(tempdir, basename(datapath)))
 
-    if "AGB" in datapath:
-        print("### Patching Agribalyse...")
-        # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
-        # (sed is faster than Python)
-        call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
-        # Fix some errors in Agribalyse:
-        call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + unzipped, shell=True)
-        call("sed -i 's/\"0;001172\"/0,001172/' " + unzipped, shell=True)
+        if "AGB" in datapath:
+            print("### Patching Agribalyse...")
+            # `yield` is used as a variable in some Simapro parameters. bw2parameters cannot handle it:
+            # (sed is faster than Python)
+            call("sed -i 's/yield/Yield_/g' " + unzipped, shell=True)
+            # Fix some errors in Agribalyse:
+            call("sed -i 's/01\\/03\\/2005/1\\/3\\/5/g' " + unzipped, shell=True)
+            call("sed -i 's/\"0;001172\"/0,001172/' " + unzipped, shell=True)
 
-    print(f"### Importing into {dbname}...")
-    # Do the import
-    database = bw2io.importers.simapro_csv.SimaProCSVImporter(
-        unzipped, dbname, normalize_biosphere=True
-    )
-    if source:
-        for ds in database:
-            ds["source"] = source
-    os.unlink(unzipped)
+        print(f"### Importing into {dbname}...")
+        # Do the import
+        database = bw2io.importers.simapro_csv.SimaProCSVImporter(
+            unzipped, dbname, normalize_biosphere=True
+        )
+        if source:
+            for ds in database:
+                ds["source"] = source
 
     print("### Applying migrations...")
     # Apply provided migrations
@@ -236,7 +237,11 @@ def import_simapro_csv(
     database.statistics()
     # try to link remaining unlinked technosphere activities
     database.apply_strategy(
-        functools.partial(link_technosphere_by_activity_hash, fields=("name", "unit"))
+        functools.partial(
+            link_technosphere_by_activity_hash,
+            external_db_name=external_db,
+            fields=("name", "unit"),
+        )
     )
     database.apply_strategy(
         functools.partial(
