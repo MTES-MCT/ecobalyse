@@ -132,7 +132,9 @@ L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci
 
 Ecobalyse propose 2 types de laine construites à partir du procédé  contruit par Woolmark "Greasy wool, sheep, medium to extra-fine, GLO" .&#x20;
 
-Ce procédé a été préféré à celui d'Ecoinvent, car il a été considéré comme plus représentatif des pratiques d'élevages. L'inventaire détaillé est public sous condition d'avoir une licence ecoinvent. Il sera mis à disposition prochainement par l'ADEME via base empreinte.&#x20;
+Ce procédé a été préféré au procédé "laine d'Ecoinvent", car il a été considéré comme plus représentatif des pratiques d'élevages.&#x20;
+
+L'inventaire Woolmark détaillé est public sous condition d'avoir une licence ecoinvent (car il s'appuie sur des intrants agricoles issus d'ecoinvent). Il sera mis à disposition prochainement par l'ADEME via base empreinte et ecobalyse.&#x20;
 
 <details>
 
