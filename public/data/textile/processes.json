@@ -1102,11 +1102,11 @@
     "alias": null
   },
   {
-    "name": "Production de fibres de coton bio",
+    "name": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
     "displayName": "Production de fibres de coton bio",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
-    "source": "Custom",
+    "source": "Ecoinvent 3.9.1",
     "correctif": "",
     "step_usage": "Matières",
     "uuid": "coton-bio",
@@ -1130,8 +1130,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 618.9624397390182,
-      "pef": 736.2192841211813
+      "ecs": 421.8780180420624,
+      "pef": 488.6208132830078
     },
     "heat_MJ": 0,
     "elec_pppm": 0,
