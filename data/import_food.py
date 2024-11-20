@@ -18,14 +18,7 @@ PROJECT = "default"
 AGRIBALYSE31 = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse 3.1
 AGRIBALYSE32 = "AGB32_final.CSV.zip"  # Agribalyse 3.2
 GINKO = "CSV_369p_et_298chapeaux_final.csv.zip"  # additional organic processes
-PASTOECO = [
-    "CONVEN~1.CSV.zip",
-    "Cow milk, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
-    "Cow milk, conventional, lowland milk system, silage maize 47%, at farm gate {FR} U.CSV.zip",
-    "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U.CSV.zip",
-    "Lamb, organic, system number 3, at farm gate {FR} U.CSV.zip",
-    "Young suckler bull, label rouge, fattening system, pastoral farming system, at farm gate {FR} U.CSV.zip",
-]
+PASTOECO = "pastoeco.CSV.zip"
 CTCPA = "Export emballages_PACK AGB_CTCPA.CSV.zip"
 WFLDB = "WFLDB.CSV.zip"
 BIOSPHERE = "biosphere3"
@@ -191,15 +184,6 @@ def remove_some_processes(db):
     return new_db
 
 
-GINKO_STRATEGIES = [
-    remove_negative_land_use_on_tomato,
-    remove_azadirachtine,
-    functools.partial(
-        link_technosphere_by_activity_hash,
-        external_db_name="Agribalyse 3.1.1",
-        fields=("name", "unit"),
-    ),
-]
 AGB_STRATEGIES = [remove_negative_land_use_on_tomato]
 
 if __name__ == "__main__":
@@ -245,10 +229,18 @@ if __name__ == "__main__":
 
     # PASTO ECO
     if (db := "PastoEco") not in bw2data.databases:
-        for p in PASTOECO:
-            import_simapro_csv(
-                join("..", "..", "dbfiles", p), db, excluded_strategies=EXCLUDED
-            )
+        import_simapro_csv(
+            join("..", "..", "dbfiles", PASTOECO),
+            db,
+            excluded_strategies=EXCLUDED,
+            other_strategies=[
+                functools.partial(
+                    link_technosphere_by_activity_hash,
+                    external_db_name="Agribalyse 3.1.1",
+                    fields=("name", "unit"),
+                )
+            ],
+        )
     else:
         print(f"{db} already imported")
 
@@ -258,7 +250,15 @@ if __name__ == "__main__":
             join("..", "..", "dbfiles", GINKO),
             db,
             excluded_strategies=EXCLUDED,
-            other_strategies=GINKO_STRATEGIES,
+            other_strategies=[
+                remove_negative_land_use_on_tomato,
+                remove_azadirachtine,
+                functools.partial(
+                    link_technosphere_by_activity_hash,
+                    external_db_name="Agribalyse 3.1.1",
+                    fields=("name", "unit"),
+                ),
+            ],
             migrations=GINKO_MIGRATIONS + AGRIBALYSE_MIGRATIONS,
         )
     else:
