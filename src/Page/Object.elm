@@ -595,7 +595,7 @@ componentView selectedImpact detailedComponents ( quantity, name, processes ) it
                     ]
                 , td [ class "ps-0 align-middle" ]
                     [ quantity |> quantityInput processes name ]
-                , td [ class "align-middle text-truncate w-100", colspan 2 ]
+                , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
                     [ text name ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Format.kg <| Simulator.extractMass itemResults ]
