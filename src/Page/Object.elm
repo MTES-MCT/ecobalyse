@@ -27,7 +27,6 @@ import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Mass
 import Ports
 import Route
 import Set exposing (Set)
@@ -46,7 +45,6 @@ import Views.ImpactTabs as ImpactTabs
 import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
-import Volume
 
 
 type alias Model =
@@ -633,28 +631,10 @@ componentView selectedImpact detailedComponents ( quantity, name, processes ) it
 
 processView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
 processView selectedImpact ( amount, process ) itemResults =
-    let
-        floatAmount =
-            Query.amountToFloat amount
-    in
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end text-nowrap" ]
-            [ case process.unit of
-                "kg" ->
-                    Mass.kilograms floatAmount
-                        |> Format.kg
-
-                "m3" ->
-                    Volume.cubicMeters floatAmount
-                        |> Format.m3
-
-                _ ->
-                    String.fromFloat floatAmount
-                        ++ " "
-                        ++ process.unit
-                        |> text
-            ]
+            [ Format.amount process amount ]
         , td [ class "align-middle text-truncate w-100" ]
             [ text process.displayName ]
         , td [ class "align-middle text-end text-nowrap" ]
