@@ -36,7 +36,7 @@ Plusieurs méthodes d'allocations existent; dont les deux principales utilisées
 
 Selon la méthode d'allocation utilisée, l'impact environnemental de laine peut varier de manière très significative (d'un facteur 1 à 5).
 
-Le dispositif d'affichage environnemental français retient une "Allocation Economique" reflétant la finalité des systèmes (créer des produits valorisables).
+Contrairement au PEF qui privilégie une "allocation biophysique", le dispositif d'affichage environnemental français retient une "Allocation Economique" qui reflète mieux la finalité des systèmes de production (créer des produits valorisables).
 
 {% tabs %}
 {% tab title="Allocation économique" %}
@@ -152,7 +152,7 @@ L'ICV laine standard reflète les conditions d'élevage pratiquées sur les prin
 
 Cette laine représente les marchés où la laine n'est aujourd'hui pas/peu valorisée (ex : filière laine française en 2022/2023).
 
-Le procédé ["Laine (par défaut)"](focus-laine.md#laine-par-defaut) est alors utilisé avec comme unique modification l'application d'un taux d'allocation de **4%**. &#x20;
+Le procédé ["Laine (par défaut)"](focus-laine.md#laine-par-defaut) est alors utilisé avec comme unique modification l'application d'un taux d'allocation de **4%**.  (mise à jour en cours, l'ancienne donnée "laine ecoinvent" est utilisée en source actuellement, mais cela a peu d'impact sur le résultat le coefficiant d'allocation étant le paramètre déterminant).&#x20;
 
 </details>
 
