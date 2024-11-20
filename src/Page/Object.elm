@@ -30,6 +30,7 @@ import Html.Events exposing (..)
 import Mass
 import Ports
 import Route
+import Set exposing (Set)
 import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
@@ -53,6 +54,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , detailedComponents : Set String
     , examples : List (Example Query)
     , impact : Definition
     , initialQuery : Query
@@ -83,6 +85,7 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
+    | SetDetailedComponents (Set String)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -115,6 +118,7 @@ init scope trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
+      , detailedComponents = Set.empty
       , examples = examples
       , impact = Definition.get trigram session.db.definitions
       , initialQuery = initialQuery
@@ -159,6 +163,7 @@ initFromExample session scope uuid =
       , bookmarkName = exampleQuery |> suggestBookmarkName session examples
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
+      , detailedComponents = Set.empty
       , examples = examples
       , impact = Definition.get Definition.Ecs session.db.definitions
       , initialQuery = exampleQuery
@@ -320,6 +325,12 @@ update ({ navKey } as session) msg model =
         ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
+        ( SetDetailedComponents detailedComponents, _ ) ->
+            ( { model | detailedComponents = detailedComponents }
+            , session
+            , Cmd.none
+            )
+
         ( SetModal (AddComponentModal autocomplete), _ ) ->
             ( { model | modal = AddComponentModal autocomplete }
             , session
@@ -446,7 +457,7 @@ simulatorView session model =
                 ]
             , session
                 |> Session.objectQueryFromScope model.scope
-                |> componentListView session.db model.impact model.results
+                |> componentListView session.db model
                 |> div [ class "card shadow-sm mb-3" ]
             ]
         , div [ class "col-lg-4 bg-white" ]
@@ -507,8 +518,8 @@ addComponentButton db query =
         ]
 
 
-componentListView : Db -> Definition -> Results -> Query -> List (Html Msg)
-componentListView db selectedImpact results query =
+componentListView : Db -> Model -> Query -> List (Html Msg)
+componentListView db { detailedComponents, impact, results } query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ]
             [ text "Production des composants"
@@ -535,23 +546,20 @@ componentListView db selectedImpact results query =
                     }
 
             Ok items ->
-                let
-                    resultItems =
-                        Simulator.extractItems results
-                in
                 div [ class "table-responsive" ]
                     [ table [ class "table mb-0" ]
                         [ thead []
                             [ tr [ class "fs-7 text-muted" ]
-                                [ th [ class "ps-3", scope "col" ] [ text "Quantité" ]
-                                , th [ scope "col" ] [ text "Composant" ]
+                                [ th [] []
+                                , th [ class "ps-0", scope "col" ] [ text "Quantité" ]
+                                , th [ scope "col", colspan 2 ] [ text "Composant" ]
                                 , th [ scope "col" ] [ text "Masse" ]
                                 , th [ scope "col" ] [ text "Impact" ]
                                 , th [ scope "col" ] []
                                 ]
                             ]
-                        , resultItems
-                            |> List.map2 (componentView selectedImpact) items
+                        , Simulator.extractItems results
+                            |> List.map2 (componentView impact detailedComponents) items
                             |> List.concat
                             |> tbody []
                         ]
@@ -560,79 +568,66 @@ componentListView db selectedImpact results query =
     ]
 
 
-componentView : Definition -> ( Query.Quantity, String, List ( Query.Amount, Process ) ) -> Results -> List (Html Msg)
-componentView selectedImpact ( quantity, name, processes ) itemResults =
-    [ tr []
-        [ td [ class "ps-3 align-middle" ]
-            [ div [ class "input-group", style "min-width" "180px" ]
-                [ input
-                    [ type_ "number"
-                    , class "form-control text-end"
-                    , quantity |> Query.quantityToInt |> String.fromInt |> value
-                    , step "1"
-                    , Html.Attributes.min "1"
-                    , onInput <|
-                        \str ->
-                            String.toInt str
-                                |> Maybe.andThen
-                                    (\int ->
-                                        if int > 0 then
-                                            Just int
+componentView : Definition -> Set String -> ( Query.Quantity, String, List ( Query.Amount, Process ) ) -> Results -> List (Html Msg)
+componentView selectedImpact detailedComponents ( quantity, name, processes ) itemResults =
+    let
+        collapsed =
+            not <| Set.member name detailedComponents
+    in
+    List.concat
+        [ [ tr []
+                [ th [ class "ps-3 align-middle", scope "col" ]
+                    [ button
+                        [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
+                        , onClick <|
+                            SetDetailedComponents
+                                (if collapsed then
+                                    Set.insert name detailedComponents
 
-                                        else
-                                            Nothing
-                                    )
-                                |> Maybe.map
-                                    (\nonNullInt ->
-                                        -- FIX: don't update components based on their name
-                                        -- swith to components ids as soon as they are implemented
-                                        UpdateComponent
-                                            { name = name
-                                            , quantity = Query.quantity nonNullInt
-                                            , processes = processes |> List.map (\( amount, process ) -> { amount = amount, processId = process.id })
-                                            }
-                                    )
-                                |> Maybe.withDefault NoOp
-                    ]
-                    []
-                ]
-            ]
-        , td [ class "align-middle text-truncate w-100" ]
-            [ text name ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.kg <| Simulator.extractMass itemResults ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Simulator.extractImpacts itemResults
-                |> Format.formatImpact selectedImpact
-            ]
-        , td [ class "pe-3 align-middle text-nowrap" ]
-            [ button [ class "btn btn-outline-secondary", onClick (RemoveComponent name) ]
-                [ Icon.trash ]
-            ]
-        ]
-    , tr []
-        [ td [ colspan 5 ]
-            [ details [ class "mb-2" ]
-                [ summary [ class "ps-3" ] [ text "Procédés" ]
-                , div [ class "table-responsive" ]
-                    [ table [ class "table mb-0" ]
-                        [ thead []
-                            (tr [ class "fs-7 text-muted" ]
-                                [ th [ class "ps-3", scope "col" ] [ text "Quantité" ]
-                                , th [ scope "col" ] [ text "Procédé" ]
-                                , th [ scope "col" ] [ text "Densité" ]
-                                , th [ scope "col" ] [ text "Masse" ]
-                                , th [ scope "col" ] [ text "Impact" ]
-                                , th [ scope "col" ] [ text "" ]
-                                ]
-                                :: List.map2 (processView selectedImpact) processes (Simulator.extractItems itemResults)
-                            )
+                                 else
+                                    Set.remove name detailedComponents
+                                )
+                        ]
+                        [ if collapsed then
+                            text "▶"
+
+                          else
+                            text "▼"
                         ]
                     ]
+                , td [ class "ps-0 align-middle" ]
+                    [ quantity |> quantityInput processes name ]
+                , td [ class "align-middle text-truncate w-100", colspan 2 ]
+                    [ text name ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Format.kg <| Simulator.extractMass itemResults ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Simulator.extractImpacts itemResults |> Format.formatImpact selectedImpact ]
+                , td [ class "pe-3 align-middle text-nowrap" ]
+                    [ button [ class "btn btn-outline-secondary", onClick (RemoveComponent name) ]
+                        [ Icon.trash ]
+                    ]
                 ]
-            ]
+          , if not collapsed then
+                tr [ class "fs-7 text-muted" ]
+                    [ th [] []
+                    , th [ class "text-end", scope "col" ] [ text "Quantité" ]
+                    , th [ scope "col" ] [ text "Procédé" ]
+                    , th [ scope "col" ] [ text "Densité" ]
+                    , th [ scope "col" ] [ text "Masse" ]
+                    , th [ scope "col" ] [ text "Impact" ]
+                    , th [ scope "col" ] [ text "" ]
+                    ]
+
+            else
+                text ""
+          ]
+        , if not collapsed then
+            List.map2 (processView selectedImpact) processes (Simulator.extractItems itemResults)
+
+          else
+            []
         ]
-    ]
 
 
 processView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
@@ -641,8 +636,9 @@ processView selectedImpact ( amount, process ) itemResults =
         floatAmount =
             amount |> Query.amountToFloat
     in
-    tr []
-        [ td [ class "ps-3 align-middle text-nowrap" ]
+    tr [ class "fs-7" ]
+        [ td [] []
+        , td [ class "text-end text-nowrap" ]
             [ case process.unit of
                 "kg" ->
                     floatAmount |> Mass.kilograms |> Format.kg
@@ -664,6 +660,42 @@ processView selectedImpact ( amount, process ) itemResults =
                 |> Format.formatImpact selectedImpact
             ]
         , td [ class "pe-3 align-middle text-nowrap" ]
+            []
+        ]
+
+
+quantityInput : List ( Query.Amount, Process ) -> String -> Query.Quantity -> Html Msg
+quantityInput processes name quantity =
+    div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
+        [ input
+            [ type_ "number"
+            , class "form-control text-end"
+            , quantity |> Query.quantityToInt |> String.fromInt |> value
+            , step "1"
+            , Html.Attributes.min "1"
+            , onInput <|
+                \str ->
+                    String.toInt str
+                        |> Maybe.andThen
+                            (\int ->
+                                if int > 0 then
+                                    Just int
+
+                                else
+                                    Nothing
+                            )
+                        |> Maybe.map
+                            (\nonNullInt ->
+                                -- FIX: don't update components based on their name
+                                -- swith to components ids as soon as they are implemented
+                                UpdateComponent
+                                    { name = name
+                                    , quantity = Query.quantity nonNullInt
+                                    , processes = processes |> List.map (\( amount, process ) -> { amount = amount, processId = process.id })
+                                    }
+                            )
+                        |> Maybe.withDefault NoOp
+            ]
             []
         ]
 
