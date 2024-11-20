@@ -40,7 +40,8 @@ availableComponents { object } query =
         -- FIX: For now, consider that components are unique by name, we should
         -- replace it with ids later on
         usedNames =
-            List.map .name query.items
+            query.items
+                |> List.map .name
     in
     object.examples
         |> List.concatMap (.query >> .items)
@@ -49,23 +50,23 @@ availableComponents { object } query =
         |> List.sortBy .name
 
 
+accumulateResults : Results -> Results -> Results
+accumulateResults (Results results) (Results acc) =
+    Results
+        { acc
+            | impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
+            , items = Results results :: acc.items
+            , mass = Quantity.sum [ results.mass, acc.mass ]
+        }
+
+
 compute : Db -> Query -> Result String Results
 compute db query =
     query.items
         |> List.map (computeItemResults db)
         |> RE.combine
         |> Result.map
-            (List.foldr
-                (\(Results { impacts, items, mass }) (Results acc) ->
-                    Results
-                        { acc
-                            | impacts = Impact.sumImpacts [ impacts, acc.impacts ]
-                            , items = Results { impacts = impacts, items = items, mass = mass } :: acc.items
-                            , mass = Quantity.sum [ mass, acc.mass ]
-                        }
-                )
-                emptyResults
-            )
+            (List.foldr accumulateResults emptyResults)
 
 
 computeItemResults : Db -> Item -> Result String Results
@@ -74,17 +75,7 @@ computeItemResults db item =
         |> List.map (computeProcessItemResults db)
         |> RE.combine
         |> Result.map
-            (List.foldr
-                (\(Results results) (Results acc) ->
-                    Results
-                        { acc
-                            | impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
-                            , items = Results results :: acc.items
-                            , mass = Quantity.sum [ results.mass, acc.mass ]
-                        }
-                )
-                emptyResults
-            )
+            (List.foldr accumulateResults emptyResults)
         |> Result.map
             (\(Results { impacts, mass, items }) ->
                 Results

@@ -148,8 +148,8 @@ removeItem name ({ items } as query) =
 
 updateItem : Item -> Query -> Query
 updateItem newItem query =
-    let
-        items =
+    { query
+        | items =
             query.items
                 |> List.map
                     (\item ->
@@ -159,8 +159,7 @@ updateItem newItem query =
                         else
                             item
                     )
-    in
-    { query | items = items }
+    }
 
 
 toString : List Process -> Query -> Result String String

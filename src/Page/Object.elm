@@ -570,20 +570,29 @@ itemView selectedImpact ( quantity, name, processes ) itemResults =
                     , class "form-control text-end"
                     , quantity |> Query.quantityToInt |> String.fromInt |> value
                     , step "1"
+                    , Html.Attributes.min "1"
                     , onInput <|
                         \str ->
-                            case String.toInt str of
-                                -- FIX: don't update components based on their name
-                                -- swith to components ids as soon as they are implemented
-                                Just int ->
-                                    UpdateItem
-                                        { name = name
-                                        , quantity = Query.quantity int
-                                        , processes = processes |> List.map (\( amount, process ) -> { amount = amount, processId = process.id })
-                                        }
+                            String.toInt str
+                                |> Maybe.andThen
+                                    (\int ->
+                                        if int > 0 then
+                                            Just int
 
-                                Nothing ->
-                                    NoOp
+                                        else
+                                            Nothing
+                                    )
+                                |> Maybe.map
+                                    (\nonNullInt ->
+                                        -- FIX: don't update components based on their name
+                                        -- swith to components ids as soon as they are implemented
+                                        UpdateItem
+                                            { name = name
+                                            , quantity = Query.quantity nonNullInt
+                                            , processes = processes |> List.map (\( amount, process ) -> { amount = amount, processId = process.id })
+                                            }
+                                    )
+                                |> Maybe.withDefault NoOp
                     ]
                     []
                 ]
@@ -604,7 +613,7 @@ itemView selectedImpact ( quantity, name, processes ) itemResults =
     , tr []
         [ td [ colspan 5 ]
             [ details [ class "mb-2" ]
-                [ summary [] [ text "Procédés" ]
+                [ summary [ class "ps-3" ] [ text "Procédés" ]
                 , div [ class "table-responsive" ]
                     [ table [ class "table mb-0" ]
                         [ thead []
@@ -614,6 +623,7 @@ itemView selectedImpact ( quantity, name, processes ) itemResults =
                                 , th [ scope "col" ] [ text "Densité" ]
                                 , th [ scope "col" ] [ text "Masse" ]
                                 , th [ scope "col" ] [ text "Impact" ]
+                                , th [ scope "col" ] [ text "" ]
                                 ]
                                 :: List.map2 (processView selectedImpact) processes (Simulator.extractItems itemResults)
                             )
@@ -653,6 +663,8 @@ processView selectedImpact ( amount, process ) itemResults =
             [ Simulator.extractImpacts itemResults
                 |> Format.formatImpact selectedImpact
             ]
+        , td [ class "pe-3 align-middle text-nowrap" ]
+            []
         ]
 
 
