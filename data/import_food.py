@@ -17,7 +17,7 @@ from common.import_ import (
 
 PROJECT = "default"
 AGRIBALYSE31 = "AGB3.1.1.20230306.CSV.zip"  # Agribalyse 3.1
-AGRIBALYSE32 = "AGB32beta_08082024.CSV.zip"  # Agribalyse 3.2
+AGRIBALYSE32 = "AGB32_final.CSV.zip"  # Agribalyse 3.2
 GINKO = "CSV_369p_et_298chapeaux_final.csv.zip"  # additional organic processes
 PASTOECO = [
     "CONVEN~1.CSV.zip",
