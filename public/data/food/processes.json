@@ -7516,7 +7516,7 @@
   {
     "categories": ["ingredient"],
     "comment": "",
-    "displayName": "Blé tendre UE Conv.",
+    "displayName": "Blé tendre Hors UE Conv.",
     "id": "soft-wheat-non-eu",
     "identifier": "AGRIBALU000000003117044",
     "impacts": {
@@ -12649,40 +12649,6 @@
   },
   {
     "categories": ["ingredient"],
-    "comment": "This process describes the average consumption mix of dried Onions in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
-    "displayName": "Oignons déshydratés Hors UE Conv.",
-    "id": "onion-dried-hors-eu",
-    "identifier": "AGRIBALU000000003110475",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0,
-      "ecs": 631.3772011936228,
-      "pef": 686.1046949964714
-    },
-    "name": "Onions, dried, consumption mix {FR} U",
-    "source": "Agribalyse 3.1.1",
-    "system_description": "AGRIBALYSE",
-    "unit": "kg"
-  },
-  {
-    "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Anchovy in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "displayName": "Anchois FR Conv.",
     "id": "anchovy-fr",
@@ -13251,8 +13217,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 23.352728235430085,
-      "pef": 25.869136263774983
+      "ecs": 22.87837081058668,
+      "pef": 25.231156620488495
     },
     "name": "Melon {GLO}| melon production | Cut-off, U",
     "source": "Ecoinvent 3.10",
@@ -13761,8 +13727,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1780.1771143792325,
-      "pef": 2179.8077455236967
+      "ecs": 1774.5358922213002,
+      "pef": 2172.2221019272474
     },
     "name": "Protein pea {ES}| protein pea production | Cut-off, U",
     "source": "Ecoinvent 3.10",
@@ -13795,8 +13761,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 1780.1771143792325,
-      "pef": 2179.8077455236967
+      "ecs": 1774.5358922213002,
+      "pef": 2172.2221019272474
     },
     "name": "Protein pea {ES}| protein pea production | Cut-off, U",
     "source": "Ecoinvent 3.10",
@@ -13863,8 +13829,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 246.36459104078537,
-      "pef": 366.0560325909653
+      "ecs": 241.69691431633754,
+      "pef": 359.7770969014534
     },
     "name": "Chickpea {RoW}| chickpea production | Cut-off, U",
     "source": "Ecoinvent 3.10",
@@ -14379,6 +14345,74 @@
     "name": "Cherry, at farm (WFLDB)",
     "source": "WFLDB",
     "system_description": "",
+    "unit": "kg"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "",
+    "displayName": "Blé tendre UE Conv.",
+    "id": "soft-wheat-eu",
+    "identifier": "AGRIBALU000000003117044",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 87.59422022223636,
+      "pef": 91.40931803041477
+    },
+    "name": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "",
+    "unit": "kg"
+  },
+  {
+    "categories": ["ingredient"],
+    "comment": "This process describes the average consumption mix of dried Onions in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
+    "displayName": "Oignons déshydratés Hors UE Conv.",
+    "id": "onion-dried",
+    "identifier": "AGRIBALU000000003110475",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0,
+      "ecs": 631.3772011936228,
+      "pef": 686.1046949964714
+    },
+    "name": "Onions, dried, consumption mix {FR} U",
+    "source": "Agribalyse 3.1.1",
+    "system_description": "AGRIBALYSE",
     "unit": "kg"
   }
 ]
