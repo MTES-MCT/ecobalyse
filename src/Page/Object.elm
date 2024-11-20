@@ -645,10 +645,10 @@ processView selectedImpact ( amount, process ) itemResults =
         [ td [ class "ps-3 align-middle text-nowrap" ]
             [ case process.unit of
                 "kg" ->
-                    Format.kg (floatAmount |> Mass.kilograms)
+                    floatAmount |> Mass.kilograms |> Format.kg
 
                 "m3" ->
-                    Format.m3 (floatAmount |> Volume.cubicMeters)
+                    floatAmount |> Volume.cubicMeters |> Format.m3
 
                 _ ->
                     text ((floatAmount |> String.fromFloat) ++ " " ++ process.unit)

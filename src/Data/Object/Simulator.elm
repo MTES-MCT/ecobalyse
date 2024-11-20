@@ -50,8 +50,8 @@ availableComponents { object } query =
         |> List.sortBy .name
 
 
-accumulateResults : Results -> Results -> Results
-accumulateResults (Results results) (Results acc) =
+addResults : Results -> Results -> Results
+addResults (Results results) (Results acc) =
     Results
         { acc
             | impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
@@ -65,8 +65,7 @@ compute db query =
     query.components
         |> List.map (computeItemResults db)
         |> RE.combine
-        |> Result.map
-            (List.foldr accumulateResults emptyResults)
+        |> Result.map (List.foldr addResults emptyResults)
 
 
 computeItemResults : Db -> Component -> Result String Results
@@ -74,8 +73,7 @@ computeItemResults db item =
     item.processes
         |> List.map (computeProcessItemResults db)
         |> RE.combine
-        |> Result.map
-            (List.foldr accumulateResults emptyResults)
+        |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
             (\(Results { impacts, mass, items }) ->
                 Results
