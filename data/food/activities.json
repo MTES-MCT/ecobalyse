@@ -7201,5 +7201,13 @@
     "scenario": "reference",
     "land_occupation": 2.5114890758258803,
     "crop_group": "LEGUMES-FLEURS"
+  },
+  {
+    "id": "beer-packaging",
+    "name": "Emballage de bière (bouteille de verre)",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:6808c0d38222bc171fca18e93421bf4e",
+    "process_categories": ["packaging"],
+    "default_origin": "EuropeAndMaghreb"
   }
 ]
