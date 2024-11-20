@@ -430,7 +430,7 @@ selectComponent query autocompleteState ( model, session, _ ) =
                 |> Maybe.withDefault Query.defaultComponent
     in
     update session (SetModal NoModal) model
-        |> updateQuery { query | components = selectedComponent :: query.components }
+        |> updateQuery { query | components = query.components ++ [ selectedComponent ] }
 
 
 simulatorView : Session -> Model -> Html Msg
