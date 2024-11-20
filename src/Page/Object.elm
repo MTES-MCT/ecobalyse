@@ -623,7 +623,8 @@ componentView selectedImpact detailedComponents ( quantity, name, processes ) it
                 text ""
           ]
         , if not collapsed then
-            List.map2 (processView selectedImpact) processes (Simulator.extractItems itemResults)
+            Simulator.extractItems itemResults
+                |> List.map2 (processView selectedImpact) processes
 
           else
             []
@@ -634,20 +635,25 @@ processView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
 processView selectedImpact ( amount, process ) itemResults =
     let
         floatAmount =
-            amount |> Query.amountToFloat
+            Query.amountToFloat amount
     in
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end text-nowrap" ]
             [ case process.unit of
                 "kg" ->
-                    floatAmount |> Mass.kilograms |> Format.kg
+                    Mass.kilograms floatAmount
+                        |> Format.kg
 
                 "m3" ->
-                    floatAmount |> Volume.cubicMeters |> Format.m3
+                    Volume.cubicMeters floatAmount
+                        |> Format.m3
 
                 _ ->
-                    text ((floatAmount |> String.fromFloat) ++ " " ++ process.unit)
+                    String.fromFloat floatAmount
+                        ++ " "
+                        ++ process.unit
+                        |> text
             ]
         , td [ class "align-middle text-truncate w-100" ]
             [ text process.displayName ]
