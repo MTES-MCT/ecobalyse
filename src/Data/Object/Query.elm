@@ -1,6 +1,6 @@
 module Data.Object.Query exposing
     ( Amount
-    , Item
+    , Component
     , ProcessItem
     , Quantity
     , Query
@@ -9,14 +9,14 @@ module Data.Object.Query exposing
     , buildApiQuery
     , decode
     , default
-    , defaultItem
+    , defaultComponent
     , encode
     , parseBase64Query
     , quantity
     , quantityToInt
-    , removeItem
+    , removeComponent
     , toString
-    , updateItem
+    , updateComponent
     )
 
 import Base64
@@ -30,11 +30,11 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias Query =
-    { items : List Item
+    { components : List Component
     }
 
 
-type alias Item =
+type alias Component =
     { name : String
     , processes : List ProcessItem
     , quantity : Quantity
@@ -87,9 +87,9 @@ decode =
         |> Pipe.required "items" (Decode.list decodeItem)
 
 
-decodeItem : Decoder Item
+decodeItem : Decoder Component
 decodeItem =
-    Decode.map3 Item
+    Decode.map3 Component
         (Decode.field "name" Decode.string)
         (Decode.field "processes" (Decode.list decodeProcessItem))
         (Decode.field "quantity" (Decode.map Quantity Decode.int))
@@ -104,11 +104,11 @@ decodeProcessItem =
 
 default : Query
 default =
-    { items = [] }
+    { components = [] }
 
 
-defaultItem : Item
-defaultItem =
+defaultComponent : Component
+defaultComponent =
     { name = "Composant par défaut"
     , processes = []
     , quantity = Quantity 1
@@ -119,12 +119,12 @@ encode : Query -> Encode.Value
 encode query =
     Encode.object
         [ ( "items"
-          , Encode.list encodeItem query.items
+          , Encode.list encodeItem query.components
           )
         ]
 
 
-encodeItem : Item -> Encode.Value
+encodeItem : Component -> Encode.Value
 encodeItem item =
     Encode.object
         [ ( "name", item.name |> Encode.string )
@@ -141,16 +141,16 @@ encodeProcessItem processItem =
         ]
 
 
-removeItem : String -> Query -> Query
-removeItem name ({ items } as query) =
-    { query | items = items |> List.filter (.name >> (/=) name) }
+removeComponent : String -> Query -> Query
+removeComponent name ({ components } as query) =
+    { query | components = components |> List.filter (.name >> (/=) name) }
 
 
-updateItem : Item -> Query -> Query
-updateItem newItem query =
+updateComponent : Component -> Query -> Query
+updateComponent newItem query =
     { query
-        | items =
-            query.items
+        | components =
+            query.components
                 |> List.map
                     (\item ->
                         if item.name == newItem.name then
@@ -164,12 +164,12 @@ updateItem newItem query =
 
 toString : List Process -> Query -> Result String String
 toString processes =
-    .items
+    .components
         >> RE.combineMap (itemToString processes)
         >> Result.map (String.join ", ")
 
 
-itemToString : List Process -> Item -> Result String String
+itemToString : List Process -> Component -> Result String String
 itemToString processes item =
     item.processes
         |> RE.combineMap (processItemToString processes)

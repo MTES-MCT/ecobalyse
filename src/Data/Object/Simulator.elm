@@ -13,7 +13,7 @@ module Data.Object.Simulator exposing
 import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Process as Process exposing (Process)
-import Data.Object.Query as Query exposing (Item, ProcessItem, Query, quantityToInt)
+import Data.Object.Query as Query exposing (Component, ProcessItem, Query, quantityToInt)
 import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
@@ -34,17 +34,17 @@ type Results
 -- For now take the components from the example and consider that they are unique by name
 
 
-availableComponents : Db -> Query -> List Item
+availableComponents : Db -> Query -> List Component
 availableComponents { object } query =
     let
         -- FIX: For now, consider that components are unique by name, we should
         -- replace it with ids later on
         usedNames =
-            query.items
+            query.components
                 |> List.map .name
     in
     object.examples
-        |> List.concatMap (.query >> .items)
+        |> List.concatMap (.query >> .components)
         |> LE.uniqueBy .name
         |> List.filter (\{ name } -> not (List.member name usedNames))
         |> List.sortBy .name
@@ -62,14 +62,14 @@ accumulateResults (Results results) (Results acc) =
 
 compute : Db -> Query -> Result String Results
 compute db query =
-    query.items
+    query.components
         |> List.map (computeItemResults db)
         |> RE.combine
         |> Result.map
             (List.foldr accumulateResults emptyResults)
 
 
-computeItemResults : Db -> Item -> Result String Results
+computeItemResults : Db -> Component -> Result String Results
 computeItemResults db item =
     item.processes
         |> List.map (computeProcessItemResults db)
@@ -125,7 +125,7 @@ emptyResults =
 
 expandItems : Db -> Query -> Result String (List ( Query.Quantity, String, List ( Query.Amount, Process ) ))
 expandItems db =
-    .items
+    .components
         >> List.map
             (\item ->
                 expandProcesses db item.processes

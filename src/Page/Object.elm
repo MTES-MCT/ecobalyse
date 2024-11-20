@@ -63,7 +63,7 @@ type alias Model =
 
 
 type Modal
-    = AddComponentModal (Autocomplete Query.Item)
+    = AddComponentModal (Autocomplete Query.Component)
     | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
@@ -73,7 +73,7 @@ type Msg
     = CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnAutocompleteAddComponent (Autocomplete.Msg Query.Item)
+    | OnAutocompleteAddComponent (Autocomplete.Msg Query.Component)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
@@ -90,7 +90,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateItem Query.Item
+    | UpdateComponent Query.Component
 
 
 init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
@@ -285,7 +285,7 @@ update ({ navKey } as session) msg model =
 
         ( RemoveComponent name, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.removeItem name query)
+                |> updateQuery (Query.removeComponent name query)
 
         ( SaveBookmark, _ ) ->
             ( model
@@ -383,9 +383,9 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        ( UpdateItem item, _ ) ->
+        ( UpdateComponent component, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateItem item query)
+                |> updateQuery (Query.updateComponent component query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -413,15 +413,15 @@ selectExample autocompleteState ( model, session, _ ) =
         |> updateQuery exampleQuery
 
 
-selectComponent : Query -> Autocomplete Query.Item -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectComponent : Query -> Autocomplete Query.Component -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectComponent query autocompleteState ( model, session, _ ) =
     let
-        selectedItem =
+        selectedComponent =
             Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Query.defaultItem
+                |> Maybe.withDefault Query.defaultComponent
     in
     update session (SetModal NoModal) model
-        |> updateQuery { query | items = selectedItem :: query.items }
+        |> updateQuery { query | components = selectedComponent :: query.components }
 
 
 simulatorView : Session -> Model -> Html Msg
@@ -446,7 +446,7 @@ simulatorView session model =
                 ]
             , session
                 |> Session.objectQueryFromScope model.scope
-                |> itemListView session.db model.impact model.results
+                |> componentListView session.db model.impact model.results
                 |> div [ class "card shadow-sm mb-3" ]
             ]
         , div [ class "col-lg-4 bg-white" ]
@@ -485,8 +485,8 @@ simulatorView session model =
         ]
 
 
-addItemButton : Db -> Query -> Html Msg
-addItemButton db query =
+addComponentButton : Db -> Query -> Html Msg
+addComponentButton db query =
     let
         availableComponents =
             Simulator.availableComponents db query
@@ -507,8 +507,8 @@ addItemButton db query =
         ]
 
 
-itemListView : Db -> Definition -> Results -> Query -> List (Html Msg)
-itemListView db selectedImpact results query =
+componentListView : Db -> Definition -> Results -> Query -> List (Html Msg)
+componentListView db selectedImpact results query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ]
             [ text "Production des composants"
@@ -521,7 +521,7 @@ itemListView db selectedImpact results query =
                 [ Icon.search ]
             ]
         ]
-    , if List.isEmpty query.items then
+    , if List.isEmpty query.components then
         div [ class "card-body" ] [ text "Aucun élément." ]
 
       else
@@ -551,17 +551,17 @@ itemListView db selectedImpact results query =
                                 ]
                             ]
                         , resultItems
-                            |> List.map2 (itemView selectedImpact) items
+                            |> List.map2 (componentView selectedImpact) items
                             |> List.concat
                             |> tbody []
                         ]
                     ]
-    , addItemButton db query
+    , addComponentButton db query
     ]
 
 
-itemView : Definition -> ( Query.Quantity, String, List ( Query.Amount, Process ) ) -> Results -> List (Html Msg)
-itemView selectedImpact ( quantity, name, processes ) itemResults =
+componentView : Definition -> ( Query.Quantity, String, List ( Query.Amount, Process ) ) -> Results -> List (Html Msg)
+componentView selectedImpact ( quantity, name, processes ) itemResults =
     [ tr []
         [ td [ class "ps-3 align-middle" ]
             [ div [ class "input-group", style "min-width" "180px" ]
@@ -586,7 +586,7 @@ itemView selectedImpact ( quantity, name, processes ) itemResults =
                                     (\nonNullInt ->
                                         -- FIX: don't update components based on their name
                                         -- swith to components ids as soon as they are implemented
-                                        UpdateItem
+                                        UpdateComponent
                                             { name = name
                                             , quantity = Query.quantity nonNullInt
                                             , processes = processes |> List.map (\( amount, process ) -> { amount = amount, processId = process.id })
