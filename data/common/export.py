@@ -53,13 +53,22 @@ def progress_bar(index, total):
     print(f"Export in progress: {str(index)}/{total}", end="\r")
 
 
-def search(dbname, name, excluded_term=None):
-    results = bw2data.Database(dbname).search(name)
+def search(dbname, search_terms, excluded_term=None):
+    results = bw2data.Database(dbname).search(search_terms)
     if excluded_term:
         results = [res for res in results if excluded_term not in res["name"]]
     if not results:
-        print(f"Not found in brightway : '{name}'")
+        print(f"Not found in brightway : '{search_terms}'")
         return None
+    if len(results) > 1:
+        # if the search gives more than one results, find the one with exact name
+        exact_results = [a for a in results if a["name"] == search_terms]
+        if len(exact_results) == 1:
+            return exact_results[0]
+        else:
+            raise ValueError(
+                f"This 'search' field returns more than one result in database {dbname}: {search_terms}"
+            )
     return results[0]
 
 
@@ -374,8 +383,8 @@ def load_json(filename):
 
 
 @functools.cache
-def cached_search(dbname, name, excluded_term=None):
-    return search(dbname, name, excluded_term)
+def cached_search(dbname, search_terms, excluded_term=None):
+    return search(dbname, search_terms, excluded_term)
 
 
 def find_id(dbname, activity):
