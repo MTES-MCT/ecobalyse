@@ -232,7 +232,7 @@ if __name__ == "__main__":
         print(f"{db} already imported")
 
     # AGRIBALYSE 3.2
-    if (db := "Agribalyse 3.2 beta 08/08/2024") not in bw2data.databases:
+    if (db := "Agribalyse 3.2") not in bw2data.databases:
         import_simapro_csv(
             join("..", "..", "dbfiles", AGRIBALYSE32),
             db,
