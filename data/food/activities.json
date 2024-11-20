@@ -202,8 +202,7 @@
     "name": "Vache de réforme bio",
     "process_categories": ["material"],
     "search": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.05824382671
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ground-beef-feedlot",
@@ -511,160 +510,140 @@
     "name": "Acier",
     "process_categories": ["packaging"],
     "search": "Steel unalloyed {RER} steel production converter unalloyed",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.001140211594
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ldpe",
     "name": "Polyéthylène basse densité",
     "process_categories": ["packaging"],
     "search": "Packaging film low density polyethylene {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.002007809303
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ps",
     "name": "Polystyrène",
     "process_categories": ["packaging"],
     "search": "Polystyrene expandable {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 9.41636667e-6
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "glass",
     "name": "Verre",
     "process_categories": ["packaging"],
     "search": "Packaging glass white {RER} w/o CH+DE production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.001703130259
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pp",
     "name": "Polypropylène",
     "process_categories": ["packaging"],
     "search": "Polypropylene granulate {RER}| production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0007883681889
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cardboard",
     "name": "Carton",
     "process_categories": ["packaging"],
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.03446066725
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "paper",
     "name": "Papier",
     "process_categories": ["packaging"],
     "search": "Kraft paper production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.002983999987
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pvc",
     "name": "PVC",
     "process_categories": ["packaging"],
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0008562517024
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "pet",
     "name": "PET",
     "process_categories": ["packaging"],
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.001686298595
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "hdpe",
     "name": "Polyéthylène haute densité",
     "process_categories": ["packaging"],
     "search": "Polyethylene high density granulate {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0002843228955
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "aluminium",
     "name": "Aluminium",
     "process_categories": ["packaging"],
     "search": "Aluminium primary ingot {RoW} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.002860621136
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "canning",
     "name": "Mise en conserve",
     "process_categories": ["transformation"],
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0002631841963
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "mixing",
     "name": "Mélange",
     "process_categories": ["transformation"],
     "search": "Mixing processing dummy",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "cooking",
     "name": "Cuisson",
     "process_categories": ["transformation"],
     "search": "Cooking, industrial, 1kg of cooked product {FR} U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.06575812929
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lorry",
     "name": "Camion",
     "process_categories": ["transport"],
     "search": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0001030548828
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "boat",
     "name": "Bateau",
     "process_categories": ["transport"],
     "search": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 7.784405417e-6
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "plane",
     "name": "Avion",
     "process_categories": ["transport"],
     "search": "Transport freight aircraft unspecified",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0002954369753
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "boat-cooling",
     "name": "Bateau frigorifique",
     "process_categories": ["transport"],
     "search": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 1.233547806e-5
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "lorry-cooling",
     "process_categories": ["transport"],
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0001696997834
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "process_categories": ["energy"],
     "search": "Electricity low voltage {FR} market",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0001936970855
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "tap-water",
@@ -686,8 +665,7 @@
     "name": "Gaz de ville",
     "process_categories": ["energy"],
     "search": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 1.210745584e-5
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "comte-aop",
@@ -7231,5 +7209,77 @@
     "search": "code:6808c0d38222bc171fca18e93421bf4e",
     "process_categories": ["packaging"],
     "default_origin": "EuropeAndMaghreb"
+  },
+  {
+    "id": "salt-packaging",
+    "name": "Emballage de sel (carton)",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:6808c0d38222bc171fca18e93421bf4e",
+    "process_categories": ["packaging"],
+    "default_origin": "France"
+  },
+  {
+    "id": "vanilla-packaging",
+    "name": "Emballage de vanille (verre)",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:5347fcfd5ea010cce975c5d97a7dea6f",
+    "process_categories": ["packaging"],
+    "default_origin": "EuropeAndMaghreb"
+  },
+  {
+    "id": "cocktail-packaging",
+    "name": "Emballage de cocktail (verre)",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:472e239996aa5542c82a91524fa03e13",
+    "process_categories": ["packaging"],
+    "default_origin": "EuropeAndMaghreb"
+  },
+  {
+    "id": "tea-packaging",
+    "name": "Emballage de thé (carton)",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:67604e439ea15376597b3227ed6f4e1b",
+    "process_categories": ["packaging"],
+    "default_origin": "EuropeAndMaghreb"
+  },
+  {
+    "id": "honney-packaging",
+    "name": "Emballage de miel (verre)",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:23d4f0252bca9a46ec3a3d24d6e7301e",
+    "process_categories": ["packaging"],
+    "default_origin": "France"
+  },
+  {
+    "id": "vinegar-packaging",
+    "name": "Emballage de vinaigre (verre)",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:23d4f0252bca9a46ec3a3d24d6e7301e",
+    "process_categories": ["packaging"],
+    "default_origin": "EuropeAndMaghreb"
+  },
+  {
+    "id": "syrups-packaging",
+    "name": "Emballage de sirop (verre)",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:dddac64d422f236ad309b4beaefc3e58",
+    "process_categories": ["packaging"],
+    "default_origin": "EuropeAndMaghreb"
+  },
+  {
+    "id": "cider-packaging",
+    "name": "Emballage de cidre (verre)",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:7f9223fb45455a3f2845093b068b6fda",
+    "process_categories": ["packaging"],
+    "default_origin": "EuropeAndMaghreb"
+  },
+  {
+    "id": "sugar-packaging",
+    "name": "Emballage de sucre",
+    "database": "Agribalyse 3.2 beta 08/08/2024",
+    "search": "code:b357c1159f359544b2f3e487939e5fd9",
+    "process_categories": ["packaging"],
+    "default_origin": "France"
   }
 ]
