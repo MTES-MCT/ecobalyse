@@ -2,7 +2,7 @@
 
 ### Généralités
 
-La fibre de laine représente 1,1% de la production mondiale de fibres textile en 2022 (source[^1]). Les principaux pays producteurs sont la Chine , l'Australie et la Nouvelle-Zélande.
+La fibre de laine représente 1,1% de la production mondiale de fibres textile en 2022 (source[^1]). Les principaux pays producteurs sont la Chine , l'Australie et la Nouvelle-Zélande. Comme toutes les matières premières, la production des fibres génèrent des impacts environnementaux, par exemple via la production des aliments pour les moutons, le méthane émis par la digestion ou encore les opérations de lavage de la laine. Les impacts varient selon le type de système agricole et les technologies mises en œuvre.&#x20;
 
 <details>
 
@@ -36,7 +36,7 @@ Plusieurs méthodes d'allocations existent; dont les deux principales utilisées
 
 Selon la méthode d'allocation utilisée, l'impact environnemental de laine peut varier de manière très significative (d'un facteur 1 à 5).
 
-Le dispositif d'affichage environnemental français retient une Allocation Economique.
+Le dispositif d'affichage environnemental français retient une "Allocation Economique" reflétant la finalité des systèmes (créer des produits valorisables).
 
 {% tabs %}
 {% tab title="Allocation économique" %}
@@ -110,14 +110,14 @@ Voici différents scénarios proposés par [Wiedemann et al (2015)](https://link
 
 <table><thead><tr><th width="232"></th><th>Scenario 1</th><th>Scenario 2</th><th>Scenario 3</th><th>Scenario 4</th></tr></thead><tbody><tr><td>Zone</td><td>UK</td><td>Nouvelle-Zelande</td><td>Australie</td><td>Australie</td></tr><tr><td>Race</td><td>Lleyn  et Cheviot</td><td>Romney</td><td>Merino</td><td>Merino</td></tr><tr><td><a data-footnote-ref href="#user-content-fn-12">Laine vs Viande</a> (kg)</td><td>x0,06</td><td>x0,17</td><td>x0,21</td><td>x0,17</td></tr><tr><td>Type d'élevage (% extensif/paturages)</td><td>95%</td><td>87%</td><td>100%</td><td>93%</td></tr><tr><td>Laine vs Viande ($ / kg) </td><td>x0,7</td><td>x1,4</td><td>x4,2</td><td>x6,2</td></tr></tbody></table>
 
-De manière générale et sur la base d'une revue bibliographique, la majorité des scénarios retenus par les ACV de produits lainiers sont des terres non-arables (paturages) ne rentrant pas en compétition avec d'autres types d'occupation des sols (cf. notamment cette [étude ](#user-content-fn-13)[^13]à ce sujet).&#x20;
+De manière générale et sur la base d'une revue bibliographique, la majorité des scénarios retenus par les ACV de produits lainiers sont basés sur des systèmes basés sur des paturages, et pour les élevages les plus extensifs un usage du sol pouvant etre qualifié de "semi-naturel" (cf. notamment cette [étude ](#user-content-fn-13)[^13]à ce sujet).&#x20;
 
 {% hint style="info" %}
 **Services écosystémiques**
 
 L'élevage ovin extensif (pâturages) produit des services tels que la lutte contre les feux de forêts, le maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, la limitation de la prolifération d'espèces végétales invasives, etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], pour le cas de l'élevage extensif en Espagne par exemple).
 
-Bien que des modifications des inventaires soient proposées pour prendre en compte partiellement les externalités positives de ces modes de production extensifs (cf. détail [infra](focus-laine.md#laine-par-defaut)), l'ensemble des services rendus par les pâtures n'est aujourd'hui pas intégré. Des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.
+Ces aspects ne sont pas pris en compte dans les indicateurs ACV actuels.  Comme cela a été fait pour l'alimentaire, des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.
 {% endhint %}
 
 ## Modélisation Ecobalyse
@@ -130,41 +130,17 @@ L'impact de l'étape Matière correspond au périmètre "Cradle to farm gate" ci
 
 ### Scénarios proposés
 
-Ecobalyse propose 2 types de laine construites à partir du procédé  Ecoinvent "sheep production, for wool, US". En effet, ce procédé est le procédé qui sert de base à la construction du procédé "sheep production, for wool, RoW"
+Ecobalyse propose 2 types de laine construites à partir du procédé  contruit par Woolmark "Greasy wool, sheep, medium to extra-fine, GLO" .&#x20;
 
-Du fait d'un faible niveau de qualité du procédé source Ecoinvent, Ecobalyse a procédé à des enrichissements suite à la mise en place de différents ateliers avec la filière laine.
+Ce procédé a été préféré à celui d'Ecoinvent, car il a été considéré comme plus représentatif des pratiques d'élevages. L'inventaire détaillé est public sous condition d'avoir une licence ecoinvent. Il sera mis à disposition prochainement par l'ADEME via base empreinte.&#x20;
 
 <details>
 
 <summary>Laine (par défaut)</summary>
 
-Afin de refléter des conditions d'élevage pratiquées sur les principaux marchés approvisionnant le textile d'habillement (Australie et Nouvelle-Zélande), il est proposé de procéder aux modifications suivantes :&#x20;
+L'ICV laine standard reflète les conditions d'élevage pratiquées sur les principaux marchés approvisionnant le textile d'habillement (Australie et Nouvelle-Zélande). Un critère d'allocation économique de 37% a été retenu.
 
-**(1) Substitution d'une partie de la ration tourteau de soja + maïs par du pâturage.**
-
-D'après Arvalis et les tables établies par [Inrae](https://feedtables.com), on substitue 0,31 kg de _soybean meal//\[RoW] market for soybean meal_ + 0,24 kg de _maize grain//\[RoW] market for maize grain_ par 1 kg de _grass, organic//\[RoW] grass production, permanent grassland, organic, extensive_ (procédé considéré comme correspondant aux prairies extensives NZ).&#x20;
-
-**(2) Substitution des inputs \[US] par des inputs \[RoW] ou \[AU]** si disponible, afin de mieux correspondre au système de production des régions de production de laine :
-
-* _irrigation//\[US] market for irrigation_ **=>** _irrigation//\[RoW] market for irrigation_
-
-<!---->
-
-* _inorganic phosphorus fertiliser, as P2O5//\[US] market for inorganic phosphorus fertiliser, as P2O5_ **=>** _inorganic phosphorus fertiliser, as P2O5//\[AU] market for inorganic phosphorus fertiliser, as P2O5_
-
-<!---->
-
-* _ammonium nitrate//\[RNA] market for ammonium nitrate_ **=>** _ammonium nitrate//\[RoW] market for ammonium nitrate_
-
-**(3) Ajustement de l'indicateur Land Use.**
-
-L'indicateur Land Use modélise l'impact lié à l'occupation des sols (anthropisation). Les zones de pâturage présentes notamment en Nouvelle-Zélande constituent en revanche des milieux peu anthropisés, qui peuvent justifier un ajustement de l'indicateur Land Use.&#x20;
-
-En considérant que 80 % des surfaces de pâturage sont "naturelles" ou peu anthropisées, ceci revient à considérer la surface d'occupation du sol égale à _0,20\*119,4 = 23,8 m2a_, au lieu de 119,4 m2a qui correspond à l'occupation totale liée au pâturage (inventaire \[US] de base + modification (1) explicitée supra)
-
-**(4) Allocation économique de 37%.**
-
-Au procédé construit à partir de l'inventaire "sheep production, for wool, US" et des modifications (1), (2) et (3), une allocation économique de 37% est appliquée. Cette allocation se base sur le principal marché de production de laine pour le textile d'habillement (Australie / année 2020) et sur les données MLA National Livestock Reporting Service Australian Wool Exchange transmises par Woolmark.
+&#x20;Cette allocation se base sur le principal marché de production de laine pour le textile d'habillement (Australie / année 2020) et sur les données MLA National Livestock Reporting Service Australian Wool Exchange transmises par Woolmark.
 
 </details>
 
@@ -177,12 +153,6 @@ Cette laine représente les marchés où la laine n'est aujourd'hui pas/peu valo
 Le procédé ["Laine (par défaut)"](focus-laine.md#laine-par-defaut) est alors utilisé avec comme unique modification l'application d'un taux d'allocation de **4%**. &#x20;
 
 </details>
-
-### Coût environnemental&#x20;
-
-Comparaison du coût environnemental des deux scénarios proposés avec le coût environnemental du procédé source Ecoinvent.
-
-<figure><img src="../../../.gitbook/assets/Coût environnemental de 1kg de laine (source _ Ecobalyse).png" alt=""><figcaption></figcaption></figure>
 
 [^1]: Textile Exchange (market report 2023)
 
