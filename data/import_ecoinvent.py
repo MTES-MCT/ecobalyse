@@ -11,6 +11,7 @@ from common.import_ import add_missing_substances, import_simapro_csv
 # Ecoinvent
 EI391 = "./Ecoinvent3.9.1.CSV.zip"
 EI310 = "./Ecoinvent3.10.CSV.zip"
+WOOL = "./wool.CSV.zip"
 BIOSPHERE = "biosphere3"
 PROJECT = "default"
 EXCLUDED = [
@@ -42,6 +43,16 @@ def main():
             excluded_strategies=EXCLUDED,
         )
 
+    else:
+        print(f"{db} already imported")
+
+    if (db := "Woolmark") not in bw2data.databases:
+        import_simapro_csv(
+            join("..", "..", "dbfiles", WOOL),
+            db,
+            external_db="Ecoinvent 3.10",  # wool is linked with EI 3.10
+            excluded_strategies=EXCLUDED,
+        )
     else:
         print(f"{db} already imported")
 
