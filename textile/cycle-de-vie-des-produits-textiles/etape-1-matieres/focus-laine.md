@@ -134,15 +134,17 @@ Ecobalyse propose 2 types de laine à partir du procédé contruit par Woolmark 
 
 Ce procédé sur la laine a été préféré à celui, proposé par Ecoinvent, car il a été considéré comme plus représentatif des pratiques d'élevages.&#x20;
 
-_L'inventaire Woolmark détaillé est public sous condition d'avoir une licence Ecoinvent (car il s'appuie sur des intrants agricoles issus d'Ecoinvent). Il sera mis à disposition prochainement par l'ADEME via Base Empreinte et Ecobalyse._&#x20;
+
 
 <details>
 
 <summary>Laine (par défaut)</summary>
 
-L'ICV laine standard reflète les conditions d'élevage pratiquées sur les principaux marchés approvisionnant le textile d'habillement (Australie et Nouvelle-Zélande). Un critère d'allocation économique de 37% a été retenu.
+L'ICV laine reflète la laine de mouton australienne issue de l'élevage extensif dont 75% est du Mérinos. Un critère d'allocation économique de 37% a été retenu, se basant sur le marché australien de production de laine pour le textile d'habillement pour l'année et sur les données MLA National Livestock Reporting Service Australian Wool Exchange transmises par Woolmark.
 
-&#x20;Cette allocation se base sur le principal marché de production de laine pour le textile d'habillement (Australie / année 2020) et sur les données MLA National Livestock Reporting Service Australian Wool Exchange transmises par Woolmark.
+
+
+
 
 </details>
 
@@ -155,6 +157,8 @@ Cette laine représente les marchés où la laine n'est aujourd'hui pas/peu valo
 Le procédé ["Laine (par défaut)"](focus-laine.md#laine-par-defaut) est alors utilisé avec comme unique modification l'application d'un taux d'allocation de **4%**.  (mise à jour en cours, l'ancienne donnée "laine ecoinvent" est utilisée en source actuellement, mais cela a peu d'impact sur le résultat le coefficiant d'allocation étant le paramètre déterminant).&#x20;
 
 </details>
+
+_L'inventaire Woolmark détaillé est public sous condition d'avoir une licence Ecoinvent (car il s'appuie sur des intrants agricoles issus d'Ecoinvent). Il sera mis à disposition prochainement par l'ADEME via Base Empreinte et Ecobalyse._&#x20;
 
 [^1]: Textile Exchange (market report 2023)
 
