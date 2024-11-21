@@ -45,7 +45,6 @@ Les variables d'environnement suivantes doivent être définies :
 - `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
 - `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `True`)
 - `DJANGO_SECRET_KEY` : la [clé secrète de Django](https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY)
-- `ECOBALYSE_DATA_DIR`: l'emplacement du dépôt de données détaillées sur le système de fichier. Note: à terme, cette valeur deviendra optionnelle pour autoriser un fonctionnement en mode restreint.
 - `EMAIL_HOST` : le host SMTP pour envoyer les mail liés à l'authentification
 - `EMAIL_HOST_USER`: l'utilisateur du compte SMTP
 - `EMAIL_HOST_PASSWORD` : le mot de passe du compte SMTP pour envoyer les mail liés à l'authentification
@@ -72,6 +71,14 @@ Pour initialiser la base de données (attention, toutes les données présentes,
     $ pipenv run ./backend/update.sh
 
 ## Développement
+
+### Déchiffrage des fichiers
+
+Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local. Assurez-vous d’installer les dépendances listées sur [la page dédiée](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) puis lancez la commande suivante :
+
+    ./bin/transcrypt -c aes-256-cbc -p 'your_password'
+
+Remplacez `your_password` par le mot de passe `transcrypt` stocké dans https://vaultwarden.incubateur.net/.
 
 ### Environnement de développement local
 
