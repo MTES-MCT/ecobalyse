@@ -27,6 +27,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Decrypt files
+        run: bin/transcrypt -y -c aes-256-cbc -p ${{ secrets.TRANSCRYPT_KEY }}
+
       - name: Get latest version
         uses: orhun/git-cliff-action@v4
         id: git_cliff
@@ -60,13 +63,6 @@ jobs:
         if: steps.tag_creation.outputs.tag_created
         run: npm ci --prefer-offline --no-audit
 
-      - name: Clone the detailed impacts
-        if: steps.tag_creation.outputs.tag_created
-        run: |
-          eval `ssh-agent -s`
-          ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
-          git clone git@github.com:MTES-MCT/ecobalyse-private.git
-
       - name: Build app
         if: steps.tag_creation.outputs.tag_created
         env:
@@ -84,9 +80,9 @@ jobs:
           # We include the encrypted detailed processes with the dist
           # so that people with the encryption key could later on use the app with the exact
           # files it was using on production
-          npm run encrypt $ECOBALYSE_DATA_DIR/data/textile/processes_impacts.json dist/processes_impacts_textile.json.enc
-          npm run encrypt $ECOBALYSE_DATA_DIR/data/food/processes_impacts.json dist/processes_impacts_food.json.enc
-          npm run encrypt $ECOBALYSE_DATA_DIR/data/object/processes_impacts.json dist/processes_impacts_object.json.enc
+          npm run encrypt public/data/textile/processes_impacts.json dist/processes_impacts_textile.json.enc
+          npm run encrypt public/data/food/processes_impacts.json dist/processes_impacts_food.json.enc
+          npm run encrypt public/data/object/processes_impacts.json dist/processes_impacts_object.json.enc
 
       - name: Generate dist archive
         if: steps.tag_creation.outputs.tag_created

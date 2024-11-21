@@ -24,6 +24,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Decrypt files
+      run: bin/transcrypt -y -c aes-256-cbc -p ${{ secrets.TRANSCRYPT_KEY }}
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:

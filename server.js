@@ -7,7 +7,7 @@ const cors = require("cors");
 const yaml = require("js-yaml");
 const helmet = require("helmet");
 const { Elm } = require("./server-app");
-const lib = require("./lib");
+const { setupTracker, dataFiles } = require("./lib");
 const { decrypt } = require("./lib/crypto");
 const express = require("express");
 
@@ -21,14 +21,7 @@ const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
-const {
-  ECOBALYSE_DATA_DIR,
-  ENABLE_FOOD_SECTION,
-  MATOMO_HOST,
-  MATOMO_SITE_ID,
-  MATOMO_TOKEN,
-  NODE_ENV,
-} = process.env;
+const { ENABLE_FOOD_SECTION, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
 
 var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -41,14 +34,6 @@ version.use(rateLimiter);
 // Matomo
 if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
   console.error("Matomo environment variables are missing. Please check the README.");
-  process.exit(1);
-}
-
-let dataFiles;
-try {
-  dataFiles = lib.getDataFiles(ECOBALYSE_DATA_DIR);
-} catch (err) {
-  console.error(`🚨 ERROR: ${err.message}`);
   process.exit(1);
 }
 
@@ -169,7 +154,7 @@ const openApiContents = processOpenApi(
 );
 
 // Matomo
-const apiTracker = lib.setupTracker(openApiContents);
+const apiTracker = setupTracker(openApiContents);
 
 const processesImpacts = {
   foodProcesses: fs.readFileSync(dataFiles.foodDetailed, "utf8"),
