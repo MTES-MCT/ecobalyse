@@ -85,15 +85,7 @@ git clone $ECOBALYSE_GIT_REPO $PUBLIC_GIT_CLONE_DIR
 
 cd $PUBLIC_GIT_CLONE_DIR
 
-if git rev-parse "$COMMIT_OR_TAG" >/dev/null 2>&1; then
-  # Tag exists
-  # Use custom error handler to avoid set -eo to be triggred before displaying the error message
-  git checkout tags/$COMMIT_OR_TAG || error_handler $ERR_INVALID_COMMIT
-  TAG=$COMMIT_OR_TAG
-else
-  # Tag doesn't exist
-  git checkout $COMMIT_OR_TAG || error_handler $ERR_INVALID_COMMIT
-fi
+git checkout $COMMIT_OR_TAG || error_handler $ERR_INVALID_COMMIT
 
 
 # Check if detailed impacts are present in the directory, if not an ECOBALYSE_DATA_DIR env variable need to be set
@@ -141,6 +133,21 @@ if [[ ! -f "$TEXTILE_DETAILED_IMPACTS_FILE" ]]; then
   cp $DATA_DIR_GIT_CLONE_DIR/data/food/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/public/data/food/processes_impacts.json
 
   export ECOBALYSE_DATA_DIR=$DATA_DIR_GIT_CLONE_DIR
+else
+  if [[ -f "bin/transcrypt" ]]; then
+
+    if [ -z "$TRANSCRYPT_KEY" ]; then
+
+      echo ""
+      echo "🚨 This version of the application requires a TRANSCRYPT_KEY environment var to be set to be able to decrypt the detailed impacts."
+      echo ""
+      exit
+
+    fi
+
+    ./bin/transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
+
+  fi
 fi
 
 ELM_VERSION_FILE=$PUBLIC_GIT_CLONE_DIR"/src/Request/Version.elm"
@@ -154,6 +161,7 @@ $ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FIL
 $ROOT_DIR/bin/patch_files_for_versions_compat.py version-selector $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0001-feat-patch-homepage-link-and-inject-and-inject-versi.patch $PUBLIC_GIT_CLONE_DIR
 
 cd $PUBLIC_GIT_CLONE_DIR
+
 
 # Installing node stuff
 # We need to specify dev as the env to avoid errors with needed dev packages at build time like
@@ -197,11 +205,16 @@ mkdir -p $VERSION_DIR
 
 npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/textile/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_textile.json.enc
 npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/food/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_food.json.enc
-npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/object/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_object.json.enc
+
+# Objects are not present in old versions
+if [[ -f "$PUBLIC_GIT_CLONE_DIR/public/data/object/processes_impacts.json" ]]; then
+  npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/object/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_object.json.enc
+fi
 
 # Never ship detailed impacts
 rm -f -- $PUBLIC_GIT_CLONE_DIR/data/textile/processes_impacts.json
 rm -f -- $PUBLIC_GIT_CLONE_DIR/data/food/processes_impacts.json
+rm -f -- $PUBLIC_GIT_CLONE_DIR/data/object/processes_impacts.json
 
 mv $PUBLIC_GIT_CLONE_DIR/server-app.js $PUBLIC_GIT_CLONE_DIR/dist
 mv $PUBLIC_GIT_CLONE_DIR/openapi.yaml $PUBLIC_GIT_CLONE_DIR/dist

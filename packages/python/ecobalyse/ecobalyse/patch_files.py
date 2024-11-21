@@ -112,9 +112,16 @@ def patch_cross_origin_index_html_file(index_html_file: pathlib.Path):
 
 
 def patch_version_selector(patch_file: pathlib.Path, git_dir: pathlib.Path):
-    with open(os.path.join(git_dir, "index.html"), "r") as index_file:
+    with (
+        open(os.path.join(git_dir, "index.html"), "r") as index_file,
+        open(os.path.join(git_dir, "src/Views/Page.elm")) as page_file,
+    ):
         data = index_file.read()
-        if data.count('selector.classList.add("VersionSelector"') > 0:
+        page_data = page_file.read()
+        if (
+            data.count('selector.classList.add("VersionSelector"') > 0
+            or page_data.count("VersionSelector") > 0
+        ):
             logger.info("Patch content already present in `index.html`, skipping.")
         else:
             logger.info(
