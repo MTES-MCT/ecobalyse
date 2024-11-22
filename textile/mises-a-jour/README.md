@@ -10,6 +10,23 @@ description: >-
 
 <details>
 
+<summary>v2.6.0</summary>
+
+* Intégration de la [laine Woolmark](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/focus-laine)
+
+</details>
+
+<details>
+
+<summary>v2.5.0</summary>
+
+* Affichage du score hors durabilité
+* Nettoyage de l'explorateur textile
+
+</details>
+
+<details>
+
 <summary>v2.3.0</summary>
 
 * [Transport aérien](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport) adapté en fonction de la durabilité
