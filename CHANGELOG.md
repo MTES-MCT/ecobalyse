@@ -1,6 +1,57 @@
 # Changelog
 
 
+## [2.6.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.5.0..v2.6.0) (2024-11-20)
+
+
+
+### 🚀 Features
+
+- Add API FAQ page. ([#829](https://github.com/MTES-MCT/ecobalyse/issues/829))
+- Intégration Laine woolmark ([#831](https://github.com/MTES-MCT/ecobalyse/issues/831))
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade dependencies, Nov. 2024. ([#830](https://github.com/MTES-MCT/ecobalyse/issues/830))
+- *(data)* Fixed typo paysane→paysanne ([#836](https://github.com/MTES-MCT/ecobalyse/issues/836))
+
+
+## [2.5.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.4.0..v2.5.0) (2024-11-07)
+
+
+
+### 🚀 Features
+
+- Add bookmarks for objects ([#781](https://github.com/MTES-MCT/ecobalyse/issues/781))
+- Add object explorer pages. ([#803](https://github.com/MTES-MCT/ecobalyse/issues/803))
+- Distinguish Objects from Veli. ([#813](https://github.com/MTES-MCT/ecobalyse/issues/813))
+- Display score without durability ([#815](https://github.com/MTES-MCT/ecobalyse/issues/815))
+- Textile export ([#808](https://github.com/MTES-MCT/ecobalyse/issues/808))
+- Object export ([#812](https://github.com/MTES-MCT/ecobalyse/issues/812))
+
+### 🪲 Bug Fixes
+
+- Create object encrypted file for versions ([#800](https://github.com/MTES-MCT/ecobalyse/issues/800))
+- Improve object simulator. ([#799](https://github.com/MTES-MCT/ecobalyse/issues/799))
+- Fix encoded display name field. ([#820](https://github.com/MTES-MCT/ecobalyse/issues/820))
+
+### 🚜 Refactor
+
+- Aggregate in python ([#794](https://github.com/MTES-MCT/ecobalyse/issues/794))
+- Turn food process category into a list ([#795](https://github.com/MTES-MCT/ecobalyse/issues/795))
+- Aggregate in python ([#807](https://github.com/MTES-MCT/ecobalyse/issues/807))
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade dependencies to their latest version, Oct. 2024. ([#801](https://github.com/MTES-MCT/ecobalyse/issues/801))
+- Add tolerance to tests comparison ([#810](https://github.com/MTES-MCT/ecobalyse/issues/810))
+- *(data)* New export ([#819](https://github.com/MTES-MCT/ecobalyse/issues/819))
+
+### ◀️ Revert
+
+- "refactor: aggregate in python" ([#806](https://github.com/MTES-MCT/ecobalyse/issues/806))
+
+
 ## [2.4.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.3.0..v2.4.0) (2024-10-10)
 
 

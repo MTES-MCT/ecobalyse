@@ -6,11 +6,11 @@
     "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
-      "Cow milk, organic, system 1, at farm gate/FR U": 0.2,
-      "Cow milk, organic, system 2, at farm gate/FR U": 0.2,
-      "Cow milk, organic, system 3, at farm gate/FR U": 0.2,
-      "Cow milk, organic, system 4, at farm gate/FR U": 0.2,
-      "Cow milk, organic, system 5, at farm gate/FR U": 0.2
+      "Cow milk, organic, system number 1, at farm gate {FR} U": 0.2,
+      "Cow milk, organic, system number 2, at farm gate {FR} U": 0.2,
+      "Cow milk, organic, system number 3, at farm gate {FR} U": 0.2,
+      "Cow milk, organic, system number 4, at farm gate {FR} U": 0.2,
+      "Cow milk, organic, system number 5, at farm gate {FR} U": 0.2
     }
   },
   {
@@ -20,15 +20,15 @@
     "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
-      "Cull cow, organic, milk system 1, at farm gate/FR U code:5c5b4e3b445434b613b17824a3b2a9b9": 0.088226426,
-      "Cull cow, organic, milk system 2, at farm gate/FR U code:7da35fec534f2dcd1725089bd6b6bc85": 0.088226426,
-      "Cull cow, organic, milk system 3, at farm gate/FR U code:ab7471b184646c14e582530ecec0981f": 0.156880481,
-      "Cull cow, organic, milk system 4, at farm gate/FR U code:df07194b1f3f459cd9049829a8675d2b": 0.156880481,
-      "Cull cow, organic, milk system 5, at farm gate/FR U code:1f2c7b45c99573452fc959395d10b77c": 0.156880481,
-      "Suckler cull cow, organic, suckler cow system 1, at farm gate/FR U": 0.088226426,
-      "Suckler cull cow, organic, suckler cow system 2, at farm gate/FR U": 0.088226426,
-      "Suckler cull cow, organic, suckler cow system 3, at farm gate/FR U": 0.088226426,
-      "Suckler cull cow, organic, suckler cow system 4, at farm gate/FR U": 0.088226426
+      "Cull cow, organic, milk system number 1, at farm gate {FR} U": 0.088226426,
+      "Cull cow, organic, milk system number 2, at farm gate {FR} U": 0.088226426,
+      "Cull cow, organic, milk system number 3, at farm gate {FR} U": 0.156880481,
+      "Cull cow, organic, milk system number 4, at farm gate {FR} U": 0.156880481,
+      "Cull cow, organic, milk system number 5, at farm gate {FR} U": 0.156880481,
+      "Suckler cull cow, organic, suckler cow system number 1, at farm gate {FR} U": 0.088226426,
+      "Suckler cull cow, organic, suckler cow system number 2, at farm gate {FR} U": 0.088226426,
+      "Suckler cull cow, organic, suckler cow system number 3, at farm gate {FR} U": 0.088226426,
+      "Suckler cull cow, organic, suckler cow system number 4, at farm gate {FR} U": 0.088226426
     }
   },
   {
@@ -38,9 +38,9 @@
     "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
-      "Lamb, organic, system 1, at farm gate/FR U": 0.333333333,
-      "Lamb, organic, system 2, at farm gate/FR U": 0.333333333,
-      "Lamb, organic, system 3, at farm gate/FR U": 0.333333333
+      "Lamb, organic, system number 1, at farm gate {FR} U": 0.333333333,
+      "Lamb, organic, system number 2, at farm gate {FR} U": 0.333333333,
+      "Lamb, organic, system number 3, at farm gate {FR} U": 0.333333333
     }
   },
   {
@@ -50,9 +50,9 @@
     "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
-      "Grain maize, organic, system 1, at farm gate/FR U": 0.204981481,
-      "Grain maize, organic, system 2, at farm gate/FR U": 0.204981481,
-      "Grain maize, organic, system 3, at farm gate/FR U": 0.590037037
+      "Grain maize, organic, system number 1, at farm gate {FR} U": 0.204981481,
+      "Grain maize, organic, system number 2, at farm gate {FR} U": 0.204981481,
+      "Grain maize, organic, system number 3, at farm gate {FR} U": 0.590037037
     }
   },
   {
@@ -62,24 +62,24 @@
     "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
-      "Winter wheat, organic, system 1, at farm gate/FR U": 0.094707216,
-      "Winter wheat, organic, system 10, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 11, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 12, at farm gate/FR U": 0.094707216,
-      "Winter wheat, organic, system 13, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 14, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 15, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 16, at farm gate/FR U": 0.094707216,
-      "Winter wheat, organic, system 17, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 18, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 2, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 3, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 4, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 5, at farm gate/FR U": 0.094707216,
-      "Winter wheat, organic, system 6, at farm gate/FR U": 0.094707216,
-      "Winter wheat, organic, system 7, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 8, at farm gate/FR U": 0.035979725,
-      "Winter wheat, organic, system 9, at farm gate/FR U": 0.094707216
+      "Winter wheat, organic, system number 1, at farm gate {FR} U": 0.094707216,
+      "Winter wheat, organic, system number 10, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 11, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 12, at farm gate {FR} U": 0.094707216,
+      "Winter wheat, organic, system number 13, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 14, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 15, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 16, at farm gate {FR} U": 0.094707216,
+      "Winter wheat, organic, system number 17, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 18, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 2, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 3, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 4, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 5, at farm gate {FR} U": 0.094707216,
+      "Winter wheat, organic, system number 6, at farm gate {FR} U": 0.094707216,
+      "Winter wheat, organic, system number 7, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 8, at farm gate {FR} U": 0.035979725,
+      "Winter wheat, organic, system number 9, at farm gate {FR} U": 0.094707216
     }
   },
   {
@@ -89,13 +89,13 @@
     "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
-      "Grape, organic, AOC, Maconnais, at vineyard/FR U": 0.161403948,
-      "Grape, organic, PDO, dry white wine, system 1, at vineyard gate/FR U": 0.161403948,
-      "Grape, organic, PDO, dry white wine, system 2, at vineyard gate/FR U": 0.128947039,
-      "Grape, organic, PDO, dry white wine, system 3, at vineyard gate/FR U": 0.128947039,
-      "Grape, organic, PDO, dry white wine, system 4, at vineyard gate/FR U": 0.128947039,
-      "Grape, organic, PDO, dry white wine, system 5, at vineyard gate/FR U": 0.161403948,
-      "Grape, organic, variety mix, Languedoc-Roussillon, at vineyard/FR U": 0.128947039
+      "Grape, organic, AOC, Maconnais, at vineyard {FR} U": 0.161403948,
+      "Grape, organic, PDO, dry white wine, system number 1, at vineyard gate {FR} U": 0.161403948,
+      "Grape, organic, PDO, dry white wine, system number 2, at vineyard gate {FR} U": 0.128947039,
+      "Grape, organic, PDO, dry white wine, system number 3, at vineyard gate {FR} U": 0.128947039,
+      "Grape, organic, PDO, dry white wine, system number 4, at vineyard gate {FR} U": 0.128947039,
+      "Grape, organic, PDO, dry white wine, system number 5, at vineyard gate {FR} U": 0.161403948,
+      "Grape, organic, variety mix, Languedoc-Roussillon, at vineyard {FR} U": 0.128947039
     }
   },
   {
@@ -105,16 +105,16 @@
     "suffix": "constructed by Ecobalyse",
     "subactivities": [],
     "add": {
-      "Soybean grain, organic, system 1, at farm gate/FR U": 0.25,
-      "Soybean grain, organic, system 2, at farm gate/FR U": 0.25,
-      "Soybean grain, organic, system 3, at farm gate/FR U": 0.25,
-      "Soybean grain, organic, system 4, at farm gate/FR U": 0.25
+      "Soybean grain, organic, system number 1, at farm gate {FR} U": 0.25,
+      "Soybean grain, organic, system number 2, at farm gate {FR} U": 0.25,
+      "Soybean grain, organic, system number 3, at farm gate {FR} U": 0.25,
+      "Soybean grain, organic, system number 4, at farm gate {FR} U": 0.25
     }
   },
   {
     "id": "flour-organic",
     "search_in": "Agribalyse 3.1.1",
-    "search": "Wheat flour at industrial mill",
+    "search": "Wheat flour, at industrial mill {FR} U",
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [
       "Global milling process, soft wheat, steel-roller-milled, industrial production, French production mix, at plant, 1 kg bulk flour at the exit gate (PDi) {FR} U"
@@ -200,7 +200,7 @@
   {
     "id": "rapeseed-oil-organic",
     "search_in": "Agribalyse 3.1.1",
-    "search": "Rapeseed oil mill {GLO}",
+    "search": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],
     "replace": { "Rapeseed at farm GLO adapted from WFLDB": "Winter rapeseed organic at farm gate" }
@@ -238,7 +238,7 @@
   {
     "id": "pig-fr-organic",
     "search_in": "Agribalyse 3.1.1",
-    "search": "Pig, conventional, national average, at farm gate",
+    "search": "Pig, conventional, national average, at farm gate {FR} U",
     "suffix": "[fr-organic], constructed by Ecobalyse",
     "subactivities": [
       "Pig, French average, finishing feed, conv prod, at farm gate {FR} U",
@@ -252,7 +252,7 @@
   {
     "id": "pig-br",
     "search_in": "Agribalyse 3.1.1",
-    "search": "Pig, conventional, national average, at farm gate",
+    "search": "Pig, conventional, national average, at farm gate {FR} U",
     "suffix": "[br], constructed by Ecobalyse",
     "subactivities": [
       "Pig, French average, finishing feed, conv prod, at farm gate {FR} U",
@@ -266,7 +266,7 @@
   {
     "id": "sunflower-oil-organic",
     "search_in": "Agribalyse 3.1.1",
-    "search": "sunflower oil at mill {glo}",
+    "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],
     "replace": {
@@ -298,14 +298,14 @@
       ["Agribalyse 3.1.1", "Broiler, broiler feed organic prod, at farm gate {FR} U"]
     ],
     "replace": {
-      "Soybean meal, organic, crushing in France common process meal": "Soybean organic animal feed farm gate FR",
-      "Soybean organic GLO market for cut-off S copied from ecoinvent U": "Soybean organic animal feed farm gate FR"
+      "Soybean meal, organic, crushing in France, common process meal and oil, at french mill, average {FR} U": "Soybean organic animal feed farm gate FR",
+      "Soybean, organic {GLO}| market for | Cut-off, S - Copied from Ecoinvent U": "Soybean organic animal feed farm gate FR"
     }
   },
   {
     "id": "butter-organic",
     "search_in": "Agribalyse 3.1.1",
-    "search": "Butter, 82% fat, unsalted, at dairy {FR}",
+    "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": ["Butter, 82% fat, unsalted, unsalted, at dairy {RER} - Adapted from WFLDB U"],
     "replace": {
@@ -379,11 +379,11 @@
   {
     "id": "chicken-breast-fr-ext-organic",
     "search_in": "Ecobalyse",
-    "search": "Meat without bone, chicken, for direct consumption [bbc]",
+    "search": "Meat without bone, chicken, for direct consumption {FR} U [bbc], constructed by Ecobalyse",
     "suffix": "[fr-ext-organic]",
     "subactivities": [
-      "Meat with bone, chicken, for direct consumption {FR} U [bbc]",
-      "Broiler, live, for direct consumption {FR} U [bbc]",
+      "Meat without bone, chicken, for direct consumption {FR} U [bbc], constructed by Ecobalyse",
+      "Broiler, live, for direct consumption {FR} U [bbc], constructed by Ecobalyse (variant 5)",
       ["Agribalyse 3.1.1", "Broiler, Bleu Blanc Coeur, at farm gate"]
     ],
     "replace": {
@@ -395,11 +395,11 @@
   {
     "id": "chicken-breast-fr-ext",
     "search_in": "Ecobalyse",
-    "search": "Meat without bone, chicken, for direct consumption [bbc]",
+    "search": "Meat without bone, chicken, for direct consumption {FR} U [bbc], constructed by Ecobalyse",
     "suffix": "[fr-ext]",
     "subactivities": [
-      "Meat with bone, chicken, for direct consumption {FR} U [bbc]",
-      "Broiler, live, for direct consumption {FR} U [bbc]",
+      "Meat without bone, chicken, for direct consumption {FR} U [bbc], constructed by Ecobalyse",
+      "Broiler, live, for direct consumption {FR} U [bbc], constructed by Ecobalyse (variant 5)",
       ["Agribalyse 3.1.1", "Broiler, Bleu Blanc Coeur, at farm gate"]
     ],
     "replace": {
