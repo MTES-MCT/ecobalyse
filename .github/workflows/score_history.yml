@@ -72,24 +72,6 @@ jobs:
         run: pip install numpy pandas requests python-dotenv GitPython sqlalchemy psycopg2
 
 
-      - name: Clone the detailed impacts
-        run: |
-          eval `ssh-agent -s`
-          ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
-          git clone git@github.com:MTES-MCT/ecobalyse-private.git
-
-      - name: Checkout specific ecobalyse-private branch
-        env:
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          eval `ssh-agent -s`
-          # Private ssh key used by this Github action to clone the private repo
-          # The corresponding public key must be set as a deploy key of the private repo
-          ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
-          # As this action is not triggered by the pull_request event, the current sha
-          # can be found in $GITHUB_SHA (setup by github actions)
-          pipenv run ./bin/checkout-ecobalyse-private-branch.sh $GITHUB_SHA
-
       - name: Add scalingo to know hosts
         run: echo "KNOWN_HOSTS=$(ssh-keyscan -H ssh.osc-fr1.scalingo.com)" >> $GITHUB_ENV
 
