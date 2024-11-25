@@ -84,7 +84,7 @@ buildApiQuery scope clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
-        |> Pipe.required "items" (Decode.list decodeItem)
+        |> Pipe.required "components" (Decode.list decodeItem)
 
 
 decodeItem : Decoder Component
@@ -118,7 +118,7 @@ defaultComponent =
 encode : Query -> Encode.Value
 encode query =
     Encode.object
-        [ ( "items"
+        [ ( "components"
           , Encode.list encodeItem query.components
           )
         ]
