@@ -133,6 +133,43 @@ AGRIBALYSE_MIGRATIONS = [
         },
     }
 ]
+PASTOECO_MIGRATIONS = [
+    {
+        "name": "pastoeco-technosphere-fixes",
+        "description": "Fixes to ease linking to agb",
+        "data": {
+            "fields": ("name",),
+            "data": [
+                (
+                    ("Diesel {Europe without Switzerland}| market for | Cut-off, S",),
+                    {
+                        "name": "Diesel {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U"
+                    },
+                ),
+                (
+                    ("Petrol, two-stroke blend {GLO}| market for | Cut-off, S",),
+                    {
+                        "name": "Petrol, two-stroke blend {GLO}| market for | Cut-off, S - Copied from Ecoinvent U"
+                    },
+                ),
+                (
+                    (
+                        "Tap water {Europe without Switzerland}| market for | Cut-off, S",
+                    ),
+                    {
+                        "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U"
+                    },
+                ),
+                (
+                    ("Electricity, low voltage {FR}| market for | Cut-off, S",),
+                    {
+                        "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U"
+                    },
+                ),
+            ],
+        },
+    }
+]
 
 
 def remove_azadirachtine(db):
@@ -233,6 +270,7 @@ if __name__ == "__main__":
         import_simapro_csv(
             join("..", "..", "dbfiles", PASTOECO),
             db,
+            migrations=PASTOECO_MIGRATIONS,
             excluded_strategies=EXCLUDED,
             other_strategies=[
                 functools.partial(
