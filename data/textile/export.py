@@ -193,8 +193,6 @@ if __name__ == "__main__":
     )
 
     # Export
-
-    export_json(format_numbers_recursively(order_json(activities)), ACTIVITIES_FILE)
     export_json(format_numbers_recursively(order_json(materials)), MATERIALS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
