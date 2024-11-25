@@ -25,19 +25,20 @@ suite =
                 , traceability = False
                 }
                 |> Unit.nonPhysicalDurabilityToFloat
-                |> Expect.within (Expect.Absolute 0.01) 1.1
+                |> Expect.within (Expect.Absolute 0.01) 0.98
                 |> asTest "should compute durability index"
             ]
         , describe "computeNumberOfReferencesIndex"
             ([ ( 1, 1 )
-             , ( 3000, 1 )
-             , ( 3750, 0.95 )
-             , ( 4500, 0.9 )
-             , ( 5250, 0.85 )
-             , ( 6000, 0.8 )
-             , ( 8000, 0.65 )
-             , ( 10000, 0.5 )
-             , ( 30000, 0.25 )
+             , ( 500, 1 )
+             , ( 750, 1 )
+             , ( 1000, 1 )
+             , ( 2000, 0.91 )
+             , ( 3000, 0.83 )
+             , ( 4500, 0.7 )
+             , ( 7000, 0.5 )
+             , ( 11500, 0.25 )
+             , ( 16000, 0 )
              , ( 50000, 0 )
              , ( 100000, 0 )
              ]

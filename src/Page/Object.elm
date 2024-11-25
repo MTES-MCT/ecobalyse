@@ -12,12 +12,13 @@ import Autocomplete exposing (Autocomplete)
 import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
+import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Process as Process exposing (Process)
+import Data.Object.Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator exposing (Results)
 import Data.Scope as Scope exposing (Scope)
@@ -28,6 +29,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
 import Route
+import Set exposing (Set)
 import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
@@ -50,6 +52,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , detailedComponents : Set String
     , examples : List (Example Query)
     , impact : Definition
     , initialQuery : Query
@@ -60,24 +63,27 @@ type alias Model =
 
 
 type Modal
-    = ComparatorModal
+    = AddComponentModal (Autocomplete Query.Component)
+    | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
 
 
 type Msg
-    = AddItem Query.Item
-    | CopyToClipBoard String
+    = CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
+    | OnAutocompleteAddComponent (Autocomplete.Msg Query.Component)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
+    | OnAutocompleteSelectComponent
     | OpenComparator
-    | RemoveItem Process.Id
+    | RemoveComponent String
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
+    | SetDetailedComponents (Set String)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -85,7 +91,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateItem Query.Item
+    | UpdateComponent Query.Component
 
 
 init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
@@ -110,6 +116,7 @@ init scope trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
+      , detailedComponents = Set.empty
       , examples = examples
       , impact = Definition.get trigram session.db.definitions
       , initialQuery = initialQuery
@@ -154,6 +161,7 @@ initFromExample session scope uuid =
       , bookmarkName = exampleQuery |> suggestBookmarkName session examples
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
+      , detailedComponents = Set.empty
       , examples = examples
       , impact = Definition.get Definition.Ecs session.db.definitions
       , initialQuery = exampleQuery
@@ -220,10 +228,6 @@ update ({ navKey } as session) msg model =
                 |> Session.objectQueryFromScope model.scope
     in
     case ( msg, model.modal ) of
-        ( AddItem item, _ ) ->
-            update session (SetModal NoModal) model
-                |> updateQuery { query | items = item :: query.items }
-
         ( CopyToClipBoard shareableLink, _ ) ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
@@ -234,6 +238,19 @@ update ({ navKey } as session) msg model =
             )
 
         ( NoOp, _ ) ->
+            ( model, session, Cmd.none )
+
+        ( OnAutocompleteAddComponent autocompleteMsg, AddComponentModal autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = AddComponentModal newAutocompleteState }
+            , session
+            , Cmd.map OnAutocompleteAddComponent autoCompleteCmd
+            )
+
+        ( OnAutocompleteAddComponent _, _ ) ->
             ( model, session, Cmd.none )
 
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
@@ -256,15 +273,22 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteSelect, _ ) ->
             ( model, session, Cmd.none )
 
+        ( OnAutocompleteSelectComponent, AddComponentModal autocompleteState ) ->
+            ( model, session, Cmd.none )
+                |> selectComponent query autocompleteState
+
+        ( OnAutocompleteSelectComponent, _ ) ->
+            ( model, session, Cmd.none )
+
         ( OpenComparator, _ ) ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
 
-        ( RemoveItem processId, _ ) ->
+        ( RemoveComponent name, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.removeItem processId query)
+                |> updateQuery (Query.removeComponent name query)
 
         ( SaveBookmark, _ ) ->
             ( model
@@ -298,6 +322,18 @@ update ({ navKey } as session) msg model =
 
         ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
+
+        ( SetDetailedComponents detailedComponents, _ ) ->
+            ( { model | detailedComponents = detailedComponents }
+            , session
+            , Cmd.none
+            )
+
+        ( SetModal (AddComponentModal autocomplete), _ ) ->
+            ( { model | modal = AddComponentModal autocomplete }
+            , session
+            , Ports.addBodyClass "prevent-scrolling"
+            )
 
         ( SetModal ComparatorModal, _ ) ->
             ( { model | modal = ComparatorModal }
@@ -356,9 +392,9 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        ( UpdateItem item, _ ) ->
+        ( UpdateComponent component, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateItem item query)
+                |> updateQuery (Query.updateComponent component query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -386,6 +422,17 @@ selectExample autocompleteState ( model, session, _ ) =
         |> updateQuery exampleQuery
 
 
+selectComponent : Query -> Autocomplete Query.Component -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectComponent query autocompleteState ( model, session, _ ) =
+    let
+        selectedComponent =
+            Autocomplete.selectedValue autocompleteState
+                |> Maybe.withDefault Query.defaultComponent
+    in
+    update session (SetModal NoModal) model
+        |> updateQuery { query | components = query.components ++ [ selectedComponent ] }
+
+
 simulatorView : Session -> Model -> Html Msg
 simulatorView session model =
     div [ class "row" ]
@@ -408,7 +455,7 @@ simulatorView session model =
                 ]
             , session
                 |> Session.objectQueryFromScope model.scope
-                |> itemListView session.db model.impact model.results
+                |> componentListView session.db model
                 |> div [ class "card shadow-sm mb-3" ]
             ]
         , div [ class "col-lg-4 bg-white" ]
@@ -447,38 +494,33 @@ simulatorView session model =
         ]
 
 
-addItemButton : Db -> Query -> Html Msg
-addItemButton db query =
+addComponentButton : Db -> Query -> Html Msg
+addComponentButton db query =
     let
-        firstAvailableProcess =
-            query
-                |> Simulator.availableProcesses db
-                |> List.head
+        availableComponents =
+            Simulator.availableComponents db query
+
+        autocompleteState =
+            AutocompleteSelector.init .name availableComponents
     in
     button
         [ class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
         , id "add-new-element"
-        , disabled <| firstAvailableProcess == Nothing
-        , onClick <|
-            case firstAvailableProcess of
-                Just process ->
-                    AddItem (Query.defaultItem process)
-
-                Nothing ->
-                    NoOp
+        , disabled <| List.length availableComponents == 0
+        , onClick (SetModal (AddComponentModal autocompleteState))
         ]
         [ i [ class "icon icon-plus" ] []
-        , text "Ajouter un élément"
+        , text "Ajouter un composant"
         ]
 
 
-itemListView : Db -> Definition -> Results -> Query -> List (Html Msg)
-itemListView db selectedImpact results query =
+componentListView : Db -> Model -> Query -> List (Html Msg)
+componentListView db { detailedComponents, impact, results } query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ]
-            [ text "Éléments"
+            [ text "Production des composants"
             , Link.smallPillExternal
                 -- FIXME: link to Veli explorer?
                 [ Route.href (Route.Explore Scope.Object (Dataset.ObjectProcesses Nothing))
@@ -488,7 +530,7 @@ itemListView db selectedImpact results query =
                 [ Icon.search ]
             ]
         ]
-    , if List.isEmpty query.items then
+    , if List.isEmpty query.components then
         div [ class "card-body" ] [ text "Aucun élément." ]
 
       else
@@ -506,65 +548,96 @@ itemListView db selectedImpact results query =
                     [ table [ class "table mb-0" ]
                         [ thead []
                             [ tr [ class "fs-7 text-muted" ]
-                                [ th [ class "ps-3", scope "col" ] [ text "Quantité" ]
-                                , th [ scope "col" ] [ text "Procédé" ]
-                                , th [ scope "col" ] [ text "Densité" ]
+                                [ th [] []
+                                , th [ class "ps-0", scope "col" ] [ text "Quantité" ]
+                                , th [ scope "col", colspan 2 ] [ text "Composant" ]
                                 , th [ scope "col" ] [ text "Masse" ]
                                 , th [ scope "col" ] [ text "Impact" ]
                                 , th [ scope "col" ] []
                                 ]
                             ]
                         , Simulator.extractItems results
-                            |> List.map2 (itemView selectedImpact) items
+                            |> List.map2 (componentView impact detailedComponents) items
+                            |> List.concat
                             |> tbody []
                         ]
                     ]
-    , addItemButton db query
+    , addComponentButton db query
     ]
 
 
-itemView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
-itemView selectedImpact ( amount, process ) itemResults =
-    tr []
-        [ td [ class "ps-3 align-middle" ]
-            [ div [ class "input-group", style "min-width" "180px" ]
-                [ input
-                    [ type_ "number"
-                    , class "form-control text-end"
-                    , amount |> Query.amountToFloat |> String.fromFloat |> value
-                    , step <|
-                        case process.unit of
-                            "kg" ->
-                                "0.01"
+componentView : Definition -> Set String -> ( Query.Quantity, String, List ( Query.Amount, Process ) ) -> Results -> List (Html Msg)
+componentView selectedImpact detailedComponents ( quantity, name, processes ) itemResults =
+    let
+        collapsed =
+            not <| Set.member name detailedComponents
+    in
+    List.concat
+        [ [ tr []
+                [ th [ class "ps-3 align-middle", scope "col" ]
+                    [ button
+                        [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
+                        , onClick <|
+                            SetDetailedComponents
+                                (if collapsed then
+                                    Set.insert name detailedComponents
 
-                            "m3" ->
-                                "0.00001"
+                                 else
+                                    Set.remove name detailedComponents
+                                )
+                        ]
+                        [ if collapsed then
+                            text "▶"
 
-                            _ ->
-                                "1"
-                    , onInput <|
-                        \str ->
-                            case String.toFloat str of
-                                Just float ->
-                                    UpdateItem
-                                        { amount = Query.amount float
-                                        , processId = process.id
-                                        }
-
-                                Nothing ->
-                                    NoOp
+                          else
+                            text "▼"
+                        ]
                     ]
-                    []
-                , span
-                    [ class "input-group-text justify-content-center fs-8"
-                    , style "width" "38px"
+                , td [ class "ps-0 align-middle" ]
+                    [ quantity |> quantityInput processes name ]
+                , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
+                    [ text name ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Format.kg <| Simulator.extractMass itemResults ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Simulator.extractImpacts itemResults |> Format.formatImpact selectedImpact ]
+                , td [ class "pe-3 align-middle text-nowrap" ]
+                    [ button [ class "btn btn-outline-secondary", onClick (RemoveComponent name) ]
+                        [ Icon.trash ]
                     ]
-                    [ text process.unit ]
                 ]
-            ]
+          , if not collapsed then
+                tr [ class "fs-7 text-muted" ]
+                    [ th [] []
+                    , th [ class "text-end", scope "col" ] [ text "Quantité" ]
+                    , th [ scope "col" ] [ text "Procédé" ]
+                    , th [ scope "col" ] [ text "Densité" ]
+                    , th [ scope "col" ] [ text "Masse" ]
+                    , th [ scope "col" ] [ text "Impact" ]
+                    , th [ scope "col" ] [ text "" ]
+                    ]
+
+            else
+                text ""
+          ]
+        , if not collapsed then
+            Simulator.extractItems itemResults
+                |> List.map2 (processView selectedImpact) processes
+
+          else
+            []
+        ]
+
+
+processView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
+processView selectedImpact ( amount, process ) itemResults =
+    tr [ class "fs-7" ]
+        [ td [] []
+        , td [ class "text-end text-nowrap" ]
+            [ Format.amount process amount ]
         , td [ class "align-middle text-truncate w-100" ]
             [ text process.displayName ]
-        , td [ class "align-middle text-end" ]
+        , td [ class "align-middle text-end text-nowrap" ]
             [ Format.density process ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Simulator.extractMass itemResults ]
@@ -573,9 +646,43 @@ itemView selectedImpact ( amount, process ) itemResults =
                 |> Format.formatImpact selectedImpact
             ]
         , td [ class "pe-3 align-middle text-nowrap" ]
-            [ button [ class "btn btn-outline-secondary", onClick (RemoveItem process.id) ]
-                [ Icon.trash ]
+            []
+        ]
+
+
+quantityInput : List ( Query.Amount, Process ) -> String -> Query.Quantity -> Html Msg
+quantityInput processes name quantity =
+    div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
+        [ input
+            [ type_ "number"
+            , class "form-control text-end"
+            , quantity |> Query.quantityToInt |> String.fromInt |> value
+            , step "1"
+            , Html.Attributes.min "1"
+            , onInput <|
+                \str ->
+                    String.toInt str
+                        |> Maybe.andThen
+                            (\int ->
+                                if int > 0 then
+                                    Just int
+
+                                else
+                                    Nothing
+                            )
+                        |> Maybe.map
+                            (\nonNullInt ->
+                                -- FIX: don't update components based on their name
+                                -- swith to components ids as soon as they are implemented
+                                UpdateComponent
+                                    { name = name
+                                    , quantity = Query.quantity nonNullInt
+                                    , processes = processes |> List.map (\( amount, process ) -> { amount = amount, processId = process.id })
+                                    }
+                            )
+                        |> Maybe.withDefault NoOp
             ]
+            []
         ]
 
 
@@ -585,6 +692,20 @@ view session model =
     , [ Container.centered [ class "Simulator pb-3" ]
             [ simulatorView session model
             , case model.modal of
+                AddComponentModal autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , footer = []
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompleteAddComponent
+                        , onAutocompleteSelect = OnAutocompleteSelectComponent
+                        , placeholderText = "tapez ici le nom du composant pour le rechercher"
+                        , title = "Sélectionnez un composant"
+                        , toLabel = .name
+                        , toCategory = \_ -> ""
+                        }
+
                 ComparatorModal ->
                     ModalView.view
                         { size = ModalView.ExtraLarge

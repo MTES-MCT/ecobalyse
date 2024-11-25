@@ -3,7 +3,7 @@
     "sweet-corn-fr": 0.485,
     "soft-wheat-organic": 1.09,
     "soybean-organic": 0.204,
-    "bean": 0.274
+    "bean-fr": 0.274
   },
   "egg-organic-code0": {
     "sweet-corn-organic-fr": 0.8,
@@ -47,7 +47,7 @@
   },
   "ground-beef-feedlot": {
     "oilseed-feed": 6.1,
-    "barley-de": 6.33,
+    "barley-eu": 6.33,
     "oats-glo": 12.68
   },
   "beef-without-bone": {

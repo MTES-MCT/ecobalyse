@@ -1,7 +1,22 @@
 # Changelog
 
 
-## [2.5.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.4.0..v2.5.0) (2024-11-06)
+## [2.6.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.5.0..v2.6.0) (2024-11-20)
+
+
+
+### 🚀 Features
+
+- Add API FAQ page. ([#829](https://github.com/MTES-MCT/ecobalyse/issues/829))
+- Intégration Laine woolmark ([#831](https://github.com/MTES-MCT/ecobalyse/issues/831))
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade dependencies, Nov. 2024. ([#830](https://github.com/MTES-MCT/ecobalyse/issues/830))
+- *(data)* Fixed typo paysane→paysanne ([#836](https://github.com/MTES-MCT/ecobalyse/issues/836))
+
+
+## [2.5.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.4.0..v2.5.0) (2024-11-07)
 
 
 

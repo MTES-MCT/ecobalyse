@@ -55,7 +55,12 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "29 octobre 2024"
+    [ { date = "13 novembre 2024"
+      , level = "minor"
+      , domains = []
+      , md = "Ajout d'une [FAQ](/#/pages/api-faq) dédiée à l'API."
+      }
+    , { date = "29 octobre 2024"
       , level = "minor"
       , domains = [ "Textile" ]
       , md = "Ajout du champ `impactsWithoutDurability` dans la réponse des calculs détaillés. Ce champ a le même format que le champ `impacts` mais contient les scores avant application du coefficient de durabilité."
@@ -505,8 +510,8 @@ view session _ =
             [ h1 [ class "mb-3" ] [ text "API Ecobalyse" ]
             , div [ class "row" ]
                 [ div [ class "col-xl-8" ]
-                    [ p [ class "fw-bold" ]
-                        [ text "L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles et alimentaires." ]
+                    [ """L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles et alimentaires. """
+                        |> Markdown.simple [ class "fw-bold" ]
                     , p []
                         [ text "Elle est accessible à l'adresse "
                         , code [] [ text (getApiServerUrl session) ]
@@ -530,6 +535,9 @@ view session _ =
              fonction des retours et demandes d’évolutions. **Il est vivement déconseillé de vous reposer sur
              cette API en production et/ou pour des missions critiques.**"""
                                 |> Markdown.simple [ class "fs-7" ]
+                            , p [ class "fs-8 mb-0 text-end" ]
+                                [ a [ Route.href (Route.Editorial "api-faq") ] [ text "Accéder à la FAQ »" ]
+                                ]
                             ]
                         }
                     , div [ class "card" ]

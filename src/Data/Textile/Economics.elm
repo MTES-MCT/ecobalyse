@@ -161,24 +161,20 @@ computeNumberOfReferencesIndex n =
             (low - toFloat n) / (low - high)
     in
     Unit.ratio <|
-        if n <= 3000 then
-            -- From 0 to 3000: 100%
+        if n <= 1000 then
+            -- From 0 to 1000: 100%
             1
 
-        else if n <= 6000 then
-            -- From 3000 to 6000: decreasing from 100% to 80%
-            0.8 + (fromThreshold 3000 6000 * 0.2)
+        else if n <= 7000 then
+            -- From 1000 to 7000: decreasing from 100% to 50%
+            0.5 + (fromThreshold 1000 7000 * (1 - 0.5))
 
-        else if n <= 10000 then
-            -- From 6000 to 10000: decreasing from 80% to 50%
-            0.5 + (fromThreshold 6000 10000 * (0.8 - 0.5))
-
-        else if n <= 50000 then
-            -- From 10000 to 50000: decreasing from 50% to 0%
-            fromThreshold 10000 50000 * 0.5
+        else if n <= 16000 then
+            -- From 7000 to 16000: decreasing from 50% to 0%
+            fromThreshold 7000 16000 * 0.5
 
         else
-            -- Over 50000: 0%
+            -- Over 16000: 0%
             0
 
 
