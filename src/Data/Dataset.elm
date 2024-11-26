@@ -14,6 +14,7 @@ import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition
+import Data.Object.Component as ObjectComponent
 import Data.Object.Process as ObjectProcess
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
@@ -34,6 +35,7 @@ type Dataset
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe FoodProcess.Identifier)
     | Impacts (Maybe Definition.Trigram)
+    | ObjectComponents (Maybe ObjectComponent.Id)
     | ObjectExamples (Maybe Uuid)
     | ObjectProcesses (Maybe ObjectProcess.Id)
     | TextileExamples (Maybe Uuid)
@@ -54,9 +56,10 @@ datasets scope =
             ]
 
         Scope.Object ->
-            [ Impacts Nothing
-            , ObjectExamples Nothing
+            [ ObjectExamples Nothing
+            , ObjectComponents Nothing
             , ObjectProcesses Nothing
+            , Impacts Nothing
             ]
 
         Scope.Textile ->
@@ -94,6 +97,9 @@ fromSlug string =
         "materials" ->
             TextileMaterials Nothing
 
+        "object-components" ->
+            ObjectComponents Nothing
+
         "object-examples" ->
             ObjectExamples Nothing
 
@@ -126,6 +132,9 @@ isDetailed dataset =
             True
 
         Impacts (Just _) ->
+            True
+
+        ObjectComponents (Just _) ->
             True
 
         ObjectExamples (Just _) ->
@@ -178,6 +187,9 @@ reset dataset =
         Impacts _ ->
             Impacts Nothing
 
+        ObjectComponents _ ->
+            ObjectComponents Nothing
+
         ObjectExamples _ ->
             ObjectExamples Nothing
 
@@ -218,6 +230,9 @@ same a b =
         ( TextileExamples _, TextileExamples _ ) ->
             True
 
+        ( ObjectComponents _, ObjectComponents _ ) ->
+            True
+
         ( ObjectExamples _, ObjectExamples _ ) ->
             True
 
@@ -254,6 +269,9 @@ setIdFromString idString dataset =
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
+
+        ObjectComponents _ ->
+            ObjectComponents (ObjectComponent.idFromString idString)
 
         ObjectExamples _ ->
             ObjectExamples (Uuid.fromString idString)
@@ -296,6 +314,9 @@ strings dataset =
 
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
+
+        ObjectComponents _ ->
+            { label = "Composants", slug = "object-components" }
 
         ObjectExamples _ ->
             { label = "Exemples", slug = "object-examples" }
@@ -347,6 +368,12 @@ toRoutePath dataset =
             [ slug dataset, Definition.toString trigram ]
 
         Impacts Nothing ->
+            [ slug dataset ]
+
+        ObjectComponents (Just id) ->
+            [ slug dataset, ObjectComponent.idToString id ]
+
+        ObjectComponents Nothing ->
             [ slug dataset ]
 
         ObjectExamples (Just id) ->

@@ -11,6 +11,8 @@ module Data.Object.Component exposing
     , decodeList
     , encodeComponentItem
     , findById
+    , idFromString
+    , idToString
     , quantityFromInt
     , quantityToInt
     )
@@ -133,6 +135,11 @@ findById id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
+
+
+idFromString : String -> Maybe Id
+idFromString str =
+    Uuid.fromString str |> Maybe.map Id
 
 
 idToString : Id -> String
