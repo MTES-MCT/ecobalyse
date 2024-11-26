@@ -14,7 +14,7 @@ module Data.Object.Query exposing
 
 import Base64
 import Data.Object.Component as Component exposing (Component, ComponentItem)
-import Data.Object.Process as Process exposing (Process)
+import Data.Object.Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -71,7 +71,11 @@ addComponentItem id query =
 
 removeComponent : Component.Id -> Query -> Query
 removeComponent id ({ components } as query) =
-    { query | components = components |> List.filter (.id >> (/=) id) }
+    { query
+        | components =
+            components
+                |> List.filter (.id >> (/=) id)
+    }
 
 
 updateComponentItem : ComponentItem -> Query -> Query
@@ -91,44 +95,10 @@ updateComponentItem newItem query =
 
 
 toString : List Component -> List Process -> Query -> Result String String
-toString components processes =
-    .components
-        >> RE.combineMap (componentItemToString components processes)
-        >> Result.map (String.join ", ")
-
-
-componentItemToString : List Component -> List Process -> ComponentItem -> Result String String
-componentItemToString components processes componentItem =
-    case Component.findById componentItem.id components of
-        Err err ->
-            Err err
-
-        Ok component ->
-            component.processes
-                |> RE.combineMap (processItemToString processes)
-                |> Result.map (String.join " | ")
-                |> Result.map
-                    (\processesString ->
-                        String.fromInt (Component.quantityToInt componentItem.quantity)
-                            ++ " "
-                            ++ component.name
-                            ++ " [ "
-                            ++ processesString
-                            ++ " ]"
-                    )
-
-
-processItemToString : List Process -> Component.ProcessItem -> Result String String
-processItemToString processes processItem =
-    processItem.processId
-        |> Process.findById processes
-        |> Result.map
-            (\process ->
-                String.fromFloat (Component.amountToFloat processItem.amount)
-                    ++ process.unit
-                    ++ " "
-                    ++ process.displayName
-            )
+toString components processes query =
+    query.components
+        |> RE.combineMap (Component.componentItemToString components processes)
+        |> Result.map (String.join ", ")
 
 
 

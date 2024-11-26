@@ -6,6 +6,7 @@ module Data.Object.Component exposing
     , ProcessItem
     , Quantity
     , amountToFloat
+    , componentItemToString
     , decodeComponentItem
     , decodeList
     , encodeComponentItem
@@ -14,11 +15,12 @@ module Data.Object.Component exposing
     , quantityToInt
     )
 
-import Data.Object.Process as Process
+import Data.Object.Process as Process exposing (Process)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import Result.Extra as RE
 
 
 type Id
@@ -55,6 +57,40 @@ type Quantity
 amountToFloat : Amount -> Float
 amountToFloat (Amount float) =
     float
+
+
+componentItemToString : List Component -> List Process -> ComponentItem -> Result String String
+componentItemToString components processes componentItem =
+    case findById componentItem.id components of
+        Err err ->
+            Err err
+
+        Ok component ->
+            component.processes
+                |> RE.combineMap (processItemToString processes)
+                |> Result.map (String.join " | ")
+                |> Result.map
+                    (\processesString ->
+                        String.fromInt (quantityToInt componentItem.quantity)
+                            ++ " "
+                            ++ component.name
+                            ++ " [ "
+                            ++ processesString
+                            ++ " ]"
+                    )
+
+
+processItemToString : List Process -> ProcessItem -> Result String String
+processItemToString processes processItem =
+    processItem.processId
+        |> Process.findById processes
+        |> Result.map
+            (\process ->
+                String.fromFloat (amountToFloat processItem.amount)
+                    ++ process.unit
+                    ++ " "
+                    ++ process.displayName
+            )
 
 
 decode : Decoder Component
