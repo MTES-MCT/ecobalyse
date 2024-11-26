@@ -20,7 +20,7 @@ Ecobalyse permet aujourd'hui de modéliser les textiles tissés et tricotés.&#x
 
 Le tissage est le procédé d’assemblage des fils sur un métier à tisser, permettant d’obtenir un tissu chaîne et trame. Il consiste à entrecroiser les fils de chaîne (verticaux) et les fils de trame (horizontaux).&#x20;
 
-![](https://lh6.googleusercontent.com/Dj8\_WuHbYmQ0LTmK\_e8q1ThCI9vs2BhUnQwhkCauj3Qf8sKw\_L9CXUoQoYGemUq0qpQu8FoxOK-jiuzWSAgPNQDOH0vlDAXilLvu5Qw8ayfxzZ3LWXVRgX5Gh09c-OajgD5krRHjVw5Wxsn4M49clCcwJfbCU4w8TLsOu0mHv6hjhXoML9KUChsXxTQBNg)
+![](https://lh6.googleusercontent.com/Dj8_WuHbYmQ0LTmK_e8q1ThCI9vs2BhUnQwhkCauj3Qf8sKw_L9CXUoQoYGemUq0qpQu8FoxOK-jiuzWSAgPNQDOH0vlDAXilLvu5Qw8ayfxzZ3LWXVRgX5Gh09c-OajgD5krRHjVw5Wxsn4M49clCcwJfbCU4w8TLsOu0mHv6hjhXoML9KUChsXxTQBNg)
 
 Les différentes combinaisons d’entrecroisement des fils sont très nombreuses et portent le nom d'armures.
 
@@ -46,16 +46,16 @@ Une contexture est formulée comme suit : 30 x 27 Nm 56/50 :&#x20;
 
 1. **Préparation au tissage**\
    \
-   _Ourdissage_\
+   &#xNAN;_&#x4F;urdissage_\
    Les fils de chaîne sont alimentés à partir d’une ensouple (cylindre autour duquel est enroulée la chaîne du tissu) qui est installée à l’arrière d’un métier à tisser. La préparation de l'ensouple de tissage se fait par le procédé d'ourdissage.\
    \
-   _Encollage_\
+   &#xNAN;_&#x45;ncollage_\
    Afin de protéger et lubrifier les fils de chaîne, des agents d'encollage sont appliqués après l'ourdissage (sous forme de solutions ou de dispersion d'eau). Dans ce cas précis, il sera nécessaire post-tissage de procéder au désencollage de ces mêmes fils afin de ne pas empêcher les colorants de se fixer sur la matière textile lors de l'ennoblissement. Deux types d'agents d'encollage sont utilisés : les polymères synthétiques vs naturels (à base de polysaccharides).\
 
 2. **Tissage**\
    Il existe différents types de métiers en fonction des besoins de production, des largeurs de tissus, des matériaux utilisés, des motifs voulus, etc.\
    \
-   ![L'image ci-dessous montre le principe du tissage, la disposition des fils et des principales fonctions.](https://lh5.googleusercontent.com/3ORnFz4LL6Y4QQ-AA8tYU\_EHGpst87WkpuT2OclJ4vwdNovLvqzk2DOiZV47Cbz4fyTfF6x4h\_9n-qpE3ozTcSbH42TGSaiF9gw2srF5pPm\_IC6NSDSUvHEOjDbUepvOB2yM2Ki86Ra12Ru0DOPW1T11Hjzw8IpE2e17xUTAtcGNRqlzC\_YDfTryrlqaIA)
+   ![L'image ci-dessous montre le principe du tissage, la disposition des fils et des principales fonctions.](https://lh5.googleusercontent.com/3ORnFz4LL6Y4QQ-AA8tYU_EHGpst87WkpuT2OclJ4vwdNovLvqzk2DOiZV47Cbz4fyTfF6x4h_9n-qpE3ozTcSbH42TGSaiF9gw2srF5pPm_IC6NSDSUvHEOjDbUepvOB2yM2Ki86Ra12Ru0DOPW1T11Hjzw8IpE2e17xUTAtcGNRqlzC_YDfTryrlqaIA)
 
 L'amélioration de la technologie a permis de développer des techniques d'insertion de la trame augmentant ainsi la vitesse de production des métiers à plus de 1 200 insertions (ou duites) à la minute avec les métiers à air (une duite est la longueur d’un fil de trame inséré, d’une lisière à l’autre, dans le tissu).
 
@@ -205,7 +205,9 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/product
 
 <details>
 
-<summary>Titrage fil (Nm) <br><em>Nm 20 = 20 mètres de ce fil pèsent 1 gramme</em>  </summary>
+<summary>Titrage fil (Nm) </summary>
+
+&#x4E;_&#x6D; 20 = 20 mètres de ce fil pèsent 1 gramme_ &#x20;
 
 Le titrage du fil est mobilisé à double titre :&#x20;
 
@@ -337,7 +339,7 @@ En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/
     Dans le cas où l'utilisateur sélectionne ce procédé, les paramètres de la confection sont modifiés en conséquence et figés. \
     Complexité = Très faible\
     Taux de pertes = 2%
-  * _Tricotage intégral / whole garment (_optionnel)\
+  * _Tricotage intégral / whole garment (_&#x6F;ptionnel)\
     Dans le cas où l'utilisateur sélectionne ce procédé, les paramètres de la confection sont modifiés en conséquence (étape de confection non applicable) et figés. Cette technique permet de fabriquer le vêtement en une seule pièce sans couture lors du tricotage.\
     Complexité = non applicable \
     Taux de pertes = non applicable
@@ -370,7 +372,7 @@ Exemple de cinq contextures proposant toutes un tissu de 280 g/m2 :  \
 \- 25x25, Nm 20x45\
 \- 40x40, Nm 48x48\
 \- 50x50, Nm 60x60\
-_hypothèse : embuvage = retrait = 8%_
+&#xNAN;_&#x68;ypothèse : embuvage = retrait = 8%_
 
 Cet exemple illustre le fait que plus l'épaisseur des fils augmente (donc Nm diminue), plus la densité de fils diminue pour un grammage (g/m2) constant; et inversement.&#x20;
 
