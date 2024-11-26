@@ -10,7 +10,6 @@ import bw2io
 from bw2data.project import projects
 from bw2io.strategies.generic import link_technosphere_by_activity_hash
 from common.import_ import (
-    add_created_activities,
     add_missing_substances,
     import_simapro_csv,
 )
@@ -322,8 +321,3 @@ if __name__ == "__main__":
     if args.recreate_activities:
         if "Ecobalyse" in bw2data.databases:
             del bw2data.databases["Ecobalyse"]
-
-    if (db := "Ecobalyse") not in bw2data.databases:
-        add_created_activities(db, ACTIVITIES_TO_CREATE)
-    else:
-        print(f"{db} already imported")
