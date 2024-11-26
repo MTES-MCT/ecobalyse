@@ -394,7 +394,13 @@ def find_id(dbname, activity):
 
 
 def compute_simapro_impacts(activity, method, impacts_py):
-    strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
+    name = (
+        activity["name"]
+        if spproject(activity) != "World Food LCA Database"
+        # TODO this should probably done through disabling a strategy
+        else f"{activity['name']}/{activity['location']} U"
+    )
+    strprocess = urllib.parse.quote(name, encoding=None, errors=None)
     project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
