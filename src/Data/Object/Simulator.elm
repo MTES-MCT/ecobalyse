@@ -3,7 +3,7 @@ module Data.Object.Simulator exposing
     , availableComponents
     , compute
     , emptyResults
-    , expandItems
+    , expandProcessItems
     , extractImpacts
     , extractItems
     , extractMass
@@ -12,8 +12,9 @@ module Data.Object.Simulator exposing
 
 import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
 import Data.Impact.Definition as Definition
+import Data.Object.Component as Component exposing (Component, ComponentItem, ProcessItem)
 import Data.Object.Process as Process exposing (Process)
-import Data.Object.Query as Query exposing (Component, ProcessItem, Query, quantityToInt)
+import Data.Object.Query as Query exposing (Query)
 import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
@@ -29,24 +30,15 @@ type Results
         }
 
 
-
--- FIX: read the components from a file
--- For now take the components from the example and consider that they are unique by name
-
-
 availableComponents : Db -> Query -> List Component
 availableComponents { object } query =
     let
-        -- FIX: For now, consider that components are unique by name, we should
-        -- replace it with ids later on
-        usedNames =
+        usedIds =
             query.components
-                |> List.map .name
+                |> List.map .id
     in
-    object.examples
-        |> List.concatMap (.query >> .components)
-        |> LE.uniqueBy .name
-        |> List.filter (\{ name } -> not (List.member name usedNames))
+    object.components
+        |> List.filter (\{ id } -> not (List.member id usedIds))
         |> List.sortBy .name
 
 
@@ -63,23 +55,23 @@ addResults (Results results) (Results acc) =
 compute : Db -> Query -> Result String Results
 compute db query =
     query.components
-        |> List.map (computeItemResults db)
+        |> List.map (computeComponentItemResults db)
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
 
 
-computeItemResults : Db -> Component -> Result String Results
-computeItemResults db item =
-    item.processes
-        |> List.map (computeProcessItemResults db)
-        |> RE.combine
+computeComponentItemResults : Db -> ComponentItem -> Result String Results
+computeComponentItemResults db componentItem =
+    db.object.components
+        |> Component.findById componentItem.id
+        |> Result.andThen (.processes >> List.map (computeProcessItemResults db) >> RE.combine)
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
             (\(Results { impacts, mass, items }) ->
                 Results
-                    { impacts = Impact.sumImpacts (List.repeat (quantityToInt item.quantity) impacts)
+                    { impacts = Impact.sumImpacts (List.repeat (Component.quantityToInt componentItem.quantity) impacts)
                     , items = items
-                    , mass = Quantity.sum (List.repeat (quantityToInt item.quantity) mass)
+                    , mass = Quantity.sum (List.repeat (Component.quantityToInt componentItem.quantity) mass)
                     }
             )
 
@@ -93,16 +85,16 @@ computeProcessItemResults { object } { amount, processId } =
                 let
                     impacts =
                         process.impacts
-                            |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Query.amountToFloat amount))
+                            |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Component.amountToFloat amount))
 
                     mass =
                         Mass.kilograms <|
                             if process.unit == "kg" then
-                                Query.amountToFloat amount
+                                Component.amountToFloat amount
 
                             else
                                 -- apply density
-                                Query.amountToFloat amount * process.density
+                                Component.amountToFloat amount * process.density
                 in
                 Results
                     { impacts = impacts
@@ -121,18 +113,24 @@ emptyResults =
         }
 
 
-expandItems : Db -> Query -> Result String (List ( Query.Quantity, String, List ( Query.Amount, Process ) ))
-expandItems db =
+expandProcessItems : Db -> Query -> Result String (List ( Component.Quantity, Component, List ( Component.Amount, Process ) ))
+expandProcessItems db =
     .components
         >> List.map
-            (\item ->
-                expandProcesses db item.processes
-                    |> Result.map (\processes -> ( item.quantity, item.name, processes ))
+            (\componentItem ->
+                db.object.components
+                    |> Component.findById componentItem.id
+                    |> Result.andThen
+                        (\component ->
+                            component.processes
+                                |> expandProcesses db
+                                |> Result.map (\processes -> ( componentItem.quantity, component, processes ))
+                        )
             )
         >> RE.combine
 
 
-expandProcesses : Db -> List ProcessItem -> Result String (List ( Query.Amount, Process ))
+expandProcesses : Db -> List ProcessItem -> Result String (List ( Component.Amount, Process ))
 expandProcesses db processes =
     processes
         |> List.map (\{ amount, processId } -> ( amount, processId ))

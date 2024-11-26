@@ -1,13 +1,20 @@
 module Data.Object.Component exposing
-    ( Component
+    ( Amount
+    , Component
     , ComponentItem
+    , Id
     , ProcessItem
+    , Quantity
     , amountToFloat
+    , decodeComponentItem
     , decodeList
+    , encodeComponentItem
+    , findById
+    , quantityFromInt
     , quantityToInt
     )
 
-import Data.Object.Process as Process exposing (Process)
+import Data.Object.Process as Process
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -107,13 +114,20 @@ extractUuid (Id uuid) =
     uuid
 
 
+findById : Id -> List Component -> Result String Component
+findById id =
+    List.filter (.id >> (==) id)
+        >> List.head
+        >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
+
+
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
 
 
-quantity : Int -> Quantity
-quantity int =
+quantityFromInt : Int -> Quantity
+quantityFromInt int =
     Quantity int
 
 
