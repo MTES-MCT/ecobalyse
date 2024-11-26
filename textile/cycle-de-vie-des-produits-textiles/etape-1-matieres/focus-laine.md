@@ -113,11 +113,13 @@ Voici différents scénarios proposés par [Wiedemann et al (2015)](https://link
 De manière générale et sur la base d'une revue bibliographique, la majorité des scénarios retenus par les ACV de produits lainiers sont basés sur des systèmes basés sur des paturages, et pour les élevages les plus extensifs un usage du sol pouvant etre qualifié de "semi-naturel" (cf. notamment cette [étude ](#user-content-fn-13)[^13]à ce sujet).&#x20;
 
 {% hint style="info" %}
-**Services écosystémiques**
+**Services écosystémiques et autres enjeux environnementaux**
 
-L'élevage ovin extensif (pâturages) produit des services tels que la lutte contre les feux de forêts, le maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, la limitation de la prolifération d'espèces végétales invasives, etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], pour le cas de l'élevage extensif en Espagne par exemple).
+L'élevage extensif peut produire en plus de la laine ou la viande des services, en particulier en Europe dans un contexte général de haute densité de population. Les services rendus par les élevages extensifs peuvent être la lutte contre les feux de forêts, le maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, la limitation de la prolifération d'espèces végétales invasives,   etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], pour le cas de l'élevage extensif ovin en Espagne par exemple).
 
-Ces aspects ne sont pas pris en compte dans les indicateurs ACV actuels.  Comme cela a été fait pour l'alimentaire, des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.
+Ces aspects ne sont pas pris en compte dans les indicateurs ACV actuels.  Comme cela a été fait pour l'alimentaire, des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.&#x20;
+
+On note cependant que ce concept de "service ecosystémique" s'applique peu dans des territoires plus naturels et les "grands espaces", comme une partie de l'océanie, où d'autres mécanismes de régulations fonctionnent (ecosystèmes "adaptés" au risque d'incendie, faune sauvage importante, etc).  Des effets de concurrence fourragère avec les espèces endémiques ou encore l'introduction d'espèces invasives  peuvent aussi être observées en lien avec l'agriculture ou l'élevage ; autant de pistes d'amélioration pour la communauté ACV et plus largement de l'évaluation environnementale.&#x20;
 {% endhint %}
 
 ## Modélisation Ecobalyse
