@@ -84,11 +84,11 @@ buildApiQuery scope clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
-        |> Pipe.required "components" (Decode.list decodeItem)
+        |> Pipe.required "components" (Decode.list decodeComponent)
 
 
-decodeItem : Decoder Component
-decodeItem =
+decodeComponent : Decoder Component
+decodeComponent =
     Decode.map3 Component
         (Decode.field "name" Decode.string)
         (Decode.field "processes" (Decode.list decodeProcessItem))
