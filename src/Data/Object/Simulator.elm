@@ -14,8 +14,7 @@ import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Component as Component exposing (Component, ComponentItem, ProcessItem)
 import Data.Object.Process as Process exposing (Process)
-import Data.Object.Query as Query exposing (Query)
-import List.Extra as LE
+import Data.Object.Query exposing (Query)
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE

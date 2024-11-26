@@ -31,7 +31,6 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Object.Component as Component
 import Data.Object.Process as ObjectProcess
-import Data.Object.Query as ObjectQuery
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Unit as Unit

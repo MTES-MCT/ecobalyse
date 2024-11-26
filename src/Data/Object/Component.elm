@@ -84,34 +84,12 @@ decodeProcessItem =
         (Decode.field "process_id" Process.decodeId)
 
 
-encode : Component -> Encode.Value
-encode item =
-    Encode.object
-        [ ( "id", item.id |> extractUuid |> Uuid.encoder )
-        , ( "name", item.name |> Encode.string )
-        , ( "processes", item.processes |> Encode.list encodeProcessItem )
-        ]
-
-
 encodeComponentItem : ComponentItem -> Encode.Value
 encodeComponentItem componentItem =
     Encode.object
         [ ( "id", componentItem.id |> idToString |> Encode.string )
         , ( "quantity", componentItem.quantity |> quantityToInt |> Encode.int )
         ]
-
-
-encodeProcessItem : ProcessItem -> Encode.Value
-encodeProcessItem processItem =
-    Encode.object
-        [ ( "amount", processItem.amount |> amountToFloat |> Encode.float )
-        , ( "process_id", Process.encodeId processItem.processId )
-        ]
-
-
-extractUuid : Id -> Uuid
-extractUuid (Id uuid) =
-    uuid
 
 
 findById : Id -> List Component -> Result String Component
