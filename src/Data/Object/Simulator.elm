@@ -3,8 +3,6 @@ module Data.Object.Simulator exposing
     , availableComponents
     , compute
     , emptyResults
-    , expandProcessItems
-    , expandProcesses
     , extractImpacts
     , extractItems
     , extractMass
@@ -14,7 +12,7 @@ module Data.Object.Simulator exposing
 import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Component as Component exposing (Component, ComponentItem, ProcessItem)
-import Data.Object.Process as Process exposing (Process)
+import Data.Object.Process as Process
 import Data.Object.Query exposing (Query)
 import Mass exposing (Mass)
 import Quantity
@@ -111,31 +109,6 @@ emptyResults =
         , items = []
         , mass = Quantity.zero
         }
-
-
-expandProcessItems : Db -> Query -> Result String (List ( Component.Quantity, Component, List ( Component.Amount, Process ) ))
-expandProcessItems db =
-    .components
-        >> List.map
-            (\componentItem ->
-                db.object.components
-                    |> Component.findById componentItem.id
-                    |> Result.andThen
-                        (\component ->
-                            component.processes
-                                |> expandProcesses db
-                                |> Result.map (\processes -> ( componentItem.quantity, component, processes ))
-                        )
-            )
-        >> RE.combine
-
-
-expandProcesses : Db -> List ProcessItem -> Result String (List ( Component.Amount, Process ))
-expandProcesses db processes =
-    processes
-        |> List.map (\{ amount, processId } -> ( amount, processId ))
-        |> List.map (RE.combineMapSecond (Process.findById db.object.processes))
-        |> RE.combine
 
 
 extractImpacts : Results -> Impacts

@@ -2,7 +2,6 @@ module Page.Explore.ObjectComponents exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Object.Component as ObjectComponent
-import Data.Object.Simulator as Simulator
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -39,7 +38,7 @@ table db { detailed, scope } =
           , toValue =
                 Table.StringValue <|
                     \{ processes } ->
-                        case Simulator.expandProcesses db processes of
+                        case ObjectComponent.expandProcessItems db.object.processes processes of
                             Err _ ->
                                 ""
 
@@ -55,7 +54,7 @@ table db { detailed, scope } =
                                     |> String.join ", "
           , toCell =
                 \{ processes } ->
-                    case Simulator.expandProcesses db processes of
+                    case ObjectComponent.expandProcessItems db.object.processes processes of
                         Err err ->
                             Alert.simple
                                 { close = Nothing

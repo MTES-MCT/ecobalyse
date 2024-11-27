@@ -535,7 +535,7 @@ componentListView db { detailedComponents, impact, results } query =
         div [ class "card-body" ] [ text "Aucun élément." ]
 
       else
-        case Simulator.expandProcessItems db query of
+        case Component.expandComponentItems db.object query.components of
             Err error ->
                 Alert.simple
                     { close = Nothing
@@ -568,7 +568,7 @@ componentListView db { detailedComponents, impact, results } query =
 
 
 componentView : Definition -> List Component.Id -> ( Component.Quantity, Component, List ( Component.Amount, Process ) ) -> Results -> List (Html Msg)
-componentView selectedImpact detailedComponents ( quantity, component, processes ) itemResults =
+componentView selectedImpact detailedComponents ( quantity, component, processAmounts ) itemResults =
     let
         collapsed =
             not <| List.member component.id detailedComponents
@@ -627,7 +627,7 @@ componentView selectedImpact detailedComponents ( quantity, component, processes
           ]
         , if not collapsed then
             Simulator.extractItems itemResults
-                |> List.map2 (processView selectedImpact) processes
+                |> List.map2 (processView selectedImpact) processAmounts
 
           else
             []

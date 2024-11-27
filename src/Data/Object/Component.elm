@@ -10,6 +10,8 @@ module Data.Object.Component exposing
     , decodeComponentItem
     , decodeList
     , encodeComponentItem
+    , expandComponentItems
+    , expandProcessItems
     , findById
     , idFromString
     , idToString
@@ -82,17 +84,29 @@ componentItemToString components processes componentItem =
                     )
 
 
-processItemToString : List Process -> ProcessItem -> Result String String
-processItemToString processes processItem =
-    processItem.processId
-        |> Process.findById processes
-        |> Result.map
-            (\process ->
-                String.fromFloat (amountToFloat processItem.amount)
-                    ++ process.unit
-                    ++ " "
-                    ++ process.displayName
-            )
+expandComponentItems :
+    { a | components : List Component, processes : List Process }
+    -> List ComponentItem
+    -> Result String (List ( Quantity, Component, List ( Amount, Process ) ))
+expandComponentItems { components, processes } =
+    List.map
+        (\{ id, quantity } ->
+            findById id components
+                |> Result.andThen
+                    (\component ->
+                        component.processes
+                            |> expandProcessItems processes
+                            |> Result.map (\expandedItems -> ( quantity, component, expandedItems ))
+                    )
+        )
+        >> RE.combine
+
+
+expandProcessItems : List Process -> List ProcessItem -> Result String (List ( Amount, Process ))
+expandProcessItems processes =
+    List.map (\{ amount, processId } -> ( amount, processId ))
+        >> List.map (RE.combineMapSecond (Process.findById processes))
+        >> RE.combine
 
 
 decode : Decoder Component
@@ -145,6 +159,19 @@ idFromString str =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
+
+
+processItemToString : List Process -> ProcessItem -> Result String String
+processItemToString processes processItem =
+    processItem.processId
+        |> Process.findById processes
+        |> Result.map
+            (\process ->
+                String.fromFloat (amountToFloat processItem.amount)
+                    ++ process.unit
+                    ++ " "
+                    ++ process.displayName
+            )
 
 
 quantityFromInt : Int -> Quantity
