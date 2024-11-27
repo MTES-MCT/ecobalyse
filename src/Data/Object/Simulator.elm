@@ -4,6 +4,7 @@ module Data.Object.Simulator exposing
     , compute
     , emptyResults
     , expandProcessItems
+    , expandProcesses
     , extractImpacts
     , extractItems
     , extractMass

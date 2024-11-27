@@ -428,7 +428,7 @@ objectComponentsExplorer :
 objectComponentsExplorer db tableConfig tableState maybeId =
     [ db.object.components
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Object ObjectComponents.table
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Object (ObjectComponents.table db)
     , case maybeId of
         Just id ->
             detailsModal
@@ -438,7 +438,7 @@ objectComponentsExplorer db tableConfig tableState maybeId =
 
                     Ok component ->
                         component
-                            |> Table.viewDetails Scope.Object ObjectComponents.table
+                            |> Table.viewDetails Scope.Object (ObjectComponents.table db)
                 )
 
         Nothing ->

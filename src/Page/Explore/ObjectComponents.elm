@@ -2,14 +2,19 @@ module Page.Explore.ObjectComponents exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Object.Component as ObjectComponent
+import Data.Object.Simulator as Simulator
 import Data.Scope exposing (Scope)
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
+import Static.Db exposing (Db)
+import Views.Alert as Alert
+import Views.Format as Format
 
 
-table : { detailed : Bool, scope : Scope } -> Table ObjectComponent.Component String msg
-table { detailed, scope } =
+table : Db -> { detailed : Bool, scope : Scope } -> Table ObjectComponent.Component String msg
+table db { detailed, scope } =
     { filename = "components"
     , toId = .id >> ObjectComponent.idToString
     , toRoute = .id >> Just >> Dataset.ObjectComponents >> Route.Explore scope
@@ -28,7 +33,48 @@ table { detailed, scope } =
           }
         , { label = "Nom"
           , toValue = Table.StringValue .name
-          , toCell = .name >> text
+          , toCell = .name >> text >> List.singleton >> strong []
+          }
+        , { label = "Procédés"
+          , toValue =
+                Table.StringValue <|
+                    \{ processes } ->
+                        case Simulator.expandProcesses db processes of
+                            Err _ ->
+                                ""
+
+                            Ok list ->
+                                list
+                                    |> List.map
+                                        (\( amount, process ) ->
+                                            String.fromFloat (ObjectComponent.amountToFloat amount)
+                                                ++ process.unit
+                                                ++ " de "
+                                                ++ process.displayName
+                                        )
+                                    |> String.join ", "
+          , toCell =
+                \{ processes } ->
+                    case Simulator.expandProcesses db processes of
+                        Err err ->
+                            Alert.simple
+                                { close = Nothing
+                                , content = [ text err ]
+                                , level = Alert.Danger
+                                , title = Nothing
+                                }
+
+                        Ok list ->
+                            list
+                                |> List.map
+                                    (\( amount, process ) ->
+                                        li []
+                                            [ Format.amount process amount
+                                            , text <| " de " ++ process.displayName
+                                            ]
+                                    )
+                                |> List.intersperse (text ", ")
+                                |> ul [ class "m-0 px-2" ]
           }
         ]
     }
