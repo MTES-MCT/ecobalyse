@@ -165,6 +165,14 @@ PASTOECO_MIGRATIONS = [
                         "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U"
                     },
                 ),
+                (
+                    (
+                        "Newborn dairy calf, Conventional, Alsace, at farm gate, FR - MEANS#16615 U",
+                    ),
+                    {
+                        "name": "Newborn dairy calf, Conventional, Alsace, at farm gate - MEANS#16615, FR"
+                    },
+                ),
             ],
         },
     }
