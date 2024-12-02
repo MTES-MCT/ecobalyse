@@ -8,9 +8,6 @@ permissions:
   contents: write
   pull-requests: write
 
-env:
-  ECOBALYSE_DATA_DIR: ./ecobalyse-private
-
 jobs:
   create_tag_and_release:
     # The tag and the release should be created only when the automated PR created by `create_pr_for_changelog` is merged

@@ -9,7 +9,6 @@ on:
 
 env:
   NODE_ENV: test
-  ECOBALYSE_DATA_DIR: ./ecobalyse-private
 
 jobs:
   score_history:
