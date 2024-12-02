@@ -1,10 +1,5 @@
-# Install required deps in `Aptfile`
 https://github.com/Scalingo/apt-buildpack.git
-# Use python builpack to instlall requirements and venv
 https://github.com/Scalingo/python-buildpack
-# Launch custom commands using `buildpack-run.sh`
 https://github.com/MTES-MCT/ecobalyse-buildpack-run.git
-# Use npm/node
 https://github.com/Scalingo/nodejs-buildpack
-# Configure nginx using `servers.conf.erb`
 https://github.com/Scalingo/nginx-buildpack.git
