@@ -6,7 +6,7 @@ cd ecobalyse
 # Trick to avoid cloning the whole repo
 # Instead, only fetch the current commit
 git init
-git remote add origin git@github.com:MTES-MCT/ecobalyse.git
+git remote add origin https://github.com/MTES-MCT/ecobalyse.git
 # depth=1 as we don't need the history
 git fetch --depth 1 origin $SOURCE_VERSION
 git checkout FETCH_HEAD
