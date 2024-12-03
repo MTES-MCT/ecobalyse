@@ -105,11 +105,6 @@ La définition et la modélisation de chaque indice sont détaillées ci-après.
 
 ### Définition
 
-{% hint style="info" %}
-Pendant l'été 2024, un exercice de recueil de données est proposé aux marques. Il s'agir de recueillir de leur part une estimation du nombre de références (ou références couleurs) proposées sur leur site internet, en distinguant différents segments de marché : femme / homme / enfant / bébé / sous-vêtements... Dans cet exercice, il est demandé de dissocier les références proposées spécifiquement pour les grandes tailles pour les segments femme, homme et sous-vêtements. Une référence couvrant toutes les tailles jusqu'aux grandes tailles incluses ne doit pas être comptabilisée dans la catégorie "grandes tailles" mais dans la catégorie "standard".\
-Pour partager leurs données, les marques sont invitées à utiliser le formulaire suivant : [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l\_jCftG7S-\_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf\_link).&#x20;
-{% endhint %}
-
 **La largeur de gamme désigne le nombre de références proposées simultanément par une marque ou une plateforme**. Ce paramètre qualifie donc la marque ou la plateforme, et donc l'ensemble des références qu'elle propose.
 
 Précisions :&#x20;
@@ -135,7 +130,7 @@ Les largeurs de gamme à considérer sont alors (cf. tableau ci-dessous) :\
 * Par "référence", on entend généralement une suite de lettres ou de chiffres figurant sur la page produit, et correspondant à une couleur donnée d’un produit donné. Ce terme peut correspondre à la notion d'unité de gestion de stock (UGC ou SKU pour Stock Keeping Unit) ou encore de **référence couleur**.&#x20;
 
 {% hint style="info" %}
-Lors de la phase de concertation du printemps 2024, certains acteurs ont demandé à ce que soient comptabilisées les références et non les références couleurs. Les réponses aux questionnaire introduit ci-dessus (cf. [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l\_jCftG7S-\_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf\_link)) permettront de mieux apprécier l'opportunité de basculer d'un décompte des références à un décompte des références couleurs.
+Lors de la phase de concertation du printemps 2024, certains acteurs ont demandé à ce que soient comptabilisées les références et non les références couleurs. Les réponses aux questionnaire introduit ci-dessus (cf. [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l_jCftG7S-_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf_link)) permettront de mieux apprécier l'opportunité de basculer d'un décompte des références à un décompte des références couleurs.
 {% endhint %}
 
 * **Une référence peut être déclinée en plusieurs tailles**. On compte alors bien une seule référence pour l'ensemble des tailles proposées. Certaines références peuvent concerner spécifiquement certaines tailles. C'est par exemple le cas pour les grandes tailles. Sur l'illustration ci-après, chaque ligne correspond à une référence, indépendamment de la gamme de tailles couvertes.
@@ -147,7 +142,7 @@ Lors de la phase de concertation du printemps 2024, certains acteurs ont demand�
 | Référence #3 | Non     | Oui         |
 
 {% hint style="info" %}
-Lors de la phase de concertation du printemps 2024, certains acteurs ont demandé à ce que soient distinguées les segments pour lesquels les références sont proposées : homme / femme / enfant, mais aussi grandes tailles. Les réponses aux questionnaire introduit ci-dessus (cf. [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l\_jCftG7S-\_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf\_link)) permettront de mieux apprécier l'opportunité d'introduire une telle distinction.
+Lors de la phase de concertation du printemps 2024, certains acteurs ont demandé à ce que soient distinguées les segments pour lesquels les références sont proposées : homme / femme / enfant, mais aussi grandes tailles. Les réponses aux questionnaire introduit ci-dessus (cf. [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l_jCftG7S-_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf_link)) permettront de mieux apprécier l'opportunité d'introduire une telle distinction.
 {% endhint %}
 
 * **Seules les références correspondant à du textile d'habillement doivent être comptabilisées**. Les chaussures ou les sacs, par exemple, ne doivent pas être comptabilisés. Les références correspondant à du textile d'habillement mais qui pourraient ne pas être couvertes par le cadre réglementaire (ex : un pull en cachemire) doivent bien être comptabilisées.
@@ -173,10 +168,6 @@ L'indice "largeur de gamme" prend les valeurs suivantes :&#x20;
 En première approche, une unique formule est appliquée quelle que soit la marque ou la plateforme qui commercialise le produit considéré. Au besoin, l'introduction d'échelles différenciées pourra être envisagée pour distinguer les marques qui ne couvriraient qu'une partie du marché (vêtements pour hommes, vêtements pour femme, vêtements pour enfants, vêtements de sport...).
 {% endhint %}
 
-{% hint style="info" %}
-Une collecte de données est engagée à l'été 2024 auprès des marques afin d'ajuster ou de préciser au besoin la formule introduite ci-dessus.&#x20;
-{% endhint %}
-
 ## Incitation à la réparation (1/2)
 
 ### Définition
@@ -191,7 +182,7 @@ Etude Ademe 2022 sur le fonds réemploi-réutilisation et réparation de la fili
 Précisions :&#x20;
 
 * Le prix de vente considéré est celui proposé sur le canal de vente de référence, tel que défini dans la section relative à l'indice "largeur de gamme".
-* Le coût moyen de réparation considéré, pour chaque catégorie de produit, est précisé dans l'[explorateur Ecobalye](https://ecobalyse-v2.osc-fr1.scalingo.io/#/explore/textile/products). Il s'appuie sur l'étude Ademe 2022 sur le fonds réemploi-réutilisation et réparation de la filière TLC
+* Le coût moyen de réparation considéré, pour chaque catégorie de produit, est précisé dans l'[explorateur Ecobalyse](https://ecobalyse-v2.osc-fr1.scalingo.io/#/explore/textile/products). Il s'appuie sur l'étude Ademe 2022 sur le fonds réemploi-réutilisation et réparation de la filière TLC
 
 {% hint style="info" %}
 Des précisions seront prochainement apportées sur la définition du prix de vente à considérer.
@@ -252,7 +243,7 @@ Lorsqu'un vêtement est commercialisé par une marque qui est une PME ou une TPE
 La partie 2/2 prend les valeurs suivantes :&#x20;
 
 * 0% si la marque ne propose pas de service de réparation ou de garantie respectant les exigences minimales
-* 100% si la marque propose un tel service
+* 100% si la marque dispose d’au moins un service de réparation en propre, labellisé par l’éco-organisme Refashion dans le cadre du bonus réparation.
 
 Formule résultante, lorsqu'un vêtement est commercialisé par une grande entreprise :&#x20;
 
@@ -270,7 +261,8 @@ Précisions :&#x20;
 
 * Les étapes considérées sont, a minima, la confection, l'ennoblissement (ou la teinture) et le tissage / tricotage.
 * Le décret n° 2022-748 du 29 avril 2022 relatif à l'information du consommateur sur les qualités et caractéristiques environnementales de produits générateurs de déchets impose d'ores et déjà qu'une information relative au pays dans lequel ces trois étapes sont réalisées soit mise à disposition. Il ne couvre toutefois pas toutes les entreprises et il n'impose pas que l'information en question soit directement visible, par exemple sur l'étiquette du produit ou encore sur le site de e-commerce de référence.
-* Pour ce paramètres, différents canaux de vente sont considérés : le site internet de la marque et le principal distributeur en ligne, les différents distributeurs physiques à travers l'étiquette qui peut être apposée sur le vêtement.&#x20;
+* &#x20;S’agissant des marques disposant d’un site internet et pour les références commercialisées sur ce site, le critère d’affichage de la traçabilité est rempli si les étapes de production mentionnées dans le décret du 29 avril 2022 relatif à l’information du consommateur (tissage, tricotage, confection) apparaissent distinctement en première page du produit et sans action supplémentaire requise de la part du consommateur.
+* Pour les références uniquement commercialisées via un canal de distribution physique, le critère d’affichage de la traçabilité peut être rempli, alternativement, si ces étapes sont mentionnées directement sur l’étiquette du magasin ou accessibles directement et distinctement, sans action supplémentaire requise de la part du consommateur, via un QR code apposé sur cette étiquette.&#x20;
 
 ### Formule de calcul
 
