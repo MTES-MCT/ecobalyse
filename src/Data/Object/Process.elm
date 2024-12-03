@@ -4,7 +4,6 @@ module Data.Object.Process exposing
     , decodeId
     , decodeList
     , encode
-    , encodeId
     , findById
     , idFromString
     , idToString

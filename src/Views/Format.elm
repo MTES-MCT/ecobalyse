@@ -29,8 +29,8 @@ module Views.Format exposing
 import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
+import Data.Object.Component as Component
 import Data.Object.Process as ObjectProcess
-import Data.Object.Query as ObjectQuery
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Unit as Unit
@@ -154,11 +154,11 @@ complement impact =
         ]
 
 
-amount : ObjectProcess.Process -> ObjectQuery.Amount -> Html msg
+amount : ObjectProcess.Process -> Component.Amount -> Html msg
 amount { unit } amount_ =
     let
         floatAmount =
-            ObjectQuery.amountToFloat amount_
+            Component.amountToFloat amount_
     in
     case unit of
         "kg" ->
