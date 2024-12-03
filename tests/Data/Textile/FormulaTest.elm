@@ -32,7 +32,6 @@ noOpProcess =
     , correctif = ""
     , displayName = Just "Default"
     , elec = Energy.megajoules 0
-    , elec_pppm = 0
     , heat = Energy.megajoules 0
     , impacts = Impact.empty
     , info = ""
