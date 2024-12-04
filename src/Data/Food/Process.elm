@@ -2,7 +2,6 @@ module Data.Food.Process exposing
     ( Category(..)
     , Id
     , Process
-    , ProcessName
     , categoryToLabel
     , decodeId
     , decodeList
@@ -15,7 +14,6 @@ module Data.Food.Process exposing
     , idToString
     , identifierToString
     , listByCategory
-    , nameToString
     )
 
 import Data.Common.DecodeUtils as DU
@@ -44,7 +42,7 @@ type alias Process =
     , id : Id
     , identifier : Identifier
     , impacts : Impacts
-    , name : ProcessName
+    , name : String
     , source : String
     , systemDescription : String
     , unit : String
@@ -64,10 +62,6 @@ type Category
 
 type Identifier
     = Identifier String
-
-
-type ProcessName
-    = ProcessName String
 
 
 categoryFromString : String -> Result String Category
@@ -167,16 +161,6 @@ identifierToString (Identifier string) =
     string
 
 
-nameFromString : String -> ProcessName
-nameFromString =
-    ProcessName
-
-
-nameToString : ProcessName -> String
-nameToString (ProcessName name) =
-    name
-
-
 decodeCategories : Decoder (List Category)
 decodeCategories =
     Decode.string
@@ -199,7 +183,7 @@ decodeProcess impactsDecoder =
         |> Pipe.required "id" decodeId
         |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "impacts" impactsDecoder
-        |> Pipe.required "name" (Decode.map nameFromString Decode.string)
+        |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "unit" Decode.string
@@ -215,7 +199,7 @@ encode process =
         , ( "id", encodeId process.id )
         , ( "identifier", encodeIdentifier process.identifier )
         , ( "impacts", Impact.encode process.impacts )
-        , ( "name", Encode.string (nameToString process.name) )
+        , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
         , ( "system_description", Encode.string process.systemDescription )
         , ( "unit", Encode.string process.unit )
@@ -277,7 +261,7 @@ findById processes id =
 getDisplayName : Process -> String
 getDisplayName process =
     process.displayName
-        |> Maybe.withDefault (nameToString process.name)
+        |> Maybe.withDefault process.name
 
 
 listByCategory : Category -> List Process -> List Process

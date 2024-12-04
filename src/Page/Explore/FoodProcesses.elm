@@ -44,8 +44,8 @@ table _ { detailed, scope } =
                     >> text
           }
         , { label = "Nom technique"
-          , toValue = Table.StringValue <| .name >> FoodProcess.nameToString
-          , toCell = .name >> FoodProcess.nameToString >> text
+          , toValue = Table.StringValue .name
+          , toCell = .name >> text
           }
         , { label = "Source"
           , toValue = Table.StringValue <| .source
@@ -53,7 +53,7 @@ table _ { detailed, scope } =
           }
         , { label = "Identifiant externe"
           , toValue = Table.StringValue <| .identifier >> FoodProcess.identifierToString
-          , toCell = .identifier >> FoodProcess.identifierToString >> text
+          , toCell = .identifier >> FoodProcess.identifierToString >> text >> List.singleton >> code []
           }
         , { label = "Unité"
           , toValue = Table.StringValue <| .unit

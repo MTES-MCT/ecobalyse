@@ -651,7 +651,7 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 }
             ]
         , processes
-            |> List.sortBy (.name >> Process.nameToString)
+            |> List.sortBy .name
             |> processSelectorView
                 processQuery.id
                 (\id -> updateEvent { processQuery | id = id })
@@ -705,7 +705,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
             SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
     , toId = .id >> Ingredient.idToString
     , toString = .name
-    , toTooltip = .default >> .name >> Process.nameToString
+    , toTooltip = .default >> .name
     , update =
         \_ newElement ->
             UpdateIngredient
@@ -1116,7 +1116,7 @@ transportToPackagingView recipe results =
             Just transform ->
                 div []
                     [ span
-                        [ title <| "(" ++ Process.nameToString transform.process.name ++ ")" ]
+                        [ title <| "(" ++ transform.process.name ++ ")" ]
                         [ text "Masse après transformation : " ]
                     , Recipe.getTransformedIngredientsMass recipe
                         |> Format.kg

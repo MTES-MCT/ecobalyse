@@ -400,7 +400,7 @@ foodProcessesExplorer :
     -> List (Html Msg)
 foodProcessesExplorer { food } tableConfig tableState maybeId =
     [ food.processes
-        |> List.sortBy (.name >> FoodProcess.nameToString)
+        |> List.sortBy .name
         |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodProcesses.table food)
     , case maybeId of
         Just id ->
