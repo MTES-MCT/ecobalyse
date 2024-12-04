@@ -55,6 +55,10 @@ table _ { detailed, scope } =
           , toValue = Table.StringValue <| .identifier >> FoodProcess.identifierToString
           , toCell = .identifier >> FoodProcess.identifierToString >> text >> List.singleton >> code []
           }
+        , { label = "Alias"
+          , toValue = Table.StringValue .alias
+          , toCell = .alias >> text >> List.singleton >> em []
+          }
         , { label = "Unité"
           , toValue = Table.StringValue <| .unit
           , toCell = .unit >> text
