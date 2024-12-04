@@ -24,8 +24,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Decrypt files
-        run: bin/transcrypt -y -c aes-256-cbc -p ${{ secrets.TRANSCRYPT_KEY }}
+      - name: Install transcrypt
+        run: |
+          mkdir -p $HOME/.local/bin
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          wget https://raw.githubusercontent.com/elasticdog/transcrypt/refs/heads/main/transcrypt -O "$HOME/.local/bin/transcrypt"
+          chmod +x "$HOME/.local/bin/transcrypt"
 
       - name: Get latest version
         uses: orhun/git-cliff-action@v4
