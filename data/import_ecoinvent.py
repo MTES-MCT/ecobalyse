@@ -47,6 +47,15 @@ def organic_cotton_irrigation(db):
 STRATEGIES = [organic_cotton_irrigation]
 
 
+def use_unit_processes(db):
+    """the woolmark dataset comes with dependent processes which are set as system processes. EI3.10 has these processes but as unit processes. So we change the name such as the linking be done"""
+    for ds in db:
+        for exc in ds["exchanges"]:
+            if exc["name"].endswith("Cut-off, S"):
+                exc["name"].replace("Cut-off, S", "Cut-off, U")
+    return db
+
+
 def main():
     projects.set_current(PROJECT)
     # projects.create_project(PROJECT, activate=True, exist_ok=True)
@@ -79,6 +88,7 @@ def main():
         import_simapro_csv(
             join("..", "..", "dbfiles", WOOL),
             db,
+            first_strategies=[use_unit_processes],
             external_db="Ecoinvent 3.10",  # wool is linked with EI 3.10
             excluded_strategies=EXCLUDED,
         )

@@ -234,7 +234,7 @@ def compute_impacts(frozen_processes, default_db, impacts_py):
         if not activity:
             raise Exception(f"This process was not found in brightway: {process}")
 
-        results = compute_simapro_impacts(activity, main_method, impacts_py)
+        results = None  # compute_simapro_impacts(activity, main_method, impacts_py)
         # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
         if process["unit"] == "kWh" and isinstance(results, dict):
             results = {k: v * 3.6 for k, v in results.items()}
@@ -394,7 +394,13 @@ def find_id(dbname, activity):
 
 
 def compute_simapro_impacts(activity, method, impacts_py):
-    strprocess = urllib.parse.quote(activity["name"], encoding=None, errors=None)
+    name = (
+        activity["name"]
+        if spproject(activity) != "World Food LCA Database"
+        # TODO this should probably done through disabling a strategy
+        else f"{activity['name']}/{activity['location']} U"
+    )
+    strprocess = urllib.parse.quote(name, encoding=None, errors=None)
     project = urllib.parse.quote(spproject(activity), encoding=None, errors=None)
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"

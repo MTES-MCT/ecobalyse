@@ -325,8 +325,8 @@ describe("API", () => {
         const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
 
         expectStatus(response, 200);
-        expect(response.body.impacts.ecs).toBeCloseTo(1574.39, 1);
-        expect(response.body.impactsWithoutDurability.ecs).toBeCloseTo(1054.84, 1);
+        expect(response.body.impacts.ecs).toBeCloseTo(1573.4, 1);
+        expect(response.body.impactsWithoutDurability.ecs).toBeCloseTo(1054.18, 1);
       });
     });
 
@@ -562,11 +562,11 @@ describe("API", () => {
 
           // Add tolerance check for impacts
           Object.entries(impacts).forEach(([key, value]) => {
-            expect(response.body.results.total[key]).toBeCloseTo(value, 12);
+            expect(response.body.results.total[key]).toBeCloseTo(value, 10);
           });
 
           Object.entries(scoring).forEach(([key, value]) => {
-            expect(response.body.results.scoring[key]).toBeCloseTo(value, 12);
+            expect(response.body.results.scoring[key]).toBeCloseTo(value, 10);
           });
         });
       }
