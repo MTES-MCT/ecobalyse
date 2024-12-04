@@ -134,10 +134,7 @@
       "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
     ],
     "replace": {
-      "Beef cattle national average at farm gate": [
-        "Ecobalyse",
-        "Cull cow organic constructed"
-      ]
+      "Beef cattle national average at farm gate": ["Ecobalyse", "Cull cow organic constructed"]
     }
   },
   {
@@ -167,10 +164,7 @@
       "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
     ],
     "replace": {
-      "Beef cattle national average at farm gate": [
-        "Ecobalyse",
-        "Cull cow organic constructed"
-      ]
+      "Beef cattle national average at farm gate": ["Ecobalyse", "Cull cow organic constructed"]
     }
   },
   {
@@ -302,14 +296,8 @@
     "subactivities": [
       "Meat with bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
       "Broiler, live, for direct consumption {FR} U [organic], constructed by Ecobalyse",
-      [
-        "Agribalyse 3.1.1",
-        "Broiler, organic, at farm gate {FR} U"
-      ],
-      [
-        "Agribalyse 3.1.1",
-        "Broiler, broiler feed organic prod, at farm gate {FR} U"
-      ]
+      ["Agribalyse 3.1.1", "Broiler, organic, at farm gate {FR} U"],
+      ["Agribalyse 3.1.1", "Broiler, broiler feed organic prod, at farm gate {FR} U"]
     ],
     "replace": {
       "Soybean meal, organic, crushing in France, common process meal and oil, at french mill, average {FR} U": "Soybean organic animal feed farm gate FR",
@@ -321,9 +309,7 @@
     "search_in": "Agribalyse 3.1.1",
     "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "suffix": "[organic], constructed by Ecobalyse",
-    "subactivities": [
-      "Butter, 82% fat, unsalted, unsalted, at dairy {RER} - Adapted from WFLDB U"
-    ],
+    "subactivities": ["Butter, 82% fat, unsalted, unsalted, at dairy {RER} - Adapted from WFLDB U"],
     "replace": {
       "Cow milk, national average, at farm gate {FR} U": [
         "Ecobalyse",
@@ -400,10 +386,7 @@
     "subactivities": [
       "Meat without bone, chicken, for direct consumption {FR} U [bbc], constructed by Ecobalyse",
       "Broiler, live, for direct consumption {FR} U [bbc], constructed by Ecobalyse (variant 5)",
-      [
-        "Agribalyse 3.1.1",
-        "Broiler, Bleu Blanc Coeur, at farm gate"
-      ]
+      ["Agribalyse 3.1.1", "Broiler, Bleu Blanc Coeur, at farm gate"]
     ],
     "replace": {
       "Soft wheat grain, basis scenario without lever, stored and transported, processing {FR}": "wheat grain organic central region",
@@ -419,10 +402,7 @@
     "subactivities": [
       "Meat without bone, chicken, for direct consumption {FR} U [bbc], constructed by Ecobalyse",
       "Broiler, live, for direct consumption {FR} U [bbc], constructed by Ecobalyse (variant 5)",
-      [
-        "Agribalyse 3.1.1",
-        "Broiler, Bleu Blanc Coeur, at farm gate"
-      ]
+      ["Agribalyse 3.1.1", "Broiler, Bleu Blanc Coeur, at farm gate"]
     ],
     "replace": {
       "Soybean meal BR, crushing in Brazil, animal feed, at french port, average {FR}": "soybean grain dried stored and transported processing FR"
