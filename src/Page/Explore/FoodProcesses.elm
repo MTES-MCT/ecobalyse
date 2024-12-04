@@ -51,6 +51,10 @@ table _ { detailed, scope } =
           , toValue = Table.StringValue <| .source
           , toCell = .source >> text
           }
+        , { label = "Identifiant externe"
+          , toValue = Table.StringValue <| .identifier >> FoodProcess.identifierToString
+          , toCell = .identifier >> FoodProcess.identifierToString >> text
+          }
         , { label = "Unité"
           , toValue = Table.StringValue <| .unit
           , toCell = .unit >> text
