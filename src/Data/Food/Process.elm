@@ -1,17 +1,18 @@
 module Data.Food.Process exposing
     ( Category(..)
-    , Identifier
+    , Id
     , Process
     , ProcessName
     , categoryToLabel
-    , decodeIdentifier
+    , decodeId
     , decodeList
     , encode
-    , encodeIdentifier
+    , encodeId
+    , findByAlias
     , findById
-    , findByIdentifier
     , getDisplayName
-    , identifierFromString
+    , idFromString
+    , idToString
     , identifierToString
     , listByCategory
     , nameToString
@@ -19,6 +20,7 @@ module Data.Food.Process exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
+import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -26,15 +28,20 @@ import Json.Encode as Encode
 import Json.Encode.Extra as EncodeExtra
 
 
+type Id
+    = Id Uuid
+
+
 {-| Process
 A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
-    { categories : List Category
+    { alias : String
+    , categories : List Category
     , comment : Maybe String
     , displayName : Maybe String
-    , id_ : String
+    , id : Id
     , identifier : Identifier
     , impacts : Impacts
     , name : ProcessName
@@ -185,10 +192,11 @@ encodeCategory =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
+        |> Pipe.required "alias" Decode.string
         |> Pipe.required "categories" decodeCategories
         |> DU.strictOptional "comment" Decode.string
         |> DU.strictOptional "displayName" Decode.string
-        |> Pipe.required "id" Decode.string
+        |> Pipe.required "id" decodeId
         |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" (Decode.map nameFromString Decode.string)
@@ -200,10 +208,11 @@ decodeProcess impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "categories", Encode.list encodeCategory process.categories )
+        [ ( "alias", Encode.string process.alias )
+        , ( "categories", Encode.list encodeCategory process.categories )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "id", Encode.string process.id_ )
+        , ( "id", encodeId process.id )
         , ( "identifier", encodeIdentifier process.identifier )
         , ( "impacts", Impact.encode process.impacts )
         , ( "name", Encode.string (nameToString process.name) )
@@ -211,6 +220,11 @@ encode process =
         , ( "system_description", Encode.string process.systemDescription )
         , ( "unit", Encode.string process.unit )
         ]
+
+
+decodeId : Decoder Id
+decodeId =
+    Decode.map Id Uuid.decoder
 
 
 decodeIdentifier : Decoder Identifier
@@ -224,25 +238,40 @@ decodeList impactsDecoder =
     Decode.list (decodeProcess impactsDecoder)
 
 
+encodeId : Id -> Encode.Value
+encodeId (Id uuid) =
+    Uuid.encoder uuid
+
+
 encodeIdentifier : Identifier -> Encode.Value
 encodeIdentifier =
     identifierToString >> Encode.string
 
 
-findById : List Process -> String -> Result String Process
-findById processes id_ =
-    processes
-        |> List.filter (.id_ >> (==) id_)
-        |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par id : " ++ id_)
+idFromString : String -> Maybe Id
+idFromString str =
+    Uuid.fromString str |> Maybe.map Id
 
 
-findByIdentifier : Identifier -> List Process -> Result String Process
-findByIdentifier ((Identifier identifierString) as identifier) processes =
+idToString : Id -> String
+idToString (Id uuid) =
+    Uuid.toString uuid
+
+
+findByAlias : List Process -> String -> Result String Process
+findByAlias processes alias_ =
     processes
-        |> List.filter (.identifier >> (==) identifier)
+        |> List.filter (.alias >> (==) alias_)
         |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par code : " ++ identifierString)
+        |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias_)
+
+
+findById : List Process -> Id -> Result String Process
+findById processes id =
+    processes
+        |> List.filter (.id >> (==) id)
+        |> List.head
+        |> Result.fromMaybe ("Procédé introuvable par id : " ++ idToString id)
 
 
 getDisplayName : Process -> String

@@ -22,8 +22,8 @@ type alias WellKnown =
 load : List Process -> Result String WellKnown
 load processes =
     let
-        resolve id_ =
-            RE.andMap (Process.findById processes id_)
+        resolve alias =
+            RE.andMap (Process.findByAlias processes alias)
     in
     Ok WellKnown
         |> resolve "boat-cooling"

@@ -94,7 +94,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
-    | DeletePackaging Process.Identifier
+    | DeletePackaging Process.Id
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
@@ -119,7 +119,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDistribution String
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
-    | UpdatePackaging Process.Identifier Query.ProcessQuery
+    | UpdatePackaging Process.Id Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
 
@@ -207,7 +207,7 @@ update ({ db, queries } as session) msg model =
             let
                 firstPackaging =
                     db.food.processes
-                        |> Recipe.availablePackagings (List.map .code query.packaging)
+                        |> Recipe.availablePackagings (List.map .id query.packaging)
                         |> List.sortBy Process.getDisplayName
                         |> List.head
                         |> Maybe.map Recipe.processQueryFromProcess
@@ -625,7 +625,7 @@ addProcessFormView { isDisabled, event, kind } =
 
 type alias UpdateProcessConfig =
     { processes : List Process
-    , excluded : List Process.Identifier
+    , excluded : List Process.Id
     , processQuery : Query.ProcessQuery
     , impact : Html Msg
     , updateEvent : Query.ProcessQuery -> Msg
@@ -653,8 +653,8 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
         , processes
             |> List.sortBy (.name >> Process.nameToString)
             |> processSelectorView
-                processQuery.code
-                (\code -> updateEvent { processQuery | code = code })
+                processQuery.id
+                (\id -> updateEvent { processQuery | id = id })
                 excluded
         , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
         , BaseElement.deleteItemButton { disabled = False } deleteEvent
@@ -1009,7 +1009,7 @@ packagingListView db selectedImpact recipe results =
             db.food.processes
                 |> Recipe.availablePackagings
                     (recipe.packaging
-                        |> List.map (.process >> .identifier)
+                        |> List.map (.process >> .id)
                     )
     in
     [ div
@@ -1045,14 +1045,14 @@ packagingListView db selectedImpact recipe results =
                             { processes =
                                 db.food.processes
                                     |> Process.listByCategory Process.Packaging
-                            , excluded = recipe.packaging |> List.map (.process >> .identifier)
-                            , processQuery = { code = packaging.process.identifier, mass = packaging.mass }
+                            , excluded = recipe.packaging |> List.map (.process >> .id)
+                            , processQuery = { id = packaging.process.id, mass = packaging.mass }
                             , impact =
                                 packaging
                                     |> Recipe.computeProcessImpacts
                                     |> Format.formatImpact selectedImpact
-                            , updateEvent = UpdatePackaging packaging.process.identifier
-                            , deleteEvent = DeletePackaging packaging.process.identifier
+                            , updateEvent = UpdatePackaging packaging.process.id
+                            , deleteEvent = DeletePackaging packaging.process.id
                             }
                     )
          )
@@ -1369,25 +1369,20 @@ mainView ({ db } as session) model =
         ]
 
 
-processSelectorView :
-    Process.Identifier
-    -> (Process.Identifier -> msg)
-    -> List Process.Identifier
-    -> List Process
-    -> Html msg
-processSelectorView selectedCode event excluded processes =
+processSelectorView : Process.Id -> (Process.Id -> Msg) -> List Process.Id -> List Process -> Html Msg
+processSelectorView selectedId event excluded processes =
     select
         [ class "form-select form-select"
-        , onInput (Process.identifierFromString >> event)
+        , onInput (Process.idFromString >> Maybe.map event >> Maybe.withDefault NoOp)
         ]
         (processes
             |> List.sortBy (\process -> Process.getDisplayName process)
             |> List.map
                 (\process ->
                     option
-                        [ selected <| selectedCode == process.identifier
-                        , value <| Process.identifierToString process.identifier
-                        , disabled <| List.member process.identifier excluded
+                        [ selected <| selectedId == process.id
+                        , value <| Process.idToString process.id
+                        , disabled <| List.member process.id excluded
                         ]
                         [ text <| Process.getDisplayName process ]
                 )
@@ -1494,8 +1489,8 @@ transformView db selectedImpact recipe results =
                     { processes =
                         db.food.processes
                             |> Process.listByCategory Process.Transform
-                    , excluded = [ transform.process.identifier ]
-                    , processQuery = { code = transform.process.identifier, mass = transform.mass }
+                    , excluded = [ transform.process.id ]
+                    , processQuery = { id = transform.process.id, mass = transform.mass }
                     , impact = impact
                     , updateEvent = UpdateTransform
                     , deleteEvent = ResetTransform

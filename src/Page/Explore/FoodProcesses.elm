@@ -12,20 +12,20 @@ import Route
 table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table FoodProcess.Process String msg
 table _ { detailed, scope } =
     { filename = "processes"
-    , toId = .identifier >> FoodProcess.identifierToString
-    , toRoute = .identifier >> Just >> Dataset.FoodProcesses >> Route.Explore scope
+    , toId = .id >> FoodProcess.idToString
+    , toRoute = .id >> Just >> Dataset.FoodProcesses >> Route.Explore scope
     , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .identifier >> FoodProcess.identifierToString
+          , toValue = Table.StringValue <| .id >> FoodProcess.idToString
           , toCell =
                 \process ->
                     if detailed then
-                        code [] [ text (FoodProcess.identifierToString process.identifier) ]
+                        code [] [ text (FoodProcess.idToString process.id) ]
 
                     else
-                        a [ Route.href (Route.Explore scope (Dataset.FoodProcesses (Just process.identifier))) ]
-                            [ code [] [ text (FoodProcess.identifierToString process.identifier) ] ]
+                        a [ Route.href (Route.Explore scope (Dataset.FoodProcesses (Just process.id))) ]
+                            [ code [] [ text (FoodProcess.idToString process.id) ] ]
           }
         , { label = "Nom"
           , toValue = Table.StringValue FoodProcess.getDisplayName
