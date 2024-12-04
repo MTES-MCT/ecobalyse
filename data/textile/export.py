@@ -87,11 +87,13 @@ def create_process_list(activities):
 
 def to_process(activity):
     return {
-        "name": cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
-            "name"
-        ]
-        if "search" in activity and activity["source"] in BW_DATABASES
-        else activity.get("name", activity["displayName"]),
+        "name": (
+            cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
+                "name"
+            ]
+            if "search" in activity and activity["source"] in BW_DATABASES
+            else activity.get("name", activity["displayName"])
+        ),
         "displayName": activity["displayName"],
         "info": activity["info"],
         "unit": fix_unit(
@@ -193,20 +195,16 @@ if __name__ == "__main__":
     )
 
     # Export
-    export_json(format_numbers_recursively(order_json(materials)), MATERIALS_FILE)
+    export_json(order_json(materials), MATERIALS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
-        format_numbers_recursively(
-            order_json(list(processes_aggregated_impacts.values()))
-        ),
+        order_json(list(processes_aggregated_impacts.values())),
         PROCESSES_IMPACTS,
     )
 
     export_json(
-        format_numbers_recursively(
-            order_json(
-                remove_detailed_impacts(list(processes_aggregated_impacts.values()))
-            )
+        order_json(
+            remove_detailed_impacts(list(processes_aggregated_impacts.values()))
         ),
         PROCESSES_AGGREGATED,
     )

@@ -224,26 +224,18 @@ if __name__ == "__main__":
 
     # Export
 
-    export_json(
-        format_numbers_recursively(order_json(activities_land_occ)), ACTIVITIES_FILE
-    )
+    export_json(order_json(activities_land_occ), ACTIVITIES_FILE)
 
-    export_json(
-        format_numbers_recursively(order_json(ingredients_animal_es)), INGREDIENTS_FILE
-    )
+    export_json(order_json(ingredients_animal_es), INGREDIENTS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
-        format_numbers_recursively(
-            order_json(list(processes_aggregated_impacts.values()))
-        ),
+        order_json(list(processes_aggregated_impacts.values())),
         PROCESSES_IMPACTS,
     )
 
     export_json(
-        format_numbers_recursively(
-            order_json(
-                remove_detailed_impacts(list(processes_aggregated_impacts.values()))
-            )
+        order_json(
+            remove_detailed_impacts(list(processes_aggregated_impacts.values()))
         ),
         PROCESSES_AGGREGATED,
     )

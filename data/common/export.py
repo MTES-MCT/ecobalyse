@@ -20,6 +20,7 @@ from . import (
     spproject,
     with_corrected_impacts,
     with_subimpacts,
+    format_number,
 )
 from .impacts import main_method
 
@@ -371,10 +372,27 @@ def csv_export_impact_comparison(compared_impacts, folder):
     df.to_csv(f"{PROJECT_ROOT_DIR}/data/{folder}/{COMPARED_IMPACTS_FILE}", index=False)
 
 
+class FormatNumberJsonEncoder(json.JSONEncoder):
+    def encode(self, obj):
+
+        def recursive_format_number(obj):
+            if isinstance(obj, (int, float)):
+                return format_number(obj)
+            elif isinstance(obj, dict):
+                return {k: recursive_format_number(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [recursive_format_number(v) for v in obj]
+            else:
+                return obj
+
+
 def export_json(json_data, filename):
     logger.info(f"Exporting {filename}")
+    json_string = json.dumps(
+        json_data, indent=2, ensure_ascii=False, cls=FormatNumberJsonEncoder
+    )
     with open(filename, "w", encoding="utf-8") as file:
-        json.dump(json_data, file, indent=2, ensure_ascii=False)
+        file.write(json_string)
         file.write("\n")  # Add a newline at the end of the file
     logger.info(f"\nExported {len(json_data)} elements to {filename}")
 

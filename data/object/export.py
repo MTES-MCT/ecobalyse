@@ -84,16 +84,12 @@ if __name__ == "__main__":
 
     # Export results
     export_json(
-        format_numbers_recursively(
-            order_json(list(processes_aggregated_impacts.values()))
-        ),
+        order_json(list(processes_aggregated_impacts.values())),
         PROCESSES_IMPACTS,
     )
     export_json(
-        format_numbers_recursively(
-            order_json(
-                remove_detailed_impacts(list(processes_aggregated_impacts.values()))
-            )
+        order_json(
+            remove_detailed_impacts(list(processes_aggregated_impacts.values()))
         ),
         PROCESSES_AGGREGATED,
     )
