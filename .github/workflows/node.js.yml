@@ -5,6 +5,7 @@ name: Node.js CI
 
 env:
   NODE_ENV: test
+  TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
 on:
   push:
     branches: [ master, staging ]
@@ -23,8 +24,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Decrypt files
-      run: bin/transcrypt -y -c aes-256-cbc -p ${{ secrets.TRANSCRYPT_KEY }}
+    - name: Install transcrypt
+      run: |
+        mkdir -p $HOME/.local/bin
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        wget https://raw.githubusercontent.com/elasticdog/transcrypt/refs/heads/main/transcrypt -O "$HOME/.local/bin/transcrypt"
+        chmod +x "$HOME/.local/bin/transcrypt"
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
