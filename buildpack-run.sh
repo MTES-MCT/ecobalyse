@@ -4,7 +4,7 @@ echo "-> Install 'transcrypt' to /usr/local/bin"
 
 mkdir -p "$PWD/.local/bin"
 export PATH="$PWD/.local/bin":$PATH
-wget https://raw.githubusercontent.com/elasticdog/transcrypt/refs/heads/main/transcrypt -O "$PWD/.local/bin/transcrypt"
+wget https://raw.githubusercontent.com/elasticdog/transcrypt/016b2e4b31951be5ea96233d8d2badef9c9836b6/transcrypt -O "$PWD/.local/bin/transcrypt"
 chmod +x "$PWD/.local/bin/transcrypt"
 echo "PATH: $PATH"
 
@@ -20,7 +20,12 @@ git fetch --depth 1 origin $SOURCE_VERSION
 git checkout FETCH_HEAD
 
 echo "-> Decrypt detailed impacts"
-transcrypt -y -c aes-256-cbc -p $TRANSCRYPT_KEY
+
+# Here we force the decrypt of the files. $SOURCE_VERSION is set
+# but as we are into the clone repository by hand, we have a .git repo
+# and can safely use transcrypt inside
+./bin/run-transcrypt.sh force
+
 cp -f public/data/food/processes_impacts.json ../public/data/food/
 cp -f public/data/object/processes_impacts.json ../public/data/object/
 cp -f public/data/textile/processes_impacts.json ../public/data/textile/

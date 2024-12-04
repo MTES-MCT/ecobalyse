@@ -133,9 +133,12 @@ Pour ajouter une variable d'environnement sur une application, il est recommand�
 
     scalingo --app ecobalyse env-set "MY_VAR=$(cat fichier.key)"
 
-### Lien avec ecobalyse-private
+### Fichiers d’impacts détaillés
 
-Lorsqu'un déploiement est effectué sur une branche, les données utilisées du dépôt `ecobalyse-private` sont celles de la branche `main`. Cependant, si la description de la Pull Request sur le repo `ecobalyse` mentionne `ecobalyse_data: branch-a` avec branch-a étant une branche du dépôt `ecobalyse-private`, alors la PR utilisera les données de la branche `branch-a` du dépôt `ecobalyse-private`.
+Les fichiers d’impacts détaillés sont chiffrés à l’aide de [transcrypt](https://github.com/elasticdog/transcrypt) sur le dépôt public Github. En revanche, la version locale est une version décryptée par `transcrypt`. Vous pouvez donc utiliser, localement, les commandes git habituelles pour voir les différences dans ces fichiers, par exemple :
+
+    git diff master HEAD public/data/textile/processes_impacts.json
+
 
 #### Points d'attention
 
