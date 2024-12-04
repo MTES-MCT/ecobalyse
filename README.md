@@ -8,7 +8,35 @@ L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/)
 
 ## Socle technique et prérequis
 
-Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [pipenv](https://pipenv.pypa.io/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine.
+Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [pipenv](https://pipenv.pypa.io/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
+
+## Configuration
+
+Les variables d'environnement suivantes doivent être définies :
+
+- `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule
+- `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
+- `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `True`)
+- `DJANGO_SECRET_KEY` : la [clé secrète de Django](https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY)
+- `EMAIL_HOST` : le host SMTP pour envoyer les mail liés à l'authentification
+- `EMAIL_HOST_USER`: l'utilisateur du compte SMTP
+- `EMAIL_HOST_PASSWORD` : le mot de passe du compte SMTP pour envoyer les mail liés à l'authentification
+- `ENABLE_FOOD_SECTION` : affichage ou non de la section expérimentale dédiée à l'alimentaire (valeur `True` ou `False`, par défault `False`)
+- `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défault `False`)
+- `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défault `False`)
+- `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
+- `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
+- `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
+- `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `development`)
+- `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.
+- `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
+- `TRANSCRYPT_KEY`: la clé utilisée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/).
+
+En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
+
+Pour utiliser le PostgreSQL lancé avec docker, configurez la variable `SCALINGO_POSTGRESQL_URL` comme ceci :
+
+    SCALINGO_POSTGRESQL_URL=postgres://postgres:password@localhost:5433/ecobalyse_dev
 
 ## Installation
 
@@ -37,32 +65,6 @@ Vous devriez pouvoir y accéder via votre `psql` local avec la commande suivante
 
     psql -U postgres -p 5433 -h localhost ecobalyse_dev
 
-## Configuration
-
-Les variables d'environnement suivantes doivent être définies :
-
-- `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule
-- `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
-- `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `True`)
-- `DJANGO_SECRET_KEY` : la [clé secrète de Django](https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY)
-- `EMAIL_HOST` : le host SMTP pour envoyer les mail liés à l'authentification
-- `EMAIL_HOST_USER`: l'utilisateur du compte SMTP
-- `EMAIL_HOST_PASSWORD` : le mot de passe du compte SMTP pour envoyer les mail liés à l'authentification
-- `ENABLE_FOOD_SECTION` : affichage ou non de la section expérimentale dédiée à l'alimentaire (valeur `True` ou `False`, par défault `False`)
-- `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défault `False`)
-- `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défault `False`)
-- `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
-- `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
-- `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
-- `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `development`)
-- `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.
-- `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
-
-En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
-
-Pour utiliser le PostgreSQL lancé avec docker, configurez la variable `SCALINGO_POSTGRESQL_URL` comme ceci :
-
-    SCALINGO_POSTGRESQL_URL=postgres://postgres:password@localhost:5433/ecobalyse_dev
 
 ## Chargement des données par défaut
 
@@ -71,14 +73,6 @@ Pour initialiser la base de données (attention, toutes les données présentes,
     $ pipenv run ./backend/update.sh
 
 ## Développement
-
-### Déchiffrage des fichiers
-
-Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local. Assurez-vous d’installer les dépendances listées sur [la page dédiée](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) puis lancez la commande suivante :
-
-    ./bin/transcrypt -c aes-256-cbc -p 'your_password'
-
-Remplacez `your_password` par le mot de passe `transcrypt` stocké dans https://vaultwarden.incubateur.net/.
 
 ### Environnement de développement local
 

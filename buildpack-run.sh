@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+echo "-> Install 'transcrypt' to /usr/local/bin"
+
+mkdir -p "$PWD/.local/bin"
+export PATH="$PWD/.local/bin":$PATH
+wget https://raw.githubusercontent.com/elasticdog/transcrypt/refs/heads/main/transcrypt -O "$PWD/.local/bin/transcrypt"
+chmod +x "$PWD/.local/bin/transcrypt"
+echo "PATH: $PATH"
+
 echo "-> Cloning 'ecobalyse' public repo at $SOURCE_VERSION"
 mkdir ecobalyse
 cd ecobalyse
@@ -12,7 +20,7 @@ git fetch --depth 1 origin $SOURCE_VERSION
 git checkout FETCH_HEAD
 
 echo "-> Decrypt detailed impacts"
-./bin/transcrypt -y -c aes-256-cbc -p $TRANSCRYPT_KEY
+transcrypt -y -c aes-256-cbc -p $TRANSCRYPT_KEY
 cp -f public/data/food/processes_impacts.json ../public/data/food/
 cp -f public/data/object/processes_impacts.json ../public/data/object/
 cp -f public/data/textile/processes_impacts.json ../public/data/textile/

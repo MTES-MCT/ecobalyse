@@ -134,8 +134,6 @@ if [[ ! -f "$TEXTILE_DETAILED_IMPACTS_FILE" ]]; then
 
   export ECOBALYSE_DATA_DIR=$DATA_DIR_GIT_CLONE_DIR
 else
-  if [[ -f "bin/transcrypt" ]]; then
-
     if [ -z "$TRANSCRYPT_KEY" ]; then
 
       echo ""
@@ -145,9 +143,8 @@ else
 
     fi
 
-    ./bin/transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
+    transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
 
-  fi
 fi
 
 ELM_VERSION_FILE=$PUBLIC_GIT_CLONE_DIR"/src/Request/Version.elm"
