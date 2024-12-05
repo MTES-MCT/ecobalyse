@@ -1,5 +1,6 @@
 module Views.Format exposing
-    ( complement
+    ( amount
+    , complement
     , days
     , density
     , formatFloat
@@ -28,6 +29,8 @@ module Views.Format exposing
 import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
+import Data.Object.Component as Component
+import Data.Object.Process as ObjectProcess
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Unit as Unit
@@ -149,6 +152,28 @@ complement impact =
                 formatted
         , span [ class "fs-unit" ] [ text "\u{202F}Pts" ]
         ]
+
+
+amount : ObjectProcess.Process -> Component.Amount -> Html msg
+amount { unit } amount_ =
+    let
+        floatAmount =
+            Component.amountToFloat amount_
+    in
+    case unit of
+        "kg" ->
+            Mass.kilograms floatAmount
+                |> kg
+
+        "m3" ->
+            Volume.cubicMeters floatAmount
+                |> m3
+
+        _ ->
+            String.fromFloat floatAmount
+                ++ " "
+                ++ unit
+                |> text
 
 
 kg : Mass -> Html msg

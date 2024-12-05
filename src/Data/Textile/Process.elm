@@ -30,7 +30,6 @@ type alias Process =
     , correctif : String
     , displayName : Maybe String
     , elec : Energy -- MJ per kg of material to process
-    , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , heat : Energy --  MJ per kg of material to process
     , impacts : Impacts
     , info : String
@@ -98,7 +97,6 @@ decode impactsDecoder =
         |> Pipe.required "correctif" Decode.string
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "info" Decode.string
@@ -148,7 +146,6 @@ encode process =
         , ( "correctif", Encode.string process.correctif )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
-        , ( "elec_pppm", Encode.float process.elec_pppm )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "impacts", Impact.encode process.impacts )
         , ( "info", Encode.string process.info )

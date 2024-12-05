@@ -1,53 +1,31 @@
 module Data.Object.Query exposing
-    ( Amount
-    , Item
-    , Query
-    , amount
-    , amountToFloat
+    ( Query
+    , addComponentItem
     , b64encode
     , buildApiQuery
     , decode
     , default
-    , defaultItem
     , encode
     , parseBase64Query
-    , removeItem
+    , removeComponent
     , toString
-    , updateItem
+    , updateComponentItem
     )
 
 import Base64
-import Data.Object.Process as Process exposing (Process)
+import Data.Object.Component as Component exposing (Component, ComponentItem)
+import Data.Object.Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
 
 type alias Query =
-    { items : List Item
+    { components : List ComponentItem
     }
-
-
-type alias Item =
-    { amount : Amount
-    , processId : Process.Id
-    }
-
-
-type Amount
-    = Amount Float
-
-
-amount : Float -> Amount
-amount =
-    Amount
-
-
-amountToFloat : Amount -> Float
-amountToFloat (Amount float) =
-    float
 
 
 buildApiQuery : Scope -> String -> Query -> String
@@ -63,57 +41,51 @@ buildApiQuery scope clientUrl query =
 
 decode : Decoder Query
 decode =
-    Decode.map Query
-        (Decode.field "processes" (Decode.list decodeItem))
-
-
-decodeItem : Decoder Item
-decodeItem =
-    Decode.map2 Item
-        (Decode.field "amount" (Decode.map Amount Decode.float))
-        (Decode.field "process_id" Process.decodeId)
+    Decode.succeed Query
+        |> Pipe.required "components" (Decode.list Component.decodeComponentItem)
 
 
 default : Query
 default =
-    { items = [] }
-
-
-defaultItem : Process -> Item
-defaultItem process =
-    { amount = Amount 1, processId = process.id }
+    { components = [] }
 
 
 encode : Query -> Encode.Value
 encode query =
     Encode.object
-        [ ( "processes"
-          , Encode.list encodeItem query.items
+        [ ( "components"
+          , query.components
+                |> Encode.list Component.encodeComponentItem
           )
         ]
 
 
-encodeItem : Item -> Encode.Value
-encodeItem item =
-    Encode.object
-        [ ( "amount", item.amount |> amountToFloat |> Encode.float )
-        , ( "process_id", Process.encodeId item.processId )
-        ]
-
-
-removeItem : Process.Id -> Query -> Query
-removeItem processId query =
-    { query | items = query.items |> List.filter (.processId >> (/=) processId) }
-
-
-updateItem : Item -> Query -> Query
-updateItem newItem query =
+addComponentItem : Component.Id -> Query -> Query
+addComponentItem id query =
     { query
-        | items =
-            query.items
+        | components =
+            query.components
+                ++ [ { id = id, quantity = Component.quantityFromInt 1 } ]
+    }
+
+
+removeComponent : Component.Id -> Query -> Query
+removeComponent id ({ components } as query) =
+    { query
+        | components =
+            components
+                |> List.filter (.id >> (/=) id)
+    }
+
+
+updateComponentItem : ComponentItem -> Query -> Query
+updateComponentItem newItem query =
+    { query
+        | components =
+            query.components
                 |> List.map
                     (\item ->
-                        if item.processId == newItem.processId then
+                        if item.id == newItem.id then
                             newItem
 
                         else
@@ -122,23 +94,11 @@ updateItem newItem query =
     }
 
 
-toString : List Process -> Query -> Result String String
-toString processes =
-    .items
-        >> List.map
-            (\item ->
-                item.processId
-                    |> Process.findById processes
-                    |> Result.map
-                        (\process ->
-                            String.fromFloat (amountToFloat item.amount)
-                                ++ process.unit
-                                ++ " "
-                                ++ process.displayName
-                        )
-            )
-        >> RE.combine
-        >> Result.map (String.join ", ")
+toString : List Component -> List Process -> Query -> Result String String
+toString components processes query =
+    query.components
+        |> RE.combineMap (Component.componentItemToString components processes)
+        |> Result.map (String.join ", ")
 
 
 

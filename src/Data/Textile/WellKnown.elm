@@ -4,6 +4,7 @@ module Data.Textile.WellKnown exposing
     , getEnnoblingHeatProcess
     , getPrintingProcess
     , load
+    , weavingElecPPPM
     )
 
 import Data.Country exposing (Country)
@@ -114,3 +115,9 @@ load processes =
         |> fromAlias "sea-transport"
         |> fromAlias "train-transport"
         |> fromAlias "weaving"
+
+
+weavingElecPPPM : Float
+weavingElecPPPM =
+    -- kWh/(pick,m) per kg of material to process
+    0.0003145
