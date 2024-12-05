@@ -66,6 +66,8 @@ async def impact(_: Request, project: str, process: str, method: str):
                 results[r.IndicatorName] = {"amount": r.Amount, "unit": r.UnitName}
                 i += 1
             impacts.setdefault(f"{project}/{process}", {})
+            if not results:
+                return results
             impacts[f"{project}/{process}"][method] = results
             with open("impacts.json", "w") as fp:
                 json.dump(impacts, fp, ensure_ascii=False)
