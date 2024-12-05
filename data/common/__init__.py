@@ -29,7 +29,7 @@ def spproject(activity):
         case "Woolmark":
             return "Woolmark"
         case "WFLDB":
-            return "World Food LCA Database"
+            return "WFLDB"
         case _:
             return "AGB3.1.1 2023-03-06"
 
