@@ -738,7 +738,9 @@ def add_activity(_):
                 "<pre style='color: red'>L'identifiant doit être en minuscule et sans espace</pre>"
             )
         )
-    elif activity["name"] in [a["Nom"] for a in activities.values()]:
+    elif activity["name"] in [
+        a["Nom"] for a in activities.values() if a["id"] != activity["id"]
+    ]:
         display(
             ipywidgets.HTML(
                 f"<pre style='color: red'>Un procédé ou ingrédient avec ce nom existe déjà: {activity['name']}</pre>"
