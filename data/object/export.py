@@ -9,7 +9,6 @@ from os.path import abspath, dirname
 
 from bw2data.project import projects
 from common import (
-    format_numbers_recursively,
     order_json,
     remove_detailed_impacts,
     with_aggregated_impacts,

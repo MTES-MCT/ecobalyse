@@ -11,7 +11,6 @@ import bw2data
 from bw2data.project import projects
 from common import (
     fix_unit,
-    format_numbers_recursively,
     order_json,
     remove_detailed_impacts,
     with_aggregated_impacts,

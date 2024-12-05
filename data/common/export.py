@@ -16,11 +16,11 @@ from loguru import logger
 
 from . import (
     bytrigram,
+    format_number,
     normalization_factors,
     spproject,
     with_corrected_impacts,
     with_subimpacts,
-    format_number,
 )
 from .impacts import main_method
 
@@ -374,7 +374,6 @@ def csv_export_impact_comparison(compared_impacts, folder):
 
 class FormatNumberJsonEncoder(json.JSONEncoder):
     def encode(self, obj):
-
         def recursive_format_number(obj):
             if isinstance(obj, (int, float)):
                 return format_number(obj)
@@ -384,6 +383,8 @@ class FormatNumberJsonEncoder(json.JSONEncoder):
                 return [recursive_format_number(v) for v in obj]
             else:
                 return obj
+
+        return super().encode(recursive_format_number(obj))
 
 
 def export_json(json_data, filename):

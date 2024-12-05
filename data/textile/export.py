@@ -10,7 +10,6 @@ import bw2data
 import pandas as pd
 from common import (
     fix_unit,
-    format_numbers_recursively,
     order_json,
     remove_detailed_impacts,
     with_aggregated_impacts,
