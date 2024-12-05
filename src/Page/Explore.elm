@@ -396,16 +396,16 @@ foodProcessesExplorer :
     Db
     -> Table.Config FoodProcess.Process Msg
     -> SortableTable.State
-    -> Maybe FoodProcess.Identifier
+    -> Maybe FoodProcess.Id
     -> List (Html Msg)
 foodProcessesExplorer { food } tableConfig tableState maybeId =
     [ food.processes
-        |> List.sortBy (.name >> FoodProcess.nameToString)
+        |> List.sortBy .name
         |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodProcesses.table food)
     , case maybeId of
         Just id ->
             detailsModal
-                (case FoodProcess.findByIdentifier id food.processes of
+                (case FoodProcess.findById food.processes id of
                     Err error ->
                         alert error
 

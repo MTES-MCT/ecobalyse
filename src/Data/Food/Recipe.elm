@@ -114,10 +114,10 @@ availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
 
 
-availablePackagings : List Process.Identifier -> List Process -> List Process
+availablePackagings : List Process.Id -> List Process -> List Process
 availablePackagings usedProcesses =
     Process.listByCategory Process.Packaging
-        >> List.filter (\process -> not (List.member process.identifier usedProcesses))
+        >> List.filter (\process -> not (List.member process.id usedProcesses))
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
@@ -402,12 +402,12 @@ preparationListFromQuery =
         >> RE.combine
 
 
-deletePackaging : Process.Identifier -> Query -> Query
-deletePackaging code query =
+deletePackaging : Process.Id -> Query -> Query
+deletePackaging id query =
     { query
         | packaging =
             query.packaging
-                |> List.filter (.code >> (/=) code)
+                |> List.filter (.id >> (/=) id)
     }
 
 
@@ -480,7 +480,7 @@ getPreparedMassAtConsumer : Recipe -> Mass
 getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
     let
         cookedAtPlant =
-            case transform |> Maybe.map (.process >> .id_) of
+            case transform |> Maybe.map (.process >> .alias) of
                 Just "cooking" ->
                     True
 
@@ -523,7 +523,7 @@ getTransformedIngredientsMass { ingredients, transform } =
         |> removeIngredientsInedibleMass
         |> List.map
             (\{ ingredient, mass } ->
-                case transform |> Maybe.map (.process >> .id_) of
+                case transform |> Maybe.map (.process >> .alias) of
                     Just "cooking" ->
                         -- If the product is cooked, apply raw to cook ratio to ingredient masses
                         mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
@@ -611,15 +611,14 @@ packagingListFromQuery db query =
 
 
 packagingFromQuery : Food.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
-packagingFromQuery { processes } { code, mass } =
-    processes
-        |> Process.findByIdentifier code
+packagingFromQuery { processes } { id, mass } =
+    Process.findById processes id
         |> Result.map (Packaging mass)
 
 
 processQueryFromProcess : Process -> BuilderQuery.ProcessQuery
 processQueryFromProcess process =
-    { code = process.identifier
+    { id = process.id
     , mass = Mass.grams 100
     }
 
@@ -686,9 +685,8 @@ transformFromQuery :
 transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
-            (\transform ->
-                processes
-                    |> Process.findByIdentifier transform.code
-                    |> Result.map (Transform transform.mass >> Just)
+            (\{ id, mass } ->
+                Process.findById processes id
+                    |> Result.map (Transform mass >> Just)
             )
         |> Maybe.withDefault (Ok Nothing)
