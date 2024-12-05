@@ -738,6 +738,12 @@ def add_activity(_):
                 "<pre style='color: red'>L'identifiant doit être en minuscule et sans espace</pre>"
             )
         )
+    elif activity["name"] in [a["Nom"] for a in activities.values()]:
+        display(
+            ipywidgets.HTML(
+                f"<pre style='color: red'>Un procédé ou ingrédient avec ce nom existe déjà: {activity['name']}</pre>"
+            )
+        )
     else:
         save_output.clear_output()
         activities.update({activity["id"]: to_pretty(activity)})
@@ -1048,13 +1054,11 @@ def display_main():
                             ),
                         ),
                         ipywidgets.HTML(
-                            """<hr/>Mots clés permettant de faire remonter le bon ICV Agribalyse en
-                          <b>premier</b> dans la liste des résultats. Il faut rester le plus succint
-                          possible pour que les termes de recherche restent valable dans une future
-                          version d'Agribalyse. Si vous ne pouvez pas différencier deux procédés vous
-                          pouvez préciser son code avec: <i>code:1234567890...</i>. Vous pouvez vous
-                          aider de l'explorateur dans un autre onglet pour naviguer dans
-                          Agribalyse."""
+                            """<hr/>Mots clés permettant d'avoir un résultat unique dans la liste des résultats.
+                          Il faut rester le plus succint possible pour que les termes de recherche restent
+                          valables dans une future version d'Agribalyse. Si vous ne pouvez pas différencier deux procédés vous
+                          pouvez saisir son nom exact ou préciser son code avec: <i>code:1234567890...</i>. Vous pouvez vous
+                          aider de l'explorateur dans un autre onglet pour naviguer dans Agribalyse."""
                         ),
                         ipywidgets.HBox(
                             (
