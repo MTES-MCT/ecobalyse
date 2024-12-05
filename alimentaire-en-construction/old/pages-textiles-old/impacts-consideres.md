@@ -4,8 +4,8 @@
 
 **2 impacts agrégés**, c'est à dire regroupant différents impacts après normalisation et pondération, sont proposés dans Ecobalyse Textile :&#x20;
 
-* un **coût environnemental**, traduisant la version beta de méthodologie, en vue de l'établissement futur d'une méthodologie de calcul pour l'affichage environnemental réglementaire français (cf. [article L.541-9-12 du code de l'environnement](https://www.legifrance.gouv.fr/codes/article\_lc/LEGIARTI000043959458)) ;
-* un **score PEF** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI\_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales.
+* un **coût environnemental**, traduisant la version beta de méthodologie, en vue de l'établissement futur d'une méthodologie de calcul pour l'affichage environnemental réglementaire français (cf. [article L.541-9-12 du code de l'environnement](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043959458)) ;
+* un **score PEF** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales.
 
 La principale différence entre le Coût Environnemental et le Score PEF consiste en l'ajout de [compléments](../../../textile/complements-hors-acv/) afin de répondre aux limites de la v.1.3 du PEFCR Apparel & Footwear.
 
@@ -89,9 +89,9 @@ Pour la **pondération**, les coefficients appliqués au coût environnemental s
 
 * la pondération du changement climatique est maintenue à 21,06%, afin que le poids relatif de cet impact ne soit pas diminué par l'ajout d'impacts biodiversité ;
 * les niveaux des 3 indicateurs de toxicité (écotoxicité, toxicité humaine cancer, toxicité humaine non cancer), [considérés dans leurs versions corrigées](impacts-consideres.md#indicateurs-de-toxicite-et-decotoxicite-corriges), sont réhaussés proportionnellement de façons à ce que la somme des 3 fasse 12,5% ;\
-  _Cette modification revient environ à doubler la pondération de ces 3 indicateurs (\*2,12)._
+  &#xNAN;_&#x43;ette modification revient environ à doubler la pondération de ces 3 indicateurs (\*2,12)._
 * les autres pondérations sont proportionnelles aux pondérations PEF initiales, mais réduite afin que la somme des pondérations reste bien à 100% après l'introduction des trois modifications précédentes.\
-  _Cette modification revient environ à réduire d'environ 6% la pondération des 12 indicateurs concernés_.
+  &#xNAN;_&#x43;ette modification revient environ à réduire d'environ 6% la pondération des 12 indicateurs concernés_.
 
 </details>
 

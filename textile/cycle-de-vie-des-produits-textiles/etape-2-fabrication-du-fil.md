@@ -94,7 +94,7 @@ Le titrage indique la grosseur d’un fil textile. L'industrie textile se sert d
 Il existe deux systèmes permettant d’exprimer le titrage : \
 \- le système direct : plus le fil est fin, plus le numéro est petit (ex : Dtex)\
 \- le système indirect : plus le fil est fin, plus le numéro est élevé (ex : Nm)\
-_Nm 20 = 20 mètres de ce fil pèsent 1 gramme_ &#x20;
+&#xNAN;_&#x4E;m 20 = 20 mètres de ce fil pèsent 1 gramme_ &#x20;
 
 Ecobalyse permet de préciser le titrage selon les deux systèmes via des unités de référence : le Numéro Metric (Nm) et le Décitex (Dtex).
 
@@ -217,7 +217,7 @@ La consommation d'électricité de la fabrication d'un fil, exprimée en kWh / k
 
 ![](<../../.gitbook/assets/image (194).png>)
 
-Ces valeurs par défaut se basent sur des données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)).&#x20;
+Ces valeurs par défaut se basent sur des données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC_lmG6cju2XWMgExHR5t-_GTsq_jY/edit?usp=sharing)).&#x20;
 
 
 

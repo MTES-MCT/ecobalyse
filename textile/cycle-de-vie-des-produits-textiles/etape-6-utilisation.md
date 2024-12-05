@@ -4,7 +4,7 @@ description: >-
   d'un vêtement
 ---
 
-# 🌀 Etape 6 - Utilisation
+# 🌀 Etape 7 - Utilisation
 
 L'étape Utilisation consiste à modéliser le nombre de jours portés du vêtement ainsi que les impacts associés.&#x20;
 
@@ -48,7 +48,7 @@ Par exemple le nombre de cycles d'entretien est différent pour chaque catégori
 
 <summary>Origine des données</summary>
 
-Les procédés sont d'origine Ecoinvent SAUF pour 4 procédés Base Impacts mobilisés pour faire ce procédé précalculé ([détail du précalcul](https://github.com/MTES-MCT/ecobalyse-data/blob/master/src/ecobalyse\_data/textile/eol\_precalculation/eol\_precalculation.py)) :
+Les procédés sont d'origine Ecoinvent SAUF pour 4 procédés Base Impacts mobilisés pour faire ce procédé précalculé ([détail du précalcul](https://github.com/MTES-MCT/ecobalyse-data/blob/master/src/ecobalyse_data/textile/eol_precalculation/eol_precalculation.py)) :
 
 * proc\_landfill = "Mise en décharge de textiles, FR"&#x20;
 * proc\_incineration = "Incinération de déchets - Déchets textiles, FR"
@@ -83,7 +83,7 @@ _F\_kWh/kg\_lavage : la quantité d'électricité nécessaire à laver 1 kg de v
 _C\_impact/kWh : l'impact de la production d'1 kWh d'électricité dans le pays concerné (unité : impact/kWh)_
 
 _Sur l'interface, il est proposé de faire varier le nombre de cycles d'entretien (n\_cycles(p)), afin de visualiser les modifications d'impacts si un vêtement est entretenu plus souvent, ce qui correspond généralement à un vêtement porté plus longtemps._\
-_Si l'impact global augmente avec le nombre de cycle d'entretien, l'impact par nombre de jour d'utilisation du même vêtement va en revanche diminuer. Cet aspect sera exploré prochainement à travers le projet de PERCR Apparel & Footwear._
+&#xNAN;_&#x53;i l'impact global augmente avec le nombre de cycle d'entretien, l'impact par nombre de jour d'utilisation du même vêtement va en revanche diminuer. Cet aspect sera exploré prochainement à travers le projet de PERCR Apparel & Footwear._
 
 #### Lessive
 

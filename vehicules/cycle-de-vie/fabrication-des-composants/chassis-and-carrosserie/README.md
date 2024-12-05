@@ -133,7 +133,7 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée\
-  Procédé Ecoinvent : Aluminium production, primary, ingot**,** IAIA Area, EU27 & EFTA\
+  Procédé Ecoinvent : Aluminium production, primary, ingo&#x74;**,** IAIA Area, EU27 & EFTA\
   Unité : kg\
   Quantité : 1,3\
   Pertes : non applicable
@@ -152,12 +152,12 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée\
-  Procédé Ecoinvent : P_olypropylene production, granulate, RER_\
+  Procédé Ecoinvent : &#x50;_&#x6F;lypropylene production, granulate, RER_\
   Unité : kg\
   Quantité : 1,01\
   Pertes : non applicable
 * Etape de transformation additionnelle\
-  Procédé Ecoinvent :  I_njection moulding,_ RER\
+  Procédé Ecoinvent :  &#x49;_&#x6E;jection moulding,_ RER\
   Unité : kg\
   Quantité : 1kg\
   Pertes : 1%
@@ -171,7 +171,7 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée\
-  Procédé Ecoinvent : Polyethylene production, high density, granulate_, RER_\
+  Procédé Ecoinvent : Polyethylene production, high density, granulat&#x65;_, RER_\
   Unité : kg\
   Quantité : 1,01\
   Pertes : non applicable
@@ -217,14 +217,12 @@ A compléter
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformée\
-  Procédé Ecoinvent : P_olyurethane production, flexible foam, MDI-based, RER_\
+  Procédé Ecoinvent : &#x50;_&#x6F;lyurethane production, flexible foam, MDI-based, RER_\
   Unité : kg\
   Quantité : 1,02\
   Pertes : non applicable
 
-<!---->
-
-* Etape de transformation additionnelle\
+- Etape de transformation additionnelle\
   Procédé Ecoinvent : _Extrusion, plastic pipes, RER_\
   Unité : kg\
   Quantité : 1kg\
@@ -239,7 +237,7 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformé\
-  Procédé Ecoinvent : A_crylonitrile-butadiene-styrene copolymer production, RER_\
+  Procédé Ecoinvent : &#x41;_&#x63;rylonitrile-butadiene-styrene copolymer production, RER_\
   _Unité : kg_\
   _Quantité : 1,01_\
   _Pertes : non applicable_
@@ -258,7 +256,7 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
 
 * Matière transformé\
-  Procédé Ecoinvent : Polystyrene production, expandable_, RER_\
+  Procédé Ecoinvent : Polystyrene production, expandabl&#x65;_, RER_\
   _Unité : kg_\
   _Quantité : 1,01_\
   _Pertes : non applicable_

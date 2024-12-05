@@ -102,12 +102,12 @@ Lorsqu'ils arrivent à destination, par exemple en Afrique, les vêtements sont 
 \
 Ce constat est notamment appuyé par les [travaux ](https://www.ifmparis.fr/en/faculty/andree-anne-lemieux)et différents échanges avec Andrée-Anne Lemieux (chaire Sustainability IFM-Kering).&#x20;
 
-Par ailleurs, l'initiative [Fashion For Good](https://fashionforgood.com/) dans son rapport [Sorting For Circularity Europe](https://fashionforgood.com/our\_news/sorting-for-circularity-europe-project-findings/) partage aussi l'hypothèse que la perception des vêtements synthétiques par le consommateur pourrait être moindre (cf. extrait du rapport ci-dessous) : \
+Par ailleurs, l'initiative [Fashion For Good](https://fashionforgood.com/) dans son rapport [Sorting For Circularity Europe](https://fashionforgood.com/our_news/sorting-for-circularity-europe-project-findings/) partage aussi l'hypothèse que la perception des vêtements synthétiques par le consommateur pourrait être moindre (cf. extrait du rapport ci-dessous) : \
 "_The difference in fibre composition found could also reflect a preference from consumers in the focus countries for cotton products over polyester, or could be an effect of consumer disposal behaviour as they might regard polyester products as lower value and therefore, choose to dispose of them in household waste rather than giving it to charity for reuse_."
 
 </details>
 
-On considère donc les probabilités suivantes (P_robaDéchet_) pour la réutilisation des vêtements exportés hors Europe :&#x20;
+On considère donc les probabilités suivantes (&#x50;_&#x72;obaDéchet_) pour la réutilisation des vêtements exportés hors Europe :&#x20;
 
 <table><thead><tr><th width="233">Scénario</th><th width="199">Export hors Europe</th><th>Déchets</th><th>ProbaDéchet</th></tr></thead><tbody><tr><td>Moyenne</td><td>19% <br>(= 38% * 49%)</td><td>50%</td><td>9%</td></tr><tr><td>Vêtements synthétiques</td><td>cf. ci-dessus</td><td>65%</td><td>12%</td></tr><tr><td>Autres vêtements</td><td>cf. ci-dessus</td><td>27%</td><td>5%</td></tr></tbody></table>
 

@@ -9,7 +9,7 @@ description: >-
 
 
 {% hint style="warning" %}
-Mise à jour importante de cette page le 30/07/2024 suite à la concertation initiée début avril.
+Mise à jour importante de cette page le 05/12/2024 suite à la concertation initiée début avril.
 {% endhint %}
 
 {% hint style="info" %}
@@ -105,12 +105,12 @@ La définition et la modélisation de chaque indice sont détaillées ci-après.
 
 ### Définition
 
-**La largeur de gamme désigne le nombre de références proposées simultanément par une marque ou une plateforme**. Ce paramètre qualifie donc la marque ou la plateforme, et donc l'ensemble des références qu'elle propose.
+**La largeur de gamme désigne le nombre maximal de références proposées par une marque sur le segment de marché de la référence de produits considérée**.
 
 Précisions :&#x20;
 
 * **Le canal de vente considéré est le site internet de la marque**. En l'absence de vente en ligne sur le site de la marque (ou si le site est un canal de vente artificiel), un canal de vente doit être choisi parmi les principaux.
-* Par exception, dans le cas d'une **marque qui serait distribuée via une plateforme**, de sorte que les consommateurs identifient plus la plateforme que la marque, c'est le nombre total de références proposées sur la plateforme qui doit être considéré.
+* Par exception, dans le cas d'une **marque qui serait distribuée via une plateforme**, de sorte que les consommateurs identifient plus la plateforme que la marque, c'est le nombre total de références proposées du segment sur la plateforme qui doit être considéré.
 * Lorsqu'une marque est proposée au sein d'un **site internet multi-marques**, mais qu'elle y est bien identifiée et que l'essentiel des autres produits proposés sur ce site internet sont également proposés sur le site internet de leur marque propre, c'est alors le nombre de référence de chaque marque qui est considéré.
 
 {% hint style="info" %}
@@ -128,11 +128,6 @@ Les largeurs de gamme à considérer sont alors (cf. tableau ci-dessous) :\
 | **Site C.fr** | 2000 réf. | 3000 réf. | **4000 réf.** | 9000 réf.     |
 
 * Par "référence", on entend généralement une suite de lettres ou de chiffres figurant sur la page produit, et correspondant à une couleur donnée d’un produit donné. Ce terme peut correspondre à la notion d'unité de gestion de stock (UGC ou SKU pour Stock Keeping Unit) ou encore de **référence couleur**.&#x20;
-
-{% hint style="info" %}
-Lors de la phase de concertation du printemps 2024, certains acteurs ont demandé à ce que soient comptabilisées les références et non les références couleurs. Les réponses aux questionnaire introduit ci-dessus (cf. [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l_jCftG7S-_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf_link)) permettront de mieux apprécier l'opportunité de basculer d'un décompte des références à un décompte des références couleurs.
-{% endhint %}
-
 * **Une référence peut être déclinée en plusieurs tailles**. On compte alors bien une seule référence pour l'ensemble des tailles proposées. Certaines références peuvent concerner spécifiquement certaines tailles. C'est par exemple le cas pour les grandes tailles. Sur l'illustration ci-après, chaque ligne correspond à une référence, indépendamment de la gamme de tailles couvertes.
 
 |              | XS à XL | XXL à XXXXL |
@@ -141,11 +136,7 @@ Lors de la phase de concertation du printemps 2024, certains acteurs ont demand�
 | Référence #2 | Oui     | Non         |
 | Référence #3 | Non     | Oui         |
 
-{% hint style="info" %}
-Lors de la phase de concertation du printemps 2024, certains acteurs ont demandé à ce que soient distinguées les segments pour lesquels les références sont proposées : homme / femme / enfant, mais aussi grandes tailles. Les réponses aux questionnaire introduit ci-dessus (cf. [lien](https://docs.google.com/forms/d/e/1FAIpQLSfc7l_jCftG7S-_rpCKixZ8Ctcvum1ksTCkfQbdT7zCQSZcpQ/viewform?usp=sf_link)) permettront de mieux apprécier l'opportunité d'introduire une telle distinction.
-{% endhint %}
-
-* **Seules les références correspondant à du textile d'habillement doivent être comptabilisées**. Les chaussures ou les sacs, par exemple, ne doivent pas être comptabilisés. Les références correspondant à du textile d'habillement mais qui pourraient ne pas être couvertes par le cadre réglementaire (ex : un pull en cachemire) doivent bien être comptabilisées.
+* **Seules les références correspondant à du textile d'habillement doivent être comptabilisées**. Les chaussures ou les sacs, par exemple, ne doivent pas être comptabilisés. Les références correspondant à du **textile d'habillement** mais qui pourraient ne pas être couvertes par le cadre réglementaire (ex : un pull en cachemire) doivent bien être comptabilisées.
 * Le nombre de références à renseigner doit être le **nombre maximum de références commercialisées un même jour sur l'ensemble de l'année civile**. Ainsi, en cas de contrôle à une date donnée, il doit toujours être observé un nombre de références commercialisées inférieur à la valeur renseignée pour calculer l'indice "largeur de gamme". Il n'est pas attendu de la marque qu'elle déclare le nombre exact de références, lequel n'est connu qu'à la fin de l'année. Elles proposent un nombre en s'engageant à ne pas commercialiser simultanément plus de références. Si une marque n'est pas en capacité d'anticiper précisément le nombre de références qu'elle pourrait  commercialiser sur l'année, elle doit donc considérer une marge qu'il lui revient de choisir. Deux illustrations sont proposées ci-après.
 
 <figure><img src="../.gitbook/assets/image (312).png" alt=""><figcaption></figcaption></figure>
@@ -156,17 +147,14 @@ Lors de la phase de concertation du printemps 2024, certains acteurs ont demand�
 
 L'indice "largeur de gamme" prend les valeurs suivantes :&#x20;
 
-* 100% lorsque le nombre de références est inférieur à 3000
-* 80% pour 6 000 références
-* 50% pour 10 000 références
-* 0% lorsque le nombre de références est supérieur à 50 000
+* 100% lorsque le nombre de références est inférieur à 1 000
+* 50% pour 7 000 références
+* 0% lorsque le nombre de références est supérieur à 16 000
 * Entre ces différents points, l'évolution de l'indice est linéaire (cf. schéma ci-après)
 
-<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption><p>Indice "largeur de gamme" en fonction du nombre de références commercialisées</p></figcaption></figure>
 
-{% hint style="info" %}
-En première approche, une unique formule est appliquée quelle que soit la marque ou la plateforme qui commercialise le produit considéré. Au besoin, l'introduction d'échelles différenciées pourra être envisagée pour distinguer les marques qui ne couvriraient qu'une partie du marché (vêtements pour hommes, vêtements pour femme, vêtements pour enfants, vêtements de sport...).
-{% endhint %}
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 ## Incitation à la réparation (1/2)
 
@@ -176,7 +164,7 @@ En première approche, une unique formule est appliquée quelle que soit la marq
 
 {% hint style="info" %}
 Un lien est observé entre la propension qu'a un produit à être réparé et le rapport entre son prix de réparation et son prix neuf. S'il est aussi cher de réparer un produit que de le racheter, celui-ci a peu de chances d'être réparé.\
-Etude Ademe 2022 sur le fonds réemploi-réutilisation et réparation de la filière TLC ([lien](https://librairie.ademe.fr/dechets-economie-circulaire/5323-fonds-reemploi-reutilisation-et-reparation-de-la-filiere-tlc.html)) : "_Les études sur les freins et leviers au recours à la réparation ont mis en évidence le frein financier du montant de la réparation. Le consommateur arbitre principalement entre le coût de réparation et le coût d’achat d’un produit neuf.”_"
+[Etude Ademe 2022 sur le fonds réemploi-réutilisation et réparation de la filière TLC](https://librairie.ademe.fr/economie-circulaire-et-dechets/5323-fonds-reemploi-reutilisation-et-reparation-de-la-filiere-tlc.html)  : "_Les études sur les freins et leviers au recours à la réparation ont mis en évidence le frein financier du montant de la réparation. Le consommateur arbitre principalement entre le coût de réparation et le coût d’achat d’un produit neuf.”_"
 {% endhint %}
 
 Précisions :&#x20;
@@ -191,7 +179,7 @@ Des précisions seront prochainement apportées sur la définition du prix de ve
 | Catégorie de produit | Prix moyen de réparation |
 | -------------------- | ------------------------ |
 | Chemises             | 10€                      |
-| Tshirts              | 10€                      |
+| T-shirts             | 10€                      |
 | Pulls                | 15€                      |
 | Vestes               | 31€                      |
 | Pantalons            | 14€                      |
@@ -208,7 +196,7 @@ L'indice "incitation à la réparation", pour sa première composante, prend les
 * 0% si le coût de réparation représente plus de 100% du prix neuf de référence
 * Entre ces deux points, l'évolution de l'indice est linéaire
 
-Application au cas du Tshirt, avec un coût moyen de réparation de 10€ :&#x20;
+Application au cas du T-shirt, avec un coût moyen de réparation de 10€ :&#x20;
 
 <figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption><p>Indice "incitation à la réparation" (partie 1/2) en fonction du prix de vente d'un Tshirt</p></figcaption></figure>
 

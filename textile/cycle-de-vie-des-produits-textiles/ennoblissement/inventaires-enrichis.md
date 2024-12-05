@@ -89,7 +89,7 @@ Parmi elles, près 1/4 (c. 22,600) sont utilisées en quantité significative au
 
 L'enrichissement des inventaires passe par la modélisation des paramètres suivants :&#x20;
 
-![](https://lh7-us.googleusercontent.com/eq4OKzjEN0qAMb8VGotNHNzpBw5achG4WExM05OEl1siG1vEN5NRrVYoHTGoWsHubh\_J1KFHPD4R5AbXFdIVUSYMr3t7-TepZdoqn835hvKgB9SDgYw5oxh6fnUmx5pqumdlUp7JTAlakou5tRouM-OIGw=s2048)
+![](https://lh7-us.googleusercontent.com/eq4OKzjEN0qAMb8VGotNHNzpBw5achG4WExM05OEl1siG1vEN5NRrVYoHTGoWsHubh_J1KFHPD4R5AbXFdIVUSYMr3t7-TepZdoqn835hvKgB9SDgYw5oxh6fnUmx5pqumdlUp7JTAlakou5tRouM-OIGw=s2048)
 
 
 
@@ -155,7 +155,7 @@ Des travaux menés au sein de l'ONU dans le cadre de la cible 6.3 (Progrès rela
 
 _Taux de raccordement des eaux usées d'origine ménagères par région_
 
-&#x20;![](<../../../.gitbook/assets/Évolution de l’indicateur 6.3.1 Pourcentage des eaux usées traitées (sans danger) \_ Ménagères.png>)
+&#x20;![](<../../../.gitbook/assets/Évolution de l’indicateur 6.3.1 Pourcentage des eaux usées traitées (sans danger) _ Ménagères.png>)
 
 **Paramètre 2 = Efficacité du traitement des eaux usées**&#x20;
 
@@ -305,7 +305,7 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
 **Paramètres mobilisés**
 
 * 0,59kg de produits chimiques utilisés dans 60 litres d'eau => concentration : 4,9 g / L&#x20;
-* 60 litres / 0,06m3 d'eau utilisés = 6 bains de teinture avec un r_apport de bain (Mass to Liquor Ratio) de 1:10_
+* 60 litres / 0,06m3 d'eau utilisés = 6 bains de teinture avec un &#x72;_&#x61;pport de bain (Mass to Liquor Ratio) de 1:10_
 * taux de pollution aquatique selon la zone géographique (pays) où a lieu le procédé\
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé

@@ -116,7 +116,7 @@ Le laminage est un procédé de déformation physique qui consiste à passer une
 
 <summary>Extrusion métallique (aluminium)</summary>
 
-Procédé Ecoinvent : S_ection bar extrusion, aluminium, RER_\
+Procédé Ecoinvent : &#x53;_&#x65;ction bar extrusion, aluminium, RER_\
 _Unité : kg_\
 _Pertes : <mark style="color:orange;">A définir</mark>_
 

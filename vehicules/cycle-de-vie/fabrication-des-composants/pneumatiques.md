@@ -58,5 +58,5 @@ A des fins de simplification, et en l'absence de procédé Ecoinvent spécifique
     * market for fibre, polyester, GLO _(ecoinvent), 0.15kg_
 * Etape de transformation additionnelle
   * thermoformage \
-    _Injection moulding, RER, 1 kg_
+    &#xNAN;_&#x49;njection moulding, RER, 1 kg_
 
