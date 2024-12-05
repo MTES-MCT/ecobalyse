@@ -22,6 +22,7 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
+import Data.Object.Component as ObjectComponent
 import Data.Object.Process as ObjectProcess
 import Data.Object.Query as ObjectQuery
 import Data.Object.Simulator as ObjectSimulator
@@ -42,6 +43,7 @@ import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
+import Page.Explore.ObjectComponents as ObjectComponents
 import Page.Explore.ObjectExamples as ObjectExamples
 import Page.Explore.ObjectProcesses as ObjectProcesses
 import Page.Explore.Table as Table
@@ -91,6 +93,9 @@ init scope dataset session =
 
                 Dataset.Impacts _ ->
                     "Code"
+
+                Dataset.ObjectComponents _ ->
+                    "Nom"
 
                 Dataset.ObjectExamples _ ->
                     "Coût Environnemental"
@@ -414,6 +419,33 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
     ]
 
 
+objectComponentsExplorer :
+    Db
+    -> Table.Config ObjectComponent.Component Msg
+    -> SortableTable.State
+    -> Maybe ObjectComponent.Id
+    -> List (Html Msg)
+objectComponentsExplorer db tableConfig tableState maybeId =
+    [ db.object.components
+        |> List.sortBy .name
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Object (ObjectComponents.table db)
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case ObjectComponent.findById id db.object.components of
+                    Err error ->
+                        alert error
+
+                    Ok component ->
+                        component
+                            |> Table.viewDetails Scope.Object (ObjectComponents.table db)
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
 objectExamplesExplorer :
     Db
     -> Table.Config ( Example ObjectQuery.Query, { score : Float } ) Msg
@@ -707,6 +739,9 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
+
+        Dataset.ObjectComponents maybeId ->
+            objectComponentsExplorer db tableConfig tableState maybeId
 
         Dataset.ObjectExamples maybeId ->
             objectExamplesExplorer db tableConfig tableState maybeId

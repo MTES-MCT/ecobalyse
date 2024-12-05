@@ -32,7 +32,6 @@
       "pef": 67.55287600947277
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -70,7 +69,6 @@
       "pef": 57.26022855348023
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -108,7 +106,6 @@
       "pef": 53.84359684091906
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -146,7 +143,6 @@
       "pef": 26.665205526410173
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -184,7 +180,6 @@
       "pef": 35.85402358385308
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -222,7 +217,6 @@
       "pef": 82.60154514453502
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -260,7 +254,6 @@
       "pef": 69.13677326928355
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -298,7 +291,6 @@
       "pef": 11.826228575284874
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -336,7 +328,6 @@
       "pef": 19.051452338381544
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -374,7 +365,6 @@
       "pef": 10.54283581120147
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -412,7 +402,6 @@
       "pef": 67.2618333758912
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -450,7 +439,6 @@
       "pef": 15.145492851340714
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -488,7 +476,6 @@
       "pef": 27.780920353583667
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -526,7 +513,6 @@
       "pef": 35.346580386776765
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -564,7 +550,6 @@
       "pef": 26.6571806018743
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -602,7 +587,6 @@
       "pef": 26.44188807789911
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -640,7 +624,6 @@
       "pef": 25.288771754646316
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -678,7 +661,6 @@
       "pef": 101.60170001309415
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -716,7 +698,6 @@
       "pef": 656.9997972762471
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.21292,
     "alias": null
@@ -754,7 +735,6 @@
       "pef": 549.8559153831944
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.21292,
     "alias": null
@@ -792,7 +772,6 @@
       "pef": 774.9359709953978
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.21292,
     "alias": null
@@ -830,7 +809,6 @@
       "pef": 221.9414111609737
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.03097,
     "alias": null
@@ -868,7 +846,6 @@
       "pef": 308.5331935690739
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.03097,
     "alias": null
@@ -906,7 +883,6 @@
       "pef": 137.78288504325857
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.03097,
     "alias": null
@@ -944,7 +920,6 @@
       "pef": 569.7999201971751
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.03097,
     "alias": null
@@ -982,7 +957,6 @@
       "pef": 238.45573586198412
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.07115,
     "alias": null
@@ -1020,7 +994,6 @@
       "pef": 2657.373797261458
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.35,
     "alias": null
@@ -1058,7 +1031,6 @@
       "pef": 502.36175453936755
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.35,
     "alias": null
@@ -1096,7 +1068,6 @@
       "pef": 574.0768259958293
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.1675,
     "alias": null
@@ -1134,7 +1105,6 @@
       "pef": 540.4391380647093
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.09511,
     "alias": null
@@ -1172,7 +1142,6 @@
       "pef": 50.53752013147224
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.18106,
     "alias": null
@@ -1210,7 +1179,6 @@
       "pef": 354.02862638452024
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.055,
     "alias": null
@@ -1248,7 +1216,6 @@
       "pef": 221.26277508920253
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.38696,
     "alias": null
@@ -1286,7 +1253,6 @@
       "pef": 185.4743814674453
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0.17842,
     "alias": null
@@ -1324,7 +1290,6 @@
       "pef": 0.0
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 8.64,
     "waste": 0.05446,
     "alias": "knitting-mix"
@@ -1362,7 +1327,6 @@
       "pef": 0.0
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 6.06443,
     "waste": 0.005,
     "alias": "knitting-fully-fashioned"
@@ -1400,7 +1364,6 @@
       "pef": 0.0
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 13.2112,
     "waste": 0.005,
     "alias": "knitting-seamless"
@@ -1438,7 +1401,6 @@
       "pef": 0.0
     },
     "heat_MJ": 0,
-    "elec_pppm": 0.0003145,
     "elec_MJ": 0,
     "waste": 0.06253,
     "alias": "weaving"
@@ -1476,7 +1438,6 @@
       "pef": 60.189078724645206
     },
     "heat_MJ": 25.87,
-    "elec_pppm": 0,
     "elec_MJ": 7.17,
     "waste": 0,
     "alias": "dyeing-fabric"
@@ -1514,7 +1475,6 @@
       "pef": 94.30202340574051
     },
     "heat_MJ": 30.06,
-    "elec_pppm": 0,
     "elec_MJ": 9.22,
     "waste": 0,
     "alias": "dyeing-article"
@@ -1552,7 +1512,6 @@
       "pef": 72.46288021314761
     },
     "heat_MJ": 33.42,
-    "elec_pppm": 0,
     "elec_MJ": 10.15,
     "waste": 0,
     "alias": "dyeing-yarn"
@@ -1590,7 +1549,6 @@
       "pef": 1.4302640036532845
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": "sea-transport"
@@ -1628,7 +1586,6 @@
       "pef": 57.18557935046641
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": "air-transport"
@@ -1666,7 +1623,6 @@
       "pef": 5.829746053425438
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": "train-transport"
@@ -1704,7 +1660,6 @@
       "pef": 13.896787428535804
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": "road-transport"
@@ -1742,7 +1697,6 @@
       "pef": 24.033004439288668
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": "distribution"
@@ -1780,7 +1734,6 @@
       "pef": 36.084473312453426
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -1818,7 +1771,6 @@
       "pef": 50.21324111293862
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -1856,7 +1808,6 @@
       "pef": 54.12459540535732
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -1894,7 +1845,6 @@
       "pef": 15.424025449108882
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -1932,7 +1882,6 @@
       "pef": 64.19940115519978
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -1970,7 +1919,6 @@
       "pef": 2.4135913665809876
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -2008,7 +1956,6 @@
       "pef": 62.22691626110181
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -2046,7 +1993,6 @@
       "pef": 47.58934760756345
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -2084,7 +2030,6 @@
       "pef": 38.47823177287373
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -2122,7 +2067,6 @@
       "pef": 37.74225757857223
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -2160,7 +2104,6 @@
       "pef": 48.934486713424796
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": null
@@ -2198,7 +2141,6 @@
       "pef": 4.443660504016495
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": "heat-europe"
@@ -2236,7 +2178,6 @@
       "pef": 7.827383319524371
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": "heat-row"
@@ -2274,7 +2215,6 @@
       "pef": 18.84986033179577
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0.80952,
     "waste": 0,
     "alias": null
@@ -2312,7 +2252,6 @@
       "pef": 18.84986033179577
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 1.0266,
     "waste": 0,
     "alias": null
@@ -2350,7 +2289,6 @@
       "pef": 18.84986033179577
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0.80952,
     "waste": 0,
     "alias": null
@@ -2388,7 +2326,6 @@
       "pef": 18.84986033179577
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0.9663,
     "waste": 0,
     "alias": null
@@ -2426,7 +2363,6 @@
       "pef": 18.84986033179577
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 1.0266,
     "waste": 0,
     "alias": null
@@ -2464,7 +2400,6 @@
       "pef": 18.84986033179577
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 1.0266,
     "waste": 0,
     "alias": null
@@ -2502,7 +2437,6 @@
       "pef": 18.84986033179577
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0.80952,
     "waste": 0,
     "alias": null
@@ -2540,7 +2474,6 @@
       "pef": 18.84986033179577
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 1.0266,
     "waste": 0,
     "alias": null
@@ -2578,7 +2511,6 @@
       "pef": 2.184273654856301
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": "passenger-car"
@@ -2616,7 +2548,6 @@
       "pef": 33.28066255209558
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 0,
     "waste": 0,
     "alias": "end-of-life"
@@ -2654,7 +2585,6 @@
       "pef": 0.0
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 4.194,
     "waste": 0.04003,
     "alias": "knitting-straight"
@@ -2692,7 +2622,6 @@
       "pef": 0.0
     },
     "heat_MJ": 0,
-    "elec_pppm": 0,
     "elec_MJ": 4.25101,
     "waste": 0.034,
     "alias": "knitting-circular"
@@ -2730,7 +2659,6 @@
       "pef": 22.661695754677325
     },
     "heat_MJ": 37.81,
-    "elec_pppm": 0,
     "elec_MJ": 6.53,
     "waste": 0,
     "alias": "fading"
@@ -2768,7 +2696,6 @@
       "pef": 8.354115771936371
     },
     "heat_MJ": 7.25,
-    "elec_pppm": 0,
     "elec_MJ": 4.56,
     "waste": 0,
     "alias": "printing-pigment"
@@ -2806,7 +2733,6 @@
       "pef": 8.180265537420423
     },
     "heat_MJ": 8.72,
-    "elec_pppm": 0,
     "elec_MJ": 5.22,
     "waste": 0,
     "alias": "printing-substantive"
@@ -2844,7 +2770,6 @@
       "pef": 353.9410037138773
     },
     "heat_MJ": 10.74,
-    "elec_pppm": 0,
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "finishing"
@@ -2882,7 +2807,6 @@
       "pef": 0.0
     },
     "heat_MJ": 10.74,
-    "elec_pppm": 0,
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "dyeing-synthetic-fiber"
@@ -2920,7 +2844,6 @@
       "pef": 0.0
     },
     "heat_MJ": 10.74,
-    "elec_pppm": 0,
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "dyeing-cellulosic-fiber"
@@ -2958,7 +2881,6 @@
       "pef": 10.424195308063478
     },
     "heat_MJ": 10.74,
-    "elec_pppm": 0,
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "bleaching"
@@ -2996,7 +2918,6 @@
       "pef": 0.0
     },
     "heat_MJ": 10.74,
-    "elec_pppm": 0,
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "printing-paste"
@@ -3034,7 +2955,6 @@
       "pef": 0.0
     },
     "heat_MJ": 10.74,
-    "elec_pppm": 0,
     "elec_MJ": 1.61,
     "waste": 0,
     "alias": "printing-dyes"
