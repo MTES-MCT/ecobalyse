@@ -608,16 +608,17 @@ def display_of(activity):
 
 
 @main_output.capture()
-def change_contributor(_):
+def changed_contributor(_):
     display_main()
 
 
-w_contributor.observe(change_contributor, names="value")
+w_contributor.observe(changed_contributor, names="value")
 
 
-def change_id(change):
+def changed_id(change):
     if not change.new:
         clear_form()
+        save_output.clear_output()
         return
     i = from_pretty(read_activities().get(change.new, {}))
     if not i:
@@ -648,7 +649,7 @@ def change_id(change):
     set_field(w_land_footprint, i.get("land_occupation"), 0)
 
 
-w_id.observe(change_id, names="value")
+w_id.observe(changed_id, names="value")
 
 
 def changed_search_to(field):
@@ -682,12 +683,12 @@ def changed_search_to(field):
 changed_database_to = changed_search_to
 
 
-def change_filter(change):
+def changed_filter(change):
     list_output.clear_output()
     list_activities(change.new)
 
 
-w_filter.observe(change_filter, names="value")
+w_filter.observe(changed_filter, names="value")
 
 
 @save_output.capture()
