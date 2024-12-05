@@ -396,7 +396,7 @@ def find_id(dbname, activity):
 def compute_simapro_impacts(activity, method, impacts_py):
     name = (
         activity["name"]
-        if spproject(activity) != "World Food LCA Database"
+        if spproject(activity) != "WFLDB"
         # TODO this should probably done through disabling a strategy
         else f"{activity['name']}/{activity['location']} U"
     )

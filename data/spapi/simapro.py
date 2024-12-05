@@ -41,16 +41,19 @@ async def impact(_: Request, project: str, process: str, method: str):
             server.OpenProject(project, "")
 
         print("Computing results...")
+        # hack because the open project is "WFLDB"
+        # but the process are in the library project "World Food LCA Database"
+        tmpproject = "World Food LCA Database" if project == "WFLDB" else project
         existing = [
             e
             for e in [
-                ((i, server.FindProcess(project, i, process)[0])) for i in range(12)
+                ((i, server.FindProcess(tmpproject, i, process)[0])) for i in range(12)
             ]
             if e[1]
         ]
         found = existing[0] if len(existing) else None
         if found:
-            server.Analyse(project, found[0], process, "Methods", method, "")
+            server.Analyse(tmpproject, found[0], process, "Methods", method, "")
             results, i = {}, 0
             try:
                 # try the first and stop if it raises (typically on a Dummy process.
