@@ -10,6 +10,15 @@ description: >-
 
 <details>
 
+<summary>v2.7.0</summary>
+
+* Modification des seuils du nombre de références pour le [critère largeur de gamme](https://fabrique-numerique.gitbook.io/ecobalyse/textile/durabilite)
+* Ajout de l'irrigation au procédé ecoinvent du coton bio&#x20;
+
+</details>
+
+<details>
+
 <summary>v2.6.0</summary>
 
 * Intégration de la [laine Woolmark](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/focus-laine)
@@ -162,8 +171,8 @@ description: >-
   L'API et l'interface en ligne permettent désormais d'accéder aux paramètres des modélisations produit. Cela facilite le partage de scénarios entre acteurs.&#x20;
 * Webinaire technique (12 mai 2023)\
   Mise en place d'un webinaire en ligne présentant les avancées méthodologiques du dispositif d'affichage environnemental Textile.\
-  Replay => [accès](https://ademecloud-my.sharepoint.com/personal/fabien\_fougeroux\_ademe\_fr/\_layouts/15/stream.aspx?id=%2Fpersonal%2Ffabien%5Ffougeroux%5Fademe%5Ffr%2FDocuments%2FPartage%2FAffichage%20Environnemental%20Textile%2Emp4\&ga=1)\
-  Slides => [accès](https://docs.google.com/presentation/d/1xhv6oYeVitYJT9dsPYXUtv1xjIW7MVR\_Fe8eaE1e8FU/edit?usp=sharing)&#x20;
+  Replay => [accès](https://ademecloud-my.sharepoint.com/personal/fabien_fougeroux_ademe_fr/_layouts/15/stream.aspx?id=%2Fpersonal%2Ffabien%5Ffougeroux%5Fademe%5Ffr%2FDocuments%2FPartage%2FAffichage%20Environnemental%20Textile%2Emp4\&ga=1)\
+  Slides => [accès](https://docs.google.com/presentation/d/1xhv6oYeVitYJT9dsPYXUtv1xjIW7MVR_Fe8eaE1e8FU/edit?usp=sharing)&#x20;
 
 </details>
 
