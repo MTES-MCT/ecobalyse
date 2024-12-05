@@ -110,7 +110,6 @@ def to_process(activity):
             else {"impacts": {}}
         ),
         "heat_MJ": activity["heat_MJ"],
-        "elec_pppm": activity["elec_pppm"],
         "elec_MJ": activity["elec_MJ"],
         "waste": activity["waste"],
         "alias": activity["alias"],
