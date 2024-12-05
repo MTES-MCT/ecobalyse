@@ -405,10 +405,7 @@ def compute_simapro_impacts(activity, method, impacts_py):
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
     logger.debug(f"SimaPro API request: {api_request}")
-    return bytrigram(
-        impacts_py,
-        json.loads(requests.get(api_request).content),
-    )
+    return bytrigram(impacts_py, json.loads(requests.get(api_request).content))
 
 
 def compute_brightway_impacts(activity, method, impacts_py):

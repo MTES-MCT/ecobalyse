@@ -153,6 +153,8 @@ def calculate_aggregate(process_impacts, normalization_factors):
 
 def bytrigram(definitions, bynames):
     """takes the impact definitions and some impacts by name, return the impacts by trigram"""
+    if type(bynames) is not dict:
+        return {}
     trigramsByName = {method[1]: trigram for trigram, method in definitions.items()}
     return {
         trigramsByName.get(name): amount["amount"]
