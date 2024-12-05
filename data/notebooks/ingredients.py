@@ -565,7 +565,6 @@ def clear_all():
     list_output.clear_output()
     file_output.clear_output()
     main_output.clear_output()
-    save_output.clear_output()
 
 
 def clear_form():
@@ -619,6 +618,7 @@ w_contributor.observe(changed_contributor, names="value")
 def changed_id(change):
     if not change.new:
         clear_form()
+    	save_output.clear_output()
         return
     i = from_pretty(read_activities().get(change.new, {}))
     if not i:
