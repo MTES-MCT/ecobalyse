@@ -3,6 +3,7 @@ import json
 import sys
 import urllib.parse
 from os.path import dirname
+import math
 
 import bw2calc
 import bw2data
@@ -86,9 +87,10 @@ def display_changes(key, oldprocesses, processes):
                 old_value = float(old[p][impact])
                 new_value = float(processes[p]["impacts"][impact])
 
-                # Handle case where old value is zero
-                if old_value == 0:
-                    percent_change = 100 if new_value != 0 else 0
+                if old_value == 0 and new_value == 0:
+                    percent_change = 0
+                elif old_value == 0:
+                    percent_change = math.inf
                 else:
                     percent_change = 100 * abs(new_value - old_value) / old_value
 
