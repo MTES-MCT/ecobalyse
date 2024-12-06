@@ -1,17 +1,7 @@
 require("dotenv").config();
 const fs = require("fs");
 const { Elm } = require("./check-db-app");
-const lib = require("./lib");
-
-const { ECOBALYSE_DATA_DIR } = process.env;
-
-let dataFiles;
-try {
-  dataFiles = lib.getDataFiles(ECOBALYSE_DATA_DIR);
-} catch (err) {
-  console.error(`🚨 ERROR: ${err.message}`);
-  process.exit(1);
-}
+const { dataFiles } = require("./lib");
 
 const elmApp = Elm.CheckDb.init({
   flags: {
