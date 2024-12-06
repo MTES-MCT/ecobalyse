@@ -1,3 +1,9 @@
+---
+description: >-
+  Certaines matières ne sont pas proposées dans le choix d'Ecobalyse. En
+  fonction des 2 situations ci-dessous, cette page a pour but de vous aider.
+---
+
 # Matières manquantes
 
 
@@ -18,3 +24,5 @@ Choix d’une autre matière en suivant le tableau de correspondance
 2. Proxi non acceptable: impossible de scorer le produit
 
 </details>
+
+<figure><img src="../../../.gitbook/assets/image (332).png" alt=""><figcaption></figcaption></figure>
