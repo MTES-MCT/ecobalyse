@@ -143,6 +143,7 @@ encode : Process -> Encode.Value
 encode process =
     Encode.object
         [ ( "alias", EncodeExtra.maybe encodeAlias process.alias )
+        , ( "categories", Encode.list Encode.string process.categories )
         , ( "correctif", Encode.string process.correctif )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
