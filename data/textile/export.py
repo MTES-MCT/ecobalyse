@@ -162,16 +162,16 @@ if __name__ == "__main__":
         )
         csv_export_impact_comparison(impacts_compared_dic)
         for process_name, values in impacts_compared_dic.items():
-            displayName = processes[process_name]["displayName"]
-            print(f"Plotting {displayName}")
+            name = processes[process_name]["name"]
+            print(f"Plotting {name}")
             if "simapro_impacts" not in values and "brightway_impacts" not in values:
-                print(f"This hardcopied process cannot be plot: {displayName}")
+                print(f"This hardcopied process cannot be plot: {name}")
                 continue
             simapro_impacts = values["simapro_impacts"]
             brightway_impacts = values["brightway_impacts"]
             os.makedirs(GRAPH_FOLDER, exist_ok=True)
             plot_impacts(
-                displayName,
+                name,
                 simapro_impacts,
                 brightway_impacts,
                 GRAPH_FOLDER,
