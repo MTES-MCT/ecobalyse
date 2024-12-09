@@ -27,6 +27,7 @@ import Json.Encode.Extra as EncodeExtra
 
 type alias Process =
     { alias : Maybe Alias
+    , categories : List String
     , correctif : String
     , displayName : Maybe String
     , elec : Energy -- MJ per kg of material to process
@@ -35,7 +36,6 @@ type alias Process =
     , info : String
     , name : String
     , source : String
-    , stepUsage : String
     , unit : String
     , uuid : Uuid
     , waste : Split -- share of raw material wasted when initially processed
@@ -94,6 +94,7 @@ decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
+        |> Pipe.required "categories" (Decode.list Decode.string)
         |> Pipe.required "correctif" Decode.string
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
@@ -102,7 +103,6 @@ decode impactsDecoder =
         |> Pipe.required "info" Decode.string
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
-        |> Pipe.required "step_usage" Decode.string
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "uuid" decodeUuid
         |> Pipe.required "waste" Split.decodeFloat
@@ -143,6 +143,7 @@ encode : Process -> Encode.Value
 encode process =
     Encode.object
         [ ( "alias", EncodeExtra.maybe encodeAlias process.alias )
+        , ( "categories", Encode.list Encode.string process.categories )
         , ( "correctif", Encode.string process.correctif )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
@@ -151,7 +152,6 @@ encode process =
         , ( "info", Encode.string process.info )
         , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
-        , ( "step_usage", Encode.string process.stepUsage )
         , ( "unit", Encode.string process.unit )
         , ( "uuid", encodeUuid process.uuid )
         , ( "waste", Split.encodeFloat process.waste )

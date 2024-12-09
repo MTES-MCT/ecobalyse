@@ -34,13 +34,13 @@ table { detailed, scope } =
           , toValue = Table.StringValue Process.getDisplayName
           , toCell = Process.getDisplayName >> text
           }
-        , { label = "Étape"
-          , toValue = Table.StringValue .stepUsage
-          , toCell = .stepUsage >> text
-          }
         , { label = "Nom technique"
           , toValue = Table.StringValue .name
           , toCell = .name >> text
+          }
+        , { label = "Catégories"
+          , toValue = Table.StringValue <| .categories >> String.join ","
+          , toCell = .categories >> String.join "," >> text
           }
         , { label = "Source"
           , toValue = Table.StringValue .source

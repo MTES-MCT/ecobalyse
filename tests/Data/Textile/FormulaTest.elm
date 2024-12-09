@@ -29,6 +29,7 @@ km =
 noOpProcess : Process
 noOpProcess =
     { alias = Nothing
+    , categories = []
     , correctif = ""
     , displayName = Just "Default"
     , elec = Energy.megajoules 0
@@ -37,7 +38,6 @@ noOpProcess =
     , info = ""
     , name = "Default"
     , source = ""
-    , stepUsage = ""
     , unit = ""
     , uuid = Process.Uuid ""
     , waste = Split.zero
