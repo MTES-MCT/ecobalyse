@@ -35,7 +35,6 @@ type alias Process =
     , info : String
     , name : String
     , source : String
-    , stepUsage : String
     , unit : String
     , uuid : Uuid
     , waste : Split -- share of raw material wasted when initially processed
@@ -102,7 +101,6 @@ decode impactsDecoder =
         |> Pipe.required "info" Decode.string
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
-        |> Pipe.required "step_usage" Decode.string
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "uuid" decodeUuid
         |> Pipe.required "waste" Split.decodeFloat
@@ -151,7 +149,6 @@ encode process =
         , ( "info", Encode.string process.info )
         , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
-        , ( "step_usage", Encode.string process.stepUsage )
         , ( "unit", Encode.string process.unit )
         , ( "uuid", encodeUuid process.uuid )
         , ( "waste", Split.encodeFloat process.waste )

@@ -37,7 +37,6 @@ noOpProcess =
     , info = ""
     , name = "Default"
     , source = ""
-    , stepUsage = ""
     , unit = ""
     , uuid = Process.Uuid ""
     , waste = Split.zero

@@ -34,10 +34,6 @@ table { detailed, scope } =
           , toValue = Table.StringValue Process.getDisplayName
           , toCell = Process.getDisplayName >> text
           }
-        , { label = "Étape"
-          , toValue = Table.StringValue .stepUsage
-          , toCell = .stepUsage >> text
-          }
         , { label = "Nom technique"
           , toValue = Table.StringValue .name
           , toCell = .name >> text
