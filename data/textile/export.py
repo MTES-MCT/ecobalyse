@@ -102,7 +102,7 @@ def to_process(activity):
         ),
         "source": activity["source"],
         "correctif": activity["correctif"],
-        "step_usage": activity["step_usage"],
+        "categories": activity["categories"],
         "uuid": activity["uuid"],
         **(
             {"impacts": activity["impacts"].copy()}
