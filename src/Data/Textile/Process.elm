@@ -28,7 +28,7 @@ import Json.Encode.Extra as EncodeExtra
 type alias Process =
     { alias : Maybe Alias
     , categories : List String
-    , correctif : String
+    , comment : String
     , displayName : Maybe String
     , elec : Energy -- MJ per kg of material to process
     , heat : Energy --  MJ per kg of material to process
@@ -95,7 +95,7 @@ decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
         |> Pipe.required "categories" (Decode.list Decode.string)
-        |> Pipe.required "correctif" Decode.string
+        |> Pipe.required "comment" Decode.string
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
@@ -144,7 +144,7 @@ encode process =
     Encode.object
         [ ( "alias", EncodeExtra.maybe encodeAlias process.alias )
         , ( "categories", Encode.list Encode.string process.categories )
-        , ( "correctif", Encode.string process.correctif )
+        , ( "comment", Encode.string process.comment )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )

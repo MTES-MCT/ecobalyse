@@ -52,11 +52,11 @@ table { detailed, scope } =
           , toValue = Table.StringValue .unit
           , toCell = .unit >> text
           }
-        , { label = "Correctif"
-          , toValue = Table.StringValue .correctif
+        , { label = "Commentaire"
+          , toValue = Table.StringValue .comment
           , toCell =
                 \process ->
-                    span [ title process.correctif ] [ text process.correctif ]
+                    span [ title process.comment ] [ text process.comment ]
           }
         ]
     }
