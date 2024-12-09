@@ -101,7 +101,7 @@ def to_process(activity):
             else activity["unit"]
         ),
         "source": activity["source"],
-        "correctif": activity["correctif"],
+        "comment": activity["comment"],
         "categories": activity["categories"],
         "uuid": activity["uuid"],
         **(
