@@ -1,6 +1,7 @@
 [
   {
-    "id": "egg-bleublanccoeur",
+    "id": "7ef7399a-1d56-4947-b773-9f6438a50fda",
+    "alias": "egg-bleublanccoeur",
     "name": "Oeuf Bleu-Blanc-Cœur FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
@@ -19,7 +20,8 @@
     "animal_product": "egg"
   },
   {
-    "id": "milk",
+    "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
+    "alias": "milk",
     "name": "Lait FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cow milk national average at farm gate",
@@ -38,7 +40,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "milk-organic",
+    "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
+    "alias": "milk-organic",
     "name": "Lait FR ou UE ou Hors UE Bio",
     "database": "Ecobalyse",
     "search": "cow milk organic national average",
@@ -57,7 +60,8 @@
     "scenario": "organic"
   },
   {
-    "id": "carrot-organic",
+    "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
+    "alias": "carrot-organic",
     "name": "Carotte FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
@@ -74,7 +78,8 @@
     "land_occupation": 0.1586615887
   },
   {
-    "id": "flour",
+    "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
+    "alias": "flour",
     "name": "Farine UE Conv.",
     "search": "Wheat flour at industrial mill FR",
     "process_categories": ["ingredient"],
@@ -91,7 +96,8 @@
     "scenario": "reference"
   },
   {
-    "id": "flour-organic",
+    "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
+    "alias": "flour-organic",
     "name": "Farine FR ou UE ou Hors UE Bio",
     "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
@@ -108,7 +114,8 @@
     "scenario": "organic"
   },
   {
-    "id": "sunflower-organic",
+    "id": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
+    "alias": "sunflower-organic",
     "name": "Tournesol FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Sunflower grain, consumption mix, organic 2023 {FR}",
@@ -126,7 +133,8 @@
     "land_occupation": 5.860028225
   },
   {
-    "id": "sunflower-feed-organic",
+    "id": "c5dfca39-14f6-4d7c-a506-d8a5e65256a7",
+    "alias": "sunflower-feed-organic",
     "name": "Tournesol FR ou UE ou Hors UE Bio",
     "search": "Sunflower, organic, animal feed, at farm gate {FR}",
     "process_categories": ["ingredient"],
@@ -143,7 +151,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "rapeseed-organic",
+    "id": "5238ba53-56e4-404e-ad68-43d80a5df85b",
+    "alias": "rapeseed-organic",
     "name": "Colza FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Winter rapeseed, organic, at farm gate {FR}",
@@ -160,7 +169,8 @@
     "land_occupation": 4.508453339
   },
   {
-    "id": "ground-beef",
+    "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
+    "alias": "ground-beef",
     "name": "Boeuf haché cru FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Ground beef fresh case ready for direct consumption at plant",
@@ -179,7 +189,8 @@
     "scenario": "reference"
   },
   {
-    "id": "ground-beef-organic",
+    "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
+    "alias": "ground-beef-organic",
     "name": "Boeuf haché cru FR ou UE ou Hors UE Bio",
     "database": "Ecobalyse",
     "search": "Ground beef fresh case ready for direct consumption at plant organic, constructed by Ecobalyse",
@@ -198,7 +209,8 @@
     "scenario": "organic"
   },
   {
-    "id": "cull-cow-organic",
+    "id": "8750a101-87ff-46be-9dac-0009beb6adde",
+    "alias": "cull-cow-organic",
     "name": "Vache de réforme bio",
     "process_categories": ["material"],
     "search": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
@@ -206,7 +218,8 @@
     "land_occupation": 28.82386341
   },
   {
-    "id": "ground-beef-feedlot",
+    "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
+    "alias": "ground-beef-feedlot",
     "name": "Boeuf haché cru Hors UE Conv.",
     "database": "Ecobalyse",
     "search": "Ground beef fresh case ready for direct consumption at plant feedlot, constructed by Ecobalyse",
@@ -225,7 +238,8 @@
     "scenario": "import"
   },
   {
-    "id": "ground-beef-grass-fed",
+    "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
+    "alias": "ground-beef-grass-fed",
     "name": "Boeuf haché cru - v. de réforme 100% herbe FR Conv.",
     "database": "Ecobalyse",
     "search": "Ground beef fresh case ready for direct consumption at plant [grass-fed], constructed by Ecobalyse",
@@ -244,7 +258,8 @@
     "land_occupation": 0.02228578
   },
   {
-    "id": "cooked-ham",
+    "id": "755225f1-f0c5-497f-b8a9-263828a84a22",
+    "alias": "cooked-ham",
     "name": "Jambon cuit FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cooked ham case ready at plant",
@@ -263,7 +278,8 @@
     "scenario": "reference"
   },
   {
-    "id": "cooked-ham-organic",
+    "id": "4de5e41e-3271-4489-aa27-a973e4045082",
+    "alias": "cooked-ham-organic",
     "name": "Jambon cuit FR ou UE ou Hors UE Bio",
     "database": "Ecobalyse",
     "search": "Cooked ham case ready at plant organic, constructed by Ecobalyse",
@@ -282,7 +298,8 @@
     "scenario": "organic"
   },
   {
-    "id": "cooked-ham-fr",
+    "id": "15e2dfa0-9b5f-4bc9-a3ed-885f56061bc0",
+    "alias": "cooked-ham-fr",
     "name": "Jambon cuit (alim. ani. 100%FR) FR Conv.",
     "database": "Ecobalyse",
     "search": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
@@ -301,7 +318,8 @@
     "scenario": "reference"
   },
   {
-    "id": "chicken-breast",
+    "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984",
+    "alias": "chicken-breast",
     "name": "Blanc de poulet cru FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Meat without bone chicken for direct consumption",
@@ -320,7 +338,8 @@
     "scenario": "reference"
   },
   {
-    "id": "chicken-breast-organic",
+    "id": "b19b0dc0-3478-46a0-b8a1-3225ea939ff1",
+    "alias": "chicken-breast-organic",
     "name": "Blanc de poulet cru FR ou UE ou Hors UE Bio",
     "database": "Ecobalyse",
     "search": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
@@ -339,7 +358,8 @@
     "scenario": "organic"
   },
   {
-    "id": "chicken-breast-fr-organic",
+    "id": "b682ae30-9df9-4385-9005-4b4725c70d54",
+    "alias": "chicken-breast-fr-organic",
     "name": "Blanc de poulet cru (alim. ani. 100%FR) FR ou UE ou Hors UE Bio",
     "database": "Ecobalyse",
     "search": "Meat without bone chicken for direct consumption \"fr-organic\" constructed by Ecobalyse",
@@ -358,7 +378,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "rapeseed-oil",
+    "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
+    "alias": "rapeseed-oil",
     "name": "Huile de colza Hors UE Conv.",
     "search": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "process_categories": ["ingredient"],
@@ -375,7 +396,8 @@
     "scenario": "reference"
   },
   {
-    "id": "rapeseed-oil-organic",
+    "id": "51f8e8d2-13c0-446c-bf0a-9272fc46edde",
+    "alias": "rapeseed-oil-organic",
     "name": "Huile de colza FR ou UE ou Hors UE Bio",
     "search": "Rapeseed oil mill {GLO} organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
@@ -392,7 +414,8 @@
     "scenario": "organic"
   },
   {
-    "id": "sunflower-oil",
+    "id": "3cfab110-363e-442a-9170-1af337fe9ea3",
+    "alias": "sunflower-oil",
     "name": "Huile de tournesol Hors UE Conv.",
     "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "process_categories": ["ingredient"],
@@ -409,7 +432,8 @@
     "scenario": "reference"
   },
   {
-    "id": "sunflower-oil-organic",
+    "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40",
+    "alias": "sunflower-oil-organic",
     "name": "Huile de tournesol FR ou UE ou Hors UE Bio",
     "search": "sunflower oil at mill {glo} organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
@@ -426,7 +450,8 @@
     "scenario": "organic"
   },
   {
-    "id": "zucchini-organic",
+    "id": "59092383-9bfb-419e-ab63-825c8e6e6ed0",
+    "alias": "zucchini-organic",
     "name": "Courgette FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, organic, at farm gate {FR}",
@@ -443,7 +468,8 @@
     "land_occupation": 0.1352116869
   },
   {
-    "id": "peach-organic",
+    "id": "3cc14fbe-c798-46bf-bc7d-94d5ed28fa7c",
+    "alias": "peach-organic",
     "name": "Pêche FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Peach, organic, national average, at orchard {FR} U",
@@ -460,7 +486,8 @@
     "land_occupation": 0.8185755967
   },
   {
-    "id": "melon-organic",
+    "id": "359ec82d-4f28-43bd-b5be-84256a45c03e",
+    "alias": "melon-organic",
     "name": "Melon FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Melon, organic, at farm gate FR",
@@ -477,7 +504,8 @@
     "land_occupation": 0.5000263656
   },
   {
-    "id": "butter",
+    "id": "bbda834e-1548-4682-a461-c367dc1ce517",
+    "alias": "butter",
     "name": "Beurre FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
@@ -492,7 +520,8 @@
     "land_occupation": 9.167676909
   },
   {
-    "id": "butter-organic",
+    "id": "aeedb0fa-81a7-4f21-9bf1-7ec9c4c69ed9",
+    "alias": "butter-organic",
     "name": "Beurre FR ou UE ou Hors UE Bio",
     "database": "Ecobalyse",
     "search": "Butter, 82% fat, unsalted, at dairy {FR} organic, constructed by Ecobalyse",
@@ -507,7 +536,8 @@
     "land_occupation": 11.53376237
   },
   {
-    "id": "steel",
+    "id": "d6c968fa-0f42-4010-83a9-9bc2146091f6",
+    "alias": "steel",
     "name": "Acier",
     "process_categories": ["packaging"],
     "search": "Steel unalloyed {RER} steel production converter unalloyed",
@@ -515,7 +545,8 @@
     "land_occupation": 0.04857122944
   },
   {
-    "id": "ldpe",
+    "id": "c161e98d-edda-47fc-b0ec-1db4bbca6faf",
+    "alias": "ldpe",
     "name": "Polyéthylène basse densité",
     "process_categories": ["packaging"],
     "search": "Packaging film low density polyethylene {RER} production",
@@ -523,7 +554,8 @@
     "land_occupation": 0.238120443
   },
   {
-    "id": "ps",
+    "id": "b8227d72-5b8e-4524-bf09-b76752a9bbc8",
+    "alias": "ps",
     "name": "Polystyrène",
     "process_categories": ["packaging"],
     "search": "Polystyrene expandable {RER} production",
@@ -531,7 +563,8 @@
     "land_occupation": 0.0006475933341
   },
   {
-    "id": "glass",
+    "id": "330bcf40-7a51-43f0-ab86-800fb583bc5b",
+    "alias": "glass",
     "name": "Verre",
     "process_categories": ["packaging"],
     "search": "Packaging glass white {RER} w/o CH+DE production",
@@ -539,7 +572,8 @@
     "land_occupation": 0.2122022609
   },
   {
-    "id": "pp",
+    "id": "65e69494-5d66-4668-b841-b61d96877d8c",
+    "alias": "pp",
     "name": "Polypropylène",
     "process_categories": ["packaging"],
     "search": "Polypropylene granulate {RER}| production",
@@ -547,7 +581,8 @@
     "land_occupation": 0.03117341589
   },
   {
-    "id": "cardboard",
+    "id": "c352add7-8037-464e-bff2-7da517419f88",
+    "alias": "cardboard",
     "name": "Carton",
     "process_categories": ["packaging"],
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
@@ -555,7 +590,8 @@
     "land_occupation": 1.118087426
   },
   {
-    "id": "paper",
+    "id": "a864ad10-5fe6-4bca-b6d5-452151b1090a",
+    "alias": "paper",
     "name": "Papier",
     "process_categories": ["packaging"],
     "search": "Kraft paper production",
@@ -563,7 +599,8 @@
     "land_occupation": 5.742330888
   },
   {
-    "id": "pvc",
+    "id": "b4fd9dda-585b-40bd-819e-295ee366964c",
+    "alias": "pvc",
     "name": "PVC",
     "process_categories": ["packaging"],
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
@@ -571,7 +608,8 @@
     "land_occupation": 0.09338342157
   },
   {
-    "id": "pet",
+    "id": "d585b817-44b0-43ea-887e-9381816a4c03",
+    "alias": "pet",
     "name": "PET",
     "process_categories": ["packaging"],
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
@@ -579,7 +617,8 @@
     "land_occupation": 0.08690395197
   },
   {
-    "id": "hdpe",
+    "id": "913d7288-efe5-493a-930f-993956fe7f0a",
+    "alias": "hdpe",
     "name": "Polyéthylène haute densité",
     "process_categories": ["packaging"],
     "search": "Polyethylene high density granulate {RER} production",
@@ -587,7 +626,8 @@
     "land_occupation": 0.03632785463
   },
   {
-    "id": "aluminium",
+    "id": "fedc3170-f2fb-42b2-b1cd-7010b17c337f",
+    "alias": "aluminium",
     "name": "Aluminium",
     "process_categories": ["packaging"],
     "search": "Aluminium primary ingot {RoW} production",
@@ -595,7 +635,8 @@
     "land_occupation": 0.4437118452
   },
   {
-    "id": "canning",
+    "id": "3e711b44-4e7a-4d9c-ac0b-16f026a6ee93",
+    "alias": "canning",
     "name": "Mise en conserve",
     "process_categories": ["transformation"],
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
@@ -603,7 +644,8 @@
     "land_occupation": 0.01280080518
   },
   {
-    "id": "mixing",
+    "id": "d54f2cc3-2d05-4d29-92f5-bc6b7489ec7c",
+    "alias": "mixing",
     "name": "Mélange",
     "process_categories": ["transformation"],
     "search": "Mixing processing dummy",
@@ -611,7 +653,8 @@
     "land_occupation": 0.0
   },
   {
-    "id": "cooking",
+    "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
+    "alias": "cooking",
     "name": "Cuisson",
     "process_categories": ["transformation"],
     "search": "Cooking, industrial, 1kg of cooked product {FR} U",
@@ -619,7 +662,8 @@
     "land_occupation": 0.1061592474
   },
   {
-    "id": "lorry",
+    "id": "a938b45f-688d-4265-b6af-c11a9fa91c36",
+    "alias": "lorry",
     "name": "Camion",
     "process_categories": ["transport"],
     "search": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
@@ -627,7 +671,8 @@
     "land_occupation": 0.01036883599
   },
   {
-    "id": "boat",
+    "id": "247b42b9-d629-4006-86a4-4c255f5b8e4b",
+    "alias": "boat",
     "name": "Bateau",
     "process_categories": ["transport"],
     "search": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
@@ -635,7 +680,8 @@
     "land_occupation": 6.700175036e-5
   },
   {
-    "id": "plane",
+    "id": "3bb59715-9944-4512-ae71-232109c83794",
+    "alias": "plane",
     "name": "Avion",
     "process_categories": ["transport"],
     "search": "Transport freight aircraft unspecified",
@@ -643,7 +689,8 @@
     "land_occupation": 0.002944675296
   },
   {
-    "id": "boat-cooling",
+    "id": "8f1efc54-b468-4ab8-9ea6-ef533bf74be5",
+    "alias": "boat-cooling",
     "name": "Bateau frigorifique",
     "process_categories": ["transport"],
     "search": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
@@ -651,7 +698,8 @@
     "land_occupation": 0.0001794949801
   },
   {
-    "id": "lorry-cooling",
+    "id": "da60057d-d42c-4892-84fe-a802f294821d",
+    "alias": "lorry-cooling",
     "process_categories": ["transport"],
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}",
@@ -659,7 +707,8 @@
     "land_occupation": 0.01207829821
   },
   {
-    "id": "low-voltage-electricity",
+    "id": "a094f56a-ae26-469a-8639-c2f447919eb6",
+    "alias": "low-voltage-electricity",
     "name": "Electricité basse tension",
     "process_categories": ["energy"],
     "search": "Electricity low voltage {FR} market",
@@ -667,7 +716,8 @@
     "land_occupation": 0.01033919921
   },
   {
-    "id": "tap-water",
+    "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
+    "alias": "tap-water",
     "name": "Eau du robinet UE Conv.",
     "search": "Tap water Europe market",
     "process_categories": ["ingredient"],
@@ -682,7 +732,8 @@
     "land_occupation": 2.10364488e-5
   },
   {
-    "id": "domestic-gas-heat",
+    "id": "63bb1a62-15d9-4a56-82f3-c42ab92c31ae",
+    "alias": "domestic-gas-heat",
     "name": "Gaz de ville",
     "process_categories": ["energy"],
     "search": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
@@ -690,7 +741,8 @@
     "land_occupation": 0.0002922175603
   },
   {
-    "id": "comte-aop",
+    "id": "f804033a-fe59-4ec5-b24b-c7482b2a6cf6",
+    "alias": "comte-aop",
     "name": "Comté FR AOP Conv.",
     "search": "Comte cheese, from cow's milk, at plant {FR} U",
     "process_categories": ["ingredient"],
@@ -706,7 +758,8 @@
     "land_occupation": 6.303181904
   },
   {
-    "id": "emmental",
+    "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
+    "alias": "emmental",
     "name": "Emmental FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Emmental cheese, from cow's milk, at plant {FR} U",
@@ -722,7 +775,8 @@
     "land_occupation": 6.640954284
   },
   {
-    "id": "mozzarella",
+    "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
+    "alias": "mozzarella",
     "name": "Mozzarella FR Conv.",
     "search": "Mozzarella cheese, from cow's milk, at plant {FR} U",
     "process_categories": ["ingredient"],
@@ -738,7 +792,8 @@
     "land_occupation": 4.783923222
   },
   {
-    "id": "beetroot-organic",
+    "id": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
+    "alias": "beetroot-organic",
     "name": "Betterave rouge FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
@@ -756,7 +811,8 @@
     "land_occupation": 0.1586615887
   },
   {
-    "id": "celeriac-organic",
+    "id": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
+    "alias": "celeriac-organic",
     "name": "Céleri-rave FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
@@ -774,7 +830,8 @@
     "land_occupation": 0.1586615887
   },
   {
-    "id": "turnip-organic",
+    "id": "7e64fe4d-001c-42eb-9307-13c8a21d2805",
+    "alias": "turnip-organic",
     "name": "Navet FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, organic, Lower Normandy, at farm gate",
@@ -791,7 +848,8 @@
     "land_occupation": 0.1586615887
   },
   {
-    "id": "chickpea-organic",
+    "id": "20aea108-cab8-4223-b8b7-4747599e228c",
+    "alias": "chickpea-organic",
     "name": "Pois chiche FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
@@ -809,7 +867,8 @@
     "land_occupation": 2.362643424
   },
   {
-    "id": "soybean-humanconsumption",
+    "id": "c466ec83-7735-43b6-a919-c933e6656a8d",
+    "alias": "soybean-humanconsumption",
     "name": "Soja FR Conv.",
     "search": "Soybean, national average, animal feed, at farm gate {FR} U",
     "process_categories": ["ingredient"],
@@ -826,7 +885,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "soybean-organic",
+    "id": "92d34545-6952-466e-bf6d-c1f1f6069b48",
+    "alias": "soybean-organic",
     "name": "Soja FR ou UE ou Hors UE Bio",
     "search": "soybean organic animal at farm gate {FR}",
     "process_categories": ["ingredient"],
@@ -843,7 +903,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "soybean-br-no-deforestation",
+    "id": "0cd5d7be-c2a9-4a3d-a3f9-86e351733438",
+    "alias": "soybean-br-no-deforestation",
     "name": "Soja (non déforestant) Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
@@ -860,7 +921,8 @@
     "land_occupation": 2.475542131
   },
   {
-    "id": "soybean-br-deforestation",
+    "id": "141f76d7-fe36-4f17-b7da-043ac884a309",
+    "alias": "soybean-br-deforestation",
     "name": "Soja déforestant Hors UE Conv.",
     "search": "Soybean {BR}| market for soybean | Cut-off, U copied from Ecoinvent",
     "process_categories": ["ingredient"],
@@ -877,7 +939,8 @@
     "scenario": "import"
   },
   {
-    "id": "soybean-feed",
+    "id": "086b58da-1c4c-40a8-9327-37477d04cfba",
+    "alias": "soybean-feed",
     "name": "Soja feed Hors UE Conv.",
     "search": "Soybean grain dried, stored and transported, processing {FR}",
     "process_categories": ["ingredient"],
@@ -894,7 +957,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "sausage-meat",
+    "id": "d1eb385a-ad1e-44f5-89d1-640c4c91d353",
+    "alias": "sausage-meat",
     "name": "Chair à saucisse crue FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Sausage meat, raw, at plant {FR} U",
@@ -909,7 +973,8 @@
     "land_occupation": 9.348404415
   },
   {
-    "id": "sausage-toulouse",
+    "id": "ee85fceb-7d1f-4871-a0e3-4e88cc816bd5",
+    "alias": "sausage-toulouse",
     "name": "Saucisse de Toulouse (crue) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Toulouse sausage, raw, at plant {FR} U",
@@ -924,7 +989,8 @@
     "land_occupation": 19.32745302
   },
   {
-    "id": "sausage-toulouse-cooked",
+    "id": "0a86af92-e0c5-4667-9cd2-d63bcc0d9726",
+    "alias": "sausage-toulouse-cooked",
     "name": "Saucisse de Toulouse (cuite) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Toulouse sausage, cooked, at plant {FR} U",
@@ -939,7 +1005,8 @@
     "land_occupation": 19.43306797
   },
   {
-    "id": "sausage-tofu",
+    "id": "5799c843-f538-40c8-bd6f-a3b4a4288261",
+    "alias": "sausage-tofu",
     "name": "Saucisse végétale tofu FR Conv.",
     "search": "Plant-based sausage with tofu (vegan), at plant {FR} U",
     "process_categories": ["ingredient"],
@@ -954,7 +1021,8 @@
     "land_occupation": 1.68537247
   },
   {
-    "id": "tomato-paste",
+    "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
+    "alias": "tomato-paste",
     "name": "Purée de tomates Hors UE Conv.",
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "process_categories": ["ingredient"],
@@ -971,7 +1039,8 @@
     "scenario": "reference"
   },
   {
-    "id": "tomato-concentrated",
+    "id": "55e180a0-9b80-4e0c-9aaf-4613a155d69a",
+    "alias": "tomato-concentrated",
     "name": "Concentré de tomates Hors UE Conv.",
     "search": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO}",
     "process_categories": ["ingredient"],
@@ -988,7 +1057,8 @@
     "scenario": "reference"
   },
   {
-    "id": "beef-with-bone",
+    "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
+    "alias": "beef-with-bone",
     "name": "Viande de boeuf avec os (crue) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Meat with bone, beef, for direct consumption",
@@ -1007,7 +1077,8 @@
     "scenario": "reference"
   },
   {
-    "id": "beef-without-bone",
+    "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
+    "alias": "beef-without-bone",
     "name": "Viande de boeuf sans os (crue) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Meat without bone, beef, for direct consumption",
@@ -1026,7 +1097,8 @@
     "scenario": "reference"
   },
   {
-    "id": "beef-without-bone-organic",
+    "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
+    "alias": "beef-without-bone-organic",
     "name": "Viande de boeuf sans os FR ou UE ou Hors UE Bio (crue)",
     "search": "Meat without bone, beef, for direct consumption organic constructed",
     "database": "Ecobalyse",
@@ -1045,7 +1117,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "durum-wheat-semolina",
+    "id": "4f3abd56-ed63-4207-afbb-20ac259017e0",
+    "alias": "durum-wheat-semolina",
     "name": "Semoule de blé dur FR Conv.",
     "search": "Durum wheat, semolina, at plant {FR} U",
     "process_categories": ["ingredient"],
@@ -1062,7 +1135,8 @@
     "scenario": "reference"
   },
   {
-    "id": "sugar",
+    "id": "8f075c25-9ebf-430c-b41d-51d165c6e0d8",
+    "alias": "sugar",
     "name": "Sucre de betterave FR Conv.",
     "search": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
     "process_categories": ["ingredient"],
@@ -1079,7 +1153,8 @@
     "scenario": "reference"
   },
   {
-    "id": "dark-chocolate",
+    "id": "6f3939f7-408c-45d5-8653-61f3336bf305",
+    "alias": "dark-chocolate",
     "name": "Chocolat noir Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Dark chocolate, at plant {RER} - Adapted from WFLDB U",
@@ -1095,7 +1170,8 @@
     "land_occupation": 11.79520862582675
   },
   {
-    "id": "chicken-breast-br-max",
+    "id": "8fb5024c-ceec-4201-b069-ea253c537ad6",
+    "alias": "chicken-breast-br-max",
     "name": "Blanc de poulet cru (alim. ani. 100%BR) Hors UE Conv.",
     "database": "Ecobalyse",
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
@@ -1115,7 +1191,8 @@
     "scenario": "import"
   },
   {
-    "id": "chicken-breast-fr",
+    "id": "f94df72e-20fd-4cc5-ab64-ce3921649d58",
+    "alias": "chicken-breast-fr",
     "name": "Blanc de poulet cru (alim. ani. 100%FR) FR Conv.",
     "database": "Ecobalyse",
     "search": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
@@ -1135,7 +1212,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "cane-sugar",
+    "id": "9b476f8e-08c2-4406-9198-1fb2e007f000",
+    "alias": "cane-sugar",
     "name": "Sucre de canne Hors UE Conv.",
     "search": "brown sugar at plant",
     "process_categories": ["ingredient"],
@@ -1152,7 +1230,8 @@
     "scenario": "import"
   },
   {
-    "id": "tea-dried",
+    "id": "97f56acd-962e-4a4b-af42-1e468d2017a0",
+    "alias": "tea-dried",
     "name": "Thé (feuilles) UE Conv.",
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
     "process_categories": ["ingredient"],
@@ -1169,7 +1248,8 @@
     "scenario": "reference"
   },
   {
-    "id": "coffee-ground",
+    "id": "77be5f12-5124-4828-861c-9ce4ed3fa661",
+    "alias": "coffee-ground",
     "name": "Café moulu Hors UE Conv.",
     "search": "Coffee, roast and ground, at plant {FR} U",
     "process_categories": ["ingredient"],
@@ -1186,7 +1266,8 @@
     "scenario": "import"
   },
   {
-    "id": "black-pepper",
+    "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
+    "alias": "black-pepper",
     "name": "Poivre noir Hors UE Conv.",
     "search": "Black pepper, dried, consumption mix",
     "process_categories": ["ingredient"],
@@ -1204,7 +1285,8 @@
     "scenario": "import"
   },
   {
-    "id": "milk-powder",
+    "id": "b6776a28-ec84-4bf3-988c-07b3c29f6136",
+    "alias": "milk-powder",
     "name": "Poudre de lait écrémé FR Conv.",
     "search": "Milk, powder, skimmed, non rehydrated, at plant {FR} ",
     "process_categories": ["ingredient"],
@@ -1219,7 +1301,8 @@
     "land_occupation": 21.53074424
   },
   {
-    "id": "red-wine",
+    "id": "6621c18e-85de-4683-82be-7b236e68bc48",
+    "alias": "red-wine",
     "name": "Vin rouge FR Conv.",
     "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
     "process_categories": ["ingredient"],
@@ -1236,7 +1319,8 @@
     "scenario": "reference"
   },
   {
-    "id": "fresh-shrimps",
+    "id": "74a86477-3ec2-4f7a-b717-c1794d399e84",
+    "alias": "fresh-shrimps",
     "name": "Crevettes fraîches Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Fresh shrimps, China production/FR U :",
@@ -1251,7 +1335,8 @@
     "land_occupation": 1.85501141
   },
   {
-    "id": "large-trout",
+    "id": "dc27661f-3ffa-4f85-b9bb-0028bc7c5fef",
+    "alias": "large-trout",
     "name": "Truite d'élevage FR Conv.",
     "search": "Large trout, 2-4kg, conventional, at farm gate/FR U :",
     "process_categories": ["ingredient"],
@@ -1267,7 +1352,8 @@
     "land_occupation": 1.550819896
   },
   {
-    "id": "egg-indoor-code2",
+    "id": "cf30d3bc-e99c-418a-b7e3-89a894d410a5",
+    "alias": "egg-indoor-code2",
     "name": "Oeuf FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
@@ -1286,7 +1372,8 @@
     "animal_product": "egg"
   },
   {
-    "id": "egg-indoor-code3",
+    "id": "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69",
+    "alias": "egg-indoor-code3",
     "name": "Oeuf (code 3) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
@@ -1305,7 +1392,8 @@
     "scenario": "reference"
   },
   {
-    "id": "egg-outdoor-code1",
+    "id": "b2e75be9-65b8-487d-b5b3-f9c2aa047cf7",
+    "alias": "egg-outdoor-code1",
     "name": "Oeuf (code 1) FR Conv.",
     "search": "Egg, conventional, outdoor system, at farm gate/FR U :",
     "process_categories": ["ingredient"],
@@ -1324,7 +1412,8 @@
     "animal_product": "egg"
   },
   {
-    "id": "egg-organic-code0",
+    "id": "cfd4a437-aa49-49ff-818e-353421f2fc09",
+    "alias": "egg-organic-code0",
     "name": "Oeuf FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Egg, organic, at farm gate {FR} U",
@@ -1343,7 +1432,8 @@
     "scenario": "organic"
   },
   {
-    "id": "wine-grape-organic",
+    "id": "e05934df-fd40-4110-a610-0bd686911f2e",
+    "alias": "wine-grape-organic",
     "name": "Raisin de cuve FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
@@ -1360,7 +1450,8 @@
     "land_occupation": 1.032679591
   },
   {
-    "id": "lamb-meat-without-bone",
+    "id": "d79e0fce-8633-4189-a937-7b8010abafed",
+    "alias": "lamb-meat-without-bone",
     "name": "Viande d'agneau (désossée) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Meat without bone lamb",
@@ -1379,7 +1470,8 @@
     "scenario": "reference"
   },
   {
-    "id": "lamb-meat-without-bone-organic",
+    "id": "e07f7703-c4f7-479e-a8ac-bb73d3f08c78",
+    "alias": "lamb-meat-without-bone-organic",
     "name": "Viande d'agneau FR ou UE ou Hors UE Bio (désossée)",
     "database": "Ecobalyse",
     "search": "meat lamb organic",
@@ -1398,7 +1490,8 @@
     "scenario": "organic"
   },
   {
-    "id": "pear-organic",
+    "id": "57c2fff4-6ad8-4524-a81a-dacdae11deed",
+    "alias": "pear-organic",
     "name": "Poire FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Pear, consumption mix, organic 2023 {FR} U",
@@ -1416,7 +1509,8 @@
     "land_occupation": 0.3820688838
   },
   {
-    "id": "carrot-fr",
+    "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae",
+    "alias": "carrot-fr",
     "name": "Carotte FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR} U",
@@ -1433,7 +1527,8 @@
     "land_occupation": 0.12333583188828015
   },
   {
-    "id": "carrot-eu",
+    "id": "0e223ce2-10cd-4998-bcee-8674f11f374d",
+    "alias": "carrot-eu",
     "name": "Carotte UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1450,7 +1545,8 @@
     "land_occupation": 0.1802707158308635
   },
   {
-    "id": "carrot-non-ue",
+    "id": "519cc82d-cae4-432e-ad22-586ca9b37a7e",
+    "alias": "carrot-non-ue",
     "name": "Carotte Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -1467,7 +1563,8 @@
     "land_occupation": 0.28754145691431554
   },
   {
-    "id": "zucchini-fr",
+    "id": "a8ba3467-3c82-442a-a73a-98769061b7a9",
+    "alias": "zucchini-fr",
     "name": "Courgette FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
@@ -1484,7 +1581,8 @@
     "land_occupation": 0.0976557893177337
   },
   {
-    "id": "zucchini-eu",
+    "id": "5ef69042-45c5-4b86-b494-1dafcccfc222",
+    "alias": "zucchini-eu",
     "name": "Courgette UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
@@ -1501,7 +1599,8 @@
     "land_occupation": 0.22895499508484513
   },
   {
-    "id": "pear-fr",
+    "id": "eab762ca-1edc-4fcc-ba6d-c247bbab0ec8",
+    "alias": "pear-fr",
     "name": "Poire FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Pear, conventional, at orchard {FR} U",
@@ -1518,7 +1617,8 @@
     "land_occupation": 0.2402223288900337
   },
   {
-    "id": "pear-eu",
+    "id": "bb00f430-ffda-46a3-ba45-267b0064a43e",
+    "alias": "pear-eu",
     "name": "Poire UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U {BE}",
@@ -1535,7 +1635,8 @@
     "land_occupation": 0.26409236881890263
   },
   {
-    "id": "peach-fr",
+    "id": "a0012089-de27-45ae-89d1-863f71a06e72",
+    "alias": "peach-fr",
     "name": "Pêche FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Peach, production mix, national average, at orchard {FR} U",
@@ -1552,7 +1653,8 @@
     "land_occupation": 0.4767671166332219
   },
   {
-    "id": "peach-eu",
+    "id": "fa9e9f34-acc9-4974-89c4-003d2428f502",
+    "alias": "peach-eu",
     "name": "Pêche UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1569,7 +1671,8 @@
     "land_occupation": 0.4604600969201655
   },
   {
-    "id": "melon-fr",
+    "id": "dc5c2f84-937c-4059-b7f9-352658cd4c57",
+    "alias": "melon-fr",
     "name": "Melon FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Melon, conventional, national average, at farm gate {FR} U",
@@ -1586,7 +1689,8 @@
     "land_occupation": 0.4245124832275369
   },
   {
-    "id": "melon-eu",
+    "id": "cfabc9a1-1e99-48fc-bfea-9a2fbf6777a6",
+    "alias": "melon-eu",
     "name": "Melon UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Melon, conventional, national average, at farm gate {FR} U",
@@ -1604,7 +1708,8 @@
     "land_occupation": 0.4245124832275369
   },
   {
-    "id": "potato-industry-fr",
+    "id": "f87309f5-bfbf-49a5-ae57-1a0319a7b7d3",
+    "alias": "potato-industry-fr",
     "name": "Pomme de terre industrie FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
@@ -1621,7 +1726,8 @@
     "land_occupation": 0.2892563843094771
   },
   {
-    "id": "potato-table-fr",
+    "id": "1bcf7aa8-a26c-4340-b98a-c41d015a99b7",
+    "alias": "potato-table-fr",
     "name": "Pomme de terre de table FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
@@ -1638,7 +1744,8 @@
     "land_occupation": 0.28926186197910325
   },
   {
-    "id": "potato-starch",
+    "id": "b042c68d-6c0d-448d-91e6-7a8a424abd4a",
+    "alias": "potato-starch",
     "name": "Fécule de pomme de terre Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
@@ -1655,7 +1762,8 @@
     "land_occupation": 1.79665209842946
   },
   {
-    "id": "wheat-glo",
+    "id": "93eb5b86-3e1c-4306-a5ad-ae92a9005ca7",
+    "alias": "wheat-glo",
     "name": "Blé tendre Hors UE Conv.",
     "search": "Wheat grain, feed {GLO}| market for | Cut-off",
     "database": "Agribalyse 3.1.1",
@@ -1672,7 +1780,8 @@
     "land_occupation": 2.702647189
   },
   {
-    "id": "onion-fr",
+    "id": "97cde31b-e46e-472d-836d-9b217c3845df",
+    "alias": "onion-fr",
     "name": "Oignon FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Onion, national average, at farm FR",
@@ -1689,7 +1798,8 @@
     "land_occupation": 0.26
   },
   {
-    "id": "onion-eu",
+    "id": "50ede891-0244-4ab2-afeb-e5e808978f9b",
+    "alias": "onion-eu",
     "name": "Oignon UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": " \tOnion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1707,7 +1817,8 @@
     "land_occupation": 0.2157503211459354
   },
   {
-    "id": "onion-non-ue",
+    "id": "20be5465-ce64-4375-84f5-acc5c486a0dc",
+    "alias": "onion-non-ue",
     "name": "Oignon Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
@@ -1724,7 +1835,8 @@
     "land_occupation": 0.2436707630156826
   },
   {
-    "id": "eggplant-fr",
+    "id": "ed8ac786-b948-475f-ba0a-0b51b9343d1b",
+    "alias": "eggplant-fr",
     "name": "Aubergine FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
@@ -1741,7 +1853,8 @@
     "land_occupation": 0.0976557893177337
   },
   {
-    "id": "eggplant-eu",
+    "id": "da1bb644-0d37-467f-8c7a-53300b58b0cf",
+    "alias": "eggplant-eu",
     "name": "Aubergine UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
@@ -1759,7 +1872,8 @@
     "land_occupation": 0.0976557893177337
   },
   {
-    "id": "french-bean-fr",
+    "id": "37101a07-9e1f-478d-803a-dad5693dcd8c",
+    "alias": "french-bean-fr",
     "name": "Haricot vert FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "French bean, conventional, national average, at farm gate {FR} U",
@@ -1776,7 +1890,8 @@
     "land_occupation": 1.3355550247988053
   },
   {
-    "id": "french-bean-eu",
+    "id": "3934ba18-fd22-47f4-ad2e-31805ad8a5f7",
+    "alias": "french-bean-eu",
     "name": "Haricot vert UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "French bean, conventional, national average, at farm gate {FR}",
@@ -1794,7 +1909,8 @@
     "land_occupation": 1.3355550247988053
   },
   {
-    "id": "french-bean-non-eu",
+    "id": "a38c77d5-be6c-49e5-beb0-d8d88d556392",
+    "alias": "french-bean-non-eu",
     "name": "Haricot vert Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "French bean, conventional, national average, at farm gate {FR}",
@@ -1812,7 +1928,8 @@
     "land_occupation": 1.3355550247988053
   },
   {
-    "id": "lettuce-fr",
+    "id": "6348bb16-2d8c-4b82-8dbc-8b7dc587c09b",
+    "alias": "lettuce-fr",
     "name": "Laitue FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
@@ -1829,7 +1946,8 @@
     "land_occupation": 0.1088898131414479
   },
   {
-    "id": "lettuce-eu",
+    "id": "2b5cc667-b981-4d27-8b1a-c435fab2043e",
+    "alias": "lettuce-eu",
     "name": "Laitue UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1847,7 +1965,8 @@
     "land_occupation": 0.09184830824850201
   },
   {
-    "id": "lettuce-non-eu",
+    "id": "e1495d32-01f6-462c-9157-b8351574d412",
+    "alias": "lettuce-non-eu",
     "name": "Laitue Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1865,7 +1984,8 @@
     "land_occupation": 0.09184830824850201
   },
   {
-    "id": "garden-peas-fr",
+    "id": "05c2db96-2658-4842-8c30-53e878b08931",
+    "alias": "garden-peas-fr",
     "name": "Petit pois FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "annual vining pea conventional",
@@ -1882,7 +2002,8 @@
     "land_occupation": 1.38
   },
   {
-    "id": "garden-peas-eu",
+    "id": "3f4037f4-8c7a-45f7-b376-ec48357db98d",
+    "alias": "garden-peas-eu",
     "name": "Petit pois UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "annual vining pea conventional",
@@ -1900,7 +2021,8 @@
     "land_occupation": 1.38
   },
   {
-    "id": "cherry-fr",
+    "id": "8ea6e0d1-a163-4059-8a6b-bd443f0168db",
+    "alias": "cherry-fr",
     "name": "Cerise FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cherry, conventional, national average, at orchard {FR} U",
@@ -1917,7 +2039,8 @@
     "land_occupation": 14.06
   },
   {
-    "id": "lemon-eu",
+    "id": "6ece5452-42de-4e0a-8c70-1d305e614cc8",
+    "alias": "lemon-eu",
     "name": "Citron UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1935,7 +2058,8 @@
     "land_occupation": 0.27998977051148904
   },
   {
-    "id": "plum-fr",
+    "id": "7829330e-e744-4495-bbe3-c372323ba2a5",
+    "alias": "plum-fr",
     "name": "Prune FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cherry, conventional, national average, at orchard {FR} U",
@@ -1952,7 +2076,8 @@
     "land_occupation": 14.06
   },
   {
-    "id": "squash-fr",
+    "id": "6689fb67-0118-4dff-b74e-0c8de81ef65b",
+    "alias": "squash-fr",
     "name": "Courge FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
@@ -1969,7 +2094,8 @@
     "land_occupation": 0.0976557893177337
   },
   {
-    "id": "squash-eu",
+    "id": "14335872-a8d9-4496-b771-cb80c21ad604",
+    "alias": "squash-eu",
     "name": "Courge UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
@@ -1986,7 +2112,8 @@
     "land_occupation": 0.22895499508484513
   },
   {
-    "id": "squash-organic",
+    "id": "bbee841c-6675-49ae-92da-2064877f6d14",
+    "alias": "squash-organic",
     "name": "Courge FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": " \tZucchini, springtime, under tunnel, organic, at farm gate {FR} U",
@@ -2003,7 +2130,8 @@
     "land_occupation": 0.135497686521566
   },
   {
-    "id": "tomato-heated-greenhouse-fr",
+    "id": "a96c560e-7959-4698-b533-23f922bb62b9",
+    "alias": "tomato-heated-greenhouse-fr",
     "name": "Tomate sous serre chauffée Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
@@ -2020,7 +2148,8 @@
     "land_occupation": 0.04
   },
   {
-    "id": "tomato-greenhouse-fr",
+    "id": "16caaefa-40f5-4d29-a3e6-26349846f2c9",
+    "alias": "tomato-greenhouse-fr",
     "name": "Tomate sous serre non chauffée FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
@@ -2037,7 +2166,8 @@
     "land_occupation": 0.06
   },
   {
-    "id": "tomato-greenhouse-eu",
+    "id": "85641d75-149d-4863-a1a8-463e71a85fc2",
+    "alias": "tomato-greenhouse-eu",
     "name": "Tomate UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
@@ -2055,7 +2185,8 @@
     "land_occupation": 0.08931800900440257
   },
   {
-    "id": "apricot-fr",
+    "id": "e3865e84-12e7-4f7a-9fe3-132f67713d82",
+    "alias": "apricot-fr",
     "name": "Abricot FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2072,7 +2203,8 @@
     "land_occupation": 0.5918090797657374
   },
   {
-    "id": "apricot-eu",
+    "id": "309e636c-bc57-4adc-bd3c-441c2ee8e42e",
+    "alias": "apricot-eu",
     "name": "Abricot UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2090,7 +2222,8 @@
     "land_occupation": 0.5918090797657374
   },
   {
-    "id": "hazelnut-non-eu",
+    "id": "dfc9b995-2862-4abf-9af9-f3e8e403f325",
+    "alias": "hazelnut-non-eu",
     "name": "Noisette avec coque Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
@@ -2108,7 +2241,8 @@
     "land_occupation": 8.1
   },
   {
-    "id": "hazelnut-eu",
+    "id": "dd6c5ca4-9d8a-4b4f-9d5e-fada405f7c39",
+    "alias": "hazelnut-eu",
     "name": "Noisette avec coque UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": " \tHazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
@@ -2126,7 +2260,8 @@
     "land_occupation": 7.054242233148819
   },
   {
-    "id": "hazelnut-unshelled-eu",
+    "id": "3af43703-cba3-4992-837c-a1392b5c6221",
+    "alias": "hazelnut-unshelled-eu",
     "name": "Noisette décortiquée UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut, unshelled, at plant {IT} U",
@@ -2144,7 +2279,8 @@
     "land_occupation": 14.113481475364038
   },
   {
-    "id": "hazelnut-unshelled-non-eu",
+    "id": "4d7a741d-4bd7-4b39-8648-1f9a2f719eac",
+    "alias": "hazelnut-unshelled-non-eu",
     "name": "Noisette décortiquée Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut, unshelled, at plant {TR} U",
@@ -2162,7 +2298,8 @@
     "land_occupation": 16.203589547263125
   },
   {
-    "id": "artichoke-fr",
+    "id": "51eea2d1-abec-4459-aae0-15f8348d0994",
+    "alias": "artichoke-fr",
     "name": "Artichaut FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -2179,7 +2316,8 @@
     "land_occupation": 0.44512050373762024
   },
   {
-    "id": "artichoke-organic",
+    "id": "d7630e82-2b60-46cc-b50d-451a32e0887e",
+    "alias": "artichoke-organic",
     "name": "Artichaut FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Cauliflower, organic 2023, national average, at farm gate {FR}",
@@ -2196,7 +2334,8 @@
     "land_occupation": 0.7721396965461186
   },
   {
-    "id": "cauliflower-organic",
+    "id": "0f747732-1b0d-40ba-89a2-715fecd5454f",
+    "alias": "cauliflower-organic",
     "name": "Chou-fleur FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -2213,7 +2352,8 @@
     "land_occupation": 0.6736524550069993
   },
   {
-    "id": "cauliflower-fr",
+    "id": "a28383f4-4345-44fb-ada3-985d66492f97",
+    "alias": "cauliflower-fr",
     "name": "Chou-fleur FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -2230,7 +2370,8 @@
     "land_occupation": 0.46193773048543957
   },
   {
-    "id": "leek-fr",
+    "id": "1d31a371-690d-41dd-9615-2e58bac40e62",
+    "alias": "leek-fr",
     "name": "Poireau FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Leek, national average, at plant {FR} U",
@@ -2247,7 +2388,8 @@
     "land_occupation": 0.1729183475047969
   },
   {
-    "id": "beetroot-fr",
+    "id": "e3dd5653-be1e-42b1-b11f-e46600d31c3e",
+    "alias": "beetroot-fr",
     "name": "Betterave rouge FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR} U \t",
@@ -2264,7 +2406,8 @@
     "land_occupation": 0.12333583188828015
   },
   {
-    "id": "turnip-fr",
+    "id": "9a64a770-f1b0-4980-a5e3-9ea34f930b0d",
+    "alias": "turnip-fr",
     "name": "Navet FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR}",
@@ -2281,7 +2424,8 @@
     "land_occupation": 0.12333583188828015
   },
   {
-    "id": "turnip-eu",
+    "id": "56368adf-7b6f-4535-8555-06ee5a2404c9",
+    "alias": "turnip-eu",
     "name": "Navet UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2298,7 +2442,8 @@
     "land_occupation": 0.1802707158308635
   },
   {
-    "id": "turnip-non-eu",
+    "id": "e54fdde1-da74-4cb3-bbc7-5c282be1b02b",
+    "alias": "turnip-non-eu",
     "name": "Navet Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -2316,7 +2461,8 @@
     "land_occupation": 0.28754145691431554
   },
   {
-    "id": "chinese-cabbage-fr",
+    "id": "65f1221e-cf4c-413b-b023-8cec646e8ee4",
+    "alias": "chinese-cabbage-fr",
     "name": "Chou chinois FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -2333,7 +2479,8 @@
     "land_occupation": 0.46193773048543957
   },
   {
-    "id": "chinese-cabbage-organic",
+    "id": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
+    "alias": "chinese-cabbage-organic",
     "name": "Chou chinois FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR}",
@@ -2351,7 +2498,8 @@
     "land_occupation": 0.7721396965461186
   },
   {
-    "id": "white-cabbage-non-eu",
+    "id": "cd2b7d2f-b4a0-45cf-8006-0a10a99d78a3",
+    "alias": "white-cabbage-non-eu",
     "name": "Chou blanc Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cabbage white {RoW}| cabbage white production",
@@ -2369,7 +2517,8 @@
     "land_occupation": 0.10360184975001348
   },
   {
-    "id": "green-cabbage-fr",
+    "id": "ddba1d97-7db9-4ab6-8bc7-43891f69b02c",
+    "alias": "green-cabbage-fr",
     "name": "Chou vert FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -2387,7 +2536,8 @@
     "land_occupation": 0.46193773048543957
   },
   {
-    "id": "green-cabbage-organic",
+    "id": "aef5e0f4-7f91-4b75-b1e8-04594c64a538",
+    "alias": "green-cabbage-organic",
     "name": "Chou vert FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -2404,7 +2554,8 @@
     "land_occupation": 0.6736524550069993
   },
   {
-    "id": "red-cabbage-non-eu",
+    "id": "28f7c945-14d0-4d83-b04d-ea09f48a05b2",
+    "alias": "red-cabbage-non-eu",
     "name": "Chou rouge Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2422,7 +2573,8 @@
     "land_occupation": 0.11
   },
   {
-    "id": "shallot-fr",
+    "id": "f83eb463-aa6e-4b64-96ab-6f478152410d",
+    "alias": "shallot-fr",
     "name": "Echalote FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Onion, national average, at farm {FR} U",
@@ -2439,7 +2591,8 @@
     "land_occupation": 0.26
   },
   {
-    "id": "orange-eu",
+    "id": "af47d8b1-2c50-4f3f-8d10-1941133bd100",
+    "alias": "orange-eu",
     "name": "Orange UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Orange, fresh grade, at farm {ES}",
@@ -2457,7 +2610,8 @@
     "land_occupation": 0.34941029429860554
   },
   {
-    "id": "orange-non-eu",
+    "id": "f3c21efc-5e7b-4c24-a7f6-6ffbcb34d5b1",
+    "alias": "orange-non-eu",
     "name": "Orange Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Orange, fresh grade {ZA}| orange production, fresh grade",
@@ -2475,7 +2629,8 @@
     "land_occupation": 0.2708312448910977
   },
   {
-    "id": "olive-eu",
+    "id": "4234febf-7bb7-4713-a399-7fd586849e7b",
+    "alias": "olive-eu",
     "name": "Olive UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Olive {ES}| olive production | Cut-off, U",
@@ -2493,7 +2648,8 @@
     "land_occupation": 2.026852436246489
   },
   {
-    "id": "rapeseed-fr",
+    "id": "6a4df71d-3a0e-4477-8086-010f6a72ffec",
+    "alias": "rapeseed-fr",
     "name": "Colza FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Rape seed {FR}| production",
@@ -2510,7 +2666,8 @@
     "land_occupation": 3.6332974372768536
   },
   {
-    "id": "rapeseed-eu",
+    "id": "33e9d781-cdd1-4a9b-a6b6-18ee8855c996",
+    "alias": "rapeseed-eu",
     "name": "Colza UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Rapeseed, at farm {GLO}",
@@ -2528,7 +2685,8 @@
     "land_occupation": 5.119240317773792
   },
   {
-    "id": "rapeseed-non-eu",
+    "id": "b127c3f0-7178-40d3-8bf0-433b2b28f386",
+    "alias": "rapeseed-non-eu",
     "name": "Colza Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Rapeseed, at farm {CA}",
@@ -2546,7 +2704,8 @@
     "land_occupation": 5.365016737978805
   },
   {
-    "id": "pistachio-non-eu",
+    "id": "4c1bfb2c-9edd-4a15-8a08-b2ea85268771",
+    "alias": "pistachio-non-eu",
     "name": "Pistache avec coque Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Peanut {CN}| peanut production",
@@ -2564,7 +2723,8 @@
     "land_occupation": 2.7502023508379936
   },
   {
-    "id": "peanut-non-eu",
+    "id": "df428ef5-1745-404e-b7ab-22cdca785ca4",
+    "alias": "peanut-non-eu",
     "name": "Arachide avec coque Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2582,7 +2742,8 @@
     "land_occupation": 11.34845714598582
   },
   {
-    "id": "olive-oil-eu",
+    "id": "f1b219e6-7a77-429b-b372-461e3ad0d3bd",
+    "alias": "olive-oil-eu",
     "name": "Huile d'olive UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Extra Virgin Olive Oil consumption",
@@ -2599,7 +2760,8 @@
     "land_occupation": 12.03
   },
   {
-    "id": "avocado-non-eu",
+    "id": "3c49c70f-7650-44f8-97f1-7490cbabf595",
+    "alias": "avocado-non-eu",
     "name": "Avocat Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Avocado {GLO}| production",
@@ -2617,7 +2779,8 @@
     "land_occupation": 1.0194336927702459
   },
   {
-    "id": "chickpea-fr",
+    "id": "89035410-466b-4c9d-8726-98f0928b664b",
+    "alias": "chickpea-fr",
     "name": "Pois chiche FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -2634,7 +2797,8 @@
     "land_occupation": 2.79
   },
   {
-    "id": "sunflower-fr",
+    "id": "f105f36b-f467-4aea-8da7-8bc2e113db20",
+    "alias": "sunflower-fr",
     "name": "Tournesol FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower at farm FR Adapted from WFLDB",
@@ -2652,7 +2816,8 @@
     "land_occupation": 4.77
   },
   {
-    "id": "sunflower-eu",
+    "id": "23cd53c5-4b66-4b7c-892f-fe74054f66e5",
+    "alias": "sunflower-eu",
     "name": "Tournesol UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower, at farm {HU}",
@@ -2670,7 +2835,8 @@
     "land_occupation": 2.1239980855789122
   },
   {
-    "id": "sunflower-non-eu",
+    "id": "a2d31857-322c-40a7-a0a4-563e74a685d2",
+    "alias": "sunflower-non-eu",
     "name": "Tournesol Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower, at farm {Glo}",
@@ -2688,7 +2854,8 @@
     "land_occupation": 3.4944861075504163
   },
   {
-    "id": "kiwi-fr",
+    "id": "f3ed8d7b-21be-4d21-aae0-fee3ae914224",
+    "alias": "kiwi-fr",
     "name": "Kiwi FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Kiwi FR, conventional, national average, at orchard {FR}",
@@ -2705,7 +2872,8 @@
     "land_occupation": 0.9621049816156189
   },
   {
-    "id": "kiwi-eu",
+    "id": "cf4d7abd-8cd6-48ef-bc83-212ad3f672b9",
+    "alias": "kiwi-eu",
     "name": "Kiwi UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Kiwi {GLO}| production",
@@ -2722,7 +2890,8 @@
     "land_occupation": 0.31780832776090634
   },
   {
-    "id": "kiwi-non-eu",
+    "id": "5c5663f5-3075-4814-92ff-1f65c99ad518",
+    "alias": "kiwi-non-eu",
     "name": "Kiwi Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Kiwi {GLO}| production",
@@ -2740,7 +2909,8 @@
     "land_occupation": 0.31780832776090634
   },
   {
-    "id": "mango-non-eu",
+    "id": "db0e5f44-34b4-4160-b003-77c828d75e60",
+    "alias": "mango-non-eu",
     "name": "Mangue Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
@@ -2757,7 +2927,8 @@
     "land_occupation": 0.41
   },
   {
-    "id": "spinach-non-eu",
+    "id": "f46de7f5-4bf0-45f4-b75b-3e00164dd9ca",
+    "alias": "spinach-non-eu",
     "name": "Epinard Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Spinach {GLO}| production |",
@@ -2775,7 +2946,8 @@
     "land_occupation": 0.05
   },
   {
-    "id": "fennel-fr",
+    "id": "63717c79-e734-4af3-bc3c-d75070f1822d",
+    "alias": "fennel-fr",
     "name": "Fenouil FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Fennel {GLO}| production",
@@ -2793,7 +2965,8 @@
     "land_occupation": 0.15881247412378605
   },
   {
-    "id": "fennel-eu",
+    "id": "7415767c-42a3-410e-a046-b78b4ed74645",
+    "alias": "fennel-eu",
     "name": "Fenouil UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Fennel {GLO}| production",
@@ -2811,7 +2984,8 @@
     "land_occupation": 0.15881247412378605
   },
   {
-    "id": "broccoli-eu",
+    "id": "0bb22705-4727-4660-ac02-d7c2a564b20e",
+    "alias": "broccoli-eu",
     "name": "Brocoli UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Broccoli {GLO}| production",
@@ -2829,7 +3003,8 @@
     "land_occupation": 0.11709118385660207
   },
   {
-    "id": "blueberry-non-eu",
+    "id": "b193fd9e-99ab-4d1b-8e81-3b38bab2eacf",
+    "alias": "blueberry-non-eu",
     "name": "Myrtille Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
@@ -2847,7 +3022,8 @@
     "land_occupation": 3.45
   },
   {
-    "id": "raspberry-eu",
+    "id": "50939126-d4a5-4b94-b110-63e8b9e66173",
+    "alias": "raspberry-eu",
     "name": "Framboise UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Raspberry, at farm {RS} - Adapted from WFLDB U",
@@ -2865,7 +3041,8 @@
     "land_occupation": 2.03
   },
   {
-    "id": "strawberry-eu",
+    "id": "ce20da3d-0ce4-49e9-8942-6d99ff0221b1",
+    "alias": "strawberry-eu",
     "name": "Fraise UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry for processing, open field, conventional, at farm gate {ES}",
@@ -2883,7 +3060,8 @@
     "land_occupation": 1.9516721361287832
   },
   {
-    "id": "strawberry-non-eu",
+    "id": "e5bf7d33-6afe-46d6-ac06-f69c5769b10e",
+    "alias": "strawberry-non-eu",
     "name": "Fraise Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry for processing, open field, conventional, at farm gate {MA}",
@@ -2901,7 +3079,8 @@
     "land_occupation": 1.2688532832565271
   },
   {
-    "id": "banana-wi",
+    "id": "127b7cfe-0686-4455-8f8d-3c8bc034cbf9",
+    "alias": "banana-wi",
     "name": "Banane hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Banana, mixed production, West Indies, at farm gate {WI} U",
@@ -2919,7 +3098,8 @@
     "land_occupation": 0.3477724646954863
   },
   {
-    "id": "banana-non-eu",
+    "id": "f79d155e-3f9e-4882-8dd0-b03f28c1ff76",
+    "alias": "banana-non-eu",
     "name": "Banane Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Banana, at farm {GLO}",
@@ -2937,7 +3117,8 @@
     "land_occupation": 0.27599736924273083
   },
   {
-    "id": "cucumber-fr-inseason",
+    "id": "d47b842a-f591-4ce9-9f1d-2aebcaaa3c37",
+    "alias": "cucumber-fr-inseason",
     "name": "Concombre de saison FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
@@ -2955,7 +3136,8 @@
     "land_occupation": 0.06
   },
   {
-    "id": "cucumber-fr-offseason",
+    "id": "51cc3b34-c2de-4617-8954-3c35c703a6dc",
+    "alias": "cucumber-fr-offseason",
     "name": "Concombre hors saison FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
@@ -2973,7 +3155,8 @@
     "land_occupation": 0.22536109199087415
   },
   {
-    "id": "cucumber-eu",
+    "id": "7b62c28f-7234-4c81-abc0-721c421cbc3d",
+    "alias": "cucumber-eu",
     "name": "Concombre hors saison UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
@@ -2991,7 +3174,8 @@
     "land_occupation": 0.22536109199087415
   },
   {
-    "id": "strawberry-fr-inseason",
+    "id": "800c5ae3-677d-4e12-9dd8-1c11cd69a210",
+    "alias": "strawberry-fr-inseason",
     "name": "Fraise de saison FR  Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry, open field, conventional, at farm gate {FR} U",
@@ -3009,7 +3193,8 @@
     "land_occupation": 0.6380864199968058
   },
   {
-    "id": "strawberry-fr-offseason",
+    "id": "3c20126c-e2ab-403b-8bbc-0fc0d2fd3a1b",
+    "alias": "strawberry-fr-offseason",
     "name": "Fraise hors saison FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
@@ -3027,7 +3212,8 @@
     "land_occupation": 1.0821398434504004
   },
   {
-    "id": "celery-fr",
+    "id": "e1dbeb7c-74a7-4248-ab5e-7bdc2b1e5286",
+    "alias": "celery-fr",
     "name": "Céleri branche FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Celery {GLO}| 675 production",
@@ -3045,7 +3231,8 @@
     "land_occupation": 0.13833008133095676
   },
   {
-    "id": "celery-eu",
+    "id": "0bf89106-5c02-4b81-8f28-6196ad6f58be",
+    "alias": "celery-eu",
     "name": "Céleri branche UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Celery {GLO}| 675 production",
@@ -3063,7 +3250,8 @@
     "land_occupation": 0.13833008133095676
   },
   {
-    "id": "celeriac-fr",
+    "id": "88c0d4ba-93d6-4a41-94e6-ccec49cce325",
+    "alias": "celeriac-fr",
     "name": "Céleri-rave FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot, conventional, national average, at farm gate {FR}",
@@ -3081,7 +3269,8 @@
     "land_occupation": 0.12333583188828015
   },
   {
-    "id": "celeriac-eu",
+    "id": "a4c2f300-9268-45cc-a14f-89c48fcabc14",
+    "alias": "celeriac-eu",
     "name": "Céleri-rave UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {NL}| carrot production | Cut-off, U",
@@ -3099,7 +3288,8 @@
     "land_occupation": 0.1802707158308635
   },
   {
-    "id": "celeriac-non-eu",
+    "id": "1f5dd2a5-8439-4949-b5d8-2bce0ec3c9c7",
+    "alias": "celeriac-non-eu",
     "name": "Céleri-rave Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -3117,7 +3307,8 @@
     "land_occupation": 0.28754145691431554
   },
   {
-    "id": "walnut-inshell-fr",
+    "id": "6aacd47b-541c-4aab-85fb-bcd2c924effb",
+    "alias": "walnut-inshell-fr",
     "name": "Noix avec coque FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
@@ -3134,7 +3325,8 @@
     "land_occupation": 6.53
   },
   {
-    "id": "walnut-husked-fr",
+    "id": "63bc644e-fc29-45a5-a505-6a28c8f266c5",
+    "alias": "walnut-husked-fr",
     "name": "Noix décortiquées FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
@@ -3152,7 +3344,8 @@
     "land_occupation": 6.162216038989542
   },
   {
-    "id": "chestnut-husked-fr",
+    "id": "deb218ab-9c48-41ea-a9c7-6acc185cd83c",
+    "alias": "chestnut-husked-fr",
     "name": "Châtaigne décortiquée FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
@@ -3170,7 +3363,8 @@
     "land_occupation": 6.162216038989542
   },
   {
-    "id": "chestnut-inshell-fr",
+    "id": "ae6a572a-d814-495e-b6a9-5b0acff707d9",
+    "alias": "chestnut-inshell-fr",
     "name": "Châtaigne avec coque FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
@@ -3187,7 +3381,8 @@
     "land_occupation": 6.13
   },
   {
-    "id": "mandarin-eu",
+    "id": "7967ae83-ba85-4a8f-aed9-e96717fc4284",
+    "alias": "mandarin-eu",
     "name": "Mandarine UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Mandarin {ES}| mandarin production",
@@ -3205,7 +3400,8 @@
     "land_occupation": 0.34442656770861924
   },
   {
-    "id": "mushroom-eu",
+    "id": "5d22559d-c16d-4545-94b9-be2ff51e2879",
+    "alias": "mushroom-eu",
     "name": "Champignon frais UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
@@ -3223,7 +3419,8 @@
     "land_occupation": 0.51
   },
   {
-    "id": "brussels-sprout-fr",
+    "id": "f8e12f3a-6308-425c-bede-f8f9dbe405ee",
+    "alias": "brussels-sprout-fr",
     "name": "Chou de Bruxelles FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -3240,7 +3437,8 @@
     "land_occupation": 0.46193773048543957
   },
   {
-    "id": "brussels-sprout-organic",
+    "id": "65296024-b028-46c2-be67-84068893cfe3",
+    "alias": "brussels-sprout-organic",
     "name": "Chou de Bruxelles FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -3257,7 +3455,8 @@
     "land_occupation": 0.6736524550069993
   },
   {
-    "id": "lentils-uncooked-fr",
+    "id": "e3833045-a0a4-48c7-ab73-5a01834b0219",
+    "alias": "lentils-uncooked-fr",
     "name": "Lentilles FR Conv.",
     "database": "WFLDB",
     "search": "Lentils, dry, at farm (WFLDB)",
@@ -3274,7 +3473,8 @@
     "crop_group": "LEGUMINEUSES A GRAIN"
   },
   {
-    "id": "curly-kale-fr",
+    "id": "40969824-958c-47b7-8e9e-6b3e80bb1176",
+    "alias": "curly-kale-fr",
     "name": "Chou frisé FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -3292,7 +3492,8 @@
     "land_occupation": 0.46193773048543957
   },
   {
-    "id": "curly-kale-organic",
+    "id": "577ca86a-b599-4757-9b98-712529a29738",
+    "alias": "curly-kale-organic",
     "name": "Chou frisé FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -3310,7 +3511,8 @@
     "land_occupation": 0.6736524550069993
   },
   {
-    "id": "pumpkin-fr",
+    "id": "ae0e7729-1bff-4c3b-8dc8-62bdb827345d",
+    "alias": "pumpkin-fr",
     "name": "Citrouille FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
@@ -3328,7 +3530,8 @@
     "land_occupation": 0.22895499508484513
   },
   {
-    "id": "clementine-non-eu",
+    "id": "299941e9-577c-4618-968c-6901ffa99a8d",
+    "alias": "clementine-non-eu",
     "name": "Clémentine Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Clementine, export quality, Souss, at orchard {MA}",
@@ -3346,7 +3549,8 @@
     "land_occupation": 0.5316750392063939
   },
   {
-    "id": "endive-fr",
+    "id": "b26efb2f-8811-4fbb-9d01-3d7f0d8135ef",
+    "alias": "endive-fr",
     "name": "Endive FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
@@ -3364,7 +3568,8 @@
     "land_occupation": 0.1088898131414479
   },
   {
-    "id": "endive-eu",
+    "id": "d680c44f-8458-406a-ac2c-13cd83e90a07",
+    "alias": "endive-eu",
     "name": "Endive UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production |",
@@ -3382,7 +3587,8 @@
     "land_occupation": 0.09184830824850201
   },
   {
-    "id": "wine-grape-fr",
+    "id": "88d41160-fad0-4f85-b911-704dcfb387e4",
+    "alias": "wine-grape-fr",
     "name": "Raisin de cuve FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Grape full production integrated variety mix",
@@ -3399,7 +3605,8 @@
     "crop_group": "VIGNES"
   },
   {
-    "id": "lambs-lettuce-fr",
+    "id": "4f53cbe2-feac-42ea-90cf-62856732103b",
+    "alias": "lambs-lettuce-fr",
     "name": "Mâche FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
@@ -3416,7 +3623,8 @@
     "land_occupation": 0.1088898131414479
   },
   {
-    "id": "lambs-lettuce-eu",
+    "id": "91e07b83-8702-42a4-a362-1480a2090805",
+    "alias": "lambs-lettuce-eu",
     "name": "Mâche UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production",
@@ -3433,7 +3641,8 @@
     "land_occupation": 0.09184830824850201
   },
   {
-    "id": "sweet-corn-fr",
+    "id": "40fa68b6-381e-4dd6-ba70-8b43cfdee64e",
+    "alias": "sweet-corn-fr",
     "name": "Maïs doux FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
@@ -3451,7 +3660,8 @@
     "land_occupation": 0.953
   },
   {
-    "id": "sweet-corn-organic-fr",
+    "id": "741c0970-2823-430a-b4e4-e61ce08ea95a",
+    "alias": "sweet-corn-organic-fr",
     "name": "Maïs doux FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Grain maize, organic, animal feed, at farm gate {FR}",
@@ -3469,7 +3679,8 @@
     "land_occupation": 1.464036163
   },
   {
-    "id": "sweet-corn-br",
+    "id": "be9a2aa4-4c8b-4801-abcf-01ba1581f053",
+    "alias": "sweet-corn-br",
     "name": "Maïs doux Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
@@ -3487,7 +3698,8 @@
     "land_occupation": 2.256978351
   },
   {
-    "id": "pineapple-non-eu",
+    "id": "c1ca415f-85bb-43f6-bf8f-8bedd6f95e9a",
+    "alias": "pineapple-non-eu",
     "name": "Ananas Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Pineapple glo",
@@ -3505,7 +3717,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "broad-beans-eu",
+    "id": "ec58c11c-c5fd-4884-8d66-3d434aa1da1d",
+    "alias": "broad-beans-eu",
     "name": "Fève UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
@@ -3523,7 +3736,8 @@
     "land_occupation": 2.8
   },
   {
-    "id": "broad-beans-fr",
+    "id": "d1d5713d-021f-4438-95c8-0496da3f0f5f",
+    "alias": "broad-beans-fr",
     "name": "Fève FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
@@ -3541,7 +3755,8 @@
     "land_occupation": 2.8
   },
   {
-    "id": "swiss-chard-eu",
+    "id": "d5eaecd5-21ab-4903-b029-66e7c7c6df9a",
+    "alias": "swiss-chard-eu",
     "name": "Blette UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Spinach GLO production",
@@ -3559,7 +3774,8 @@
     "crop_group": "AUTRES CULTURES INDUSTRIELLES"
   },
   {
-    "id": "swiss-chard-fr",
+    "id": "2920acc6-000a-4f43-9525-7d619d19f62e",
+    "alias": "swiss-chard-fr",
     "name": "Blette FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Spinach GLO production",
@@ -3577,7 +3793,8 @@
     "land_occupation": 0.05
   },
   {
-    "id": "flageolet-bean-eu",
+    "id": "1ab7c8e7-fb50-4e5d-b153-372f853514cf",
+    "alias": "flageolet-bean-eu",
     "name": "Haricot flageolet UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
@@ -3595,7 +3812,8 @@
     "land_occupation": 2.8
   },
   {
-    "id": "flageolet-bean-fr",
+    "id": "b5c5285f-8dfe-4865-bdc9-8d86b6977d14",
+    "alias": "flageolet-bean-fr",
     "name": "Haricot flageolet FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
@@ -3613,7 +3831,8 @@
     "land_occupation": 2.8
   },
   {
-    "id": "rice-basmati-non-eu",
+    "id": "cce078cf-3d3e-4153-a0a1-35555b2da639",
+    "alias": "rice-basmati-non-eu",
     "name": "Riz basmati Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
@@ -3631,7 +3850,8 @@
     "land_occupation": 1.21
   },
   {
-    "id": "soft-wheat-organic",
+    "id": "a98b8776-a96d-48e9-b218-976f5452907a",
+    "alias": "soft-wheat-organic",
     "name": "Blé tendre FR ou UE ou Hors UE Bio",
     "database": "Ecobalyse",
     "search": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
@@ -3648,7 +3868,8 @@
     "land_occupation": 2.6334180524867206
   },
   {
-    "id": "soft-wheat-fr",
+    "id": "38788025-a65e-4edf-a92f-aab0b89b0d61",
+    "alias": "soft-wheat-fr",
     "name": "Blé tendre FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Soft wheat grain conventional national average animal feed at farm gate production",
@@ -3665,7 +3886,8 @@
     "land_occupation": 1.19
   },
   {
-    "id": "soft-wheat-non-eu",
+    "id": "48c1fc68-01bb-4541-a274-ce1de33db1f9",
+    "alias": "soft-wheat-non-eu",
     "name": "Blé tendre Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
@@ -3682,7 +3904,8 @@
     "crop_group": "BLE TENDRE"
   },
   {
-    "id": "durum-wheat-fr",
+    "id": "28013f55-a3ce-4ae6-9a97-133ce7724ece",
+    "alias": "durum-wheat-fr",
     "name": "Blé dur FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
@@ -3699,7 +3922,8 @@
     "land_occupation": 2.01
   },
   {
-    "id": "durum-wheat-eu",
+    "id": "0d5d65e0-6ffc-4ffa-9966-944bc3ed62c8",
+    "alias": "durum-wheat-eu",
     "name": "Blé dur UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
@@ -3717,7 +3941,8 @@
     "land_occupation": 3.522339539389686
   },
   {
-    "id": "durum-wheat-non-eu",
+    "id": "2e196834-d2b1-4786-9265-db4440c8517c",
+    "alias": "durum-wheat-non-eu",
     "name": "Blé dur Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
@@ -3735,7 +3960,8 @@
     "land_occupation": 3.375516724097795
   },
   {
-    "id": "apple-organic",
+    "id": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
+    "alias": "apple-organic",
     "name": "Pomme FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Table apple, consumption mix, organic 2023 {FR}",
@@ -3753,7 +3979,8 @@
     "land_occupation": 0.38
   },
   {
-    "id": "apple-fr",
+    "id": "d9519b9d-d166-4bb0-8f34-27bb874b104a",
+    "alias": "apple-fr",
     "name": "Pomme FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Apple, conventional, national average, at orchard {FR} U",
@@ -3770,7 +3997,8 @@
     "land_occupation": 0.38
   },
   {
-    "id": "potato-table-organic",
+    "id": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
+    "alias": "potato-table-organic",
     "name": "Pomme de terre de table FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR}",
@@ -3788,7 +4016,8 @@
     "land_occupation": 0.4722120942351419
   },
   {
-    "id": "potato-industry-organic",
+    "id": "f839b523-b133-430f-9533-419b862e69e9",
+    "alias": "potato-industry-organic",
     "name": "Pomme de terre industrie FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Ware potato, organic 2023, for industrial use, at farm gate {FR}",
@@ -3805,7 +4034,8 @@
     "land_occupation": 0.4702722617322555
   },
   {
-    "id": "kiwi-organic",
+    "id": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
+    "alias": "kiwi-organic",
     "name": "Kiwi FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Kiwi, consumption mix, organic 2023 {FR}",
@@ -3823,7 +4053,8 @@
     "land_occupation": 0.6058029841998362
   },
   {
-    "id": "red-cabbage-organic",
+    "id": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
+    "alias": "red-cabbage-organic",
     "name": "Chou rouge FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Red Cabbage, consumption mix, organic 2023 {FR}",
@@ -3841,7 +4072,8 @@
     "land_occupation": 0.1312199498824066
   },
   {
-    "id": "sugar-beet-organic",
+    "id": "83ef3fba-9359-4f51-9f10-234c0e940b88",
+    "alias": "sugar-beet-organic",
     "name": "Betterave sucrière FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Sugar beet, organic 2023 {FR}| sugar beet production",
@@ -3858,7 +4090,8 @@
     "land_occupation": 0.0761093611061273
   },
   {
-    "id": "papaya-organic",
+    "id": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
+    "alias": "papaya-organic",
     "name": "Papaye FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Papaya, consumption mix, organic 2023 {FR}",
@@ -3876,7 +4109,8 @@
     "land_occupation": 0.1739832985919137
   },
   {
-    "id": "tomato-organic",
+    "id": "b43ae38e-a9f6-4272-b258-14faea6ec795",
+    "alias": "tomato-organic",
     "name": "Tomate FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Fresh tomato, consumption mix, organic 2023 {FR}",
@@ -3894,7 +4128,8 @@
     "land_occupation": 0.027386877875633438
   },
   {
-    "id": "pineapple-organic",
+    "id": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
+    "alias": "pineapple-organic",
     "name": "Ananas FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Pineapple, organic 2023 {GLO}| production",
@@ -3912,7 +4147,8 @@
     "land_occupation": 0.27183328740299434
   },
   {
-    "id": "garden-peas-organic",
+    "id": "74a016ae-d486-4766-adfd-e44697b7be2f",
+    "alias": "garden-peas-organic",
     "name": "Petit pois FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Garden peas, consumption mix, organic 2023 {FR} U",
@@ -3929,7 +4165,8 @@
     "land_occupation": 4.732492469966047
   },
   {
-    "id": "almond-inshell-organic",
+    "id": "b97e29ab-81b0-478e-b73b-4113aaf68470",
+    "alias": "almond-inshell-organic",
     "name": "Amandes en coque FR ou UE ou Hors UE Bio ",
     "database": "Ginko",
     "search": "Almonds, in shell, at farm, organic 2023 {CN}",
@@ -3947,7 +4184,8 @@
     "land_occupation": 5.678362653143869
   },
   {
-    "id": "lettuce-organic",
+    "id": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
+    "alias": "lettuce-organic",
     "name": "Laitue FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
@@ -3965,7 +4203,8 @@
     "land_occupation": 0.03135932533266212
   },
   {
-    "id": "mango-organic",
+    "id": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
+    "alias": "mango-organic",
     "name": "Mangue FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
@@ -3983,7 +4222,8 @@
     "land_occupation": 0.8368627191981346
   },
   {
-    "id": "lychee-organic",
+    "id": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
+    "alias": "lychee-organic",
     "name": "Litchi Hors FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
@@ -4001,7 +4241,8 @@
     "land_occupation": 0.8368627191981346
   },
   {
-    "id": "lychee-non-eu",
+    "id": "e9764c3c-554f-4f1e-9ba1-8debc869e6ba",
+    "alias": "lychee-non-eu",
     "name": "Litchi Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
@@ -4019,7 +4260,8 @@
     "land_occupation": 1.78731697
   },
   {
-    "id": "oats-glo",
+    "id": "94c4be9e-452d-4870-b1a2-5d2404a0490b",
+    "alias": "oats-glo",
     "name": "Avoine Hors UE Conv.",
     "search": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "process_categories": ["ingredient"],
@@ -4037,7 +4279,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "oats-organic",
+    "id": "1af0933a-0139-480c-832d-053513d0ccba",
+    "alias": "oats-organic",
     "name": "Avoine FR ou UE ou Hors UE bio",
     "search": "Spring oats, organic, national average, at feed plant {FR}",
     "process_categories": ["ingredient"],
@@ -4055,7 +4298,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "barley",
+    "id": "ab087863-f311-4066-8e93-4d7f6e0db2b2",
+    "alias": "barley",
     "name": "Orge FR Conv.",
     "search": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR}",
     "process_categories": ["ingredient"],
@@ -4073,7 +4317,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "barley-organic",
+    "id": "3c16dc23-021d-45ef-8805-c77b043b041a",
+    "alias": "barley-organic",
     "name": "Orge FR ou UE ou Hors UE Bio",
     "search": "Barley, organic, animal feed, at farm gate {FR} U",
     "process_categories": ["ingredient"],
@@ -4091,7 +4336,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "banana-organic",
+    "id": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
+    "alias": "banana-organic",
     "name": "Banane FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Banana, consumption mix, organic 2023 {FR} U",
@@ -4109,7 +4355,8 @@
     "land_occupation": 0.507190070288124
   },
   {
-    "id": "orange-organic",
+    "id": "1716c0e6-7a04-4649-a71f-08a495eb094e",
+    "alias": "orange-organic",
     "name": "Orange FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Orange, fresh grade, at farm, organic 2023 {ES}",
@@ -4127,7 +4374,8 @@
     "land_occupation": 0.37137037037037035
   },
   {
-    "id": "lemon-organic",
+    "id": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
+    "alias": "lemon-organic",
     "name": "Citron FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Lemon, organic 2023 {ES}| lemon production",
@@ -4145,7 +4393,8 @@
     "land_occupation": 0.3011111167036458
   },
   {
-    "id": "celery-organic",
+    "id": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
+    "alias": "celery-organic",
     "name": "Céleri branche FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Celery, organic 2023 {GLO}| 675 production",
@@ -4162,7 +4411,8 @@
     "land_occupation": 0.13499997787177878
   },
   {
-    "id": "olive-organic",
+    "id": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
+    "alias": "olive-organic",
     "name": "Olive FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Olive, organic 2023 {ES}| olive production",
@@ -4180,7 +4430,8 @@
     "land_occupation": 3.631654573968224
   },
   {
-    "id": "peanut-organic",
+    "id": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
+    "alias": "peanut-organic",
     "name": "Arachide avec coque FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Peanut, organic 2023 {RoW}| peanut production",
@@ -4198,7 +4449,8 @@
     "land_occupation": 5.229883391320086
   },
   {
-    "id": "raspberry-organic",
+    "id": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
+    "alias": "raspberry-organic",
     "name": "Framboise FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Raspberry, at farm, organic 2023 {RS}",
@@ -4216,7 +4468,8 @@
     "land_occupation": 3.228532152901265
   },
   {
-    "id": "lambs-lettuce-organic",
+    "id": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
+    "alias": "lambs-lettuce-organic",
     "name": "Mâche FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
@@ -4234,7 +4487,8 @@
     "land_occupation": 0.03135932533266212
   },
   {
-    "id": "endive-organic",
+    "id": "6842d570-6b53-49f3-ba9c-984b55e40171",
+    "alias": "endive-organic",
     "name": "Endive FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
@@ -4252,7 +4506,8 @@
     "land_occupation": 0.03135932533266212
   },
   {
-    "id": "durum-wheat-organic",
+    "id": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
+    "alias": "durum-wheat-organic",
     "name": "Blé dur FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Durum wheat grain, organic 2023, national average, at farm gate {FR}",
@@ -4270,7 +4525,8 @@
     "land_occupation": 2.5811340696785146
   },
   {
-    "id": "onion-organic",
+    "id": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
+    "alias": "onion-organic",
     "name": "Oignon FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Onion, national average, at farm, organic 2023 {FR} U",
@@ -4287,7 +4543,8 @@
     "land_occupation": 0.2840070160120382
   },
   {
-    "id": "rice-basmati-organic",
+    "id": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
+    "alias": "rice-basmati-organic",
     "name": "Riz basmati FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati",
@@ -4305,7 +4562,8 @@
     "land_occupation": 1.4067635468906579
   },
   {
-    "id": "triticale-organic",
+    "id": "585c8bb1-1aaa-4c33-a5c1-84c886bb7ec3",
+    "alias": "triticale-organic",
     "name": "Triricale FR ou UE ou Hors UE Bio",
     "search": "Triticale, organic, animal feed, at farm gate {FR} U",
     "process_categories": ["ingredient"],
@@ -4323,7 +4581,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "bean-organic",
+    "id": "8cf0b0ce-7ae7-4123-8fee-823b4c190418",
+    "alias": "bean-organic",
     "name": "Pois FR ou UE ou Hors UE Bio",
     "search": "Pea, organic, animal feed, at farm gate {FR} U",
     "process_categories": ["ingredient"],
@@ -4341,7 +4600,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "alfalfa-organic",
+    "id": "fd187fa6-9cbc-4839-b13f-365c5371cee6",
+    "alias": "alfalfa-organic",
     "name": "Luzerne FR ou UE ou Hors UE Bio",
     "search": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
     "process_categories": ["ingredient"],
@@ -4358,7 +4618,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "radish-organic",
+    "id": "076b3d53-fc81-454b-9c90-e19767de8b0b",
+    "alias": "radish-organic",
     "name": "Radis FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse",
@@ -4376,7 +4637,8 @@
     "land_occupation": 0.032849996124208525
   },
   {
-    "id": "lentils-uncooked-organic",
+    "id": "02b2ed63-6246-446c-8cf3-224dbe698821",
+    "alias": "lentils-uncooked-organic",
     "name": "Lentilles Hors FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Lentil, organic 2023 {RoW}",
@@ -4394,7 +4656,8 @@
     "land_occupation": 7.95448056949499
   },
   {
-    "id": "apricot-organic",
+    "id": "36158ea6-066c-4fd6-9e28-6477c7297b37",
+    "alias": "apricot-organic",
     "name": "Abricot FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Apricot, organic 2023 {FR}| apricot production",
@@ -4412,7 +4675,8 @@
     "land_occupation": 0.7014772270387482
   },
   {
-    "id": "leek-organic",
+    "id": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
+    "alias": "leek-organic",
     "name": "Poireau FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Leek, national average, at plant, organic 2023 {FR}",
@@ -4430,7 +4694,8 @@
     "land_occupation": 0.14296478127707435
   },
   {
-    "id": "cherry-organic",
+    "id": "b4e8febc-6588-4599-8c58-c019144597c6",
+    "alias": "cherry-organic",
     "name": "Cerise FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
@@ -4448,7 +4713,8 @@
     "land_occupation": 25.49228831792611
   },
   {
-    "id": "plum-organic",
+    "id": "10af6fa1-e374-4748-b8a8-f735d2813489",
+    "alias": "plum-organic",
     "name": "Prune FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
@@ -4466,7 +4732,8 @@
     "land_occupation": 25.49228831792611
   },
   {
-    "id": "shallot-organic",
+    "id": "c224d640-c347-41c4-9754-a4cea77de16f",
+    "alias": "shallot-organic",
     "name": "Echalote FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Onion, national average, at farm, organic 2023 {FR}",
@@ -4484,7 +4751,8 @@
     "land_occupation": 0.2840070160120382
   },
   {
-    "id": "blueberry-organic",
+    "id": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
+    "alias": "blueberry-organic",
     "name": "Myrtille FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Blueberry, at farm, organic 2023 {CA}",
@@ -4502,7 +4770,8 @@
     "land_occupation": 3.3336667542676595
   },
   {
-    "id": "spinach-organic",
+    "id": "49ad2a72-d196-4379-8f23-212b27d44917",
+    "alias": "spinach-organic",
     "name": "Epinard FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Spinach, organic 2023 {GLO}",
@@ -4520,7 +4789,8 @@
     "land_occupation": 0.04691249539079209
   },
   {
-    "id": "watermelon-organic",
+    "id": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
+    "alias": "watermelon-organic",
     "name": "Pastèque FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Melon, organic 2023, national average, at farm gate {FR}",
@@ -4538,7 +4808,8 @@
     "land_occupation": 0.5270972461158159
   },
   {
-    "id": "silage-maize-fr",
+    "id": "dc872330-8d35-4b02-bf45-4481b89a093e",
+    "alias": "silage-maize-fr",
     "name": "Ensilage maïs FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
@@ -4556,7 +4827,8 @@
     "land_occupation": 0.8932985763
   },
   {
-    "id": "silage-maize-organic",
+    "id": "305cc005-eb5c-4e94-b5cf-9aa21c619577",
+    "alias": "silage-maize-organic",
     "name": "Ensilage maïs FR ou UE ou Hors UE Bio",
     "database": "Agribalyse 3.1.1",
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
@@ -4574,7 +4846,8 @@
     "land_occupation": 0.8932985763
   },
   {
-    "id": "oilseed-feed",
+    "id": "4b3c39a6-496c-416c-a42a-8d4c2fc788da",
+    "alias": "oilseed-feed",
     "name": "Soja FR Conv.",
     "search": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB",
     "process_categories": ["ingredient"],
@@ -4591,7 +4864,8 @@
     "land_occupation": 1.965895323
   },
   {
-    "id": "grazed-grass-temporary",
+    "id": "ba97e4b9-1fac-4f92-bed1-9889e3ae631d",
+    "alias": "grazed-grass-temporary",
     "name": "Herbe de prairie temporaire FR Conv.",
     "search": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
     "process_categories": ["ingredient"],
@@ -4609,7 +4883,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "grazed-grass-permanent",
+    "id": "c88d387e-8435-4741-b742-0094dbdcee45",
+    "alias": "grazed-grass-permanent",
     "name": "Herbe de prairie permanente FR Conv.",
     "search": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
     "process_categories": ["ingredient"],
@@ -4627,7 +4902,8 @@
     "database": "Agribalyse 3.1.1"
   },
   {
-    "id": "cherry-tr",
+    "id": "4e13ea5f-4ad1-4009-ae91-842cb18bd4dd",
+    "alias": "cherry-tr",
     "name": "Cerise Hors UE Conv.",
     "database": "WFLDB",
     "search": "Cherry, at farm (WFLDB)/TR",
@@ -4644,7 +4920,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "refined-palm-oil",
+    "id": "3612e931-f0e0-4263-a079-63650a941fbd",
+    "alias": "refined-palm-oil",
     "name": "Huile de palme (raffinée) UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Palm oil, refined, processed in EU, at plant {RER} U",
@@ -4662,7 +4939,8 @@
     "land_occupation": 2.135572826524261
   },
   {
-    "id": "refined-linseed-oil",
+    "id": "61ede109-0eed-4aa3-93bb-aacf132b6bdd",
+    "alias": "refined-linseed-oil",
     "name": "Huile de lin (raffinée) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Linseed oil, refined, at oil mill { FR} U",
@@ -4680,7 +4958,8 @@
     "land_occupation": 13.975966404900435
   },
   {
-    "id": "refined-grapeseed-oil",
+    "id": "1e3d325d-b369-4f03-b3a3-f4261924fca4",
+    "alias": "refined-grapeseed-oil",
     "name": "Huile de pépin de raisin (raffinée) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Grapeseed oil, refined at plant {FR} U",
@@ -4698,7 +4977,8 @@
     "land_occupation": 1.25330761869874
   },
   {
-    "id": "refined-soybean-oil",
+    "id": "188a3d66-f214-4821-9bac-7e8fdc715721",
+    "alias": "refined-soybean-oil",
     "name": "Huile de soja (raffinée) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Soybean oil, refined, at plant  {FR} U",
@@ -4716,7 +4996,8 @@
     "land_occupation": 7.45490623164265
   },
   {
-    "id": "virgin-hazelnut-oil",
+    "id": "00603559-120a-4aa4-b12b-2eda1705e064",
+    "alias": "virgin-hazelnut-oil",
     "name": "Huile de noisette (vierge) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut oil, crude, at plant {FR} U",
@@ -4734,7 +5015,8 @@
     "land_occupation": 28.71674041547803
   },
   {
-    "id": "refined-peanut-oil",
+    "id": "c704400c-9108-49a8-a79a-b830eccb6b5e",
+    "alias": "refined-peanut-oil",
     "name": "Huile d'arachide (raffinée) Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Peanut oil, at oil mill {SN} U",
@@ -4752,7 +5034,8 @@
     "land_occupation": 15.04314086568664
   },
   {
-    "id": "refined-sunflower-oil",
+    "id": "583d00ab-0340-444b-9581-71175f0a937b",
+    "alias": "refined-sunflower-oil",
     "name": "Huile de tournesol (raffinée) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower oil, refined, low dehulling at plant {FR} U",
@@ -4770,7 +5053,8 @@
     "land_occupation": 10.412865598592001
   },
   {
-    "id": "refined-rapeseed-oil",
+    "id": "c3697176-e682-43c3-b16a-3992ff8f1404",
+    "alias": "refined-rapeseed-oil",
     "name": "Huile de colza (raffinée) FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Rapeseed oil, refined, at oil mill {FR} U",
@@ -4788,7 +5072,8 @@
     "land_occupation": 4.704300146119007
   },
   {
-    "id": "extra-virgin-olive-oil",
+    "id": "fbe48b5b-62f2-4ccb-8aa6-66d08a4c7fac",
+    "alias": "extra-virgin-olive-oil",
     "name": "Huile d'olive (extra vierge) UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Extra Virgin Olive Oil, at plant {ES} U",
@@ -4806,7 +5091,8 @@
     "land_occupation": 11.545842285430188
   },
   {
-    "id": "fresh-cream-cheese",
+    "id": "2cced940-3abf-439d-b2f1-e6241ffb31fd",
+    "alias": "fresh-cream-cheese",
     "name": "Crème fraiche FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "fresh cream 8% at plant",
@@ -4826,7 +5112,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "egg-without-shell-fr",
+    "id": "8b6fda86-052a-49eb-90fb-53e307544150",
+    "alias": "egg-without-shell-fr",
     "name": "Oeuf cru décoquillé FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "egg without shell",
@@ -4846,7 +5133,8 @@
     "animal_product": "egg"
   },
   {
-    "id": "egg-yolk-powder-fr",
+    "id": "f6e84334-a8bb-4f07-915d-ef51e8dcf800",
+    "alias": "egg-yolk-powder-fr",
     "name": "poudre de jaune d'oeuf FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "yolk powder at plant",
@@ -4866,7 +5154,8 @@
     "animal_product": "egg"
   },
   {
-    "id": "egg-white-powder-fr",
+    "id": "7fe451fd-77c8-46f3-b7ae-c050a08b7be8",
+    "alias": "egg-white-powder-fr",
     "name": "poudre de blanc d'oeuf FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "egg white powder at plant",
@@ -4886,7 +5175,8 @@
     "animal_product": "egg"
   },
   {
-    "id": "emmental-grated-fr",
+    "id": "bd6e16d9-588d-48df-9eab-e0c4c64f5c53",
+    "alias": "emmental-grated-fr",
     "name": "Emmental rapé FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
@@ -4905,7 +5195,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "cocoa-powder-non-ue",
+    "id": "3d7f808b-77c5-4207-968d-feea6dfd9496",
+    "alias": "cocoa-powder-non-ue",
     "name": "Poudre de cacao Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "cocoa powder at plant FR",
@@ -4923,7 +5214,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "salt",
+    "id": "77defb24-cec3-4de9-8388-63229d1052fb",
+    "alias": "salt",
     "name": "Sel",
     "database": "Agribalyse 3.1.1",
     "search": "Salt {FR} U",
@@ -4940,7 +5232,8 @@
     "crop_group": "DIVERS"
   },
   {
-    "id": "bacon-fr",
+    "id": "f3537dee-a80a-4b6f-9942-16b3f9e21101",
+    "alias": "bacon-fr",
     "name": "Poitrine de porc FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "bacon at plant",
@@ -4959,7 +5252,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "glucose-syrup",
+    "id": "06dffb5c-07ad-48de-9630-632f4c84e02d",
+    "alias": "glucose-syrup",
     "name": "Sirop de glucose FR ou UE ou Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "glucose syrup",
@@ -4976,7 +5270,8 @@
     "crop_group": "DIVERS"
   },
   {
-    "id": "apple-compote-fr",
+    "id": "f51ef7f1-9d4c-4c4a-a4a6-c011c520f419",
+    "alias": "apple-compote-fr",
     "name": "Compote de pomme FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "compote apple at plant",
@@ -4994,7 +5289,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "goat-milk",
+    "id": "a9eed813-3242-4701-8d76-f4fb2f222121",
+    "alias": "goat-milk",
     "name": "Lait de chèvre FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Goat milk, consumption mix {FR} U",
@@ -5014,7 +5310,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "breakfast-cereals",
+    "id": "1508af02-c164-4189-9fac-0057566e0950",
+    "alias": "breakfast-cereals",
     "name": "Mélange de céréales FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "cereals rich at plant",
@@ -5031,7 +5328,8 @@
     "crop_group": "AUTRES CEREALES"
   },
   {
-    "id": "pasta",
+    "id": "06e7ba46-85ba-4475-82d2-a59f847e801d",
+    "alias": "pasta",
     "name": "Pâtes FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "pasta dried plant wheat FR",
@@ -5048,7 +5346,8 @@
     "crop_group": "DIVERS"
   },
   {
-    "id": "garlic",
+    "id": "06f219a1-ffb3-44ae-ba23-6f9ad7baff39",
+    "alias": "garlic",
     "name": "Ail FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "garlic consumption mix",
@@ -5065,7 +5364,8 @@
     "crop_group": "DIVERS"
   },
   {
-    "id": "vegetable-mix",
+    "id": "5ecb6c61-0a0f-4c00-a8e0-713c97929c7c",
+    "alias": "vegetable-mix",
     "name": "Mélange de légumes",
     "database": "Agribalyse 3.1.1",
     "search": "Diced mixed vegetables canned at plant",
@@ -5082,7 +5382,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "bolognese",
+    "id": "ad4e4cff-9333-4f5a-bfc5-028cfe888072",
+    "alias": "bolognese",
     "name": "Sauce tomate à la viande FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "tomato sauce bolognese at plant",
@@ -5101,7 +5402,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "honey",
+    "id": "87accb8f-37c1-4364-873a-5e8e67fd5811",
+    "alias": "honey",
     "name": "Miel FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "honey at plant",
@@ -5118,7 +5420,8 @@
     "crop_group": "DIVERS"
   },
   {
-    "id": "turkey",
+    "id": "b5395f5f-e011-4c65-9a6c-85dd77d10d2c",
+    "alias": "turkey",
     "name": "Viande de dinde FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "turkey conventional at farm gate",
@@ -5137,7 +5440,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "pork-liver",
+    "id": "dc2e130a-06c1-4859-a9ca-17456de99812",
+    "alias": "pork-liver",
     "name": "Foie de porc cru FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "liver pork raw at distribution",
@@ -5156,7 +5460,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "whey",
+    "id": "33d2f3c2-ffa2-4b96-811e-50c1c8670e26",
+    "alias": "whey",
     "name": "Poudre de lactosérum FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Whey, at plant {FR} U",
@@ -5175,7 +5480,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "strawberry-coulis",
+    "id": "dd6ebd55-dc52-4e9e-ac79-aa3ed4b3295d",
+    "alias": "strawberry-coulis",
     "name": "Purée de fraise FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "strawberry coulis at plant",
@@ -5192,7 +5498,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "yogurt",
+    "id": "0e77146c-be67-4f16-b072-f4fdb43b4acf",
+    "alias": "yogurt",
     "name": "Fromage blanc FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "yogurt milk cow at plant",
@@ -5211,7 +5518,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "goat-cheese",
+    "id": "d93c2c58-8073-47ef-99da-999ad7cba846",
+    "alias": "goat-cheese",
     "name": "Fromage de chèvre FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cheese, from goat's milk, consumption mix {FR} U",
@@ -5230,7 +5538,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "cocoa-butter",
+    "id": "0ea5f5a0-51d9-41da-9ac4-cb60f3ddb86c",
+    "alias": "cocoa-butter",
     "name": "Beurre de cacao Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "cocoa butter at plant FR",
@@ -5247,7 +5556,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "soy-protein",
+    "id": "f8fb04c1-c207-4a3c-993f-e5a1b0204dfa",
+    "alias": "soy-protein",
     "name": "Protéines de soja Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "soy protein dehydrated at plant",
@@ -5264,7 +5574,8 @@
     "crop_group": "PROTEAGINEUX"
   },
   {
-    "id": "vinegar-alcohol",
+    "id": "24222e45-52dc-4c18-ab9f-0ee39d8a46b4",
+    "alias": "vinegar-alcohol",
     "name": "Vinaigre d'alcool FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "vinegar alcohol",
@@ -5281,7 +5592,8 @@
     "crop_group": "DIVERS"
   },
   {
-    "id": "veal-meat",
+    "id": "221cd239-f1ae-4a2f-9fdc-dc73df5f95ab",
+    "alias": "veal-meat",
     "name": "Viande de veau FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "veal without bone",
@@ -5300,7 +5612,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "french-fries",
+    "id": "7c742241-9678-4a46-972b-8be1baf7f5a7",
+    "alias": "french-fries",
     "name": "Frites de pomme de terre congelées FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "french fries frozen at processing",
@@ -5317,7 +5630,8 @@
     "crop_group": "AUTRES CULTURES INDUSTRIELLES"
   },
   {
-    "id": "tomato-sauce",
+    "id": "bdae67c5-ac20-417b-9094-8755ae1ab42b",
+    "alias": "tomato-sauce",
     "name": "Sauce tomate FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "tomato sauce vegetables prepacked at plant",
@@ -5334,7 +5648,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "mustard",
+    "id": "d87bdd32-d698-4044-ae20-15b96c65f680",
+    "alias": "mustard",
     "name": "Moutarde FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Mustard, at plant {FR} U",
@@ -5351,7 +5666,8 @@
     "crop_group": "LEGUMINEUSES A GRAIN"
   },
   {
-    "id": "rice-flour",
+    "id": "02878fcc-4c20-4d31-874d-169535443c6a",
+    "alias": "rice-flour",
     "name": "Farine de riz Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "rice flour FR at mill",
@@ -5368,7 +5684,8 @@
     "crop_group": "RIZ"
   },
   {
-    "id": "brie-cheese",
+    "id": "d56d21c0-0705-45e3-830d-504d63d581e0",
+    "alias": "brie-cheese",
     "name": "Brie FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Brie cheese, from cow's milk, consumption mix {FR} U",
@@ -5387,7 +5704,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "turmeric",
+    "id": "cfdb11f0-9ae1-47ab-a26c-20ff8444b862",
+    "alias": "turmeric",
     "name": "Curcuma Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "turmeric consumption mix",
@@ -5404,7 +5722,8 @@
     "crop_group": "DIVERS"
   },
   {
-    "id": "candied-fruits",
+    "id": "b1350dc9-f4da-4827-b984-f36b6f192c5a",
+    "alias": "candied-fruits",
     "name": "Fruits confits FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "candied fruits at plant",
@@ -5421,7 +5740,8 @@
     "crop_group": "DIVERS"
   },
   {
-    "id": "reblochon",
+    "id": "d85576e1-ba3a-4ec7-80d5-c106f780498a",
+    "alias": "reblochon",
     "name": "Reblochon FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Reblochon cheese, from cow's milk, at plant {FR} U",
@@ -5440,7 +5760,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "fruit-puree",
+    "id": "57490ff0-61a0-44cd-bd4f-3a3be7af25f2",
+    "alias": "fruit-puree",
     "name": "Purée de fruits FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "fruits puree at plant",
@@ -5457,7 +5778,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "apple-juice",
+    "id": "40a4432b-2b12-45f3-aed2-a8c4e165e15f",
+    "alias": "apple-juice",
     "name": "Jus de pomme FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "apple juice concentrate",
@@ -5474,7 +5796,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "orange-juice",
+    "id": "4649b3db-d927-4ea5-baa0-d74fa3c768d2",
+    "alias": "orange-juice",
     "name": "Jus d'orange Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "orange nectar at plant",
@@ -5491,7 +5814,8 @@
     "crop_group": "AUTRES CULTURES INDUSTRIELLES"
   },
   {
-    "id": "soy-milk",
+    "id": "afdc7ea9-6da0-4bab-9821-81acc46e23af",
+    "alias": "soy-milk",
     "name": "Lait de soja Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Soy drink, plain, at plant {FR} U",
@@ -5508,7 +5832,8 @@
     "crop_group": "PROTEAGINEUX"
   },
   {
-    "id": "lemon-juice",
+    "id": "fd79d142-7e34-45a4-a0d1-59922b4c8d09",
+    "alias": "lemon-juice",
     "name": "Jus de citron UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "lemon juice pure plant",
@@ -5525,7 +5850,8 @@
     "crop_group": "AUTRES CULTURES INDUSTRIELLES"
   },
   {
-    "id": "tomato-juice",
+    "id": "65e6f518-e5fc-4fda-9af9-287d26e2bbe1",
+    "alias": "tomato-juice",
     "name": "Jus de tomate UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "tomato juice plant",
@@ -5542,7 +5868,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "balsamic-vinegar",
+    "id": "c2e4259b-962f-49ea-b7f1-606f81b59207",
+    "alias": "balsamic-vinegar",
     "name": "Vinaigre balsamique FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "balsamic packaging",
@@ -5559,7 +5886,8 @@
     "crop_group": "DIVERS"
   },
   {
-    "id": "apricot-non-eu",
+    "id": "c455b3b8-406b-407a-a525-b2c832522e49",
+    "alias": "apricot-non-eu",
     "name": "Abricot Hors UE Conv.",
     "database": "WFLDB",
     "search": "apricot glo",
@@ -5576,7 +5904,8 @@
     "crop_group": "AUTRES CULTURES INDUSTRIELLES"
   },
   {
-    "id": "lamb-meat-without-bone-eu",
+    "id": "d48015d2-a512-4bac-ba93-82a7ae001b81",
+    "alias": "lamb-meat-without-bone-eu",
     "name": "Viande d'agneau (désossée) UE Conv.",
     "database": "WFLDB",
     "search": "lamb meat slaughterhouse IE",
@@ -5595,7 +5924,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "lamb-meat-without-bone-non-eu",
+    "id": "45e3cd64-1647-4841-bacb-795e2aae4f02",
+    "alias": "lamb-meat-without-bone-non-eu",
     "name": "Viande d'agneau (désossée) Hors UE Conv.",
     "database": "WFLDB",
     "search": "lamb meat slaughterhouse NZ",
@@ -5614,7 +5944,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "almond-inshell-fr",
+    "id": "3a0c058b-70db-4fce-9984-e68e2f5a4760",
+    "alias": "almond-inshell-fr",
     "name": "Amandes en coque FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Almond mix",
@@ -5632,7 +5963,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "almond-inshell-ue",
+    "id": "0da203dd-5ce5-42cc-be90-95cc4c49b2ac",
+    "alias": "almond-inshell-ue",
     "name": "Amandes en coque UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Almond mix",
@@ -5650,7 +5982,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "almond-inshell-non-ue",
+    "id": "99dcb716-b0ab-4ca5-b88a-4de43dbfb1af",
+    "alias": "almond-inshell-non-ue",
     "name": "Amandes en coque Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Almond mix",
@@ -5668,7 +6001,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "artichoke-eu",
+    "id": "dd7fe1c9-9d56-4790-b735-3de608a20849",
+    "alias": "artichoke-eu",
     "name": "Artichaut UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -5685,7 +6019,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "artichoke-non-eu",
+    "id": "92200507-627e-4ae5-a5f8-cf62ef619b02",
+    "alias": "artichoke-non-eu",
     "name": "Artichaut Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -5702,7 +6037,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "avocado-organic",
+    "id": "d54c7a38-2577-4e8f-93c6-8f39b81226b5",
+    "alias": "avocado-organic",
     "name": "Avocat FR ou UE ou Hors UE BIO",
     "database": "Agribalyse 3.1.1",
     "search": "Avocado, consumption mix {FR} U",
@@ -5719,7 +6055,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "avocado-eu",
+    "id": "fa8cce35-0e6b-4a2f-bdc1-80c05e497616",
+    "alias": "avocado-eu",
     "name": "Avocat UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Avocado {GLO}| production",
@@ -5737,7 +6074,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "oats-ue",
+    "id": "6c3815da-dec2-4cf2-9be6-9d99b4e9948d",
+    "alias": "oats-ue",
     "name": "Avoine UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Oats, at farm {GLO} - Adapted from WFLDB U",
@@ -5754,7 +6092,8 @@
     "crop_group": "AUTRES CEREALES"
   },
   {
-    "id": "chard-organic",
+    "id": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
+    "alias": "chard-organic",
     "name": "Blette FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Spinach, organic 2023 {GLO}",
@@ -5771,7 +6110,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "swiss-chard-non-eu",
+    "id": "4974a272-0080-4a52-a46e-ae222dcf8dff",
+    "alias": "swiss-chard-non-eu",
     "name": "Blette Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Spinach GLO production",
@@ -5789,7 +6129,8 @@
     "crop_group": "AUTRES CULTURES INDUSTRIELLES"
   },
   {
-    "id": "broccoli-organic",
+    "id": "d1155206-18fc-41f1-8509-2f52e7614f2d",
+    "alias": "broccoli-organic",
     "name": "Brocoli FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Broccoli, consumption mix, organic 2023 {FR} U",
@@ -5806,7 +6147,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "broccoli-fr",
+    "id": "5461f2bc-7010-41ee-ab90-35312769a49f",
+    "alias": "broccoli-fr",
     "name": "Brocoli FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Broccoli, consumption mix {FR} U",
@@ -5823,7 +6165,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "broccoli-non-eu",
+    "id": "51882472-92d6-4512-aecf-f852f286d5b5",
+    "alias": "broccoli-non-eu",
     "name": "Brocoli Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Broccoli {GLO}| production",
@@ -5841,7 +6184,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "celery-non-eu",
+    "id": "2b2b9e3a-9414-4fbc-8584-8e4bdf5d6a93",
+    "alias": "celery-non-eu",
     "name": "Céleri branche Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Celery {GLO}| 675 production",
@@ -5859,7 +6203,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "cherry-ue",
+    "id": "ea6cc96f-ae22-4f14-ace9-a6a463fd360b",
+    "alias": "cherry-ue",
     "name": "Cerise UE Conv.",
     "database": "WFLDB",
     "search": "Cherry, at farm (WFLDB) glo",
@@ -5876,7 +6221,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "mushroom-fr",
+    "id": "d330d763-6baa-442f-b479-55425b1fa54f",
+    "alias": "mushroom-fr",
     "name": "Champignon frais FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
@@ -5893,7 +6239,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "walnut-inshell-organic",
+    "id": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
+    "alias": "walnut-inshell-organic",
     "name": "Noix avec coque FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Walnut, dried inshell, organic 2023, national average, at farm gate {FR} U",
@@ -5910,7 +6257,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "white-cabbage-eu",
+    "id": "9f17139e-92b9-4bd4-9ba6-07da78f052ff",
+    "alias": "white-cabbage-eu",
     "name": "Chou blanc UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cabbage white {RoW}| cabbage white production",
@@ -5927,7 +6275,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "white-cabbage-fr",
+    "id": "7c78115b-3268-4b78-add5-98b0f85bfc34",
+    "alias": "white-cabbage-fr",
     "name": "Chou blanc FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cabbage white {RoW}| cabbage white production",
@@ -5944,7 +6293,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "white-cabbage-organic",
+    "id": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
+    "alias": "white-cabbage-organic",
     "name": "Chou blanc FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Cabbage white, organic 2023 {RoW}| cabbage white production | Cut-off, U",
@@ -5961,7 +6311,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "chinese-cabbage-ue",
+    "id": "ebb1d5ac-83e9-4295-9067-01e4bc5e43d1",
+    "alias": "chinese-cabbage-ue",
     "name": "Chou chinois UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -5978,7 +6329,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "chinese-cabbage-non-ue",
+    "id": "3e3f8e66-57c3-43f8-b86c-54fb42af7f45",
+    "alias": "chinese-cabbage-non-ue",
     "name": "Chou chinois Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -5995,7 +6347,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "brussels-sprout-ue",
+    "id": "0896a0d5-b6ae-4b48-9e61-7c7ee42447ec",
+    "alias": "brussels-sprout-ue",
     "name": "Chou de Bruxelles UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -6012,7 +6365,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "brussels-sprout-non-ue",
+    "id": "f2ca7ffb-f4b2-478f-8008-41956b2aefa2",
+    "alias": "brussels-sprout-non-ue",
     "name": "Chou de Bruxelles Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -6029,7 +6383,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "refined-palm-oil-non-ue",
+    "id": "45658c32-66d9-4305-a34b-21d6a4cef89c",
+    "alias": "refined-palm-oil-non-ue",
     "name": "Huile de palme (raffinée) Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Palm oil, refined, consumption mix {FR} U",
@@ -6046,7 +6401,8 @@
     "crop_group": "AUTRES CULTURES INDUSTRIELLES"
   },
   {
-    "id": "sunflower-oil-eu",
+    "id": "ea419fa9-d69f-4735-8fe8-fab427ce5185",
+    "alias": "sunflower-oil-eu",
     "name": "Huile de tournesol UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower oil, at plant {IT} U",
@@ -6063,7 +6419,8 @@
     "crop_group": "TOURNESOL"
   },
   {
-    "id": "milk-eu",
+    "id": "dbba1f04-b86c-42aa-96f9-93cfcdf4a141",
+    "alias": "milk-eu",
     "name": "Lait UE Conv.",
     "database": "WFLDB",
     "search": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
@@ -6082,7 +6439,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "milk-non-eu",
+    "id": "17cb3a3e-04e0-4550-bd9b-91a28d8bcec0",
+    "alias": "milk-non-eu",
     "name": "Lait Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cow milk {CA-QC}| milk production, from cow | Cut-off, U - Copied from Ecoinvent U",
@@ -6101,7 +6459,8 @@
     "animal_product": "milk"
   },
   {
-    "id": "lentils-uncooked-eu",
+    "id": "d0cd6516-40b9-40ce-b632-63c3a0ed14c1",
+    "alias": "lentils-uncooked-eu",
     "name": "Lentilles UE Conv.",
     "database": "WFLDB",
     "search": "Lentils, dry, at farm (WFLDB)",
@@ -6118,7 +6477,8 @@
     "crop_group": "LEGUMINEUSES A GRAIN"
   },
   {
-    "id": "lentils-uncooked-non-eu",
+    "id": "c06e8471-88c9-490c-99fc-eb85b4e9e300",
+    "alias": "lentils-uncooked-non-eu",
     "name": "Lentilles Hors UE Conv.",
     "database": "WFLDB",
     "search": "Lentils, dry, at farm (WFLDB)",
@@ -6135,7 +6495,8 @@
     "crop_group": "LEGUMINEUSES A GRAIN"
   },
   {
-    "id": "lambs-lettuce-non-eu",
+    "id": "c916d6db-03d1-48fb-9f81-71beffa94faf",
+    "alias": "lambs-lettuce-non-eu",
     "name": "Mâche Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Iceberg lettuce {GLO}| production",
@@ -6152,7 +6513,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "sweet-corn-eu",
+    "id": "20c97ec2-4950-4cb6-ac9d-a3a97b63c4ea",
+    "alias": "sweet-corn-eu",
     "name": "Maïs doux UE Conv.",
     "database": "WFLDB",
     "search": "Sweet corn GLO",
@@ -6169,7 +6531,8 @@
     "crop_group": "MAIS GRAIN ET ENSILAGE"
   },
   {
-    "id": "unknown-cereals-and-grain-products",
+    "id": "c723eb89-a64f-405d-bb6b-6dced54c46ba",
+    "alias": "unknown-cereals-and-grain-products",
     "name": "Autres céréales et produits céréaliers (non encore répertoriés)",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower, at farm {HU}",
@@ -6187,7 +6550,8 @@
     "crop_group": "TOURNESOL"
   },
   {
-    "id": "unknown-dairy-product",
+    "id": "f30016f7-2e54-45ee-96e8-cd0140872ce6",
+    "alias": "unknown-dairy-product",
     "name": "Autres produits laitiers (non encore répertoriés)",
     "database": "Agribalyse 3.1.1",
     "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
@@ -6203,7 +6567,8 @@
     "land_occupation": 9.167676909
   },
   {
-    "id": "unknown-fruit-vegetable",
+    "id": "748b0518-02cd-4e7c-8829-78e527e92298",
+    "alias": "unknown-fruit-vegetable",
     "name": "Autres fruits, légumes, légumineuses, oléagineux (non encore répertoriés)",
     "database": "Agribalyse 3.1.1",
     "search": "Clementine, export quality, Souss, at orchard {MA}",
@@ -6221,7 +6586,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "unknown-red-meat",
+    "id": "7f6bd70c-1385-4855-9c25-e9a34e91df74",
+    "alias": "unknown-red-meat",
     "name": "Autres viandes, oeufs, poissons (non encore répertoriés)",
     "database": "Agribalyse 3.1.1",
     "search": "Meat without bone, beef, for direct consumption",
@@ -6240,7 +6606,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "unknown-groceries",
+    "id": "3211b18f-83b2-4cf8-a0fd-42962f70b8b4",
+    "alias": "unknown-groceries",
     "name": "Autres ingrédients divers (non encore répertoriés)",
     "database": "Agribalyse 3.1.1",
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
@@ -6257,7 +6624,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "unknown-drink",
+    "id": "1bd78657-5169-4a53-aadd-881aedc7d3e7",
+    "alias": "unknown-drink",
     "name": "Autres eaux et autres boissons (non encore répertoriées)",
     "database": "Agribalyse 3.1.1",
     "search": "Tap water Europe market",
@@ -6273,7 +6641,8 @@
     "land_occupation": 2.10364488e-5
   },
   {
-    "id": "unknown-white-meat",
+    "id": "fda34c66-9093-458c-b7df-a091730b6b64",
+    "alias": "unknown-white-meat",
     "name": "Autres viandes blanches, oeufs et poisson (non encore répertoriés)Conv.",
     "database": "Ecobalyse",
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
@@ -6293,7 +6662,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "unknwon-fishery-products",
+    "id": "168b4b21-5fa8-484b-a192-83e7dda8f133",
+    "alias": "unknwon-fishery-products",
     "name": "Autres produits issus de la pêche (non encore répertoriés)",
     "database": "Agribalyse 3.1.1",
     "search": "Fresh shrimps, China production/FR U :",
@@ -6309,7 +6679,8 @@
     "land_occupation": 1.85501141
   },
   {
-    "id": "unknown-dried-fruits",
+    "id": "7cf22e4f-49b0-4430-818a-17de54f2b740",
+    "alias": "unknown-dried-fruits",
     "name": "Autres fruits secs (non encore répertoriés)",
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut, unshelled, at plant {TR} U",
@@ -6327,7 +6698,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "unknown-oil",
+    "id": "66e7706b-5129-410c-b070-0a7feff2680f",
+    "alias": "unknown-oil",
     "name": "Autres huiles (non encore répertoriées)",
     "database": "Agribalyse 3.1.1",
     "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
@@ -6344,7 +6716,8 @@
     "crop_group": "TOURNESOL"
   },
   {
-    "id": "anchovy-fr",
+    "id": "80aaae2b-6b1e-43fe-9139-319b114ca620",
+    "alias": "anchovy-fr",
     "name": "Anchois FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Anchovy, consumption mix {FR} U",
@@ -6360,7 +6733,8 @@
     "land_occupation": 0.033974262234653045
   },
   {
-    "id": "anchovy-eu",
+    "id": "fcb112b1-bf64-431d-8f01-f2a9e7bfe155",
+    "alias": "anchovy-eu",
     "name": "Anchois UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Anchovy, consumption mix {FR} U",
@@ -6376,7 +6750,8 @@
     "land_occupation": 0.033974262234653045
   },
   {
-    "id": "anchovy-non-eu",
+    "id": "91314b7a-0b9f-4893-946d-e321dc1cacb4",
+    "alias": "anchovy-non-eu",
     "name": "Anchois Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Anchovy, consumption mix {FR} U",
@@ -6392,7 +6767,8 @@
     "land_occupation": 0.033974262234653045
   },
   {
-    "id": "sardine-fr",
+    "id": "3a892ff6-4689-4053-96e7-0f9038894fae",
+    "alias": "sardine-fr",
     "name": "Sardine FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "European Pilchard, BBiscay, Seine, average, at landing {FR} U",
@@ -6408,7 +6784,8 @@
     "land_occupation": 0.004036714851529471
   },
   {
-    "id": "sardine-eu",
+    "id": "f7c74916-6951-4074-acd9-42dbe97dbb32",
+    "alias": "sardine-eu",
     "name": "Sardine UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "European pilchard or sardine, consumption mix {FR} U",
@@ -6424,7 +6801,8 @@
     "land_occupation": 0.016278296864028784
   },
   {
-    "id": "sardine-non-eu",
+    "id": "79ce12b6-db5c-43c8-be48-44deb8f704e1",
+    "alias": "sardine-non-eu",
     "name": "Sardine Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "European pilchard or sardine, consumption mix {FR} U",
@@ -6440,7 +6818,8 @@
     "land_occupation": 0.004036714851529471
   },
   {
-    "id": "cod-eu",
+    "id": "62fc4202-1ff8-44f5-8f5b-e734ac8a4730",
+    "alias": "cod-eu",
     "name": "Morue UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Cod, consumption mix {FR}",
@@ -6456,7 +6835,8 @@
     "land_occupation": 0.034270541927866376
   },
   {
-    "id": "crab-fr",
+    "id": "6875d374-d24e-45d1-93c1-39aa52e3713c",
+    "alias": "crab-fr",
     "name": "Crabe FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Brown crab, 1 kg of product, at landing {FR} U",
@@ -6472,7 +6852,8 @@
     "land_occupation": 0.32883605287589174
   },
   {
-    "id": "crab-eu",
+    "id": "4f075683-12a5-423b-bd78-75aed2781290",
+    "alias": "crab-eu",
     "name": "Crabe UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Brown crab, 1 kg of product, at landing {GB} U",
@@ -6488,7 +6869,8 @@
     "land_occupation": 0.6205097657790937
   },
   {
-    "id": "hake-eu",
+    "id": "cb1fc717-78f9-46fe-9121-fbf8aa803599",
+    "alias": "hake-eu",
     "name": "Colin UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Hake, consumption mix {FR} U",
@@ -6504,7 +6886,8 @@
     "land_occupation": 0.02384281457052437
   },
   {
-    "id": "lobster-fr",
+    "id": "5b0f85b9-5bc9-4eca-b134-af3a344f586e",
+    "alias": "lobster-fr",
     "name": "Homard FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Lobster, 1 kg of product, at landing {FR} U",
@@ -6520,7 +6903,8 @@
     "land_occupation": 1.839828202807313
   },
   {
-    "id": "lobster-eu",
+    "id": "16ff0416-9d7f-4e3b-9e2e-7a25e729b863",
+    "alias": "lobster-eu",
     "name": "Homard UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Lobster, 1 kg of product, at landing {GB} U",
@@ -6536,7 +6920,8 @@
     "land_occupation": 1.8321453962646206
   },
   {
-    "id": "lobster-non-eu",
+    "id": "c217f7ad-7413-4663-b049-1ce6c040f597",
+    "alias": "lobster-non-eu",
     "name": "Homard Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Lobster, 1 kg of product, at landing {US} U",
@@ -6552,7 +6937,8 @@
     "land_occupation": 0.12544196078231584
   },
   {
-    "id": "salmon-raw-eu",
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007655",
+    "alias": "salmon-raw-eu",
     "name": "Saumon cru UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Salmon, fillet, raw, at processing {FR} U",
@@ -6568,7 +6954,8 @@
     "land_occupation": 629.0954794051512
   },
   {
-    "id": "squid-fr",
+    "id": "1bcc2d19-8352-4cf8-bb55-81444a15d398",
+    "alias": "squid-fr",
     "name": "Calmar FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Squid, consumption mix {FR} U",
@@ -6584,7 +6971,8 @@
     "land_occupation": 0.034270541927866376
   },
   {
-    "id": "mandarin-non-eu",
+    "id": "6467c956-277d-4e09-80c2-b0b062f84086",
+    "alias": "mandarin-non-eu",
     "name": "Mandarine Hors UE Conv.",
     "database": "WFLDB",
     "search": "Mandarin, at farm (WFLDB) cn",
@@ -6601,7 +6989,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "melon-non-eu",
+    "id": "7b30c4ad-e851-4274-8062-4e14850108a9",
+    "alias": "melon-non-eu",
     "name": "Melon Hors UE Conv.",
     "database": "Ecoinvent 3.10",
     "search": "Melon {GLO}| melon production | Cut-off, U",
@@ -6618,7 +7007,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "blueberry-eu",
+    "id": "869f04ba-6780-4124-9240-b7be514be1ba",
+    "alias": "blueberry-eu",
     "name": "Myrtille UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
@@ -6636,7 +7026,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "blueberry-fr",
+    "id": "0eb658ae-a7e4-4b74-a7eb-9604b23c2f98",
+    "alias": "blueberry-fr",
     "name": "Myrtille FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
@@ -6654,7 +7045,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "hazelnut-organic",
+    "id": "df64fdd7-1900-402c-86b9-e766e22c27ed",
+    "alias": "hazelnut-organic",
     "name": "Noisette avec coque FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Hazelnut, in shell, at farm, organic 2023 {IT}",
@@ -6672,7 +7064,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "hazelnut-unshelled-organic",
+    "id": "4531bf0a-7910-4166-b3b1-e94027a10426",
+    "alias": "hazelnut-unshelled-organic",
     "name": "Noisette décortiquée FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Hazelnut, unshelled, consumption mix, organic 2023 {FR} U",
@@ -6690,7 +7083,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "hazelnut-unshelled-fr",
+    "id": "60184de2-cc9e-4618-924a-b8fecf080c8b",
+    "alias": "hazelnut-unshelled-fr",
     "name": "Noisette décortiquée FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Hazelnut, unshelled, consumption mix {FR} U",
@@ -6708,7 +7102,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "chesnut-inshell-organic",
+    "id": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
+    "alias": "chesnut-inshell-organic",
     "name": "Châtaigne avec coque FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Walnut, dried inshell, traditional varieties, organic 2023, at farm gate {FR} U",
@@ -6725,7 +7120,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "walnut-inshell-eu",
+    "id": "0060abe9-a6c2-47fb-bc87-404a9bbd3971",
+    "alias": "walnut-inshell-eu",
     "name": "Noix avec coque UE Conv.",
     "database": "WFLDB",
     "search": "Walnut, in shell, dried, at farm (WFLDB)",
@@ -6742,7 +7138,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "walnut-inshell-non-eu",
+    "id": "69d6cbd1-914d-40ea-aaa1-082911ed2fdd",
+    "alias": "walnut-inshell-non-eu",
     "name": "Noix avec coque Hors UE Conv.",
     "database": "WFLDB",
     "search": "Walnut, in shell, dried, at farm (WFLDB)",
@@ -6759,7 +7156,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "olive-fr",
+    "id": "86ee6b87-c777-47a4-8243-8192dc3783c0",
+    "alias": "olive-fr",
     "name": "Olive UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Olive {ES}| olive production | Cut-off, U",
@@ -6777,7 +7175,8 @@
     "crop_group": "OLIVIERS"
   },
   {
-    "id": "barley-eu",
+    "id": "34a88056-cd23-40e6-8eaa-6a64595fa9b2",
+    "alias": "barley-eu",
     "name": "Orge UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
@@ -6794,7 +7193,8 @@
     "crop_group": "ORGE"
   },
   {
-    "id": "barley-non-eu",
+    "id": "de8ef49d-d235-4513-9496-aa8409bdc093",
+    "alias": "barley-non-eu",
     "name": "Orge Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Barley grain at farm DE",
@@ -6811,7 +7211,8 @@
     "crop_group": "ORGE"
   },
   {
-    "id": "pistachio-organic",
+    "id": "115a010d-270f-43f8-9827-b27348a08d13",
+    "alias": "pistachio-organic",
     "name": "Pistache avec coque FR ou UE ou Hors UE Bio",
     "database": "Ginko",
     "search": "Peanut, in shell, at farm, organic 2023 {GLO}",
@@ -6829,7 +7230,8 @@
     "crop_group": "FRUITS A COQUES"
   },
   {
-    "id": "leek-eu",
+    "id": "7aea09f0-f3ae-4df0-9cbc-ba4007ce1459",
+    "alias": "leek-eu",
     "name": "Poireau UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "leek, consumption",
@@ -6846,7 +7248,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "leek-non-eu",
+    "id": "bb58047c-2b1d-42ad-b5a2-bc5ebf8289a1",
+    "alias": "leek-non-eu",
     "name": "Poireau Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "leek, consumption",
@@ -6863,7 +7266,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "bean-non-eu",
+    "id": "134bc97e-e3dc-44de-8ec6-947b608a2d42",
+    "alias": "bean-non-eu",
     "name": "Pois Hors UE Conv.",
     "database": "Ecoinvent 3.10",
     "search": "protein pea//[ES] protein pea production",
@@ -6880,7 +7284,8 @@
     "crop_group": "AUTRES CEREALES"
   },
   {
-    "id": "bean-eu",
+    "id": "0fdccf80-b169-4b34-8409-d15c0d100957",
+    "alias": "bean-eu",
     "name": "Pois UE Conv.",
     "database": "Ecoinvent 3.10",
     "search": "protein pea//[ES] protein pea production",
@@ -6897,7 +7302,8 @@
     "crop_group": "AUTRES CEREALES"
   },
   {
-    "id": "bean-fr",
+    "id": "bfdf1505-8426-499e-8286-a1e4b4920c7e",
+    "alias": "bean-fr",
     "name": "Pois FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
@@ -6914,7 +7320,8 @@
     "crop_group": "AUTRES CEREALES"
   },
   {
-    "id": "chickpea-non-eu",
+    "id": "227914fd-5cf5-4c05-958f-ac4321e6c557",
+    "alias": "chickpea-non-eu",
     "name": "Pois chiche Hors UE Conv.",
     "database": "Ecoinvent 3.10",
     "search": "chickpea//[RoW] chickpea production",
@@ -6931,7 +7338,8 @@
     "crop_group": "LEGUMINEUSES A GRAIN"
   },
   {
-    "id": "bellpepper-unheated-greenhouse-fr",
+    "id": "361139ac-1028-4cc8-9c0e-4955c5fa39d3",
+    "alias": "bellpepper-unheated-greenhouse-fr",
     "name": "Poivron sous serre non chauffée FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
@@ -6948,7 +7356,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "bellpepper-unheated-greenhouse-eu",
+    "id": "123d51c5-27a3-4b57-a1d2-3b627dc4032a",
+    "alias": "bellpepper-unheated-greenhouse-eu",
     "name": "Poivron sous serre non chauffée UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
@@ -6965,7 +7374,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "bellpepper-unheated-greenhouse-non-eu",
+    "id": "d018ec1f-d3c8-4fa1-a70d-bca1b0380c47",
+    "alias": "bellpepper-unheated-greenhouse-non-eu",
     "name": "Poivron sous serre non chauffée Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
@@ -6982,7 +7392,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "apple-non-eu",
+    "id": "8c2299d6-49e4-493c-bafe-c0b4b7ef2079",
+    "alias": "apple-non-eu",
     "name": "Pomme Hors UE Conv.",
     "database": "WFLDB",
     "search": "Apple, at farm CN",
@@ -6999,7 +7410,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "potato-table-eu",
+    "id": "9bdb3037-1154-4477-a99c-6ca4ba9c9168",
+    "alias": "potato-table-eu",
     "name": "Pomme de terre de table UE Conv.",
     "database": "WFLDB",
     "search": "Potato, at farm (WFLDB) nl",
@@ -7016,7 +7428,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "potato-table-non-eu",
+    "id": "33c427df-1967-452a-91b0-cdc1a2c9ca04",
+    "alias": "potato-table-non-eu",
     "name": "Pomme de terre de table Hors UE Conv.",
     "database": "WFLDB",
     "search": "Potato, at farm (WFLDB) cn",
@@ -7033,7 +7446,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "chicken-breast-eu",
+    "id": "e57ae0e0-6277-427f-9090-087c97008966",
+    "alias": "chicken-breast-eu",
     "name": "Blanc de poulet cru UE Conv.",
     "database": "WFLDB",
     "search": "Chicken meat at slaughterhouse PL",
@@ -7052,7 +7466,8 @@
     "animal_product": "meat"
   },
   {
-    "id": "tomato-paste-fr",
+    "id": "ffd854c7-858b-4b97-9827-f99d2b71d48d",
+    "alias": "tomato-paste-fr",
     "name": "Purée de tomates FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Tomato puree, canned, processed in FR | Ambient (long) | Steel | at packaging {FR} U",
@@ -7069,7 +7484,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "radish-fr",
+    "id": "001e0594-90e9-4d0f-bf0d-a9a253269c58",
+    "alias": "radish-fr",
     "name": "Radis FR Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Radish, consumption mix {FR} U",
@@ -7087,7 +7503,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "radish-eu",
+    "id": "bb970211-9d5c-4faf-a649-482e2a34b381",
+    "alias": "radish-eu",
     "name": "Radis UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Radish {GLO}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -7105,7 +7522,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "rice-basmati-eu",
+    "id": "3294e42c-c053-42e5-bcc0-a35f189681d6",
+    "alias": "rice-basmati-eu",
     "name": "Riz basmati UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Basmati rice, consumption mix {FR} U",
@@ -7122,7 +7540,8 @@
     "crop_group": "RIZ"
   },
   {
-    "id": "durum-wheat-semolina-non-eu",
+    "id": "b02ea3a9-f5f1-4673-b043-1d6d72894964",
+    "alias": "durum-wheat-semolina-non-eu",
     "name": "Semoule de blé dur Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
@@ -7139,7 +7558,8 @@
     "crop_group": "AUTRES CEREALES"
   },
   {
-    "id": "durum-wheat-semolina-eu",
+    "id": "af44d84e-8a7d-47c2-ab19-934b3ea9ab17",
+    "alias": "durum-wheat-semolina-eu",
     "name": "Semoule de blé dur UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
@@ -7156,7 +7576,8 @@
     "crop_group": "AUTRES CEREALES"
   },
   {
-    "id": "plum-eu",
+    "id": "07433a1e-66d9-45c2-889b-38afb54622de",
+    "alias": "plum-eu",
     "name": "Prune UE Conv.",
     "database": "WFLDB",
     "search": "cherry at farm GLO",
@@ -7173,7 +7594,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "plum-non-eu",
+    "id": "b83a6d8e-5afa-447b-be7b-5df9573e7d3b",
+    "alias": "plum-non-eu",
     "name": "Prune Hors UE Conv.",
     "database": "WFLDB",
     "search": "cherry at farm GLO",
@@ -7190,7 +7612,8 @@
     "crop_group": "VERGERS"
   },
   {
-    "id": "soft-wheat-eu",
+    "id": "ae9ccfff-93bb-46b3-9ade-479fbbdb6d56",
+    "alias": "soft-wheat-eu",
     "name": "Blé tendre UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
@@ -7207,7 +7630,8 @@
     "crop_group": "BLE TENDRE"
   },
   {
-    "id": "onion-dried",
+    "id": "0a2edda7-2158-4206-8d8c-2151fc925215",
+    "alias": "onion-dried",
     "name": "Oignons déshydratés Hors UE Conv.",
     "database": "Agribalyse 3.1.1",
     "search": "onions dried",
@@ -7225,7 +7649,8 @@
     "crop_group": "LEGUMES-FLEURS"
   },
   {
-    "id": "beer-packaging",
+    "id": "205670bb-ba10-4e58-b029-4ae720a5e1f9",
+    "alias": "beer-packaging",
     "name": "Emballage de bière (bouteille de verre)",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:6808c0d38222bc171fca18e93421bf4e",
@@ -7234,7 +7659,8 @@
     "land_occupation": 0.02025482449
   },
   {
-    "id": "salt-packaging",
+    "id": "11f834ab-68b9-4316-9831-0e6c47731dc3",
+    "alias": "salt-packaging",
     "name": "Emballage de sel (carton)",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:6808c0d38222bc171fca18e93421bf4e",
@@ -7243,7 +7669,8 @@
     "land_occupation": 0.02025482449
   },
   {
-    "id": "vanilla-packaging",
+    "id": "85f7d536-f811-44ea-9d4a-f1d42a71bc2c",
+    "alias": "vanilla-packaging",
     "name": "Emballage de vanille (verre)",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:5347fcfd5ea010cce975c5d97a7dea6f",
@@ -7252,7 +7679,8 @@
     "land_occupation": 0.0976283157
   },
   {
-    "id": "cocktail-packaging",
+    "id": "d5a12a2d-e826-4b9c-8786-59af5d5a0153",
+    "alias": "cocktail-packaging",
     "name": "Emballage de cocktail (verre)",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:472e239996aa5542c82a91524fa03e13",
@@ -7261,7 +7689,8 @@
     "land_occupation": 0.02062877521
   },
   {
-    "id": "tea-packaging",
+    "id": "4c4d6c78-ccf1-48b9-b660-b86b271f3b35",
+    "alias": "tea-packaging",
     "name": "Emballage de thé (carton)",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:67604e439ea15376597b3227ed6f4e1b",
@@ -7270,7 +7699,8 @@
     "land_occupation": 1.111926096
   },
   {
-    "id": "honney-packaging",
+    "id": "9288f966-5e3b-4108-a687-fa95715ee50e",
+    "alias": "honney-packaging",
     "name": "Emballage de miel (verre)",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:23d4f0252bca9a46ec3a3d24d6e7301e",
@@ -7279,7 +7709,8 @@
     "land_occupation": 0.01306185454
   },
   {
-    "id": "vinegar-packaging",
+    "id": "1ab8014d-c1dc-4a86-9ba1-4a740bf7e630",
+    "alias": "vinegar-packaging",
     "name": "Emballage de vinaigre (verre)",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:23d4f0252bca9a46ec3a3d24d6e7301e",
@@ -7288,7 +7719,8 @@
     "land_occupation": 0.01306185454
   },
   {
-    "id": "syrups-packaging",
+    "id": "717646ad-615f-4cd2-8f20-1cd0f3ce56a1",
+    "alias": "syrups-packaging",
     "name": "Emballage de sirop (verre)",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:dddac64d422f236ad309b4beaefc3e58",
@@ -7297,7 +7729,8 @@
     "land_occupation": 0.01382298036
   },
   {
-    "id": "cider-packaging",
+    "id": "326f9f9c-d27d-4769-8073-076503abdf99",
+    "alias": "cider-packaging",
     "name": "Emballage de cidre (verre)",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:7f9223fb45455a3f2845093b068b6fda",
@@ -7306,7 +7739,8 @@
     "land_occupation": 0.02262251416
   },
   {
-    "id": "sugar-packaging",
+    "id": "81907643-505e-4327-82bc-ed1dd9caa3c9",
+    "alias": "sugar-packaging",
     "name": "Emballage de sucre",
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:b357c1159f359544b2f3e487939e5fd9",

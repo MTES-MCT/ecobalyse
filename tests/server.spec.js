@@ -409,7 +409,7 @@ describe("API", () => {
     describe("/food/transforms", () => {
       it("should render with transforms list", async () => {
         await expectListResponseContains("/api/food/transforms", {
-          code: "AGRIBALU000000003103966",
+          id: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
           name: "Cuisson",
         });
       });
@@ -420,7 +420,7 @@ describe("API", () => {
         it("should compute 21 impacts for food", async () => {
           const response = await makeRequest("/api/food", [
             "ingredients[]=carrot-fr;268",
-            "transform=AGRIBALU000000003103966;1050",
+            "transform=7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;1050",
             "distribution=ambient",
           ]);
 
@@ -472,13 +472,13 @@ describe("API", () => {
           expectFieldErrorMessage(
             await makeRequest("/api/food", ["transform=invalid;268"]),
             "transform",
-            /Procédé introuvable par code : invalid/,
+            /Identifiant invalide: invalid/,
           );
         });
 
         it("should validate a transform mass", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food", ["transform=AGRIBALU000000003103966;-1"]),
+            await makeRequest("/api/food", ["transform=7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;-1"]),
             "transform",
             /masse doit être supérieure ou égale à zéro/,
           );
@@ -488,13 +488,13 @@ describe("API", () => {
           expectFieldErrorMessage(
             await makeRequest("/api/food", ["packaging[]=invalid;268"]),
             "packaging",
-            /Procédé introuvable par code : invalid/,
+            /Identifiant invalide: invalid/,
           );
         });
 
         it("should validate a packaging mass", async () => {
           expectFieldErrorMessage(
-            await makeRequest("/api/food", ["packaging[]=AGRIBALU000000003104019;-1"]),
+            await makeRequest("/api/food", ["packaging[]=c352add7-8037-464e-bff2-7da517419f88;-1"]),
             "packaging",
             /masse doit être supérieure ou égale à zéro/,
           );
@@ -527,12 +527,12 @@ describe("API", () => {
               { id: "carrot-fr", mass: 0.225 },
             ],
             transform: {
-              code: "AGRIBALU000000003103966",
+              id: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
               mass: 0.545,
             },
             packaging: [
               {
-                code: "AGRIBALU000000003104019",
+                id: "c352add7-8037-464e-bff2-7da517419f88",
                 mass: 0.105,
               },
             ],
