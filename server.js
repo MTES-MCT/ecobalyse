@@ -275,17 +275,11 @@ version.get("/:versionNumber/api", checkVersionAndPath, (req, res) => {
 });
 
 version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), async (req, res) => {
-  const foodProcesses = fs
-    .readFileSync(path.join(req.staticDir, "data", "food", "processes_impacts.json"))
-    .toString();
-  const objectProcesses = fs
-    .readFileSync(path.join(req.staticDir, "data", "object", "processes_impacts.json"))
-    .toString();
-  const textileProcesses = fs
-    .readFileSync(path.join(req.staticDir, "data", "textile", "processes_impacts.json"))
-    .toString();
-
-  const processes = { foodProcesses, objectProcesses, textileProcesses };
+  const versionNumber = req.params.versionNumber;
+  const { processesImpacts, processes } = availableVersions.find(
+    (version) => version.dir === versionNumber,
+  );
+  const versionProcesses = await getProcesses(req.headers.token, processesImpacts, processes);
 
   const { Elm } = require(path.join(req.staticDir, "server-app"));
 
@@ -301,7 +295,7 @@ version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), asy
     method: req.method,
     url: urlWithoutPrefix,
     body: req.body,
-    processes,
+    processes: versionProcesses,
     jsResponseHandler: ({ status, body }) => {
       res.status(status).send(body);
     },
