@@ -52,12 +52,9 @@ table { detailed, scope } =
           , toValue = Table.StringValue .unit
           , toCell = .unit >> text
           }
-        , { label = "Correctifs"
-          , toValue = Table.StringValue <| .correctives >> String.join ", "
-          , toCell =
-                .correctives
-                    >> List.map (\c -> li [ title c ] [ text c ])
-                    >> ul [ class "mb-0" ]
+        , { label = "Commentaires"
+          , toValue = Table.StringValue .comment
+          , toCell = .comment >> text
           }
         ]
     }
