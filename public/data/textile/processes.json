@@ -1189,7 +1189,9 @@
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "unit": "kg",
     "source": "Custom",
-    "correctives": ["corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature"],
+    "correctives": [
+      "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature"
+    ],
     "categories": ["Matières"],
     "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "impacts": {
@@ -1226,7 +1228,9 @@
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
     "unit": "kg",
     "source": "Custom",
-    "correctives": ["corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature"],
+    "correctives": [
+      "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature"
+    ],
     "categories": ["Matières"],
     "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "impacts": {
