@@ -52,11 +52,12 @@ table { detailed, scope } =
           , toValue = Table.StringValue .unit
           , toCell = .unit >> text
           }
-        , { label = "Correctif"
-          , toValue = Table.StringValue .correctif
+        , { label = "Correctifs"
+          , toValue = Table.StringValue <| .correctives >> String.join ", "
           , toCell =
-                \process ->
-                    span [ title process.correctif ] [ text process.correctif ]
+                .correctives
+                    >> List.map (\c -> li [ title c ] [ text c ])
+                    >> ul [ class "mb-0" ]
           }
         ]
     }

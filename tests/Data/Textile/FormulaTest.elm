@@ -30,7 +30,7 @@ noOpProcess : Process
 noOpProcess =
     { alias = Nothing
     , categories = []
-    , correctif = ""
+    , correctives = []
     , displayName = Just "Default"
     , elec = Energy.megajoules 0
     , heat = Energy.megajoules 0
