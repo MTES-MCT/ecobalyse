@@ -29,6 +29,7 @@ km =
 noOpProcess : Process
 noOpProcess =
     { alias = Nothing
+    , categories = []
     , correctif = ""
     , displayName = Just "Default"
     , elec = Energy.megajoules 0

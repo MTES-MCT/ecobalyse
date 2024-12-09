@@ -38,6 +38,10 @@ table { detailed, scope } =
           , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
+        , { label = "Catégories"
+          , toValue = Table.StringValue <| .categories >> String.join ","
+          , toCell = .categories >> String.join "," >> text
+          }
         , { label = "Source"
           , toValue = Table.StringValue .source
           , toCell =
