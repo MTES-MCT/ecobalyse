@@ -22,6 +22,7 @@ from . import (
     spproject,
     with_corrected_impacts,
     with_subimpacts,
+    FormatNumberJsonEncoder,
 )
 from .impacts import main_method
 
@@ -372,21 +373,6 @@ def csv_export_impact_comparison(compared_impacts, folder):
 
     df = pd.DataFrame(rows)
     df.to_csv(f"{PROJECT_ROOT_DIR}/data/{folder}/{COMPARED_IMPACTS_FILE}", index=False)
-
-
-class FormatNumberJsonEncoder(json.JSONEncoder):
-    def encode(self, obj):
-        def recursive_format_number(obj):
-            if isinstance(obj, (int, float)):
-                return format_number(obj)
-            elif isinstance(obj, dict):
-                return {k: recursive_format_number(v) for k, v in obj.items()}
-            elif isinstance(obj, list):
-                return [recursive_format_number(v) for v in obj]
-            else:
-                return obj
-
-        return super().encode(recursive_format_number(obj))
 
 
 def export_json(json_data, filename):
