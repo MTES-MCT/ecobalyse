@@ -7,5 +7,12 @@
 # $SOURCE_VERSION variable
 if [ -z "$SOURCE_VERSION" ] || [ "$1" == "force" ]
 then
+
+  if [ -z "$TRANSCRYPT_KEY" ]
+  then
+    echo "🚨 Error: the TRANSCRYPT_KEY env variable need to be set to decode encrypted files."
+    echo "-> Exiting"
+    exit 1
+  fi
   transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
 fi
