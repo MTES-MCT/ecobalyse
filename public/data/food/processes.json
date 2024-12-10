@@ -1712,7 +1712,8 @@
     "name": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "t⋅km"
+    "unit": "t⋅km",
+    "waste": 0
   },
   {
     "alias": "boat",
@@ -1750,7 +1751,8 @@
     "name": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "t⋅km"
+    "unit": "t⋅km",
+    "waste": 0
   },
   {
     "alias": "plane",
@@ -1788,7 +1790,8 @@
     "name": "Transport, freight, aircraft, unspecified {GLO}| market for transport, freight, aircraft, unspecified | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "t⋅km"
+    "unit": "t⋅km",
+    "waste": 0
   },
   {
     "alias": "boat-cooling",
@@ -1826,7 +1829,8 @@
     "name": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "t⋅km"
+    "unit": "t⋅km",
+    "waste": 0
   },
   {
     "alias": "lorry-cooling",
@@ -1864,7 +1868,8 @@
     "name": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "t⋅km"
+    "unit": "t⋅km",
+    "waste": 0
   },
   {
     "alias": "low-voltage-electricity",
@@ -1902,7 +1907,8 @@
     "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "kWh"
+    "unit": "kWh",
+    "waste": 0
   },
   {
     "alias": "tap-water",
@@ -1979,7 +1985,8 @@
     "name": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
     "system_description": "Ecoinvent v3 - Copied from Ecoinvent",
-    "unit": "MJ"
+    "unit": "MJ",
+    "waste": 0
   },
   {
     "alias": "comte-aop",
@@ -3226,7 +3233,8 @@
     "name": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
     "source": "Agribalyse 3.1.1",
     "system_description": "AGRIBALYSE",
-    "unit": "L"
+    "unit": "L",
+    "waste": 0
   },
   {
     "alias": "fresh-shrimps",
