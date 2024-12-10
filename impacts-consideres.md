@@ -8,15 +8,12 @@ $$
 
 ## Unité du coût environnemental
 
-Le coût environnemental est exprimé en _**points d'impacts**_.&#x20;
+Le coût environnemental est exprimé en points d'impacts. Ce point d'impact a été créé par analogie avec le "point PEF" (qui lui correspond à l'impact environnemental annuel d'un habitant européen), mais en est distinct.
 
-Ce _**point d'impact**_ provient du "micro-point PEF" . Le point PEF correspond à l’impact environnemental annuel d'un habitant européen.
+Pour une meilleure lisibilité des résultats, on définie l'impact d'un habitant européen à 1 MPts (mégapoints) d'impacts soit 1 000 000 Pt (points) d'impact. Ainsi 1 Pt d'impact correspond à 1 millionième de l'impact annuel d'un habitant européen.
 
-Le "micro-point PEF" est exprimé avec l'unité "µPt" et correspond à 10^-6 Pt PEF. &#x20;
-
-$$
-Point d'impact (µPt) = 1 Pt PEF / 1 000 000
-$$
+* 1  MPts (mégapoint d'impact) = 1 000 000 Pt (points d'impact)
+* 1 Pt (point d'impact) = 10^-6 MPts (mégapoints d'impact)
 
 ## Indicateurs ACV et correctifs&#x20;
 
@@ -25,7 +22,7 @@ $$
 Ecobalyse permet de visualiser **2 impacts agrégés**, c'est à dire regroupant différents impacts après normalisation et pondération :&#x20;
 
 * le **coût environnemental**, qui traduit le calcul d'impacts selon la méthode de l'Etat français ; donc en ajustant les pondérations PEF et en ajoutant quelques indicateurs complémentaires.&#x20;
-* un **score "pondération PEF"** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI\_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales. Ce score applique uniquement les indicateurs PEF avec leurs pondérations initiales. A noter qu'il n'a pas été possible d'utiliser les données EF à ce stade pour des raisons de propriété intellectuelle.
+* un **score "pondération PEF"** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales. Ce score applique uniquement les indicateurs PEF avec leurs pondérations initiales. A noter qu'il n'a pas été possible d'utiliser les données EF à ce stade pour des raisons de propriété intellectuelle.
 
 **Le détail des catégories d'impacts ACV** peut également être consulté :&#x20;
 
@@ -82,7 +79,7 @@ Pour les _**produits textiles**_, ces dimensions concernent :
 * L'[**export hors Europe**](textile/complements-hors-acv/export-hors-europe.md) des vêtements en fin de vie : une part non négligeable (9%) des vêtements sont exportés hors Europe et retrouvés sous forme de déchets dans de nombreux pays (e.g. Ghana, Kenya, Afghanistan, Antilles, etc.). Ces pays ne bénéficiant généralement pas d'une filière structurée de gestion des déchets textiles, ceci est à l'origine de nombreux problèmes environnementaux et sanitaires. Le complément proposé vise à prendre en compte l'impact de cet export hors Europe, que les modélisations ACV telles que le projet de PEFCR Apparel & Footwear (v1.3) n'intègrent pas aujourd'hui.
 * Les [**microfibres**](textile/complements-hors-acv/microfibres.md) : de plus en plus considérés au regard des préoccupation croissantes sur les impacts des microplastiques, le complément propose de prendre en compte l'impact des microfibles relarguées dans l'environnement, aujourd'hui non intégré dans les référentiels d'ACV existants tels que le projet de PEFCR Apparel & Footwear (v1.3). Ces microfibres peuvent être plus ou moins persistantes (non biodégradables) et toxiques pour les organismes vivants.&#x20;
 
-Pour les _**produits alimentaires**_, ces compléments hors ACV visent à prendre en compte les **externalités environnementales positives de certains modes de production** telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article\_jo/JORFARTI000043956979). Ces externalités positives ne sont aujourd'hui pas intégrées à l'ACV. Pourtant, elles sont essentielles pour appréhender au mieux l'impact systémique de l'agriculture, notamment à l'échelle des territoires. En effet, les pratiques agricoles façonnent grandement les écosystèmes et les paysages, que ce soit en termes de biodiversité (maintien de zones refuges, de corridors écologiques, d'une mosaïque paysagère diversifiée, etc.) ou en termes de résilience face aux aléas divers (préservation contre l'érosion des sols, bouclage des cycles et moindre dépendance à certains nutriments exogènes,  régulation naturelle des ravageurs de cultures, etc.). Ces compléments visent donc à prendre en compte ces effets.
+Pour les _**produits alimentaires**_, ces compléments hors ACV visent à prendre en compte les **externalités environnementales positives de certains modes de production** telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000043956979). Ces externalités positives ne sont aujourd'hui pas intégrées à l'ACV. Pourtant, elles sont essentielles pour appréhender au mieux l'impact systémique de l'agriculture, notamment à l'échelle des territoires. En effet, les pratiques agricoles façonnent grandement les écosystèmes et les paysages, que ce soit en termes de biodiversité (maintien de zones refuges, de corridors écologiques, d'une mosaïque paysagère diversifiée, etc.) ou en termes de résilience face aux aléas divers (préservation contre l'érosion des sols, bouclage des cycles et moindre dépendance à certains nutriments exogènes,  régulation naturelle des ravageurs de cultures, etc.). Ces compléments visent donc à prendre en compte ces effets.
 
 ## Durabilité&#x20;
 
