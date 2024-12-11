@@ -63,7 +63,7 @@ def create_material_list(activities_tuple):
 def to_material(activity):
     return {
         "id": activity["material_id"],
-        "materialProcessUuid": activity["uuid"],
+        "materialProcessUuid": activity["id"],
         "recycledProcessUuid": activity.get("recycledProcessUuid"),
         "recycledFrom": activity.get("recycledFrom"),
         "name": activity["shortName"],
@@ -79,9 +79,7 @@ def to_material(activity):
 
 def create_process_list(activities):
     print("Creating process list...")
-    return frozendict(
-        {activity["uuid"]: to_process(activity) for activity in activities}
-    )
+    return frozendict({activity["id"]: to_process(activity) for activity in activities})
 
 
 def to_process(activity):
@@ -103,6 +101,7 @@ def to_process(activity):
         "source": activity["source"],
         "comment": activity["comment"],
         "categories": activity["categories"],
+        "id": activity["id"],
         "uuid": activity["uuid"],
         **(
             {"impacts": activity["impacts"].copy()}

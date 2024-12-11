@@ -10,7 +10,7 @@ module Data.Textile.Process exposing
     , findByUuid
     , getDisplayName
     , getImpact
-    , uuidToString
+    , idToString
     )
 
 import Data.Impact as Impact exposing (Impacts)
@@ -33,12 +33,12 @@ type alias Process =
     , displayName : Maybe String
     , elec : Energy -- MJ per kg of material to process
     , heat : Energy --  MJ per kg of material to process
+    , id : Uuid
     , impacts : Impacts
     , info : String
     , name : String
     , source : String
     , unit : String
-    , uuid : Uuid
     , waste : Split -- share of raw material wasted when initially processed
     }
 
@@ -59,10 +59,10 @@ findByAlias ((Alias str) as alias) =
 
 
 findByUuid : Uuid -> List Process -> Result String Process
-findByUuid uuid =
-    List.filter (.uuid >> (==) uuid)
+findByUuid id =
+    List.filter (.id >> (==) id)
         >> List.head
-        >> Result.fromMaybe ("Procédé introuvable par UUID: " ++ uuidToString uuid)
+        >> Result.fromMaybe ("Procédé introuvable par UUID: " ++ idToString id)
 
 
 getImpact : Definition.Trigram -> Process -> Unit.Impact
@@ -70,8 +70,8 @@ getImpact trigram =
     .impacts >> Impact.getImpact trigram
 
 
-uuidToString : Uuid -> String
-uuidToString (Uuid string) =
+idToString : Uuid -> String
+idToString (Uuid string) =
     string
 
 
@@ -101,12 +101,12 @@ decode impactsDecoder =
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "id" decodeUuid
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "info" Decode.string
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" Decode.string
-        |> Pipe.required "uuid" decodeUuid
         |> Pipe.required "waste" Split.decodeFloat
 
 
@@ -138,7 +138,7 @@ encodeAlias =
 
 encodeUuid : Uuid -> Encode.Value
 encodeUuid =
-    uuidToString >> Encode.string
+    idToString >> Encode.string
 
 
 encode : Process -> Encode.Value
@@ -156,6 +156,6 @@ encode process =
         , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
         , ( "unit", Encode.string process.unit )
-        , ( "uuid", encodeUuid process.uuid )
+        , ( "id", encodeUuid process.id )
         , ( "waste", Split.encodeFloat process.waste )
         ]

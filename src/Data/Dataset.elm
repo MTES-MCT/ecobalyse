@@ -401,7 +401,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         TextileProcesses (Just id) ->
-            [ slug dataset, Process.uuidToString id ]
+            [ slug dataset, Process.idToString id ]
 
         TextileProcesses Nothing ->
             [ slug dataset ]

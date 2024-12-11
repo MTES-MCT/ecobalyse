@@ -89,8 +89,8 @@ encode v =
     Encode.object
         [ ( "aquaticPollutionScenario", v.aquaticPollutionScenario |> aquaticPollutionScenarioToString |> Encode.string )
         , ( "code", encodeCode v.code )
-        , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
-        , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
+        , ( "electricityProcessUuid", v.electricityProcess.id |> Process.idToString |> Encode.string )
+        , ( "heatProcessUuid", v.heatProcess.id |> Process.idToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "scopes", v.scopes |> Encode.list Scope.encode )
         ]

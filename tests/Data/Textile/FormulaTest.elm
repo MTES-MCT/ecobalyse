@@ -35,12 +35,12 @@ noOpProcess =
     , density = 0
     , elec = Energy.megajoules 0
     , heat = Energy.megajoules 0
+    , id = Process.Uuid ""
     , impacts = Impact.empty
     , info = ""
     , name = "Default"
     , source = ""
     , unit = ""
-    , uuid = Process.Uuid ""
     , waste = Split.zero
     }
 

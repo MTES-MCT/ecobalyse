@@ -108,9 +108,9 @@ encode v =
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "origin", v.origin |> Origin.toString |> Encode.string )
-        , ( "materialProcessUuid", Process.encodeUuid v.materialProcess.uuid )
+        , ( "materialProcessUuid", Process.encodeUuid v.materialProcess.id )
         , ( "recycledProcessUuid"
-          , v.recycledProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
+          , v.recycledProcess |> Maybe.map (.id >> Process.encodeUuid) |> Maybe.withDefault Encode.null
           )
         , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
         , ( "geographicOrigin", Encode.string v.geographicOrigin )

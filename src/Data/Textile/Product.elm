@@ -153,7 +153,7 @@ encodeMakingOptions v =
 encodeUseOptions : UseOptions -> Encode.Value
 encodeUseOptions v =
     Encode.object
-        [ ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.uuid )
+        [ ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.id )
         , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
         , ( "defaultNbCycles", Encode.int v.defaultNbCycles )
         , ( "ratioDryer", Split.encodeFloat v.ratioDryer )
