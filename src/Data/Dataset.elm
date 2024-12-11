@@ -33,7 +33,7 @@ type Dataset
     = Countries (Maybe Country.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
-    | FoodProcesses (Maybe FoodProcess.Identifier)
+    | FoodProcesses (Maybe FoodProcess.Id)
     | Impacts (Maybe Definition.Trigram)
     | ObjectComponents (Maybe ObjectComponent.Id)
     | ObjectExamples (Maybe Uuid)
@@ -265,7 +265,7 @@ setIdFromString idString dataset =
             FoodIngredients (Just (Ingredient.idFromString idString))
 
         FoodProcesses _ ->
-            FoodProcesses (Just (FoodProcess.identifierFromString idString))
+            FoodProcesses (FoodProcess.idFromString idString)
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
@@ -359,7 +359,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         FoodProcesses (Just id) ->
-            [ slug dataset, FoodProcess.identifierToString id ]
+            [ slug dataset, FoodProcess.idToString id ]
 
         FoodProcesses Nothing ->
             [ slug dataset ]

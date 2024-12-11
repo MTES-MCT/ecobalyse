@@ -1,24 +1,26 @@
 module Data.Food.Process exposing
     ( Category(..)
-    , Identifier
+    , Id
     , Process
-    , ProcessName
     , categoryToLabel
-    , decodeIdentifier
+    , decodeId
     , decodeList
     , encode
-    , encodeIdentifier
+    , encodeId
+    , findByAlias
     , findById
-    , findByIdentifier
     , getDisplayName
-    , identifierFromString
+    , idFromString
+    , idToString
     , identifierToString
     , listByCategory
-    , nameToString
     )
 
 import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
+import Data.Split as Split exposing (Split)
+import Data.Uuid as Uuid exposing (Uuid)
+import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -26,21 +28,30 @@ import Json.Encode as Encode
 import Json.Encode.Extra as EncodeExtra
 
 
+type Id
+    = Id Uuid
+
+
 {-| Process
 A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
-    { categories : List Category
+    { alias : String
+    , categories : List Category
     , comment : Maybe String
+    , density : Float
     , displayName : Maybe String
-    , id_ : String
+    , elec : Energy
+    , heat : Energy
+    , id : Id
     , identifier : Identifier
     , impacts : Impacts
-    , name : ProcessName
+    , name : String
     , source : String
     , systemDescription : String
     , unit : String
+    , waste : Split
     }
 
 
@@ -57,10 +68,6 @@ type Category
 
 type Identifier
     = Identifier String
-
-
-type ProcessName
-    = ProcessName String
 
 
 categoryFromString : String -> Result String Category
@@ -160,16 +167,6 @@ identifierToString (Identifier string) =
     string
 
 
-nameFromString : String -> ProcessName
-nameFromString =
-    ProcessName
-
-
-nameToString : ProcessName -> String
-nameToString (ProcessName name) =
-    name
-
-
 decodeCategories : Decoder (List Category)
 decodeCategories =
     Decode.string
@@ -185,32 +182,47 @@ encodeCategory =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
+        |> Pipe.required "alias" Decode.string
         |> Pipe.required "categories" decodeCategories
         |> DU.strictOptional "comment" Decode.string
+        |> Pipe.required "density" Decode.float
         |> DU.strictOptional "displayName" Decode.string
-        |> Pipe.required "id" Decode.string
+        |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "id" decodeId
         |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "impacts" impactsDecoder
-        |> Pipe.required "name" (Decode.map nameFromString Decode.string)
+        |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "unit" Decode.string
+        |> Pipe.required "waste" Split.decodeFloat
 
 
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "categories", Encode.list encodeCategory process.categories )
+        [ ( "alias", Encode.string process.alias )
+        , ( "categories", Encode.list encodeCategory process.categories )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "id", Encode.string process.id_ )
+        , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
+        , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )
+        , ( "id", encodeId process.id )
         , ( "identifier", encodeIdentifier process.identifier )
         , ( "impacts", Impact.encode process.impacts )
-        , ( "name", Encode.string (nameToString process.name) )
+        , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
         , ( "system_description", Encode.string process.systemDescription )
         , ( "unit", Encode.string process.unit )
+        , ( "waste", Split.encodeFloat process.waste )
         ]
+
+
+decodeId : Decoder Id
+decodeId =
+    Decode.map Id Uuid.decoder
 
 
 decodeIdentifier : Decoder Identifier
@@ -224,31 +236,46 @@ decodeList impactsDecoder =
     Decode.list (decodeProcess impactsDecoder)
 
 
+encodeId : Id -> Encode.Value
+encodeId (Id uuid) =
+    Uuid.encoder uuid
+
+
 encodeIdentifier : Identifier -> Encode.Value
 encodeIdentifier =
     identifierToString >> Encode.string
 
 
-findById : List Process -> String -> Result String Process
-findById processes id_ =
-    processes
-        |> List.filter (.id_ >> (==) id_)
-        |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par id : " ++ id_)
+idFromString : String -> Maybe Id
+idFromString str =
+    Uuid.fromString str |> Maybe.map Id
 
 
-findByIdentifier : Identifier -> List Process -> Result String Process
-findByIdentifier ((Identifier identifierString) as identifier) processes =
+idToString : Id -> String
+idToString (Id uuid) =
+    Uuid.toString uuid
+
+
+findByAlias : List Process -> String -> Result String Process
+findByAlias processes alias_ =
     processes
-        |> List.filter (.identifier >> (==) identifier)
+        |> List.filter (.alias >> (==) alias_)
         |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par code : " ++ identifierString)
+        |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias_)
+
+
+findById : List Process -> Id -> Result String Process
+findById processes id =
+    processes
+        |> List.filter (.id >> (==) id)
+        |> List.head
+        |> Result.fromMaybe ("Procédé introuvable par id : " ++ idToString id)
 
 
 getDisplayName : Process -> String
 getDisplayName process =
     process.displayName
-        |> Maybe.withDefault (nameToString process.name)
+        |> Maybe.withDefault process.name
 
 
 listByCategory : Category -> List Process -> List Process

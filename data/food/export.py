@@ -142,7 +142,10 @@ def to_process(activity):
             )
             else activity.get("comment", "")
         ),
+        "density": 0,
         "displayName": activity["name"],
+        "elec_MJ": 0,
+        "heat_MJ": 0,
         "id": activity["id"],
         "identifier": find_id(activity.get("database", DEFAULT_DB), activity),
         "impacts": {},
@@ -160,6 +163,7 @@ def to_process(activity):
         ),
         # those are removed at the end:
         "search": activity["search"],
+        "waste": 0,
     }
 
 

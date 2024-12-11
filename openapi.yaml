@@ -392,10 +392,10 @@ paths:
                   - id: carrot
                     mass: 225
                   transform:
-                    code: AGRIBALU000000003103966
+                    id: 7541cf94-1d4d-4d1c-99e3-a9d5be0e7569
                     mass: 545
                   packaging:
-                  - code: AGRIBALU000000003104019
+                  - id: c352add7-8037-464e-bff2-7da517419f88
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -417,10 +417,10 @@ paths:
                     mass: 225
                     country: ES
                   transform:
-                    code: AGRIBALU000000003103966
+                    id: 7541cf94-1d4d-4d1c-99e3-a9d5be0e7569
                     mass: 545
                   packaging:
-                  - code: AGRIBALU000000003104019
+                  - id: c352add7-8037-464e-bff2-7da517419f88
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -1005,7 +1005,7 @@ components:
       examples:
         onePackaging:
           summary: "105g de Carton"
-          value: ["AGRIBALU000000003104019;105"]
+          value: ["c352add7-8037-464e-bff2-7da517419f88;105"]
     transformParam:
       name: transform
       in: query
@@ -1013,7 +1013,7 @@ components:
         Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
 
         Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
-        Par exemple: `AGRIBALU000000003103966;1000` pour 1kg de matière à cuire.
+        Par exemple: `7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;1000` pour 1kg de matière à cuire.
       required: false
       style: form
       schema:
@@ -1026,7 +1026,7 @@ components:
           value: ""
         Cuisson:
           summary: Cuisson d'1kg de matière
-          value: "AGRIBALU000000003103966;1000"
+          value: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;1000"
     distributionParam:
       name: distribution
       in: query
@@ -1382,10 +1382,10 @@ components:
       type: object
       additionalProperties: false
       required:
-      - code
+      - id
       - mass
       properties:
-        code:
+        id:
           type: string
           description: Identifiant du procédé de transformation
         mass:
@@ -1395,10 +1395,10 @@ components:
       type: object
       additionalProperties: false
       required:
-      - code
+      - id
       - mass
       properties:
-        code:
+        id:
           type: string
           description: Identifiant du procédé d'emballage, **en grammes**
         mass:
@@ -1505,7 +1505,7 @@ components:
       items:
         type: object
         properties:
-          code:
+          id:
             type: string
           name:
             type: string
@@ -1515,7 +1515,7 @@ components:
       items:
         type: object
         properties:
-          code:
+          id:
             type: string
           name:
             type: string
