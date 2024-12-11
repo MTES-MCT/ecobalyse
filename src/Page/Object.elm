@@ -18,6 +18,7 @@ import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
+import Data.Object.Component as Component exposing (Component, ComponentItem)
 import Data.Object.Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator exposing (Results)
@@ -27,9 +28,9 @@ import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import List.Extra as LE
 import Ports
 import Route
-import Set exposing (Set)
 import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
@@ -52,7 +53,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , detailedComponents : Set String
+    , detailedComponents : List Component.Id
     , examples : List (Example Query)
     , impact : Definition
     , initialQuery : Query
@@ -63,7 +64,7 @@ type alias Model =
 
 
 type Modal
-    = AddComponentModal (Autocomplete Query.Component)
+    = AddComponentModal (Autocomplete Component)
     | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
@@ -73,17 +74,17 @@ type Msg
     = CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnAutocompleteAddComponent (Autocomplete.Msg Query.Component)
+    | OnAutocompleteAddComponent (Autocomplete.Msg Component)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
     | OpenComparator
-    | RemoveComponent String
+    | RemoveComponentItem Component.Id
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
-    | SetDetailedComponents (Set String)
+    | SetDetailedComponents (List Component.Id)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -91,7 +92,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateComponent Query.Component
+    | UpdateComponentItem ComponentItem
 
 
 init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
@@ -116,7 +117,7 @@ init scope trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
-      , detailedComponents = Set.empty
+      , detailedComponents = []
       , examples = examples
       , impact = Definition.get trigram session.db.definitions
       , initialQuery = initialQuery
@@ -161,7 +162,7 @@ initFromExample session scope uuid =
       , bookmarkName = exampleQuery |> suggestBookmarkName session examples
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
-      , detailedComponents = Set.empty
+      , detailedComponents = []
       , examples = examples
       , impact = Definition.get Definition.Ecs session.db.definitions
       , initialQuery = exampleQuery
@@ -199,7 +200,7 @@ suggestBookmarkName { db, store } examples query =
             name
 
         _ ->
-            Query.toString db.object.processes query
+            Query.toString db.object.components db.object.processes query
                 |> Result.withDefault "N/A"
 
 
@@ -286,9 +287,9 @@ update ({ navKey } as session) msg model =
             , Cmd.none
             )
 
-        ( RemoveComponent name, _ ) ->
+        ( RemoveComponentItem id, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.removeComponent name query)
+                |> updateQuery (Query.removeComponent id query)
 
         ( SaveBookmark, _ ) ->
             ( model
@@ -324,7 +325,7 @@ update ({ navKey } as session) msg model =
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
         ( SetDetailedComponents detailedComponents, _ ) ->
-            ( { model | detailedComponents = detailedComponents }
+            ( { model | detailedComponents = LE.unique detailedComponents }
             , session
             , Cmd.none
             )
@@ -392,9 +393,9 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        ( UpdateComponent component, _ ) ->
+        ( UpdateComponentItem component, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateComponent component query)
+                |> updateQuery (Query.updateComponentItem component query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -422,15 +423,15 @@ selectExample autocompleteState ( model, session, _ ) =
         |> updateQuery exampleQuery
 
 
-selectComponent : Query -> Autocomplete Query.Component -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectComponent : Query -> Autocomplete Component -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectComponent query autocompleteState ( model, session, _ ) =
-    let
-        selectedComponent =
-            Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Query.defaultComponent
-    in
-    update session (SetModal NoModal) model
-        |> updateQuery { query | components = query.components ++ [ selectedComponent ] }
+    case Autocomplete.selectedValue autocompleteState of
+        Just component ->
+            update session (SetModal NoModal) model
+                |> updateQuery (Query.addComponentItem component.id query)
+
+        Nothing ->
+            ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
 
 
 simulatorView : Session -> Model -> Html Msg
@@ -534,7 +535,7 @@ componentListView db { detailedComponents, impact, results } query =
         div [ class "card-body" ] [ text "Aucun élément." ]
 
       else
-        case Simulator.expandItems db query of
+        case Component.expandComponentItems db.object query.components of
             Err error ->
                 Alert.simple
                     { close = Nothing
@@ -543,7 +544,7 @@ componentListView db { detailedComponents, impact, results } query =
                     , title = Just "Erreur"
                     }
 
-            Ok items ->
+            Ok elements ->
                 div [ class "table-responsive" ]
                     [ table [ class "table mb-0" ]
                         [ thead []
@@ -557,7 +558,7 @@ componentListView db { detailedComponents, impact, results } query =
                                 ]
                             ]
                         , Simulator.extractItems results
-                            |> List.map2 (componentView impact detailedComponents) items
+                            |> List.map2 (componentView impact detailedComponents) elements
                             |> List.concat
                             |> tbody []
                         ]
@@ -566,11 +567,11 @@ componentListView db { detailedComponents, impact, results } query =
     ]
 
 
-componentView : Definition -> Set String -> ( Query.Quantity, String, List ( Query.Amount, Process ) ) -> Results -> List (Html Msg)
-componentView selectedImpact detailedComponents ( quantity, name, processes ) itemResults =
+componentView : Definition -> List Component.Id -> ( Component.Quantity, Component, List ( Component.Amount, Process ) ) -> Results -> List (Html Msg)
+componentView selectedImpact detailedComponents ( quantity, component, processAmounts ) itemResults =
     let
         collapsed =
-            not <| Set.member name detailedComponents
+            not <| List.member component.id detailedComponents
     in
     List.concat
         [ [ tr []
@@ -579,11 +580,11 @@ componentView selectedImpact detailedComponents ( quantity, name, processes ) it
                         [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
                         , onClick <|
                             SetDetailedComponents
-                                (if collapsed then
-                                    Set.insert name detailedComponents
+                                (if collapsed && not (List.member component.id detailedComponents) then
+                                    LE.unique <| component.id :: detailedComponents
 
                                  else
-                                    Set.remove name detailedComponents
+                                    List.filter ((/=) component.id) detailedComponents
                                 )
                         ]
                         [ if collapsed then
@@ -594,15 +595,19 @@ componentView selectedImpact detailedComponents ( quantity, name, processes ) it
                         ]
                     ]
                 , td [ class "ps-0 align-middle" ]
-                    [ quantity |> quantityInput processes name ]
+                    [ quantity |> quantityInput component.id ]
                 , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
-                    [ text name ]
+                    [ text component.name ]
                 , td [ class "text-end align-middle text-nowrap" ]
-                    [ Format.kg <| Simulator.extractMass itemResults ]
+                    [ Simulator.extractMass itemResults
+                        |> Format.kg
+                    ]
                 , td [ class "text-end align-middle text-nowrap" ]
-                    [ Simulator.extractImpacts itemResults |> Format.formatImpact selectedImpact ]
+                    [ Simulator.extractImpacts itemResults
+                        |> Format.formatImpact selectedImpact
+                    ]
                 , td [ class "pe-3 align-middle text-nowrap" ]
-                    [ button [ class "btn btn-outline-secondary", onClick (RemoveComponent name) ]
+                    [ button [ class "btn btn-outline-secondary", onClick (RemoveComponentItem component.id) ]
                         [ Icon.trash ]
                     ]
                 ]
@@ -622,14 +627,14 @@ componentView selectedImpact detailedComponents ( quantity, name, processes ) it
           ]
         , if not collapsed then
             Simulator.extractItems itemResults
-                |> List.map2 (processView selectedImpact) processes
+                |> List.map2 (processView selectedImpact) processAmounts
 
           else
             []
         ]
 
 
-processView : Definition -> ( Query.Amount, Process ) -> Results -> Html Msg
+processView : Definition -> ( Component.Amount, Process ) -> Results -> Html Msg
 processView selectedImpact ( amount, process ) itemResults =
     tr [ class "fs-7" ]
         [ td [] []
@@ -650,13 +655,13 @@ processView selectedImpact ( amount, process ) itemResults =
         ]
 
 
-quantityInput : List ( Query.Amount, Process ) -> String -> Query.Quantity -> Html Msg
-quantityInput processes name quantity =
+quantityInput : Component.Id -> Component.Quantity -> Html Msg
+quantityInput id quantity =
     div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
         [ input
             [ type_ "number"
             , class "form-control text-end"
-            , quantity |> Query.quantityToInt |> String.fromInt |> value
+            , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
             , Html.Attributes.min "1"
             , onInput <|
@@ -672,12 +677,9 @@ quantityInput processes name quantity =
                             )
                         |> Maybe.map
                             (\nonNullInt ->
-                                -- FIX: don't update components based on their name
-                                -- swith to components ids as soon as they are implemented
-                                UpdateComponent
-                                    { name = name
-                                    , quantity = Query.quantity nonNullInt
-                                    , processes = processes |> List.map (\( amount, process ) -> { amount = amount, processId = process.id })
+                                UpdateComponentItem
+                                    { id = id
+                                    , quantity = Component.quantityFromInt nonNullInt
                                     }
                             )
                         |> Maybe.withDefault NoOp

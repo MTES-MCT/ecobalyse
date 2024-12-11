@@ -5,8 +5,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "elec-medium-region-asia",
     "impacts": {
       "acd": 0.0,
@@ -31,10 +31,10 @@
       "ecs": 62.6036,
       "pef": 67.5725
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -43,8 +43,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "elec-medium-region-africa",
     "impacts": {
       "acd": 0.0,
@@ -69,10 +69,10 @@
       "ecs": 50.968,
       "pef": 57.2729
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -81,8 +81,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "elec-medium-region-middle-east",
     "impacts": {
       "acd": 0.0,
@@ -107,10 +107,10 @@
       "ecs": 51.8227,
       "pef": 53.852
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -119,8 +119,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "elec-medium-region-latin-america",
     "impacts": {
       "acd": 0.0,
@@ -145,10 +145,10 @@
       "ecs": 25.1029,
       "pef": 26.6782
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -157,8 +157,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "elec-medium-region-north-america",
     "impacts": {
       "acd": 0.0,
@@ -183,10 +183,10 @@
       "ecs": 32.4873,
       "pef": 35.8693
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -195,8 +195,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "53c7378e585cf74cea4837819be6e631",
     "impacts": {
       "acd": 0.0,
@@ -221,10 +221,10 @@
       "ecs": 74.8812,
       "pef": 82.6199
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -233,8 +233,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "8bbc2475141687462993329f9b7c2ddf",
     "impacts": {
       "acd": 0.0,
@@ -259,10 +259,10 @@
       "ecs": 64.2416,
       "pef": 69.1584
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -271,8 +271,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "d33cefdc558e3fe890174e6f1e205015",
     "impacts": {
       "acd": 0.0,
@@ -297,10 +297,10 @@
       "ecs": 11.2538,
       "pef": 11.8335
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -309,8 +309,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "debdaaba938a58ac1ab0131e47186092",
     "impacts": {
       "acd": 0.0,
@@ -335,10 +335,10 @@
       "ecs": 17.344,
       "pef": 19.063
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -347,8 +347,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "609797e4710a81c9903bc72c141ff191",
     "impacts": {
       "acd": 0.0,
@@ -373,10 +373,10 @@
       "ecs": 10.0949,
       "pef": 10.5526
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -385,8 +385,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "d3287580187139b11ce76f80013510d0",
     "impacts": {
       "acd": 0.0,
@@ -411,10 +411,10 @@
       "ecs": 61.8178,
       "pef": 67.2847
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -423,8 +423,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "e5f92d33532b4e649da2541b264fa363",
     "impacts": {
       "acd": 0.0,
@@ -449,10 +449,10 @@
       "ecs": 15.7469,
       "pef": 15.1627
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -461,8 +461,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "ae9240745e54987338d2228c3be2a5ec",
     "impacts": {
       "acd": 0.0,
@@ -487,10 +487,10 @@
       "ecs": 25.7591,
       "pef": 27.7954
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -499,8 +499,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "region-elec-west-europe",
     "impacts": {
       "acd": 0.0,
@@ -525,10 +525,10 @@
       "ecs": 31.7409,
       "pef": 35.364
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -537,8 +537,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "80ff4bc21a0e197ea3f69d809fd8d4f1",
     "impacts": {
       "acd": 0.0,
@@ -563,10 +563,10 @@
       "ecs": 24.0886,
       "pef": 26.6762
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -575,8 +575,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "3c131d87f8dd997d14d2ffc3477f83e6",
     "impacts": {
       "acd": 0.0,
@@ -601,10 +601,10 @@
       "ecs": 22.2033,
       "pef": 26.4579
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -613,8 +613,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "4968e9f8cf72cb72700d94b242048db0",
     "impacts": {
       "acd": 0.0,
@@ -639,10 +639,10 @@
       "ecs": 23.3638,
       "pef": 25.2968
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -651,8 +651,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "4ee8150b0cbf3603e03345d780ba7a61",
     "impacts": {
       "acd": 0.0,
@@ -677,10 +677,10 @@
       "ecs": 93.0483,
       "pef": 101.627
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -689,8 +689,8 @@
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "elasthane-lycra",
     "impacts": {
       "acd": 0.0,
@@ -715,9 +715,9 @@
       "ecs": 1042.59,
       "pef": 657.0
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.21292,
     "alias": null
   },
@@ -727,8 +727,8 @@
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "75b27555d86fe1c66686cdf4339efc89",
     "impacts": {
       "acd": 0.0,
@@ -753,9 +753,9 @@
       "ecs": 494.291,
       "pef": 550.074
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.21292,
     "alias": null
   },
@@ -765,8 +765,8 @@
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "4d81aa5f76872e1e4c0e1bb14b01e93b",
     "impacts": {
       "acd": 0.0,
@@ -791,9 +791,9 @@
       "ecs": 877.372,
       "pef": 768.858
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.21292,
     "alias": null
   },
@@ -803,8 +803,8 @@
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "6e442b958af0d26f85ecacce2eeb23d0",
     "impacts": {
       "acd": 0.0,
@@ -829,9 +829,9 @@
       "ecs": 198.79,
       "pef": 222.147
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.03097,
     "alias": null
   },
@@ -841,8 +841,8 @@
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "f32024fc5e736e01fa14321363900581",
     "impacts": {
       "acd": 0.0,
@@ -867,9 +867,9 @@
       "ecs": 279.646,
       "pef": 309.716
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.03097,
     "alias": null
   },
@@ -879,8 +879,8 @@
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "087896096b5bede914ef3ec1062b1c02",
     "impacts": {
       "acd": 0.0,
@@ -905,9 +905,9 @@
       "ecs": 133.096,
       "pef": 138.989
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.03097,
     "alias": null
   },
@@ -917,8 +917,8 @@
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "88a1395a1c61be31b0bc692e977dd10b",
     "impacts": {
       "acd": 0.0,
@@ -943,9 +943,9 @@
       "ecs": 518.209,
       "pef": 570.268
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.03097,
     "alias": null
   },
@@ -955,8 +955,8 @@
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "cf76c9e1872effbd04d49aec742e7952",
     "impacts": {
       "acd": 0.0,
@@ -981,9 +981,9 @@
       "ecs": 261.318,
       "pef": 256.952
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.07115,
     "alias": null
   },
@@ -993,8 +993,8 @@
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Woolmark",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "wool-default",
     "impacts": {
       "acd": 0.0,
@@ -1019,9 +1019,9 @@
       "ecs": 2781.8,
       "pef": 2931.48
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.35,
     "alias": null
   },
@@ -1031,8 +1031,8 @@
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "wool-new",
     "impacts": {
       "acd": 0.0,
@@ -1057,9 +1057,9 @@
       "ecs": 460.876,
       "pef": 502.362
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.35,
     "alias": null
   },
@@ -1069,8 +1069,8 @@
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "a211822aabe83653a6079b9d5677daed",
     "impacts": {
       "acd": 0.0,
@@ -1095,9 +1095,9 @@
       "ecs": 1636.47,
       "pef": 573.055
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.1675,
     "alias": null
   },
@@ -1107,8 +1107,8 @@
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "coton-bio",
     "impacts": {
       "acd": 0.0,
@@ -1133,9 +1133,9 @@
       "ecs": 421.878,
       "pef": 488.621
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.09511,
     "alias": null
   },
@@ -1145,8 +1145,8 @@
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "fa590941e8bbf72c8956b5c3ba793eb7",
     "impacts": {
       "acd": 0.0,
@@ -1171,9 +1171,9 @@
       "ecs": 294.43,
       "pef": 50.4241
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.18106,
     "alias": null
   },
@@ -1183,8 +1183,8 @@
     "info": "Textile > Matières > Matières synthétiques",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Matières",
+    "comment": "",
+    "categories": ["Matières"],
     "uuid": "f89bba0c170190e003fa3f643591cca5",
     "impacts": {
       "acd": 0.0,
@@ -1209,9 +1209,9 @@
       "ecs": 354.939,
       "pef": 354.579
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.055,
     "alias": null
   },
@@ -1221,8 +1221,8 @@
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature",
-    "step_usage": "Matières",
+    "comment": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature",
+    "categories": ["Matières"],
     "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "impacts": {
       "acd": 0.0,
@@ -1247,9 +1247,9 @@
       "ecs": 179.46,
       "pef": 221.263
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.38696,
     "alias": null
   },
@@ -1259,8 +1259,8 @@
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature",
-    "step_usage": "Matières",
+    "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature",
+    "categories": ["Matières"],
     "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "impacts": {
       "acd": 0.0,
@@ -1285,9 +1285,9 @@
       "ecs": 147.072,
       "pef": 185.474
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.17842,
     "alias": null
   },
@@ -1297,8 +1297,8 @@
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "non applicable",
-    "step_usage": "Tissage / Tricotage",
+    "comment": "non applicable",
+    "categories": ["Tissage / Tricotage"],
     "uuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
     "impacts": {
       "acd": 0.0,
@@ -1323,8 +1323,8 @@
       "ecs": 0.0,
       "pef": 0.0
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 8.64,
     "waste": 0.05446,
     "alias": "knitting-mix"
@@ -1335,8 +1335,8 @@
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "non applicable",
-    "step_usage": "Tissage / Tricotage",
+    "comment": "non applicable",
+    "categories": ["Tissage / Tricotage"],
     "uuid": "6524ac1e-cc95-4b5a-b462-2fccad7a0bce",
     "impacts": {
       "acd": 0.0,
@@ -1361,8 +1361,8 @@
       "ecs": 0.0,
       "pef": 0.0
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 6.06443,
     "waste": 0.005,
     "alias": "knitting-fully-fashioned"
@@ -1373,8 +1373,8 @@
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "non applicable",
-    "step_usage": "Tissage / Tricotage",
+    "comment": "non applicable",
+    "categories": ["Tissage / Tricotage"],
     "uuid": "11648b33-f117-4eca-bb09-233c0ad0757f",
     "impacts": {
       "acd": 0.0,
@@ -1399,8 +1399,8 @@
       "ecs": 0.0,
       "pef": 0.0
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 13.2112,
     "waste": 0.005,
     "alias": "knitting-seamless"
@@ -1411,8 +1411,8 @@
     "info": "Textile > Mise en forme > Tissage",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "non applicable",
-    "step_usage": "Tissage / Tricotage",
+    "comment": "non applicable",
+    "categories": ["Tissage / Tricotage"],
     "uuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "impacts": {
       "acd": 0.0,
@@ -1437,9 +1437,9 @@
       "ecs": 0.0,
       "pef": 0.0
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0003145,
-    "elec_MJ": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
     "waste": 0.06253,
     "alias": "weaving"
   },
@@ -1449,8 +1449,8 @@
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "correctif": "non applicable",
-    "step_usage": "Ennoblissement",
+    "comment": "non applicable",
+    "categories": ["Ennoblissement"],
     "uuid": "03c769d5-46b6-4cf9-80f8-f2712692a6ab",
     "impacts": {
       "acd": 0.0,
@@ -1475,8 +1475,8 @@
       "ecs": 49.999,
       "pef": 60.1891
     },
+    "density": 0,
     "heat_MJ": 25.87,
-    "elec_pppm": 0.0,
     "elec_MJ": 7.17,
     "waste": 0.0,
     "alias": "dyeing-fabric"
@@ -1487,8 +1487,8 @@
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "correctif": "non applicable",
-    "step_usage": "Ennoblissement",
+    "comment": "non applicable",
+    "categories": ["Ennoblissement"],
     "uuid": "af54556c-5f74-4f2c-8531-d002eda9d793",
     "impacts": {
       "acd": 0.0,
@@ -1513,8 +1513,8 @@
       "ecs": 78.786,
       "pef": 94.302
     },
+    "density": 0,
     "heat_MJ": 30.06,
-    "elec_pppm": 0.0,
     "elec_MJ": 9.22,
     "waste": 0.0,
     "alias": "dyeing-article"
@@ -1525,8 +1525,8 @@
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "correctif": "non applicable",
-    "step_usage": "Ennoblissement",
+    "comment": "non applicable",
+    "categories": ["Ennoblissement"],
     "uuid": "b15afd1b-e7c0-4fbf-9f7b-b2a8b7e74bc7",
     "impacts": {
       "acd": 0.0,
@@ -1551,8 +1551,8 @@
       "ecs": 60.471,
       "pef": 72.4629
     },
+    "density": 0,
     "heat_MJ": 33.42,
-    "elec_pppm": 0.0,
     "elec_MJ": 10.15,
     "waste": 0.0,
     "alias": "dyeing-yarn"
@@ -1563,8 +1563,8 @@
     "info": "Transport > Maritime > Flotte moyenne",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "non applicable",
-    "step_usage": "Transport",
+    "comment": "non applicable",
+    "categories": ["Transport"],
     "uuid": "86ac591e1e5c1d96a0d004ac830563d9",
     "impacts": {
       "acd": 0.0,
@@ -1589,10 +1589,10 @@
       "ecs": 1.30529,
       "pef": 1.43229
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": "sea-transport"
   },
   {
@@ -1601,8 +1601,8 @@
     "info": "Transport > Aérien > Flotte moyenne",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "non applicable",
-    "step_usage": "Transport",
+    "comment": "non applicable",
+    "categories": ["Transport"],
     "uuid": "d3130e7ed9686fcc4bbe980e0375ad88",
     "impacts": {
       "acd": 0.0,
@@ -1627,10 +1627,10 @@
       "ecs": 59.4018,
       "pef": 57.1966
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": "air-transport"
   },
   {
@@ -1639,8 +1639,8 @@
     "info": "Transport > Train > Flotte moyenne",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "non applicable",
-    "step_usage": "Transport",
+    "comment": "non applicable",
+    "categories": ["Transport"],
     "uuid": "7037ea59d8d644fd35f80fd1982f9fe9",
     "impacts": {
       "acd": 0.0,
@@ -1665,10 +1665,10 @@
       "ecs": 5.48598,
       "pef": 5.8323
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": "train-transport"
   },
   {
@@ -1677,8 +1677,8 @@
     "info": "Transport > Routier > Flotte moyenne continentale",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "non applicable",
-    "step_usage": "Transport",
+    "comment": "non applicable",
+    "categories": ["Transport"],
     "uuid": "f37aba954435f9f158c19a9449d373b2",
     "impacts": {
       "acd": 0.0,
@@ -1703,10 +1703,10 @@
       "ecs": 15.5892,
       "pef": 13.9091
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": "road-transport"
   },
   {
@@ -1715,8 +1715,8 @@
     "info": "Transport > Routier > Flotte moyenne française",
     "unit": "t*km",
     "source": "Base Impacts 2.01",
-    "correctif": "non applicable",
-    "step_usage": "Transport",
+    "comment": "non applicable",
+    "categories": ["Transport"],
     "uuid": "f49b27fa-f22e-c6e1-ab4b-e9f873e2e648",
     "impacts": {
       "acd": 0.0,
@@ -1741,10 +1741,10 @@
       "ecs": 20.6043,
       "pef": 24.033
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": "distribution"
   },
   {
@@ -1753,8 +1753,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "b42506cbed4b459815c78d741b453e8e",
     "impacts": {
       "acd": 0.0,
@@ -1779,10 +1779,10 @@
       "ecs": 33.0255,
       "pef": 36.092
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -1791,8 +1791,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "32644303e316aebb9ffa31e9856c8f6b",
     "impacts": {
       "acd": 0.0,
@@ -1817,10 +1817,10 @@
       "ecs": 45.8661,
       "pef": 50.2289
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -1829,8 +1829,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "0b69950358f3e8f0d3fb049d71481186",
     "impacts": {
       "acd": 0.0,
@@ -1855,10 +1855,10 @@
       "ecs": 51.1432,
       "pef": 54.1336
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -1867,8 +1867,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "825dae104f028cb558dac151f7c45f03",
     "impacts": {
       "acd": 0.0,
@@ -1893,10 +1893,10 @@
       "ecs": 14.3338,
       "pef": 15.4387
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -1905,8 +1905,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "2764d908c1a6fe88976d6eabf16295da",
     "impacts": {
       "acd": 0.0,
@@ -1931,10 +1931,10 @@
       "ecs": 58.22,
       "pef": 64.2158
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -1943,8 +1943,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "2c27aa8ba10e717c63b8508b487909bd",
     "impacts": {
       "acd": 0.0,
@@ -1969,10 +1969,10 @@
       "ecs": 2.59921,
       "pef": 2.4204
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -1981,8 +1981,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "de2cd7848f853b1c9b8a5d7b0f255144",
     "impacts": {
       "acd": 0.0,
@@ -2007,10 +2007,10 @@
       "ecs": 57.3809,
       "pef": 62.2402
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -2019,8 +2019,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "e0f11b283ad36b3da097649bee199149",
     "impacts": {
       "acd": 0.0,
@@ -2045,10 +2045,10 @@
       "ecs": 42.1622,
       "pef": 47.6056
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -2057,8 +2057,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "028c9bf863a1ab77a0e636029afc5839",
     "impacts": {
       "acd": 0.0,
@@ -2083,10 +2083,10 @@
       "ecs": 35.9336,
       "pef": 38.4889
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -2095,8 +2095,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "99b549d4ba7a0f5f4ab6050d6a6689ad",
     "impacts": {
       "acd": 0.0,
@@ -2121,10 +2121,10 @@
       "ecs": 34.2562,
       "pef": 37.7575
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -2133,8 +2133,8 @@
     "info": "Energie > Electricité > Mix moyen",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Energie",
+    "comment": "",
+    "categories": ["Energie"],
     "uuid": "3f90d52cc1dfe32119bf53db2713c407",
     "impacts": {
       "acd": 0.0,
@@ -2159,10 +2159,10 @@
       "ecs": 44.9841,
       "pef": 48.9499
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -2171,8 +2171,8 @@
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Custom",
-    "correctif": "Reconstitution du mix depuis Ecoinvent 3.9.1",
-    "step_usage": "Energie",
+    "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1",
+    "categories": ["Energie"],
     "uuid": "heat-europe",
     "impacts": {
       "acd": 0.0,
@@ -2197,10 +2197,10 @@
       "ecs": 4.08361,
       "pef": 4.44366
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": "heat-europe"
   },
   {
@@ -2209,8 +2209,8 @@
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Custom",
-    "correctif": "Reconstitution du mix depuis Ecoinvent 3.9.1",
-    "step_usage": "Energie",
+    "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1",
+    "categories": ["Energie"],
     "uuid": "heat-row",
     "impacts": {
       "acd": 0.0,
@@ -2235,10 +2235,10 @@
       "ecs": 7.08283,
       "pef": 7.82738
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": "heat-row"
   },
   {
@@ -2247,8 +2247,8 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Utilisation",
+    "comment": "",
+    "categories": ["Utilisation"],
     "uuid": "406d1f98-1052-458d-8f50-1901853d896d",
     "impacts": {
       "acd": 0.0,
@@ -2273,8 +2273,8 @@
       "ecs": 15.1335,
       "pef": 18.8499
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 0.80952,
     "waste": 0.0,
     "alias": null
@@ -2285,8 +2285,8 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Utilisation",
+    "comment": "",
+    "categories": ["Utilisation"],
     "uuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
     "impacts": {
       "acd": 0.0,
@@ -2311,8 +2311,8 @@
       "ecs": 15.1335,
       "pef": 18.8499
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
@@ -2323,8 +2323,8 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Utilisation",
+    "comment": "",
+    "categories": ["Utilisation"],
     "uuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
     "impacts": {
       "acd": 0.0,
@@ -2349,8 +2349,8 @@
       "ecs": 15.1335,
       "pef": 18.8499
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 0.80952,
     "waste": 0.0,
     "alias": null
@@ -2361,8 +2361,8 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Utilisation",
+    "comment": "",
+    "categories": ["Utilisation"],
     "uuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
     "impacts": {
       "acd": 0.0,
@@ -2387,8 +2387,8 @@
       "ecs": 15.1335,
       "pef": 18.8499
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 0.9663,
     "waste": 0.0,
     "alias": null
@@ -2399,8 +2399,8 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Utilisation",
+    "comment": "",
+    "categories": ["Utilisation"],
     "uuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
     "impacts": {
       "acd": 0.0,
@@ -2425,8 +2425,8 @@
       "ecs": 15.1335,
       "pef": 18.8499
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
@@ -2437,8 +2437,8 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Utilisation",
+    "comment": "",
+    "categories": ["Utilisation"],
     "uuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
     "impacts": {
       "acd": 0.0,
@@ -2463,8 +2463,8 @@
       "ecs": 15.1335,
       "pef": 18.8499
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
@@ -2475,8 +2475,8 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Utilisation",
+    "comment": "",
+    "categories": ["Utilisation"],
     "uuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
     "impacts": {
       "acd": 0.0,
@@ -2501,8 +2501,8 @@
       "ecs": 15.1335,
       "pef": 18.8499
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 0.80952,
     "waste": 0.0,
     "alias": null
@@ -2513,8 +2513,8 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "",
-    "step_usage": "Utilisation",
+    "comment": "",
+    "categories": ["Utilisation"],
     "uuid": "7f76529e-521d-4795-bb36-ff896c4692da",
     "impacts": {
       "acd": 0.0,
@@ -2539,8 +2539,8 @@
       "ecs": 15.1335,
       "pef": 18.8499
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
@@ -2551,8 +2551,8 @@
     "info": "Transport > Routier > Voiture individuelle",
     "unit": "Item(s)",
     "source": "Base Impacts 2.01",
-    "correctif": "non applicable",
-    "step_usage": "Transport",
+    "comment": "non applicable",
+    "categories": ["Transport"],
     "uuid": "1ead35dd-fc71-4b0c-9410-7e39da95c7dc",
     "impacts": {
       "acd": 0.0,
@@ -2577,10 +2577,10 @@
       "ecs": 1.94192,
       "pef": 2.18427
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": "passenger-car"
   },
   {
@@ -2589,8 +2589,8 @@
     "info": "Fin de vie > Aggrégation multi-impacts > ",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "Précalcul Ecobalyse à partir de Base Impacts",
-    "step_usage": "Fin de vie",
+    "comment": "Précalcul Ecobalyse à partir de Base Impacts",
+    "categories": ["Fin de vie"],
     "uuid": "266fa378-77c0-11ec-90d6-0242ac120003",
     "impacts": {
       "acd": 0.0,
@@ -2615,10 +2615,10 @@
       "ecs": 33.1096,
       "pef": 33.2807
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_MJ": 0,
+    "waste": 0,
     "alias": "end-of-life"
   },
   {
@@ -2627,8 +2627,8 @@
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "non applicable",
-    "step_usage": "Tissage / Tricotage",
+    "comment": "non applicable",
+    "categories": ["Tissage / Tricotage"],
     "uuid": "364298ad-2058-4ec4-b2d0-47f5214abffb",
     "impacts": {
       "acd": 0.0,
@@ -2653,8 +2653,8 @@
       "ecs": 0.0,
       "pef": 0.0
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 4.194,
     "waste": 0.04003,
     "alias": "knitting-straight"
@@ -2665,8 +2665,8 @@
     "info": "Textile > Mise en forme > Tricotage",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "non applicable",
-    "step_usage": "Tissage / Tricotage",
+    "comment": "non applicable",
+    "categories": ["Tissage / Tricotage"],
     "uuid": "2e16787c-7a89-4883-acdf-37d3d362bdab",
     "impacts": {
       "acd": 0.0,
@@ -2691,8 +2691,8 @@
       "ecs": 0.0,
       "pef": 0.0
     },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
+    "density": 0,
+    "heat_MJ": 0,
     "elec_MJ": 4.25101,
     "waste": 0.034,
     "alias": "knitting-circular"
@@ -2703,8 +2703,8 @@
     "info": "Textile > Ennoblissement > Delavage",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "correctif": "non applicable",
-    "step_usage": "Ennoblissement",
+    "comment": "non applicable",
+    "categories": ["Ennoblissement"],
     "uuid": "49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb",
     "impacts": {
       "acd": 0.0,
@@ -2729,8 +2729,8 @@
       "ecs": 19.0263,
       "pef": 22.6617
     },
+    "density": 0,
     "heat_MJ": 37.81,
-    "elec_pppm": 0.0,
     "elec_MJ": 6.53,
     "waste": 0.0,
     "alias": "fading"
@@ -2741,8 +2741,8 @@
     "info": "Textile > Ennoblissement > Impression",
     "unit": "m2",
     "source": "Base Impacts 2.01",
-    "correctif": "non applicable",
-    "step_usage": "Ennoblissement",
+    "comment": "non applicable",
+    "categories": ["Ennoblissement"],
     "uuid": "710987ca-f483-4f1c-9122-38b620f4062b",
     "impacts": {
       "acd": 0.0,
@@ -2767,8 +2767,8 @@
       "ecs": 6.98207,
       "pef": 8.35412
     },
+    "density": 0,
     "heat_MJ": 7.25,
-    "elec_pppm": 0.0,
     "elec_MJ": 4.56,
     "waste": 0.0,
     "alias": "printing-pigment"
@@ -2779,8 +2779,8 @@
     "info": "Textile > Ennoblissement > Impression",
     "unit": "m2",
     "source": "Base Impacts 2.01",
-    "correctif": "non applicable",
-    "step_usage": "Ennoblissement",
+    "comment": "non applicable",
+    "categories": ["Ennoblissement"],
     "uuid": "0810b8e5-a3d9-4607-bccc-83d112573260",
     "impacts": {
       "acd": 0.0,
@@ -2805,8 +2805,8 @@
       "ecs": 6.70358,
       "pef": 8.18027
     },
+    "density": 0,
     "heat_MJ": 8.72,
-    "elec_pppm": 0.0,
     "elec_MJ": 5.22,
     "waste": 0.0,
     "alias": "printing-substantive"
@@ -2817,8 +2817,8 @@
     "info": "Textile > Ennoblissement > Appret chimique",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "correctif": "non applicable",
-    "step_usage": "Ennoblissement",
+    "comment": "non applicable",
+    "categories": ["Ennoblissement"],
     "uuid": "63baddae-e05d-404b-a73f-371044a24fe9",
     "impacts": {
       "acd": 0.0,
@@ -2843,8 +2843,8 @@
       "ecs": 305.514,
       "pef": 353.941
     },
+    "density": 0,
     "heat_MJ": 10.74,
-    "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
     "alias": "finishing"
@@ -2855,8 +2855,8 @@
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "Inventaires enrichis (substances chimiques)",
-    "step_usage": "Ennoblissement",
+    "comment": "Inventaires enrichis (substances chimiques)",
+    "categories": ["Ennoblissement"],
     "uuid": "ecobalyse-teinture-fibres-synthetiques",
     "impacts": {
       "acd": 0.0,
@@ -2881,8 +2881,8 @@
       "ecs": 223.905,
       "pef": 0.0
     },
+    "density": 0,
     "heat_MJ": 10.74,
-    "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
     "alias": "dyeing-synthetic-fiber"
@@ -2893,8 +2893,8 @@
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "Inventaires enrichis (substances chimiques)",
-    "step_usage": "Ennoblissement",
+    "comment": "Inventaires enrichis (substances chimiques)",
+    "categories": ["Ennoblissement"],
     "uuid": "ecobalyse-teinture-fibres-cellulosiques",
     "impacts": {
       "acd": 0.0,
@@ -2919,8 +2919,8 @@
       "ecs": 585.558,
       "pef": 0.0
     },
+    "density": 0,
     "heat_MJ": 10.74,
-    "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
     "alias": "dyeing-cellulosic-fiber"
@@ -2931,8 +2931,8 @@
     "info": "Textile > Ennoblissement > Blanchiment",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "correctif": "",
-    "step_usage": "Ennoblissement",
+    "comment": "",
+    "categories": ["Ennoblissement"],
     "uuid": "blanchiment",
     "impacts": {
       "acd": 0.0,
@@ -2957,8 +2957,8 @@
       "ecs": 10.1005,
       "pef": 10.4711
     },
+    "density": 0,
     "heat_MJ": 10.74,
-    "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
     "alias": "bleaching"
@@ -2969,8 +2969,8 @@
     "info": "Textile > Ennoblissement > Impression",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "Inventaires enrichis (substances chimiques)",
-    "step_usage": "Ennoblissement",
+    "comment": "Inventaires enrichis (substances chimiques)",
+    "categories": ["Ennoblissement"],
     "uuid": "ecobalyse-impression-pigmentaire",
     "impacts": {
       "acd": 0.0,
@@ -2995,8 +2995,8 @@
       "ecs": 729.99,
       "pef": 0.0
     },
+    "density": 0,
     "heat_MJ": 10.74,
-    "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
     "alias": "printing-paste"
@@ -3007,8 +3007,8 @@
     "info": "Textile > Ennoblissement > Impression",
     "unit": "kg",
     "source": "Custom",
-    "correctif": "Inventaires enrichis (substances chimiques)",
-    "step_usage": "Ennoblissement",
+    "comment": "Inventaires enrichis (substances chimiques)",
+    "categories": ["Ennoblissement"],
     "uuid": "ecobalyse-impression-fixe-lave-colorants",
     "impacts": {
       "acd": 0.0,
@@ -3033,8 +3033,8 @@
       "ecs": 283.16,
       "pef": 0.0
     },
+    "density": 0,
     "heat_MJ": 10.74,
-    "elec_pppm": 0.0,
     "elec_MJ": 1.61,
     "waste": 0.0,
     "alias": "printing-dyes"

@@ -34,13 +34,13 @@ table { detailed, scope } =
           , toValue = Table.StringValue Process.getDisplayName
           , toCell = Process.getDisplayName >> text
           }
-        , { label = "Étape"
-          , toValue = Table.StringValue .stepUsage
-          , toCell = .stepUsage >> text
-          }
         , { label = "Nom technique"
           , toValue = Table.StringValue .name
           , toCell = .name >> text
+          }
+        , { label = "Catégories"
+          , toValue = Table.StringValue <| .categories >> String.join ","
+          , toCell = .categories >> String.join "," >> text
           }
         , { label = "Source"
           , toValue = Table.StringValue .source
@@ -52,11 +52,11 @@ table { detailed, scope } =
           , toValue = Table.StringValue .unit
           , toCell = .unit >> text
           }
-        , { label = "Correctif"
-          , toValue = Table.StringValue .correctif
+        , { label = "Commentaire"
+          , toValue = Table.StringValue .comment
           , toCell =
                 \process ->
-                    span [ title process.correctif ] [ text process.correctif ]
+                    span [ title process.comment ] [ text process.comment ]
           }
         ]
     }

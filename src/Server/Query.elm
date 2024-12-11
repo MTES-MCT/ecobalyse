@@ -145,11 +145,12 @@ countryParser countries scope countryStr =
             |> Result.map Just
 
 
-foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Identifier
-foodProcessCodeParser processes string =
-    processes
-        |> FoodProcess.findByIdentifier (FoodProcess.identifierFromString string)
-        |> Result.map .identifier
+foodProcessIdParser : List FoodProcess.Process -> String -> Result String FoodProcess.Id
+foodProcessIdParser processes string =
+    FoodProcess.idFromString string
+        |> Result.fromMaybe ("Identifiant invalide: " ++ string)
+        |> Result.andThen (FoodProcess.findById processes)
+        |> Result.map .id
 
 
 packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List BuilderQuery.ProcessQuery))
@@ -184,7 +185,7 @@ packagingParser packagings string =
     case String.split ";" string of
         [ code, mass ] ->
             Ok BuilderQuery.ProcessQuery
-                |> RE.andMap (foodProcessCodeParser packagings code)
+                |> RE.andMap (foodProcessIdParser packagings code)
                 |> RE.andMap (validateMassInGrams mass)
 
         [ "" ] ->
@@ -373,7 +374,7 @@ parseTransform_ transforms string =
     case String.split ";" string of
         [ code, mass ] ->
             Ok BuilderQuery.ProcessQuery
-                |> RE.andMap (foodProcessCodeParser transforms code)
+                |> RE.andMap (foodProcessIdParser transforms code)
                 |> RE.andMap (validateMassInGrams mass)
 
         [ "" ] ->

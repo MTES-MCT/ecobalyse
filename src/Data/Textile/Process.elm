@@ -27,16 +27,16 @@ import Json.Encode.Extra as EncodeExtra
 
 type alias Process =
     { alias : Maybe Alias
-    , correctif : String
+    , categories : List String
+    , comment : String
+    , density : Float
     , displayName : Maybe String
     , elec : Energy -- MJ per kg of material to process
-    , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , heat : Energy --  MJ per kg of material to process
     , impacts : Impacts
     , info : String
     , name : String
     , source : String
-    , stepUsage : String
     , unit : String
     , uuid : Uuid
     , waste : Split -- share of raw material wasted when initially processed
@@ -95,16 +95,16 @@ decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
-        |> Pipe.required "correctif" Decode.string
+        |> Pipe.required "categories" (Decode.list Decode.string)
+        |> Pipe.required "comment" Decode.string
+        |> Pipe.required "density" Decode.float
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "info" Decode.string
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
-        |> Pipe.required "step_usage" Decode.string
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "uuid" decodeUuid
         |> Pipe.required "waste" Split.decodeFloat
@@ -145,16 +145,16 @@ encode : Process -> Encode.Value
 encode process =
     Encode.object
         [ ( "alias", EncodeExtra.maybe encodeAlias process.alias )
-        , ( "correctif", Encode.string process.correctif )
+        , ( "categories", Encode.list Encode.string process.categories )
+        , ( "comment", Encode.string process.comment )
+        , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
-        , ( "elec_pppm", Encode.float process.elec_pppm )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "impacts", Impact.encode process.impacts )
         , ( "info", Encode.string process.info )
         , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
-        , ( "step_usage", Encode.string process.stepUsage )
         , ( "unit", Encode.string process.unit )
         , ( "uuid", encodeUuid process.uuid )
         , ( "waste", Split.encodeFloat process.waste )

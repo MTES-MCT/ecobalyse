@@ -103,16 +103,16 @@ def to_process(activity):
             else activity["unit"]
         ),
         "source": activity["source"],
-        "correctif": activity["correctif"],
-        "step_usage": activity["step_usage"],
+        "comment": activity["comment"],
+        "categories": activity["categories"],
         "uuid": activity["uuid"],
         **(
             {"impacts": activity["impacts"].copy()}
             if "impacts" in activity
             else {"impacts": {}}
         ),
+        "density": activity["density"],
         "heat_MJ": activity["heat_MJ"],
-        "elec_pppm": activity["elec_pppm"],
         "elec_MJ": activity["elec_MJ"],
         "waste": activity["waste"],
         "alias": activity["alias"],
