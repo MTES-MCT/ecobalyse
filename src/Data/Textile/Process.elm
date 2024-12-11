@@ -29,6 +29,7 @@ type alias Process =
     { alias : Maybe Alias
     , categories : List String
     , comment : String
+    , density : Float
     , displayName : Maybe String
     , elec : Energy -- MJ per kg of material to process
     , heat : Energy --  MJ per kg of material to process
@@ -96,6 +97,7 @@ decode impactsDecoder =
         |> Pipe.required "alias" (Decode.maybe decodeAlias)
         |> Pipe.required "categories" (Decode.list Decode.string)
         |> Pipe.required "comment" Decode.string
+        |> Pipe.required "density" Decode.float
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
@@ -145,6 +147,7 @@ encode process =
         [ ( "alias", EncodeExtra.maybe encodeAlias process.alias )
         , ( "categories", Encode.list Encode.string process.categories )
         , ( "comment", Encode.string process.comment )
+        , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )

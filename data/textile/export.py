@@ -109,6 +109,7 @@ def to_process(activity):
             if "impacts" in activity
             else {"impacts": {}}
         ),
+        "density": activity["density"],
         "heat_MJ": activity["heat_MJ"],
         "elec_MJ": activity["elec_MJ"],
         "waste": activity["waste"],

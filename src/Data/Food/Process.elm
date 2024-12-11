@@ -18,7 +18,9 @@ module Data.Food.Process exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
+import Data.Split as Split exposing (Split)
 import Data.Uuid as Uuid exposing (Uuid)
+import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -38,7 +40,10 @@ type alias Process =
     { alias : String
     , categories : List Category
     , comment : Maybe String
+    , density : Float
     , displayName : Maybe String
+    , elec : Energy
+    , heat : Energy
     , id : Id
     , identifier : Identifier
     , impacts : Impacts
@@ -46,6 +51,7 @@ type alias Process =
     , source : String
     , systemDescription : String
     , unit : String
+    , waste : Split
     }
 
 
@@ -179,7 +185,10 @@ decodeProcess impactsDecoder =
         |> Pipe.required "alias" Decode.string
         |> Pipe.required "categories" decodeCategories
         |> DU.strictOptional "comment" Decode.string
+        |> Pipe.required "density" Decode.float
         |> DU.strictOptional "displayName" Decode.string
+        |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "impacts" impactsDecoder
@@ -187,6 +196,7 @@ decodeProcess impactsDecoder =
         |> Pipe.required "source" Decode.string
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "unit" Decode.string
+        |> Pipe.required "waste" Split.decodeFloat
 
 
 encode : Process -> Encode.Value
@@ -195,7 +205,10 @@ encode process =
         [ ( "alias", Encode.string process.alias )
         , ( "categories", Encode.list encodeCategory process.categories )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
+        , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
+        , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
         , ( "identifier", encodeIdentifier process.identifier )
         , ( "impacts", Impact.encode process.impacts )
@@ -203,6 +216,7 @@ encode process =
         , ( "source", Encode.string process.source )
         , ( "system_description", Encode.string process.systemDescription )
         , ( "unit", Encode.string process.unit )
+        , ( "waste", Split.encodeFloat process.waste )
         ]
 
 

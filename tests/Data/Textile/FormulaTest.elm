@@ -32,6 +32,7 @@ noOpProcess =
     , categories = []
     , comment = ""
     , displayName = Just "Default"
+    , density = 0
     , elec = Energy.megajoules 0
     , heat = Energy.megajoules 0
     , impacts = Impact.empty
