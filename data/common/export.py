@@ -1,9 +1,9 @@
 import functools
 import json
+import math
 import sys
 import urllib.parse
 from os.path import dirname
-import math
 
 import bw2calc
 import bw2data
@@ -16,13 +16,12 @@ from frozendict import frozendict
 from loguru import logger
 
 from . import (
+    FormatNumberJsonEncoder,
     bytrigram,
-    format_number,
     normalization_factors,
     spproject,
     with_corrected_impacts,
     with_subimpacts,
-    FormatNumberJsonEncoder,
 )
 from .impacts import main_method
 
@@ -236,7 +235,7 @@ def compute_impacts(frozen_processes, default_db, impacts_py):
         if process.get("impacts"):
             logger.info(f"This process has hardcoded impacts: {process['displayName']}")
             continue
-        # simapro
+        # search in brightway
         activity = cached_search(
             process.get("source", default_db), process.get("search", process["name"])
         )
@@ -411,9 +410,18 @@ def compute_simapro_impacts(activity, method, impacts_py):
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
     logger.debug(f"SimaPro API request: {api_request}")
+
+    response = requests.get(api_request).content
+    response_data = json.loads(response)
+
+    # Check if response is just a string (error message)
+    if isinstance(response_data, str):
+        logger.warning(f"SimaPro API returned an error: {response_data}")
+        return None
+
     return bytrigram(
         impacts_py,
-        json.loads(requests.get(api_request).content),
+        response_data,
     )
 
 
