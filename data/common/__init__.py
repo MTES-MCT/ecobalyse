@@ -1,6 +1,7 @@
 # Please only pure functions here
-from copy import deepcopy
 import json
+from copy import deepcopy
+
 from frozendict import frozendict
 
 

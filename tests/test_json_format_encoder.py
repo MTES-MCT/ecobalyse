@@ -1,6 +1,6 @@
 import pytest
+
 from data.common import FormatNumberJsonEncoder
-import json
 
 
 @pytest.mark.parametrize(
