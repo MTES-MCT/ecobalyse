@@ -6,9 +6,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage RAS market",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-asia.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -24,9 +22,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage RAF market",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-africa.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -42,9 +38,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage RME market",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-middle-east.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -60,9 +54,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage RLA market",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-latin-america.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -78,9 +70,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage RNA market",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-north-america.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -96,9 +86,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage AU market",
     "comment": "Ancien identifiant (12/2024): 53c7378e585cf74cea4837819be6e631.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -114,9 +102,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
     "comment": "Ancien identifiant (12/2024): 8bbc2475141687462993329f9b7c2ddf.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -132,9 +118,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage AL market",
     "comment": "Ancien identifiant (12/2024): d33cefdc558e3fe890174e6f1e205015.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -150,9 +134,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "electricity, medium voltage//[PE] market for electricity, medium voltage",
     "comment": "Ancien identifiant (12/2024): debdaaba938a58ac1ab0131e47186092.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -168,9 +150,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage NZ market",
     "comment": "Ancien identifiant (12/2024): 609797e4710a81c9903bc72c141ff191.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -186,9 +166,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage MA market",
     "comment": "Ancien identifiant (12/2024): d3287580187139b11ce76f80013510d0.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -204,9 +182,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage KE market",
     "comment": "Ancien identifiant (12/2024): e5f92d33532b4e649da2541b264fa363.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -222,9 +198,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "electricity, medium voltage//[IT] market for electricity, medium voltage",
     "comment": "Ancien identifiant (12/2024): ae9240745e54987338d2228c3be2a5ec.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -240,9 +214,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage RER market group",
     "comment": "Ancien identifiant (12/2024): region-elec-west-europe.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -258,9 +230,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "electricity, medium voltage//[ES] market for electricity, medium voltage",
     "comment": "Ancien identifiant (12/2024): 80ff4bc21a0e197ea3f69d809fd8d4f1.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -276,9 +246,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "electricity, medium voltage//[FR] market for electricity, medium voltage",
     "comment": "Ancien identifiant (12/2024): 3c131d87f8dd997d14d2ffc3477f83e6.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -294,9 +262,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage MM market",
     "comment": "Ancien identifiant (12/2024): 4968e9f8cf72cb72700d94b242048db0.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -312,9 +278,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage IN market group",
     "comment": "Ancien identifiant (12/2024): 4ee8150b0cbf3603e03345d780ba7a61.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -329,9 +293,7 @@
     "info": "Textile > Matières > Matières synthétiques",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "unit": "kg",
     "density": 0,
     "heat_MJ": 0,
@@ -376,9 +338,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "polymethyl methacrylate beads ROW",
     "comment": "Ancien identifiant (12/2024): 75b27555d86fe1c66686cdf4339efc89.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -400,9 +360,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "fibre, jute//[RoW] fibre production, jute, retting",
     "comment": "Ancien identifiant (12/2024): 4d81aa5f76872e1e4c0e1bb14b01e93b.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -424,9 +382,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "polypropylene granulate RoW",
     "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -448,9 +404,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous",
     "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -474,9 +428,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled",
     "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -504,9 +456,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "nylon 6-6//[RoW] nylon 6-6 production",
     "comment": "Ancien identifiant (12/2024): 88a1395a1c61be31b0bc692e977dd10b.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -528,9 +478,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "fibre, flax//[RoW] fibre production, flax, retting",
     "comment": "Ancien identifiant (12/2024): cf76c9e1872effbd04d49aec742e7952.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -552,9 +500,7 @@
     "source": "Woolmark",
     "search": "greasy sheep wool",
     "comment": "Ancien identifiant (12/2024): wool-default.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -575,9 +521,7 @@
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): wool-new.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -622,9 +566,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "fibre, cotton//[RoW] fibre production, cotton, ginning",
     "comment": "Ancien identifiant (12/2024): a211822aabe83653a6079b9d5677daed.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -648,9 +590,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
     "comment": "Ancien identifiant (12/2024): coton-bio.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -673,9 +613,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "sunn RoW",
     "comment": "Ancien identifiant (12/2024): fa590941e8bbf72c8956b5c3ba793eb7.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -697,9 +635,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "fibre, viscose//[GLO] market for fibre, viscose",
     "comment": "Ancien identifiant (12/2024): f89bba0c170190e003fa3f643591cca5.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -721,9 +657,7 @@
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "source": "Custom",
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 993955be-5888-6f39-137c-56af8c5187c1.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -772,9 +706,7 @@
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
     "source": "Custom",
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 9c6ab710-4a08-c720-cede-24428a013fda.",
-    "categories": [
-      "Matières"
-    ],
+    "categories": ["Matières"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -823,9 +755,7 @@
     "info": "Textile > Mise en forme > Tricotage",
     "source": "Custom",
     "comment": "non applicable\nAncien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
-    "categories": [
-      "Tissage / Tricotage"
-    ],
+    "categories": ["Tissage / Tricotage"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 8.64,
@@ -863,9 +793,7 @@
     "info": "Textile > Mise en forme > Tricotage",
     "source": "Custom",
     "comment": "non applicable\nAncien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
-    "categories": [
-      "Tissage / Tricotage"
-    ],
+    "categories": ["Tissage / Tricotage"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 6.06443,
@@ -903,9 +831,7 @@
     "info": "Textile > Mise en forme > Tricotage",
     "source": "Custom",
     "comment": "non applicable\nAncien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
-    "categories": [
-      "Tissage / Tricotage"
-    ],
+    "categories": ["Tissage / Tricotage"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 13.2112,
@@ -943,9 +869,7 @@
     "info": "Textile > Mise en forme > Tissage",
     "source": "Custom",
     "comment": "non applicable\nAncien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
-    "categories": [
-      "Tissage / Tricotage"
-    ],
+    "categories": ["Tissage / Tricotage"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -985,9 +909,7 @@
     "unit": "kg",
     "source": "Base Impacts 2.01",
     "comment": "non applicable\nAncien identifiant (12/2024): 03c769d5-46b6-4cf9-80f8-f2712692a6ab.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0.0088468,
       "cch": 0.397712,
@@ -1026,9 +948,7 @@
     "unit": "kg",
     "source": "Base Impacts 2.01",
     "comment": "non applicable\nAncien identifiant (12/2024): af54556c-5f74-4f2c-8531-d002eda9d793.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0.0114956,
       "cch": 0.700333,
@@ -1067,9 +987,7 @@
     "unit": "kg",
     "source": "Base Impacts 2.01",
     "comment": "non applicable\nAncien identifiant (12/2024): b15afd1b-e7c0-4fbf-9f7b-b2a8b7e74bc7.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0.00849995,
       "cch": 0.525949,
@@ -1107,9 +1025,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
     "comment": "non applicable\nAncien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
-    "categories": [
-      "Transport"
-    ],
+    "categories": ["Transport"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1125,9 +1041,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "transport freight aircraft long haul market GLO",
     "comment": "non applicable\nAncien identifiant (12/2024): d3130e7ed9686fcc4bbe980e0375ad88.",
-    "categories": [
-      "Transport"
-    ],
+    "categories": ["Transport"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1143,9 +1057,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "transport, freight train//[GLO] market group for transport, freight train",
     "comment": "non applicable\nAncien identifiant (12/2024): 7037ea59d8d644fd35f80fd1982f9fe9.",
-    "categories": [
-      "Transport"
-    ],
+    "categories": ["Transport"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1161,9 +1073,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "freight lorry unspecified GLO",
     "comment": "non applicable\nAncien identifiant (12/2024): f37aba954435f9f158c19a9449d373b2.",
-    "categories": [
-      "Transport"
-    ],
+    "categories": ["Transport"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1180,9 +1090,7 @@
     "unit": "t*km",
     "source": "Base Impacts 2.01",
     "comment": "non applicable\nAncien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
-    "categories": [
-      "Transport"
-    ],
+    "categories": ["Transport"],
     "impacts": {
       "acd": 0.0016869,
       "cch": 0.269575,
@@ -1220,9 +1128,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage TN market",
     "comment": "Ancien identifiant (12/2024): b42506cbed4b459815c78d741b453e8e.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1238,9 +1144,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "electricity, medium voltage//[TR] market for electricity, medium voltage",
     "comment": "Ancien identifiant (12/2024): 32644303e316aebb9ffa31e9856c8f6b.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1256,9 +1160,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage BD market",
     "comment": "Ancien identifiant (12/2024): 0b69950358f3e8f0d3fb049d71481186.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1274,9 +1176,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage BR market group",
     "comment": "Ancien identifiant (12/2024): 825dae104f028cb558dac151f7c45f03.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1292,9 +1192,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "electricity, medium voltage//[CZ] market for electricity, medium voltage",
     "comment": "Ancien identifiant (12/2024): 2764d908c1a6fe88976d6eabf16295da.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1310,9 +1208,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage ET market",
     "comment": "Ancien identifiant (12/2024): 2c27aa8ba10e717c63b8508b487909bd.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1328,9 +1224,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage KH market",
     "comment": "Ancien identifiant (12/2024): de2cd7848f853b1c9b8a5d7b0f255144.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1346,9 +1240,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "electricity, medium voltage//[SK] market for electricity, medium voltage",
     "comment": "Ancien identifiant (12/2024): e0f11b283ad36b3da097649bee199149.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1364,9 +1256,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage PK market",
     "comment": "Ancien identifiant (12/2024): 028c9bf863a1ab77a0e636029afc5839.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1382,9 +1272,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage US market group",
     "comment": "Ancien identifiant (12/2024): 99b549d4ba7a0f5f4ab6050d6a6689ad.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1400,9 +1288,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "medium voltage VN market",
     "comment": "Ancien identifiant (12/2024): 3f90d52cc1dfe32119bf53db2713c407.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1417,9 +1303,7 @@
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "source": "Custom",
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1457,9 +1341,7 @@
     "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "source": "Custom",
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-row.",
-    "categories": [
-      "Energie"
-    ],
+    "categories": ["Energie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1497,9 +1379,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): 406d1f98-1052-458d-8f50-1901853d896d.",
-    "categories": [
-      "Utilisation"
-    ],
+    "categories": ["Utilisation"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0.80952,
@@ -1537,9 +1417,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): 4964273a-cdbd-43cf-8cf8-4b017aee4f03.",
-    "categories": [
-      "Utilisation"
-    ],
+    "categories": ["Utilisation"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 1.0266,
@@ -1577,9 +1455,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): 2572015b-7320-4ce1-bc99-cc6de371a654.",
-    "categories": [
-      "Utilisation"
-    ],
+    "categories": ["Utilisation"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0.80952,
@@ -1617,9 +1493,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): 8c040f35-e137-424b-a67f-2e50b628c1bf.",
-    "categories": [
-      "Utilisation"
-    ],
+    "categories": ["Utilisation"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0.9663,
@@ -1657,9 +1531,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): ea7afeed-c058-4dbb-be01-66704a9afb1f.",
-    "categories": [
-      "Utilisation"
-    ],
+    "categories": ["Utilisation"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 1.0266,
@@ -1697,9 +1569,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): 2b39a7ac-38bd-435f-85a4-783023d845bf.",
-    "categories": [
-      "Utilisation"
-    ],
+    "categories": ["Utilisation"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 1.0266,
@@ -1737,9 +1607,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): d3bff7b7-efc1-459b-856d-ea0801d6912f.",
-    "categories": [
-      "Utilisation"
-    ],
+    "categories": ["Utilisation"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0.80952,
@@ -1777,9 +1645,7 @@
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "source": "Custom",
     "comment": "Ancien identifiant (12/2024): 7f76529e-521d-4795-bb36-ff896c4692da.",
-    "categories": [
-      "Utilisation"
-    ],
+    "categories": ["Utilisation"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 1.0266,
@@ -1819,9 +1685,7 @@
     "unit": "Item(s)",
     "source": "Base Impacts 2.01",
     "comment": "non applicable\nAncien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
-    "categories": [
-      "Transport"
-    ],
+    "categories": ["Transport"],
     "impacts": {
       "acd": 0.00011505,
       "cch": 0.0364904,
@@ -1858,9 +1722,7 @@
     "info": "Fin de vie > Aggrégation multi-impacts > ",
     "source": "Custom",
     "comment": "Précalcul Ecobalyse à partir de Base Impacts\nAncien identifiant (12/2024): 266fa378-77c0-11ec-90d6-0242ac120003.",
-    "categories": [
-      "Fin de vie"
-    ],
+    "categories": ["Fin de vie"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 0,
@@ -1898,9 +1760,7 @@
     "info": "Textile > Mise en forme > Tricotage",
     "source": "Custom",
     "comment": "non applicable\nAncien identifiant (12/2024): 364298ad-2058-4ec4-b2d0-47f5214abffb.",
-    "categories": [
-      "Tissage / Tricotage"
-    ],
+    "categories": ["Tissage / Tricotage"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 4.194,
@@ -1938,9 +1798,7 @@
     "info": "Textile > Mise en forme > Tricotage",
     "source": "Custom",
     "comment": "non applicable\nAncien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
-    "categories": [
-      "Tissage / Tricotage"
-    ],
+    "categories": ["Tissage / Tricotage"],
     "density": 0,
     "heat_MJ": 0,
     "elec_MJ": 4.25101,
@@ -1980,9 +1838,7 @@
     "unit": "kg",
     "source": "Base Impacts 2.01",
     "comment": "non applicable\nAncien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0.000923442,
       "cch": 0.183115,
@@ -2021,9 +1877,7 @@
     "unit": "m2",
     "source": "Base Impacts 2.01",
     "comment": "non applicable\nAncien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0.000211988,
       "cch": 0.0620522,
@@ -2062,9 +1916,7 @@
     "unit": "m2",
     "source": "Base Impacts 2.01",
     "comment": "non applicable\nAncien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0.000692673,
       "cch": 0.0377105,
@@ -2103,9 +1955,7 @@
     "unit": "kg",
     "source": "Base Impacts 2.01",
     "comment": "non applicable\nAncien identifiant (12/2024): 63baddae-e05d-404b-a73f-371044a24fe9.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0.00248038,
       "cch": 4.33475,
@@ -2142,9 +1992,7 @@
     "info": "Textile > Ennoblissement > Teinture",
     "source": "Custom",
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "density": 0,
     "heat_MJ": 10.74,
     "elec_MJ": 1.61,
@@ -2182,9 +2030,7 @@
     "info": "Textile > Ennoblissement > Teinture",
     "source": "Custom",
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "density": 0,
     "heat_MJ": 10.74,
     "elec_MJ": 1.61,
@@ -2223,9 +2069,7 @@
     "source": "Ecoinvent 3.9.1",
     "search": "bleaching textile RoW",
     "comment": "Ancien identifiant (12/2024): blanchiment.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "density": 0,
     "heat_MJ": 10.74,
     "elec_MJ": 1.61,
@@ -2240,9 +2084,7 @@
     "info": "Textile > Ennoblissement > Impression",
     "source": "Custom",
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "density": 0,
     "heat_MJ": 10.74,
     "elec_MJ": 1.61,
@@ -2280,9 +2122,7 @@
     "info": "Textile > Ennoblissement > Impression",
     "source": "Custom",
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
-    "categories": [
-      "Ennoblissement"
-    ],
+    "categories": ["Ennoblissement"],
     "density": 0,
     "heat_MJ": 10.74,
     "elec_MJ": 1.61,
