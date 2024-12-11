@@ -19,16 +19,13 @@ table { detailed, scope } =
         [ { label = "Identifiant"
           , toValue = Table.StringValue <| .id >> Process.idToString
           , toCell =
-                .id
-                    >> Process.idToString
-                    >> (\id ->
-                            if detailed then
-                                code [] [ text id ]
+                \process ->
+                    if detailed then
+                        code [] [ text (Process.idToString process.id) ]
 
-                            else
-                                a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just (Process.Uuid id)))) ]
-                                    [ code [] [ text id ] ]
-                       )
+                    else
+                        a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just process.id))) ]
+                            [ code [] [ text (Process.idToString process.id) ] ]
           }
         , { label = "Nom"
           , toValue = Table.StringValue Process.getDisplayName

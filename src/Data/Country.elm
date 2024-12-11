@@ -67,8 +67,8 @@ decode processes =
     Decode.succeed Country
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
         |> Pipe.required "code" decodeCode
-        |> Pipe.required "electricityProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "heatProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "electricityProcessUuid" (Process.decodeFromId processes)
+        |> Pipe.required "heatProcessUuid" (Process.decodeFromId processes)
         |> Pipe.required "name" Decode.string
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
         |> Pipe.required "zone" Zone.decode
