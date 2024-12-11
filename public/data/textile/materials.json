@@ -187,7 +187,7 @@
   {
     "id": "ei-viscose",
     "materialProcessUuid": "f89bba0c170190e003fa3f643591cca5",
-    "recycledProcessUuid": "7e2fdd1e285fd01e8852977a584a9ae3",
+    "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Viscose",
     "shortName": "Viscose",

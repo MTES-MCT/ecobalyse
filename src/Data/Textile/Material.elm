@@ -10,6 +10,7 @@ module Data.Textile.Material exposing
     , idToString
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Country as Country
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
@@ -84,7 +85,7 @@ decode processes =
         |> JDP.required "name" Decode.string
         |> JDP.required "origin" Origin.decode
         |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
-        |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
+        |> DU.strictOptional "recycledProcessUuid" (Process.decodeFromUuid processes)
         |> JDP.required "shortName" Decode.string
 
 
