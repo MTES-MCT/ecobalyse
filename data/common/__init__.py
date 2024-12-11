@@ -1,4 +1,5 @@
 # Please only pure functions here
+import json
 from copy import deepcopy
 
 from frozendict import frozendict
@@ -212,3 +213,25 @@ def fix_unit(unit):
             return "t⋅km"
         case _:
             return unit
+
+
+def format_number(value):
+    """Format a number to a float with 6 significant digits."""
+    if value is None:
+        return "None"
+    return float(f"{value:.6g}")
+
+
+class FormatNumberJsonEncoder(json.JSONEncoder):
+    def encode(self, obj):
+        def recursive_format_number(obj):
+            if isinstance(obj, (int, float)):
+                return format_number(obj)
+            elif isinstance(obj, dict):
+                return {k: recursive_format_number(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [recursive_format_number(v) for v in obj]
+            else:
+                return obj
+
+        return super().encode(recursive_format_number(obj))
