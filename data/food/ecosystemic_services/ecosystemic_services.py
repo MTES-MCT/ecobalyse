@@ -129,7 +129,9 @@ def compute_animal_ecosystemic_services(
         ecosystemicServices["cropDiversity"] = cropDiversity
 
         ecosystemicServices["permanentPasture"] = feed_quantities.get(
-            "grazed-grass-permanent", 0
+            # "grazed-grass-permanent", 0
+            "c88d387e-8435-4741-b742-0094dbdcee45",
+            0,
         )
 
         ecosystemicServices["livestockDensity"] = (
