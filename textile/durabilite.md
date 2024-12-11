@@ -25,7 +25,7 @@ Deux principales dimensions sont généralement considérées pour apprécier la
 * sa durabilité physique (capacité du vêtement à résister à l'usure physique liée à son utilisation et son entretien)
 * sa durabilité non physique (propension qu'aura le vêtement à être porté plus longtemps en fonction d'autres critères : réparabilité, attachement...)
 
-Ces deux dimensions sont mises en avant dans différents travaux à l'échelle européenne
+Ces deux dimensions sont mises en avant dans différents travaux à l'échelle européenne:
 
 > Parlement Européen - Résolution sur la stratégie textile durable (juin 2023) : \
 > "_Calls on the Commission and the Member States to ensure that the policy framework on textiles takes a holistic view of durability, including both the physical and the emotional durability of textile products put on the market, which describes the garment design that takes into account long-term relevance and desirability to consumers, as clothing represents a cultural value_"
@@ -46,18 +46,19 @@ Dans un premier temps, seule la durabilité non physique est considérée dans l
 {% hint style="info" %}
 **Travaux sur la durabilité physique**\
 Les travaux sur la durabilité physique se poursuivent, en particulier au sein du secrétariat technique du [PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/) qui s'appuie notamment sur les résultats du projet [Durhabi](https://www.ifth.org/services/durhabi/) piloté par l'[IFTH](https://www.ifth.org/) et qui a associé de nombreux acteurs français.\
-Afin de préparer l'intégration future de la durabilité physique dans le mode réglementaire, celle-ci est intégrée, par anticipation, dans le mode exploratoire d'Ecobalyse. Elle est proposé à partir d'un sélecteur de valeur du coefficient qui peut aller de 0,67 à 1,45, soit la plage de valeurs prévue pour l'IQM (Intrinsic Quality Multiplier) dans le projet de PEFCR Apparel & Footwear v2.0. La valeur de ce coefficient est celle qui découle des tests prévus dans le projet de PEFCR.\
-Pour combiner les deux dimension de la durabilité, la formule suivante est considérée en première approche :\
+Afin de préparer l'intégration future de la durabilité physique dans le mode réglementaire, celle-ci est intégrée, par anticipation, dans le mode exploratoire d'Ecobalyse. Elle est proposé à partir d'un sélecteur de valeur du coefficient qui peut aller de 0,67 à 1,45, soit la plage de valeurs prévue pour l'IQM (Intrinsic Quality Multiplier) dans le projet de PEFCR Apparel & Footwear v2.0. La valeur de ce coefficient est celle qui découle des tests prévus dans le projet de PEFCR.
+
 \
+Pour combiner les deux dimension de la durabilité, la formule suivante est considérée en première approche :\
 **Durabilité\_Holistique = min (Durabilité\_Physique ; Durabilité\_NonPhysique)**\
 \
 Cette formule traduit l'idée qu'un vêtement arrive en fin de vie, soit pour une cause d'usure physique soit pour une cause non physique. C'est donc bien la dimension la plus limitante qui définierait la durée moyenne d'utilisation modélisée.\
-Cette proposition est une simple base de travail qui appelle des échanges au sein de groupe de travail qui doit être mis en place à l'automne et qui devra travailler en lien avec le sercrétariat technique du PEFCR Apparel & Footwear.
+&#xNAN;_&#x43;ette proposition est une simple base de travail qui appelle des échanges au sein de groupe de travail qui doit être mis en place  et qui devra travailler en lien avec le secrétariat technique du PEFCR Apparel & Footwear._
 {% endhint %}
 
 ## Calcul du coût environnemental
 
-Pour chaque vêtement, un **coefficient de durabilité** $$C_{Durabilité}$$ est établi. Sa valeur est comprise entre 0.67, pour les produits les moins durables, et 1.45 pour les produits les plus durables.
+Pour chaque vêtement, un **coefficient de durabilité** $$C_{Durabilité}$$ est établi. Sa valeur est comprise entre **0.67** pour les produits les moins durables et **1.45** pour les produits les plus durables.
 
 Le coût environnemental est établi comme suit :&#x20;
 
@@ -97,10 +98,6 @@ Ou aussi&#x20;
 
 $$C_{Durabilité} = 0.67 + (1,45-0,67)*( 0.4*I_{incitation réparation} +  0.4*I_{largeur de gamme} + 0.2*I_{affichage tracabilité}$$
 
-
-
-La définition et la modélisation de chaque indice sont détaillées ci-après.
-
 ## Largeur de gamme
 
 ### Définition
@@ -112,7 +109,7 @@ Précisions :&#x20;
 * **Le canal de vente considéré est le site internet de la marque**. En l'absence de vente en ligne sur le site de la marque (ou si le site est un canal de vente artificiel), un canal de vente doit être choisi parmi les principaux.
 * Par exception, dans le cas d'une **marque qui serait distribuée via une plateforme**, de sorte que les consommateurs identifient plus la plateforme que la marque, c'est le nombre total de références proposées du segment sur la plateforme qui doit être considéré.
 * Lorsqu'une marque est proposée au sein d'un **site internet multi-marques**, mais qu'elle y est bien identifiée et que l'essentiel des autres produits proposés sur ce site internet sont également proposés sur le site internet de leur marque propre, c'est alors le nombre de référence de chaque marque qui est considéré.
-* Les **5 segments de marché** considérés sont : femme, homme, enfant, bébé, sous-vêtements. L'introduction de ces 5 segments de marché vise à éviter un effet de distorsion qui pénaliserait une marque couvrant l'ensemble des segments de marché par rapport à une autre marque qui ne couvrirait par exemple que le prêt à porter femme. A l'intérieur de ces segments de marché, ne sont pas considérés les références qui ne s'adresseraient qu'à un sous-ensemble spécifique des clients potentiels. Il s'agit par exemple des références spécifiques aux grandes tailles, aux femmes enceintes, aux personnes en situation de handicap... L'objectif est d'approximer le choix proposer à chaque consommateur : homme, femme, enfant ou bébé.&#x20;
+* Les **5 segments de marché** considérés sont : femme, homme, enfant, bébé, sous-vêtements. L'introduction de ces 5 segments de marché vise à éviter un effet de distorsion qui pénaliserait une marque couvrant l'ensemble des segments de marché par rapport à une autre marque qui ne couvrirait par exemple que le prêt à porter femme. A l'intérieur de ces segments de marché, ne sont pas considérés les références qui ne s'adresseraient qu'à un sous-ensemble spécifique des clients potentiels. Il s'agit par exemple des références spécifiques aux grandes tailles, aux femmes enceintes, aux personnes en situation de handicap, ... L'objectif est d'approximer le choix proposer à chaque consommateur : homme, femme, enfant ou bébé.&#x20;
 
 {% hint style="info" %}
 Exemple : Le site C.fr commercialise la marque A (2000 références), la marque B (3000 références) et la marque C (4000 références). La marque A et la marque B disposent par ailleurs de leur site internet propre. La marque B propose 2500 références sur B.fr. La marque C propose 3500 références sur C.fr.\
@@ -171,7 +168,7 @@ Un lien est observé entre la propension qu'a un produit à être réparé et le
 Précisions :&#x20;
 
 * Le prix de vente considéré est celui proposé sur le canal de vente de référence, tel que défini dans la section relative à l'indice "largeur de gamme".
-* Le coût moyen de réparation considéré, pour chaque catégorie de produit, est précisé dans l'[explorateur Ecobalyse](https://ecobalyse-v2.osc-fr1.scalingo.io/#/explore/textile/products). Il s'appuie sur l'étude Ademe 2022 sur le fonds réemploi-réutilisation et réparation de la filière TLC
+* Le coût moyen de réparation considéré, pour chaque catégorie de produit, est précisé dans l'[explorateur Ecobalyse](https://ecobalyse-v2.osc-fr1.scalingo.io/#/explore/textile/products). Il s'appuie sur l'[Etude Ademe 2022 sur le fonds réemploi-réutilisation et réparation de la filière TLC](https://librairie.ademe.fr/economie-circulaire-et-dechets/5323-fonds-reemploi-reutilisation-et-reparation-de-la-filiere-tlc.html).
 
 {% hint style="info" %}
 Des précisions seront prochainement apportées sur la définition du prix de vente à considérer.
