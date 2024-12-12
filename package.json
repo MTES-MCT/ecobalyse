@@ -84,7 +84,8 @@
     "process": "^0.11.10",
     "rimraf": "^6.0.1",
     "supertest": "^7.0.0",
-    "svgo": "^3.3.2"
+    "svgo": "^3.3.2",
+    "uuid": "^11.0.3"
   },
   "cacheDirectories": [
     "node_modules",

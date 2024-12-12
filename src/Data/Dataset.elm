@@ -40,7 +40,7 @@ type Dataset
     | ObjectProcesses (Maybe ObjectProcess.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
-    | TextileProcesses (Maybe Process.Uuid)
+    | TextileProcesses (Maybe Process.Id)
     | TextileProducts (Maybe Product.Id)
 
 
@@ -286,7 +286,7 @@ setIdFromString idString dataset =
             TextileMaterials (Just (Material.Id idString))
 
         TextileProcesses _ ->
-            TextileProcesses (Just (Process.Uuid idString))
+            TextileProcesses (Process.idFromString idString)
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -401,7 +401,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         TextileProcesses (Just id) ->
-            [ slug dataset, Process.uuidToString id ]
+            [ slug dataset, Process.idToString id ]
 
         TextileProcesses Nothing ->
             [ slug dataset ]
