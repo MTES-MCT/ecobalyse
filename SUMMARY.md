@@ -44,6 +44,7 @@
 * [Nous contacter](textile/nous-contacter.md)
 * [Correctifs données](textile/correctifs-donnees/README.md)
   * [corr1 : Coton recyclé](textile/correctifs-donnees/corr1-coton-recycle.md)
+  * [corr2: Inventaires enrichis](textile/correctifs-donnees/corr2-inventaires-enrichis.md)
 * [Aide API](textile/aide-api.md)
 
 ## 🍕 Alimentaire -EN CONSTRUCTION
