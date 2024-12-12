@@ -90,7 +90,6 @@ def to_process(activity):
         if "search" in activity and activity["source"] in BW_DATABASES
         else activity.get("name", activity["displayName"]),
         "displayName": activity["displayName"],
-        "info": activity["info"],
         "unit": fix_unit(
             cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
                 "unit"
