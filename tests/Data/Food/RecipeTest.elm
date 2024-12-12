@@ -211,12 +211,12 @@ suite =
                         ]
                     , describe "getMassAtPackaging"
                         [ { ingredients =
-                                [ { id = Ingredient.idFromString "egg-indoor-code3"
+                                [ { id = Ingredient.idFromString "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69"
                                   , mass = Mass.grams 120
                                   , country = Nothing
                                   , planeTransport = Ingredient.PlaneNotApplicable
                                   }
-                                , { id = Ingredient.idFromString "soft-wheat-fr"
+                                , { id = Ingredient.idFromString "38788025-a65e-4edf-a92f-aab0b89b0d61"
                                   , mass = Mass.grams 140
                                   , country = Nothing
                                   , planeTransport = Ingredient.PlaneNotApplicable
@@ -258,7 +258,7 @@ suite =
                         ]
                     , let
                         mango =
-                            { id = Ingredient.idFromString "mango-non-eu"
+                            { id = Ingredient.idFromString "db0e5f44-34b4-4160-b003-77c828d75e60"
                             , mass = Mass.grams 120
                             , country = Nothing
                             , planeTransport = Ingredient.ByPlane
@@ -274,7 +274,7 @@ suite =
                       in
                       describe "computeIngredientTransport"
                         [ { ingredients =
-                                [ { id = Ingredient.idFromString "egg-indoor-code3"
+                                [ { id = Ingredient.idFromString "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69"
                                   , mass = Mass.grams 120
                                   , country = Nothing
                                   , planeTransport = Ingredient.PlaneNotApplicable
