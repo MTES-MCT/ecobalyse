@@ -225,7 +225,7 @@ def compute_impacts(frozen_processes, default_db, impacts_py):
         progress_bar(index, len(processes))
         # Don't compute impacts if its a hardcoded activity
         if process.get("impacts"):
-            logger.info(f"This process has hardcoded impacts: {process['displayName']}")
+            logger.info(f"This process has hardcoded impacts: {process['name']}")
             continue
         # simapro
         activity = cached_search(
@@ -319,8 +319,8 @@ def plot_impacts(process_name, impacts_smp, impacts_bw, folder, impacts_py):
     ]
     nf = normalization_factors(impacts_py)
 
-    simapro_values = [impacts_smp[label] * nf[label] for label in trigrams]
-    brightway_values = [impacts_bw[label] * nf[label] for label in trigrams]
+    simapro_values = [impacts_smp[label] / nf[label] for label in trigrams]
+    brightway_values = [impacts_bw[label] / nf[label] for label in trigrams]
 
     x = numpy.arange(len(trigrams))
     width = 0.35

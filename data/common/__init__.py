@@ -5,15 +5,15 @@ from frozendict import frozendict
 
 
 def normalization_factors(impact_defs):
-    normalization_factors = {}
+    factors = {}
     for k, v in impact_defs.items():
-        if v.get("ecoscore"):
-            normalization_factors[k] = (
-                v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
-            )
+        if v.get("ecoscore") and "normalization" in v.get("ecoscore", {}):
+            factors[k] = v["ecoscore"]["normalization"]
+        elif v.get("pef") and "normalization" in v.get("pef", {}):
+            factors[k] = v["pef"]["normalization"]
         else:
-            normalization_factors[k] = 0
-    return normalization_factors
+            pass
+    return factors
 
 
 def spproject(activity):
