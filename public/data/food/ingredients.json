@@ -1,6 +1,6 @@
 [
   {
-    "id": "egg-bleublanccoeur",
+    "id": "7ef7399a-1d56-4947-b773-9f6438a50fda",
     "name": "Oeuf Bleu-Blanc-Cœur FR Conv.",
     "categories": ["animal_product", "bleublanccoeur"],
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
@@ -22,7 +22,7 @@
     "visible": true
   },
   {
-    "id": "milk",
+    "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
     "name": "Lait FR Conv.",
     "categories": ["dairy_product"],
     "search": "Cow milk national average at farm gate",
@@ -44,7 +44,7 @@
     "visible": true
   },
   {
-    "id": "milk-organic",
+    "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
     "name": "Lait FR ou UE ou Hors UE Bio",
     "categories": ["dairy_product", "organic"],
     "search": "cow milk organic national average",
@@ -66,11 +66,11 @@
     "visible": true
   },
   {
-    "id": "carrot-organic",
+    "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
     "name": "Carotte FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
-    "default": "carrot-organic",
+    "default": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -87,7 +87,7 @@
     "visible": true
   },
   {
-    "id": "flour",
+    "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
     "name": "Farine UE Conv.",
     "categories": ["grain_processed"],
     "search": "Wheat flour at industrial mill FR",
@@ -108,7 +108,7 @@
     "visible": true
   },
   {
-    "id": "flour-organic",
+    "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
     "name": "Farine FR ou UE ou Hors UE Bio",
     "categories": ["grain_processed", "organic"],
     "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
@@ -129,11 +129,11 @@
     "visible": true
   },
   {
-    "id": "sunflower-organic",
+    "id": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
     "name": "Tournesol FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Sunflower grain, consumption mix, organic 2023 {FR}",
-    "default": "sunflower-organic",
+    "default": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -150,7 +150,7 @@
     "visible": true
   },
   {
-    "id": "sunflower-feed-organic",
+    "id": "c5dfca39-14f6-4d7c-a506-d8a5e65256a7",
     "name": "Tournesol FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Sunflower, organic, animal feed, at farm gate {FR}",
@@ -171,7 +171,7 @@
     "visible": false
   },
   {
-    "id": "rapeseed-organic",
+    "id": "5238ba53-56e4-404e-ad68-43d80a5df85b",
     "name": "Colza FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Winter rapeseed, organic, at farm gate {FR}",
@@ -192,7 +192,7 @@
     "visible": true
   },
   {
-    "id": "ground-beef",
+    "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
     "name": "Boeuf haché cru FR Conv.",
     "categories": ["animal_product"],
     "search": "Ground beef fresh case ready for direct consumption at plant",
@@ -214,7 +214,7 @@
     "visible": true
   },
   {
-    "id": "ground-beef-organic",
+    "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
     "name": "Boeuf haché cru FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Ground beef fresh case ready for direct consumption at plant organic, constructed by Ecobalyse",
@@ -236,7 +236,7 @@
     "visible": true
   },
   {
-    "id": "ground-beef-feedlot",
+    "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
     "name": "Boeuf haché cru Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "Ground beef fresh case ready for direct consumption at plant feedlot, constructed by Ecobalyse",
@@ -258,7 +258,7 @@
     "visible": true
   },
   {
-    "id": "ground-beef-grass-fed",
+    "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
     "name": "Boeuf haché cru - v. de réforme 100% herbe FR Conv.",
     "categories": ["animal_product", "organic"],
     "search": "Ground beef fresh case ready for direct consumption at plant [grass-fed], constructed by Ecobalyse",
@@ -280,7 +280,7 @@
     "visible": true
   },
   {
-    "id": "cooked-ham",
+    "id": "755225f1-f0c5-497f-b8a9-263828a84a22",
     "name": "Jambon cuit FR Conv.",
     "categories": ["animal_product"],
     "search": "Cooked ham case ready at plant",
@@ -302,7 +302,7 @@
     "visible": true
   },
   {
-    "id": "cooked-ham-organic",
+    "id": "4de5e41e-3271-4489-aa27-a973e4045082",
     "name": "Jambon cuit FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Cooked ham case ready at plant organic, constructed by Ecobalyse",
@@ -324,7 +324,7 @@
     "visible": true
   },
   {
-    "id": "cooked-ham-fr",
+    "id": "15e2dfa0-9b5f-4bc9-a3ed-885f56061bc0",
     "name": "Jambon cuit (alim. ani. 100%FR) FR Conv.",
     "categories": ["animal_product"],
     "search": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
@@ -346,7 +346,7 @@
     "visible": true
   },
   {
-    "id": "chicken-breast",
+    "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984",
     "name": "Blanc de poulet cru FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone chicken for direct consumption",
@@ -368,7 +368,7 @@
     "visible": true
   },
   {
-    "id": "chicken-breast-organic",
+    "id": "b19b0dc0-3478-46a0-b8a1-3225ea939ff1",
     "name": "Blanc de poulet cru FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
@@ -390,7 +390,7 @@
     "visible": true
   },
   {
-    "id": "chicken-breast-fr-organic",
+    "id": "b682ae30-9df9-4385-9005-4b4725c70d54",
     "name": "Blanc de poulet cru (alim. ani. 100%FR) FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Meat without bone chicken for direct consumption \"fr-organic\" constructed by Ecobalyse",
@@ -412,7 +412,7 @@
     "visible": false
   },
   {
-    "id": "rapeseed-oil",
+    "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
     "name": "Huile de colza Hors UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
@@ -433,7 +433,7 @@
     "visible": true
   },
   {
-    "id": "rapeseed-oil-organic",
+    "id": "51f8e8d2-13c0-446c-bf0a-9272fc46edde",
     "name": "Huile de colza FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_processed", "organic"],
     "search": "Rapeseed oil mill {GLO} organic, constructed by Ecobalyse",
@@ -454,7 +454,7 @@
     "visible": true
   },
   {
-    "id": "sunflower-oil",
+    "id": "3cfab110-363e-442a-9170-1af337fe9ea3",
     "name": "Huile de tournesol Hors UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
@@ -475,7 +475,7 @@
     "visible": true
   },
   {
-    "id": "sunflower-oil-organic",
+    "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40",
     "name": "Huile de tournesol FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_processed", "organic"],
     "search": "sunflower oil at mill {glo} organic, constructed by Ecobalyse",
@@ -496,7 +496,7 @@
     "visible": true
   },
   {
-    "id": "zucchini-organic",
+    "id": "59092383-9bfb-419e-ab63-825c8e6e6ed0",
     "name": "Courgette FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Zucchini, springtime, under tunnel, organic, at farm gate {FR}",
@@ -517,7 +517,7 @@
     "visible": true
   },
   {
-    "id": "peach-organic",
+    "id": "3cc14fbe-c798-46bf-bc7d-94d5ed28fa7c",
     "name": "Pêche FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Peach, organic, national average, at orchard {FR} U",
@@ -538,7 +538,7 @@
     "visible": true
   },
   {
-    "id": "melon-organic",
+    "id": "359ec82d-4f28-43bd-b5be-84256a45c03e",
     "name": "Melon FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Melon, organic, at farm gate FR",
@@ -559,7 +559,7 @@
     "visible": true
   },
   {
-    "id": "butter",
+    "id": "bbda834e-1548-4682-a461-c367dc1ce517",
     "name": "Beurre FR Conv.",
     "categories": ["dairy_product"],
     "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
@@ -574,7 +574,7 @@
     "visible": true
   },
   {
-    "id": "butter-organic",
+    "id": "aeedb0fa-81a7-4f21-9bf1-7ec9c4c69ed9",
     "name": "Beurre FR ou UE ou Hors UE Bio",
     "categories": ["dairy_product", "organic"],
     "search": "Butter, 82% fat, unsalted, at dairy {FR} organic, constructed by Ecobalyse",
@@ -589,7 +589,7 @@
     "visible": true
   },
   {
-    "id": "tap-water",
+    "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
     "name": "Eau du robinet UE Conv.",
     "categories": [],
     "search": "Tap water Europe market",
@@ -604,7 +604,7 @@
     "visible": true
   },
   {
-    "id": "comte-aop",
+    "id": "f804033a-fe59-4ec5-b24b-c7482b2a6cf6",
     "name": "Comté FR AOP Conv.",
     "categories": ["dairy_product"],
     "search": "Comte cheese, from cow's milk, at plant {FR} U",
@@ -619,7 +619,7 @@
     "visible": true
   },
   {
-    "id": "emmental",
+    "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
     "name": "Emmental FR Conv.",
     "categories": ["dairy_product"],
     "search": "Emmental cheese, from cow's milk, at plant {FR} U",
@@ -634,7 +634,7 @@
     "visible": true
   },
   {
-    "id": "mozzarella",
+    "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
     "name": "Mozzarella FR Conv.",
     "categories": ["dairy_product"],
     "search": "Mozzarella cheese, from cow's milk, at plant {FR} U",
@@ -649,11 +649,11 @@
     "visible": true
   },
   {
-    "id": "beetroot-organic",
+    "id": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
     "name": "Betterave rouge FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
-    "default": "beetroot-organic",
+    "default": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -670,11 +670,11 @@
     "visible": true
   },
   {
-    "id": "celeriac-organic",
+    "id": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
     "name": "Céleri-rave FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
-    "default": "celeriac-organic",
+    "default": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -691,7 +691,7 @@
     "visible": true
   },
   {
-    "id": "turnip-organic",
+    "id": "7e64fe4d-001c-42eb-9307-13c8a21d2805",
     "name": "Navet FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Carrot, organic, Lower Normandy, at farm gate",
@@ -712,7 +712,7 @@
     "visible": true
   },
   {
-    "id": "chickpea-organic",
+    "id": "20aea108-cab8-4223-b8b7-4747599e228c",
     "name": "Pois chiche FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
@@ -733,7 +733,7 @@
     "visible": true
   },
   {
-    "id": "soybean-humanconsumption",
+    "id": "c466ec83-7735-43b6-a919-c933e6656a8d",
     "name": "Soja FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Soybean, national average, animal feed, at farm gate {FR} U",
@@ -754,7 +754,7 @@
     "visible": true
   },
   {
-    "id": "soybean-organic",
+    "id": "92d34545-6952-466e-bf6d-c1f1f6069b48",
     "name": "Soja FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "soybean organic animal at farm gate {FR}",
@@ -775,7 +775,7 @@
     "visible": true
   },
   {
-    "id": "soybean-br-no-deforestation",
+    "id": "0cd5d7be-c2a9-4a3d-a3f9-86e351733438",
     "name": "Soja (non déforestant) Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
@@ -796,7 +796,7 @@
     "visible": true
   },
   {
-    "id": "soybean-br-deforestation",
+    "id": "141f76d7-fe36-4f17-b7da-043ac884a309",
     "name": "Soja déforestant Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Soybean {BR}| market for soybean | Cut-off, U copied from Ecoinvent",
@@ -817,7 +817,7 @@
     "visible": true
   },
   {
-    "id": "soybean-feed",
+    "id": "086b58da-1c4c-40a8-9327-37477d04cfba",
     "name": "Soja feed Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Soybean grain dried, stored and transported, processing {FR}",
@@ -838,7 +838,7 @@
     "visible": false
   },
   {
-    "id": "sausage-meat",
+    "id": "d1eb385a-ad1e-44f5-89d1-640c4c91d353",
     "name": "Chair à saucisse crue FR Conv.",
     "categories": ["animal_product"],
     "search": "Sausage meat, raw, at plant {FR} U",
@@ -853,7 +853,7 @@
     "visible": true
   },
   {
-    "id": "sausage-toulouse",
+    "id": "ee85fceb-7d1f-4871-a0e3-4e88cc816bd5",
     "name": "Saucisse de Toulouse (crue) FR Conv.",
     "categories": ["animal_product"],
     "search": "Toulouse sausage, raw, at plant {FR} U",
@@ -868,7 +868,7 @@
     "visible": true
   },
   {
-    "id": "sausage-toulouse-cooked",
+    "id": "0a86af92-e0c5-4667-9cd2-d63bcc0d9726",
     "name": "Saucisse de Toulouse (cuite) FR Conv.",
     "categories": ["animal_product"],
     "search": "Toulouse sausage, cooked, at plant {FR} U",
@@ -883,7 +883,7 @@
     "visible": true
   },
   {
-    "id": "sausage-tofu",
+    "id": "5799c843-f538-40c8-bd6f-a3b4a4288261",
     "name": "Saucisse végétale tofu FR Conv.",
     "categories": [],
     "search": "Plant-based sausage with tofu (vegan), at plant {FR} U",
@@ -898,7 +898,7 @@
     "visible": true
   },
   {
-    "id": "tomato-paste",
+    "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
     "name": "Purée de tomates Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
@@ -919,7 +919,7 @@
     "visible": true
   },
   {
-    "id": "tomato-concentrated",
+    "id": "55e180a0-9b80-4e0c-9aaf-4613a155d69a",
     "name": "Concentré de tomates Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO}",
@@ -940,7 +940,7 @@
     "visible": true
   },
   {
-    "id": "beef-with-bone",
+    "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
     "name": "Viande de boeuf avec os (crue) FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat with bone, beef, for direct consumption",
@@ -962,7 +962,7 @@
     "visible": true
   },
   {
-    "id": "beef-without-bone",
+    "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
     "name": "Viande de boeuf sans os (crue) FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone, beef, for direct consumption",
@@ -984,7 +984,7 @@
     "visible": true
   },
   {
-    "id": "beef-without-bone-organic",
+    "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
     "name": "Viande de boeuf sans os FR ou UE ou Hors UE Bio (crue)",
     "categories": ["animal_product"],
     "search": "Meat without bone, beef, for direct consumption organic constructed",
@@ -1006,7 +1006,7 @@
     "visible": true
   },
   {
-    "id": "durum-wheat-semolina",
+    "id": "4f3abd56-ed63-4207-afbb-20ac259017e0",
     "name": "Semoule de blé dur FR Conv.",
     "categories": ["grain_processed"],
     "search": "Durum wheat, semolina, at plant {FR} U",
@@ -1027,7 +1027,7 @@
     "visible": true
   },
   {
-    "id": "sugar",
+    "id": "8f075c25-9ebf-430c-b41d-51d165c6e0d8",
     "name": "Sucre de betterave FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
@@ -1048,7 +1048,7 @@
     "visible": true
   },
   {
-    "id": "dark-chocolate",
+    "id": "6f3939f7-408c-45d5-8653-61f3336bf305",
     "name": "Chocolat noir Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "Dark chocolate, at plant {RER} - Adapted from WFLDB U",
@@ -1064,7 +1064,7 @@
     "visible": true
   },
   {
-    "id": "chicken-breast-br-max",
+    "id": "8fb5024c-ceec-4201-b069-ea253c537ad6",
     "name": "Blanc de poulet cru (alim. ani. 100%BR) Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
@@ -1086,7 +1086,7 @@
     "visible": true
   },
   {
-    "id": "chicken-breast-fr",
+    "id": "f94df72e-20fd-4cc5-ab64-ce3921649d58",
     "name": "Blanc de poulet cru (alim. ani. 100%FR) FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
@@ -1108,7 +1108,7 @@
     "visible": false
   },
   {
-    "id": "cane-sugar",
+    "id": "9b476f8e-08c2-4406-9198-1fb2e007f000",
     "name": "Sucre de canne Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "brown sugar at plant",
@@ -1129,7 +1129,7 @@
     "visible": true
   },
   {
-    "id": "tea-dried",
+    "id": "97f56acd-962e-4a4b-af42-1e468d2017a0",
     "name": "Thé (feuilles) UE Conv.",
     "categories": ["misc"],
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
@@ -1150,7 +1150,7 @@
     "visible": true
   },
   {
-    "id": "coffee-ground",
+    "id": "77be5f12-5124-4828-861c-9ce4ed3fa661",
     "name": "Café moulu Hors UE Conv.",
     "categories": ["misc"],
     "search": "Coffee, roast and ground, at plant {FR} U",
@@ -1171,7 +1171,7 @@
     "visible": true
   },
   {
-    "id": "black-pepper",
+    "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
     "name": "Poivre noir Hors UE Conv.",
     "categories": ["spice_condiment_additive"],
     "search": "Black pepper, dried, consumption mix",
@@ -1192,7 +1192,7 @@
     "visible": true
   },
   {
-    "id": "milk-powder",
+    "id": "b6776a28-ec84-4bf3-988c-07b3c29f6136",
     "name": "Poudre de lait écrémé FR Conv.",
     "categories": ["dairy_product"],
     "search": "Milk, powder, skimmed, non rehydrated, at plant {FR} ",
@@ -1207,7 +1207,7 @@
     "visible": true
   },
   {
-    "id": "red-wine",
+    "id": "6621c18e-85de-4683-82be-7b236e68bc48",
     "name": "Vin rouge FR Conv.",
     "categories": ["misc"],
     "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
@@ -1228,7 +1228,7 @@
     "visible": true
   },
   {
-    "id": "fresh-shrimps",
+    "id": "74a86477-3ec2-4f7a-b717-c1794d399e84",
     "name": "Crevettes fraîches Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "Fresh shrimps, China production/FR U :",
@@ -1243,7 +1243,7 @@
     "visible": true
   },
   {
-    "id": "large-trout",
+    "id": "dc27661f-3ffa-4f85-b9bb-0028bc7c5fef",
     "name": "Truite d'élevage FR Conv.",
     "categories": ["animal_product"],
     "search": "Large trout, 2-4kg, conventional, at farm gate/FR U :",
@@ -1258,7 +1258,7 @@
     "visible": true
   },
   {
-    "id": "egg-indoor-code2",
+    "id": "cf30d3bc-e99c-418a-b7e3-89a894d410a5",
     "name": "Oeuf FR Conv.",
     "categories": ["animal_product"],
     "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
@@ -1280,7 +1280,7 @@
     "visible": true
   },
   {
-    "id": "egg-indoor-code3",
+    "id": "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69",
     "name": "Oeuf (code 3) FR Conv.",
     "categories": ["animal_product"],
     "search": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
@@ -1302,7 +1302,7 @@
     "visible": true
   },
   {
-    "id": "egg-outdoor-code1",
+    "id": "b2e75be9-65b8-487d-b5b3-f9c2aa047cf7",
     "name": "Oeuf (code 1) FR Conv.",
     "categories": ["animal_product"],
     "search": "Egg, conventional, outdoor system, at farm gate/FR U :",
@@ -1324,7 +1324,7 @@
     "visible": true
   },
   {
-    "id": "egg-organic-code0",
+    "id": "cfd4a437-aa49-49ff-818e-353421f2fc09",
     "name": "Oeuf FR ou UE ou Hors UE Bio",
     "categories": ["animal_product", "organic"],
     "search": "Egg, organic, at farm gate {FR} U",
@@ -1346,11 +1346,11 @@
     "visible": true
   },
   {
-    "id": "wine-grape-organic",
+    "id": "e05934df-fd40-4110-a610-0bd686911f2e",
     "name": "Raisin de cuve FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
-    "default": "wine-grape-organic",
+    "default": "e05934df-fd40-4110-a610-0bd686911f2e",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1367,7 +1367,7 @@
     "visible": true
   },
   {
-    "id": "lamb-meat-without-bone",
+    "id": "d79e0fce-8633-4189-a937-7b8010abafed",
     "name": "Viande d'agneau (désossée) FR Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone lamb",
@@ -1389,7 +1389,7 @@
     "visible": true
   },
   {
-    "id": "lamb-meat-without-bone-organic",
+    "id": "e07f7703-c4f7-479e-a8ac-bb73d3f08c78",
     "name": "Viande d'agneau FR ou UE ou Hors UE Bio (désossée)",
     "categories": ["animal_product"],
     "search": "meat lamb organic",
@@ -1411,11 +1411,11 @@
     "visible": true
   },
   {
-    "id": "pear-organic",
+    "id": "57c2fff4-6ad8-4524-a81a-dacdae11deed",
     "name": "Poire FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Pear, consumption mix, organic 2023 {FR} U",
-    "default": "pear-organic",
+    "default": "57c2fff4-6ad8-4524-a81a-dacdae11deed",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -1432,7 +1432,7 @@
     "visible": true
   },
   {
-    "id": "carrot-fr",
+    "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae",
     "name": "Carotte FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot, conventional, national average, at farm gate {FR} U",
@@ -1453,7 +1453,7 @@
     "visible": true
   },
   {
-    "id": "carrot-eu",
+    "id": "0e223ce2-10cd-4998-bcee-8674f11f374d",
     "name": "Carotte UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1474,7 +1474,7 @@
     "visible": true
   },
   {
-    "id": "carrot-non-ue",
+    "id": "519cc82d-cae4-432e-ad22-586ca9b37a7e",
     "name": "Carotte Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -1495,7 +1495,7 @@
     "visible": true
   },
   {
-    "id": "zucchini-fr",
+    "id": "a8ba3467-3c82-442a-a73a-98769061b7a9",
     "name": "Courgette FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
@@ -1516,7 +1516,7 @@
     "visible": true
   },
   {
-    "id": "zucchini-eu",
+    "id": "5ef69042-45c5-4b86-b494-1dafcccfc222",
     "name": "Courgette UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
@@ -1537,7 +1537,7 @@
     "visible": true
   },
   {
-    "id": "pear-fr",
+    "id": "eab762ca-1edc-4fcc-ba6d-c247bbab0ec8",
     "name": "Poire FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Pear, conventional, at orchard {FR} U",
@@ -1558,7 +1558,7 @@
     "visible": true
   },
   {
-    "id": "pear-eu",
+    "id": "bb00f430-ffda-46a3-ba45-267b0064a43e",
     "name": "Poire UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U {BE}",
@@ -1579,7 +1579,7 @@
     "visible": true
   },
   {
-    "id": "peach-fr",
+    "id": "a0012089-de27-45ae-89d1-863f71a06e72",
     "name": "Pêche FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Peach, production mix, national average, at orchard {FR} U",
@@ -1600,7 +1600,7 @@
     "visible": true
   },
   {
-    "id": "peach-eu",
+    "id": "fa9e9f34-acc9-4974-89c4-003d2428f502",
     "name": "Pêche UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1621,7 +1621,7 @@
     "visible": true
   },
   {
-    "id": "melon-fr",
+    "id": "dc5c2f84-937c-4059-b7f9-352658cd4c57",
     "name": "Melon FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Melon, conventional, national average, at farm gate {FR} U",
@@ -1642,7 +1642,7 @@
     "visible": true
   },
   {
-    "id": "melon-eu",
+    "id": "cfabc9a1-1e99-48fc-bfea-9a2fbf6777a6",
     "name": "Melon UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Melon, conventional, national average, at farm gate {FR} U",
@@ -1663,7 +1663,7 @@
     "visible": true
   },
   {
-    "id": "potato-industry-fr",
+    "id": "f87309f5-bfbf-49a5-ae57-1a0319a7b7d3",
     "name": "Pomme de terre industrie FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
@@ -1684,7 +1684,7 @@
     "visible": true
   },
   {
-    "id": "potato-table-fr",
+    "id": "1bcf7aa8-a26c-4340-b98a-c41d015a99b7",
     "name": "Pomme de terre de table FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
@@ -1705,7 +1705,7 @@
     "visible": true
   },
   {
-    "id": "potato-starch",
+    "id": "b042c68d-6c0d-448d-91e6-7a8a424abd4a",
     "name": "Fécule de pomme de terre Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
@@ -1726,7 +1726,7 @@
     "visible": true
   },
   {
-    "id": "wheat-glo",
+    "id": "93eb5b86-3e1c-4306-a5ad-ae92a9005ca7",
     "name": "Blé tendre Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Wheat grain, feed {GLO}| market for | Cut-off",
@@ -1747,7 +1747,7 @@
     "visible": false
   },
   {
-    "id": "onion-fr",
+    "id": "97cde31b-e46e-472d-836d-9b217c3845df",
     "name": "Oignon FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Onion, national average, at farm FR",
@@ -1768,7 +1768,7 @@
     "visible": true
   },
   {
-    "id": "onion-eu",
+    "id": "50ede891-0244-4ab2-afeb-e5e808978f9b",
     "name": "Oignon UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": " \tOnion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1789,7 +1789,7 @@
     "visible": true
   },
   {
-    "id": "onion-non-ue",
+    "id": "20be5465-ce64-4375-84f5-acc5c486a0dc",
     "name": "Oignon Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
@@ -1810,7 +1810,7 @@
     "visible": true
   },
   {
-    "id": "eggplant-fr",
+    "id": "ed8ac786-b948-475f-ba0a-0b51b9343d1b",
     "name": "Aubergine FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
@@ -1831,7 +1831,7 @@
     "visible": true
   },
   {
-    "id": "eggplant-eu",
+    "id": "da1bb644-0d37-467f-8c7a-53300b58b0cf",
     "name": "Aubergine UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
@@ -1852,7 +1852,7 @@
     "visible": true
   },
   {
-    "id": "french-bean-fr",
+    "id": "37101a07-9e1f-478d-803a-dad5693dcd8c",
     "name": "Haricot vert FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "French bean, conventional, national average, at farm gate {FR} U",
@@ -1873,7 +1873,7 @@
     "visible": true
   },
   {
-    "id": "french-bean-eu",
+    "id": "3934ba18-fd22-47f4-ad2e-31805ad8a5f7",
     "name": "Haricot vert UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "French bean, conventional, national average, at farm gate {FR}",
@@ -1894,7 +1894,7 @@
     "visible": true
   },
   {
-    "id": "french-bean-non-eu",
+    "id": "a38c77d5-be6c-49e5-beb0-d8d88d556392",
     "name": "Haricot vert Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "French bean, conventional, national average, at farm gate {FR}",
@@ -1915,7 +1915,7 @@
     "visible": true
   },
   {
-    "id": "lettuce-fr",
+    "id": "6348bb16-2d8c-4b82-8dbc-8b7dc587c09b",
     "name": "Laitue FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
@@ -1936,7 +1936,7 @@
     "visible": true
   },
   {
-    "id": "lettuce-eu",
+    "id": "2b5cc667-b981-4d27-8b1a-c435fab2043e",
     "name": "Laitue UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1957,7 +1957,7 @@
     "visible": true
   },
   {
-    "id": "lettuce-non-eu",
+    "id": "e1495d32-01f6-462c-9157-b8351574d412",
     "name": "Laitue Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1978,7 +1978,7 @@
     "visible": true
   },
   {
-    "id": "garden-peas-fr",
+    "id": "05c2db96-2658-4842-8c30-53e878b08931",
     "name": "Petit pois FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "annual vining pea conventional",
@@ -1999,7 +1999,7 @@
     "visible": true
   },
   {
-    "id": "garden-peas-eu",
+    "id": "3f4037f4-8c7a-45f7-b376-ec48357db98d",
     "name": "Petit pois UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "annual vining pea conventional",
@@ -2020,7 +2020,7 @@
     "visible": true
   },
   {
-    "id": "cherry-fr",
+    "id": "8ea6e0d1-a163-4059-8a6b-bd443f0168db",
     "name": "Cerise FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cherry, conventional, national average, at orchard {FR} U",
@@ -2041,7 +2041,7 @@
     "visible": true
   },
   {
-    "id": "lemon-eu",
+    "id": "6ece5452-42de-4e0a-8c70-1d305e614cc8",
     "name": "Citron UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2062,7 +2062,7 @@
     "visible": true
   },
   {
-    "id": "plum-fr",
+    "id": "7829330e-e744-4495-bbe3-c372323ba2a5",
     "name": "Prune FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cherry, conventional, national average, at orchard {FR} U",
@@ -2083,7 +2083,7 @@
     "visible": true
   },
   {
-    "id": "squash-fr",
+    "id": "6689fb67-0118-4dff-b74e-0c8de81ef65b",
     "name": "Courge FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
@@ -2104,7 +2104,7 @@
     "visible": true
   },
   {
-    "id": "squash-eu",
+    "id": "14335872-a8d9-4496-b771-cb80c21ad604",
     "name": "Courge UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, conventional, national average, at farm gate {FR} U",
@@ -2125,7 +2125,7 @@
     "visible": true
   },
   {
-    "id": "squash-organic",
+    "id": "bbee841c-6675-49ae-92da-2064877f6d14",
     "name": "Courge FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": " \tZucchini, springtime, under tunnel, organic, at farm gate {FR} U",
@@ -2146,7 +2146,7 @@
     "visible": true
   },
   {
-    "id": "tomato-heated-greenhouse-fr",
+    "id": "a96c560e-7959-4698-b533-23f922bb62b9",
     "name": "Tomate sous serre chauffée Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
@@ -2167,7 +2167,7 @@
     "visible": true
   },
   {
-    "id": "tomato-greenhouse-fr",
+    "id": "16caaefa-40f5-4d29-a3e6-26349846f2c9",
     "name": "Tomate sous serre non chauffée FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Tomato medium size conventional soil based non-heated greenhouse at greenhouse",
@@ -2188,7 +2188,7 @@
     "visible": true
   },
   {
-    "id": "tomato-greenhouse-eu",
+    "id": "85641d75-149d-4863-a1a8-463e71a85fc2",
     "name": "Tomate UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
@@ -2209,7 +2209,7 @@
     "visible": true
   },
   {
-    "id": "apricot-fr",
+    "id": "e3865e84-12e7-4f7a-9fe3-132f67713d82",
     "name": "Abricot FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2230,7 +2230,7 @@
     "visible": true
   },
   {
-    "id": "apricot-eu",
+    "id": "309e636c-bc57-4adc-bd3c-441c2ee8e42e",
     "name": "Abricot UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2251,7 +2251,7 @@
     "visible": true
   },
   {
-    "id": "hazelnut-non-eu",
+    "id": "dfc9b995-2862-4abf-9af9-f3e8e403f325",
     "name": "Noisette avec coque Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
@@ -2272,7 +2272,7 @@
     "visible": true
   },
   {
-    "id": "hazelnut-eu",
+    "id": "dd6c5ca4-9d8a-4b4f-9d5e-fada405f7c39",
     "name": "Noisette avec coque UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": " \tHazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
@@ -2293,7 +2293,7 @@
     "visible": true
   },
   {
-    "id": "hazelnut-unshelled-eu",
+    "id": "3af43703-cba3-4992-837c-a1392b5c6221",
     "name": "Noisette décortiquée UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Hazelnut, unshelled, at plant {IT} U",
@@ -2314,7 +2314,7 @@
     "visible": true
   },
   {
-    "id": "hazelnut-unshelled-non-eu",
+    "id": "4d7a741d-4bd7-4b39-8648-1f9a2f719eac",
     "name": "Noisette décortiquée Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Hazelnut, unshelled, at plant {TR} U",
@@ -2335,7 +2335,7 @@
     "visible": true
   },
   {
-    "id": "artichoke-fr",
+    "id": "51eea2d1-abec-4459-aae0-15f8348d0994",
     "name": "Artichaut FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -2356,11 +2356,11 @@
     "visible": true
   },
   {
-    "id": "artichoke-organic",
+    "id": "d7630e82-2b60-46cc-b50d-451a32e0887e",
     "name": "Artichaut FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, organic 2023, national average, at farm gate {FR}",
-    "default": "artichoke-organic",
+    "default": "d7630e82-2b60-46cc-b50d-451a32e0887e",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2377,7 +2377,7 @@
     "visible": true
   },
   {
-    "id": "cauliflower-organic",
+    "id": "0f747732-1b0d-40ba-89a2-715fecd5454f",
     "name": "Chou-fleur FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -2398,7 +2398,7 @@
     "visible": true
   },
   {
-    "id": "cauliflower-fr",
+    "id": "a28383f4-4345-44fb-ada3-985d66492f97",
     "name": "Chou-fleur FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -2419,7 +2419,7 @@
     "visible": true
   },
   {
-    "id": "leek-fr",
+    "id": "1d31a371-690d-41dd-9615-2e58bac40e62",
     "name": "Poireau FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Leek, national average, at plant {FR} U",
@@ -2440,7 +2440,7 @@
     "visible": true
   },
   {
-    "id": "beetroot-fr",
+    "id": "e3dd5653-be1e-42b1-b11f-e46600d31c3e",
     "name": "Betterave rouge FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot, conventional, national average, at farm gate {FR} U \t",
@@ -2461,7 +2461,7 @@
     "visible": true
   },
   {
-    "id": "turnip-fr",
+    "id": "9a64a770-f1b0-4980-a5e3-9ea34f930b0d",
     "name": "Navet FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot, conventional, national average, at farm gate {FR}",
@@ -2482,7 +2482,7 @@
     "visible": true
   },
   {
-    "id": "turnip-eu",
+    "id": "56368adf-7b6f-4535-8555-06ee5a2404c9",
     "name": "Navet UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2503,7 +2503,7 @@
     "visible": true
   },
   {
-    "id": "turnip-non-eu",
+    "id": "e54fdde1-da74-4cb3-bbc7-5c282be1b02b",
     "name": "Navet Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -2524,7 +2524,7 @@
     "visible": true
   },
   {
-    "id": "chinese-cabbage-fr",
+    "id": "65f1221e-cf4c-413b-b023-8cec646e8ee4",
     "name": "Chou chinois FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -2545,11 +2545,11 @@
     "visible": true
   },
   {
-    "id": "chinese-cabbage-organic",
+    "id": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
     "name": "Chou chinois FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR}",
-    "default": "chinese-cabbage-organic",
+    "default": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -2566,7 +2566,7 @@
     "visible": true
   },
   {
-    "id": "white-cabbage-non-eu",
+    "id": "cd2b7d2f-b4a0-45cf-8006-0a10a99d78a3",
     "name": "Chou blanc Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cabbage white {RoW}| cabbage white production",
@@ -2587,7 +2587,7 @@
     "visible": true
   },
   {
-    "id": "green-cabbage-fr",
+    "id": "ddba1d97-7db9-4ab6-8bc7-43891f69b02c",
     "name": "Chou vert FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -2608,7 +2608,7 @@
     "visible": true
   },
   {
-    "id": "green-cabbage-organic",
+    "id": "aef5e0f4-7f91-4b75-b1e8-04594c64a538",
     "name": "Chou vert FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -2629,7 +2629,7 @@
     "visible": true
   },
   {
-    "id": "red-cabbage-non-eu",
+    "id": "28f7c945-14d0-4d83-b04d-ea09f48a05b2",
     "name": "Chou rouge Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2650,7 +2650,7 @@
     "visible": true
   },
   {
-    "id": "shallot-fr",
+    "id": "f83eb463-aa6e-4b64-96ab-6f478152410d",
     "name": "Echalote FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Onion, national average, at farm {FR} U",
@@ -2671,7 +2671,7 @@
     "visible": true
   },
   {
-    "id": "orange-eu",
+    "id": "af47d8b1-2c50-4f3f-8d10-1941133bd100",
     "name": "Orange UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Orange, fresh grade, at farm {ES}",
@@ -2692,7 +2692,7 @@
     "visible": true
   },
   {
-    "id": "orange-non-eu",
+    "id": "f3c21efc-5e7b-4c24-a7f6-6ffbcb34d5b1",
     "name": "Orange Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Orange, fresh grade {ZA}| orange production, fresh grade",
@@ -2713,7 +2713,7 @@
     "visible": true
   },
   {
-    "id": "olive-eu",
+    "id": "4234febf-7bb7-4713-a399-7fd586849e7b",
     "name": "Olive UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Olive {ES}| olive production | Cut-off, U",
@@ -2734,7 +2734,7 @@
     "visible": true
   },
   {
-    "id": "rapeseed-fr",
+    "id": "6a4df71d-3a0e-4477-8086-010f6a72ffec",
     "name": "Colza FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Rape seed {FR}| production",
@@ -2755,7 +2755,7 @@
     "visible": true
   },
   {
-    "id": "rapeseed-eu",
+    "id": "33e9d781-cdd1-4a9b-a6b6-18ee8855c996",
     "name": "Colza UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Rapeseed, at farm {GLO}",
@@ -2776,7 +2776,7 @@
     "visible": true
   },
   {
-    "id": "rapeseed-non-eu",
+    "id": "b127c3f0-7178-40d3-8bf0-433b2b28f386",
     "name": "Colza Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Rapeseed, at farm {CA}",
@@ -2797,7 +2797,7 @@
     "visible": true
   },
   {
-    "id": "pistachio-non-eu",
+    "id": "4c1bfb2c-9edd-4a15-8a08-b2ea85268771",
     "name": "Pistache avec coque Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Peanut {CN}| peanut production",
@@ -2818,7 +2818,7 @@
     "visible": true
   },
   {
-    "id": "peanut-non-eu",
+    "id": "df428ef5-1745-404e-b7ab-22cdca785ca4",
     "name": "Arachide avec coque Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2839,7 +2839,7 @@
     "visible": true
   },
   {
-    "id": "olive-oil-eu",
+    "id": "f1b219e6-7a77-429b-b372-461e3ad0d3bd",
     "name": "Huile d'olive UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Extra Virgin Olive Oil consumption",
@@ -2860,7 +2860,7 @@
     "visible": true
   },
   {
-    "id": "avocado-non-eu",
+    "id": "3c49c70f-7650-44f8-97f1-7490cbabf595",
     "name": "Avocat Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Avocado {GLO}| production",
@@ -2881,7 +2881,7 @@
     "visible": true
   },
   {
-    "id": "chickpea-fr",
+    "id": "89035410-466b-4c9d-8726-98f0928b664b",
     "name": "Pois chiche FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -2902,7 +2902,7 @@
     "visible": true
   },
   {
-    "id": "sunflower-fr",
+    "id": "f105f36b-f467-4aea-8da7-8bc2e113db20",
     "name": "Tournesol FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Sunflower at farm FR Adapted from WFLDB",
@@ -2923,7 +2923,7 @@
     "visible": true
   },
   {
-    "id": "sunflower-eu",
+    "id": "23cd53c5-4b66-4b7c-892f-fe74054f66e5",
     "name": "Tournesol UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Sunflower, at farm {HU}",
@@ -2944,7 +2944,7 @@
     "visible": true
   },
   {
-    "id": "sunflower-non-eu",
+    "id": "a2d31857-322c-40a7-a0a4-563e74a685d2",
     "name": "Tournesol Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Sunflower, at farm {Glo}",
@@ -2965,7 +2965,7 @@
     "visible": true
   },
   {
-    "id": "kiwi-fr",
+    "id": "f3ed8d7b-21be-4d21-aae0-fee3ae914224",
     "name": "Kiwi FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Kiwi FR, conventional, national average, at orchard {FR}",
@@ -2986,7 +2986,7 @@
     "visible": true
   },
   {
-    "id": "kiwi-eu",
+    "id": "cf4d7abd-8cd6-48ef-bc83-212ad3f672b9",
     "name": "Kiwi UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Kiwi {GLO}| production",
@@ -3007,7 +3007,7 @@
     "visible": true
   },
   {
-    "id": "kiwi-non-eu",
+    "id": "5c5663f5-3075-4814-92ff-1f65c99ad518",
     "name": "Kiwi Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Kiwi {GLO}| production",
@@ -3028,7 +3028,7 @@
     "visible": true
   },
   {
-    "id": "mango-non-eu",
+    "id": "db0e5f44-34b4-4160-b003-77c828d75e60",
     "name": "Mangue Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
@@ -3049,7 +3049,7 @@
     "visible": true
   },
   {
-    "id": "spinach-non-eu",
+    "id": "f46de7f5-4bf0-45f4-b75b-3e00164dd9ca",
     "name": "Epinard Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Spinach {GLO}| production |",
@@ -3070,7 +3070,7 @@
     "visible": true
   },
   {
-    "id": "fennel-fr",
+    "id": "63717c79-e734-4af3-bc3c-d75070f1822d",
     "name": "Fenouil FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Fennel {GLO}| production",
@@ -3091,7 +3091,7 @@
     "visible": true
   },
   {
-    "id": "fennel-eu",
+    "id": "7415767c-42a3-410e-a046-b78b4ed74645",
     "name": "Fenouil UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Fennel {GLO}| production",
@@ -3112,7 +3112,7 @@
     "visible": true
   },
   {
-    "id": "broccoli-eu",
+    "id": "0bb22705-4727-4660-ac02-d7c2a564b20e",
     "name": "Brocoli UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Broccoli {GLO}| production",
@@ -3133,7 +3133,7 @@
     "visible": true
   },
   {
-    "id": "blueberry-non-eu",
+    "id": "b193fd9e-99ab-4d1b-8e81-3b38bab2eacf",
     "name": "Myrtille Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
@@ -3154,7 +3154,7 @@
     "visible": true
   },
   {
-    "id": "raspberry-eu",
+    "id": "50939126-d4a5-4b94-b110-63e8b9e66173",
     "name": "Framboise UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Raspberry, at farm {RS} - Adapted from WFLDB U",
@@ -3175,7 +3175,7 @@
     "visible": true
   },
   {
-    "id": "strawberry-eu",
+    "id": "ce20da3d-0ce4-49e9-8942-6d99ff0221b1",
     "name": "Fraise UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Strawberry for processing, open field, conventional, at farm gate {ES}",
@@ -3196,7 +3196,7 @@
     "visible": true
   },
   {
-    "id": "strawberry-non-eu",
+    "id": "e5bf7d33-6afe-46d6-ac06-f69c5769b10e",
     "name": "Fraise Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Strawberry for processing, open field, conventional, at farm gate {MA}",
@@ -3217,7 +3217,7 @@
     "visible": true
   },
   {
-    "id": "banana-wi",
+    "id": "127b7cfe-0686-4455-8f8d-3c8bc034cbf9",
     "name": "Banane hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Banana, mixed production, West Indies, at farm gate {WI} U",
@@ -3238,7 +3238,7 @@
     "visible": true
   },
   {
-    "id": "banana-non-eu",
+    "id": "f79d155e-3f9e-4882-8dd0-b03f28c1ff76",
     "name": "Banane Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Banana, at farm {GLO}",
@@ -3259,7 +3259,7 @@
     "visible": true
   },
   {
-    "id": "cucumber-fr-inseason",
+    "id": "d47b842a-f591-4ce9-9f1d-2aebcaaa3c37",
     "name": "Concombre de saison FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
@@ -3280,7 +3280,7 @@
     "visible": true
   },
   {
-    "id": "cucumber-fr-offseason",
+    "id": "51cc3b34-c2de-4617-8954-3c35c703a6dc",
     "name": "Concombre hors saison FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
@@ -3301,7 +3301,7 @@
     "visible": true
   },
   {
-    "id": "cucumber-eu",
+    "id": "7b62c28f-7234-4c81-abc0-721c421cbc3d",
     "name": "Concombre hors saison UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
@@ -3322,7 +3322,7 @@
     "visible": true
   },
   {
-    "id": "strawberry-fr-inseason",
+    "id": "800c5ae3-677d-4e12-9dd8-1c11cd69a210",
     "name": "Fraise de saison FR  Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Strawberry, open field, conventional, at farm gate {FR} U",
@@ -3343,7 +3343,7 @@
     "visible": true
   },
   {
-    "id": "strawberry-fr-offseason",
+    "id": "3c20126c-e2ab-403b-8bbc-0fc0d2fd3a1b",
     "name": "Fraise hors saison FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
@@ -3364,7 +3364,7 @@
     "visible": true
   },
   {
-    "id": "celery-fr",
+    "id": "e1dbeb7c-74a7-4248-ab5e-7bdc2b1e5286",
     "name": "Céleri branche FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Celery {GLO}| 675 production",
@@ -3385,7 +3385,7 @@
     "visible": true
   },
   {
-    "id": "celery-eu",
+    "id": "0bf89106-5c02-4b81-8f28-6196ad6f58be",
     "name": "Céleri branche UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Celery {GLO}| 675 production",
@@ -3406,7 +3406,7 @@
     "visible": true
   },
   {
-    "id": "celeriac-fr",
+    "id": "88c0d4ba-93d6-4a41-94e6-ccec49cce325",
     "name": "Céleri-rave FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot, conventional, national average, at farm gate {FR}",
@@ -3427,7 +3427,7 @@
     "visible": true
   },
   {
-    "id": "celeriac-eu",
+    "id": "a4c2f300-9268-45cc-a14f-89c48fcabc14",
     "name": "Céleri-rave UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {NL}| carrot production | Cut-off, U",
@@ -3448,7 +3448,7 @@
     "visible": true
   },
   {
-    "id": "celeriac-non-eu",
+    "id": "1f5dd2a5-8439-4949-b5d8-2bce0ec3c9c7",
     "name": "Céleri-rave Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -3469,7 +3469,7 @@
     "visible": true
   },
   {
-    "id": "walnut-inshell-fr",
+    "id": "6aacd47b-541c-4aab-85fb-bcd2c924effb",
     "name": "Noix avec coque FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
@@ -3490,7 +3490,7 @@
     "visible": true
   },
   {
-    "id": "walnut-husked-fr",
+    "id": "63bc644e-fc29-45a5-a505-6a28c8f266c5",
     "name": "Noix décortiquées FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
@@ -3511,7 +3511,7 @@
     "visible": true
   },
   {
-    "id": "chestnut-husked-fr",
+    "id": "deb218ab-9c48-41ea-a9c7-6acc185cd83c",
     "name": "Châtaigne décortiquée FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
@@ -3532,7 +3532,7 @@
     "visible": true
   },
   {
-    "id": "chestnut-inshell-fr",
+    "id": "ae6a572a-d814-495e-b6a9-5b0acff707d9",
     "name": "Châtaigne avec coque FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
@@ -3553,7 +3553,7 @@
     "visible": true
   },
   {
-    "id": "mandarin-eu",
+    "id": "7967ae83-ba85-4a8f-aed9-e96717fc4284",
     "name": "Mandarine UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Mandarin {ES}| mandarin production",
@@ -3574,7 +3574,7 @@
     "visible": true
   },
   {
-    "id": "mushroom-eu",
+    "id": "5d22559d-c16d-4545-94b9-be2ff51e2879",
     "name": "Champignon frais UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
@@ -3595,7 +3595,7 @@
     "visible": true
   },
   {
-    "id": "brussels-sprout-fr",
+    "id": "f8e12f3a-6308-425c-bede-f8f9dbe405ee",
     "name": "Chou de Bruxelles FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -3616,7 +3616,7 @@
     "visible": true
   },
   {
-    "id": "brussels-sprout-organic",
+    "id": "65296024-b028-46c2-be67-84068893cfe3",
     "name": "Chou de Bruxelles FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -3637,7 +3637,7 @@
     "visible": true
   },
   {
-    "id": "lentils-uncooked-fr",
+    "id": "e3833045-a0a4-48c7-ab73-5a01834b0219",
     "name": "Lentilles FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Lentils, dry, at farm (WFLDB)",
@@ -3658,7 +3658,7 @@
     "visible": true
   },
   {
-    "id": "curly-kale-fr",
+    "id": "40969824-958c-47b7-8e9e-6b3e80bb1176",
     "name": "Chou frisé FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -3679,7 +3679,7 @@
     "visible": true
   },
   {
-    "id": "curly-kale-organic",
+    "id": "577ca86a-b599-4757-9b98-712529a29738",
     "name": "Chou frisé FR ou UE ou Hors UE Bio",
     "categories": ["organic", "vegetable_fresh"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -3700,7 +3700,7 @@
     "visible": true
   },
   {
-    "id": "pumpkin-fr",
+    "id": "ae0e7729-1bff-4c3b-8dc8-62bdb827345d",
     "name": "Citrouille FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
@@ -3721,7 +3721,7 @@
     "visible": true
   },
   {
-    "id": "clementine-non-eu",
+    "id": "299941e9-577c-4618-968c-6901ffa99a8d",
     "name": "Clémentine Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Clementine, export quality, Souss, at orchard {MA}",
@@ -3742,7 +3742,7 @@
     "visible": true
   },
   {
-    "id": "endive-fr",
+    "id": "b26efb2f-8811-4fbb-9d01-3d7f0d8135ef",
     "name": "Endive FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
@@ -3763,7 +3763,7 @@
     "visible": true
   },
   {
-    "id": "endive-eu",
+    "id": "d680c44f-8458-406a-ac2c-13cd83e90a07",
     "name": "Endive UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Iceberg lettuce {GLO}| production |",
@@ -3784,7 +3784,7 @@
     "visible": true
   },
   {
-    "id": "wine-grape-fr",
+    "id": "88d41160-fad0-4f85-b911-704dcfb387e4",
     "name": "Raisin de cuve FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Grape full production integrated variety mix",
@@ -3805,7 +3805,7 @@
     "visible": true
   },
   {
-    "id": "lambs-lettuce-fr",
+    "id": "4f53cbe2-feac-42ea-90cf-62856732103b",
     "name": "Mâche FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
@@ -3826,7 +3826,7 @@
     "visible": true
   },
   {
-    "id": "lambs-lettuce-eu",
+    "id": "91e07b83-8702-42a4-a362-1480a2090805",
     "name": "Mâche UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Iceberg lettuce {GLO}| production",
@@ -3847,7 +3847,7 @@
     "visible": true
   },
   {
-    "id": "sweet-corn-fr",
+    "id": "40fa68b6-381e-4dd6-ba70-8b43cfdee64e",
     "name": "Maïs doux FR Conv.",
     "categories": ["grain_raw"],
     "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
@@ -3868,7 +3868,7 @@
     "visible": true
   },
   {
-    "id": "sweet-corn-organic-fr",
+    "id": "741c0970-2823-430a-b4e4-e61ce08ea95a",
     "name": "Maïs doux FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw"],
     "search": "Grain maize, organic, animal feed, at farm gate {FR}",
@@ -3889,7 +3889,7 @@
     "visible": true
   },
   {
-    "id": "sweet-corn-br",
+    "id": "be9a2aa4-4c8b-4801-abcf-01ba1581f053",
     "name": "Maïs doux Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
@@ -3910,7 +3910,7 @@
     "visible": true
   },
   {
-    "id": "pineapple-non-eu",
+    "id": "c1ca415f-85bb-43f6-bf8f-8bedd6f95e9a",
     "name": "Ananas Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Pineapple glo",
@@ -3931,7 +3931,7 @@
     "visible": true
   },
   {
-    "id": "broad-beans-eu",
+    "id": "ec58c11c-c5fd-4884-8d66-3d434aa1da1d",
     "name": "Fève UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
@@ -3952,7 +3952,7 @@
     "visible": true
   },
   {
-    "id": "broad-beans-fr",
+    "id": "d1d5713d-021f-4438-95c8-0496da3f0f5f",
     "name": "Fève FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
@@ -3973,7 +3973,7 @@
     "visible": true
   },
   {
-    "id": "swiss-chard-eu",
+    "id": "d5eaecd5-21ab-4903-b029-66e7c7c6df9a",
     "name": "Blette UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Spinach GLO production",
@@ -3994,7 +3994,7 @@
     "visible": true
   },
   {
-    "id": "swiss-chard-fr",
+    "id": "2920acc6-000a-4f43-9525-7d619d19f62e",
     "name": "Blette FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Spinach GLO production",
@@ -4015,7 +4015,7 @@
     "visible": true
   },
   {
-    "id": "flageolet-bean-eu",
+    "id": "1ab7c8e7-fb50-4e5d-b153-372f853514cf",
     "name": "Haricot flageolet UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
@@ -4036,7 +4036,7 @@
     "visible": true
   },
   {
-    "id": "flageolet-bean-fr",
+    "id": "b5c5285f-8dfe-4865-bdc9-8d86b6977d14",
     "name": "Haricot flageolet FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
@@ -4057,7 +4057,7 @@
     "visible": true
   },
   {
-    "id": "rice-basmati-non-eu",
+    "id": "cce078cf-3d3e-4153-a0a1-35555b2da639",
     "name": "Riz basmati Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
@@ -4078,7 +4078,7 @@
     "visible": true
   },
   {
-    "id": "soft-wheat-organic",
+    "id": "a98b8776-a96d-48e9-b218-976f5452907a",
     "name": "Blé tendre FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
@@ -4099,7 +4099,7 @@
     "visible": true
   },
   {
-    "id": "soft-wheat-fr",
+    "id": "38788025-a65e-4edf-a92f-aab0b89b0d61",
     "name": "Blé tendre FR Conv.",
     "categories": ["grain_raw"],
     "search": "Soft wheat grain conventional national average animal feed at farm gate production",
@@ -4120,7 +4120,7 @@
     "visible": true
   },
   {
-    "id": "soft-wheat-non-eu",
+    "id": "48c1fc68-01bb-4541-a274-ce1de33db1f9",
     "name": "Blé tendre Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
@@ -4141,7 +4141,7 @@
     "visible": true
   },
   {
-    "id": "durum-wheat-fr",
+    "id": "28013f55-a3ce-4ae6-9a97-133ce7724ece",
     "name": "Blé dur FR Conv.",
     "categories": ["grain_raw"],
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
@@ -4162,7 +4162,7 @@
     "visible": true
   },
   {
-    "id": "durum-wheat-eu",
+    "id": "0d5d65e0-6ffc-4ffa-9966-944bc3ed62c8",
     "name": "Blé dur UE Conv.",
     "categories": ["grain_raw"],
     "search": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
@@ -4183,7 +4183,7 @@
     "visible": true
   },
   {
-    "id": "durum-wheat-non-eu",
+    "id": "2e196834-d2b1-4786-9265-db4440c8517c",
     "name": "Blé dur Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
@@ -4204,11 +4204,11 @@
     "visible": true
   },
   {
-    "id": "apple-organic",
+    "id": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
     "name": "Pomme FR ou UE ou Hors UE Bio",
     "categories": ["organic", "vegetable_fresh"],
     "search": "Table apple, consumption mix, organic 2023 {FR}",
-    "default": "apple-organic",
+    "default": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4225,7 +4225,7 @@
     "visible": true
   },
   {
-    "id": "apple-fr",
+    "id": "d9519b9d-d166-4bb0-8f34-27bb874b104a",
     "name": "Pomme FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Apple, conventional, national average, at orchard {FR} U",
@@ -4246,11 +4246,11 @@
     "visible": true
   },
   {
-    "id": "potato-table-organic",
+    "id": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
     "name": "Pomme de terre de table FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR}",
-    "default": "potato-table-organic",
+    "default": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -4267,11 +4267,11 @@
     "visible": true
   },
   {
-    "id": "potato-industry-organic",
+    "id": "f839b523-b133-430f-9533-419b862e69e9",
     "name": "Pomme de terre industrie FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Ware potato, organic 2023, for industrial use, at farm gate {FR}",
-    "default": "potato-industry-organic",
+    "default": "f839b523-b133-430f-9533-419b862e69e9",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6375,
@@ -4288,11 +4288,11 @@
     "visible": true
   },
   {
-    "id": "kiwi-organic",
+    "id": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
     "name": "Kiwi FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Kiwi, consumption mix, organic 2023 {FR}",
-    "default": "kiwi-organic",
+    "default": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4309,11 +4309,11 @@
     "visible": true
   },
   {
-    "id": "red-cabbage-organic",
+    "id": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
     "name": "Chou rouge FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Red Cabbage, consumption mix, organic 2023 {FR}",
-    "default": "red-cabbage-organic",
+    "default": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -4330,11 +4330,11 @@
     "visible": true
   },
   {
-    "id": "sugar-beet-organic",
+    "id": "83ef3fba-9359-4f51-9f10-234c0e940b88",
     "name": "Betterave sucrière FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_processed", "organic"],
     "search": "Sugar beet, organic 2023 {FR}| sugar beet production",
-    "default": "sugar-beet-organic",
+    "default": "83ef3fba-9359-4f51-9f10-234c0e940b88",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -4351,11 +4351,11 @@
     "visible": true
   },
   {
-    "id": "papaya-organic",
+    "id": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
     "name": "Papaye FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Papaya, consumption mix, organic 2023 {FR}",
-    "default": "papaya-organic",
+    "default": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.447,
@@ -4372,11 +4372,11 @@
     "visible": true
   },
   {
-    "id": "tomato-organic",
+    "id": "b43ae38e-a9f6-4272-b258-14faea6ec795",
     "name": "Tomate FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Fresh tomato, consumption mix, organic 2023 {FR}",
-    "default": "tomato-organic",
+    "default": "b43ae38e-a9f6-4272-b258-14faea6ec795",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4393,11 +4393,11 @@
     "visible": true
   },
   {
-    "id": "pineapple-organic",
+    "id": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
     "name": "Ananas FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Pineapple, organic 2023 {GLO}| production",
-    "default": "pineapple-organic",
+    "default": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -4414,11 +4414,11 @@
     "visible": true
   },
   {
-    "id": "garden-peas-organic",
+    "id": "74a016ae-d486-4766-adfd-e44697b7be2f",
     "name": "Petit pois FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Garden peas, consumption mix, organic 2023 {FR} U",
-    "default": "garden-peas-organic",
+    "default": "74a016ae-d486-4766-adfd-e44697b7be2f",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -4435,11 +4435,11 @@
     "visible": true
   },
   {
-    "id": "almond-inshell-organic",
+    "id": "b97e29ab-81b0-478e-b73b-4113aaf68470",
     "name": "Amandes en coque FR ou UE ou Hors UE Bio ",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Almonds, in shell, at farm, organic 2023 {CN}",
-    "default": "almond-inshell-organic",
+    "default": "b97e29ab-81b0-478e-b73b-4113aaf68470",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 1.0,
@@ -4456,11 +4456,11 @@
     "visible": true
   },
   {
-    "id": "lettuce-organic",
+    "id": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
     "name": "Laitue FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
-    "default": "lettuce-organic",
+    "default": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -4477,11 +4477,11 @@
     "visible": true
   },
   {
-    "id": "mango-organic",
+    "id": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
     "name": "Mangue FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
-    "default": "mango-organic",
+    "default": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4498,11 +4498,11 @@
     "visible": true
   },
   {
-    "id": "lychee-organic",
+    "id": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
     "name": "Litchi Hors FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
-    "default": "lychee-organic",
+    "default": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4519,7 +4519,7 @@
     "visible": true
   },
   {
-    "id": "lychee-non-eu",
+    "id": "e9764c3c-554f-4f1e-9ba1-8debc869e6ba",
     "name": "Litchi Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
@@ -4540,7 +4540,7 @@
     "visible": true
   },
   {
-    "id": "oats-glo",
+    "id": "94c4be9e-452d-4870-b1a2-5d2404a0490b",
     "name": "Avoine Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Oats, at farm {GLO} - Adapted from WFLDB U",
@@ -4561,7 +4561,7 @@
     "visible": false
   },
   {
-    "id": "oats-organic",
+    "id": "1af0933a-0139-480c-832d-053513d0ccba",
     "name": "Avoine FR ou UE ou Hors UE bio",
     "categories": ["grain_raw"],
     "search": "Spring oats, organic, national average, at feed plant {FR}",
@@ -4582,7 +4582,7 @@
     "visible": false
   },
   {
-    "id": "barley",
+    "id": "ab087863-f311-4066-8e93-4d7f6e0db2b2",
     "name": "Orge FR Conv.",
     "categories": ["grain_raw"],
     "search": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR}",
@@ -4603,7 +4603,7 @@
     "visible": false
   },
   {
-    "id": "barley-organic",
+    "id": "3c16dc23-021d-45ef-8805-c77b043b041a",
     "name": "Orge FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw"],
     "search": "Barley, organic, animal feed, at farm gate {FR} U",
@@ -4624,11 +4624,11 @@
     "visible": false
   },
   {
-    "id": "banana-organic",
+    "id": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
     "name": "Banane FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Banana, consumption mix, organic 2023 {FR} U",
-    "default": "banana-organic",
+    "default": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4645,11 +4645,11 @@
     "visible": true
   },
   {
-    "id": "orange-organic",
+    "id": "1716c0e6-7a04-4649-a71f-08a495eb094e",
     "name": "Orange FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Orange, fresh grade, at farm, organic 2023 {ES}",
-    "default": "orange-organic",
+    "default": "1716c0e6-7a04-4649-a71f-08a495eb094e",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -4666,11 +4666,11 @@
     "visible": true
   },
   {
-    "id": "lemon-organic",
+    "id": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
     "name": "Citron FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Lemon, organic 2023 {ES}| lemon production",
-    "default": "lemon-organic",
+    "default": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.575,
@@ -4687,11 +4687,11 @@
     "visible": true
   },
   {
-    "id": "celery-organic",
+    "id": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
     "name": "Céleri branche FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Celery, organic 2023 {GLO}| 675 production",
-    "default": "celery-organic",
+    "default": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4708,11 +4708,11 @@
     "visible": true
   },
   {
-    "id": "olive-organic",
+    "id": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
     "name": "Olive FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Olive, organic 2023 {ES}| olive production",
-    "default": "olive-organic",
+    "default": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.447,
@@ -4729,11 +4729,11 @@
     "visible": true
   },
   {
-    "id": "peanut-organic",
+    "id": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
     "name": "Arachide avec coque FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw"],
     "search": "Peanut, organic 2023 {RoW}| peanut production",
-    "default": "peanut-organic",
+    "default": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -4750,11 +4750,11 @@
     "visible": true
   },
   {
-    "id": "raspberry-organic",
+    "id": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
     "name": "Framboise FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh"],
     "search": "Raspberry, at farm, organic 2023 {RS}",
-    "default": "raspberry-organic",
+    "default": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -4771,11 +4771,11 @@
     "visible": true
   },
   {
-    "id": "lambs-lettuce-organic",
+    "id": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
     "name": "Mâche FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
-    "default": "lambs-lettuce-organic",
+    "default": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -4792,11 +4792,11 @@
     "visible": true
   },
   {
-    "id": "endive-organic",
+    "id": "6842d570-6b53-49f3-ba9c-984b55e40171",
     "name": "Endive FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
-    "default": "endive-organic",
+    "default": "6842d570-6b53-49f3-ba9c-984b55e40171",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -4813,11 +4813,11 @@
     "visible": true
   },
   {
-    "id": "durum-wheat-organic",
+    "id": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
     "name": "Blé dur FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Durum wheat grain, organic 2023, national average, at farm gate {FR}",
-    "default": "durum-wheat-organic",
+    "default": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -4834,11 +4834,11 @@
     "visible": true
   },
   {
-    "id": "onion-organic",
+    "id": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
     "name": "Oignon FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Onion, national average, at farm, organic 2023 {FR} U",
-    "default": "onion-organic",
+    "default": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -4855,11 +4855,11 @@
     "visible": true
   },
   {
-    "id": "rice-basmati-organic",
+    "id": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
     "name": "Riz basmati FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati",
-    "default": "rice-basmati-organic",
+    "default": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 2.259,
     "density": 0.24,
@@ -4876,7 +4876,7 @@
     "visible": true
   },
   {
-    "id": "triticale-organic",
+    "id": "585c8bb1-1aaa-4c33-a5c1-84c886bb7ec3",
     "name": "Triricale FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Triticale, organic, animal feed, at farm gate {FR} U",
@@ -4897,7 +4897,7 @@
     "visible": false
   },
   {
-    "id": "bean-organic",
+    "id": "8cf0b0ce-7ae7-4123-8fee-823b4c190418",
     "name": "Pois FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Pea, organic, animal feed, at farm gate {FR} U",
@@ -4918,7 +4918,7 @@
     "visible": false
   },
   {
-    "id": "alfalfa-organic",
+    "id": "fd187fa6-9cbc-4839-b13f-365c5371cee6",
     "name": "Luzerne FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw", "organic"],
     "search": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
@@ -4939,11 +4939,11 @@
     "visible": false
   },
   {
-    "id": "radish-organic",
+    "id": "076b3d53-fc81-454b-9c90-e19767de8b0b",
     "name": "Radis FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse",
-    "default": "radish-organic",
+    "default": "076b3d53-fc81-454b-9c90-e19767de8b0b",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.6375,
@@ -4960,11 +4960,11 @@
     "visible": true
   },
   {
-    "id": "lentils-uncooked-organic",
+    "id": "02b2ed63-6246-446c-8cf3-224dbe698821",
     "name": "Lentilles Hors FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Lentil, organic 2023 {RoW}",
-    "default": "lentils-uncooked-organic",
+    "default": "02b2ed63-6246-446c-8cf3-224dbe698821",
     "default_origin": "France",
     "raw_to_cooked_ratio": 2.33,
     "density": 0.24,
@@ -4981,11 +4981,11 @@
     "visible": true
   },
   {
-    "id": "apricot-organic",
+    "id": "36158ea6-066c-4fd6-9e28-6477c7297b37",
     "name": "Abricot FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Apricot, organic 2023 {FR}| apricot production",
-    "default": "apricot-organic",
+    "default": "36158ea6-066c-4fd6-9e28-6477c7297b37",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -5002,11 +5002,11 @@
     "visible": true
   },
   {
-    "id": "leek-organic",
+    "id": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
     "name": "Poireau FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Leek, national average, at plant, organic 2023 {FR}",
-    "default": "leek-organic",
+    "default": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -5023,11 +5023,11 @@
     "visible": true
   },
   {
-    "id": "cherry-organic",
+    "id": "b4e8febc-6588-4599-8c58-c019144597c6",
     "name": "Cerise FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
-    "default": "cherry-organic",
+    "default": "b4e8febc-6588-4599-8c58-c019144597c6",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -5044,11 +5044,11 @@
     "visible": true
   },
   {
-    "id": "plum-organic",
+    "id": "10af6fa1-e374-4748-b8a8-f735d2813489",
     "name": "Prune FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
-    "default": "plum-organic",
+    "default": "10af6fa1-e374-4748-b8a8-f735d2813489",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -5065,11 +5065,11 @@
     "visible": true
   },
   {
-    "id": "shallot-organic",
+    "id": "c224d640-c347-41c4-9754-a4cea77de16f",
     "name": "Echalote FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Onion, national average, at farm, organic 2023 {FR}",
-    "default": "shallot-organic",
+    "default": "c224d640-c347-41c4-9754-a4cea77de16f",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.6195,
@@ -5086,11 +5086,11 @@
     "visible": true
   },
   {
-    "id": "blueberry-organic",
+    "id": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
     "name": "Myrtille FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Blueberry, at farm, organic 2023 {CA}",
-    "default": "blueberry-organic",
+    "default": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
     "default_origin": "OutOfEuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -5107,11 +5107,11 @@
     "visible": true
   },
   {
-    "id": "spinach-organic",
+    "id": "49ad2a72-d196-4379-8f23-212b27d44917",
     "name": "Epinard FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Spinach, organic 2023 {GLO}",
-    "default": "spinach-organic",
+    "default": "49ad2a72-d196-4379-8f23-212b27d44917",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -5128,11 +5128,11 @@
     "visible": true
   },
   {
-    "id": "watermelon-organic",
+    "id": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
     "name": "Pastèque FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Melon, organic 2023, national average, at farm gate {FR}",
-    "default": "watermelon-organic",
+    "default": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.447,
@@ -5149,7 +5149,7 @@
     "visible": true
   },
   {
-    "id": "silage-maize-fr",
+    "id": "dc872330-8d35-4b02-bf45-4481b89a093e",
     "name": "Ensilage maïs FR Conv.",
     "categories": ["grain_raw"],
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
@@ -5170,7 +5170,7 @@
     "visible": true
   },
   {
-    "id": "silage-maize-organic",
+    "id": "305cc005-eb5c-4e94-b5cf-9aa21c619577",
     "name": "Ensilage maïs FR ou UE ou Hors UE Bio",
     "categories": ["grain_raw"],
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
@@ -5191,7 +5191,7 @@
     "visible": true
   },
   {
-    "id": "oilseed-feed",
+    "id": "4b3c39a6-496c-416c-a42a-8d4c2fc788da",
     "name": "Soja FR Conv.",
     "categories": ["grain_raw"],
     "search": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB",
@@ -5212,7 +5212,7 @@
     "visible": false
   },
   {
-    "id": "grazed-grass-temporary",
+    "id": "ba97e4b9-1fac-4f92-bed1-9889e3ae631d",
     "name": "Herbe de prairie temporaire FR Conv.",
     "categories": [],
     "search": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
@@ -5233,7 +5233,7 @@
     "visible": false
   },
   {
-    "id": "grazed-grass-permanent",
+    "id": "c88d387e-8435-4741-b742-0094dbdcee45",
     "name": "Herbe de prairie permanente FR Conv.",
     "categories": [],
     "search": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
@@ -5254,7 +5254,7 @@
     "visible": false
   },
   {
-    "id": "cherry-tr",
+    "id": "4e13ea5f-4ad1-4009-ae91-842cb18bd4dd",
     "name": "Cerise Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cherry, at farm (WFLDB)/TR",
@@ -5275,7 +5275,7 @@
     "visible": true
   },
   {
-    "id": "refined-palm-oil",
+    "id": "3612e931-f0e0-4263-a079-63650a941fbd",
     "name": "Huile de palme (raffinée) UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Palm oil, refined, processed in EU, at plant {RER} U",
@@ -5296,7 +5296,7 @@
     "visible": true
   },
   {
-    "id": "refined-linseed-oil",
+    "id": "61ede109-0eed-4aa3-93bb-aacf132b6bdd",
     "name": "Huile de lin (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Linseed oil, refined, at oil mill { FR} U",
@@ -5317,7 +5317,7 @@
     "visible": true
   },
   {
-    "id": "refined-grapeseed-oil",
+    "id": "1e3d325d-b369-4f03-b3a3-f4261924fca4",
     "name": "Huile de pépin de raisin (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Grapeseed oil, refined at plant {FR} U",
@@ -5338,7 +5338,7 @@
     "visible": true
   },
   {
-    "id": "refined-soybean-oil",
+    "id": "188a3d66-f214-4821-9bac-7e8fdc715721",
     "name": "Huile de soja (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Soybean oil, refined, at plant  {FR} U",
@@ -5359,7 +5359,7 @@
     "visible": true
   },
   {
-    "id": "virgin-hazelnut-oil",
+    "id": "00603559-120a-4aa4-b12b-2eda1705e064",
     "name": "Huile de noisette (vierge) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Hazelnut oil, crude, at plant {FR} U",
@@ -5380,7 +5380,7 @@
     "visible": true
   },
   {
-    "id": "refined-peanut-oil",
+    "id": "c704400c-9108-49a8-a79a-b830eccb6b5e",
     "name": "Huile d'arachide (raffinée) Hors UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Peanut oil, at oil mill {SN} U",
@@ -5401,7 +5401,7 @@
     "visible": true
   },
   {
-    "id": "refined-sunflower-oil",
+    "id": "583d00ab-0340-444b-9581-71175f0a937b",
     "name": "Huile de tournesol (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Sunflower oil, refined, low dehulling at plant {FR} U",
@@ -5422,7 +5422,7 @@
     "visible": true
   },
   {
-    "id": "refined-rapeseed-oil",
+    "id": "c3697176-e682-43c3-b16a-3992ff8f1404",
     "name": "Huile de colza (raffinée) FR Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Rapeseed oil, refined, at oil mill {FR} U",
@@ -5443,7 +5443,7 @@
     "visible": true
   },
   {
-    "id": "extra-virgin-olive-oil",
+    "id": "fbe48b5b-62f2-4ccb-8aa6-66d08a4c7fac",
     "name": "Huile d'olive (extra vierge) UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Extra Virgin Olive Oil, at plant {ES} U",
@@ -5464,7 +5464,7 @@
     "visible": true
   },
   {
-    "id": "fresh-cream-cheese",
+    "id": "2cced940-3abf-439d-b2f1-e6241ffb31fd",
     "name": "Crème fraiche FR Conv.",
     "categories": ["dairy_product"],
     "search": "fresh cream 8% at plant",
@@ -5480,7 +5480,7 @@
     "visible": true
   },
   {
-    "id": "egg-without-shell-fr",
+    "id": "8b6fda86-052a-49eb-90fb-53e307544150",
     "name": "Oeuf cru décoquillé FR Conv.",
     "categories": ["animal_product"],
     "search": "egg without shell",
@@ -5496,7 +5496,7 @@
     "visible": true
   },
   {
-    "id": "egg-yolk-powder-fr",
+    "id": "f6e84334-a8bb-4f07-915d-ef51e8dcf800",
     "name": "poudre de jaune d'oeuf FR Conv.",
     "categories": ["animal_product"],
     "search": "yolk powder at plant",
@@ -5512,7 +5512,7 @@
     "visible": true
   },
   {
-    "id": "egg-white-powder-fr",
+    "id": "7fe451fd-77c8-46f3-b7ae-c050a08b7be8",
     "name": "poudre de blanc d'oeuf FR Conv.",
     "categories": ["animal_product"],
     "search": "egg white powder at plant",
@@ -5528,7 +5528,7 @@
     "visible": true
   },
   {
-    "id": "emmental-grated-fr",
+    "id": "bd6e16d9-588d-48df-9eab-e0c4c64f5c53",
     "name": "Emmental rapé FR Conv.",
     "categories": ["dairy_product"],
     "search": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
@@ -5544,7 +5544,7 @@
     "visible": true
   },
   {
-    "id": "cocoa-powder-non-ue",
+    "id": "3d7f808b-77c5-4207-968d-feea6dfd9496",
     "name": "Poudre de cacao Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "cocoa powder at plant FR",
@@ -5565,7 +5565,7 @@
     "visible": true
   },
   {
-    "id": "salt",
+    "id": "77defb24-cec3-4de9-8388-63229d1052fb",
     "name": "Sel",
     "categories": ["spice_condiment_additive"],
     "search": "Salt {FR} U",
@@ -5586,7 +5586,7 @@
     "visible": true
   },
   {
-    "id": "bacon-fr",
+    "id": "f3537dee-a80a-4b6f-9942-16b3f9e21101",
     "name": "Poitrine de porc FR Conv.",
     "categories": ["animal_product"],
     "search": "bacon at plant",
@@ -5602,7 +5602,7 @@
     "visible": true
   },
   {
-    "id": "glucose-syrup",
+    "id": "06dffb5c-07ad-48de-9630-632f4c84e02d",
     "name": "Sirop de glucose FR ou UE ou Hors UE Conv.",
     "categories": ["spice_condiment_additive"],
     "search": "glucose syrup",
@@ -5623,7 +5623,7 @@
     "visible": true
   },
   {
-    "id": "apple-compote-fr",
+    "id": "f51ef7f1-9d4c-4c4a-a4a6-c011c520f419",
     "name": "Compote de pomme FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "compote apple at plant",
@@ -5644,7 +5644,7 @@
     "visible": true
   },
   {
-    "id": "goat-milk",
+    "id": "a9eed813-3242-4701-8d76-f4fb2f222121",
     "name": "Lait de chèvre FR Conv.",
     "categories": ["dairy_product"],
     "search": "Goat milk, consumption mix {FR} U",
@@ -5660,7 +5660,7 @@
     "visible": true
   },
   {
-    "id": "breakfast-cereals",
+    "id": "1508af02-c164-4189-9fac-0057566e0950",
     "name": "Mélange de céréales FR Conv.",
     "categories": ["grain_processed"],
     "search": "cereals rich at plant",
@@ -5681,7 +5681,7 @@
     "visible": true
   },
   {
-    "id": "pasta",
+    "id": "06e7ba46-85ba-4475-82d2-a59f847e801d",
     "name": "Pâtes FR Conv.",
     "categories": ["grain_processed"],
     "search": "pasta dried plant wheat FR",
@@ -5702,7 +5702,7 @@
     "visible": true
   },
   {
-    "id": "garlic",
+    "id": "06f219a1-ffb3-44ae-ba23-6f9ad7baff39",
     "name": "Ail FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "garlic consumption mix",
@@ -5723,7 +5723,7 @@
     "visible": true
   },
   {
-    "id": "vegetable-mix",
+    "id": "5ecb6c61-0a0f-4c00-a8e0-713c97929c7c",
     "name": "Mélange de légumes",
     "categories": ["vegetable_processed"],
     "search": "Diced mixed vegetables canned at plant",
@@ -5744,7 +5744,7 @@
     "visible": true
   },
   {
-    "id": "bolognese",
+    "id": "ad4e4cff-9333-4f5a-bfc5-028cfe888072",
     "name": "Sauce tomate à la viande FR Conv.",
     "categories": ["animal_product"],
     "search": "tomato sauce bolognese at plant",
@@ -5760,7 +5760,7 @@
     "visible": true
   },
   {
-    "id": "honey",
+    "id": "87accb8f-37c1-4364-873a-5e8e67fd5811",
     "name": "Miel FR Conv.",
     "categories": ["misc"],
     "search": "honey at plant",
@@ -5781,7 +5781,7 @@
     "visible": true
   },
   {
-    "id": "turkey",
+    "id": "b5395f5f-e011-4c65-9a6c-85dd77d10d2c",
     "name": "Viande de dinde FR Conv.",
     "categories": ["animal_product"],
     "search": "turkey conventional at farm gate",
@@ -5797,7 +5797,7 @@
     "visible": true
   },
   {
-    "id": "pork-liver",
+    "id": "dc2e130a-06c1-4859-a9ca-17456de99812",
     "name": "Foie de porc cru FR Conv.",
     "categories": ["animal_product"],
     "search": "liver pork raw at distribution",
@@ -5813,7 +5813,7 @@
     "visible": true
   },
   {
-    "id": "whey",
+    "id": "33d2f3c2-ffa2-4b96-811e-50c1c8670e26",
     "name": "Poudre de lactosérum FR Conv.",
     "categories": ["dairy_product"],
     "search": "Whey, at plant {FR} U",
@@ -5829,7 +5829,7 @@
     "visible": true
   },
   {
-    "id": "strawberry-coulis",
+    "id": "dd6ebd55-dc52-4e9e-ac79-aa3ed4b3295d",
     "name": "Purée de fraise FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "strawberry coulis at plant",
@@ -5850,7 +5850,7 @@
     "visible": true
   },
   {
-    "id": "yogurt",
+    "id": "0e77146c-be67-4f16-b072-f4fdb43b4acf",
     "name": "Fromage blanc FR Conv.",
     "categories": ["dairy_product"],
     "search": "yogurt milk cow at plant",
@@ -5866,7 +5866,7 @@
     "visible": true
   },
   {
-    "id": "goat-cheese",
+    "id": "d93c2c58-8073-47ef-99da-999ad7cba846",
     "name": "Fromage de chèvre FR Conv.",
     "categories": ["dairy_product"],
     "search": "Cheese, from goat's milk, consumption mix {FR} U",
@@ -5882,7 +5882,7 @@
     "visible": true
   },
   {
-    "id": "cocoa-butter",
+    "id": "0ea5f5a0-51d9-41da-9ac4-cb60f3ddb86c",
     "name": "Beurre de cacao Hors UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "cocoa butter at plant FR",
@@ -5903,7 +5903,7 @@
     "visible": true
   },
   {
-    "id": "soy-protein",
+    "id": "f8fb04c1-c207-4a3c-993f-e5a1b0204dfa",
     "name": "Protéines de soja Hors UE Conv.",
     "categories": ["grain_processed"],
     "search": "soy protein dehydrated at plant",
@@ -5924,7 +5924,7 @@
     "visible": true
   },
   {
-    "id": "vinegar-alcohol",
+    "id": "24222e45-52dc-4c18-ab9f-0ee39d8a46b4",
     "name": "Vinaigre d'alcool FR Conv.",
     "categories": ["misc"],
     "search": "vinegar alcohol",
@@ -5945,7 +5945,7 @@
     "visible": true
   },
   {
-    "id": "veal-meat",
+    "id": "221cd239-f1ae-4a2f-9fdc-dc73df5f95ab",
     "name": "Viande de veau FR Conv.",
     "categories": ["animal_product"],
     "search": "veal without bone",
@@ -5961,7 +5961,7 @@
     "visible": true
   },
   {
-    "id": "french-fries",
+    "id": "7c742241-9678-4a46-972b-8be1baf7f5a7",
     "name": "Frites de pomme de terre congelées FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "french fries frozen at processing",
@@ -5982,7 +5982,7 @@
     "visible": true
   },
   {
-    "id": "tomato-sauce",
+    "id": "bdae67c5-ac20-417b-9094-8755ae1ab42b",
     "name": "Sauce tomate FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "tomato sauce vegetables prepacked at plant",
@@ -6003,7 +6003,7 @@
     "visible": true
   },
   {
-    "id": "mustard",
+    "id": "d87bdd32-d698-4044-ae20-15b96c65f680",
     "name": "Moutarde FR Conv.",
     "categories": ["spice_condiment_additive"],
     "search": "Mustard, at plant {FR} U",
@@ -6024,7 +6024,7 @@
     "visible": true
   },
   {
-    "id": "rice-flour",
+    "id": "02878fcc-4c20-4d31-874d-169535443c6a",
     "name": "Farine de riz Hors UE Conv.",
     "categories": ["grain_processed"],
     "search": "rice flour FR at mill",
@@ -6045,7 +6045,7 @@
     "visible": true
   },
   {
-    "id": "brie-cheese",
+    "id": "d56d21c0-0705-45e3-830d-504d63d581e0",
     "name": "Brie FR Conv.",
     "categories": ["dairy_product"],
     "search": "Brie cheese, from cow's milk, consumption mix {FR} U",
@@ -6061,7 +6061,7 @@
     "visible": true
   },
   {
-    "id": "turmeric",
+    "id": "cfdb11f0-9ae1-47ab-a26c-20ff8444b862",
     "name": "Curcuma Hors UE Conv.",
     "categories": ["spice_condiment_additive"],
     "search": "turmeric consumption mix",
@@ -6082,7 +6082,7 @@
     "visible": true
   },
   {
-    "id": "candied-fruits",
+    "id": "b1350dc9-f4da-4827-b984-f36b6f192c5a",
     "name": "Fruits confits FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "candied fruits at plant",
@@ -6103,7 +6103,7 @@
     "visible": true
   },
   {
-    "id": "reblochon",
+    "id": "d85576e1-ba3a-4ec7-80d5-c106f780498a",
     "name": "Reblochon FR Conv.",
     "categories": ["dairy_product"],
     "search": "Reblochon cheese, from cow's milk, at plant {FR} U",
@@ -6119,7 +6119,7 @@
     "visible": true
   },
   {
-    "id": "fruit-puree",
+    "id": "57490ff0-61a0-44cd-bd4f-3a3be7af25f2",
     "name": "Purée de fruits FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "fruits puree at plant",
@@ -6140,7 +6140,7 @@
     "visible": true
   },
   {
-    "id": "apple-juice",
+    "id": "40a4432b-2b12-45f3-aed2-a8c4e165e15f",
     "name": "Jus de pomme FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "apple juice concentrate",
@@ -6161,7 +6161,7 @@
     "visible": true
   },
   {
-    "id": "orange-juice",
+    "id": "4649b3db-d927-4ea5-baa0-d74fa3c768d2",
     "name": "Jus d'orange Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "orange nectar at plant",
@@ -6182,7 +6182,7 @@
     "visible": true
   },
   {
-    "id": "soy-milk",
+    "id": "afdc7ea9-6da0-4bab-9821-81acc46e23af",
     "name": "Lait de soja Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "Soy drink, plain, at plant {FR} U",
@@ -6203,7 +6203,7 @@
     "visible": true
   },
   {
-    "id": "lemon-juice",
+    "id": "fd79d142-7e34-45a4-a0d1-59922b4c8d09",
     "name": "Jus de citron UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "lemon juice pure plant",
@@ -6224,7 +6224,7 @@
     "visible": true
   },
   {
-    "id": "tomato-juice",
+    "id": "65e6f518-e5fc-4fda-9af9-287d26e2bbe1",
     "name": "Jus de tomate UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "tomato juice plant",
@@ -6245,7 +6245,7 @@
     "visible": true
   },
   {
-    "id": "balsamic-vinegar",
+    "id": "c2e4259b-962f-49ea-b7f1-606f81b59207",
     "name": "Vinaigre balsamique FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "balsamic packaging",
@@ -6266,7 +6266,7 @@
     "visible": true
   },
   {
-    "id": "apricot-non-eu",
+    "id": "c455b3b8-406b-407a-a525-b2c832522e49",
     "name": "Abricot Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "apricot glo",
@@ -6287,7 +6287,7 @@
     "visible": true
   },
   {
-    "id": "lamb-meat-without-bone-eu",
+    "id": "d48015d2-a512-4bac-ba93-82a7ae001b81",
     "name": "Viande d'agneau (désossée) UE Conv.",
     "categories": ["animal_product"],
     "search": "lamb meat slaughterhouse IE",
@@ -6303,7 +6303,7 @@
     "visible": true
   },
   {
-    "id": "lamb-meat-without-bone-non-eu",
+    "id": "45e3cd64-1647-4841-bacb-795e2aae4f02",
     "name": "Viande d'agneau (désossée) Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "lamb meat slaughterhouse NZ",
@@ -6319,7 +6319,7 @@
     "visible": true
   },
   {
-    "id": "almond-inshell-fr",
+    "id": "3a0c058b-70db-4fce-9984-e68e2f5a4760",
     "name": "Amandes en coque FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Almond mix",
@@ -6340,7 +6340,7 @@
     "visible": true
   },
   {
-    "id": "almond-inshell-ue",
+    "id": "0da203dd-5ce5-42cc-be90-95cc4c49b2ac",
     "name": "Amandes en coque UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Almond mix",
@@ -6361,7 +6361,7 @@
     "visible": true
   },
   {
-    "id": "almond-inshell-non-ue",
+    "id": "99dcb716-b0ab-4ca5-b88a-4de43dbfb1af",
     "name": "Amandes en coque Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Almond mix",
@@ -6382,7 +6382,7 @@
     "visible": true
   },
   {
-    "id": "artichoke-eu",
+    "id": "dd7fe1c9-9d56-4790-b735-3de608a20849",
     "name": "Artichaut UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -6403,7 +6403,7 @@
     "visible": true
   },
   {
-    "id": "artichoke-non-eu",
+    "id": "92200507-627e-4ae5-a5f8-cf62ef619b02",
     "name": "Artichaut Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -6424,7 +6424,7 @@
     "visible": true
   },
   {
-    "id": "avocado-organic",
+    "id": "d54c7a38-2577-4e8f-93c6-8f39b81226b5",
     "name": "Avocat FR ou UE ou Hors UE BIO",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Avocado, consumption mix {FR} U",
@@ -6445,7 +6445,7 @@
     "visible": true
   },
   {
-    "id": "avocado-eu",
+    "id": "fa8cce35-0e6b-4a2f-bdc1-80c05e497616",
     "name": "Avocat UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Avocado {GLO}| production",
@@ -6466,7 +6466,7 @@
     "visible": true
   },
   {
-    "id": "oats-ue",
+    "id": "6c3815da-dec2-4cf2-9be6-9d99b4e9948d",
     "name": "Avoine UE Conv.",
     "categories": ["grain_raw"],
     "search": "Oats, at farm {GLO} - Adapted from WFLDB U",
@@ -6487,11 +6487,11 @@
     "visible": false
   },
   {
-    "id": "chard-organic",
+    "id": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
     "name": "Blette FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Spinach, organic 2023 {GLO}",
-    "default": "chard-organic",
+    "default": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.118,
@@ -6508,7 +6508,7 @@
     "visible": true
   },
   {
-    "id": "swiss-chard-non-eu",
+    "id": "4974a272-0080-4a52-a46e-ae222dcf8dff",
     "name": "Blette Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Spinach GLO production",
@@ -6529,11 +6529,11 @@
     "visible": true
   },
   {
-    "id": "broccoli-organic",
+    "id": "d1155206-18fc-41f1-8509-2f52e7614f2d",
     "name": "Brocoli FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Broccoli, consumption mix, organic 2023 {FR} U",
-    "default": "broccoli-organic",
+    "default": "d1155206-18fc-41f1-8509-2f52e7614f2d",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.2355,
@@ -6550,7 +6550,7 @@
     "visible": true
   },
   {
-    "id": "broccoli-fr",
+    "id": "5461f2bc-7010-41ee-ab90-35312769a49f",
     "name": "Brocoli FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Broccoli, consumption mix {FR} U",
@@ -6571,7 +6571,7 @@
     "visible": true
   },
   {
-    "id": "broccoli-non-eu",
+    "id": "51882472-92d6-4512-aecf-f852f286d5b5",
     "name": "Brocoli Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Broccoli {GLO}| production",
@@ -6592,7 +6592,7 @@
     "visible": true
   },
   {
-    "id": "celery-non-eu",
+    "id": "2b2b9e3a-9414-4fbc-8584-8e4bdf5d6a93",
     "name": "Céleri branche Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Celery {GLO}| 675 production",
@@ -6613,7 +6613,7 @@
     "visible": true
   },
   {
-    "id": "cherry-ue",
+    "id": "ea6cc96f-ae22-4f14-ace9-a6a463fd360b",
     "name": "Cerise UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cherry, at farm (WFLDB) glo",
@@ -6634,7 +6634,7 @@
     "visible": true
   },
   {
-    "id": "mushroom-fr",
+    "id": "d330d763-6baa-442f-b479-55425b1fa54f",
     "name": "Champignon frais FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
@@ -6655,11 +6655,11 @@
     "visible": true
   },
   {
-    "id": "walnut-inshell-organic",
+    "id": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
     "name": "Noix avec coque FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Walnut, dried inshell, organic 2023, national average, at farm gate {FR} U",
-    "default": "walnut-inshell-organic",
+    "default": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -6676,7 +6676,7 @@
     "visible": true
   },
   {
-    "id": "white-cabbage-eu",
+    "id": "9f17139e-92b9-4bd4-9ba6-07da78f052ff",
     "name": "Chou blanc UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cabbage white {RoW}| cabbage white production",
@@ -6697,7 +6697,7 @@
     "visible": true
   },
   {
-    "id": "white-cabbage-fr",
+    "id": "7c78115b-3268-4b78-add5-98b0f85bfc34",
     "name": "Chou blanc FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cabbage white {RoW}| cabbage white production",
@@ -6718,11 +6718,11 @@
     "visible": true
   },
   {
-    "id": "white-cabbage-organic",
+    "id": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
     "name": "Chou blanc FR ou UE ou Hors UE Bio",
     "categories": ["vegetable_fresh", "organic"],
     "search": "Cabbage white, organic 2023 {RoW}| cabbage white production | Cut-off, U",
-    "default": "white-cabbage-organic",
+    "default": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
     "default_origin": "France",
     "raw_to_cooked_ratio": 0.856,
     "density": 0.362,
@@ -6739,7 +6739,7 @@
     "visible": true
   },
   {
-    "id": "chinese-cabbage-ue",
+    "id": "ebb1d5ac-83e9-4295-9067-01e4bc5e43d1",
     "name": "Chou chinois UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -6760,7 +6760,7 @@
     "visible": true
   },
   {
-    "id": "chinese-cabbage-non-ue",
+    "id": "3e3f8e66-57c3-43f8-b86c-54fb42af7f45",
     "name": "Chou chinois Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -6781,7 +6781,7 @@
     "visible": true
   },
   {
-    "id": "brussels-sprout-ue",
+    "id": "0896a0d5-b6ae-4b48-9e61-7c7ee42447ec",
     "name": "Chou de Bruxelles UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -6802,7 +6802,7 @@
     "visible": true
   },
   {
-    "id": "brussels-sprout-non-ue",
+    "id": "f2ca7ffb-f4b2-478f-8008-41956b2aefa2",
     "name": "Chou de Bruxelles Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -6823,7 +6823,7 @@
     "visible": true
   },
   {
-    "id": "refined-palm-oil-non-ue",
+    "id": "45658c32-66d9-4305-a34b-21d6a4cef89c",
     "name": "Huile de palme (raffinée) Hors UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Palm oil, refined, consumption mix {FR} U",
@@ -6844,7 +6844,7 @@
     "visible": true
   },
   {
-    "id": "sunflower-oil-eu",
+    "id": "ea419fa9-d69f-4735-8fe8-fab427ce5185",
     "name": "Huile de tournesol UE Conv.",
     "categories": ["nut_oilseed_processed"],
     "search": "Sunflower oil, at plant {IT} U",
@@ -6865,7 +6865,7 @@
     "visible": true
   },
   {
-    "id": "milk-eu",
+    "id": "dbba1f04-b86c-42aa-96f9-93cfcdf4a141",
     "name": "Lait UE Conv.",
     "categories": ["dairy_product"],
     "search": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
@@ -6881,7 +6881,7 @@
     "visible": true
   },
   {
-    "id": "milk-non-eu",
+    "id": "17cb3a3e-04e0-4550-bd9b-91a28d8bcec0",
     "name": "Lait Hors UE Conv.",
     "categories": ["dairy_product"],
     "search": "Cow milk {CA-QC}| milk production, from cow | Cut-off, U - Copied from Ecoinvent U",
@@ -6897,7 +6897,7 @@
     "visible": true
   },
   {
-    "id": "lentils-uncooked-eu",
+    "id": "d0cd6516-40b9-40ce-b632-63c3a0ed14c1",
     "name": "Lentilles UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Lentils, dry, at farm (WFLDB)",
@@ -6918,7 +6918,7 @@
     "visible": true
   },
   {
-    "id": "lentils-uncooked-non-eu",
+    "id": "c06e8471-88c9-490c-99fc-eb85b4e9e300",
     "name": "Lentilles Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Lentils, dry, at farm (WFLDB)",
@@ -6939,7 +6939,7 @@
     "visible": true
   },
   {
-    "id": "lambs-lettuce-non-eu",
+    "id": "c916d6db-03d1-48fb-9f81-71beffa94faf",
     "name": "Mâche Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Iceberg lettuce {GLO}| production",
@@ -6960,7 +6960,7 @@
     "visible": true
   },
   {
-    "id": "sweet-corn-eu",
+    "id": "20c97ec2-4950-4cb6-ac9d-a3a97b63c4ea",
     "name": "Maïs doux UE Conv.",
     "categories": ["grain_raw"],
     "search": "Sweet corn GLO",
@@ -6981,7 +6981,7 @@
     "visible": true
   },
   {
-    "id": "unknown-cereals-and-grain-products",
+    "id": "c723eb89-a64f-405d-bb6b-6dced54c46ba",
     "name": "Autres céréales et produits céréaliers (non encore répertoriés)",
     "categories": ["nut_oilseed_raw"],
     "search": "Sunflower, at farm {HU}",
@@ -7002,7 +7002,7 @@
     "visible": true
   },
   {
-    "id": "unknown-dairy-product",
+    "id": "f30016f7-2e54-45ee-96e8-cd0140872ce6",
     "name": "Autres produits laitiers (non encore répertoriés)",
     "categories": ["dairy_product"],
     "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
@@ -7018,7 +7018,7 @@
     "visible": true
   },
   {
-    "id": "unknown-fruit-vegetable",
+    "id": "748b0518-02cd-4e7c-8829-78e527e92298",
     "name": "Autres fruits, légumes, légumineuses, oléagineux (non encore répertoriés)",
     "categories": ["vegetable_fresh"],
     "search": "Clementine, export quality, Souss, at orchard {MA}",
@@ -7039,7 +7039,7 @@
     "visible": true
   },
   {
-    "id": "unknown-red-meat",
+    "id": "7f6bd70c-1385-4855-9c25-e9a34e91df74",
     "name": "Autres viandes, oeufs, poissons (non encore répertoriés)",
     "categories": ["animal_product"],
     "search": "Meat without bone, beef, for direct consumption",
@@ -7055,7 +7055,7 @@
     "visible": true
   },
   {
-    "id": "unknown-groceries",
+    "id": "3211b18f-83b2-4cf8-a0fd-42962f70b8b4",
     "name": "Autres ingrédients divers (non encore répertoriés)",
     "categories": ["misc"],
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
@@ -7076,7 +7076,7 @@
     "visible": true
   },
   {
-    "id": "unknown-drink",
+    "id": "1bd78657-5169-4a53-aadd-881aedc7d3e7",
     "name": "Autres eaux et autres boissons (non encore répertoriées)",
     "categories": [],
     "search": "Tap water Europe market",
@@ -7092,7 +7092,7 @@
     "visible": true
   },
   {
-    "id": "unknown-white-meat",
+    "id": "fda34c66-9093-458c-b7df-a091730b6b64",
     "name": "Autres viandes blanches, oeufs et poisson (non encore répertoriés)Conv.",
     "categories": ["animal_product"],
     "search": "Meat without bone chicken for direct consumption br-max constructed by Ecobalyse",
@@ -7108,7 +7108,7 @@
     "visible": true
   },
   {
-    "id": "unknwon-fishery-products",
+    "id": "168b4b21-5fa8-484b-a192-83e7dda8f133",
     "name": "Autres produits issus de la pêche (non encore répertoriés)",
     "categories": ["animal_product"],
     "search": "Fresh shrimps, China production/FR U :",
@@ -7124,7 +7124,7 @@
     "visible": true
   },
   {
-    "id": "unknown-dried-fruits",
+    "id": "7cf22e4f-49b0-4430-818a-17de54f2b740",
     "name": "Autres fruits secs (non encore répertoriés)",
     "categories": ["nut_oilseed_raw"],
     "search": "Hazelnut, unshelled, at plant {TR} U",
@@ -7145,7 +7145,7 @@
     "visible": true
   },
   {
-    "id": "unknown-oil",
+    "id": "66e7706b-5129-410c-b070-0a7feff2680f",
     "name": "Autres huiles (non encore répertoriées)",
     "categories": ["nut_oilseed_processed"],
     "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
@@ -7166,7 +7166,7 @@
     "visible": true
   },
   {
-    "id": "anchovy-fr",
+    "id": "80aaae2b-6b1e-43fe-9139-319b114ca620",
     "name": "Anchois FR Conv.",
     "categories": ["animal_product"],
     "search": "Anchovy, consumption mix {FR} U",
@@ -7182,7 +7182,7 @@
     "visible": true
   },
   {
-    "id": "anchovy-eu",
+    "id": "fcb112b1-bf64-431d-8f01-f2a9e7bfe155",
     "name": "Anchois UE Conv.",
     "categories": ["animal_product"],
     "search": "Anchovy, consumption mix {FR} U",
@@ -7198,7 +7198,7 @@
     "visible": true
   },
   {
-    "id": "anchovy-non-eu",
+    "id": "91314b7a-0b9f-4893-946d-e321dc1cacb4",
     "name": "Anchois Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "Anchovy, consumption mix {FR} U",
@@ -7214,7 +7214,7 @@
     "visible": true
   },
   {
-    "id": "sardine-fr",
+    "id": "3a892ff6-4689-4053-96e7-0f9038894fae",
     "name": "Sardine FR Conv.",
     "categories": ["animal_product"],
     "search": "European Pilchard, BBiscay, Seine, average, at landing {FR} U",
@@ -7230,7 +7230,7 @@
     "visible": true
   },
   {
-    "id": "sardine-eu",
+    "id": "f7c74916-6951-4074-acd9-42dbe97dbb32",
     "name": "Sardine UE Conv.",
     "categories": ["animal_product"],
     "search": "European pilchard or sardine, consumption mix {FR} U",
@@ -7246,7 +7246,7 @@
     "visible": true
   },
   {
-    "id": "sardine-non-eu",
+    "id": "79ce12b6-db5c-43c8-be48-44deb8f704e1",
     "name": "Sardine Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "European pilchard or sardine, consumption mix {FR} U",
@@ -7262,7 +7262,7 @@
     "visible": true
   },
   {
-    "id": "cod-eu",
+    "id": "62fc4202-1ff8-44f5-8f5b-e734ac8a4730",
     "name": "Morue UE Conv.",
     "categories": ["animal_product"],
     "search": "Cod, consumption mix {FR}",
@@ -7278,7 +7278,7 @@
     "visible": true
   },
   {
-    "id": "crab-fr",
+    "id": "6875d374-d24e-45d1-93c1-39aa52e3713c",
     "name": "Crabe FR Conv.",
     "categories": ["animal_product"],
     "search": "Brown crab, 1 kg of product, at landing {FR} U",
@@ -7294,7 +7294,7 @@
     "visible": true
   },
   {
-    "id": "crab-eu",
+    "id": "4f075683-12a5-423b-bd78-75aed2781290",
     "name": "Crabe UE Conv.",
     "categories": ["animal_product"],
     "search": "Brown crab, 1 kg of product, at landing {GB} U",
@@ -7310,7 +7310,7 @@
     "visible": true
   },
   {
-    "id": "hake-eu",
+    "id": "cb1fc717-78f9-46fe-9121-fbf8aa803599",
     "name": "Colin UE Conv.",
     "categories": ["animal_product"],
     "search": "Hake, consumption mix {FR} U",
@@ -7326,7 +7326,7 @@
     "visible": true
   },
   {
-    "id": "lobster-fr",
+    "id": "5b0f85b9-5bc9-4eca-b134-af3a344f586e",
     "name": "Homard FR Conv.",
     "categories": ["animal_product"],
     "search": "Lobster, 1 kg of product, at landing {FR} U",
@@ -7342,7 +7342,7 @@
     "visible": true
   },
   {
-    "id": "lobster-eu",
+    "id": "16ff0416-9d7f-4e3b-9e2e-7a25e729b863",
     "name": "Homard UE Conv.",
     "categories": ["animal_product"],
     "search": "Lobster, 1 kg of product, at landing {GB} U",
@@ -7358,7 +7358,7 @@
     "visible": true
   },
   {
-    "id": "lobster-non-eu",
+    "id": "c217f7ad-7413-4663-b049-1ce6c040f597",
     "name": "Homard Hors UE Conv.",
     "categories": ["animal_product"],
     "search": "Lobster, 1 kg of product, at landing {US} U",
@@ -7374,7 +7374,7 @@
     "visible": true
   },
   {
-    "id": "salmon-raw-eu",
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007655",
     "name": "Saumon cru UE Conv.",
     "categories": ["animal_product"],
     "search": "Salmon, fillet, raw, at processing {FR} U",
@@ -7390,7 +7390,7 @@
     "visible": true
   },
   {
-    "id": "squid-fr",
+    "id": "1bcc2d19-8352-4cf8-bb55-81444a15d398",
     "name": "Calmar FR Conv.",
     "categories": ["animal_product"],
     "search": "Squid, consumption mix {FR} U",
@@ -7406,7 +7406,7 @@
     "visible": true
   },
   {
-    "id": "mandarin-non-eu",
+    "id": "6467c956-277d-4e09-80c2-b0b062f84086",
     "name": "Mandarine Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Mandarin, at farm (WFLDB) cn",
@@ -7427,7 +7427,7 @@
     "visible": true
   },
   {
-    "id": "melon-non-eu",
+    "id": "7b30c4ad-e851-4274-8062-4e14850108a9",
     "name": "Melon Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Melon {GLO}| melon production | Cut-off, U",
@@ -7448,7 +7448,7 @@
     "visible": true
   },
   {
-    "id": "blueberry-eu",
+    "id": "869f04ba-6780-4124-9240-b7be514be1ba",
     "name": "Myrtille UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
@@ -7469,7 +7469,7 @@
     "visible": true
   },
   {
-    "id": "blueberry-fr",
+    "id": "0eb658ae-a7e4-4b74-a7eb-9604b23c2f98",
     "name": "Myrtille FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
@@ -7490,11 +7490,11 @@
     "visible": true
   },
   {
-    "id": "hazelnut-organic",
+    "id": "df64fdd7-1900-402c-86b9-e766e22c27ed",
     "name": "Noisette avec coque FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Hazelnut, in shell, at farm, organic 2023 {IT}",
-    "default": "hazelnut-organic",
+    "default": "df64fdd7-1900-402c-86b9-e766e22c27ed",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -7511,11 +7511,11 @@
     "visible": true
   },
   {
-    "id": "hazelnut-unshelled-organic",
+    "id": "4531bf0a-7910-4166-b3b1-e94027a10426",
     "name": "Noisette décortiquée FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Hazelnut, unshelled, consumption mix, organic 2023 {FR} U",
-    "default": "hazelnut-unshelled-organic",
+    "default": "4531bf0a-7910-4166-b3b1-e94027a10426",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -7532,7 +7532,7 @@
     "visible": true
   },
   {
-    "id": "hazelnut-unshelled-fr",
+    "id": "60184de2-cc9e-4618-924a-b8fecf080c8b",
     "name": "Noisette décortiquée FR Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Hazelnut, unshelled, consumption mix {FR} U",
@@ -7553,11 +7553,11 @@
     "visible": true
   },
   {
-    "id": "chesnut-inshell-organic",
+    "id": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
     "name": "Châtaigne avec coque FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw", "organic"],
     "search": "Walnut, dried inshell, traditional varieties, organic 2023, at farm gate {FR} U",
-    "default": "chesnut-inshell-organic",
+    "default": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
     "default_origin": "France",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -7574,7 +7574,7 @@
     "visible": true
   },
   {
-    "id": "walnut-inshell-eu",
+    "id": "0060abe9-a6c2-47fb-bc87-404a9bbd3971",
     "name": "Noix avec coque UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, in shell, dried, at farm (WFLDB)",
@@ -7595,7 +7595,7 @@
     "visible": true
   },
   {
-    "id": "walnut-inshell-non-eu",
+    "id": "69d6cbd1-914d-40ea-aaa1-082911ed2fdd",
     "name": "Noix avec coque Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "Walnut, in shell, dried, at farm (WFLDB)",
@@ -7616,7 +7616,7 @@
     "visible": true
   },
   {
-    "id": "olive-fr",
+    "id": "86ee6b87-c777-47a4-8243-8192dc3783c0",
     "name": "Olive UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Olive {ES}| olive production | Cut-off, U",
@@ -7637,7 +7637,7 @@
     "visible": true
   },
   {
-    "id": "barley-eu",
+    "id": "34a88056-cd23-40e6-8eaa-6a64595fa9b2",
     "name": "Orge UE Conv.",
     "categories": ["grain_raw"],
     "search": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
@@ -7658,7 +7658,7 @@
     "visible": false
   },
   {
-    "id": "barley-non-eu",
+    "id": "de8ef49d-d235-4513-9496-aa8409bdc093",
     "name": "Orge Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "Barley grain at farm DE",
@@ -7679,11 +7679,11 @@
     "visible": true
   },
   {
-    "id": "pistachio-organic",
+    "id": "115a010d-270f-43f8-9827-b27348a08d13",
     "name": "Pistache avec coque FR ou UE ou Hors UE Bio",
     "categories": ["nut_oilseed_raw"],
     "search": "Peanut, in shell, at farm, organic 2023 {GLO}",
-    "default": "pistachio-organic",
+    "default": "115a010d-270f-43f8-9827-b27348a08d13",
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1.0,
     "density": 0.24,
@@ -7700,7 +7700,7 @@
     "visible": true
   },
   {
-    "id": "leek-eu",
+    "id": "7aea09f0-f3ae-4df0-9cbc-ba4007ce1459",
     "name": "Poireau UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "leek, consumption",
@@ -7721,7 +7721,7 @@
     "visible": true
   },
   {
-    "id": "leek-non-eu",
+    "id": "bb58047c-2b1d-42ad-b5a2-bc5ebf8289a1",
     "name": "Poireau Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "leek, consumption",
@@ -7742,7 +7742,7 @@
     "visible": true
   },
   {
-    "id": "bean-non-eu",
+    "id": "134bc97e-e3dc-44de-8ec6-947b608a2d42",
     "name": "Pois Hors UE Conv.",
     "categories": ["grain_raw"],
     "search": "protein pea//[ES] protein pea production",
@@ -7763,7 +7763,7 @@
     "visible": true
   },
   {
-    "id": "bean-eu",
+    "id": "0fdccf80-b169-4b34-8409-d15c0d100957",
     "name": "Pois UE Conv.",
     "categories": ["grain_raw"],
     "search": "protein pea//[ES] protein pea production",
@@ -7784,7 +7784,7 @@
     "visible": true
   },
   {
-    "id": "bean-fr",
+    "id": "bfdf1505-8426-499e-8286-a1e4b4920c7e",
     "name": "Pois FR Conv.",
     "categories": ["grain_raw"],
     "search": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
@@ -7805,7 +7805,7 @@
     "visible": true
   },
   {
-    "id": "chickpea-non-eu",
+    "id": "227914fd-5cf5-4c05-958f-ac4321e6c557",
     "name": "Pois chiche Hors UE Conv.",
     "categories": ["nut_oilseed_raw"],
     "search": "chickpea//[RoW] chickpea production",
@@ -7826,7 +7826,7 @@
     "visible": true
   },
   {
-    "id": "bellpepper-unheated-greenhouse-fr",
+    "id": "361139ac-1028-4cc8-9c0e-4955c5fa39d3",
     "name": "Poivron sous serre non chauffée FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
@@ -7847,7 +7847,7 @@
     "visible": true
   },
   {
-    "id": "bellpepper-unheated-greenhouse-eu",
+    "id": "123d51c5-27a3-4b57-a1d2-3b627dc4032a",
     "name": "Poivron sous serre non chauffée UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
@@ -7868,7 +7868,7 @@
     "visible": true
   },
   {
-    "id": "bellpepper-unheated-greenhouse-non-eu",
+    "id": "d018ec1f-d3c8-4fa1-a70d-bca1b0380c47",
     "name": "Poivron sous serre non chauffée Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
@@ -7889,7 +7889,7 @@
     "visible": true
   },
   {
-    "id": "apple-non-eu",
+    "id": "8c2299d6-49e4-493c-bafe-c0b4b7ef2079",
     "name": "Pomme Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Apple, at farm CN",
@@ -7910,7 +7910,7 @@
     "visible": true
   },
   {
-    "id": "potato-table-eu",
+    "id": "9bdb3037-1154-4477-a99c-6ca4ba9c9168",
     "name": "Pomme de terre de table UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Potato, at farm (WFLDB) nl",
@@ -7931,7 +7931,7 @@
     "visible": true
   },
   {
-    "id": "potato-table-non-eu",
+    "id": "33c427df-1967-452a-91b0-cdc1a2c9ca04",
     "name": "Pomme de terre de table Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Potato, at farm (WFLDB) cn",
@@ -7952,7 +7952,7 @@
     "visible": true
   },
   {
-    "id": "chicken-breast-eu",
+    "id": "e57ae0e0-6277-427f-9090-087c97008966",
     "name": "Blanc de poulet cru UE Conv.",
     "categories": ["animal_product"],
     "search": "Chicken meat at slaughterhouse PL",
@@ -7968,7 +7968,7 @@
     "visible": true
   },
   {
-    "id": "tomato-paste-fr",
+    "id": "ffd854c7-858b-4b97-9827-f99d2b71d48d",
     "name": "Purée de tomates FR Conv.",
     "categories": ["vegetable_processed"],
     "search": "Tomato puree, canned, processed in FR | Ambient (long) | Steel | at packaging {FR} U",
@@ -7989,7 +7989,7 @@
     "visible": true
   },
   {
-    "id": "radish-fr",
+    "id": "001e0594-90e9-4d0f-bf0d-a9a253269c58",
     "name": "Radis FR Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Radish, consumption mix {FR} U",
@@ -8010,7 +8010,7 @@
     "visible": true
   },
   {
-    "id": "radish-eu",
+    "id": "bb970211-9d5c-4faf-a649-482e2a34b381",
     "name": "Radis UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "Radish {GLO}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -8031,7 +8031,7 @@
     "visible": true
   },
   {
-    "id": "rice-basmati-eu",
+    "id": "3294e42c-c053-42e5-bcc0-a35f189681d6",
     "name": "Riz basmati UE Conv.",
     "categories": ["grain_raw"],
     "search": "Basmati rice, consumption mix {FR} U",
@@ -8052,7 +8052,7 @@
     "visible": true
   },
   {
-    "id": "durum-wheat-semolina-non-eu",
+    "id": "b02ea3a9-f5f1-4673-b043-1d6d72894964",
     "name": "Semoule de blé dur Hors UE Conv.",
     "categories": ["grain_processed"],
     "search": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
@@ -8073,7 +8073,7 @@
     "visible": true
   },
   {
-    "id": "durum-wheat-semolina-eu",
+    "id": "af44d84e-8a7d-47c2-ab19-934b3ea9ab17",
     "name": "Semoule de blé dur UE Conv.",
     "categories": ["grain_processed"],
     "search": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
@@ -8094,7 +8094,7 @@
     "visible": true
   },
   {
-    "id": "plum-eu",
+    "id": "07433a1e-66d9-45c2-889b-38afb54622de",
     "name": "Prune UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "cherry at farm GLO",
@@ -8115,7 +8115,7 @@
     "visible": true
   },
   {
-    "id": "plum-non-eu",
+    "id": "b83a6d8e-5afa-447b-be7b-5df9573e7d3b",
     "name": "Prune Hors UE Conv.",
     "categories": ["vegetable_fresh"],
     "search": "cherry at farm GLO",
@@ -8136,7 +8136,7 @@
     "visible": true
   },
   {
-    "id": "soft-wheat-eu",
+    "id": "ae9ccfff-93bb-46b3-9ade-479fbbdb6d56",
     "name": "Blé tendre UE Conv.",
     "categories": ["grain_raw"],
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
@@ -8157,7 +8157,7 @@
     "visible": true
   },
   {
-    "id": "onion-dried",
+    "id": "0a2edda7-2158-4206-8d8c-2151fc925215",
     "name": "Oignons déshydratés Hors UE Conv.",
     "categories": ["vegetable_processed"],
     "search": "onions dried",
