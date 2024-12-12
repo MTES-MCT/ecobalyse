@@ -77,6 +77,7 @@ def create_ingredient_list(activities_tuple):
 
 def to_ingredient(activity):
     return {
+        "alias": activity["alias"],
         "id": activity["id"],
         "name": activity["name"],
         "categories": activity.get("ingredient_categories", []),
@@ -130,6 +131,7 @@ def create_process_list(activities):
 
 def to_process(activity):
     return {
+        "alias": activity["alias"],
         "categories": activity.get("process_categories"),
         "comment": (
             prod[0]["comment"]
@@ -147,7 +149,6 @@ def to_process(activity):
         "elec_MJ": 0,
         "heat_MJ": 0,
         "id": activity["id"],
-        "alias": activity["alias"],
         "identifier": find_id(activity.get("database", DEFAULT_DB), activity),
         "impacts": {},
         "name": cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
