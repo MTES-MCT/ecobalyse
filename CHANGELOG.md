@@ -1,7 +1,30 @@
 # Changelog
 
 
-## [2.7.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.6.0..v2.7.0) (2024-12-04)
+## [3.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.7.0..v3.0.0) (2024-12-12)
+
+
+
+### 🚀 Features
+
+- Generalize density, electricity, heat and waste process fields ([#855](https://github.com/MTES-MCT/ecobalyse/issues/855))
+
+### 🪲 Bug Fixes
+
+- *(food)* [**breaking**] Food processes identifiers are now UUIDs ([#844](https://github.com/MTES-MCT/ecobalyse/issues/844))
+- *(data)* [**breaking**] Update textile process ids to use UUID format ([#858](https://github.com/MTES-MCT/ecobalyse/issues/858))
+
+### 🚜 Refactor
+
+- Move textile step_usage field to categories. ([#850](https://github.com/MTES-MCT/ecobalyse/issues/850))
+- *(data)* Move textile process "correctif" to comment ([#852](https://github.com/MTES-MCT/ecobalyse/issues/852))
+
+### ⚙️ Miscellaneous Tasks
+
+- Increase API test timeout ([#853](https://github.com/MTES-MCT/ecobalyse/issues/853))
+
+
+## [2.7.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.6.0..v2.7.0) (2024-12-05)
 
 
 
