@@ -432,7 +432,7 @@ describe("API", () => {
           expectFieldErrorMessage(
             await makeRequest("/api/food", ["ingredients[]=invalid;268"]),
             "ingredients",
-            /Ingrédient introuvable par id : invalid/,
+            /Identifiant d’ingrédient invalide : invalid. Un `uuid` est attendu./,
           );
         });
 

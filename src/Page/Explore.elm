@@ -374,7 +374,7 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Ingredient.findByID id food.ingredients of
+                (case Ingredient.findById id food.ingredients of
                     Err error ->
                         alert error
 

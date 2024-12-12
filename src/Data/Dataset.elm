@@ -262,7 +262,7 @@ setIdFromString idString dataset =
             FoodExamples (Uuid.fromString idString)
 
         FoodIngredients _ ->
-            FoodIngredients (Just (Ingredient.idFromString idString))
+            FoodIngredients (Ingredient.idFromString idString)
 
         FoodProcesses _ ->
             FoodProcesses (FoodProcess.idFromString idString)

@@ -101,7 +101,7 @@ foodEndpoints db =
                 , testEndpoint db "GET" Encode.null "/food?ingredients[]=invalid;100"
                     |> Maybe.andThen extractFoodErrors
                     |> Maybe.andThen (Dict.get "ingredients")
-                    |> Expect.equal (Just "Ingrédient introuvable par id : invalid")
+                    |> Expect.equal (Just "Identifiant d’ingrédient invalide\u{202F}: invalid. Un `uuid` est attendu.")
                     |> asTest "should validate that an ingredient id is valid"
                 , testEndpoint db "GET" Encode.null "/food?ingredients[]=9cbc31e9-80a4-4b87-ac4b-ddc051c47f69;-1"
                     |> Maybe.andThen extractFoodErrors

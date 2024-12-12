@@ -570,7 +570,7 @@ ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String Recipe
 ingredientFromQuery db { country, id, mass, planeTransport } =
     let
         ingredientResult =
-            Ingredient.findByID id db.food.ingredients
+            Ingredient.findById id db.food.ingredients
     in
     Ok RecipeIngredient
         |> RE.andMap
