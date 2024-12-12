@@ -63,10 +63,6 @@ table _ { detailed, scope } =
           , toValue = Table.StringValue <| .unit
           , toCell = .unit >> text
           }
-        , { label = "Description du système"
-          , toValue = Table.StringValue <| .systemDescription
-          , toCell = .systemDescription >> text
-          }
         , { label = "Commentaire"
           , toValue = Table.StringValue <| .comment >> Maybe.withDefault "N/A"
           , toCell = .comment >> Maybe.withDefault "N/A" >> text
