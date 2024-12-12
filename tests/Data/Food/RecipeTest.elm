@@ -31,16 +31,16 @@ suite =
     suiteWithDb "Data.Food.Recipe"
         (\db ->
             case
-                db.food.examples
+                ( db.food.examples
                     |> Data.Example.findByName "Pizza royale (350g) - 6"
                     |> Result.map .query
+                , ( Ingredient.idFromString "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69"
+                  , Ingredient.idFromString "db0e5f44-34b4-4160-b003-77c828d75e60"
+                  , Ingredient.idFromString "38788025-a65e-4edf-a92f-aab0b89b0d61"
+                  )
+                )
             of
-                Err err ->
-                    [ Expect.fail err
-                        |> asTest "should retrieve Royal Pizza example"
-                    ]
-
-                Ok royalPizza ->
+                ( Ok royalPizza, ( Just eggId, Just mangoId, Just wheatId ) ) ->
                     [ let
                         testComputedComplements complements =
                             Recipe.computeIngredientComplementsImpacts complements (Mass.kilograms 2)
@@ -210,41 +210,33 @@ suite =
                             ]
                         ]
                     , describe "getMassAtPackaging"
-                        (case ( Ingredient.idFromString "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69", Ingredient.idFromString "38788025-a65e-4edf-a92f-aab0b89b0d61" ) of
-                            ( Just eggId, Just wheatId ) ->
-                                [ { ingredients =
-                                        [ { id = eggId
-                                          , mass = Mass.grams 120
-                                          , country = Nothing
-                                          , planeTransport = Ingredient.PlaneNotApplicable
-                                          }
-                                        , { id = wheatId
-                                          , mass = Mass.grams 140
-                                          , country = Nothing
-                                          , planeTransport = Ingredient.PlaneNotApplicable
-                                          }
-                                        ]
-                                  , transform = Nothing
-                                  , packaging = []
-                                  , distribution = Nothing
-                                  , preparation = []
+                        [ { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
+                                  , country = Nothing
+                                  , planeTransport = Ingredient.PlaneNotApplicable
                                   }
-                                    |> Recipe.compute db
-                                    |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
-                                    |> Expect.equal (Ok (Mass.kilograms 0.23600000000000002))
-                                    |> asTest "should compute recipe ingredients mass with no cooking involved"
-                                , royalPizza
-                                    |> Recipe.compute db
-                                    |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
-                                    |> Expect.equal (Ok (Mass.kilograms 0.4398824000000001))
-                                    |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
+                                , { id = wheatId
+                                  , mass = Mass.grams 140
+                                  , country = Nothing
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
                                 ]
-
-                            _ ->
-                                [ Expect.fail "impossible to decode UUID"
-                                    |> asTest "should not fail"
-                                ]
-                        )
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
+                            |> Expect.equal (Ok (Mass.kilograms 0.23600000000000002))
+                            |> asTest "should compute recipe ingredients mass with no cooking involved"
+                        , royalPizza
+                            |> Recipe.compute db
+                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
+                            |> Expect.equal (Ok (Mass.kilograms 0.4398824000000001))
+                            |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
+                        ]
                     , let
                         royalPizzaWithPackaging =
                             royalPizza
@@ -264,77 +256,74 @@ suite =
                             |> Expect.equal royalPizzaWithNoPackaging
                             |> asTest "should give the same mass including packaging or not"
                         ]
-                    , describe "computeIngredientTransport"
-                        (case ( Ingredient.idFromString "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69", Ingredient.idFromString "db0e5f44-34b4-4160-b003-77c828d75e60" ) of
-                            ( Just eggId, Just mangoId ) ->
-                                let
-                                    mango =
-                                        { id = mangoId
-                                        , mass = Mass.grams 120
-                                        , country = Nothing
-                                        , planeTransport = Ingredient.ByPlane
-                                        }
+                    , let
+                        mango =
+                            { id = mangoId
+                            , mass = Mass.grams 120
+                            , country = Nothing
+                            , planeTransport = Ingredient.ByPlane
+                            }
 
-                                    firstIngredientAirDistance ( recipe, _ ) =
-                                        recipe
-                                            |> .ingredients
-                                            |> List.head
-                                            |> Maybe.map (Recipe.computeIngredientTransport db)
-                                            |> Maybe.map .air
-                                            |> Maybe.map Length.inKilometers
-                                in
-                                [ { ingredients =
-                                        [ { id = eggId
-                                          , mass = Mass.grams 120
-                                          , country = Nothing
-                                          , planeTransport = Ingredient.PlaneNotApplicable
-                                          }
-                                        ]
-                                  , transform = Nothing
-                                  , packaging = []
-                                  , distribution = Nothing
-                                  , preparation = []
+                        firstIngredientAirDistance ( recipe, _ ) =
+                            recipe
+                                |> .ingredients
+                                |> List.head
+                                |> Maybe.map (Recipe.computeIngredientTransport db)
+                                |> Maybe.map .air
+                                |> Maybe.map Length.inKilometers
+                      in
+                      describe "computeIngredientTransport"
+                        [ { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
+                                  , country = Nothing
+                                  , planeTransport = Ingredient.PlaneNotApplicable
                                   }
-                                    |> Recipe.compute db
-                                    |> Result.map firstIngredientAirDistance
-                                    |> Expect.equal (Ok (Just 0))
-                                    |> asTest "should have no air transport for standard ingredients"
-                                , { ingredients = [ mango ]
-                                  , transform = Nothing
-                                  , packaging = []
-                                  , distribution = Nothing
-                                  , preparation = []
-                                  }
-                                    |> Recipe.compute db
-                                    |> Result.map firstIngredientAirDistance
-                                    |> Expect.equal (Ok (Just 18000))
-                                    |> asTest "should have air transport for mango from its default origin"
-                                , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
-                                  , transform = Nothing
-                                  , packaging = []
-                                  , distribution = Just Retail.ambient
-                                  , preparation = []
-                                  }
-                                    |> Recipe.compute db
-                                    |> Result.map firstIngredientAirDistance
-                                    |> Expect.equal (Ok (Just 8189))
-                                    |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
-                                , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
-                                  , transform = Nothing
-                                  , packaging = []
-                                  , distribution = Just Retail.ambient
-                                  , preparation = []
-                                  }
-                                    |> Recipe.compute db
-                                    |> Result.map firstIngredientAirDistance
-                                    |> Expect.equal (Ok (Just 0))
-                                    |> asTest "should not have air transport for mango from other countries if 'planeTransport' is 'noPlane'"
                                 ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map firstIngredientAirDistance
+                            |> Expect.equal (Ok (Just 0))
+                            |> asTest "should have no air transport for standard ingredients"
+                        , { ingredients = [ mango ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map firstIngredientAirDistance
+                            |> Expect.equal (Ok (Just 18000))
+                            |> asTest "should have air transport for mango from its default origin"
+                        , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Just Retail.ambient
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map firstIngredientAirDistance
+                            |> Expect.equal (Ok (Just 8189))
+                            |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
+                        , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Just Retail.ambient
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map firstIngredientAirDistance
+                            |> Expect.equal (Ok (Just 0))
+                            |> asTest "should not have air transport for mango from other countries if 'planeTransport' is 'noPlane'"
+                        ]
+                    ]
 
-                            _ ->
-                                [ Expect.fail "impossible to decode UUID"
-                                    |> asTest "should not fail"
-                                ]
-                        )
+                _ ->
+                    [ Expect.fail "error getting examples"
+                        |> asTest "should retrieve Royal Pizza example and ingredients UUIDs"
                     ]
         )
