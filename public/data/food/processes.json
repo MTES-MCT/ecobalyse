@@ -122,7 +122,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
-    "identifier": "carrot-organic",
+    "identifier": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -236,7 +236,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
-    "identifier": "sunflower-organic",
+    "identifier": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1587,8 +1587,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 0,
-      "pef": 0
+      "ecs": 0.0,
+      "pef": 0.0
     },
     "name": "[Dummy] Mixing, processing, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
@@ -2060,7 +2060,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
-    "identifier": "beetroot-organic",
+    "identifier": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2098,7 +2098,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
-    "identifier": "celeriac-organic",
+    "identifier": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3390,7 +3390,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "e05934df-fd40-4110-a610-0bd686911f2e",
-    "identifier": "wine-grape-organic",
+    "identifier": "e05934df-fd40-4110-a610-0bd686911f2e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3504,7 +3504,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "57c2fff4-6ad8-4524-a81a-dacdae11deed",
-    "identifier": "pear-organic",
+    "identifier": "57c2fff4-6ad8-4524-a81a-dacdae11deed",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5214,7 +5214,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "d7630e82-2b60-46cc-b50d-451a32e0887e",
-    "identifier": "artichoke-organic",
+    "identifier": "d7630e82-2b60-46cc-b50d-451a32e0887e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -5556,7 +5556,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
-    "identifier": "chinese-cabbage-organic",
+    "identifier": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8558,7 +8558,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
-    "identifier": "apple-organic",
+    "identifier": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8634,7 +8634,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
-    "identifier": "potato-table-organic",
+    "identifier": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8672,7 +8672,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "f839b523-b133-430f-9533-419b862e69e9",
-    "identifier": "potato-industry-organic",
+    "identifier": "f839b523-b133-430f-9533-419b862e69e9",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8710,7 +8710,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
-    "identifier": "kiwi-organic",
+    "identifier": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8748,7 +8748,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
-    "identifier": "red-cabbage-organic",
+    "identifier": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8786,7 +8786,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "83ef3fba-9359-4f51-9f10-234c0e940b88",
-    "identifier": "sugar-beet-organic",
+    "identifier": "83ef3fba-9359-4f51-9f10-234c0e940b88",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8824,7 +8824,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
-    "identifier": "papaya-organic",
+    "identifier": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8862,7 +8862,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "b43ae38e-a9f6-4272-b258-14faea6ec795",
-    "identifier": "tomato-organic",
+    "identifier": "b43ae38e-a9f6-4272-b258-14faea6ec795",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8900,7 +8900,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
-    "identifier": "pineapple-organic",
+    "identifier": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8938,7 +8938,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "74a016ae-d486-4766-adfd-e44697b7be2f",
-    "identifier": "garden-peas-organic",
+    "identifier": "74a016ae-d486-4766-adfd-e44697b7be2f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8976,7 +8976,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "b97e29ab-81b0-478e-b73b-4113aaf68470",
-    "identifier": "almond-inshell-organic",
+    "identifier": "b97e29ab-81b0-478e-b73b-4113aaf68470",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9014,7 +9014,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
-    "identifier": "lettuce-organic",
+    "identifier": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9052,7 +9052,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
-    "identifier": "mango-organic",
+    "identifier": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9090,7 +9090,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
-    "identifier": "lychee-organic",
+    "identifier": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9318,7 +9318,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
-    "identifier": "banana-organic",
+    "identifier": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9356,7 +9356,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "1716c0e6-7a04-4649-a71f-08a495eb094e",
-    "identifier": "orange-organic",
+    "identifier": "1716c0e6-7a04-4649-a71f-08a495eb094e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9394,7 +9394,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
-    "identifier": "lemon-organic",
+    "identifier": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9432,7 +9432,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
-    "identifier": "celery-organic",
+    "identifier": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9470,7 +9470,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
-    "identifier": "olive-organic",
+    "identifier": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9508,7 +9508,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
-    "identifier": "peanut-organic",
+    "identifier": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9546,7 +9546,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
-    "identifier": "raspberry-organic",
+    "identifier": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9584,7 +9584,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
-    "identifier": "lambs-lettuce-organic",
+    "identifier": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9622,7 +9622,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "6842d570-6b53-49f3-ba9c-984b55e40171",
-    "identifier": "endive-organic",
+    "identifier": "6842d570-6b53-49f3-ba9c-984b55e40171",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9660,7 +9660,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
-    "identifier": "durum-wheat-organic",
+    "identifier": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9698,7 +9698,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
-    "identifier": "onion-organic",
+    "identifier": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9736,7 +9736,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
-    "identifier": "rice-basmati-organic",
+    "identifier": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9888,7 +9888,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "076b3d53-fc81-454b-9c90-e19767de8b0b",
-    "identifier": "radish-organic",
+    "identifier": "076b3d53-fc81-454b-9c90-e19767de8b0b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9926,7 +9926,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "02b2ed63-6246-446c-8cf3-224dbe698821",
-    "identifier": "lentils-uncooked-organic",
+    "identifier": "02b2ed63-6246-446c-8cf3-224dbe698821",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9947,8 +9947,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": -1435.4562253279007,
-      "pef": -1814.7275162890037
+      "ecs": -1435.4586280322756,
+      "pef": -1814.7366295686709
     },
     "name": "Lentil, organic 2023 {RoW}| lentil production | Cut-off, U",
     "source": "Ginko",
@@ -9964,7 +9964,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "36158ea6-066c-4fd6-9e28-6477c7297b37",
-    "identifier": "apricot-organic",
+    "identifier": "36158ea6-066c-4fd6-9e28-6477c7297b37",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10002,7 +10002,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
-    "identifier": "leek-organic",
+    "identifier": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10040,7 +10040,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "b4e8febc-6588-4599-8c58-c019144597c6",
-    "identifier": "cherry-organic",
+    "identifier": "b4e8febc-6588-4599-8c58-c019144597c6",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10061,8 +10061,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 327.92773078060463,
-      "pef": 490.33175160663825
+      "ecs": 328.05134720250487,
+      "pef": 490.34923489192147
     },
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
     "source": "Ginko",
@@ -10078,7 +10078,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "10af6fa1-e374-4748-b8a8-f735d2813489",
-    "identifier": "plum-organic",
+    "identifier": "10af6fa1-e374-4748-b8a8-f735d2813489",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10099,8 +10099,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 327.92773078060463,
-      "pef": 490.33175160663825
+      "ecs": 328.05134720250487,
+      "pef": 490.34923489192147
     },
     "name": "Cherry, organic 2023, national average, at orchard {FR} U",
     "source": "Ginko",
@@ -10116,7 +10116,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "c224d640-c347-41c4-9754-a4cea77de16f",
-    "identifier": "shallot-organic",
+    "identifier": "c224d640-c347-41c4-9754-a4cea77de16f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10154,7 +10154,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
-    "identifier": "blueberry-organic",
+    "identifier": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10192,7 +10192,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "49ad2a72-d196-4379-8f23-212b27d44917",
-    "identifier": "spinach-organic",
+    "identifier": "49ad2a72-d196-4379-8f23-212b27d44917",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10230,7 +10230,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
-    "identifier": "watermelon-organic",
+    "identifier": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -12852,7 +12852,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
-    "identifier": "chard-organic",
+    "identifier": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -12928,7 +12928,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "d1155206-18fc-41f1-8509-2f52e7614f2d",
-    "identifier": "broccoli-organic",
+    "identifier": "d1155206-18fc-41f1-8509-2f52e7614f2d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13156,7 +13156,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
-    "identifier": "walnut-inshell-organic",
+    "identifier": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13270,7 +13270,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
-    "identifier": "white-cabbage-organic",
+    "identifier": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14866,7 +14866,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "df64fdd7-1900-402c-86b9-e766e22c27ed",
-    "identifier": "hazelnut-organic",
+    "identifier": "df64fdd7-1900-402c-86b9-e766e22c27ed",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14904,7 +14904,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "4531bf0a-7910-4166-b3b1-e94027a10426",
-    "identifier": "hazelnut-unshelled-organic",
+    "identifier": "4531bf0a-7910-4166-b3b1-e94027a10426",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14980,7 +14980,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
-    "identifier": "chesnut-inshell-organic",
+    "identifier": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -15208,7 +15208,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "115a010d-270f-43f8-9827-b27348a08d13",
-    "identifier": "pistachio-organic",
+    "identifier": "115a010d-270f-43f8-9827-b27348a08d13",
     "impacts": {
       "acd": 0,
       "cch": 0,

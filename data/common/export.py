@@ -399,10 +399,24 @@ def compute_simapro_impacts(activity, method, impacts_py):
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
     logger.debug(f"SimaPro API request: {api_request}")
-    return bytrigram(
-        impacts_py,
-        json.loads(requests.get(api_request).content),
-    )
+
+    response = requests.get(api_request)
+
+    try:
+        json_content = json.loads(response.content)
+
+        # If Simapro doesn't return a dict, it's most likely an error
+        # (project not found) Don't do anything and return None,
+        # BW will be used as a replacement
+        if isinstance(json_content, dict):
+            return bytrigram(
+                impacts_py,
+                json_content,
+            )
+    except ValueError:
+        pass
+
+    return None
 
 
 def compute_brightway_impacts(activity, method, impacts_py):

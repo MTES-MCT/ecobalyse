@@ -9,7 +9,7 @@ module Data.Food.Ingredient exposing
     , decodeIngredients
     , encodeId
     , encodePlaneTransport
-    , findByID
+    , findById
     , getDefaultOriginTransport
     , idFromString
     , idToString
@@ -23,6 +23,7 @@ import Data.Impact as Impact
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Data.Uuid as Uuid exposing (Uuid)
 import Density exposing (Density, gramsPerCubicCentimeter)
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
@@ -48,7 +49,7 @@ type alias Ingredient =
 
 
 type Id
-    = Id String
+    = Id Uuid
 
 
 type PlaneTransport
@@ -88,15 +89,14 @@ byPlaneByDefault ingredient =
         PlaneNotApplicable
 
 
-decodeId : Decode.Decoder Id
+decodeId : Decoder Id
 decodeId =
-    Decode.string
-        |> Decode.map idFromString
+    Decode.map Id Uuid.decoder
 
 
 encodeId : Id -> Encode.Value
-encodeId (Id str) =
-    Encode.string str
+encodeId (Id uuid) =
+    Uuid.encoder uuid
 
 
 encodePlaneTransport : PlaneTransport -> Maybe Encode.Value
@@ -112,14 +112,14 @@ encodePlaneTransport planeTransport =
             Nothing
 
 
-idFromString : String -> Id
+idFromString : String -> Maybe Id
 idFromString str =
-    Id str
+    Uuid.fromString str |> Maybe.map Id
 
 
 idToString : Id -> String
-idToString (Id str) =
-    str
+idToString (Id uuid) =
+    Uuid.toString uuid
 
 
 decodeIngredients : List Process -> Decoder (List Ingredient)
@@ -169,8 +169,8 @@ decodeTransportCooling =
             )
 
 
-findByID : Id -> List Ingredient -> Result String Ingredient
-findByID id ingredients =
+findById : Id -> List Ingredient -> Result String Ingredient
+findById id ingredients =
     ingredients
         |> List.filter (.id >> (==) id)
         |> List.head
