@@ -37,7 +37,7 @@ A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
-    { alias : String
+    { alias : Maybe String
     , categories : List Category
     , comment : Maybe String
     , density : Float
@@ -181,7 +181,7 @@ encodeCategory =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
-        |> Pipe.required "alias" Decode.string
+        |> DU.strictOptional "alias" Decode.string
         |> Pipe.required "categories" decodeCategories
         |> DU.strictOptional "comment" Decode.string
         |> Pipe.required "density" Decode.float
@@ -200,7 +200,7 @@ decodeProcess impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "alias", Encode.string process.alias )
+        [ ( "alias", EncodeExtra.maybe Encode.string process.alias )
         , ( "categories", Encode.list encodeCategory process.categories )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
         , ( "density", Encode.float process.density )
@@ -256,7 +256,7 @@ idToString (Id uuid) =
 findByAlias : List Process -> String -> Result String Process
 findByAlias processes alias_ =
     processes
-        |> List.filter (.alias >> (==) alias_)
+        |> List.filter (.alias >> (==) (Just alias_))
         |> List.head
         |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias_)
 

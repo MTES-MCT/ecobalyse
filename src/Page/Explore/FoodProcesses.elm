@@ -56,8 +56,8 @@ table _ { detailed, scope } =
           , toCell = .identifier >> FoodProcess.identifierToString >> text >> List.singleton >> code []
           }
         , { label = "Alias"
-          , toValue = Table.StringValue .alias
-          , toCell = .alias >> text >> List.singleton >> em []
+          , toValue = Table.StringValue <| .alias >> Maybe.withDefault ""
+          , toCell = .alias >> Maybe.map (text >> List.singleton >> em []) >> Maybe.withDefault (text "")
           }
         , { label = "Unité"
           , toValue = Table.StringValue <| .unit
