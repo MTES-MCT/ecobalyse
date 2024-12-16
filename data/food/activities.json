@@ -99,19 +99,18 @@
     "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
     "alias": "flour-organic",
     "name": "Farine FR ou UE ou Hors UE Bio",
-    "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
     "database": "Ecobalyse",
+    "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
     "process_categories": ["ingredient"],
     "ingredient_categories": ["grain_processed", "organic"],
     "default_origin": "EuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "once_transformed",
     "visible": true,
-    "land_occupation": 3.274768814,
-    "crop_group": "BLE TENDRE",
-    "scenario": "organic"
+    "scenario": "organic",
+    "land_occupation": 3.274768814
   },
   {
     "id": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
@@ -214,8 +213,7 @@
     "name": "Vache de réforme bio",
     "process_categories": ["material"],
     "search": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 28.82386341
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
@@ -541,8 +539,7 @@
     "name": "Acier",
     "process_categories": ["packaging"],
     "search": "Steel unalloyed {RER} steel production converter unalloyed",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.04857122944
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "c161e98d-edda-47fc-b0ec-1db4bbca6faf",
@@ -550,8 +547,7 @@
     "name": "Polyéthylène basse densité",
     "process_categories": ["packaging"],
     "search": "Packaging film low density polyethylene {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.238120443
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "b8227d72-5b8e-4524-bf09-b76752a9bbc8",
@@ -559,8 +555,7 @@
     "name": "Polystyrène",
     "process_categories": ["packaging"],
     "search": "Polystyrene expandable {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0006475933341
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "330bcf40-7a51-43f0-ab86-800fb583bc5b",
@@ -568,8 +563,7 @@
     "name": "Verre",
     "process_categories": ["packaging"],
     "search": "Packaging glass white {RER} w/o CH+DE production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.2122022609
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "65e69494-5d66-4668-b841-b61d96877d8c",
@@ -577,8 +571,7 @@
     "name": "Polypropylène",
     "process_categories": ["packaging"],
     "search": "Polypropylene granulate {RER}| production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.03117341589
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "c352add7-8037-464e-bff2-7da517419f88",
@@ -586,8 +579,7 @@
     "name": "Carton",
     "process_categories": ["packaging"],
     "search": "Corrugated board box {RER} production Cut-off Copied from Ecoinvent",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 1.118087426
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "a864ad10-5fe6-4bca-b6d5-452151b1090a",
@@ -595,8 +587,7 @@
     "name": "Papier",
     "process_categories": ["packaging"],
     "search": "Kraft paper production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 5.742330888
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "b4fd9dda-585b-40bd-819e-295ee366964c",
@@ -604,8 +595,7 @@
     "name": "PVC",
     "process_categories": ["packaging"],
     "search": "Polyvinylchloride production suspension polymerised {RER} polymerisation",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.09338342157
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "d585b817-44b0-43ea-887e-9381816a4c03",
@@ -613,8 +603,7 @@
     "name": "PET",
     "process_categories": ["packaging"],
     "search": "Polyethylene terephthalate granulate bottle grade {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.08690395197
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "913d7288-efe5-493a-930f-993956fe7f0a",
@@ -622,8 +611,7 @@
     "name": "Polyéthylène haute densité",
     "process_categories": ["packaging"],
     "search": "Polyethylene high density granulate {RER} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.03632785463
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "fedc3170-f2fb-42b2-b1cd-7010b17c337f",
@@ -631,8 +619,7 @@
     "name": "Aluminium",
     "process_categories": ["packaging"],
     "search": "Aluminium primary ingot {RoW} production",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.4437118452
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "3e711b44-4e7a-4d9c-ac0b-16f026a6ee93",
@@ -640,8 +627,7 @@
     "name": "Mise en conserve",
     "process_categories": ["transformation"],
     "search": "Canning fruits or vegetables industrial 1kg of canned product FR",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.01280080518
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "d54f2cc3-2d05-4d29-92f5-bc6b7489ec7c",
@@ -649,8 +635,7 @@
     "name": "Mélange",
     "process_categories": ["transformation"],
     "search": "Mixing processing dummy",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
@@ -658,8 +643,7 @@
     "name": "Cuisson",
     "process_categories": ["transformation"],
     "search": "Cooking, industrial, 1kg of cooked product {FR} U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.1061592474
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "a938b45f-688d-4265-b6af-c11a9fa91c36",
@@ -667,8 +651,7 @@
     "name": "Camion",
     "process_categories": ["transport"],
     "search": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.01036883599
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "247b42b9-d629-4006-86a4-4c255f5b8e4b",
@@ -676,8 +659,7 @@
     "name": "Bateau",
     "process_categories": ["transport"],
     "search": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 6.700175036e-5
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "3bb59715-9944-4512-ae71-232109c83794",
@@ -685,8 +667,7 @@
     "name": "Avion",
     "process_categories": ["transport"],
     "search": "Transport freight aircraft unspecified",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.002944675296
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "8f1efc54-b468-4ab8-9ea6-ef533bf74be5",
@@ -694,8 +675,7 @@
     "name": "Bateau frigorifique",
     "process_categories": ["transport"],
     "search": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0001794949801
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "da60057d-d42c-4892-84fe-a802f294821d",
@@ -703,8 +683,7 @@
     "process_categories": ["transport"],
     "name": "Camion frigorifique",
     "search": "Transport freight lorry refrigeration EURO5 R134a refrigerant cooling {GLO}",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.01207829821
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "a094f56a-ae26-469a-8639-c2f447919eb6",
@@ -712,8 +691,7 @@
     "name": "Electricité basse tension",
     "process_categories": ["energy"],
     "search": "Electricity low voltage {FR} market",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.01033919921
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
@@ -737,8 +715,7 @@
     "name": "Gaz de ville",
     "process_categories": ["energy"],
     "search": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.0002922175603
+    "database": "Agribalyse 3.1.1"
   },
   {
     "id": "f804033a-fe59-4ec5-b24b-c7482b2a6cf6",
@@ -1024,37 +1001,35 @@
     "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
     "alias": "tomato-paste",
     "name": "Purée de tomates Hors UE Conv.",
+    "database": "Agribalyse 3.1.1",
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "process_categories": ["ingredient"],
     "ingredient_categories": ["vegetable_processed"],
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.436514912,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference"
+    "scenario": "reference",
+    "land_occupation": 0.436514912
   },
   {
     "id": "55e180a0-9b80-4e0c-9aaf-4613a155d69a",
     "alias": "tomato-concentrated",
     "name": "Concentré de tomates Hors UE Conv.",
+    "database": "Agribalyse 3.1.1",
     "search": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO}",
     "process_categories": ["ingredient"],
     "ingredient_categories": ["vegetable_processed"],
     "default_origin": "OutOfEuropeAndMaghreb",
-    "raw_to_cooked_ratio": 1,
-    "density": 1,
+    "raw_to_cooked_ratio": 1.0,
+    "density": 1.0,
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 0.8391834274,
-    "crop_group": "LEGUMES-FLEURS",
-    "scenario": "reference"
+    "scenario": "reference",
+    "land_occupation": 0.8391834274
   },
   {
     "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
@@ -1251,6 +1226,7 @@
     "id": "77be5f12-5124-4828-861c-9ce4ed3fa661",
     "alias": "coffee-ground",
     "name": "Café moulu Hors UE Conv.",
+    "database": "Agribalyse 3.1.1",
     "search": "Coffee, roast and ground, at plant {FR} U",
     "process_categories": ["ingredient"],
     "ingredient_categories": ["misc"],
@@ -1260,10 +1236,8 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 11.67705463,
-    "crop_group": "VERGERS",
-    "scenario": "import"
+    "scenario": "import",
+    "land_occupation": 11.67705463
   },
   {
     "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
@@ -1304,6 +1278,7 @@
     "id": "6621c18e-85de-4683-82be-7b236e68bc48",
     "alias": "red-wine",
     "name": "Vin rouge FR Conv.",
+    "database": "Agribalyse 3.1.1",
     "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
     "process_categories": ["ingredient"],
     "ingredient_categories": ["misc"],
@@ -1313,10 +1288,8 @@
     "inedible_part": 0,
     "transport_cooling": "none",
     "visible": true,
-    "database": "Agribalyse 3.1.1",
-    "land_occupation": 1.732091583,
-    "crop_group": "VIGNES",
-    "scenario": "reference"
+    "scenario": "reference",
+    "land_occupation": 1.732091583
   },
   {
     "id": "74a86477-3ec2-4f7a-b717-c1794d399e84",
@@ -5106,10 +5079,7 @@
     "visible": true,
     "explain": "Crème fraiche 8% de mat. grasse représente la française conventionnelle : choix entre 8, 3, 0.",
     "scenario": "reference",
-    "land_occupation": 2.090359642651662,
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "milk"
+    "land_occupation": 2.090359642651662
   },
   {
     "id": "8b6fda86-052a-49eb-90fb-53e307544150",
@@ -5228,8 +5198,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.030400328425286165,
-    "crop_group": "DIVERS"
+    "land_occupation": 0.030400328425286165
   },
   {
     "id": "f3537dee-a80a-4b6f-9942-16b3f9e21101",
@@ -5266,8 +5235,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 1.2687351078005493,
-    "crop_group": "DIVERS"
+    "land_occupation": 1.2687351078005493
   },
   {
     "id": "f51ef7f1-9d4c-4c4a-a4a6-c011c520f419",
@@ -5285,8 +5253,7 @@
     "visible": true,
     "explain": "In a jar, no need to refrigerate.",
     "scenario": "reference",
-    "land_occupation": 0.3882814293126524,
-    "crop_group": "VERGERS"
+    "land_occupation": 0.3882814293126524
   },
   {
     "id": "a9eed813-3242-4701-8d76-f4fb2f222121",
@@ -5324,8 +5291,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 3.4415562231524333,
-    "crop_group": "AUTRES CEREALES"
+    "land_occupation": 3.4415562231524333
   },
   {
     "id": "06e7ba46-85ba-4475-82d2-a59f847e801d",
@@ -5360,8 +5326,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.2669292568908811,
-    "crop_group": "DIVERS"
+    "land_occupation": 0.2669292568908811
   },
   {
     "id": "5ecb6c61-0a0f-4c00-a8e0-713c97929c7c",
@@ -5378,8 +5343,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 1.119224699218552,
-    "crop_group": "LEGUMES-FLEURS"
+    "land_occupation": 1.119224699218552
   },
   {
     "id": "ad4e4cff-9333-4f5a-bfc5-028cfe888072",
@@ -5416,8 +5380,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.9845738052633982,
-    "crop_group": "DIVERS"
+    "land_occupation": 0.9845738052633982
   },
   {
     "id": "b5395f5f-e011-4c65-9a6c-85dd77d10d2c",
@@ -5474,10 +5437,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.05581861654275083,
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "milk"
+    "land_occupation": 0.05581861654275083
   },
   {
     "id": "dd6ebd55-dc52-4e9e-ac79-aa3ed4b3295d",
@@ -5494,8 +5454,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 2.393527559561704,
-    "crop_group": "LEGUMES-FLEURS"
+    "land_occupation": 2.393527559561704
   },
   {
     "id": "0e77146c-be67-4f16-b072-f4fdb43b4acf",
@@ -5512,10 +5471,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 12.195920571646358,
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "milk"
+    "land_occupation": 12.195920571646358
   },
   {
     "id": "d93c2c58-8073-47ef-99da-999ad7cba846",
@@ -5532,10 +5488,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 9.281598822347972,
-    "animal_group1": "cattle",
-    "animal_group2": "sheep",
-    "animal_product": "milk"
+    "land_occupation": 9.281598822347972
   },
   {
     "id": "0ea5f5a0-51d9-41da-9ac4-cb60f3ddb86c",
@@ -5552,8 +5505,7 @@
     "transport_cooling": "once_transformed",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 19.84118019204425,
-    "crop_group": "FRUITS A COQUES"
+    "land_occupation": 19.84118019204425
   },
   {
     "id": "f8fb04c1-c207-4a3c-993f-e5a1b0204dfa",
@@ -5570,8 +5522,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 2.6545652058565237,
-    "crop_group": "PROTEAGINEUX"
+    "land_occupation": 2.6545652058565237
   },
   {
     "id": "24222e45-52dc-4c18-ab9f-0ee39d8a46b4",
@@ -5588,8 +5539,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.08963138512352643,
-    "crop_group": "DIVERS"
+    "land_occupation": 0.08963138512352643
   },
   {
     "id": "221cd239-f1ae-4a2f-9fdc-dc73df5f95ab",
@@ -5626,8 +5576,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.3022516995479494,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES"
+    "land_occupation": 0.3022516995479494
   },
   {
     "id": "bdae67c5-ac20-417b-9094-8755ae1ab42b",
@@ -5644,8 +5593,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 1.807422586489082,
-    "crop_group": "LEGUMES-FLEURS"
+    "land_occupation": 1.807422586489082
   },
   {
     "id": "d87bdd32-d698-4044-ae20-15b96c65f680",
@@ -5662,8 +5610,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 4.362053762280265,
-    "crop_group": "LEGUMINEUSES A GRAIN"
+    "land_occupation": 4.362053762280265
   },
   {
     "id": "02878fcc-4c20-4d31-874d-169535443c6a",
@@ -5680,8 +5627,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 1.4180780130896866,
-    "crop_group": "RIZ"
+    "land_occupation": 1.4180780130896866
   },
   {
     "id": "d56d21c0-0705-45e3-830d-504d63d581e0",
@@ -5698,10 +5644,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 5.5813488883707185,
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "milk"
+    "land_occupation": 5.5813488883707185
   },
   {
     "id": "cfdb11f0-9ae1-47ab-a26c-20ff8444b862",
@@ -5736,8 +5679,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.4762877855654799,
-    "crop_group": "DIVERS"
+    "land_occupation": 0.4762877855654799
   },
   {
     "id": "d85576e1-ba3a-4ec7-80d5-c106f780498a",
@@ -5754,10 +5696,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 5.698073492374679,
-    "animal_group1": "cattle",
-    "animal_group2": "cow",
-    "animal_product": "milk"
+    "land_occupation": 5.698073492374679
   },
   {
     "id": "57490ff0-61a0-44cd-bd4f-3a3be7af25f2",
@@ -5774,8 +5713,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.38257882806714205,
-    "crop_group": "VERGERS"
+    "land_occupation": 0.38257882806714205
   },
   {
     "id": "40a4432b-2b12-45f3-aed2-a8c4e165e15f",
@@ -5792,8 +5730,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.5584369465896842,
-    "crop_group": "VERGERS"
+    "land_occupation": 0.5584369465896842
   },
   {
     "id": "4649b3db-d927-4ea5-baa0-d74fa3c768d2",
@@ -5810,8 +5747,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.31964530715819833,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES"
+    "land_occupation": 0.31964530715819833
   },
   {
     "id": "afdc7ea9-6da0-4bab-9821-81acc46e23af",
@@ -5828,8 +5764,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.4221154268492243,
-    "crop_group": "PROTEAGINEUX"
+    "land_occupation": 0.4221154268492243
   },
   {
     "id": "fd79d142-7e34-45a4-a0d1-59922b4c8d09",
@@ -5846,8 +5781,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 1.3796587637875377,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES"
+    "land_occupation": 1.3796587637875377
   },
   {
     "id": "65e6f518-e5fc-4fda-9af9-287d26e2bbe1",
@@ -5864,8 +5798,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "import",
-    "land_occupation": 0.21792363199720297,
-    "crop_group": "LEGUMES-FLEURS"
+    "land_occupation": 0.21792363199720297
   },
   {
     "id": "c2e4259b-962f-49ea-b7f1-606f81b59207",
@@ -5882,8 +5815,7 @@
     "transport_cooling": "always",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 2.025528407525838,
-    "crop_group": "DIVERS"
+    "land_occupation": 2.025528407525838
   },
   {
     "id": "c455b3b8-406b-407a-a525-b2c832522e49",
@@ -7480,8 +7412,7 @@
     "transport_cooling": "none",
     "visible": true,
     "scenario": "reference",
-    "land_occupation": 0.06770441921449913,
-    "crop_group": "LEGUMES-FLEURS"
+    "land_occupation": 0.06770441921449913
   },
   {
     "id": "001e0594-90e9-4d0f-bf0d-a9a253269c58",
@@ -7655,8 +7586,7 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:6808c0d38222bc171fca18e93421bf4e",
     "process_categories": ["packaging"],
-    "default_origin": "EuropeAndMaghreb",
-    "land_occupation": 0.02025482449
+    "default_origin": "EuropeAndMaghreb"
   },
   {
     "id": "11f834ab-68b9-4316-9831-0e6c47731dc3",
@@ -7665,8 +7595,7 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:6808c0d38222bc171fca18e93421bf4e",
     "process_categories": ["packaging"],
-    "default_origin": "France",
-    "land_occupation": 0.02025482449
+    "default_origin": "France"
   },
   {
     "id": "85f7d536-f811-44ea-9d4a-f1d42a71bc2c",
@@ -7675,8 +7604,7 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:5347fcfd5ea010cce975c5d97a7dea6f",
     "process_categories": ["packaging"],
-    "default_origin": "EuropeAndMaghreb",
-    "land_occupation": 0.0976283157
+    "default_origin": "EuropeAndMaghreb"
   },
   {
     "id": "d5a12a2d-e826-4b9c-8786-59af5d5a0153",
@@ -7685,8 +7613,7 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:472e239996aa5542c82a91524fa03e13",
     "process_categories": ["packaging"],
-    "default_origin": "EuropeAndMaghreb",
-    "land_occupation": 0.02062877521
+    "default_origin": "EuropeAndMaghreb"
   },
   {
     "id": "4c4d6c78-ccf1-48b9-b660-b86b271f3b35",
@@ -7695,8 +7622,7 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:67604e439ea15376597b3227ed6f4e1b",
     "process_categories": ["packaging"],
-    "default_origin": "EuropeAndMaghreb",
-    "land_occupation": 1.111926096
+    "default_origin": "EuropeAndMaghreb"
   },
   {
     "id": "9288f966-5e3b-4108-a687-fa95715ee50e",
@@ -7705,8 +7631,7 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:23d4f0252bca9a46ec3a3d24d6e7301e",
     "process_categories": ["packaging"],
-    "default_origin": "France",
-    "land_occupation": 0.01306185454
+    "default_origin": "France"
   },
   {
     "id": "1ab8014d-c1dc-4a86-9ba1-4a740bf7e630",
@@ -7715,8 +7640,7 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:23d4f0252bca9a46ec3a3d24d6e7301e",
     "process_categories": ["packaging"],
-    "default_origin": "EuropeAndMaghreb",
-    "land_occupation": 0.01306185454
+    "default_origin": "EuropeAndMaghreb"
   },
   {
     "id": "717646ad-615f-4cd2-8f20-1cd0f3ce56a1",
@@ -7725,8 +7649,7 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:dddac64d422f236ad309b4beaefc3e58",
     "process_categories": ["packaging"],
-    "default_origin": "EuropeAndMaghreb",
-    "land_occupation": 0.01382298036
+    "default_origin": "EuropeAndMaghreb"
   },
   {
     "id": "326f9f9c-d27d-4769-8073-076503abdf99",
@@ -7735,8 +7658,7 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:7f9223fb45455a3f2845093b068b6fda",
     "process_categories": ["packaging"],
-    "default_origin": "EuropeAndMaghreb",
-    "land_occupation": 0.02262251416
+    "default_origin": "EuropeAndMaghreb"
   },
   {
     "id": "81907643-505e-4327-82bc-ed1dd9caa3c9",
@@ -7745,7 +7667,6 @@
     "database": "Agribalyse 3.2 beta 08/08/2024",
     "search": "code:b357c1159f359544b2f3e487939e5fd9",
     "process_categories": ["packaging"],
-    "default_origin": "France",
-    "land_occupation": 0.01223372844
+    "default_origin": "France"
   }
 ]
