@@ -37,7 +37,6 @@ type alias Process =
     , heat : Energy --  MJ per kg of material to process
     , id : Id
     , impacts : Impacts
-    , info : String
     , name : String
     , source : String
     , unit : String
@@ -94,7 +93,6 @@ decode impactsDecoder =
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
-        |> Pipe.required "info" Decode.string
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" Decode.string
@@ -149,7 +147,6 @@ encode process =
         , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "impacts", Impact.encode process.impacts )
-        , ( "info", Encode.string process.info )
         , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
         , ( "unit", Encode.string process.unit )
