@@ -78,13 +78,13 @@ table _ { detailed, scope } =
                         ]
           }
         , { label = "Procédé"
-          , toValue = Table.StringValue <| .default >> .name >> Process.nameToString
+          , toValue = Table.StringValue <| .default >> .name
           , toCell =
                 \{ default } ->
                     div []
                         [ code [] [ text <| Process.identifierToString default.identifier ]
-                        , div [ class "cursor-help", title <| Process.nameToString default.name ]
-                            [ text <| Process.nameToString default.name ]
+                        , div [ class "cursor-help", title default.name ]
+                            [ text default.name ]
                         , case default.comment of
                             Just comment ->
                                 em [ class "cursor-help", title comment ] [ text comment ]

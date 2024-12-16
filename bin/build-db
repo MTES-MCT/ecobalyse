@@ -78,7 +78,7 @@ const elmWithFixtures = elmTemplate
     "%textileProcessesJson%",
     parseAndValidate(
       NODE_ENV === "test" ? dataFiles.textileDetailed : dataFiles.textileNoDetails,
-      "uuid",
+      "id",
     ),
   )
   .replace(

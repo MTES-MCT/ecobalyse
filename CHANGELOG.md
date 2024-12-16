@@ -1,6 +1,26 @@
 # Changelog
 
 
+## [2.7.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.6.0..v2.7.0) (2024-12-04)
+
+
+
+### 🚀 Features
+
+- *(objects)* Introduce components for objects and veli ([#825](https://github.com/MTES-MCT/ecobalyse/issues/825))
+- *(textile)* Update number of references index thresholds. ([#839](https://github.com/MTES-MCT/ecobalyse/issues/839))
+- Introduce objects/veli components db and explorer ([#841](https://github.com/MTES-MCT/ecobalyse/issues/841))
+
+### 🚜 Refactor
+
+- Move weaving elec_pppm to textile wellknown. ([#843](https://github.com/MTES-MCT/ecobalyse/issues/843))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(data)* New ingredients ([#814](https://github.com/MTES-MCT/ecobalyse/issues/814))
+- *(data)* Add irrigation to the Ecoinvent organic cotton ([#832](https://github.com/MTES-MCT/ecobalyse/issues/832))
+
+
 ## [2.6.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.5.0..v2.6.0) (2024-11-20)
 
 
