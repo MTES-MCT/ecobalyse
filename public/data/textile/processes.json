@@ -2521,7 +2521,7 @@
     "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "unit": "kg",
     "source": "Custom",
-    "comment": "Précalcul Ecobalyse à partir de Base Impacts\nAncien identifiant (12/2024): 266fa378-77c0-11ec-90d6-0242ac120003.",
+    "comment": "Précalcul Ecobalyse à partir de Base Impacts",
     "categories": ["Fin de vie"],
     "impacts": {
       "acd": 0,
