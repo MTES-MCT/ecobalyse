@@ -1263,7 +1263,7 @@
     "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
     "unit": "kg",
     "source": "Custom",
-    "comment": "non applicable\nAncien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
+    "comment": "Ancien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
     "categories": ["Tissage / Tricotage"],
     "impacts": {
       "acd": 0,
@@ -1300,7 +1300,7 @@
     "displayName": "Tricotage fully-fashioned",
     "unit": "kg",
     "source": "Custom",
-    "comment": "non applicable\nAncien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
+    "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
     "categories": ["Tissage / Tricotage"],
     "impacts": {
       "acd": 0,
@@ -1337,7 +1337,7 @@
     "displayName": "Tricotage seamless",
     "unit": "kg",
     "source": "Custom",
-    "comment": "non applicable\nAncien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
+    "comment": "Ancien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
     "categories": ["Tissage / Tricotage"],
     "impacts": {
       "acd": 0,
@@ -1374,7 +1374,7 @@
     "displayName": "Tissage (habillement)",
     "unit": "kg",
     "source": "Custom",
-    "comment": "non applicable\nAncien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
+    "comment": "Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
     "categories": ["Tissage / Tricotage"],
     "impacts": {
       "acd": 0,
@@ -1411,7 +1411,7 @@
     "displayName": "Teinture sur étoffe",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "comment": "non applicable\nAncien identifiant (12/2024): 03c769d5-46b6-4cf9-80f8-f2712692a6ab.",
+    "comment": "Ancien identifiant (12/2024): 03c769d5-46b6-4cf9-80f8-f2712692a6ab.",
     "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0,
@@ -1448,7 +1448,7 @@
     "displayName": "Teinture sur pièce",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "comment": "non applicable\nAncien identifiant (12/2024): af54556c-5f74-4f2c-8531-d002eda9d793.",
+    "comment": "Ancien identifiant (12/2024): af54556c-5f74-4f2c-8531-d002eda9d793.",
     "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0,
@@ -1485,7 +1485,7 @@
     "displayName": "Teinture sur fil",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "comment": "non applicable\nAncien identifiant (12/2024): b15afd1b-e7c0-4fbf-9f7b-b2a8b7e74bc7.",
+    "comment": "Ancien identifiant (12/2024): b15afd1b-e7c0-4fbf-9f7b-b2a8b7e74bc7.",
     "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0,
@@ -1522,7 +1522,7 @@
     "displayName": "transport maritime",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "comment": "non applicable\nAncien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
+    "comment": "Ancien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
     "categories": ["Transport"],
     "impacts": {
       "acd": 0,
@@ -1559,7 +1559,7 @@
     "displayName": "transport aérien long-courrier",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "comment": "non applicable\nAncien identifiant (12/2024): d3130e7ed9686fcc4bbe980e0375ad88.",
+    "comment": "Ancien identifiant (12/2024): d3130e7ed9686fcc4bbe980e0375ad88.",
     "categories": ["Transport"],
     "impacts": {
       "acd": 0,
@@ -1596,7 +1596,7 @@
     "displayName": "transport ferroviaire",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "comment": "non applicable\nAncien identifiant (12/2024): 7037ea59d8d644fd35f80fd1982f9fe9.",
+    "comment": "Ancien identifiant (12/2024): 7037ea59d8d644fd35f80fd1982f9fe9.",
     "categories": ["Transport"],
     "impacts": {
       "acd": 0,
@@ -1633,7 +1633,7 @@
     "displayName": "transport routier",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "comment": "non applicable\nAncien identifiant (12/2024): f37aba954435f9f158c19a9449d373b2.",
+    "comment": "Ancien identifiant (12/2024): f37aba954435f9f158c19a9449d373b2.",
     "categories": ["Transport"],
     "impacts": {
       "acd": 0,
@@ -1670,7 +1670,7 @@
     "displayName": "Transport en camion non spécifié France",
     "unit": "t*km",
     "source": "Base Impacts 2.01",
-    "comment": "non applicable\nAncien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
+    "comment": "Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
     "categories": ["Transport"],
     "impacts": {
       "acd": 0,
@@ -2484,7 +2484,7 @@
     "displayName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "unit": "Item(s)",
     "source": "Base Impacts 2.01",
-    "comment": "non applicable\nAncien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
+    "comment": "Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
     "categories": ["Transport"],
     "impacts": {
       "acd": 0,
@@ -2558,7 +2558,7 @@
     "displayName": "Tricotage rectiligne",
     "unit": "kg",
     "source": "Custom",
-    "comment": "non applicable\nAncien identifiant (12/2024): 364298ad-2058-4ec4-b2d0-47f5214abffb.",
+    "comment": "Ancien identifiant (12/2024): 364298ad-2058-4ec4-b2d0-47f5214abffb.",
     "categories": ["Tissage / Tricotage"],
     "impacts": {
       "acd": 0,
@@ -2595,7 +2595,7 @@
     "displayName": "Tricotage circulaire",
     "unit": "kg",
     "source": "Custom",
-    "comment": "non applicable\nAncien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
+    "comment": "Ancien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
     "categories": ["Tissage / Tricotage"],
     "impacts": {
       "acd": 0,
@@ -2632,7 +2632,7 @@
     "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "comment": "non applicable\nAncien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
+    "comment": "Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
     "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0,
@@ -2669,7 +2669,7 @@
     "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
     "unit": "m2",
     "source": "Base Impacts 2.01",
-    "comment": "non applicable\nAncien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
+    "comment": "Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
     "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0,
@@ -2706,7 +2706,7 @@
     "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
     "unit": "m2",
     "source": "Base Impacts 2.01",
-    "comment": "non applicable\nAncien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
+    "comment": "Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
     "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0,
@@ -2743,7 +2743,7 @@
     "displayName": "Apprêt anti-tache, procédé représentatif, traitement moyen des eaux usées",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "comment": "non applicable\nAncien identifiant (12/2024): 63baddae-e05d-404b-a73f-371044a24fe9.",
+    "comment": "Ancien identifiant (12/2024): 63baddae-e05d-404b-a73f-371044a24fe9.",
     "categories": ["Ennoblissement"],
     "impacts": {
       "acd": 0,
