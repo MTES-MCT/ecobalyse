@@ -48,7 +48,7 @@ type alias Process =
     , impacts : Impacts
     , name : String
     , source : String
-    , sourceId : SourceId
+    , sourceId : Maybe SourceId
     , unit : String
     , waste : Split
     }
@@ -192,7 +192,7 @@ decodeProcess impactsDecoder =
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
-        |> Pipe.required "sourceId" decodeSourceId
+        |> DU.strictOptional "sourceId" decodeSourceId
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "waste" Split.decodeFloat
 
@@ -211,7 +211,7 @@ encode process =
         , ( "impacts", Impact.encode process.impacts )
         , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
-        , ( "sourceId", encodeSourceId process.sourceId )
+        , ( "sourceId", EncodeExtra.maybe encodeSourceId process.sourceId )
         , ( "unit", Encode.string process.unit )
         , ( "waste", Split.encodeFloat process.waste )
         ]
