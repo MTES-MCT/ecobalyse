@@ -3,6 +3,7 @@ module Data.Food.Process exposing
     , Id
     , Process
     , categoryToLabel
+    , decodeFromId
     , decodeId
     , decodeList
     , encode
@@ -10,6 +11,7 @@ module Data.Food.Process exposing
     , findByAlias
     , findById
     , getDisplayName
+    , getImpact
     , idFromString
     , idToString
     , listByCategory
@@ -18,7 +20,9 @@ module Data.Food.Process exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition as Definition
 import Data.Split as Split exposing (Split)
+import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -37,6 +41,7 @@ A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
+    -- FIXME: type alias
     { alias : Maybe String
     , categories : List Category
     , comment : Maybe String
@@ -154,6 +159,21 @@ categoryToLabel category =
 
         WasteTreatment ->
             "Traitement des déchets"
+
+
+decodeFromId : List Process -> Decoder Process
+decodeFromId processes =
+    Uuid.decoder
+        |> Decode.andThen
+            (\id ->
+                findById processes (Id id)
+                    |> DE.fromResult
+            )
+
+
+getImpact : Definition.Trigram -> Process -> Unit.Impact
+getImpact trigram =
+    .impacts >> Impact.getImpact trigram
 
 
 sourceIdFromString : String -> SourceId
