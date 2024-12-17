@@ -125,7 +125,7 @@ idToString (Id uuid) =
 decodeIngredients : List Process -> Decoder (List Ingredient)
 decodeIngredients processes =
     processes
-        |> List.map (\process -> ( Process.identifierToString process.identifier, process ))
+        |> List.map (\process -> ( Process.sourceIdToString process.sourceId, process ))
         |> Dict.fromList
         |> decodeIngredient
         |> Decode.list

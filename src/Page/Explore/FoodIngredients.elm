@@ -82,7 +82,7 @@ table _ { detailed, scope } =
           , toCell =
                 \{ default } ->
                     div []
-                        [ code [] [ text <| Process.identifierToString default.identifier ]
+                        [ code [] [ text <| Process.sourceIdToString default.sourceId ]
                         , div [ class "cursor-help", title default.name ]
                             [ text default.name ]
                         , case default.comment of
@@ -96,6 +96,10 @@ table _ { detailed, scope } =
         , { label = "Source"
           , toValue = Table.StringValue <| .default >> .source
           , toCell = .default >> .source >> text
+          }
+        , { label = "Identifiant dans la source"
+          , toValue = Table.StringValue <| .default >> .sourceId >> Process.sourceIdToString
+          , toCell = .default >> .sourceId >> Process.sourceIdToString >> text >> List.singleton >> code []
           }
         , { label = "Services écosystémiques"
           , toValue = Table.StringValue <| always "N/A"

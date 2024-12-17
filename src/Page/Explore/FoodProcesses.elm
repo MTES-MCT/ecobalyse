@@ -51,9 +51,9 @@ table _ { detailed, scope } =
           , toValue = Table.StringValue <| .source
           , toCell = .source >> text
           }
-        , { label = "Identifiant externe"
-          , toValue = Table.StringValue <| .identifier >> FoodProcess.identifierToString
-          , toCell = .identifier >> FoodProcess.identifierToString >> text >> List.singleton >> code []
+        , { label = "Identifiant dans la source"
+          , toValue = Table.StringValue <| .sourceId >> FoodProcess.sourceIdToString
+          , toCell = .sourceId >> FoodProcess.sourceIdToString >> text >> List.singleton >> code []
           }
         , { label = "Alias"
           , toValue = Table.StringValue <| .alias >> Maybe.withDefault ""

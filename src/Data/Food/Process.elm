@@ -12,8 +12,8 @@ module Data.Food.Process exposing
     , getDisplayName
     , idFromString
     , idToString
-    , identifierToString
     , listByCategory
+    , sourceIdToString
     )
 
 import Data.Common.DecodeUtils as DU
@@ -45,10 +45,10 @@ type alias Process =
     , elec : Energy
     , heat : Energy
     , id : Id
-    , identifier : Identifier
     , impacts : Impacts
     , name : String
     , source : String
+    , sourceId : SourceId
     , unit : String
     , waste : Split
     }
@@ -65,8 +65,8 @@ type Category
     | WasteTreatment
 
 
-type Identifier
-    = Identifier String
+type SourceId
+    = SourceId String
 
 
 categoryFromString : String -> Result String Category
@@ -156,13 +156,13 @@ categoryToLabel category =
             "Traitement des déchets"
 
 
-identifierFromString : String -> Identifier
-identifierFromString =
-    Identifier
+sourceIdFromString : String -> SourceId
+sourceIdFromString =
+    SourceId
 
 
-identifierToString : Identifier -> String
-identifierToString (Identifier string) =
+sourceIdToString : SourceId -> String
+sourceIdToString (SourceId string) =
     string
 
 
@@ -189,10 +189,10 @@ decodeProcess impactsDecoder =
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
-        |> Pipe.required "identifier" decodeIdentifier
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
+        |> Pipe.required "sourceId" decodeSourceId
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "waste" Split.decodeFloat
 
@@ -208,10 +208,10 @@ encode process =
         , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
-        , ( "identifier", encodeIdentifier process.identifier )
         , ( "impacts", Impact.encode process.impacts )
         , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
+        , ( "sourceId", encodeSourceId process.sourceId )
         , ( "unit", Encode.string process.unit )
         , ( "waste", Split.encodeFloat process.waste )
         ]
@@ -222,10 +222,10 @@ decodeId =
     Decode.map Id Uuid.decoder
 
 
-decodeIdentifier : Decoder Identifier
-decodeIdentifier =
+decodeSourceId : Decoder SourceId
+decodeSourceId =
     Decode.string
-        |> Decode.map identifierFromString
+        |> Decode.map sourceIdFromString
 
 
 decodeList : Decoder Impact.Impacts -> Decoder (List Process)
@@ -238,9 +238,9 @@ encodeId (Id uuid) =
     Uuid.encoder uuid
 
 
-encodeIdentifier : Identifier -> Encode.Value
-encodeIdentifier =
-    identifierToString >> Encode.string
+encodeSourceId : SourceId -> Encode.Value
+encodeSourceId =
+    sourceIdToString >> Encode.string
 
 
 idFromString : String -> Maybe Id
