@@ -7,7 +7,6 @@ module TestUtils exposing
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
-import Data.Object.Process as ObjectProcess
 import Data.Process as Process
 import Data.Unit as Unit
 import Expect exposing (Expectation)
@@ -59,7 +58,7 @@ createServerRequest dbs method body url =
     , method = method
     , processes =
         { foodProcesses = dbs.food.processes |> encode Process.encode
-        , objectProcesses = dbs.object.processes |> encode ObjectProcess.encode
+        , objectProcesses = dbs.object.processes |> encode Process.encode
         , textileProcesses = dbs.textile.processes |> encode Process.encode
         }
     , url = url

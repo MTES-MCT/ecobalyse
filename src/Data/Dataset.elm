@@ -14,7 +14,6 @@ import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Impact.Definition as Definition
 import Data.Object.Component as ObjectComponent
-import Data.Object.Process as ObjectProcess
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
@@ -36,7 +35,7 @@ type Dataset
     | Impacts (Maybe Definition.Trigram)
     | ObjectComponents (Maybe ObjectComponent.Id)
     | ObjectExamples (Maybe Uuid)
-    | ObjectProcesses (Maybe ObjectProcess.Id)
+    | ObjectProcesses (Maybe Process.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProcesses (Maybe Process.Id)
@@ -276,7 +275,7 @@ setIdFromString idString dataset =
             ObjectExamples (Uuid.fromString idString)
 
         ObjectProcesses _ ->
-            ObjectProcesses (ObjectProcess.idFromString idString)
+            ObjectProcesses (Process.idFromString idString)
 
         TextileExamples _ ->
             TextileExamples (Uuid.fromString idString)
@@ -382,7 +381,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         ObjectProcesses (Just id) ->
-            [ slug dataset, ObjectProcess.idToString id ]
+            [ slug dataset, Process.idToString id ]
 
         ObjectProcesses Nothing ->
             [ slug dataset ]

@@ -19,9 +19,9 @@ import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Component as Component exposing (Component, ComponentItem)
-import Data.Object.Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator exposing (Results)
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -641,7 +641,7 @@ processView selectedImpact ( amount, process ) itemResults =
         , td [ class "text-end text-nowrap" ]
             [ Format.amount process amount ]
         , td [ class "align-middle text-truncate w-100" ]
-            [ text process.displayName ]
+            [ text <| Process.getDisplayName process ]
         , td [ class "align-middle text-end text-nowrap" ]
             [ Format.density process ]
         , td [ class "text-end align-middle text-nowrap" ]

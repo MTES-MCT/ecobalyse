@@ -22,7 +22,6 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Object.Component as ObjectComponent
-import Data.Object.Process as ObjectProcess
 import Data.Object.Query as ObjectQuery
 import Data.Object.Simulator as ObjectSimulator
 import Data.Process as Process exposing (Process)
@@ -489,9 +488,9 @@ objectExamplesExplorer db tableConfig tableState maybeId =
 
 objectProcessesExplorer :
     Db
-    -> Table.Config ObjectProcess.Process Msg
+    -> Table.Config Process.Process Msg
     -> SortableTable.State
-    -> Maybe ObjectProcess.Id
+    -> Maybe Process.Id
     -> List (Html Msg)
 objectProcessesExplorer { object } tableConfig tableState maybeId =
     [ object.processes
@@ -499,7 +498,7 @@ objectProcessesExplorer { object } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case ObjectProcess.findById object.processes id of
+                (case Process.findById object.processes id of
                     Err error ->
                         alert error
 

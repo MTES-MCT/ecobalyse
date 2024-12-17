@@ -19,7 +19,7 @@ module Data.Object.Component exposing
     , quantityToInt
     )
 
-import Data.Object.Process as Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -170,7 +170,7 @@ processItemToString processes processItem =
                 String.fromFloat (amountToFloat processItem.amount)
                     ++ process.unit
                     ++ " "
-                    ++ process.displayName
+                    ++ Process.getDisplayName process
             )
 
 
