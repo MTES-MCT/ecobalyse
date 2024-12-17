@@ -23,7 +23,7 @@ load : List Process -> Result String WellKnown
 load processes =
     let
         resolve alias =
-            RE.andMap (Process.findByAlias processes alias)
+            RE.andMap (Process.findByAlias alias processes)
     in
     Ok WellKnown
         |> resolve "boat-cooling"

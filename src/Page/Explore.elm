@@ -403,7 +403,7 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findById food.processes id of
+                (case Process.findById id food.processes of
                     Err error ->
                         alert error
 
@@ -498,7 +498,7 @@ objectProcessesExplorer { object } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findById object.processes id of
+                (case Process.findById id object.processes of
                     Err error ->
                         alert error
 
@@ -637,7 +637,7 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findById textile.processes id of
+                (case Process.findById id textile.processes of
                     Err error ->
                         alert error
 

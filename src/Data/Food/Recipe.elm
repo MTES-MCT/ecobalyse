@@ -614,7 +614,8 @@ packagingListFromQuery db query =
 
 packagingFromQuery : Food.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { id, mass } =
-    Process.findById processes id
+    processes
+        |> Process.findById id
         |> Result.map (Packaging mass)
 
 
@@ -688,7 +689,8 @@ transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
             (\{ id, mass } ->
-                Process.findById processes id
+                processes
+                    |> Process.findById id
                     |> Result.map (Transform mass >> Just)
             )
         |> Maybe.withDefault (Ok Nothing)

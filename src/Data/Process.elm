@@ -62,11 +62,7 @@ type SourceId
 decodeFromId : List Process -> Decoder Process
 decodeFromId processes =
     Uuid.decoder
-        |> Decode.andThen
-            (\id ->
-                findById processes (Id id)
-                    |> DE.fromResult
-            )
+        |> Decode.andThen (Id >> (\id -> findById id processes) >> DE.fromResult)
 
 
 getImpact : Definition.Trigram -> Process -> Unit.Impact
@@ -135,8 +131,8 @@ decodeSourceId =
 
 
 decodeList : Decoder Impact.Impacts -> Decoder (List Process)
-decodeList impactsDecoder =
-    Decode.list (decodeProcess impactsDecoder)
+decodeList =
+    decodeProcess >> Decode.list
 
 
 encodeId : Id -> Encode.Value
@@ -159,16 +155,16 @@ idToString (Id uuid) =
     Uuid.toString uuid
 
 
-findByAlias : List Process -> String -> Result String Process
-findByAlias processes alias_ =
+findByAlias : String -> List Process -> Result String Process
+findByAlias alias_ processes =
     processes
         |> List.filter (.alias >> (==) (Just alias_))
         |> List.head
         |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias_)
 
 
-findById : List Process -> Id -> Result String Process
-findById processes id =
+findById : Id -> List Process -> Result String Process
+findById id processes =
     processes
         |> List.filter (.id >> (==) id)
         |> List.head
@@ -176,9 +172,8 @@ findById processes id =
 
 
 getDisplayName : Process -> String
-getDisplayName process =
-    process.displayName
-        |> Maybe.withDefault process.name
+getDisplayName { displayName, name } =
+    Maybe.withDefault name displayName
 
 
 listByCategory : Category -> List Process -> List Process

@@ -76,8 +76,8 @@ computeComponentItemResults db componentItem =
 
 computeProcessItemResults : Db -> ProcessItem -> Result String Results
 computeProcessItemResults { object } { amount, processId } =
-    processId
-        |> Process.findById object.processes
+    object.processes
+        |> Process.findById processId
         |> Result.map
             (\process ->
                 let

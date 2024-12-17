@@ -105,7 +105,7 @@ expandComponentItems { components, processes } =
 expandProcessItems : List Process -> List ProcessItem -> Result String (List ( Amount, Process ))
 expandProcessItems processes =
     List.map (\{ amount, processId } -> ( amount, processId ))
-        >> List.map (RE.combineMapSecond (Process.findById processes))
+        >> List.map (RE.combineMapSecond (\id -> Process.findById id processes))
         >> RE.combine
 
 
@@ -163,8 +163,8 @@ idToString (Id uuid) =
 
 processItemToString : List Process -> ProcessItem -> Result String String
 processItemToString processes processItem =
-    processItem.processId
-        |> Process.findById processes
+    processes
+        |> Process.findById processItem.processId
         |> Result.map
             (\process ->
                 String.fromFloat (amountToFloat processItem.amount)

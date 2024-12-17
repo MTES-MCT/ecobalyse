@@ -85,7 +85,7 @@ load : List Process -> Result String WellKnown
 load processes =
     let
         fromAlias key =
-            RE.andMap (Process.findByAlias processes key)
+            RE.andMap (Process.findByAlias key processes)
     in
     Ok WellKnown
         |> fromAlias "air-transport"
