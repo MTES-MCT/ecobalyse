@@ -10,6 +10,7 @@
     "waste": 0,
     "unit": "m3",
     "source": "Ecoinvent 3.9.1",
+    "sourceId": null,
     "comment": "",
     "alias": null
   },
@@ -24,6 +25,7 @@
     "waste": 0,
     "unit": "kg",
     "source": "Ecobalyse",
+    "sourceId": null,
     "comment": "modélisation d'un composant générique (voir documentation)",
     "alias": null
   }
