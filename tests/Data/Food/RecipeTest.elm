@@ -243,64 +243,8 @@ suite =
                                 |> Recipe.compute db
                                 |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
 
-<<<<<<< HEAD
-                            Ok result ->
-                                expectImpactEqual (Unit.impact 131.81578813820002) result
-                        )
-                     , asTest "should have the ingredients' total ecs impact with the complement taken into account"
-                        (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
-                            Err err ->
-                                Expect.fail err
-
-                            Ok result ->
-                                expectImpactEqual (Unit.impact 106.16407947620002) result
-                        )
-                     , describe "Scoring"
-                        (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
-                            Err err ->
-                                [ Expect.fail err
-                                    |> asTest "should not fail"
-                                ]
-
-                            Ok scoring ->
-                                [ Unit.impactToFloat scoring.all
-                                    |> Expect.within (Expect.Absolute 0.01) 478.03754896733557
-                                    |> asTest "should properly score total impact"
-                                , Unit.impactToFloat scoring.allWithoutComplements
-                                    |> Expect.within (Expect.Absolute 0.01) 476.83718155142935
-                                    |> asTest "should properly score total impact without complements"
-                                , Unit.impactToFloat scoring.complements
-                                    |> Expect.within (Expect.Absolute 0.01) -1.2003674159062077
-                                    |> asTest "should properly score complement impact"
-                                , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
-                                    |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
-                                    |> asTest "should expose coherent scoring"
-                                , Unit.impactToFloat scoring.biodiversity
-                                    |> Expect.within (Expect.Absolute 0.01) 192.2155013501179
-                                    |> asTest "should properly score impact on biodiversity protected area"
-                                , Unit.impactToFloat scoring.climate
-                                    |> Expect.within (Expect.Absolute 0.01) 106.46364692095277
-                                    |> asTest "should properly score impact on climate protected area"
-                                , Unit.impactToFloat scoring.health
-                                    |> Expect.within (Expect.Absolute 0.01) 61.34156762961918
-                                    |> asTest "should properly score impact on health protected area"
-                                , Unit.impactToFloat scoring.resources
-                                    |> Expect.within (Expect.Absolute 0.01) 116.8164656507397
-                                    |> asTest "should properly score impact on resources protected area"
-                                ]
-                        )
-                     ]
-                    )
-                , describe "raw-to-cooked checks"
-                    [ -- Royal pizza is cooked at plant, let's apply oven cooking at consumer: the
-                      -- raw-to-cooked ratio should have been applied to resulting mass just once.
-                      let
-                        withPreps preps =
-                            { royalPizza | preparation = preps }
-=======
                         royalPizzaWithNoPackaging =
                             { royalPizza | packaging = [] }
->>>>>>> master
                                 |> Recipe.compute db
                                 |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
                       in
