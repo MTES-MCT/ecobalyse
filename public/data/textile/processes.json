@@ -7,7 +7,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): elec-medium-region-asia.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -45,7 +45,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): elec-medium-region-africa.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -83,7 +83,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): elec-medium-region-middle-east.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -121,7 +121,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): elec-medium-region-latin-america.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -159,7 +159,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): elec-medium-region-north-america.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -197,7 +197,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 53c7378e585cf74cea4837819be6e631.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -235,7 +235,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 8bbc2475141687462993329f9b7c2ddf.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -273,7 +273,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): d33cefdc558e3fe890174e6f1e205015.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -311,7 +311,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): debdaaba938a58ac1ab0131e47186092.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -349,7 +349,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 609797e4710a81c9903bc72c141ff191.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -387,7 +387,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): d3287580187139b11ce76f80013510d0.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -425,7 +425,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): e5f92d33532b4e649da2541b264fa363.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -463,7 +463,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): ae9240745e54987338d2228c3be2a5ec.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -501,7 +501,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): region-elec-west-europe.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -539,7 +539,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 80ff4bc21a0e197ea3f69d809fd8d4f1.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -577,7 +577,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 3c131d87f8dd997d14d2ffc3477f83e6.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -615,7 +615,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 4968e9f8cf72cb72700d94b242048db0.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -653,7 +653,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 4ee8150b0cbf3603e03345d780ba7a61.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1755,7 +1755,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): b42506cbed4b459815c78d741b453e8e.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1793,7 +1793,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 32644303e316aebb9ffa31e9856c8f6b.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1831,7 +1831,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 0b69950358f3e8f0d3fb049d71481186.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1869,7 +1869,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 825dae104f028cb558dac151f7c45f03.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1907,7 +1907,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 2764d908c1a6fe88976d6eabf16295da.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1945,7 +1945,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 2c27aa8ba10e717c63b8508b487909bd.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1983,7 +1983,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): de2cd7848f853b1c9b8a5d7b0f255144.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2021,7 +2021,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): e0f11b283ad36b3da097649bee199149.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2059,7 +2059,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 028c9bf863a1ab77a0e636029afc5839.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2097,7 +2097,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 99b549d4ba7a0f5f4ab6050d6a6689ad.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2135,7 +2135,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 3f90d52cc1dfe32119bf53db2713c407.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2173,7 +2173,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2211,7 +2211,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-row.",
-    "categories": ["Energie"],
+    "categories": ["energy"],
     "impacts": {
       "acd": 0,
       "cch": 0,
