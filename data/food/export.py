@@ -155,9 +155,6 @@ def to_process(activity):
             "name"
         ],
         "source": activity.get("database", DEFAULT_DB),
-        "system_description": cached_search(
-            activity.get("database", DEFAULT_DB), activity["search"]
-        )["System description"],
         "unit": fix_unit(
             cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
                 "unit"
