@@ -56,16 +56,12 @@ table _ { detailed, scope } =
           , toCell = .identifier >> FoodProcess.identifierToString >> text >> List.singleton >> code []
           }
         , { label = "Alias"
-          , toValue = Table.StringValue .alias
-          , toCell = .alias >> text >> List.singleton >> em []
+          , toValue = Table.StringValue <| .alias >> Maybe.withDefault ""
+          , toCell = .alias >> Maybe.map (text >> List.singleton >> em []) >> Maybe.withDefault (text "")
           }
         , { label = "Unité"
           , toValue = Table.StringValue <| .unit
           , toCell = .unit >> text
-          }
-        , { label = "Description du système"
-          , toValue = Table.StringValue <| .systemDescription
-          , toCell = .systemDescription >> text
           }
         , { label = "Commentaire"
           , toValue = Table.StringValue <| .comment >> Maybe.withDefault "N/A"

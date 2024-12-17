@@ -29,6 +29,8 @@ def spproject(activity):
             return "ADEME UPR"
         case "Woolmark":
             return "Woolmark"
+        case "PastoEco":
+            return "AGB3.1.1 2023-03-06"
         case _:
             return "AGB3.1.1 2023-03-06"
 

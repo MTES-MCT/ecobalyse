@@ -5,7 +5,6 @@ import Data.Impact.Definition as Definition
 import Data.Split as Split exposing (Split)
 import Data.Textile.Formula as Formula
 import Data.Textile.MakingComplexity as MakingComplexity
-import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Energy
 import Expect
@@ -26,30 +25,14 @@ km =
     Length.kilometers
 
 
-noOpProcess : Process
-noOpProcess =
-    { alias = Nothing
-    , categories = []
-    , comment = ""
-    , displayName = Just "Default"
-    , density = 0
-    , elec = Energy.megajoules 0
-    , heat = Energy.megajoules 0
-    , impacts = Impact.empty
-    , info = ""
-    , name = "Default"
-    , source = ""
-    , unit = ""
-    , uuid = Process.Uuid ""
-    , waste = Split.zero
-    }
-
-
 suite : Test
 suite =
     suiteWithDb "Data.Formula"
         (\db ->
             let
+                sampleProcess =
+                    db.textile.wellKnown.fading
+
                 defaultImpacts =
                     Impact.empty
                         |> Impact.updateImpact db.definitions Definition.Cch Quantity.zero
@@ -76,14 +59,14 @@ suite =
                                 { makingComplexity = MakingComplexity.Medium
                                 , fadingProcess = Nothing
                                 , countryElecProcess =
-                                    { noOpProcess
+                                    { sampleProcess
                                         | impacts =
                                             Impact.empty
                                                 |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 0.5)
                                                 |> Impact.updateImpact db.definitions Definition.Fwe (Unit.impact 1.5)
                                     }
                                 , countryHeatProcess =
-                                    { noOpProcess
+                                    { sampleProcess
                                         | impacts =
                                             Impact.empty
                                                 |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 0.5)
@@ -113,7 +96,7 @@ suite =
                         Formula.weavingImpacts
                             defaultImpacts
                             { countryElecProcess =
-                                { noOpProcess
+                                { sampleProcess
                                     | impacts =
                                         Impact.empty
                                             |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 8.13225e-2)
@@ -153,7 +136,7 @@ suite =
                                 defaultImpacts
                                 { elec = Energy.kilowattHours 5
                                 , countryElecProcess =
-                                    { noOpProcess
+                                    { sampleProcess
                                         | impacts =
                                             Impact.empty
                                                 |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 0.2)

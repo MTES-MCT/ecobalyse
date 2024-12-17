@@ -89,13 +89,17 @@ ingredientParser countries food string =
             ingredient
                 |> validateByPlaneValue byPlane
                 |> Result.andThen (\maybeByPlane -> Ingredient.byPlaneAllowed maybeByPlane ingredient)
+
+        getIngredient id =
+            Ingredient.idFromString id
+                |> Result.fromMaybe ("Identifiant d’ingrédient invalide\u{202F}: " ++ id ++ ". Un `uuid` est attendu.")
+                |> Result.andThen (\ingredientId -> Ingredient.findById ingredientId food.ingredients)
     in
     case String.split ";" string of
         [ id, mass ] ->
             let
                 ingredient =
-                    food.ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
+                    getIngredient id
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Ok Nothing)
@@ -106,8 +110,7 @@ ingredientParser countries food string =
         [ id, mass, countryCode ] ->
             let
                 ingredient =
-                    food.ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
+                    getIngredient id
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (countryParser countries Scope.Food countryCode)
@@ -118,8 +121,7 @@ ingredientParser countries food string =
         [ id, mass, countryCode, byPlane ] ->
             let
                 ingredient =
-                    food.ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
+                    getIngredient id
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (countryParser countries Scope.Food countryCode)

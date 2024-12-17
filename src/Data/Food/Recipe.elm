@@ -479,19 +479,11 @@ getPackagingMass recipe =
 getPreparedMassAtConsumer : Recipe -> Mass
 getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
     let
-        cookedAtPlant =
-            case transform |> Maybe.map (.process >> .alias) of
-                Just "cooking" ->
-                    True
-
-                _ ->
-                    False
-
         cookedAtConsumer =
             preparation
                 |> List.any .applyRawToCookedRatio
     in
-    if not cookedAtPlant && cookedAtConsumer then
+    if not (isCookedAtPlant transform) && cookedAtConsumer then
         ingredients
             |> List.map
                 (\{ ingredient, mass } ->
@@ -502,6 +494,16 @@ getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
 
     else
         getTransformedIngredientsMass recipe
+
+
+isCookedAtPlant : Maybe Transform -> Bool
+isCookedAtPlant transform =
+    case transform |> Maybe.andThen (.process >> .alias) of
+        Just "cooking" ->
+            True
+
+        _ ->
+            False
 
 
 removeIngredientsInedibleMass : List RecipeIngredient -> List RecipeIngredient
@@ -523,13 +525,12 @@ getTransformedIngredientsMass { ingredients, transform } =
         |> removeIngredientsInedibleMass
         |> List.map
             (\{ ingredient, mass } ->
-                case transform |> Maybe.map (.process >> .alias) of
-                    Just "cooking" ->
-                        -- If the product is cooked, apply raw to cook ratio to ingredient masses
-                        mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
+                if isCookedAtPlant transform then
+                    -- If the product is cooked, apply raw to cook ratio to ingredient masses
+                    mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
 
-                    _ ->
-                        mass
+                else
+                    mass
             )
         |> Quantity.sum
 
@@ -570,7 +571,7 @@ ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String Recipe
 ingredientFromQuery db { country, id, mass, planeTransport } =
     let
         ingredientResult =
-            Ingredient.findByID id db.food.ingredients
+            Ingredient.findById id db.food.ingredients
     in
     Ok RecipeIngredient
         |> RE.andMap

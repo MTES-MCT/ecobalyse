@@ -1,7 +1,7 @@
 [
   {
     "name": "Mango by plane",
-    "query": ["ingredients[]=mango-non-eu;120", "distribution=ambient"],
+    "query": ["ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;120", "distribution=ambient"],
     "impacts": {
       "acd": 0.00926762,
       "cch": 1.78237,
@@ -35,7 +35,10 @@
   },
   {
     "name": "Mango from default origin, but by boat",
-    "query": ["ingredients[]=mango-non-eu;120;;noPlane", "category=fruitsAndVegetables"],
+    "query": [
+      "ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;120;;noPlane",
+      "category=fruitsAndVegetables"
+    ],
     "impacts": {
       "acd": 0.00166483,
       "cch": 0.169068,
@@ -69,7 +72,7 @@
   },
   {
     "name": "Mango by plane from Brazil (by default)",
-    "query": ["ingredients[]=mango-non-eu;120;BR", "distribution=ambient"],
+    "query": ["ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;120;BR", "distribution=ambient"],
     "impacts": {
       "acd": 0.00441355,
       "cch": 0.82117,
@@ -103,7 +106,10 @@
   },
   {
     "name": "Mango by plane from Brazil (explicitely)",
-    "query": ["ingredients[]=mango-non-eu;120;BR;byPlane", "distribution=ambient"],
+    "query": [
+      "ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;120;BR;byPlane",
+      "distribution=ambient"
+    ],
     "impacts": {
       "acd": 0.00441355,
       "cch": 0.82117,
@@ -137,7 +143,10 @@
   },
   {
     "name": "Mango by boat from Brazil",
-    "query": ["ingredients[]=mango-non-eu;120;BR;noPlane", "distribution=ambient"],
+    "query": [
+      "ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;120;BR;noPlane",
+      "distribution=ambient"
+    ],
     "impacts": {
       "acd": 0.000895412,
       "cch": 0.0768733,

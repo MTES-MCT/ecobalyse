@@ -374,7 +374,7 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Ingredient.findByID id food.ingredients of
+                (case Ingredient.findById id food.ingredients of
                     Err error ->
                         alert error
 
@@ -631,7 +631,7 @@ textileProcessesExplorer :
     Db
     -> Table.Config Process.Process Msg
     -> SortableTable.State
-    -> Maybe Process.Uuid
+    -> Maybe Process.Id
     -> List (Html Msg)
 textileProcessesExplorer { textile } tableConfig tableState maybeId =
     [ textile.processes
@@ -639,7 +639,7 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findByUuid id textile.processes of
+                (case Process.findById id textile.processes of
                     Err error ->
                         alert error
 

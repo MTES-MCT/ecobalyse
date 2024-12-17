@@ -37,7 +37,7 @@ A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
-    { alias : String
+    { alias : Maybe String
     , categories : List Category
     , comment : Maybe String
     , density : Float
@@ -49,7 +49,6 @@ type alias Process =
     , impacts : Impacts
     , name : String
     , source : String
-    , systemDescription : String
     , unit : String
     , waste : Split
     }
@@ -182,7 +181,7 @@ encodeCategory =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
-        |> Pipe.required "alias" Decode.string
+        |> DU.strictOptional "alias" Decode.string
         |> Pipe.required "categories" decodeCategories
         |> DU.strictOptional "comment" Decode.string
         |> Pipe.required "density" Decode.float
@@ -194,7 +193,6 @@ decodeProcess impactsDecoder =
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" Decode.string
         |> Pipe.required "source" Decode.string
-        |> Pipe.required "system_description" Decode.string
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "waste" Split.decodeFloat
 
@@ -202,7 +200,7 @@ decodeProcess impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "alias", Encode.string process.alias )
+        [ ( "alias", EncodeExtra.maybe Encode.string process.alias )
         , ( "categories", Encode.list encodeCategory process.categories )
         , ( "comment", EncodeExtra.maybe Encode.string process.comment )
         , ( "density", Encode.float process.density )
@@ -214,7 +212,6 @@ encode process =
         , ( "impacts", Impact.encode process.impacts )
         , ( "name", Encode.string process.name )
         , ( "source", Encode.string process.source )
-        , ( "system_description", Encode.string process.systemDescription )
         , ( "unit", Encode.string process.unit )
         , ( "waste", Split.encodeFloat process.waste )
         ]
@@ -259,7 +256,7 @@ idToString (Id uuid) =
 findByAlias : List Process -> String -> Result String Process
 findByAlias processes alias_ =
     processes
-        |> List.filter (.alias >> (==) alias_)
+        |> List.filter (.alias >> (==) (Just alias_))
         |> List.head
         |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias_)
 

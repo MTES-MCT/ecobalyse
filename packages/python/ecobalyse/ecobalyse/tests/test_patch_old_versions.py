@@ -76,6 +76,11 @@ def test_patch_version_selector_should_patch_non_patched_file(mocker):
     patch_file = tempfile.TemporaryFile()
     git_dir = tempfile.TemporaryDirectory()
 
+    os.makedirs(os.path.join(git_dir.name, "src/Views"))
+
+    with open(os.path.join(git_dir.name, "src/Views/Page.elm"), "w") as page_file:
+        page_file.write("")
+
     with open(os.path.join(git_dir.name, "index.html"), "w") as index_file:
         index_file.write("")
 
@@ -95,7 +100,7 @@ def test_patch_version_selector_should_patch_non_patched_file(mocker):
     )
 
 
-def test_patch_version_selector_should_not_patch_alreadx_patched_file(mocker):
+def test_patch_version_selector_should_not_patch_already_patched_file(mocker):
     mock_run = mocker.patch("subprocess.run")
 
     patch_file = tempfile.TemporaryFile()
@@ -103,6 +108,21 @@ def test_patch_version_selector_should_not_patch_alreadx_patched_file(mocker):
 
     with open(os.path.join(git_dir.name, "index.html"), "w") as index_file:
         index_file.write('selector.classList.add("VersionSelector"')
+
+    os.makedirs(os.path.join(git_dir.name, "src/Views"))
+
+    with open(os.path.join(git_dir.name, "src/Views/Page.elm"), "w") as page_file:
+        page_file.write("")
+
+    patch_version_selector(patch_file.name, git_dir.name)
+
+    assert not mock_run.called
+
+    with open(os.path.join(git_dir.name, "index.html"), "w") as index_file:
+        index_file.write("")
+
+    with open(os.path.join(git_dir.name, "src/Views/Page.elm"), "w") as page_file:
+        page_file.write("VersionSelector")
 
     patch_version_selector(patch_file.name, git_dir.name)
 

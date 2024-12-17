@@ -411,18 +411,23 @@ def compute_simapro_impacts(activity, method, impacts_py):
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
     logger.debug(f"SimaPro API request: {api_request}")
 
-    response = requests.get(api_request).content
-    response_data = json.loads(response)
+    response = requests.get(api_request)
 
-    # Check if response is just a string (error message)
-    if isinstance(response_data, str):
-        logger.warning(f"SimaPro API returned an error: {response_data}")
-        return None
+    try:
+        json_content = json.loads(response.content)
 
-    return bytrigram(
-        impacts_py,
-        response_data,
-    )
+        # If Simapro doesn't return a dict, it's most likely an error
+        # (project not found) Don't do anything and return None,
+        # BW will be used as a replacement
+        if isinstance(json_content, dict):
+            return bytrigram(
+                impacts_py,
+                json_content,
+            )
+    except ValueError:
+        pass
+
+    return None
 
 
 def compute_brightway_impacts(activity, method, impacts_py):

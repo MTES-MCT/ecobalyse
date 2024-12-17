@@ -12,23 +12,20 @@ import Route
 table : { detailed : Bool, scope : Scope } -> Table Process String msg
 table { detailed, scope } =
     { filename = "processes"
-    , toId = .uuid >> Process.uuidToString
-    , toRoute = .uuid >> Just >> Dataset.TextileProcesses >> Route.Explore scope
+    , toId = .id >> Process.idToString
+    , toRoute = .id >> Just >> Dataset.TextileProcesses >> Route.Explore scope
     , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .uuid >> Process.uuidToString
+          , toValue = Table.StringValue <| .id >> Process.idToString
           , toCell =
-                .uuid
-                    >> Process.uuidToString
-                    >> (\uuid ->
-                            if detailed then
-                                code [] [ text uuid ]
+                \process ->
+                    if detailed then
+                        code [] [ text (Process.idToString process.id) ]
 
-                            else
-                                a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just (Process.Uuid uuid)))) ]
-                                    [ code [] [ text uuid ] ]
-                       )
+                    else
+                        a [ Route.href (Route.Explore scope (Dataset.TextileProcesses (Just process.id))) ]
+                            [ code [] [ text (Process.idToString process.id) ] ]
           }
         , { label = "Nom"
           , toValue = Table.StringValue Process.getDisplayName

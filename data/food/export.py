@@ -76,24 +76,25 @@ def create_ingredient_list(activities_tuple):
 
 def to_ingredient(activity):
     return {
-        "id": activity["id"],
-        "name": activity["name"],
+        "alias": activity["alias"],
         "categories": activity.get("ingredient_categories", []),
-        "search": activity["search"],
         "default": find_id(activity.get("database", DEFAULT_DB), activity),
         "default_origin": activity["default_origin"],
-        "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
         "density": activity["density"],
-        "inedible_part": activity["inedible_part"],
-        "transport_cooling": activity["transport_cooling"],
+        **({"crop_group": activity["crop_group"]} if "crop_group" in activity else {}),
         "ecosystemicServices": activity.get("ecosystemicServices", {}),
+        "id": activity["id"],
+        "inedible_part": activity["inedible_part"],
         **(
             {"land_occupation": activity["land_occupation"]}
             if "land_occupation" in activity
             else {}
         ),
-        **({"crop_group": activity["crop_group"]} if "crop_group" in activity else {}),
+        "name": activity["name"],
+        "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
         **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
+        "search": activity["search"],
+        "transport_cooling": activity["transport_cooling"],
         "visible": activity["visible"],
     }
 
@@ -129,6 +130,7 @@ def create_process_list(activities):
 
 def to_process(activity):
     return {
+        "alias": activity["alias"],
         "categories": activity.get("process_categories"),
         "comment": (
             prod[0]["comment"]
