@@ -1,10 +1,7 @@
 [
   {
     "name": "Mango by plane",
-    "query": [
-      "ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;120",
-      "distribution=ambient"
-    ],
+    "query": ["ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;120", "distribution=ambient"],
     "impacts": {
       "acd": 0.00926761,
       "cch": 1.78237,
@@ -75,10 +72,7 @@
   },
   {
     "name": "Mango by plane from Brazil (by default)",
-    "query": [
-      "ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;120;BR",
-      "distribution=ambient"
-    ],
+    "query": ["ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;120;BR", "distribution=ambient"],
     "impacts": {
       "acd": 0.00441355,
       "cch": 0.82117,
