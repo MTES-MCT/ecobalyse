@@ -2,44 +2,44 @@ module Page.Explore.FoodProcesses exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
-import Data.Food.Process as FoodProcess
+import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
 
 
-table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table FoodProcess.Process String msg
+table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Process.Process String msg
 table _ { detailed, scope } =
     { filename = "processes"
-    , toId = .id >> FoodProcess.idToString
+    , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.FoodProcesses >> Route.Explore scope
     , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .id >> FoodProcess.idToString
+          , toValue = Table.StringValue <| .id >> Process.idToString
           , toCell =
                 \process ->
                     if detailed then
-                        code [] [ text (FoodProcess.idToString process.id) ]
+                        code [] [ text (Process.idToString process.id) ]
 
                     else
                         a [ Route.href (Route.Explore scope (Dataset.FoodProcesses (Just process.id))) ]
-                            [ code [] [ text (FoodProcess.idToString process.id) ] ]
+                            [ code [] [ text (Process.idToString process.id) ] ]
           }
         , { label = "Nom"
-          , toValue = Table.StringValue FoodProcess.getDisplayName
-          , toCell = FoodProcess.getDisplayName >> text
+          , toValue = Table.StringValue Process.getDisplayName
+          , toCell = Process.getDisplayName >> text
           }
         , { label = "Catégories"
           , toValue =
                 Table.StringValue <|
                     .categories
-                        >> List.map FoodProcess.categoryToLabel
+                        >> List.map Process.categoryToLabel
                         >> String.join ", "
           , toCell =
                 .categories
-                    >> List.map FoodProcess.categoryToLabel
+                    >> List.map Process.categoryToLabel
                     >> String.join ", "
                     >> text
           }
@@ -52,8 +52,8 @@ table _ { detailed, scope } =
           , toCell = .source >> text
           }
         , { label = "Identifiant dans la source"
-          , toValue = Table.StringValue <| .sourceId >> Maybe.map FoodProcess.sourceIdToString >> Maybe.withDefault ""
-          , toCell = .sourceId >> Maybe.map (FoodProcess.sourceIdToString >> text >> List.singleton >> code []) >> Maybe.withDefault (text "")
+          , toValue = Table.StringValue <| .sourceId >> Maybe.map Process.sourceIdToString >> Maybe.withDefault ""
+          , toCell = .sourceId >> Maybe.map (Process.sourceIdToString >> text >> List.singleton >> code []) >> Maybe.withDefault (text "")
           }
         , { label = "Alias"
           , toValue = Table.StringValue <| .alias >> Maybe.withDefault ""

@@ -16,7 +16,6 @@ import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example exposing (Example)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
@@ -26,10 +25,11 @@ import Data.Object.Component as ObjectComponent
 import Data.Object.Process as ObjectProcess
 import Data.Object.Query as ObjectQuery
 import Data.Object.Simulator as ObjectSimulator
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Process as Process
+import Data.Textile.Process as TextileProcess
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator
@@ -394,9 +394,9 @@ foodIngredientDetails foodDb =
 
 foodProcessesExplorer :
     Db
-    -> Table.Config FoodProcess.Process Msg
+    -> Table.Config Process Msg
     -> SortableTable.State
-    -> Maybe FoodProcess.Id
+    -> Maybe Process.Id
     -> List (Html Msg)
 foodProcessesExplorer { food } tableConfig tableState maybeId =
     [ food.processes
@@ -405,7 +405,7 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case FoodProcess.findById food.processes id of
+                (case Process.findById food.processes id of
                     Err error ->
                         alert error
 
@@ -629,9 +629,9 @@ textileMaterialDetails db =
 
 textileProcessesExplorer :
     Db
-    -> Table.Config Process.Process Msg
+    -> Table.Config TextileProcess.Process Msg
     -> SortableTable.State
-    -> Maybe Process.Id
+    -> Maybe TextileProcess.Id
     -> List (Html Msg)
 textileProcessesExplorer { textile } tableConfig tableState maybeId =
     [ textile.processes
@@ -639,7 +639,7 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findById id textile.processes of
+                (case TextileProcess.findById id textile.processes of
                     Err error ->
                         alert error
 

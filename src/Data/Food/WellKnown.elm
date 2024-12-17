@@ -3,7 +3,7 @@ module Data.Food.WellKnown exposing
     , load
     )
 
-import Data.Food.Process as Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Result.Extra as RE
 
 

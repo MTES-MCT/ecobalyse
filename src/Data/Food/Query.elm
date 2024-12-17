@@ -28,8 +28,8 @@ import Data.Common.DecodeUtils as DU
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
-import Data.Food.Process as Process
 import Data.Food.Retail as Retail
+import Data.Process as Process
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode

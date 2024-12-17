@@ -1,4 +1,4 @@
-module Data.Food.Process exposing
+module Data.Process exposing
     ( Category(..)
     , Id
     , Process
@@ -36,12 +36,9 @@ type Id
     = Id Uuid
 
 
-{-| Process
-A process is an entry from public/data/food/processes.json. It has impacts and
-various other data like categories, code, unit...
+{-| A process is an entry from processes.json or processes\_impacts.json.
 -}
 type alias Process =
-    -- FIXME: type alias
     { alias : Maybe String
     , categories : List Category
     , comment : Maybe String

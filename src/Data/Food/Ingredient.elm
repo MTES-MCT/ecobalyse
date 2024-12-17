@@ -18,8 +18,8 @@ module Data.Food.Ingredient exposing
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin exposing (Origin)
-import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
+import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit

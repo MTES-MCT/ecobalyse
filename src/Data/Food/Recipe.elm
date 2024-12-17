@@ -29,11 +29,11 @@ import Data.Food.EcosystemicServices as EcosystemicServices exposing (Ecosystemi
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
-import Data.Food.Process as Process exposing (Process)
 import Data.Food.Query as BuilderQuery exposing (Query)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
+import Data.Process as Process exposing (Process)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
 import Data.Textile.Formula as Formula

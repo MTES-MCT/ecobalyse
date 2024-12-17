@@ -10,9 +10,9 @@ import Data.Env as Env
 import Data.Food.Db as Food
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Preparation as Preparation
-import Data.Food.Process as FoodProcess
 import Data.Food.Query as BuilderQuery
 import Data.Food.Retail as Retail exposing (Distribution)
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -147,15 +147,15 @@ countryParser countries scope countryStr =
             |> Result.map Just
 
 
-foodProcessIdParser : List FoodProcess.Process -> String -> Result String FoodProcess.Id
+foodProcessIdParser : List Process -> String -> Result String Process.Id
 foodProcessIdParser processes string =
-    FoodProcess.idFromString string
+    Process.idFromString string
         |> Result.fromMaybe ("Identifiant invalide: " ++ string)
-        |> Result.andThen (FoodProcess.findById processes)
+        |> Result.andThen (Process.findById processes)
         |> Result.map .id
 
 
-packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List BuilderQuery.ProcessQuery))
+packagingListParser : String -> List Process -> Parser (ParseResult (List BuilderQuery.ProcessQuery))
 packagingListParser key packagings =
     Query.custom (key ++ "[]")
         (List.map (packagingParser packagings)
@@ -182,7 +182,7 @@ preparationListParser key =
         )
 
 
-packagingParser : List FoodProcess.Process -> String -> Result String BuilderQuery.ProcessQuery
+packagingParser : List Process -> String -> Result String BuilderQuery.ProcessQuery
 packagingParser packagings string =
     case String.split ";" string of
         [ code, mass ] ->
@@ -288,7 +288,7 @@ validatePhysicalDurability string =
             )
 
 
-maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe BuilderQuery.ProcessQuery))
+maybeTransformParser : String -> List Process -> Parser (ParseResult (Maybe BuilderQuery.ProcessQuery))
 maybeTransformParser key transforms =
     Query.string key
         |> Query.map
@@ -371,7 +371,7 @@ maybeIntParser key =
             )
 
 
-parseTransform_ : List FoodProcess.Process -> String -> Result String BuilderQuery.ProcessQuery
+parseTransform_ : List Process -> String -> Result String BuilderQuery.ProcessQuery
 parseTransform_ transforms string =
     case String.split ";" string of
         [ code, mass ] ->

@@ -5,10 +5,10 @@ module TestUtils exposing
     , suiteWithDb
     )
 
-import Data.Food.Process as FoodProcess
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Object.Process as ObjectProcess
+import Data.Process as Process
 import Data.Textile.Process as TextileProcess
 import Data.Unit as Unit
 import Expect exposing (Expectation)
@@ -59,7 +59,7 @@ createServerRequest dbs method body url =
     , jsResponseHandler = Encode.null
     , method = method
     , processes =
-        { foodProcesses = dbs.food.processes |> encode FoodProcess.encode
+        { foodProcesses = dbs.food.processes |> encode Process.encode
         , objectProcesses = dbs.object.processes |> encode ObjectProcess.encode
         , textileProcesses = dbs.textile.processes |> encode TextileProcess.encode
         }
