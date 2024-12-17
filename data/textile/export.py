@@ -103,7 +103,6 @@ def to_process(activity):
         "comment": activity["comment"],
         "categories": activity["categories"],
         "id": activity["id"],
-        "uuid": activity["uuid"],
         **(
             {"impacts": activity["impacts"].copy()}
             if "impacts" in activity
