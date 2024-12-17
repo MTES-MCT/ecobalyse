@@ -13,6 +13,7 @@ import Data.Food.Recipe as BuilderRecipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
@@ -217,13 +218,13 @@ handleRequest db request =
 
         Just Route.FoodGetPackagingList ->
             db.food.processes
-                |> List.filter (.categories >> List.member Process.Packaging)
+                |> List.filter (.categories >> List.member ProcessCategory.Packaging)
                 |> encodeProcessList
                 |> respondWith 200
 
         Just Route.FoodGetTransformList ->
             db.food.processes
-                |> List.filter (.categories >> List.member Process.Transform)
+                |> List.filter (.categories >> List.member ProcessCategory.Transform)
                 |> encodeProcessList
                 |> respondWith 200
 

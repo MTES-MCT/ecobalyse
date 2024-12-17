@@ -29,6 +29,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -232,7 +233,7 @@ update ({ db, queries } as session) msg model =
 
                 firstTransform =
                     db.food.processes
-                        |> Process.listByCategory Process.Transform
+                        |> Process.listByCategory ProcessCategory.Transform
                         |> List.sortBy Process.getDisplayName
                         |> List.head
                         |> Maybe.map
@@ -1044,7 +1045,7 @@ packagingListView db selectedImpact recipe results =
                         updateProcessFormView
                             { processes =
                                 db.food.processes
-                                    |> Process.listByCategory Process.Packaging
+                                    |> Process.listByCategory ProcessCategory.Packaging
                             , excluded = recipe.packaging |> List.map (.process >> .id)
                             , processQuery = { id = packaging.process.id, mass = packaging.mass }
                             , impact =
@@ -1488,7 +1489,7 @@ transformView db selectedImpact recipe results =
                 updateProcessFormView
                     { processes =
                         db.food.processes
-                            |> Process.listByCategory Process.Transform
+                            |> Process.listByCategory ProcessCategory.Transform
                     , excluded = [ transform.process.id ]
                     , processQuery = { id = transform.process.id, mass = transform.mass }
                     , impact = impact

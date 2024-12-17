@@ -1,8 +1,6 @@
 module Data.Process exposing
-    ( Category(..)
-    , Id
+    ( Id
     , Process
-    , categoryToLabel
     , decodeFromId
     , decodeId
     , decodeList
@@ -21,6 +19,7 @@ module Data.Process exposing
 import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
+import Data.Process.Category as Category exposing (Category)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
@@ -56,126 +55,8 @@ type alias Process =
     }
 
 
-type Category
-    = EndOfLife
-    | Energy
-    | Ingredient
-    | Material
-    | Packaging
-    | Processing
-    | Transform
-    | Transport
-    | Use
-    | WasteTreatment
-
-
 type SourceId
     = SourceId String
-
-
-categoryFromString : String -> Result String Category
-categoryFromString string =
-    case string of
-        "eol" ->
-            Ok EndOfLife
-
-        "energy" ->
-            Ok Energy
-
-        "ingredient" ->
-            Ok Ingredient
-
-        "material" ->
-            Ok Material
-
-        "packaging" ->
-            Ok Packaging
-
-        "processing" ->
-            Ok Processing
-
-        "transformation" ->
-            Ok Transform
-
-        "transport" ->
-            Ok Transport
-
-        "use" ->
-            Ok Use
-
-        "waste treatment" ->
-            Ok WasteTreatment
-
-        _ ->
-            Err <| "Catégorie de procédé invalide: " ++ string
-
-
-categoryToString : Category -> String
-categoryToString category =
-    case category of
-        EndOfLife ->
-            "eol"
-
-        Energy ->
-            "energy"
-
-        Ingredient ->
-            "ingredient"
-
-        Material ->
-            "material"
-
-        Packaging ->
-            "packaging"
-
-        Processing ->
-            "processing"
-
-        Transform ->
-            "transformation"
-
-        Transport ->
-            "transport"
-
-        Use ->
-            "use"
-
-        WasteTreatment ->
-            "waste treatment"
-
-
-categoryToLabel : Category -> String
-categoryToLabel category =
-    case category of
-        EndOfLife ->
-            "Fin de vie"
-
-        Energy ->
-            "Énergie"
-
-        Ingredient ->
-            "Ingrédient"
-
-        Material ->
-            "Matériau"
-
-        Packaging ->
-            "Emballage"
-
-        Processing ->
-            "Traitement"
-
-        Transform ->
-            "Transformation"
-
-        Transport ->
-            "Transport"
-
-        Use ->
-            "Utilisation"
-
-        WasteTreatment ->
-            "Traitement des déchets"
 
 
 decodeFromId : List Process -> Decoder Process
@@ -203,23 +84,11 @@ sourceIdToString (SourceId string) =
     string
 
 
-decodeCategories : Decoder (List Category)
-decodeCategories =
-    Decode.string
-        |> Decode.andThen (categoryFromString >> DE.fromResult)
-        |> Decode.list
-
-
-encodeCategory : Category -> Encode.Value
-encodeCategory =
-    categoryToString >> Encode.string
-
-
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
         |> DU.strictOptional "alias" Decode.string
-        |> Pipe.required "categories" decodeCategories
+        |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "density" Decode.float
         |> DU.strictOptional "displayName" Decode.string
@@ -238,7 +107,7 @@ encode : Process -> Encode.Value
 encode process =
     Encode.object
         [ ( "alias", EncodeExtra.maybe Encode.string process.alias )
-        , ( "categories", Encode.list encodeCategory process.categories )
+        , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )

@@ -3,6 +3,7 @@ module Page.Explore.FoodProcesses exposing (table)
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
 import Data.Process as Process
+import Data.Process.Category as ProcessCategory
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Table)
@@ -35,11 +36,11 @@ table _ { detailed, scope } =
           , toValue =
                 Table.StringValue <|
                     .categories
-                        >> List.map Process.categoryToLabel
+                        >> List.map ProcessCategory.toLabel
                         >> String.join ", "
           , toCell =
                 .categories
-                    >> List.map Process.categoryToLabel
+                    >> List.map ProcessCategory.toLabel
                     >> String.join ", "
                     >> text
           }

@@ -2,6 +2,7 @@ module Page.Explore.TextileProcesses exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as ProcessCategory
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -36,8 +37,8 @@ table { detailed, scope } =
           , toCell = .name >> text
           }
         , { label = "Catégories"
-          , toValue = Table.StringValue <| .categories >> List.map Process.categoryToLabel >> String.join ","
-          , toCell = .categories >> List.map Process.categoryToLabel >> String.join "," >> text
+          , toValue = Table.StringValue <| .categories >> List.map ProcessCategory.toLabel >> String.join ","
+          , toCell = .categories >> List.map ProcessCategory.toLabel >> String.join "," >> text
           }
         , { label = "Source"
           , toValue = Table.StringValue .source

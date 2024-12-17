@@ -34,6 +34,7 @@ import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as ProcessCategory
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
 import Data.Textile.Formula as Formula
@@ -116,7 +117,7 @@ availableIngredients usedIngredientIds =
 
 availablePackagings : List Process.Id -> List Process -> List Process
 availablePackagings usedProcesses =
-    Process.listByCategory Process.Packaging
+    Process.listByCategory ProcessCategory.Packaging
         >> List.filter (\process -> not (List.member process.id usedProcesses))
 
 
