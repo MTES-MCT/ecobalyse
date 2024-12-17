@@ -41,7 +41,7 @@ type Id
 type alias Process =
     { alias : Maybe String
     , categories : List Category
-    , comment : Maybe String
+    , comment : String
     , density : Float
     , displayName : Maybe String
     , elec : Energy
@@ -57,13 +57,15 @@ type alias Process =
 
 
 type Category
-    = Energy
+    = EndOfLife
+    | Energy
     | Ingredient
     | Material
     | Packaging
     | Processing
     | Transform
     | Transport
+    | Use
     | WasteTreatment
 
 
@@ -74,6 +76,9 @@ type SourceId
 categoryFromString : String -> Result String Category
 categoryFromString string =
     case string of
+        "eol" ->
+            Ok EndOfLife
+
         "energy" ->
             Ok Energy
 
@@ -95,6 +100,9 @@ categoryFromString string =
         "transport" ->
             Ok Transport
 
+        "use" ->
+            Ok Use
+
         "waste treatment" ->
             Ok WasteTreatment
 
@@ -105,6 +113,9 @@ categoryFromString string =
 categoryToString : Category -> String
 categoryToString category =
     case category of
+        EndOfLife ->
+            "eol"
+
         Energy ->
             "energy"
 
@@ -126,6 +137,9 @@ categoryToString category =
         Transport ->
             "transport"
 
+        Use ->
+            "use"
+
         WasteTreatment ->
             "waste treatment"
 
@@ -133,6 +147,9 @@ categoryToString category =
 categoryToLabel : Category -> String
 categoryToLabel category =
     case category of
+        EndOfLife ->
+            "Fin de vie"
+
         Energy ->
             "Énergie"
 
@@ -153,6 +170,9 @@ categoryToLabel category =
 
         Transport ->
             "Transport"
+
+        Use ->
+            "Utilisation"
 
         WasteTreatment ->
             "Traitement des déchets"
@@ -200,7 +220,7 @@ decodeProcess impactsDecoder =
     Decode.succeed Process
         |> DU.strictOptional "alias" Decode.string
         |> Pipe.required "categories" decodeCategories
-        |> DU.strictOptional "comment" Decode.string
+        |> Pipe.required "comment" Decode.string
         |> Pipe.required "density" Decode.float
         |> DU.strictOptional "displayName" Decode.string
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
@@ -219,7 +239,7 @@ encode process =
     Encode.object
         [ ( "alias", EncodeExtra.maybe Encode.string process.alias )
         , ( "categories", Encode.list encodeCategory process.categories )
-        , ( "comment", EncodeExtra.maybe Encode.string process.comment )
+        , ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )

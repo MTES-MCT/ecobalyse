@@ -29,7 +29,6 @@ import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Process as TextileProcess
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator
@@ -629,9 +628,9 @@ textileMaterialDetails db =
 
 textileProcessesExplorer :
     Db
-    -> Table.Config TextileProcess.Process Msg
+    -> Table.Config Process Msg
     -> SortableTable.State
-    -> Maybe TextileProcess.Id
+    -> Maybe Process.Id
     -> List (Html Msg)
 textileProcessesExplorer { textile } tableConfig tableState maybeId =
     [ textile.processes
@@ -639,7 +638,7 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case TextileProcess.findById id textile.processes of
+                (case Process.findById textile.processes id of
                     Err error ->
                         alert error
 

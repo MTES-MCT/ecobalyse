@@ -691,7 +691,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -729,7 +729,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 75b27555d86fe1c66686cdf4339efc89.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -767,7 +767,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 4d81aa5f76872e1e4c0e1bb14b01e93b.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -805,7 +805,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -843,7 +843,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -881,7 +881,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -919,7 +919,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 88a1395a1c61be31b0bc692e977dd10b.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -957,7 +957,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): cf76c9e1872effbd04d49aec742e7952.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -995,7 +995,7 @@
     "source": "Woolmark",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): wool-default.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1033,7 +1033,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): wool-new.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1071,7 +1071,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): a211822aabe83653a6079b9d5677daed.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1109,7 +1109,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): coton-bio.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1147,7 +1147,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): fa590941e8bbf72c8956b5c3ba793eb7.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1185,7 +1185,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): f89bba0c170190e003fa3f643591cca5.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1223,7 +1223,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 993955be-5888-6f39-137c-56af8c5187c1.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1261,7 +1261,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 9c6ab710-4a08-c720-cede-24428a013fda.",
-    "categories": ["Matières"],
+    "categories": ["material"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1299,7 +1299,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
-    "categories": ["Tissage / Tricotage"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1337,7 +1337,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
-    "categories": ["Tissage / Tricotage"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1375,7 +1375,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
-    "categories": ["Tissage / Tricotage"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1413,7 +1413,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
-    "categories": ["Tissage / Tricotage"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1451,7 +1451,7 @@
     "source": "Base Impacts 2.01",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 03c769d5-46b6-4cf9-80f8-f2712692a6ab.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1489,7 +1489,7 @@
     "source": "Base Impacts 2.01",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): af54556c-5f74-4f2c-8531-d002eda9d793.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1527,7 +1527,7 @@
     "source": "Base Impacts 2.01",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): b15afd1b-e7c0-4fbf-9f7b-b2a8b7e74bc7.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1565,7 +1565,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
-    "categories": ["Transport"],
+    "categories": ["transport"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1603,7 +1603,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): d3130e7ed9686fcc4bbe980e0375ad88.",
-    "categories": ["Transport"],
+    "categories": ["transport"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1641,7 +1641,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 7037ea59d8d644fd35f80fd1982f9fe9.",
-    "categories": ["Transport"],
+    "categories": ["transport"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1679,7 +1679,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): f37aba954435f9f158c19a9449d373b2.",
-    "categories": ["Transport"],
+    "categories": ["transport"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1717,7 +1717,7 @@
     "source": "Base Impacts 2.01",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
-    "categories": ["Transport"],
+    "categories": ["transport"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2249,7 +2249,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 406d1f98-1052-458d-8f50-1901853d896d.",
-    "categories": ["Utilisation"],
+    "categories": ["use"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2287,7 +2287,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 4964273a-cdbd-43cf-8cf8-4b017aee4f03.",
-    "categories": ["Utilisation"],
+    "categories": ["use"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2325,7 +2325,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 2572015b-7320-4ce1-bc99-cc6de371a654.",
-    "categories": ["Utilisation"],
+    "categories": ["use"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2363,7 +2363,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 8c040f35-e137-424b-a67f-2e50b628c1bf.",
-    "categories": ["Utilisation"],
+    "categories": ["use"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2401,7 +2401,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): ea7afeed-c058-4dbb-be01-66704a9afb1f.",
-    "categories": ["Utilisation"],
+    "categories": ["use"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2439,7 +2439,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 2b39a7ac-38bd-435f-85a4-783023d845bf.",
-    "categories": ["Utilisation"],
+    "categories": ["use"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2477,7 +2477,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): d3bff7b7-efc1-459b-856d-ea0801d6912f.",
-    "categories": ["Utilisation"],
+    "categories": ["use"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2515,7 +2515,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 7f76529e-521d-4795-bb36-ff896c4692da.",
-    "categories": ["Utilisation"],
+    "categories": ["use"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2553,7 +2553,7 @@
     "source": "Base Impacts 2.01",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
-    "categories": ["Transport"],
+    "categories": ["transport"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2591,7 +2591,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Précalcul Ecobalyse à partir de Base Impacts",
-    "categories": ["Fin de vie"],
+    "categories": ["eol"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2629,7 +2629,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 364298ad-2058-4ec4-b2d0-47f5214abffb.",
-    "categories": ["Tissage / Tricotage"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2667,7 +2667,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
-    "categories": ["Tissage / Tricotage"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2705,7 +2705,7 @@
     "source": "Base Impacts 2.01",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2743,7 +2743,7 @@
     "source": "Base Impacts 2.01",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2781,7 +2781,7 @@
     "source": "Base Impacts 2.01",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2819,7 +2819,7 @@
     "source": "Base Impacts 2.01",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): 63baddae-e05d-404b-a73f-371044a24fe9.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2857,7 +2857,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2895,7 +2895,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2933,7 +2933,7 @@
     "source": "Ecoinvent 3.9.1",
     "source_id": null,
     "comment": "Ancien identifiant (12/2024): blanchiment.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2971,7 +2971,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3009,7 +3009,7 @@
     "source": "Custom",
     "source_id": null,
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
-    "categories": ["Ennoblissement"],
+    "categories": ["processing"],
     "impacts": {
       "acd": 0,
       "cch": 0,

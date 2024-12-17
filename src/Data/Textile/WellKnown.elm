@@ -8,9 +8,9 @@ module Data.Textile.WellKnown exposing
     )
 
 import Data.Country exposing (Country)
+import Data.Process as Process exposing (Process)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Printing as Printing
-import Data.Textile.Process as Process exposing (Alias(..), Process)
 import Data.Zone as Zone
 import Result.Extra as RE
 
@@ -85,7 +85,7 @@ load : List Process -> Result String WellKnown
 load processes =
     let
         fromAlias key =
-            RE.andMap (Process.findByAlias (Alias key) processes)
+            RE.andMap (Process.findByAlias processes key)
     in
     Ok WellKnown
         |> fromAlias "air-transport"

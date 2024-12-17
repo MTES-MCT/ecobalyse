@@ -18,7 +18,6 @@ import Data.Object.Process as ObjectProcess
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
-import Data.Textile.Process as TextileProcess
 import Data.Textile.Product as Product
 import Data.Uuid as Uuid exposing (Uuid)
 import Url.Parser as Parser exposing (Parser)
@@ -40,7 +39,7 @@ type Dataset
     | ObjectProcesses (Maybe ObjectProcess.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
-    | TextileProcesses (Maybe TextileProcess.Id)
+    | TextileProcesses (Maybe Process.Id)
     | TextileProducts (Maybe Product.Id)
 
 
@@ -286,7 +285,7 @@ setIdFromString idString dataset =
             TextileMaterials (Just (Material.Id idString))
 
         TextileProcesses _ ->
-            TextileProcesses (TextileProcess.idFromString idString)
+            TextileProcesses (Process.idFromString idString)
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -401,7 +400,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         TextileProcesses (Just id) ->
-            [ slug dataset, TextileProcess.idToString id ]
+            [ slug dataset, Process.idToString id ]
 
         TextileProcesses Nothing ->
             [ slug dataset ]

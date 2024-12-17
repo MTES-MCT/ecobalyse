@@ -87,12 +87,8 @@ table _ { detailed, scope } =
                             |> Maybe.withDefault (text "")
                         , div [ class "cursor-help", title default.name ]
                             [ text default.name ]
-                        , case default.comment of
-                            Just comment ->
-                                em [ class "cursor-help", title comment ] [ text comment ]
-
-                            Nothing ->
-                                text ""
+                        , em [ class "cursor-help", title default.comment ]
+                            [ text default.comment ]
                         ]
           }
         , { label = "Source"

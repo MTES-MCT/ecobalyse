@@ -64,8 +64,8 @@ table _ { detailed, scope } =
           , toCell = .unit >> text
           }
         , { label = "Commentaire"
-          , toValue = Table.StringValue <| .comment >> Maybe.withDefault "N/A"
-          , toCell = .comment >> Maybe.withDefault "N/A" >> text
+          , toValue = Table.StringValue .comment
+          , toCell = .comment >> text
           }
         ]
     }
