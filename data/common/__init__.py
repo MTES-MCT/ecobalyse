@@ -5,15 +5,15 @@ from frozendict import frozendict
 
 
 def normalization_factors(impact_defs):
-    normalization_factors = {}
+    factors = {}
     for k, v in impact_defs.items():
-        if v.get("ecoscore"):
-            normalization_factors[k] = (
-                v["ecoscore"]["weighting"] / v["ecoscore"]["normalization"]
-            )
+        if v.get("ecoscore") and "normalization" in v.get("ecoscore", {}):
+            factors[k] = v["ecoscore"]["normalization"]
+        elif v.get("pef") and "normalization" in v.get("pef", {}):
+            factors[k] = v["pef"]["normalization"]
         else:
-            normalization_factors[k] = 0
-    return normalization_factors
+            pass
+    return factors
 
 
 def spproject(activity):
@@ -28,6 +28,8 @@ def spproject(activity):
             return "ADEME UPR"
         case "Woolmark":
             return "Woolmark"
+        case "WFLDB":
+            return "WFLDB"
         case "PastoEco":
             return "AGB3.1.1 2023-03-06"
         case _:
@@ -153,6 +155,8 @@ def calculate_aggregate(process_impacts, normalization_factors):
 
 def bytrigram(definitions, bynames):
     """takes the impact definitions and some impacts by name, return the impacts by trigram"""
+    if type(bynames) is not dict:
+        return {}
     trigramsByName = {method[1]: trigram for trigram, method in definitions.items()}
     return {
         trigramsByName.get(name): amount["amount"]
