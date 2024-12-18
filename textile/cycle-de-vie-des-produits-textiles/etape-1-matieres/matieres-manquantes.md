@@ -25,4 +25,4 @@ Choix d’une autre matière en suivant le tableau de correspondance
 
 </details>
 
-<figure><img src="../../../.gitbook/assets/image (332).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (333).png" alt=""><figcaption></figcaption></figure>
