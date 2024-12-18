@@ -235,6 +235,7 @@ def import_simapro_csv(
 
     database.apply_strategies()
     database.statistics()
+
     # try to link remaining unlinked technosphere activities
     database.apply_strategy(
         functools.partial(
@@ -252,8 +253,8 @@ def import_simapro_csv(
 
     print("### Adding unlinked flows and activities...")
     # comment to enable stopping on unlinked activities and creating an excel file
-    database.add_unlinked_flows_to_biosphere_database(biosphere)
-    database.add_unlinked_activities()
+    # database.add_unlinked_flows_to_biosphere_database(biosphere)
+    # database.add_unlinked_activities()
 
     # stop if there are unlinked activities
     if len(list(database.unlinked)):
