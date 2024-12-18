@@ -5,7 +5,7 @@
     "displayName": "Électricité moyenne tension, Asie",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182202414",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-asia.",
     "categories": ["energy"],
     "impacts": {
@@ -43,7 +43,7 @@
     "displayName": "Électricité moyenne tension, Afrique",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182216590",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-africa.",
     "categories": ["energy"],
     "impacts": {
@@ -81,7 +81,7 @@
     "displayName": "Électricité moyenne tension, Moyen-Orient",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182200878",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-middle-east.",
     "categories": ["energy"],
     "impacts": {
@@ -119,7 +119,7 @@
     "displayName": "Électricité moyenne tension, Amérique latine",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182204177",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-latin-america.",
     "categories": ["energy"],
     "impacts": {
@@ -157,7 +157,7 @@
     "displayName": "Électricité moyenne tension, Amérique du nord",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182213738",
     "comment": "Ancien identifiant (12/2024): elec-medium-region-north-america.",
     "categories": ["energy"],
     "impacts": {
@@ -195,7 +195,7 @@
     "displayName": "Électricité moyenne tension, Australie",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182209954",
     "comment": "Ancien identifiant (12/2024): 53c7378e585cf74cea4837819be6e631.",
     "categories": ["energy"],
     "impacts": {
@@ -233,7 +233,7 @@
     "displayName": "Électricité moyenne tension, Chine",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182210858",
     "comment": "Ancien identifiant (12/2024): 8bbc2475141687462993329f9b7c2ddf.",
     "categories": ["energy"],
     "impacts": {
@@ -271,7 +271,7 @@
     "displayName": "Électricité moyenne tension, Albanie",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182212698",
     "comment": "Ancien identifiant (12/2024): d33cefdc558e3fe890174e6f1e205015.",
     "categories": ["energy"],
     "impacts": {
@@ -309,7 +309,7 @@
     "displayName": "Électricité moyenne tension, Pérou",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182206939",
     "comment": "Ancien identifiant (12/2024): debdaaba938a58ac1ab0131e47186092.",
     "categories": ["energy"],
     "impacts": {
@@ -347,7 +347,7 @@
     "displayName": "Électricité moyenne tension, Nouvelle-Zélande",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182203606",
     "comment": "Ancien identifiant (12/2024): 609797e4710a81c9903bc72c141ff191.",
     "categories": ["energy"],
     "impacts": {
@@ -385,7 +385,7 @@
     "displayName": "Électricité moyenne tension, Maroc",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182201649",
     "comment": "Ancien identifiant (12/2024): d3287580187139b11ce76f80013510d0.",
     "categories": ["energy"],
     "impacts": {
@@ -423,7 +423,7 @@
     "displayName": "Électricité moyenne tension, Kenya",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182204049",
     "comment": "Ancien identifiant (12/2024): e5f92d33532b4e649da2541b264fa363.",
     "categories": ["energy"],
     "impacts": {
@@ -461,7 +461,7 @@
     "displayName": "Électricité moyenne tension, Italie",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182204579",
     "comment": "Ancien identifiant (12/2024): ae9240745e54987338d2228c3be2a5ec.",
     "categories": ["energy"],
     "impacts": {
@@ -499,7 +499,7 @@
     "displayName": "Électricité moyenne tension, Europe",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182211814",
     "comment": "Ancien identifiant (12/2024): region-elec-west-europe.",
     "categories": ["energy"],
     "impacts": {
@@ -537,7 +537,7 @@
     "displayName": "Électricité moyenne tension, Espagne",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182211102",
     "comment": "Ancien identifiant (12/2024): 80ff4bc21a0e197ea3f69d809fd8d4f1.",
     "categories": ["energy"],
     "impacts": {
@@ -575,7 +575,7 @@
     "displayName": "Électricité moyenne tension, France",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182207804",
     "comment": "Ancien identifiant (12/2024): 3c131d87f8dd997d14d2ffc3477f83e6.",
     "categories": ["energy"],
     "impacts": {
@@ -613,7 +613,7 @@
     "displayName": "Électricité moyenne tension, Myanmar",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182200319",
     "comment": "Ancien identifiant (12/2024): 4968e9f8cf72cb72700d94b242048db0.",
     "categories": ["energy"],
     "impacts": {
@@ -651,7 +651,7 @@
     "displayName": "Électricité moyenne tension, Inde",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182212788",
     "comment": "Ancien identifiant (12/2024): 4ee8150b0cbf3603e03345d780ba7a61.",
     "categories": ["energy"],
     "impacts": {
@@ -689,7 +689,7 @@
     "displayName": "Elasthane (Lycra)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
     "categories": ["material"],
     "impacts": {
@@ -727,7 +727,7 @@
     "displayName": "Production de plexiglas (Polyméthacrylate de méthyle)",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182219845",
     "comment": "Ancien identifiant (12/2024): 75b27555d86fe1c66686cdf4339efc89.",
     "categories": ["material"],
     "impacts": {
@@ -765,7 +765,7 @@
     "displayName": "Production de jute, rouissage",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182217971",
     "comment": "Ancien identifiant (12/2024): 4d81aa5f76872e1e4c0e1bb14b01e93b.",
     "categories": ["material"],
     "impacts": {
@@ -803,7 +803,7 @@
     "displayName": "Production de polypropylène, granulés",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182219848",
     "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
     "categories": ["material"],
     "impacts": {
@@ -841,7 +841,7 @@
     "displayName": "Production de PET, granulés, amorphe",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182219837",
     "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
     "categories": ["material"],
     "impacts": {
@@ -879,7 +879,7 @@
     "displayName": "Production de PET recyclé, granulés, amorphe",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182219838",
     "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
     "categories": ["material"],
     "impacts": {
@@ -917,7 +917,7 @@
     "displayName": "Production de nylon 6-6",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182219585",
     "comment": "Ancien identifiant (12/2024): 88a1395a1c61be31b0bc692e977dd10b.",
     "categories": ["material"],
     "impacts": {
@@ -955,7 +955,7 @@
     "displayName": "Production de fibres de lin, rouissage",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182217969",
     "comment": "Ancien identifiant (12/2024): cf76c9e1872effbd04d49aec742e7952.",
     "categories": ["material"],
     "impacts": {
@@ -993,7 +993,7 @@
     "displayName": "Laine par défaut",
     "unit": "kg",
     "source": "Woolmark",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): wool-default.",
     "categories": ["material"],
     "impacts": {
@@ -1031,7 +1031,7 @@
     "displayName": "Laine nouvelle filière",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): wool-new.",
     "categories": ["material"],
     "impacts": {
@@ -1069,7 +1069,7 @@
     "displayName": "Production de fibres de coton",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182217966",
     "comment": "Ancien identifiant (12/2024): a211822aabe83653a6079b9d5677daed.",
     "categories": ["material"],
     "impacts": {
@@ -1107,7 +1107,7 @@
     "displayName": "Production de fibres de coton bio",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182217968",
     "comment": "Ancien identifiant (12/2024): coton-bio.",
     "categories": ["material"],
     "impacts": {
@@ -1145,7 +1145,7 @@
     "displayName": "Production de chanvre",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182220283",
     "comment": "Ancien identifiant (12/2024): fa590941e8bbf72c8956b5c3ba793eb7.",
     "categories": ["material"],
     "impacts": {
@@ -1183,7 +1183,7 @@
     "displayName": "Fibre de viscose",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182200991",
     "comment": "Ancien identifiant (12/2024): f89bba0c170190e003fa3f643591cca5.",
     "categories": ["material"],
     "impacts": {
@@ -1221,7 +1221,7 @@
     "displayName": "Production de coton recyclé (déchets post-consommation)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 993955be-5888-6f39-137c-56af8c5187c1.",
     "categories": ["material"],
     "impacts": {
@@ -1259,7 +1259,7 @@
     "displayName": "Production de coton recyclé (déchets de production)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 9c6ab710-4a08-c720-cede-24428a013fda.",
     "categories": ["material"],
     "impacts": {
@@ -1297,7 +1297,7 @@
     "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
     "categories": ["processing"],
     "impacts": {
@@ -1320,8 +1320,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 0,
-      "pef": 0
+      "ecs": 0.0,
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 0,
@@ -1335,7 +1335,7 @@
     "displayName": "Tricotage fully-fashioned",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
     "categories": ["processing"],
     "impacts": {
@@ -1358,8 +1358,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 0,
-      "pef": 0
+      "ecs": 0.0,
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 0,
@@ -1373,7 +1373,7 @@
     "displayName": "Tricotage seamless",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
     "categories": ["processing"],
     "impacts": {
@@ -1396,8 +1396,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 0,
-      "pef": 0
+      "ecs": 0.0,
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 0,
@@ -1411,7 +1411,7 @@
     "displayName": "Tissage (habillement)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
     "categories": ["processing"],
     "impacts": {
@@ -1434,8 +1434,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 0,
-      "pef": 0
+      "ecs": 0.0,
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 0,
@@ -1449,7 +1449,7 @@
     "displayName": "Teinture sur étoffe",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 03c769d5-46b6-4cf9-80f8-f2712692a6ab.",
     "categories": ["processing"],
     "impacts": {
@@ -1487,7 +1487,7 @@
     "displayName": "Teinture sur pièce",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): af54556c-5f74-4f2c-8531-d002eda9d793.",
     "categories": ["processing"],
     "impacts": {
@@ -1525,7 +1525,7 @@
     "displayName": "Teinture sur fil",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): b15afd1b-e7c0-4fbf-9f7b-b2a8b7e74bc7.",
     "categories": ["processing"],
     "impacts": {
@@ -1563,7 +1563,7 @@
     "displayName": "transport maritime",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182207067",
     "comment": "Ancien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
     "categories": ["transport"],
     "impacts": {
@@ -1601,7 +1601,7 @@
     "displayName": "transport aérien long-courrier",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182206841",
     "comment": "Ancien identifiant (12/2024): d3130e7ed9686fcc4bbe980e0375ad88.",
     "categories": ["transport"],
     "impacts": {
@@ -1639,7 +1639,7 @@
     "displayName": "transport ferroviaire",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182207797",
     "comment": "Ancien identifiant (12/2024): 7037ea59d8d644fd35f80fd1982f9fe9.",
     "categories": ["transport"],
     "impacts": {
@@ -1677,7 +1677,7 @@
     "displayName": "transport routier",
     "unit": "t⋅km",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182206425",
     "comment": "Ancien identifiant (12/2024): f37aba954435f9f158c19a9449d373b2.",
     "categories": ["transport"],
     "impacts": {
@@ -1715,7 +1715,7 @@
     "displayName": "Transport en camion non spécifié France",
     "unit": "t*km",
     "source": "Base Impacts 2.01",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
     "categories": ["transport"],
     "impacts": {
@@ -1753,7 +1753,7 @@
     "displayName": "Électricité moyenne tension, Tunisie",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182205974",
     "comment": "Ancien identifiant (12/2024): b42506cbed4b459815c78d741b453e8e.",
     "categories": ["energy"],
     "impacts": {
@@ -1791,7 +1791,7 @@
     "displayName": "Électricité moyenne tension, Turquie",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182205373",
     "comment": "Ancien identifiant (12/2024): 32644303e316aebb9ffa31e9856c8f6b.",
     "categories": ["energy"],
     "impacts": {
@@ -1829,7 +1829,7 @@
     "displayName": "Électricité moyenne tension, Bangladesh",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182208424",
     "comment": "Ancien identifiant (12/2024): 0b69950358f3e8f0d3fb049d71481186.",
     "categories": ["energy"],
     "impacts": {
@@ -1867,7 +1867,7 @@
     "displayName": "Électricité moyenne tension, Brésil",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182200538",
     "comment": "Ancien identifiant (12/2024): 825dae104f028cb558dac151f7c45f03.",
     "categories": ["energy"],
     "impacts": {
@@ -1905,7 +1905,7 @@
     "displayName": "Électricité moyenne tension, République Tchèque",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182206325",
     "comment": "Ancien identifiant (12/2024): 2764d908c1a6fe88976d6eabf16295da.",
     "categories": ["energy"],
     "impacts": {
@@ -1943,7 +1943,7 @@
     "displayName": "Électricité moyenne tension, Éthiopie",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182210384",
     "comment": "Ancien identifiant (12/2024): 2c27aa8ba10e717c63b8508b487909bd.",
     "categories": ["energy"],
     "impacts": {
@@ -1981,7 +1981,7 @@
     "displayName": "Électricité moyenne tension, Cambodge",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182201573",
     "comment": "Ancien identifiant (12/2024): de2cd7848f853b1c9b8a5d7b0f255144.",
     "categories": ["energy"],
     "impacts": {
@@ -2019,7 +2019,7 @@
     "displayName": "Électricité moyenne tension, Sri Lanka",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182215419",
     "comment": "Ancien identifiant (12/2024): e0f11b283ad36b3da097649bee199149.",
     "categories": ["energy"],
     "impacts": {
@@ -2057,7 +2057,7 @@
     "displayName": "Électricité moyenne tension, Pakistan",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182203475",
     "comment": "Ancien identifiant (12/2024): 028c9bf863a1ab77a0e636029afc5839.",
     "categories": ["energy"],
     "impacts": {
@@ -2095,7 +2095,7 @@
     "displayName": "Électricité moyenne tension, USA",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182203857",
     "comment": "Ancien identifiant (12/2024): 99b549d4ba7a0f5f4ab6050d6a6689ad.",
     "categories": ["energy"],
     "impacts": {
@@ -2133,7 +2133,7 @@
     "displayName": "Électricité moyenne tension, Viet Nam",
     "unit": "kWh",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182212299",
     "comment": "Ancien identifiant (12/2024): 3f90d52cc1dfe32119bf53db2713c407.",
     "categories": ["energy"],
     "impacts": {
@@ -2171,7 +2171,7 @@
     "displayName": "Mix chaleur (Europe)",
     "unit": "MJ",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
     "categories": ["energy"],
     "impacts": {
@@ -2209,7 +2209,7 @@
     "displayName": "Mix chaleur (Monde)",
     "unit": "MJ",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-row.",
     "categories": ["energy"],
     "impacts": {
@@ -2247,7 +2247,7 @@
     "displayName": "Utilisation : Impact hors repassage (Chemisier)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 406d1f98-1052-458d-8f50-1901853d896d.",
     "categories": ["use"],
     "impacts": {
@@ -2285,7 +2285,7 @@
     "displayName": "Utilisation : Impact hors repassage (Jean)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 4964273a-cdbd-43cf-8cf8-4b017aee4f03.",
     "categories": ["use"],
     "impacts": {
@@ -2323,7 +2323,7 @@
     "displayName": "Utilisation : Impact hors repassage (Jupe)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 2572015b-7320-4ce1-bc99-cc6de371a654.",
     "categories": ["use"],
     "impacts": {
@@ -2361,7 +2361,7 @@
     "displayName": "Utilisation : Impact hors repassage (Manteau)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 8c040f35-e137-424b-a67f-2e50b628c1bf.",
     "categories": ["use"],
     "impacts": {
@@ -2399,7 +2399,7 @@
     "displayName": "Utilisation : Impact hors repassage (Pantalon)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): ea7afeed-c058-4dbb-be01-66704a9afb1f.",
     "categories": ["use"],
     "impacts": {
@@ -2437,7 +2437,7 @@
     "displayName": "Utilisation : Impact hors repassage (Pull)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 2b39a7ac-38bd-435f-85a4-783023d845bf.",
     "categories": ["use"],
     "impacts": {
@@ -2475,7 +2475,7 @@
     "displayName": "Utilisation : Impact hors repassage (Robe)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): d3bff7b7-efc1-459b-856d-ea0801d6912f.",
     "categories": ["use"],
     "impacts": {
@@ -2513,7 +2513,7 @@
     "displayName": "Utilisation : Impact hors repassage (T-shirt)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 7f76529e-521d-4795-bb36-ff896c4692da.",
     "categories": ["use"],
     "impacts": {
@@ -2551,7 +2551,7 @@
     "displayName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "unit": "Item(s)",
     "source": "Base Impacts 2.01",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
     "categories": ["transport"],
     "impacts": {
@@ -2589,7 +2589,7 @@
     "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Précalcul Ecobalyse à partir de Base Impacts",
     "categories": ["eol"],
     "impacts": {
@@ -2627,7 +2627,7 @@
     "displayName": "Tricotage rectiligne",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 364298ad-2058-4ec4-b2d0-47f5214abffb.",
     "categories": ["processing"],
     "impacts": {
@@ -2650,8 +2650,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 0,
-      "pef": 0
+      "ecs": 0.0,
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 0,
@@ -2665,7 +2665,7 @@
     "displayName": "Tricotage circulaire",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
     "categories": ["processing"],
     "impacts": {
@@ -2688,8 +2688,8 @@
       "swe": 0,
       "tre": 0,
       "wtu": 0,
-      "ecs": 0,
-      "pef": 0
+      "ecs": 0.0,
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 0,
@@ -2703,7 +2703,7 @@
     "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
     "categories": ["processing"],
     "impacts": {
@@ -2741,7 +2741,7 @@
     "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
     "unit": "m2",
     "source": "Base Impacts 2.01",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
     "categories": ["processing"],
     "impacts": {
@@ -2779,7 +2779,7 @@
     "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
     "unit": "m2",
     "source": "Base Impacts 2.01",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
     "categories": ["processing"],
     "impacts": {
@@ -2817,7 +2817,7 @@
     "displayName": "Apprêt anti-tache, procédé représentatif, traitement moyen des eaux usées",
     "unit": "kg",
     "source": "Base Impacts 2.01",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Ancien identifiant (12/2024): 63baddae-e05d-404b-a73f-371044a24fe9.",
     "categories": ["processing"],
     "impacts": {
@@ -2855,7 +2855,7 @@
     "displayName": "Teinture fibres synthétiques",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
     "categories": ["processing"],
     "impacts": {
@@ -2879,7 +2879,7 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 223.9051424422854,
-      "pef": 0
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 10.74,
@@ -2893,7 +2893,7 @@
     "displayName": "Teinture fibres cellulosiques",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
     "categories": ["processing"],
     "impacts": {
@@ -2917,7 +2917,7 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 585.5577498796122,
-      "pef": 0
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 10.74,
@@ -2931,7 +2931,7 @@
     "displayName": "Blanchiment",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
-    "source_id": null,
+    "sourceId": "MTE00149000081182217357",
     "comment": "Ancien identifiant (12/2024): blanchiment.",
     "categories": ["processing"],
     "impacts": {
@@ -2969,7 +2969,7 @@
     "displayName": "Impression (pigmentaire)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
     "categories": ["processing"],
     "impacts": {
@@ -2993,7 +2993,7 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 729.9903419496322,
-      "pef": 0
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 10.74,
@@ -3007,7 +3007,7 @@
     "displayName": "Impression fixé-lavé (colorants)",
     "unit": "kg",
     "source": "Custom",
-    "source_id": null,
+    "sourceId": null,
     "comment": "Inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
     "categories": ["processing"],
     "impacts": {
@@ -3031,7 +3031,7 @@
       "tre": 0,
       "wtu": 0,
       "ecs": 283.16005100701443,
-      "pef": 0
+      "pef": 0.0
     },
     "density": 0,
     "heat_MJ": 10.74,

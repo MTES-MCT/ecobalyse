@@ -388,9 +388,12 @@ def cached_search(dbname, search_terms, excluded_term=None):
 
 
 def find_id(dbname, activity):
-    return cached_search(dbname, activity["search"]).get(
-        "Process identifier", activity["id"]
-    )
+    if (search_terms := activity.get("search")) is not None:
+        search_result = cached_search(dbname, search_terms)
+        if search_result is not None:
+            return search_result.get("Process identifier", activity["id"])
+
+    return None
 
 
 def compute_simapro_impacts(activity, method, impacts_py):
