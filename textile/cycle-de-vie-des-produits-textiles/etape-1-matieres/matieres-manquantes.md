@@ -1,7 +1,8 @@
 ---
 description: >-
   Certaines matières ne sont pas proposées dans le choix d'Ecobalyse. En
-  fonction des 2 situations ci-dessous, cette page a pour but de vous aider.
+  fonction des 2 situations ci-dessous, cette page a pour but de cadrer
+  l'utilisation.
 ---
 
 # Matières manquantes
