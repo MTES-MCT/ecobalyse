@@ -1,0 +1,42 @@
+[
+  {
+    "id": "86b877ff-0d59-482f-bb34-3ff306b07496",
+    "name": "Zip pour veste",
+    "processes": [
+      {
+        "process_id": "8b91651b-9651-46fc-8bc2-37a141494086",
+        "amount": 0.05
+      }
+    ]
+  },
+  {
+    "id": "0e8ea799-9b06-490c-a925-37564746c454",
+    "name": "Zip pour jeans",
+    "processes": [
+      {
+        "process_id": "8b91651b-9651-46fc-8bc2-37a141494086",
+        "amount": 0.01
+      }
+    ]
+  },
+  {
+    "id": "0e8ea799-9b06-490c-a925-37564746c454",
+    "name": "Bouton en plastique",
+    "processes": [
+      {
+        "process_id": "68852bea-1145-4d95-8c9b-187d6fb31710",
+        "amount": 0.002
+      }
+    ]
+  },
+  {
+    "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
+    "name": "Bouton en métal",
+    "processes": [
+      {
+        "process_id": "2e217ad8-05fa-4a9d-a18d-272fc969848c",
+        "amount": 0.003
+      }
+    ]
+  }
+]
