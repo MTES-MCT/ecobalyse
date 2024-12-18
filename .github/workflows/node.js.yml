@@ -5,7 +5,7 @@ name: Node.js CI
 
 env:
   NODE_ENV: test
-  ECOBALYSE_DATA_DIR: ./ecobalyse-private
+  TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
 on:
   push:
     branches: [ master, staging ]
@@ -23,6 +23,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Install transcrypt
+      run: |
+        mkdir -p $HOME/.local/bin
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        wget https://raw.githubusercontent.com/elasticdog/transcrypt/016b2e4b31951be5ea96233d8d2badef9c9836b6/transcrypt -O "$HOME/.local/bin/transcrypt"
+        chmod +x "$HOME/.local/bin/transcrypt"
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
@@ -60,26 +67,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y gettext
-
-    - name: Clone the detailed impacts
-      run: |
-        eval `ssh-agent -s`
-        # Private ssh key used by this Github action to clone the private repo
-        # The corresponding public key must be set as a deploy key of the private repo
-        ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
-        git clone git@github.com:MTES-MCT/ecobalyse-private.git
-
-    - name: Checkout specific ecobalyse-private branch
-      if: ${{ github.event_name == 'pull_request' }}
-      env:
-        LAST_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
-        GITHUB_ACCESS_TOKEN: ${{ secrets.GH_REST_ACCESS_TOKEN }}
-      run: |
-        eval `ssh-agent -s`
-        # Private ssh key used by this Github action to clone the private repo
-        # The corresponding public key must be set as a deploy key of the private repo
-        ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
-        pipenv run ./bin/checkout-ecobalyse-private-branch.sh $LAST_COMMIT_SHA
 
     - name: Build app
       run: npm run build --if-present

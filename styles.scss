@@ -937,10 +937,17 @@ q {
     }
   }
 
+  &SubLogo {
+    width: 24px;
+    aspect-ratio: auto 1;
+    margin-right: 5px;
+  }
+
   &Title {
     color: $text-dark;
     font-size: 1.25rem;
     font-weight: 700;
+    margin-bottom: 4px;
     a {
       color: $dark;
       text-decoration: none;

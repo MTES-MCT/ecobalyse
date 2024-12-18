@@ -33,14 +33,14 @@ type Dataset
     = Countries (Maybe Country.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
-    | FoodProcesses (Maybe FoodProcess.Identifier)
+    | FoodProcesses (Maybe FoodProcess.Id)
     | Impacts (Maybe Definition.Trigram)
     | ObjectComponents (Maybe ObjectComponent.Id)
     | ObjectExamples (Maybe Uuid)
     | ObjectProcesses (Maybe ObjectProcess.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
-    | TextileProcesses (Maybe Process.Uuid)
+    | TextileProcesses (Maybe Process.Id)
     | TextileProducts (Maybe Product.Id)
 
 
@@ -262,10 +262,10 @@ setIdFromString idString dataset =
             FoodExamples (Uuid.fromString idString)
 
         FoodIngredients _ ->
-            FoodIngredients (Just (Ingredient.idFromString idString))
+            FoodIngredients (Ingredient.idFromString idString)
 
         FoodProcesses _ ->
-            FoodProcesses (Just (FoodProcess.identifierFromString idString))
+            FoodProcesses (FoodProcess.idFromString idString)
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
@@ -286,7 +286,7 @@ setIdFromString idString dataset =
             TextileMaterials (Just (Material.Id idString))
 
         TextileProcesses _ ->
-            TextileProcesses (Just (Process.Uuid idString))
+            TextileProcesses (Process.idFromString idString)
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -359,7 +359,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         FoodProcesses (Just id) ->
-            [ slug dataset, FoodProcess.identifierToString id ]
+            [ slug dataset, FoodProcess.idToString id ]
 
         FoodProcesses Nothing ->
             [ slug dataset ]
@@ -401,7 +401,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         TextileProcesses (Just id) ->
-            [ slug dataset, Process.uuidToString id ]
+            [ slug dataset, Process.idToString id ]
 
         TextileProcesses Nothing ->
             [ slug dataset ]

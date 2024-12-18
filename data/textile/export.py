@@ -63,7 +63,7 @@ def create_material_list(activities_tuple):
 def to_material(activity):
     return {
         "id": activity["material_id"],
-        "materialProcessUuid": activity["uuid"],
+        "materialProcessUuid": activity["id"],
         "recycledProcessUuid": activity.get("recycledProcessUuid"),
         "recycledFrom": activity.get("recycledFrom"),
         "name": activity["shortName"],
@@ -79,9 +79,7 @@ def to_material(activity):
 
 def create_process_list(activities):
     print("Creating process list...")
-    return frozendict(
-        {activity["uuid"]: to_process(activity) for activity in activities}
-    )
+    return frozendict({activity["id"]: to_process(activity) for activity in activities})
 
 
 def to_process(activity):
@@ -92,7 +90,6 @@ def to_process(activity):
         if "search" in activity and activity["source"] in BW_DATABASES
         else activity.get("name", activity["displayName"]),
         "displayName": activity["displayName"],
-        "info": activity["info"],
         "unit": fix_unit(
             cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
                 "unit"
@@ -101,14 +98,15 @@ def to_process(activity):
             else activity["unit"]
         ),
         "source": activity["source"],
-        "correctif": activity["correctif"],
-        "step_usage": activity["step_usage"],
-        "uuid": activity["uuid"],
+        "comment": activity["comment"],
+        "categories": activity["categories"],
+        "id": activity["id"],
         **(
             {"impacts": activity["impacts"].copy()}
             if "impacts" in activity
             else {"impacts": {}}
         ),
+        "density": activity["density"],
         "heat_MJ": activity["heat_MJ"],
         "elec_MJ": activity["elec_MJ"],
         "waste": activity["waste"],

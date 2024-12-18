@@ -195,8 +195,8 @@
       "daysOfWear": 85,
       "defaultNbCycles": 17,
       "ratioDryer": 0.3,
-      "ratioIroning": 0.0,
-      "timeIroning": 0.0,
+      "ratioIroning": 0,
+      "timeIroning": 0,
       "wearsPerCycle": 5
     },
     "endOfLife": {
@@ -263,8 +263,8 @@
       "daysOfWear": 50,
       "defaultNbCycles": 25,
       "ratioDryer": 0.3,
-      "ratioIroning": 0.0,
-      "timeIroning": 0.0,
+      "ratioIroning": 0,
+      "timeIroning": 0,
       "wearsPerCycle": 2
     },
     "endOfLife": {
@@ -297,8 +297,8 @@
       "daysOfWear": 60,
       "defaultNbCycles": 60,
       "ratioDryer": 0.3,
-      "ratioIroning": 0.0,
-      "timeIroning": 0.0,
+      "ratioIroning": 0,
+      "timeIroning": 0,
       "wearsPerCycle": 1
     },
     "endOfLife": {
@@ -331,8 +331,8 @@
       "daysOfWear": 60,
       "defaultNbCycles": 60,
       "ratioDryer": 0.3,
-      "ratioIroning": 0.0,
-      "timeIroning": 0.0,
+      "ratioIroning": 0,
+      "timeIroning": 0,
       "wearsPerCycle": 1
     },
     "endOfLife": {
@@ -365,8 +365,8 @@
       "daysOfWear": 30,
       "defaultNbCycles": 30,
       "ratioDryer": 0.3,
-      "ratioIroning": 0.0,
-      "timeIroning": 0.0,
+      "ratioIroning": 0,
+      "timeIroning": 0,
       "wearsPerCycle": 1
     },
     "endOfLife": {

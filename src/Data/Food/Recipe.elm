@@ -114,10 +114,10 @@ availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
 
 
-availablePackagings : List Process.Identifier -> List Process -> List Process
+availablePackagings : List Process.Id -> List Process -> List Process
 availablePackagings usedProcesses =
     Process.listByCategory Process.Packaging
-        >> List.filter (\process -> not (List.member process.identifier usedProcesses))
+        >> List.filter (\process -> not (List.member process.id usedProcesses))
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
@@ -402,12 +402,12 @@ preparationListFromQuery =
         >> RE.combine
 
 
-deletePackaging : Process.Identifier -> Query -> Query
-deletePackaging code query =
+deletePackaging : Process.Id -> Query -> Query
+deletePackaging id query =
     { query
         | packaging =
             query.packaging
-                |> List.filter (.code >> (/=) code)
+                |> List.filter (.id >> (/=) id)
     }
 
 
@@ -479,19 +479,11 @@ getPackagingMass recipe =
 getPreparedMassAtConsumer : Recipe -> Mass
 getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
     let
-        cookedAtPlant =
-            case transform |> Maybe.map (.process >> .id_) of
-                Just "cooking" ->
-                    True
-
-                _ ->
-                    False
-
         cookedAtConsumer =
             preparation
                 |> List.any .applyRawToCookedRatio
     in
-    if not cookedAtPlant && cookedAtConsumer then
+    if not (isCookedAtPlant transform) && cookedAtConsumer then
         ingredients
             |> List.map
                 (\{ ingredient, mass } ->
@@ -502,6 +494,16 @@ getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
 
     else
         getTransformedIngredientsMass recipe
+
+
+isCookedAtPlant : Maybe Transform -> Bool
+isCookedAtPlant transform =
+    case transform |> Maybe.andThen (.process >> .alias) of
+        Just "cooking" ->
+            True
+
+        _ ->
+            False
 
 
 removeIngredientsInedibleMass : List RecipeIngredient -> List RecipeIngredient
@@ -523,13 +525,12 @@ getTransformedIngredientsMass { ingredients, transform } =
         |> removeIngredientsInedibleMass
         |> List.map
             (\{ ingredient, mass } ->
-                case transform |> Maybe.map (.process >> .id_) of
-                    Just "cooking" ->
-                        -- If the product is cooked, apply raw to cook ratio to ingredient masses
-                        mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
+                if isCookedAtPlant transform then
+                    -- If the product is cooked, apply raw to cook ratio to ingredient masses
+                    mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
 
-                    _ ->
-                        mass
+                else
+                    mass
             )
         |> Quantity.sum
 
@@ -570,7 +571,7 @@ ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String Recipe
 ingredientFromQuery db { country, id, mass, planeTransport } =
     let
         ingredientResult =
-            Ingredient.findByID id db.food.ingredients
+            Ingredient.findById id db.food.ingredients
     in
     Ok RecipeIngredient
         |> RE.andMap
@@ -611,15 +612,14 @@ packagingListFromQuery db query =
 
 
 packagingFromQuery : Food.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
-packagingFromQuery { processes } { code, mass } =
-    processes
-        |> Process.findByIdentifier code
+packagingFromQuery { processes } { id, mass } =
+    Process.findById processes id
         |> Result.map (Packaging mass)
 
 
 processQueryFromProcess : Process -> BuilderQuery.ProcessQuery
 processQueryFromProcess process =
-    { code = process.identifier
+    { id = process.id
     , mass = Mass.grams 100
     }
 
@@ -686,9 +686,8 @@ transformFromQuery :
 transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
-            (\transform ->
-                processes
-                    |> Process.findByIdentifier transform.code
-                    |> Result.map (Transform transform.mass >> Just)
+            (\{ id, mass } ->
+                Process.findById processes id
+                    |> Result.map (Transform mass >> Just)
             )
         |> Maybe.withDefault (Ok Nothing)
