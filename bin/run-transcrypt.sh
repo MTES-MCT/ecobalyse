@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # If $SOURCE_VERSION is set, we are building on Scalingo with npm
 # so we should not decrypt the file.
 # On scalingo, we don't have a git repo, so decrypting is handled
@@ -14,5 +16,11 @@ then
     echo "-> Exiting"
     exit 1
   fi
-  transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
+
+  if ! transcrypt -d &> /dev/null; then
+    transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
+  else
+    echo 'ℹ️ `transcrypt` was already configured for this repo, skipping.'
+  fi
+
 fi
