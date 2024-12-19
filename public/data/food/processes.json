@@ -1,6 +1,6 @@
 [
   {
-    "alias": null,
+    "alias": "egg-bleublanccoeur",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -118,7 +118,7 @@
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
-    "displayName": null,
+    "displayName": "Carotte FR ou UE ou Hors UE Bio",
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
@@ -160,7 +160,7 @@
     "elec_MJ": 0,
     "heat_MJ": 0,
     "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-    "sourceId": null,
+    "sourceId": "AGRIBALU000000003116999",
     "impacts": {
       "acd": 0,
       "cch": 0,
