@@ -29,11 +29,12 @@ import Data.Food.EcosystemicServices as EcosystemicServices exposing (Ecosystemi
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
-import Data.Food.Process as Process exposing (Process)
 import Data.Food.Query as BuilderQuery exposing (Query)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
+import Data.Process as Process exposing (Process)
+import Data.Process.Category as ProcessCategory
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
 import Data.Textile.Formula as Formula
@@ -116,7 +117,7 @@ availableIngredients usedIngredientIds =
 
 availablePackagings : List Process.Id -> List Process -> List Process
 availablePackagings usedProcesses =
-    Process.listByCategory Process.Packaging
+    Process.listByCategory ProcessCategory.Packaging
         >> List.filter (\process -> not (List.member process.id usedProcesses))
 
 
@@ -613,7 +614,8 @@ packagingListFromQuery db query =
 
 packagingFromQuery : Food.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { id, mass } =
-    Process.findById processes id
+    processes
+        |> Process.findById id
         |> Result.map (Packaging mass)
 
 
@@ -687,7 +689,8 @@ transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
             (\{ id, mass } ->
-                Process.findById processes id
+                processes
+                    |> Process.findById id
                     |> Result.map (Transform mass >> Just)
             )
         |> Maybe.withDefault (Ok Nothing)

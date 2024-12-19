@@ -12,13 +12,11 @@ module Data.Dataset exposing
 
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
-import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition
 import Data.Object.Component as ObjectComponent
-import Data.Object.Process as ObjectProcess
+import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
-import Data.Textile.Process as Process
 import Data.Textile.Product as Product
 import Data.Uuid as Uuid exposing (Uuid)
 import Url.Parser as Parser exposing (Parser)
@@ -33,11 +31,11 @@ type Dataset
     = Countries (Maybe Country.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
-    | FoodProcesses (Maybe FoodProcess.Id)
+    | FoodProcesses (Maybe Process.Id)
     | Impacts (Maybe Definition.Trigram)
     | ObjectComponents (Maybe ObjectComponent.Id)
     | ObjectExamples (Maybe Uuid)
-    | ObjectProcesses (Maybe ObjectProcess.Id)
+    | ObjectProcesses (Maybe Process.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProcesses (Maybe Process.Id)
@@ -265,7 +263,7 @@ setIdFromString idString dataset =
             FoodIngredients (Ingredient.idFromString idString)
 
         FoodProcesses _ ->
-            FoodProcesses (FoodProcess.idFromString idString)
+            FoodProcesses (Process.idFromString idString)
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
@@ -277,7 +275,7 @@ setIdFromString idString dataset =
             ObjectExamples (Uuid.fromString idString)
 
         ObjectProcesses _ ->
-            ObjectProcesses (ObjectProcess.idFromString idString)
+            ObjectProcesses (Process.idFromString idString)
 
         TextileExamples _ ->
             TextileExamples (Uuid.fromString idString)
@@ -359,7 +357,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         FoodProcesses (Just id) ->
-            [ slug dataset, FoodProcess.idToString id ]
+            [ slug dataset, Process.idToString id ]
 
         FoodProcesses Nothing ->
             [ slug dataset ]
@@ -383,7 +381,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         ObjectProcesses (Just id) ->
-            [ slug dataset, ObjectProcess.idToString id ]
+            [ slug dataset, Process.idToString id ]
 
         ObjectProcesses Nothing ->
             [ slug dataset ]

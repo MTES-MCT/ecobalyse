@@ -8,11 +8,12 @@ port module Server exposing
 import Data.Country as Country exposing (Country)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
-import Data.Food.Process as FoodProcess
 import Data.Food.Query as BuilderQuery
 import Data.Food.Recipe as BuilderRecipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Process as Process exposing (Process)
+import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
@@ -159,17 +160,17 @@ encodeProduct { id, name } =
         ]
 
 
-encodeFoodProcess : FoodProcess.Process -> Encode.Value
-encodeFoodProcess process =
+encodeProcess : Process -> Encode.Value
+encodeProcess process =
     Encode.object
-        [ ( "id", process.id |> FoodProcess.idToString |> Encode.string )
-        , ( "name", process |> FoodProcess.getDisplayName |> Encode.string )
+        [ ( "id", process.id |> Process.idToString |> Encode.string )
+        , ( "name", process |> Process.getDisplayName |> Encode.string )
         ]
 
 
-encodeFoodProcessList : List FoodProcess.Process -> Encode.Value
-encodeFoodProcessList =
-    Encode.list encodeFoodProcess
+encodeProcessList : List Process -> Encode.Value
+encodeProcessList =
+    Encode.list encodeProcess
 
 
 encodeIngredient : Ingredient.Ingredient -> Encode.Value
@@ -217,14 +218,14 @@ handleRequest db request =
 
         Just Route.FoodGetPackagingList ->
             db.food.processes
-                |> List.filter (.categories >> List.member FoodProcess.Packaging)
-                |> encodeFoodProcessList
+                |> List.filter (.categories >> List.member ProcessCategory.Packaging)
+                |> encodeProcessList
                 |> respondWith 200
 
         Just Route.FoodGetTransformList ->
             db.food.processes
-                |> List.filter (.categories >> List.member FoodProcess.Transform)
-                |> encodeFoodProcessList
+                |> List.filter (.categories >> List.member ProcessCategory.Transform)
+                |> encodeProcessList
                 |> respondWith 200
 
         Just (Route.FoodGetRecipe (Ok query)) ->

@@ -3,7 +3,7 @@ module Data.Food.WellKnown exposing
     , load
     )
 
-import Data.Food.Process as Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Result.Extra as RE
 
 
@@ -23,7 +23,7 @@ load : List Process -> Result String WellKnown
 load processes =
     let
         resolve alias =
-            RE.andMap (Process.findByAlias processes alias)
+            RE.andMap (Process.findByAlias alias processes)
     in
     Ok WellKnown
         |> resolve "boat-cooling"

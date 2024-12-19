@@ -12,9 +12,9 @@ module Data.Textile.Material exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Country as Country
+import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
-import Data.Textile.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode

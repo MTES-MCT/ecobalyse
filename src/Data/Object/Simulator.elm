@@ -12,8 +12,8 @@ module Data.Object.Simulator exposing
 import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Component as Component exposing (Component, ComponentItem, ProcessItem)
-import Data.Object.Process as Process
 import Data.Object.Query exposing (Query)
+import Data.Process as Process
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
@@ -76,8 +76,8 @@ computeComponentItemResults db componentItem =
 
 computeProcessItemResults : Db -> ProcessItem -> Result String Results
 computeProcessItemResults { object } { amount, processId } =
-    processId
-        |> Process.findById object.processes
+    object.processes
+        |> Process.findById processId
         |> Result.map
             (\process ->
                 let

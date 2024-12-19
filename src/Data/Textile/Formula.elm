@@ -23,10 +23,10 @@ module Data.Textile.Formula exposing
 import Area exposing (Area)
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
+import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material exposing (CFFData)
-import Data.Textile.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Duration

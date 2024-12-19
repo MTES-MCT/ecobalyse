@@ -14,7 +14,7 @@ module Data.Object.Query exposing
 
 import Base64
 import Data.Object.Component as Component exposing (Component, ComponentItem)
-import Data.Object.Process exposing (Process)
+import Data.Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
