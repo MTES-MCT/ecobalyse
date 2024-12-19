@@ -228,7 +228,7 @@ class FormatNumberJsonEncoder(json.JSONEncoder):
     def encode(self, obj):
         def recursive_format_number(obj):
             if isinstance(obj, (int, float)):
-                return format_number(obj)
+                return float(f"{obj:.6g}")
             elif isinstance(obj, dict):
                 return {k: recursive_format_number(v) for k, v in obj.items()}
             elif isinstance(obj, list):
