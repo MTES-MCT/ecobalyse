@@ -38,7 +38,7 @@ sync_datapackages:
 	@$(call DOCKER,python3 common/sync_datapackages.py)
 
 delete_database:
-	@$(call DOCKER,python3 common/delete_database.py "$(DB)")
+	@$(call DOCKER,python3 common/delete_database.py $(DB))
 
 delete_method:
 	@$(call DOCKER,python3 common/delete_methods.py)
