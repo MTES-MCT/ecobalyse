@@ -23,6 +23,7 @@ from common.export import (
     compute_impacts,
     display_changes,
     export_json,
+    find_id,
     load_json,
     plot_impacts,
 )
@@ -84,13 +85,12 @@ def create_process_list(activities):
 
 def to_process(activity):
     return {
-        "name": (
-            cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
-                "name"
-            ]
-            if "search" in activity and activity["source"] in BW_DATABASES
-            else activity.get("name", activity["displayName"])
-        ),
+        "id": activity["id"],
+        "name": cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
+            "name"
+        ]
+        if "search" in activity and activity["source"] in BW_DATABASES
+        else activity.get("name", activity["displayName"]),
         "displayName": activity["displayName"],
         "unit": fix_unit(
             cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
@@ -100,9 +100,9 @@ def to_process(activity):
             else activity["unit"]
         ),
         "source": activity["source"],
+        "sourceId": find_id(activity.get("database", DEFAULT_DB), activity),
         "comment": activity["comment"],
         "categories": activity["categories"],
-        "id": activity["id"],
         **(
             {"impacts": activity["impacts"].copy()}
             if "impacts" in activity

@@ -148,7 +148,7 @@ def to_process(activity):
         "elec_MJ": 0,
         "heat_MJ": 0,
         "id": activity["id"],
-        "identifier": find_id(activity.get("database", DEFAULT_DB), activity),
+        "sourceId": find_id(activity.get("database", DEFAULT_DB), activity),
         "impacts": {},
         "name": cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
             "name"

@@ -14,9 +14,9 @@ module Data.Country exposing
     , unknownCountryCode
     )
 
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
-import Data.Textile.Process as Process exposing (Process)
 import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE

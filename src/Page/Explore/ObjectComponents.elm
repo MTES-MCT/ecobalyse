@@ -2,6 +2,7 @@ module Page.Explore.ObjectComponents exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Object.Component as ObjectComponent
+import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -49,7 +50,7 @@ table db { detailed, scope } =
                                             String.fromFloat (ObjectComponent.amountToFloat amount)
                                                 ++ process.unit
                                                 ++ " de "
-                                                ++ process.displayName
+                                                ++ Process.getDisplayName process
                                         )
                                     |> String.join ", "
           , toCell =
@@ -69,7 +70,7 @@ table db { detailed, scope } =
                                     (\( amount, process ) ->
                                         li []
                                             [ Format.amount process amount
-                                            , text <| " de " ++ process.displayName
+                                            , text <| " de " ++ Process.getDisplayName process
                                             ]
                                     )
                                 |> List.intersperse (text ", ")

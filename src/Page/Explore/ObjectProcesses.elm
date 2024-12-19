@@ -1,7 +1,7 @@
 module Page.Explore.ObjectProcesses exposing (table)
 
 import Data.Dataset as Dataset
-import Data.Object.Process as ObjectProcess
+import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Table)
@@ -9,27 +9,27 @@ import Route
 import Views.Format as Format
 
 
-table : { detailed : Bool, scope : Scope } -> Table ObjectProcess.Process String msg
+table : { detailed : Bool, scope : Scope } -> Table Process.Process String msg
 table { detailed, scope } =
     { filename = "processes"
-    , toId = .id >> ObjectProcess.idToString
+    , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.ObjectProcesses >> Route.Explore scope
     , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .id >> ObjectProcess.idToString
+          , toValue = Table.StringValue <| .id >> Process.idToString
           , toCell =
                 \process ->
                     if detailed then
-                        code [] [ text (ObjectProcess.idToString process.id) ]
+                        code [] [ text (Process.idToString process.id) ]
 
                     else
                         a [ Route.href (Route.Explore scope (Dataset.ObjectProcesses (Just process.id))) ]
-                            [ code [] [ text (ObjectProcess.idToString process.id) ] ]
+                            [ code [] [ text (Process.idToString process.id) ] ]
           }
         , { label = "Nom"
-          , toValue = Table.StringValue .displayName
-          , toCell = .displayName >> text
+          , toValue = Table.StringValue Process.getDisplayName
+          , toCell = Process.getDisplayName >> text
           }
         , { label = "Nom technique"
           , toValue = Table.StringValue .name

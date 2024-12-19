@@ -6,8 +6,8 @@ module Data.Object.Db exposing
 import Data.Example as Example exposing (Example)
 import Data.Impact as Impact
 import Data.Object.Component as Component exposing (Component)
-import Data.Object.Process as Process exposing (Process)
 import Data.Object.Query as Query exposing (Query)
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode
 import Result.Extra as RE
 

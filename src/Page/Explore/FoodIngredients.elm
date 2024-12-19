@@ -6,8 +6,8 @@ import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
-import Data.Food.Process as Process
 import Data.Gitbook as Gitbook
+import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Unit as Unit
@@ -82,15 +82,13 @@ table _ { detailed, scope } =
           , toCell =
                 \{ default } ->
                     div []
-                        [ code [] [ text <| Process.identifierToString default.identifier ]
+                        [ default.sourceId
+                            |> Maybe.map (Process.sourceIdToString >> text >> List.singleton >> code [])
+                            |> Maybe.withDefault (text "")
                         , div [ class "cursor-help", title default.name ]
                             [ text default.name ]
-                        , case default.comment of
-                            Just comment ->
-                                em [ class "cursor-help", title comment ] [ text comment ]
-
-                            Nothing ->
-                                text ""
+                        , em [ class "cursor-help", title default.comment ]
+                            [ text default.comment ]
                         ]
           }
         , { label = "Source"
