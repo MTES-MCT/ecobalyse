@@ -2187,22 +2187,5 @@
     "alias": "",
     "category": "process",
     "unit": "kg"
-  },
-  {
-    "id": "68852bea-1145-4d95-8c9b-187d6fb31710",
-    "displayName": "",
-    "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
-    "search": "Polyethylene terephthalate production, granulate, amorphous [RoW]",
-    "comment": "",
-    "categories": ["material"],
-    "density": 0,
-    "heat_MJ": 0,
-    "elec_pppm": 0,
-    "elec_MJ": 0,
-    "waste": 0,
-    "alias": "",
-    "category": "process",
-    "unit": "kg"
   }
 ]
