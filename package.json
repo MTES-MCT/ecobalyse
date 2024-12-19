@@ -69,6 +69,7 @@
     "@parcel/transformer-elm": "^2.13.2",
     "@parcel/transformer-image": "^2.13.2",
     "@parcel/transformer-sass": "^2.13.2",
+    "ajv-cli": "^5.0.0",
     "bootstrap": "^5.3.3",
     "concurrently": "^9.1.0",
     "elm": "^0.19.1-6",

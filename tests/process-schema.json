@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "alias": {
+        "type": ["string", "null"]
+      },
+      "categories": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "comment": {
+        "type": "string"
+      },
+      "density": {
+        "type": "number",
+        "minimum": 0
+      },
+      "displayName": {
+        "type": ["string", "null"]
+      },
+      "elec_MJ": {
+        "type": "number",
+        "minimum": 0
+      },
+      "heat_MJ": {
+        "type": "number",
+        "minimum": 0
+      },
+      "id": {
+        "type": "string"
+      },
+      "sourceId": {
+        "type": ["string", "null"]
+      },
+      "impacts": {
+        "type": "object",
+        "properties": {
+          "acd": { "type": "number", "minimum": 0 },
+          "cch": { "type": "number", "minimum": 0 },
+          "etf": { "type": "number", "minimum": 0 },
+          "etf-c": { "type": "number", "minimum": 0 },
+          "fru": { "type": "number", "minimum": 0 },
+          "fwe": { "type": "number", "minimum": 0 },
+          "htc": { "type": "number", "minimum": 0 },
+          "htc-c": { "type": "number", "minimum": 0 },
+          "htn": { "type": "number", "minimum": 0 },
+          "htn-c": { "type": "number", "minimum": 0 },
+          "ior": { "type": "number", "minimum": 0 },
+          "ldu": { "type": "number", "minimum": 0 },
+          "mru": { "type": "number", "minimum": 0 },
+          "ozd": { "type": "number", "minimum": 0 },
+          "pco": { "type": "number", "minimum": 0 },
+          "pma": { "type": "number", "minimum": 0 },
+          "swe": { "type": "number", "minimum": 0 },
+          "tre": { "type": "number", "minimum": 0 },
+          "wtu": { "type": "number", "minimum": 0 },
+          "ecs": { "type": "number", "minimum": 0 },
+          "pef": { "type": "number", "minimum": 0 }
+        },
+        "required": [
+          "acd",
+          "cch",
+          "etf",
+          "etf-c",
+          "fru",
+          "fwe",
+          "htc",
+          "htc-c",
+          "htn",
+          "htn-c",
+          "ior",
+          "ldu",
+          "mru",
+          "ozd",
+          "pco",
+          "pma",
+          "swe",
+          "tre",
+          "wtu",
+          "ecs",
+          "pef"
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string"
+      },
+      "unit": {
+        "type": "string",
+        "enum": [
+          "kg",
+          "t⋅km",
+          "t*km",
+          "kWh",
+          "MJ",
+          "L",
+          "Item(s)",
+          "m2",
+          "m3"
+        ]
+      },
+      "waste": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "required": [
+      "categories",
+      "comment",
+      "density",
+      "elec_MJ",
+      "heat_MJ",
+      "id",
+      "impacts",
+      "name",
+      "source",
+      "unit",
+      "waste"
+    ]
+  }
+}
