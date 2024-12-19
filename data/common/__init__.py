@@ -217,13 +217,6 @@ def fix_unit(unit):
             return unit
 
 
-def format_number(value):
-    """Format a number to a float with 6 significant digits."""
-    if value is None:
-        return "None"
-    return float(f"{value:.6g}")
-
-
 class FormatNumberJsonEncoder(json.JSONEncoder):
     def encode(self, obj):
         def recursive_format_number(obj):
