@@ -83,7 +83,8 @@ if __name__ == "__main__":
 
     # Export results
     export_json(
-        order_json(list(processes_aggregated_impacts.values())), PROCESSES_IMPACTS
+        order_json(list(processes_aggregated_impacts.values())),
+        PROCESSES_IMPACTS,
     )
     export_json(
         order_json(
