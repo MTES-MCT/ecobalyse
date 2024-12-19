@@ -1713,7 +1713,7 @@
     "id": "6bb6762e-7c0c-4f31-aaef-d0763927a931",
     "name": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
     "displayName": "Transport en camion non spécifié France",
-    "unit": "t*km",
+    "unit": "t⋅km",
     "source": "Base Impacts 2.01",
     "sourceId": null,
     "comment": "Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
