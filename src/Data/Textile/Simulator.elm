@@ -572,7 +572,7 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
                             Formula.weavingImpacts step.impacts
                                 { countryElecProcess = country.electricityProcess
                                 , outputMass = fabricOutputMass
-                                , pickingElec = process.elec_pppm
+                                , pickingElec = WellKnown.weavingElecPPPM
                                 , surfaceMass = surfaceMass
                                 , yarnSize = inputs.yarnSize |> Maybe.withDefault inputs.product.yarnSize
                                 }

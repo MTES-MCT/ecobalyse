@@ -383,19 +383,19 @@ paths:
                 summary: "Carrot cake conventionnel"
                 value:
                   ingredients:
-                  - id: egg
+                  - id: cf30d3bc-e99c-418a-b7e3-89a894d410a5
                     mass: 120
-                  - id: wheat
+                  - id: 38788025-a65e-4edf-a92f-aab0b89b0d61
                     mass: 140
-                  - id: milk
+                  - id: 8f3863e7-f981-4367-90a2-e1aaa096a6e0
                     mass: 60
-                  - id: carrot
+                  - id: 4d5198e7-413a-4ae2-8448-535aa3b302ae
                     mass: 225
                   transform:
-                    code: AGRIBALU000000003103966
+                    id: 7541cf94-1d4d-4d1c-99e3-a9d5be0e7569
                     mass: 545
                   packaging:
-                  - code: AGRIBALU000000003104019
+                  - id: c352add7-8037-464e-bff2-7da517419f88
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -404,23 +404,23 @@ paths:
                 summary: "Carrot cake bio, origine Espagne"
                 value:
                   ingredients:
-                  - id: egg-organic
+                  - id: cfd4a437-aa49-49ff-818e-353421f2fc09
                     mass: 120
                     country: ES
-                  - id: wheat-organic
+                  - id: a98b8776-a96d-48e9-b218-976f5452907a
                     mass: 140
                     country: ES
-                  - id: milk-organic
+                  - id: 2bf307e8-8cb0-400b-a4f1-cf615d9e96f4
                     mass: 60
                     country: ES
-                  - id: carrot-organic
+                  - id: 9042b6d0-c309-4757-a03f-ba802f0c8c01
                     mass: 225
                     country: ES
                   transform:
-                    code: AGRIBALU000000003103966
+                    id: 7541cf94-1d4d-4d1c-99e3-a9d5be0e7569
                     mass: 545
                   packaging:
-                  - code: AGRIBALU000000003104019
+                  - id: c352add7-8037-464e-bff2-7da517419f88
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -429,7 +429,7 @@ paths:
                 summary: "Mangue du Brésil"
                 value:
                   ingredients:
-                  - id: mango
+                  - id: db0e5f44-34b4-4160-b003-77c828d75e60
                     mass: 500
                     country: BR
                   transform: null
@@ -951,18 +951,18 @@ components:
 
         Quelques exemples :
 
-        - `milk;268` signifie *268g de lait*;
-        - `tomato;123;ES` signifie *123g de tomates conventionnelles en provenance d'Espagne*;
-        - `mango;123` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb, transport par avion)*;
-        - `mango;123;;noPlane` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb), par bateau*;
-        - `mango;123;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
-        - `mango;123;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
-        - `mango;123;BR;noPlane` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
+        - `8f3863e7-f981-4367-90a2-e1aaa096a6e0;268` signifie *268g de lait (id ecobalyse du lait : 8f3863e7-f981-4367-90a2-e1aaa096a6e0)*;
+        - `85641d75-149d-4863-a1a8-463e71a85fc2;123;ES` signifie *123g de tomates conventionnelles (id ecobalyse des tomates conventionnelles : 85641d75-149d-4863-a1a8-463e71a85fc2) provenance d'Espagne*;
+        - `db0e5f44-34b4-4160-b003-77c828d75e60;123` signifie *123g de mangues (id ecobalyse des mangues hors EU : db0e5f44-34b4-4160-b003-77c828d75e60) en provenance de son origine par défaut (hors Europe-Maghreb, transport par avion)*;
+        - `db0e5f44-34b4-4160-b003-77c828d75e60;123;;noPlane` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb), par bateau*;
+        - `db0e5f44-34b4-4160-b003-77c828d75e60;123;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
+        - `db0e5f44-34b4-4160-b003-77c828d75e60;123;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
+        - `db0e5f44-34b4-4160-b003-77c828d75e60;123;BR;noPlane` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
 
         > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :
         >
         > ```js
-        > ingredients[]=milk;268&ingredients[]=carrot-organic;30;ES
+        > ingredients[]=8f3863e7-f981-4367-90a2-e1aaa096a6e0;268&ingredients[]=9042b6d0-c309-4757-a03f-ba802f0c8c01;30;ES
         > ```
       required: true
       style: form
@@ -973,22 +973,22 @@ components:
       examples:
         oneIngredient:
           summary: Lait
-          value: ["milk;268"]
+          value: ["8f3863e7-f981-4367-90a2-e1aaa096a6e0;268"]
         twoIngredients:
           summary: Lait, carrotes bio
-          value: ["milk;268", "carrot-organic;30"]
+          value: ["8f3863e7-f981-4367-90a2-e1aaa096a6e0;268", "9042b6d0-c309-4757-a03f-ba802f0c8c01;30"]
         threeIngredients:
           summary: Lait, carrotes bio, oeuf
-          value: ["milk;268", "carrot-organic;30", "egg;149"]
+          value: ["8f3863e7-f981-4367-90a2-e1aaa096a6e0;268", "9042b6d0-c309-4757-a03f-ba802f0c8c01;30", "cf30d3bc-e99c-418a-b7e3-89a894d410a5;149"]
         fourIngredients:
           summary: Lait, carrotes bio, oeuf, tomates d'espagne
-          value: ["milk;268", "carrot-organic;30", "egg;149", "tomato;123;;ES"]
+          value: ["8f3863e7-f981-4367-90a2-e1aaa096a6e0;268", "9042b6d0-c309-4757-a03f-ba802f0c8c01;30", "cf30d3bc-e99c-418a-b7e3-89a894d410a5;149", "85641d75-149d-4863-a1a8-463e71a85fc2;123;;ES"]
         byPlane:
           summary: Mangue du Brésil par avion
-          value: ["mango;123;;BR"]
+          value: ["db0e5f44-34b4-4160-b003-77c828d75e60;123;;BR"]
         noPlane:
           summary: Mangue du Brésil par bateau
-          value: ["mango;123;;BR;noPlane"]
+          value: ["db0e5f44-34b4-4160-b003-77c828d75e60;123;;BR;noPlane"]
     packagingParam:
       name: "packaging[]"
       in: query
@@ -1005,7 +1005,7 @@ components:
       examples:
         onePackaging:
           summary: "105g de Carton"
-          value: ["AGRIBALU000000003104019;105"]
+          value: ["c352add7-8037-464e-bff2-7da517419f88;105"]
     transformParam:
       name: transform
       in: query
@@ -1013,7 +1013,7 @@ components:
         Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
 
         Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
-        Par exemple: `AGRIBALU000000003103966;1000` pour 1kg de matière à cuire.
+        Par exemple: `7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;1000` pour 1kg de matière à cuire.
       required: false
       style: form
       schema:
@@ -1026,7 +1026,7 @@ components:
           value: ""
         Cuisson:
           summary: Cuisson d'1kg de matière
-          value: "AGRIBALU000000003103966;1000"
+          value: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;1000"
     distributionParam:
       name: distribution
       in: query
@@ -1382,10 +1382,10 @@ components:
       type: object
       additionalProperties: false
       required:
-      - code
+      - id
       - mass
       properties:
-        code:
+        id:
           type: string
           description: Identifiant du procédé de transformation
         mass:
@@ -1395,10 +1395,10 @@ components:
       type: object
       additionalProperties: false
       required:
-      - code
+      - id
       - mass
       properties:
-        code:
+        id:
           type: string
           description: Identifiant du procédé d'emballage, **en grammes**
         mass:
@@ -1505,7 +1505,7 @@ components:
       items:
         type: object
         properties:
-          code:
+          id:
             type: string
           name:
             type: string
@@ -1515,7 +1515,7 @@ components:
       items:
         type: object
         properties:
-          code:
+          id:
             type: string
           name:
             type: string

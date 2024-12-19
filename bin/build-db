@@ -7,20 +7,12 @@
  */
 require("dotenv").config();
 const fs = require("fs");
-const lib = require("../lib");
+const { dataFiles } = require("../lib");
 
 // Env vars
-const { ECOBALYSE_DATA_DIR, NODE_ENV } = process.env;
+const { NODE_ENV } = process.env;
 
 console.log(`Building database for the ${NODE_ENV} env…`);
-
-let dataFiles;
-try {
-  dataFiles = lib.getDataFiles(ECOBALYSE_DATA_DIR);
-} catch (err) {
-  console.error(`🚨 ERROR: ${err.message}`);
-  process.exit(1);
-}
 
 function parseAndValidate(path, idKeyName = "id") {
   const raw = JSON.parse(fs.readFileSync(path).toString());
@@ -63,6 +55,7 @@ const elmWithFixtures = elmTemplate
   )
   .replace("%foodProductExamplesJson%", parseAndValidate("public/data/food/examples.json", "id"))
   // Object JSON data
+  .replace("%objectComponentsJson%", parseAndValidate("public/data/object/components.json", "id"))
   .replace("%objectExamplesJson%", parseAndValidate("public/data/object/examples.json", "id"))
   .replace(
     "%objectProcessesJson%",
@@ -77,7 +70,7 @@ const elmWithFixtures = elmTemplate
     "%textileProcessesJson%",
     parseAndValidate(
       NODE_ENV === "test" ? dataFiles.textileDetailed : dataFiles.textileNoDetails,
-      "uuid",
+      "id",
     ),
   )
   .replace(

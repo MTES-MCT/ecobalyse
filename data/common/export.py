@@ -1,5 +1,6 @@
 import functools
 import json
+import math
 import sys
 import urllib.parse
 from os.path import dirname
@@ -15,6 +16,7 @@ from frozendict import frozendict
 from loguru import logger
 
 from . import (
+    FormatNumberJsonEncoder,
     bytrigram,
     normalization_factors,
     spproject,
@@ -81,19 +83,25 @@ def display_changes(key, oldprocesses, processes):
     for p in processes:
         for impact in processes[p]["impacts"]:
             if old.get(p, {}).get(impact, {}):
-                percent_change = (
-                    100
-                    * abs(processes[p]["impacts"][impact] - old[p][impact])
-                    / old[p][impact]
-                )
+                # Convert values to float before calculation
+                old_value = float(old[p][impact])
+                new_value = float(processes[p]["impacts"][impact])
+
+                if old_value == 0 and new_value == 0:
+                    percent_change = 0
+                elif old_value == 0:
+                    percent_change = math.inf
+                else:
+                    percent_change = 100 * abs(new_value - old_value) / old_value
+
                 if percent_change > 0.1:
                     changes.append(
                         {
                             "trg": impact,
                             "name": p,
                             "%diff": percent_change,
-                            "from": old[p][impact],
-                            "to": processes[p]["impacts"][impact],
+                            "from": old_value,
+                            "to": new_value,
                         }
                     )
                     review = True
@@ -227,7 +235,7 @@ def compute_impacts(frozen_processes, default_db, impacts_py):
         if process.get("impacts"):
             logger.info(f"This process has hardcoded impacts: {process['displayName']}")
             continue
-        # simapro
+        # search in brightway
         activity = cached_search(
             process.get("source", default_db), process.get("search", process["name"])
         )
@@ -368,8 +376,11 @@ def csv_export_impact_comparison(compared_impacts, folder):
 
 def export_json(json_data, filename):
     logger.info(f"Exporting {filename}")
+    json_string = json.dumps(
+        json_data, indent=2, ensure_ascii=False, cls=FormatNumberJsonEncoder
+    )
     with open(filename, "w", encoding="utf-8") as file:
-        json.dump(json_data, file, indent=2, ensure_ascii=False)
+        file.write(json_string)
         file.write("\n")  # Add a newline at the end of the file
     logger.info(f"\nExported {len(json_data)} elements to {filename}")
 
@@ -388,9 +399,12 @@ def cached_search(dbname, search_terms, excluded_term=None):
 
 
 def find_id(dbname, activity):
-    return cached_search(dbname, activity["search"]).get(
-        "Process identifier", activity["id"]
-    )
+    if (search_terms := activity.get("search")) is not None:
+        search_result = cached_search(dbname, search_terms)
+        if search_result is not None:
+            return search_result.get("Process identifier", activity["id"])
+
+    return None
 
 
 def compute_simapro_impacts(activity, method, impacts_py):
@@ -399,10 +413,24 @@ def compute_simapro_impacts(activity, method, impacts_py):
     method = urllib.parse.quote(main_method, encoding=None, errors=None)
     api_request = f"http://simapro.ecobalyse.fr:8000/impact?process={strprocess}&project={project}&method={method}"
     logger.debug(f"SimaPro API request: {api_request}")
-    return bytrigram(
-        impacts_py,
-        json.loads(requests.get(api_request).content),
-    )
+
+    response = requests.get(api_request)
+
+    try:
+        json_content = json.loads(response.content)
+
+        # If Simapro doesn't return a dict, it's most likely an error
+        # (project not found) Don't do anything and return None,
+        # BW will be used as a replacement
+        if isinstance(json_content, dict):
+            return bytrigram(
+                impacts_py,
+                json_content,
+            )
+    except ValueError:
+        pass
+
+    return None
 
 
 def compute_brightway_impacts(activity, method, impacts_py):

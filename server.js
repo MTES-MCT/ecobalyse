@@ -7,11 +7,12 @@ const cors = require("cors");
 const yaml = require("js-yaml");
 const helmet = require("helmet");
 const { Elm } = require("./server-app");
-const lib = require("./lib");
+const jsonUtils = require("./lib/json");
+const { setupTracker, dataFiles } = require("./lib");
 const { decrypt } = require("./lib/crypto");
 const express = require("express");
-
 const rateLimit = require("express-rate-limit");
+
 const app = express(); // web app
 const api = express(); // api app
 const expressHost = "0.0.0.0";
@@ -21,14 +22,7 @@ const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
-const {
-  ECOBALYSE_DATA_DIR,
-  ENABLE_FOOD_SECTION,
-  MATOMO_HOST,
-  MATOMO_SITE_ID,
-  MATOMO_TOKEN,
-  NODE_ENV,
-} = process.env;
+const { ENABLE_FOOD_SECTION, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
 
 var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -41,14 +35,6 @@ version.use(rateLimiter);
 // Matomo
 if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
   console.error("Matomo environment variables are missing. Please check the README.");
-  process.exit(1);
-}
-
-let dataFiles;
-try {
-  dataFiles = lib.getDataFiles(ECOBALYSE_DATA_DIR);
-} catch (err) {
-  console.error(`🚨 ERROR: ${err.message}`);
   process.exit(1);
 }
 
@@ -169,7 +155,7 @@ const openApiContents = processOpenApi(
 );
 
 // Matomo
-const apiTracker = lib.setupTracker(openApiContents);
+const apiTracker = setupTracker(openApiContents);
 
 const processesImpacts = {
   foodProcesses: fs.readFileSync(dataFiles.foodDetailed, "utf8"),
@@ -232,6 +218,12 @@ api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
+const respondWithFormattedJSON = (res, status, body) => {
+  res.status(status);
+  res.setHeader("Content-Type", "application/json");
+  res.send(jsonUtils.serialize(body));
+};
+
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), async (req, res) => {
   const processes = await getProcesses(req.headers.token);
@@ -243,7 +235,7 @@ api.all(/(.*)/, bodyParser.json(), async (req, res) => {
     processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
-      res.status(status).send(body);
+      respondWithFormattedJSON(res, status, body);
     },
   });
 });
@@ -275,17 +267,11 @@ version.get("/:versionNumber/api", checkVersionAndPath, (req, res) => {
 });
 
 version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), async (req, res) => {
-  const foodProcesses = fs
-    .readFileSync(path.join(req.staticDir, "data", "food", "processes_impacts.json"))
-    .toString();
-  const objectProcesses = fs
-    .readFileSync(path.join(req.staticDir, "data", "object", "processes_impacts.json"))
-    .toString();
-  const textileProcesses = fs
-    .readFileSync(path.join(req.staticDir, "data", "textile", "processes_impacts.json"))
-    .toString();
-
-  const processes = { foodProcesses, objectProcesses, textileProcesses };
+  const versionNumber = req.params.versionNumber;
+  const { processesImpacts, processes } = availableVersions.find(
+    (version) => version.dir === versionNumber,
+  );
+  const versionProcesses = await getProcesses(req.headers.token, processesImpacts, processes);
 
   const { Elm } = require(path.join(req.staticDir, "server-app"));
 
@@ -301,9 +287,9 @@ version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), asy
     method: req.method,
     url: urlWithoutPrefix,
     body: req.body,
-    processes,
+    processes: versionProcesses,
     jsResponseHandler: ({ status, body }) => {
-      res.status(status).send(body);
+      respondWithFormattedJSON(res, status, body);
     },
   });
 });

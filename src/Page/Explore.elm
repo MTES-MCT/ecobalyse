@@ -16,19 +16,18 @@ import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example exposing (Example)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.Process as FoodProcess
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
-import Data.Object.Process as ObjectProcess
+import Data.Object.Component as ObjectComponent
 import Data.Object.Query as ObjectQuery
 import Data.Object.Simulator as ObjectSimulator
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator
@@ -42,6 +41,7 @@ import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
+import Page.Explore.ObjectComponents as ObjectComponents
 import Page.Explore.ObjectExamples as ObjectExamples
 import Page.Explore.ObjectProcesses as ObjectProcesses
 import Page.Explore.Table as Table
@@ -91,6 +91,9 @@ init scope dataset session =
 
                 Dataset.Impacts _ ->
                     "Code"
+
+                Dataset.ObjectComponents _ ->
+                    "Nom"
 
                 Dataset.ObjectExamples _ ->
                     "Coût Environnemental"
@@ -369,7 +372,7 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Ingredient.findByID id food.ingredients of
+                (case Ingredient.findById id food.ingredients of
                     Err error ->
                         alert error
 
@@ -389,24 +392,51 @@ foodIngredientDetails foodDb =
 
 foodProcessesExplorer :
     Db
-    -> Table.Config FoodProcess.Process Msg
+    -> Table.Config Process Msg
     -> SortableTable.State
-    -> Maybe FoodProcess.Identifier
+    -> Maybe Process.Id
     -> List (Html Msg)
 foodProcessesExplorer { food } tableConfig tableState maybeId =
     [ food.processes
-        |> List.sortBy (.name >> FoodProcess.nameToString)
+        |> List.sortBy .name
         |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodProcesses.table food)
     , case maybeId of
         Just id ->
             detailsModal
-                (case FoodProcess.findByIdentifier id food.processes of
+                (case Process.findById id food.processes of
                     Err error ->
                         alert error
 
                     Ok process ->
                         process
                             |> Table.viewDetails Scope.Food (FoodProcesses.table food)
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
+objectComponentsExplorer :
+    Db
+    -> Table.Config ObjectComponent.Component Msg
+    -> SortableTable.State
+    -> Maybe ObjectComponent.Id
+    -> List (Html Msg)
+objectComponentsExplorer db tableConfig tableState maybeId =
+    [ db.object.components
+        |> List.sortBy .name
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Object (ObjectComponents.table db)
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case ObjectComponent.findById id db.object.components of
+                    Err error ->
+                        alert error
+
+                    Ok component ->
+                        component
+                            |> Table.viewDetails Scope.Object (ObjectComponents.table db)
                 )
 
         Nothing ->
@@ -458,9 +488,9 @@ objectExamplesExplorer db tableConfig tableState maybeId =
 
 objectProcessesExplorer :
     Db
-    -> Table.Config ObjectProcess.Process Msg
+    -> Table.Config Process.Process Msg
     -> SortableTable.State
-    -> Maybe ObjectProcess.Id
+    -> Maybe Process.Id
     -> List (Html Msg)
 objectProcessesExplorer { object } tableConfig tableState maybeId =
     [ object.processes
@@ -468,7 +498,7 @@ objectProcessesExplorer { object } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case ObjectProcess.findById object.processes id of
+                (case Process.findById id object.processes of
                     Err error ->
                         alert error
 
@@ -597,9 +627,9 @@ textileMaterialDetails db =
 
 textileProcessesExplorer :
     Db
-    -> Table.Config Process.Process Msg
+    -> Table.Config Process Msg
     -> SortableTable.State
-    -> Maybe Process.Uuid
+    -> Maybe Process.Id
     -> List (Html Msg)
 textileProcessesExplorer { textile } tableConfig tableState maybeId =
     [ textile.processes
@@ -607,7 +637,7 @@ textileProcessesExplorer { textile } tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findByUuid id textile.processes of
+                (case Process.findById id textile.processes of
                     Err error ->
                         alert error
 
@@ -707,6 +737,9 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
+
+        Dataset.ObjectComponents maybeId ->
+            objectComponentsExplorer db tableConfig tableState maybeId
 
         Dataset.ObjectExamples maybeId ->
             objectExamplesExplorer db tableConfig tableState maybeId

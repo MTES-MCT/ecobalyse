@@ -18,6 +18,7 @@ pygithub = "*"
 ecobalyse = {file = "packages/python/ecobalyse"}
 typer = "*"
 pytest-mock = "*"
+frozendict = "*"
 
 [dev-packages]
 numpy = ">=1,<2"

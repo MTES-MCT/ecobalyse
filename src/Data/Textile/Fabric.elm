@@ -13,9 +13,9 @@ module Data.Textile.Fabric exposing
     , toString
     )
 
+import Data.Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Process exposing (Process)
 import Data.Textile.WellKnown exposing (WellKnown)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE

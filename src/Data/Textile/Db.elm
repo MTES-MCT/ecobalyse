@@ -5,8 +5,8 @@ module Data.Textile.Db exposing
 
 import Data.Example as Example exposing (Example)
 import Data.Impact as Impact
+import Data.Process as Process exposing (Process)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as Query exposing (Query)
 import Data.Textile.WellKnown as WellKnown exposing (WellKnown)

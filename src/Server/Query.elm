@@ -10,9 +10,9 @@ import Data.Env as Env
 import Data.Food.Db as Food
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Preparation as Preparation
-import Data.Food.Process as FoodProcess
 import Data.Food.Query as BuilderQuery
 import Data.Food.Retail as Retail exposing (Distribution)
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -89,13 +89,17 @@ ingredientParser countries food string =
             ingredient
                 |> validateByPlaneValue byPlane
                 |> Result.andThen (\maybeByPlane -> Ingredient.byPlaneAllowed maybeByPlane ingredient)
+
+        getIngredient id =
+            Ingredient.idFromString id
+                |> Result.fromMaybe ("Identifiant d’ingrédient invalide\u{202F}: " ++ id ++ ". Un `uuid` est attendu.")
+                |> Result.andThen (\ingredientId -> Ingredient.findById ingredientId food.ingredients)
     in
     case String.split ";" string of
         [ id, mass ] ->
             let
                 ingredient =
-                    food.ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
+                    getIngredient id
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Ok Nothing)
@@ -106,8 +110,7 @@ ingredientParser countries food string =
         [ id, mass, countryCode ] ->
             let
                 ingredient =
-                    food.ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
+                    getIngredient id
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (countryParser countries Scope.Food countryCode)
@@ -118,8 +121,7 @@ ingredientParser countries food string =
         [ id, mass, countryCode, byPlane ] ->
             let
                 ingredient =
-                    food.ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString id)
+                    getIngredient id
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (countryParser countries Scope.Food countryCode)
@@ -145,14 +147,15 @@ countryParser countries scope countryStr =
             |> Result.map Just
 
 
-foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Identifier
-foodProcessCodeParser processes string =
-    processes
-        |> FoodProcess.findByIdentifier (FoodProcess.identifierFromString string)
-        |> Result.map .identifier
+foodProcessIdParser : List Process -> String -> Result String Process.Id
+foodProcessIdParser processes string =
+    Process.idFromString string
+        |> Result.fromMaybe ("Identifiant invalide: " ++ string)
+        |> Result.andThen (\id -> Process.findById id processes)
+        |> Result.map .id
 
 
-packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List BuilderQuery.ProcessQuery))
+packagingListParser : String -> List Process -> Parser (ParseResult (List BuilderQuery.ProcessQuery))
 packagingListParser key packagings =
     Query.custom (key ++ "[]")
         (List.map (packagingParser packagings)
@@ -179,12 +182,12 @@ preparationListParser key =
         )
 
 
-packagingParser : List FoodProcess.Process -> String -> Result String BuilderQuery.ProcessQuery
+packagingParser : List Process -> String -> Result String BuilderQuery.ProcessQuery
 packagingParser packagings string =
     case String.split ";" string of
         [ code, mass ] ->
             Ok BuilderQuery.ProcessQuery
-                |> RE.andMap (foodProcessCodeParser packagings code)
+                |> RE.andMap (foodProcessIdParser packagings code)
                 |> RE.andMap (validateMassInGrams mass)
 
         [ "" ] ->
@@ -285,7 +288,7 @@ validatePhysicalDurability string =
             )
 
 
-maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe BuilderQuery.ProcessQuery))
+maybeTransformParser : String -> List Process -> Parser (ParseResult (Maybe BuilderQuery.ProcessQuery))
 maybeTransformParser key transforms =
     Query.string key
         |> Query.map
@@ -368,12 +371,12 @@ maybeIntParser key =
             )
 
 
-parseTransform_ : List FoodProcess.Process -> String -> Result String BuilderQuery.ProcessQuery
+parseTransform_ : List Process -> String -> Result String BuilderQuery.ProcessQuery
 parseTransform_ transforms string =
     case String.split ";" string of
         [ code, mass ] ->
             Ok BuilderQuery.ProcessQuery
-                |> RE.andMap (foodProcessCodeParser transforms code)
+                |> RE.andMap (foodProcessIdParser transforms code)
                 |> RE.andMap (validateMassInGrams mass)
 
         [ "" ] ->

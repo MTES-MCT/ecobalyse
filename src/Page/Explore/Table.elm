@@ -149,12 +149,19 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
 
 toCSV : Table data comparable msg -> List data -> Csv
 toCSV { columns } items =
-    { headers = List.map .label columns
+    let
+        nonEmptyColumns =
+            columns
+                |> List.filter (.label >> (/=) "")
+    in
+    { headers =
+        nonEmptyColumns
+            |> List.map .label
     , records =
         items
             |> List.map
                 (\item ->
-                    columns
+                    nonEmptyColumns
                         |> List.map (.toValue >> valueToString item)
                 )
     }

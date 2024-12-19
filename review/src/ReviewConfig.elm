@@ -1,12 +1,14 @@
 module ReviewConfig exposing (config)
 
-
+import CognitiveComplexity
 import NoDebug.TodoOrToString
 import NoExposingEverything
 import NoImportingEverything
 import NoMissingTypeAnnotation
 import NoRedundantConcat
 import NoRedundantCons
+import NoUnsortedConstructors
+import NoUnsortedRecordFields
 import NoUnused.CustomTypeConstructorArgs
 import NoUnused.CustomTypeConstructors
 import NoUnused.Dependencies
@@ -17,18 +19,19 @@ import NoUnused.Patterns
 import NoUnused.Variables
 import Review.Rule as Rule exposing (Rule)
 import Simplify
-import CognitiveComplexity
-import NoUnsortedRecordFields
-import NoUnsortedConstructors
+
 
 config : List Rule
 config =
     [ -- CognitiveComplexity
       CognitiveComplexity.rule 15
-      -- NoDebug
+        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
+
+    -- NoDebug
     , NoDebug.TodoOrToString.rule
         |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
-      -- Common
+
+    -- Common
     , NoExposingEverything.rule
         |> Rule.ignoreErrorsForFiles [ "src/Data/Color.elm" ]
         |> Rule.ignoreErrorsForFiles [ "src/Views/Icon.elm" ]
@@ -54,7 +57,8 @@ config =
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
-      -- NoUnused
+
+    -- NoUnused
     , NoUnused.CustomTypeConstructors.rule []
         |> Rule.ignoreErrorsForFiles [ "src/Views/Modal.elm" ]
     , NoUnused.CustomTypeConstructorArgs.rule
@@ -69,6 +73,7 @@ config =
     , NoUnused.Parameters.rule
     , NoUnused.Patterns.rule
     , NoUnused.Variables.rule
-      -- Simlify
+
+    -- Simlify
     , Simplify.rule Simplify.defaults
     ]

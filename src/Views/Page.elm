@@ -344,7 +344,10 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                 , onClick (loadUrl "/")
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
-                , h1 [ class "HeaderTitle" ] [ text "Ecobalyse" ]
+                , h1 [ class "HeaderTitle" ]
+                    [ img [ class "HeaderSubLogo", alt "BetaGouv", src "img/logo_betagouv.jpg" ] []
+                    , text "Ecobalyse"
+                    ]
                 ]
             , session.releases
                 |> RemoteData.map

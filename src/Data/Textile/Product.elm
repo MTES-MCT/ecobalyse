@@ -10,12 +10,12 @@ module Data.Textile.Product exposing
     , idToString
     )
 
+import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Economics as Economics exposing (Economics)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Energy exposing (Energy)
@@ -109,7 +109,7 @@ decodeUseOptions processes =
         |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
         |> Pipe.required "defaultNbCycles" Decode.int
         |> Pipe.required "ironingElecInMJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "nonIroningProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "nonIroningProcessUuid" (Process.decodeFromId processes)
         |> Pipe.required "ratioDryer" Split.decodeFloat
         |> Pipe.required "ratioIroning" Split.decodeFloat
         |> Pipe.required "timeIroning" (Decode.map Duration.hours Decode.float)
@@ -153,7 +153,7 @@ encodeMakingOptions v =
 encodeUseOptions : UseOptions -> Encode.Value
 encodeUseOptions v =
     Encode.object
-        [ ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.uuid )
+        [ ( "nonIroningProcessUuid", Process.encodeId v.nonIroningProcess.id )
         , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
         , ( "defaultNbCycles", Encode.int v.defaultNbCycles )
         , ( "ratioDryer", Split.encodeFloat v.ratioDryer )

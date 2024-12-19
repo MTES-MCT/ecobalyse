@@ -1,4 +1,5 @@
 # Please only pure functions here
+import json
 from copy import deepcopy
 
 from frozendict import frozendict
@@ -28,6 +29,8 @@ def spproject(activity):
             return "ADEME UPR"
         case "Woolmark":
             return "Woolmark"
+        case "PastoEco":
+            return "AGB3.1.1 2023-03-06"
         case _:
             return "AGB3.1.1 2023-03-06"
 
@@ -212,3 +215,18 @@ def fix_unit(unit):
             return "t⋅km"
         case _:
             return unit
+
+
+class FormatNumberJsonEncoder(json.JSONEncoder):
+    def encode(self, obj):
+        def recursive_format_number(obj):
+            if isinstance(obj, (int, float)):
+                return float(f"{obj:.6g}")
+            elif isinstance(obj, dict):
+                return {k: recursive_format_number(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [recursive_format_number(v) for v in obj]
+            else:
+                return obj
+
+        return super().encode(recursive_format_number(obj))

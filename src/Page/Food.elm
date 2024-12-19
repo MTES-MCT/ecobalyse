@@ -21,7 +21,6 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
-import Data.Food.Process as Process exposing (Process)
 import Data.Food.Query as Query exposing (Query)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
@@ -29,6 +28,8 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
+import Data.Process as Process exposing (Process)
+import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -94,7 +95,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | DeleteIngredient Ingredient.Id
-    | DeletePackaging Process.Identifier
+    | DeletePackaging Process.Id
     | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
@@ -119,7 +120,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDistribution String
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
-    | UpdatePackaging Process.Identifier Query.ProcessQuery
+    | UpdatePackaging Process.Id Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
 
@@ -207,7 +208,7 @@ update ({ db, queries } as session) msg model =
             let
                 firstPackaging =
                     db.food.processes
-                        |> Recipe.availablePackagings (List.map .code query.packaging)
+                        |> Recipe.availablePackagings (List.map .id query.packaging)
                         |> List.sortBy Process.getDisplayName
                         |> List.head
                         |> Maybe.map Recipe.processQueryFromProcess
@@ -232,7 +233,7 @@ update ({ db, queries } as session) msg model =
 
                 firstTransform =
                     db.food.processes
-                        |> Process.listByCategory Process.Transform
+                        |> Process.listByCategory ProcessCategory.Transform
                         |> List.sortBy Process.getDisplayName
                         |> List.head
                         |> Maybe.map
@@ -625,7 +626,7 @@ addProcessFormView { isDisabled, event, kind } =
 
 type alias UpdateProcessConfig =
     { processes : List Process
-    , excluded : List Process.Identifier
+    , excluded : List Process.Id
     , processQuery : Query.ProcessQuery
     , impact : Html Msg
     , updateEvent : Query.ProcessQuery -> Msg
@@ -651,10 +652,10 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 }
             ]
         , processes
-            |> List.sortBy (.name >> Process.nameToString)
+            |> List.sortBy .name
             |> processSelectorView
-                processQuery.code
-                (\code -> updateEvent { processQuery | code = code })
+                processQuery.id
+                (\id -> updateEvent { processQuery | id = id })
                 excluded
         , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
         , BaseElement.deleteItemButton { disabled = False } deleteEvent
@@ -705,7 +706,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
             SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
     , toId = .id >> Ingredient.idToString
     , toString = .name
-    , toTooltip = .default >> .name >> Process.nameToString
+    , toTooltip = .default >> .name
     , update =
         \_ newElement ->
             UpdateIngredient
@@ -1009,7 +1010,7 @@ packagingListView db selectedImpact recipe results =
             db.food.processes
                 |> Recipe.availablePackagings
                     (recipe.packaging
-                        |> List.map (.process >> .identifier)
+                        |> List.map (.process >> .id)
                     )
     in
     [ div
@@ -1044,15 +1045,15 @@ packagingListView db selectedImpact recipe results =
                         updateProcessFormView
                             { processes =
                                 db.food.processes
-                                    |> Process.listByCategory Process.Packaging
-                            , excluded = recipe.packaging |> List.map (.process >> .identifier)
-                            , processQuery = { code = packaging.process.identifier, mass = packaging.mass }
+                                    |> Process.listByCategory ProcessCategory.Packaging
+                            , excluded = recipe.packaging |> List.map (.process >> .id)
+                            , processQuery = { id = packaging.process.id, mass = packaging.mass }
                             , impact =
                                 packaging
                                     |> Recipe.computeProcessImpacts
                                     |> Format.formatImpact selectedImpact
-                            , updateEvent = UpdatePackaging packaging.process.identifier
-                            , deleteEvent = DeletePackaging packaging.process.identifier
+                            , updateEvent = UpdatePackaging packaging.process.id
+                            , deleteEvent = DeletePackaging packaging.process.id
                             }
                     )
          )
@@ -1116,7 +1117,7 @@ transportToPackagingView recipe results =
             Just transform ->
                 div []
                     [ span
-                        [ title <| "(" ++ Process.nameToString transform.process.name ++ ")" ]
+                        [ title <| "(" ++ transform.process.name ++ ")" ]
                         [ text "Masse après transformation : " ]
                     , Recipe.getTransformedIngredientsMass recipe
                         |> Format.kg
@@ -1369,25 +1370,20 @@ mainView ({ db } as session) model =
         ]
 
 
-processSelectorView :
-    Process.Identifier
-    -> (Process.Identifier -> msg)
-    -> List Process.Identifier
-    -> List Process
-    -> Html msg
-processSelectorView selectedCode event excluded processes =
+processSelectorView : Process.Id -> (Process.Id -> Msg) -> List Process.Id -> List Process -> Html Msg
+processSelectorView selectedId event excluded processes =
     select
         [ class "form-select form-select"
-        , onInput (Process.identifierFromString >> event)
+        , onInput (Process.idFromString >> Maybe.map event >> Maybe.withDefault NoOp)
         ]
         (processes
             |> List.sortBy (\process -> Process.getDisplayName process)
             |> List.map
                 (\process ->
                     option
-                        [ selected <| selectedCode == process.identifier
-                        , value <| Process.identifierToString process.identifier
-                        , disabled <| List.member process.identifier excluded
+                        [ selected <| selectedId == process.id
+                        , value <| Process.idToString process.id
+                        , disabled <| List.member process.id excluded
                         ]
                         [ text <| Process.getDisplayName process ]
                 )
@@ -1493,9 +1489,9 @@ transformView db selectedImpact recipe results =
                 updateProcessFormView
                     { processes =
                         db.food.processes
-                            |> Process.listByCategory Process.Transform
-                    , excluded = [ transform.process.identifier ]
-                    , processQuery = { code = transform.process.identifier, mass = transform.mass }
+                            |> Process.listByCategory ProcessCategory.Transform
+                    , excluded = [ transform.process.id ]
+                    , processQuery = { id = transform.process.id, mass = transform.mass }
                     , impact = impact
                     , updateEvent = UpdateTransform
                     , deleteEvent = ResetTransform

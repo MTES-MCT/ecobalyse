@@ -12,12 +12,11 @@ module Data.Dataset exposing
 
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
-import Data.Food.Process as FoodProcess
 import Data.Impact.Definition as Definition
-import Data.Object.Process as ObjectProcess
+import Data.Object.Component as ObjectComponent
+import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
-import Data.Textile.Process as Process
 import Data.Textile.Product as Product
 import Data.Uuid as Uuid exposing (Uuid)
 import Url.Parser as Parser exposing (Parser)
@@ -32,13 +31,14 @@ type Dataset
     = Countries (Maybe Country.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
-    | FoodProcesses (Maybe FoodProcess.Identifier)
+    | FoodProcesses (Maybe Process.Id)
     | Impacts (Maybe Definition.Trigram)
+    | ObjectComponents (Maybe ObjectComponent.Id)
     | ObjectExamples (Maybe Uuid)
-    | ObjectProcesses (Maybe ObjectProcess.Id)
+    | ObjectProcesses (Maybe Process.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
-    | TextileProcesses (Maybe Process.Uuid)
+    | TextileProcesses (Maybe Process.Id)
     | TextileProducts (Maybe Product.Id)
 
 
@@ -54,9 +54,10 @@ datasets scope =
             ]
 
         Scope.Object ->
-            [ Impacts Nothing
-            , ObjectExamples Nothing
+            [ ObjectExamples Nothing
+            , ObjectComponents Nothing
             , ObjectProcesses Nothing
+            , Impacts Nothing
             ]
 
         Scope.Textile ->
@@ -94,6 +95,9 @@ fromSlug string =
         "materials" ->
             TextileMaterials Nothing
 
+        "object-components" ->
+            ObjectComponents Nothing
+
         "object-examples" ->
             ObjectExamples Nothing
 
@@ -126,6 +130,9 @@ isDetailed dataset =
             True
 
         Impacts (Just _) ->
+            True
+
+        ObjectComponents (Just _) ->
             True
 
         ObjectExamples (Just _) ->
@@ -178,6 +185,9 @@ reset dataset =
         Impacts _ ->
             Impacts Nothing
 
+        ObjectComponents _ ->
+            ObjectComponents Nothing
+
         ObjectExamples _ ->
             ObjectExamples Nothing
 
@@ -218,6 +228,9 @@ same a b =
         ( TextileExamples _, TextileExamples _ ) ->
             True
 
+        ( ObjectComponents _, ObjectComponents _ ) ->
+            True
+
         ( ObjectExamples _, ObjectExamples _ ) ->
             True
 
@@ -247,19 +260,22 @@ setIdFromString idString dataset =
             FoodExamples (Uuid.fromString idString)
 
         FoodIngredients _ ->
-            FoodIngredients (Just (Ingredient.idFromString idString))
+            FoodIngredients (Ingredient.idFromString idString)
 
         FoodProcesses _ ->
-            FoodProcesses (Just (FoodProcess.identifierFromString idString))
+            FoodProcesses (Process.idFromString idString)
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
+
+        ObjectComponents _ ->
+            ObjectComponents (ObjectComponent.idFromString idString)
 
         ObjectExamples _ ->
             ObjectExamples (Uuid.fromString idString)
 
         ObjectProcesses _ ->
-            ObjectProcesses (ObjectProcess.idFromString idString)
+            ObjectProcesses (Process.idFromString idString)
 
         TextileExamples _ ->
             TextileExamples (Uuid.fromString idString)
@@ -268,7 +284,7 @@ setIdFromString idString dataset =
             TextileMaterials (Just (Material.Id idString))
 
         TextileProcesses _ ->
-            TextileProcesses (Just (Process.Uuid idString))
+            TextileProcesses (Process.idFromString idString)
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -296,6 +312,9 @@ strings dataset =
 
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
+
+        ObjectComponents _ ->
+            { label = "Composants", slug = "object-components" }
 
         ObjectExamples _ ->
             { label = "Exemples", slug = "object-examples" }
@@ -338,7 +357,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         FoodProcesses (Just id) ->
-            [ slug dataset, FoodProcess.identifierToString id ]
+            [ slug dataset, Process.idToString id ]
 
         FoodProcesses Nothing ->
             [ slug dataset ]
@@ -349,6 +368,12 @@ toRoutePath dataset =
         Impacts Nothing ->
             [ slug dataset ]
 
+        ObjectComponents (Just id) ->
+            [ slug dataset, ObjectComponent.idToString id ]
+
+        ObjectComponents Nothing ->
+            [ slug dataset ]
+
         ObjectExamples (Just id) ->
             [ slug dataset, Uuid.toString id ]
 
@@ -356,7 +381,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         ObjectProcesses (Just id) ->
-            [ slug dataset, ObjectProcess.idToString id ]
+            [ slug dataset, Process.idToString id ]
 
         ObjectProcesses Nothing ->
             [ slug dataset ]
@@ -374,7 +399,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         TextileProcesses (Just id) ->
-            [ slug dataset, Process.uuidToString id ]
+            [ slug dataset, Process.idToString id ]
 
         TextileProcesses Nothing ->
             [ slug dataset ]

@@ -1,6 +1,6 @@
 [
   {
-    "id": "milk-organic",
+    "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
     "search_in": "Agribalyse 3.1.1",
     "search": "Cow milk, organic, national average, at farm gate/FR U",
     "suffix": "constructed by Ecobalyse",
@@ -14,7 +14,7 @@
     }
   },
   {
-    "id": "cull-cow-organic",
+    "id": "8750a101-87ff-46be-9dac-0009beb6adde",
     "search_in": "Agribalyse 3.1.1",
     "search": "Cull cow, organic, national average, at farm gate/FR U",
     "suffix": "constructed by Ecobalyse",
@@ -32,7 +32,7 @@
     }
   },
   {
-    "id": "lamb-organic",
+    "id": "0ee92745-7951-4c83-99e5-251f3ce8f21d",
     "search_in": "Agribalyse 3.1.1",
     "search": "Lamb, organic, national average, at farm gate/FR U",
     "suffix": "constructed by Ecobalyse",
@@ -44,7 +44,7 @@
     }
   },
   {
-    "id": "maize-organic",
+    "id": "a54e2a54-8a98-4d5a-a725-d9918130b038",
     "search_in": "Agribalyse 3.1.1",
     "search": "Grain maize, organic, national average, at farm gate/FR U",
     "suffix": "constructed by Ecobalyse",
@@ -56,7 +56,7 @@
     }
   },
   {
-    "id": "wheat-organic",
+    "id": "d1eca354-9662-4155-8cd7-a06c499e9fd9",
     "search_in": "Agribalyse 3.1.1",
     "search": "Wheat, organic, national average, at farm gate/FR U",
     "suffix": "constructed by Ecobalyse",
@@ -83,7 +83,7 @@
     }
   },
   {
-    "id": "grape-organic",
+    "id": "d25a71a9-fc17-4c6f-bdf2-a43dba568b16",
     "search_in": "Agribalyse 3.1.1",
     "search": "Grape, organic, for wine production, national average, at vineyard gate/FR U",
     "suffix": "constructed by Ecobalyse",
@@ -99,7 +99,7 @@
     }
   },
   {
-    "id": "soybean-organic",
+    "id": "92d34545-6952-466e-bf6d-c1f1f6069b48",
     "search_in": "Agribalyse 3.1.1",
     "search": "Soybean grain, organic, national average, at farm gate/FR U",
     "suffix": "constructed by Ecobalyse",
@@ -112,7 +112,7 @@
     }
   },
   {
-    "id": "flour-organic",
+    "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
     "search_in": "Agribalyse 3.1.1",
     "search": "Wheat flour, at industrial mill {FR} U",
     "suffix": "[organic], constructed by Ecobalyse",
@@ -124,7 +124,7 @@
     }
   },
   {
-    "id": "ground-beef-organic",
+    "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
     "search_in": "Agribalyse 3.1.1",
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "suffix": "[organic], constructed by Ecobalyse",
@@ -138,7 +138,7 @@
     }
   },
   {
-    "id": "ground-beef-grass-fed",
+    "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
     "search_in": "Agribalyse 3.1.1",
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "suffix": "[grass-fed], constructed by Ecobalyse",
@@ -155,7 +155,7 @@
     }
   },
   {
-    "id": "meat-beef-organic",
+    "id": "21258a3f-9504-4a18-b874-2125ed7ce1ff",
     "search_in": "Agribalyse 3.1.1",
     "search": "Meat without bone beef for direct consumption",
     "suffix": "[organic], constructed by Ecobalyse",
@@ -168,7 +168,7 @@
     }
   },
   {
-    "id": "ground-beef-feedlot",
+    "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
     "search_in": "Agribalyse 3.1.1",
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "suffix": "[feedlot], constructed by Ecobalyse",
@@ -182,7 +182,7 @@
     }
   },
   {
-    "id": "lamb-organic-meat-without-bone",
+    "id": "0fa67acc-5a69-4ab1-9e34-6da90bd48fbb",
     "search_in": "Agribalyse 3.1.1",
     "search": "lamb meat without bone",
     "suffix": "[organic], constructed by Ecobalyse",
@@ -198,15 +198,17 @@
     }
   },
   {
-    "id": "rapeseed-oil-organic",
+    "id": "51f8e8d2-13c0-446c-bf0a-9272fc46edde",
     "search_in": "Agribalyse 3.1.1",
     "search": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "suffix": "[organic], constructed by Ecobalyse",
     "subactivities": [],
-    "replace": { "Rapeseed at farm GLO adapted from WFLDB": "Winter rapeseed organic at farm gate" }
+    "replace": {
+      "Rapeseed at farm GLO adapted from WFLDB": "Winter rapeseed organic at farm gate"
+    }
   },
   {
-    "id": "cooked-ham-organic",
+    "id": "4de5e41e-3271-4489-aa27-a973e4045082",
     "search_in": "Agribalyse 3.1.1",
     "search": "Cooked ham case ready at plant",
     "suffix": "[organic], constructed by Ecobalyse",
@@ -221,7 +223,7 @@
     }
   },
   {
-    "id": "cooked-ham-fr",
+    "id": "15e2dfa0-9b5f-4bc9-a3ed-885f56061bc0",
     "search_in": "Agribalyse 3.1.1",
     "search": "Cooked ham case ready at plant",
     "suffix": "[fr], constructed by Ecobalyse",
@@ -236,7 +238,7 @@
     }
   },
   {
-    "id": "pig-fr-organic",
+    "id": "93ac96f5-4bfa-45f1-814e-ff3a3784e116",
     "search_in": "Agribalyse 3.1.1",
     "search": "Pig, conventional, national average, at farm gate {FR} U",
     "suffix": "[fr-organic], constructed by Ecobalyse",
@@ -250,7 +252,7 @@
     }
   },
   {
-    "id": "pig-br",
+    "id": "2fad7a45-3fa1-45f2-b2c7-cc657d8fc0b7",
     "search_in": "Agribalyse 3.1.1",
     "search": "Pig, conventional, national average, at farm gate {FR} U",
     "suffix": "[br], constructed by Ecobalyse",
@@ -264,7 +266,7 @@
     }
   },
   {
-    "id": "sunflower-oil-organic",
+    "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40",
     "search_in": "Agribalyse 3.1.1",
     "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "suffix": "[organic], constructed by Ecobalyse",
@@ -274,7 +276,7 @@
     }
   },
   {
-    "id": "chicken-breast-organic",
+    "id": "b19b0dc0-3478-46a0-b8a1-3225ea939ff1",
     "search_in": "Agribalyse 3.1.1",
     "search": "Meat without bone chicken for direct consumption",
     "suffix": "[organic], constructed by Ecobalyse",
@@ -287,7 +289,7 @@
     }
   },
   {
-    "id": "chicken-breast-fr-organic",
+    "id": "b682ae30-9df9-4385-9005-4b4725c70d54",
     "search_in": "Ecobalyse",
     "search": "Meat without bone chicken for direct consumption [organic], constructed by Ecobalyse",
     "suffix": "[fr-organic]",
@@ -303,7 +305,7 @@
     }
   },
   {
-    "id": "butter-organic",
+    "id": "aeedb0fa-81a7-4f21-9bf1-7ec9c4c69ed9",
     "search_in": "Agribalyse 3.1.1",
     "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "suffix": "[organic], constructed by Ecobalyse",
@@ -316,7 +318,7 @@
     }
   },
   {
-    "id": "chicken-breast-only-soybean-max",
+    "id": "2affe54c-5d42-4f05-80a8-eb0007911b5a",
     "search_in": "Agribalyse 3.1.1",
     "search": "Meat without bone chicken for direct consumption",
     "suffix": "[only-soybean-max], constructed by Ecobalyse",
@@ -332,7 +334,7 @@
     }
   },
   {
-    "id": "chicken-breast-br-max",
+    "id": "8fb5024c-ceec-4201-b069-ea253c537ad6",
     "search_in": "Agribalyse 3.1.1",
     "search": "Meat without bone chicken for direct consumption",
     "suffix": "[br-max], constructed by Ecobalyse",
@@ -349,7 +351,7 @@
     }
   },
   {
-    "id": "chicken-breast-fr",
+    "id": "f94df72e-20fd-4cc5-ab64-ce3921649d58",
     "search_in": "Agribalyse 3.1.1",
     "search": "Meat without bone chicken for direct consumption",
     "suffix": "[fr], constructed by Ecobalyse",
@@ -364,7 +366,7 @@
     }
   },
   {
-    "id": "chicken-breast-bbc",
+    "id": "7bee251b-241b-4e32-9491-cf179af35512",
     "search_in": "Agribalyse 3.1.1",
     "search": "Meat without bone, chicken, for direct consumption",
     "suffix": "[bbc], constructed by Ecobalyse",
@@ -377,7 +379,7 @@
     }
   },
   {
-    "id": "chicken-breast-fr-ext-organic",
+    "id": "396296d3-15d4-4262-ba0f-762606113c5b",
     "search_in": "Ecobalyse",
     "search": "Meat without bone, chicken, for direct consumption {FR} U [bbc], constructed by Ecobalyse",
     "suffix": "[fr-ext-organic]",
@@ -393,7 +395,7 @@
     }
   },
   {
-    "id": "chicken-breast-fr-ext",
+    "id": "22bc8556-4147-4953-a1e5-965b212f3c3c",
     "search_in": "Ecobalyse",
     "search": "Meat without bone, chicken, for direct consumption {FR} U [bbc], constructed by Ecobalyse",
     "suffix": "[fr-ext]",
@@ -407,19 +409,23 @@
     }
   },
   {
-    "id": "tomato-organic-fr",
+    "id": "36cf3229-fe58-4067-8789-2a13f5a835d1",
     "search_in": "Ginko",
     "search": "Fresh tomato, consumption mix",
     "suffix": "[fr-only]",
     "subactivities": [],
-    "replace": { "Fresh tomato ES": "medium tomato FR" }
+    "replace": {
+      "Fresh tomato ES": "medium tomato FR"
+    }
   },
   {
-    "id": "tomato-organic-es",
+    "id": "46ffa4da-6280-47c1-b611-d5f1e6595870",
     "search_in": "Ginko",
     "search": "Fresh tomato, consumption mix",
     "suffix": "[es-only]",
     "subactivities": [],
-    "replace": { "medium tomato FR": "Fresh tomato ES" }
+    "replace": {
+      "medium tomato FR": "Fresh tomato ES"
+    }
   }
 ]

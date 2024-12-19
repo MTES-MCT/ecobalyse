@@ -31,14 +31,13 @@ from common.export import (
     progress_bar,
 )
 from common.impacts import impacts as impacts_py
-from frozendict import frozendict
-
 from food.ecosystemic_services.ecosystemic_services import (
     compute_animal_ecosystemic_services,
     compute_vegetal_ecosystemic_services,
     load_ecosystemic_dic,
     load_ugb_dic,
 )
+from frozendict import frozendict
 
 PROJECT_ROOT_DIR = dirname(dirname(dirname(__file__)))
 ECOBALYSE_DATA_DIR = os.environ.get("ECOBALYSE_DATA_DIR")
@@ -77,24 +76,25 @@ def create_ingredient_list(activities_tuple):
 
 def to_ingredient(activity):
     return {
-        "id": activity["id"],
-        "name": activity["name"],
+        "alias": activity["alias"],
         "categories": activity.get("ingredient_categories", []),
-        "search": activity["search"],
         "default": find_id(activity.get("database", DEFAULT_DB), activity),
         "default_origin": activity["default_origin"],
-        "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
         "density": activity["density"],
-        "inedible_part": activity["inedible_part"],
-        "transport_cooling": activity["transport_cooling"],
+        **({"crop_group": activity["crop_group"]} if "crop_group" in activity else {}),
         "ecosystemicServices": activity.get("ecosystemicServices", {}),
+        "id": activity["id"],
+        "inedible_part": activity["inedible_part"],
         **(
             {"land_occupation": activity["land_occupation"]}
             if "land_occupation" in activity
             else {}
         ),
-        **({"crop_group": activity["crop_group"]} if "crop_group" in activity else {}),
+        "name": activity["name"],
+        "raw_to_cooked_ratio": activity["raw_to_cooked_ratio"],
         **({"scenario": activity["scenario"]} if "scenario" in activity else {}),
+        "search": activity["search"],
+        "transport_cooling": activity["transport_cooling"],
         "visible": activity["visible"],
     }
 
@@ -130,6 +130,7 @@ def create_process_list(activities):
 
 def to_process(activity):
     return {
+        "alias": activity["alias"],
         "categories": activity.get("process_categories"),
         "comment": (
             prod[0]["comment"]
@@ -142,17 +143,17 @@ def to_process(activity):
             )
             else activity.get("comment", "")
         ),
+        "density": 0,
         "displayName": activity["name"],
+        "elec_MJ": 0,
+        "heat_MJ": 0,
         "id": activity["id"],
-        "identifier": find_id(activity.get("database", DEFAULT_DB), activity),
+        "sourceId": find_id(activity.get("database", DEFAULT_DB), activity),
         "impacts": {},
         "name": cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
             "name"
         ],
         "source": activity.get("database", DEFAULT_DB),
-        "system_description": cached_search(
-            activity.get("database", DEFAULT_DB), activity["search"]
-        )["System description"],
         "unit": fix_unit(
             cached_search(activity.get("database", DEFAULT_DB), activity["search"])[
                 "unit"
@@ -160,6 +161,7 @@ def to_process(activity):
         ),
         # those are removed at the end:
         "search": activity["search"],
+        "waste": 0,
     }
 
 
@@ -225,10 +227,12 @@ if __name__ == "__main__":
     # Export
 
     export_json(order_json(activities_land_occ), ACTIVITIES_FILE)
+
     export_json(order_json(ingredients_animal_es), INGREDIENTS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
-        order_json(list(processes_aggregated_impacts.values())), PROCESSES_IMPACTS
+        order_json(list(processes_aggregated_impacts.values())),
+        PROCESSES_IMPACTS,
     )
 
     export_json(

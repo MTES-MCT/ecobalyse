@@ -4,12 +4,13 @@ module Data.Textile.WellKnown exposing
     , getEnnoblingHeatProcess
     , getPrintingProcess
     , load
+    , weavingElecPPPM
     )
 
 import Data.Country exposing (Country)
+import Data.Process as Process exposing (Process)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Printing as Printing
-import Data.Textile.Process as Process exposing (Alias(..), Process)
 import Data.Zone as Zone
 import Result.Extra as RE
 
@@ -84,7 +85,7 @@ load : List Process -> Result String WellKnown
 load processes =
     let
         fromAlias key =
-            RE.andMap (Process.findByAlias (Alias key) processes)
+            RE.andMap (Process.findByAlias key processes)
     in
     Ok WellKnown
         |> fromAlias "air-transport"
@@ -114,3 +115,9 @@ load processes =
         |> fromAlias "sea-transport"
         |> fromAlias "train-transport"
         |> fromAlias "weaving"
+
+
+weavingElecPPPM : Float
+weavingElecPPPM =
+    -- kWh/(pick,m) per kg of material to process
+    0.0003145

@@ -2,66 +2,71 @@ module Page.Explore.FoodProcesses exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Food.Db as FoodDb
-import Data.Food.Process as FoodProcess
+import Data.Process as Process
+import Data.Process.Category as ProcessCategory
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
 
 
-table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table FoodProcess.Process String msg
+table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Process.Process String msg
 table _ { detailed, scope } =
     { filename = "processes"
-    , toId = .identifier >> FoodProcess.identifierToString
-    , toRoute = .identifier >> Just >> Dataset.FoodProcesses >> Route.Explore scope
+    , toId = .id >> Process.idToString
+    , toRoute = .id >> Just >> Dataset.FoodProcesses >> Route.Explore scope
     , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .identifier >> FoodProcess.identifierToString
+          , toValue = Table.StringValue <| .id >> Process.idToString
           , toCell =
                 \process ->
                     if detailed then
-                        code [] [ text (FoodProcess.identifierToString process.identifier) ]
+                        code [] [ text (Process.idToString process.id) ]
 
                     else
-                        a [ Route.href (Route.Explore scope (Dataset.FoodProcesses (Just process.identifier))) ]
-                            [ code [] [ text (FoodProcess.identifierToString process.identifier) ] ]
+                        a [ Route.href (Route.Explore scope (Dataset.FoodProcesses (Just process.id))) ]
+                            [ code [] [ text (Process.idToString process.id) ] ]
           }
         , { label = "Nom"
-          , toValue = Table.StringValue FoodProcess.getDisplayName
-          , toCell = FoodProcess.getDisplayName >> text
+          , toValue = Table.StringValue Process.getDisplayName
+          , toCell = Process.getDisplayName >> text
           }
         , { label = "Catégories"
           , toValue =
                 Table.StringValue <|
                     .categories
-                        >> List.map FoodProcess.categoryToLabel
+                        >> List.map ProcessCategory.toLabel
                         >> String.join ", "
           , toCell =
                 .categories
-                    >> List.map FoodProcess.categoryToLabel
+                    >> List.map ProcessCategory.toLabel
                     >> String.join ", "
                     >> text
           }
         , { label = "Nom technique"
-          , toValue = Table.StringValue <| .name >> FoodProcess.nameToString
-          , toCell = .name >> FoodProcess.nameToString >> text
+          , toValue = Table.StringValue .name
+          , toCell = .name >> text
           }
         , { label = "Source"
           , toValue = Table.StringValue <| .source
           , toCell = .source >> text
           }
+        , { label = "Identifiant dans la source"
+          , toValue = Table.StringValue <| .sourceId >> Maybe.map Process.sourceIdToString >> Maybe.withDefault ""
+          , toCell = .sourceId >> Maybe.map (Process.sourceIdToString >> text >> List.singleton >> code []) >> Maybe.withDefault (text "")
+          }
+        , { label = "Alias"
+          , toValue = Table.StringValue <| .alias >> Maybe.withDefault ""
+          , toCell = .alias >> Maybe.map (text >> List.singleton >> em []) >> Maybe.withDefault (text "")
+          }
         , { label = "Unité"
           , toValue = Table.StringValue <| .unit
           , toCell = .unit >> text
           }
-        , { label = "Description du système"
-          , toValue = Table.StringValue <| .systemDescription
-          , toCell = .systemDescription >> text
-          }
         , { label = "Commentaire"
-          , toValue = Table.StringValue <| .comment >> Maybe.withDefault "N/A"
-          , toCell = .comment >> Maybe.withDefault "N/A" >> text
+          , toValue = Table.StringValue .comment
+          , toCell = .comment >> text
           }
         ]
     }

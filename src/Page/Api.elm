@@ -55,7 +55,14 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "13 novembre 2024"
+    [ { date = "5 décembre 2024"
+      , level = "major"
+      , domains = [ "Alimentaire" ]
+      , md = """Les identifiants de procédés alimentaires sont désormais au format UUID. Le précedent champ
+                `code` pour lier les procédés d'emballage et de transformation est remplacé par la clé `id`
+                exploitant ce format."""
+      }
+    , { date = "13 novembre 2024"
       , level = "minor"
       , domains = []
       , md = "Ajout d'une [FAQ](/#/pages/api-faq) dédiée à l'API."

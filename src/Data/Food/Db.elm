@@ -5,10 +5,10 @@ module Data.Food.Db exposing
 
 import Data.Example as Example exposing (Example)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.Process as Process exposing (Process)
 import Data.Food.Query as Query exposing (Query)
 import Data.Food.WellKnown as WellKnown exposing (WellKnown)
 import Data.Impact as Impact
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode
 import Result.Extra as RE
 

@@ -23,6 +23,7 @@ from common.export import (
     compute_impacts,
     display_changes,
     export_json,
+    find_id,
     load_json,
     plot_impacts,
 )
@@ -63,7 +64,7 @@ def create_material_list(activities_tuple):
 def to_material(activity):
     return {
         "id": activity["material_id"],
-        "materialProcessUuid": activity["uuid"],
+        "materialProcessUuid": activity["id"],
         "recycledProcessUuid": activity.get("recycledProcessUuid"),
         "recycledFrom": activity.get("recycledFrom"),
         "name": activity["shortName"],
@@ -79,20 +80,18 @@ def to_material(activity):
 
 def create_process_list(activities):
     print("Creating process list...")
-    return frozendict(
-        {activity["uuid"]: to_process(activity) for activity in activities}
-    )
+    return frozendict({activity["id"]: to_process(activity) for activity in activities})
 
 
 def to_process(activity):
     return {
+        "id": activity["id"],
         "name": cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
             "name"
         ]
         if "search" in activity and activity["source"] in BW_DATABASES
         else activity.get("name", activity["displayName"]),
         "displayName": activity["displayName"],
-        "info": activity["info"],
         "unit": fix_unit(
             cached_search(activity.get("source", DEFAULT_DB), activity["search"])[
                 "unit"
@@ -101,16 +100,16 @@ def to_process(activity):
             else activity["unit"]
         ),
         "source": activity["source"],
-        "correctif": activity["correctif"],
-        "step_usage": activity["step_usage"],
-        "uuid": activity["uuid"],
+        "sourceId": find_id(activity.get("database", DEFAULT_DB), activity),
+        "comment": activity["comment"],
+        "categories": activity["categories"],
         **(
             {"impacts": activity["impacts"].copy()}
             if "impacts" in activity
             else {"impacts": {}}
         ),
+        "density": activity["density"],
         "heat_MJ": activity["heat_MJ"],
-        "elec_pppm": activity["elec_pppm"],
         "elec_MJ": activity["elec_MJ"],
         "waste": activity["waste"],
         "alias": activity["alias"],
@@ -192,12 +191,11 @@ if __name__ == "__main__":
     )
 
     # Export
-
-    export_json(order_json(activities), ACTIVITIES_FILE)
     export_json(order_json(materials), MATERIALS_FILE)
     display_changes("id", oldprocesses, processes_corrected_impacts)
     export_json(
-        order_json(list(processes_aggregated_impacts.values())), PROCESSES_IMPACTS
+        order_json(list(processes_aggregated_impacts.values())),
+        PROCESSES_IMPACTS,
     )
 
     export_json(

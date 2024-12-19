@@ -9,7 +9,7 @@ module Data.Food.Ingredient exposing
     , decodeIngredients
     , encodeId
     , encodePlaneTransport
-    , findByID
+    , findById
     , getDefaultOriginTransport
     , idFromString
     , idToString
@@ -18,11 +18,12 @@ module Data.Food.Ingredient exposing
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin exposing (Origin)
-import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
+import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Data.Uuid as Uuid exposing (Uuid)
 import Density exposing (Density, gramsPerCubicCentimeter)
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
@@ -48,7 +49,7 @@ type alias Ingredient =
 
 
 type Id
-    = Id String
+    = Id Uuid
 
 
 type PlaneTransport
@@ -88,15 +89,14 @@ byPlaneByDefault ingredient =
         PlaneNotApplicable
 
 
-decodeId : Decode.Decoder Id
+decodeId : Decoder Id
 decodeId =
-    Decode.string
-        |> Decode.map idFromString
+    Decode.map Id Uuid.decoder
 
 
 encodeId : Id -> Encode.Value
-encodeId (Id str) =
-    Encode.string str
+encodeId (Id uuid) =
+    Uuid.encoder uuid
 
 
 encodePlaneTransport : PlaneTransport -> Maybe Encode.Value
@@ -112,20 +112,24 @@ encodePlaneTransport planeTransport =
             Nothing
 
 
-idFromString : String -> Id
+idFromString : String -> Maybe Id
 idFromString str =
-    Id str
+    Uuid.fromString str |> Maybe.map Id
 
 
 idToString : Id -> String
-idToString (Id str) =
-    str
+idToString (Id uuid) =
+    Uuid.toString uuid
 
 
 decodeIngredients : List Process -> Decoder (List Ingredient)
 decodeIngredients processes =
     processes
-        |> List.map (\process -> ( Process.identifierToString process.identifier, process ))
+        |> List.filterMap
+            (\process ->
+                process.sourceId
+                    |> Maybe.map (\sourceId -> ( Process.sourceIdToString sourceId, process ))
+            )
         |> Dict.fromList
         |> decodeIngredient
         |> Decode.list
@@ -169,8 +173,8 @@ decodeTransportCooling =
             )
 
 
-findByID : Id -> List Ingredient -> Result String Ingredient
-findByID id ingredients =
+findById : Id -> List Ingredient -> Result String Ingredient
+findById id ingredients =
     ingredients
         |> List.filter (.id >> (==) id)
         |> List.head

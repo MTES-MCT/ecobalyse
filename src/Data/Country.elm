@@ -14,9 +14,9 @@ module Data.Country exposing
     , unknownCountryCode
     )
 
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
-import Data.Textile.Process as Process exposing (Process)
 import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -67,8 +67,8 @@ decode processes =
     Decode.succeed Country
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
         |> Pipe.required "code" decodeCode
-        |> Pipe.required "electricityProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "heatProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "electricityProcessUuid" (Process.decodeFromId processes)
+        |> Pipe.required "heatProcessUuid" (Process.decodeFromId processes)
         |> Pipe.required "name" Decode.string
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
         |> Pipe.required "zone" Zone.decode
@@ -89,8 +89,8 @@ encode v =
     Encode.object
         [ ( "aquaticPollutionScenario", v.aquaticPollutionScenario |> aquaticPollutionScenarioToString |> Encode.string )
         , ( "code", encodeCode v.code )
-        , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
-        , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
+        , ( "electricityProcessUuid", v.electricityProcess.id |> Process.idToString |> Encode.string )
+        , ( "heatProcessUuid", v.heatProcess.id |> Process.idToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "scopes", v.scopes |> Encode.list Scope.encode )
         ]

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "alias": {
+        "type": ["string", "null"]
+      },
+      "categories": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "comment": {
+        "type": "string"
+      },
+      "density": {
+        "type": "number",
+        "minimum": 0
+      },
+      "displayName": {
+        "type": ["string", "null"]
+      },
+      "elec_MJ": {
+        "type": "number",
+        "minimum": 0
+      },
+      "heat_MJ": {
+        "type": "number",
+        "minimum": 0
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "sourceId": {
+        "type": ["string", "null"]
+      },
+      "impacts": {
+        "type": "object",
+        "properties": {
+          "acd": { "type": "number" },
+          "cch": { "type": "number" },
+          "etf": { "type": "number" },
+          "etf-c": { "type": "number" },
+          "fru": { "type": "number" },
+          "fwe": { "type": "number" },
+          "htc": { "type": "number" },
+          "htc-c": { "type": "number" },
+          "htn": { "type": "number" },
+          "htn-c": { "type": "number" },
+          "ior": { "type": "number" },
+          "ldu": { "type": "number" },
+          "mru": { "type": "number" },
+          "ozd": { "type": "number" },
+          "pco": { "type": "number" },
+          "pma": { "type": "number" },
+          "swe": { "type": "number" },
+          "tre": { "type": "number" },
+          "wtu": { "type": "number" },
+          "ecs": { "type": "number" },
+          "pef": { "type": "number" }
+        },
+        "required": [
+          "acd",
+          "cch",
+          "etf",
+          "etf-c",
+          "fru",
+          "fwe",
+          "htc",
+          "htc-c",
+          "htn",
+          "htn-c",
+          "ior",
+          "ldu",
+          "mru",
+          "ozd",
+          "pco",
+          "pma",
+          "swe",
+          "tre",
+          "wtu",
+          "ecs",
+          "pef"
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string"
+      },
+      "unit": {
+        "type": "string",
+        "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "Item(s)", "m2", "m3"]
+      },
+      "waste": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      }
+    },
+    "required": [
+      "categories",
+      "comment",
+      "density",
+      "elec_MJ",
+      "heat_MJ",
+      "id",
+      "impacts",
+      "name",
+      "source",
+      "unit",
+      "waste"
+    ]
+  }
+}
