@@ -2155,22 +2155,6 @@
     }
   },
   {
-    "id": "5c92e205-3fc7-4890-839f-a91e2442b7fb",
-    "displayName": "Blanchiment",
-    "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
-    "search": "bleaching textile RoW",
-    "comment": "Ancien identifiant (12/2024): blanchiment.",
-    "categories": ["processing"],
-    "density": 0,
-    "heat_MJ": 10.74,
-    "elec_MJ": 1.61,
-    "waste": 0,
-    "alias": "bleaching",
-    "category": "process",
-    "unit": "kg"
-  },
-  {
     "id": "8b91651b-9651-46fc-8bc2-37a141494086",
     "displayName": "",
     "source": "Ecoinvent 3.9.1",
