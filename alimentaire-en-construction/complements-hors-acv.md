@@ -87,11 +87,7 @@ Pour appliquer les services écosystémiques "cultures" (haies, tailles de parce
 
 L'ensemble des formules de calcul implémentées pour le calcul de chacun des 5 services écosystémiques, en distinguant les services écosystémiques "cultures" et les services écosystémiques "élevages" sont détaillés dans le tableur suivant :&#x20;
 
-Version .xls :&#x20;
-
-{% file src="../.gitbook/assets/Notice calcul services écosystémiques.xlsx" %}
-
-Version Gsheet : [https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing)
+[https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing)
 
 ## Complément "haies"&#x20;
 
