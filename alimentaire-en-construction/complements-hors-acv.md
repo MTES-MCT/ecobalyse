@@ -1,6 +1,97 @@
 # Compléments hors ACV
 
-Ces compléments hors ACV visent à prendre en compte les **externalités environnementales positives de certains modes de production** telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article\_jo/JORFARTI000043956979). Ces externalités positives ne sont aujourd'hui pas intégrées à l'ACV. Pourtant, elles sont essentielles pour appréhender au mieux l'impact systémique de l'agriculture, notamment à l'échelle des territoires. En effet, les pratiques agricoles façonnent grandement les écosystèmes et les paysages, que ce soit en termes de biodiversité (maintien de zones refuges, de corridors écologiques, d'une mosaïque paysagère diversifiée, etc.) ou en termes de résilience face aux aléas divers (préservation contre l'érosion des sols, bouclage des cycles et moindre dépendance à certains nutriments exogènes, régulation naturelle des ravageurs de cultures, etc.). Cinq compléments sont ainsi ajoutés pour prendre en compte ces effets.
+Ces compléments hors ACV visent à prendre en compte les **externalités environnementales de certains modes de production** telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000043956979). Ces externalités ne sont aujourd'hui pas intégrées à l'ACV. Pourtant, elles sont essentielles pour appréhender au mieux l'impact systémique de l'agriculture, notamment à l'échelle des territoires. En effet, les pratiques agricoles façonnent grandement les écosystèmes et les paysages, que ce soit en termes de biodiversité (maintien de zones refuges, de corridors écologiques, d'une mosaïque paysagère diversifiée, etc.) ou en termes de résilience face aux aléas divers (préservation contre l'érosion des sols, bouclage des cycles et moindre dépendance à certains nutriments exogènes, régulation naturelle des ravageurs de cultures, etc.). Cinq compléments sont ainsi ajoutés pour prendre en compte ces effets.
+
+## Introduction et formules de calcul
+
+Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie".
+
+Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental (cf. [page dédiée](../impacts-consideres.md)) et de chacun des 5 services écosystémiques introduits ci-après :&#x20;
+
+$$
+CoûtEnvironnemental = ComposanteACV + \sum_{1}^{5}ServicesEcosystémiques
+$$
+
+2 types de services écosystémiques sont à distinguer :&#x20;
+
+* Les services écosystémiques "cultures", qui qualifient les productions végétales. Ces services écosystémiques s'appliquent également aux productions animales, en considérant les végétaux qui ont pu être consommés par les animaux concernés (en intégrant également les prairies).
+* Les services écosystémiques "élevages" qui ne s'appliquent qu'aux productions animales
+
+| Service écosystémique  | Application                         | Valeur                                   |
+| ---------------------- | ----------------------------------- | ---------------------------------------- |
+| Haies                  | Cultures (et élevage via la ration) | Valeur toujours positive                 |
+| Taille de parcelles    | Cultures (et élevage via la ration) | Valeur toujours positive                 |
+| Diversité culturale    | Cultures (et élevage via la ration) | Valeur toujours positive                 |
+| Prairies permanentes   | Elevages                            | Valeur toujours positive                 |
+| Chargement territorial | Elevages                            | Valeur pouvant être positive ou négative |
+
+### Services écosystémiques "cultures" / Groupes de culture
+
+La modélisation proposée (en "niveau 1") dans l'outil Ecobalyse rend compte des impacts et des services écosystémiques à partir de quelques paramètres simples caractérisant les ingrédients : nature de la culture, pays, label éventuel (Agriculture biologique par exemple).
+
+Pour caractériser au mieux les différents ingrédients proposés dans Ecobalyse, chacun est rattaché à un **groupe de culture**.
+
+28 groupes de culture sont considérés :&#x20;
+
+| Groupes de culture                    |
+| ------------------------------------- |
+| BLE TENDRE                            |
+| MAIS GRAIN ET ENSILAGE                |
+| ORGE                                  |
+| AUTRES CEREALES                       |
+| COLZA                                 |
+| TOURNESOL                             |
+| AUTRES OLEAGINEUX                     |
+| PROTEAGINEUX                          |
+| PLANTES A FIBRES                      |
+| SEMENCES                              |
+| GEL (surfaces gelées sans production) |
+| GEL INDUSTRIEL                        |
+| AUTRES GELS                           |
+| RIZ                                   |
+| LEGUMINEUSES A GRAIN                  |
+| FOURRAGE                              |
+| ESTIVES LANDES                        |
+| PRAIRIES PERMANENTES                  |
+| PRAIRIES TEMPORAIRES                  |
+| VERGERS                               |
+| VIGNES                                |
+| FRUITS A COQUES                       |
+| OLIVIERS                              |
+| AUTRES CULTURES INDUSTRIELLES         |
+| LEGUMES-FLEURS                        |
+| CANNE A SUCRE                         |
+| ARBORICULTURE                         |
+| DIVERS                                |
+
+Pour chacun de ces groupes de culture, 3 scénarios sont considérés en première approche
+
+| Scénario  | Champ d'application                                                          |
+| --------- | ---------------------------------------------------------------------------- |
+| Référence | Cultures végétales (et prairies) en France et en agriculture conventionnelle |
+| Bio       | Cultures végétales (et prairies) en France et en agriculture biologique      |
+| Import    | Cultures végétales (et prairies) hors France                                 |
+
+{% hint style="warning" %}
+Les données mobilisées par l'OFB ou le service statistique du ministère de l'agriculture concernant uniquement les productions en France, des données par défaut sont utilisées pour les productions importées. En l'absence d'informations similaires, des données majorantes sont appliquées.
+{% endhint %}
+
+### Services écosystémiques "cultures" / application aux productions animales
+
+Pour appliquer les services écosystémiques "cultures" (haies, tailles de parcelle et diversité culturale) aux ingrédients issus de l'élevage (produits laitiers ou viandes), une logique d'affectation similaire à celle appliquée pour les catégories d'impacts en ACV est appliquée :&#x20;
+
+* L'élevage nécessite des cultures et des prairies pour l'alimentation animale
+* Chaque culture (et prairie) mobilisée génère des services écosystémiques dont la modélisation est détaillé ci-après
+
+### Formules de calcul
+
+L'ensemble des formules de calcul implémentées pour le calcul de chacun des 5 services écosystémiques, en distinguant les services écosystémiques "cultures" et les services écosystémiques "élevages" sont détaillés dans le tableur suivant :&#x20;
+
+Version .xls :&#x20;
+
+{% file src="../.gitbook/assets/Notice calcul services écosystémiques.xlsx" %}
+
+Version Gsheet : [https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing)
 
 ## Complément "haies"&#x20;
 
