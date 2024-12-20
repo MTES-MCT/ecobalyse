@@ -14,11 +14,11 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Component as Component exposing (Component, ComponentItem)
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Component as Component exposing (Component, ComponentItem)
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator exposing (Results)
 import Data.Process as Process exposing (Process)

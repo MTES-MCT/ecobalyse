@@ -1,4 +1,4 @@
-module Data.Object.Component exposing
+module Data.Component exposing
     ( Amount
     , Component
     , ComponentItem

@@ -9,9 +9,9 @@ module Data.Object.Simulator exposing
     , toStepsImpacts
     )
 
+import Data.Component as Component exposing (Component, ComponentItem, ProcessItem)
 import Data.Impact as Impact exposing (Impacts, noStepsImpacts)
 import Data.Impact.Definition as Definition
-import Data.Object.Component as Component exposing (Component, ComponentItem, ProcessItem)
 import Data.Object.Query exposing (Query)
 import Data.Process as Process
 import Mass exposing (Mass)
