@@ -29,6 +29,15 @@ Ces deux paramètres ne sont pas fixés, par défaut, sur des valeurs majorantes
 **Dès lors, à l'exception du délavage et de l'impression, chaque nouveau paramètre précisé à partir des valeurs par défaut doit conduire à réduire le coût environnemental modélisé.**
 {% endhint %}
 
+
+
+{% hint style="info" %}
+**Gestion du multi-sourcing**\
+Plusieurs paramètres concernent le pays dans lequel la matière est produite ou dans lequel différentes étapes de transformation sont réalisées. La valeur à donner au paramètre peut être complexe lorsque, pour une même référence, un producteur s'approvisionne dans différents pays (multi-sourcing).\
+Dans un souci de capitalisation sur la réglementation existante et pour éviter un double exercice aux marques, le multi-sourcing doit être considérées suivant les mêmes règles que celles définies pour l'application du décret n° 2022-748 du 29 avril 2022 relatif à l'information du consommateur sur les qualités et caractéristiques environnementales des produits générateurs de déchets ([lien](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045726094)). Ces règles sont précisées dans la foire aux questions publiée le 18 octobre 2023 ([lien](https://www.ecologie.gouv.fr/sites/default/files/documents/FAQ-020123v2.pdf)), et en particulier dans le paragraphe 2.9.2. repris ci-après.\
+![](../.gitbook/assets/{F1DBF5B3-6028-4CE4-BE07-6CA5F2D064BC}.png)
+{% endhint %}
+
 ## Approche réglementaire
 
 La méthodologie exposée dans Ecobalyse a vocation à donner accès au futur cadre méthodologique réglementaire relatif à l'affichage environnemental (article 2 de la loi Climat et résilience).
