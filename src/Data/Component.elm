@@ -5,13 +5,20 @@ module Data.Component exposing
     , Id
     , ProcessItem
     , Quantity
+    , Results
+    , addResults
     , amountToFloat
     , componentItemToString
+    , computeComponentItemResults
     , decodeComponentItem
     , decodeList
+    , emptyResults
     , encodeComponentItem
     , expandComponentItems
     , expandProcessItems
+    , extractImpacts
+    , extractItems
+    , extractMass
     , findById
     , idFromString
     , idToString
@@ -19,11 +26,14 @@ module Data.Component exposing
     , quantityToInt
     )
 
+import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 
 
@@ -38,12 +48,16 @@ type alias Component =
     }
 
 
+{-| A compact representation of a component and a quantity of it
+-}
 type alias ComponentItem =
     { id : Id
     , quantity : Quantity
     }
 
 
+{-| A compact representation of a component process, and an amount of it
+-}
 type alias ProcessItem =
     { amount : Amount
     , processId : Process.Id
@@ -58,30 +72,98 @@ type Quantity
     = Quantity Int
 
 
+type Results
+    = Results
+        { impacts : Impacts
+        , items : List Results
+        , mass : Mass
+        }
+
+
+addResults : Results -> Results -> Results
+addResults (Results results) (Results acc) =
+    Results
+        { acc
+            | impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
+            , items = Results results :: acc.items
+            , mass = Quantity.sum [ results.mass, acc.mass ]
+        }
+
+
 amountToFloat : Amount -> Float
 amountToFloat (Amount float) =
     float
 
 
 componentItemToString : List Component -> List Process -> ComponentItem -> Result String String
-componentItemToString components processes componentItem =
-    case findById componentItem.id components of
-        Err err ->
-            Err err
+componentItemToString components processes { id, quantity } =
+    components
+        |> findById id
+        |> Result.andThen
+            (\component ->
+                component.processes
+                    |> RE.combineMap (processItemToString processes)
+                    |> Result.map (String.join " | ")
+                    |> Result.map
+                        (\processesString ->
+                            String.fromInt (quantityToInt quantity)
+                                ++ " "
+                                ++ component.name
+                                ++ " [ "
+                                ++ processesString
+                                ++ " ]"
+                        )
+            )
 
-        Ok component ->
-            component.processes
-                |> RE.combineMap (processItemToString processes)
-                |> Result.map (String.join " | ")
-                |> Result.map
-                    (\processesString ->
-                        String.fromInt (quantityToInt componentItem.quantity)
-                            ++ " "
-                            ++ component.name
-                            ++ " [ "
-                            ++ processesString
-                            ++ " ]"
-                    )
+
+computeComponentItemResults : List Component -> List Process -> ComponentItem -> Result String Results
+computeComponentItemResults components processes componentItem =
+    components
+        |> findById componentItem.id
+        |> Result.andThen (.processes >> List.map (computeProcessItemResults processes) >> RE.combine)
+        |> Result.map (List.foldr addResults emptyResults)
+        |> Result.map
+            (\(Results { impacts, mass, items }) ->
+                Results
+                    { impacts =
+                        impacts
+                            |> List.repeat (quantityToInt componentItem.quantity)
+                            |> Impact.sumImpacts
+                    , items = items
+                    , mass =
+                        mass
+                            |> List.repeat (quantityToInt componentItem.quantity)
+                            |> Quantity.sum
+                    }
+            )
+
+
+computeProcessItemResults : List Process -> ProcessItem -> Result String Results
+computeProcessItemResults processes { amount, processId } =
+    processes
+        |> Process.findById processId
+        |> Result.map
+            (\process ->
+                let
+                    impacts =
+                        process.impacts
+                            |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (amountToFloat amount))
+
+                    mass =
+                        Mass.kilograms <|
+                            if process.unit == "kg" then
+                                amountToFloat amount
+
+                            else
+                                -- apply density
+                                amountToFloat amount * process.density
+                in
+                Results
+                    { impacts = impacts
+                    , items = [ Results { impacts = impacts, items = [], mass = mass } ]
+                    , mass = mass
+                    }
+            )
 
 
 expandComponentItems :
@@ -182,3 +264,27 @@ quantityFromInt int =
 quantityToInt : Quantity -> Int
 quantityToInt (Quantity int) =
     int
+
+
+emptyResults : Results
+emptyResults =
+    Results
+        { impacts = Impact.empty
+        , items = []
+        , mass = Quantity.zero
+        }
+
+
+extractImpacts : Results -> Impacts
+extractImpacts (Results { impacts }) =
+    impacts
+
+
+extractItems : Results -> List Results
+extractItems (Results { items }) =
+    items
+
+
+extractMass : Results -> Mass
+extractMass (Results { mass }) =
+    mass

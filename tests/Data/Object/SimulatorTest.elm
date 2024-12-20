@@ -1,5 +1,6 @@
 module Data.Object.SimulatorTest exposing (..)
 
+import Data.Component as Component
 import Data.Example as Example
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -16,7 +17,7 @@ getEcsImpact : Db -> Query -> Result String Float
 getEcsImpact db =
     Simulator.compute db
         >> Result.map
-            (Simulator.extractImpacts
+            (Component.extractImpacts
                 >> (Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
             )
 
