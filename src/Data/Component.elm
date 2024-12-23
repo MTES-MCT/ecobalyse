@@ -58,6 +58,15 @@ type alias ComponentItem =
     }
 
 
+{-| A Db-like interface holding components and processes
+-}
+type alias DataContainer db =
+    { db
+        | components : List Component
+        , processes : List Process
+    }
+
+
 {-| A compact representation of a component process, and an amount of it
 -}
 type alias ProcessItem =
@@ -105,14 +114,14 @@ available ids =
         >> List.sortBy .name
 
 
-componentItemToString : List Component -> List Process -> ComponentItem -> Result String String
-componentItemToString components processes { id, quantity } =
-    components
+componentItemToString : DataContainer db -> ComponentItem -> Result String String
+componentItemToString db { id, quantity } =
+    db.components
         |> findById id
         |> Result.andThen
             (\component ->
                 component.processes
-                    |> RE.combineMap (processItemToString processes)
+                    |> RE.combineMap (processItemToString db.processes)
                     |> Result.map (String.join " | ")
                     |> Result.map
                         (\processesString ->
@@ -128,15 +137,15 @@ componentItemToString components processes { id, quantity } =
 
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
-compute : List Component -> List Process -> List ComponentItem -> Result String Results
-compute components processes =
-    List.map (computeComponentItemResults components processes)
+compute : DataContainer db -> List ComponentItem -> Result String Results
+compute db =
+    List.map (computeComponentItemResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
 
 
-computeComponentItemResults : List Component -> List Process -> ComponentItem -> Result String Results
-computeComponentItemResults components processes { id, quantity } =
+computeComponentItemResults : DataContainer db -> ComponentItem -> Result String Results
+computeComponentItemResults { components, processes } { id, quantity } =
     components
         |> findById id
         |> Result.andThen (.processes >> List.map (computeProcessItemResults processes) >> RE.combine)
@@ -186,7 +195,7 @@ computeProcessItemResults processes { amount, processId } =
 
 
 expandComponentItems :
-    { a | components : List Component, processes : List Process }
+    DataContainer a
     -> List ComponentItem
     -> Result String (List ( Quantity, Component, List ( Amount, Process ) ))
 expandComponentItems { components, processes } =

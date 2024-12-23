@@ -97,7 +97,7 @@ updateComponentItem newItem query =
 toString : List Component -> List Process -> Query -> Result String String
 toString components processes query =
     query.components
-        |> RE.combineMap (Component.componentItemToString components processes)
+        |> RE.combineMap (Component.componentItemToString { components = components, processes = processes })
         |> Result.map (String.join ", ")
 
 

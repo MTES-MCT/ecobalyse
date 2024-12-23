@@ -13,7 +13,7 @@ import Static.Db exposing (Db)
 compute : Db -> Query -> Result String Results
 compute { object } =
     -- FIXME: for now, the impact of an Object is solely the summed impacts of its components
-    .components >> Component.compute object.components object.processes
+    .components >> Component.compute object
 
 
 toStepsImpacts : Definition.Trigram -> Results -> Impact.StepsImpacts

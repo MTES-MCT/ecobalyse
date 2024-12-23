@@ -30,15 +30,11 @@ suite : Test
 suite =
     suiteWithDb "Data.Component"
         (\db ->
-            let
-                { components, processes } =
-                    db.object
-            in
             [ describe "Component.compute"
                 [ sampleJsonComponentsItems
                     |> Decode.decodeString (Decode.list Component.decodeComponentItem)
                     |> Result.mapError Decode.errorToString
-                    |> Result.andThen (Component.compute components processes)
+                    |> Result.andThen (Component.compute db.object)
                     |> Expect.ok
                     |> asTest "should compute results from decoded component items"
                 ]
