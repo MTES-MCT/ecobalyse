@@ -41,7 +41,7 @@ type Id
     = Id Uuid
 
 
-{-| A component is a named collection of processes and amounts of them
+{-| A Component is a named collection of processes and amounts of them
 -}
 type alias Component =
     { id : Id
@@ -67,7 +67,7 @@ type alias DataContainer db =
     }
 
 
-{-| A compact representation of a component process, and an amount of it
+{-| A compact representation of a component process and an amount of it
 -}
 type alias ProcessItem =
     { amount : Amount
@@ -83,7 +83,7 @@ type Quantity
     = Quantity Int
 
 
-{-| A data structure carrying the impacts and mass resulting from a computation
+{-| A nested data structure carrying the impacts and mass resulting from a computation
 -}
 type Results
     = Results
@@ -93,6 +93,8 @@ type Results
         }
 
 
+{-| Add two results together
+-}
 addResults : Results -> Results -> Results
 addResults (Results results) (Results acc) =
     Results
@@ -108,6 +110,8 @@ amountToFloat (Amount float) =
     float
 
 
+{-| List components which ids are not part of the provided list of ids
+-}
 available : List Id -> List Component -> List Component
 available ids =
     List.filter (\{ id } -> not <| List.member id ids)
@@ -194,6 +198,8 @@ computeProcessItemResults processes { amount, processId } =
             )
 
 
+{-| Take a list of component items and resolve them with actual components and processes
+-}
 expandComponentItems :
     DataContainer a
     -> List ComponentItem
@@ -212,6 +218,8 @@ expandComponentItems { components, processes } =
         >> RE.combine
 
 
+{-| Take a list of process items and resolve them with actual processes
+-}
 expandProcessItems : List Process -> List ProcessItem -> Result String (List ( Amount, Process ))
 expandProcessItems processes =
     List.map (\{ amount, processId } -> ( amount, processId ))
@@ -254,6 +262,8 @@ encodeComponentItem componentItem =
         ]
 
 
+{-| Lookup a Component from a provided Id
+-}
 findById : Id -> List Component -> Result String Component
 findById id =
     List.filter (.id >> (==) id)
