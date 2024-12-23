@@ -6,11 +6,10 @@ module Data.Component exposing
     , ProcessItem
     , Quantity
     , Results
-    , addResults
     , amountToFloat
     , available
     , componentItemToString
-    , computeComponentItemResults
+    , compute
     , decodeComponentItem
     , decodeList
     , emptyResults
@@ -42,6 +41,8 @@ type Id
     = Id Uuid
 
 
+{-| A component is a named collection of processes and amounts of them
+-}
 type alias Component =
     { id : Id
     , name : String
@@ -121,6 +122,13 @@ componentItemToString components processes { id, quantity } =
                                 ++ " ]"
                         )
             )
+
+
+compute : List Component -> List Process -> List ComponentItem -> Result String Results
+compute components processes =
+    List.map (computeComponentItemResults components processes)
+        >> RE.combine
+        >> Result.map (List.foldr addResults emptyResults)
 
 
 computeComponentItemResults : List Component -> List Process -> ComponentItem -> Result String Results

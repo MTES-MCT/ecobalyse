@@ -7,16 +7,13 @@ import Data.Component as Component exposing (Results)
 import Data.Impact as Impact exposing (noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Query exposing (Query)
-import Result.Extra as RE
 import Static.Db exposing (Db)
 
 
 compute : Db -> Query -> Result String Results
-compute { object } query =
-    query.components
-        |> List.map (Component.computeComponentItemResults object.components object.processes)
-        |> RE.combine
-        |> Result.map (List.foldr Component.addResults Component.emptyResults)
+compute { object } =
+    -- FIXME: for now, the impact of an Object is solely the summed impacts of its components
+    .components >> Component.compute object.components object.processes
 
 
 toStepsImpacts : Definition.Trigram -> Results -> Impact.StepsImpacts
