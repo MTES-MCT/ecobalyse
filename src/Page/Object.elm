@@ -499,7 +499,8 @@ addComponentButton : Db -> Query -> Html Msg
 addComponentButton db query =
     let
         availableComponents =
-            Simulator.availableComponents db query
+            db.object.components
+                |> Component.available (List.map .id query.components)
 
         autocompleteState =
             AutocompleteSelector.init .name availableComponents

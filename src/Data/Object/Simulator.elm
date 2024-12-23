@@ -1,28 +1,14 @@
 module Data.Object.Simulator exposing
-    ( availableComponents
-    , compute
+    ( compute
     , toStepsImpacts
     )
 
-import Data.Component as Component exposing (Component, Results)
+import Data.Component as Component exposing (Results)
 import Data.Impact as Impact exposing (noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Query exposing (Query)
 import Result.Extra as RE
 import Static.Db exposing (Db)
-
-
-availableComponents : Db -> Query -> List Component
-availableComponents { object } query =
-    object.components
-        |> List.filter
-            (\{ id } ->
-                query.components
-                    |> List.map .id
-                    |> List.member id
-                    |> not
-            )
-        |> List.sortBy .name
 
 
 compute : Db -> Query -> Result String Results
