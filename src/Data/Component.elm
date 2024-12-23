@@ -74,6 +74,8 @@ type Quantity
     = Quantity Int
 
 
+{-| A data structure carrying the impacts and mass resulting from a computation
+-}
 type Results
     = Results
         { impacts : Impacts
@@ -124,6 +126,8 @@ componentItemToString components processes { id, quantity } =
             )
 
 
+{-| Computes impacts from a list of available components, processes and specified component items
+-}
 compute : List Component -> List Process -> List ComponentItem -> Result String Results
 compute components processes =
     List.map (computeComponentItemResults components processes)
