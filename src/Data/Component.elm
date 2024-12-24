@@ -113,8 +113,8 @@ amountToFloat (Amount float) =
 {-| List components which ids are not part of the provided list of ids
 -}
 available : List Id -> List Component -> List Component
-available ids =
-    List.filter (\{ id } -> not <| List.member id ids)
+available alreadyUsedIds =
+    List.filter (\{ id } -> not <| List.member id alreadyUsedIds)
         >> List.sortBy .name
 
 
