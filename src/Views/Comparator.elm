@@ -4,6 +4,7 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Component as Component
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
@@ -128,7 +129,7 @@ addToComparison session label query =
                 |> Result.map
                     (\results ->
                         { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = ObjectSimulator.extractImpacts results
+                        , impacts = Component.extractImpacts results
                         , label = label
                         , stepsImpacts =
                             results
@@ -156,7 +157,7 @@ addToComparison session label query =
                 |> Result.map
                     (\results ->
                         { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = ObjectSimulator.extractImpacts results
+                        , impacts = Component.extractImpacts results
                         , label = label
                         , stepsImpacts =
                             results

@@ -8,10 +8,10 @@ module Views.ImpactTabs exposing
     , view
     )
 
+import Data.Component as Component
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Object.Simulator as ObjectSimulator
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as TextileSimulator exposing (Simulator)
@@ -190,14 +190,17 @@ forFood results config =
     }
 
 
-forObject : ObjectSimulator.Results -> Config msg -> Config msg
+{-| Note: for now, object simulation impacts are only the impacts of its components, but
+this will change as soon as we add more steps to the life cycle.
+-}
+forObject : Component.Results -> Config msg -> Config msg
 forObject results config =
     { config
         | stepsImpacts =
             { distribution = Nothing
             , endOfLife = Nothing
             , materials =
-                ObjectSimulator.extractImpacts results
+                Component.extractImpacts results
                     |> Impact.getImpact config.impactDefinition.trigram
                     |> Just
             , packaging = Nothing

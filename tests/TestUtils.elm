@@ -2,6 +2,7 @@ module TestUtils exposing
     ( asTest
     , createServerRequest
     , expectImpactsEqual
+    , expectResultWithin
     , suiteWithDb
     )
 
@@ -9,7 +10,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Process as Process
 import Data.Unit as Unit
-import Expect exposing (Expectation)
+import Expect exposing (Expectation, FloatingPointTolerance)
 import Json.Encode as Encode
 import Server.Request exposing (Request)
 import Static.Db as StaticDb exposing (Db)
@@ -45,6 +46,16 @@ expectImpactsEqual impacts subject =
         |> (\expectations ->
                 Expect.all expectations subject
            )
+
+
+expectResultWithin : FloatingPointTolerance -> Float -> Result String Float -> Expectation
+expectResultWithin precision target result =
+    case result of
+        Ok float ->
+            float |> Expect.within precision target
+
+        Err err ->
+            Expect.fail err
 
 
 createServerRequest : StaticDb.Db -> String -> Encode.Value -> String -> Request

@@ -1,7 +1,7 @@
 module Page.Explore.ObjectComponents exposing (table)
 
+import Data.Component as Component
 import Data.Dataset as Dataset
-import Data.Object.Component as ObjectComponent
 import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Html exposing (..)
@@ -13,23 +13,23 @@ import Views.Alert as Alert
 import Views.Format as Format
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table ObjectComponent.Component String msg
+table : Db -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
 table db { detailed, scope } =
     { filename = "components"
-    , toId = .id >> ObjectComponent.idToString
+    , toId = .id >> Component.idToString
     , toRoute = .id >> Just >> Dataset.ObjectComponents >> Route.Explore scope
     , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .id >> ObjectComponent.idToString
+          , toValue = Table.StringValue <| .id >> Component.idToString
           , toCell =
                 \component ->
                     if detailed then
-                        code [] [ text (ObjectComponent.idToString component.id) ]
+                        code [] [ text (Component.idToString component.id) ]
 
                     else
                         a [ Route.href (Route.Explore scope (Dataset.ObjectComponents (Just component.id))) ]
-                            [ code [] [ text (ObjectComponent.idToString component.id) ] ]
+                            [ code [] [ text (Component.idToString component.id) ] ]
           }
         , { label = "Nom"
           , toValue = Table.StringValue .name
@@ -39,7 +39,7 @@ table db { detailed, scope } =
           , toValue =
                 Table.StringValue <|
                     \{ processes } ->
-                        case ObjectComponent.expandProcessItems db.object.processes processes of
+                        case Component.expandProcessItems db.object.processes processes of
                             Err _ ->
                                 ""
 
@@ -47,7 +47,7 @@ table db { detailed, scope } =
                                 list
                                     |> List.map
                                         (\( amount, process ) ->
-                                            String.fromFloat (ObjectComponent.amountToFloat amount)
+                                            String.fromFloat (Component.amountToFloat amount)
                                                 ++ process.unit
                                                 ++ " de "
                                                 ++ Process.getDisplayName process
@@ -55,7 +55,7 @@ table db { detailed, scope } =
                                     |> String.join ", "
           , toCell =
                 \{ processes } ->
-                    case ObjectComponent.expandProcessItems db.object.processes processes of
+                    case Component.expandProcessItems db.object.processes processes of
                         Err err ->
                             Alert.simple
                                 { close = Nothing

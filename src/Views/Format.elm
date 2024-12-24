@@ -27,9 +27,9 @@ module Views.Format exposing
     )
 
 import Area exposing (Area)
+import Data.Component as Component
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
-import Data.Object.Component as Component
 import Data.Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
