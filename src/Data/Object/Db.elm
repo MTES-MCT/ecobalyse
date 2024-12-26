@@ -27,11 +27,7 @@ buildFromJson objectComponentsJson objectExamplesJson objectProcessesJson =
         |> Result.andThen
             (\processes ->
                 Ok Db
-                    |> RE.andMap
-                        (objectComponentsJson
-                            |> Decode.decodeString Component.decodeList
-                            |> Result.mapError Decode.errorToString
-                        )
+                    |> RE.andMap (Component.decodeListFromJsonString objectComponentsJson)
                     |> RE.andMap
                         (objectExamplesJson
                             |> Example.decodeListFromJsonString Query.decode

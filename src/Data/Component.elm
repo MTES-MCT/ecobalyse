@@ -11,7 +11,7 @@ module Data.Component exposing
     , componentItemToString
     , compute
     , decodeComponentItem
-    , decodeList
+    , decodeListFromJsonString
     , emptyResults
     , encodeComponentItem
     , expandComponentItems
@@ -196,6 +196,11 @@ computeProcessItemResults processes { amount, processId } =
                     , mass = mass
                     }
             )
+
+
+decodeListFromJsonString : String -> Result String (List Component)
+decodeListFromJsonString =
+    Decode.decodeString decodeList >> Result.mapError Decode.errorToString
 
 
 {-| Take a list of component items and resolve them with actual components and processes

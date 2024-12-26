@@ -51,9 +51,14 @@ textileProductsJson =
     """%textileProductsJson%"""
 
 
+textileComponentsJson : String
+textileComponentsJson =
+   """%textileComponentsJson%"""
+
+
 textileDb : String -> Result String TextileDb.Db
 textileDb textileProcesses =
-    TextileDb.buildFromJson textileProductExamplesJson textileMaterialsJson textileProductsJson textileProcesses
+    TextileDb.buildFromJson textileComponentsJson textileProductExamplesJson textileMaterialsJson textileProductsJson textileProcesses
 
 
 foodProductExamplesJson : String
