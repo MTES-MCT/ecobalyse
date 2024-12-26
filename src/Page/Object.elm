@@ -26,7 +26,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
 import Ports
@@ -519,13 +519,12 @@ addComponentButton db query =
 
 
 componentListView : Db -> Model -> Query -> List (Html Msg)
-componentListView db { detailedComponents, impact, results } query =
+componentListView db { detailedComponents, impact, results, scope } query =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h2 [ class "h5 mb-0" ]
             [ text "Production des composants"
             , Link.smallPillExternal
-                -- FIXME: link to Veli explorer?
-                [ Route.href (Route.Explore Scope.Object (Dataset.ObjectProcesses Nothing))
+                [ Route.href (Route.Explore scope (Dataset.Components scope Nothing))
                 , title "Explorer"
                 , attribute "aria-label" "Explorer"
                 ]
@@ -551,11 +550,11 @@ componentListView db { detailedComponents, impact, results } query =
                         [ thead []
                             [ tr [ class "fs-7 text-muted" ]
                                 [ th [] []
-                                , th [ class "ps-0", scope "col" ] [ text "Quantité" ]
-                                , th [ scope "col", colspan 2 ] [ text "Composant" ]
-                                , th [ scope "col" ] [ text "Masse" ]
-                                , th [ scope "col" ] [ text "Impact" ]
-                                , th [ scope "col" ] []
+                                , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
+                                , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
+                                , th [ Attr.scope "col" ] [ text "Masse" ]
+                                , th [ Attr.scope "col" ] [ text "Impact" ]
+                                , th [ Attr.scope "col" ] []
                                 ]
                             ]
                         , Component.extractItems results
@@ -669,7 +668,7 @@ quantityInput id quantity =
             , class "form-control text-end"
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
-            , Html.Attributes.min "1"
+            , Attr.min "1"
             , onInput <|
                 \str ->
                     String.toInt str
