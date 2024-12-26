@@ -8,7 +8,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Static.Db exposing (Db)
+import Static.Db as Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
 
@@ -16,8 +16,8 @@ import Views.Format as Format
 table : Db -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
 table db { detailed, scope } =
     let
-        allProcesses =
-            db.object.processes ++ db.textile.processes
+        expandProcesses =
+            Component.expandProcessItems (Db.scopedProcesses scope db)
     in
     { filename = "components"
     , toId = .id >> Component.idToString
@@ -43,7 +43,7 @@ table db { detailed, scope } =
           , toValue =
                 Table.StringValue <|
                     \{ processes } ->
-                        case Component.expandProcessItems allProcesses processes of
+                        case expandProcesses processes of
                             Err _ ->
                                 ""
 
@@ -59,7 +59,7 @@ table db { detailed, scope } =
                                     |> String.join ", "
           , toCell =
                 \{ processes } ->
-                    case Component.expandProcessItems allProcesses processes of
+                    case expandProcesses processes of
                         Err err ->
                             Alert.simple
                                 { close = Nothing

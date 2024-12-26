@@ -50,7 +50,7 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Route exposing (Route)
-import Static.Db exposing (Db)
+import Static.Db as Db exposing (Db)
 import Table as SortableTable
 import Views.Alert as Alert
 import Views.Container as Container
@@ -426,27 +426,16 @@ componentsExplorer :
     -> List (Html Msg)
 componentsExplorer db scope tableConfig tableState maybeId =
     let
-        components =
-            case scope of
-                Scope.Food ->
-                    []
-
-                Scope.Object ->
-                    db.object.components
-
-                Scope.Textile ->
-                    db.textile.components
-
-                Scope.Veli ->
-                    []
+        scopedComponents =
+            Db.scopedComponents scope db
     in
-    [ components
+    [ scopedComponents
         |> List.sortBy .name
         |> Table.viewList OpenDetail tableConfig tableState scope (Components.table db)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Component.findById id components of
+                (case Component.findById id scopedComponents of
                     Err error ->
                         alert error
 
