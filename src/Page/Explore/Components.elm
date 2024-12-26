@@ -1,4 +1,4 @@
-module Page.Explore.ObjectComponents exposing (table)
+module Page.Explore.Components exposing (table)
 
 import Data.Component as Component
 import Data.Dataset as Dataset
@@ -15,9 +15,13 @@ import Views.Format as Format
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
 table db { detailed, scope } =
+    let
+        allProcesses =
+            db.object.processes ++ db.textile.processes
+    in
     { filename = "components"
     , toId = .id >> Component.idToString
-    , toRoute = .id >> Just >> Dataset.ObjectComponents >> Route.Explore scope
+    , toRoute = .id >> Just >> Dataset.Components scope >> Route.Explore scope
     , legend = []
     , columns =
         [ { label = "Identifiant"
@@ -28,7 +32,7 @@ table db { detailed, scope } =
                         code [] [ text (Component.idToString component.id) ]
 
                     else
-                        a [ Route.href (Route.Explore scope (Dataset.ObjectComponents (Just component.id))) ]
+                        a [ Route.href (Route.Explore scope (Dataset.Components scope (Just component.id))) ]
                             [ code [] [ text (Component.idToString component.id) ] ]
           }
         , { label = "Nom"
@@ -39,7 +43,7 @@ table db { detailed, scope } =
           , toValue =
                 Table.StringValue <|
                     \{ processes } ->
-                        case Component.expandProcessItems db.object.processes processes of
+                        case Component.expandProcessItems allProcesses processes of
                             Err _ ->
                                 ""
 
@@ -55,7 +59,7 @@ table db { detailed, scope } =
                                     |> String.join ", "
           , toCell =
                 \{ processes } ->
-                    case Component.expandProcessItems db.object.processes processes of
+                    case Component.expandProcessItems allProcesses processes of
                         Err err ->
                             Alert.simple
                                 { close = Nothing

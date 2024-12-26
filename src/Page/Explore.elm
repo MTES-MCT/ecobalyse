@@ -36,12 +36,12 @@ import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Page.Explore.Components as Components
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
-import Page.Explore.ObjectComponents as ObjectComponents
 import Page.Explore.ObjectExamples as ObjectExamples
 import Page.Explore.ObjectProcesses as ObjectProcesses
 import Page.Explore.Table as Table
@@ -77,6 +77,9 @@ init scope dataset session =
     let
         initialSort =
             case dataset of
+                Dataset.Components _ _ ->
+                    "Nom"
+
                 Dataset.Countries _ ->
                     "Nom"
 
@@ -91,9 +94,6 @@ init scope dataset session =
 
                 Dataset.Impacts _ ->
                     "Code"
-
-                Dataset.ObjectComponents _ ->
-                    "Nom"
 
                 Dataset.ObjectExamples _ ->
                     "Coût Environnemental"
@@ -417,26 +417,42 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
     ]
 
 
-objectComponentsExplorer :
+componentsExplorer :
     Db
+    -> Scope
     -> Table.Config Component Msg
     -> SortableTable.State
     -> Maybe Component.Id
     -> List (Html Msg)
-objectComponentsExplorer db tableConfig tableState maybeId =
-    [ db.object.components
+componentsExplorer db scope tableConfig tableState maybeId =
+    let
+        components =
+            case scope of
+                Scope.Food ->
+                    []
+
+                Scope.Object ->
+                    db.object.components
+
+                Scope.Textile ->
+                    db.textile.components
+
+                Scope.Veli ->
+                    []
+    in
+    [ components
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Object (ObjectComponents.table db)
+        |> Table.viewList OpenDetail tableConfig tableState scope (Components.table db)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Component.findById id db.object.components of
+                (case Component.findById id components of
                     Err error ->
                         alert error
 
                     Ok component ->
                         component
-                            |> Table.viewDetails Scope.Object (ObjectComponents.table db)
+                            |> Table.viewDetails scope (Components.table db)
                 )
 
         Nothing ->
@@ -723,6 +739,9 @@ explore { db } { scope, dataset, tableState } =
             }
     in
     case dataset of
+        Dataset.Components scope_ maybeId ->
+            componentsExplorer db scope_ tableConfig tableState maybeId
+
         Dataset.Countries maybeCode ->
             countriesExplorer db tableConfig tableState scope maybeCode
 
@@ -737,9 +756,6 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
-
-        Dataset.ObjectComponents maybeId ->
-            objectComponentsExplorer db tableConfig tableState maybeId
 
         Dataset.ObjectExamples maybeId ->
             objectExamplesExplorer db tableConfig tableState maybeId

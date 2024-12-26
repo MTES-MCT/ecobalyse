@@ -28,12 +28,12 @@ It's used by Page.Explore and related routes.
 
 -}
 type Dataset
-    = Countries (Maybe Country.Code)
+    = Components Scope (Maybe Component.Id)
+    | Countries (Maybe Country.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe Process.Id)
     | Impacts (Maybe Definition.Trigram)
-    | ObjectComponents (Maybe Component.Id)
     | ObjectExamples (Maybe Uuid)
     | ObjectProcesses (Maybe Process.Id)
     | TextileExamples (Maybe Uuid)
@@ -55,13 +55,14 @@ datasets scope =
 
         Scope.Object ->
             [ ObjectExamples Nothing
-            , ObjectComponents Nothing
+            , Components Scope.Object Nothing
             , ObjectProcesses Nothing
             , Impacts Nothing
             ]
 
         Scope.Textile ->
             [ TextileExamples Nothing
+            , Components Scope.Textile Nothing
             , Impacts Nothing
             , TextileMaterials Nothing
             , Countries Nothing
@@ -96,7 +97,7 @@ fromSlug string =
             TextileMaterials Nothing
 
         "object-components" ->
-            ObjectComponents Nothing
+            Components Scope.Object Nothing
 
         "object-examples" ->
             ObjectExamples Nothing
@@ -110,6 +111,9 @@ fromSlug string =
         "products" ->
             TextileProducts Nothing
 
+        "textile-components" ->
+            Components Scope.Textile Nothing
+
         _ ->
             TextileExamples Nothing
 
@@ -117,6 +121,9 @@ fromSlug string =
 isDetailed : Dataset -> Bool
 isDetailed dataset =
     case dataset of
+        Components _ (Just _) ->
+            True
+
         Countries (Just _) ->
             True
 
@@ -130,9 +137,6 @@ isDetailed dataset =
             True
 
         Impacts (Just _) ->
-            True
-
-        ObjectComponents (Just _) ->
             True
 
         ObjectExamples (Just _) ->
@@ -170,6 +174,9 @@ parseSlug =
 reset : Dataset -> Dataset
 reset dataset =
     case dataset of
+        Components scope _ ->
+            Components scope Nothing
+
         Countries _ ->
             Countries Nothing
 
@@ -184,9 +191,6 @@ reset dataset =
 
         Impacts _ ->
             Impacts Nothing
-
-        ObjectComponents _ ->
-            ObjectComponents Nothing
 
         ObjectExamples _ ->
             ObjectExamples Nothing
@@ -228,8 +232,8 @@ same a b =
         ( TextileExamples _, TextileExamples _ ) ->
             True
 
-        ( ObjectComponents _, ObjectComponents _ ) ->
-            True
+        ( Components scope1 _, Components scope2 _ ) ->
+            scope1 == scope2
 
         ( ObjectExamples _, ObjectExamples _ ) ->
             True
@@ -253,6 +257,9 @@ same a b =
 setIdFromString : String -> Dataset -> Dataset
 setIdFromString idString dataset =
     case dataset of
+        Components scope _ ->
+            Components scope (Component.idFromString idString)
+
         Countries _ ->
             Countries (Just (Country.codeFromString idString))
 
@@ -267,9 +274,6 @@ setIdFromString idString dataset =
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
-
-        ObjectComponents _ ->
-            ObjectComponents (Component.idFromString idString)
 
         ObjectExamples _ ->
             ObjectExamples (Uuid.fromString idString)
@@ -298,6 +302,9 @@ slug =
 strings : Dataset -> { label : String, slug : String }
 strings dataset =
     case dataset of
+        Components scope _ ->
+            { label = "Composants", slug = Scope.toString scope ++ "-components" }
+
         Countries _ ->
             { label = "Pays", slug = "countries" }
 
@@ -312,9 +319,6 @@ strings dataset =
 
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
-
-        ObjectComponents _ ->
-            { label = "Composants", slug = "object-components" }
 
         ObjectExamples _ ->
             { label = "Exemples", slug = "object-examples" }
@@ -338,6 +342,12 @@ strings dataset =
 toRoutePath : Dataset -> List String
 toRoutePath dataset =
     case dataset of
+        Components _ (Just id) ->
+            [ slug dataset, Component.idToString id ]
+
+        Components _ Nothing ->
+            [ slug dataset ]
+
         Countries (Just code) ->
             [ slug dataset, Country.codeToString code ]
 
@@ -366,12 +376,6 @@ toRoutePath dataset =
             [ slug dataset, Definition.toString trigram ]
 
         Impacts Nothing ->
-            [ slug dataset ]
-
-        ObjectComponents (Just id) ->
-            [ slug dataset, Component.idToString id ]
-
-        ObjectComponents Nothing ->
             [ slug dataset ]
 
         ObjectExamples (Just id) ->
