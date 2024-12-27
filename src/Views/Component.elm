@@ -12,16 +12,15 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
 import Route
-import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
 
 
-type alias Config msg =
+type alias Config db msg =
     { componentItems : List ComponentItem
-    , db : Db
+    , db : Component.DataContainer db
     , detailedComponents : List Component.Id
     , impact : Definition
     , noOp : msg
@@ -35,11 +34,11 @@ type alias Config msg =
     }
 
 
-addComponentButton : Config msg -> Html msg
+addComponentButton : Config db msg -> Html msg
 addComponentButton { componentItems, db, openSelectModal } =
     let
         availableComponents =
-            db.object.components
+            db.components
                 |> Component.available (List.map .id componentItems)
 
         autocompleteState =
@@ -59,7 +58,7 @@ addComponentButton { componentItems, db, openSelectModal } =
 
 
 componentView :
-    Config msg
+    Config db msg
     -> ( Component.Quantity, Component, List ( Component.Amount, Process ) )
     -> Component.Results
     -> List (Html msg)
@@ -76,13 +75,12 @@ componentView config ( quantity, component, processAmounts ) itemResults =
                     [ button
                         [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
                         , onClick <|
-                            config.setDetailedComponents
-                                (if collapsed && not (List.member component.id config.detailedComponents) then
+                            config.setDetailedComponents <|
+                                if collapsed && not (List.member component.id config.detailedComponents) then
                                     LE.unique <| component.id :: config.detailedComponents
 
-                                 else
+                                else
                                     List.filter ((/=) component.id) config.detailedComponents
-                                )
                         ]
                         [ if collapsed then
                             text "▶"
@@ -134,7 +132,7 @@ componentView config ( quantity, component, processAmounts ) itemResults =
         ]
 
 
-editorView : Config msg -> Html msg
+editorView : Config db msg -> Html msg
 editorView ({ db, componentItems, results, scope, title } as config) =
     div [ class "card shadow-sm mb-3" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -152,7 +150,7 @@ editorView ({ db, componentItems, results, scope, title } as config) =
             div [ class "card-body" ] [ text "Aucun élément." ]
 
           else
-            case Component.expandComponentItems db.object componentItems of
+            case Component.expandComponentItems db componentItems of
                 Err error ->
                     Alert.simple
                         { close = Nothing
@@ -161,7 +159,7 @@ editorView ({ db, componentItems, results, scope, title } as config) =
                         , title = Just "Erreur"
                         }
 
-                Ok elements ->
+                Ok expandedComponentItems ->
                     div [ class "table-responsive" ]
                         [ table [ class "table mb-0" ]
                             [ thead []
@@ -175,7 +173,7 @@ editorView ({ db, componentItems, results, scope, title } as config) =
                                     ]
                                 ]
                             , Component.extractItems results
-                                |> List.map2 (componentView config) elements
+                                |> List.map2 (componentView config) expandedComponentItems
                                 |> List.concat
                                 |> tbody []
                             ]
@@ -205,7 +203,7 @@ processView selectedImpact ( amount, process ) itemResults =
         ]
 
 
-quantityInput : Config msg -> Component.Id -> Component.Quantity -> Html msg
+quantityInput : Config db msg -> Component.Id -> Component.Quantity -> Html msg
 quantityInput config id quantity =
     div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
         [ input

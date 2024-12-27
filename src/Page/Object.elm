@@ -452,7 +452,7 @@ simulatorView session model =
                     session
                         |> Session.objectQueryFromScope model.scope
                         |> .components
-                , db = session.db
+                , db = session.db.object
                 , detailedComponents = model.detailedComponents
                 , impact = model.impact
                 , noOp = NoOp

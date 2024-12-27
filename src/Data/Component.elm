@@ -2,6 +2,7 @@ module Data.Component exposing
     ( Amount
     , Component
     , ComponentItem
+    , DataContainer
     , Id
     , ProcessItem
     , Quantity
