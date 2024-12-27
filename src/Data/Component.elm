@@ -15,6 +15,7 @@ module Data.Component exposing
     , decodeListFromJsonString
     , emptyResults
     , encodeComponentItem
+    , encodeId
     , expandComponentItems
     , expandProcessItems
     , extractImpacts
@@ -266,6 +267,11 @@ encodeComponentItem componentItem =
         [ ( "id", componentItem.id |> idToString |> Encode.string )
         , ( "quantity", componentItem.quantity |> quantityToInt |> Encode.int )
         ]
+
+
+encodeId : Id -> Encode.Value
+encodeId =
+    idToString >> Encode.string
 
 
 {-| Lookup a Component from a provided Id

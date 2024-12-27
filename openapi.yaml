@@ -298,6 +298,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+  /textile/trims:
+    get:
+      tags:
+        - Textile
+      summary: Liste des accessoires pour vêtements
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrimListResponse"
   /food/countries:
     get:
       tags:
@@ -1469,6 +1481,16 @@ components:
     ProductListResponse:
       type: array
       description: Liste des types de produits
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+    TrimListResponse:
+      type: array
+      description: Liste des accessoires pour vêtements
       items:
         type: object
         properties:

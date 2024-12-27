@@ -5,6 +5,7 @@ port module Server exposing
     , output
     )
 
+import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
@@ -168,6 +169,14 @@ encodeProcess process =
         ]
 
 
+encodeComponent : Component -> Encode.Value
+encodeComponent { id, name } =
+    Encode.object
+        [ ( "id", Component.encodeId id )
+        , ( "name", Encode.string name )
+        ]
+
+
 encodeProcessList : List Process -> Encode.Value
 encodeProcessList =
     Encode.list encodeProcess
@@ -275,6 +284,11 @@ handleRequest db request =
         Just (Route.TextileGetSimulatorSingle _ (Err errors)) ->
             Query.encodeErrors errors
                 |> respondWith 400
+
+        Just Route.TextileGetTrimList ->
+            db.textile.components
+                |> Encode.list encodeComponent
+                |> respondWith 200
 
         -- POST routes
         Just (Route.FoodPostRecipe (Ok foodQuery)) ->

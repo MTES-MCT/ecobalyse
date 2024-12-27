@@ -48,6 +48,8 @@ type Route
     | TextileGetMaterialList
       --     Textile Product list
     | TextileGetProductList
+      --     Textile Trims list
+    | TextileGetTrimList
       --     Textile Simple version of all impacts (GET, query string)
     | TextileGetSimulator (Result Query.Errors TextileQuery.Query)
       --     Textile Detailed version for all impacts (GET, query string)
@@ -88,6 +90,8 @@ parser db body =
             |> Parser.map TextileGetMaterialList
         , (s "GET" </> s "textile" </> s "products")
             |> Parser.map TextileGetProductList
+        , (s "GET" </> s "textile" </> s "trims")
+            |> Parser.map TextileGetTrimList
         , (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery db)
             |> Parser.map TextileGetSimulator
         , (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery db)
