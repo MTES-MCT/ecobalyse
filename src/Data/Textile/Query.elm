@@ -15,18 +15,20 @@ module Data.Textile.Query exposing
     , parseBase64Query
     , regulatory
     , removeMaterial
+    , removeTrim
     , tShirtCotonFrance
     , toggleStep
     , updateMaterial
     , updateMaterialSpinning
     , updateProduct
     , updateStepCountry
+    , updateTrim
     , validateMaterials
     )
 
 import Base64
 import Data.Common.DecodeUtils as DU
-import Data.Component as Component
+import Data.Component as Component exposing (ComponentItem)
 import Data.Country as Country
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -78,6 +80,7 @@ type alias Query =
     , product : Product.Id
     , surfaceMass : Maybe Unit.SurfaceMass
     , traceability : Maybe Bool
+    , trims : List ComponentItem
     , upcycled : Bool
     , yarnSize : Maybe Unit.YarnSize
     }
@@ -103,6 +106,29 @@ addTrim : Component.Id -> Query -> Query
 addTrim id query =
     -- FIXME
     query
+
+
+removeTrim : Component.Id -> Query -> Query
+removeTrim id ({ trims } as query) =
+    { query
+        | trims = trims |> List.filter (.id >> (/=) id)
+    }
+
+
+updateTrim : ComponentItem -> Query -> Query
+updateTrim newItem query =
+    { query
+        | trims =
+            query.trims
+                |> List.map
+                    (\item ->
+                        if item.id == newItem.id then
+                            newItem
+
+                        else
+                            item
+                    )
+    }
 
 
 buildApiQuery : String -> Query -> String
@@ -141,6 +167,7 @@ decode =
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> DU.strictOptional "surfaceMass" Unit.decodeSurfaceMass
         |> DU.strictOptional "traceability" Decode.bool
+        |> Pipe.optional "trims" (Decode.list Component.decodeComponentItem) []
         |> Pipe.optional "upcycled" Decode.bool False
         |> DU.strictOptional "yarnSize" Unit.decodeYarnSize
 
@@ -185,6 +212,7 @@ encode query =
     , ( "product", query.product |> Product.idToString |> Encode.string |> Just )
     , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
     , ( "traceability", query.traceability |> Maybe.map Encode.bool )
+    , ( "trims", query.trims |> Encode.list Component.encodeComponentItem |> Just )
     , ( "upcycled", Encode.bool query.upcycled |> Just )
     , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
     ]
@@ -434,6 +462,7 @@ default =
     , product = Product.Id "tshirt"
     , surfaceMass = Nothing
     , traceability = Nothing
+    , trims = []
     , upcycled = False
     , yarnSize = Nothing
     }

@@ -5,6 +5,7 @@ module Server.Query exposing
     , parseTextileQuery
     )
 
+import Data.Component as Component exposing (Component, ComponentItem)
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Db as Food
@@ -411,6 +412,7 @@ parseTextileQuery { countries, textile } =
         |> apply (productParser "product" textile.products)
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeBoolParser "traceability")
+        |> apply (trimsParser textile.components "trims")
         |> apply (boolParser { default = False } "upcycled")
         |> apply (maybeYarnSizeParser "yarnSize")
 
@@ -550,6 +552,49 @@ parseMaterialId_ materials string =
     materials
         |> Material.findById (Material.Id string)
         |> Result.map .id
+
+
+trimsParser : List Component -> String -> Parser (ParseResult (List ComponentItem))
+trimsParser components key =
+    Query.custom (key ++ "[]")
+        (List.map (parseTrim components)
+            >> RE.combine
+            -- >> Result.andThen TextileQuery.validateTrims
+            >> Result.mapError (\err -> ( key, err ))
+        )
+
+
+parseTrim : List Component -> String -> Result String ComponentItem
+parseTrim components string =
+    case String.split ";" string of
+        [ quantity, id ] ->
+            Ok ComponentItem
+                |> RE.andMap (parseComponentId components id)
+                |> RE.andMap
+                    (quantity
+                        |> String.toInt
+                        |> Result.fromMaybe ("Quantité invalide: " ++ quantity)
+                        |> Result.map Component.quantityFromInt
+                    )
+
+        [ "" ] ->
+            Err <| "Format d'accessoire vide."
+
+        _ ->
+            Err <| "Format d'accessoire invalide : " ++ string ++ "."
+
+
+parseComponentId : List Component -> String -> Result String Component.Id
+parseComponentId components string =
+    string
+        |> Component.idFromString
+        |> Result.fromMaybe ("Identifiant de composant invalide: " ++ string)
+        |> Result.andThen
+            (\id ->
+                components
+                    |> Component.findById id
+                    |> Result.map .id
+            )
 
 
 parseSplit : String -> Result String Split
