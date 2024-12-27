@@ -98,8 +98,14 @@ compute db query =
         next fn =
             Result.map fn
 
+        andNext fn =
+            Result.andThen fn
+
         nextWithDb fn =
             next (fn db)
+
+        andNextWithDb fn =
+            andNext (fn db)
 
         nextIf label fn =
             if not (List.member label query.disabledSteps) then
@@ -173,7 +179,7 @@ compute db query =
         -- TRIMS
         --
         -- Compute trims
-        |> nextWithDb computeTrims
+        |> andNextWithDb computeTrims
         --
         -- Final impacts
         --
@@ -730,18 +736,21 @@ computeTotalTransportImpacts simulator =
     }
 
 
-computeTrims : Db -> Simulator -> Simulator
+computeTrims : Db -> Simulator -> Result String Simulator
 computeTrims db simulator =
-    { simulator
-        | impacts =
-            Impact.sumImpacts
-                [ simulator.impacts
-                , simulator.inputs.trims
-                    |> Component.compute db.textile
-                    |> Result.map Component.extractImpacts
-                    |> Result.withDefault Impact.empty
-                ]
-    }
+    simulator.inputs.trims
+        |> Component.compute db.textile
+        |> Result.map Component.extractImpacts
+        |> Result.map
+            (\trimImpacts ->
+                { simulator
+                    | impacts =
+                        Impact.sumImpacts
+                            [ simulator.impacts
+                            , trimImpacts
+                            ]
+                }
+            )
 
 
 computeFinalImpacts : Simulator -> Simulator
