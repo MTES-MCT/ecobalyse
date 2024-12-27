@@ -19,7 +19,8 @@ import Views.Link as Link
 
 
 type alias Config db msg =
-    { allowExpandDetails : Bool
+    { addLabel : String
+    , allowExpandDetails : Bool
     , db : Component.DataContainer db
     , detailed : List Component.Id
     , impact : Definition
@@ -36,7 +37,7 @@ type alias Config db msg =
 
 
 addButton : Config db msg -> Html msg
-addButton { db, items, openSelectModal } =
+addButton { addLabel, db, items, openSelectModal } =
     let
         availableComponents =
             db.components
@@ -54,7 +55,7 @@ addButton { db, items, openSelectModal } =
         , onClick <| openSelectModal autocompleteState
         ]
         [ i [ class "icon icon-plus" ] []
-        , text "Ajouter un composant"
+        , text addLabel
         ]
 
 

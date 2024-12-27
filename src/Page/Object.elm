@@ -448,7 +448,8 @@ simulatorView session model =
                     }
                 ]
             , ComponentView.editorView
-                { allowExpandDetails = True
+                { addLabel = "Ajouter un composant"
+                , allowExpandDetails = True
                 , db = session.db.object
                 , detailed = model.detailedComponents
                 , impact = model.impact

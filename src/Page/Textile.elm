@@ -1140,7 +1140,8 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     }
                 ]
             , TrimView.editorView
-                { allowExpandDetails = False
+                { addLabel = "Ajouter un accessoire"
+                , allowExpandDetails = False
                 , db = session.db.textile
                 , detailed = model.detailedTrims
                 , impact = model.impact
