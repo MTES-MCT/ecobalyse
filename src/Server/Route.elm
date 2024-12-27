@@ -48,14 +48,14 @@ type Route
     | TextileGetMaterialList
       --     Textile Product list
     | TextileGetProductList
-      --     Textile Trims list
-    | TextileGetTrimList
       --     Textile Simple version of all impacts (GET, query string)
     | TextileGetSimulator (Result Query.Errors TextileQuery.Query)
       --     Textile Detailed version for all impacts (GET, query string)
     | TextileGetSimulatorDetailed (Result Query.Errors TextileQuery.Query)
       --     Textile Simple version for one specific impact (GET, query string)
     | TextileGetSimulatorSingle Definition.Trigram (Result Query.Errors TextileQuery.Query)
+      --     Textile Trims list
+    | TextileGetTrimList
       --   POST
       --     Textile Simple version of all impacts (POST, JSON body)
     | TextilePostSimulator (Result String TextileQuery.Query)
