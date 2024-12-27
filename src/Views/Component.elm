@@ -145,6 +145,9 @@ editorView ({ db, items, results, scope, title } as config) =
                     ]
                     [ Icon.search ]
                 ]
+            , results
+                |> Component.extractImpacts
+                |> Format.formatImpact config.impact
             ]
         , if List.isEmpty items then
             div [ class "card-body" ] [ text "Aucun élément." ]
