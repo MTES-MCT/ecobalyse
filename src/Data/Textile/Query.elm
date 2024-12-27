@@ -104,8 +104,11 @@ addMaterial material query =
 
 addTrim : Component.Id -> Query -> Query
 addTrim id query =
-    -- FIXME
-    query
+    { query
+        | trims =
+            query.trims
+                ++ [ { id = id, quantity = Component.quantityFromInt 1 } ]
+    }
 
 
 removeTrim : Component.Id -> Query -> Query

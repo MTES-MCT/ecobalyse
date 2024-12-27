@@ -46,6 +46,7 @@ import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import List.Extra as LE
 import Mass
 import Page.Explore as Explore
 import Ports
@@ -78,6 +79,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , detailedTrims : List Trim.Id
     , initialQuery : Query
     , impact : Definition
     , modal : Modal
@@ -88,7 +90,7 @@ type alias Model =
 
 type Modal
     = AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
-    | AddTrimModal (Autocomplete Trim)
+    | AddTrimModal (Autocomplete Component)
     | ComparatorModal
     | ConfirmSwitchToRegulatoryModal
     | ExplorerDetailsTab Material
@@ -102,18 +104,6 @@ type Tab
     | RegulatoryTab
 
 
-{-| A Trim is a component
--}
-type alias Trim =
-    Component
-
-
-{-| A Trim item is a Component item
--}
-type alias TrimItem =
-    ComponentItem
-
-
 type Msg
     = AddMaterial Material
     | ConfirmSwitchToRegulatory
@@ -124,11 +114,11 @@ type Msg
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
     | OnAutocompleteProduct (Autocomplete.Msg Product)
     | OnAutocompleteSelect
-    | OnAutocompleteTrim (Autocomplete.Msg Trim)
+    | OnAutocompleteTrim (Autocomplete.Msg Component)
     | OnStepClick String
     | OpenComparator
     | RemoveMaterial Material.Id
-    | RemoveTrimItem Trim.Id
+    | RemoveTrim Trim.Id
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -162,7 +152,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
-    | UpdateTrimItem TrimItem
+    | UpdateTrim ComponentItem
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
@@ -189,6 +179,7 @@ init trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
+      , detailedTrims = []
       , initialQuery = initialQuery
       , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
@@ -242,6 +233,7 @@ initFromExample session uuid =
       , bookmarkName = exampleQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
+      , detailedTrims = []
       , initialQuery = exampleQuery
       , impact = Definition.get Definition.Ecs session.db.definitions
       , modal = NoModal
@@ -414,10 +406,9 @@ update ({ queries, navKey } as session) msg model =
             , Ports.scrollIntoView stepId
             )
 
-        ( RemoveTrimItem id, _ ) ->
-            -- FIXME
-            -- |> updateQuery (Query.removeTrim id query)
+        ( RemoveTrim id, _ ) ->
             ( model, session, Cmd.none )
+                |> updateQuery (Query.removeTrim id query)
 
         ( RemoveMaterial materialId, _ ) ->
             ( model, session, Cmd.none )
@@ -455,10 +446,11 @@ update ({ queries, navKey } as session) msg model =
         ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
-        ( SetDetailedTrims _, _ ) ->
-            -- FIXME
-            -- { model | detailedTrims = LE.unique detailedTrims }
-            ( model, session, Cmd.none )
+        ( SetDetailedTrims detailedTrims, _ ) ->
+            ( { model | detailedTrims = LE.unique detailedTrims }
+            , session
+            , Cmd.none
+            )
 
         ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
@@ -584,10 +576,9 @@ update ({ queries, navKey } as session) msg model =
         ( UpdateBusiness (Err error), _ ) ->
             ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
 
-        ( UpdateTrimItem trim, _ ) ->
-            -- FIXME
-            -- |> updateQuery (Query.updateTrimItem trim query)
+        ( UpdateTrim trim, _ ) ->
             ( model, session, Cmd.none )
+                |> updateQuery (Query.updateTrim trim query)
 
         ( UpdateDyeingMedium dyeingMedium, _ ) ->
             ( model, session, Cmd.none )
@@ -762,7 +753,7 @@ selectExample autocompleteState ( model, session, _ ) =
         |> updateQuery example
 
 
-selectTrim : Autocomplete Trim -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectTrim : Autocomplete Component -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectTrim autocompleteState ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just trim ->
@@ -1149,22 +1140,21 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     }
                 ]
             , TrimView.editorView
-                { items = [] -- FIXME: query component items (trims)
+                { items = session.queries.textile.trims
                 , db = session.db.textile
-
-                -- FIXME: detailed?
-                , detailed = []
+                , detailed = model.detailedTrims
                 , impact = model.impact
                 , noOp = NoOp
                 , openSelectModal = AddTrimModal >> SetModal
-                , removeItem = RemoveTrimItem
-
-                -- FIXME: trims computed results
-                , results = Trim.emptyResults
+                , removeItem = RemoveTrim
+                , results =
+                    session.queries.textile.trims
+                        |> Trim.compute session.db.textile
+                        |> Result.withDefault Trim.emptyResults
                 , scope = Scope.Textile
                 , setDetailed = SetDetailedTrims
                 , title = "Accessoires"
-                , updateItem = UpdateTrimItem
+                , updateItem = UpdateTrim
                 }
             , div [ class "d-flex flex-column bg-white" ]
                 [ CardTabs.view
