@@ -9,6 +9,7 @@ module Data.Textile.Simulator exposing
     )
 
 import Array
+import Data.Component as Component
 import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
@@ -168,6 +169,11 @@ compute db query =
         |> nextWithDb computeStepsTransport
         -- Compute transport summary
         |> next computeTotalTransportImpacts
+        --
+        -- TRIMS
+        --
+        -- Compute trims
+        |> nextWithDb computeTrims
         --
         -- Final impacts
         --
@@ -724,6 +730,20 @@ computeTotalTransportImpacts simulator =
     }
 
 
+computeTrims : Db -> Simulator -> Simulator
+computeTrims db simulator =
+    { simulator
+        | impacts =
+            Impact.sumImpacts
+                [ simulator.impacts
+                , simulator.inputs.trims
+                    |> Component.compute db.textile
+                    |> Result.map Component.extractImpacts
+                    |> Result.withDefault Impact.empty
+                ]
+    }
+
+
 computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     let
@@ -736,10 +756,13 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
-            lifeCycle
-                |> LifeCycle.computeFinalImpacts
-                |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
-                |> Impact.impactsWithComplements complementsImpacts
+            Impact.sumImpacts
+                [ simulator.impacts
+                , lifeCycle
+                    |> LifeCycle.computeFinalImpacts
+                    |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
+                    |> Impact.impactsWithComplements complementsImpacts
+                ]
     }
 
 
