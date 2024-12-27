@@ -15,7 +15,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Component exposing (Component, ComponentItem)
+import Data.Component as Trim exposing (Component, ComponentItem)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Example as Example
@@ -59,7 +59,7 @@ import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
-import Views.Component as ComponentView
+import Views.Component as TrimView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Example as ExampleView
@@ -87,8 +87,8 @@ type alias Model =
 
 
 type Modal
-    = AddComponentModal (Autocomplete Component)
-    | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    = AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    | AddTrimModal (Autocomplete Trim)
     | ComparatorModal
     | ConfirmSwitchToRegulatoryModal
     | ExplorerDetailsTab Material
@@ -102,27 +102,39 @@ type Tab
     | RegulatoryTab
 
 
+{-| A Trim is a component
+-}
+type alias Trim =
+    Component
+
+
+{-| A Trim item is a Component item
+-}
+type alias TrimItem =
+    ComponentItem
+
+
 type Msg
     = AddMaterial Material
     | ConfirmSwitchToRegulatory
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
-    | OnAutocompleteComponent (Autocomplete.Msg Component)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
     | OnAutocompleteProduct (Autocomplete.Msg Product)
     | OnAutocompleteSelect
+    | OnAutocompleteTrim (Autocomplete.Msg Trim)
     | OnStepClick String
     | OpenComparator
-    | RemoveComponentItem Component.Id
     | RemoveMaterial Material.Id
+    | RemoveTrimItem Trim.Id
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
-    | SetDetailedComponents (List Component.Id)
+    | SetDetailedTrims (List Trim.Id)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -135,7 +147,6 @@ type Msg
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
-    | UpdateComponentItem ComponentItem
     | UpdateDyeingMedium DyeingMedium
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
@@ -151,6 +162,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
+    | UpdateTrimItem TrimItem
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
@@ -326,17 +338,17 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        ( OnAutocompleteComponent autocompleteMsg, AddComponentModal autocompleteState ) ->
+        ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = AddComponentModal newAutocompleteState }
+            ( { model | modal = AddTrimModal newAutocompleteState }
             , session
-            , Cmd.map OnAutocompleteComponent autoCompleteCmd
+            , Cmd.map OnAutocompleteTrim autoCompleteCmd
             )
 
-        ( OnAutocompleteComponent _, _ ) ->
+        ( OnAutocompleteTrim _, _ ) ->
             ( model, session, Cmd.none )
 
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
@@ -381,10 +393,9 @@ update ({ queries, navKey } as session) msg model =
         ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
             updateMaterial query model session maybeOldMaterial autocompleteState
 
-        ( OnAutocompleteSelect, AddComponentModal autocompleteState ) ->
-            -- FIXME: xxx
-            -- updateComponent query model session autocompleteState
+        ( OnAutocompleteSelect, AddTrimModal autocompleteState ) ->
             ( model, session, Cmd.none )
+                |> selectTrim autocompleteState
 
         ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
             ( model, session, Cmd.none )
@@ -403,9 +414,9 @@ update ({ queries, navKey } as session) msg model =
             , Ports.scrollIntoView stepId
             )
 
-        ( RemoveComponentItem id, _ ) ->
+        ( RemoveTrimItem id, _ ) ->
             -- FIXME
-            -- |> updateQuery (Query.removeComponent id query)
+            -- |> updateQuery (Query.removeTrim id query)
             ( model, session, Cmd.none )
 
         ( RemoveMaterial materialId, _ ) ->
@@ -444,9 +455,9 @@ update ({ queries, navKey } as session) msg model =
         ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
-        ( SetDetailedComponents _, _ ) ->
+        ( SetDetailedTrims _, _ ) ->
             -- FIXME
-            -- { model | detailedComponents = LE.unique detailedComponents }
+            -- { model | detailedTrims = LE.unique detailedTrims }
             ( model, session, Cmd.none )
 
         ( SetModal NoModal, _ ) ->
@@ -455,8 +466,8 @@ update ({ queries, navKey } as session) msg model =
             , commandsForNoModal model.modal
             )
 
-        ( SetModal (AddComponentModal autocomplete), _ ) ->
-            ( { model | modal = AddComponentModal autocomplete }
+        ( SetModal (AddTrimModal autocomplete), _ ) ->
+            ( { model | modal = AddTrimModal autocomplete }
             , session
             , Cmd.batch
                 [ Ports.addBodyClass "prevent-scrolling"
@@ -573,9 +584,9 @@ update ({ queries, navKey } as session) msg model =
         ( UpdateBusiness (Err error), _ ) ->
             ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
 
-        ( UpdateComponentItem component, _ ) ->
+        ( UpdateTrimItem trim, _ ) ->
             -- FIXME
-            -- |> updateQuery (Query.updateComponentItem component query)
+            -- |> updateQuery (Query.updateTrimItem trim query)
             ( model, session, Cmd.none )
 
         ( UpdateDyeingMedium dyeingMedium, _ ) ->
@@ -749,6 +760,17 @@ selectExample autocompleteState ( model, session, _ ) =
     in
     update session (SetModal NoModal) { model | initialQuery = example }
         |> updateQuery example
+
+
+selectTrim : Autocomplete Trim -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectTrim autocompleteState ( model, session, _ ) =
+    case Autocomplete.selectedValue autocompleteState of
+        Just trim ->
+            update session (SetModal NoModal) model
+                |> updateQuery (Query.addTrim trim.id session.queries.textile)
+
+        Nothing ->
+            ( model, session |> Session.notifyError "Erreur" "Aucun accessoire sélectionné", Cmd.none )
 
 
 selectProduct : Autocomplete Product -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -1126,23 +1148,23 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                         }
                     }
                 ]
-            , ComponentView.editorView
+            , TrimView.editorView
                 { componentItems = [] -- FIXME: query component items (trims)
                 , db = session.db.textile
 
                 -- FIXME: detailed?
-                , detailedComponents = []
+                , detailed = []
                 , impact = model.impact
                 , noOp = NoOp
-                , openSelectModal = AddComponentModal >> SetModal
-                , removeComponentItem = RemoveComponentItem
+                , openSelectModal = AddTrimModal >> SetModal
+                , removeItem = RemoveTrimItem
 
                 -- FIXME: trims computed results
-                , results = Component.emptyResults
+                , results = Trim.emptyResults
                 , scope = Scope.Textile
-                , setDetailedComponents = SetDetailedComponents
+                , setDetailed = SetDetailedTrims
                 , title = "Accessoires"
-                , updateComponentItem = UpdateComponentItem
+                , updateItem = UpdateTrimItem
                 }
             , div [ class "d-flex flex-column bg-white" ]
                 [ CardTabs.view
@@ -1230,13 +1252,13 @@ view session model =
                 Ok simulator ->
                     [ simulatorView session model simulator
                     , case model.modal of
-                        AddComponentModal autocompleteState ->
+                        AddTrimModal autocompleteState ->
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
                                 , footer = []
                                 , noOp = NoOp
-                                , onAutocomplete = OnAutocompleteComponent
+                                , onAutocomplete = OnAutocompleteTrim
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici un nom d'accesoire pour le rechercher"
                                 , title = "Sélectionnez un accessoire"

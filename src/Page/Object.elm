@@ -453,16 +453,16 @@ simulatorView session model =
                         |> Session.objectQueryFromScope model.scope
                         |> .components
                 , db = session.db.object
-                , detailedComponents = model.detailedComponents
+                , detailed = model.detailedComponents
                 , impact = model.impact
                 , noOp = NoOp
                 , openSelectModal = AddComponentModal >> SetModal
-                , removeComponentItem = RemoveComponentItem
+                , removeItem = RemoveComponentItem
                 , results = model.results
                 , scope = model.scope
-                , setDetailedComponents = SetDetailedComponents
+                , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
-                , updateComponentItem = UpdateComponentItem
+                , updateItem = UpdateComponentItem
                 }
             ]
         , div [ class "col-lg-4 bg-white" ]

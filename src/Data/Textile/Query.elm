@@ -2,6 +2,7 @@ module Data.Textile.Query exposing
     ( MaterialQuery
     , Query
     , addMaterial
+    , addTrim
     , b64decode
     , b64encode
     , buildApiQuery
@@ -25,6 +26,7 @@ module Data.Textile.Query exposing
 
 import Base64
 import Data.Common.DecodeUtils as DU
+import Data.Component as Component
 import Data.Country as Country
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -95,6 +97,12 @@ addMaterial material query =
         | materials =
             query.materials ++ [ materialQuery ]
     }
+
+
+addTrim : Component.Id -> Query -> Query
+addTrim id query =
+    -- FIXME
+    query
 
 
 buildApiQuery : String -> Query -> String

@@ -21,16 +21,16 @@ import Views.Link as Link
 type alias Config db msg =
     { componentItems : List ComponentItem
     , db : Component.DataContainer db
-    , detailedComponents : List Component.Id
+    , detailed : List Component.Id
     , impact : Definition
     , noOp : msg
     , openSelectModal : Autocomplete Component -> msg
-    , removeComponentItem : Component.Id -> msg
+    , removeItem : Component.Id -> msg
     , results : Component.Results
     , scope : Scope
-    , setDetailedComponents : List Component.Id -> msg
+    , setDetailed : List Component.Id -> msg
     , title : String
-    , updateComponentItem : ComponentItem -> msg
+    , updateItem : ComponentItem -> msg
     }
 
 
@@ -65,7 +65,7 @@ componentView :
 componentView config ( quantity, component, processAmounts ) itemResults =
     let
         collapsed =
-            config.detailedComponents
+            config.detailed
                 |> List.member component.id
                 |> not
     in
@@ -75,12 +75,12 @@ componentView config ( quantity, component, processAmounts ) itemResults =
                     [ button
                         [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
                         , onClick <|
-                            config.setDetailedComponents <|
-                                if collapsed && not (List.member component.id config.detailedComponents) then
-                                    LE.unique <| component.id :: config.detailedComponents
+                            config.setDetailed <|
+                                if collapsed && not (List.member component.id config.detailed) then
+                                    LE.unique <| component.id :: config.detailed
 
                                 else
-                                    List.filter ((/=) component.id) config.detailedComponents
+                                    List.filter ((/=) component.id) config.detailed
                         ]
                         [ if collapsed then
                             text "▶"
@@ -104,7 +104,7 @@ componentView config ( quantity, component, processAmounts ) itemResults =
                 , td [ class "pe-3 align-middle text-nowrap" ]
                     [ button
                         [ class "btn btn-outline-secondary"
-                        , onClick (config.removeComponentItem component.id)
+                        , onClick (config.removeItem component.id)
                         ]
                         [ Icon.trash ]
                     ]
@@ -225,7 +225,7 @@ quantityInput config id quantity =
                             )
                         |> Maybe.map
                             (\nonNullInt ->
-                                config.updateComponentItem
+                                config.updateItem
                                     { id = id
                                     , quantity = Component.quantityFromInt nonNullInt
                                     }
