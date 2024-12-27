@@ -19,10 +19,10 @@ import Views.Link as Link
 
 
 type alias Config db msg =
-    { componentItems : List ComponentItem
-    , db : Component.DataContainer db
+    { db : Component.DataContainer db
     , detailed : List Component.Id
     , impact : Definition
+    , items : List ComponentItem
     , noOp : msg
     , openSelectModal : Autocomplete Component -> msg
     , removeItem : Component.Id -> msg
@@ -34,12 +34,12 @@ type alias Config db msg =
     }
 
 
-addComponentButton : Config db msg -> Html msg
-addComponentButton { componentItems, db, openSelectModal } =
+addButton : Config db msg -> Html msg
+addButton { db, items, openSelectModal } =
     let
         availableComponents =
             db.components
-                |> Component.available (List.map .id componentItems)
+                |> Component.available (List.map .id items)
 
         autocompleteState =
             AutocompleteSelector.init .name availableComponents
@@ -133,7 +133,7 @@ componentView config ( quantity, component, processAmounts ) itemResults =
 
 
 editorView : Config db msg -> Html msg
-editorView ({ db, componentItems, results, scope, title } as config) =
+editorView ({ db, items, results, scope, title } as config) =
     div [ class "card shadow-sm mb-3" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -146,11 +146,11 @@ editorView ({ db, componentItems, results, scope, title } as config) =
                     [ Icon.search ]
                 ]
             ]
-        , if List.isEmpty componentItems then
+        , if List.isEmpty items then
             div [ class "card-body" ] [ text "Aucun élément." ]
 
           else
-            case Component.expandComponentItems db componentItems of
+            case Component.expandComponentItems db items of
                 Err error ->
                     Alert.simple
                         { close = Nothing
@@ -178,7 +178,7 @@ editorView ({ db, componentItems, results, scope, title } as config) =
                                 |> tbody []
                             ]
                         ]
-        , addComponentButton config
+        , addButton config
         ]
 
 

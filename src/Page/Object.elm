@@ -448,7 +448,7 @@ simulatorView session model =
                     }
                 ]
             , ComponentView.editorView
-                { componentItems =
+                { items =
                     session
                         |> Session.objectQueryFromScope model.scope
                         |> .components

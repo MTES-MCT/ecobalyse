@@ -1149,7 +1149,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     }
                 ]
             , TrimView.editorView
-                { componentItems = [] -- FIXME: query component items (trims)
+                { items = [] -- FIXME: query component items (trims)
                 , db = session.db.textile
 
                 -- FIXME: detailed?
@@ -1252,20 +1252,6 @@ view session model =
                 Ok simulator ->
                     [ simulatorView session model simulator
                     , case model.modal of
-                        AddTrimModal autocompleteState ->
-                            AutocompleteSelector.view
-                                { autocompleteState = autocompleteState
-                                , closeModal = SetModal NoModal
-                                , footer = []
-                                , noOp = NoOp
-                                , onAutocomplete = OnAutocompleteTrim
-                                , onAutocompleteSelect = OnAutocompleteSelect
-                                , placeholderText = "tapez ici un nom d'accesoire pour le rechercher"
-                                , title = "Sélectionnez un accessoire"
-                                , toLabel = .name
-                                , toCategory = always ""
-                                }
-
                         AddMaterialModal _ autocompleteState ->
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
@@ -1278,6 +1264,20 @@ view session model =
                                 , title = "Sélectionnez une matière première"
                                 , toLabel = .shortName
                                 , toCategory = .origin >> Origin.toLabel
+                                }
+
+                        AddTrimModal autocompleteState ->
+                            AutocompleteSelector.view
+                                { autocompleteState = autocompleteState
+                                , closeModal = SetModal NoModal
+                                , footer = []
+                                , noOp = NoOp
+                                , onAutocomplete = OnAutocompleteTrim
+                                , onAutocompleteSelect = OnAutocompleteSelect
+                                , placeholderText = "tapez ici un nom d'accesoire pour le rechercher"
+                                , title = "Sélectionnez un accessoire"
+                                , toLabel = .name
+                                , toCategory = always ""
                                 }
 
                         ComparatorModal ->
