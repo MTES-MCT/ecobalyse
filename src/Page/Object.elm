@@ -447,7 +447,7 @@ simulatorView session model =
                         }
                     }
                 ]
-            , ComponentView.view
+            , ComponentView.editorView
                 { componentItems =
                     session
                         |> Session.objectQueryFromScope model.scope
@@ -456,14 +456,14 @@ simulatorView session model =
                 , detailedComponents = model.detailedComponents
                 , impact = model.impact
                 , noOp = NoOp
-                , openSelectModal = \x -> SetModal (AddComponentModal x)
+                , openSelectModal = AddComponentModal >> SetModal
                 , removeComponentItem = RemoveComponentItem
                 , results = model.results
                 , scope = model.scope
                 , setDetailedComponents = SetDetailedComponents
+                , title = "Production des composants"
                 , updateComponentItem = UpdateComponentItem
                 }
-                |> div [ class "card shadow-sm mb-3" ]
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
