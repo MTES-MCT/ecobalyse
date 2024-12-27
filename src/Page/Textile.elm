@@ -15,6 +15,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Component as Component exposing (Component, ComponentItem)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Example as Example
@@ -58,6 +59,7 @@ import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
+import Views.Component as ComponentView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Example as ExampleView
@@ -85,7 +87,8 @@ type alias Model =
 
 
 type Modal
-    = AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    = AddComponentModal (Autocomplete Component)
+    | AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
     | ComparatorModal
     | ConfirmSwitchToRegulatoryModal
     | ExplorerDetailsTab Material
@@ -105,18 +108,21 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
+    | OnAutocompleteComponent (Autocomplete.Msg Component)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
     | OnAutocompleteProduct (Autocomplete.Msg Product)
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
+    | RemoveComponentItem Component.Id
     | RemoveMaterial Material.Id
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
+    | SetDetailedComponents (List Component.Id)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -129,6 +135,7 @@ type Msg
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
+    | UpdateComponentItem ComponentItem
     | UpdateDyeingMedium DyeingMedium
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
@@ -319,6 +326,19 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
+        ( OnAutocompleteComponent autocompleteMsg, AddComponentModal autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = AddComponentModal newAutocompleteState }
+            , session
+            , Cmd.map OnAutocompleteComponent autoCompleteCmd
+            )
+
+        ( OnAutocompleteComponent _, _ ) ->
+            ( model, session, Cmd.none )
+
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
@@ -361,6 +381,11 @@ update ({ queries, navKey } as session) msg model =
         ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
             updateMaterial query model session maybeOldMaterial autocompleteState
 
+        ( OnAutocompleteSelect, AddComponentModal autocompleteState ) ->
+            -- FIXME: xxx
+            -- updateComponent query model session autocompleteState
+            ( model, session, Cmd.none )
+
         ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
             ( model, session, Cmd.none )
                 |> selectExample autocompleteState
@@ -377,6 +402,11 @@ update ({ queries, navKey } as session) msg model =
             , session
             , Ports.scrollIntoView stepId
             )
+
+        ( RemoveComponentItem id, _ ) ->
+            -- FIXME
+            -- |> updateQuery (Query.removeComponent id query)
+            ( model, session, Cmd.none )
 
         ( RemoveMaterial materialId, _ ) ->
             ( model, session, Cmd.none )
@@ -414,10 +444,25 @@ update ({ queries, navKey } as session) msg model =
         ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
+        ( SetDetailedComponents _, _ ) ->
+            -- FIXME
+            -- { model | detailedComponents = LE.unique detailedComponents }
+            ( model, session, Cmd.none )
+
         ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
             , session
             , commandsForNoModal model.modal
+            )
+
+        ( SetModal (AddComponentModal autocomplete), _ ) ->
+            ( { model | modal = AddComponentModal autocomplete }
+            , session
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
             )
 
         ( SetModal (AddMaterialModal maybeOldMaterial autocomplete), _ ) ->
@@ -527,6 +572,11 @@ update ({ queries, navKey } as session) msg model =
 
         ( UpdateBusiness (Err error), _ ) ->
             ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
+
+        ( UpdateComponentItem component, _ ) ->
+            -- FIXME
+            -- |> updateQuery (Query.updateComponentItem component query)
+            ( model, session, Cmd.none )
 
         ( UpdateDyeingMedium dyeingMedium, _ ) ->
             ( model, session, Cmd.none )
@@ -1076,6 +1126,24 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                         }
                     }
                 ]
+            , ComponentView.editorView
+                { componentItems = [] -- FIXME: query component items (trims)
+                , db = session.db.textile
+
+                -- FIXME: detailed?
+                , detailedComponents = []
+                , impact = model.impact
+                , noOp = NoOp
+                , openSelectModal = AddComponentModal >> SetModal
+                , removeComponentItem = RemoveComponentItem
+
+                -- FIXME: trims computed results
+                , results = Component.emptyResults
+                , scope = Scope.Textile
+                , setDetailedComponents = SetDetailedComponents
+                , title = "Accessoires"
+                , updateComponentItem = UpdateComponentItem
+                }
             , div [ class "d-flex flex-column bg-white" ]
                 [ CardTabs.view
                     { attrs = [ class "sticky-md-top", style "top" "50px" ]
@@ -1162,6 +1230,20 @@ view session model =
                 Ok simulator ->
                     [ simulatorView session model simulator
                     , case model.modal of
+                        AddComponentModal autocompleteState ->
+                            AutocompleteSelector.view
+                                { autocompleteState = autocompleteState
+                                , closeModal = SetModal NoModal
+                                , footer = []
+                                , noOp = NoOp
+                                , onAutocomplete = OnAutocompleteComponent
+                                , onAutocompleteSelect = OnAutocompleteSelect
+                                , placeholderText = "tapez ici un nom d'accesoire pour le rechercher"
+                                , title = "Sélectionnez un accessoire"
+                                , toLabel = .name
+                                , toCategory = always ""
+                                }
+
                         AddMaterialModal _ autocompleteState ->
                             AutocompleteSelector.view
                                 { autocompleteState = autocompleteState
