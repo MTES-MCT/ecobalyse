@@ -1140,10 +1140,11 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     }
                 ]
             , TrimView.editorView
-                { items = session.queries.textile.trims
+                { allowExpandDetails = False
                 , db = session.db.textile
                 , detailed = model.detailedTrims
                 , impact = model.impact
+                , items = session.queries.textile.trims
                 , noOp = NoOp
                 , openSelectModal = AddTrimModal >> SetModal
                 , removeItem = RemoveTrim

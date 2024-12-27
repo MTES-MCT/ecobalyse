@@ -19,7 +19,8 @@ import Views.Link as Link
 
 
 type alias Config db msg =
-    { db : Component.DataContainer db
+    { allowExpandDetails : Bool
+    , db : Component.DataContainer db
     , detailed : List Component.Id
     , impact : Definition
     , items : List ComponentItem
@@ -72,22 +73,26 @@ componentView config ( quantity, component, processAmounts ) itemResults =
     List.concat
         [ [ tr []
                 [ th [ class "ps-3 align-middle", scope "col" ]
-                    [ button
-                        [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
-                        , onClick <|
-                            config.setDetailed <|
-                                if collapsed && not (List.member component.id config.detailed) then
-                                    LE.unique <| component.id :: config.detailed
+                    [ if config.allowExpandDetails then
+                        button
+                            [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
+                            , onClick <|
+                                config.setDetailed <|
+                                    if collapsed && not (List.member component.id config.detailed) then
+                                        LE.unique <| component.id :: config.detailed
 
-                                else
-                                    List.filter ((/=) component.id) config.detailed
-                        ]
-                        [ if collapsed then
-                            text "▶"
+                                    else
+                                        List.filter ((/=) component.id) config.detailed
+                            ]
+                            [ if collapsed then
+                                text "▶"
 
-                          else
-                            text "▼"
-                        ]
+                              else
+                                text "▼"
+                            ]
+
+                      else
+                        text ""
                     ]
                 , td [ class "ps-0 align-middle" ]
                     [ quantity |> quantityInput config component.id ]

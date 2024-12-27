@@ -448,13 +448,14 @@ simulatorView session model =
                     }
                 ]
             , ComponentView.editorView
-                { items =
-                    session
-                        |> Session.objectQueryFromScope model.scope
-                        |> .components
+                { allowExpandDetails = True
                 , db = session.db.object
                 , detailed = model.detailedComponents
                 , impact = model.impact
+                , items =
+                    session
+                        |> Session.objectQueryFromScope model.scope
+                        |> .components
                 , noOp = NoOp
                 , openSelectModal = AddComponentModal >> SetModal
                 , removeItem = RemoveComponentItem
