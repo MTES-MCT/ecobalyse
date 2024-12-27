@@ -43,6 +43,7 @@ addButton { addLabel, db, items, openSelectModal } =
             db.components
                 |> Component.available (List.map .id items)
 
+        -- FIXME: this should rather be initiated in page update
         autocompleteState =
             AutocompleteSelector.init .name availableComponents
     in
