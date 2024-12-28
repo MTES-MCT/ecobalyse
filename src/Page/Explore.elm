@@ -771,7 +771,7 @@ view session model =
     , [ Container.centered [ class "pb-3" ]
             [ div []
                 [ h1 [ class "mb-0" ] [ text "Explorateur" ]
-                , div [ class "row d-flex align-items-stretch mt-1 mx-0" ]
+                , div [ class "row d-flex align-items-stretch mt-1 mx-0 g-0" ]
                     [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ]
                         [ scopesMenuView session model ]
                     , div [ class "col-12 col-lg-7 pe-0 me-0" ]
