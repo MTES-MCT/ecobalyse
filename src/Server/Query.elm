@@ -412,7 +412,7 @@ parseTextileQuery { countries, textile } =
         |> apply (productParser "product" textile.products)
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeBoolParser "traceability")
-        |> apply (trimsParser textile.components "trims")
+        |> apply (componentItemListParser textile.components "trims")
         |> apply (boolParser { default = False } "upcycled")
         |> apply (maybeYarnSizeParser "yarnSize")
 
@@ -554,18 +554,17 @@ parseMaterialId_ materials string =
         |> Result.map .id
 
 
-trimsParser : List Component -> String -> Parser (ParseResult (List ComponentItem))
-trimsParser components key =
+componentItemListParser : List Component -> String -> Parser (ParseResult (List ComponentItem))
+componentItemListParser components key =
     Query.custom (key ++ "[]")
-        (List.map (parseTrim components)
+        (List.map (parseComponentItem components)
             >> RE.combine
-            -- >> Result.andThen TextileQuery.validateTrims
             >> Result.mapError (\err -> ( key, err ))
         )
 
 
-parseTrim : List Component -> String -> Result String ComponentItem
-parseTrim components string =
+parseComponentItem : List Component -> String -> Result String ComponentItem
+parseComponentItem components string =
     case String.split ";" string of
         [ quantity, id ] ->
             Ok ComponentItem

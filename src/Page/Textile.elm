@@ -406,13 +406,13 @@ update ({ queries, navKey } as session) msg model =
             , Ports.scrollIntoView stepId
             )
 
-        ( RemoveTrim id, _ ) ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.removeTrim id query)
-
         ( RemoveMaterial materialId, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeMaterial materialId query)
+
+        ( RemoveTrim id, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.removeTrim id query)
 
         ( Reset, _ ) ->
             ( model, session, Cmd.none )
@@ -576,10 +576,6 @@ update ({ queries, navKey } as session) msg model =
         ( UpdateBusiness (Err error), _ ) ->
             ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
 
-        ( UpdateTrim trim, _ ) ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.updateTrim trim query)
-
         ( UpdateDyeingMedium dyeingMedium, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
@@ -644,6 +640,10 @@ update ({ queries, navKey } as session) msg model =
         ( UpdateTraceability traceability, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | traceability = Just traceability }
+
+        ( UpdateTrim trim, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateTrim trim query)
 
         ( UpdateUpcycled upcycled, _ ) ->
             ( model, session, Cmd.none )
