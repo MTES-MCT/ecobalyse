@@ -1013,6 +1013,25 @@ simulatorFormView session model ({ inputs } as simulator) =
                 ]
             ]
         ]
+    , TrimView.editorView
+        { addLabel = "Ajouter un accessoire"
+        , allowExpandDetails = False
+        , db = session.db.textile
+        , detailed = model.detailedTrims
+        , impact = model.impact
+        , items = session.queries.textile.trims
+        , noOp = NoOp
+        , openSelectModal = AddTrimModal >> SetModal
+        , removeItem = RemoveTrim
+        , results =
+            session.queries.textile.trims
+                |> Trim.compute session.db.textile
+                |> Result.withDefault Trim.emptyResults
+        , scope = Scope.Textile
+        , setDetailed = SetDetailedTrims
+        , title = "Accessoires"
+        , updateItem = UpdateTrim
+        }
     , div [ class "card shadow-sm pb-2 mb-3" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
             [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
@@ -1139,25 +1158,6 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                         }
                     }
                 ]
-            , TrimView.editorView
-                { addLabel = "Ajouter un accessoire"
-                , allowExpandDetails = False
-                , db = session.db.textile
-                , detailed = model.detailedTrims
-                , impact = model.impact
-                , items = session.queries.textile.trims
-                , noOp = NoOp
-                , openSelectModal = AddTrimModal >> SetModal
-                , removeItem = RemoveTrim
-                , results =
-                    session.queries.textile.trims
-                        |> Trim.compute session.db.textile
-                        |> Result.withDefault Trim.emptyResults
-                , scope = Scope.Textile
-                , setDetailed = SetDetailedTrims
-                , title = "Accessoires"
-                , updateItem = UpdateTrim
-                }
             , div [ class "d-flex flex-column bg-white" ]
                 [ CardTabs.view
                     { attrs = [ class "sticky-md-top", style "top" "50px" ]
