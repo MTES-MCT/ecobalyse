@@ -207,6 +207,7 @@ type alias Steps a =
     , packaging : a
     , transform : a
     , transports : a
+    , trims : a
     , usage : a
     }
 
@@ -223,6 +224,7 @@ mapSteps fn steps =
     , packaging = fn steps.packaging
     , transform = fn steps.transform
     , transports = fn steps.transports
+    , trims = fn steps.trims
     , usage = fn steps.usage
     }
 
@@ -235,6 +237,7 @@ noStepsImpacts =
     , packaging = Nothing
     , transform = Nothing
     , transports = Nothing
+    , trims = Nothing
     , usage = Nothing
     }
 
@@ -256,13 +259,15 @@ stepsColors =
     , packaging = Color.blue
     , transform = Color.pink
     , transports = Color.green
+    , trims = Color.grey
     , usage = Color.yellow
     }
 
 
 stepsImpactsAsChartEntries : StepsImpacts -> List { color : String, name : String, value : Float }
 stepsImpactsAsChartEntries stepsImpacts =
-    [ ( "Matières premières", stepsImpacts.materials, stepsColors.materials )
+    [ ( "Accessoires", stepsImpacts.trims, stepsColors.trims )
+    , ( "Matières premières", stepsImpacts.materials, stepsColors.materials )
     , ( "Transformation", stepsImpacts.transform, stepsColors.transform )
     , ( "Emballage", stepsImpacts.packaging, stepsColors.packaging )
     , ( "Transports", stepsImpacts.transports, stepsColors.transports )

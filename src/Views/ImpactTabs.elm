@@ -76,6 +76,13 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStep
 
                 StepImpactsTab ->
                     [ { entryAttributes =
+                            [ StepsBorder.style Impact.stepsColors.trims
+                            , onClick <| onStepClick "trims-step"
+                            ]
+                      , name = "Accessoires"
+                      , value = stepsImpacts.trims
+                      }
+                    , { entryAttributes =
                             [ StepsBorder.style Impact.stepsColors.materials
                             , onClick <| onStepClick "materials-step"
                             ]
@@ -206,6 +213,7 @@ forObject results config =
             , packaging = Nothing
             , transform = Nothing
             , transports = Nothing
+            , trims = Nothing
             , usage = Nothing
             }
     }

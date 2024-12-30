@@ -46,6 +46,7 @@ type alias Simulator =
     , inputs : Inputs
     , lifeCycle : LifeCycle
     , transport : Transport
+    , trimsImpacts : Impacts
     , useNbCycles : Int
     }
 
@@ -84,6 +85,7 @@ init db =
                             , inputs = inputs
                             , lifeCycle = lifeCycle
                             , transport = Transport.default Impact.empty
+                            , trimsImpacts = Impact.empty
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
                        )
@@ -742,13 +744,14 @@ computeTrims db simulator =
         |> Component.compute db.textile
         |> Result.map Component.extractImpacts
         |> Result.map
-            (\trimImpacts ->
+            (\trimsImpacts ->
                 { simulator
                     | impacts =
                         Impact.sumImpacts
                             [ simulator.impacts
-                            , trimImpacts
+                            , trimsImpacts
                             ]
+                    , trimsImpacts = trimsImpacts
                 }
             )
 
@@ -858,6 +861,7 @@ toStepsImpacts trigram simulator =
             |> Impact.sumImpacts
             |> getImpact
     , transports = getImpact simulator.transport.impacts
+    , trims = getImpact simulator.trimsImpacts
     , usage = getImpacts Label.Use |> getImpact
     }
         |> Impact.divideStepsImpactsBy (Unit.floatDurabilityFromHolistic simulator.durability)
