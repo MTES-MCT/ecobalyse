@@ -573,6 +573,14 @@ parseComponentItem components string =
                     (quantity
                         |> String.toInt
                         |> Result.fromMaybe ("Quantité invalide: " ++ quantity)
+                        |> Result.andThen
+                            (\q ->
+                                if q <= 0 then
+                                    Err "La quantité doit être un nombre entier positif"
+
+                                else
+                                    Ok q
+                            )
                         |> Result.map Component.quantityFromInt
                     )
 
