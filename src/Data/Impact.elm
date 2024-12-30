@@ -140,13 +140,13 @@ negateComplementsImpacts =
 
 noComplementsImpacts : ComplementsImpacts
 noComplementsImpacts =
-    { cropDiversity = Unit.impact 0
-    , hedges = Unit.impact 0
-    , livestockDensity = Unit.impact 0
-    , microfibers = Unit.impact 0
-    , outOfEuropeEOL = Unit.impact 0
-    , permanentPasture = Unit.impact 0
-    , plotSize = Unit.impact 0
+    { cropDiversity = Unit.noImpacts
+    , hedges = Unit.noImpacts
+    , livestockDensity = Unit.noImpacts
+    , microfibers = Unit.noImpacts
+    , outOfEuropeEOL = Unit.noImpacts
+    , permanentPasture = Unit.noImpacts
+    , plotSize = Unit.noImpacts
     }
 
 

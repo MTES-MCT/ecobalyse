@@ -45,20 +45,20 @@ coefficients =
 decode : Decoder EcosystemicServices
 decode =
     Decode.succeed AbstractEcosystemicServices
-        |> Pipe.optional "cropDiversity" Unit.decodeImpact (Unit.impact 0)
-        |> Pipe.optional "hedges" Unit.decodeImpact (Unit.impact 0)
-        |> Pipe.optional "livestockDensity" Unit.decodeImpact (Unit.impact 0)
-        |> Pipe.optional "permanentPasture" Unit.decodeImpact (Unit.impact 0)
-        |> Pipe.optional "plotSize" Unit.decodeImpact (Unit.impact 0)
+        |> Pipe.optional "cropDiversity" Unit.decodeImpact Unit.noImpacts
+        |> Pipe.optional "hedges" Unit.decodeImpact Unit.noImpacts
+        |> Pipe.optional "livestockDensity" Unit.decodeImpact Unit.noImpacts
+        |> Pipe.optional "permanentPasture" Unit.decodeImpact Unit.noImpacts
+        |> Pipe.optional "plotSize" Unit.decodeImpact Unit.noImpacts
 
 
 empty : EcosystemicServices
 empty =
-    { cropDiversity = Unit.impact 0
-    , hedges = Unit.impact 0
-    , livestockDensity = Unit.impact 0
-    , permanentPasture = Unit.impact 0
-    , plotSize = Unit.impact 0
+    { cropDiversity = Unit.noImpacts
+    , hedges = Unit.noImpacts
+    , livestockDensity = Unit.noImpacts
+    , permanentPasture = Unit.noImpacts
+    , plotSize = Unit.noImpacts
     }
 
 

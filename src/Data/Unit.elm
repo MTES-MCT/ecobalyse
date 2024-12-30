@@ -36,6 +36,7 @@ module Data.Unit exposing
     , minDurability
     , minSurfaceMass
     , minYarnSize
+    , noImpacts
     , nonPhysicalDurability
     , nonPhysicalDurabilityToFloat
     , physicalDurability
@@ -402,6 +403,11 @@ type alias Impact =
 impact : Float -> Impact
 impact value =
     Quantity value
+
+
+noImpacts : Impact
+noImpacts =
+    impact 0
 
 
 impactToFloat : Impact -> Float
