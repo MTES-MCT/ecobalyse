@@ -4,6 +4,7 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Color as Color
 import Data.Component as Component
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
@@ -260,6 +261,7 @@ dataForIndividualImpacts definitions chartsData =
             , "Utilisation de ressources en eau"
             , "Utilisation de ressources fossiles"
             , "Utilisation de ressources minérales et métalliques"
+            , "Accessoires"
             ]
                 |> List.indexedMap (\index label -> ( label, index ))
                 |> Dict.fromList
@@ -288,7 +290,7 @@ dataForIndividualImpacts definitions chartsData =
     in
     chartsData
         |> List.map
-            (\{ complementsImpact, impacts, label } ->
+            (\{ complementsImpact, impacts, label, stepsImpacts } ->
                 let
                     complementImpacts =
                         Impact.complementsImpactAsChartEntries complementsImpact
@@ -296,6 +298,15 @@ dataForIndividualImpacts definitions chartsData =
                     entries =
                         impacts
                             |> Impact.getAggregatedScoreData definitions .ecoscoreData
+                            -- Add an specific entry for trims impacts
+                            |> (::)
+                                { color = Color.grey ++ "bb"
+                                , name = "Accessoires"
+                                , value =
+                                    stepsImpacts.trims
+                                        |> Maybe.map Unit.impactToFloat
+                                        |> Maybe.withDefault 0
+                                }
                             |> List.sortWith labelComparison
 
                     reversed =
