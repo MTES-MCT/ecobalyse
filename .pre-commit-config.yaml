@@ -36,10 +36,3 @@ repos:
         types_or: [python]
         entry: |
           bash -c 'npm --prefix . run fix:ruff:format "${@}"' --
-
-      - id: dont-commit-detailed-processes
-        name: check that we don't commit processes_impacts.json
-        language: system
-        files: ^processes_impacts.json$
-        entry: |
-          bash -c 'echo "⚠️ Prevented pushing detailed impacts data to public git repository. To update these, clone and push to the ecobalyse-private repository.";exit 1'

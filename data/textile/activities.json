@@ -2153,5 +2153,39 @@
       "ecs": 283.16005100701443,
       "pef": 0
     }
+  },
+  {
+    "id": "8b91651b-9651-46fc-8bc2-37a141494086",
+    "displayName": "",
+    "source": "Ecoinvent 3.9.1",
+    "sourceId": null,
+    "search": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
+    "comment": "",
+    "categories": ["material"],
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "",
+    "category": "process",
+    "unit": "kg"
+  },
+  {
+    "id": "2e217ad8-05fa-4a9d-a18d-272fc969848c",
+    "displayName": "",
+    "source": "Ecoinvent 3.9.1",
+    "sourceId": null,
+    "search": "brass//[RoW] market for brass",
+    "comment": "",
+    "categories": ["material"],
+    "density": 0,
+    "heat_MJ": 0,
+    "elec_pppm": 0,
+    "elec_MJ": 0,
+    "waste": 0,
+    "alias": "",
+    "category": "process",
+    "unit": "kg"
   }
 ]

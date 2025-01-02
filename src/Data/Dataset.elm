@@ -10,10 +10,10 @@ module Data.Dataset exposing
     , toRoutePath
     )
 
+import Data.Component as Component
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Impact.Definition as Definition
-import Data.Object.Component as ObjectComponent
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
@@ -33,7 +33,7 @@ type Dataset
     | FoodIngredients (Maybe Ingredient.Id)
     | FoodProcesses (Maybe Process.Id)
     | Impacts (Maybe Definition.Trigram)
-    | ObjectComponents (Maybe ObjectComponent.Id)
+    | ObjectComponents (Maybe Component.Id)
     | ObjectExamples (Maybe Uuid)
     | ObjectProcesses (Maybe Process.Id)
     | TextileExamples (Maybe Uuid)
@@ -269,7 +269,7 @@ setIdFromString idString dataset =
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
         ObjectComponents _ ->
-            ObjectComponents (ObjectComponent.idFromString idString)
+            ObjectComponents (Component.idFromString idString)
 
         ObjectExamples _ ->
             ObjectExamples (Uuid.fromString idString)
@@ -369,7 +369,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         ObjectComponents (Just id) ->
-            [ slug dataset, ObjectComponent.idToString id ]
+            [ slug dataset, Component.idToString id ]
 
         ObjectComponents Nothing ->
             [ slug dataset ]

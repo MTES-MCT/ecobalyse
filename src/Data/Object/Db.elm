@@ -3,9 +3,9 @@ module Data.Object.Db exposing
     , buildFromJson
     )
 
+import Data.Component as Component exposing (Component)
 import Data.Example as Example exposing (Example)
 import Data.Impact as Impact
-import Data.Object.Component as Component exposing (Component)
 import Data.Object.Query as Query exposing (Query)
 import Data.Process as Process exposing (Process)
 import Json.Decode as Decode

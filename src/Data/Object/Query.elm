@@ -13,7 +13,7 @@ module Data.Object.Query exposing
     )
 
 import Base64
-import Data.Object.Component as Component exposing (Component, ComponentItem)
+import Data.Component as Component exposing (Component, ComponentItem)
 import Data.Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
@@ -97,7 +97,7 @@ updateComponentItem newItem query =
 toString : List Component -> List Process -> Query -> Result String String
 toString components processes query =
     query.components
-        |> RE.combineMap (Component.componentItemToString components processes)
+        |> RE.combineMap (Component.componentItemToString { components = components, processes = processes })
         |> Result.map (String.join ", ")
 
 

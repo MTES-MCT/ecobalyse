@@ -14,13 +14,13 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Component as Component exposing (Component, ComponentItem)
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Component as Component exposing (Component, ComponentItem)
 import Data.Object.Query as Query exposing (Query)
-import Data.Object.Simulator as Simulator exposing (Results)
+import Data.Object.Simulator as Simulator
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
@@ -58,7 +58,7 @@ type alias Model =
     , impact : Definition
     , initialQuery : Query
     , modal : Modal
-    , results : Results
+    , results : Component.Results
     , scope : Scope
     }
 
@@ -124,7 +124,7 @@ init scope trigram maybeUrlQuery session =
       , modal = NoModal
       , results =
             Simulator.compute session.db initialQuery
-                |> Result.withDefault Simulator.emptyResults
+                |> Result.withDefault Component.emptyResults
       , scope = scope
       }
     , session
@@ -169,7 +169,7 @@ initFromExample session scope uuid =
       , modal = NoModal
       , results =
             Simulator.compute session.db exampleQuery
-                |> Result.withDefault Simulator.emptyResults
+                |> Result.withDefault Component.emptyResults
       , scope = scope
       }
     , session
@@ -214,7 +214,7 @@ updateQuery query ( model, session, commands ) =
         , results =
             query
                 |> Simulator.compute session.db
-                |> Result.withDefault Simulator.emptyResults
+                |> Result.withDefault Component.emptyResults
       }
     , session |> Session.updateObjectQuery model.scope query
     , commands
@@ -470,8 +470,8 @@ simulatorView session model =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Simulator.extractMass model.results
-                , totalImpacts = Simulator.extractImpacts model.results
+                , productMass = Component.extractMass model.results
+                , totalImpacts = Component.extractImpacts model.results
                 , totalImpactsWithoutDurability = Nothing
 
                 -- Impacts tabs
@@ -499,7 +499,8 @@ addComponentButton : Db -> Query -> Html Msg
 addComponentButton db query =
     let
         availableComponents =
-            Simulator.availableComponents db query
+            db.object.components
+                |> Component.available (List.map .id query.components)
 
         autocompleteState =
             AutocompleteSelector.init .name availableComponents
@@ -557,7 +558,7 @@ componentListView db { detailedComponents, impact, results } query =
                                 , th [ scope "col" ] []
                                 ]
                             ]
-                        , Simulator.extractItems results
+                        , Component.extractItems results
                             |> List.map2 (componentView impact detailedComponents) elements
                             |> List.concat
                             |> tbody []
@@ -567,7 +568,12 @@ componentListView db { detailedComponents, impact, results } query =
     ]
 
 
-componentView : Definition -> List Component.Id -> ( Component.Quantity, Component, List ( Component.Amount, Process ) ) -> Results -> List (Html Msg)
+componentView :
+    Definition
+    -> List Component.Id
+    -> ( Component.Quantity, Component, List ( Component.Amount, Process ) )
+    -> Component.Results
+    -> List (Html Msg)
 componentView selectedImpact detailedComponents ( quantity, component, processAmounts ) itemResults =
     let
         collapsed =
@@ -599,11 +605,11 @@ componentView selectedImpact detailedComponents ( quantity, component, processAm
                 , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
                     [ text component.name ]
                 , td [ class "text-end align-middle text-nowrap" ]
-                    [ Simulator.extractMass itemResults
+                    [ Component.extractMass itemResults
                         |> Format.kg
                     ]
                 , td [ class "text-end align-middle text-nowrap" ]
-                    [ Simulator.extractImpacts itemResults
+                    [ Component.extractImpacts itemResults
                         |> Format.formatImpact selectedImpact
                     ]
                 , td [ class "pe-3 align-middle text-nowrap" ]
@@ -626,7 +632,7 @@ componentView selectedImpact detailedComponents ( quantity, component, processAm
                 text ""
           ]
         , if not collapsed then
-            Simulator.extractItems itemResults
+            Component.extractItems itemResults
                 |> List.map2 (processView selectedImpact) processAmounts
 
           else
@@ -634,7 +640,7 @@ componentView selectedImpact detailedComponents ( quantity, component, processAm
         ]
 
 
-processView : Definition -> ( Component.Amount, Process ) -> Results -> Html Msg
+processView : Definition -> ( Component.Amount, Process ) -> Component.Results -> Html Msg
 processView selectedImpact ( amount, process ) itemResults =
     tr [ class "fs-7" ]
         [ td [] []
@@ -645,9 +651,9 @@ processView selectedImpact ( amount, process ) itemResults =
         , td [ class "align-middle text-end text-nowrap" ]
             [ Format.density process ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.kg <| Simulator.extractMass itemResults ]
+            [ Format.kg <| Component.extractMass itemResults ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Simulator.extractImpacts itemResults
+            [ Component.extractImpacts itemResults
                 |> Format.formatImpact selectedImpact
             ]
         , td [ class "pe-3 align-middle text-nowrap" ]

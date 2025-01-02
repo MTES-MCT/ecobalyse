@@ -11,6 +11,7 @@ module Page.Explore exposing
 
 import Browser.Events
 import Browser.Navigation as Nav
+import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example exposing (Example)
@@ -21,7 +22,6 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
-import Data.Object.Component as ObjectComponent
 import Data.Object.Query as ObjectQuery
 import Data.Object.Simulator as ObjectSimulator
 import Data.Process as Process exposing (Process)
@@ -419,9 +419,9 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
 
 objectComponentsExplorer :
     Db
-    -> Table.Config ObjectComponent.Component Msg
+    -> Table.Config Component Msg
     -> SortableTable.State
-    -> Maybe ObjectComponent.Id
+    -> Maybe Component.Id
     -> List (Html Msg)
 objectComponentsExplorer db tableConfig tableState maybeId =
     [ db.object.components
@@ -430,7 +430,7 @@ objectComponentsExplorer db tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case ObjectComponent.findById id db.object.components of
+                (case Component.findById id db.object.components of
                     Err error ->
                         alert error
 
@@ -681,7 +681,7 @@ getObjectScore : Db -> Example ObjectQuery.Query -> Float
 getObjectScore db =
     .query
         >> ObjectSimulator.compute db
-        >> Result.map (ObjectSimulator.extractImpacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+        >> Result.map (Component.extractImpacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
         >> Result.withDefault 0
 
 
