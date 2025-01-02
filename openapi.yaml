@@ -1131,11 +1131,11 @@ components:
       name: "trims[]"
       in: query
       description: |
-        Liste des accessoires du vêtement (boutons, zip, etc). La chaîne est composée d'une quantité
-        et d'un identifiant d'accessoire, séparés par un point-virgule (`;`). Par exemple:
+        Liste des accessoires du vêtement (boutons, zip, etc). La chaîne est composée d'un identifiant
+        d'accessoire et d'une quantité, séparés par un point-virgule (`;`). Par exemple:
 
-        - `1;0e8ea799-9b06-490c-a925-37564746c454` pour une fermeture éclair
-        - `4;0c903fc7-279b-4375-8cfa-ca8133b8e973` pour quatre boutons en acier
+        - `0e8ea799-9b06-490c-a925-37564746c454;1` pour une fermeture éclair
+        - `0c903fc7-279b-4375-8cfa-ca8133b8e973;4` pour quatre boutons en acier
 
         La liste des accessoires disponibles est accessible sur le point d'entrée `/textile/trims`.
       required: false
@@ -1147,13 +1147,13 @@ components:
       examples:
         zip:
           summary: "Une fermeture éclair"
-          value: ["1;0e8ea799-9b06-490c-a925-37564746c454"]
+          value: ["0e8ea799-9b06-490c-a925-37564746c454;1"]
         fourButtons:
           summary: "4 boutons en métal"
-          value: ["4;0c903fc7-279b-4375-8cfa-ca8133b8e973"]
+          value: ["0c903fc7-279b-4375-8cfa-ca8133b8e973;4"]
         oneButtonAndOneZip:
           summary: "Un bouton en métal et une fermeture éclair"
-          value: ["1;0c903fc7-279b-4375-8cfa-ca8133b8e973", "1;0e8ea799-9b06-490c-a925-37564746c454"]
+          value: ["0c903fc7-279b-4375-8cfa-ca8133b8e973;1", "0e8ea799-9b06-490c-a925-37564746c454;1"]
   schemas:
     Impacts:
       type: object
