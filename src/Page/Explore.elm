@@ -552,7 +552,7 @@ textileExamplesExplorer db tableConfig tableState maybeId =
     in
     [ scoredExamples
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table max)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table db max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -562,7 +562,7 @@ textileExamplesExplorer db tableConfig tableState maybeId =
 
                     Ok example ->
                         Table.viewDetails Scope.Textile
-                            (TextileExamples.table max)
+                            (TextileExamples.table db max)
                             ( example
                             , { score = getTextileScore db example
                               , per100g = getTextileScorePer100g db example
