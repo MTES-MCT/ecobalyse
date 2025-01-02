@@ -111,6 +111,12 @@ Précisions :&#x20;
 * Lorsqu'une marque est proposée au sein d'un **site internet multi-marques**, mais qu'elle y est bien identifiée et que l'essentiel des autres produits proposés sur ce site internet sont également proposés sur le site internet de leur marque propre, c'est alors le nombre de référence de chaque marque qui est considéré.
 * Les **5 segments de marché** considérés sont : femme, homme, enfant, bébé, sous-vêtements. L'introduction de ces 5 segments de marché vise à éviter un effet de distorsion qui pénaliserait une marque couvrant l'ensemble des segments de marché par rapport à une autre marque qui ne couvrirait par exemple que le prêt à porter femme. A l'intérieur de ces segments de marché, ne sont pas considérés les références qui ne s'adresseraient qu'à un sous-ensemble spécifique des clients potentiels. Il s'agit par exemple des références spécifiques aux grandes tailles, aux femmes enceintes, aux personnes en situation de handicap, ... L'objectif est d'approximer le choix proposer à chaque consommateur : homme, femme, enfant ou bébé.&#x20;
 
+#### Exemples de produits ayant fait l'objet de demandes de précision [sur le forum Ecobalyse](https://fabrique-numerique.gitbook.io/ecobalyse/communaute) :&#x20;
+
+| A comptabiliser                                                                                                 | A ne pas comptabiliser                                                                                                                  |
+| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| <ul><li>Chemise en soie (non couvert par le cadre réglementaire en l'absence de données pour la soie)</li></ul> | <ul><li>Accessoires non majoritairement textiles : casquettes, chapeaux, serre-têtes, lanières</li><li>Vêtements pour animaux</li></ul> |
+
 {% hint style="info" %}
 Exemple : Le site C.fr commercialise la marque A (2000 références), la marque B (3000 références) et la marque C (4000 références). La marque A et la marque B disposent par ailleurs de leur site internet propre. La marque B propose 2500 références sur B.fr. La marque C propose 3500 références sur C.fr.\
 Les largeurs de gamme à considérer sont alors (cf. tableau ci-dessous) :\
