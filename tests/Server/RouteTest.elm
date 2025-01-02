@@ -380,12 +380,12 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "trims")
             |> Expect.equal (Just "Format d'accessoire invalide : invalid.")
             |> asTest "should validate trims parameter format"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=1;invalid"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=invalid;1"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "trims")
             |> Expect.equal (Just "Identifiant de composant invalide : invalid")
             |> asTest "should validate trims parameter identifier format"
-        , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=-1;0e8ea799-9b06-490c-a925-37564746c454"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=0e8ea799-9b06-490c-a925-37564746c454;-1"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "trims")
             |> Expect.equal (Just "La quantité doit être un nombre entier positif")

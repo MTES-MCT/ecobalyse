@@ -566,7 +566,7 @@ componentItemListParser components key =
 parseComponentItem : List Component -> String -> Result String ComponentItem
 parseComponentItem components string =
     case String.split ";" string of
-        [ quantity, id ] ->
+        [ id, quantity ] ->
             Ok ComponentItem
                 |> RE.andMap (parseComponentId components id)
                 |> RE.andMap
