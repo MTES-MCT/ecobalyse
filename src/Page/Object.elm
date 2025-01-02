@@ -12,7 +12,6 @@ import Autocomplete exposing (Autocomplete)
 import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
-import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, ComponentItem)
 import Data.Dataset as Dataset
@@ -21,29 +20,23 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
-import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import List.Extra as LE
 import Ports
 import Route
-import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
-import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
+import Views.Component as ComponentView
 import Views.Container as Container
 import Views.Example as ExampleView
-import Views.Format as Format
-import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
-import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Sidebar as SidebarView
 
@@ -454,10 +447,25 @@ simulatorView session model =
                         }
                     }
                 ]
-            , session
-                |> Session.objectQueryFromScope model.scope
-                |> componentListView session.db model
-                |> div [ class "card shadow-sm mb-3" ]
+            , ComponentView.editorView
+                { addLabel = "Ajouter un composant"
+                , allowExpandDetails = True
+                , db = session.db.object
+                , detailed = model.detailedComponents
+                , impact = model.impact
+                , items =
+                    session
+                        |> Session.objectQueryFromScope model.scope
+                        |> .components
+                , noOp = NoOp
+                , openSelectModal = AddComponentModal >> SetModal
+                , removeItem = RemoveComponentItem
+                , results = model.results
+                , scope = model.scope
+                , setDetailed = SetDetailedComponents
+                , title = "Production des composants"
+                , updateItem = UpdateComponentItem
+                }
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
@@ -492,205 +500,6 @@ simulatorView session model =
                 , switchBookmarkTab = SwitchBookmarksTab
                 }
             ]
-        ]
-
-
-addComponentButton : Db -> Query -> Html Msg
-addComponentButton db query =
-    let
-        availableComponents =
-            db.object.components
-                |> Component.available (List.map .id query.components)
-
-        autocompleteState =
-            AutocompleteSelector.init .name availableComponents
-    in
-    button
-        [ class "btn btn-outline-primary w-100"
-        , class "d-flex justify-content-center align-items-center"
-        , class "gap-1 w-100"
-        , id "add-new-element"
-        , disabled <| List.length availableComponents == 0
-        , onClick (SetModal (AddComponentModal autocompleteState))
-        ]
-        [ i [ class "icon icon-plus" ] []
-        , text "Ajouter un composant"
-        ]
-
-
-componentListView : Db -> Model -> Query -> List (Html Msg)
-componentListView db { detailedComponents, impact, results } query =
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h2 [ class "h5 mb-0" ]
-            [ text "Production des composants"
-            , Link.smallPillExternal
-                -- FIXME: link to Veli explorer?
-                [ Route.href (Route.Explore Scope.Object (Dataset.ObjectProcesses Nothing))
-                , title "Explorer"
-                , attribute "aria-label" "Explorer"
-                ]
-                [ Icon.search ]
-            ]
-        ]
-    , if List.isEmpty query.components then
-        div [ class "card-body" ] [ text "Aucun élément." ]
-
-      else
-        case Component.expandComponentItems db.object query.components of
-            Err error ->
-                Alert.simple
-                    { close = Nothing
-                    , content = [ text error ]
-                    , level = Alert.Danger
-                    , title = Just "Erreur"
-                    }
-
-            Ok elements ->
-                div [ class "table-responsive" ]
-                    [ table [ class "table mb-0" ]
-                        [ thead []
-                            [ tr [ class "fs-7 text-muted" ]
-                                [ th [] []
-                                , th [ class "ps-0", scope "col" ] [ text "Quantité" ]
-                                , th [ scope "col", colspan 2 ] [ text "Composant" ]
-                                , th [ scope "col" ] [ text "Masse" ]
-                                , th [ scope "col" ] [ text "Impact" ]
-                                , th [ scope "col" ] []
-                                ]
-                            ]
-                        , Component.extractItems results
-                            |> List.map2 (componentView impact detailedComponents) elements
-                            |> List.concat
-                            |> tbody []
-                        ]
-                    ]
-    , addComponentButton db query
-    ]
-
-
-componentView :
-    Definition
-    -> List Component.Id
-    -> ( Component.Quantity, Component, List ( Component.Amount, Process ) )
-    -> Component.Results
-    -> List (Html Msg)
-componentView selectedImpact detailedComponents ( quantity, component, processAmounts ) itemResults =
-    let
-        collapsed =
-            not <| List.member component.id detailedComponents
-    in
-    List.concat
-        [ [ tr []
-                [ th [ class "ps-3 align-middle", scope "col" ]
-                    [ button
-                        [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
-                        , onClick <|
-                            SetDetailedComponents
-                                (if collapsed && not (List.member component.id detailedComponents) then
-                                    LE.unique <| component.id :: detailedComponents
-
-                                 else
-                                    List.filter ((/=) component.id) detailedComponents
-                                )
-                        ]
-                        [ if collapsed then
-                            text "▶"
-
-                          else
-                            text "▼"
-                        ]
-                    ]
-                , td [ class "ps-0 align-middle" ]
-                    [ quantity |> quantityInput component.id ]
-                , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
-                    [ text component.name ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Component.extractMass itemResults
-                        |> Format.kg
-                    ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Component.extractImpacts itemResults
-                        |> Format.formatImpact selectedImpact
-                    ]
-                , td [ class "pe-3 align-middle text-nowrap" ]
-                    [ button [ class "btn btn-outline-secondary", onClick (RemoveComponentItem component.id) ]
-                        [ Icon.trash ]
-                    ]
-                ]
-          , if not collapsed then
-                tr [ class "fs-7 text-muted" ]
-                    [ th [] []
-                    , th [ class "text-end", scope "col" ] [ text "Quantité" ]
-                    , th [ scope "col" ] [ text "Procédé" ]
-                    , th [ scope "col" ] [ text "Densité" ]
-                    , th [ scope "col" ] [ text "Masse" ]
-                    , th [ scope "col" ] [ text "Impact" ]
-                    , th [ scope "col" ] [ text "" ]
-                    ]
-
-            else
-                text ""
-          ]
-        , if not collapsed then
-            Component.extractItems itemResults
-                |> List.map2 (processView selectedImpact) processAmounts
-
-          else
-            []
-        ]
-
-
-processView : Definition -> ( Component.Amount, Process ) -> Component.Results -> Html Msg
-processView selectedImpact ( amount, process ) itemResults =
-    tr [ class "fs-7" ]
-        [ td [] []
-        , td [ class "text-end text-nowrap" ]
-            [ Format.amount process amount ]
-        , td [ class "align-middle text-truncate w-100" ]
-            [ text <| Process.getDisplayName process ]
-        , td [ class "align-middle text-end text-nowrap" ]
-            [ Format.density process ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.kg <| Component.extractMass itemResults ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.extractImpacts itemResults
-                |> Format.formatImpact selectedImpact
-            ]
-        , td [ class "pe-3 align-middle text-nowrap" ]
-            []
-        ]
-
-
-quantityInput : Component.Id -> Component.Quantity -> Html Msg
-quantityInput id quantity =
-    div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
-        [ input
-            [ type_ "number"
-            , class "form-control text-end"
-            , quantity |> Component.quantityToInt |> String.fromInt |> value
-            , step "1"
-            , Html.Attributes.min "1"
-            , onInput <|
-                \str ->
-                    String.toInt str
-                        |> Maybe.andThen
-                            (\int ->
-                                if int > 0 then
-                                    Just int
-
-                                else
-                                    Nothing
-                            )
-                        |> Maybe.map
-                            (\nonNullInt ->
-                                UpdateComponentItem
-                                    { id = id
-                                    , quantity = Component.quantityFromInt nonNullInt
-                                    }
-                            )
-                        |> Maybe.withDefault NoOp
-            ]
-            []
         ]
 
 

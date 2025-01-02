@@ -15,6 +15,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Component as Trim exposing (Component, ComponentItem)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Example as Example
@@ -45,6 +46,7 @@ import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import List.Extra as LE
 import Mass
 import Page.Explore as Explore
 import Ports
@@ -58,6 +60,7 @@ import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
+import Views.Component as TrimView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Example as ExampleView
@@ -76,6 +79,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , detailedTrims : List Trim.Id
     , initialQuery : Query
     , impact : Definition
     , modal : Modal
@@ -86,6 +90,7 @@ type alias Model =
 
 type Modal
     = AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
+    | AddTrimModal (Autocomplete Component)
     | ComparatorModal
     | ConfirmSwitchToRegulatoryModal
     | ExplorerDetailsTab Material
@@ -109,14 +114,17 @@ type Msg
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
     | OnAutocompleteProduct (Autocomplete.Msg Product)
     | OnAutocompleteSelect
+    | OnAutocompleteTrim (Autocomplete.Msg Component)
     | OnStepClick String
     | OpenComparator
     | RemoveMaterial Material.Id
+    | RemoveTrim Trim.Id
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
+    | SetDetailedTrims (List Trim.Id)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -144,6 +152,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
+    | UpdateTrim ComponentItem
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
@@ -170,6 +179,7 @@ init trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
+      , detailedTrims = []
       , initialQuery = initialQuery
       , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
@@ -223,6 +233,7 @@ initFromExample session uuid =
       , bookmarkName = exampleQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
+      , detailedTrims = []
       , initialQuery = exampleQuery
       , impact = Definition.get Definition.Ecs session.db.definitions
       , modal = NoModal
@@ -319,6 +330,19 @@ update ({ queries, navKey } as session) msg model =
             , Cmd.none
             )
 
+        ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = AddTrimModal newAutocompleteState }
+            , session
+            , Cmd.map OnAutocompleteTrim autoCompleteCmd
+            )
+
+        ( OnAutocompleteTrim _, _ ) ->
+            ( model, session, Cmd.none )
+
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
@@ -361,6 +385,10 @@ update ({ queries, navKey } as session) msg model =
         ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
             updateMaterial query model session maybeOldMaterial autocompleteState
 
+        ( OnAutocompleteSelect, AddTrimModal autocompleteState ) ->
+            ( model, session, Cmd.none )
+                |> selectTrim autocompleteState
+
         ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
             ( model, session, Cmd.none )
                 |> selectExample autocompleteState
@@ -381,6 +409,10 @@ update ({ queries, navKey } as session) msg model =
         ( RemoveMaterial materialId, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeMaterial materialId query)
+
+        ( RemoveTrim id, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.removeTrim id query)
 
         ( Reset, _ ) ->
             ( model, session, Cmd.none )
@@ -414,10 +446,26 @@ update ({ queries, navKey } as session) msg model =
         ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
+        ( SetDetailedTrims detailedTrims, _ ) ->
+            ( { model | detailedTrims = LE.unique detailedTrims }
+            , session
+            , Cmd.none
+            )
+
         ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
             , session
             , commandsForNoModal model.modal
+            )
+
+        ( SetModal (AddTrimModal autocomplete), _ ) ->
+            ( { model | modal = AddTrimModal autocomplete }
+            , session
+            , Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "element-search"
+                    |> Task.attempt (always NoOp)
+                ]
             )
 
         ( SetModal (AddMaterialModal maybeOldMaterial autocomplete), _ ) ->
@@ -593,6 +641,10 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | traceability = Just traceability }
 
+        ( UpdateTrim trim, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateTrim trim query)
+
         ( UpdateUpcycled upcycled, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | upcycled = upcycled }
@@ -699,6 +751,17 @@ selectExample autocompleteState ( model, session, _ ) =
     in
     update session (SetModal NoModal) { model | initialQuery = example }
         |> updateQuery example
+
+
+selectTrim : Autocomplete Component -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectTrim autocompleteState ( model, session, _ ) =
+    case Autocomplete.selectedValue autocompleteState of
+        Just trim ->
+            update session (SetModal NoModal) model
+                |> updateQuery (Query.addTrim trim.id session.queries.textile)
+
+        Nothing ->
+            ( model, session |> Session.notifyError "Erreur" "Aucun accessoire sélectionné", Cmd.none )
 
 
 selectProduct : Autocomplete Product -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -950,6 +1013,25 @@ simulatorFormView session model ({ inputs } as simulator) =
                 ]
             ]
         ]
+    , TrimView.editorView
+        { addLabel = "Ajouter un accessoire"
+        , allowExpandDetails = False
+        , db = session.db.textile
+        , detailed = model.detailedTrims
+        , impact = model.impact
+        , items = session.queries.textile.trims
+        , noOp = NoOp
+        , openSelectModal = AddTrimModal >> SetModal
+        , removeItem = RemoveTrim
+        , results =
+            session.queries.textile.trims
+                |> Trim.compute session.db.textile
+                |> Result.withDefault Trim.emptyResults
+        , scope = Scope.Textile
+        , setDetailed = SetDetailedTrims
+        , title = "Accessoires"
+        , updateItem = UpdateTrim
+        }
     , div [ class "card shadow-sm pb-2 mb-3" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
             [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
@@ -1174,6 +1256,20 @@ view session model =
                                 , title = "Sélectionnez une matière première"
                                 , toLabel = .shortName
                                 , toCategory = .origin >> Origin.toLabel
+                                }
+
+                        AddTrimModal autocompleteState ->
+                            AutocompleteSelector.view
+                                { autocompleteState = autocompleteState
+                                , closeModal = SetModal NoModal
+                                , footer = []
+                                , noOp = NoOp
+                                , onAutocomplete = OnAutocompleteTrim
+                                , onAutocompleteSelect = OnAutocompleteSelect
+                                , placeholderText = "tapez ici un nom d'accesoire pour le rechercher"
+                                , title = "Sélectionnez un accessoire"
+                                , toLabel = .name
+                                , toCategory = always ""
                                 }
 
                         ComparatorModal ->

@@ -133,9 +133,11 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                     |> EncodeCsv.toString
             }
     in
-    div [ class "DatasetTable table-responsive" ]
-        [ SortableTable.view config tableState items
-        , div [ class "text-muted fs-7" ] legend
+    div []
+        [ div [ class "DatasetTable table-responsive" ]
+            [ SortableTable.view config tableState items
+            , div [ class "text-muted fs-7" ] legend
+            ]
         , div [ class "text-end pt-3" ]
             [ a
                 [ class "btn btn-secondary"

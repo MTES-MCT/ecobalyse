@@ -2,13 +2,18 @@ module Static.Db exposing
     ( Db
     , db
     , decodeRawJsonProcesses
+    , scopedComponents
+    , scopedProcesses
     )
 
 import Data.Common.Db as Common
+import Data.Component exposing (Component)
 import Data.Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Impact.Definition exposing (Definitions)
 import Data.Object.Db as ObjectDb
+import Data.Process exposing (Process)
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Transport exposing (Distances)
 import Json.Decode as Decode exposing (Decoder)
@@ -63,3 +68,36 @@ countries textileDb =
 distances : Result String Distances
 distances =
     Common.transportsFromJson StaticJson.transportsJson
+
+
+scopedComponents : Scope -> Db -> List Component
+scopedComponents scope { object, textile } =
+    case scope of
+        Scope.Food ->
+            -- Note: we don't have any food components yet
+            []
+
+        Scope.Object ->
+            object.components
+
+        Scope.Textile ->
+            textile.components
+
+        Scope.Veli ->
+            object.components
+
+
+scopedProcesses : Scope -> Db -> List Process
+scopedProcesses scope { food, object, textile } =
+    case scope of
+        Scope.Food ->
+            food.processes
+
+        Scope.Object ->
+            object.processes
+
+        Scope.Textile ->
+            textile.processes
+
+        Scope.Veli ->
+            object.processes

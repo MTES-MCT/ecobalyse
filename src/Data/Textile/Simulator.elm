@@ -9,6 +9,7 @@ module Data.Textile.Simulator exposing
     )
 
 import Array
+import Data.Component as Component
 import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
@@ -45,6 +46,7 @@ type alias Simulator =
     , inputs : Inputs
     , lifeCycle : LifeCycle
     , transport : Transport
+    , trimsImpacts : Impacts
     , useNbCycles : Int
     }
 
@@ -83,6 +85,7 @@ init db =
                             , inputs = inputs
                             , lifeCycle = lifeCycle
                             , transport = Transport.default Impact.empty
+                            , trimsImpacts = Impact.empty
                             , useNbCycles = Product.customDaysOfWear product.use
                             }
                        )
@@ -97,8 +100,14 @@ compute db query =
         next fn =
             Result.map fn
 
+        andNext fn =
+            Result.andThen fn
+
         nextWithDb fn =
             next (fn db)
+
+        andNextWithDb fn =
+            andNext (fn db)
 
         nextIf label fn =
             if not (List.member label query.disabledSteps) then
@@ -168,6 +177,11 @@ compute db query =
         |> nextWithDb computeStepsTransport
         -- Compute transport summary
         |> next computeTotalTransportImpacts
+        --
+        -- TRIMS
+        --
+        -- Compute trims
+        |> andNextWithDb computeTrims
         --
         -- Final impacts
         --
@@ -724,6 +738,24 @@ computeTotalTransportImpacts simulator =
     }
 
 
+computeTrims : Db -> Simulator -> Result String Simulator
+computeTrims db simulator =
+    simulator.inputs.trims
+        |> Component.compute db.textile
+        |> Result.map Component.extractImpacts
+        |> Result.map
+            (\trimsImpacts ->
+                { simulator
+                    | impacts =
+                        Impact.sumImpacts
+                            [ simulator.impacts
+                            , trimsImpacts
+                            ]
+                    , trimsImpacts = trimsImpacts
+                }
+            )
+
+
 computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     let
@@ -736,10 +768,13 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
     { simulator
         | complementsImpacts = complementsImpacts
         , impacts =
-            lifeCycle
-                |> LifeCycle.computeFinalImpacts
-                |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
-                |> Impact.impactsWithComplements complementsImpacts
+            Impact.sumImpacts
+                [ simulator.impacts
+                , lifeCycle
+                    |> LifeCycle.computeFinalImpacts
+                    |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
+                    |> Impact.impactsWithComplements complementsImpacts
+                ]
     }
 
 
@@ -826,6 +861,7 @@ toStepsImpacts trigram simulator =
             |> Impact.sumImpacts
             |> getImpact
     , transports = getImpact simulator.transport.impacts
+    , trims = getImpact simulator.trimsImpacts
     , usage = getImpacts Label.Use |> getImpact
     }
         |> Impact.divideStepsImpactsBy (Unit.floatDurabilityFromHolistic simulator.durability)

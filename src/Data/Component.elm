@@ -2,6 +2,7 @@ module Data.Component exposing
     ( Amount
     , Component
     , ComponentItem
+    , DataContainer
     , Id
     , ProcessItem
     , Quantity
@@ -10,10 +11,12 @@ module Data.Component exposing
     , available
     , componentItemToString
     , compute
+    , computeComponentImpacts
     , decodeComponentItem
-    , decodeList
+    , decodeListFromJsonString
     , emptyResults
     , encodeComponentItem
+    , encodeId
     , expandComponentItems
     , expandProcessItems
     , extractImpacts
@@ -148,6 +151,14 @@ compute db =
         >> Result.map (List.foldr addResults emptyResults)
 
 
+computeComponentImpacts : List Process -> Component -> Result String Results
+computeComponentImpacts processes =
+    .processes
+        >> List.map (computeProcessItemResults processes)
+        >> RE.combine
+        >> Result.map (List.foldl addResults emptyResults)
+
+
 computeComponentItemResults : DataContainer db -> ComponentItem -> Result String Results
 computeComponentItemResults { components, processes } { id, quantity } =
     components
@@ -196,6 +207,11 @@ computeProcessItemResults processes { amount, processId } =
                     , mass = mass
                     }
             )
+
+
+decodeListFromJsonString : String -> Result String (List Component)
+decodeListFromJsonString =
+    Decode.decodeString decodeList >> Result.mapError Decode.errorToString
 
 
 {-| Take a list of component items and resolve them with actual components and processes
@@ -260,6 +276,11 @@ encodeComponentItem componentItem =
         [ ( "id", componentItem.id |> idToString |> Encode.string )
         , ( "quantity", componentItem.quantity |> quantityToInt |> Encode.int )
         ]
+
+
+encodeId : Id -> Encode.Value
+encodeId =
+    idToString >> Encode.string
 
 
 {-| Lookup a Component from a provided Id

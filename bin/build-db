@@ -73,6 +73,7 @@ const elmWithFixtures = elmTemplate
       "id",
     ),
   )
+  .replace("%textileComponentsJson%", parseAndValidate("public/data/textile/components.json", "id"))
   .replace(
     "%textileProductExamplesJson%",
     parseAndValidate("public/data/textile/examples.json", "id"),

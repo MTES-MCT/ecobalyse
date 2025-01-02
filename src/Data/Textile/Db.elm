@@ -3,6 +3,7 @@ module Data.Textile.Db exposing
     , buildFromJson
     )
 
+import Data.Component as Component exposing (Component)
 import Data.Example as Example exposing (Example)
 import Data.Impact as Impact
 import Data.Process as Process exposing (Process)
@@ -15,7 +16,8 @@ import Result.Extra as RE
 
 
 type alias Db =
-    { examples : List (Example Query)
+    { components : List Component
+    , examples : List (Example Query)
     , materials : List Material
     , processes : List Process
     , products : List Product
@@ -23,14 +25,15 @@ type alias Db =
     }
 
 
-buildFromJson : String -> String -> String -> String -> Result String Db
-buildFromJson exampleProductsJson materialsJson productsJson processesJson =
+buildFromJson : String -> String -> String -> String -> String -> Result String Db
+buildFromJson textileComponentsJson exampleProductsJson materialsJson productsJson processesJson =
     processesJson
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->
                 Ok Db
+                    |> RE.andMap (Component.decodeListFromJsonString textileComponentsJson)
                     |> RE.andMap
                         (exampleProductsJson
                             |> Example.decodeListFromJsonString Query.decode

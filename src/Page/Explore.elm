@@ -36,12 +36,12 @@ import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Page.Explore.Components as Components
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
-import Page.Explore.ObjectComponents as ObjectComponents
 import Page.Explore.ObjectExamples as ObjectExamples
 import Page.Explore.ObjectProcesses as ObjectProcesses
 import Page.Explore.Table as Table
@@ -50,7 +50,7 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Route exposing (Route)
-import Static.Db exposing (Db)
+import Static.Db as Db exposing (Db)
 import Table as SortableTable
 import Views.Alert as Alert
 import Views.Container as Container
@@ -77,6 +77,9 @@ init scope dataset session =
     let
         initialSort =
             case dataset of
+                Dataset.Components _ _ ->
+                    "Nom"
+
                 Dataset.Countries _ ->
                     "Nom"
 
@@ -91,9 +94,6 @@ init scope dataset session =
 
                 Dataset.Impacts _ ->
                     "Code"
-
-                Dataset.ObjectComponents _ ->
-                    "Nom"
 
                 Dataset.ObjectExamples _ ->
                     "Coût Environnemental"
@@ -417,26 +417,31 @@ foodProcessesExplorer { food } tableConfig tableState maybeId =
     ]
 
 
-objectComponentsExplorer :
+componentsExplorer :
     Db
+    -> Scope
     -> Table.Config Component Msg
     -> SortableTable.State
     -> Maybe Component.Id
     -> List (Html Msg)
-objectComponentsExplorer db tableConfig tableState maybeId =
-    [ db.object.components
+componentsExplorer db scope tableConfig tableState maybeId =
+    let
+        scopedComponents =
+            Db.scopedComponents scope db
+    in
+    [ scopedComponents
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Object (ObjectComponents.table db)
+        |> Table.viewList OpenDetail tableConfig tableState scope (Components.table db)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Component.findById id db.object.components of
+                (case Component.findById id scopedComponents of
                     Err error ->
                         alert error
 
                     Ok component ->
                         component
-                            |> Table.viewDetails Scope.Object (ObjectComponents.table db)
+                            |> Table.viewDetails scope (Components.table db)
                 )
 
         Nothing ->
@@ -723,6 +728,9 @@ explore { db } { scope, dataset, tableState } =
             }
     in
     case dataset of
+        Dataset.Components scope_ maybeId ->
+            componentsExplorer db scope_ tableConfig tableState maybeId
+
         Dataset.Countries maybeCode ->
             countriesExplorer db tableConfig tableState scope maybeCode
 
@@ -737,9 +745,6 @@ explore { db } { scope, dataset, tableState } =
 
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
-
-        Dataset.ObjectComponents maybeId ->
-            objectComponentsExplorer db tableConfig tableState maybeId
 
         Dataset.ObjectExamples maybeId ->
             objectExamplesExplorer db tableConfig tableState maybeId
@@ -766,7 +771,7 @@ view session model =
     , [ Container.centered [ class "pb-3" ]
             [ div []
                 [ h1 [ class "mb-0" ] [ text "Explorateur" ]
-                , div [ class "row d-flex align-items-stretch mt-1 mx-0" ]
+                , div [ class "row d-flex align-items-stretch mt-1 mx-0 g-0" ]
                     [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ]
                         [ scopesMenuView session model ]
                     , div [ class "col-12 col-lg-7 pe-0 me-0" ]

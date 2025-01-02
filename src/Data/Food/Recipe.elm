@@ -282,8 +282,8 @@ computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, p
     { cropDiversity = apply EcosystemicServices.coefficients.cropDiversity cropDiversity
     , hedges = apply EcosystemicServices.coefficients.hedges hedges
     , livestockDensity = apply EcosystemicServices.coefficients.livestockDensity livestockDensity
-    , microfibers = Unit.impact 0
-    , outOfEuropeEOL = Unit.impact 0
+    , microfibers = Unit.noImpacts
+    , outOfEuropeEOL = Unit.noImpacts
     , permanentPasture = apply EcosystemicServices.coefficients.permanentPasture permanentPasture
     , plotSize = apply EcosystemicServices.coefficients.plotSize plotSize
     }
@@ -649,6 +649,7 @@ toStepsImpacts trigram results =
     , packaging = getImpact results.packaging
     , transform = getImpact results.recipe.transform
     , transports = getImpact results.transports.impacts
+    , trims = Nothing
     , usage = getImpact results.preparation
     }
 
