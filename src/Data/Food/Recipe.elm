@@ -649,7 +649,7 @@ toStepsImpacts trigram results =
     , packaging = getImpact results.packaging
     , transform = getImpact results.recipe.transform
     , transports = getImpact results.transports.impacts
-    , trims = Just Unit.noImpacts
+    , trims = Nothing
     , usage = getImpact results.preparation
     }
 

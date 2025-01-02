@@ -572,7 +572,7 @@ parseComponentItem components string =
                 |> RE.andMap
                     (quantity
                         |> String.toInt
-                        |> Result.fromMaybe ("Quantité invalide: " ++ quantity)
+                        |> Result.fromMaybe ("Quantité invalide : " ++ quantity)
                         |> Result.andThen
                             (\q ->
                                 if q <= 0 then
@@ -595,7 +595,7 @@ parseComponentId : List Component -> String -> Result String Component.Id
 parseComponentId components string =
     string
         |> Component.idFromString
-        |> Result.fromMaybe ("Identifiant de composant invalide: " ++ string)
+        |> Result.fromMaybe ("Identifiant de composant invalide : " ++ string)
         |> Result.andThen
             (\id ->
                 components

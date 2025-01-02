@@ -383,7 +383,7 @@ textileEndpoints db =
         , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=1;invalid"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "trims")
-            |> Expect.equal (Just "Identifiant de composant invalide: invalid")
+            |> Expect.equal (Just "Identifiant de composant invalide : invalid")
             |> asTest "should validate trims parameter identifier format"
         , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=-1;0e8ea799-9b06-490c-a925-37564746c454"
             |> Maybe.andThen extractTextileErrors
