@@ -11,6 +11,7 @@ module Data.Component exposing
     , available
     , componentItemToString
     , compute
+    , computeComponentImpacts
     , decodeComponentItem
     , decodeListFromJsonString
     , emptyResults
@@ -148,6 +149,14 @@ compute db =
     List.map (computeComponentItemResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
+
+
+computeComponentImpacts : List Process -> Component -> Result String Results
+computeComponentImpacts processes =
+    .processes
+        >> List.map (computeProcessItemResults processes)
+        >> RE.combine
+        >> Result.map (List.foldl addResults emptyResults)
 
 
 computeComponentItemResults : DataContainer db -> ComponentItem -> Result String Results
