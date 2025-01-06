@@ -17,6 +17,7 @@ type alias User =
     , email : String
     , firstname : String
     , lastname : String
+    , staff : Bool
     , token : String
     }
 
@@ -33,6 +34,7 @@ decode =
         |> Pipe.required "email" Decode.string
         |> Pipe.required "first_name" Decode.string
         |> Pipe.required "last_name" Decode.string
+        |> Pipe.required "staff" Decode.bool
         |> Pipe.required "token" Decode.string
 
 
@@ -68,5 +70,6 @@ form user =
     , firstname = user.firstname
     , lastname = user.lastname
     , next = "/#/auth/authenticated"
+    , staff = False
     , token = ""
     }

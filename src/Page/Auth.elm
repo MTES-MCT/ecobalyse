@@ -76,6 +76,7 @@ emptyModel { authenticated } =
         , lastname = ""
         , company = ""
         , cgu = False
+        , staff = False
         , token = ""
         }
     , formErrors = Dict.empty

@@ -133,6 +133,7 @@ def test_register_post(client, caplog):
         "first_name": "John",
         "last_name": "Doe",
         "organization": "",
+        "staff": False,
         "terms_of_use": True,
         "token": str(created_user.token),
     }
@@ -171,6 +172,7 @@ def test_as_admin(client):
         "first_name": "",
         "last_name": "",
         "organization": "",
+        "staff": True,
         "terms_of_use": True,
         "token": str(super_user.token),
     }
