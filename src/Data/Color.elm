@@ -37,3 +37,8 @@ red =
 yellow : String
 yellow =
     "#ffca00"
+
+
+grey : String
+grey =
+    "#dddddd"

@@ -14,6 +14,7 @@ module Data.Textile.Inputs exposing
     , toString
     )
 
+import Data.Component exposing (ComponentItem)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Split as Split exposing (Split)
@@ -76,6 +77,7 @@ type alias Inputs =
     , product : Product
     , surfaceMass : Maybe Unit.SurfaceMass
     , traceability : Maybe Bool
+    , trims : List ComponentItem
     , upcycled : Bool
     , yarnSize : Maybe Unit.YarnSize
     }
@@ -198,6 +200,7 @@ fromQuery { countries, textile } query =
         |> RE.andMap (textile.products |> Product.findById query.product)
         |> RE.andMap (Ok query.surfaceMass)
         |> RE.andMap (Ok query.traceability)
+        |> RE.andMap (Ok query.trims)
         |> RE.andMap (Ok query.upcycled)
         |> RE.andMap (Ok query.yarnSize)
 
@@ -226,6 +229,7 @@ toQuery inputs =
     , product = inputs.product.id
     , surfaceMass = inputs.surfaceMass
     , traceability = inputs.traceability
+    , trims = inputs.trims
     , upcycled = inputs.upcycled
     , yarnSize = inputs.yarnSize
     }

@@ -3042,7 +3042,7 @@
   {
     "id": "8b91651b-9651-46fc-8bc2-37a141494086",
     "name": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
-    "displayName": "",
+    "displayName": "Acier",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182209121",
@@ -3080,7 +3080,7 @@
   {
     "id": "2e217ad8-05fa-4a9d-a18d-272fc969848c",
     "name": "brass//[RoW] market for brass",
-    "displayName": "",
+    "displayName": "Laiton",
     "unit": "kg",
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182218676",

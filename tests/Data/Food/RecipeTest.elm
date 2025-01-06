@@ -50,18 +50,18 @@ suite =
                             (let
                                 complementsImpacts =
                                     testComputedComplements
-                                        { hedges = Unit.impact 0
-                                        , plotSize = Unit.impact 0
-                                        , cropDiversity = Unit.impact 0
-                                        , permanentPasture = Unit.impact 0
-                                        , livestockDensity = Unit.impact 0
+                                        { hedges = Unit.noImpacts
+                                        , plotSize = Unit.noImpacts
+                                        , cropDiversity = Unit.noImpacts
+                                        , permanentPasture = Unit.noImpacts
+                                        , livestockDensity = Unit.noImpacts
                                         }
                              in
                              [ complementsImpacts.hedges
-                                |> expectImpactEqual (Unit.impact 0)
+                                |> expectImpactEqual Unit.noImpacts
                                 |> asTest "should compute a zero hedges ingredient complement"
                              , Impact.getTotalComplementsImpacts complementsImpacts
-                                |> expectImpactEqual (Unit.impact 0)
+                                |> expectImpactEqual Unit.noImpacts
                                 |> asTest "should compute a zero total complement"
                              ]
                             )

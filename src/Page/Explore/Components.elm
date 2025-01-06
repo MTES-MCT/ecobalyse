@@ -1,23 +1,33 @@
-module Page.Explore.ObjectComponents exposing (table)
+module Page.Explore.Components exposing (table)
 
-import Data.Component as Component
+import Data.Component as Component exposing (Component)
 import Data.Dataset as Dataset
-import Data.Process as Process
+import Data.Impact as Impact
+import Data.Impact.Definition as Definition
+import Data.Process as Process exposing (Process)
 import Data.Scope exposing (Scope)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Static.Db exposing (Db)
+import Static.Db as Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
 
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
 table db { detailed, scope } =
+    let
+        scopedProcesses =
+            Db.scopedProcesses scope db
+
+        expandProcesses =
+            Component.expandProcessItems scopedProcesses
+    in
     { filename = "components"
     , toId = .id >> Component.idToString
-    , toRoute = .id >> Just >> Dataset.ObjectComponents >> Route.Explore scope
+    , toRoute = .id >> Just >> Dataset.Components scope >> Route.Explore scope
     , legend = []
     , columns =
         [ { label = "Identifiant"
@@ -28,7 +38,7 @@ table db { detailed, scope } =
                         code [] [ text (Component.idToString component.id) ]
 
                     else
-                        a [ Route.href (Route.Explore scope (Dataset.ObjectComponents (Just component.id))) ]
+                        a [ Route.href (Route.Explore scope (Dataset.Components scope (Just component.id))) ]
                             [ code [] [ text (Component.idToString component.id) ] ]
           }
         , { label = "Nom"
@@ -39,7 +49,7 @@ table db { detailed, scope } =
           , toValue =
                 Table.StringValue <|
                     \{ processes } ->
-                        case Component.expandProcessItems db.object.processes processes of
+                        case expandProcesses processes of
                             Err _ ->
                                 ""
 
@@ -55,7 +65,7 @@ table db { detailed, scope } =
                                     |> String.join ", "
           , toCell =
                 \{ processes } ->
-                    case Component.expandProcessItems db.object.processes processes of
+                    case expandProcesses processes of
                         Err err ->
                             Alert.simple
                                 { close = Nothing
@@ -76,5 +86,22 @@ table db { detailed, scope } =
                                 |> List.intersperse (text ", ")
                                 |> ul [ class "m-0 px-2" ]
           }
+        , { label = "Coût environnemental"
+          , toValue = Table.FloatValue <| getComponentEcoscore scopedProcesses >> Result.withDefault 0
+          , toCell =
+                getComponentEcoscore scopedProcesses
+                    >> Result.map (Format.formatImpactFloat { decimals = 2, unit = "Pts par composant" })
+                    >> Result.withDefault (text "N/A")
+          }
         ]
     }
+
+
+getComponentEcoscore : List Process -> Component -> Result String Float
+getComponentEcoscore processes =
+    Component.computeComponentImpacts processes
+        >> Result.map
+            (Component.extractImpacts
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.impactToFloat
+            )

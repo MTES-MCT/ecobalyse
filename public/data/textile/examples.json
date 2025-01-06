@@ -353,7 +353,11 @@
       "product": "jupe",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
-      "price": 15
+      "price": 15,
+      "trims": [
+        { "quantity": 1, "id": "0e8ea799-9b06-490c-a925-37564746c454" },
+        { "quantity": 1, "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a" }
+      ]
     }
   },
   {
@@ -372,7 +376,8 @@
       "product": "chemise",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
-      "price": 15
+      "price": 15,
+      "trims": [{ "quantity": 10, "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a" }]
     }
   },
   {
@@ -392,7 +397,11 @@
       "fading": true,
       "marketingDuration": 65,
       "numberOfReferences": 100000,
-      "price": 20
+      "price": 20,
+      "trims": [
+        { "quantity": 1, "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973" },
+        { "quantity": 1, "id": "0e8ea799-9b06-490c-a925-37564746c454" }
+      ]
     }
   },
   {
@@ -411,7 +420,11 @@
       "product": "pantalon",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
-      "price": 20
+      "price": 20,
+      "trims": [
+        { "quantity": 1, "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973" },
+        { "quantity": 1, "id": "0e8ea799-9b06-490c-a925-37564746c454" }
+      ]
     }
   },
   {
@@ -430,7 +443,11 @@
       "product": "manteau",
       "marketingDuration": 65,
       "numberOfReferences": 100000,
-      "price": 40
+      "price": 40,
+      "trims": [
+        { "quantity": 1, "id": "86b877ff-0d59-482f-bb34-3ff306b07496" },
+        { "quantity": 3, "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a" }
+      ]
     }
   },
   {

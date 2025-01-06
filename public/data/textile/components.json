@@ -1,7 +1,7 @@
 [
   {
     "id": "86b877ff-0d59-482f-bb34-3ff306b07496",
-    "name": "Zip pour veste",
+    "name": "Zip long",
     "processes": [
       {
         "process_id": "8b91651b-9651-46fc-8bc2-37a141494086",
@@ -11,7 +11,7 @@
   },
   {
     "id": "0e8ea799-9b06-490c-a925-37564746c454",
-    "name": "Zip pour jeans",
+    "name": "Zip court",
     "processes": [
       {
         "process_id": "8b91651b-9651-46fc-8bc2-37a141494086",
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "id": "0e8ea799-9b06-490c-a925-37564746c454",
+    "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
     "name": "Bouton en plastique",
     "processes": [
       {

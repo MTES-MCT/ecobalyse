@@ -55,7 +55,14 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "5 décembre 2024"
+    [ { date = "2 janvier 2025"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md = """Un nouveau paramètre `trims` est disponible dans l'API textile pour préciser les
+                accessoires présents sur le vêtement. Un nouveau point d'entrée `/textile/trims`
+                a également été ajouté pour lister les accessoires disponibles."""
+      }
+    , { date = "5 décembre 2024"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md = """Les identifiants de procédés alimentaires sont désormais au format UUID. Le précedent champ

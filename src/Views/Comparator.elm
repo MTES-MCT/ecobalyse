@@ -4,6 +4,7 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Color as Color
 import Data.Component as Component
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
@@ -14,7 +15,7 @@ import Data.Textile.Simulator as TextileSimulator
 import Data.Unit as Unit
 import Dict
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Result.Extra as RE
@@ -106,8 +107,8 @@ sidebarView { selectAll, selectNone, session, toggle } =
     ]
 
 
-addToComparison : Session -> String -> Bookmark.Query -> Result String ChartsData
-addToComparison session label query =
+addToComparison : Session -> Bookmark -> Result String ChartsData
+addToComparison session { name, query } =
     case query of
         Bookmark.Food foodQuery ->
             foodQuery
@@ -116,7 +117,7 @@ addToComparison session label query =
                     (\( _, { recipe, total } as results ) ->
                         { complementsImpact = recipe.totalComplementsImpact
                         , impacts = total
-                        , label = label
+                        , label = name
                         , stepsImpacts =
                             results
                                 |> Recipe.toStepsImpacts Definition.Ecs
@@ -130,7 +131,7 @@ addToComparison session label query =
                     (\results ->
                         { complementsImpact = Impact.noComplementsImpacts
                         , impacts = Component.extractImpacts results
-                        , label = label
+                        , label = name
                         , stepsImpacts =
                             results
                                 |> ObjectSimulator.toStepsImpacts Definition.Ecs
@@ -144,7 +145,7 @@ addToComparison session label query =
                     (\simulator ->
                         { complementsImpact = simulator.complementsImpacts
                         , impacts = simulator.impacts
-                        , label = label
+                        , label = name
                         , stepsImpacts =
                             simulator
                                 |> TextileSimulator.toStepsImpacts Definition.Ecs
@@ -158,7 +159,7 @@ addToComparison session label query =
                     (\results ->
                         { complementsImpact = Impact.noComplementsImpacts
                         , impacts = Component.extractImpacts results
-                        , label = label
+                        , label = name
                         , stepsImpacts =
                             results
                                 |> ObjectSimulator.toStepsImpacts Definition.Ecs
@@ -167,21 +168,21 @@ addToComparison session label query =
 
 
 comparatorView : Config msg -> List (Html msg)
-comparatorView config =
+comparatorView ({ session } as config) =
     let
         charts =
-            config.session.store.bookmarks
+            session.store.bookmarks
                 |> List.filterMap
                     (\bookmark ->
-                        if Set.member (Bookmark.toId bookmark) config.session.store.comparedSimulations then
-                            Just (addToComparison config.session bookmark.name bookmark.query)
+                        if Set.member (Bookmark.toId bookmark) session.store.comparedSimulations then
+                            Just (addToComparison session bookmark)
 
                         else
                             Nothing
                     )
                 |> RE.combine
     in
-    [ ((if Session.isAuthenticated config.session then
+    [ ((if Session.isAuthenticated session then
             [ ( "Sous-scores", Subscores )
             , ( "Impacts", IndividualImpacts )
             ]
@@ -220,41 +221,22 @@ comparatorView config =
 
         Ok chartsData ->
             let
-                data =
+                ( class, data ) =
                     case config.comparisonType of
                         IndividualImpacts ->
-                            dataForIndividualImpacts config.session.db.definitions chartsData
+                            ( "individual-impacts", dataForIndividualImpacts session.db.definitions chartsData )
 
                         Steps ->
-                            dataForSteps chartsData
+                            ( "steps-impacts", dataForSteps chartsData )
 
                         Subscores ->
-                            dataForSubscoresImpacts config.session.db.definitions chartsData
+                            ( "grouped-impacts", dataForSubscoresImpacts session.db.definitions chartsData )
 
                         Total ->
-                            dataForTotalImpacts chartsData
+                            ( "total-impacts", dataForTotalImpacts chartsData )
             in
-            div
-                [ class "h-100"
-                , class
-                    (case config.comparisonType of
-                        IndividualImpacts ->
-                            "individual-impacts"
-
-                        Steps ->
-                            "steps-impacts"
-
-                        Subscores ->
-                            "grouped-impacts"
-
-                        Total ->
-                            "total-impacts"
-                    )
-                ]
-                [ node "chart-food-comparator"
-                    [ attribute "data" data ]
-                    []
-                ]
+            div [ Attr.class <| "h-100 " ++ class ]
+                [ node "chart-food-comparator" [ attribute "data" data ] [] ]
     ]
 
 
@@ -279,6 +261,7 @@ dataForIndividualImpacts definitions chartsData =
             , "Utilisation de ressources en eau"
             , "Utilisation de ressources fossiles"
             , "Utilisation de ressources minérales et métalliques"
+            , "Accessoires"
             ]
                 |> List.indexedMap (\index label -> ( label, index ))
                 |> Dict.fromList
@@ -307,7 +290,7 @@ dataForIndividualImpacts definitions chartsData =
     in
     chartsData
         |> List.map
-            (\{ complementsImpact, impacts, label } ->
+            (\{ complementsImpact, impacts, label, stepsImpacts } ->
                 let
                     complementImpacts =
                         Impact.complementsImpactAsChartEntries complementsImpact
@@ -315,6 +298,15 @@ dataForIndividualImpacts definitions chartsData =
                     entries =
                         impacts
                             |> Impact.getAggregatedScoreData definitions .ecoscoreData
+                            -- Add an specific entry for trims impacts
+                            |> (::)
+                                { color = Color.grey ++ "bb"
+                                , name = "Accessoires"
+                                , value =
+                                    stepsImpacts.trims
+                                        |> Maybe.map Unit.impactToFloat
+                                        |> Maybe.withDefault 0
+                                }
                             |> List.sortWith labelComparison
 
                     reversed =

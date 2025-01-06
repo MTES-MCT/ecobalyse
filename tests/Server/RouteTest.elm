@@ -271,32 +271,7 @@ textileEndpoints db =
             |> asTest "should reject invalid materials country"
         ]
     , describe "materials param checks"
-        [ let
-            results =
-                Result.map2
-                    (\thirty fourty ->
-                        [ { id = Material.Id "ei-coton"
-                          , share = thirty
-                          , spinning = Nothing
-                          , country = Just (Country.Code "FR")
-                          }
-                        , { id = Material.Id "coton-rdp"
-                          , share = thirty
-                          , spinning = Just Spinning.Unconventional
-                          , country = Nothing
-                          }
-                        , { id = Material.Id "ei-pet"
-                          , share = fourty
-                          , spinning = Nothing
-                          , country = Nothing
-                          }
-                        ]
-                    )
-                    (Split.fromFloat 0.3)
-                    (Split.fromFloat 0.4)
-                    |> Result.toMaybe
-          in
-          [ "/textile/simulator?mass=0.17"
+        [ [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "materials[]=ei-coton;0.3;;FR"
           , "materials[]=coton-rdp;0.3;UnconventionalSpinning"
@@ -309,7 +284,25 @@ textileEndpoints db =
             |> testEndpoint db "GET" Encode.null
             |> Maybe.andThen extractQuery
             |> Maybe.map .materials
-            |> Expect.equal results
+            |> Expect.equal
+                (Just
+                    [ { id = Material.Id "ei-coton"
+                      , share = Split.thirty
+                      , spinning = Nothing
+                      , country = Just (Country.Code "FR")
+                      }
+                    , { id = Material.Id "coton-rdp"
+                      , share = Split.thirty
+                      , spinning = Just Spinning.Unconventional
+                      , country = Nothing
+                      }
+                    , { id = Material.Id "ei-pet"
+                      , share = Split.fourty
+                      , spinning = Nothing
+                      , country = Nothing
+                      }
+                    ]
+                )
             |> asTest "should map the /textile/simulator endpoint with the list of materials"
         , testEndpoint db "GET" Encode.null "/textile/simulator?materials[]="
             |> Maybe.andThen extractTextileErrors
@@ -382,6 +375,21 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "physicalDurability")
             |> Expect.equal (Just "La durabilité doit être comprise entre 0.67 et 1.45.")
             |> asTest "should validate that the physical durability param is invalid"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=invalid"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "trims")
+            |> Expect.equal (Just "Format d'accessoire invalide : invalid.")
+            |> asTest "should validate trims parameter format"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=invalid;1"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "trims")
+            |> Expect.equal (Just "Identifiant de composant invalide : invalid")
+            |> asTest "should validate trims parameter identifier format"
+        , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=0e8ea799-9b06-490c-a925-37564746c454;-1"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "trims")
+            |> Expect.equal (Just "La quantité doit être un nombre entier positif")
+            |> asTest "should validate that a trim item quantity is a positive integer"
         ]
     , describe "multiple parameters checks"
         [ testEndpoint db "GET" Encode.null "/textile/simulator"
@@ -408,6 +416,7 @@ textileEndpoints db =
           , "dyeingMedium=yolo"
           , "printing=yolo"
           , "yarnSize=0"
+          , "trims[]=invalid"
           ]
             |> String.join "&"
             |> testEndpoint db "GET" Encode.null
@@ -427,6 +436,7 @@ textileEndpoints db =
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
                     , ( "yarnSize", "Le titrage (yarnSize) doit être compris entre 9 et 200 Nm (entre 50 et 1111 Dtex)" )
+                    , ( "trims", "Format d'accessoire invalide : invalid." )
                     ]
                     |> Just
                 )
