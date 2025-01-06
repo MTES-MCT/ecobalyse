@@ -1,48 +1,43 @@
 {
   "$schema": "https://json-schema.org/draft/2019-09/schema#",
-  "type": "array",
   "items": {
-    "type": "object",
     "properties": {
       "alias": {
         "type": ["string", "null"]
       },
       "categories": {
-        "type": "array",
         "items": {
           "type": "string"
-        }
+        },
+        "type": "array"
       },
       "comment": {
         "type": "string"
       },
       "density": {
-        "type": "number",
-        "minimum": 0
+        "minimum": 0,
+        "type": "number"
       },
       "displayName": {
         "type": ["string", "null"]
       },
       "elec_MJ": {
-        "type": "number",
-        "minimum": 0
+        "minimum": 0,
+        "type": "number"
       },
       "heat_MJ": {
-        "type": "number",
-        "minimum": 0
+        "minimum": 0,
+        "type": "number"
       },
       "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "sourceId": {
-        "type": ["string", "null"]
+        "format": "uuid",
+        "type": "string"
       },
       "impacts": {
-        "type": "object",
         "properties": {
           "acd": { "type": "number" },
           "cch": { "type": "number" },
+          "ecs": { "type": "number" },
           "etf": { "type": "number" },
           "etf-c": { "type": "number" },
           "fru": { "type": "number" },
@@ -56,12 +51,11 @@
           "mru": { "type": "number" },
           "ozd": { "type": "number" },
           "pco": { "type": "number" },
+          "pef": { "type": "number" },
           "pma": { "type": "number" },
           "swe": { "type": "number" },
           "tre": { "type": "number" },
-          "wtu": { "type": "number" },
-          "ecs": { "type": "number" },
-          "pef": { "type": "number" }
+          "wtu": { "type": "number" }
         },
         "required": [
           "acd",
@@ -85,7 +79,8 @@
           "wtu",
           "ecs",
           "pef"
-        ]
+        ],
+        "type": "object"
       },
       "name": {
         "type": "string"
@@ -93,14 +88,17 @@
       "source": {
         "type": "string"
       },
+      "sourceId": {
+        "type": ["string", "null"]
+      },
       "unit": {
-        "type": "string",
-        "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "Item(s)", "m2", "m3"]
+        "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "Item(s)", "m2", "m3"],
+        "type": "string"
       },
       "waste": {
-        "type": "number",
+        "maximum": 1,
         "minimum": 0,
-        "maximum": 1
+        "type": "number"
       }
     },
     "required": [
@@ -115,6 +113,8 @@
       "source",
       "unit",
       "waste"
-    ]
-  }
+    ],
+    "type": "object"
+  },
+  "type": "array"
 }
