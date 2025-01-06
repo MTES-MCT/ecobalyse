@@ -1,4 +1,5 @@
 SHELL := /bin/bash
+
 NAME := $(shell echo $$PWD|sed 's/\/data//'|sed 's/.*\///')
 ECOBALYSE_DATA_DIR := ${ECOBALYSE_DATA_DIR}
 JUPYTER_PORT ?= 8888
@@ -9,10 +10,10 @@ env | grep ECOBALYSE_DATA_DIR || echo "No ECOBALYSE_DATA_DIR in environment. Con
 env | grep ECOBALYSE_DATA_DIR || exit
 @if [ "$(shell docker container inspect -f '{{.State.Running}}' $(NAME) )" = "true" ]; then \
   echo "(Using the existing container)" &&\
-	docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ -e PYTHONPATH=. -w /home/jovyan/ecobalyse/data $(NAME) $(1);\
+	docker exec -u jovyan -it -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse/public/ -e PYTHONPATH=. -w /home/jovyan/ecobalyse/data $(NAME) $(1);\
 else \
 	echo "(Creating a new container)" &&\
-  docker run --rm -it -v $(NAME):/home/jovyan -v $$PWD/../:/home/jovyan/ecobalyse -v $$PWD/../../dbfiles/:/home/jovyan/dbfiles -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ -w /home/jovyan/ecobalyse/data $(NAME) $(1); fi
+  docker run --rm -it -v $(NAME):/home/jovyan -v $$PWD/../:/home/jovyan/ecobalyse -v $$PWD/../../dbfiles/:/home/jovyan/dbfiles -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse/public/ -w /home/jovyan/ecobalyse/data $(NAME) $(1); fi
 endef
 
 all: import export
@@ -79,7 +80,7 @@ start_notebook:
     -v $$PWD/../../dbfiles:/home/jovyan/dbfiles \
     -v $$PWD/../:/home/jovyan/ecobalyse \
     -v $(ECOBALYSE_DATA_DIR):/home/jovyan/ecobalyse-private \
-    -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse-private/ \
+    -e ECOBALYSE_DATA_DIR=/home/jovyan/ecobalyse/public/ \
     -e JUPYTER_PORT=$(JUPYTER_PORT) \
     -e JUPYTER_ENABLE_LAB=yes \
     -p $(JUPYTER_PORT):$(JUPYTER_PORT) \
