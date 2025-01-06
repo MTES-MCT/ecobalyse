@@ -1,13 +1,17 @@
 module Page.Explore.Processes exposing (table)
 
 import Data.Dataset as Dataset
+import Data.Impact as Impact
+import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Data.Unit as Unit
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Column, Table)
 import Route
+import Views.Format as Format
 
 
 table : Session -> { detailed : Bool, scope : Scope } -> Table Process String msg
@@ -76,17 +80,20 @@ baseColumns detailed scope =
     ]
 
 
-impactsColumns : Session -> List (Column data comparable msg)
-impactsColumns { store } =
+impactsColumns : Session -> List (Column Process String msg)
+impactsColumns { db, store } =
     case store.auth of
         Session.Authenticated { staff } ->
             if staff then
-                -- Detailed impacts
-                [ { label = "Details des impacts"
-                  , toValue = Table.NoValue
-                  , toCell = always (text "ok")
-                  }
-                ]
+                -- User is admin: add columns for detailed impacts
+                Definition.trigrams
+                    |> List.map
+                        (\trigram ->
+                            { label = Definition.toString trigram
+                            , toValue = Table.FloatValue <| .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
+                            , toCell = .impacts >> Format.formatImpact (Definition.get trigram db.definitions)
+                            }
+                        )
 
             else
                 []
