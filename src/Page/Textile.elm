@@ -1015,7 +1015,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , TrimView.editorView
         { addLabel = "Ajouter un accessoire"
-        , allowExpandDetails = False
+        , allowExpandDetails = True
         , db = session.db.textile
         , detailed = model.detailedTrims
         , impact = model.impact
