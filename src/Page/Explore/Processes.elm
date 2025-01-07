@@ -41,18 +41,6 @@ baseColumns detailed scope =
       , toValue = Table.StringValue Process.getDisplayName
       , toCell = Process.getDisplayName >> text
       }
-    , { label = "Catégories"
-      , toValue =
-            Table.StringValue <|
-                .categories
-                    >> List.map ProcessCategory.toLabel
-                    >> String.join ", "
-      , toCell =
-            .categories
-                >> List.map ProcessCategory.toLabel
-                >> String.join ", "
-                >> text
-      }
     , { label = "Nom technique"
       , toValue = Table.StringValue .name
       , toCell = .name >> text
@@ -64,6 +52,18 @@ baseColumns detailed scope =
     , { label = "Identifiant dans la source"
       , toValue = Table.StringValue <| .sourceId >> Maybe.map Process.sourceIdToString >> Maybe.withDefault ""
       , toCell = .sourceId >> Maybe.map (Process.sourceIdToString >> text >> List.singleton >> code []) >> Maybe.withDefault (text "")
+      }
+    , { label = "Catégories"
+      , toValue =
+            Table.StringValue <|
+                .categories
+                    >> List.map ProcessCategory.toLabel
+                    >> String.join ", "
+      , toCell =
+            .categories
+                >> List.map ProcessCategory.toLabel
+                >> String.join ", "
+                >> text
       }
     , { label = "Alias"
       , toValue = Table.StringValue <| .alias >> Maybe.withDefault ""
