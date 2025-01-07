@@ -15,3 +15,4 @@ Pipfile.lock
 *.yaml
 .prettierrc
 *.html
+tests/processes-schema.json
