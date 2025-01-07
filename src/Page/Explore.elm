@@ -42,7 +42,7 @@ import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.ObjectExamples as ObjectExamples
-import Page.Explore.Processes as FoodProcesses
+import Page.Explore.Processes as Processes
 import Page.Explore.Table as Table
 import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
@@ -396,7 +396,7 @@ processesExplorer session scope tableConfig tableState maybeId =
     in
     [ scopedProcesses
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodProcesses.table session)
+        |> Table.viewList OpenDetail tableConfig tableState scope (Processes.table session)
     , case maybeId of
         Just id ->
             detailsModal
@@ -406,7 +406,7 @@ processesExplorer session scope tableConfig tableState maybeId =
 
                     Ok process ->
                         process
-                            |> Table.viewDetails Scope.Food (FoodProcesses.table session)
+                            |> Table.viewDetails scope (Processes.table session)
                 )
 
         Nothing ->
