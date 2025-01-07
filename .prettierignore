@@ -2,7 +2,6 @@
 elm.json
 package-lock.json
 package.json
-**/activities_to_create.json
 tests/e2e-textile.json
 tests/e2e-food.json
 public/icomoon/*
