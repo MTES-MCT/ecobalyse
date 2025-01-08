@@ -15,6 +15,7 @@ import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Decode as Decode
 import RemoteData
 import Request.Version as Version exposing (Version(..))
 import Route
@@ -22,6 +23,7 @@ import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Markdown as Markdown
 import Views.Spinner as Spinner
 
 
@@ -454,6 +456,23 @@ notificationView { closeNotification } notification =
                 , title = Just title
                 , close = Just (closeNotification notification)
                 , content = [ text message ]
+                }
+
+        Session.StoreDecodingError decodeError ->
+            Alert.simple
+                { level = Alert.Danger
+                , title = Just "Erreur de récupération de session"
+                , close = Nothing
+                , content =
+                    [ Markdown.simple []
+                        """Votre précédente session n'a pas pu être récupérée, elle a donc été réinitialisée.
+                           Vous aurez peut-être besoin de vous [réauthentifier](/#/auth/) sur la plateforme.
+                        """
+                    , details []
+                        [ summary [] [ text "Afficher les détails technique de l'erreur" ]
+                        , pre [] [ text <| Decode.errorToString decodeError ]
+                        ]
+                    ]
                 }
 
 

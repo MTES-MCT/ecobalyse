@@ -81,6 +81,7 @@ type alias EnabledSections =
 type Notification
     = GenericError String String
     | GenericInfo String String
+    | StoreDecodingError Decode.Error
 
 
 closeNotification : Notification -> Session -> Session
@@ -96,6 +97,11 @@ notifyInfo title info ({ notifications } as session) =
 notifyError : String -> String -> Session -> Session
 notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
+
+
+notifyStoreDecodingError : Decode.Error -> Session -> Session
+notifyStoreDecodingError error ({ notifications } as session) =
+    { session | notifications = notifications ++ [ StoreDecodingError error ] }
 
 
 
@@ -288,14 +294,11 @@ getUser { store } =
 
 decodeRawStore : String -> Session -> Session
 decodeRawStore rawStore session =
-    case
-        rawStore
-            |> Decode.decodeString decodeStore
-            |> Result.mapError Decode.errorToString
-    of
+    case Decode.decodeString decodeStore rawStore of
         Err error ->
             session
-                |> notifyError "Erreur de récupération de la session" ("Impossible de récupérer les données de la session utilisateur précédente\u{00A0}: " ++ error)
+                |> notifyStoreDecodingError error
+                |> updateStore (always defaultStore)
 
         Ok store ->
             { session | store = store }
