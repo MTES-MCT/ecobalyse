@@ -10,7 +10,7 @@ Nous n'avons pas de données satisfaisantes sur les pré-traitements. Des valeur
 
 ## Comment est construit ce correctif ?
 
-Les valeurs ont été calculées ainsi :&#x20;
+[Les valeurs](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/ennoblissement#consommations-denergie-electricite-et-chaleur) ont été calculées ainsi :&#x20;
 
 1\) Extraction manuelle des valeurs Min-Max-Average (cf. graphes ci-dessous / Partie 3.6 Specific water and energy consumption).&#x20;
 
