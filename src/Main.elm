@@ -88,6 +88,7 @@ type Msg
     | OpenMobileNavigation
     | ReleasesReceived (WebData (List Github.Release))
     | ReloadPage
+    | ResetSessionStore
     | StatsMsg Stats.Msg
     | StoreChanged String
     | SwitchVersion String
@@ -356,6 +357,16 @@ update rawMsg ({ state } as model) =
                     , Cmd.none
                     )
 
+                ( ResetSessionStore, currentPage ) ->
+                    let
+                        newSession =
+                            { session | notifications = [], store = Session.defaultStore }
+                                |> Session.notifyInfo "Session" "La session a été réinitialisée."
+                    in
+                    ( { model | state = currentPage |> Loaded newSession }
+                    , newSession.store |> Session.serializeStore |> Ports.saveStore
+                    )
+
                 -- Version switch
                 ( SwitchVersion version, _ ) ->
                     ( model
@@ -476,6 +487,7 @@ view { mobileNavigationOpened, state } =
                         LoadUrl
                         ReloadPage
                         CloseNotification
+                        ResetSessionStore
                         SwitchVersion
 
                 mapMsg msg ( title, content ) =

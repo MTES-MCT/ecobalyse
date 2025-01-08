@@ -23,7 +23,6 @@ import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
-import Views.Markdown as Markdown
 import Views.Spinner as Spinner
 
 
@@ -55,6 +54,7 @@ type alias Config msg =
     , loadUrl : String -> msg
     , reloadPage : msg
     , closeNotification : Session.Notification -> msg
+    , resetSessionStore : msg
     , switchVersion : String -> msg
     , activePage : ActivePage
     }
@@ -438,7 +438,7 @@ notificationListView ({ session } as config) =
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
-notificationView { closeNotification } notification =
+notificationView { closeNotification, resetSessionStore } notification =
     -- TODO:
     -- - absolute positionning
     case notification of
@@ -464,10 +464,8 @@ notificationView { closeNotification } notification =
                 , title = Just "Erreur de récupération de session"
                 , close = Nothing
                 , content =
-                    [ Markdown.simple []
-                        """Votre précédente session n'a pas pu être récupérée, elle a donc été réinitialisée.
-                           Vous aurez peut-être besoin de vous [réauthentifier](/#/auth/) sur la plateforme.
-                        """
+                    [ p [] [ text "Votre précédente session n'a pas pu être récupérée, elle doit donc être réinitialisée." ]
+                    , p [] [ button [ class "btn btn-primary", onClick resetSessionStore ] [ text "D'accord" ] ]
                     , details []
                         [ summary [] [ text "Afficher les détails techniques de l'erreur" ]
                         , pre [] [ text <| Decode.errorToString decodeError ]

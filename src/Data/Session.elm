@@ -296,9 +296,7 @@ decodeRawStore : String -> Session -> Session
 decodeRawStore rawStore session =
     case Decode.decodeString decodeStore rawStore of
         Err error ->
-            session
-                |> notifyStoreDecodingError error
-                |> updateStore (always defaultStore)
+            session |> notifyStoreDecodingError error
 
         Ok store ->
             { session | store = store }
