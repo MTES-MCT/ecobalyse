@@ -111,6 +111,7 @@ def profile(request):
             "first_name": u.first_name,
             "last_name": u.last_name,
             "organization": u.organization,
+            "staff": u.is_staff,
             "terms_of_use": u.terms_of_use,
             "token": u.token,
         }

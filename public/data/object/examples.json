@@ -1,27 +1,26 @@
 [
   {
+    "category": "",
     "id": "0d08a9ff-5683-4d3d-a7b8-dce74f37cd3b",
     "name": "Objet vide",
-    "scope": "object",
-    "category": "",
     "query": {
       "components": []
-    }
+    },
+    "scope": "object"
   },
   {
+    "category": "",
     "id": "cefc2585-7125-4610-aadc-69970a3d67d1",
     "name": "Véhicule intermédiaire par défaut",
-    "scope": "veli",
-    "category": "",
     "query": {
       "components": []
-    }
+    },
+    "scope": "veli"
   },
   {
+    "category": "",
     "id": "7d78d30e-7c35-451f-b8ab-e590f39ed0e8",
     "name": "Chaise",
-    "scope": "object",
-    "category": "",
     "query": {
       "components": [
         {
@@ -37,13 +36,13 @@
           "quantity": 1
         }
       ]
-    }
+    },
+    "scope": "object"
   },
   {
+    "category": "",
     "id": "4d14194a-8c62-4c23-8799-745c498d1f6b",
     "name": "Table",
-    "scope": "object",
-    "category": "",
     "query": {
       "components": [
         {
@@ -55,13 +54,13 @@
           "quantity": 1
         }
       ]
-    }
+    },
+    "scope": "object"
   },
   {
+    "category": "",
     "id": "b5aeadf6-95f2-4ee2-b528-899b54f62a20",
     "name": "VAE",
-    "scope": "veli",
-    "category": "",
     "query": {
       "components": [
         {
@@ -69,6 +68,7 @@
           "quantity": 1
         }
       ]
-    }
+    },
+    "scope": "veli"
   }
 ]

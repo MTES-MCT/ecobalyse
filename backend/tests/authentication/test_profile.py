@@ -29,5 +29,6 @@ def test_authenticated_user_should_access_profile(client):
         "last_name": "",
         "organization": "",
         "terms_of_use": False,
+        "staff": False,
         "token": str(test_user.token),
     }

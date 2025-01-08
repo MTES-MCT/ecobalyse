@@ -1,24 +1,24 @@
 [
   {
+    "category": "",
     "id": "1d04242a-6312-4d92-9233-8b485d128e65",
     "name": "Produit vide",
-    "scope": "food",
-    "category": "",
     "query": {
       "ingredients": []
-    }
+    },
+    "scope": "food"
   },
   {
+    "category": "Produits céréaliers",
     "id": "b2b9f235-e7c4-4727-aa7a-1f7c8b5a9812",
     "name": "Farine de blé bio FR (1kg) - 20",
-    "scope": "food",
-    "category": "Produits céréaliers",
     "query": {
+      "distribution": "ambient",
       "ingredients": [
         {
+          "country": "FR",
           "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
-          "mass": 1000,
-          "country": "FR"
+          "mass": 1000
         }
       ],
       "packaging": [
@@ -26,21 +26,21 @@
           "id": "a864ad10-5fe6-4bca-b6d5-452151b1090a",
           "mass": 20
         }
-      ],
-      "distribution": "ambient"
-    }
+      ]
+    },
+    "scope": "food"
   },
   {
+    "category": "Produits céréaliers",
     "id": "3c7d4110-6064-45a2-a7de-6649fa72ca1a",
     "name": "Farine de blé FR (1kg) - 22",
-    "scope": "food",
-    "category": "Produits céréaliers",
     "query": {
+      "distribution": "ambient",
       "ingredients": [
         {
+          "country": "FR",
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 1000,
-          "country": "FR"
+          "mass": 1000
         }
       ],
       "packaging": [
@@ -48,16 +48,16 @@
           "id": "a864ad10-5fe6-4bca-b6d5-452151b1090a",
           "mass": 20
         }
-      ],
-      "distribution": "ambient"
-    }
+      ]
+    },
+    "scope": "food"
   },
   {
+    "category": "Produits céréaliers",
     "id": "e2de4127-69e0-4436-b814-efb648ac9ff7",
     "name": "Farine de blé origine Ukraine (1kg) - 22",
-    "scope": "food",
-    "category": "Produits céréaliers",
     "query": {
+      "distribution": "ambient",
       "ingredients": [
         {
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
@@ -69,21 +69,21 @@
           "id": "a864ad10-5fe6-4bca-b6d5-452151b1090a",
           "mass": 20
         }
-      ],
-      "distribution": "ambient"
-    }
+      ]
+    },
+    "scope": "food"
   },
   {
+    "category": "Volaille",
     "id": "55539367-a21b-4da1-8009-e2620c18404f",
     "name": "Filets de poulet FR (250g) - 96",
-    "scope": "food",
-    "category": "Volaille",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
+          "country": "FR",
           "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984",
-          "mass": 250,
-          "country": "FR"
+          "mass": 250
         }
       ],
       "packaging": [
@@ -92,21 +92,21 @@
           "mass": 50
         }
       ],
-      "distribution": "frozen",
       "preparation": ["freezing", "oven"]
-    }
+    },
+    "scope": "food"
   },
   {
+    "category": "Volaille",
     "id": "af215046-d6af-470c-975f-643ad0be35e5",
     "name": "Filets de poulet origine Brésil (250g) - 100",
-    "scope": "food",
-    "category": "Volaille",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
+          "country": "BR",
           "id": "8fb5024c-ceec-4201-b069-ea253c537ad6",
-          "mass": 250,
-          "country": "BR"
+          "mass": 250
         }
       ],
       "packaging": [
@@ -115,16 +115,16 @@
           "mass": 50
         }
       ],
-      "distribution": "frozen",
       "preparation": ["freezing", "oven"]
-    }
+    },
+    "scope": "food"
   },
   {
+    "category": "Produit surgelé",
     "id": "b9966def-463f-4ad0-b225-5da94f80de73",
     "name": "Pizza bolognese (375g) - 21",
-    "scope": "food",
-    "category": "Produit surgelé",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
@@ -171,180 +171,180 @@
           "mass": 6
         }
       ],
-      "transform": {
-        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
-        "mass": 398
-      },
       "packaging": [
         {
           "id": "c352add7-8037-464e-bff2-7da517419f88",
           "mass": 100
         }
       ],
-      "distribution": "frozen",
-      "preparation": ["freezing", "oven"]
-    }
+      "preparation": ["freezing", "oven"],
+      "transform": {
+        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
+        "mass": 398
+      }
+    },
+    "scope": "food"
   },
   {
+    "category": "Produit surgelé",
     "id": "6fb777d4-eae2-4594-9f0c-7fc4e2853b97",
     "name": "Pizza bolognese FR (375g) - 21",
-    "scope": "food",
-    "category": "Produit surgelé",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
+          "country": "FR",
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 148,
-          "country": "FR"
+          "mass": 148
         },
         {
+          "country": "FR",
           "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 100,
-          "country": "FR"
+          "mass": 100
         },
         {
+          "country": "FR",
           "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 19,
-          "country": "FR"
+          "mass": 19
         },
         {
+          "country": "FR",
           "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
-          "mass": 43,
-          "country": "FR"
+          "mass": 43
         },
         {
+          "country": "FR",
           "id": "8f075c25-9ebf-430c-b41d-51d165c6e0d8",
-          "mass": 3,
-          "country": "FR"
+          "mass": 3
         },
         {
+          "country": "FR",
           "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
-          "mass": 5,
-          "country": "FR"
+          "mass": 5
         },
         {
+          "country": "FR",
           "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 33,
-          "country": "FR"
+          "mass": 33
         },
         {
+          "country": "FR",
           "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
-          "mass": 19,
-          "country": "FR"
+          "mass": 19
         },
         {
+          "country": "FR",
           "id": "3cfab110-363e-442a-9170-1af337fe9ea3",
-          "mass": 2,
-          "country": "FR"
+          "mass": 2
         },
         {
+          "country": "FR",
           "id": "97cde31b-e46e-472d-836d-9b217c3845df",
-          "mass": 14,
-          "country": "FR"
+          "mass": 14
         },
         {
+          "country": "FR",
           "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae",
-          "mass": 6,
-          "country": "FR"
+          "mass": 6
         }
       ],
+      "packaging": [
+        {
+          "id": "c352add7-8037-464e-bff2-7da517419f88",
+          "mass": 100
+        }
+      ],
+      "preparation": ["freezing", "oven"],
       "transform": {
         "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
         "mass": 392
-      },
+      }
+    },
+    "scope": "food"
+  },
+  {
+    "category": "Produit surgelé",
+    "id": "786839bf-f348-4609-b2d4-75d3f35c692d",
+    "name": "Pizza bolognese FR bio (375g) - 21",
+    "query": {
+      "distribution": "frozen",
+      "ingredients": [
+        {
+          "country": "FR",
+          "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
+          "mass": 148
+        },
+        {
+          "country": "FR",
+          "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
+          "mass": 100
+        },
+        {
+          "country": "FR",
+          "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
+          "mass": 19
+        },
+        {
+          "country": "FR",
+          "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
+          "mass": 43
+        },
+        {
+          "country": "FR",
+          "id": "8f075c25-9ebf-430c-b41d-51d165c6e0d8",
+          "mass": 3
+        },
+        {
+          "country": "FR",
+          "id": "51f8e8d2-13c0-446c-bf0a-9272fc46edde",
+          "mass": 5
+        },
+        {
+          "country": "FR",
+          "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
+          "mass": 33
+        },
+        {
+          "country": "FR",
+          "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
+          "mass": 19
+        },
+        {
+          "country": "FR",
+          "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40",
+          "mass": 2
+        },
+        {
+          "country": "FR",
+          "id": "97cde31b-e46e-472d-836d-9b217c3845df",
+          "mass": 14
+        },
+        {
+          "country": "FR",
+          "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
+          "mass": 6
+        }
+      ],
       "packaging": [
         {
           "id": "c352add7-8037-464e-bff2-7da517419f88",
           "mass": 100
         }
       ],
-      "distribution": "frozen",
-      "preparation": ["freezing", "oven"]
-    }
-  },
-  {
-    "id": "786839bf-f348-4609-b2d4-75d3f35c692d",
-    "name": "Pizza bolognese FR bio (375g) - 21",
-    "scope": "food",
-    "category": "Produit surgelé",
-    "query": {
-      "ingredients": [
-        {
-          "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
-          "mass": 148,
-          "country": "FR"
-        },
-        {
-          "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 100,
-          "country": "FR"
-        },
-        {
-          "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 19,
-          "country": "FR"
-        },
-        {
-          "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
-          "mass": 43,
-          "country": "FR"
-        },
-        {
-          "id": "8f075c25-9ebf-430c-b41d-51d165c6e0d8",
-          "mass": 3,
-          "country": "FR"
-        },
-        {
-          "id": "51f8e8d2-13c0-446c-bf0a-9272fc46edde",
-          "mass": 5,
-          "country": "FR"
-        },
-        {
-          "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 33,
-          "country": "FR"
-        },
-        {
-          "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
-          "mass": 19,
-          "country": "FR"
-        },
-        {
-          "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40",
-          "mass": 2,
-          "country": "FR"
-        },
-        {
-          "id": "97cde31b-e46e-472d-836d-9b217c3845df",
-          "mass": 14,
-          "country": "FR"
-        },
-        {
-          "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
-          "mass": 6,
-          "country": "FR"
-        }
-      ],
+      "preparation": ["freezing", "oven"],
       "transform": {
         "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
         "mass": 398
-      },
-      "packaging": [
-        {
-          "id": "c352add7-8037-464e-bff2-7da517419f88",
-          "mass": 100
-        }
-      ],
-      "distribution": "frozen",
-      "preparation": ["freezing", "oven"]
-    }
+      }
+    },
+    "scope": "food"
   },
   {
+    "category": "Produit surgelé",
     "id": "4ce49252-07c4-4e2a-a451-dc26f1550889",
     "name": "Pizza royale (350g) - 6",
-    "scope": "food",
-    "category": "Produit surgelé",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
@@ -383,92 +383,92 @@
           "mass": 22
         }
       ],
-      "transform": {
-        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
-        "mass": 363
-      },
       "packaging": [
         {
           "id": "c352add7-8037-464e-bff2-7da517419f88",
           "mass": 100
         }
       ],
-      "distribution": "frozen",
-      "preparation": ["freezing", "oven"]
-    }
+      "preparation": ["freezing", "oven"],
+      "transform": {
+        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
+        "mass": 363
+      }
+    },
+    "scope": "food"
   },
   {
+    "category": "Produit surgelé",
     "id": "d97ee8a2-1e8b-425c-9ea4-c1d67d2640f9",
     "name": "Pizza royale FR (350g) - 6",
-    "scope": "food",
-    "category": "Produit surgelé",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
+          "country": "FR",
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 97,
-          "country": "FR"
+          "mass": 97
         },
         {
+          "country": "FR",
           "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 89,
-          "country": "FR"
+          "mass": 89
         },
         {
+          "country": "FR",
           "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 70,
-          "country": "FR"
+          "mass": 70
         },
         {
+          "country": "FR",
           "id": "755225f1-f0c5-497f-b8a9-263828a84a22",
-          "mass": 16,
-          "country": "FR"
+          "mass": 16
         },
         {
+          "country": "FR",
           "id": "8f075c25-9ebf-430c-b41d-51d165c6e0d8",
-          "mass": 5,
-          "country": "FR"
+          "mass": 5
         },
         {
+          "country": "FR",
           "id": "5d22559d-c16d-4545-94b9-be2ff51e2879",
-          "mass": 31,
-          "country": "FR"
+          "mass": 31
         },
         {
+          "country": "FR",
           "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
-          "mass": 16,
-          "country": "FR"
+          "mass": 16
         },
         {
           "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
           "mass": 1
         },
         {
+          "country": "FR",
           "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 22,
-          "country": "FR"
+          "mass": 22
         }
       ],
-      "transform": {
-        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
-        "mass": 363
-      },
       "packaging": [
         {
           "id": "c352add7-8037-464e-bff2-7da517419f88",
           "mass": 100
         }
       ],
-      "distribution": "frozen",
-      "preparation": ["freezing", "oven"]
-    }
+      "preparation": ["freezing", "oven"],
+      "transform": {
+        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
+        "mass": 363
+      }
+    },
+    "scope": "food"
   },
   {
+    "category": "Produit surgelé",
     "id": "1a2911dd-d32b-4e4e-9c31-a5eceaea66bb",
     "name": "Pizza végétale (385g) - 19",
-    "scope": "food",
-    "category": "Produit surgelé",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
@@ -515,107 +515,107 @@
           "mass": 22
         }
       ],
-      "transform": {
-        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
-        "mass": 396
-      },
       "packaging": [
         {
           "id": "c352add7-8037-464e-bff2-7da517419f88",
           "mass": 100
         }
       ],
-      "distribution": "frozen",
-      "preparation": ["freezing", "oven"]
-    }
+      "preparation": ["freezing", "oven"],
+      "transform": {
+        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
+        "mass": 396
+      }
+    },
+    "scope": "food"
   },
   {
+    "category": "Produit surgelé",
     "id": "dafff308-db3f-4c3d-aa9c-b626c1b4ae17",
     "name": "Pizza végétale FR (385g) - 19",
-    "scope": "food",
-    "category": "Produit surgelé",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
+          "country": "FR",
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 113,
-          "country": "FR"
+          "mass": 113
         },
         {
+          "country": "FR",
           "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 76,
-          "country": "FR"
+          "mass": 76
         },
         {
+          "country": "FR",
           "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 36.00000000000001,
-          "country": "FR"
+          "mass": 36.00000000000001
         },
         {
+          "country": "FR",
           "id": "8f075c25-9ebf-430c-b41d-51d165c6e0d8",
-          "mass": 4,
-          "country": "FR"
+          "mass": 4
         },
         {
+          "country": "FR",
           "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
-          "mass": 21,
-          "country": "FR"
+          "mass": 21
         },
         {
           "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
           "mass": 2
         },
         {
+          "country": "FR",
           "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
-          "mass": 12,
-          "country": "FR"
+          "mass": 12
         },
         {
+          "country": "FR",
           "id": "16caaefa-40f5-4d29-a3e6-26349846f2c9",
-          "mass": 36.00000000000001,
-          "country": "FR"
+          "mass": 36.00000000000001
         },
         {
+          "country": "FR",
           "id": "361139ac-1028-4cc8-9c0e-4955c5fa39d3",
-          "mass": 36.00000000000001,
-          "country": "FR"
+          "mass": 36.00000000000001
         },
         {
+          "country": "FR",
           "id": "97cde31b-e46e-472d-836d-9b217c3845df",
-          "mass": 12,
-          "country": "FR"
+          "mass": 12
         },
         {
+          "country": "FR",
           "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 22,
-          "country": "FR"
+          "mass": 22
         }
       ],
-      "transform": {
-        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
-        "mass": 370
-      },
       "packaging": [
         {
           "id": "c352add7-8037-464e-bff2-7da517419f88",
           "mass": 100
         }
       ],
-      "distribution": "frozen",
-      "preparation": ["freezing", "oven"]
-    }
+      "preparation": ["freezing", "oven"],
+      "transform": {
+        "id": "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
+        "mass": 370
+      }
+    },
+    "scope": "food"
   },
   {
+    "category": "Viande bovine",
     "id": "b375f93b-b8c2-4849-ab32-8a731a8212ca",
     "name": "Steak haché surgelé origine Brésil (200g) - 82",
-    "scope": "food",
-    "category": "Viande bovine",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
+          "country": "BR",
           "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
-          "mass": 200,
-          "country": "BR"
+          "mass": 200
         }
       ],
       "packaging": [
@@ -624,21 +624,21 @@
           "mass": 50
         }
       ],
-      "distribution": "frozen",
       "preparation": ["freezing", "pan-cooking"]
-    }
+    },
+    "scope": "food"
   },
   {
+    "category": "Viande bovine",
     "id": "f5872248-3fa2-49cd-928e-df1adb9c7094",
     "name": "Steak haché surgelé FR (250g) - 95",
-    "scope": "food",
-    "category": "Viande bovine",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
+          "country": "FR",
           "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
-          "mass": 250,
-          "country": "FR"
+          "mass": 250
         }
       ],
       "packaging": [
@@ -647,21 +647,21 @@
           "mass": 50
         }
       ],
-      "distribution": "frozen",
       "preparation": ["freezing", "pan-cooking"]
-    }
+    },
+    "scope": "food"
   },
   {
+    "category": "Viande bovine",
     "id": "2fd25fd5-48fa-49b5-b5f2-e9b1fc5db166",
     "name": "Steak haché surgelé bio FR (200g) - 78",
-    "scope": "food",
-    "category": "Viande bovine",
     "query": {
+      "distribution": "frozen",
       "ingredients": [
         {
+          "country": "FR",
           "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
-          "mass": 200,
-          "country": "FR"
+          "mass": 200
         }
       ],
       "packaging": [
@@ -670,8 +670,8 @@
           "mass": 50
         }
       ],
-      "distribution": "frozen",
       "preparation": ["freezing", "pan-cooking"]
-    }
+    },
+    "scope": "food"
   }
 ]

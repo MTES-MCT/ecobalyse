@@ -32,13 +32,11 @@ type Dataset
     | Countries (Maybe Country.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
-    | FoodProcesses (Maybe Process.Id)
     | Impacts (Maybe Definition.Trigram)
     | ObjectExamples (Maybe Uuid)
-    | ObjectProcesses (Maybe Process.Id)
+    | Processes Scope (Maybe Process.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
-    | TextileProcesses (Maybe Process.Id)
     | TextileProducts (Maybe Product.Id)
 
 
@@ -50,13 +48,13 @@ datasets scope =
             , Impacts Nothing
             , FoodIngredients Nothing
             , Countries Nothing
-            , FoodProcesses Nothing
+            , Processes Scope.Food Nothing
             ]
 
         Scope.Object ->
             [ ObjectExamples Nothing
             , Components Scope.Object Nothing
-            , ObjectProcesses Nothing
+            , Processes Scope.Object Nothing
             , Impacts Nothing
             ]
 
@@ -66,7 +64,7 @@ datasets scope =
             , Impacts Nothing
             , TextileMaterials Nothing
             , Countries Nothing
-            , TextileProcesses Nothing
+            , Processes Scope.Textile Nothing
             , TextileProducts Nothing
             ]
 
@@ -85,7 +83,7 @@ fromSlug string =
             FoodExamples Nothing
 
         "food-processes" ->
-            FoodProcesses Nothing
+            Processes Scope.Food Nothing
 
         "impacts" ->
             Impacts Nothing
@@ -103,16 +101,19 @@ fromSlug string =
             ObjectExamples Nothing
 
         "object-processes" ->
-            ObjectProcesses Nothing
+            Processes Scope.Object Nothing
 
         "processes" ->
-            TextileProcesses Nothing
+            Processes Scope.Textile Nothing
 
         "products" ->
             TextileProducts Nothing
 
         "textile-components" ->
             Components Scope.Textile Nothing
+
+        "textile-processes" ->
+            Processes Scope.Textile Nothing
 
         _ ->
             TextileExamples Nothing
@@ -133,25 +134,19 @@ isDetailed dataset =
         FoodIngredients (Just _) ->
             True
 
-        FoodProcesses (Just _) ->
-            True
-
         Impacts (Just _) ->
             True
 
         ObjectExamples (Just _) ->
             True
 
-        ObjectProcesses (Just _) ->
+        Processes _ (Just _) ->
             True
 
         TextileExamples (Just _) ->
             True
 
         TextileMaterials (Just _) ->
-            True
-
-        TextileProcesses (Just _) ->
             True
 
         TextileProducts (Just _) ->
@@ -186,26 +181,20 @@ reset dataset =
         FoodIngredients _ ->
             FoodIngredients Nothing
 
-        FoodProcesses _ ->
-            FoodProcesses Nothing
-
         Impacts _ ->
             Impacts Nothing
 
         ObjectExamples _ ->
             ObjectExamples Nothing
 
-        ObjectProcesses _ ->
-            ObjectProcesses Nothing
+        Processes scope _ ->
+            Processes scope Nothing
 
         TextileExamples _ ->
             TextileExamples Nothing
 
         TextileMaterials _ ->
             TextileMaterials Nothing
-
-        TextileProcesses _ ->
-            TextileProcesses Nothing
 
         TextileProducts _ ->
             TextileProducts Nothing
@@ -223,8 +212,8 @@ same a b =
         ( FoodIngredients _, FoodIngredients _ ) ->
             True
 
-        ( FoodProcesses _, FoodProcesses _ ) ->
-            True
+        ( Processes scope1 _, Processes scope2 _ ) ->
+            scope1 == scope2
 
         ( Impacts _, Impacts _ ) ->
             True
@@ -238,13 +227,7 @@ same a b =
         ( ObjectExamples _, ObjectExamples _ ) ->
             True
 
-        ( ObjectProcesses _, ObjectProcesses _ ) ->
-            True
-
         ( TextileMaterials _, TextileMaterials _ ) ->
-            True
-
-        ( TextileProcesses _, TextileProcesses _ ) ->
             True
 
         ( TextileProducts _, TextileProducts _ ) ->
@@ -269,26 +252,20 @@ setIdFromString idString dataset =
         FoodIngredients _ ->
             FoodIngredients (Ingredient.idFromString idString)
 
-        FoodProcesses _ ->
-            FoodProcesses (Process.idFromString idString)
-
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
         ObjectExamples _ ->
             ObjectExamples (Uuid.fromString idString)
 
-        ObjectProcesses _ ->
-            ObjectProcesses (Process.idFromString idString)
+        Processes scope _ ->
+            Processes scope (Process.idFromString idString)
 
         TextileExamples _ ->
             TextileExamples (Uuid.fromString idString)
 
         TextileMaterials _ ->
             TextileMaterials (Just (Material.Id idString))
-
-        TextileProcesses _ ->
-            TextileProcesses (Process.idFromString idString)
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
@@ -314,26 +291,20 @@ strings dataset =
         FoodIngredients _ ->
             { label = "Ingrédients", slug = "ingredients" }
 
-        FoodProcesses _ ->
-            { label = "Procédés", slug = "food-processes" }
-
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
 
         ObjectExamples _ ->
             { label = "Exemples", slug = "object-examples" }
 
-        ObjectProcesses _ ->
-            { label = "Procédés", slug = "object-processes" }
+        Processes scope _ ->
+            { label = "Procédés", slug = Scope.toString scope ++ "-processes" }
 
         TextileExamples _ ->
             { label = "Exemples", slug = "textile-examples" }
 
         TextileMaterials _ ->
             { label = "Matières", slug = "materials" }
-
-        TextileProcesses _ ->
-            { label = "Procédés", slug = "processes" }
 
         TextileProducts _ ->
             { label = "Produits", slug = "products" }
@@ -366,12 +337,6 @@ toRoutePath dataset =
         FoodIngredients Nothing ->
             [ slug dataset ]
 
-        FoodProcesses (Just id) ->
-            [ slug dataset, Process.idToString id ]
-
-        FoodProcesses Nothing ->
-            [ slug dataset ]
-
         Impacts (Just trigram) ->
             [ slug dataset, Definition.toString trigram ]
 
@@ -384,10 +349,10 @@ toRoutePath dataset =
         ObjectExamples Nothing ->
             [ slug dataset ]
 
-        ObjectProcesses (Just id) ->
+        Processes _ (Just id) ->
             [ slug dataset, Process.idToString id ]
 
-        ObjectProcesses Nothing ->
+        Processes _ Nothing ->
             [ slug dataset ]
 
         TextileExamples (Just id) ->
@@ -400,12 +365,6 @@ toRoutePath dataset =
             [ slug dataset, Material.idToString id ]
 
         TextileMaterials Nothing ->
-            [ slug dataset ]
-
-        TextileProcesses (Just id) ->
-            [ slug dataset, Process.idToString id ]
-
-        TextileProcesses Nothing ->
             [ slug dataset ]
 
         TextileProducts (Just id) ->
