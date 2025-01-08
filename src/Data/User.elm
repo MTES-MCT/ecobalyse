@@ -34,7 +34,7 @@ decode =
         |> Pipe.required "email" Decode.string
         |> Pipe.required "first_name" Decode.string
         |> Pipe.required "last_name" Decode.string
-        |> Pipe.required "staff" Decode.bool
+        |> Pipe.optional "staff" Decode.bool False
         |> Pipe.required "token" Decode.string
 
 
@@ -46,6 +46,7 @@ encode user =
         , ( "last_name", Encode.string user.lastname )
         , ( "organization", Encode.string user.company )
         , ( "terms_of_use", Encode.bool user.cgu )
+        , ( "staff", Encode.bool user.staff )
         , ( "token", Encode.string user.token )
         ]
 
