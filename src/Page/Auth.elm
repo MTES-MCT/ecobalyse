@@ -76,6 +76,7 @@ emptyModel { authenticated } =
         , lastname = ""
         , company = ""
         , cgu = False
+        , staff = False
         , token = ""
         }
     , formErrors = Dict.empty
@@ -251,33 +252,41 @@ view session model =
 
 viewAccount : User -> Html Msg
 viewAccount user =
-    div [ class "table-responsive border shadow-sm" ]
-        [ table [ class "table table-striped mb-0" ]
-            [ [ ( "Email", text user.email )
-              , ( "Nom", text user.lastname )
-              , ( "Prénom", text user.firstname )
-              , ( "Organisation", text user.company )
-              , ( "Jeton d'API"
-                , div []
-                    [ code [] [ text user.token ]
-                    , br [] []
-                    , small [ class "text-muted" ]
-                        [ text "Nécessaire pour obtenir les impacts détaillés dans "
-                        , a [ Route.href Route.Api ] [ text "l'API" ]
-                        ]
-                    ]
-                )
-              ]
-                |> List.map
-                    (\( label, htmlValue ) ->
-                        tr []
-                            [ th [] [ text <| label ++ " : " ]
-                            , td [] [ htmlValue ]
-                            ]
-                    )
-                |> tbody []
+    [ Just ( "Email", text user.email )
+    , if user.staff then
+        Just ( "Équipe Ecobalyse", strong [] [ text "Oui" ] )
+
+      else
+        Nothing
+    , Just ( "Nom", text user.lastname )
+    , Just ( "Prénom", text user.firstname )
+    , Just ( "Organisation", text user.company )
+    , Just
+        ( "Jeton d'API"
+        , div []
+            [ code [] [ text user.token ]
+            , br [] []
+            , small [ class "text-muted" ]
+                [ text "Nécessaire pour obtenir les impacts détaillés dans "
+                , a [ Route.href Route.Api ] [ text "l'API" ]
+                ]
             ]
-        ]
+        )
+    ]
+        |> List.filterMap
+            (Maybe.map
+                (\( label, htmlValue ) ->
+                    tr []
+                        [ th [] [ text <| label ++ " : " ]
+                        , td [] [ htmlValue ]
+                        ]
+                )
+            )
+        |> tbody []
+        |> List.singleton
+        |> table [ class "table table-striped mb-0" ]
+        |> List.singleton
+        |> div [ class "table-responsive border shadow-sm" ]
 
 
 viewLoginRegisterForm : Model -> Html Msg

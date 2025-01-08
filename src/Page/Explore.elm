@@ -40,14 +40,12 @@ import Page.Explore.Components as Components
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
-import Page.Explore.FoodProcesses as FoodProcesses
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.ObjectExamples as ObjectExamples
-import Page.Explore.ObjectProcesses as ObjectProcesses
+import Page.Explore.Processes as Processes
 import Page.Explore.Table as Table
 import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
-import Page.Explore.TextileProcesses as TextileProcesses
 import Page.Explore.TextileProducts as TextileProducts
 import Route exposing (Route)
 import Static.Db as Db exposing (Db)
@@ -89,26 +87,20 @@ init scope dataset session =
                 Dataset.FoodIngredients _ ->
                     "Identifiant"
 
-                Dataset.FoodProcesses _ ->
-                    "Nom"
-
                 Dataset.Impacts _ ->
                     "Code"
 
                 Dataset.ObjectExamples _ ->
                     "Coût Environnemental"
 
-                Dataset.ObjectProcesses _ ->
-                    "Identifiant"
+                Dataset.Processes _ _ ->
+                    "Nom"
 
                 Dataset.TextileExamples _ ->
                     "Coût Environnemental"
 
                 Dataset.TextileMaterials _ ->
                     "Identifiant"
-
-                Dataset.TextileProcesses _ ->
-                    "Nom"
 
                 Dataset.TextileProducts _ ->
                     "Identifiant"
@@ -390,26 +382,31 @@ foodIngredientDetails foodDb =
     Table.viewDetails Scope.Food (FoodIngredients.table foodDb)
 
 
-foodProcessesExplorer :
-    Db
+processesExplorer :
+    Session
+    -> Scope
     -> Table.Config Process Msg
     -> SortableTable.State
     -> Maybe Process.Id
     -> List (Html Msg)
-foodProcessesExplorer { food } tableConfig tableState maybeId =
-    [ food.processes
+processesExplorer session scope tableConfig tableState maybeId =
+    let
+        scopedProcesses =
+            Db.scopedProcesses scope session.db
+    in
+    [ scopedProcesses
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodProcesses.table food)
+        |> Table.viewList OpenDetail tableConfig tableState scope (Processes.table session)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findById id food.processes of
+                (case Process.findById id scopedProcesses of
                     Err error ->
                         alert error
 
                     Ok process ->
                         process
-                            |> Table.viewDetails Scope.Food (FoodProcesses.table food)
+                            |> Table.viewDetails scope (Processes.table session)
                 )
 
         Nothing ->
@@ -484,32 +481,6 @@ objectExamplesExplorer db tableConfig tableState maybeId =
                     Ok example ->
                         ( example, { score = getObjectScore db example } )
                             |> Table.viewDetails Scope.Object (ObjectExamples.table max)
-                )
-
-        Nothing ->
-            text ""
-    ]
-
-
-objectProcessesExplorer :
-    Db
-    -> Table.Config Process.Process Msg
-    -> SortableTable.State
-    -> Maybe Process.Id
-    -> List (Html Msg)
-objectProcessesExplorer { object } tableConfig tableState maybeId =
-    [ object.processes
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Object ObjectProcesses.table
-    , case maybeId of
-        Just id ->
-            detailsModal
-                (case Process.findById id object.processes of
-                    Err error ->
-                        alert error
-
-                    Ok process ->
-                        process
-                            |> Table.viewDetails Scope.Object ObjectProcesses.table
                 )
 
         Nothing ->
@@ -630,32 +601,6 @@ textileMaterialDetails db =
     Table.viewDetails Scope.Textile (TextileMaterials.table db)
 
 
-textileProcessesExplorer :
-    Db
-    -> Table.Config Process Msg
-    -> SortableTable.State
-    -> Maybe Process.Id
-    -> List (Html Msg)
-textileProcessesExplorer { textile } tableConfig tableState maybeId =
-    [ textile.processes
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile TextileProcesses.table
-    , case maybeId of
-        Just id ->
-            detailsModal
-                (case Process.findById id textile.processes of
-                    Err error ->
-                        alert error
-
-                    Ok process ->
-                        process
-                            |> Table.viewDetails Scope.Textile TextileProcesses.table
-                )
-
-        Nothing ->
-            text ""
-    ]
-
-
 getFoodScore : Db -> Example FoodQuery.Query -> Float
 getFoodScore db =
     .query
@@ -712,7 +657,7 @@ getTextileScorePer100g db { query } =
 
 
 explore : Session -> Model -> List (Html Msg)
-explore { db } { scope, dataset, tableState } =
+explore ({ db } as session) { scope, dataset, tableState } =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -740,26 +685,20 @@ explore { db } { scope, dataset, tableState } =
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
 
-        Dataset.FoodProcesses maybeId ->
-            foodProcessesExplorer db tableConfig tableState maybeId
-
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.ObjectExamples maybeId ->
             objectExamplesExplorer db tableConfig tableState maybeId
 
-        Dataset.ObjectProcesses maybeId ->
-            objectProcessesExplorer db tableConfig tableState maybeId
+        Dataset.Processes scope_ maybeId ->
+            processesExplorer session scope_ tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileMaterials maybeId ->
             textileMaterialsExplorer db tableConfig tableState maybeId
-
-        Dataset.TextileProcesses maybeId ->
-            textileProcessesExplorer db tableConfig tableState maybeId
 
         Dataset.TextileProducts maybeId ->
             textileProductsExplorer db tableConfig tableState maybeId
