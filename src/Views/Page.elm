@@ -469,7 +469,7 @@ notificationView { closeNotification } notification =
                            Vous aurez peut-être besoin de vous [réauthentifier](/#/auth/) sur la plateforme.
                         """
                     , details []
-                        [ summary [] [ text "Afficher les détails technique de l'erreur" ]
+                        [ summary [] [ text "Afficher les détails techniques de l'erreur" ]
                         , pre [] [ text <| Decode.errorToString decodeError ]
                         ]
                     ]
