@@ -6,11 +6,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 1.8747976500000003,
-      "plotSize": 2.4987717,
       "cropDiversity": 10.603858,
+      "hedges": 1.87479765,
+      "livestockDensity": -0.007728,
       "permanentPasture": 0,
-      "livestockDensity": -0.007728
+      "plotSize": 2.4987717
     },
     "id": "7ef7399a-1d56-4947-b773-9f6438a50fda",
     "inedible_part": 0.2,
@@ -29,11 +29,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 0.67024693,
-      "plotSize": 0.631999475,
       "cropDiversity": 0.0,
+      "hedges": 0.67024693,
+      "livestockDensity": -0.00017,
       "permanentPasture": 0.175,
-      "livestockDensity": -0.00017
+      "plotSize": 0.631999475
     },
     "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
     "inedible_part": 0,
@@ -52,11 +52,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 1.2327752959999998,
-      "plotSize": 1.1135123399999998,
       "cropDiversity": 0.54581806,
+      "hedges": 1.2327752959999998,
+      "livestockDensity": -0.00017800000000000002,
       "permanentPasture": 0.814,
-      "livestockDensity": -0.00017800000000000002
+      "plotSize": 1.1135123399999998
     },
     "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
     "inedible_part": 0,
@@ -71,14 +71,14 @@
   {
     "alias": "carrot-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.44441,
       "hedges": 0.091797,
-      "plotSize": 0.13883,
-      "cropDiversity": 0.44441
+      "plotSize": 0.13883
     },
     "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
     "inedible_part": 0.1,
@@ -93,14 +93,14 @@
   {
     "alias": "flour",
     "categories": ["grain_processed"],
+    "crop_group": "BLE TENDRE",
     "default": "AGRIBALU000000003116999",
     "default_origin": "EuropeAndMaghreb",
     "density": 1,
-    "crop_group": "BLE TENDRE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.43134,
-      "plotSize": 0.58066,
-      "cropDiversity": 0.0
+      "plotSize": 0.58066
     },
     "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
     "inedible_part": 0,
@@ -115,14 +115,14 @@
   {
     "alias": "flour-organic",
     "categories": ["grain_processed", "organic"],
+    "crop_group": "BLE TENDRE",
     "default": "4a9ea0a29fbde60e2d1fc5c33d8a4f3a",
     "default_origin": "EuropeAndMaghreb",
     "density": 1,
-    "crop_group": "BLE TENDRE",
     "ecosystemicServices": {
+      "cropDiversity": 7.8594,
       "hedges": 1.0994,
-      "plotSize": 1.6374,
-      "cropDiversity": 7.8594
+      "plotSize": 1.6374
     },
     "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
     "inedible_part": 0,
@@ -137,14 +137,14 @@
   {
     "alias": "sunflower-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "TOURNESOL",
     "default": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 20.721,
       "hedges": 2.2603,
-      "plotSize": 2.1975,
-      "cropDiversity": 20.721
+      "plotSize": 2.1975
     },
     "id": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
     "inedible_part": 0,
@@ -159,14 +159,14 @@
   {
     "alias": "sunflower-feed-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115221",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 21.46,
       "hedges": 2.3409,
-      "plotSize": 2.2759,
-      "cropDiversity": 21.46
+      "plotSize": 2.2759
     },
     "id": "c5dfca39-14f6-4d7c-a506-d8a5e65256a7",
     "inedible_part": 0,
@@ -181,14 +181,14 @@
   {
     "alias": "rapeseed-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "COLZA",
     "default": "AGRIBALU000024985200196",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "COLZA",
     "ecosystemicServices": {
+      "cropDiversity": 10.938,
       "hedges": 1.8034,
-      "plotSize": 2.2542,
-      "cropDiversity": 10.938
+      "plotSize": 2.2542
     },
     "id": "5238ba53-56e4-404e-ad68-43d80a5df85b",
     "inedible_part": 0,
@@ -207,11 +207,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 34.6779483,
-      "plotSize": 29.319280499999998,
       "cropDiversity": 0.0,
+      "hedges": 34.677948300000004,
+      "livestockDensity": -0.00255,
       "permanentPasture": 37.5,
-      "livestockDensity": -0.00255
+      "plotSize": 29.3192805
     },
     "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
     "inedible_part": 0,
@@ -230,11 +230,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 39.6806036,
-      "plotSize": 35.2594641,
       "cropDiversity": 14.98153,
+      "hedges": 39.680603600000005,
+      "livestockDensity": -0.00267,
       "permanentPasture": 34.68,
-      "livestockDensity": -0.00267
+      "plotSize": 35.259464099999995
     },
     "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
     "inedible_part": 0,
@@ -253,11 +253,11 @@
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 0.0,
-      "plotSize": 0.0,
       "cropDiversity": 0.0,
+      "hedges": 0.0,
+      "livestockDensity": -0.006,
       "permanentPasture": 0,
-      "livestockDensity": -0.006
+      "plotSize": 0.0
     },
     "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
     "inedible_part": 0,
@@ -276,11 +276,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 39.5367217,
-      "plotSize": 32.33125,
       "cropDiversity": 0.0,
+      "hedges": 39.5367217,
+      "livestockDensity": -0.00267,
       "permanentPasture": 51.73,
-      "livestockDensity": -0.00267
+      "plotSize": 32.33125
     },
     "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
     "inedible_part": 0,
@@ -299,11 +299,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 1.4232472,
-      "plotSize": 1.8315832999999997,
       "cropDiversity": 0.0,
+      "hedges": 1.4232472,
+      "livestockDensity": -0.027132000000000003,
       "permanentPasture": 0,
-      "livestockDensity": -0.027132000000000003
+      "plotSize": 1.8315832999999997
     },
     "id": "755225f1-f0c5-497f-b8a9-263828a84a22",
     "inedible_part": 0,
@@ -322,11 +322,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 7.6129356,
-      "plotSize": 9.770795,
       "cropDiversity": 35.179101,
+      "hedges": 7.612935599999999,
+      "livestockDensity": -0.007803000000000001,
       "permanentPasture": 0,
-      "livestockDensity": -0.007803000000000001
+      "plotSize": 9.770795
     },
     "id": "4de5e41e-3271-4489-aa27-a973e4045082",
     "inedible_part": 0,
@@ -345,11 +345,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 1.8489775000000004,
-      "plotSize": 2.5128158,
       "cropDiversity": 0.0,
+      "hedges": 1.8489775000000004,
+      "livestockDensity": -0.027132000000000003,
       "permanentPasture": 0,
-      "livestockDensity": -0.027132000000000003
+      "plotSize": 2.5128158
     },
     "id": "15e2dfa0-9b5f-4bc9-a3ed-885f56061bc0",
     "inedible_part": 0,
@@ -368,11 +368,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 1.6220207,
-      "plotSize": 1.9424640999999998,
       "cropDiversity": 0.0,
+      "hedges": 1.6220207,
+      "livestockDensity": -0.015179999999999997,
       "permanentPasture": 0,
-      "livestockDensity": -0.015179999999999997
+      "plotSize": 1.9424640999999998
     },
     "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984",
     "inedible_part": 0,
@@ -391,11 +391,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 4.9789359,
-      "plotSize": 5.2837998,
-      "cropDiversity": 24.272361,
+      "cropDiversity": 24.272361000000004,
+      "hedges": 4.978935900000001,
+      "livestockDensity": -0.005225,
       "permanentPasture": 0,
-      "livestockDensity": -0.005225
+      "plotSize": 5.2837998
     },
     "id": "b19b0dc0-3478-46a0-b8a1-3225ea939ff1",
     "inedible_part": 0,
@@ -414,11 +414,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 4.9789359,
-      "plotSize": 5.2837998,
-      "cropDiversity": 24.272361,
+      "cropDiversity": 24.272361000000004,
+      "hedges": 4.978935900000001,
+      "livestockDensity": -0.005225,
       "permanentPasture": 0,
-      "livestockDensity": -0.005225
+      "plotSize": 5.2837998
     },
     "id": "b682ae30-9df9-4385-9005-4b4725c70d54",
     "inedible_part": 0,
@@ -433,14 +433,14 @@
   {
     "alias": "rapeseed-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "COLZA",
     "default": "AGRIBALU000000003112448",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1,
-    "crop_group": "COLZA",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.9392,
-      "plotSize": 2.121,
-      "cropDiversity": 0.0
+      "plotSize": 2.121
     },
     "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
     "inedible_part": 0,
@@ -455,14 +455,14 @@
   {
     "alias": "rapeseed-oil-organic",
     "categories": ["nut_oilseed_processed", "organic"],
+    "crop_group": "COLZA",
     "default": "425b95709f7882fa60c6b42f3add1873",
     "default_origin": "EuropeAndMaghreb",
     "density": 1,
-    "crop_group": "COLZA",
     "ecosystemicServices": {
+      "cropDiversity": 18.131,
       "hedges": 2.9895,
-      "plotSize": 3.7369,
-      "cropDiversity": 18.131
+      "plotSize": 3.7369
     },
     "id": "51f8e8d2-13c0-446c-bf0a-9272fc46edde",
     "inedible_part": 0,
@@ -477,14 +477,14 @@
   {
     "alias": "sunflower-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115182",
     "default_origin": "EuropeAndMaghreb",
     "density": 1,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 3.4612,
       "hedges": 2.4539,
-      "plotSize": 3.2207,
-      "cropDiversity": 3.4612
+      "plotSize": 3.2207
     },
     "id": "3cfab110-363e-442a-9170-1af337fe9ea3",
     "inedible_part": 0,
@@ -499,14 +499,14 @@
   {
     "alias": "sunflower-oil-organic",
     "categories": ["nut_oilseed_processed", "organic"],
+    "crop_group": "TOURNESOL",
     "default": "2735a9eb9848c97f9e70fd94f051fb2a",
     "default_origin": "EuropeAndMaghreb",
     "density": 1,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 50.807,
       "hedges": 5.5421,
-      "plotSize": 5.3882,
-      "cropDiversity": 50.807
+      "plotSize": 5.3882
     },
     "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40",
     "inedible_part": 0,
@@ -521,14 +521,14 @@
   {
     "alias": "zucchini-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200219",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.37873,
       "hedges": 0.07823,
-      "plotSize": 0.11831,
-      "cropDiversity": 0.37873
+      "plotSize": 0.11831
     },
     "id": "59092383-9bfb-419e-ab63-825c8e6e6ed0",
     "inedible_part": 0.1,
@@ -543,14 +543,14 @@
   {
     "alias": "peach-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110947",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.51407,
       "hedges": 0.5847,
-      "plotSize": 0.71625,
-      "cropDiversity": 0.51407
+      "plotSize": 0.71625
     },
     "id": "3cc14fbe-c798-46bf-bc7d-94d5ed28fa7c",
     "inedible_part": 0.2,
@@ -565,14 +565,14 @@
   {
     "alias": "melon-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200102",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 1.4006,
       "hedges": 0.2893,
-      "plotSize": 0.43752,
-      "cropDiversity": 1.4006
+      "plotSize": 0.43752
     },
     "id": "359ec82d-4f28-43bd-b5be-84256a45c03e",
     "inedible_part": 0.4,
@@ -683,14 +683,14 @@
   {
     "alias": "beetroot-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.26909,
       "hedges": 0.060065,
-      "plotSize": 0.13883,
-      "cropDiversity": 0.26909
+      "plotSize": 0.13883
     },
     "id": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
     "inedible_part": 0.1,
@@ -705,14 +705,14 @@
   {
     "alias": "celeriac-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.44441,
       "hedges": 0.091797,
-      "plotSize": 0.13883,
-      "cropDiversity": 0.44441
+      "plotSize": 0.13883
     },
     "id": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
     "inedible_part": 0.1,
@@ -727,14 +727,14 @@
   {
     "alias": "turnip-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102611",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.44441,
       "hedges": 0.091797,
-      "plotSize": 0.13883,
-      "cropDiversity": 0.44441
+      "plotSize": 0.13883
     },
     "id": "7e64fe4d-001c-42eb-9307-13c8a21d2805",
     "inedible_part": 0.2,
@@ -749,14 +749,14 @@
   {
     "alias": "chickpea-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "AGRIBALU000024985200193",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "LEGUMINEUSES A GRAIN",
     "ecosystemicServices": {
+      "cropDiversity": 9.4104,
       "hedges": 0.7763,
-      "plotSize": 1.1813,
-      "cropDiversity": 9.4104
+      "plotSize": 1.1813
     },
     "id": "20aea108-cab8-4223-b8b7-4747599e228c",
     "inedible_part": 0.2,
@@ -771,14 +771,14 @@
   {
     "alias": "soybean-humanconsumption",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000024985200128",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "AUTRES OLEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.0623,
-      "plotSize": 2.0097,
-      "cropDiversity": 0.0
+      "plotSize": 2.0097
     },
     "id": "c466ec83-7735-43b6-a919-c933e6656a8d",
     "inedible_part": 0,
@@ -793,14 +793,14 @@
   {
     "alias": "soybean-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000000003114674",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "AUTRES OLEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 18.21,
       "hedges": 1.9696,
-      "plotSize": 2.1102,
-      "cropDiversity": 18.21
+      "plotSize": 2.1102
     },
     "id": "92d34545-6952-466e-bf6d-c1f1f6069b48",
     "inedible_part": 0,
@@ -815,14 +815,14 @@
   {
     "alias": "soybean-br-no-deforestation",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000024985200001",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "AUTRES OLEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0cd5d7be-c2a9-4a3d-a3f9-86e351733438",
     "inedible_part": 0,
@@ -837,14 +837,14 @@
   {
     "alias": "soybean-br-deforestation",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000024985200302",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "AUTRES OLEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "141f76d7-fe36-4f17-b7da-043ac884a309",
     "inedible_part": 0,
@@ -859,14 +859,14 @@
   {
     "alias": "soybean-feed",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000000003114580",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "AUTRES OLEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.0627,
-      "plotSize": 2.0105,
-      "cropDiversity": 0.0
+      "plotSize": 2.0105
     },
     "id": "086b58da-1c4c-40a8-9327-37477d04cfba",
     "inedible_part": 0,
@@ -945,14 +945,14 @@
   {
     "alias": "tomato-paste",
     "categories": ["vegetable_processed"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115655",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.10913,
-      "plotSize": 0.27282,
-      "cropDiversity": 0.0
+      "plotSize": 0.27282
     },
     "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
     "inedible_part": 0,
@@ -967,14 +967,14 @@
   {
     "alias": "tomato-concentrated",
     "categories": ["vegetable_processed"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115656",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.2098,
-      "plotSize": 0.52449,
-      "cropDiversity": 0.0
+      "plotSize": 0.52449
     },
     "id": "55e180a0-9b80-4e0c-9aaf-4613a155d69a",
     "inedible_part": 0,
@@ -993,11 +993,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 22.6626246,
-      "plotSize": 19.160167,
       "cropDiversity": 0.0,
+      "hedges": 22.662624600000004,
+      "livestockDensity": -0.00255,
       "permanentPasture": 24.51,
-      "livestockDensity": -0.00255
+      "plotSize": 19.160167
     },
     "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
     "inedible_part": 0.2,
@@ -1016,11 +1016,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 28.3285335,
-      "plotSize": 23.9515035,
       "cropDiversity": 0.0,
+      "hedges": 28.3285335,
+      "livestockDensity": -0.00255,
       "permanentPasture": 30.63,
-      "livestockDensity": -0.00255
+      "plotSize": 23.9515035
     },
     "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
     "inedible_part": 0,
@@ -1039,11 +1039,11 @@
     "default_origin": "EuropeAndMaghreb",
     "density": 1,
     "ecosystemicServices": {
-      "hedges": 32.419017,
-      "plotSize": 28.8063716,
       "cropDiversity": 12.241081999999999,
+      "hedges": 32.419017000000004,
+      "livestockDensity": -0.00267,
       "permanentPasture": 28.34,
-      "livestockDensity": -0.00267
+      "plotSize": 28.8063716
     },
     "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
     "inedible_part": 0,
@@ -1058,14 +1058,14 @@
   {
     "alias": "durum-wheat-semolina",
     "categories": ["grain_processed"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105079",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.6772,
-      "plotSize": 2.367,
-      "cropDiversity": 0.0
+      "plotSize": 2.367
     },
     "id": "4f3abd56-ed63-4207-afbb-20ac259017e0",
     "inedible_part": 0,
@@ -1080,14 +1080,14 @@
   {
     "alias": "sugar",
     "categories": ["vegetable_processed"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003109942",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.042293,
-      "plotSize": 0.11387,
-      "cropDiversity": 0.0
+      "plotSize": 0.11387
     },
     "id": "8f075c25-9ebf-430c-b41d-51d165c6e0d8",
     "inedible_part": 0,
@@ -1123,11 +1123,11 @@
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 1.6670787,
-      "plotSize": 2.7862491,
       "cropDiversity": 0.0,
+      "hedges": 1.6670787,
+      "livestockDensity": -0.022,
       "permanentPasture": 0,
-      "livestockDensity": -0.022
+      "plotSize": 2.7862491
     },
     "id": "8fb5024c-ceec-4201-b069-ea253c537ad6",
     "inedible_part": 0,
@@ -1146,11 +1146,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 2.5465697,
-      "plotSize": 3.6915990999999995,
       "cropDiversity": 0.0,
+      "hedges": 2.5465697,
+      "livestockDensity": -0.015179999999999997,
       "permanentPasture": 0,
-      "livestockDensity": -0.015179999999999997
+      "plotSize": 3.6915991
     },
     "id": "f94df72e-20fd-4cc5-ab64-ce3921649d58",
     "inedible_part": 0,
@@ -1165,14 +1165,14 @@
   {
     "alias": "cane-sugar",
     "categories": ["vegetable_processed"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003102182",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "9b476f8e-08c2-4406-9198-1fb2e007f000",
     "inedible_part": 0,
@@ -1187,14 +1187,14 @@
   {
     "alias": "tea-dried",
     "categories": ["misc"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003115509",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 7.7534,
       "hedges": 3.6561,
-      "plotSize": 7.3422,
-      "cropDiversity": 7.7534
+      "plotSize": 7.3422
     },
     "id": "97f56acd-962e-4a4b-af42-1e468d2017a0",
     "inedible_part": 0,
@@ -1209,14 +1209,14 @@
   {
     "alias": "coffee-ground",
     "categories": ["misc"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003103623",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "77be5f12-5124-4828-861c-9ce4ed3fa661",
     "inedible_part": 0,
@@ -1231,14 +1231,14 @@
   {
     "alias": "black-pepper",
     "categories": ["spice_condiment_additive"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003101545",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
     "inedible_part": 0,
@@ -1269,14 +1269,14 @@
   {
     "alias": "red-wine",
     "categories": ["misc"],
+    "crop_group": "VIGNES",
     "default": "AGRIBALU000000003112590",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "VIGNES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.43302,
-      "plotSize": 1.5156,
-      "cropDiversity": 0.0
+      "plotSize": 1.5156
     },
     "id": "6621c18e-85de-4683-82be-7b236e68bc48",
     "inedible_part": 0,
@@ -1327,11 +1327,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 0.7722932,
-      "plotSize": 0.8666125,
       "cropDiversity": 0.0,
+      "hedges": 0.7722932,
+      "livestockDensity": -0.007728,
       "permanentPasture": 0,
-      "livestockDensity": -0.007728
+      "plotSize": 0.8666125
     },
     "id": "cf30d3bc-e99c-418a-b7e3-89a894d410a5",
     "inedible_part": 0.2,
@@ -1350,11 +1350,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 0.64020403,
-      "plotSize": 0.71856425,
       "cropDiversity": 0.0,
+      "hedges": 0.64020403,
+      "livestockDensity": -0.007728,
       "permanentPasture": 0,
-      "livestockDensity": -0.007728
+      "plotSize": 0.71856425
     },
     "id": "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69",
     "inedible_part": 0.2,
@@ -1373,11 +1373,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 0.7411806000000001,
-      "plotSize": 0.830595,
       "cropDiversity": 0.0,
+      "hedges": 0.7411806000000001,
+      "livestockDensity": -0.007728,
       "permanentPasture": 0,
-      "livestockDensity": -0.007728
+      "plotSize": 0.830595
     },
     "id": "b2e75be9-65b8-487d-b5b3-f9c2aa047cf7",
     "inedible_part": 0.2,
@@ -1396,11 +1396,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 2.0134018,
-      "plotSize": 2.1789109,
       "cropDiversity": 12.956839,
+      "hedges": 2.0134018,
+      "livestockDensity": -0.00266,
       "permanentPasture": 0,
-      "livestockDensity": -0.00266
+      "plotSize": 2.1789109
     },
     "id": "cfd4a437-aa49-49ff-818e-353421f2fc09",
     "inedible_part": 0.2,
@@ -1415,14 +1415,14 @@
   {
     "alias": "wine-grape-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VIGNES",
     "default": "e05934df-fd40-4110-a610-0bd686911f2e",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VIGNES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.29505,
-      "plotSize": 0.90359,
-      "cropDiversity": 0.0
+      "plotSize": 0.90359
     },
     "id": "e05934df-fd40-4110-a610-0bd686911f2e",
     "inedible_part": 0.1,
@@ -1441,11 +1441,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 29.853340000000003,
-      "plotSize": 25.936975,
       "cropDiversity": 0.0,
+      "hedges": 29.853340000000003,
+      "livestockDensity": 8.4e-5,
       "permanentPasture": 25,
-      "livestockDensity": 8.4e-5
+      "plotSize": 25.936975
     },
     "id": "d79e0fce-8633-4189-a937-7b8010abafed",
     "inedible_part": 0,
@@ -1464,11 +1464,11 @@
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "hedges": 66.9433852,
-      "plotSize": 58.959748,
       "cropDiversity": 28.103238,
+      "hedges": 66.9433852,
+      "livestockDensity": 2.1e-5,
       "permanentPasture": 67,
-      "livestockDensity": 2.1e-5
+      "plotSize": 58.959748
     },
     "id": "e07f7703-c4f7-479e-a8ac-bb73d3f08c78",
     "inedible_part": 0,
@@ -1483,14 +1483,14 @@
   {
     "alias": "pear-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "57c2fff4-6ad8-4524-a81a-dacdae11deed",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.23994,
       "hedges": 0.27291,
-      "plotSize": 0.33431,
-      "cropDiversity": 0.23994
+      "plotSize": 0.33431
     },
     "id": "57c2fff4-6ad8-4524-a81a-dacdae11deed",
     "inedible_part": 0.1,
@@ -1505,14 +1505,14 @@
   {
     "alias": "carrot-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102592",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.030834,
-      "plotSize": 0.077085,
-      "cropDiversity": 0.0
+      "plotSize": 0.077085
     },
     "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae",
     "inedible_part": 0.1,
@@ -1527,14 +1527,14 @@
   {
     "alias": "carrot-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102563",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0e223ce2-10cd-4998-bcee-8674f11f374d",
     "inedible_part": 0.1,
@@ -1549,14 +1549,14 @@
   {
     "alias": "carrot-non-ue",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102564",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "519cc82d-cae4-432e-ad22-586ca9b37a7e",
     "inedible_part": 0.1,
@@ -1571,14 +1571,14 @@
   {
     "alias": "zucchini-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200218",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.024414,
-      "plotSize": 0.061035,
-      "cropDiversity": 0.0
+      "plotSize": 0.061035
     },
     "id": "a8ba3467-3c82-442a-a73a-98769061b7a9",
     "inedible_part": 0.1,
@@ -1593,14 +1593,14 @@
   {
     "alias": "zucchini-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003117541",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "5ef69042-45c5-4b86-b494-1dafcccfc222",
     "inedible_part": 0.1,
@@ -1615,14 +1615,14 @@
   {
     "alias": "pear-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003111019",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.22197,
       "hedges": 0.10467,
-      "plotSize": 0.21019,
-      "cropDiversity": 0.22197
+      "plotSize": 0.21019
     },
     "id": "eab762ca-1edc-4fcc-ba6d-c247bbab0ec8",
     "inedible_part": 0.1,
@@ -1637,14 +1637,14 @@
   {
     "alias": "pear-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003111005",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "bb00f430-ffda-46a3-ba45-267b0064a43e",
     "inedible_part": 0.1,
@@ -1659,14 +1659,14 @@
   {
     "alias": "peach-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110952",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.44053,
       "hedges": 0.20773,
-      "plotSize": 0.41717,
-      "cropDiversity": 0.44053
+      "plotSize": 0.41717
     },
     "id": "a0012089-de27-45ae-89d1-863f71a06e72",
     "inedible_part": 0.2,
@@ -1681,14 +1681,14 @@
   {
     "alias": "peach-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110917",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "fa9e9f34-acc9-4974-89c4-003d2428f502",
     "inedible_part": 0.2,
@@ -1703,14 +1703,14 @@
   {
     "alias": "melon-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003109266",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.10613,
-      "plotSize": 0.26532,
-      "cropDiversity": 0.0
+      "plotSize": 0.26532
     },
     "id": "dc5c2f84-937c-4059-b7f9-352658cd4c57",
     "inedible_part": 0.4,
@@ -1725,14 +1725,14 @@
   {
     "alias": "melon-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003109266",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "cfabc9a1-1e99-48fc-bfea-9a2fbf6777a6",
     "inedible_part": 0.4,
@@ -1747,14 +1747,14 @@
   {
     "alias": "potato-industry-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200170",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.072314,
-      "plotSize": 0.18079,
-      "cropDiversity": 0.0
+      "plotSize": 0.18079
     },
     "id": "f87309f5-bfbf-49a5-ae57-1a0319a7b7d3",
     "inedible_part": 0.1,
@@ -1769,14 +1769,14 @@
   {
     "alias": "potato-table-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200169",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.072315,
-      "plotSize": 0.18079,
-      "cropDiversity": 0.0
+      "plotSize": 0.18079
     },
     "id": "1bcf7aa8-a26c-4340-b98a-c41d015a99b7",
     "inedible_part": 0.1,
@@ -1791,14 +1791,14 @@
   {
     "alias": "potato-starch",
     "categories": ["vegetable_processed"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003111897",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "b042c68d-6c0d-448d-91e6-7a8a424abd4a",
     "inedible_part": 0,
@@ -1813,14 +1813,14 @@
   {
     "alias": "wheat-glo",
     "categories": ["grain_raw"],
+    "crop_group": "BLE TENDRE",
     "default": "AGRIBALU000000003117048",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "BLE TENDRE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "93eb5b86-3e1c-4306-a5ad-ae92a9005ca7",
     "inedible_part": 0,
@@ -1835,14 +1835,14 @@
   {
     "alias": "onion-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110467",
     "default_origin": "France",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.065,
-      "plotSize": 0.1625,
-      "cropDiversity": 0.0
+      "plotSize": 0.1625
     },
     "id": "97cde31b-e46e-472d-836d-9b217c3845df",
     "inedible_part": 0.1,
@@ -1857,14 +1857,14 @@
   {
     "alias": "onion-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110441",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "50ede891-0244-4ab2-afeb-e5e808978f9b",
     "inedible_part": 0.1,
@@ -1879,14 +1879,14 @@
   {
     "alias": "onion-non-ue",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110442",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "20be5465-ce64-4375-84f5-acc5c486a0dc",
     "inedible_part": 0.1,
@@ -1901,14 +1901,14 @@
   {
     "alias": "eggplant-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200218",
     "default_origin": "France",
     "density": 0.398,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.024414,
-      "plotSize": 0.061035,
-      "cropDiversity": 0.0
+      "plotSize": 0.061035
     },
     "id": "ed8ac786-b948-475f-ba0a-0b51b9343d1b",
     "inedible_part": 0.1,
@@ -1923,14 +1923,14 @@
   {
     "alias": "eggplant-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200218",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.398,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "da1bb644-0d37-467f-8c7a-53300b58b0cf",
     "inedible_part": 0.1,
@@ -1945,14 +1945,14 @@
   {
     "alias": "french-bean-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200072",
     "default_origin": "France",
     "density": 0.271,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.33389,
-      "plotSize": 0.83472,
-      "cropDiversity": 0.0
+      "plotSize": 0.83472
     },
     "id": "37101a07-9e1f-478d-803a-dad5693dcd8c",
     "inedible_part": 0.1,
@@ -1967,14 +1967,14 @@
   {
     "alias": "french-bean-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200072",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.271,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "3934ba18-fd22-47f4-ad2e-31805ad8a5f7",
     "inedible_part": 0.1,
@@ -1989,14 +1989,14 @@
   {
     "alias": "french-bean-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200072",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.271,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "a38c77d5-be6c-49e5-beb0-d8d88d556392",
     "inedible_part": 0.1,
@@ -2011,14 +2011,14 @@
   {
     "alias": "lettuce-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108668",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.027222,
-      "plotSize": 0.068056,
-      "cropDiversity": 0.0
+      "plotSize": 0.068056
     },
     "id": "6348bb16-2d8c-4b82-8dbc-8b7dc587c09b",
     "inedible_part": 0.4,
@@ -2033,14 +2033,14 @@
   {
     "alias": "lettuce-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "2b5cc667-b981-4d27-8b1a-c435fab2043e",
     "inedible_part": 0.4,
@@ -2055,14 +2055,14 @@
   {
     "alias": "lettuce-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "e1495d32-01f6-462c-9157-b8351574d412",
     "inedible_part": 0.4,
@@ -2077,14 +2077,14 @@
   {
     "alias": "garden-peas-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200024",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.345,
-      "plotSize": 0.8625,
-      "cropDiversity": 0.0
+      "plotSize": 0.8625
     },
     "id": "05c2db96-2658-4842-8c30-53e878b08931",
     "inedible_part": 0.2,
@@ -2099,14 +2099,14 @@
   {
     "alias": "garden-peas-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200024",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "3f4037f4-8c7a-45f7-b376-ec48357db98d",
     "inedible_part": 0.2,
@@ -2121,14 +2121,14 @@
   {
     "alias": "cherry-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003102916",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 12.991,
       "hedges": 6.1261,
-      "plotSize": 12.303,
-      "cropDiversity": 12.991
+      "plotSize": 12.303
     },
     "id": "8ea6e0d1-a163-4059-8a6b-bd443f0168db",
     "inedible_part": 0.2,
@@ -2143,14 +2143,14 @@
   {
     "alias": "lemon-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003108561",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "6ece5452-42de-4e0a-8c70-1d305e614cc8",
     "inedible_part": 0.3,
@@ -2165,14 +2165,14 @@
   {
     "alias": "plum-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003102916",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 12.991,
       "hedges": 6.1261,
-      "plotSize": 12.303,
-      "cropDiversity": 12.991
+      "plotSize": 12.303
     },
     "id": "7829330e-e744-4495-bbe3-c372323ba2a5",
     "inedible_part": 0.2,
@@ -2187,14 +2187,14 @@
   {
     "alias": "squash-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200218",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.024414,
-      "plotSize": 0.061035,
-      "cropDiversity": 0.0
+      "plotSize": 0.061035
     },
     "id": "6689fb67-0118-4dff-b74e-0c8de81ef65b",
     "inedible_part": 0.2,
@@ -2209,14 +2209,14 @@
   {
     "alias": "squash-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003117541",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "14335872-a8d9-4496-b771-cb80c21ad604",
     "inedible_part": 0.2,
@@ -2231,14 +2231,14 @@
   {
     "alias": "squash-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200219",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.37953,
       "hedges": 0.078395,
-      "plotSize": 0.11856,
-      "cropDiversity": 0.37953
+      "plotSize": 0.11856
     },
     "id": "bbee841c-6675-49ae-92da-2064877f6d14",
     "inedible_part": 0.2,
@@ -2253,14 +2253,14 @@
   {
     "alias": "tomato-heated-greenhouse-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115752",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.01,
-      "plotSize": 0.025,
-      "cropDiversity": 0.0
+      "plotSize": 0.025
     },
     "id": "a96c560e-7959-4698-b533-23f922bb62b9",
     "inedible_part": 0.03,
@@ -2275,14 +2275,14 @@
   {
     "alias": "tomato-greenhouse-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115753",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.015,
-      "plotSize": 0.0375,
-      "cropDiversity": 0.0
+      "plotSize": 0.0375
     },
     "id": "16caaefa-40f5-4d29-a3e6-26349846f2c9",
     "inedible_part": 0.03,
@@ -2297,14 +2297,14 @@
   {
     "alias": "tomato-greenhouse-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115743",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "85641d75-149d-4863-a1a8-463e71a85fc2",
     "inedible_part": 0.03,
@@ -2319,14 +2319,14 @@
   {
     "alias": "apricot-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100510",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.54683,
       "hedges": 0.25786,
-      "plotSize": 0.51783,
-      "cropDiversity": 0.54683
+      "plotSize": 0.51783
     },
     "id": "e3865e84-12e7-4f7a-9fe3-132f67713d82",
     "inedible_part": 0.2,
@@ -2341,14 +2341,14 @@
   {
     "alias": "apricot-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100510",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "309e636c-bc57-4adc-bd3c-441c2ee8e42e",
     "inedible_part": 0.2,
@@ -2363,14 +2363,14 @@
   {
     "alias": "hazelnut-non-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107313",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "dfc9b995-2862-4abf-9af9-f3e8e403f325",
     "inedible_part": 0.5,
@@ -2385,14 +2385,14 @@
   {
     "alias": "hazelnut-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107312",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "dd6c5ca4-9d8a-4b4f-9d5e-fada405f7c39",
     "inedible_part": 0.5,
@@ -2407,14 +2407,14 @@
   {
     "alias": "hazelnut-unshelled-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107318",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "3af43703-cba3-4992-837c-a1392b5c6221",
     "inedible_part": 0.5,
@@ -2429,14 +2429,14 @@
   {
     "alias": "hazelnut-unshelled-non-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107319",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "4d7a741d-4bd7-4b39-8648-1f9a2f719eac",
     "inedible_part": 0.5,
@@ -2451,14 +2451,14 @@
   {
     "alias": "artichoke-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102661",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.11128,
-      "plotSize": 0.2782,
-      "cropDiversity": 0.0
+      "plotSize": 0.2782
     },
     "id": "51eea2d1-abec-4459-aae0-15f8348d0994",
     "inedible_part": 0.6,
@@ -2473,14 +2473,14 @@
   {
     "alias": "artichoke-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "d7630e82-2b60-46cc-b50d-451a32e0887e",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 2.1628,
       "hedges": 0.44674,
-      "plotSize": 0.67562,
-      "cropDiversity": 2.1628
+      "plotSize": 0.67562
     },
     "id": "d7630e82-2b60-46cc-b50d-451a32e0887e",
     "inedible_part": 0.6,
@@ -2495,14 +2495,14 @@
   {
     "alias": "cauliflower-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200052",
     "default_origin": "France",
     "density": 0.2355,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 1.8869,
       "hedges": 0.38976,
-      "plotSize": 0.58945,
-      "cropDiversity": 1.8869
+      "plotSize": 0.58945
     },
     "id": "0f747732-1b0d-40ba-89a2-715fecd5454f",
     "inedible_part": 0.2,
@@ -2517,14 +2517,14 @@
   {
     "alias": "cauliflower-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
     "default_origin": "France",
     "density": 0.2355,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.11548,
-      "plotSize": 0.28871,
-      "cropDiversity": 0.0
+      "plotSize": 0.28871
     },
     "id": "a28383f4-4345-44fb-ada3-985d66492f97",
     "inedible_part": 0.2,
@@ -2539,14 +2539,14 @@
   {
     "alias": "leek-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108547",
     "default_origin": "France",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.04323,
-      "plotSize": 0.10807,
-      "cropDiversity": 0.0
+      "plotSize": 0.10807
     },
     "id": "1d31a371-690d-41dd-9615-2e58bac40e62",
     "inedible_part": 0.2,
@@ -2561,14 +2561,14 @@
   {
     "alias": "beetroot-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003102592",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.011453,
-      "plotSize": 0.030834,
-      "cropDiversity": 0.0
+      "plotSize": 0.030834
     },
     "id": "e3dd5653-be1e-42b1-b11f-e46600d31c3e",
     "inedible_part": 0.1,
@@ -2583,14 +2583,14 @@
   {
     "alias": "turnip-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102592",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.030834,
-      "plotSize": 0.077085,
-      "cropDiversity": 0.0
+      "plotSize": 0.077085
     },
     "id": "9a64a770-f1b0-4980-a5e3-9ea34f930b0d",
     "inedible_part": 0.2,
@@ -2605,14 +2605,14 @@
   {
     "alias": "turnip-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102563",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "56368adf-7b6f-4535-8555-06ee5a2404c9",
     "inedible_part": 0.2,
@@ -2627,14 +2627,14 @@
   {
     "alias": "turnip-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102564",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "e54fdde1-da74-4cb3-bbc7-5c282be1b02b",
     "inedible_part": 0.2,
@@ -2649,14 +2649,14 @@
   {
     "alias": "chinese-cabbage-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.11548,
-      "plotSize": 0.28871,
-      "cropDiversity": 0.0
+      "plotSize": 0.28871
     },
     "id": "65f1221e-cf4c-413b-b023-8cec646e8ee4",
     "inedible_part": 0.2,
@@ -2671,14 +2671,14 @@
   {
     "alias": "chinese-cabbage-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 2.1628,
       "hedges": 0.44674,
-      "plotSize": 0.67562,
-      "cropDiversity": 2.1628
+      "plotSize": 0.67562
     },
     "id": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
     "inedible_part": 0.2,
@@ -2693,14 +2693,14 @@
   {
     "alias": "white-cabbage-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102347",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "cd2b7d2f-b4a0-45cf-8006-0a10a99d78a3",
     "inedible_part": 0.2,
@@ -2715,14 +2715,14 @@
   {
     "alias": "green-cabbage-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.11548,
-      "plotSize": 0.28871,
-      "cropDiversity": 0.0
+      "plotSize": 0.28871
     },
     "id": "ddba1d97-7db9-4ab6-8bc7-43891f69b02c",
     "inedible_part": 0.2,
@@ -2737,14 +2737,14 @@
   {
     "alias": "green-cabbage-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200052",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 1.8869,
       "hedges": 0.38976,
-      "plotSize": 0.58945,
-      "cropDiversity": 1.8869
+      "plotSize": 0.58945
     },
     "id": "aef5e0f4-7f91-4b75-b1e8-04594c64a538",
     "inedible_part": 0.2,
@@ -2759,14 +2759,14 @@
   {
     "alias": "red-cabbage-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102346",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "28f7c945-14d0-4d83-b04d-ea09f48a05b2",
     "inedible_part": 0.2,
@@ -2781,14 +2781,14 @@
   {
     "alias": "shallot-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110467",
     "default_origin": "France",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.065,
-      "plotSize": 0.1625,
-      "cropDiversity": 0.0
+      "plotSize": 0.1625
     },
     "id": "f83eb463-aa6e-4b64-96ab-6f478152410d",
     "inedible_part": 0.1,
@@ -2803,14 +2803,14 @@
   {
     "alias": "orange-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110507",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "af47d8b1-2c50-4f3f-8d10-1941133bd100",
     "inedible_part": 0.2,
@@ -2825,14 +2825,14 @@
   {
     "alias": "orange-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110506",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "f3c21efc-5e7b-4c24-a7f6-6ffbcb34d5b1",
     "inedible_part": 0.2,
@@ -2847,14 +2847,14 @@
   {
     "alias": "olive-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "OLIVIERS",
     "default": "AGRIBALU000000003110400",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "OLIVIERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "4234febf-7bb7-4713-a399-7fd586849e7b",
     "inedible_part": 0.5,
@@ -2869,14 +2869,14 @@
   {
     "alias": "rapeseed-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "COLZA",
     "default": "AGRIBALU000000003112430",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "COLZA",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.83047,
-      "plotSize": 0.90832,
-      "cropDiversity": 0.0
+      "plotSize": 0.90832
     },
     "id": "6a4df71d-3a0e-4477-8086-010f6a72ffec",
     "inedible_part": 0,
@@ -2891,14 +2891,14 @@
   {
     "alias": "rapeseed-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "COLZA",
     "default": "AGRIBALU000000003112456",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "COLZA",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "33e9d781-cdd1-4a9b-a6b6-18ee8855c996",
     "inedible_part": 0,
@@ -2913,14 +2913,14 @@
   {
     "alias": "rapeseed-non-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "COLZA",
     "default": "AGRIBALU000000003112455",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "COLZA",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "b127c3f0-7178-40d3-8bf0-433b2b28f386",
     "inedible_part": 0,
@@ -2935,14 +2935,14 @@
   {
     "alias": "pistachio-non-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003110959",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "4c1bfb2c-9edd-4a15-8a08-b2ea85268771",
     "inedible_part": 0.5,
@@ -2957,14 +2957,14 @@
   {
     "alias": "peanut-non-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003110960",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "df428ef5-1745-404e-b7ab-22cdca785ca4",
     "inedible_part": 0.5,
@@ -2979,14 +2979,14 @@
   {
     "alias": "olive-oil-eu",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "OLIVIERS",
     "default": "AGRIBALU000000003105719",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "OLIVIERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 5.8431,
-      "plotSize": 10.526,
-      "cropDiversity": 0.0
+      "plotSize": 10.526
     },
     "id": "f1b219e6-7a77-429b-b372-461e3ad0d3bd",
     "inedible_part": 0,
@@ -3001,14 +3001,14 @@
   {
     "alias": "avocado-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100748",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "3c49c70f-7650-44f8-97f1-7490cbabf595",
     "inedible_part": 0.3,
@@ -3023,14 +3023,14 @@
   {
     "alias": "chickpea-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "AGRIBALU000024985200192",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "LEGUMINEUSES A GRAIN",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.57793,
-      "plotSize": 1.395,
-      "cropDiversity": 0.0
+      "plotSize": 1.395
     },
     "id": "89035410-466b-4c9d-8726-98f0928b664b",
     "inedible_part": 0.2,
@@ -3045,14 +3045,14 @@
   {
     "alias": "sunflower-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115216",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 1.9223,
       "hedges": 1.3629,
-      "plotSize": 1.7887,
-      "cropDiversity": 1.9223
+      "plotSize": 1.7887
     },
     "id": "f105f36b-f467-4aea-8da7-8bc2e113db20",
     "inedible_part": 0.5,
@@ -3067,14 +3067,14 @@
   {
     "alias": "sunflower-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115218",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "23cd53c5-4b66-4b7c-892f-fe74054f66e5",
     "inedible_part": 0.5,
@@ -3089,14 +3089,14 @@
   {
     "alias": "sunflower-non-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115217",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "a2d31857-322c-40a7-a0a4-563e74a685d2",
     "inedible_part": 0.5,
@@ -3111,14 +3111,14 @@
   {
     "alias": "kiwi-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003108090",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.88899,
       "hedges": 0.4192,
-      "plotSize": 0.84184,
-      "cropDiversity": 0.88899
+      "plotSize": 0.84184
     },
     "id": "f3ed8d7b-21be-4d21-aae0-fee3ae914224",
     "inedible_part": 0.1,
@@ -3133,14 +3133,14 @@
   {
     "alias": "kiwi-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003108089",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "cf4d7abd-8cd6-48ef-bc83-212ad3f672b9",
     "inedible_part": 0.1,
@@ -3155,14 +3155,14 @@
   {
     "alias": "kiwi-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003108089",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "5c5663f5-3075-4814-92ff-1f65c99ad518",
     "inedible_part": 0.1,
@@ -3177,14 +3177,14 @@
   {
     "alias": "mango-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003109086",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "db0e5f44-34b4-4160-b003-77c828d75e60",
     "inedible_part": 0.2,
@@ -3199,14 +3199,14 @@
   {
     "alias": "spinach-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003114717",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "f46de7f5-4bf0-45f4-b75b-3e00164dd9ca",
     "inedible_part": 0.03,
@@ -3221,14 +3221,14 @@
   {
     "alias": "fennel-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003105790",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.039703,
-      "plotSize": 0.099258,
-      "cropDiversity": 0.0
+      "plotSize": 0.099258
     },
     "id": "63717c79-e734-4af3-bc3c-d75070f1822d",
     "inedible_part": 0.2,
@@ -3243,14 +3243,14 @@
   {
     "alias": "fennel-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003105790",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "7415767c-42a3-410e-a046-b78b4ed74645",
     "inedible_part": 0.2,
@@ -3265,14 +3265,14 @@
   {
     "alias": "broccoli-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102101",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.2355,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0bb22705-4727-4660-ac02-d7c2a564b20e",
     "inedible_part": 0.2,
@@ -3287,14 +3287,14 @@
   {
     "alias": "blueberry-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101680",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "b193fd9e-99ab-4d1b-8e81-3b38bab2eacf",
     "inedible_part": 0.03,
@@ -3309,14 +3309,14 @@
   {
     "alias": "raspberry-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003112470",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "50939126-d4a5-4b94-b110-63e8b9e66173",
     "inedible_part": 0.03,
@@ -3331,14 +3331,14 @@
   {
     "alias": "strawberry-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200014",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "ce20da3d-0ce4-49e9-8942-6d99ff0221b1",
     "inedible_part": 0.03,
@@ -3353,14 +3353,14 @@
   {
     "alias": "strawberry-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200015",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "e5bf7d33-6afe-46d6-ac06-f69c5769b10e",
     "inedible_part": 0.03,
@@ -3375,14 +3375,14 @@
   {
     "alias": "banana-wi",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100930",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.32134,
       "hedges": 0.15153,
-      "plotSize": 0.3043,
-      "cropDiversity": 0.32134
+      "plotSize": 0.3043
     },
     "id": "127b7cfe-0686-4455-8f8d-3c8bc034cbf9",
     "inedible_part": 0.3,
@@ -3397,14 +3397,14 @@
   {
     "alias": "banana-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100924",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "f79d155e-3f9e-4882-8dd0-b03f28c1ff76",
     "inedible_part": 0.3,
@@ -3419,14 +3419,14 @@
   {
     "alias": "cucumber-fr-inseason",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115753",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.015,
-      "plotSize": 0.0375,
-      "cropDiversity": 0.0
+      "plotSize": 0.0375
     },
     "id": "d47b842a-f591-4ce9-9f1d-2aebcaaa3c37",
     "inedible_part": 0.1,
@@ -3441,14 +3441,14 @@
   {
     "alias": "cucumber-fr-offseason",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003104392",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.05634,
-      "plotSize": 0.14085,
-      "cropDiversity": 0.0
+      "plotSize": 0.14085
     },
     "id": "51cc3b34-c2de-4617-8954-3c35c703a6dc",
     "inedible_part": 0.1,
@@ -3463,14 +3463,14 @@
   {
     "alias": "cucumber-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003104392",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "7b62c28f-7234-4c81-abc0-721c421cbc3d",
     "inedible_part": 0.1,
@@ -3485,14 +3485,14 @@
   {
     "alias": "strawberry-fr-inseason",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200146",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.15952,
-      "plotSize": 0.3988,
-      "cropDiversity": 0.0
+      "plotSize": 0.3988
     },
     "id": "800c5ae3-677d-4e12-9dd8-1c11cd69a210",
     "inedible_part": 0.03,
@@ -3507,14 +3507,14 @@
   {
     "alias": "strawberry-fr-offseason",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115025",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.27053,
-      "plotSize": 0.67634,
-      "cropDiversity": 0.0
+      "plotSize": 0.67634
     },
     "id": "3c20126c-e2ab-403b-8bbc-0fc0d2fd3a1b",
     "inedible_part": 0.03,
@@ -3529,14 +3529,14 @@
   {
     "alias": "celery-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102720",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.034583,
-      "plotSize": 0.086456,
-      "cropDiversity": 0.0
+      "plotSize": 0.086456
     },
     "id": "e1dbeb7c-74a7-4248-ab5e-7bdc2b1e5286",
     "inedible_part": 0.03,
@@ -3551,14 +3551,14 @@
   {
     "alias": "celery-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102720",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0bf89106-5c02-4b81-8f28-6196ad6f58be",
     "inedible_part": 0.03,
@@ -3573,14 +3573,14 @@
   {
     "alias": "celeriac-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102592",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.030834,
-      "plotSize": 0.077085,
-      "cropDiversity": 0.0
+      "plotSize": 0.077085
     },
     "id": "88c0d4ba-93d6-4a41-94e6-ccec49cce325",
     "inedible_part": 0.03,
@@ -3595,14 +3595,14 @@
   {
     "alias": "celeriac-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102563",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "a4c2f300-9268-45cc-a14f-89c48fcabc14",
     "inedible_part": 0.03,
@@ -3617,14 +3617,14 @@
   {
     "alias": "celeriac-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102564",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "1f5dd2a5-8439-4949-b5d8-2bce0ec3c9c7",
     "inedible_part": 0.03,
@@ -3639,14 +3639,14 @@
   {
     "alias": "walnut-inshell-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003116663",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.959,
-      "plotSize": 5.7138,
-      "cropDiversity": 0.0
+      "plotSize": 5.7138
     },
     "id": "6aacd47b-541c-4aab-85fb-bcd2c924effb",
     "inedible_part": 0.5,
@@ -3661,14 +3661,14 @@
   {
     "alias": "walnut-husked-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003116668",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.8487,
-      "plotSize": 5.3919,
-      "cropDiversity": 0.0
+      "plotSize": 5.3919
     },
     "id": "63bc644e-fc29-45a5-a505-6a28c8f266c5",
     "inedible_part": 0.5,
@@ -3683,14 +3683,14 @@
   {
     "alias": "chestnut-husked-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003116668",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.8487,
-      "plotSize": 5.3919,
-      "cropDiversity": 0.0
+      "plotSize": 5.3919
     },
     "id": "deb218ab-9c48-41ea-a9c7-6acc185cd83c",
     "inedible_part": 0.5,
@@ -3705,14 +3705,14 @@
   {
     "alias": "chestnut-inshell-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003116662",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.839,
-      "plotSize": 5.3637,
-      "cropDiversity": 0.0
+      "plotSize": 5.3637
     },
     "id": "ae6a572a-d814-495e-b6a9-5b0acff707d9",
     "inedible_part": 0.5,
@@ -3727,14 +3727,14 @@
   {
     "alias": "mandarin-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003109060",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "7967ae83-ba85-4a8f-aed9-e96717fc4284",
     "inedible_part": 0.2,
@@ -3749,14 +3749,14 @@
   {
     "alias": "mushroom-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003100184",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "5d22559d-c16d-4545-94b9-be2ff51e2879",
     "inedible_part": 0.1,
@@ -3771,14 +3771,14 @@
   {
     "alias": "brussels-sprout-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.11548,
-      "plotSize": 0.28871,
-      "cropDiversity": 0.0
+      "plotSize": 0.28871
     },
     "id": "f8e12f3a-6308-425c-bede-f8f9dbe405ee",
     "inedible_part": 0.1,
@@ -3793,14 +3793,14 @@
   {
     "alias": "brussels-sprout-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200052",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 1.8869,
       "hedges": 0.38976,
-      "plotSize": 0.58945,
-      "cropDiversity": 1.8869
+      "plotSize": 0.58945
     },
     "id": "65296024-b028-46c2-be67-84068893cfe3",
     "inedible_part": 0.1,
@@ -3815,14 +3815,14 @@
   {
     "alias": "lentils-uncooked-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "WFLDBQUA000001234501500",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "LEGUMINEUSES A GRAIN",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.2396,
-      "plotSize": 2.9922,
-      "cropDiversity": 0.0
+      "plotSize": 2.9922
     },
     "id": "e3833045-a0a4-48c7-ab73-5a01834b0219",
     "inedible_part": 0,
@@ -3837,14 +3837,14 @@
   {
     "alias": "curly-kale-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.11548,
-      "plotSize": 0.28871,
-      "cropDiversity": 0.0
+      "plotSize": 0.28871
     },
     "id": "40969824-958c-47b7-8e9e-6b3e80bb1176",
     "inedible_part": 0.2,
@@ -3859,14 +3859,14 @@
   {
     "alias": "curly-kale-organic",
     "categories": ["organic", "vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200052",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 1.8869,
       "hedges": 0.38976,
-      "plotSize": 0.58945,
-      "cropDiversity": 1.8869
+      "plotSize": 0.58945
     },
     "id": "577ca86a-b599-4757-9b98-712529a29738",
     "inedible_part": 0.2,
@@ -3881,14 +3881,14 @@
   {
     "alias": "pumpkin-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003117541",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.057239,
-      "plotSize": 0.1431,
-      "cropDiversity": 0.0
+      "plotSize": 0.1431
     },
     "id": "ae0e7729-1bff-4c3b-8dc8-62bdb827345d",
     "inedible_part": 0.2,
@@ -3903,14 +3903,14 @@
   {
     "alias": "clementine-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003103409",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "299941e9-577c-4618-968c-6901ffa99a8d",
     "inedible_part": 0.2,
@@ -3925,14 +3925,14 @@
   {
     "alias": "endive-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108668",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.027222,
-      "plotSize": 0.068056,
-      "cropDiversity": 0.0
+      "plotSize": 0.068056
     },
     "id": "b26efb2f-8811-4fbb-9d01-3d7f0d8135ef",
     "inedible_part": 0.2,
@@ -3947,14 +3947,14 @@
   {
     "alias": "endive-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "d680c44f-8458-406a-ac2c-13cd83e90a07",
     "inedible_part": 0.2,
@@ -3969,14 +3969,14 @@
   {
     "alias": "wine-grape-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VIGNES",
     "default": "AGRIBALU000000003106864",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VIGNES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.27049,
-      "plotSize": 0.94671,
-      "cropDiversity": 0.0
+      "plotSize": 0.94671
     },
     "id": "88d41160-fad0-4f85-b911-704dcfb387e4",
     "inedible_part": 0.1,
@@ -3991,14 +3991,14 @@
   {
     "alias": "lambs-lettuce-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108668",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.027222,
-      "plotSize": 0.068056,
-      "cropDiversity": 0.0
+      "plotSize": 0.068056
     },
     "id": "4f53cbe2-feac-42ea-90cf-62856732103b",
     "inedible_part": 0.4,
@@ -4013,14 +4013,14 @@
   {
     "alias": "lambs-lettuce-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "91e07b83-8702-42a4-a362-1480a2090805",
     "inedible_part": 0.4,
@@ -4035,14 +4035,14 @@
   {
     "alias": "sweet-corn-fr",
     "categories": ["grain_raw"],
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000024985200100",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.46289,
-      "plotSize": 0.4765,
-      "cropDiversity": 0.0
+      "plotSize": 0.4765
     },
     "id": "40fa68b6-381e-4dd6-ba70-8b43cfdee64e",
     "inedible_part": 0.5,
@@ -4057,14 +4057,14 @@
   {
     "alias": "sweet-corn-organic-fr",
     "categories": ["grain_raw"],
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000000003106825",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "ecosystemicServices": {
+      "cropDiversity": 1.5285,
       "hedges": 0.81568,
-      "plotSize": 0.73202,
-      "cropDiversity": 1.5285
+      "plotSize": 0.73202
     },
     "id": "741c0970-2823-430a-b4e4-e61ce08ea95a",
     "inedible_part": 0.5,
@@ -4079,14 +4079,14 @@
   {
     "alias": "sweet-corn-br",
     "categories": ["grain_raw"],
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000000003109026",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "be9a2aa4-4c8b-4801-abcf-01ba1581f053",
     "inedible_part": 0.5,
@@ -4101,14 +4101,14 @@
   {
     "alias": "pineapple-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003111283",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "c1ca415f-85bb-43f6-bf8f-8bedd6f95e9a",
     "inedible_part": 0.5,
@@ -4123,14 +4123,14 @@
   {
     "alias": "broad-beans-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003105780",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "PROTEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "ec58c11c-c5fd-4884-8d66-3d434aa1da1d",
     "inedible_part": 0.2,
@@ -4145,14 +4145,14 @@
   {
     "alias": "broad-beans-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003105780",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "PROTEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.66,
-      "plotSize": 1.05,
-      "cropDiversity": 0.0
+      "plotSize": 1.05
     },
     "id": "d1d5713d-021f-4438-95c8-0496da3f0f5f",
     "inedible_part": 0.2,
@@ -4167,14 +4167,14 @@
   {
     "alias": "swiss-chard-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003114717",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "d5eaecd5-21ab-4903-b029-66e7c7c6df9a",
     "inedible_part": 0.03,
@@ -4189,14 +4189,14 @@
   {
     "alias": "swiss-chard-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003114717",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0046429,
-      "plotSize": 0.0125,
-      "cropDiversity": 0.0
+      "plotSize": 0.0125
     },
     "id": "2920acc6-000a-4f43-9525-7d619d19f62e",
     "inedible_part": 0.03,
@@ -4211,14 +4211,14 @@
   {
     "alias": "flageolet-bean-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003105780",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "1ab7c8e7-fb50-4e5d-b153-372f853514cf",
     "inedible_part": 0.2,
@@ -4233,14 +4233,14 @@
   {
     "alias": "flageolet-bean-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003105780",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.7,
-      "plotSize": 1.75,
-      "cropDiversity": 0.0
+      "plotSize": 1.75
     },
     "id": "b5c5285f-8dfe-4865-bdc9-8d86b6977d14",
     "inedible_part": 0.2,
@@ -4255,14 +4255,14 @@
   {
     "alias": "rice-basmati-non-eu",
     "categories": ["grain_raw"],
+    "crop_group": "RIZ",
     "default": "AGRIBALU000000003112687",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "RIZ",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "cce078cf-3d3e-4153-a0a1-35555b2da639",
     "inedible_part": 0,
@@ -4277,14 +4277,14 @@
   {
     "alias": "soft-wheat-organic",
     "categories": ["grain_raw", "organic"],
+    "crop_group": "BLE TENDRE",
     "default": "bdd14c2017eaf0cda1e207e74012c391",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "BLE TENDRE",
     "ecosystemicServices": {
+      "cropDiversity": 6.3202,
       "hedges": 0.88408,
-      "plotSize": 1.3167,
-      "cropDiversity": 6.3202
+      "plotSize": 1.3167
     },
     "id": "a98b8776-a96d-48e9-b218-976f5452907a",
     "inedible_part": 0,
@@ -4299,14 +4299,14 @@
   {
     "alias": "soft-wheat-fr",
     "categories": ["grain_raw"],
+    "crop_group": "BLE TENDRE",
     "default": "AGRIBALU000024985200247",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "BLE TENDRE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.3315,
-      "plotSize": 0.44625,
-      "cropDiversity": 0.0
+      "plotSize": 0.44625
     },
     "id": "38788025-a65e-4edf-a92f-aab0b89b0d61",
     "inedible_part": 0,
@@ -4321,14 +4321,14 @@
   {
     "alias": "soft-wheat-non-eu",
     "categories": ["grain_raw"],
+    "crop_group": "BLE TENDRE",
     "default": "AGRIBALU000000003117044",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "BLE TENDRE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "48c1fc68-01bb-4541-a274-ce1de33db1f9",
     "inedible_part": 0,
@@ -4343,14 +4343,14 @@
   {
     "alias": "durum-wheat-fr",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000024985200066",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.89014,
-      "plotSize": 1.2562,
-      "cropDiversity": 0.0
+      "plotSize": 1.2562
     },
     "id": "28013f55-a3ce-4ae6-9a97-133ce7724ece",
     "inedible_part": 0,
@@ -4365,14 +4365,14 @@
   {
     "alias": "durum-wheat-eu",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105055",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0d5d65e0-6ffc-4ffa-9966-944bc3ed62c8",
     "inedible_part": 0,
@@ -4387,14 +4387,14 @@
   {
     "alias": "durum-wheat-non-eu",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105051",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "2e196834-d2b1-4786-9265-db4440c8517c",
     "inedible_part": 0,
@@ -4409,14 +4409,14 @@
   {
     "alias": "apple-organic",
     "categories": ["organic", "vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.23864,
       "hedges": 0.27143,
-      "plotSize": 0.3325,
-      "cropDiversity": 0.23864
+      "plotSize": 0.3325
     },
     "id": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
     "inedible_part": 0.1,
@@ -4431,14 +4431,14 @@
   {
     "alias": "apple-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100459",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.35112,
       "hedges": 0.16557,
-      "plotSize": 0.3325,
-      "cropDiversity": 0.35112
+      "plotSize": 0.3325
     },
     "id": "d9519b9d-d166-4bb0-8f34-27bb874b104a",
     "inedible_part": 0.1,
@@ -4453,14 +4453,14 @@
   {
     "alias": "potato-table-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 1.3227,
       "hedges": 0.27321,
-      "plotSize": 0.41319,
-      "cropDiversity": 1.3227
+      "plotSize": 0.41319
     },
     "id": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
     "inedible_part": 0.1,
@@ -4475,14 +4475,14 @@
   {
     "alias": "potato-industry-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "f839b523-b133-430f-9533-419b862e69e9",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 1.3172,
       "hedges": 0.27209,
-      "plotSize": 0.41149,
-      "cropDiversity": 1.3172
+      "plotSize": 0.41149
     },
     "id": "f839b523-b133-430f-9533-419b862e69e9",
     "inedible_part": 0.1,
@@ -4497,14 +4497,14 @@
   {
     "alias": "kiwi-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.38044,
       "hedges": 0.43272,
-      "plotSize": 0.53008,
-      "cropDiversity": 0.38044
+      "plotSize": 0.53008
     },
     "id": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
     "inedible_part": 0.1,
@@ -4519,14 +4519,14 @@
   {
     "alias": "red-cabbage-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.36755,
       "hedges": 0.07592,
-      "plotSize": 0.11482,
-      "cropDiversity": 0.36755
+      "plotSize": 0.11482
     },
     "id": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
     "inedible_part": 0.2,
@@ -4541,14 +4541,14 @@
   {
     "alias": "sugar-beet-organic",
     "categories": ["vegetable_processed", "organic"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "83ef3fba-9359-4f51-9f10-234c0e940b88",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.12908,
       "hedges": 0.028813,
-      "plotSize": 0.066596,
-      "cropDiversity": 0.12908
+      "plotSize": 0.066596
     },
     "id": "83ef3fba-9359-4f51-9f10-234c0e940b88",
     "inedible_part": 0,
@@ -4563,14 +4563,14 @@
   {
     "alias": "papaya-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.10926,
       "hedges": 0.12427,
-      "plotSize": 0.15224,
-      "cropDiversity": 0.10926
+      "plotSize": 0.15224
     },
     "id": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
     "inedible_part": 0.2,
@@ -4585,14 +4585,14 @@
   {
     "alias": "tomato-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "b43ae38e-a9f6-4272-b258-14faea6ec795",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.076711,
       "hedges": 0.015845,
-      "plotSize": 0.023964,
-      "cropDiversity": 0.076711
+      "plotSize": 0.023964
     },
     "id": "b43ae38e-a9f6-4272-b258-14faea6ec795",
     "inedible_part": 0.03,
@@ -4607,14 +4607,14 @@
   {
     "alias": "pineapple-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.17071,
       "hedges": 0.19417,
-      "plotSize": 0.23785,
-      "cropDiversity": 0.17071
+      "plotSize": 0.23785
     },
     "id": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
     "inedible_part": 0.5,
@@ -4629,14 +4629,14 @@
   {
     "alias": "garden-peas-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "74a016ae-d486-4766-adfd-e44697b7be2f",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 13.256,
       "hedges": 2.7381,
-      "plotSize": 4.1409,
-      "cropDiversity": 13.256
+      "plotSize": 4.1409
     },
     "id": "74a016ae-d486-4766-adfd-e44697b7be2f",
     "inedible_part": 0.2,
@@ -4651,14 +4651,14 @@
   {
     "alias": "almond-inshell-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "FRUITS A COQUES",
     "default": "b97e29ab-81b0-478e-b73b-4113aaf68470",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.7035,
-      "plotSize": 4.9686,
-      "cropDiversity": 0.0
+      "plotSize": 4.9686
     },
     "id": "b97e29ab-81b0-478e-b73b-4113aaf68470",
     "inedible_part": 0.5,
@@ -4673,14 +4673,14 @@
   {
     "alias": "lettuce-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.087837,
       "hedges": 0.018144,
-      "plotSize": 0.027439,
-      "cropDiversity": 0.087837
+      "plotSize": 0.027439
     },
     "id": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
     "inedible_part": 0.4,
@@ -4695,14 +4695,14 @@
   {
     "alias": "mango-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.52555,
       "hedges": 0.59776,
-      "plotSize": 0.73225,
-      "cropDiversity": 0.52555
+      "plotSize": 0.73225
     },
     "id": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
     "inedible_part": 0.2,
@@ -4717,14 +4717,14 @@
   {
     "alias": "lychee-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.52555,
       "hedges": 0.59776,
-      "plotSize": 0.73225,
-      "cropDiversity": 0.52555
+      "plotSize": 0.73225
     },
     "id": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
     "inedible_part": 0.2,
@@ -4739,14 +4739,14 @@
   {
     "alias": "lychee-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003109086",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "e9764c3c-554f-4f1e-9ba1-8debc869e6ba",
     "inedible_part": 0.2,
@@ -4761,14 +4761,14 @@
   {
     "alias": "oats-glo",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003110378",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "94c4be9e-452d-4870-b1a2-5d2404a0490b",
     "inedible_part": 0,
@@ -4783,14 +4783,14 @@
   {
     "alias": "oats-organic",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003114832",
     "default_origin": "EuropeAndMaghreb",
     "density": 1,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 3.4686,
       "hedges": 1.2007,
-      "plotSize": 1.4798,
-      "cropDiversity": 3.4686
+      "plotSize": 1.4798
     },
     "id": "1af0933a-0139-480c-832d-053513d0ccba",
     "inedible_part": 0,
@@ -4805,14 +4805,14 @@
   {
     "alias": "barley",
     "categories": ["grain_raw"],
+    "crop_group": "ORGE",
     "default": "AGRIBALU000000003100974",
     "default_origin": "France",
     "density": 1,
-    "crop_group": "ORGE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.38481,
-      "plotSize": 0.56118,
-      "cropDiversity": 0.0
+      "plotSize": 0.56118
     },
     "id": "ab087863-f311-4066-8e93-4d7f6e0db2b2",
     "inedible_part": 0,
@@ -4827,14 +4827,14 @@
   {
     "alias": "barley-organic",
     "categories": ["grain_raw"],
+    "crop_group": "ORGE",
     "default": "AGRIBALU000000003100976",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1,
-    "crop_group": "ORGE",
     "ecosystemicServices": {
+      "cropDiversity": 6.3479,
       "hedges": 1.1578,
-      "plotSize": 1.8091,
-      "cropDiversity": 6.3479
+      "plotSize": 1.8091
     },
     "id": "3c16dc23-021d-45ef-8805-c77b043b041a",
     "inedible_part": 0,
@@ -4849,14 +4849,14 @@
   {
     "alias": "banana-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.31852,
       "hedges": 0.36228,
-      "plotSize": 0.44379,
-      "cropDiversity": 0.31852
+      "plotSize": 0.44379
     },
     "id": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
     "inedible_part": 0.3,
@@ -4871,14 +4871,14 @@
   {
     "alias": "orange-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "1716c0e6-7a04-4649-a71f-08a495eb094e",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.23322,
       "hedges": 0.26526,
-      "plotSize": 0.32495,
-      "cropDiversity": 0.23322
+      "plotSize": 0.32495
     },
     "id": "1716c0e6-7a04-4649-a71f-08a495eb094e",
     "inedible_part": 0.2,
@@ -4893,14 +4893,14 @@
   {
     "alias": "lemon-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.1891,
       "hedges": 0.21508,
-      "plotSize": 0.26347,
-      "cropDiversity": 0.1891
+      "plotSize": 0.26347
     },
     "id": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
     "inedible_part": 0.3,
@@ -4915,14 +4915,14 @@
   {
     "alias": "celery-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.37813,
       "hedges": 0.078107,
-      "plotSize": 0.11812,
-      "cropDiversity": 0.37813
+      "plotSize": 0.11812
     },
     "id": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
     "inedible_part": 0.03,
@@ -4937,14 +4937,14 @@
   {
     "alias": "olive-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "OLIVIERS",
     "default": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "OLIVIERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.5824,
-      "plotSize": 3.1777,
-      "cropDiversity": 0.0
+      "plotSize": 3.1777
     },
     "id": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
     "inedible_part": 0.5,
@@ -4959,14 +4959,14 @@
   {
     "alias": "peanut-organic",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.569,
-      "plotSize": 4.5761,
-      "cropDiversity": 0.0
+      "plotSize": 4.5761
     },
     "id": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
     "inedible_part": 0.5,
@@ -4981,14 +4981,14 @@
   {
     "alias": "raspberry-organic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 9.0431,
       "hedges": 1.8679,
-      "plotSize": 2.825,
-      "cropDiversity": 9.0431
+      "plotSize": 2.825
     },
     "id": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
     "inedible_part": 0.03,
@@ -5003,14 +5003,14 @@
   {
     "alias": "lambs-lettuce-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.087837,
       "hedges": 0.018144,
-      "plotSize": 0.027439,
-      "cropDiversity": 0.087837
+      "plotSize": 0.027439
     },
     "id": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
     "inedible_part": 0.4,
@@ -5025,14 +5025,14 @@
   {
     "alias": "endive-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "6842d570-6b53-49f3-ba9c-984b55e40171",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.087837,
       "hedges": 0.018144,
-      "plotSize": 0.027439,
-      "cropDiversity": 0.087837
+      "plotSize": 0.027439
     },
     "id": "6842d570-6b53-49f3-ba9c-984b55e40171",
     "inedible_part": 0.2,
@@ -5047,14 +5047,14 @@
   {
     "alias": "durum-wheat-organic",
     "categories": ["grain_raw", "organic"],
+    "crop_group": "AUTRES CEREALES",
     "default": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 3.7814,
       "hedges": 1.309,
-      "plotSize": 1.6132,
-      "cropDiversity": 3.7814
+      "plotSize": 1.6132
     },
     "id": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
     "inedible_part": 0,
@@ -5069,14 +5069,14 @@
   {
     "alias": "onion-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
     "default_origin": "France",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.7955,
       "hedges": 0.16432,
-      "plotSize": 0.24851,
-      "cropDiversity": 0.7955
+      "plotSize": 0.24851
     },
     "id": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
     "inedible_part": 0.1,
@@ -5091,14 +5091,14 @@
   {
     "alias": "rice-basmati-organic",
     "categories": ["grain_raw", "organic"],
+    "crop_group": "RIZ",
     "default": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "RIZ",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.19092,
-      "plotSize": 0.17585,
-      "cropDiversity": 0.0
+      "plotSize": 0.17585
     },
     "id": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
     "inedible_part": 0,
@@ -5113,14 +5113,14 @@
   {
     "alias": "triticale-organic",
     "categories": ["grain_raw", "organic"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003116024",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 4.6388,
       "hedges": 1.6058,
-      "plotSize": 1.979,
-      "cropDiversity": 4.6388
+      "plotSize": 1.979
     },
     "id": "585c8bb1-1aaa-4c33-a5c1-84c886bb7ec3",
     "inedible_part": 0,
@@ -5135,14 +5135,14 @@
   {
     "alias": "bean-organic",
     "categories": ["grain_raw", "organic"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003110915",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 4.1356,
       "hedges": 1.4316,
-      "plotSize": 1.7643,
-      "cropDiversity": 4.1356
+      "plotSize": 1.7643
     },
     "id": "8cf0b0ce-7ae7-4123-8fee-823b4c190418",
     "inedible_part": 0,
@@ -5157,14 +5157,14 @@
   {
     "alias": "alfalfa-organic",
     "categories": ["grain_raw", "organic"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003100242",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 2.2036,
       "hedges": 0.76284,
-      "plotSize": 0.94011,
-      "cropDiversity": 2.2036
+      "plotSize": 0.94011
     },
     "id": "fd187fa6-9cbc-4839-b13f-365c5371cee6",
     "inedible_part": 0,
@@ -5179,14 +5179,14 @@
   {
     "alias": "radish-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "076b3d53-fc81-454b-9c90-e19767de8b0b",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.092013,
       "hedges": 0.019006,
-      "plotSize": 0.028744,
-      "cropDiversity": 0.092013
+      "plotSize": 0.028744
     },
     "id": "076b3d53-fc81-454b-9c90-e19767de8b0b",
     "inedible_part": 0.1,
@@ -5201,14 +5201,14 @@
   {
     "alias": "lentils-uncooked-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "02b2ed63-6246-446c-8cf3-224dbe698821",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "LEGUMINEUSES A GRAIN",
     "ecosystemicServices": {
+      "cropDiversity": 31.683,
       "hedges": 2.6136,
-      "plotSize": 3.9772,
-      "cropDiversity": 31.683
+      "plotSize": 3.9772
     },
     "id": "02b2ed63-6246-446c-8cf3-224dbe698821",
     "inedible_part": 0,
@@ -5223,14 +5223,14 @@
   {
     "alias": "apricot-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "36158ea6-066c-4fd6-9e28-6477c7297b37",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.44053,
       "hedges": 0.50106,
-      "plotSize": 0.61379,
-      "cropDiversity": 0.44053
+      "plotSize": 0.61379
     },
     "id": "36158ea6-066c-4fd6-9e28-6477c7297b37",
     "inedible_part": 0.2,
@@ -5245,14 +5245,14 @@
   {
     "alias": "leek-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
     "default_origin": "France",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.40044,
       "hedges": 0.082715,
-      "plotSize": 0.12509,
-      "cropDiversity": 0.40044
+      "plotSize": 0.12509
     },
     "id": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
     "inedible_part": 0.2,
@@ -5267,14 +5267,14 @@
   {
     "alias": "cherry-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "b4e8febc-6588-4599-8c58-c019144597c6",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 16.009,
       "hedges": 18.209,
-      "plotSize": 22.306,
-      "cropDiversity": 16.009
+      "plotSize": 22.306
     },
     "id": "b4e8febc-6588-4599-8c58-c019144597c6",
     "inedible_part": 0.2,
@@ -5289,14 +5289,14 @@
   {
     "alias": "plum-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "10af6fa1-e374-4748-b8a8-f735d2813489",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 16.009,
       "hedges": 18.209,
-      "plotSize": 22.306,
-      "cropDiversity": 16.009
+      "plotSize": 22.306
     },
     "id": "10af6fa1-e374-4748-b8a8-f735d2813489",
     "inedible_part": 0.2,
@@ -5311,14 +5311,14 @@
   {
     "alias": "shallot-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "c224d640-c347-41c4-9754-a4cea77de16f",
     "default_origin": "France",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.7955,
       "hedges": 0.16432,
-      "plotSize": 0.24851,
-      "cropDiversity": 0.7955
+      "plotSize": 0.24851
     },
     "id": "c224d640-c347-41c4-9754-a4cea77de16f",
     "inedible_part": 0.1,
@@ -5333,14 +5333,14 @@
   {
     "alias": "blueberry-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 9.3376,
       "hedges": 1.9288,
-      "plotSize": 2.917,
-      "cropDiversity": 9.3376
+      "plotSize": 2.917
     },
     "id": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
     "inedible_part": 0.03,
@@ -5355,14 +5355,14 @@
   {
     "alias": "spinach-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "49ad2a72-d196-4379-8f23-212b27d44917",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.1314,
       "hedges": 0.027142,
-      "plotSize": 0.041048,
-      "cropDiversity": 0.1314
+      "plotSize": 0.041048
     },
     "id": "49ad2a72-d196-4379-8f23-212b27d44917",
     "inedible_part": 0.03,
@@ -5377,14 +5377,14 @@
   {
     "alias": "watermelon-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 1.4764,
       "hedges": 0.30496,
-      "plotSize": 0.46121,
-      "cropDiversity": 1.4764
+      "plotSize": 0.46121
     },
     "id": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
     "inedible_part": 0.4,
@@ -5399,14 +5399,14 @@
   {
     "alias": "silage-maize-fr",
     "categories": ["grain_raw"],
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000024985200246",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.43389,
-      "plotSize": 0.44665,
-      "cropDiversity": 0.0
+      "plotSize": 0.44665
     },
     "id": "dc872330-8d35-4b02-bf45-4481b89a093e",
     "inedible_part": 0.5,
@@ -5421,14 +5421,14 @@
   {
     "alias": "silage-maize-organic",
     "categories": ["grain_raw"],
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000024985200246",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "ecosystemicServices": {
+      "cropDiversity": 0.9326,
       "hedges": 0.49769,
-      "plotSize": 0.44665,
-      "cropDiversity": 0.9326
+      "plotSize": 0.44665
     },
     "id": "305cc005-eb5c-4e94-b5cf-9aa21c619577",
     "inedible_part": 0.5,
@@ -5443,14 +5443,14 @@
   {
     "alias": "oilseed-feed",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000000003110393",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "AUTRES OLEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "4b3c39a6-496c-416c-a42a-8d4c2fc788da",
     "inedible_part": 0,
@@ -5465,14 +5465,14 @@
   {
     "alias": "grazed-grass-temporary",
     "categories": [],
+    "crop_group": "PRAIRIES TEMPORAIRES",
     "default": "AGRIBALU000024985200276",
     "default_origin": "France",
     "density": 1,
-    "crop_group": "PRAIRIES TEMPORAIRES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.81429,
-      "plotSize": 0.75,
-      "cropDiversity": 0.0
+      "plotSize": 0.75
     },
     "id": "ba97e4b9-1fac-4f92-bed1-9889e3ae631d",
     "inedible_part": 0,
@@ -5487,14 +5487,14 @@
   {
     "alias": "grazed-grass-permanent",
     "categories": [],
+    "crop_group": "PRAIRIES PERMANENTES",
     "default": "AGRIBALU000000003106967",
     "default_origin": "France",
     "density": 1,
-    "crop_group": "PRAIRIES PERMANENTES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.76429,
-      "plotSize": 0.625,
-      "cropDiversity": 0.0
+      "plotSize": 0.625
     },
     "id": "c88d387e-8435-4741-b742-0094dbdcee45",
     "inedible_part": 0,
@@ -5509,14 +5509,14 @@
   {
     "alias": "cherry-tr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500334",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "4e13ea5f-4ad1-4009-ae91-842cb18bd4dd",
     "inedible_part": 0.2,
@@ -5531,14 +5531,14 @@
   {
     "alias": "refined-palm-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003105775",
     "default_origin": "EuropeAndMaghreb",
     "density": 0,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "3612e931-f0e0-4263-a079-63650a941fbd",
     "inedible_part": 0,
@@ -5553,14 +5553,14 @@
   {
     "alias": "refined-linseed-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "PLANTES A FIBRES",
     "default": "AGRIBALU000000003108737",
     "default_origin": "France",
     "density": 0,
-    "crop_group": "PLANTES A FIBRES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.9966,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "61ede109-0eed-4aa3-93bb-aacf132b6bdd",
     "inedible_part": 0,
@@ -5575,14 +5575,14 @@
   {
     "alias": "refined-grapeseed-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "VIGNES",
     "default": "AGRIBALU000000003106915",
     "default_origin": "France",
     "density": 0,
-    "crop_group": "VIGNES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.31333,
-      "plotSize": 1.0966,
-      "cropDiversity": 0.0
+      "plotSize": 1.0966
     },
     "id": "1e3d325d-b369-4f03-b3a3-f4261924fca4",
     "inedible_part": 0,
@@ -5597,14 +5597,14 @@
   {
     "alias": "refined-soybean-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003114609",
     "default_origin": "France",
     "density": 0,
-    "crop_group": "PROTEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "188a3d66-f214-4821-9bac-7e8fdc715721",
     "inedible_part": 0,
@@ -5619,14 +5619,14 @@
   {
     "alias": "virgin-hazelnut-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107299",
     "default_origin": "France",
     "density": 0,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "00603559-120a-4aa4-b12b-2eda1705e064",
     "inedible_part": 0,
@@ -5641,14 +5641,14 @@
   {
     "alias": "refined-peanut-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003110968",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0,
-    "crop_group": "PROTEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "c704400c-9108-49a8-a79a-b830eccb6b5e",
     "inedible_part": 0,
@@ -5663,14 +5663,14 @@
   {
     "alias": "refined-sunflower-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115161",
     "default_origin": "France",
     "density": 0,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "583d00ab-0340-444b-9581-71175f0a937b",
     "inedible_part": 0,
@@ -5685,14 +5685,14 @@
   {
     "alias": "refined-rapeseed-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "COLZA",
     "default": "AGRIBALU000000003112440",
     "default_origin": "France",
     "density": 0,
-    "crop_group": "COLZA",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.0753,
-      "plotSize": 1.1761,
-      "cropDiversity": 0.0
+      "plotSize": 1.1761
     },
     "id": "c3697176-e682-43c3-b16a-3992ff8f1404",
     "inedible_part": 0,
@@ -5707,14 +5707,14 @@
   {
     "alias": "extra-virgin-olive-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "OLIVIERS",
     "default": "AGRIBALU000000003105717",
     "default_origin": "EuropeAndMaghreb",
     "density": 0,
-    "crop_group": "OLIVIERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "fbe48b5b-62f2-4ccb-8aa6-66d08a4c7fac",
     "inedible_part": 0,
@@ -5814,14 +5814,14 @@
   {
     "alias": "cocoa-powder-non-ue",
     "categories": ["vegetable_processed"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003103498",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "3d7f808b-77c5-4207-968d-feea6dfd9496",
     "inedible_part": 0,
@@ -5836,14 +5836,14 @@
   {
     "alias": "salt",
     "categories": ["spice_condiment_additive"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003113226",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0010857,
-      "plotSize": 0.0114,
-      "cropDiversity": 0.0
+      "plotSize": 0.0114
     },
     "id": "77defb24-cec3-4de9-8388-63229d1052fb",
     "inedible_part": 0,
@@ -5875,14 +5875,14 @@
   {
     "alias": "glucose-syrup",
     "categories": ["spice_condiment_additive"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003104007",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "06dffb5c-07ad-48de-9630-632f4c84e02d",
     "inedible_part": 0,
@@ -5897,14 +5897,14 @@
   {
     "alias": "apple-compote-fr",
     "categories": ["vegetable_processed"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100412",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.35877,
       "hedges": 0.16918,
-      "plotSize": 0.33975,
-      "cropDiversity": 0.35877
+      "plotSize": 0.33975
     },
     "id": "f51ef7f1-9d4c-4c4a-a4a6-c011c520f419",
     "inedible_part": 0,
@@ -5936,14 +5936,14 @@
   {
     "alias": "breakfast-cereals",
     "categories": ["grain_processed"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003101952",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.5241,
-      "plotSize": 2.151,
-      "cropDiversity": 0.0
+      "plotSize": 2.151
     },
     "id": "1508af02-c164-4189-9fac-0057566e0950",
     "inedible_part": 0,
@@ -5958,14 +5958,14 @@
   {
     "alias": "pasta",
     "categories": ["grain_processed"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003110855",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.13749,
-      "plotSize": 1.4436,
-      "cropDiversity": 0.0
+      "plotSize": 1.4436
     },
     "id": "06e7ba46-85ba-4475-82d2-a59f847e801d",
     "inedible_part": 0.2,
@@ -5980,14 +5980,14 @@
   {
     "alias": "garlic",
     "categories": ["vegetable_fresh"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003106611",
     "default_origin": "France",
     "density": 0.6195,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0095332,
-      "plotSize": 0.1001,
-      "cropDiversity": 0.0
+      "plotSize": 0.1001
     },
     "id": "06f219a1-ffb3-44ae-ba23-6f9ad7baff39",
     "inedible_part": 0.1,
@@ -6002,14 +6002,14 @@
   {
     "alias": "vegetable-mix",
     "categories": ["vegetable_processed"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003104758",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.27981,
-      "plotSize": 0.69952,
-      "cropDiversity": 0.0
+      "plotSize": 0.69952
     },
     "id": "5ecb6c61-0a0f-4c00-a8e0-713c97929c7c",
     "inedible_part": 0,
@@ -6041,14 +6041,14 @@
   {
     "alias": "honey",
     "categories": ["misc"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003107501",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.035163,
-      "plotSize": 0.36922,
-      "cropDiversity": 0.0
+      "plotSize": 0.36922
     },
     "id": "87accb8f-37c1-4364-873a-5e8e67fd5811",
     "inedible_part": 0,
@@ -6114,14 +6114,14 @@
   {
     "alias": "strawberry-coulis",
     "categories": ["vegetable_processed"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115001",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.59838,
-      "plotSize": 1.496,
-      "cropDiversity": 0.0
+      "plotSize": 1.496
     },
     "id": "dd6ebd55-dc52-4e9e-ac79-aa3ed4b3295d",
     "inedible_part": 0.03,
@@ -6170,14 +6170,14 @@
   {
     "alias": "cocoa-butter",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003103480",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0ea5f5a0-51d9-41da-9ac4-cb60f3ddb86c",
     "inedible_part": 0,
@@ -6192,14 +6192,14 @@
   {
     "alias": "soy-protein",
     "categories": ["grain_processed"],
+    "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003114529",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "PROTEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "f8fb04c1-c207-4a3c-993f-e5a1b0204dfa",
     "inedible_part": 0,
@@ -6214,14 +6214,14 @@
   {
     "alias": "vinegar-alcohol",
     "categories": ["misc"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003116588",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0032011,
-      "plotSize": 0.033612,
-      "cropDiversity": 0.0
+      "plotSize": 0.033612
     },
     "id": "24222e45-52dc-4c18-ab9f-0ee39d8a46b4",
     "inedible_part": 0,
@@ -6253,14 +6253,14 @@
   {
     "alias": "french-fries",
     "categories": ["vegetable_processed"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003106169",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.028066,
-      "plotSize": 0.075563,
-      "cropDiversity": 0.0
+      "plotSize": 0.075563
     },
     "id": "7c742241-9678-4a46-972b-8be1baf7f5a7",
     "inedible_part": 0.1,
@@ -6275,14 +6275,14 @@
   {
     "alias": "tomato-sauce",
     "categories": ["vegetable_processed"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115694",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.45186,
-      "plotSize": 1.1296,
-      "cropDiversity": 0.0
+      "plotSize": 1.1296
     },
     "id": "bdae67c5-ac20-417b-9094-8755ae1ab42b",
     "inedible_part": 0,
@@ -6297,14 +6297,14 @@
   {
     "alias": "mustard",
     "categories": ["spice_condiment_additive"],
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "AGRIBALU000000003110176",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "LEGUMINEUSES A GRAIN",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.90357,
-      "plotSize": 2.181,
-      "cropDiversity": 0.0
+      "plotSize": 2.181
     },
     "id": "d87bdd32-d698-4044-ae20-15b96c65f680",
     "inedible_part": 0.1,
@@ -6319,14 +6319,14 @@
   {
     "alias": "rice-flour",
     "categories": ["grain_processed"],
+    "crop_group": "RIZ",
     "default": "AGRIBALU000000003112648",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "RIZ",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "02878fcc-4c20-4d31-874d-169535443c6a",
     "inedible_part": 0,
@@ -6358,14 +6358,14 @@
   {
     "alias": "turmeric",
     "categories": ["spice_condiment_additive"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003116177",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "cfdb11f0-9ae1-47ab-a26c-20ff8444b862",
     "inedible_part": 0,
@@ -6380,14 +6380,14 @@
   {
     "alias": "candied-fruits",
     "categories": ["vegetable_processed"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003102428",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.01701,
-      "plotSize": 0.17861,
-      "cropDiversity": 0.0
+      "plotSize": 0.17861
     },
     "id": "b1350dc9-f4da-4827-b984-f36b6f192c5a",
     "inedible_part": 0,
@@ -6419,14 +6419,14 @@
   {
     "alias": "fruit-puree",
     "categories": ["vegetable_processed"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003106522",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.3535,
       "hedges": 0.1667,
-      "plotSize": 0.33476,
-      "cropDiversity": 0.3535
+      "plotSize": 0.33476
     },
     "id": "57490ff0-61a0-44cd-bd4f-3a3be7af25f2",
     "inedible_part": 0.1,
@@ -6441,14 +6441,14 @@
   {
     "alias": "apple-juice",
     "categories": ["vegetable_processed"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100427",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.516,
       "hedges": 0.24332,
-      "plotSize": 0.48863,
-      "cropDiversity": 0.516
+      "plotSize": 0.48863
     },
     "id": "40a4432b-2b12-45f3-aed2-a8c4e165e15f",
     "inedible_part": 0.1,
@@ -6463,14 +6463,14 @@
   {
     "alias": "orange-juice",
     "categories": ["vegetable_processed"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003110499",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "4649b3db-d927-4ea5-baa0-d74fa3c768d2",
     "inedible_part": 0.2,
@@ -6485,14 +6485,14 @@
   {
     "alias": "soy-milk",
     "categories": ["vegetable_processed"],
+    "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003114503",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "PROTEAGINEUX",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "afdc7ea9-6da0-4bab-9821-81acc46e23af",
     "inedible_part": 0,
@@ -6507,14 +6507,14 @@
   {
     "alias": "lemon-juice",
     "categories": ["vegetable_processed"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003108567",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "fd79d142-7e34-45a4-a0d1-59922b4c8d09",
     "inedible_part": 0,
@@ -6529,14 +6529,14 @@
   {
     "alias": "tomato-juice",
     "categories": ["vegetable_processed"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115649",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "65e6f518-e5fc-4fda-9af9-287d26e2bbe1",
     "inedible_part": 0,
@@ -6551,14 +6551,14 @@
   {
     "alias": "balsamic-vinegar",
     "categories": ["vegetable_processed"],
+    "crop_group": "DIVERS",
     "default": "AGRIBALU000000003116590",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "DIVERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.07234,
-      "plotSize": 0.75957,
-      "cropDiversity": 0.0
+      "plotSize": 0.75957
     },
     "id": "c2e4259b-962f-49ea-b7f1-606f81b59207",
     "inedible_part": 0,
@@ -6573,14 +6573,14 @@
   {
     "alias": "apricot-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "WFLDBQUA000001234500074",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "c455b3b8-406b-407a-a525-b2c832522e49",
     "inedible_part": 0.2,
@@ -6629,14 +6629,14 @@
   {
     "alias": "almond-inshell-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003100271",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.0598,
-      "plotSize": 3.0911,
-      "cropDiversity": 0.0
+      "plotSize": 3.0911
     },
     "id": "3a0c058b-70db-4fce-9984-e68e2f5a4760",
     "inedible_part": 0.5,
@@ -6651,14 +6651,14 @@
   {
     "alias": "almond-inshell-ue",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003100271",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0da203dd-5ce5-42cc-be90-95cc4c49b2ac",
     "inedible_part": 0.5,
@@ -6673,14 +6673,14 @@
   {
     "alias": "almond-inshell-non-ue",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003100271",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "99dcb716-b0ab-4ca5-b88a-4de43dbfb1af",
     "inedible_part": 0.5,
@@ -6695,14 +6695,14 @@
   {
     "alias": "artichoke-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102661",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "dd7fe1c9-9d56-4790-b735-3de608a20849",
     "inedible_part": 0.6,
@@ -6717,14 +6717,14 @@
   {
     "alias": "artichoke-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102661",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "92200507-627e-4ae5-a5f8-cf62ef619b02",
     "inedible_part": 0.6,
@@ -6739,14 +6739,14 @@
   {
     "alias": "avocado-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100760",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.64205,
       "hedges": 0.73027,
-      "plotSize": 0.89458,
-      "cropDiversity": 0.64205
+      "plotSize": 0.89458
     },
     "id": "d54c7a38-2577-4e8f-93c6-8f39b81226b5",
     "inedible_part": 0.3,
@@ -6761,14 +6761,14 @@
   {
     "alias": "avocado-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100748",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "fa8cce35-0e6b-4a2f-bdc1-80c05e497616",
     "inedible_part": 0.3,
@@ -6783,14 +6783,14 @@
   {
     "alias": "oats-ue",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003110378",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "6c3815da-dec2-4cf2-9be6-9d99b4e9948d",
     "inedible_part": 0,
@@ -6805,14 +6805,14 @@
   {
     "alias": "chard-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.13788,
       "hedges": 0.02848,
-      "plotSize": 0.043071,
-      "cropDiversity": 0.13788
+      "plotSize": 0.043071
     },
     "id": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
     "inedible_part": 0.4,
@@ -6827,14 +6827,14 @@
   {
     "alias": "swiss-chard-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003114717",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "4974a272-0080-4a52-a46e-ae222dcf8dff",
     "inedible_part": 0.03,
@@ -6849,14 +6849,14 @@
   {
     "alias": "broccoli-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "d1155206-18fc-41f1-8509-2f52e7614f2d",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.2355,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.611,
       "hedges": 0.12621,
-      "plotSize": 0.19087,
-      "cropDiversity": 0.611
+      "plotSize": 0.19087
     },
     "id": "d1155206-18fc-41f1-8509-2f52e7614f2d",
     "inedible_part": 0.2,
@@ -6871,14 +6871,14 @@
   {
     "alias": "broccoli-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102102",
     "default_origin": "France",
     "density": 0.2355,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.029724,
-      "plotSize": 0.07431,
-      "cropDiversity": 0.0
+      "plotSize": 0.07431
     },
     "id": "5461f2bc-7010-41ee-ab90-35312769a49f",
     "inedible_part": 0.2,
@@ -6893,14 +6893,14 @@
   {
     "alias": "broccoli-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102101",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.2355,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "51882472-92d6-4512-aecf-f852f286d5b5",
     "inedible_part": 0.2,
@@ -6915,14 +6915,14 @@
   {
     "alias": "celery-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102720",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "2b2b9e3a-9414-4fbc-8584-8e4bdf5d6a93",
     "inedible_part": 0.03,
@@ -6937,14 +6937,14 @@
   {
     "alias": "cherry-ue",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500332",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "ea6cc96f-ae22-4f14-ace9-a6a463fd360b",
     "inedible_part": 0.2,
@@ -6959,14 +6959,14 @@
   {
     "alias": "mushroom-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003100184",
     "default_origin": "France",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.12806,
-      "plotSize": 0.32014,
-      "cropDiversity": 0.0
+      "plotSize": 0.32014
     },
     "id": "d330d763-6baa-442f-b479-55425b1fa54f",
     "inedible_part": 0.1,
@@ -6981,14 +6981,14 @@
   {
     "alias": "walnut-inshell-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "FRUITS A COQUES",
     "default": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 3.3334,
-      "plotSize": 9.7223,
-      "cropDiversity": 0.0
+      "plotSize": 9.7223
     },
     "id": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
     "inedible_part": 0.5,
@@ -7003,14 +7003,14 @@
   {
     "alias": "white-cabbage-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102347",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "9f17139e-92b9-4bd4-9ba6-07da78f052ff",
     "inedible_part": 0.2,
@@ -7025,14 +7025,14 @@
   {
     "alias": "white-cabbage-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102347",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0259,
-      "plotSize": 0.064751,
-      "cropDiversity": 0.0
+      "plotSize": 0.064751
     },
     "id": "7c78115b-3268-4b78-add5-98b0f85bfc34",
     "inedible_part": 0.2,
@@ -7047,14 +7047,14 @@
   {
     "alias": "white-cabbage-organic",
     "categories": ["vegetable_fresh", "organic"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
     "default_origin": "France",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.38712,
       "hedges": 0.079962,
-      "plotSize": 0.12093,
-      "cropDiversity": 0.38712
+      "plotSize": 0.12093
     },
     "id": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
     "inedible_part": 0.2,
@@ -7069,14 +7069,14 @@
   {
     "alias": "chinese-cabbage-ue",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "ebb1d5ac-83e9-4295-9067-01e4bc5e43d1",
     "inedible_part": 0.2,
@@ -7091,14 +7091,14 @@
   {
     "alias": "chinese-cabbage-non-ue",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "3e3f8e66-57c3-43f8-b86c-54fb42af7f45",
     "inedible_part": 0.2,
@@ -7113,14 +7113,14 @@
   {
     "alias": "brussels-sprout-ue",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0896a0d5-b6ae-4b48-9e61-7c7ee42447ec",
     "inedible_part": 0.1,
@@ -7135,14 +7135,14 @@
   {
     "alias": "brussels-sprout-non-ue",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "f2ca7ffb-f4b2-478f-8008-41956b2aefa2",
     "inedible_part": 0.1,
@@ -7157,14 +7157,14 @@
   {
     "alias": "refined-palm-oil-non-ue",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003110758",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0,
-    "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "45658c32-66d9-4305-a34b-21d6a4cef89c",
     "inedible_part": 0,
@@ -7179,14 +7179,14 @@
   {
     "alias": "sunflower-oil-eu",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115190",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "ea419fa9-d69f-4735-8fe8-fab427ce5185",
     "inedible_part": 0,
@@ -7235,14 +7235,14 @@
   {
     "alias": "lentils-uncooked-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "WFLDBQUA000001234501500",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "LEGUMINEUSES A GRAIN",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "d0cd6516-40b9-40ce-b632-63c3a0ed14c1",
     "inedible_part": 0,
@@ -7257,14 +7257,14 @@
   {
     "alias": "lentils-uncooked-non-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "WFLDBQUA000001234501500",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "LEGUMINEUSES A GRAIN",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "c06e8471-88c9-490c-99fc-eb85b4e9e300",
     "inedible_part": 0,
@@ -7279,14 +7279,14 @@
   {
     "alias": "lambs-lettuce-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.118,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "c916d6db-03d1-48fb-9f81-71beffa94faf",
     "inedible_part": 0.4,
@@ -7301,14 +7301,14 @@
   {
     "alias": "sweet-corn-eu",
     "categories": ["grain_raw"],
+    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "WFLDBQUA000001234502277",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "MAIS GRAIN ET ENSILAGE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "20c97ec2-4950-4cb6-ac9d-a3a97b63c4ea",
     "inedible_part": 0.5,
@@ -7323,14 +7323,14 @@
   {
     "alias": "unknown-cereals-and-grain-products",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115218",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "c723eb89-a64f-405d-bb6b-6dced54c46ba",
     "inedible_part": 0.5,
@@ -7362,14 +7362,14 @@
   {
     "alias": "unknown-fruit-vegetable",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003103409",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "748b0518-02cd-4e7c-8829-78e527e92298",
     "inedible_part": 0.2,
@@ -7401,14 +7401,14 @@
   {
     "alias": "unknown-groceries",
     "categories": ["misc"],
+    "crop_group": "VERGERS",
     "default": "AGRIBALU000000003115509",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 7.7534,
       "hedges": 3.6561,
-      "plotSize": 7.3422,
-      "cropDiversity": 7.7534
+      "plotSize": 7.3422
     },
     "id": "3211b18f-83b2-4cf8-a0fd-42962f70b8b4",
     "inedible_part": 0,
@@ -7474,14 +7474,14 @@
   {
     "alias": "unknown-dried-fruits",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107319",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "7cf22e4f-49b0-4430-818a-17de54f2b740",
     "inedible_part": 0.5,
@@ -7496,14 +7496,14 @@
   {
     "alias": "unknown-oil",
     "categories": ["nut_oilseed_processed"],
+    "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115182",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "TOURNESOL",
     "ecosystemicServices": {
+      "cropDiversity": 3.4612,
       "hedges": 2.4539,
-      "plotSize": 3.2207,
-      "cropDiversity": 3.4612
+      "plotSize": 3.2207
     },
     "id": "66e7706b-5129-410c-b070-0a7feff2680f",
     "inedible_part": 0,
@@ -7773,14 +7773,14 @@
   {
     "alias": "mandarin-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234501557",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "6467c956-277d-4e09-80c2-b0b062f84086",
     "inedible_part": 0.2,
@@ -7795,14 +7795,14 @@
   {
     "alias": "melon-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "EI3ARUNI000011519604743",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "7b30c4ad-e851-4274-8062-4e14850108a9",
     "inedible_part": 0.4,
@@ -7817,14 +7817,14 @@
   {
     "alias": "blueberry-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101680",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "869f04ba-6780-4124-9240-b7be514be1ba",
     "inedible_part": 0.03,
@@ -7839,14 +7839,14 @@
   {
     "alias": "blueberry-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101680",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0eb658ae-a7e4-4b74-a7eb-9604b23c2f98",
     "inedible_part": 0.03,
@@ -7861,14 +7861,14 @@
   {
     "alias": "hazelnut-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "FRUITS A COQUES",
     "default": "df64fdd7-1900-402c-86b9-e766e22c27ed",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 3.8359,
-      "plotSize": 11.188,
-      "cropDiversity": 0.0
+      "plotSize": 11.188
     },
     "id": "df64fdd7-1900-402c-86b9-e766e22c27ed",
     "inedible_part": 0.5,
@@ -7883,14 +7883,14 @@
   {
     "alias": "hazelnut-unshelled-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "FRUITS A COQUES",
     "default": "4531bf0a-7910-4166-b3b1-e94027a10426",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 8.2358,
-      "plotSize": 24.021,
-      "cropDiversity": 0.0
+      "plotSize": 24.021
     },
     "id": "4531bf0a-7910-4166-b3b1-e94027a10426",
     "inedible_part": 0.5,
@@ -7905,14 +7905,14 @@
   {
     "alias": "hazelnut-unshelled-fr",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107320",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 4.7393,
-      "plotSize": 13.823,
-      "cropDiversity": 0.0
+      "plotSize": 13.823
     },
     "id": "60184de2-cc9e-4618-924a-b8fecf080c8b",
     "inedible_part": 0.5,
@@ -7927,14 +7927,14 @@
   {
     "alias": "chesnut-inshell-organic",
     "categories": ["nut_oilseed_raw", "organic"],
+    "crop_group": "FRUITS A COQUES",
     "default": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
     "default_origin": "France",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 3.8651,
-      "plotSize": 11.273,
-      "cropDiversity": 0.0
+      "plotSize": 11.273
     },
     "id": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
     "inedible_part": 0.5,
@@ -7949,14 +7949,14 @@
   {
     "alias": "walnut-inshell-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "WFLDBQUA000001234502444",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0060abe9-a6c2-47fb-bc87-404a9bbd3971",
     "inedible_part": 0.5,
@@ -7971,14 +7971,14 @@
   {
     "alias": "walnut-inshell-non-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "WFLDBQUA000001234502444",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "69d6cbd1-914d-40ea-aaa1-082911ed2fdd",
     "inedible_part": 0.5,
@@ -7993,14 +7993,14 @@
   {
     "alias": "olive-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "OLIVIERS",
     "default": "AGRIBALU000000003110400",
     "default_origin": "France",
     "density": 0.447,
-    "crop_group": "OLIVIERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.98447,
-      "plotSize": 1.7735,
-      "cropDiversity": 0.0
+      "plotSize": 1.7735
     },
     "id": "86ee6b87-c777-47a4-8243-8192dc3783c0",
     "inedible_part": 0.5,
@@ -8015,14 +8015,14 @@
   {
     "alias": "barley-eu",
     "categories": ["grain_raw"],
+    "crop_group": "ORGE",
     "default": "AGRIBALU000000003100967",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "ORGE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "34a88056-cd23-40e6-8eaa-6a64595fa9b2",
     "inedible_part": 0,
@@ -8037,14 +8037,14 @@
   {
     "alias": "barley-non-eu",
     "categories": ["grain_raw"],
+    "crop_group": "ORGE",
     "default": "AGRIBALU000000003100967",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "ORGE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "de8ef49d-d235-4513-9496-aa8409bdc093",
     "inedible_part": 0,
@@ -8059,14 +8059,14 @@
   {
     "alias": "pistachio-organic",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "FRUITS A COQUES",
     "default": "115a010d-270f-43f8-9827-b27348a08d13",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "FRUITS A COQUES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.6852,
-      "plotSize": 4.9151,
-      "cropDiversity": 0.0
+      "plotSize": 4.9151
     },
     "id": "115a010d-270f-43f8-9827-b27348a08d13",
     "inedible_part": 0.5,
@@ -8081,14 +8081,14 @@
   {
     "alias": "leek-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108534",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "7aea09f0-f3ae-4df0-9cbc-ba4007ce1459",
     "inedible_part": 0.2,
@@ -8103,14 +8103,14 @@
   {
     "alias": "leek-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108534",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "bb58047c-2b1d-42ad-b5a2-bc5ebf8289a1",
     "inedible_part": 0.2,
@@ -8125,14 +8125,14 @@
   {
     "alias": "bean-non-eu",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES CEREALES",
     "default": "EI3ARUNI000011519600047",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 3.6477,
-      "plotSize": 5.148,
-      "cropDiversity": 0.0
+      "plotSize": 5.148
     },
     "id": "134bc97e-e3dc-44de-8ec6-947b608a2d42",
     "inedible_part": 0,
@@ -8147,14 +8147,14 @@
   {
     "alias": "bean-eu",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES CEREALES",
     "default": "EI3ARUNI000011519600047",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "0fdccf80-b169-4b34-8409-d15c0d100957",
     "inedible_part": 0,
@@ -8169,14 +8169,14 @@
   {
     "alias": "bean-fr",
     "categories": ["grain_raw"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000024985200250",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 1.0396,
-      "plotSize": 1.4671,
-      "cropDiversity": 0.0
+      "plotSize": 1.4671
     },
     "id": "bfdf1505-8426-499e-8286-a1e4b4920c7e",
     "inedible_part": 0,
@@ -8191,14 +8191,14 @@
   {
     "alias": "chickpea-non-eu",
     "categories": ["nut_oilseed_raw"],
+    "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "EI3ARUNI000011519617720",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "LEGUMINEUSES A GRAIN",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "227914fd-5cf5-4c05-958f-ac4321e6c557",
     "inedible_part": 0.2,
@@ -8213,14 +8213,14 @@
   {
     "alias": "bellpepper-unheated-greenhouse-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101321",
     "default_origin": "France",
     "density": 0.295,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.020184,
-      "plotSize": 0.05046,
-      "cropDiversity": 0.0
+      "plotSize": 0.05046
     },
     "id": "361139ac-1028-4cc8-9c0e-4955c5fa39d3",
     "inedible_part": 0.03,
@@ -8235,14 +8235,14 @@
   {
     "alias": "bellpepper-unheated-greenhouse-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101321",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.295,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "123d51c5-27a3-4b57-a1d2-3b627dc4032a",
     "inedible_part": 0.03,
@@ -8257,14 +8257,14 @@
   {
     "alias": "bellpepper-unheated-greenhouse-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101321",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.295,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "d018ec1f-d3c8-4fa1-a70d-bca1b0380c47",
     "inedible_part": 0.03,
@@ -8279,14 +8279,14 @@
   {
     "alias": "apple-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500066",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "8c2299d6-49e4-493c-bafe-c0b4b7ef2079",
     "inedible_part": 0.1,
@@ -8301,14 +8301,14 @@
   {
     "alias": "potato-table-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "WFLDBQUA000001234501989",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "9bdb3037-1154-4477-a99c-6ca4ba9c9168",
     "inedible_part": 0.1,
@@ -8323,14 +8323,14 @@
   {
     "alias": "potato-table-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "WFLDBQUA000001234501984",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "33c427df-1967-452a-91b0-cdc1a2c9ca04",
     "inedible_part": 0.1,
@@ -8362,14 +8362,14 @@
   {
     "alias": "tomato-paste-fr",
     "categories": ["vegetable_processed"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115672",
     "default_origin": "France",
     "density": 1.0,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.016926,
-      "plotSize": 0.042315,
-      "cropDiversity": 0.0
+      "plotSize": 0.042315
     },
     "id": "ffd854c7-858b-4b97-9827-f99d2b71d48d",
     "inedible_part": 0,
@@ -8384,14 +8384,14 @@
   {
     "alias": "radish-fr",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003112396",
     "default_origin": "France",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.011541,
-      "plotSize": 0.028853,
-      "cropDiversity": 0.0
+      "plotSize": 0.028853
     },
     "id": "001e0594-90e9-4d0f-bf0d-a9a253269c58",
     "inedible_part": 0.1,
@@ -8406,14 +8406,14 @@
   {
     "alias": "radish-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003112391",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "bb970211-9d5c-4faf-a649-482e2a34b381",
     "inedible_part": 0.1,
@@ -8428,14 +8428,14 @@
   {
     "alias": "rice-basmati-eu",
     "categories": ["grain_raw"],
+    "crop_group": "RIZ",
     "default": "AGRIBALU000000003100993",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "RIZ",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "3294e42c-c053-42e5-bcc0-a35f189681d6",
     "inedible_part": 0,
@@ -8450,14 +8450,14 @@
   {
     "alias": "durum-wheat-semolina-non-eu",
     "categories": ["grain_processed"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105072",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "b02ea3a9-f5f1-4673-b043-1d6d72894964",
     "inedible_part": 0,
@@ -8472,14 +8472,14 @@
   {
     "alias": "durum-wheat-semolina-eu",
     "categories": ["grain_processed"],
+    "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105072",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
-    "crop_group": "AUTRES CEREALES",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "af44d84e-8a7d-47c2-ab19-934b3ea9ab17",
     "inedible_part": 0,
@@ -8494,14 +8494,14 @@
   {
     "alias": "plum-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500332",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "07433a1e-66d9-45c2-889b-38afb54622de",
     "inedible_part": 0.2,
@@ -8516,14 +8516,14 @@
   {
     "alias": "plum-non-eu",
     "categories": ["vegetable_fresh"],
+    "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500332",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
-    "crop_group": "VERGERS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "b83a6d8e-5afa-447b-be7b-5df9573e7d3b",
     "inedible_part": 0.2,
@@ -8538,14 +8538,14 @@
   {
     "alias": "soft-wheat-eu",
     "categories": ["grain_raw"],
+    "crop_group": "BLE TENDRE",
     "default": "AGRIBALU000000003117044",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
-    "crop_group": "BLE TENDRE",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.0,
-      "plotSize": 0.0,
-      "cropDiversity": 0.0
+      "plotSize": 0.0
     },
     "id": "ae9ccfff-93bb-46b3-9ade-479fbbdb6d56",
     "inedible_part": 0,
@@ -8560,14 +8560,14 @@
   {
     "alias": "onion-dried",
     "categories": ["vegetable_processed"],
+    "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110475",
     "default_origin": "France",
     "density": 0.6195,
-    "crop_group": "LEGUMES-FLEURS",
     "ecosystemicServices": {
+      "cropDiversity": 0.0,
       "hedges": 0.62787,
-      "plotSize": 1.5697,
-      "cropDiversity": 0.0
+      "plotSize": 1.5697
     },
     "id": "0a2edda7-2158-4206-8d8c-2151fc925215",
     "inedible_part": 0,

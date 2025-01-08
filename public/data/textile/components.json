@@ -4,8 +4,8 @@
     "name": "Zip long",
     "processes": [
       {
-        "process_id": "8b91651b-9651-46fc-8bc2-37a141494086",
-        "amount": 0.05
+        "amount": 0.05,
+        "process_id": "8b91651b-9651-46fc-8bc2-37a141494086"
       }
     ]
   },
@@ -14,8 +14,8 @@
     "name": "Zip court",
     "processes": [
       {
-        "process_id": "8b91651b-9651-46fc-8bc2-37a141494086",
-        "amount": 0.01
+        "amount": 0.01,
+        "process_id": "8b91651b-9651-46fc-8bc2-37a141494086"
       }
     ]
   },
@@ -24,8 +24,8 @@
     "name": "Bouton en plastique",
     "processes": [
       {
-        "process_id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
-        "amount": 0.002
+        "amount": 0.002,
+        "process_id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984"
       }
     ]
   },
@@ -34,8 +34,8 @@
     "name": "Bouton en métal",
     "processes": [
       {
-        "process_id": "2e217ad8-05fa-4a9d-a18d-272fc969848c",
-        "amount": 0.003
+        "amount": 0.003,
+        "process_id": "2e217ad8-05fa-4a9d-a18d-272fc969848c"
       }
     ]
   }

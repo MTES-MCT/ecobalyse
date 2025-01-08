@@ -1,10 +1,15 @@
 [
   {
+    "category": "Tshirt / Polo",
     "id": "c0500a78-8b40-4e92-88df-c2a39e1a08c3",
     "name": "Tshirt lin (150g) - France - Mode \"éthique\"",
-    "scope": "textile",
-    "category": "Tshirt / Polo",
     "query": {
+      "business": "small-business",
+      "countryDyeing": "FR",
+      "countryFabric": "FR",
+      "countryMaking": "FR",
+      "countrySpinning": "TR",
+      "marketingDuration": 300,
       "mass": 0.15,
       "materials": [
         {
@@ -12,24 +17,24 @@
           "share": 1
         }
       ],
-      "product": "tshirt",
-      "countrySpinning": "TR",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "business": "small-business",
-      "marketingDuration": 300,
       "numberOfReferences": 200,
       "price": 30,
+      "product": "tshirt",
       "traceability": true
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Tshirt / Polo",
     "id": "b9dc9be5-ba32-4b8c-9190-b93098cf1d0d",
     "name": "Tshirt coton bio (150g) - France - Mode \"éthique\"",
-    "scope": "textile",
-    "category": "Tshirt / Polo",
     "query": {
+      "business": "small-business",
+      "countryDyeing": "FR",
+      "countryFabric": "FR",
+      "countryMaking": "FR",
+      "countrySpinning": "TR",
+      "marketingDuration": 300,
       "mass": 0.15,
       "materials": [
         {
@@ -37,24 +42,24 @@
           "share": 1
         }
       ],
-      "product": "tshirt",
-      "countrySpinning": "TR",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "business": "small-business",
-      "marketingDuration": 300,
       "numberOfReferences": 200,
       "price": 30,
+      "product": "tshirt",
       "traceability": true
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Pull",
     "id": "dffc6a19-794a-4d14-ad1a-bc3512359f22",
     "name": "Pull polyester (550g) - Asie - Mode \"ultra fast fashion\"",
-    "scope": "textile",
-    "category": "Pull",
     "query": {
+      "business": "large-business-without-services",
+      "countryDyeing": "RAS",
+      "countryFabric": "RAS",
+      "countryMaking": "RAS",
+      "countrySpinning": "RAS",
+      "marketingDuration": 65,
       "mass": 0.55,
       "materials": [
         {
@@ -62,24 +67,24 @@
           "share": 1
         }
       ],
-      "product": "pull",
-      "countrySpinning": "RAS",
-      "countryFabric": "RAS",
-      "countryDyeing": "RAS",
-      "countryMaking": "RAS",
-      "business": "large-business-without-services",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 15,
+      "product": "pull",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Pull",
     "id": "f02b1029-0d04-4239-94d1-b384ab3316cb",
     "name": "Pull coton (550g) - Chine - Mode \"fast fashion\"",
-    "scope": "textile",
-    "category": "Pull",
     "query": {
+      "business": "large-business-without-services",
+      "countryDyeing": "CN",
+      "countryFabric": "CN",
+      "countryMaking": "CN",
+      "countrySpinning": "CN",
+      "marketingDuration": 115,
       "mass": 0.55,
       "materials": [
         {
@@ -87,24 +92,24 @@
           "share": 1
         }
       ],
-      "product": "pull",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "business": "large-business-without-services",
-      "marketingDuration": 115,
       "numberOfReferences": 12000,
       "price": 30,
+      "product": "pull",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Pull",
     "id": "c605e8cc-7f3e-42b6-afc1-9358bda9a633",
     "name": "Pull viscose (550g) - Chine - Mode \"fast fashion\"",
-    "scope": "textile",
-    "category": "Pull",
     "query": {
+      "business": "large-business-without-services",
+      "countryDyeing": "CN",
+      "countryFabric": "CN",
+      "countryMaking": "CN",
+      "countrySpinning": "CN",
+      "marketingDuration": 115,
       "mass": 0.55,
       "materials": [
         {
@@ -116,24 +121,24 @@
           "share": 0.3
         }
       ],
-      "product": "pull",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "business": "large-business-without-services",
-      "marketingDuration": 115,
       "numberOfReferences": 12000,
       "price": 30,
+      "product": "pull",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Pull",
     "id": "9986e023-47f7-42c7-8c1b-4fe1371f2f59",
     "name": "Pull coton (550g) - Pakistan - Mode \"traditionnelle\"",
-    "scope": "textile",
-    "category": "Pull",
     "query": {
+      "business": "large-business-without-services",
+      "countryDyeing": "PK",
+      "countryFabric": "PK",
+      "countryMaking": "PK",
+      "countrySpinning": "PK",
+      "marketingDuration": 115,
       "mass": 0.55,
       "materials": [
         {
@@ -141,24 +146,24 @@
           "share": 1
         }
       ],
-      "product": "pull",
-      "countrySpinning": "PK",
-      "countryFabric": "PK",
-      "countryDyeing": "PK",
-      "countryMaking": "PK",
-      "business": "large-business-without-services",
-      "marketingDuration": 115,
       "numberOfReferences": 2500,
       "price": 70,
+      "product": "pull",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Pull",
     "id": "dc4a1762-ac99-4d41-8ef6-1f4d647dec62",
     "name": "Pull coton bio (550g) - France - Mode \"traditionnelle\"",
-    "scope": "textile",
-    "category": "Pull",
     "query": {
+      "business": "large-business-with-services",
+      "countryDyeing": "FR",
+      "countryFabric": "FR",
+      "countryMaking": "FR",
+      "countrySpinning": "IN",
+      "marketingDuration": 115,
       "mass": 0.55,
       "materials": [
         {
@@ -166,24 +171,24 @@
           "share": 1
         }
       ],
-      "product": "pull",
-      "countrySpinning": "IN",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "business": "large-business-with-services",
-      "marketingDuration": 115,
       "numberOfReferences": 2500,
       "price": 70,
+      "product": "pull",
       "traceability": true
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Pull",
     "id": "8a57688b-1da6-4fc4-85aa-a27c6cdf4a56",
     "name": "Pull laine (550g) - France - Mode \"éthique\"",
-    "scope": "textile",
-    "category": "Pull",
     "query": {
+      "business": "small-business",
+      "countryDyeing": "FR",
+      "countryFabric": "FR",
+      "countryMaking": "FR",
+      "countrySpinning": "CN",
+      "marketingDuration": 300,
       "mass": 0.55,
       "materials": [
         {
@@ -191,50 +196,50 @@
           "share": 1
         }
       ],
-      "product": "pull",
-      "countrySpinning": "CN",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "business": "small-business",
-      "marketingDuration": 300,
       "numberOfReferences": 200,
       "price": 95,
+      "product": "pull",
       "traceability": true
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Pull",
     "id": "611fd763-8df3-40d1-a51a-e8073bb3aaf0",
     "name": "Pull laine paysanne (550g) - France - Mode \"éthique\"",
-    "scope": "textile",
-    "category": "Pull",
     "query": {
+      "business": "small-business",
+      "countryDyeing": "FR",
+      "countryFabric": "FR",
+      "countryMaking": "FR",
+      "countrySpinning": "FR",
+      "marketingDuration": 300,
       "mass": 0.55,
       "materials": [
         {
+          "country": "FR",
           "id": "ei-laine-nouvelle-filiere",
-          "share": 1,
-          "country": "FR"
+          "share": 1
         }
       ],
-      "product": "pull",
-      "countrySpinning": "FR",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "business": "small-business",
-      "marketingDuration": 300,
       "numberOfReferences": 200,
       "price": 95,
+      "product": "pull",
       "traceability": true
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Tshirt / Polo",
     "id": "64ec2a97-5b87-4dc8-a9c2-96f3b50e9fe2",
     "name": "Tshirt synthétique (150g) - Asie - Mode \"ultra fast fashion\"",
-    "scope": "textile",
-    "category": "Tshirt / Polo",
     "query": {
+      "business": "large-business-without-services",
+      "countryDyeing": "RAS",
+      "countryFabric": "RAS",
+      "countryMaking": "RAS",
+      "countrySpinning": "RAS",
+      "marketingDuration": 65,
       "mass": 0.15,
       "materials": [
         {
@@ -246,24 +251,24 @@
           "share": 0.05
         }
       ],
-      "product": "tshirt",
-      "countrySpinning": "RAS",
-      "countryFabric": "RAS",
-      "countryDyeing": "RAS",
-      "countryMaking": "RAS",
-      "business": "large-business-without-services",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 10,
+      "product": "tshirt",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Tshirt / Polo",
     "id": "351d73dc-9c50-4aa8-858a-2bd5448d1f26",
     "name": "Tshirt coton (150g) - Chine - Mode \"fast fashion\"",
-    "scope": "textile",
-    "category": "Tshirt / Polo",
     "query": {
+      "business": "large-business-without-services",
+      "countryDyeing": "CN",
+      "countryFabric": "CN",
+      "countryMaking": "CN",
+      "countrySpinning": "CN",
+      "marketingDuration": 115,
       "mass": 0.15,
       "materials": [
         {
@@ -275,24 +280,24 @@
           "share": 0.25
         }
       ],
-      "product": "tshirt",
-      "countrySpinning": "CN",
-      "countryFabric": "CN",
-      "countryDyeing": "CN",
-      "countryMaking": "CN",
-      "business": "large-business-without-services",
-      "marketingDuration": 115,
       "numberOfReferences": 12000,
       "price": 20,
+      "product": "tshirt",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Tshirt / Polo",
     "id": "16c16705-3169-41bf-b1b2-6382b00c2118",
     "name": "Tshirt coton (150g) - Pakistan - Mode \"traditionnelle\"",
-    "scope": "textile",
-    "category": "Tshirt / Polo",
     "query": {
+      "business": "large-business-with-services",
+      "countryDyeing": "PK",
+      "countryFabric": "PK",
+      "countryMaking": "PK",
+      "countrySpinning": "PK",
+      "marketingDuration": 115,
       "mass": 0.15,
       "materials": [
         {
@@ -300,24 +305,24 @@
           "share": 1
         }
       ],
-      "product": "tshirt",
-      "countrySpinning": "PK",
-      "countryFabric": "PK",
-      "countryDyeing": "PK",
-      "countryMaking": "PK",
-      "business": "large-business-with-services",
-      "marketingDuration": 115,
       "numberOfReferences": 2500,
       "price": 30,
+      "product": "tshirt",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Tshirt / Polo",
     "id": "5dbb2cfb-dc3a-48cc-bc7b-aaefbc3cc285",
     "name": "Tshirt coton (150g) - France - Mode \"traditionnelle\"",
-    "scope": "textile",
-    "category": "Tshirt / Polo",
     "query": {
+      "business": "large-business-with-services",
+      "countryDyeing": "FR",
+      "countryFabric": "FR",
+      "countryMaking": "FR",
+      "countrySpinning": "TR",
+      "marketingDuration": 115,
       "mass": 0.15,
       "materials": [
         {
@@ -325,24 +330,19 @@
           "share": 1
         }
       ],
-      "product": "tshirt",
-      "countrySpinning": "TR",
-      "countryFabric": "FR",
-      "countryDyeing": "FR",
-      "countryMaking": "FR",
-      "business": "large-business-with-services",
-      "marketingDuration": 115,
       "numberOfReferences": 2500,
       "price": 30,
+      "product": "tshirt",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Jupe / Robe",
     "id": "307b3586-41f4-4d93-833a-e03b5be137cc",
     "name": "Jupe coton (300g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Jupe / Robe",
     "query": {
+      "marketingDuration": 65,
       "mass": 0.3,
       "materials": [
         {
@@ -350,22 +350,22 @@
           "share": 1
         }
       ],
-      "product": "jupe",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 15,
+      "product": "jupe",
       "trims": [
-        { "quantity": 1, "id": "0e8ea799-9b06-490c-a925-37564746c454" },
-        { "quantity": 1, "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a" }
+        { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 },
+        { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 1 }
       ]
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Chemise",
     "id": "536e3785-039a-49d6-a119-3cfce485420c",
     "name": "Chemise coton (250g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Chemise",
     "query": {
+      "marketingDuration": 65,
       "mass": 0.25,
       "materials": [
         {
@@ -373,43 +373,20 @@
           "share": 1
         }
       ],
-      "product": "chemise",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 15,
-      "trims": [{ "quantity": 10, "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a" }]
-    }
+      "product": "chemise",
+      "trims": [{ "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 10 }]
+    },
+    "scope": "textile"
   },
   {
+    "category": "Jean",
     "id": "bf24fd40-9a2a-4489-935b-d82c339e5abe",
     "name": "Jean coton (450g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Jean",
     "query": {
-      "mass": 0.45,
-      "materials": [
-        {
-          "id": "ei-coton",
-          "share": 1
-        }
-      ],
-      "product": "jean",
       "fading": true,
       "marketingDuration": 65,
-      "numberOfReferences": 100000,
-      "price": 20,
-      "trims": [
-        { "quantity": 1, "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973" },
-        { "quantity": 1, "id": "0e8ea799-9b06-490c-a925-37564746c454" }
-      ]
-    }
-  },
-  {
-    "id": "f86835d3-7018-40fa-8144-2d1f6aa264b9",
-    "name": "Pantalon coton (450g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Pantalon",
-    "query": {
       "mass": 0.45,
       "materials": [
         {
@@ -417,22 +394,45 @@
           "share": 1
         }
       ],
-      "product": "pantalon",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 20,
+      "product": "jean",
       "trims": [
-        { "quantity": 1, "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973" },
-        { "quantity": 1, "id": "0e8ea799-9b06-490c-a925-37564746c454" }
+        { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
+        { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
       ]
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Pantalon",
+    "id": "f86835d3-7018-40fa-8144-2d1f6aa264b9",
+    "name": "Pantalon coton (450g) - Majorant par défaut",
+    "query": {
+      "marketingDuration": 65,
+      "mass": 0.45,
+      "materials": [
+        {
+          "id": "ei-coton",
+          "share": 1
+        }
+      ],
+      "numberOfReferences": 100000,
+      "price": 20,
+      "product": "pantalon",
+      "trims": [
+        { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
+        { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
+      ]
+    },
+    "scope": "textile"
+  },
+  {
+    "category": "Manteau / Veste",
     "id": "32c8973b-864f-4060-977d-a0738f6414c4",
     "name": "Manteau coton (950g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Manteau / Veste",
     "query": {
+      "marketingDuration": 65,
       "mass": 0.95,
       "materials": [
         {
@@ -440,22 +440,23 @@
           "share": 1
         }
       ],
-      "product": "manteau",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 40,
+      "product": "manteau",
       "trims": [
-        { "quantity": 1, "id": "86b877ff-0d59-482f-bb34-3ff306b07496" },
-        { "quantity": 3, "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a" }
+        { "id": "86b877ff-0d59-482f-bb34-3ff306b07496", "quantity": 1 },
+        { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 3 }
       ]
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Tshirt / Polo",
     "id": "f48d7a6b-68db-4d1c-9623-6ec0ab89cbdb",
     "name": "Tshirt coton (150g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Tshirt / Polo",
     "query": {
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
       "mass": 0.15,
       "materials": [
         {
@@ -463,20 +464,24 @@
           "share": 1
         }
       ],
-      "product": "tshirt",
-      "business": "large-business-without-services",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 10,
+      "product": "tshirt",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Tshirt / Polo",
     "id": "6a2da9ff-9120-4a47-91ad-a8e72be45f4a",
     "name": "Tshirt coton (150g) - Remanufacturé",
-    "scope": "textile",
-    "category": "Tshirt / Polo",
     "query": {
+      "business": "large-business-without-services",
+      "countryDyeing": "---",
+      "countryFabric": "---",
+      "countryMaking": "---",
+      "countrySpinning": "---",
+      "marketingDuration": 65,
       "mass": 0.15,
       "materials": [
         {
@@ -484,25 +489,21 @@
           "share": 1
         }
       ],
-      "product": "tshirt",
-      "countrySpinning": "---",
-      "countryFabric": "---",
-      "countryDyeing": "---",
-      "countryMaking": "---",
-      "business": "large-business-without-services",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 10,
+      "product": "tshirt",
       "traceability": false,
       "upcycled": true
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Pull",
     "id": "190ccaed-6883-4dd9-a70b-918878ccced6",
     "name": "Pull coton (550g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Pull",
     "query": {
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
       "mass": 0.55,
       "materials": [
         {
@@ -510,20 +511,20 @@
           "share": 1
         }
       ],
-      "product": "pull",
-      "business": "large-business-without-services",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 15,
+      "product": "pull",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Chaussettes",
     "id": "47f8d396-9f57-4a1d-8d24-b2fc3439e75f",
     "name": "Chaussettes coton (40g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Chaussettes",
     "query": {
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
       "mass": 0.04,
       "materials": [
         {
@@ -531,20 +532,20 @@
           "share": 1
         }
       ],
-      "product": "chaussettes",
-      "business": "large-business-without-services",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 4,
+      "product": "chaussettes",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Caleçon (tissé)",
     "id": "3f3be8b2-115b-41b4-b925-5656aa7d8c87",
     "name": "Caleçon coton (40g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Caleçon (tissé)",
     "query": {
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
       "mass": 0.04,
       "materials": [
         {
@@ -552,20 +553,20 @@
           "share": 1
         }
       ],
-      "product": "calecon",
-      "business": "large-business-without-services",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 4,
+      "product": "calecon",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Boxer / slip (tricoté)",
     "id": "69a21510-b23b-4910-9bd9-23507c8f5a59",
     "name": "Slip coton (30g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Boxer / slip (tricoté)",
     "query": {
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
       "mass": 0.03,
       "materials": [
         {
@@ -573,20 +574,20 @@
           "share": 1
         }
       ],
-      "product": "slip",
-      "business": "large-business-without-services",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 4,
+      "product": "slip",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   },
   {
+    "category": "Maillot de bain",
     "id": "9d382f50-f77a-44cd-b26f-702c4a2ceb50",
     "name": "Maillot de bain polyester (100g) - Majorant par défaut",
-    "scope": "textile",
-    "category": "Maillot de bain",
     "query": {
+      "business": "large-business-without-services",
+      "marketingDuration": 65,
       "mass": 0.1,
       "materials": [
         {
@@ -594,12 +595,11 @@
           "share": 1
         }
       ],
-      "product": "maillot-de-bain",
-      "business": "large-business-without-services",
-      "marketingDuration": 65,
       "numberOfReferences": 100000,
       "price": 15,
+      "product": "maillot-de-bain",
       "traceability": false
-    }
+    },
+    "scope": "textile"
   }
 ]
