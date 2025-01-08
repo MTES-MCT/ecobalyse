@@ -465,7 +465,7 @@ notificationView { closeNotification, resetSessionStore } notification =
                 , close = Nothing
                 , content =
                     [ p [] [ text "Votre précédente session n'a pas pu être récupérée, elle doit donc être réinitialisée." ]
-                    , p [] [ button [ class "btn btn-primary", onClick resetSessionStore ] [ text "D'accord" ] ]
+                    , p [] [ button [ class "btn btn-primary", onClick resetSessionStore ] [ text "D’accord, réinitialiser la session" ] ]
                     , details []
                         [ summary [] [ text "Afficher les détails techniques de l'erreur" ]
                         , pre [] [ text <| Decode.errorToString decodeError ]
