@@ -137,30 +137,27 @@ init flags requestedUrl navKey =
 
 setupSession : Nav.Key -> Flags -> Db -> Session
 setupSession navKey flags db =
-    let
-        store =
-            Session.deserializeStore flags.rawStore
-    in
-    { clientUrl = flags.clientUrl
-    , currentVersion = Request.Version.Unknown
-    , db = db
-    , enabledSections = flags.enabledSections
-    , matomo = flags.matomo
-    , navKey = navKey
-    , notifications = []
-    , queries =
-        { food = FoodQuery.empty
-        , object = ObjectQuery.default
-        , textile =
-            db.textile.examples
-                |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
-                |> Result.map .query
-                |> Result.withDefault TextileQuery.default
-        , veli = ObjectQuery.default
+    Session.decodeRawStore flags.rawStore
+        { clientUrl = flags.clientUrl
+        , currentVersion = Request.Version.Unknown
+        , db = db
+        , enabledSections = flags.enabledSections
+        , matomo = flags.matomo
+        , navKey = navKey
+        , notifications = []
+        , queries =
+            { food = FoodQuery.empty
+            , object = ObjectQuery.default
+            , textile =
+                db.textile.examples
+                    |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
+                    |> Result.map .query
+                    |> Result.withDefault TextileQuery.default
+            , veli = ObjectQuery.default
+            }
+        , releases = RemoteData.NotAsked
+        , store = Session.defaultStore
         }
-    , releases = RemoteData.NotAsked
-    , store = store
-    }
 
 
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
@@ -353,7 +350,8 @@ update rawMsg ({ state } as model) =
                 ( StoreChanged json, currentPage ) ->
                     ( { model
                         | state =
-                            currentPage |> Loaded { session | store = Session.deserializeStore json }
+                            currentPage
+                                |> Loaded (session |> Session.decodeRawStore json)
                       }
                     , Cmd.none
                     )
