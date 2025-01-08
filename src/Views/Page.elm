@@ -460,7 +460,7 @@ notificationView { closeNotification } notification =
 
         Session.StoreDecodingError decodeError ->
             Alert.simple
-                { level = Alert.Danger
+                { level = Alert.Warning
                 , title = Just "Erreur de récupération de session"
                 , close = Nothing
                 , content =
