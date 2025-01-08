@@ -739,7 +739,7 @@ computeTotalTransportImpacts simulator =
 
 
 computeTrims : Db -> Simulator -> Result String Simulator
-computeTrims db simulator =
+computeTrims db ({ durability } as simulator) =
     simulator.inputs.trims
         |> Component.compute db.textile
         |> Result.map Component.extractImpacts
@@ -750,6 +750,7 @@ computeTrims db simulator =
                         Impact.sumImpacts
                             [ simulator.impacts
                             , trimsImpacts
+                                |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
                             ]
                     , trimsImpacts = trimsImpacts
                 }
