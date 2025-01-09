@@ -33,6 +33,7 @@
   * [🚢 Transport](textile/cycle-de-vie-des-produits-textiles/transport.md)
   * [👘 Stocks dormants / Deadstock](textile/cycle-de-vie-des-produits-textiles/stocks-dormants-deadstock.md)
   * [🧥 Upcycling / Remanufacturage](textile/cycle-de-vie-des-produits-textiles/surcyclage-upcycling.md)
+  * [🤐 Accessoires](textile/cycle-de-vie-des-produits-textiles/accessoires.md)
 * [Compléments hors ACV](textile/complements-hors-acv/README.md)
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)
   * [🐠 Microfibres](textile/complements-hors-acv/microfibres.md)
