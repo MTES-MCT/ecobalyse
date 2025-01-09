@@ -4,7 +4,7 @@ description: >-
   catégories VAE et L1 à L7e. Ils sont entre le vélo et la voiture.
 ---
 
-# Cycle de vie des véhicules
+# Cycle de vie
 
 ## Objectif
 
@@ -18,11 +18,11 @@ L'écosystème des VeLIs est accompagné en France par le programme Xtreme Défi
 
 Pour plus d'informations : [https://xd.ademe.fr/](https://xd.ademe.fr/)
 
-Ce programme inclut notamment un groupe de travail sur l'impact environnemental, qui a permis de construire l'essentiel des méthodes utilisées dans Ecobalyse. Le détail des travaux de ce groupe de travail est disponible ici : [https://wikixd.fabmob.io/wiki/GT\_Label\_et\_ACV](https://wikixd.fabmob.io/wiki/GT\_Label\_et\_ACV)
+Ce programme inclut notamment un groupe de travail sur l'impact environnemental, qui a permis de construire l'essentiel des méthodes utilisées dans Ecobalyse. Le détail des travaux de ce groupe de travail est disponible ici : [https://wikixd.fabmob.io/wiki/GT\_Label\_et\_ACV](https://wikixd.fabmob.io/wiki/GT_Label_et_ACV)
 
 ## Panel de véhicules concernés
 
-Une description des types de véhicules concernés est disponible ici : [https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L](https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L)
+Une description des types de véhicules concernés est disponible ici : [https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories\_L](https://wiki.lafabriquedesmobilites.fr/wiki/Cat%C3%A9gories_L)
 
 Les catégories utilisées pour Ecobalyse sont listées dans la page [Caractérisation du véhicule](../parametrage/caracteristiques-du-vehicule.md).
 
@@ -66,8 +66,8 @@ Seuls les véhicules fonctionnant à l'énergie électrique et/ou musculaire peu
 [fabrication-des-composants](fabrication-des-composants/)
 {% endcontent-ref %}
 
-{% content-ref url="transport-des-composants.md" %}
-[transport-des-composants.md](transport-des-composants.md)
+{% content-ref url="../../documentation-transverse/transport.md" %}
+[transport.md](../../documentation-transverse/transport.md)
 {% endcontent-ref %}
 
 {% content-ref url="transport-des-vehicules.md" %}

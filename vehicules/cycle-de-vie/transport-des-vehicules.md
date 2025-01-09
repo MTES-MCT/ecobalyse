@@ -8,7 +8,7 @@ Le transport de véhicules assemblés est spécifique à ce secteur. En effet, d
 
 Les véhicules les plus grands, à l'instar des voitures, sont transportés dans des moyens de transports spécifiques.
 
-Le transport des composants vers le site d'assemblage est traité dans la [page précédente](transport-des-composants.md).
+Le transport des composants vers le site d'assemblage est traité dans la [page précédente](../../documentation-transverse/transport.md).
 
 ### Éléments sur l'impact environnemental du transport de véhicules
 

@@ -151,7 +151,6 @@
     * [💺 Assise](vehicules/cycle-de-vie/fabrication-des-composants/assise.md)
     * [💠 Système photovoltaïques](vehicules/cycle-de-vie/fabrication-des-composants/systeme-photovoltaiques.md)
     * [⛓️ Autres composants](vehicules/cycle-de-vie/fabrication-des-composants/autres-composants.md)
-  * [🚚 Transport des composants](vehicules/cycle-de-vie/transport-des-composants.md)
   * [🚚 Transport des véhicules](vehicules/cycle-de-vie/transport-des-vehicules.md)
   * [⚡ Utilisation du véhicule](vehicules/cycle-de-vie/utilisation-du-vehicule/README.md)
     * [☀️ Energie apportée par des panneaux solaires photovoltaïque](vehicules/cycle-de-vie/utilisation-du-vehicule/energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
@@ -159,3 +158,8 @@
 * [Draft - Paramétrage](vehicules/parametrage/README.md)
   * [Caractéristiques du véhicule](vehicules/parametrage/caracteristiques-du-vehicule.md)
 * [Draft - Exemples](vehicules/exemples.md)
+
+## 📄 Documentation transverse
+
+* [🚚 Transport](documentation-transverse/transport.md)
+* [Page 1](documentation-transverse/page-1.md)
