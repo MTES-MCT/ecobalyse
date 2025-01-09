@@ -32,6 +32,77 @@ Sauf indication contraire spécifique, les modes de transport ci-dessus sont mod
 
 ### Calcul de distances entre deux pays
 
+La distance est calculée à partie des pays d'origine et de destination indiqués pour les matières premières et chaque étape de transformation.
+
+<details>
+
+<summary>Option 1 : Je connais le pays, il est proposé dans Ecobalyse</summary>
+
+Je sélectionne ce pays, la distance est calculée depuis et/ou vers ce pays avec les modalités suivantes :&#x20;
+
+Liaison possible par la terre uniquement : Calcul
+
+Laison maritime : Calcil
+
+[Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json)
+
+Les distances entre pays sont considérées à partir des calculateurs mis en avant dans le projet de PEF CR Apparel & Footwear rendu public à l'été 2021 (Version 1.1 – Second draft PEFCR, 28 May 2021).
+
+Ainsi :
+
+Type de transportSite de référence
+
+Terrestre : [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)
+
+Maritime : [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)
+
+Aérien : Calcul de distance à vol d'oiseau geopy.distance entre le centre de chaque pays.
+
+Lorsque deux étapes successives sont réalisées dans un même pays, une distance par défaut est considérée. Cette distance est également considérée pour du transport aérien si le curseur "transport aérien" est utilisé.
+
+Distance par défaut : 500 km
+
+**Ce choix de distance par défaut relève d'une orientation spécifique à l'outil et devant être discutée. Le cas de deux étapes successives réalisées sur un même site, avec donc une distance nulle, pourrait être intégré.**
+
+</details>
+
+<details>
+
+<summary>Option 2 : Je connais le pays, il n'est pas proposé dans Ecobalyse</summary>
+
+Je sélectionne la région (ex : _Europe de l'Ouest_ pour _Allemagne_)
+
+Afin de définir les distances et modes de transport utilisés pour chaque région, un pays est défini en arrière plan :
+
+* Europe de l'Ouest = Espagne
+* Europe de l'Est = République Tchèque
+* Asie = Chine
+* Afrique = Ethiopie
+* Amérique du Nord = Etats-Unis
+* Amérique latine = Brésil
+* Océanie = Australie
+* Moyen-Orient = Turquie
+
+</details>
+
+<details>
+
+<summary>Option 3 : je ne connais pas le pays</summary>
+
+Je sélectionne "Inconnu (par défaut)"
+
+Dans ce cas, les distances suivantes sont fixées par défaut, Product Environmental Footprint Category Rules Guidance
+
+1000 km de transport routier (de l'usine au port ou aéroport de départ et du port ou aéroport d'arrivée à l'usine ou lieu de stockage d'arrivée)
+
+18 000 km de transport maritime ou 10 000 km de transport aérien
+
+</details>
+
+Je sélectionne l'option _Inconnu (par défaut)._
+
+L'Inde est utilisé en arrière plan pour définir les distances et modes de transport utilisés pour cette optio
+
 <mark style="color:yellow;">500 km \*2 route + maritime</mark>
 
 <mark style="color:yellow;">ou aérien</mark>
@@ -39,6 +110,8 @@ Sauf indication contraire spécifique, les modes de transport ci-dessus sont mod
 <mark style="color:yellow;">ou distance route</mark>
 
 <mark style="color:yellow;">si inconnu : 18000 PEF</mark>
+
+###
 
 ### Cas de la distribution
 
@@ -83,8 +156,6 @@ Les étapes de transport prisent en compte dans le coût environnemental du prod
 * le transport des ingrédients, matériaux ou composants tout au long de la chaine de production modélisée dans Ecobalyse
 * Le transport du produit fini vers la France, le cas échéant
 * La distribution du produit en France.
-
-### Modes de transport <a href="#procedes" id="procedes"></a>
 
 
 
@@ -154,3 +225,5 @@ Véhicules et ameublement :&#x20;
 Il est retenu comme hypothèse que tous les composants sont transportés par voie terrestre ou terrestre + maritime.
 
 Alim et textile : ratio de transport aérien
+
+Cas du transport du produit fini : Train
