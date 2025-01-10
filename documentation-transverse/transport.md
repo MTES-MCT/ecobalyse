@@ -25,9 +25,11 @@ Les étapes de transport prisent en compte dans le coût environnemental du prod
 
 A des fins de simplification, ces 4 voies ne sont pas toujours proposés pour toutes les étapes de transport.
 
-## Calcul de distances entre deux pays
+## Calcul du coût environnemental par voie
 
-La distance est calculée à partie des pays d'origine et de destination indiqués pour les matières premières et chaque étape de transformation.
+### Distances et mode de transport
+
+Pour chaque voie, la distance par mode de transport est calculée sur la base des pays d'origines et de destination de l'étape de transport considérée. Ces pays sont déterminés à partir des pays d'origine des matières premières et de la localisation de chaque étape du cycle de vie, constitue pour chaque étape de de transport.
 
 <details>
 
@@ -104,17 +106,46 @@ Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence ave
 
 </details>
 
-### Cas de la distribution
+#### Cas de la distribution
 
 Pour la distribution, il est considéré une distance par défaut de 500 km, effectuée en camion entre un entrepôt situé quelque part en France et un magasin ou point de retrait plus proche du consommateur.
 
 Cette hypothèse est conforme à la méthodologie ADEME pour le textile (cf. méthodologie d'évaluation des impacts environnementaux des articles d'habillement - section A.2.b.2 p30).&#x20;
 
+### Coût environnemental pour une voie de transport
+
+À chaque étape, l'impact d'une voie de transport est calculé de la façon suivante :
+
+$$
+CEvoie=Masse*(D_1∗CE[m1]+D_2∗CE[m2])
+$$
+
+Avec :&#x20;
+
+* CEvoie : le coût environnemental par voie, exprimé en points d'impact
+* Masse : la masse transportée, en tonnes. La masse transportée s'exprime en tonnes. Une conversion est donc à prendre en compte par rapport à la masse, considérée en kg dans les autres parties des calculs.
+* D\_1 : la distance parcourue par le mode de transport 1, exprimée en km
+* CE\[m1] : le coût environnemental du mode 1, exprimé en Pt/t.km
+* Le cas échéant, D\_2 : la distance parcourue par le mode de transport 2, exprimée en km
+* Le cas échéant, CE\[m2] : le coût environnemental du mode 2, exprimé en Pt/t.km
+
+## Procédés utilisés
+
+Sauf indication contraire spécifique, les modes de transport sont modélisés par les procédés suivants :
+
+<table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Routier, hors distribution</td><td>transport, freight, lorry, unspecified, RoW (Ecoinvent)</td></tr><tr><td>Routier, distribution</td><td>Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR<br>UUID = f49b27fa-f22e-c6e1-ab4b-e9f873e2e648<br>(Base Impact)</td></tr><tr><td>Bateau</td><td>transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Avion</td><td>transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr><tr><td>Train</td><td>transport, freight train, GLO (Ecoinvent)</td></tr></tbody></table>
+
+Il est résulte les coûts environnementaux par mode de transport suivant (correspndant aux valeurs CE\[mi] ci-dessus) :&#x20;
+
+<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
+
 ## Mix des voies de transport
+
+En pratique, pour une même chaine d'approvisionnement, plusieurs voies de transports sont utilisées, dans des proportions qui dépendent du type de produit, de la distance et de choix industriels.
 
 ### Transport jusqu'au dernier site industriel de fabrication : pas de choix de voie de transport
 
-Pour ces étapes, l'utilisateur ne peut pas choisir la voie de transport des ingrédients, matériaux ou composants. Sauf mention explicite dans la documentation spécifique métier, un transport par voies terrestre et maritime uniquement est considéré.
+Pour ces étapes de transport, l'utilisateur ne peut pas choisir la voie de transport des ingrédients, matériaux ou composants. Sauf mention explicite dans la documentation spécifique métier, un mix de transports par voies terrestre et maritime est considéré.
 
 La part du **transport terrestre (t)**, par rapport au transport "terrestre + maritime port à port", est alors établie comme suit :
 
@@ -131,26 +162,6 @@ Ce cas n'est proposé que pour le transport de produits finis vers la France.
 A ce stade, seul un ratio de transport aérien ou ferroviaire est proposé, à de
 
 
-
-## Procédés utilisés
-
-Sauf indication contraire spécifique, les modes de transport sont modélisés par les procédés suivants :
-
-<table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Routier, hors distribution</td><td>transport, freight, lorry, unspecified, RoW (Ecoinvent)</td></tr><tr><td>Routier, distribution</td><td>Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR<br>UUID = f49b27fa-f22e-c6e1-ab4b-e9f873e2e648<br>(Base Impact)</td></tr><tr><td>Bateau</td><td>transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Avion</td><td>transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr><tr><td>Train</td><td>transport, freight train, GLO (Ecoinvent)</td></tr></tbody></table>
-
-<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
-
-## Calcul du coût environnemental
-
-À chaque étape, l'impact de chaque voie de transport est calculé de la façon suivante :
-
-$$
-ImpactVoie=MasseTransportée (tonnes)∗(DistanceMode1(km)∗ImpactProcedeMode1+DistanceMode2(km)∗ImpactProcedeMode2)
-$$
-
-{% hint style="info" %}
-La masse transportée s'exprime en **tonnes**. Une conversion est donc à prendre en compte par rapport à la masse, considérée en kg dans les autres parties des calculs.
-{% endhint %}
 
 L'impact du transport sur chaque étape se calcule comme une pondération des trois types de transport considérés :&#x20;
 
