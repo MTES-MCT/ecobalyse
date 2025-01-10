@@ -122,12 +122,12 @@ $$
 
 Avec :&#x20;
 
-* CEvoie : le coût environnemental par voie, exprimé en points d'impact
+* CEvoie : le coût environnemental par voie, exprimé en points d'impact Pts
 * Masse : la masse transportée, en tonnes. La masse transportée s'exprime en tonnes. Une conversion est donc à prendre en compte par rapport à la masse, considérée en kg dans les autres parties des calculs.
 * D\_1 : la distance parcourue par le mode de transport 1, exprimée en km
-* CE\[m1] : le coût environnemental du mode 1, exprimé en Pt/t.km
+* CE\[m1] : le coût environnemental du mode 1, exprimé en Pts/t.km
 * Le cas échéant, D\_2 : la distance parcourue par le mode de transport 2, exprimée en km
-* Le cas échéant, CE\[m2] : le coût environnemental du mode 2, exprimé en Pt/t.km
+* Le cas échéant, CE\[m2] : le coût environnemental du mode 2, exprimé en Pts/t.km
 
 ## Procédés utilisés
 
@@ -147,99 +147,55 @@ En pratique, pour une même chaine d'approvisionnement, plusieurs voies de trans
 
 Pour ces étapes de transport, l'utilisateur ne peut pas choisir la voie de transport des ingrédients, matériaux ou composants. Sauf mention explicite dans la documentation spécifique métier, un mix de transports par voies terrestre et maritime est considéré.
 
-La part du **transport terrestre (t)**, par rapport au transport "terrestre + maritime port à port", est alors établie comme suit :
+La part du **transport terrestre (t)**, par rapport au transport "terrestre + maritime", est alors établie comme suit :
 
 <table data-header-hidden><thead><tr><th width="297"></th><th></th></tr></thead><tbody><tr><td><strong>Distance terrestre</strong></td><td><strong>t</strong></td></tr><tr><td>&#x3C;=500 km</td><td>100%</td></tr><tr><td>500 km &#x3C;= 1000 km</td><td>90%</td></tr><tr><td>1000 km &#x3C;= 2000 km</td><td>50%</td></tr><tr><td>2000 km &#x3C;= 3000 km</td><td>25%</td></tr><tr><td>> 3000 km</td><td>0%</td></tr></tbody></table>
 
-Le ratio s'entend hors prise en compte du transport par camion dans la voie maritime. Le transport par camion vers et depuis les ports est ajouté au transport par bateau au regard de la part de cette voie.
+`=a∗ImpactAeˊrien+(1−a)∗(t∗ImpactTerrestre+(1−t)∗ImpactMaritime)`
 
 
 
-### Transport du produit fini  : choix ou plus sont proposés, avec un ratio pour chaque voie
+$$
+CEtransport=t∗CEterrestre+(1−t)∗CEmaritime
+$$
+
+Avec :&#x20;
+
+* CEtransport : le coût environnemental de l'étape de transport considérée, exprimé en points d'impact Pts
+* t : la part de voie terrestre considérée
+* CEterrestre : le coût environnemental par voie terrestre, exprimé en points d'impact Pts (voir calcul ci-dessus)
+* CEmaritime : le coût environnemental par voie maritime, exprimé en points d'impact Pts (voir calcul ci-dessus)
+
+### Transport du produit fini  : choix de la part d'aérien ou de ferroviaire
 
 Ce cas n'est proposé que pour le transport de produits finis vers la France.
 
-A ce stade, seul un ratio de transport aérien ou ferroviaire est proposé, à de
+A ce stade, seul un ratio de transport aérien (textiles) ou ferroviaire (meubles, véhicules) est proposé.
 
+L'impact du transport sur chaque étape se calcule comme une pondération des trois types de transport considérés.
 
+Calcul avec paramétrage d'une part de voie aérienne :&#x20;
 
-L'impact du transport sur chaque étape se calcule comme une pondération des trois types de transport considérés :&#x20;
+$$
+CEtransport=a*CEaérienne+(1-a)*( t∗CEterrestre+(1−t)∗CEmaritime)
+$$
 
+Calcul avec paramétrage d'une part de voie ferroviaire :&#x20;
 
+$$
+CEtransport=f*CEferroviaire+(1-f)*( t∗CEterrestre+(1−t)∗CEmaritime)
+$$
 
-`ImpactTransportX=a∗ImpactAeˊrien+(1−a)∗(t∗ImpactTerrestre+(1−t)∗ImpactMaritime)ImpactTransportX=a∗ImpactAeˊrien+(1−a)∗(t∗ImpactTerrestre+(1−t)∗ImpactMaritime)`
+Avec :&#x20;
+
+* CEtransport : le coût environnemental de l'étape de transport considérée, exprimé en points d'impact Pts
+* a : la part de voie aérienne paramétrée
+* f : la part de voie ferroviaire paramétrée
+* t : la part de voie terrestre, par rapport aux voies terrestre+maritime combinées
+* CEaérienne : le coût environnemental par voie aérienne, exprimé en points d'impact Pts (voir calcul ci-dessus)
+* CEferroviaire : le coût environnemental par voie ferroviaire, exprimé en points d'impact Pts (voir calcul ci-dessus)
+* CEterrestre : le coût environnemental par voie terrestre, exprimé en points d'impact Pts (voir calcul ci-dessus)
+* CEmaritime : le coût environnemental par voie maritime, exprimé en points d'impact Pts (voir calcul ci-dessus)
 
 **Ces hypothèses relatives aux transport relèvent d'une orientation spécifique à l'outil et devant être confrontée aux pratiques effectivement observées dans l'industrie**.
 
-
-
-
-
-
-
-##
-
-### &#x20;<a href="#distribution" id="distribution"></a>
-
-
-
-### Calcul des distances <a href="#distribution" id="distribution"></a>
-
-La répartition des deux types de transport (terrestre et maritime) est ajustée en fonction des pays de départ et d'arrivée pour chaque étape de transport.
-
-Des scénarios par défaut sont proposés pour répondre aux différents cas d'usage rencontrés :&#x20;
-
-<details>
-
-<summary>Je connais le pays d'où provient le composant</summary>
-
-Option 1 => le pays est proposé dans Ecobalyse => je le sélectionne
-
-Option 2 => le pays n'est pas proposé dans Ecobalyse => je sélectionne la région (ex : _Europe de l'Ouest_ pour _la Croatie_)
-
-Afin de définir les distances et modes de transport utilisés pour chaque région, un pays est défini en arrière plan :
-
-* Europe de l'Ouest = Espagne
-* Europe de l'Est = République Tchèque
-* Asie = Chine
-* Afrique = Ethiopie
-* Amérique du Nord = Etats-Unis
-* Amérique latine = Brésil
-* Océanie = Australie
-* Moyen-Orient = Turquie
-
-</details>
-
-<details>
-
-<summary>Je ne connais pas le pays d'où provient le composant</summary>
-
-Je sélectionne l'option _Inconnu (par défaut)._
-
-L'Inde est utilisé en arrière plan pour définir les distances et modes de transport utilisés pour cette option.
-
-</details>
-
-La part du **transport terrestre (t)**, par rapport au transport "terrestre + maritime", est établie comme suit :
-
-### Calcul de l'impact environnemental du transport <a href="#distribution" id="distribution"></a>
-
-À chaque étape, l'impact du transport se calcule comme une pondération des deux types de transport considérés :&#x20;
-
-$$
-ImpactTransportX=t∗ImpactTerrestre+(1−t)∗ImpactMaritime
-$$
-
-## &#x20;<a href="#distribution" id="distribution"></a>
-
-
-
-
-
-Véhicules et ameublement :&#x20;
-
-Il est retenu comme hypothèse que tous les composants sont transportés par voie terrestre ou terrestre + maritime.
-
-Alim et textile : ratio de transport aérien
-
-Cas du transport du produit fini : Train
