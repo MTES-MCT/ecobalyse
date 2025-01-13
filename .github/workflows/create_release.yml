@@ -1,6 +1,10 @@
 name: Create tag and release
 
+env:
+  TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
+
 on:
+  workflow_dispatch:
   pull_request:
     types: [closed]
 
@@ -11,8 +15,7 @@ permissions:
 jobs:
   create_tag_and_release:
     # The tag and the release should be created only when the automated PR created by `create_pr_for_changelog` is merged
-    # Or to test it for now, by triggering a workflow dispatch by hand
-    if: (github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)') && contains(github.event.pull_request.labels.*.name, 'automated') && contains(github.event.pull_request.labels.*.name, 'pending-release'))
+    if: ((github.event.pull_request.merged == true && startsWith(github.event.pull_request.title, 'chore(release)') && contains(github.event.pull_request.labels.*.name, 'automated') && contains(github.event.pull_request.labels.*.name, 'pending-release'))|| github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     strategy:
       matrix:
