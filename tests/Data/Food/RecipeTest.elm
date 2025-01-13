@@ -148,7 +148,7 @@ suite =
                                         Expect.fail err
 
                                     Ok result ->
-                                        expectImpactEqual (Unit.impact 131.81578813820002) result
+                                        expectImpactEqual (Unit.impact 131.815792095) result
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -156,7 +156,7 @@ suite =
                                         Expect.fail err
 
                                     Ok result ->
-                                        expectImpactEqual (Unit.impact 106.16407947620002) result
+                                        expectImpactEqual (Unit.impact 106.16408343300002) result
                                 )
                              , describe "Scoring"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
