@@ -69,12 +69,6 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStep
                               , name = "Complément microfibres"
                               , value = -(Unit.impactToFloat complementsImpact.microfibers)
                               }
-
-                            -- Textile trims
-                            , { entryAttributes = []
-                              , name = "Accessoires"
-                              , value = Unit.impactToFloat (Maybe.withDefault Unit.noImpacts stepsImpacts.trims)
-                              }
                             ]
                         |> List.sortBy .value
                         |> List.reverse

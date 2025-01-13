@@ -26,6 +26,7 @@ type Level
     = Danger
     | Info
     | Success
+    | Warning
 
 
 icon : Level -> Html msg
@@ -39,6 +40,9 @@ icon level =
 
         Success ->
             span [ class "me-1" ] [ Icon.checkCircle ]
+
+        Warning ->
+            span [ class "me-1" ] [ Icon.warning ]
 
 
 httpError : Http.Error -> Html msg
@@ -125,3 +129,6 @@ levelToClass level =
 
         Success ->
             "success"
+
+        Warning ->
+            "warning"

@@ -7,8 +7,9 @@ module Data.Session exposing
     , authenticated
     , checkComparedSimulations
     , closeNotification
+    , decodeRawStore
+    , defaultStore
     , deleteBookmark
-    , deserializeStore
     , getUser
     , isAuthenticated
     , logout
@@ -80,6 +81,7 @@ type alias EnabledSections =
 type Notification
     = GenericError String String
     | GenericInfo String String
+    | StoreDecodingError Decode.Error
 
 
 closeNotification : Notification -> Session -> Session
@@ -95,6 +97,11 @@ notifyInfo title info ({ notifications } as session) =
 notifyError : String -> String -> Session -> Session
 notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
+
+
+notifyStoreDecodingError : Decode.Error -> Session -> Session
+notifyStoreDecodingError error ({ notifications } as session) =
+    { session | notifications = notifications ++ [ StoreDecodingError error ] }
 
 
 
@@ -219,13 +226,9 @@ selectNoBookmarks =
     updateStore (\store -> { store | comparedSimulations = Set.empty })
 
 
-
--- Store
---
--- A serializable data structure holding session information you want to share
--- across browser restarts, typically in localStorage.
-
-
+{-| A serializable data structure holding session information you want to share
+across browser restarts, typically in localStorage.
+-}
 type alias Store =
     { auth : Auth
     , bookmarks : List Bookmark
@@ -289,26 +292,14 @@ getUser { store } =
             Nothing
 
 
-deserializeStore : String -> Store
-deserializeStore =
-    Decode.decodeString decodeStore
-        -- FIXME: this should return a `Result String Store` so we could inform
-        -- users something went wrong while decoding their data (eg. so they can
-        -- report the issue).
-        -- Meanwhile, if you ever need to debug JSON decode errors from session
-        -- store, uncomment these lines.
-        -- >> (\res ->
-        --         case res of
-        --             Ok r ->
-        --                 Ok r
-        --             Err err ->
-        --                 let
-        --                     _ =
-        --                         Debug.log "deserializeStore error" err
-        --                 in
-        --                 Err err
-        --    )
-        >> Result.withDefault defaultStore
+decodeRawStore : String -> Session -> Session
+decodeRawStore rawStore session =
+    case Decode.decodeString decodeStore rawStore of
+        Err error ->
+            session |> notifyStoreDecodingError error
+
+        Ok store ->
+            { session | store = store }
 
 
 serializeStore : Store -> String
