@@ -140,7 +140,7 @@ Les fichiers d’impacts détaillés sont chiffrés à l’aide de [transcrypt](
 
     git diff master HEAD public/data/textile/processes_impacts.json
 
-Des commandes supplémentaires sont disponibles pour chiffrer et déchiffrer les fichiers manuellement au besoin (débogage par exemple) :
+Des commandes supplémentaires sont disponibles pour chiffrer et déchiffrer les fichiers manuellement au besoin (débogage par exemple). Notez que ces commandes requièrent la présence de la variable d’environnement `ENCRYPTION_KEY` pour fonctionner correctement :
 
     npm run encrypt
     npm run decrypt
