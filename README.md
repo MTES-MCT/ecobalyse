@@ -30,7 +30,8 @@ Les variables d'environnement suivantes doivent être définies :
 - `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `development`)
 - `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
-- `TRANSCRYPT_KEY`: la clé utilisée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/).
+- `TRANSCRYPT_KEY`: la clé utilisée et autogénérée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/).
+- `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`.
 
 En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
 
@@ -139,6 +140,10 @@ Les fichiers d’impacts détaillés sont chiffrés à l’aide de [transcrypt](
 
     git diff master HEAD public/data/textile/processes_impacts.json
 
+Des commandes supplémentaires sont disponibles pour chiffrer et déchiffrer les fichiers manuellement au besoin (débogage par exemple). Notez que ces commandes requièrent la présence de la variable d’environnement `ENCRYPTION_KEY` pour fonctionner correctement :
+
+    npm run encrypt public/data/textile/processes_impacts.json dist/processes_impacts_textile.json.enc
+    npm run decrypt dist/processes_impacts.json.enc dist/processes_impacts_textile.json
 
 #### Points d'attention
 
@@ -163,15 +168,12 @@ L'application est alors servie sur le port 1234.
 
 # Ecobalyse data
 
-Ce dépôt contient aussi les scripts (principalement python) utilisés pour
-importer et exporter les données du projet [Ecobalyse](https://github.com/MTES-MCT/ecobalyse).
-
-Ces scripts se trouvent dans `data/`, et un fichier [README](data/README.md) spécifique
-en détaille l'installation et l'utilisation.
+Le dépôt [ecobalyse-data](https://github.com/MTES-MCT/ecobalyse-data) contient les scripts (principalement Python) utilisés pour
+importer et exporter les données du projet Ecobalyse.
 
 # Versioning
 
-Le versioning de l'application permet de revenir à des anciennes versions d'Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l'application et d'appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire data associé) :
+Le versioning de l'application permet de revenir à des anciennes versions d'Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l'application et d'appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire https://github.com/MTE-extended/ecobalyse-private associé à cette version, si applicable) :
 
     pipenv run ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
 
