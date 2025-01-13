@@ -36,7 +36,7 @@ Des données par défaut sont proposées pour chaque catégorie de véhicule, su
 [systeme-photovoltaiques.md](systeme-photovoltaiques.md)
 {% endcontent-ref %}
 
-{% content-ref url="../../../alimentaire-en-construction/old/etape-2-fabrication-du-fil/composants/autres-composants.md" %}
-[autres-composants.md](../../../alimentaire-en-construction/old/etape-2-fabrication-du-fil/composants/autres-composants.md)
+{% content-ref url="../../../ameublement/cycle-de-vie/etape-1-fabrication-des-composants/autres-composants.md" %}
+[autres-composants.md](../../../ameublement/cycle-de-vie/etape-1-fabrication-des-composants/autres-composants.md)
 {% endcontent-ref %}
 

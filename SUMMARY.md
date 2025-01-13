@@ -128,14 +128,18 @@
 
 ***
 
-* [🪚 AMEUBLEMENT - EN CONSTRUCTION](ameublement/README.md)
-  * [Fin de vie](ameublement/fin-de-vie.md)
-  * [Composants](alimentaire-en-construction/old/etape-2-fabrication-du-fil/composants/README.md)
-    * [🪵 Composants en bois](alimentaire-en-construction/old/etape-2-fabrication-du-fil/composants/composants-en-bois.md)
-    * [🧱 Autres composants](alimentaire-en-construction/old/etape-2-fabrication-du-fil/composants/autres-composants.md)
-    * [⚙️ Transformation / Finition](ameublement/composants/transformation-finition.md)
+* [🪚 AUTRES TRAVAUX EN COURS](ameublement/README.md)
+  * [Cycle de vie](ameublement/cycle-de-vie/README.md)
+    * [Etape 1 : Fabrication des composants](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/README.md)
+      * [🪵 Composants en bois](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/composants-en-bois.md)
+      * [🧱 Autres composants](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/autres-composants.md)
+      * [⚙️ Transformation / Finition](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/transformation-finition.md)
+    * [🔨 Etape 2 :](ameublement/cycle-de-vie/etape-2.md)
+    * [Etape 3 : Utilisation](ameublement/cycle-de-vie/etape-3-utilisation.md)
+    * [Etape 4 : Fin de vie](ameublement/cycle-de-vie/etape-4-fin-de-vie.md)
+  * [Durabilité](ameublement/durabilite.md)
+  * [Complément hors ACV](ameublement/complement-hors-acv.md)
   * [🚚 Transport](ameublement/transport.md)
-  * [🔨 Assemblage](ameublement/assemblage.md)
 
 ## 🛺 Autres travaux en cours <a href="#vehicules" id="vehicules"></a>
 

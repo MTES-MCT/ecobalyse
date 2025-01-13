@@ -1,8 +1,4 @@
----
-hidden: true
----
-
-# 🪚 AMEUBLEMENT - EN CONSTRUCTION
+# 🪚 AUTRES TRAVAUX EN COURS
 
 ## Périmètre du modèle
 
