@@ -147,9 +147,9 @@ Avec :&#x20;
 
 Sauf indication contraire spécifique, les modes de transport sont modélisés par les procédés suivants :
 
-<table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Routier, hors distribution</td><td>transport, freight, lorry, unspecified, RoW (Ecoinvent)</td></tr><tr><td>Routier, distribution</td><td>Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR<br>UUID = f49b27fa-f22e-c6e1-ab4b-e9f873e2e648<br>(Base Impact)</td></tr><tr><td>Bateau</td><td>transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Avion</td><td>transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr><tr><td>Train</td><td>transport, freight train, GLO (Ecoinvent)</td></tr></tbody></table>
+<table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Routier, hors distribution</td><td>market group for transport, freight, lorry, unspecified, GLO (Ecoinvent)</td></tr><tr><td>Routier, distribution</td><td>Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR<br>UUID = f49b27fa-f22e-c6e1-ab4b-e9f873e2e648 (Base Impact)</td></tr><tr><td>Bateau</td><td>market for transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Avion</td><td>market for transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr><tr><td>Train</td><td>market group for transport, freight train, GLO (Ecoinvent)</td></tr></tbody></table>
 
-Il est résulte les coûts environnementaux par mode de transport suivant (correspndant aux valeurs CE\[mi] ci-dessus) :&#x20;
+Il est résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs CE\[m1] ou CE\[m2] ci-dessus) :&#x20;
 
 <figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 
