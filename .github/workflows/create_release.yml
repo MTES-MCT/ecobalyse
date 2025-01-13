@@ -1,5 +1,8 @@
 name: Create tag and release
 
+env:
+  TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
+
 on:
   workflow_dispatch:
   pull_request:
