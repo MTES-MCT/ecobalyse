@@ -8,7 +8,6 @@
     "name": "Elasthane (Lycra)",
     "origin": "Synthetic",
     "primary": false,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Elasthane (Lycra)"
@@ -22,7 +21,6 @@
     "name": "Acrylique",
     "origin": "Synthetic",
     "primary": false,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Acrylique"
@@ -36,7 +34,6 @@
     "name": "Jute",
     "origin": "NaturalFromVegetal",
     "primary": false,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Jute"
@@ -50,7 +47,6 @@
     "name": "Polypropylène",
     "origin": "Synthetic",
     "primary": false,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Polypropylène"
@@ -64,7 +60,6 @@
     "name": "Polyester",
     "origin": "Synthetic",
     "primary": true,
-    "priority": 80,
     "recycledFrom": null,
     "recycledProcessUuid": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",
     "shortName": "Polyester"
@@ -72,7 +67,7 @@
   {
     "cff": {
       "manufacturerAllocation": 0.5,
-      "recycledQualityRatio": 1
+      "recycledQualityRatio": 1.0
     },
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -81,7 +76,6 @@
     "name": "Polyester recyclé",
     "origin": "Synthetic",
     "primary": true,
-    "priority": 80,
     "recycledFrom": "ei-pet",
     "recycledProcessUuid": null,
     "shortName": "Polyester recyclé"
@@ -95,7 +89,6 @@
     "name": "Nylon",
     "origin": "Synthetic",
     "primary": true,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Nylon"
@@ -109,7 +102,6 @@
     "name": "Lin",
     "origin": "NaturalFromVegetal",
     "primary": true,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Lin"
@@ -123,7 +115,6 @@
     "name": "Laine par défaut",
     "origin": "NaturalFromAnimal",
     "primary": false,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Laine par défaut"
@@ -137,7 +128,6 @@
     "name": "Laine nouvelle filière",
     "origin": "NaturalFromAnimal",
     "primary": true,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Laine nouvelle filière"
@@ -151,7 +141,6 @@
     "name": "Coton",
     "origin": "NaturalFromVegetal",
     "primary": true,
-    "priority": 100,
     "recycledFrom": null,
     "recycledProcessUuid": "d3d20384-88fb-4c75-ac12-c647365ac6c5",
     "shortName": "Coton"
@@ -165,7 +154,6 @@
     "name": "Coton biologique",
     "origin": "NaturalFromVegetal",
     "primary": true,
-    "priority": 100,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Coton biologique"
@@ -179,7 +167,6 @@
     "name": "Chanvre",
     "origin": "NaturalFromVegetal",
     "primary": true,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Chanvre"
@@ -193,7 +180,6 @@
     "name": "Viscose",
     "origin": "ArtificialFromOrganic",
     "primary": true,
-    "priority": null,
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Viscose"
@@ -210,7 +196,6 @@
     "name": "Coton recyclé (déchets post-consommation)",
     "origin": "NaturalFromVegetal",
     "primary": true,
-    "priority": null,
     "recycledFrom": "ei-coton",
     "recycledProcessUuid": null,
     "shortName": "Coton recyclé (déchets post-consommation)"
@@ -227,7 +212,6 @@
     "name": "Coton recyclé (déchets de production)",
     "origin": "NaturalFromVegetal",
     "primary": true,
-    "priority": null,
     "recycledFrom": "ei-coton",
     "recycledProcessUuid": null,
     "shortName": "Coton recyclé (déchets de production)"
