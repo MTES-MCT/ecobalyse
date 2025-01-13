@@ -163,15 +163,12 @@ L'application est alors servie sur le port 1234.
 
 # Ecobalyse data
 
-Ce dépôt contient aussi les scripts (principalement python) utilisés pour
-importer et exporter les données du projet [Ecobalyse](https://github.com/MTES-MCT/ecobalyse).
-
-Ces scripts se trouvent dans `data/`, et un fichier [README](data/README.md) spécifique
-en détaille l'installation et l'utilisation.
+Le dépôt [ecobalyse-data](https://github.com/MTES-MCT/ecobalyse-data) contient les scripts (principalement Python) utilisés pour
+importer et exporter les données du projet Ecobalyse.
 
 # Versioning
 
-Le versioning de l'application permet de revenir à des anciennes versions d'Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l'application et d'appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire data associé) :
+Le versioning de l'application permet de revenir à des anciennes versions d'Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l'application et d'appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire `public/data` associé) :
 
     pipenv run ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
 

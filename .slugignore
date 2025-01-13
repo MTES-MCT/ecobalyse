@@ -1,8 +1,6 @@
 elm-stuff/
-data/
 .elm/
 src/
-ecobalyse-private/.git
 tests/
 styles.scss
 review/
