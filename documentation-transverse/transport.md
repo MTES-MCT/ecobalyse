@@ -46,20 +46,34 @@ La distance par voie terrestre est calculée avec le calculateur [https://www.se
 Le choix d'une voie maritime se décline en deux composantes :
 
 * Transport par bateau, avec une distance de port à port. Calcul de la distance avec le calculateur [https://www.searates.com/services/distances-time](https://www.searates.com/services/distances-time/) (calculateur indiqué dans la méthode PEF).
-* Transport par camion : distance fixée à 1000km. Pour les pays situés à moins de 2000 en transport terrestre, cette distance est ramenée à la moitié de la distance en transport terrestre.
+*   Transport par camion : distance fixée à 1000km. Pour les pays situés à moins de 2000 km en transport terrestre, cette distance est ramenée à la moitié de la distance en transport terrestre.&#x20;
+
+    Dvoiemer\_camion = min (1000; Dvoieterre/2)
+
+    avec :&#x20;
+
+    * Dvoiemer\_camion : distance en camion par la voie maritime, en km
+    * Dvoieterre : distance en camion par la voie terrestre, en km
 
 **Voie aérienne (+ terrestre)** :&#x20;
 
 Le choix d'une voie aérienne se décline en deux composantes :
 
 * Transport par avion, avec une distance d'aéroport à aéroport. Calcul de distance à vol d'oiseau avec geopy.distance, entre le centre de chaque pays.
-* Transport par camion : distance fixée à 1000km. Pour les pays situés à moins de 2000 en transport terrestre, cette distance est ramenée à la moitié de la distance en transport terrestre.
+*   Transport par camion : distance fixée à 1000km. Pour les pays situés à moins de 2000 km en transport terrestre, cette distance est ramenée à la moitié de la distance en transport terrestre.
+
+    Dvoieair\_camion = min (1000; Dvoieterre/2)
+
+    avec :&#x20;
+
+    * Dvoieair\_camion : distance en camion par la voie aérienne, en km
+    * Dvoieterre : distance en camion par la voie terrestre, en km
 
 **Voie ferroviaire** : La distance par voie ferroviaire est calculée avec le calculateur [https://www.searates.com/services/distances-time](https://www.searates.com/services/distances-time/) EN COURS
 
 
 
-Lorsque deux étapes successives sont réalisées dans un même pays, des distances par défaut est considérée :&#x20;
+Lorsque deux étapes successives sont réalisées dans un même pays, des distances par défaut sont considérées :&#x20;
 
 * Distance par voie terrestre : 500 km
 * Distance par voie aérienne : 500 km en avion + 250 km par camion
@@ -114,19 +128,19 @@ Cette hypothèse est conforme à la méthodologie ADEME pour le textile (cf. mé
 
 ### Coût environnemental pour une voie de transport
 
-À chaque étape, l'impact d'une voie de transport est calculé de la façon suivante :
+À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
 
 $$
-CEvoie=Masse*(D_1∗CE[m1]+D_2∗CE[m2])
+CEvoie_i=Masse*(Di_1∗CE[m1]+Di_2∗CE[m2])
 $$
 
 Avec :&#x20;
 
-* CEvoie : le coût environnemental par voie, exprimé en points d'impact Pts
+* CEvoie\_i : le coût environnemental par voie, exprimé en points d'impact Pts
 * Masse : la masse transportée, en tonnes. La masse transportée s'exprime en tonnes. Une conversion est donc à prendre en compte par rapport à la masse, considérée en kg dans les autres parties des calculs.
-* D\_1 : la distance parcourue par le mode de transport 1, exprimée en km
+* Di\_1 : la distance parcourue par le mode de transport 1 pour la voie i, exprimée en km
 * CE\[m1] : le coût environnemental du mode 1, exprimé en Pts/t.km
-* Le cas échéant, D\_2 : la distance parcourue par le mode de transport 2, exprimée en km
+* Le cas échéant, Di\_2 : la distance parcourue par le mode de transport 2 pour la voie i, exprimée en km
 * Le cas échéant, CE\[m2] : le coût environnemental du mode 2, exprimé en Pts/t.km
 
 ## Procédés utilisés
