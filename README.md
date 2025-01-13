@@ -30,7 +30,8 @@ Les variables d'environnement suivantes doivent être définies :
 - `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `development`)
 - `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
-- `TRANSCRYPT_KEY`: la clé utilisée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/). Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`.
+- `TRANSCRYPT_KEY`: la clé utilisée et autogénérée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/).
+- `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`.
 
 En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
 
