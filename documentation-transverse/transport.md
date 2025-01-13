@@ -151,9 +151,7 @@ La part du **transport terrestre (t)**, par rapport au transport "terrestre + ma
 
 <table data-header-hidden><thead><tr><th width="297"></th><th></th></tr></thead><tbody><tr><td><strong>Distance terrestre</strong></td><td><strong>t</strong></td></tr><tr><td>&#x3C;=500 km</td><td>100%</td></tr><tr><td>500 km &#x3C;= 1000 km</td><td>90%</td></tr><tr><td>1000 km &#x3C;= 2000 km</td><td>50%</td></tr><tr><td>2000 km &#x3C;= 3000 km</td><td>25%</td></tr><tr><td>> 3000 km</td><td>0%</td></tr></tbody></table>
 
-`=a∗ImpactAeˊrien+(1−a)∗(t∗ImpactTerrestre+(1−t)∗ImpactMaritime)`
-
-
+Le coût environnemental est calculé selon la formule suivante :
 
 $$
 CEtransport=t∗CEterrestre+(1−t)∗CEmaritime
@@ -162,7 +160,7 @@ $$
 Avec :&#x20;
 
 * CEtransport : le coût environnemental de l'étape de transport considérée, exprimé en points d'impact Pts
-* t : la part de voie terrestre considérée
+* t : la part de voie terrestre considérée, établie selon le tableau ci-dessus
 * CEterrestre : le coût environnemental par voie terrestre, exprimé en points d'impact Pts (voir calcul ci-dessus)
 * CEmaritime : le coût environnemental par voie maritime, exprimé en points d'impact Pts (voir calcul ci-dessus)
 
