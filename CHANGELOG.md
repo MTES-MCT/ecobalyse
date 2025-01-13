@@ -1,7 +1,67 @@
 # Changelog
 
 
-## [2.7.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.6.0..v2.7.0) (2024-12-04)
+## [3.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.7.0..v3.0.0) (2025-01-13)
+
+
+
+### 🚀 Features
+
+- Generalize density, electricity, heat and waste process fields ([#855](https://github.com/MTES-MCT/ecobalyse/issues/855))
+- *(data)* Ensure consistent nullable alias field in all processes files. ([#862](https://github.com/MTES-MCT/ecobalyse/issues/862))
+- Add betagouv logo. ([#848](https://github.com/MTES-MCT/ecobalyse/issues/848))
+- *(data)* Unified, cross-domain processes file format. ([#866](https://github.com/MTES-MCT/ecobalyse/issues/866))
+- *(data)* Validate processes files against a JSON schema. ([#869](https://github.com/MTES-MCT/ecobalyse/issues/869))
+- *(data,textile)* Add trim process and components data. ([#824](https://github.com/MTES-MCT/ecobalyse/issues/824))
+- *(textile)* Implement trims. ([#873](https://github.com/MTES-MCT/ecobalyse/issues/873))
+- *(data,ui)* Add trims to more textile examples, render them in explorer ([#876](https://github.com/MTES-MCT/ecobalyse/issues/876))
+- Allow expanding trim details. ([#877](https://github.com/MTES-MCT/ecobalyse/issues/877))
+- Allow staff to access detailed impacts from explorer. ([#878](https://github.com/MTES-MCT/ecobalyse/issues/878))
+
+### 🪲 Bug Fixes
+
+- *(food)* [**breaking**] Food processes identifiers are now UUIDs ([#844](https://github.com/MTES-MCT/ecobalyse/issues/844))
+- *(data)* [**breaking**] Update textile process ids to use UUID format ([#858](https://github.com/MTES-MCT/ecobalyse/issues/858))
+- Data pipeline with new UUIDs ([#857](https://github.com/MTES-MCT/ecobalyse/issues/857))
+- Fix api error with old versions ([#851](https://github.com/MTES-MCT/ecobalyse/issues/851))
+- Broken homepage after upgrading highcharts ([#863](https://github.com/MTES-MCT/ecobalyse/issues/863))
+- *(dev)* Fix npm ci error with `transcrypt` ([#870](https://github.com/MTES-MCT/ecobalyse/issues/870))
+- Correct data on trims ([#879](https://github.com/MTES-MCT/ecobalyse/issues/879))
+- Warn on session data decoding error. ([#884](https://github.com/MTES-MCT/ecobalyse/issues/884))
+- *(textile)* Apply durability to trims impacts. ([#886](https://github.com/MTES-MCT/ecobalyse/issues/886))
+- Update PEF score label. ([#887](https://github.com/MTES-MCT/ecobalyse/issues/887))
+
+### 🚜 Refactor
+
+- Move textile step_usage field to categories. ([#850](https://github.com/MTES-MCT/ecobalyse/issues/850))
+- *(data)* Move textile process "correctif" to comment ([#852](https://github.com/MTES-MCT/ecobalyse/issues/852))
+- Add encrypted detailed impacts files to the source code ([#840](https://github.com/MTES-MCT/ecobalyse/issues/840))
+- Abstract components. ([#872](https://github.com/MTES-MCT/ecobalyse/issues/872))
+- Order json keys ([#871](https://github.com/MTES-MCT/ecobalyse/issues/871))
+
+### 📚 Documentation
+
+- Fix openapi food examples ([#867](https://github.com/MTES-MCT/ecobalyse/issues/867))
+
+### ⚙️ Miscellaneous Tasks
+
+- Increase API test timeout ([#853](https://github.com/MTES-MCT/ecobalyse/issues/853))
+- *(data)* Remove system_description process field. ([#859](https://github.com/MTES-MCT/ecobalyse/issues/859))
+- Upgrade dependencies, December 2024. ([#860](https://github.com/MTES-MCT/ecobalyse/issues/860))
+- Remove obsolete/unused info textile process field. ([#861](https://github.com/MTES-MCT/ecobalyse/issues/861))
+- *(data)* Merge PastoEco in a single file to speedup imports and fixed linking to AGB ([#833](https://github.com/MTES-MCT/ecobalyse/issues/833))
+- Fix score_history workflow for transcrypt ([#864](https://github.com/MTES-MCT/ecobalyse/issues/864))
+- Standardize number formatting across codebase ([#804](https://github.com/MTES-MCT/ecobalyse/issues/804))
+- Standardize tkm unit ([#868](https://github.com/MTES-MCT/ecobalyse/issues/868))
+- Remove obsolete pre-commit command. ([#874](https://github.com/MTES-MCT/ecobalyse/issues/874))
+- Update trim api parameter ordering. ([#875](https://github.com/MTES-MCT/ecobalyse/issues/875))
+- Remove data directory, now in `ecobalyse-data` repo ([#888](https://github.com/MTES-MCT/ecobalyse/issues/888))
+- Update crypto-related docs. ([#890](https://github.com/MTES-MCT/ecobalyse/issues/890))
+- *(security)* Upgrade django to >=5.1.4. ([#885](https://github.com/MTES-MCT/ecobalyse/issues/885))
+- Readd score_history ([#891](https://github.com/MTES-MCT/ecobalyse/issues/891))
+
+
+## [2.7.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.6.0..v2.7.0) (2024-12-05)
 
 
 
