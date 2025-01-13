@@ -1,5 +1,0 @@
-#!/usr/bin/env node
-
-const crypto = require("crypto");
-
-console.log(crypto.createHash("sha512").digest("hex").substring(0, 32));
