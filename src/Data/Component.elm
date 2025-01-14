@@ -32,6 +32,7 @@ module Data.Component exposing
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
+import Data.Split as Split
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
@@ -153,13 +154,62 @@ computeElementResults processes =
 
 computeExpandedElementResults : ExpandedElement -> Results
 computeExpandedElementResults { amount, material, transforms } =
-    let
-        materialResults =
-            computeMaterialResult amount material
-    in
     transforms
-        |> computeTransforms (extractMass materialResults)
-        |> addResults materialResults
+        |> applyTransforms (computeMaterialResults amount material)
+
+
+computeMaterialResults : Amount -> Process -> Results
+computeMaterialResults amount process =
+    let
+        ( impacts, mass ) =
+            ( process.impacts
+                |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (amountToFloat amount))
+            , Mass.kilograms <|
+                if process.unit == "kg" then
+                    amountToFloat amount
+
+                else
+                    -- apply density
+                    amountToFloat amount * process.density
+            )
+    in
+    Results
+        { impacts = impacts
+        , items = [ Results { impacts = impacts, items = [], mass = mass } ]
+        , mass = mass
+        }
+
+
+{-| Sequencially and recursively apply transforms to a given input mass (typically, the material one)
+-}
+applyTransforms : Results -> List Process -> Results
+applyTransforms (Results materialResults) =
+    List.foldl
+        (\process (Results { impacts, items, mass }) ->
+            let
+                wastedMass =
+                    mass |> Quantity.multiplyBy (Split.toFloat process.waste)
+
+                outputMass =
+                    mass |> Quantity.minus wastedMass
+
+                transformImpacts =
+                    Impact.sumImpacts
+                        [ process.impacts
+                            -- Note: impacts are always  computed from input mass
+                            |> Impact.multiplyBy (Mass.inKilograms mass)
+
+                        -- FIXME: we should also add elec and heat impacts, but using what
+                        -- country mix? we don't know just yet
+                        ]
+            in
+            Results
+                { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
+                , items = Results { impacts = transformImpacts, items = [], mass = Quantity.negate wastedMass } :: items
+                , mass = outputMass
+                }
+        )
+        (Results materialResults)
 
 
 computeImpacts : List Process -> Component -> Result String Results
@@ -190,35 +240,6 @@ computeItemResults { components, processes } { id, quantity } =
                             |> Quantity.sum
                     }
             )
-
-
-computeMaterialResult : Amount -> Process -> Results
-computeMaterialResult amount process =
-    let
-        ( materialImpacts, materialMass ) =
-            ( process.impacts
-                |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (amountToFloat amount))
-            , Mass.kilograms <|
-                if process.unit == "kg" then
-                    amountToFloat amount
-
-                else
-                    -- apply density
-                    amountToFloat amount * process.density
-            )
-    in
-    Results
-        { impacts = materialImpacts
-        , items = [ Results { impacts = materialImpacts, items = [], mass = materialMass } ]
-        , mass = materialMass
-        }
-
-
-{-| Sequencially and recursively apply transforms to a given input mass (typically, the material one)
--}
-computeTransforms : Mass -> List Process -> Results
-computeTransforms _ _ =
-    emptyResults
 
 
 decode : Decoder Component

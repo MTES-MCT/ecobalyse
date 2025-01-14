@@ -21,6 +21,7 @@ module Data.Impact exposing
     , impactsWithComplements
     , mapComplementsImpacts
     , mapImpacts
+    , multiplyBy
     , noComplementsImpacts
     , noStepsImpacts
     , parseTrigram
@@ -358,6 +359,11 @@ default =
 divideBy : Float -> Impacts -> Impacts
 divideBy n =
     mapImpacts (\_ -> Quantity.divideBy n)
+
+
+multiplyBy : Float -> Impacts -> Impacts
+multiplyBy n =
+    mapImpacts (\_ -> Quantity.multiplyBy n)
 
 
 empty : Impacts
