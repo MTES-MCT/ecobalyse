@@ -1,31 +1,31 @@
 module Data.Component exposing
     ( Amount
     , Component
-    , ComponentItem
     , DataContainer
     , Element
     , ExpandedElement
     , Id
+    , Item
     , Quantity
     , Results
     , amountToFloat
     , available
-    , componentItemToString
     , compute
-    , computeComponentImpacts
-    , decodeComponentItem
+    , computeImpacts
+    , decodeItem
     , decodeListFromJsonString
     , emptyResults
-    , encodeComponentItem
     , encodeId
-    , expandComponentItems
+    , encodeItem
     , expandElements
+    , expandItems
     , extractImpacts
     , extractItems
     , extractMass
     , findById
     , idFromString
     , idToString
+    , itemToString
     , quantityFromInt
     , quantityToInt
     )
@@ -45,7 +45,7 @@ type Id
     = Id Uuid
 
 
-{-| A Component is a named collection of processes and amounts of them
+{-| A Component is a named collection of elements
 -}
 type alias Component =
     { elements : List Element
@@ -54,9 +54,9 @@ type alias Component =
     }
 
 
-{-| A compact representation of a component and a quantity of it
+{-| A compact representation of a component and a quantity of it, typically used for queries
 -}
-type alias ComponentItem =
+type alias Item =
     { id : Id
     , quantity : Quantity
     }
@@ -89,10 +89,14 @@ type alias ExpandedElement =
     }
 
 
+{-| An amount of some element
+-}
 type Amount
     = Amount Float
 
 
+{-| A number of components
+-}
 type Quantity
     = Quantity Int
 
@@ -132,64 +136,13 @@ available alreadyUsedIds =
         >> List.sortBy .name
 
 
-componentItemToString : DataContainer db -> ComponentItem -> Result String String
-componentItemToString db { id, quantity } =
-    db.components
-        |> findById id
-        |> Result.andThen
-            (\component ->
-                component.elements
-                    |> RE.combineMap (elementToString db.processes)
-                    |> Result.map (String.join " | ")
-                    |> Result.map
-                        (\processesString ->
-                            String.fromInt (quantityToInt quantity)
-                                ++ " "
-                                ++ component.name
-                                ++ " [ "
-                                ++ processesString
-                                ++ " ]"
-                        )
-            )
-
-
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
-compute : DataContainer db -> List ComponentItem -> Result String Results
+compute : DataContainer db -> List Item -> Result String Results
 compute db =
-    List.map (computeComponentItemResults db)
+    List.map (computeItemResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
-
-
-computeComponentImpacts : List Process -> Component -> Result String Results
-computeComponentImpacts processes =
-    .elements
-        >> List.map (computeElementResults processes)
-        >> RE.combine
-        >> Result.map (List.foldl addResults emptyResults)
-
-
-computeComponentItemResults : DataContainer db -> ComponentItem -> Result String Results
-computeComponentItemResults { components, processes } { id, quantity } =
-    components
-        |> findById id
-        |> Result.andThen (.elements >> List.map (computeElementResults processes) >> RE.combine)
-        |> Result.map (List.foldr addResults emptyResults)
-        |> Result.map
-            (\(Results { impacts, mass, items }) ->
-                Results
-                    { impacts =
-                        impacts
-                            |> List.repeat (quantityToInt quantity)
-                            |> Impact.sumImpacts
-                    , items = items
-                    , mass =
-                        mass
-                            |> List.repeat (quantityToInt quantity)
-                            |> Quantity.sum
-                    }
-            )
 
 
 computeElementResults : List Process -> Element -> Result String Results
@@ -220,6 +173,36 @@ computeElementResults processes { amount, material } =
             )
 
 
+computeImpacts : List Process -> Component -> Result String Results
+computeImpacts processes =
+    .elements
+        >> List.map (computeElementResults processes)
+        >> RE.combine
+        >> Result.map (List.foldl addResults emptyResults)
+
+
+computeItemResults : DataContainer db -> Item -> Result String Results
+computeItemResults { components, processes } { id, quantity } =
+    components
+        |> findById id
+        |> Result.andThen (.elements >> List.map (computeElementResults processes) >> RE.combine)
+        |> Result.map (List.foldr addResults emptyResults)
+        |> Result.map
+            (\(Results { impacts, mass, items }) ->
+                Results
+                    { impacts =
+                        impacts
+                            |> List.repeat (quantityToInt quantity)
+                            |> Impact.sumImpacts
+                    , items = items
+                    , mass =
+                        mass
+                            |> List.repeat (quantityToInt quantity)
+                            |> Quantity.sum
+                    }
+            )
+
+
 decode : Decoder Component
 decode =
     Decode.succeed Component
@@ -233,19 +216,19 @@ decodeList =
     Decode.list decode
 
 
-decodeComponentItem : Decoder ComponentItem
-decodeComponentItem =
-    Decode.succeed ComponentItem
-        |> Decode.required "id" (Decode.map Id Uuid.decoder)
-        |> Decode.required "quantity" (Decode.map Quantity Decode.int)
-
-
 decodeElement : Decoder Element
 decodeElement =
     Decode.succeed Element
         |> Decode.required "amount" (Decode.map Amount Decode.float)
         |> Decode.required "material" Process.decodeId
         |> Decode.required "transforms" (Decode.list Process.decodeId)
+
+
+decodeItem : Decoder Item
+decodeItem =
+    Decode.succeed Item
+        |> Decode.required "id" (Decode.map Id Uuid.decoder)
+        |> Decode.required "quantity" (Decode.map Quantity Decode.int)
 
 
 decodeListFromJsonString : String -> Result String (List Component)
@@ -269,11 +252,8 @@ elementToString processes element =
 
 {-| Take a list of component items and resolve them with actual components and processes
 -}
-expandComponentItems :
-    DataContainer a
-    -> List ComponentItem
-    -> Result String (List ( Quantity, Component, List ExpandedElement ))
-expandComponentItems { components, processes } =
+expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
+expandItems { components, processes } =
     List.map
         (\{ id, quantity } ->
             findById id components
@@ -303,11 +283,11 @@ expandElements processes =
         )
 
 
-encodeComponentItem : ComponentItem -> Encode.Value
-encodeComponentItem componentItem =
+encodeItem : Item -> Encode.Value
+encodeItem item =
     Encode.object
-        [ ( "id", componentItem.id |> idToString |> Encode.string )
-        , ( "quantity", componentItem.quantity |> quantityToInt |> Encode.int )
+        [ ( "id", item.id |> idToString |> Encode.string )
+        , ( "quantity", item.quantity |> quantityToInt |> Encode.int )
         ]
 
 
@@ -333,6 +313,27 @@ idFromString str =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
+
+
+itemToString : DataContainer db -> Item -> Result String String
+itemToString db { id, quantity } =
+    db.components
+        |> findById id
+        |> Result.andThen
+            (\component ->
+                component.elements
+                    |> RE.combineMap (elementToString db.processes)
+                    |> Result.map (String.join " | ")
+                    |> Result.map
+                        (\processesString ->
+                            String.fromInt (quantityToInt quantity)
+                                ++ " "
+                                ++ component.name
+                                ++ " [ "
+                                ++ processesString
+                                ++ " ]"
+                        )
+            )
 
 
 quantityFromInt : Int -> Quantity

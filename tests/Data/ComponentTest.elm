@@ -31,7 +31,7 @@ suite =
         (\db ->
             [ describe "Component.compute"
                 [ sampleJsonComponentsItems
-                    |> Decode.decodeString (Decode.list Component.decodeComponentItem)
+                    |> Decode.decodeString (Decode.list Component.decodeItem)
                     |> Result.mapError Decode.errorToString
                     |> Result.andThen (Component.compute db.object)
                     |> Result.map getEcsImpact

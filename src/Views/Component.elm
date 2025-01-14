@@ -2,7 +2,7 @@ module Views.Component exposing (editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Component as Component exposing (Component, ComponentItem, ExpandedElement)
+import Data.Component as Component exposing (Component, ExpandedElement, Item)
 import Data.Dataset as Dataset
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
@@ -24,7 +24,7 @@ type alias Config db msg =
     , db : Component.DataContainer db
     , detailed : List Component.Id
     , impact : Definition
-    , items : List ComponentItem
+    , items : List Item
     , noOp : msg
     , openSelectModal : Autocomplete Component -> msg
     , removeItem : Component.Id -> msg
@@ -32,7 +32,7 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Component.Id -> msg
     , title : String
-    , updateItem : ComponentItem -> msg
+    , updateItem : Item -> msg
     }
 
 
@@ -160,7 +160,7 @@ editorView ({ db, items, results, scope, title } as config) =
             div [ class "card-body" ] [ text "Aucun élément." ]
 
           else
-            case Component.expandComponentItems db items of
+            case Component.expandItems db items of
                 Err error ->
                     Alert.simple
                         { close = Nothing
@@ -169,7 +169,7 @@ editorView ({ db, items, results, scope, title } as config) =
                         , title = Just "Erreur"
                         }
 
-                Ok expandedComponentItems ->
+                Ok expandedItems ->
                     div [ class "table-responsive" ]
                         [ table [ class "table mb-0" ]
                             [ thead []
@@ -183,7 +183,7 @@ editorView ({ db, items, results, scope, title } as config) =
                                     ]
                                 ]
                             , Component.extractItems results
-                                |> List.map2 (componentView config) expandedComponentItems
+                                |> List.map2 (componentView config) expandedItems
                                 |> List.concat
                                 |> tbody []
                             ]

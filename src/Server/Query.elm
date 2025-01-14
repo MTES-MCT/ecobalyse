@@ -5,7 +5,7 @@ module Server.Query exposing
     , parseTextileQuery
     )
 
-import Data.Component as Component exposing (Component, ComponentItem)
+import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Db as Food
@@ -554,7 +554,7 @@ parseMaterialId_ materials string =
         |> Result.map .id
 
 
-componentItemListParser : List Component -> String -> Parser (ParseResult (List ComponentItem))
+componentItemListParser : List Component -> String -> Parser (ParseResult (List Component.Item))
 componentItemListParser components key =
     Query.custom (key ++ "[]")
         (List.map (parseComponentItem components)
@@ -563,11 +563,11 @@ componentItemListParser components key =
         )
 
 
-parseComponentItem : List Component -> String -> Result String ComponentItem
+parseComponentItem : List Component -> String -> Result String Component.Item
 parseComponentItem components string =
     case String.split ";" string of
         [ id, quantity ] ->
-            Ok ComponentItem
+            Ok Component.Item
                 |> RE.andMap (parseComponentId components id)
                 |> RE.andMap
                     (quantity

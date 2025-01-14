@@ -99,7 +99,7 @@ table db { detailed, scope } =
 
 getComponentEcoscore : List Process -> Component -> Result String Float
 getComponentEcoscore processes =
-    Component.computeComponentImpacts processes
+    Component.computeImpacts processes
         >> Result.map
             (Component.extractImpacts
                 >> Impact.getImpact Definition.Ecs

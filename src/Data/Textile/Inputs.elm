@@ -14,7 +14,7 @@ module Data.Textile.Inputs exposing
     , toString
     )
 
-import Data.Component exposing (ComponentItem)
+import Data.Component exposing (Item)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Split as Split exposing (Split)
@@ -77,7 +77,7 @@ type alias Inputs =
     , product : Product
     , surfaceMass : Maybe Unit.SurfaceMass
     , traceability : Maybe Bool
-    , trims : List ComponentItem
+    , trims : List Item
     , upcycled : Bool
     , yarnSize : Maybe Unit.YarnSize
     }
