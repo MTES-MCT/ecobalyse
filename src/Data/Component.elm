@@ -146,29 +146,28 @@ compute db =
 
 
 computeElementResults : List Process -> Element -> Result String Results
-computeElementResults processes { amount, material } =
-    processes
-        |> Process.findById material
-        |> Result.map
-            (\process ->
+computeElementResults processes =
+    expandElement processes
+        >> Result.map
+            (\{ amount, material } ->
                 let
-                    impacts =
-                        process.impacts
+                    materialImpacts =
+                        material.impacts
                             |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (amountToFloat amount))
 
-                    mass =
+                    materialMass =
                         Mass.kilograms <|
-                            if process.unit == "kg" then
+                            if material.unit == "kg" then
                                 amountToFloat amount
 
                             else
                                 -- apply density
-                                amountToFloat amount * process.density
+                                amountToFloat amount * material.density
                 in
                 Results
-                    { impacts = impacts
-                    , items = [ Results { impacts = impacts, items = [], mass = mass } ]
-                    , mass = mass
+                    { impacts = materialImpacts
+                    , items = [ Results { impacts = materialImpacts, items = [], mass = materialMass } ]
+                    , mass = materialMass
                     }
             )
 
@@ -271,16 +270,20 @@ expandItems { components, processes } =
 -}
 expandElements : List Process -> List Element -> Result String (List ExpandedElement)
 expandElements processes =
-    RE.combineMap
-        (\{ amount, material, transforms } ->
-            Ok (ExpandedElement amount)
-                |> RE.andMap (Process.findById material processes)
-                |> RE.andMap
-                    (transforms
-                        |> List.map (\id -> Process.findById id processes)
-                        |> RE.combine
-                    )
-        )
+    RE.combineMap (expandElement processes)
+
+
+{-| Turn an Element to an ExpandedElement
+-}
+expandElement : List Process -> Element -> Result String ExpandedElement
+expandElement processes { amount, material, transforms } =
+    Ok (ExpandedElement amount)
+        |> RE.andMap (Process.findById material processes)
+        |> RE.andMap
+            (transforms
+                |> List.map (\id -> Process.findById id processes)
+                |> RE.combine
+            )
 
 
 encodeItem : Item -> Encode.Value
