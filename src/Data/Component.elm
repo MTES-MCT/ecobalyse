@@ -197,7 +197,7 @@ applyTransforms transforms (Results materialResults) =
                     transformImpacts =
                         Impact.sumImpacts
                             [ process.impacts
-                                -- Note: impacts are always  computed from input mass
+                                -- Note: impacts are always computed from input mass
                                 |> Impact.multiplyBy (Mass.inKilograms mass)
 
                             -- FIXME: we should also add elec and heat impacts, but using what

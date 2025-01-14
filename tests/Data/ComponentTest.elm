@@ -112,6 +112,45 @@ suite =
                             |> Expect.within (Expect.Absolute 0.00001) 30
                         )
                     ]
+                , let
+                    results =
+                        Component.Results
+                            { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
+                            , items = []
+                            , mass = Mass.kilogram
+                            }
+                            |> Component.applyTransforms
+                                [ { fading
+                                    | waste = Split.half
+                                    , impacts =
+                                        fading.impacts
+                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
+                                  }
+                                , { fading
+                                    | waste = Split.half
+                                    , impacts =
+                                        fading.impacts
+                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 20)
+                                  }
+                                ]
+                  in
+                  describe "impacts & waste"
+                    -- Note: impacts are always computed from input mass
+                    -- 100 + (1kg * 10) + (0.5kg * 20) = 120
+                    [ asTest "should handle impacts+waste when applying transforms: impacts"
+                        (Component.extractImpacts results
+                            |> Impact.getImpact Definition.Ecs
+                            |> Unit.impactToFloat
+                            |> Expect.within (Expect.Absolute 0.00001) 120
+                        )
+
+                    -- (1kg * 0.5) * 0.5 == 0.25
+                    , asTest "should handle impacts+waste when applying transforms: mass"
+                        (Component.extractMass results
+                            |> Mass.inKilograms
+                            |> Expect.within (Expect.Absolute 0.00001) 0.25
+                        )
+                    ]
                 ]
             , describe "compute"
                 [ asTest "should compute results from decoded component items"
