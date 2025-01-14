@@ -150,13 +150,12 @@ compute db =
 computeElementResults : List Process -> Element -> Result String Results
 computeElementResults processes =
     expandElement processes
-        >> Result.map computeExpandedElementResults
-
-
-computeExpandedElementResults : ExpandedElement -> Results
-computeExpandedElementResults { amount, material, transforms } =
-    computeMaterialResults amount material
-        |> applyTransforms transforms
+        >> Result.map
+            (\{ amount, material, transforms } ->
+                material
+                    |> computeMaterialResults amount
+                    |> applyTransforms transforms
+            )
 
 
 computeMaterialResults : Amount -> Process -> Results
