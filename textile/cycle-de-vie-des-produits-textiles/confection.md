@@ -105,11 +105,7 @@ Il existe différents procédés de délavage dans le socle technique actuelleme
 \- représentatif ou majorant\
 \- traitement des eaux très efficace à inefficace
 
-Pour l'instant nous ne prenons que le procédé par défaut qui est le plus impactant (chimique, majorant, traitement des eaux inefficace).
-
-#### Accessoires : non pris en compte (à date)
-
-Les accessoires (boutons, fermeture éclair, étiquettes, etc.) ne sont pas modélisés dans Ecobalyse à date (leur contribution sur le coût environnemental des premiers vêtements proposés dans l'outil - ex : t-shirt - est considérée comme non-significative car inférieure à 5% dans la majorité des cas).&#x20;
+Pour l'instant nous ne prenons que le procédé par défaut qui est le plus impactant (chimique, majorant, traitement des eaux inefficace).&#x20;
 
 #### Taux de perte (%)&#x20;
 
@@ -125,6 +121,10 @@ Deux exceptions existent pour les taux de pertes:&#x20;
 * tricotage fully-fashioned = 2% (valeur figée) \
   les différentes pièces du vêtement sont tricotées sans couture et la confection consiste "seulement" à les assembler
 {% endhint %}
+
+#### Stocks dormants&#x20;
+
+Outre les pertes strictement liées à l'étape de confection, par exemple à travers la découpe du tissu, un pourcentage de perte est également appliqué à l'étape de confection pour traduire le fait qu'une partie de la production n'est en pratique jamais valorisée. Il s'agit des stocks dormants. Leur prise en compte est spécifiée dans la [page de la documentation dédiée aux stocks dormants](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/stocks-dormants-deadstock).
 
 [^1]: cf. p. 49/167 de l'étude : \
     Environmental assessment of Swedish clothing consumption - six garments, sustainable futurs (2019)
