@@ -26,9 +26,9 @@ Source : Filière des éléments d'ameublement \_ données 2022 (Bilan annuel 20
 
 ### Présence de perturbateur de recyclage
 
-Si un meuble propose un ou plusieurs éléments perturbateurs de recyclage, alors le meuble ne peut plus suivre les débouchés spécifiques à chacun de ces matériaux (ex : recyclage du bois). Le meuble est alors considéré comme "non recyclable".&#x20;
+Si un meuble propose au moins un perturbateur de recyclage, alors le meuble ne peut plus suivre les débouchés spécifiques à chacun de ces matériaux (ex : recyclage du bois). Le meuble est alors considéré comme "non recyclable".&#x20;
 
-Dès lors, le meuble est considéré comme un déchet avec le scénario par défaut des déchets d'ameublement.&#x20;
+Dès lors, le meuble est considéré comme terminant sa vie en décheterie (avec application du scénario par défaut ci-dessous).
 
 {% hint style="info" %}
 Déchets d'éléments d'ameublement (scénario par défaut)
@@ -54,6 +54,12 @@ Un taux de collecte de 40% est appliqué par défaut pour l'ensemble des meubles
 Ce taux de collecte correspond à la moyenne des éléments d'ameublement collectés séparément par la filière REP (ex : bennes d'éléments d'ameublement en déchetterie, dépôt de meubles chez un distributeur, etc.).&#x20;
 
 Les meubles non collectés (60% des cas) sont considérés comme terminant leur vie en décheterie sous la forme d'encombrants et de déchets triés par matériaux. Dès lors, le scénario par défaut des d'échets d'éléments d'ameublement est proposé (75% incinération / 25% enfouissement).
+
+### Procédés mobilisés pour la fin de vie
+
+<table data-full-width="true"><thead><tr><th width="183">Scénario</th><th>Procédé Ecoinvent</th></tr></thead><tbody><tr><td>Autres déchets (incinération)</td><td>1 kilogram of Municipal solid waste {FR}| treatment of municipal solid waste, municipal incineration | Cut-off, U</td></tr><tr><td>Autres déchets (enfouissement)</td><td>1 kilogram of Municipal solid waste {RoW}| treatment of municipal solid waste, sanitary landfill | Cut-off, U</td></tr><tr><td>Plastique (incinération)</td><td>1 kilogram of Waste plastic, mixture {CH}| treatment of waste plastic, mixture, municipal incineration FAE | Cut-off, U</td></tr><tr><td>Plastique (enfouissement)</td><td>1 kilogram of Waste plastic, mixture {CH}| treatment of waste plastic, mixture, sanitary landfill | Cut-off, U</td></tr><tr><td>Plastique (recyclage)</td><td>1 kilogram of Polyethylene, high density, granulate, recycled {US}| polyethylene production, high density, granulate, recycled | Cut-off, U</td></tr><tr><td>Métal (recyclage)</td><td>1 kilogram of Aluminium scrap, post-consumer, prepared for melting {RER}| treatment of aluminium scrap, post-consumer, by collecting, sorting, cleaning, pressing | Cut-off, U</td></tr><tr><td>Bois (incinération)</td><td>1 kilogram of Waste wood, untreated {CH}| treatment of waste wood, untreated, municipal incineration FAE | Cut-off, U</td></tr><tr><td>Bois (recyclage)</td><td>1 kilogram of Wood chips, from post-consumer wood, measured as dry mass {CH}| treatment of waste wood, post-consumer, sorting and shredding | Cut-off, U</td></tr><tr><td>Rembourré / Matelas / Mousse (incinération)</td><td>1 kilogram of Waste polyurethane {CH}| treatment of waste polyurethane, municipal incineration FAE | Cut-off, U</td></tr></tbody></table>
+
+<figure><img src="../../.gitbook/assets/Coût environnemental des procédés de fin de vie (uPts _ kg) (2).png" alt=""><figcaption></figcaption></figure>
 
 &#x20;
 

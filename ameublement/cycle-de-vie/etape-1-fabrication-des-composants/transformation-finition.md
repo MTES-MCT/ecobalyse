@@ -72,7 +72,7 @@ Procédé détaillé de stratification d'un aggloméré/MDF :&#x20;
 
 Procédé Ecoinvent : _Sheet rolling, aluminium, RER_\
 _Unité : kg_\
-_Pertes :  <mark style="color:orange;">A définir</mark>_
+_Pertes :  0,9%_
 
 Le laminage est un procédé de déformation physique qui consiste à passer une pièce métallique entre une ou plusieurs rouleaux pour en modifier l'épaisseur. Le laminage peut être effectué à chaud ou à froid. Le laminage à froid nécessite des machines plus puissantes et procure un rendu plus précis.
 
