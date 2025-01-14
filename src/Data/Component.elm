@@ -1,5 +1,5 @@
 module Data.Component exposing
-    ( Amount
+    ( Amount(..)
     , Component
     , DataContainer
     , Element
@@ -12,6 +12,7 @@ module Data.Component exposing
     , applyTransforms
     , available
     , compute
+    , computeElementResults
     , computeImpacts
     , decodeItem
     , decodeListFromJsonString

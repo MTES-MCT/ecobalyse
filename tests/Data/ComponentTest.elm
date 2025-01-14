@@ -3,6 +3,7 @@ module Data.ComponentTest exposing (..)
 import Data.Component as Component
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Process as Process
 import Data.Split as Split
 import Data.Unit as Unit
 import Expect
@@ -160,6 +161,29 @@ suite =
                         |> Result.andThen (Component.compute db.object)
                         |> Result.map getEcsImpact
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 422
+                    )
+                ]
+            , describe "computeElementResults"
+                [ asTest "should compute a material-only element results"
+                    (case Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
+                        Just cottonId ->
+                            -- 1kg of cotton, weaved then faded
+                            { amount = Component.Amount 1
+                            , material = cottonId
+                            , transforms = [ weaving.id, fading.id ]
+                            }
+                                |> Component.computeElementResults db.textile.processes
+                                |> Result.map
+                                    (\res ->
+                                        ( Component.extractImpacts res |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat |> round
+                                        , Component.extractMass res |> Mass.inKilograms
+                                        )
+                                    )
+                                |> Result.withDefault ( 0, 0 )
+                                |> Expect.equal ( 1654, 0.93747 )
+
+                        Nothing ->
+                            Expect.fail "Invalid cotton process id"
                     )
                 ]
             ]
