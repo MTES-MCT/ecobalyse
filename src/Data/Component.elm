@@ -30,7 +30,6 @@ module Data.Component exposing
     , quantityToInt
     )
 
-import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Uuid as Uuid exposing (Uuid)
@@ -77,14 +76,14 @@ type alias DataContainer db =
 type alias ProcessItem =
     { amount : Amount
     , material : Process.Id
-    , transform : Maybe Process.Id
+    , transforms : List Process.Id
     }
 
 
 type alias ExpandedProcessItem =
     { amount : Amount
     , material : Process
-    , transform : Maybe Process
+    , transforms : List Process
     }
 
 
@@ -249,17 +248,10 @@ expandComponentItems { components, processes } =
 expandProcessItems : List Process -> List ProcessItem -> Result String (List ExpandedProcessItem)
 expandProcessItems processes =
     RE.combineMap
-        (\{ amount, material, transform } ->
+        (\{ amount, material, transforms } ->
             Ok (ExpandedProcessItem amount)
                 |> RE.andMap (Process.findById material processes)
-                |> RE.andMap
-                    (case transform of
-                        Just id ->
-                            Process.findById id processes |> Result.map Just
-
-                        Nothing ->
-                            Ok Nothing
-                    )
+                |> RE.andMap (RE.combine (List.map (\id -> Process.findById id processes) transforms))
         )
 
 
@@ -288,7 +280,7 @@ decodeProcessItem =
     Decode.succeed ProcessItem
         |> Decode.required "amount" (Decode.map Amount Decode.float)
         |> Decode.required "material" Process.decodeId
-        |> DU.strictOptional "transform" Process.decodeId
+        |> Decode.optional "transforms" (Decode.list Process.decodeId) []
 
 
 encodeComponentItem : ComponentItem -> Encode.Value
