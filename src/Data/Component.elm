@@ -280,7 +280,7 @@ decodeProcessItem =
     Decode.succeed ProcessItem
         |> Decode.required "amount" (Decode.map Amount Decode.float)
         |> Decode.required "material" Process.decodeId
-        |> Decode.optional "transforms" (Decode.list Process.decodeId) []
+        |> Decode.required "transforms" (Decode.list Process.decodeId)
 
 
 encodeComponentItem : ComponentItem -> Encode.Value
