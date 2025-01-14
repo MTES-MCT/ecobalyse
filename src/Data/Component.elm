@@ -148,28 +148,18 @@ compute db =
 computeElementResults : List Process -> Element -> Result String Results
 computeElementResults processes =
     expandElement processes
-        >> Result.map
-            (\{ amount, material } ->
-                let
-                    materialImpacts =
-                        material.impacts
-                            |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (amountToFloat amount))
+        >> Result.map computeExpandedElementResults
 
-                    materialMass =
-                        Mass.kilograms <|
-                            if material.unit == "kg" then
-                                amountToFloat amount
 
-                            else
-                                -- apply density
-                                amountToFloat amount * material.density
-                in
-                Results
-                    { impacts = materialImpacts
-                    , items = [ Results { impacts = materialImpacts, items = [], mass = materialMass } ]
-                    , mass = materialMass
-                    }
-            )
+computeExpandedElementResults : ExpandedElement -> Results
+computeExpandedElementResults { amount, material, transforms } =
+    let
+        materialResults =
+            computeMaterialResult amount material
+    in
+    transforms
+        |> computeTransforms (extractMass materialResults)
+        |> addResults materialResults
 
 
 computeImpacts : List Process -> Component -> Result String Results
@@ -200,6 +190,35 @@ computeItemResults { components, processes } { id, quantity } =
                             |> Quantity.sum
                     }
             )
+
+
+computeMaterialResult : Amount -> Process -> Results
+computeMaterialResult amount process =
+    let
+        ( materialImpacts, materialMass ) =
+            ( process.impacts
+                |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (amountToFloat amount))
+            , Mass.kilograms <|
+                if process.unit == "kg" then
+                    amountToFloat amount
+
+                else
+                    -- apply density
+                    amountToFloat amount * process.density
+            )
+    in
+    Results
+        { impacts = materialImpacts
+        , items = [ Results { impacts = materialImpacts, items = [], mass = materialMass } ]
+        , mass = materialMass
+        }
+
+
+{-| Sequencially and recursively apply transforms to a given input mass (typically, the material one)
+-}
+computeTransforms : Mass -> List Process -> Results
+computeTransforms _ _ =
+    emptyResults
 
 
 decode : Decoder Component
@@ -266,7 +285,7 @@ expandItems { components, processes } =
         >> RE.combine
 
 
-{-| Take a list of process items and resolve them with actual processes
+{-| Take a list of elements and resolve them with fully qualified processes
 -}
 expandElements : List Process -> List Element -> Result String (List ExpandedElement)
 expandElements processes =
