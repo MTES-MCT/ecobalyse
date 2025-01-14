@@ -3040,7 +3040,7 @@
     "waste": 0
   },
   {
-    "alias": "",
+    "alias": null,
     "categories": ["material"],
     "comment": "",
     "density": 0,
@@ -3078,7 +3078,7 @@
     "waste": 0
   },
   {
-    "alias": "",
+    "alias": null,
     "categories": ["material"],
     "comment": "",
     "density": 0,
