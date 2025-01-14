@@ -7,8 +7,9 @@ module Data.Component exposing
     , Id
     , Item
     , Quantity
-    , Results
+    , Results(..)
     , amountToFloat
+    , applyTransforms
     , available
     , compute
     , computeImpacts
