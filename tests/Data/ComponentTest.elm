@@ -32,31 +32,86 @@ suite =
     suiteWithDb "Data.Component"
         (\db ->
             let
-                weaving =
-                    db.textile.wellKnown.weaving
+                ( fading, weaving ) =
+                    ( db.textile.wellKnown.fading
+                    , db.textile.wellKnown.weaving
+                    )
             in
             [ describe "applyTransforms"
-                [ asTest "should not apply any waste when no transforms are passed"
-                    ([]
-                        |> Component.applyTransforms (Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram })
-                        |> Component.extractMass
-                        |> Mass.inKilograms
-                        |> Expect.within (Expect.Absolute 0.01) 1
-                    )
-                , asTest "should apply waste when one transform is passed"
-                    ([ { weaving | waste = Split.half } ]
-                        |> Component.applyTransforms (Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram })
-                        |> Component.extractMass
-                        |> Mass.inKilograms
-                        |> Expect.within (Expect.Absolute 0.00001) 0.5
-                    )
-                , asTest "should apply waste sequentially when two transforms are passed"
-                    ([ { weaving | waste = Split.half }, { weaving | waste = Split.half } ]
-                        |> Component.applyTransforms (Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram })
-                        |> Component.extractMass
-                        |> Mass.inKilograms
-                        |> Expect.within (Expect.Absolute 0.00001) 0.25
-                    )
+                [ let
+                    oneKilogramResults =
+                        Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram }
+                  in
+                  describe "waste"
+                    [ asTest "should not apply any waste when no transforms are passed"
+                        (oneKilogramResults
+                            |> Component.applyTransforms []
+                            |> Component.extractMass
+                            |> Mass.inKilograms
+                            |> Expect.within (Expect.Absolute 0.00001) 1
+                        )
+                    , asTest "should apply waste when one transform is passed"
+                        (oneKilogramResults
+                            |> Component.applyTransforms [ { weaving | waste = Split.half } ]
+                            |> Component.extractMass
+                            |> Mass.inKilograms
+                            |> Expect.within (Expect.Absolute 0.00001) 0.5
+                        )
+                    , asTest "should apply waste sequentially when multiple transforms are passed"
+                        (oneKilogramResults
+                            |> Component.applyTransforms [ { weaving | waste = Split.half }, { weaving | waste = Split.half } ]
+                            |> Component.extractMass
+                            |> Mass.inKilograms
+                            |> Expect.within (Expect.Absolute 0.00001) 0.25
+                        )
+                    ]
+                , let
+                    noImpactsResults =
+                        Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram }
+                  in
+                  describe "impacts"
+                    [ asTest "should not add impacts when no transforms are passed"
+                        (noImpactsResults
+                            |> Component.applyTransforms []
+                            |> Component.extractImpacts
+                            |> Impact.getImpact Definition.Ecs
+                            |> Unit.impactToFloat
+                            |> Expect.within (Expect.Absolute 0.00001) 0
+                        )
+                    , asTest "should add impacts when one transform is passed"
+                        (noImpactsResults
+                            |> Component.applyTransforms
+                                [ { fading
+                                    | impacts =
+                                        fading.impacts
+                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
+                                  }
+                                ]
+                            |> Component.extractImpacts
+                            |> Impact.getImpact Definition.Ecs
+                            |> Unit.impactToFloat
+                            |> Expect.within (Expect.Absolute 0.00001) 10
+                        )
+                    , asTest "should add impacts when multiple transforms are passed"
+                        (noImpactsResults
+                            |> Component.applyTransforms
+                                [ { fading
+                                    | impacts =
+                                        fading.impacts
+                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
+                                  }
+                                , { fading
+                                    | impacts =
+                                        fading.impacts
+                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 20)
+                                  }
+                                ]
+                            |> Component.extractImpacts
+                            |> Impact.getImpact Definition.Ecs
+                            |> Unit.impactToFloat
+                            |> Expect.within (Expect.Absolute 0.00001) 30
+                        )
+                    ]
                 ]
             , describe "compute"
                 [ asTest "should compute results from decoded component items"
