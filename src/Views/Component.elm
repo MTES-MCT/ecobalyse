@@ -2,7 +2,7 @@ module Views.Component exposing (editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Component as Component exposing (Component, ComponentItem, ExpandedProcessItem)
+import Data.Component as Component exposing (Component, ComponentItem, ExpandedElement)
 import Data.Dataset as Dataset
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
@@ -62,7 +62,7 @@ addButton { addLabel, db, items, openSelectModal } =
 
 componentView :
     Config db msg
-    -> ( Component.Quantity, Component, List ExpandedProcessItem )
+    -> ( Component.Quantity, Component, List ExpandedElement )
     -> Component.Results
     -> List (Html msg)
 componentView config ( quantity, component, processAmounts ) itemResults =
@@ -192,7 +192,7 @@ editorView ({ db, items, results, scope, title } as config) =
         ]
 
 
-processView : Definition -> ExpandedProcessItem -> Component.Results -> Html msg
+processView : Definition -> ExpandedElement -> Component.Results -> Html msg
 processView selectedImpact { amount, material } itemResults =
     tr [ class "fs-7" ]
         [ td [] []

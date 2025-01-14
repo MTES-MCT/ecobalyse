@@ -22,8 +22,8 @@ table db { detailed, scope } =
         scopedProcesses =
             Db.scopedProcesses scope db
 
-        expandProcesses =
-            Component.expandProcessItems scopedProcesses
+        expandElements =
+            Component.expandElements scopedProcesses
     in
     { filename = "components"
     , toId = .id >> Component.idToString
@@ -45,11 +45,11 @@ table db { detailed, scope } =
           , toValue = Table.StringValue .name
           , toCell = .name >> text >> List.singleton >> strong []
           }
-        , { label = "Procédés"
+        , { label = "Éléments"
           , toValue =
                 Table.StringValue <|
-                    \{ processes } ->
-                        case expandProcesses processes of
+                    \{ elements } ->
+                        case expandElements elements of
                             Err _ ->
                                 ""
 
@@ -64,8 +64,8 @@ table db { detailed, scope } =
                                         )
                                     |> String.join ", "
           , toCell =
-                \{ processes } ->
-                    case expandProcesses processes of
+                \{ elements } ->
+                    case expandElements elements of
                         Err err ->
                             Alert.simple
                                 { close = Nothing

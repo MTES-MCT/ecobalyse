@@ -3,9 +3,9 @@ module Data.Component exposing
     , Component
     , ComponentItem
     , DataContainer
-    , ExpandedProcessItem
+    , Element
+    , ExpandedElement
     , Id
-    , ProcessItem
     , Quantity
     , Results
     , amountToFloat
@@ -19,7 +19,7 @@ module Data.Component exposing
     , encodeComponentItem
     , encodeId
     , expandComponentItems
-    , expandProcessItems
+    , expandElements
     , extractImpacts
     , extractItems
     , extractMass
@@ -48,9 +48,9 @@ type Id
 {-| A Component is a named collection of processes and amounts of them
 -}
 type alias Component =
-    { id : Id
+    { elements : List Element
+    , id : Id
     , name : String
-    , processes : List ProcessItem
     }
 
 
@@ -71,16 +71,18 @@ type alias DataContainer db =
     }
 
 
-{-| A compact representation of an amount of material and an optional transformation of it
+{-| A compact representation of an amount of material and optional transformations of it
 -}
-type alias ProcessItem =
+type alias Element =
     { amount : Amount
     , material : Process.Id
     , transforms : List Process.Id
     }
 
 
-type alias ExpandedProcessItem =
+{-| A full representation of an amount of material and optional transformations of it
+-}
+type alias ExpandedElement =
     { amount : Amount
     , material : Process
     , transforms : List Process
@@ -136,8 +138,8 @@ componentItemToString db { id, quantity } =
         |> findById id
         |> Result.andThen
             (\component ->
-                component.processes
-                    |> RE.combineMap (processItemToString db.processes)
+                component.elements
+                    |> RE.combineMap (elementToString db.processes)
                     |> Result.map (String.join " | ")
                     |> Result.map
                         (\processesString ->
@@ -162,8 +164,8 @@ compute db =
 
 computeComponentImpacts : List Process -> Component -> Result String Results
 computeComponentImpacts processes =
-    .processes
-        >> List.map (computeProcessItemResults processes)
+    .elements
+        >> List.map (computeElementResults processes)
         >> RE.combine
         >> Result.map (List.foldl addResults emptyResults)
 
@@ -172,7 +174,7 @@ computeComponentItemResults : DataContainer db -> ComponentItem -> Result String
 computeComponentItemResults { components, processes } { id, quantity } =
     components
         |> findById id
-        |> Result.andThen (.processes >> List.map (computeProcessItemResults processes) >> RE.combine)
+        |> Result.andThen (.elements >> List.map (computeElementResults processes) >> RE.combine)
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
             (\(Results { impacts, mass, items }) ->
@@ -190,8 +192,8 @@ computeComponentItemResults { components, processes } { id, quantity } =
             )
 
 
-computeProcessItemResults : List Process -> ProcessItem -> Result String Results
-computeProcessItemResults processes { amount, material } =
+computeElementResults : List Process -> Element -> Result String Results
+computeElementResults processes { amount, material } =
     processes
         |> Process.findById material
         |> Result.map
@@ -218,49 +220,12 @@ computeProcessItemResults processes { amount, material } =
             )
 
 
-decodeListFromJsonString : String -> Result String (List Component)
-decodeListFromJsonString =
-    Decode.decodeString decodeList >> Result.mapError Decode.errorToString
-
-
-{-| Take a list of component items and resolve them with actual components and processes
--}
-expandComponentItems :
-    DataContainer a
-    -> List ComponentItem
-    -> Result String (List ( Quantity, Component, List ExpandedProcessItem ))
-expandComponentItems { components, processes } =
-    List.map
-        (\{ id, quantity } ->
-            findById id components
-                |> Result.andThen
-                    (\component ->
-                        component.processes
-                            |> expandProcessItems processes
-                            |> Result.map (\expandedItems -> ( quantity, component, expandedItems ))
-                    )
-        )
-        >> RE.combine
-
-
-{-| Take a list of process items and resolve them with actual processes
--}
-expandProcessItems : List Process -> List ProcessItem -> Result String (List ExpandedProcessItem)
-expandProcessItems processes =
-    RE.combineMap
-        (\{ amount, material, transforms } ->
-            Ok (ExpandedProcessItem amount)
-                |> RE.andMap (Process.findById material processes)
-                |> RE.andMap (RE.combine (List.map (\id -> Process.findById id processes) transforms))
-        )
-
-
 decode : Decoder Component
 decode =
     Decode.succeed Component
+        |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
-        |> Decode.required "processes" (Decode.list decodeProcessItem)
 
 
 decodeList : Decoder (List Component)
@@ -275,12 +240,67 @@ decodeComponentItem =
         |> Decode.required "quantity" (Decode.map Quantity Decode.int)
 
 
-decodeProcessItem : Decoder ProcessItem
-decodeProcessItem =
-    Decode.succeed ProcessItem
+decodeElement : Decoder Element
+decodeElement =
+    Decode.succeed Element
         |> Decode.required "amount" (Decode.map Amount Decode.float)
         |> Decode.required "material" Process.decodeId
         |> Decode.required "transforms" (Decode.list Process.decodeId)
+
+
+decodeListFromJsonString : String -> Result String (List Component)
+decodeListFromJsonString =
+    Decode.decodeString decodeList
+        >> Result.mapError Decode.errorToString
+
+
+elementToString : List Process -> Element -> Result String String
+elementToString processes element =
+    processes
+        |> Process.findById element.material
+        |> Result.map
+            (\process ->
+                String.fromFloat (amountToFloat element.amount)
+                    ++ process.unit
+                    ++ " "
+                    ++ Process.getDisplayName process
+            )
+
+
+{-| Take a list of component items and resolve them with actual components and processes
+-}
+expandComponentItems :
+    DataContainer a
+    -> List ComponentItem
+    -> Result String (List ( Quantity, Component, List ExpandedElement ))
+expandComponentItems { components, processes } =
+    List.map
+        (\{ id, quantity } ->
+            findById id components
+                |> Result.andThen
+                    (\component ->
+                        component.elements
+                            |> expandElements processes
+                            |> Result.map (\expandedElements -> ( quantity, component, expandedElements ))
+                    )
+        )
+        >> RE.combine
+
+
+{-| Take a list of process items and resolve them with actual processes
+-}
+expandElements : List Process -> List Element -> Result String (List ExpandedElement)
+expandElements processes =
+    RE.combineMap
+        (\{ amount, material, transforms } ->
+            Ok (ExpandedElement amount)
+                |> RE.andMap (Process.findById material processes)
+                |> RE.andMap
+                    (transforms
+                        |> List.map (\id -> Process.findById id processes)
+                        |> RE.combine
+                    )
+        )
 
 
 encodeComponentItem : ComponentItem -> Encode.Value
@@ -313,19 +333,6 @@ idFromString str =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
-
-
-processItemToString : List Process -> ProcessItem -> Result String String
-processItemToString processes processItem =
-    processes
-        |> Process.findById processItem.material
-        |> Result.map
-            (\process ->
-                String.fromFloat (amountToFloat processItem.amount)
-                    ++ process.unit
-                    ++ " "
-                    ++ Process.getDisplayName process
-            )
 
 
 quantityFromInt : Int -> Quantity
