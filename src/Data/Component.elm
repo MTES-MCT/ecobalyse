@@ -394,9 +394,14 @@ itemToString db { id, quantity } =
 
 loadDefaultEnergyMixes : List Process -> Result String { elec : Process, heat : Process }
 loadDefaultEnergyMixes processes =
+    let
+        fromIdString =
+            Process.idFromString
+                >> Result.andThen (\id -> Process.findById id processes)
+    in
     Result.map2 (\elec heat -> { elec = elec, heat = heat })
-        (Process.findByAlias "elec-medium-region-asia" processes)
-        (Process.findByAlias "heat-row" processes)
+        (fromIdString "9c70a439-ee05-4fc4-9598-7448345f7081")
+        (fromIdString "e70b2dc1-41be-4db6-8267-4e9f4822e8bc")
 
 
 quantityFromInt : Int -> Quantity
