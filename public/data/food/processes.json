@@ -1,6 +1,5 @@
 [
   {
-    "alias": "egg-bleublanccoeur",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -38,7 +37,6 @@
     "waste": 0
   },
   {
-    "alias": "milk",
     "categories": ["ingredient"],
     "comment": "FRANCE",
     "density": 0,
@@ -76,7 +74,6 @@
     "waste": 0
   },
   {
-    "alias": "milk-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -114,7 +111,6 @@
     "waste": 0
   },
   {
-    "alias": "carrot-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -152,7 +148,6 @@
     "waste": 0
   },
   {
-    "alias": "flour",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -190,7 +185,6 @@
     "waste": 0
   },
   {
-    "alias": "flour-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -228,7 +222,6 @@
     "waste": 0
   },
   {
-    "alias": "sunflower-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -266,7 +259,6 @@
     "waste": 0
   },
   {
-    "alias": "sunflower-feed-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -304,7 +296,6 @@
     "waste": 0
   },
   {
-    "alias": "rapeseed-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -342,7 +333,6 @@
     "waste": 0
   },
   {
-    "alias": "ground-beef",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -380,7 +370,6 @@
     "waste": 0
   },
   {
-    "alias": "ground-beef-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -418,7 +407,6 @@
     "waste": 0
   },
   {
-    "alias": "cull-cow-organic",
     "categories": ["material"],
     "comment": "",
     "density": 0,
@@ -456,7 +444,6 @@
     "waste": 0
   },
   {
-    "alias": "ground-beef-feedlot",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -494,7 +481,6 @@
     "waste": 0
   },
   {
-    "alias": "ground-beef-grass-fed",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -532,7 +518,6 @@
     "waste": 0
   },
   {
-    "alias": "cooked-ham",
     "categories": ["ingredient"],
     "comment": "Product already packed.",
     "density": 0,
@@ -570,7 +555,6 @@
     "waste": 0
   },
   {
-    "alias": "cooked-ham-organic",
     "categories": ["ingredient"],
     "comment": "Product already packed.",
     "density": 0,
@@ -608,7 +592,6 @@
     "waste": 0
   },
   {
-    "alias": "cooked-ham-fr",
     "categories": ["ingredient"],
     "comment": "Product already packed.",
     "density": 0,
@@ -646,7 +629,6 @@
     "waste": 0
   },
   {
-    "alias": "chicken-breast",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -684,7 +666,6 @@
     "waste": 0
   },
   {
-    "alias": "chicken-breast-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -722,7 +703,6 @@
     "waste": 0
   },
   {
-    "alias": "chicken-breast-fr-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -760,7 +740,6 @@
     "waste": 0
   },
   {
-    "alias": "rapeseed-oil",
     "categories": ["ingredient"],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "density": 0,
@@ -798,7 +777,6 @@
     "waste": 0
   },
   {
-    "alias": "rapeseed-oil-organic",
     "categories": ["ingredient"],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
     "density": 0,
@@ -836,7 +814,6 @@
     "waste": 0
   },
   {
-    "alias": "sunflower-oil",
     "categories": ["ingredient"],
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "density": 0,
@@ -874,7 +851,6 @@
     "waste": 0
   },
   {
-    "alias": "sunflower-oil-organic",
     "categories": ["ingredient"],
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "density": 0,
@@ -912,7 +888,6 @@
     "waste": 0
   },
   {
-    "alias": "zucchini-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -950,7 +925,6 @@
     "waste": 0
   },
   {
-    "alias": "peach-organic",
     "categories": ["ingredient"],
     "comment": "FRANCE",
     "density": 0,
@@ -988,7 +962,6 @@
     "waste": 0
   },
   {
-    "alias": "melon-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -1026,7 +999,6 @@
     "waste": 0
   },
   {
-    "alias": "butter",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -1064,7 +1036,6 @@
     "waste": 0
   },
   {
-    "alias": "butter-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -1102,7 +1073,6 @@
     "waste": 0
   },
   {
-    "alias": "steel",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1140,7 +1110,6 @@
     "waste": 0
   },
   {
-    "alias": "ldpe",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1178,7 +1147,6 @@
     "waste": 0
   },
   {
-    "alias": "ps",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1216,7 +1184,6 @@
     "waste": 0
   },
   {
-    "alias": "glass",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1254,7 +1221,6 @@
     "waste": 0
   },
   {
-    "alias": "pp",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1292,7 +1258,6 @@
     "waste": 0
   },
   {
-    "alias": "cardboard",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1330,7 +1295,6 @@
     "waste": 0
   },
   {
-    "alias": "paper",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1368,7 +1332,6 @@
     "waste": 0
   },
   {
-    "alias": "pvc",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1406,7 +1369,6 @@
     "waste": 0
   },
   {
-    "alias": "pet",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1444,7 +1406,6 @@
     "waste": 0
   },
   {
-    "alias": "hdpe",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1482,7 +1443,6 @@
     "waste": 0
   },
   {
-    "alias": "aluminium",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -1520,7 +1480,6 @@
     "waste": 0
   },
   {
-    "alias": "canning",
     "categories": ["transformation"],
     "comment": "\"Functional Unit\nTo obtain 1kg of canned vegetable or fruit. \nAn input of 0,626kg of food is required. Added packaging should account for the 1% loss.\n\nBoundaries\nFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).\nContrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.\nwe considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
     "density": 0,
@@ -1558,7 +1517,6 @@
     "waste": 0
   },
   {
-    "alias": "mixing",
     "categories": ["transformation"],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "density": 0,
@@ -1596,7 +1554,6 @@
     "waste": 0
   },
   {
-    "alias": "cooking",
     "categories": ["transformation"],
     "comment": "",
     "density": 0,
@@ -1634,7 +1591,6 @@
     "waste": 0
   },
   {
-    "alias": "lorry",
     "categories": ["transport"],
     "comment": "",
     "density": 0,
@@ -1672,7 +1628,6 @@
     "waste": 0
   },
   {
-    "alias": "boat",
     "categories": ["transport"],
     "comment": "",
     "density": 0,
@@ -1710,7 +1665,6 @@
     "waste": 0
   },
   {
-    "alias": "plane",
     "categories": ["transport"],
     "comment": "",
     "density": 0,
@@ -1748,7 +1702,6 @@
     "waste": 0
   },
   {
-    "alias": "boat-cooling",
     "categories": ["transport"],
     "comment": "",
     "density": 0,
@@ -1786,7 +1739,6 @@
     "waste": 0
   },
   {
-    "alias": "lorry-cooling",
     "categories": ["transport"],
     "comment": "",
     "density": 0,
@@ -1824,7 +1776,6 @@
     "waste": 0
   },
   {
-    "alias": "low-voltage-electricity",
     "categories": ["energy"],
     "comment": "",
     "density": 0,
@@ -1862,7 +1813,6 @@
     "waste": 0
   },
   {
-    "alias": "tap-water",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -1900,7 +1850,6 @@
     "waste": 0
   },
   {
-    "alias": "domestic-gas-heat",
     "categories": ["energy"],
     "comment": "",
     "density": 0,
@@ -1938,7 +1887,6 @@
     "waste": 0
   },
   {
-    "alias": "comte-aop",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -1976,7 +1924,6 @@
     "waste": 0
   },
   {
-    "alias": "emmental",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2014,7 +1961,6 @@
     "waste": 0
   },
   {
-    "alias": "mozzarella",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2052,7 +1998,6 @@
     "waste": 0
   },
   {
-    "alias": "beetroot-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -2090,7 +2035,6 @@
     "waste": 0
   },
   {
-    "alias": "celeriac-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -2128,7 +2072,6 @@
     "waste": 0
   },
   {
-    "alias": "turnip-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2166,7 +2109,6 @@
     "waste": 0
   },
   {
-    "alias": "chickpea-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2204,7 +2146,6 @@
     "waste": 0
   },
   {
-    "alias": "soybean-humanconsumption",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2242,7 +2183,6 @@
     "waste": 0
   },
   {
-    "alias": "soybean-organic",
     "categories": ["ingredient"],
     "comment": "Rdt mean = 2,25 t/ha",
     "density": 0,
@@ -2280,7 +2220,6 @@
     "waste": 0
   },
   {
-    "alias": "soybean-br-no-deforestation",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 76692414464",
     "density": 0,
@@ -2318,7 +2257,6 @@
     "waste": 0
   },
   {
-    "alias": "soybean-br-deforestation",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 76692414464",
     "density": 0,
@@ -2356,7 +2294,6 @@
     "waste": 0
   },
   {
-    "alias": "soybean-feed",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2394,7 +2331,6 @@
     "waste": 0
   },
   {
-    "alias": "sausage-meat",
     "categories": ["ingredient"],
     "comment": "None",
     "density": 0,
@@ -2432,7 +2368,6 @@
     "waste": 0
   },
   {
-    "alias": "sausage-toulouse",
     "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Toulouse sausage, raw' matches with a recipe from ANSES.",
     "density": 0,
@@ -2470,7 +2405,6 @@
     "waste": 0
   },
   {
-    "alias": "sausage-toulouse-cooked",
     "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Toulouse sausage, cooked' matches with a recipe from ANSES.",
     "density": 0,
@@ -2508,7 +2442,6 @@
     "waste": 0
   },
   {
-    "alias": "sausage-tofu",
     "categories": ["ingredient"],
     "comment": "\"This dataset represents plant-based sausage production from Tofu. The recipe was determined with OpenFoodFact, 2021 based on 2 industrial recipes and assumptions. \"",
     "density": 0,
@@ -2546,7 +2479,6 @@
     "waste": 0
   },
   {
-    "alias": "tomato-paste",
     "categories": ["ingredient"],
     "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "density": 0,
@@ -2584,7 +2516,6 @@
     "waste": 0
   },
   {
-    "alias": "tomato-concentrated",
     "categories": ["ingredient"],
     "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
     "density": 0,
@@ -2622,7 +2553,6 @@
     "waste": 0
   },
   {
-    "alias": "beef-with-bone",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2660,7 +2590,6 @@
     "waste": 0
   },
   {
-    "alias": "beef-without-bone",
     "categories": ["ingredient"],
     "comment": "This dataset includes packaging",
     "density": 0,
@@ -2698,7 +2627,6 @@
     "waste": 0
   },
   {
-    "alias": "beef-without-bone-organic",
     "categories": ["ingredient"],
     "comment": "This dataset includes packaging",
     "density": 0,
@@ -2736,7 +2664,6 @@
     "waste": 0
   },
   {
-    "alias": "durum-wheat-semolina",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2774,7 +2701,6 @@
     "waste": 0
   },
   {
-    "alias": "sugar",
     "categories": ["ingredient"],
     "comment": "Economic allocation",
     "density": 0,
@@ -2812,7 +2738,6 @@
     "waste": 0
   },
   {
-    "alias": "dark-chocolate",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2850,7 +2775,6 @@
     "waste": 0
   },
   {
-    "alias": "chicken-breast-br-max",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2888,7 +2812,6 @@
     "waste": 0
   },
   {
-    "alias": "chicken-breast-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2926,7 +2849,6 @@
     "waste": 0
   },
   {
-    "alias": "cane-sugar",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -2964,7 +2886,6 @@
     "waste": 0
   },
   {
-    "alias": "tea-dried",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 1436769536",
     "density": 0,
@@ -3002,7 +2923,6 @@
     "waste": 0
   },
   {
-    "alias": "coffee-ground",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3040,7 +2960,6 @@
     "waste": 0
   },
   {
-    "alias": "black-pepper",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of black pepper imported to France. Transport is added from the farm gate (in the producing country) to a french plant in Carpentras.",
     "density": 0,
@@ -3078,7 +2997,6 @@
     "waste": 0
   },
   {
-    "alias": "milk-powder",
     "categories": ["ingredient"],
     "comment": "This process describes the production of Milk, powder, skimmed in France.\nIncluded activities are : production in country of origin and transport",
     "density": 0,
@@ -3116,7 +3034,6 @@
     "waste": 0
   },
   {
-    "alias": "red-wine",
     "categories": ["ingredient"],
     "comment": "(4,4,2,1,2),",
     "density": 0,
@@ -3154,7 +3071,6 @@
     "waste": 0
   },
   {
-    "alias": "fresh-shrimps",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3192,7 +3108,6 @@
     "waste": 0
   },
   {
-    "alias": "large-trout",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3230,7 +3145,6 @@
     "waste": 0
   },
   {
-    "alias": "egg-indoor-code2",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3268,7 +3182,6 @@
     "waste": 0
   },
   {
-    "alias": "egg-indoor-code3",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3306,7 +3219,6 @@
     "waste": 0
   },
   {
-    "alias": "egg-outdoor-code1",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3344,7 +3256,6 @@
     "waste": 0
   },
   {
-    "alias": "egg-organic-code0",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3382,7 +3293,6 @@
     "waste": 0
   },
   {
-    "alias": "wine-grape-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -3420,7 +3330,6 @@
     "waste": 0
   },
   {
-    "alias": "lamb-meat-without-bone",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3458,7 +3367,6 @@
     "waste": 0
   },
   {
-    "alias": "lamb-meat-without-bone-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3496,7 +3404,6 @@
     "waste": 0
   },
   {
-    "alias": "pear-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -3534,7 +3441,6 @@
     "waste": 0
   },
   {
-    "alias": "carrot-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3572,7 +3478,6 @@
     "waste": 0
   },
   {
-    "alias": "carrot-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "density": 0,
@@ -3610,7 +3515,6 @@
     "waste": 0
   },
   {
-    "alias": "carrot-non-ue",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18370729984",
     "density": 0,
@@ -3648,7 +3552,6 @@
     "waste": 0
   },
   {
-    "alias": "zucchini-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3686,7 +3589,6 @@
     "waste": 0
   },
   {
-    "alias": "zucchini-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3724,7 +3626,6 @@
     "waste": 0
   },
   {
-    "alias": "pear-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3762,7 +3663,6 @@
     "waste": 0
   },
   {
-    "alias": "pear-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 48205 kg/ha table fruit quality\nProduction Volume Amount: 277274240",
     "density": 0,
@@ -3800,7 +3700,6 @@
     "waste": 0
   },
   {
-    "alias": "peach-fr",
     "categories": ["ingredient"],
     "comment": "FRANCE",
     "density": 0,
@@ -3838,7 +3737,6 @@
     "waste": 0
   },
   {
-    "alias": "peach-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 27000 kg/ha table fruit quality\nProduction Volume Amount: 1257250944",
     "density": 0,
@@ -3876,7 +3774,6 @@
     "waste": 0
   },
   {
-    "alias": "melon-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3914,7 +3811,6 @@
     "waste": 0
   },
   {
-    "alias": "melon-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3952,7 +3848,6 @@
     "waste": 0
   },
   {
-    "alias": "potato-industry-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -3990,7 +3885,6 @@
     "waste": 0
   },
   {
-    "alias": "potato-table-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4028,7 +3922,6 @@
     "waste": 0
   },
   {
-    "alias": "potato-starch",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4066,7 +3959,6 @@
     "waste": 0
   },
   {
-    "alias": "onion-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4104,7 +3996,6 @@
     "waste": 0
   },
   {
-    "alias": "onion-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 55000 kg/ha\nProduction Volume Amount: 1402423040",
     "density": 0,
@@ -4142,7 +4033,6 @@
     "waste": 0
   },
   {
-    "alias": "onion-non-ue",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 38596923392",
     "density": 0,
@@ -4180,7 +4070,6 @@
     "waste": 0
   },
   {
-    "alias": "eggplant-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4218,7 +4107,6 @@
     "waste": 0
   },
   {
-    "alias": "eggplant-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4256,7 +4144,6 @@
     "waste": 0
   },
   {
-    "alias": "french-bean-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4294,7 +4181,6 @@
     "waste": 0
   },
   {
-    "alias": "french-bean-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4332,7 +4218,6 @@
     "waste": 0
   },
   {
-    "alias": "french-bean-non-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4370,7 +4255,6 @@
     "waste": 0
   },
   {
-    "alias": "lettuce-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4408,7 +4292,6 @@
     "waste": 0
   },
   {
-    "alias": "lettuce-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 23622365184",
     "density": 0,
@@ -4446,7 +4329,6 @@
     "waste": 0
   },
   {
-    "alias": "lettuce-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 23622365184",
     "density": 0,
@@ -4484,7 +4366,6 @@
     "waste": 0
   },
   {
-    "alias": "garden-peas-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4522,7 +4403,6 @@
     "waste": 0
   },
   {
-    "alias": "garden-peas-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4560,7 +4440,6 @@
     "waste": 0
   },
   {
-    "alias": "cherry-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4598,7 +4477,6 @@
     "waste": 0
   },
   {
-    "alias": "lemon-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 37000 kg/ha\nProduction Volume Amount: 674371008",
     "density": 0,
@@ -4636,7 +4514,6 @@
     "waste": 0
   },
   {
-    "alias": "plum-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4674,7 +4551,6 @@
     "waste": 0
   },
   {
-    "alias": "squash-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4712,7 +4588,6 @@
     "waste": 0
   },
   {
-    "alias": "squash-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4750,7 +4625,6 @@
     "waste": 0
   },
   {
-    "alias": "squash-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4788,7 +4662,6 @@
     "waste": 0
   },
   {
-    "alias": "tomato-heated-greenhouse-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4826,7 +4699,6 @@
     "waste": 0
   },
   {
-    "alias": "tomato-greenhouse-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -4864,7 +4736,6 @@
     "waste": 0
   },
   {
-    "alias": "tomato-greenhouse-eu",
     "categories": ["ingredient"],
     "comment": "Yield = 165000.0 kg/haOutput of tomato, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 4255320576",
     "density": 0,
@@ -4902,7 +4773,6 @@
     "waste": 0
   },
   {
-    "alias": "apricot-fr",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
     "density": 0,
@@ -4940,7 +4810,6 @@
     "waste": 0
   },
   {
-    "alias": "apricot-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProduction Volume Amount: 171400752",
     "density": 0,
@@ -4978,7 +4847,6 @@
     "waste": 0
   },
   {
-    "alias": "hazelnut-non-eu",
     "categories": ["ingredient"],
     "comment": "FAOstats average 2013-2017",
     "density": 0,
@@ -5016,7 +4884,6 @@
     "waste": 0
   },
   {
-    "alias": "hazelnut-eu",
     "categories": ["ingredient"],
     "comment": "FAOstats average 2013 - 2017",
     "density": 0,
@@ -5054,7 +4921,6 @@
     "waste": 0
   },
   {
-    "alias": "hazelnut-unshelled-eu",
     "categories": ["ingredient"],
     "comment": "Dataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Turkey and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "density": 0,
@@ -5092,7 +4958,6 @@
     "waste": 0
   },
   {
-    "alias": "hazelnut-unshelled-non-eu",
     "categories": ["ingredient"],
     "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "density": 0,
@@ -5130,7 +4995,6 @@
     "waste": 0
   },
   {
-    "alias": "artichoke-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5168,7 +5032,6 @@
     "waste": 0
   },
   {
-    "alias": "artichoke-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -5206,7 +5069,6 @@
     "waste": 0
   },
   {
-    "alias": "cauliflower-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5244,7 +5106,6 @@
     "waste": 0
   },
   {
-    "alias": "cauliflower-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5282,7 +5143,6 @@
     "waste": 0
   },
   {
-    "alias": "leek-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5320,7 +5180,6 @@
     "waste": 0
   },
   {
-    "alias": "beetroot-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5358,7 +5217,6 @@
     "waste": 0
   },
   {
-    "alias": "turnip-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5396,7 +5254,6 @@
     "waste": 0
   },
   {
-    "alias": "turnip-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "density": 0,
@@ -5434,7 +5291,6 @@
     "waste": 0
   },
   {
-    "alias": "turnip-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18370729984",
     "density": 0,
@@ -5472,7 +5328,6 @@
     "waste": 0
   },
   {
-    "alias": "chinese-cabbage-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5510,7 +5365,6 @@
     "waste": 0
   },
   {
-    "alias": "chinese-cabbage-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -5548,7 +5402,6 @@
     "waste": 0
   },
   {
-    "alias": "white-cabbage-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 28512262144",
     "density": 0,
@@ -5586,7 +5439,6 @@
     "waste": 0
   },
   {
-    "alias": "green-cabbage-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5624,7 +5476,6 @@
     "waste": 0
   },
   {
-    "alias": "green-cabbage-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5662,7 +5513,6 @@
     "waste": 0
   },
   {
-    "alias": "red-cabbage-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 28983492608",
     "density": 0,
@@ -5700,7 +5550,6 @@
     "waste": 0
   },
   {
-    "alias": "shallot-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5738,7 +5587,6 @@
     "waste": 0
   },
   {
-    "alias": "orange-eu",
     "categories": ["ingredient"],
     "comment": "SPAIN",
     "density": 0,
@@ -5776,7 +5624,6 @@
     "waste": 0
   },
   {
-    "alias": "orange-non-eu",
     "categories": ["ingredient"],
     "comment": "Orange, fresh grade, South African production. Output of orange, fresh grade, produced for direct human consumption.\nProduction Volume Amount: 1645182976",
     "density": 0,
@@ -5814,7 +5661,6 @@
     "waste": 0
   },
   {
-    "alias": "olive-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit quality\nProduction Volume Amount: 6459754496",
     "density": 0,
@@ -5852,7 +5698,6 @@
     "waste": 0
   },
   {
-    "alias": "rapeseed-fr",
     "categories": ["ingredient"],
     "comment": "EcoSpold01Location=FR\nProduction Volume Amount: 4532871168",
     "density": 0,
@@ -5890,7 +5735,6 @@
     "waste": 0
   },
   {
-    "alias": "rapeseed-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -5928,7 +5772,6 @@
     "waste": 0
   },
   {
-    "alias": "rapeseed-non-eu",
     "categories": ["ingredient"],
     "comment": "CANADA",
     "density": 0,
@@ -5966,7 +5809,6 @@
     "waste": 0
   },
   {
-    "alias": "pistachio-non-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 3470 kg/ha\nProduction Volume Amount: 15861245952",
     "density": 0,
@@ -6004,7 +5846,6 @@
     "waste": 0
   },
   {
-    "alias": "peanut-non-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 1000 kg/ha\nProduction Volume Amount: 6338124800",
     "density": 0,
@@ -6042,7 +5883,6 @@
     "waste": 0
   },
   {
-    "alias": "olive-oil-eu",
     "categories": ["ingredient"],
     "comment": "Data representative of virgin olive oil consumption in France. Virgin Olive oil consumption mix is determined from average FAOSTAT data over 4 years (2014-2018) from production and importation of virgin olive oil in France. Average consumption mix for virgin olive oil in France is : Spain, 65%, Italy, 20%, others origins, 15%. The coverage market mix of virgin olive  oil consumed in France is 85%.",
     "density": 0,
@@ -6080,7 +5920,6 @@
     "waste": 0
   },
   {
-    "alias": "avocado-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 3840904960",
     "density": 0,
@@ -6118,7 +5957,6 @@
     "waste": 0
   },
   {
-    "alias": "chickpea-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6156,7 +5994,6 @@
     "waste": 0
   },
   {
-    "alias": "sunflower-fr",
     "categories": ["ingredient"],
     "comment": "FRANCE",
     "density": 0,
@@ -6194,7 +6031,6 @@
     "waste": 0
   },
   {
-    "alias": "sunflower-eu",
     "categories": ["ingredient"],
     "comment": "HUNGARY",
     "density": 0,
@@ -6232,7 +6068,6 @@
     "waste": 0
   },
   {
-    "alias": "sunflower-non-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6270,7 +6105,6 @@
     "waste": 0
   },
   {
-    "alias": "kiwi-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6308,7 +6142,6 @@
     "waste": 0
   },
   {
-    "alias": "kiwi-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 1350206976",
     "density": 0,
@@ -6346,7 +6179,6 @@
     "waste": 0
   },
   {
-    "alias": "kiwi-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 1350206976",
     "density": 0,
@@ -6384,7 +6216,6 @@
     "waste": 0
   },
   {
-    "alias": "mango-non-eu",
     "categories": ["ingredient"],
     "comment": "BRAZIL",
     "density": 0,
@@ -6422,7 +6253,6 @@
     "waste": 0
   },
   {
-    "alias": "spinach-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18088361984",
     "density": 0,
@@ -6460,7 +6290,6 @@
     "waste": 0
   },
   {
-    "alias": "fennel-fr",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 240114696192",
     "density": 0,
@@ -6498,7 +6327,6 @@
     "waste": 0
   },
   {
-    "alias": "fennel-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 240114696192",
     "density": 0,
@@ -6536,7 +6364,6 @@
     "waste": 0
   },
   {
-    "alias": "broccoli-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18174699520",
     "density": 0,
@@ -6574,7 +6401,6 @@
     "waste": 0
   },
   {
-    "alias": "blueberry-non-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6612,7 +6438,6 @@
     "waste": 0
   },
   {
-    "alias": "raspberry-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6650,7 +6475,6 @@
     "waste": 0
   },
   {
-    "alias": "strawberry-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6688,7 +6512,6 @@
     "waste": 0
   },
   {
-    "alias": "strawberry-non-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6726,7 +6549,6 @@
     "waste": 0
   },
   {
-    "alias": "banana-wi",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6764,7 +6586,6 @@
     "waste": 0
   },
   {
-    "alias": "banana-non-eu",
     "categories": ["ingredient"],
     "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)\nIndia is considered since it is a major banana producer, with 29% of global production.",
     "density": 0,
@@ -6802,7 +6623,6 @@
     "waste": 0
   },
   {
-    "alias": "cucumber-fr-inseason",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6840,7 +6660,6 @@
     "waste": 0
   },
   {
-    "alias": "cucumber-fr-offseason",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 57559834624",
     "density": 0,
@@ -6878,7 +6697,6 @@
     "waste": 0
   },
   {
-    "alias": "cucumber-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 57559834624",
     "density": 0,
@@ -6916,7 +6734,6 @@
     "waste": 0
   },
   {
-    "alias": "strawberry-fr-inseason",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6954,7 +6771,6 @@
     "waste": 0
   },
   {
-    "alias": "strawberry-fr-offseason",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -6992,7 +6808,6 @@
     "waste": 0
   },
   {
-    "alias": "celery-fr",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 8969982976",
     "density": 0,
@@ -7030,7 +6845,6 @@
     "waste": 0
   },
   {
-    "alias": "celery-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 8969982976",
     "density": 0,
@@ -7068,7 +6882,6 @@
     "waste": 0
   },
   {
-    "alias": "celeriac-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7106,7 +6919,6 @@
     "waste": 0
   },
   {
-    "alias": "celeriac-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProduction Volume Amount: 508750016",
     "density": 0,
@@ -7144,7 +6956,6 @@
     "waste": 0
   },
   {
-    "alias": "celeriac-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18370729984",
     "density": 0,
@@ -7182,7 +6993,6 @@
     "waste": 0
   },
   {
-    "alias": "walnut-inshell-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7220,7 +7030,6 @@
     "waste": 0
   },
   {
-    "alias": "walnut-husked-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7258,7 +7067,6 @@
     "waste": 0
   },
   {
-    "alias": "chestnut-husked-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7296,7 +7104,6 @@
     "waste": 0
   },
   {
-    "alias": "chestnut-inshell-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7334,7 +7141,6 @@
     "waste": 0
   },
   {
-    "alias": "mandarin-eu",
     "categories": ["ingredient"],
     "comment": "Reference flow: Yield = 30000 kg/ha table fruit quality\nProduction Volume Amount: 2046639488",
     "density": 0,
@@ -7372,7 +7178,6 @@
     "waste": 0
   },
   {
-    "alias": "mushroom-eu",
     "categories": ["ingredient"],
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. \nThis dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. \nThe infrastructure are excluded as well as the mushroom packaging.",
     "density": 0,
@@ -7410,7 +7215,6 @@
     "waste": 0
   },
   {
-    "alias": "brussels-sprout-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7448,7 +7252,6 @@
     "waste": 0
   },
   {
-    "alias": "brussels-sprout-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7486,7 +7289,6 @@
     "waste": 0
   },
   {
-    "alias": "lentils-uncooked-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7524,7 +7326,6 @@
     "waste": 0
   },
   {
-    "alias": "curly-kale-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7562,7 +7363,6 @@
     "waste": 0
   },
   {
-    "alias": "curly-kale-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7600,7 +7400,6 @@
     "waste": 0
   },
   {
-    "alias": "pumpkin-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7638,7 +7437,6 @@
     "waste": 0
   },
   {
-    "alias": "clementine-non-eu",
     "categories": ["ingredient"],
     "comment": "MOROCCO",
     "density": 0,
@@ -7676,7 +7474,6 @@
     "waste": 0
   },
   {
-    "alias": "endive-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7714,7 +7511,6 @@
     "waste": 0
   },
   {
-    "alias": "endive-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 23622365184",
     "density": 0,
@@ -7752,7 +7548,6 @@
     "waste": 0
   },
   {
-    "alias": "wine-grape-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7790,7 +7585,6 @@
     "waste": 0
   },
   {
-    "alias": "lambs-lettuce-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7828,7 +7622,6 @@
     "waste": 0
   },
   {
-    "alias": "lambs-lettuce-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 23622365184",
     "density": 0,
@@ -7866,7 +7659,6 @@
     "waste": 0
   },
   {
-    "alias": "sweet-corn-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7904,7 +7696,6 @@
     "waste": 0
   },
   {
-    "alias": "sweet-corn-organic-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -7942,7 +7733,6 @@
     "waste": 0
   },
   {
-    "alias": "sweet-corn-br",
     "categories": ["ingredient"],
     "comment": "Economic allocation based on Whitman et al. 2011, assuming 15% stover removed from the field and 65 $/t stover",
     "density": 0,
@@ -7980,7 +7770,6 @@
     "waste": 0
   },
   {
-    "alias": "pineapple-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 23176521728",
     "density": 0,
@@ -8018,7 +7807,6 @@
     "waste": 0
   },
   {
-    "alias": "broad-beans-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 4",
     "density": 0,
@@ -8056,7 +7844,6 @@
     "waste": 0
   },
   {
-    "alias": "broad-beans-fr",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 4",
     "density": 0,
@@ -8094,7 +7881,6 @@
     "waste": 0
   },
   {
-    "alias": "swiss-chard-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18088361984",
     "density": 0,
@@ -8132,7 +7918,6 @@
     "waste": 0
   },
   {
-    "alias": "swiss-chard-fr",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18088361984",
     "density": 0,
@@ -8170,7 +7955,6 @@
     "waste": 0
   },
   {
-    "alias": "flageolet-bean-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 4",
     "density": 0,
@@ -8208,7 +7992,6 @@
     "waste": 0
   },
   {
-    "alias": "flageolet-bean-fr",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 4",
     "density": 0,
@@ -8246,7 +8029,6 @@
     "waste": 0
   },
   {
-    "alias": "rice-basmati-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 8769999872",
     "density": 0,
@@ -8284,7 +8066,6 @@
     "waste": 0
   },
   {
-    "alias": "soft-wheat-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -8322,7 +8103,6 @@
     "waste": 0
   },
   {
-    "alias": "soft-wheat-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -8360,7 +8140,6 @@
     "waste": 0
   },
   {
-    "alias": "soft-wheat-non-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -8398,7 +8177,6 @@
     "waste": 0
   },
   {
-    "alias": "durum-wheat-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -8436,7 +8214,6 @@
     "waste": 0
   },
   {
-    "alias": "durum-wheat-eu",
     "categories": ["ingredient"],
     "comment": "Economic allocation for wheat based on FEFAC (2015)",
     "density": 0,
@@ -8474,7 +8251,6 @@
     "waste": 0
   },
   {
-    "alias": "durum-wheat-non-eu",
     "categories": ["ingredient"],
     "comment": "Economic allocation for wheat based on FEFAC (2015)\nYield, irrigation (no irrigation in Australia), fertilizers (type and amount) and pesticides (total amount) application, diesel consumption and seed consumption based on the PEF Screening report for dry pasta.",
     "density": 0,
@@ -8512,7 +8288,6 @@
     "waste": 0
   },
   {
-    "alias": "apple-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8550,7 +8325,6 @@
     "waste": 0
   },
   {
-    "alias": "apple-fr",
     "categories": ["ingredient"],
     "comment": "FRANCE",
     "density": 0,
@@ -8588,7 +8362,6 @@
     "waste": 0
   },
   {
-    "alias": "potato-table-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8626,7 +8399,6 @@
     "waste": 0
   },
   {
-    "alias": "potato-industry-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8664,7 +8436,6 @@
     "waste": 0
   },
   {
-    "alias": "kiwi-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8702,7 +8473,6 @@
     "waste": 0
   },
   {
-    "alias": "red-cabbage-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8740,7 +8510,6 @@
     "waste": 0
   },
   {
-    "alias": "sugar-beet-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8778,7 +8547,6 @@
     "waste": 0
   },
   {
-    "alias": "papaya-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8816,7 +8584,6 @@
     "waste": 0
   },
   {
-    "alias": "tomato-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8854,7 +8621,6 @@
     "waste": 0
   },
   {
-    "alias": "pineapple-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8892,7 +8658,6 @@
     "waste": 0
   },
   {
-    "alias": "garden-peas-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8930,7 +8695,6 @@
     "waste": 0
   },
   {
-    "alias": "almond-inshell-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -8968,7 +8732,6 @@
     "waste": 0
   },
   {
-    "alias": "lettuce-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9006,7 +8769,6 @@
     "waste": 0
   },
   {
-    "alias": "mango-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9044,7 +8806,6 @@
     "waste": 0
   },
   {
-    "alias": "lychee-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9082,7 +8843,6 @@
     "waste": 0
   },
   {
-    "alias": "lychee-non-eu",
     "categories": ["ingredient"],
     "comment": "BRAZIL",
     "density": 0,
@@ -9120,7 +8880,6 @@
     "waste": 0
   },
   {
-    "alias": "oats-glo",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -9158,7 +8917,6 @@
     "waste": 0
   },
   {
-    "alias": "oats-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -9196,7 +8954,6 @@
     "waste": 0
   },
   {
-    "alias": "barley",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -9234,7 +8991,6 @@
     "waste": 0
   },
   {
-    "alias": "barley-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -9272,7 +9028,6 @@
     "waste": 0
   },
   {
-    "alias": "banana-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9310,7 +9065,6 @@
     "waste": 0
   },
   {
-    "alias": "orange-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9348,7 +9102,6 @@
     "waste": 0
   },
   {
-    "alias": "lemon-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9386,7 +9139,6 @@
     "waste": 0
   },
   {
-    "alias": "celery-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9424,7 +9176,6 @@
     "waste": 0
   },
   {
-    "alias": "olive-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9462,7 +9213,6 @@
     "waste": 0
   },
   {
-    "alias": "peanut-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9500,7 +9250,6 @@
     "waste": 0
   },
   {
-    "alias": "raspberry-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9538,7 +9287,6 @@
     "waste": 0
   },
   {
-    "alias": "lambs-lettuce-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9576,7 +9324,6 @@
     "waste": 0
   },
   {
-    "alias": "endive-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9614,7 +9361,6 @@
     "waste": 0
   },
   {
-    "alias": "durum-wheat-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9652,7 +9398,6 @@
     "waste": 0
   },
   {
-    "alias": "onion-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9690,7 +9435,6 @@
     "waste": 0
   },
   {
-    "alias": "rice-basmati-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9728,7 +9472,6 @@
     "waste": 0
   },
   {
-    "alias": "triticale-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -9766,7 +9509,6 @@
     "waste": 0
   },
   {
-    "alias": "bean-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -9804,7 +9546,6 @@
     "waste": 0
   },
   {
-    "alias": "alfalfa-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -9842,7 +9583,6 @@
     "waste": 0
   },
   {
-    "alias": "radish-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9880,7 +9620,6 @@
     "waste": 0
   },
   {
-    "alias": "lentils-uncooked-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9918,7 +9657,6 @@
     "waste": 0
   },
   {
-    "alias": "apricot-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9956,7 +9694,6 @@
     "waste": 0
   },
   {
-    "alias": "leek-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -9994,7 +9731,6 @@
     "waste": 0
   },
   {
-    "alias": "cherry-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -10032,7 +9768,6 @@
     "waste": 0
   },
   {
-    "alias": "plum-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -10070,7 +9805,6 @@
     "waste": 0
   },
   {
-    "alias": "shallot-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -10108,7 +9842,6 @@
     "waste": 0
   },
   {
-    "alias": "blueberry-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -10146,7 +9879,6 @@
     "waste": 0
   },
   {
-    "alias": "spinach-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -10184,7 +9916,6 @@
     "waste": 0
   },
   {
-    "alias": "watermelon-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -10222,7 +9953,6 @@
     "waste": 0
   },
   {
-    "alias": "silage-maize-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -10260,7 +9990,6 @@
     "waste": 0
   },
   {
-    "alias": "silage-maize-organic",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -10298,7 +10027,6 @@
     "waste": 0
   },
   {
-    "alias": "oilseed-feed",
     "categories": ["ingredient"],
     "comment": "Feed mixture inventory is built for 1 kg DM, but contains inputs with various DM content, for a total fresh matter above 1 kg.\nThe average DM of this mixture is 0.89, hence transport modelling should add an additional mass of 0.11 kg/kg DM for the water content.\nGross energy content is 19.70 MJ/kg DM and crude protein content is 46.4%.\nProportions between the oilseeds estimated based on FAOSTAT 2017 data at global level",
     "density": 0,
@@ -10336,7 +10064,6 @@
     "waste": 0
   },
   {
-    "alias": "grazed-grass-temporary",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -10374,7 +10101,6 @@
     "waste": 0
   },
   {
-    "alias": "grazed-grass-permanent",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -10412,7 +10138,6 @@
     "waste": 0
   },
   {
-    "alias": "cherry-tr",
     "categories": ["ingredient"],
     "comment": "Average yield for sweet and sour cherries according to faostat data from 2012 to 2016.",
     "density": 0,
@@ -10450,7 +10175,6 @@
     "waste": 0
   },
   {
-    "alias": "refined-palm-oil",
     "categories": ["ingredient"],
     "comment": "Modification : ITERG\n\nIncluded processes: This process includes the refining of crude palm oil, in Europe. Transport of inputs are considered. System boundary is at the oil mill.\nRemark: Inventory refers to the production of 1 kg refined palm oil, respectively 0,07 kg of Fatty Acids Distallates.   \nEconomic allocation : Economic Allocation between refined palm oil and palm oil fatty acids distillates\nPalm oil : 803/T",
     "density": 0,
@@ -10488,7 +10212,6 @@
     "waste": 0
   },
   {
-    "alias": "refined-linseed-oil",
     "categories": ["ingredient"],
     "comment": "Dataset of the production of refined linseed oil in France. It includes crushing of linseed grain, representative of French consumption mix, and refining of crude oil. \n3,36 kg of linseed are needed for the production of 1kg of refined Linseed oil and Linseed oil cake.\nEconomic allocation is made between oil, cake and refining co-products\nPrice for 1 kg Linseed oil = 1,49 /kg ; price for 1 kg Linseed oil cake = 0,286/kg, according to WFLDB economic value. Price for soap stocks and deodorization condensates were approximated from the economic values of rapeseed co-products: 0,2179 /kg Linseed soap stock, 0,2179 /kg Linseed deodorisation condensates.\nIncluding consumptions at crushing and refining\nData for crushing come from AGRIBALYSE 1.4 datateset  \"Flaxseed crushing, processing/FR U\", from AGRIBALYSE 1.4, based on expert informations. Data from crude Linseed oil refining are based on industrial data for 2013, representative of refining step for linseed oil in France.",
     "density": 0,
@@ -10526,7 +10249,6 @@
     "waste": 0
   },
   {
-    "alias": "refined-grapeseed-oil",
     "categories": ["ingredient"],
     "comment": "Data are representative of refined grapeseed oil production from dry grapeseed. 7,18kg of dry grapeseed are needed to produce 1kg of refined grapeseed oil and 5,87 of grapeseed oil meal. Data source : Data source : industrial data, representative for crushing and refining of grapeseed oil in France.\nEconomic Allocation\nEconomic value from AGECO report : 1,71/kg of refined grapeseed oil, 0,212/kg of grapeseed oil meal, 0,21792/kg of grapeseed soap stock, 0,21792/kg of grapeseed deodorization condensate\nData source : industrial data, representative for grapeseed drying. Reference year : 2014",
     "density": 0,
@@ -10564,7 +10286,6 @@
     "waste": 0
   },
   {
-    "alias": "refined-soybean-oil",
     "categories": ["ingredient"],
     "comment": "Data are representative of refined soybean oil production from soybean seeds. 5,4k g of soybean seeds are needed to produce 1 kg of refined soybean oil and 4,24 kg of soybean oil cake. \nData source : industrial data, representative for crushing and refining of soybean oil in Europe. Data from FEDIOL, 2013. Life cycle assessment of EU Oilseed Crushing and Vegetable oil refining. Final report 59 pages\nEconomic Allocation\nEconomic value from FEDIOL report : 0,809/kg of refined soybean oil, 0,297/kg of soybean oil meal, 0,6/kg of soybean lecithin, 0,35/kg of soybean soap stock\n\nThe consumption mix of soybean oil in France was determined with importation and production data from FAOSTAT (average 2015-2019). The average conusmption mix (2015-2019) was : France, 70%, Spain, 12%, others origins (mainly UE countries)  : 18%. Only French  origin are considered in this datasets, representing 70% of market mix",
     "density": 0,
@@ -10602,7 +10323,6 @@
     "waste": 0
   },
   {
-    "alias": "virgin-hazelnut-oil",
     "categories": ["ingredient"],
     "comment": "Dataset of the production of crude hazelnut oil in France. It includes crushing of unshelled hazelnut kernel, by mechanical cold pressing. \n2,5 kg of unshelled hazelnut are needed for the production of 1 kg of crude hazelnut oil and 1,5 of hazelnut oil cake. \n\nEconomic allocation is made between oil and cake\nPrice for 1 kg crude Hazelnut  oil = 4  TL/ kg (0,4/kg) \n Price for 1 kg Hazelnut oil  cake = 1 TL/kg ( 0,10/kg). Source : Turkish Grain Board (TMO)\nData from ITERG, based on cold pressing for rapeseed seeds",
     "density": 0,
@@ -10640,7 +10360,6 @@
     "waste": 0
   },
   {
-    "alias": "refined-peanut-oil",
     "categories": ["ingredient"],
     "comment": "Production of 1kg refined peanut oil in Senegal\nSource : Schmidt, J. H. (2015). Life cycle assessment of five vegetable oils\nAllocation is based on the price ratio of cake : oil = 0.10\nEconomic allocation is applied. Price for 1 kg Peanut oil = 0.51 US $/pound; price for 1 kg Peanut oil cake = 0.05 US $/pound.",
     "density": 0,
@@ -10678,7 +10397,6 @@
     "waste": 0
   },
   {
-    "alias": "refined-sunflower-oil",
     "categories": ["ingredient"],
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9517/kg of refined sunflower oil",
     "density": 0,
@@ -10716,7 +10434,6 @@
     "waste": 0
   },
   {
-    "alias": "refined-rapeseed-oil",
     "categories": ["ingredient"],
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9192/kg of refined rapeseed oil",
     "density": 0,
@@ -10754,7 +10471,6 @@
     "waste": 0
   },
   {
-    "alias": "extra-virgin-olive-oil",
     "categories": ["ingredient"],
     "comment": "This dataset represents the virgin oil extraction in Spain from olive produced in Spain. \n\nIncluded processes: This process includes the production of olive in Spain, cleaning and rinsing of harvest olives and Extra Virgin Olive Oil extraction from two phases process. \nRemark : Inventory refers to the production of 1kg of Extra Virgin Olive Oil and 4,46 kg of pomace from 5,83 kg of harvest olives. System boundary is at Spain mill. Electricity, water consumption and extraction Yield_ are based on default value proposed by PEFCR for Olive rules (3rd Draft, 2016). \nEconomic Allocation is applied between Extra Virgin Olive Oil and pomace, based on price proposed in PEFCR : Extra Virgin Olive Oil : 1,88/kg and Pomace : 0,01/kg\nGeography: Extra Virgin Olive Oil production in Spain\nTechnology: Extra Virgin Olive Oil extraction two phases, representative of extraction process in Spain. \nTime period: Data from PEFCR Olive Oil, 2016,",
     "density": 0,
@@ -10792,7 +10508,6 @@
     "waste": 0
   },
   {
-    "alias": "fresh-cream-cheese",
     "categories": ["ingredient"],
     "comment": "This process describes the production of Fresh cream cheese, plain, creamy, around 8% fat in France.\nIncluded activities are : production in country of origin and transport",
     "density": 0,
@@ -10830,7 +10545,6 @@
     "waste": 0
   },
   {
-    "alias": "egg-without-shell-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -10868,7 +10582,6 @@
     "waste": 0
   },
   {
-    "alias": "egg-yolk-powder-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -10906,7 +10619,6 @@
     "waste": 0
   },
   {
-    "alias": "egg-white-powder-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -10944,7 +10656,6 @@
     "waste": 0
   },
   {
-    "alias": "emmental-grated-fr",
     "categories": ["ingredient"],
     "comment": "(3,3,2,1,2),",
     "density": 0,
@@ -10982,7 +10693,6 @@
     "waste": 0
   },
   {
-    "alias": "cocoa-powder-non-ue",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11020,7 +10730,6 @@
     "waste": 0
   },
   {
-    "alias": "salt",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11058,7 +10767,6 @@
     "waste": 0
   },
   {
-    "alias": "bacon-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11096,7 +10804,6 @@
     "waste": 0
   },
   {
-    "alias": "glucose-syrup",
     "categories": ["ingredient"],
     "comment": "This process produced a syrup at 67% DM. The starch enzymatic hydrolysis dataset is fully built by Quantis based on available literature, stoichiometric calculation and partial data from Syral 2014. Enzyme production based on Nielsen et al 2007.",
     "density": 0,
@@ -11134,7 +10841,6 @@
     "waste": 0
   },
   {
-    "alias": "apple-compote-fr",
     "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Apple compote' matches with a recipe from ANSES.",
     "density": 0,
@@ -11172,7 +10878,6 @@
     "waste": 0
   },
   {
-    "alias": "goat-milk",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of goat milk in France.\nIncluded activities are production in country of origin and transport.",
     "density": 0,
@@ -11210,7 +10915,6 @@
     "waste": 0
   },
   {
-    "alias": "breakfast-cereals",
     "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Breakfast cereals, rich in fibre, with chocolate, fortified with vitamins and chemical elements' matches with a recipe from a retailer.",
     "density": 0,
@@ -11248,7 +10952,6 @@
     "waste": 0
   },
   {
-    "alias": "pasta",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11286,7 +10989,6 @@
     "waste": 0
   },
   {
-    "alias": "garlic",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Garlic in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat\nThe production is assumed to be similar to : onion",
     "density": 0,
@@ -11324,7 +11026,6 @@
     "waste": 0
   },
   {
-    "alias": "vegetable-mix",
     "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Diced mixed vegetables, canned, drained' matches with a recipe from ANSES.",
     "density": 0,
@@ -11362,7 +11063,6 @@
     "waste": 0
   },
   {
-    "alias": "bolognese",
     "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Tomato sauce, with meat or Bolognese sauce, prepacked' matches with a recipe from ANSES.",
     "density": 0,
@@ -11400,7 +11100,6 @@
     "waste": 0
   },
   {
-    "alias": "honey",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11438,7 +11137,6 @@
     "waste": 0
   },
   {
-    "alias": "turkey",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11476,7 +11174,6 @@
     "waste": 0
   },
   {
-    "alias": "pork-liver",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11514,7 +11211,6 @@
     "waste": 0
   },
   {
-    "alias": "whey",
     "categories": ["ingredient"],
     "comment": "Prices: cheese (emmental): average 2008-2012: 4,37/kg of emmental(FranceAgriMer, 2014), whey: according to an expert: 0,02/kg of whey",
     "density": 0,
@@ -11552,7 +11248,6 @@
     "waste": 0
   },
   {
-    "alias": "strawberry-coulis",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11590,7 +11285,6 @@
     "waste": 0
   },
   {
-    "alias": "yogurt",
     "categories": ["ingredient"],
     "comment": "This process describes the production of Yogurt, from cow milk in France.\nIncluded activities are : production in country of origin and transport",
     "density": 0,
@@ -11628,7 +11322,6 @@
     "waste": 0
   },
   {
-    "alias": "goat-cheese",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Cheese, from goat's milk in France.\nIncluded activities are production in country of origin and transport.",
     "density": 0,
@@ -11666,7 +11359,6 @@
     "waste": 0
   },
   {
-    "alias": "cocoa-butter",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11704,7 +11396,6 @@
     "waste": 0
   },
   {
-    "alias": "soy-protein",
     "categories": ["ingredient"],
     "comment": "The dataset corresponds to the production of textured soy protein from soy protein flour by dry extrusion.\nIt includes production of Texturated Soy protein (20% moisture content) after extrusion and drying for production of texturated soy protein with 8% moisture content.\nData from Sarens, 2021, Life cycle assessment of burger patties produced w.pdf",
     "density": 0,
@@ -11742,7 +11433,6 @@
     "waste": 0
   },
   {
-    "alias": "vinegar-alcohol",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of vinegar alcohol : 15% sugar beet roots (FR) and 85% tap water",
     "density": 0,
@@ -11780,7 +11470,6 @@
     "waste": 0
   },
   {
-    "alias": "veal-meat",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11818,7 +11507,6 @@
     "waste": 0
   },
   {
-    "alias": "french-fries",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -11856,7 +11544,6 @@
     "waste": 0
   },
   {
-    "alias": "tomato-sauce",
     "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Tomato sauce, w vegetables, prepacked' matches with a recipe from ANSES.",
     "density": 0,
@@ -11894,7 +11581,6 @@
     "waste": 0
   },
   {
-    "alias": "mustard",
     "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Mustard' matches with a recipe from ANSES.",
     "density": 0,
@@ -11932,7 +11618,6 @@
     "waste": 0
   },
   {
-    "alias": "rice-flour",
     "categories": ["ingredient"],
     "comment": "The process used is adapted from : Wheat flour, at industrial mill (adapted from WFLDB)/GLO U.\nSame mass and economic allocation were kept.",
     "density": 0,
@@ -11970,7 +11655,6 @@
     "waste": 0
   },
   {
-    "alias": "brie-cheese",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Brie soft cheese in France.\nIncluded activities are production in country of origin and transport.",
     "density": 0,
@@ -12008,7 +11692,6 @@
     "waste": 0
   },
   {
-    "alias": "turmeric",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Turmeric in France.\nIncluded activities are : production in country of origin and transport\nNo production dataset was found. The proxy used is : Black pepper dried",
     "density": 0,
@@ -12046,7 +11729,6 @@
     "waste": 0
   },
   {
-    "alias": "candied-fruits",
     "categories": ["ingredient"],
     "comment": "None",
     "density": 0,
@@ -12084,7 +11766,6 @@
     "waste": 0
   },
   {
-    "alias": "reblochon",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12122,7 +11803,6 @@
     "waste": 0
   },
   {
-    "alias": "fruit-puree",
     "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Fruits puree, without sugar added' matches with a recipe from ANSES.",
     "density": 0,
@@ -12160,7 +11840,6 @@
     "waste": 0
   },
   {
-    "alias": "apple-juice",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12198,7 +11877,6 @@
     "waste": 0
   },
   {
-    "alias": "orange-juice",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12236,7 +11914,6 @@
     "waste": 0
   },
   {
-    "alias": "soy-milk",
     "categories": ["ingredient"],
     "comment": "Economic Allocation 99,5% (Based on Rafaiane MacedoGuimarães (2018) Okara: A soybean by-product as an alternative to enrich vegetable paste; 227 US$ / ton okara vs 1960 US$ / ton soymilk ) \nThis process describes the average process of soy beverage production in France. \nTransport for soybeans is not added separatly as it is already counted in the consumption mix. \nConsumptions of electricity, steam and tap water are based are based on the 2010 EcoInvent Process \"Soybean beverage {CA-QC}| production | Cut-off, U - Copied from Ecoinvent\"",
     "density": 0,
@@ -12274,7 +11951,6 @@
     "waste": 0
   },
   {
-    "alias": "lemon-juice",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12312,7 +11988,6 @@
     "waste": 0
   },
   {
-    "alias": "tomato-juice",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12350,7 +12025,6 @@
     "waste": 0
   },
   {
-    "alias": "balsamic-vinegar",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12388,7 +12062,6 @@
     "waste": 0
   },
   {
-    "alias": "apricot-non-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12426,7 +12099,6 @@
     "waste": 0
   },
   {
-    "alias": "lamb-meat-without-bone-eu",
     "categories": ["ingredient"],
     "comment": "PEFCR Guidance 6.3, for fresh meat and edible offal",
     "density": 0,
@@ -12464,7 +12136,6 @@
     "waste": 0
   },
   {
-    "alias": "lamb-meat-without-bone-non-eu",
     "categories": ["ingredient"],
     "comment": "PEFCR Guidance 6.3, for fresh meat and edible offal",
     "density": 0,
@@ -12502,7 +12173,6 @@
     "waste": 0
   },
   {
-    "alias": "almond-inshell-fr",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Almond in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "density": 0,
@@ -12540,7 +12210,6 @@
     "waste": 0
   },
   {
-    "alias": "almond-inshell-ue",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Almond in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "density": 0,
@@ -12578,7 +12247,6 @@
     "waste": 0
   },
   {
-    "alias": "almond-inshell-non-ue",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Almond in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "density": 0,
@@ -12616,7 +12284,6 @@
     "waste": 0
   },
   {
-    "alias": "artichoke-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12654,7 +12321,6 @@
     "waste": 0
   },
   {
-    "alias": "artichoke-non-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12692,7 +12358,6 @@
     "waste": 0
   },
   {
-    "alias": "avocado-organic",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Avocado in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data from technical institutes (Interfel (Agreste) - TradeMap).",
     "density": 0,
@@ -12730,7 +12395,6 @@
     "waste": 0
   },
   {
-    "alias": "avocado-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 3840904960",
     "density": 0,
@@ -12768,7 +12432,6 @@
     "waste": 0
   },
   {
-    "alias": "oats-ue",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -12806,7 +12469,6 @@
     "waste": 0
   },
   {
-    "alias": "chard-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -12844,7 +12506,6 @@
     "waste": 0
   },
   {
-    "alias": "swiss-chard-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18088361984",
     "density": 0,
@@ -12882,7 +12543,6 @@
     "waste": 0
   },
   {
-    "alias": "broccoli-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -12920,7 +12580,6 @@
     "waste": 0
   },
   {
-    "alias": "broccoli-fr",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Broccoli in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat\nThe production is assumed to be similar to : Cauliflower",
     "density": 0,
@@ -12958,7 +12617,6 @@
     "waste": 0
   },
   {
-    "alias": "broccoli-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 18174699520",
     "density": 0,
@@ -12996,7 +12654,6 @@
     "waste": 0
   },
   {
-    "alias": "celery-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 8969982976",
     "density": 0,
@@ -13034,7 +12691,6 @@
     "waste": 0
   },
   {
-    "alias": "cherry-ue",
     "categories": ["ingredient"],
     "comment": "Average of modeled countries based on market share of global export --> the 4 countries modeled represent 47.6% of the global export (faostat data 2009-2013)",
     "density": 0,
@@ -13072,7 +12728,6 @@
     "waste": 0
   },
   {
-    "alias": "mushroom-fr",
     "categories": ["ingredient"],
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. \nThis dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. \nThe infrastructure are excluded as well as the mushroom packaging.",
     "density": 0,
@@ -13110,7 +12765,6 @@
     "waste": 0
   },
   {
-    "alias": "walnut-inshell-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -13148,7 +12802,6 @@
     "waste": 0
   },
   {
-    "alias": "white-cabbage-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 28512262144",
     "density": 0,
@@ -13186,7 +12839,6 @@
     "waste": 0
   },
   {
-    "alias": "white-cabbage-fr",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 28512262144",
     "density": 0,
@@ -13224,7 +12876,6 @@
     "waste": 0
   },
   {
-    "alias": "white-cabbage-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -13262,7 +12913,6 @@
     "waste": 0
   },
   {
-    "alias": "chinese-cabbage-ue",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13300,7 +12950,6 @@
     "waste": 0
   },
   {
-    "alias": "chinese-cabbage-non-ue",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13338,7 +12987,6 @@
     "waste": 0
   },
   {
-    "alias": "brussels-sprout-ue",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13376,7 +13024,6 @@
     "waste": 0
   },
   {
-    "alias": "brussels-sprout-non-ue",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13414,7 +13061,6 @@
     "waste": 0
   },
   {
-    "alias": "refined-palm-oil-non-ue",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of refined palm oil in France.\nIncluded activity are production of refined palm oil in Europe and transport to France",
     "density": 0,
@@ -13452,7 +13098,6 @@
     "waste": 0
   },
   {
-    "alias": "sunflower-oil-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13490,7 +13135,6 @@
     "waste": 0
   },
   {
-    "alias": "milk-eu",
     "categories": ["ingredient"],
     "comment": "Dairy farm archetype IT-154 according to FAO, IDF, IFCN (2014).\n\nIT-154 represents an average-sized farm in northern Italy (Lombardy), having Holstein cows with a milk yield of 8 810 kg milk/cow per year. The cows are kept in a free stall barn where milking is done in a parlour system. The farm operates on 72 ha of land that is very fertile and can also be used for cash crops. About 56 percent of the work on the farm is done by family members.\n\nAllocation for milk based on mass balance (IDF 2015)\nInventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent.",
     "density": 0,
@@ -13528,7 +13172,6 @@
     "waste": 0
   },
   {
-    "alias": "milk-non-eu",
     "categories": ["ingredient"],
     "comment": "kg of Fat and Protein Corrected Milk. FPCM is 4.0% fat and 3.3% true protein content. Conversion to FPCM is as follow, according to the International Dairy Federation: FPCM (kg/yr) = Production (kg/yr) x [0.1226 x Fat% + 0.0776 x Protein% + 0.2534]\nRaw milk density: 1031 kg/m3\nProduction Volume Amount: 3011295488",
     "density": 0,
@@ -13566,7 +13209,6 @@
     "waste": 0
   },
   {
-    "alias": "lentils-uncooked-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13604,7 +13246,6 @@
     "waste": 0
   },
   {
-    "alias": "lentils-uncooked-non-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13642,7 +13283,6 @@
     "waste": 0
   },
   {
-    "alias": "lambs-lettuce-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 23622365184",
     "density": 0,
@@ -13680,7 +13320,6 @@
     "waste": 0
   },
   {
-    "alias": "sweet-corn-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13718,7 +13357,6 @@
     "waste": 0
   },
   {
-    "alias": "unknown-cereals-and-grain-products",
     "categories": ["ingredient"],
     "comment": "HUNGARY",
     "density": 0,
@@ -13756,7 +13394,6 @@
     "waste": 0
   },
   {
-    "alias": "unknown-dairy-product",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13794,7 +13431,6 @@
     "waste": 0
   },
   {
-    "alias": "unknown-fruit-vegetable",
     "categories": ["ingredient"],
     "comment": "MOROCCO",
     "density": 0,
@@ -13832,7 +13468,6 @@
     "waste": 0
   },
   {
-    "alias": "unknown-red-meat",
     "categories": ["ingredient"],
     "comment": "This dataset includes packaging",
     "density": 0,
@@ -13870,7 +13505,6 @@
     "waste": 0
   },
   {
-    "alias": "unknown-groceries",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 1436769536",
     "density": 0,
@@ -13908,7 +13542,6 @@
     "waste": 0
   },
   {
-    "alias": "unknown-drink",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13946,7 +13579,6 @@
     "waste": 0
   },
   {
-    "alias": "unknown-white-meat",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -13984,7 +13616,6 @@
     "waste": 0
   },
   {
-    "alias": "unknwon-fishery-products",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -14022,7 +13653,6 @@
     "waste": 0
   },
   {
-    "alias": "unknown-dried-fruits",
     "categories": ["ingredient"],
     "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
     "density": 0,
@@ -14060,7 +13690,6 @@
     "waste": 0
   },
   {
-    "alias": "unknown-oil",
     "categories": ["ingredient"],
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
     "density": 0,
@@ -14098,7 +13727,6 @@
     "waste": 0
   },
   {
-    "alias": "anchovy-fr",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Anchovy in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "density": 0,
@@ -14136,7 +13764,6 @@
     "waste": 0
   },
   {
-    "alias": "anchovy-eu",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Anchovy in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "density": 0,
@@ -14174,7 +13801,6 @@
     "waste": 0
   },
   {
-    "alias": "anchovy-non-eu",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Anchovy in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "density": 0,
@@ -14212,7 +13838,6 @@
     "waste": 0
   },
   {
-    "alias": "sardine-fr",
     "categories": ["ingredient"],
     "comment": "European Pilchard - Sardina pilchardus",
     "density": 0,
@@ -14250,7 +13875,6 @@
     "waste": 0
   },
   {
-    "alias": "sardine-eu",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of European pilchard or sardine in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "density": 0,
@@ -14288,7 +13912,6 @@
     "waste": 0
   },
   {
-    "alias": "sardine-non-eu",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of European pilchard or sardine in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "density": 0,
@@ -14326,7 +13949,6 @@
     "waste": 0
   },
   {
-    "alias": "cod-eu",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Cod in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "density": 0,
@@ -14364,7 +13986,6 @@
     "waste": 0
   },
   {
-    "alias": "crab-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -14402,7 +14023,6 @@
     "waste": 0
   },
   {
-    "alias": "crab-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -14440,7 +14060,6 @@
     "waste": 0
   },
   {
-    "alias": "hake-eu",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Hake in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "density": 0,
@@ -14478,7 +14097,6 @@
     "waste": 0
   },
   {
-    "alias": "lobster-fr",
     "categories": ["ingredient"],
     "comment": "Mass allocation : 94,5%. Source : https://waves-vagues.dfo-mpo.gc.ca/Library/360446.pdf",
     "density": 0,
@@ -14516,7 +14134,6 @@
     "waste": 0
   },
   {
-    "alias": "lobster-eu",
     "categories": ["ingredient"],
     "comment": "Mass allocation : 94,5%. Source : https://waves-vagues.dfo-mpo.gc.ca/Library/360446.pdf",
     "density": 0,
@@ -14554,7 +14171,6 @@
     "waste": 0
   },
   {
-    "alias": "lobster-non-eu",
     "categories": ["ingredient"],
     "comment": "Only lobsters are caught (there is no brown crab in USA).",
     "density": 0,
@@ -14592,7 +14208,6 @@
     "waste": 0
   },
   {
-    "alias": "salmon-raw-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -14630,7 +14245,6 @@
     "waste": 0
   },
   {
-    "alias": "squid-fr",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Squid in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "density": 0,
@@ -14668,7 +14282,6 @@
     "waste": 0
   },
   {
-    "alias": "mandarin-non-eu",
     "categories": ["ingredient"],
     "comment": "CHINA",
     "density": 0,
@@ -14706,7 +14319,6 @@
     "waste": 0
   },
   {
-    "alias": "melon-non-eu",
     "categories": ["ingredient"],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.03928 kg C/kg dry mass\nDry mass: 0.08 kg\nWet mass: 1 kg",
     "density": 0,
@@ -14744,7 +14356,6 @@
     "waste": 0
   },
   {
-    "alias": "blueberry-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -14782,7 +14393,6 @@
     "waste": 0
   },
   {
-    "alias": "blueberry-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -14820,7 +14430,6 @@
     "waste": 0
   },
   {
-    "alias": "hazelnut-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -14858,7 +14467,6 @@
     "waste": 0
   },
   {
-    "alias": "hazelnut-unshelled-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -14896,7 +14504,6 @@
     "waste": 0
   },
   {
-    "alias": "hazelnut-unshelled-fr",
     "categories": ["ingredient"],
     "comment": "This dataset corresponds to average consumption of hazelnuts, unshelled in France. \nIncluded processes: This process includes the production of hazelnut in shell in Italy and Turkey, shelling process and transport to France. \nRemark: Inventory refers to the production of 1 kg hazelnut, unshelled.\nThe consumption mix was evaluated using data from FAOSTAT (2014-2019) for hazelnut, unshelled in France. \nRelative import share for hazelnut unshelled in France : Italie, 17%, Turkey, 70% (average FAOSTAT data from 2014-2019 )",
     "density": 0,
@@ -14934,7 +14541,6 @@
     "waste": 0
   },
   {
-    "alias": "chesnut-inshell-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -14972,7 +14578,6 @@
     "waste": 0
   },
   {
-    "alias": "walnut-inshell-eu",
     "categories": ["ingredient"],
     "comment": "6720 kg in-shell, dry walnut/ha (Grant 2017). According to Yilmaz 2017, the total fresh walnut, with its green husk is 2.65 times the in-shell dried walnut.",
     "density": 0,
@@ -15010,7 +14615,6 @@
     "waste": 0
   },
   {
-    "alias": "walnut-inshell-non-eu",
     "categories": ["ingredient"],
     "comment": "6720 kg in-shell, dry walnut/ha (Grant 2017). According to Yilmaz 2017, the total fresh walnut, with its green husk is 2.65 times the in-shell dried walnut.",
     "density": 0,
@@ -15048,7 +14652,6 @@
     "waste": 0
   },
   {
-    "alias": "barley-eu",
     "categories": ["ingredient"],
     "comment": "Economic allocation based on FEFAC (2015)",
     "density": 0,
@@ -15086,7 +14689,6 @@
     "waste": 0
   },
   {
-    "alias": "barley-non-eu",
     "categories": ["ingredient"],
     "comment": "Economic allocation based on FEFAC (2015)",
     "density": 0,
@@ -15124,7 +14726,6 @@
     "waste": 0
   },
   {
-    "alias": "pistachio-organic",
     "categories": ["ingredient"],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
@@ -15162,7 +14763,6 @@
     "waste": 0
   },
   {
-    "alias": "leek-eu",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Leek in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "density": 0,
@@ -15200,7 +14800,6 @@
     "waste": 0
   },
   {
-    "alias": "leek-non-eu",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Leek in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "density": 0,
@@ -15238,7 +14837,6 @@
     "waste": 0
   },
   {
-    "alias": "bean-non-eu",
     "categories": ["ingredient"],
     "comment": "EcoSpold01Location=ES\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.469420714527217 kg C/kg dry mass\nDry mass: 0.87 kg\nWet mass: 1 kg",
     "density": 0,
@@ -15276,7 +14874,6 @@
     "waste": 0
   },
   {
-    "alias": "bean-eu",
     "categories": ["ingredient"],
     "comment": "EcoSpold01Location=ES\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.469420714527217 kg C/kg dry mass\nDry mass: 0.87 kg\nWet mass: 1 kg",
     "density": 0,
@@ -15314,7 +14911,6 @@
     "waste": 0
   },
   {
-    "alias": "bean-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -15352,7 +14948,6 @@
     "waste": 0
   },
   {
-    "alias": "chickpea-non-eu",
     "categories": ["ingredient"],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.475 kg C/kg dry mass\nDry mass: 0.2114 kg\nWet mass: 1 kg",
     "density": 0,
@@ -15390,7 +14985,6 @@
     "waste": 0
   },
   {
-    "alias": "bellpepper-unheated-greenhouse-fr",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 34497462272",
     "density": 0,
@@ -15428,7 +15022,6 @@
     "waste": 0
   },
   {
-    "alias": "bellpepper-unheated-greenhouse-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 34497462272",
     "density": 0,
@@ -15466,7 +15059,6 @@
     "waste": 0
   },
   {
-    "alias": "bellpepper-unheated-greenhouse-non-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 34497462272",
     "density": 0,
@@ -15504,7 +15096,6 @@
     "waste": 0
   },
   {
-    "alias": "apple-non-eu",
     "categories": ["ingredient"],
     "comment": "CHINA",
     "density": 0,
@@ -15542,7 +15133,6 @@
     "waste": 0
   },
   {
-    "alias": "potato-table-eu",
     "categories": ["ingredient"],
     "comment": "FAOstat average 2012-2016",
     "density": 0,
@@ -15580,7 +15170,6 @@
     "waste": 0
   },
   {
-    "alias": "potato-table-non-eu",
     "categories": ["ingredient"],
     "comment": "CHINA",
     "density": 0,
@@ -15618,7 +15207,6 @@
     "waste": 0
   },
   {
-    "alias": "chicken-breast-eu",
     "categories": ["ingredient"],
     "comment": "European Fat Processors and Renderers Association (http://www.efpra.eu/)",
     "density": 0,
@@ -15656,7 +15244,6 @@
     "waste": 0
   },
   {
-    "alias": "tomato-paste-fr",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -15694,7 +15281,6 @@
     "waste": 0
   },
   {
-    "alias": "radish-fr",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Radish in France.\nIncluded activities are : production in country of origin and transport",
     "density": 0,
@@ -15732,7 +15318,6 @@
     "waste": 0
   },
   {
-    "alias": "radish-eu",
     "categories": ["ingredient"],
     "comment": "Production Volume Amount: 240114696192",
     "density": 0,
@@ -15770,7 +15355,6 @@
     "waste": 0
   },
   {
-    "alias": "rice-basmati-eu",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of Basmati rice in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "density": 0,
@@ -15808,7 +15392,6 @@
     "waste": 0
   },
   {
-    "alias": "durum-wheat-semolina-non-eu",
     "categories": ["ingredient"],
     "comment": "Data based on Bevilacqua 2007. Durum wheat semolina production in a mill producing 68'000 tonnes semolina/year. \n9 tonnes durum wheat gives 6.8 tonnes semolina and 2.1 tonnes co-products (mainly bran)\nIncluded steps are: stocking (in silos), cleaning (wheat separated from extraneous materials), conditioning (water addition), grinding, sifting (classification: gives 76% semolina, 24% subproducts). Subproducts are used for catle feed.\nPrice of durum wheat semolina based on alibaba.com, accessed May 2015, 10 first price data considered: 393 EUR/tonne",
     "density": 0,
@@ -15846,7 +15429,6 @@
     "waste": 0
   },
   {
-    "alias": "durum-wheat-semolina-eu",
     "categories": ["ingredient"],
     "comment": "Data based on Bevilacqua 2007. Durum wheat semolina production in a mill producing 68'000 tonnes semolina/year. \n9 tonnes durum wheat gives 6.8 tonnes semolina and 2.1 tonnes co-products (mainly bran)\nIncluded steps are: stocking (in silos), cleaning (wheat separated from extraneous materials), conditioning (water addition), grinding, sifting (classification: gives 76% semolina, 24% subproducts). Subproducts are used for catle feed.\nPrice of durum wheat semolina based on alibaba.com, accessed May 2015, 10 first price data considered: 393 EUR/tonne",
     "density": 0,
@@ -15884,7 +15466,6 @@
     "waste": 0
   },
   {
-    "alias": "plum-eu",
     "categories": ["ingredient"],
     "comment": "Average of modeled countries based on market share of global export --> the 4 countries modeled represent 47.6% of the global export (faostat data 2009-2013)",
     "density": 0,
@@ -15922,7 +15503,6 @@
     "waste": 0
   },
   {
-    "alias": "plum-non-eu",
     "categories": ["ingredient"],
     "comment": "Average of modeled countries based on market share of global export --> the 4 countries modeled represent 47.6% of the global export (faostat data 2009-2013)",
     "density": 0,
@@ -15960,7 +15540,6 @@
     "waste": 0
   },
   {
-    "alias": "soft-wheat-eu",
     "categories": ["ingredient"],
     "comment": "",
     "density": 0,
@@ -15998,7 +15577,6 @@
     "waste": 0
   },
   {
-    "alias": "onion-dried",
     "categories": ["ingredient"],
     "comment": "This process describes the average consumption mix of dried Onions in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
     "density": 0,
@@ -16036,7 +15614,6 @@
     "waste": 0
   },
   {
-    "alias": "beer-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -16074,7 +15651,6 @@
     "waste": 0
   },
   {
-    "alias": "salt-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -16112,7 +15688,6 @@
     "waste": 0
   },
   {
-    "alias": "vanilla-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -16150,7 +15725,6 @@
     "waste": 0
   },
   {
-    "alias": "cocktail-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -16188,7 +15762,6 @@
     "waste": 0
   },
   {
-    "alias": "tea-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -16226,7 +15799,6 @@
     "waste": 0
   },
   {
-    "alias": "honney-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -16264,7 +15836,6 @@
     "waste": 0
   },
   {
-    "alias": "vinegar-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -16302,7 +15873,6 @@
     "waste": 0
   },
   {
-    "alias": "syrups-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -16340,7 +15910,6 @@
     "waste": 0
   },
   {
-    "alias": "cider-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,
@@ -16378,7 +15947,6 @@
     "waste": 0
   },
   {
-    "alias": "sugar-packaging",
     "categories": ["packaging"],
     "comment": "",
     "density": 0,

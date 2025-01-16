@@ -37,8 +37,7 @@ type Id
 {-| A process is an entry from processes.json or processes\_impacts.json.
 -}
 type alias Process =
-    { alias : Maybe String
-    , categories : List Category
+    { categories : List Category
     , comment : String
     , density : Float
     , displayName : Maybe String
@@ -82,7 +81,6 @@ sourceIdToString (SourceId string) =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
-        |> DU.strictOptional "alias" Decode.string
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "density" Decode.float
@@ -101,8 +99,7 @@ decodeProcess impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "alias", EncodeExtra.maybe Encode.string process.alias )
-        , ( "categories", Encode.list Category.encode process.categories )
+        [ ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
