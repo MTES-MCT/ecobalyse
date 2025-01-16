@@ -75,7 +75,7 @@ baseColumns detailed scope =
       , toValue = Table.StringValue <| .unit
       , toCell = .unit >> text
       }
-    , { label = "Electricité"
+    , { label = "Électricité"
       , toValue = Table.FloatValue <| .elec >> Energy.inKilowattHours
       , toCell = .elec >> Format.kilowattHours
       }
