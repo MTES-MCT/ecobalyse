@@ -14,7 +14,7 @@ le WMTC révisé est aujourd’hui le cycle de référence pour tous les nouveau
 
 La documentation technique est disponible ici :  [https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs](https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs)
 
-Un rapport de la Commission EU de 2018 sur « les effets de la phase environnementale Euro 5 en ce qui concerne les véhicules de catégorie L » indique : « Les résultats de l’étude ont établi que l’utilisation du cycle WMTC était pertinente pour tous les véhicules de catégorie L. Il contribue à une meilleure protection de l’environnement dans des conditions d’utilisation réelles que les cycles de conduite actuellement utilisés. » [https://www.europarl.europa.eu/RegData/docs\_autres\_institutions/commission\_europeenne/com/2018/0136/COM\_COM(2018)0136\_FR.pdf](https://www.europarl.europa.eu/RegData/docs\_autres\_institutions/commission\_europeenne/com/2018/0136/COM\_COM\(2018\)0136\_FR.pdf)
+Un rapport de la Commission EU de 2018 sur « les effets de la phase environnementale Euro 5 en ce qui concerne les véhicules de catégorie L » indique : « Les résultats de l’étude ont établi que l’utilisation du cycle WMTC était pertinente pour tous les véhicules de catégorie L. Il contribue à une meilleure protection de l’environnement dans des conditions d’utilisation réelles que les cycles de conduite actuellement utilisés. » [https://www.europarl.europa.eu/RegData/docs\_autres\_institutions/commission\_europeenne/com/2018/0136/COM\_COM(2018)0136\_FR.pdf](https://www.europarl.europa.eu/RegData/docs_autres_institutions/commission_europeenne/com/2018/0136/COM_COM\(2018\)0136_FR.pdf)
 
 Le cycle comporte 3 phases, applicable ou non selon la vitesse maximale du véhicule. De plus les vitesses sont tronquées pour les véhicules limités à 45km/h ou moins (voir graphique ci-dessous).
 
@@ -34,25 +34,38 @@ Il est donc retenu comme hypothèse que les véhicules équipés de pédales per
 
 L'utilisateur renseigne les informations suivantes :
 
-* Consommation du véhicule selon le cycle WMTC (kWh/100km)\
+* Consommation du véhicule selon le cycle WMTC (kWh/100km ou L/100km)\
   Des informations supplémentaires sur ce cycle sont fournies sur cette page
 * Apport d'énergie par pédalage (Oui/Non)
 * Durée de vie du véhicule (en années)
 * Kilométrage annuel (en km/an)
 
-### Calcul de l'impact de la consommation électrique
+### Calcul du coût environnemental de la consommation d'énergie
 
-Le coût environnemental de la consommation électrique se calcule comme suit (exemple pour l'impact sur le changement climatique) :
+Le coût environnemental de la consommation d'énergie se calcule comme suit (exemple pour l'impact sur le changement climatique) :
 
 $$
-ImpactElec = C_r*100*D.vie*PelecFRcch
+CEe = 100*D_{vie}*\sum_{0<i<n}C_i*CE_i
 $$
 
 Avec&#x20;
 
-* C\_r : la consommation l'électricité par recharge sur le réseau électrique, en kWh/100km.
-* D.vie : la durée de vie du véhicule, en km. Le calcul de la durée de vie du véhicule est détaillé ci-dessous
-* PélecFRcch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
+* CEe : le coût environnemental de la consommation d'énergie en phase utilisation
+* D\_vie : la durée de vie du véhicule, en km. Le calcul de la durée de vie du véhicule est détaillé ci-dessous
+* Ci : la consommation de l'énergie i, en unité de l'énergie pour 100km.
+* CE\_i : la quantité de kgCO2e émise pour produire 1 unité de l'énergie i
+
+### Procédés utilisés pour chaque énergie
+
+Diesel : market group for diesel, low-sulfur RER
+
+Essence : market for petrol, low-sulfur Europe without Switzerland
+
+Electricité : market for electricity, low voltage FR
+
+<mark style="color:red;">Hydrogène : market for hydrogen, gaseous, medium pressure, merchant RER</mark>
+
+Reconstruire Hydrogène + convertir kg essence diesel en litres
 
 ### Durée de vie des véhicules
 
