@@ -36,6 +36,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split
 import Data.Uuid as Uuid exposing (Uuid)
+import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 import Json.Encode as Encode
@@ -206,8 +207,12 @@ applyTransforms allProcesses transforms (Results materialResults) =
                                 transformImpacts =
                                     Impact.sumImpacts
                                         [ transform.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        , elec.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        , heat.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
+                                        , elec.impacts
+                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
+                                            |> Impact.multiplyBy (Mass.inKilograms mass)
+                                        , heat.impacts
+                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.heat)
+                                            |> Impact.multiplyBy (Mass.inKilograms mass)
                                         ]
                             in
                             Results
