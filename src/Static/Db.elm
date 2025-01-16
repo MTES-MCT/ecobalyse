@@ -1,6 +1,5 @@
 module Static.Db exposing
     ( Db
-    , allProcesses
     , db
     , decodeRawJsonProcesses
     , scopedComponents
@@ -24,18 +23,15 @@ import Static.Json as StaticJson exposing (RawJsonProcesses)
 
 
 type alias Db =
-    { countries : List Country
+    { components : List Component
+    , countries : List Country
     , definitions : Definitions
     , distances : Distances
     , food : FoodDb.Db
     , object : ObjectDb.Db
+    , processes : List Process
     , textile : TextileDb.Db
     }
-
-
-allProcesses : Db -> List Process
-allProcesses { food, object, textile } =
-    food.processes ++ object.processes ++ textile.processes
 
 
 db : StaticJson.RawJsonProcesses -> Result String Db
@@ -44,12 +40,30 @@ db procs =
         |> Result.andThen
             (\{ foodDb, objectDb, textileDb } ->
                 Ok Db
+                    |> RE.andMap (Ok [])
                     |> RE.andMap (countries textileDb)
                     |> RE.andMap impactDefinitions
                     |> RE.andMap distances
                     |> RE.andMap (Ok foodDb)
                     |> RE.andMap (Ok objectDb)
+                    |> RE.andMap (Ok [])
                     |> RE.andMap (Ok textileDb)
+            )
+        |> Result.map
+            (\db_ ->
+                { db_
+                    | components =
+                        List.concat
+                            [ db_.object.components
+                            , db_.textile.components
+                            ]
+                    , processes =
+                        List.concat
+                            [ db_.food.processes
+                            , db_.object.processes
+                            , db_.textile.processes
+                            ]
+                }
             )
 
 
