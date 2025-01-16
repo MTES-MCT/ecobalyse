@@ -181,41 +181,43 @@ computeMaterialResults amount process =
         }
 
 
-{-| Sequencially and recursively apply transforms to a given input mass (typically, the material one)
+{-| Sequencially apply transforms to existing Results (typically, material ones).
+
+Note: for now we use average elec and heat mixes, but we might want to allow
+specifying specific country mixes in the future.
+
 -}
 applyTransforms : List Process -> List Process -> Results -> Result String Results
-applyTransforms processes transforms (Results materialResults) =
-    -- FIXME: ensure passing all processes
-    Result.map2
-        (\elec heat ->
-            transforms
-                |> List.foldl
-                    (\process (Results { impacts, items, mass }) ->
-                        let
-                            wastedMass =
-                                mass |> Quantity.multiplyBy (Split.toFloat process.waste)
+applyTransforms allProcesses transforms (Results materialResults) =
+    loadDefaultEnergyMixes allProcesses
+        |> Result.map
+            (\{ elec, heat } ->
+                transforms
+                    |> List.foldl
+                        (\transform (Results { impacts, items, mass }) ->
+                            let
+                                wastedMass =
+                                    mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
 
-                            outputMass =
-                                mass |> Quantity.minus wastedMass
+                                outputMass =
+                                    mass |> Quantity.minus wastedMass
 
-                            -- Note: impacts are always computed from input mass
-                            transformImpacts =
-                                Impact.sumImpacts
-                                    [ process.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
-                                    , elec.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
-                                    , heat.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
-                                    ]
-                        in
-                        Results
-                            { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
-                            , items = Results { impacts = transformImpacts, items = [], mass = Quantity.negate wastedMass } :: items
-                            , mass = outputMass
-                            }
-                    )
-                    (Results materialResults)
-        )
-        (Process.findByAlias "elec-medium-region-asia" processes)
-        (Process.findByAlias "heat-row" processes)
+                                -- Note: impacts are always computed from input mass
+                                transformImpacts =
+                                    Impact.sumImpacts
+                                        [ transform.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
+                                        , elec.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
+                                        , heat.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
+                                        ]
+                            in
+                            Results
+                                { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
+                                , items = Results { impacts = transformImpacts, items = [], mass = Quantity.negate wastedMass } :: items
+                                , mass = outputMass
+                                }
+                        )
+                        (Results materialResults)
+            )
 
 
 computeImpacts : List Process -> Component -> Result String Results
@@ -383,6 +385,13 @@ itemToString db { id, quantity } =
                                 ++ " ]"
                         )
             )
+
+
+loadDefaultEnergyMixes : List Process -> Result String { elec : Process, heat : Process }
+loadDefaultEnergyMixes processes =
+    Result.map2 (\elec heat -> { elec = elec, heat = heat })
+        (Process.findByAlias "elec-medium-region-asia" processes)
+        (Process.findByAlias "heat-row" processes)
 
 
 quantityFromInt : Int -> Quantity

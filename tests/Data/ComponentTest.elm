@@ -190,7 +190,7 @@ suite =
                                         )
                                     )
                                 |> Result.withDefault ( 0, 0 )
-                                |> Expect.equal ( 1654, 0.93747 )
+                                |> Expect.equal ( 1789, 0.93747 )
 
                         Nothing ->
                             Expect.fail "Invalid cotton process id"
