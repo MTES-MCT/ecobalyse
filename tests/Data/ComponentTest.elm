@@ -3,8 +3,8 @@ module Data.ComponentTest exposing (..)
 import Data.Component as Component
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Process as Process
-import Data.Split as Split
+import Data.Process as Process exposing (Process)
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Expect
 import Json.Decode as Decode
@@ -34,6 +34,7 @@ suite =
     suiteWithDb "Data.Component"
         (\db ->
             let
+                -- these will be adapted and used as test transform processes
                 ( fading, weaving ) =
                     ( db.textile.wellKnown.fading
                     , db.textile.wellKnown.weaving
@@ -41,159 +42,103 @@ suite =
             in
             [ describe "applyTransforms"
                 [ let
-                    oneKilogramResults =
+                    getTestMass transforms =
                         Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram }
+                            |> Component.applyTransforms db.processes transforms
+                            |> Result.withDefault Component.emptyResults
+                            |> Component.extractMass
+                            |> Mass.inKilograms
                   in
                   describe "waste"
                     [ asTest "should not apply any waste when no transforms are passed"
-                        (oneKilogramResults
-                            |> Component.applyTransforms db.processes []
-                            |> Result.withDefault Component.emptyResults
-                            |> Component.extractMass
-                            |> Mass.inKilograms
+                        (getTestMass []
                             |> Expect.within (Expect.Absolute 0.00001) 1
                         )
                     , asTest "should apply waste when one transform is passed"
-                        (oneKilogramResults
-                            |> Component.applyTransforms db.processes [ { weaving | waste = Split.half } ]
-                            |> Result.withDefault Component.emptyResults
-                            |> Component.extractMass
-                            |> Mass.inKilograms
+                        (getTestMass [ { weaving | waste = Split.half } ]
                             |> Expect.within (Expect.Absolute 0.00001) 0.5
                         )
                     , asTest "should apply waste sequentially when multiple transforms are passed"
-                        (oneKilogramResults
-                            |> Component.applyTransforms db.processes [ { weaving | waste = Split.half }, { weaving | waste = Split.half } ]
-                            |> Result.withDefault Component.emptyResults
-                            |> Component.extractMass
-                            |> Mass.inKilograms
+                        (getTestMass [ { weaving | waste = Split.half }, { weaving | waste = Split.half } ]
                             |> Expect.within (Expect.Absolute 0.00001) 0.25
                         )
                     ]
                 , let
-                    noImpactsResults =
+                    getTestEcsImpact transforms =
                         Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram }
+                            |> Component.applyTransforms db.processes transforms
+                            |> Result.withDefault Component.emptyResults
+                            |> Component.extractImpacts
+                            |> Impact.getImpact Definition.Ecs
+                            |> Unit.impactToFloat
                   in
                   describe "impacts"
                     [ asTest "should not add impacts when no transforms are passed"
-                        (noImpactsResults
-                            |> Component.applyTransforms db.processes []
-                            |> Result.withDefault Component.emptyResults
-                            |> Component.extractImpacts
-                            |> Impact.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
+                        (getTestEcsImpact []
                             |> Expect.within (Expect.Absolute 0.00001) 0
                         )
                     , asTest "should add impacts when one transform is passed (no elec, no heat)"
-                        (noImpactsResults
-                            |> Component.applyTransforms db.processes
-                                [ { fading
-                                    | elec = Quantity.zero
-                                    , heat = Quantity.zero
-                                    , impacts =
-                                        fading.impacts
-                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
-                                  }
-                                ]
-                            |> Result.withDefault Component.emptyResults
-                            |> Component.extractImpacts
-                            |> Impact.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
+                        (getTestEcsImpact
+                            [ fading
+                                |> resetProcessElecAndHeat
+                                |> setProcessEcsImpact (Unit.impact 10)
+                            ]
                             |> Expect.within (Expect.Absolute 1) 10
                         )
                     , asTest "should add impacts when one transform is passed (including elec and heat)"
-                        (noImpactsResults
-                            |> Component.applyTransforms db.processes
-                                [ { fading
-                                    | impacts =
-                                        fading.impacts
-                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
-                                  }
-                                ]
-                            |> Result.withDefault Component.emptyResults
-                            |> Component.extractImpacts
-                            |> Impact.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
+                        (getTestEcsImpact
+                            [ { fading
+                                | impacts =
+                                    fading.impacts
+                                        |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
+                              }
+                            ]
                             |> Expect.within (Expect.Absolute 1) 198
                         )
                     , asTest "should add impacts when multiple transforms are passed (no elec, no heat)"
-                        (noImpactsResults
-                            |> Component.applyTransforms db.processes
-                                [ { fading
-                                    | elec = Quantity.zero
-                                    , heat = Quantity.zero
-                                    , impacts =
-                                        fading.impacts
-                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
-                                  }
-                                , { fading
-                                    | elec = Quantity.zero
-                                    , heat = Quantity.zero
-                                    , impacts =
-                                        fading.impacts
-                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 20)
-                                  }
-                                ]
-                            |> Result.withDefault Component.emptyResults
-                            |> Component.extractImpacts
-                            |> Impact.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
+                        (getTestEcsImpact
+                            [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 10)
+                            , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 20)
+                            ]
                             |> Expect.within (Expect.Absolute 1) 30
                         )
                     , asTest "should add impacts when multiple transforms are passed (including elec and heat)"
-                        (noImpactsResults
-                            |> Component.applyTransforms db.processes
-                                [ { fading
-                                    | impacts =
-                                        fading.impacts
-                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
-                                  }
-                                , { fading
-                                    | impacts =
-                                        fading.impacts
-                                            |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 20)
-                                  }
-                                ]
-                            |> Result.withDefault Component.emptyResults
-                            |> Component.extractImpacts
-                            |> Impact.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
+                        (getTestEcsImpact
+                            [ fading |> setProcessEcsImpact (Unit.impact 10)
+                            , fading |> setProcessEcsImpact (Unit.impact 20)
+                            ]
                             |> Expect.within (Expect.Absolute 1) 406
                         )
                     ]
-                , describe "impacts & waste"
+                , let
+                    getTestResults transforms =
+                        Component.Results
+                            { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
+                            , items = []
+                            , mass = Mass.kilogram
+                            }
+                            |> Component.applyTransforms db.processes transforms
+                            |> Result.withDefault Component.emptyResults
+                  in
+                  describe "impacts & waste"
                     [ let
-                        results =
-                            Component.Results
-                                { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
-                                , items = []
-                                , mass = Mass.kilogram
-                                }
-                                |> Component.applyTransforms db.processes
-                                    [ { fading
-                                        | elec = Quantity.zero
-                                        , heat = Quantity.zero
-                                        , waste = Split.half
-                                        , impacts =
-                                            fading.impacts
-                                                |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
-                                      }
-                                    , { fading
-                                        | elec = Quantity.zero
-                                        , heat = Quantity.zero
-                                        , waste = Split.half
-                                        , impacts =
-                                            fading.impacts
-                                                |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 20)
-                                      }
-                                    ]
+                        noElecAndNoHeat =
+                            getTestResults
+                                [ fading
+                                    |> resetProcessElecAndHeat
+                                    |> setProcessWaste Split.half
+                                    |> setProcessEcsImpact (Unit.impact 10)
+                                , fading
+                                    |> resetProcessElecAndHeat
+                                    |> setProcessWaste Split.half
+                                    |> setProcessEcsImpact (Unit.impact 20)
+                                ]
                       in
-                      describe "not including elec and heat"
+                      describe "excluding elec and heat"
                         [ -- Note: impacts are always computed from input mass
                           -- 100 + (1kg * 10) + (0.5kg * 20) = 120
                           asTest "should handle impacts+waste when applying transforms: impacts"
-                            (results
-                                |> Result.withDefault Component.emptyResults
+                            (noElecAndNoHeat
                                 |> Component.extractImpacts
                                 |> Impact.getImpact Definition.Ecs
                                 |> Unit.impactToFloat
@@ -202,50 +147,36 @@ suite =
 
                         -- (1kg * 0.5) * 0.5 == 0.25
                         , asTest "should handle impacts+waste when applying transforms: mass"
-                            (results
-                                |> Result.withDefault Component.emptyResults
+                            (noElecAndNoHeat
                                 |> Component.extractMass
                                 |> Mass.inKilograms
-                                |> Expect.within (Expect.Absolute 0.1) 0.25
+                                |> Expect.within (Expect.Absolute 0.01) 0.25
                             )
                         ]
                     , let
-                        results =
-                            Component.Results
-                                { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
-                                , items = []
-                                , mass = Mass.kilogram
-                                }
-                                |> Component.applyTransforms db.processes
-                                    [ { fading
-                                        | waste = Split.half
-                                        , impacts =
-                                            fading.impacts
-                                                |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
-                                      }
-                                    , { fading
-                                        | waste = Split.half
-                                        , impacts =
-                                            fading.impacts
-                                                |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 20)
-                                      }
-                                    ]
+                        withElecAndHeat =
+                            getTestResults
+                                [ fading
+                                    |> setProcessWaste Split.half
+                                    |> setProcessEcsImpact (Unit.impact 10)
+                                , fading
+                                    |> setProcessWaste Split.half
+                                    |> setProcessEcsImpact (Unit.impact 20)
+                                ]
                       in
                       describe "including elec and heat"
                         [ asTest "should handle impacts+waste when applying transforms: impacts"
-                            (results
-                                |> Result.withDefault Component.emptyResults
+                            (withElecAndHeat
                                 |> Component.extractImpacts
                                 |> Impact.getImpact Definition.Ecs
                                 |> Unit.impactToFloat
                                 |> Expect.within (Expect.Absolute 1) 402
                             )
                         , asTest "should handle impacts+waste when applying transforms: mass"
-                            (results
-                                |> Result.withDefault Component.emptyResults
+                            (withElecAndHeat
                                 |> Component.extractMass
                                 |> Mass.inKilograms
-                                |> Expect.within (Expect.Absolute 0.1) 0.25
+                                |> Expect.within (Expect.Absolute 0.01) 0.25
                             )
                         ]
                     ]
@@ -285,3 +216,25 @@ suite =
                 ]
             ]
         )
+
+
+resetProcessElecAndHeat : Process -> Process
+resetProcessElecAndHeat process =
+    { process
+        | elec = Quantity.zero
+        , heat = Quantity.zero
+    }
+
+
+setProcessEcsImpact : Unit.Impact -> Process -> Process
+setProcessEcsImpact ecs process =
+    { process
+        | impacts =
+            process.impacts
+                |> Impact.insertWithoutAggregateComputation Definition.Ecs ecs
+    }
+
+
+setProcessWaste : Split -> Process -> Process
+setProcessWaste waste process =
+    { process | waste = waste }
