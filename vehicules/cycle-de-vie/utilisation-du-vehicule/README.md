@@ -59,9 +59,9 @@ Avec&#x20;
 
 Diesel : market group for diesel, low-sulfur RER
 
-Essence : market for petrol, low-sulfur Europe without Switzerland
+<table><thead><tr><th width="148">Energie</th><th width="327">Procédé</th><th>unité (densité)</th></tr></thead><tbody><tr><td>Diesel</td><td>market group for diesel, low-sulfur RER</td><td>Litre (42.8 MJ/kg)</td></tr><tr><td>Essence</td><td><mark style="color:red;">market for petrol, low-sulfur Europe without Switzerland</mark></td><td></td></tr><tr><td>Electricité</td><td>market for electricity, low voltage FR</td><td>kWh</td></tr></tbody></table>
 
-Electricité : market for electricity, low voltage FR
+
 
 <mark style="color:red;">Hydrogène : market for hydrogen, gaseous, medium pressure, merchant RER</mark>
 
