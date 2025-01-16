@@ -49,7 +49,7 @@ Un taux de collecte de 40% est appliqué par défaut pour l'ensemble des meubles
 
 Ce taux de collecte correspond à la moyenne des éléments d'ameublement collectés séparément par la filière REP (ex : bennes d'éléments d'ameublement en déchetterie, dépôt de meubles chez un distributeur, etc.).&#x20;
 
-Les meubles non collectés (60% des cas) sont considérés comme terminant leur vie en décheterie sous la forme d'encombrants et de déchets triés par matériaux. Dès lors, le scénario par défaut des d'échets d'éléments d'ameublement est proposé (75% incinération / 25% enfouissement).
+Les meubles non collectés (60% des cas) sont considérés comme terminant leur vie en décheterie sous la forme d'encombrants sans tri spécifique à chaque matière. Dès lors, le scénario par défaut des déchets d'éléments d'ameublement est proposé (75% incinération / 25% enfouissement).
 
 ### Illustration de la fin de vie d'un meuble&#x20;
 
