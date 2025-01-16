@@ -6,7 +6,6 @@ module Data.Process exposing
     , decodeList
     , encode
     , encodeId
-    , findByAlias
     , findById
     , getDisplayName
     , getImpact
@@ -156,14 +155,6 @@ idFromString str =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
-
-
-findByAlias : String -> List Process -> Result String Process
-findByAlias alias_ processes =
-    processes
-        |> List.filter (.alias >> (==) (Just alias_))
-        |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias_)
 
 
 findById : Id -> List Process -> Result String Process
