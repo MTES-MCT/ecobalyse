@@ -194,7 +194,7 @@ suite =
             , describe "computeElementResults"
                 [ asTest "should compute a material-only element results"
                     (case Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
-                        Just cottonId ->
+                        Ok cottonId ->
                             -- 1kg of cotton, weaved then faded
                             { amount = Component.Amount 1
                             , material = cottonId
@@ -210,8 +210,8 @@ suite =
                                 |> Result.withDefault ( 0, 0 )
                                 |> Expect.equal ( 1830, 0.93747 )
 
-                        Nothing ->
-                            Expect.fail "Invalid cotton process id"
+                        Err err ->
+                            Expect.fail err
                     )
                 ]
             ]

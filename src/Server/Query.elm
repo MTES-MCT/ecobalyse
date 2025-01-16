@@ -151,7 +151,6 @@ countryParser countries scope countryStr =
 foodProcessIdParser : List Process -> String -> Result String Process.Id
 foodProcessIdParser processes string =
     Process.idFromString string
-        |> Result.fromMaybe ("Identifiant invalide: " ++ string)
         |> Result.andThen (\id -> Process.findById id processes)
         |> Result.map .id
 
