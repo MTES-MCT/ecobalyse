@@ -13,7 +13,7 @@ module Data.Object.Query exposing
     )
 
 import Base64
-import Data.Component as Component exposing (Component, ComponentItem)
+import Data.Component as Component exposing (Component)
 import Data.Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
@@ -24,7 +24,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias Query =
-    { components : List ComponentItem
+    { components : List Component.Item
     }
 
 
@@ -42,7 +42,7 @@ buildApiQuery scope clientUrl query =
 decode : Decoder Query
 decode =
     Decode.succeed Query
-        |> Pipe.required "components" (Decode.list Component.decodeComponentItem)
+        |> Pipe.required "components" (Decode.list Component.decodeItem)
 
 
 default : Query
@@ -55,7 +55,7 @@ encode query =
     Encode.object
         [ ( "components"
           , query.components
-                |> Encode.list Component.encodeComponentItem
+                |> Encode.list Component.encodeItem
           )
         ]
 
@@ -78,7 +78,7 @@ removeComponent id ({ components } as query) =
     }
 
 
-updateComponentItem : ComponentItem -> Query -> Query
+updateComponentItem : Component.Item -> Query -> Query
 updateComponentItem newItem query =
     { query
         | components =
@@ -97,7 +97,7 @@ updateComponentItem newItem query =
 toString : List Component -> List Process -> Query -> Result String String
 toString components processes query =
     query.components
-        |> RE.combineMap (Component.componentItemToString { components = components, processes = processes })
+        |> RE.combineMap (Component.itemToString { components = components, processes = processes })
         |> Result.map (String.join ", ")
 
 

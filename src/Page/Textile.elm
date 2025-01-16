@@ -15,7 +15,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Trim exposing (Component, ComponentItem)
+import Data.Component as Trim exposing (Component)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Example as Example
@@ -152,7 +152,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
-    | UpdateTrim ComponentItem
+    | UpdateTrim Trim.Item
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
