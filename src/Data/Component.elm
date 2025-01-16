@@ -132,6 +132,49 @@ amountToFloat (Amount float) =
     float
 
 
+{-| Sequencially apply transforms to existing Results (typically, material ones).
+
+Note: for now we use average elec and heat mixes, but we might want to allow
+specifying specific country mixes in the future.
+
+-}
+applyTransforms : List Process -> List Process -> Results -> Result String Results
+applyTransforms allProcesses transforms (Results materialResults) =
+    loadDefaultEnergyMixes allProcesses
+        |> Result.map
+            (\{ elec, heat } ->
+                transforms
+                    |> List.foldl
+                        (\transform (Results { impacts, items, mass }) ->
+                            let
+                                wastedMass =
+                                    mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
+
+                                outputMass =
+                                    mass |> Quantity.minus wastedMass
+
+                                -- Note: impacts are always computed from input mass
+                                transformImpacts =
+                                    Impact.sumImpacts
+                                        [ transform.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
+                                        , elec.impacts
+                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
+                                            |> Impact.multiplyBy (Mass.inKilograms mass)
+                                        , heat.impacts
+                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.heat)
+                                            |> Impact.multiplyBy (Mass.inKilograms mass)
+                                        ]
+                            in
+                            Results
+                                { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
+                                , items = Results { impacts = transformImpacts, items = [], mass = Quantity.negate wastedMass } :: items
+                                , mass = outputMass
+                                }
+                        )
+                        (Results materialResults)
+            )
+
+
 {-| List components which ids are not part of the provided list of ids
 -}
 available : List Id -> List Component -> List Component
@@ -180,49 +223,6 @@ computeMaterialResults amount process =
         , items = [ Results { impacts = impacts, items = [], mass = mass } ]
         , mass = mass
         }
-
-
-{-| Sequencially apply transforms to existing Results (typically, material ones).
-
-Note: for now we use average elec and heat mixes, but we might want to allow
-specifying specific country mixes in the future.
-
--}
-applyTransforms : List Process -> List Process -> Results -> Result String Results
-applyTransforms allProcesses transforms (Results materialResults) =
-    loadDefaultEnergyMixes allProcesses
-        |> Result.map
-            (\{ elec, heat } ->
-                transforms
-                    |> List.foldl
-                        (\transform (Results { impacts, items, mass }) ->
-                            let
-                                wastedMass =
-                                    mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
-
-                                outputMass =
-                                    mass |> Quantity.minus wastedMass
-
-                                -- Note: impacts are always computed from input mass
-                                transformImpacts =
-                                    Impact.sumImpacts
-                                        [ transform.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        , elec.impacts
-                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
-                                            |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        , heat.impacts
-                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.heat)
-                                            |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        ]
-                            in
-                            Results
-                                { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
-                                , items = Results { impacts = transformImpacts, items = [], mass = Quantity.negate wastedMass } :: items
-                                , mass = outputMass
-                                }
-                        )
-                        (Results materialResults)
-            )
 
 
 computeImpacts : List Process -> Component -> Result String Results
@@ -302,6 +302,26 @@ elementToString processes element =
             )
 
 
+{-| Turn an Element to an ExpandedElement
+-}
+expandElement : List Process -> Element -> Result String ExpandedElement
+expandElement processes { amount, material, transforms } =
+    Ok (ExpandedElement amount)
+        |> RE.andMap (Process.findById material processes)
+        |> RE.andMap
+            (transforms
+                |> List.map (\id -> Process.findById id processes)
+                |> RE.combine
+            )
+
+
+{-| Take a list of elements and resolve them with fully qualified processes
+-}
+expandElements : List Process -> List Element -> Result String (List ExpandedElement)
+expandElements processes =
+    RE.combineMap (expandElement processes)
+
+
 {-| Take a list of component items and resolve them with actual components and processes
 -}
 expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
@@ -317,26 +337,6 @@ expandItems { components, processes } =
                     )
         )
         >> RE.combine
-
-
-{-| Take a list of elements and resolve them with fully qualified processes
--}
-expandElements : List Process -> List Element -> Result String (List ExpandedElement)
-expandElements processes =
-    RE.combineMap (expandElement processes)
-
-
-{-| Turn an Element to an ExpandedElement
--}
-expandElement : List Process -> Element -> Result String ExpandedElement
-expandElement processes { amount, material, transforms } =
-    Ok (ExpandedElement amount)
-        |> RE.andMap (Process.findById material processes)
-        |> RE.andMap
-            (transforms
-                |> List.map (\id -> Process.findById id processes)
-                |> RE.combine
-            )
 
 
 encodeItem : Item -> Encode.Value
