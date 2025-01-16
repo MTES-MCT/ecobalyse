@@ -24,6 +24,7 @@ type alias WellKnown =
     , dyeingFabric : Process
     , dyeingSynthetic : Process
     , dyeingYarn : Process
+    , elecMediumTensionAsia : Process
     , endOfLife : Process
     , fading : Process
     , finishing : Process
@@ -96,6 +97,7 @@ load processes =
         |> fromAlias "dyeing-fabric"
         |> fromAlias "dyeing-synthetic-fiber"
         |> fromAlias "dyeing-yarn"
+        |> fromAlias "elec-medium-region-asia"
         |> fromAlias "end-of-life"
         |> fromAlias "fading"
         |> fromAlias "finishing"

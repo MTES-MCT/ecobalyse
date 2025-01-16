@@ -9,6 +9,7 @@ import Data.Unit as Unit
 import Expect
 import Json.Decode as Decode
 import Mass
+import Static.Db as Db
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
@@ -33,6 +34,9 @@ suite =
     suiteWithDb "Data.Component"
         (\db ->
             let
+                allProcesses =
+                    Db.allProcesses db
+
                 ( fading, weaving ) =
                     ( db.textile.wellKnown.fading
                     , db.textile.wellKnown.weaving
@@ -46,21 +50,24 @@ suite =
                   describe "waste"
                     [ asTest "should not apply any waste when no transforms are passed"
                         (oneKilogramResults
-                            |> Component.applyTransforms []
+                            |> Component.applyTransforms allProcesses []
+                            |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
                             |> Expect.within (Expect.Absolute 0.00001) 1
                         )
                     , asTest "should apply waste when one transform is passed"
                         (oneKilogramResults
-                            |> Component.applyTransforms [ { weaving | waste = Split.half } ]
+                            |> Component.applyTransforms allProcesses [ { weaving | waste = Split.half } ]
+                            |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
                             |> Expect.within (Expect.Absolute 0.00001) 0.5
                         )
                     , asTest "should apply waste sequentially when multiple transforms are passed"
                         (oneKilogramResults
-                            |> Component.applyTransforms [ { weaving | waste = Split.half }, { weaving | waste = Split.half } ]
+                            |> Component.applyTransforms allProcesses [ { weaving | waste = Split.half }, { weaving | waste = Split.half } ]
+                            |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
                             |> Expect.within (Expect.Absolute 0.00001) 0.25
@@ -73,7 +80,8 @@ suite =
                   describe "impacts"
                     [ asTest "should not add impacts when no transforms are passed"
                         (noImpactsResults
-                            |> Component.applyTransforms []
+                            |> Component.applyTransforms allProcesses []
+                            |> Result.withDefault Component.emptyResults
                             |> Component.extractImpacts
                             |> Impact.getImpact Definition.Ecs
                             |> Unit.impactToFloat
@@ -81,13 +89,14 @@ suite =
                         )
                     , asTest "should add impacts when one transform is passed"
                         (noImpactsResults
-                            |> Component.applyTransforms
+                            |> Component.applyTransforms allProcesses
                                 [ { fading
                                     | impacts =
                                         fading.impacts
                                             |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                   }
                                 ]
+                            |> Result.withDefault Component.emptyResults
                             |> Component.extractImpacts
                             |> Impact.getImpact Definition.Ecs
                             |> Unit.impactToFloat
@@ -95,7 +104,7 @@ suite =
                         )
                     , asTest "should add impacts when multiple transforms are passed"
                         (noImpactsResults
-                            |> Component.applyTransforms
+                            |> Component.applyTransforms allProcesses
                                 [ { fading
                                     | impacts =
                                         fading.impacts
@@ -107,6 +116,7 @@ suite =
                                             |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 20)
                                   }
                                 ]
+                            |> Result.withDefault Component.emptyResults
                             |> Component.extractImpacts
                             |> Impact.getImpact Definition.Ecs
                             |> Unit.impactToFloat
@@ -120,7 +130,7 @@ suite =
                             , items = []
                             , mass = Mass.kilogram
                             }
-                            |> Component.applyTransforms
+                            |> Component.applyTransforms allProcesses
                                 [ { fading
                                     | waste = Split.half
                                     , impacts =
@@ -139,7 +149,9 @@ suite =
                     -- Note: impacts are always computed from input mass
                     -- 100 + (1kg * 10) + (0.5kg * 20) = 120
                     [ asTest "should handle impacts+waste when applying transforms: impacts"
-                        (Component.extractImpacts results
+                        (results
+                            |> Result.withDefault Component.emptyResults
+                            |> Component.extractImpacts
                             |> Impact.getImpact Definition.Ecs
                             |> Unit.impactToFloat
                             |> Expect.within (Expect.Absolute 0.00001) 120
@@ -147,7 +159,9 @@ suite =
 
                     -- (1kg * 0.5) * 0.5 == 0.25
                     , asTest "should handle impacts+waste when applying transforms: mass"
-                        (Component.extractMass results
+                        (results
+                            |> Result.withDefault Component.emptyResults
+                            |> Component.extractMass
                             |> Mass.inKilograms
                             |> Expect.within (Expect.Absolute 0.00001) 0.25
                         )
@@ -172,7 +186,7 @@ suite =
                             , material = cottonId
                             , transforms = [ weaving.id, fading.id ]
                             }
-                                |> Component.computeElementResults db.textile.processes
+                                |> Component.computeElementResults allProcesses
                                 |> Result.map
                                     (\res ->
                                         ( Component.extractImpacts res |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat |> round

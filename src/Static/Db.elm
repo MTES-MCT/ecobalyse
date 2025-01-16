@@ -1,5 +1,6 @@
 module Static.Db exposing
     ( Db
+    , allProcesses
     , db
     , decodeRawJsonProcesses
     , scopedComponents
@@ -30,6 +31,11 @@ type alias Db =
     , object : ObjectDb.Db
     , textile : TextileDb.Db
     }
+
+
+allProcesses : Db -> List Process
+allProcesses { food, object, textile } =
+    food.processes ++ object.processes ++ textile.processes
 
 
 db : StaticJson.RawJsonProcesses -> Result String Db

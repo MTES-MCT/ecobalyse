@@ -151,11 +151,11 @@ compute db =
 computeElementResults : List Process -> Element -> Result String Results
 computeElementResults processes =
     expandElement processes
-        >> Result.map
+        >> Result.andThen
             (\{ amount, material, transforms } ->
                 material
                     |> computeMaterialResults amount
-                    |> applyTransforms transforms
+                    |> applyTransforms processes transforms
             )
 
 
@@ -183,35 +183,39 @@ computeMaterialResults amount process =
 
 {-| Sequencially and recursively apply transforms to a given input mass (typically, the material one)
 -}
-applyTransforms : List Process -> Results -> Results
-applyTransforms transforms (Results materialResults) =
-    transforms
-        |> List.foldl
-            (\process (Results { impacts, items, mass }) ->
-                let
-                    wastedMass =
-                        mass |> Quantity.multiplyBy (Split.toFloat process.waste)
+applyTransforms : List Process -> List Process -> Results -> Result String Results
+applyTransforms processes transforms (Results materialResults) =
+    -- FIXME: ensure passing all processes
+    Result.map2
+        (\elec heat ->
+            transforms
+                |> List.foldl
+                    (\process (Results { impacts, items, mass }) ->
+                        let
+                            wastedMass =
+                                mass |> Quantity.multiplyBy (Split.toFloat process.waste)
 
-                    outputMass =
-                        mass |> Quantity.minus wastedMass
+                            outputMass =
+                                mass |> Quantity.minus wastedMass
 
-                    transformImpacts =
-                        Impact.sumImpacts
-                            [ process.impacts
-                                -- Note: impacts are always computed from input mass
-                                |> Impact.multiplyBy (Mass.inKilograms mass)
-
-                            -- FIXME: we should also add elec and heat impacts, but using what
-                            -- country mix? we don't know just yet
-                            ]
-                in
-                Results
-                    { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
-                    , items = Results { impacts = transformImpacts, items = [], mass = Quantity.negate wastedMass } :: items
-                    , mass = outputMass
-                    }
-            )
-            (Results materialResults)
+                            -- Note: impacts are always computed from input mass
+                            transformImpacts =
+                                Impact.sumImpacts
+                                    [ process.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
+                                    , elec.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
+                                    , heat.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
+                                    ]
+                        in
+                        Results
+                            { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
+                            , items = Results { impacts = transformImpacts, items = [], mass = Quantity.negate wastedMass } :: items
+                            , mass = outputMass
+                            }
+                    )
+                    (Results materialResults)
+        )
+        (Process.findByAlias "elec-medium-region-asia" processes)
+        (Process.findByAlias "heat-row" processes)
 
 
 computeImpacts : List Process -> Component -> Result String Results
