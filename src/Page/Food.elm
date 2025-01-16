@@ -1374,7 +1374,7 @@ processSelectorView : Process.Id -> (Process.Id -> Msg) -> List Process.Id -> Li
 processSelectorView selectedId event excluded processes =
     select
         [ class "form-select form-select"
-        , onInput (Process.idFromString >> Maybe.map event >> Maybe.withDefault NoOp)
+        , onInput (Process.idFromString >> Result.map event >> Result.withDefault NoOp)
         ]
         (processes
             |> List.sortBy (\process -> Process.getDisplayName process)

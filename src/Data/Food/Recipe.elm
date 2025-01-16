@@ -499,8 +499,9 @@ getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
 
 isCookedAtPlant : Maybe Transform -> Bool
 isCookedAtPlant transform =
-    case transform |> Maybe.andThen (.process >> .alias) of
-        Just "cooking" ->
+    case transform |> Maybe.map (.process >> .id >> Process.idToString) of
+        -- Check for cooking process
+        Just "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569" ->
             True
 
         _ ->

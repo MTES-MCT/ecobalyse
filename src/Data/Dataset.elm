@@ -259,7 +259,7 @@ setIdFromString idString dataset =
             ObjectExamples (Uuid.fromString idString)
 
         Processes scope _ ->
-            Processes scope (Process.idFromString idString)
+            Processes scope (Process.idFromString idString |> Result.toMaybe)
 
         TextileExamples _ ->
             TextileExamples (Uuid.fromString idString)

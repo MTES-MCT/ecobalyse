@@ -6,7 +6,6 @@ module Data.Process exposing
     , decodeList
     , encode
     , encodeId
-    , findByAlias
     , findById
     , getDisplayName
     , getImpact
@@ -38,8 +37,7 @@ type Id
 {-| A process is an entry from processes.json or processes\_impacts.json.
 -}
 type alias Process =
-    { alias : Maybe String
-    , categories : List Category
+    { categories : List Category
     , comment : String
     , density : Float
     , displayName : Maybe String
@@ -83,7 +81,6 @@ sourceIdToString (SourceId string) =
 decodeProcess : Decoder Impact.Impacts -> Decoder Process
 decodeProcess impactsDecoder =
     Decode.succeed Process
-        |> DU.strictOptional "alias" Decode.string
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "density" Decode.float
@@ -102,8 +99,7 @@ decodeProcess impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "alias", EncodeExtra.maybe Encode.string process.alias )
-        , ( "categories", Encode.list Category.encode process.categories )
+        [ ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
@@ -145,22 +141,17 @@ encodeSourceId =
     sourceIdToString >> Encode.string
 
 
-idFromString : String -> Maybe Id
+idFromString : String -> Result String Id
 idFromString str =
-    Uuid.fromString str |> Maybe.map Id
+    str
+        |> Uuid.fromString
+        |> Result.fromMaybe ("Identifiant invalide: " ++ str)
+        |> Result.map Id
 
 
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
-
-
-findByAlias : String -> List Process -> Result String Process
-findByAlias alias_ processes =
-    processes
-        |> List.filter (.alias >> (==) (Just alias_))
-        |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias_)
 
 
 findById : Id -> List Process -> Result String Process
