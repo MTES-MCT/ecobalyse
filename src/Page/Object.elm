@@ -193,7 +193,7 @@ suggestBookmarkName { db, store } examples query =
             name
 
         _ ->
-            Query.toString db.object.components db.processes query
+            Query.toString db.components db.processes query
                 |> Result.withDefault "N/A"
 
 

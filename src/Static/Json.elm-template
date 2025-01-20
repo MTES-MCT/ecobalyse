@@ -1,18 +1,31 @@
 module Static.Json exposing
-    ( RawJsonProcesses
+    ( RawJsonComponents
+    , RawJsonProcesses
     , countriesJson
     , foodIngredientsJson
     , foodProductExamplesJson
     , impactsJson
-    , objectComponentsJson
     , objectExamplesJson
+    , rawJsonComponents
     , rawJsonProcesses
-    , textileComponentsJson
     , textileMaterialsJson
     , textileProductExamplesJson
     , textileProductsJson
     , transportsJson
     )
+
+
+type alias RawJsonComponents =
+    { objectComponents : String
+    , textileComponents : String
+    }
+
+
+rawJsonComponents : RawJsonComponents
+rawJsonComponents =
+    { objectComponents = objectComponentsJson
+    , textileComponents = textileComponentsJson
+    }
 
 
 type alias RawJsonProcesses =
@@ -28,6 +41,7 @@ rawJsonProcesses =
     , objectProcesses = objectProcessesJson
     , textileProcesses = textileProcessesJson
     }
+
 
 impactsJson : String
 impactsJson =

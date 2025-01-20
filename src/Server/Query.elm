@@ -387,14 +387,14 @@ parseTransform_ transforms string =
 
 
 parseTextileQuery : Db -> Parser (Result Errors TextileQuery.Query)
-parseTextileQuery { countries, textile } =
+parseTextileQuery db =
     succeed (Ok TextileQuery.Query)
         |> apply (maybeSplitParser "airTransportRatio")
         |> apply (maybeBusiness "business")
-        |> apply (maybeTextileCountryParser "countryDyeing" countries)
-        |> apply (maybeTextileCountryParser "countryFabric" countries)
-        |> apply (maybeTextileCountryParser "countryMaking" countries)
-        |> apply (maybeTextileCountryParser "countrySpinning" countries)
+        |> apply (maybeTextileCountryParser "countryDyeing" db.countries)
+        |> apply (maybeTextileCountryParser "countryFabric" db.countries)
+        |> apply (maybeTextileCountryParser "countryMaking" db.countries)
+        |> apply (maybeTextileCountryParser "countrySpinning" db.countries)
         |> apply (maybeDisabledStepsParser "disabledSteps")
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybeFabricParser "fabricProcess")
@@ -403,15 +403,15 @@ parseTextileQuery { countries, textile } =
         |> apply (maybeMakingDeadStockParser "makingDeadStock")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (massParserInKilograms "mass")
-        |> apply (materialListParser "materials" textile.materials countries)
+        |> apply (materialListParser "materials" db.textile.materials db.countries)
         |> apply (maybeIntParser "numberOfReferences")
         |> apply (maybePhysicalDurabilityParser "physicalDurability")
         |> apply (maybePriceParser "price")
         |> apply (maybePrinting "printing")
-        |> apply (productParser "product" textile.products)
+        |> apply (productParser "product" db.textile.products)
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeBoolParser "traceability")
-        |> apply (componentItemListParser textile.components "trims")
+        |> apply (componentItemListParser db.components "trims")
         |> apply (boolParser { default = False } "upcycled")
         |> apply (maybeYarnSizeParser "yarnSize")
 

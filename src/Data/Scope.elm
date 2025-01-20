@@ -51,9 +51,14 @@ fromString string =
             Err <| "Couldn't decode unknown scope " ++ string
 
 
-only : Scope -> List { a | scopes : List Scope } -> List { a | scopes : List Scope }
-only scope =
-    List.filter (.scopes >> List.member scope)
+only :
+    List Scope
+    -> List { a | scopes : List Scope }
+    -> List { a | scopes : List Scope }
+only scopes =
+    List.filter <|
+        .scopes
+            >> List.any (\scope -> List.member scope scopes)
 
 
 parse : Parser (Scope -> a) a

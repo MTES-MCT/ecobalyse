@@ -3,22 +3,19 @@ module Data.Object.Db exposing
     , buildFromJson
     )
 
-import Data.Component as Component exposing (Component)
 import Data.Example as Example exposing (Example)
 import Data.Object.Query as Query exposing (Query)
 import Result.Extra as RE
 
 
 type alias Db =
-    { components : List Component
-    , examples : List (Example Query)
+    { examples : List (Example Query)
     }
 
 
-buildFromJson : String -> String -> Result String Db
-buildFromJson objectComponentsJson objectExamplesJson =
+buildFromJson : String -> Result String Db
+buildFromJson objectExamplesJson =
     Ok Db
-        |> RE.andMap (Component.decodeListFromJsonString objectComponentsJson)
         |> RE.andMap
             (objectExamplesJson
                 |> Example.decodeListFromJsonString Query.decode

@@ -48,7 +48,7 @@ import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProducts as TextileProducts
 import Route exposing (Route)
-import Static.Db as Db exposing (Db)
+import Static.Db exposing (Db)
 import Table as SortableTable
 import Views.Alert as Alert
 import Views.Container as Container
@@ -392,7 +392,8 @@ processesExplorer :
 processesExplorer session scope tableConfig tableState maybeId =
     let
         scopedProcesses =
-            Db.scopedProcesses scope session.db
+            session.db.processes
+                |> Scope.only [ scope ]
     in
     [ scopedProcesses
         |> List.sortBy .name
@@ -424,7 +425,8 @@ componentsExplorer :
 componentsExplorer db scope tableConfig tableState maybeId =
     let
         scopedComponents =
-            Db.scopedComponents scope db
+            db.components
+                |> Scope.only [ scope ]
     in
     [ scopedComponents
         |> List.sortBy .name

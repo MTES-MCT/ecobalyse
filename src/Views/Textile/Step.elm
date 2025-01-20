@@ -680,7 +680,7 @@ createElementSelectorConfig cfg materialInput =
     , db =
         { countries =
             cfg.db.countries
-                |> Scope.only Scope.Textile
+                |> Scope.only [ Scope.Textile ]
                 |> List.sortBy .name
         , definitions = cfg.db.definitions
         , elements = cfg.db.textile.materials

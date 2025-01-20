@@ -216,7 +216,7 @@ handleRequest db request =
         -- GET routes
         Just Route.FoodGetCountryList ->
             db.countries
-                |> Scope.only Scope.Food
+                |> Scope.only [ Scope.Food ]
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
@@ -247,7 +247,7 @@ handleRequest db request =
 
         Just Route.TextileGetCountryList ->
             db.countries
-                |> Scope.only Scope.Textile
+                |> Scope.only [ Scope.Textile ]
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
@@ -286,7 +286,8 @@ handleRequest db request =
                 |> respondWith 400
 
         Just Route.TextileGetTrimList ->
-            db.textile.components
+            db.components
+                -- FIXME: scope textile
                 |> Encode.list encodeComponent
                 |> respondWith 200
 

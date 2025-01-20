@@ -5,13 +5,13 @@ import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Static.Db as Db exposing (Db)
+import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
 
@@ -20,7 +20,8 @@ table : Db -> { detailed : Bool, scope : Scope } -> Table Component.Component St
 table db { detailed, scope } =
     let
         scopedProcesses =
-            Db.scopedProcesses scope db
+            db.processes
+                |> Scope.only [ scope ]
 
         expandElements =
             Component.expandElements scopedProcesses

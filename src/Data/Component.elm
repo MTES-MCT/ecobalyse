@@ -34,6 +34,7 @@ module Data.Component exposing
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
+import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split
 import Data.Uuid as Uuid exposing (Uuid)
 import Energy
@@ -55,6 +56,7 @@ type alias Component =
     { elements : List Element
     , id : Id
     , name : String
+    , scopes : List Scope
     }
 
 
@@ -255,17 +257,18 @@ computeItemResults { components, processes } { id, quantity } =
             )
 
 
-decode : Decoder Component
-decode =
+decode : List Scope -> Decoder Component
+decode scopes =
     Decode.succeed Component
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
+        |> Decode.optional "scopes" (Decode.list Scope.decode) scopes
 
 
-decodeList : Decoder (List Component)
-decodeList =
-    Decode.list decode
+decodeList : List Scope -> Decoder (List Component)
+decodeList scopes =
+    Decode.list (decode scopes)
 
 
 decodeElement : Decoder Element
@@ -283,9 +286,9 @@ decodeItem =
         |> Decode.required "quantity" (Decode.map Quantity Decode.int)
 
 
-decodeListFromJsonString : String -> Result String (List Component)
-decodeListFromJsonString =
-    Decode.decodeString decodeList
+decodeListFromJsonString : List Scope -> String -> Result String (List Component)
+decodeListFromJsonString scopes =
+    Decode.decodeString (decodeList scopes)
         >> Result.mapError Decode.errorToString
 
 
