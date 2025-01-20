@@ -287,7 +287,7 @@ handleRequest db request =
 
         Just Route.TextileGetTrimList ->
             db.components
-                -- FIXME: scope textile
+                |> Scope.only [ Scope.Textile ]
                 |> Encode.list encodeComponent
                 |> respondWith 200
 
