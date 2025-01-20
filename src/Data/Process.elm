@@ -12,6 +12,7 @@ module Data.Process exposing
     , idFromString
     , idToString
     , listByCategory
+    , scopedEither
     , sourceIdToString
     )
 
@@ -19,6 +20,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
+import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
@@ -46,6 +48,7 @@ type alias Process =
     , id : Id
     , impacts : Impacts
     , name : String
+    , scopes : List Scope
     , source : String
     , sourceId : Maybe SourceId
     , unit : String
@@ -78,8 +81,8 @@ sourceIdToString (SourceId string) =
     string
 
 
-decodeProcess : Decoder Impact.Impacts -> Decoder Process
-decodeProcess impactsDecoder =
+decodeProcess : List Scope -> Decoder Impact.Impacts -> Decoder Process
+decodeProcess scopes impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
@@ -90,6 +93,7 @@ decodeProcess impactsDecoder =
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" Decode.string
+        |> Pipe.hardcoded scopes
         |> Pipe.required "source" Decode.string
         |> DU.strictOptional "sourceId" decodeSourceId
         |> Pipe.required "unit" Decode.string
@@ -108,6 +112,7 @@ encode process =
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )
         , ( "name", Encode.string process.name )
+        , ( "scopes", process.scopes |> Encode.list Scope.encode )
         , ( "source", Encode.string process.source )
         , ( "sourceId", EncodeExtra.maybe encodeSourceId process.sourceId )
         , ( "unit", Encode.string process.unit )
@@ -126,9 +131,9 @@ decodeSourceId =
         |> Decode.map sourceIdFromString
 
 
-decodeList : Decoder Impact.Impacts -> Decoder (List Process)
-decodeList =
-    decodeProcess >> Decode.list
+decodeList : List Scope -> Decoder Impact.Impacts -> Decoder (List Process)
+decodeList scopes =
+    decodeProcess scopes >> Decode.list
 
 
 encodeId : Id -> Encode.Value
@@ -170,3 +175,8 @@ getDisplayName { displayName, name } =
 listByCategory : Category -> List Process -> List Process
 listByCategory category =
     List.filter (.categories >> List.member category)
+
+
+scopedEither : List Scope -> List Process -> List Process
+scopedEither scopes =
+    List.filter (.scopes >> List.any (\scope -> List.member scope scopes))

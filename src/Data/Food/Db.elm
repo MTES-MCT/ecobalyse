@@ -9,6 +9,7 @@ import Data.Food.Query as Query exposing (Query)
 import Data.Food.WellKnown as WellKnown exposing (WellKnown)
 import Data.Impact as Impact
 import Data.Process as Process exposing (Process)
+import Data.Scope as Scope
 import Json.Decode as Decode
 import Result.Extra as RE
 
@@ -24,7 +25,7 @@ type alias Db =
 buildFromJson : String -> String -> String -> Result String Db
 buildFromJson exampleProductsJson foodProcessesJson ingredientsJson =
     foodProcessesJson
-        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
+        |> Decode.decodeString (Process.decodeList [ Scope.Food ] Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->

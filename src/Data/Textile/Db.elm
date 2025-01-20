@@ -7,6 +7,7 @@ import Data.Component as Component exposing (Component)
 import Data.Example as Example exposing (Example)
 import Data.Impact as Impact
 import Data.Process as Process exposing (Process)
+import Data.Scope as Scope
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as Query exposing (Query)
@@ -28,7 +29,7 @@ type alias Db =
 buildFromJson : String -> String -> String -> String -> String -> Result String Db
 buildFromJson textileComponentsJson exampleProductsJson materialsJson productsJson processesJson =
     processesJson
-        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
+        |> Decode.decodeString (Process.decodeList [ Scope.Textile ] Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->

@@ -8,6 +8,7 @@ import Data.Example as Example exposing (Example)
 import Data.Impact as Impact
 import Data.Object.Query as Query exposing (Query)
 import Data.Process as Process exposing (Process)
+import Data.Scope as Scope
 import Json.Decode as Decode
 import Result.Extra as RE
 
@@ -22,7 +23,7 @@ type alias Db =
 buildFromJson : String -> String -> String -> Result String Db
 buildFromJson objectComponentsJson objectExamplesJson objectProcessesJson =
     objectProcessesJson
-        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
+        |> Decode.decodeString (Process.decodeList [ Scope.Object, Scope.Veli ] Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->
