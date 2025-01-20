@@ -74,7 +74,7 @@ Seuls les véhicules fonctionnant à l'énergie électrique et/ou musculaire peu
 [transport-des-vehicules.md](transport-des-vehicules.md)
 {% endcontent-ref %}
 
-{% content-ref url="utilisation-du-vehicule/" %}
-[utilisation-du-vehicule](utilisation-du-vehicule/)
+{% content-ref url="consommation-denergie/" %}
+[consommation-denergie](consommation-denergie/)
 {% endcontent-ref %}
 
