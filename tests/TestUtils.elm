@@ -68,9 +68,9 @@ createServerRequest dbs method body url =
     , jsResponseHandler = Encode.null
     , method = method
     , processes =
-        { foodProcesses = dbs.food.processes |> encode Process.encode
-        , objectProcesses = dbs.object.processes |> encode Process.encode
-        , textileProcesses = dbs.textile.processes |> encode Process.encode
+        { foodProcesses = dbs.processes |> encode Process.encode
+        , objectProcesses = dbs.processes |> encode Process.encode
+        , textileProcesses = dbs.processes |> encode Process.encode
         }
     , url = url
     }

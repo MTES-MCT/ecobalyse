@@ -65,13 +65,13 @@ succeed =
 
 
 parseFoodQuery : Db -> Parser (Result Errors BuilderQuery.Query)
-parseFoodQuery { countries, food } =
+parseFoodQuery db =
     succeed (Ok BuilderQuery.Query)
         |> apply (distributionParser "distribution")
-        |> apply (ingredientListParser "ingredients" countries food)
-        |> apply (packagingListParser "packaging" food.processes)
+        |> apply (ingredientListParser "ingredients" db.countries db.food)
+        |> apply (packagingListParser "packaging" db.processes)
         |> apply (preparationListParser "preparation")
-        |> apply (maybeTransformParser "transform" food.processes)
+        |> apply (maybeTransformParser "transform" db.processes)
 
 
 ingredientListParser : String -> List Country -> Food.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))

@@ -40,7 +40,7 @@ table db { maxScore, maxPer100g } { detailed, scope } =
           , toCell =
                 \( example, _ ) ->
                     example.query.trims
-                        |> List.map (Component.itemToString db.textile)
+                        |> List.map (Component.itemToString db)
                         |> RE.combine
                         |> Result.map
                             (String.join ", "

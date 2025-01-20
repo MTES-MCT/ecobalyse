@@ -1,7 +1,6 @@
 module Static.Db exposing
     ( Db
     , db
-    , decodeRawJsonProcesses
     , scopedComponents
     , scopedProcesses
     )
@@ -10,16 +9,16 @@ import Data.Common.Db as Common
 import Data.Component exposing (Component)
 import Data.Country exposing (Country)
 import Data.Food.Db as FoodDb
+import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definitions)
 import Data.Object.Db as ObjectDb
-import Data.Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Transport exposing (Distances)
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as JDP
+import Json.Decode as Decode
 import Result.Extra as RE
-import Static.Json as StaticJson exposing (RawJsonProcesses)
+import Static.Json as StaticJson
 
 
 type alias Db =
@@ -35,44 +34,53 @@ type alias Db =
 
 
 db : StaticJson.RawJsonProcesses -> Result String Db
-db procs =
-    StaticJson.db procs
-        |> Result.andThen
-            (\{ foodDb, objectDb, textileDb } ->
+db =
+    decodeRawProcesses
+        >> Result.andThen
+            (\processes ->
                 Ok Db
                     |> RE.andMap (Ok [])
-                    |> RE.andMap (countries textileDb)
+                    |> RE.andMap (countries processes)
                     |> RE.andMap impactDefinitions
                     |> RE.andMap distances
-                    |> RE.andMap (Ok foodDb)
-                    |> RE.andMap (Ok objectDb)
-                    |> RE.andMap (Ok [])
-                    |> RE.andMap (Ok textileDb)
-            )
-        |> Result.map
-            (\db_ ->
-                { db_
-                    | components =
-                        List.concat
-                            [ db_.object.components
-                            , db_.textile.components
-                            ]
-                    , processes =
-                        List.concat
-                            [ db_.food.processes
-                            , db_.object.processes
-                            , db_.textile.processes
-                            ]
-                }
+                    |> RE.andMap
+                        (processes
+                            |> FoodDb.buildFromJson
+                                StaticJson.foodProductExamplesJson
+                                StaticJson.foodIngredientsJson
+                        )
+                    |> RE.andMap
+                        (ObjectDb.buildFromJson
+                            StaticJson.objectComponentsJson
+                            StaticJson.objectExamplesJson
+                        )
+                    |> RE.andMap (Ok processes)
+                    |> RE.andMap
+                        (processes
+                            |> TextileDb.buildFromJson
+                                StaticJson.textileComponentsJson
+                                StaticJson.textileProductExamplesJson
+                                StaticJson.textileMaterialsJson
+                                StaticJson.textileProductsJson
+                        )
             )
 
 
-decodeRawJsonProcesses : Decoder RawJsonProcesses
-decodeRawJsonProcesses =
-    Decode.succeed RawJsonProcesses
-        |> JDP.required "foodProcesses" Decode.string
-        |> JDP.required "objectProcesses" Decode.string
-        |> JDP.required "textileProcesses" Decode.string
+decodeRawProcesses : StaticJson.RawJsonProcesses -> Result String (List Process)
+decodeRawProcesses { foodProcesses, objectProcesses, textileProcesses } =
+    [ ( foodProcesses, [ Scope.Food ] )
+    , ( objectProcesses, [ Scope.Object, Scope.Veli ] )
+    , ( textileProcesses, [ Scope.Textile ] )
+    ]
+        |> List.map (\( json, scopes ) -> decodeScopedProcesses scopes json)
+        |> RE.combine
+        |> Result.map List.concat
+
+
+decodeScopedProcesses : List Scope -> String -> Result String (List Process)
+decodeScopedProcesses scopes =
+    Decode.decodeString (Process.decodeList scopes Impact.decodeImpacts)
+        >> Result.mapError Decode.errorToString
 
 
 impactDefinitions : Result String Definitions
@@ -80,9 +88,9 @@ impactDefinitions =
     Common.impactsFromJson StaticJson.impactsJson
 
 
-countries : TextileDb.Db -> Result String (List Country)
-countries textileDb =
-    Common.countriesFromJson textileDb StaticJson.countriesJson
+countries : List Process -> Result String (List Country)
+countries processes =
+    Common.countriesFromJson processes StaticJson.countriesJson
 
 
 distances : Result String Distances
@@ -108,16 +116,18 @@ scopedComponents scope { object, textile } =
 
 
 scopedProcesses : Scope -> Db -> List Process
-scopedProcesses scope { food, object, textile } =
+scopedProcesses scope _ =
     case scope of
         Scope.Food ->
-            food.processes
+            []
 
         Scope.Object ->
-            object.processes
+            -- FIXME
+            []
 
         Scope.Textile ->
-            textile.processes
+            []
 
         Scope.Veli ->
-            object.processes
+            -- FIXME
+            []

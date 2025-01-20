@@ -12,7 +12,7 @@ module Data.Process exposing
     , idFromString
     , idToString
     , listByCategory
-    , scopedEither
+      -- , scopedEither
     , sourceIdToString
     )
 
@@ -177,6 +177,7 @@ listByCategory category =
     List.filter (.categories >> List.member category)
 
 
-scopedEither : List Scope -> List Process -> List Process
-scopedEither scopes =
-    List.filter (.scopes >> List.any (\scope -> List.member scope scopes))
+
+-- scopedEither : List Scope -> List Process -> List Process
+-- scopedEither scopes =
+--     List.filter (.scopes >> List.any (\scope -> List.member scope scopes))

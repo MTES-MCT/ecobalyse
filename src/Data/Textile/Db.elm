@@ -5,9 +5,7 @@ module Data.Textile.Db exposing
 
 import Data.Component as Component exposing (Component)
 import Data.Example as Example exposing (Example)
-import Data.Impact as Impact
-import Data.Process as Process exposing (Process)
-import Data.Scope as Scope
+import Data.Process exposing (Process)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as Query exposing (Query)
@@ -20,35 +18,27 @@ type alias Db =
     { components : List Component
     , examples : List (Example Query)
     , materials : List Material
-    , processes : List Process
     , products : List Product
     , wellKnown : WellKnown
     }
 
 
-buildFromJson : String -> String -> String -> String -> String -> Result String Db
-buildFromJson textileComponentsJson exampleProductsJson materialsJson productsJson processesJson =
-    processesJson
-        |> Decode.decodeString (Process.decodeList [ Scope.Textile ] Impact.decodeImpacts)
-        |> Result.mapError Decode.errorToString
-        |> Result.andThen
-            (\processes ->
-                Ok Db
-                    |> RE.andMap (Component.decodeListFromJsonString textileComponentsJson)
-                    |> RE.andMap
-                        (exampleProductsJson
-                            |> Example.decodeListFromJsonString Query.decode
-                        )
-                    |> RE.andMap
-                        (materialsJson
-                            |> Decode.decodeString (Material.decodeList processes)
-                            |> Result.mapError Decode.errorToString
-                        )
-                    |> RE.andMap (Ok processes)
-                    |> RE.andMap
-                        (productsJson
-                            |> Decode.decodeString (Product.decodeList processes)
-                            |> Result.mapError Decode.errorToString
-                        )
-                    |> RE.andMap (WellKnown.load processes)
+buildFromJson : String -> String -> String -> String -> List Process -> Result String Db
+buildFromJson textileComponentsJson exampleProductsJson textileMaterialsJson productsJson processes =
+    Ok Db
+        |> RE.andMap (Component.decodeListFromJsonString textileComponentsJson)
+        |> RE.andMap
+            (exampleProductsJson
+                |> Example.decodeListFromJsonString Query.decode
             )
+        |> RE.andMap
+            (textileMaterialsJson
+                |> Decode.decodeString (Material.decodeList processes)
+                |> Result.mapError Decode.errorToString
+            )
+        |> RE.andMap
+            (productsJson
+                |> Decode.decodeString (Product.decodeList processes)
+                |> Result.mapError Decode.errorToString
+            )
+        |> RE.andMap (WellKnown.load processes)
