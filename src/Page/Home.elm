@@ -8,6 +8,7 @@ module Page.Home exposing
     )
 
 import Browser.Events
+import Browser.Navigation as Nav
 import Data.Env as Env
 import Data.Key as Key
 import Data.Session exposing (Session)
@@ -15,7 +16,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
-import Route
+import Route exposing (Route)
 import Views.Container as Container
 import Views.Link as Link
 import Views.Markdown as Markdown
@@ -29,6 +30,7 @@ type alias Model =
 
 type Msg
     = CloseModal
+    | LoadRoute Route
     | NoOp
     | OpenCalculatorPickerModal
     | OpenPresentationVideoModal
@@ -54,6 +56,9 @@ update session msg model =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
+
+        LoadRoute route ->
+            ( model, session, Nav.load <| Route.toString route )
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -234,7 +239,7 @@ viewTools =
                 [ div
                     [ class "card d-flex flex-warp align-content-between text-decoration-none h-100"
                     , attribute "role" "button"
-                    , onClick OpenCalculatorPickerModal
+                    , onClick (LoadRoute Route.TextileSimulatorHome)
                     ]
                     [ img
                         [ class "w-100"
