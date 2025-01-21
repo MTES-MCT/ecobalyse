@@ -169,7 +169,13 @@ applyTransforms allProcesses transforms (Results materialResults) =
                             in
                             Results
                                 { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
-                                , items = Results { impacts = transformImpacts, items = [], mass = Quantity.negate wastedMass } :: items
+                                , items =
+                                    Results
+                                        { impacts = transformImpacts
+                                        , items = []
+                                        , mass = Quantity.negate wastedMass
+                                        }
+                                        :: items
                                 , mass = outputMass
                                 }
                         )

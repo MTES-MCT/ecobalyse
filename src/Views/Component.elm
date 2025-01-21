@@ -66,7 +66,7 @@ componentView :
     -> ( Component.Quantity, Component, List ExpandedElement )
     -> Component.Results
     -> List (Html msg)
-componentView config ( quantity, component, processAmounts ) itemResults =
+componentView config ( quantity, component, expandedElements ) itemResults =
     let
         collapsed =
             config.detailed
@@ -117,23 +117,10 @@ componentView config ( quantity, component, processAmounts ) itemResults =
                         [ Icon.trash ]
                     ]
                 ]
-          , if not collapsed then
-                tr [ class "fs-7 text-muted" ]
-                    [ th [] []
-                    , th [ class "text-end", scope "col" ] [ text "Quantité" ]
-                    , th [ scope "col" ] [ text "Procédé" ]
-                    , th [ scope "col" ] [ text "Densité" ]
-                    , th [ scope "col" ] [ text "Masse" ]
-                    , th [ scope "col" ] [ text "Impact" ]
-                    , th [ scope "col" ] [ text "" ]
-                    ]
-
-            else
-                text ""
           ]
         , if not collapsed then
             Component.extractItems itemResults
-                |> List.map2 (processView config.impact) processAmounts
+                |> List.map2 (elementView config.impact) expandedElements
 
           else
             []
@@ -173,7 +160,7 @@ editorView ({ db, items, results, scope, title } as config) =
                 Ok expandedItems ->
                     div [ class "table-responsive" ]
                         [ table [ class "table mb-0" ]
-                            [ thead []
+                            (thead []
                                 [ tr [ class "fs-7 text-muted" ]
                                     [ th [] []
                                     , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
@@ -183,35 +170,77 @@ editorView ({ db, items, results, scope, title } as config) =
                                     , th [ Attr.scope "col" ] []
                                     ]
                                 ]
-                            , Component.extractItems results
-                                |> List.map2 (componentView config) expandedItems
-                                |> List.concat
-                                |> tbody []
-                            ]
+                                :: (Component.extractItems results
+                                        |> List.map2 (componentView config) expandedItems
+                                        |> List.concat
+                                   )
+                            )
                         ]
         , addButton config
         ]
 
 
-processView : Definition -> ExpandedElement -> Component.Results -> Html msg
-processView selectedImpact { amount, material } itemResults =
-    tr [ class "fs-7" ]
-        [ td [] []
-        , td [ class "text-end text-nowrap" ]
-            [ Format.amount material amount ]
-        , td [ class "align-middle text-truncate w-100" ]
-            [ text <| Process.getDisplayName material ]
-        , td [ class "align-middle text-end text-nowrap" ]
-            [ Format.density material ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.kg <| Component.extractMass itemResults ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.extractImpacts itemResults
-                |> Format.formatImpact selectedImpact
+elementView : Definition -> ExpandedElement -> Component.Results -> Html msg
+elementView selectedImpact { amount, material, transforms } elementResults =
+    let
+        ( materialResults, transformResults ) =
+            case Component.extractItems elementResults of
+                [] ->
+                    ( Component.emptyResults, [] )
+
+                materialResults_ :: transformResults_ ->
+                    ( materialResults_, transformResults_ )
+    in
+    tbody []
+        (tr [ class "fs-7 text-muted" ]
+            [ th [] []
+            , th [ class "text-end", scope "col" ] [ text "Quantité" ]
+            , th [ scope "col" ] [ text "Procédé" ]
+            , th [ scope "col" ] [ text "Densité" ]
+            , th [ scope "col" ] [ text "Masse" ]
+            , th [ scope "col" ] [ text "Impact" ]
+            , th [ scope "col" ] [ text "" ]
             ]
-        , td [ class "pe-3 align-middle text-nowrap" ]
-            []
-        ]
+            :: tr [ class "fs-7" ]
+                [ td [] []
+                , td [ class "text-end text-nowrap" ]
+                    [ Format.amount material amount ]
+                , td [ class "align-middle text-truncate w-100" ]
+                    [ text <| Process.getDisplayName material ]
+                , td [ class "align-middle text-end text-nowrap" ]
+                    [ Format.density material ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Format.amount material amount ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Component.extractImpacts materialResults
+                        |> Format.formatImpact selectedImpact
+                    ]
+                , td [ class "pe-3 align-middle text-nowrap" ]
+                    []
+                ]
+            :: (transforms
+                    |> List.map
+                        (\transform ->
+                            tr [ class "fs-7" ]
+                                [ td [] []
+                                , td [ class "text-end text-nowrap" ]
+                                    [ text "-" ]
+                                , td [ class "align-middle text-truncate w-100" ]
+                                    [ text <| Process.getDisplayName transform ]
+                                , td [ class "align-middle text-end text-nowrap" ]
+                                    [ Format.density transform ]
+                                , td [ class "text-end align-middle text-nowrap" ]
+                                    [ Format.kg <| Component.extractMass elementResults ]
+                                , td [ class "text-end align-middle text-nowrap" ]
+                                    [ Component.extractImpacts elementResults
+                                        |> Format.formatImpact selectedImpact
+                                    ]
+                                , td [ class "pe-3 align-middle text-nowrap" ]
+                                    []
+                                ]
+                        )
+               )
+        )
 
 
 quantityInput : Config db msg -> Component.Id -> Component.Quantity -> Html msg
