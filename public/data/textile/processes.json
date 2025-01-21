@@ -1408,7 +1408,7 @@
   {
     "alias": "weaving",
     "categories": ["processing"],
-    "comment": "Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
+    "comment": "Bien que `elec_MJ` = 0, ce procédé consomme de l'électricité mais dans une autre unité (kWh/pick.m). Voir weavingElecPPPM. Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
     "density": 0,
     "displayName": "Tissage (habillement)",
     "elec_MJ": 0,
@@ -2817,7 +2817,7 @@
     "comment": "corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
     "displayName": "Apprêts chimiques",
-    "elec_MJ": 0.216,
+    "elec_MJ": 2.16,
     "heat_MJ": 13.5,
     "id": "63baddae-e05d-404b-a73f-371044a24fe9",
     "impacts": {
