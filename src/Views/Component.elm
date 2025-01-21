@@ -4,12 +4,13 @@ import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Component as Component exposing (Component, ExpandedElement, Item)
 import Data.Dataset as Dataset
-import Data.Impact.Definition exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import List.Extra as LE
 import Route
 import Views.Alert as Alert
@@ -177,6 +178,17 @@ editorView ({ db, items, results, scope, title } as config) =
                             )
                         ]
         , addButton config
+        , debugResults results
+        ]
+
+
+debugResults : Component.Results -> Html msg
+debugResults results =
+    pre [ class "p-2 bg-light" ]
+        [ results
+            |> Component.encodeResults (Just Definition.Ecs)
+            |> Encode.encode 2
+            |> text
         ]
 
 
@@ -217,6 +229,11 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                     ]
                 , td [ class "pe-3 align-middle text-nowrap" ]
                     []
+                ]
+            :: tr []
+                [ td [ colspan 7 ]
+                    [ debugResults materialResults
+                    ]
                 ]
             :: (transforms
                     |> List.map
