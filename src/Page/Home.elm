@@ -226,8 +226,8 @@ viewInfo =
         ]
 
 
-viewTools : Html Msg
-viewTools =
+viewTools : Session -> Html Msg
+viewTools { enabledSections } =
     Container.centered []
         [ h4 [ class "fw-normal mb-5 lh-base" ]
             [ text "Afin d’amorcer la transition vers un modèle de production plus durable"
@@ -239,7 +239,14 @@ viewTools =
                 [ div
                     [ class "card d-flex flex-warp align-content-between text-decoration-none h-100"
                     , attribute "role" "button"
-                    , onClick (LoadRoute Route.TextileSimulatorHome)
+                    , onClick
+                        (if enabledSections.food then
+                            OpenCalculatorPickerModal
+
+                         else
+                            -- Only textile simulator is available for now
+                            LoadRoute Route.TextileSimulatorHome
+                        )
                     ]
                     [ img
                         [ class "w-100"
@@ -364,7 +371,7 @@ view session { modal } =
                 [ viewHero session modal ]
             , viewInfo
             , div [ class "bg-light pt-5" ]
-                [ viewTools ]
+                [ viewTools session ]
             , div [ class "pt-5" ]
                 [ viewContribution ]
             ]
