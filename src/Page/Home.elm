@@ -8,6 +8,7 @@ module Page.Home exposing
     )
 
 import Browser.Events
+import Browser.Navigation as Nav
 import Data.Env as Env
 import Data.Key as Key
 import Data.Session exposing (Session)
@@ -15,7 +16,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
-import Route
+import Route exposing (Route)
 import Views.Container as Container
 import Views.Link as Link
 import Views.Markdown as Markdown
@@ -29,6 +30,7 @@ type alias Model =
 
 type Msg
     = CloseModal
+    | LoadRoute Route
     | NoOp
     | OpenCalculatorPickerModal
     | OpenPresentationVideoModal
@@ -54,6 +56,9 @@ update session msg model =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
+
+        LoadRoute route ->
+            ( model, session, Nav.load <| Route.toString route )
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -221,8 +226,8 @@ viewInfo =
         ]
 
 
-viewTools : Html Msg
-viewTools =
+viewTools : Session -> Html Msg
+viewTools { enabledSections } =
     Container.centered []
         [ h4 [ class "fw-normal mb-5 lh-base" ]
             [ text "Afin d’amorcer la transition vers un modèle de production plus durable"
@@ -234,7 +239,14 @@ viewTools =
                 [ div
                     [ class "card d-flex flex-warp align-content-between text-decoration-none h-100"
                     , attribute "role" "button"
-                    , onClick OpenCalculatorPickerModal
+                    , onClick
+                        (if enabledSections.food then
+                            OpenCalculatorPickerModal
+
+                         else
+                            -- Only textile simulator is available for now
+                            LoadRoute Route.TextileSimulatorHome
+                        )
                     ]
                     [ img
                         [ class "w-100"
@@ -359,7 +371,7 @@ view session { modal } =
                 [ viewHero session modal ]
             , viewInfo
             , div [ class "bg-light pt-5" ]
-                [ viewTools ]
+                [ viewTools session ]
             , div [ class "pt-5" ]
                 [ viewContribution ]
             ]
