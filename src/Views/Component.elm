@@ -6,7 +6,7 @@ import Data.Component as Component exposing (Component, ExpandedElement, Item)
 import Data.Dataset as Dataset
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -37,10 +37,11 @@ type alias Config db msg =
 
 
 addButton : Config db msg -> Html msg
-addButton { addLabel, db, items, openSelectModal } =
+addButton { addLabel, db, items, openSelectModal, scope } =
     let
         availableComponents =
             db.components
+                |> Scope.anyOf [ scope ]
                 |> Component.available (List.map .id items)
 
         -- FIXME: this should rather be initiated in page update
