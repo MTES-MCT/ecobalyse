@@ -21,7 +21,7 @@ table db { detailed, scope } =
     let
         scopedProcesses =
             db.processes
-                |> Scope.only [ scope ]
+                |> Scope.anyOf [ scope ]
 
         expandElements =
             Component.expandElements scopedProcesses

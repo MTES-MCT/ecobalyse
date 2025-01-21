@@ -393,7 +393,7 @@ processesExplorer session scope tableConfig tableState maybeId =
     let
         scopedProcesses =
             session.db.processes
-                |> Scope.only [ scope ]
+                |> Scope.anyOf [ scope ]
     in
     [ scopedProcesses
         |> List.sortBy .name
@@ -426,7 +426,7 @@ componentsExplorer db scope tableConfig tableState maybeId =
     let
         scopedComponents =
             db.components
-                |> Scope.only [ scope ]
+                |> Scope.anyOf [ scope ]
     in
     [ scopedComponents
         |> List.sortBy .name

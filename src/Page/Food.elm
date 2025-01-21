@@ -686,7 +686,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
         { elements = db.food.ingredients
         , countries =
             db.countries
-                |> Scope.only [ Scope.Food ]
+                |> Scope.anyOf [ Scope.Food ]
                 |> List.sortBy .name
         , definitions = db.definitions
         }

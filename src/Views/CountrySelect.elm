@@ -19,7 +19,7 @@ type alias Config msg =
 view : Config msg -> Html msg
 view { attributes, countries, onSelect, scope, selectedCountry } =
     countries
-        |> Scope.only [ scope ]
+        |> Scope.anyOf [ scope ]
         |> List.sortBy .name
         |> List.map
             (\{ code, name } ->
