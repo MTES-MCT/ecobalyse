@@ -193,7 +193,7 @@ suggestBookmarkName { db, store } examples query =
             name
 
         _ ->
-            Query.toString db.object.components db.object.processes query
+            Query.toString db.components db.processes query
                 |> Result.withDefault "N/A"
 
 
@@ -450,7 +450,7 @@ simulatorView session model =
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
                 , allowExpandDetails = True
-                , db = session.db.object
+                , db = session.db
                 , detailed = model.detailedComponents
                 , impact = model.impact
                 , items =

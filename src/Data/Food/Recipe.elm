@@ -24,7 +24,6 @@ module Data.Food.Recipe exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Db as Food
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
@@ -457,9 +456,9 @@ fromQuery db query =
     Ok Recipe
         |> RE.andMap (Ok query.distribution)
         |> RE.andMap (ingredientListFromQuery db query)
-        |> RE.andMap (packagingListFromQuery db.food query)
+        |> RE.andMap (packagingListFromQuery db query)
         |> RE.andMap (preparationListFromQuery query)
-        |> RE.andMap (transformFromQuery db.food query)
+        |> RE.andMap (transformFromQuery db query)
 
 
 getMassAtPackaging : Recipe -> Mass
@@ -604,16 +603,13 @@ ingredientQueryFromIngredient ingredient =
     }
 
 
-packagingListFromQuery :
-    Food.Db
-    -> { a | packaging : List BuilderQuery.ProcessQuery }
-    -> Result String (List Packaging)
+packagingListFromQuery : Db -> { a | packaging : List BuilderQuery.ProcessQuery } -> Result String (List Packaging)
 packagingListFromQuery db query =
     query.packaging
         |> RE.combineMap (packagingFromQuery db)
 
 
-packagingFromQuery : Food.Db -> BuilderQuery.ProcessQuery -> Result String Packaging
+packagingFromQuery : Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { id, mass } =
     processes
         |> Process.findById id
@@ -684,7 +680,7 @@ toString { ingredients, packaging, transform } =
 
 
 transformFromQuery :
-    Food.Db
+    Db
     -> { a | transform : Maybe BuilderQuery.ProcessQuery }
     -> Result String (Maybe Transform)
 transformFromQuery { processes } query =

@@ -204,7 +204,7 @@ toQueryDescription db bookmark =
 
         Object objectQuery ->
             objectQuery
-                |> ObjectQuery.toString db.object.components db.object.processes
+                |> ObjectQuery.toString db.components db.processes
                 |> Result.withDefault "N/A"
 
         Textile textileQuery ->
@@ -215,5 +215,5 @@ toQueryDescription db bookmark =
 
         Veli objectQuery ->
             objectQuery
-                |> ObjectQuery.toString db.object.components db.object.processes
+                |> ObjectQuery.toString db.components db.processes
                 |> Result.withDefault "N/A"

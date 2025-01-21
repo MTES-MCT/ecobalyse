@@ -216,7 +216,7 @@ handleRequest db request =
         -- GET routes
         Just Route.FoodGetCountryList ->
             db.countries
-                |> Scope.only Scope.Food
+                |> Scope.anyOf [ Scope.Food ]
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
@@ -226,13 +226,13 @@ handleRequest db request =
                 |> respondWith 200
 
         Just Route.FoodGetPackagingList ->
-            db.food.processes
+            db.processes
                 |> List.filter (.categories >> List.member ProcessCategory.Packaging)
                 |> encodeProcessList
                 |> respondWith 200
 
         Just Route.FoodGetTransformList ->
-            db.food.processes
+            db.processes
                 |> List.filter (.categories >> List.member ProcessCategory.Transform)
                 |> encodeProcessList
                 |> respondWith 200
@@ -247,7 +247,7 @@ handleRequest db request =
 
         Just Route.TextileGetCountryList ->
             db.countries
-                |> Scope.only Scope.Textile
+                |> Scope.anyOf [ Scope.Textile ]
                 |> Encode.list encodeCountry
                 |> respondWith 200
 
@@ -286,7 +286,8 @@ handleRequest db request =
                 |> respondWith 400
 
         Just Route.TextileGetTrimList ->
-            db.textile.components
+            db.components
+                |> Scope.anyOf [ Scope.Textile ]
                 |> Encode.list encodeComponent
                 |> respondWith 200
 

@@ -207,7 +207,7 @@ update ({ db, queries } as session) msg model =
         AddPackaging ->
             let
                 firstPackaging =
-                    db.food.processes
+                    db.processes
                         |> Recipe.availablePackagings (List.map .id query.packaging)
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -232,7 +232,7 @@ update ({ db, queries } as session) msg model =
                     query.ingredients |> List.map .mass |> Quantity.sum
 
                 firstTransform =
-                    db.food.processes
+                    db.processes
                         |> Process.listByCategory ProcessCategory.Transform
                         |> List.sortBy Process.getDisplayName
                         |> List.head
@@ -686,7 +686,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
         { elements = db.food.ingredients
         , countries =
             db.countries
-                |> Scope.only Scope.Food
+                |> Scope.anyOf [ Scope.Food ]
                 |> List.sortBy .name
         , definitions = db.definitions
         }
@@ -1007,7 +1007,7 @@ packagingListView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html M
 packagingListView db selectedImpact recipe results =
     let
         availablePackagings =
-            db.food.processes
+            db.processes
                 |> Recipe.availablePackagings
                     (recipe.packaging
                         |> List.map (.process >> .id)
@@ -1044,7 +1044,7 @@ packagingListView db selectedImpact recipe results =
                     (\packaging ->
                         updateProcessFormView
                             { processes =
-                                db.food.processes
+                                db.processes
                                     |> Process.listByCategory ProcessCategory.Packaging
                             , excluded = recipe.packaging |> List.map (.process >> .id)
                             , processQuery = { id = packaging.process.id, mass = packaging.mass }
@@ -1488,7 +1488,7 @@ transformView db selectedImpact recipe results =
             Just transform ->
                 updateProcessFormView
                     { processes =
-                        db.food.processes
+                        db.processes
                             |> Process.listByCategory ProcessCategory.Transform
                     , excluded = [ transform.process.id ]
                     , processQuery = { id = transform.process.id, mass = transform.mass }
