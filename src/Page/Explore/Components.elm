@@ -5,13 +5,13 @@ import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Static.Db as Db exposing (Db)
+import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
 
@@ -20,10 +20,11 @@ table : Db -> { detailed : Bool, scope : Scope } -> Table Component.Component St
 table db { detailed, scope } =
     let
         scopedProcesses =
-            Db.scopedProcesses scope db
+            db.processes
+                |> Scope.anyOf [ scope ]
 
-        expandProcesses =
-            Component.expandProcessItems scopedProcesses
+        expandElements =
+            Component.expandElements scopedProcesses
     in
     { filename = "components"
     , toId = .id >> Component.idToString
@@ -45,27 +46,27 @@ table db { detailed, scope } =
           , toValue = Table.StringValue .name
           , toCell = .name >> text >> List.singleton >> strong []
           }
-        , { label = "Procédés"
+        , { label = "Éléments"
           , toValue =
                 Table.StringValue <|
-                    \{ processes } ->
-                        case expandProcesses processes of
+                    \{ elements } ->
+                        case expandElements elements of
                             Err _ ->
                                 ""
 
                             Ok list ->
                                 list
                                     |> List.map
-                                        (\( amount, process ) ->
+                                        (\{ amount, material } ->
                                             String.fromFloat (Component.amountToFloat amount)
-                                                ++ process.unit
+                                                ++ material.unit
                                                 ++ " de "
-                                                ++ Process.getDisplayName process
+                                                ++ Process.getDisplayName material
                                         )
                                     |> String.join ", "
           , toCell =
-                \{ processes } ->
-                    case expandProcesses processes of
+                \{ elements } ->
+                    case expandElements elements of
                         Err err ->
                             Alert.simple
                                 { close = Nothing
@@ -77,10 +78,10 @@ table db { detailed, scope } =
                         Ok list ->
                             list
                                 |> List.map
-                                    (\( amount, process ) ->
+                                    (\{ amount, material } ->
                                         li []
-                                            [ Format.amount process amount
-                                            , text <| " de " ++ Process.getDisplayName process
+                                            [ Format.amount material amount
+                                            , text <| " de " ++ Process.getDisplayName material
                                             ]
                                     )
                                 |> List.intersperse (text ", ")
@@ -99,7 +100,7 @@ table db { detailed, scope } =
 
 getComponentEcoscore : List Process -> Component -> Result String Float
 getComponentEcoscore processes =
-    Component.computeComponentImpacts processes
+    Component.computeImpacts processes
         >> Result.map
             (Component.extractImpacts
                 >> Impact.getImpact Definition.Ecs

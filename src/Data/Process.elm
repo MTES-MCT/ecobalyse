@@ -6,7 +6,6 @@ module Data.Process exposing
     , decodeList
     , encode
     , encodeId
-    , findByAlias
     , findById
     , getDisplayName
     , getImpact
@@ -20,6 +19,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
+import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
@@ -38,8 +38,7 @@ type Id
 {-| A process is an entry from processes.json or processes\_impacts.json.
 -}
 type alias Process =
-    { alias : Maybe String
-    , categories : List Category
+    { categories : List Category
     , comment : String
     , density : Float
     , displayName : Maybe String
@@ -48,6 +47,7 @@ type alias Process =
     , id : Id
     , impacts : Impacts
     , name : String
+    , scopes : List Scope
     , source : String
     , sourceId : Maybe SourceId
     , unit : String
@@ -80,10 +80,9 @@ sourceIdToString (SourceId string) =
     string
 
 
-decodeProcess : Decoder Impact.Impacts -> Decoder Process
-decodeProcess impactsDecoder =
+decodeProcess : List Scope -> Decoder Impact.Impacts -> Decoder Process
+decodeProcess scopes impactsDecoder =
     Decode.succeed Process
-        |> DU.strictOptional "alias" Decode.string
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "density" Decode.float
@@ -93,6 +92,7 @@ decodeProcess impactsDecoder =
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" Decode.string
+        |> Pipe.hardcoded scopes
         |> Pipe.required "source" Decode.string
         |> DU.strictOptional "sourceId" decodeSourceId
         |> Pipe.required "unit" Decode.string
@@ -102,8 +102,7 @@ decodeProcess impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "alias", EncodeExtra.maybe Encode.string process.alias )
-        , ( "categories", Encode.list Category.encode process.categories )
+        [ ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
@@ -112,6 +111,7 @@ encode process =
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )
         , ( "name", Encode.string process.name )
+        , ( "scopes", process.scopes |> Encode.list Scope.encode )
         , ( "source", Encode.string process.source )
         , ( "sourceId", EncodeExtra.maybe encodeSourceId process.sourceId )
         , ( "unit", Encode.string process.unit )
@@ -130,9 +130,9 @@ decodeSourceId =
         |> Decode.map sourceIdFromString
 
 
-decodeList : Decoder Impact.Impacts -> Decoder (List Process)
-decodeList =
-    decodeProcess >> Decode.list
+decodeList : List Scope -> Decoder Impact.Impacts -> Decoder (List Process)
+decodeList scopes =
+    decodeProcess scopes >> Decode.list
 
 
 encodeId : Id -> Encode.Value
@@ -145,22 +145,17 @@ encodeSourceId =
     sourceIdToString >> Encode.string
 
 
-idFromString : String -> Maybe Id
+idFromString : String -> Result String Id
 idFromString str =
-    Uuid.fromString str |> Maybe.map Id
+    str
+        |> Uuid.fromString
+        |> Result.fromMaybe ("Identifiant invalide: " ++ str)
+        |> Result.map Id
 
 
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
-
-
-findByAlias : String -> List Process -> Result String Process
-findByAlias alias_ processes =
-    processes
-        |> List.filter (.alias >> (==) (Just alias_))
-        |> List.head
-        |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias_)
 
 
 findById : Id -> List Process -> Result String Process

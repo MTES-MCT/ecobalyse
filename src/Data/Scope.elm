@@ -1,8 +1,8 @@
 module Data.Scope exposing
     ( Scope(..)
+    , anyOf
     , decode
     , encode
-    , only
     , parse
     , toLabel
     , toString
@@ -19,6 +19,15 @@ type Scope
     | Object
     | Textile
     | Veli
+
+
+{-| Filter a list of scoped records against any passed allowed scopes
+-}
+anyOf : List Scope -> List { a | scopes : List Scope } -> List { a | scopes : List Scope }
+anyOf scopes =
+    List.filter <|
+        .scopes
+            >> List.any (\scope -> List.member scope scopes)
 
 
 decode : Decoder Scope
@@ -49,11 +58,6 @@ fromString string =
 
         _ ->
             Err <| "Couldn't decode unknown scope " ++ string
-
-
-only : Scope -> List { a | scopes : List Scope } -> List { a | scopes : List Scope }
-only scope =
-    List.filter (.scopes >> List.member scope)
 
 
 parse : Parser (Scope -> a) a

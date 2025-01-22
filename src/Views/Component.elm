@@ -2,11 +2,11 @@ module Views.Component exposing (editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Component as Component exposing (Component, ComponentItem)
+import Data.Component as Component exposing (Component, ExpandedElement, Item)
 import Data.Dataset as Dataset
 import Data.Impact.Definition exposing (Definition)
-import Data.Process as Process exposing (Process)
-import Data.Scope exposing (Scope)
+import Data.Process as Process
+import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -24,7 +24,7 @@ type alias Config db msg =
     , db : Component.DataContainer db
     , detailed : List Component.Id
     , impact : Definition
-    , items : List ComponentItem
+    , items : List Item
     , noOp : msg
     , openSelectModal : Autocomplete Component -> msg
     , removeItem : Component.Id -> msg
@@ -32,15 +32,16 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Component.Id -> msg
     , title : String
-    , updateItem : ComponentItem -> msg
+    , updateItem : Item -> msg
     }
 
 
 addButton : Config db msg -> Html msg
-addButton { addLabel, db, items, openSelectModal } =
+addButton { addLabel, db, items, openSelectModal, scope } =
     let
         availableComponents =
             db.components
+                |> Scope.anyOf [ scope ]
                 |> Component.available (List.map .id items)
 
         -- FIXME: this should rather be initiated in page update
@@ -62,7 +63,7 @@ addButton { addLabel, db, items, openSelectModal } =
 
 componentView :
     Config db msg
-    -> ( Component.Quantity, Component, List ( Component.Amount, Process ) )
+    -> ( Component.Quantity, Component, List ExpandedElement )
     -> Component.Results
     -> List (Html msg)
 componentView config ( quantity, component, processAmounts ) itemResults =
@@ -160,7 +161,7 @@ editorView ({ db, items, results, scope, title } as config) =
             div [ class "card-body" ] [ text "Aucun élément." ]
 
           else
-            case Component.expandComponentItems db items of
+            case Component.expandItems db items of
                 Err error ->
                     Alert.simple
                         { close = Nothing
@@ -169,7 +170,7 @@ editorView ({ db, items, results, scope, title } as config) =
                         , title = Just "Erreur"
                         }
 
-                Ok expandedComponentItems ->
+                Ok expandedItems ->
                     div [ class "table-responsive" ]
                         [ table [ class "table mb-0" ]
                             [ thead []
@@ -183,7 +184,7 @@ editorView ({ db, items, results, scope, title } as config) =
                                     ]
                                 ]
                             , Component.extractItems results
-                                |> List.map2 (componentView config) expandedComponentItems
+                                |> List.map2 (componentView config) expandedItems
                                 |> List.concat
                                 |> tbody []
                             ]
@@ -192,16 +193,16 @@ editorView ({ db, items, results, scope, title } as config) =
         ]
 
 
-processView : Definition -> ( Component.Amount, Process ) -> Component.Results -> Html msg
-processView selectedImpact ( amount, process ) itemResults =
+processView : Definition -> ExpandedElement -> Component.Results -> Html msg
+processView selectedImpact { amount, material } itemResults =
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end text-nowrap" ]
-            [ Format.amount process amount ]
+            [ Format.amount material amount ]
         , td [ class "align-middle text-truncate w-100" ]
-            [ text <| Process.getDisplayName process ]
+            [ text <| Process.getDisplayName material ]
         , td [ class "align-middle text-end text-nowrap" ]
-            [ Format.density process ]
+            [ Format.density material ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Component.extractMass itemResults ]
         , td [ class "text-end align-middle text-nowrap" ]

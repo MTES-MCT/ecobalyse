@@ -5,7 +5,7 @@ module Server.Query exposing
     , parseTextileQuery
     )
 
-import Data.Component as Component exposing (Component, ComponentItem)
+import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Db as Food
@@ -65,13 +65,13 @@ succeed =
 
 
 parseFoodQuery : Db -> Parser (Result Errors BuilderQuery.Query)
-parseFoodQuery { countries, food } =
+parseFoodQuery db =
     succeed (Ok BuilderQuery.Query)
         |> apply (distributionParser "distribution")
-        |> apply (ingredientListParser "ingredients" countries food)
-        |> apply (packagingListParser "packaging" food.processes)
+        |> apply (ingredientListParser "ingredients" db.countries db.food)
+        |> apply (packagingListParser "packaging" db.processes)
         |> apply (preparationListParser "preparation")
-        |> apply (maybeTransformParser "transform" food.processes)
+        |> apply (maybeTransformParser "transform" db.processes)
 
 
 ingredientListParser : String -> List Country -> Food.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
@@ -151,7 +151,6 @@ countryParser countries scope countryStr =
 foodProcessIdParser : List Process -> String -> Result String Process.Id
 foodProcessIdParser processes string =
     Process.idFromString string
-        |> Result.fromMaybe ("Identifiant invalide: " ++ string)
         |> Result.andThen (\id -> Process.findById id processes)
         |> Result.map .id
 
@@ -388,14 +387,14 @@ parseTransform_ transforms string =
 
 
 parseTextileQuery : Db -> Parser (Result Errors TextileQuery.Query)
-parseTextileQuery { countries, textile } =
+parseTextileQuery db =
     succeed (Ok TextileQuery.Query)
         |> apply (maybeSplitParser "airTransportRatio")
         |> apply (maybeBusiness "business")
-        |> apply (maybeTextileCountryParser "countryDyeing" countries)
-        |> apply (maybeTextileCountryParser "countryFabric" countries)
-        |> apply (maybeTextileCountryParser "countryMaking" countries)
-        |> apply (maybeTextileCountryParser "countrySpinning" countries)
+        |> apply (maybeTextileCountryParser "countryDyeing" db.countries)
+        |> apply (maybeTextileCountryParser "countryFabric" db.countries)
+        |> apply (maybeTextileCountryParser "countryMaking" db.countries)
+        |> apply (maybeTextileCountryParser "countrySpinning" db.countries)
         |> apply (maybeDisabledStepsParser "disabledSteps")
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybeFabricParser "fabricProcess")
@@ -404,15 +403,15 @@ parseTextileQuery { countries, textile } =
         |> apply (maybeMakingDeadStockParser "makingDeadStock")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (massParserInKilograms "mass")
-        |> apply (materialListParser "materials" textile.materials countries)
+        |> apply (materialListParser "materials" db.textile.materials db.countries)
         |> apply (maybeIntParser "numberOfReferences")
         |> apply (maybePhysicalDurabilityParser "physicalDurability")
         |> apply (maybePriceParser "price")
         |> apply (maybePrinting "printing")
-        |> apply (productParser "product" textile.products)
+        |> apply (productParser "product" db.textile.products)
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeBoolParser "traceability")
-        |> apply (componentItemListParser textile.components "trims")
+        |> apply (componentItemListParser db.components "trims")
         |> apply (boolParser { default = False } "upcycled")
         |> apply (maybeYarnSizeParser "yarnSize")
 
@@ -554,7 +553,7 @@ parseMaterialId_ materials string =
         |> Result.map .id
 
 
-componentItemListParser : List Component -> String -> Parser (ParseResult (List ComponentItem))
+componentItemListParser : List Component -> String -> Parser (ParseResult (List Component.Item))
 componentItemListParser components key =
     Query.custom (key ++ "[]")
         (List.map (parseComponentItem components)
@@ -563,11 +562,11 @@ componentItemListParser components key =
         )
 
 
-parseComponentItem : List Component -> String -> Result String ComponentItem
+parseComponentItem : List Component -> String -> Result String Component.Item
 parseComponentItem components string =
     case String.split ";" string of
         [ id, quantity ] ->
-            Ok ComponentItem
+            Ok Component.Item
                 |> RE.andMap (parseComponentId components id)
                 |> RE.andMap
                     (quantity

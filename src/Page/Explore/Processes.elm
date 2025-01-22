@@ -7,7 +7,9 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Data.Split as Split
 import Data.Unit as Unit
+import Energy
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Column, Table)
 import Route
@@ -65,13 +67,25 @@ baseColumns detailed scope =
                 >> String.join ", "
                 >> text
       }
-    , { label = "Alias"
-      , toValue = Table.StringValue <| .alias >> Maybe.withDefault ""
-      , toCell = .alias >> Maybe.map (text >> List.singleton >> em []) >> Maybe.withDefault (text "")
-      }
     , { label = "Unité"
       , toValue = Table.StringValue <| .unit
       , toCell = .unit >> text
+      }
+    , { label = "Électricité"
+      , toValue = Table.FloatValue <| .elec >> Energy.inKilowattHours
+      , toCell = .elec >> Format.kilowattHours
+      }
+    , { label = "Chaleur"
+      , toValue = Table.FloatValue <| .heat >> Energy.inMegajoules
+      , toCell = .heat >> Format.megajoules
+      }
+    , { label = "Pertes"
+      , toValue = Table.FloatValue <| .waste >> Split.toPercent
+      , toCell = .waste >> Format.splitAsPercentage 2
+      }
+    , { label = "Densité"
+      , toValue = Table.FloatValue .density
+      , toCell = Format.density
       }
     , { label = "Commentaire"
       , toValue = Table.StringValue .comment

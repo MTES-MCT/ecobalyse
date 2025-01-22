@@ -1,6 +1,5 @@
 [
   {
-    "alias": null,
     "categories": [],
     "comment": "",
     "density": 600.0,
@@ -38,7 +37,6 @@
     "waste": 0
   },
   {
-    "alias": null,
     "categories": [],
     "comment": "modélisation d'un composant générique (voir documentation)",
     "density": 900.0,
