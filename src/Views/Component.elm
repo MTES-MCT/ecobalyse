@@ -81,53 +81,56 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                 |> not
     in
     List.concat
-        [ [ tr []
-                [ th [ class "ps-3 align-middle", scope "col" ]
-                    [ if config.allowExpandDetails then
-                        button
-                            [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
-                            , onClick <|
-                                config.setDetailed <|
-                                    if collapsed && not (List.member component.id config.detailed) then
-                                        LE.unique <| component.id :: config.detailed
+        [ [ tbody []
+                [ tr []
+                    [ th [ class "ps-3 align-middle", scope "col" ]
+                        [ if config.allowExpandDetails then
+                            button
+                                [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
+                                , onClick <|
+                                    config.setDetailed <|
+                                        if collapsed && not (List.member component.id config.detailed) then
+                                            LE.unique <| component.id :: config.detailed
 
-                                    else
-                                        List.filter ((/=) component.id) config.detailed
-                            ]
-                            [ if collapsed then
-                                text "▶"
+                                        else
+                                            List.filter ((/=) component.id) config.detailed
+                                ]
+                                [ if collapsed then
+                                    text "▶"
 
-                              else
-                                text "▼"
-                            ]
+                                  else
+                                    text "▼"
+                                ]
 
-                      else
-                        text ""
-                    ]
-                , td [ class "ps-0 align-middle" ]
-                    [ quantity |> quantityInput config component.id ]
-                , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
-                    [ text component.name ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Component.extractMass itemResults
-                        |> Format.kg
-                    ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Component.extractImpacts itemResults
-                        |> Format.formatImpact config.impact
-                    ]
-                , td [ class "pe-3 align-middle text-nowrap" ]
-                    [ button
-                        [ class "btn btn-outline-secondary"
-                        , onClick (config.removeItem component.id)
+                          else
+                            text ""
                         ]
-                        [ Icon.trash ]
+                    , td [ class "ps-0 align-middle" ]
+                        [ quantity |> quantityInput config component.id ]
+                    , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
+                        [ text component.name ]
+                    , td [ class "text-end align-middle text-nowrap" ]
+                        [ Component.extractMass itemResults
+                            |> Format.kg
+                        ]
+                    , td [ class "text-end align-middle text-nowrap" ]
+                        [ Component.extractImpacts itemResults
+                            |> Format.formatImpact config.impact
+                        ]
+                    , td [ class "pe-3 align-middle text-nowrap" ]
+                        [ button
+                            [ class "btn btn-outline-secondary"
+                            , onClick (config.removeItem component.id)
+                            ]
+                            [ Icon.trash ]
+                        ]
                     ]
                 ]
           ]
         , if not collapsed then
-            Component.extractItems itemResults
-                |> List.map2 (elementView config.impact) expandedElements
+            List.map2 (elementView config.impact)
+                expandedElements
+                (Component.extractItems itemResults)
 
           else
             []
