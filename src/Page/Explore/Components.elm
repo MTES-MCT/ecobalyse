@@ -22,9 +22,6 @@ table db { detailed, scope } =
         scopedProcesses =
             db.processes
                 |> Scope.anyOf [ scope ]
-
-        expandElements =
-            Component.expandElements scopedProcesses
     in
     { filename = "components"
     , toId = .id >> Component.idToString
@@ -50,7 +47,7 @@ table db { detailed, scope } =
           , toValue =
                 Table.StringValue <|
                     \{ elements } ->
-                        case expandElements elements of
+                        case Component.expandElements db.processes elements of
                             Err _ ->
                                 ""
 
@@ -66,7 +63,7 @@ table db { detailed, scope } =
                                     |> String.join ", "
           , toCell =
                 \{ elements } ->
-                    case expandElements elements of
+                    case Component.expandElements db.processes elements of
                         Err err ->
                             Alert.simple
                                 { close = Nothing
@@ -78,19 +75,21 @@ table db { detailed, scope } =
                         Ok list ->
                             list
                                 |> List.map
-                                    (\{ amount, material } ->
+                                    (\{ amount, material, transforms } ->
                                         li []
                                             [ Format.amount material amount
                                             , text <| " de " ++ Process.getDisplayName material
+                                            , transforms
+                                                |> List.map (\transform -> li [] [ text <| Process.getDisplayName transform ])
+                                                |> ul []
                                             ]
                                     )
-                                |> List.intersperse (text ", ")
                                 |> ul [ class "m-0 px-2" ]
           }
         , { label = "Coût environnemental"
           , toValue = Table.FloatValue <| getComponentEcoscore scopedProcesses >> Result.withDefault 0
           , toCell =
-                getComponentEcoscore scopedProcesses
+                getComponentEcoscore db.processes
                     >> Result.map (Format.formatImpactFloat { decimals = 2, unit = "Pts par composant" })
                     >> Result.withDefault (text "N/A")
           }
