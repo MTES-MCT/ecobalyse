@@ -144,7 +144,7 @@ specifying specific country mixes in the future.
 
 -}
 applyTransforms : List Process -> List Process -> Results -> Result String Results
-applyTransforms allProcesses transforms (Results materialResults) =
+applyTransforms allProcesses transforms materialResults =
     loadDefaultEnergyMixes allProcesses
         |> Result.map
             (\{ elec, heat } ->
@@ -156,33 +156,35 @@ applyTransforms allProcesses transforms (Results materialResults) =
                                     mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
 
                                 outputMass =
-                                    mass |> Debug.log "plop" |> Quantity.minus wastedMass
+                                    mass |> Quantity.minus wastedMass
 
                                 -- Note: impacts are always computed from input mass
                                 transformImpacts =
-                                    Impact.sumImpacts
-                                        [ transform.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        , elec.impacts
-                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
-                                            |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        , heat.impacts
-                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.heat)
-                                            |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        ]
+                                    [ transform.impacts
+                                    , elec.impacts
+                                        |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
+                                    , heat.impacts
+                                        |> Impact.multiplyBy (Energy.inKilowattHours transform.heat)
+                                    ]
+                                        |> Impact.sumImpacts
+                                        |> Impact.multiplyBy (Mass.inKilograms mass)
                             in
                             Results
+                                -- global result
                                 { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
                                 , items =
-                                    Results
-                                        { impacts = transformImpacts
-                                        , items = []
-                                        , mass = Quantity.negate wastedMass
-                                        }
-                                        :: items
+                                    items
+                                        ++ [ -- transform result
+                                             Results
+                                                { impacts = transformImpacts
+                                                , items = []
+                                                , mass = outputMass
+                                                }
+                                           ]
                                 , mass = outputMass
                                 }
                         )
-                        (Results materialResults)
+                        materialResults
             )
 
 
@@ -219,7 +221,7 @@ computeImpacts processes =
     .elements
         >> List.map (computeElementResults processes)
         >> RE.combine
-        >> Result.map (List.foldl addResults emptyResults)
+        >> Result.map (List.foldr addResults emptyResults)
 
 
 computeItemResults : DataContainer db -> Item -> Result String Results
@@ -260,9 +262,13 @@ computeMaterialResults amount process =
                     -- apply density
                     amountToFloat amount * process.density
     in
+    -- global result
     Results
         { impacts = impacts
-        , items = [ Results { impacts = impacts, items = [], mass = mass } ]
+        , items =
+            [ -- material result
+              Results { impacts = impacts, items = [], mass = mass }
+            ]
         , mass = mass
         }
 

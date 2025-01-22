@@ -128,6 +128,16 @@ componentView config ( quantity, component, expandedElements ) itemResults =
         ]
 
 
+debugResults : Component.Results -> Html msg
+debugResults results =
+    pre [ class "p-2 bg-light" ]
+        [ results
+            |> Component.encodeResults (Just Definition.Ecs)
+            |> Encode.encode 2
+            |> text
+        ]
+
+
 editorView : Config db msg -> Html msg
 editorView ({ db, items, results, scope, title } as config) =
     div [ class "card shadow-sm mb-3" ]
@@ -182,16 +192,6 @@ editorView ({ db, items, results, scope, title } as config) =
         ]
 
 
-debugResults : Component.Results -> Html msg
-debugResults results =
-    pre [ class "p-2 bg-light" ]
-        [ results
-            |> Component.encodeResults (Just Definition.Ecs)
-            |> Encode.encode 2
-            |> text
-        ]
-
-
 elementView : Definition -> ExpandedElement -> Component.Results -> Html msg
 elementView selectedImpact { amount, material, transforms } elementResults =
     let
@@ -218,7 +218,9 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                 , td [ class "text-end text-nowrap" ]
                     [ Format.amount material amount ]
                 , td [ class "align-middle text-truncate w-100" ]
-                    [ text <| Process.getDisplayName material ]
+                    [ text <| Process.getDisplayName material
+                    , debugResults materialResults
+                    ]
                 , td [ class "align-middle text-end text-nowrap" ]
                     [ Format.density material ]
                 , td [ class "text-end align-middle text-nowrap" ]
@@ -230,33 +232,30 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                 , td [ class "pe-3 align-middle text-nowrap" ]
                     []
                 ]
-            :: tr []
-                [ td [ colspan 7 ]
-                    [ debugResults materialResults
-                    ]
-                ]
-            :: (transforms
-                    |> List.map
-                        (\transform ->
-                            tr [ class "fs-7" ]
-                                [ td [] []
-                                , td [ class "text-end text-nowrap" ]
-                                    [ text "-" ]
-                                , td [ class "align-middle text-truncate w-100" ]
-                                    [ text <| Process.getDisplayName transform ]
-                                , td [ class "align-middle text-end text-nowrap" ]
-                                    [ Format.density transform ]
-                                , td [ class "text-end align-middle text-nowrap" ]
-                                    [ Format.kg <| Component.extractMass elementResults ]
-                                , td [ class "text-end align-middle text-nowrap" ]
-                                    [ Component.extractImpacts elementResults
-                                        |> Format.formatImpact selectedImpact
-                                    ]
-                                , td [ class "pe-3 align-middle text-nowrap" ]
-                                    []
-                                ]
-                        )
-               )
+            :: List.map2
+                (\transformResult transform ->
+                    tr [ class "fs-7" ]
+                        [ td [] []
+                        , td [ class "text-end text-nowrap" ]
+                            [ text "-" ]
+                        , td [ class "align-middle text-truncate w-100" ]
+                            [ text <| Process.getDisplayName transform
+                            , debugResults transformResult
+                            ]
+                        , td [ class "align-middle text-end text-nowrap" ]
+                            [ Format.density transform ]
+                        , td [ class "text-end align-middle text-nowrap" ]
+                            [ Format.kg <| Component.extractMass transformResult ]
+                        , td [ class "text-end align-middle text-nowrap" ]
+                            [ Component.extractImpacts transformResult
+                                |> Format.formatImpact selectedImpact
+                            ]
+                        , td [ class "pe-3 align-middle text-nowrap" ]
+                            []
+                        ]
+                )
+                transformResults
+                transforms
         )
 
 
