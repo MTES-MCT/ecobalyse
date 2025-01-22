@@ -37,6 +37,11 @@ type alias Config db msg =
     }
 
 
+debug : Bool
+debug =
+    False
+
+
 addButton : Config db msg -> Html msg
 addButton { addLabel, db, items, openSelectModal, scope } =
     let
@@ -128,14 +133,18 @@ componentView config ( quantity, component, expandedElements ) itemResults =
         ]
 
 
-debugResults : Component.Results -> Html msg
-debugResults results =
-    pre [ class "p-2 bg-light" ]
-        [ results
-            |> Component.encodeResults (Just Definition.Ecs)
-            |> Encode.encode 2
-            |> text
-        ]
+viewDebug : Component.Results -> Html msg
+viewDebug results =
+    if debug then
+        pre [ class "p-2 bg-light" ]
+            [ results
+                |> Component.encodeResults (Just Definition.Ecs)
+                |> Encode.encode 2
+                |> text
+            ]
+
+    else
+        text ""
 
 
 editorView : Config db msg -> Html msg
@@ -188,7 +197,7 @@ editorView ({ db, items, results, scope, title } as config) =
                             )
                         ]
         , addButton config
-        , debugResults results
+        , viewDebug results
         ]
 
 
@@ -209,7 +218,7 @@ elementView selectedImpact { amount, material, transforms } elementResults =
             , th [ class "text-end", scope "col" ] [ text "Quantité" ]
             , th [ scope "col" ] [ text "Procédé" ]
             , th [ scope "col" ] [ text "Densité" ]
-            , th [ scope "col" ] [ text "Masse" ]
+            , th [ class "text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
             , th [ scope "col" ] [ text "Impact" ]
             , th [ scope "col" ] [ text "" ]
             ]
@@ -219,7 +228,7 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                     [ Format.amount material amount ]
                 , td [ class "align-middle text-truncate w-100" ]
                     [ text <| Process.getDisplayName material
-                    , debugResults materialResults
+                    , viewDebug materialResults
                     ]
                 , td [ class "align-middle text-end text-nowrap" ]
                     [ Format.density material ]
@@ -240,7 +249,7 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                             [ text "-" ]
                         , td [ class "align-middle text-truncate w-100" ]
                             [ text <| Process.getDisplayName transform
-                            , debugResults transformResult
+                            , viewDebug transformResult
                             ]
                         , td [ class "align-middle text-end text-nowrap" ]
                             [ Format.density transform ]
