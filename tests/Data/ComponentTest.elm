@@ -186,28 +186,39 @@ suite =
                     )
                 ]
             , describe "computeElementResults"
-                [ asTest "should compute a material-only element results"
-                    (case Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
-                        Ok cottonId ->
-                            -- 1kg of cotton, weaved then faded
-                            { amount = Component.Amount 1
-                            , material = cottonId
-                            , transforms = [ weaving.id, fading.id ]
-                            }
-                                |> Component.computeElementResults db.processes
+                (case Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
+                    Ok cottonId ->
+                        let
+                            elementResults =
+                                Component.computeElementResults db.processes
+                                    { amount = Component.Amount 1
+                                    , material = cottonId
+                                    , transforms = [ weaving.id, fading.id ]
+                                    }
+                        in
+                        [ asTest "should compute element impacts"
+                            (elementResults
                                 |> Result.map
-                                    (\res ->
-                                        ( Component.extractImpacts res |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat |> round
-                                        , Component.extractMass res |> Mass.inKilograms
-                                        )
+                                    (Component.extractImpacts
+                                        >> Impact.getImpact Definition.Ecs
+                                        >> Unit.impactToFloat
                                     )
-                                |> Result.withDefault ( 0, 0 )
-                                |> Expect.equal ( 2012, 0.93747 )
+                                |> Result.withDefault 0
+                                |> Expect.within (Expect.Absolute 1) 1949
+                            )
+                        , asTest "should compute element mass"
+                            (elementResults
+                                |> Result.map (Component.extractMass >> Mass.inKilograms)
+                                |> Result.withDefault 0
+                                |> Expect.within (Expect.Absolute 0.01) 0.78
+                            )
+                        ]
 
-                        Err err ->
-                            Expect.fail err
-                    )
-                ]
+                    Err err ->
+                        [ Expect.fail err
+                            |> asTest "should load cotton data"
+                        ]
+                )
             ]
         )
 

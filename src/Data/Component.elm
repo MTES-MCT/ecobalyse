@@ -254,13 +254,15 @@ computeMaterialResults amount process =
                 |> Impact.multiplyBy (amountToFloat amount)
 
         mass =
-            Mass.kilograms <|
-                if process.unit == "kg" then
-                    amountToFloat amount
+            (if process.unit == "kg" then
+                amountToFloat amount
 
-                else
-                    -- apply density
-                    amountToFloat amount * process.density
+             else
+                -- apply density
+                amountToFloat amount * process.density
+            )
+                |> Mass.kilograms
+                |> Quantity.multiplyBy (1 - Split.toFloat process.waste)
     in
     -- global result
     Results

@@ -234,7 +234,7 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                 , td [ class "align-middle text-end text-nowrap" ]
                     [ formatWaste material.waste ]
                 , td [ class "text-end align-middle text-nowrap" ]
-                    [ Format.amount material amount ]
+                    [ Format.kg <| Component.extractMass materialResults ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Component.extractImpacts materialResults
                         |> Format.formatImpact selectedImpact
