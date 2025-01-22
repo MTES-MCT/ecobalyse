@@ -242,12 +242,13 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                 , td [ class "pe-3 align-middle text-nowrap" ]
                     []
                 ]
-            :: List.map2
-                (\transformResult transform ->
+            :: List.map3
+                (\transform transformResult previousResult ->
                     tr [ class "fs-7" ]
                         [ td [] []
                         , td [ class "text-end text-nowrap" ]
-                            [ text "-" ]
+                            [ Format.kg <| Component.extractMass previousResult
+                            ]
                         , td [ class "align-middle text-truncate w-100" ]
                             [ text <| Process.getDisplayName transform
                             , viewDebug transformResult
@@ -264,8 +265,9 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                             []
                         ]
                 )
-                transformResults
                 transforms
+                transformResults
+                (Component.extractItems elementResults)
         )
 
 
