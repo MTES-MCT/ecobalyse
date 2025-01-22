@@ -7,6 +7,7 @@ import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
+import Data.Split as Split exposing (Split)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -217,7 +218,7 @@ elementView selectedImpact { amount, material, transforms } elementResults =
             [ th [] []
             , th [ class "text-end", scope "col" ] [ text "Quantité" ]
             , th [ scope "col" ] [ text "Procédé" ]
-            , th [ scope "col" ] [ text "Densité" ]
+            , th [ scope "col" ] [ text "Pertes" ]
             , th [ class "text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
             , th [ scope "col" ] [ text "Impact" ]
             , th [ scope "col" ] [ text "" ]
@@ -231,7 +232,7 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                     , viewDebug materialResults
                     ]
                 , td [ class "align-middle text-end text-nowrap" ]
-                    [ Format.density material ]
+                    [ formatWaste material.waste ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Format.amount material amount ]
                 , td [ class "text-end align-middle text-nowrap" ]
@@ -252,7 +253,7 @@ elementView selectedImpact { amount, material, transforms } elementResults =
                             , viewDebug transformResult
                             ]
                         , td [ class "align-middle text-end text-nowrap" ]
-                            [ Format.density transform ]
+                            [ formatWaste transform.waste ]
                         , td [ class "text-end align-middle text-nowrap" ]
                             [ Format.kg <| Component.extractMass transformResult ]
                         , td [ class "text-end align-middle text-nowrap" ]
@@ -299,3 +300,12 @@ quantityInput config id quantity =
             ]
             []
         ]
+
+
+formatWaste : Split -> Html msg
+formatWaste waste =
+    if Split.toPercent waste == 0 then
+        text ""
+
+    else
+        Format.splitAsPercentage 3 waste
