@@ -93,7 +93,7 @@ suite =
                                         |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                               }
                             ]
-                            |> Expect.within (Expect.Absolute 1) 198
+                            |> Expect.within (Expect.Absolute 1) 391
                         )
                     , asTest "should add impacts when multiple transforms are passed (no elec, no heat)"
                         (getTestEcsImpact
@@ -107,7 +107,7 @@ suite =
                             [ fading |> setProcessEcsImpact (Unit.impact 10)
                             , fading |> setProcessEcsImpact (Unit.impact 20)
                             ]
-                            |> Expect.within (Expect.Absolute 1) 406
+                            |> Expect.within (Expect.Absolute 1) 793
                         )
                     ]
                 , let
@@ -170,7 +170,7 @@ suite =
                                 |> Component.extractImpacts
                                 |> Impact.getImpact Definition.Ecs
                                 |> Unit.impactToFloat
-                                |> Expect.within (Expect.Absolute 1) 402
+                                |> Expect.within (Expect.Absolute 1) 692
                             )
                         , asTest "should handle impacts+waste when applying transforms: mass"
                             (withElecAndHeat
@@ -208,7 +208,7 @@ suite =
                                         )
                                     )
                                 |> Result.withDefault ( 0, 0 )
-                                |> Expect.equal ( 1830, 0.93747 )
+                                |> Expect.equal ( 2012, 0.93747 )
 
                         Err err ->
                             Expect.fail err

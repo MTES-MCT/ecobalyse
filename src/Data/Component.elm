@@ -164,7 +164,7 @@ applyTransforms allProcesses transforms materialResults =
                                     , elec.impacts
                                         |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
                                     , heat.impacts
-                                        |> Impact.multiplyBy (Energy.inKilowattHours transform.heat)
+                                        |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
                                     ]
                                         |> Impact.sumImpacts
                                         |> Impact.multiplyBy (Mass.inKilograms mass)
