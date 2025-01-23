@@ -204,13 +204,13 @@ suite =
                                         >> Unit.impactToFloat
                                     )
                                 |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 1) 1949
+                                |> Expect.within (Expect.Absolute 1) 2012
                             )
                         , asTest "should compute element mass"
                             (elementResults
                                 |> Result.map (Component.extractMass >> Mass.inKilograms)
                                 |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 0.01) 0.78
+                                |> Expect.within (Expect.Absolute 0.01) 0.94
                             )
                         ]
 
