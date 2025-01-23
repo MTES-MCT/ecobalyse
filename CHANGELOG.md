@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [3.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v3.1.0..v3.2.0) (2025-01-23)
+
+
+
+### 🚀 Features
+
+- Add pre-treatments and update bleaching process ([#898](https://github.com/MTES-MCT/ecobalyse/issues/898))
+
+
 ## [3.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v3.0.0..v3.1.0) (2025-01-23)
 
 
