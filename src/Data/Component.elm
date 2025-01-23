@@ -19,6 +19,7 @@ module Data.Component exposing
     , emptyResults
     , encodeId
     , encodeItem
+    , encodeResults
     , expandElements
     , expandItems
     , extractImpacts
@@ -33,9 +34,11 @@ module Data.Component exposing
     )
 
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split
+import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Energy
 import Json.Decode as Decode exposing (Decoder)
@@ -141,7 +144,7 @@ specifying specific country mixes in the future.
 
 -}
 applyTransforms : List Process -> List Process -> Results -> Result String Results
-applyTransforms allProcesses transforms (Results materialResults) =
+applyTransforms allProcesses transforms materialResults =
     loadDefaultEnergyMixes allProcesses
         |> Result.map
             (\{ elec, heat } ->
@@ -157,23 +160,31 @@ applyTransforms allProcesses transforms (Results materialResults) =
 
                                 -- Note: impacts are always computed from input mass
                                 transformImpacts =
-                                    Impact.sumImpacts
-                                        [ transform.impacts |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        , elec.impacts
-                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
-                                            |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        , heat.impacts
-                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.heat)
-                                            |> Impact.multiplyBy (Mass.inKilograms mass)
-                                        ]
+                                    [ transform.impacts
+                                    , elec.impacts
+                                        |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
+                                    , heat.impacts
+                                        |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
+                                    ]
+                                        |> Impact.sumImpacts
+                                        |> Impact.multiplyBy (Mass.inKilograms mass)
                             in
                             Results
+                                -- global result
                                 { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
-                                , items = Results { impacts = transformImpacts, items = [], mass = Quantity.negate wastedMass } :: items
+                                , items =
+                                    items
+                                        ++ [ -- transform result
+                                             Results
+                                                { impacts = transformImpacts
+                                                , items = []
+                                                , mass = outputMass
+                                                }
+                                           ]
                                 , mass = outputMass
                                 }
                         )
-                        (Results materialResults)
+                        materialResults
             )
 
 
@@ -205,34 +216,12 @@ computeElementResults processes =
             )
 
 
-computeMaterialResults : Amount -> Process -> Results
-computeMaterialResults amount process =
-    let
-        ( impacts, mass ) =
-            ( process.impacts
-                |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (amountToFloat amount))
-            , Mass.kilograms <|
-                if process.unit == "kg" then
-                    amountToFloat amount
-
-                else
-                    -- apply density
-                    amountToFloat amount * process.density
-            )
-    in
-    Results
-        { impacts = impacts
-        , items = [ Results { impacts = impacts, items = [], mass = mass } ]
-        , mass = mass
-        }
-
-
 computeImpacts : List Process -> Component -> Result String Results
 computeImpacts processes =
     .elements
         >> List.map (computeElementResults processes)
         >> RE.combine
-        >> Result.map (List.foldl addResults emptyResults)
+        >> Result.map (List.foldr addResults emptyResults)
 
 
 computeItemResults : DataContainer db -> Item -> Result String Results
@@ -255,6 +244,33 @@ computeItemResults { components, processes } { id, quantity } =
                             |> Quantity.sum
                     }
             )
+
+
+computeMaterialResults : Amount -> Process -> Results
+computeMaterialResults amount process =
+    let
+        impacts =
+            process.impacts
+                |> Impact.multiplyBy (amountToFloat amount)
+
+        mass =
+            Mass.kilograms <|
+                if process.unit == "kg" then
+                    amountToFloat amount
+
+                else
+                    -- apply density
+                    amountToFloat amount * process.density
+    in
+    -- global result
+    Results
+        { impacts = impacts
+        , items =
+            [ -- material result
+              Results { impacts = impacts, items = [], mass = mass }
+            ]
+        , mass = mass
+        }
 
 
 decode : List Scope -> Decoder Component
@@ -353,6 +369,25 @@ encodeItem item =
 encodeId : Id -> Encode.Value
 encodeId =
     idToString >> Encode.string
+
+
+encodeResults : Maybe Trigram -> Results -> Encode.Value
+encodeResults maybeTrigram (Results results) =
+    Encode.object
+        [ ( "impacts"
+          , case maybeTrigram of
+                Just trigram ->
+                    results.impacts
+                        |> Impact.getImpact trigram
+                        |> Unit.impactToFloat
+                        |> Encode.float
+
+                Nothing ->
+                    Impact.encode results.impacts
+          )
+        , ( "items", Encode.list (encodeResults maybeTrigram) results.items )
+        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float )
+        ]
 
 
 {-| Lookup a Component from a provided Id
