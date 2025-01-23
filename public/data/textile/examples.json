@@ -92,7 +92,7 @@
           "share": 1
         }
       ],
-      "numberOfReferences": 12000,
+      "numberOfReferences": 9000,
       "price": 30,
       "product": "pull",
       "traceability": false
@@ -121,7 +121,7 @@
           "share": 0.3
         }
       ],
-      "numberOfReferences": 12000,
+      "numberOfReferences": 9000,
       "price": 30,
       "product": "pull",
       "traceability": false
@@ -280,7 +280,7 @@
           "share": 0.25
         }
       ],
-      "numberOfReferences": 12000,
+      "numberOfReferences": 9000,
       "price": 20,
       "product": "tshirt",
       "traceability": false
