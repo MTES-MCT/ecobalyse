@@ -14,20 +14,20 @@ Le moteur représente de l'ordre de 5% du coût environnemental.
 
 ### Méthodologie de calcul <a href="#methodologie-de-calcul" id="methodologie-de-calcul"></a>
 
-Le cout environnemental du moteur est calculé en fonction de son poids, en kg.
+Des composants "moteurs" sont proposés pour modéliser des moteurs thermiques ou électriques.
 
-### Procédé utilisé pour la modélisation
+Les composants sont construit de la façon suivante :&#x20;
 
-Le coût environnemental est calculé à partir du procédé Ecoinvent  "electric motor production, vehicle (electric powertrain)".
+**moteur électrique, pour 1kW :**&#x20;
 
-Aucune perte n'est applicable.
+* procédé : "powertrain production, for electric passenger car {GLO}" (ecoinvent)
+  * Ce procédé correspond à groupe motopropulseur de 80.2kg et 100kW environ
+* quantité : 0.8 kg/kW
 
-#### Choix du procédé
+**moteur thermique, pour 1kW :**&#x20;
 
-Ecoinvent propose deux jeux de données pour les moteurs électriques :&#x20;
+* procédé : "Internal combustion engine, passenger car {GLO}" (ecoinvent)
+  * Ce procédé correspond à moteur de 275kg pour une Golf A4 55 kW essence ou 66 kW diesel
+* quantité pour les diesel : 2 kg/kW
+* quantité pour les essence : 1.5 kg/kW
 
-1\) "electric motor, vehicle" : basé a priori sur un petit moteur, donnée créée en 2011, basé sur des informations de 2007
-
-2\) "electric motor production, vehicle (electric powertrain)" : basé sur un moteur de 53kg (voiture compacte), donnée créée en 2022, basé sur des informations de 2011
-
-Le second jeu de données est utilisé car il est mieux détaillé, plus récent, et plus conservateur.

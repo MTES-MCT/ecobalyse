@@ -45,7 +45,7 @@ Avec :
 
 ### Matière des pneumatique - procédé utilisé pour la modélisation
 
-A des fins de simplification, et en l'absence de procédé Ecoinvent spécifique, un procédé a été  modélisé de la façon suivante :
+A des fins de simplification, et en l'absence de procédé Ecoinvent spécifique, des composants par défaut ont été modélisé avec les ratios suivants :
 
 * Matière transformée
   * 80%\*50% kg de caoutchouc synthétique
@@ -58,5 +58,5 @@ A des fins de simplification, et en l'absence de procédé Ecoinvent spécifique
     * market for fibre, polyester, GLO _(ecoinvent), 0.15kg_
 * Etape de transformation additionnelle
   * thermoformage \
-    &#xNAN;_&#x49;njection moulding, RER, 1 kg_
+    &#xNAN;_&#x49;njection moulding, RER, 1 kg (procédé corrigé par Ecobalyse)_
 

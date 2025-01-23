@@ -2,15 +2,21 @@
 description: Cette page décrit les méthodes relatives à la consommation des véhicules
 ---
 
-# ⚡ Utilisation du véhicule
+# ⚡ Consommation d'énergie
 
 ## Généralités
 
-Les véhicules électriques nécessitent pour la plupart de se recharger en électricité pour rouler. Cette consommation d'électricité dépend de la consommation du véhicule, mais aussi de la présence éventuelle d'un apport d'énergie par pédalage ou par des cellules photovoltaïques.
+Les énergies utilisées par les véhicules sont aujourd'hui très variées.&#x20;
 
-### Cycle de test de référence : le WMTC&#x20;
+## Consommation de référence
 
-le WMTC révisé est aujourd’hui le cycle de référence pour tous les nouveaux véhicules de catégorie L, et ce depuis la norme euro5.
+### Voitures particulières et véhicules utilitaires légers : le WLTP comme référence
+
+La procédure d'essai mondiale harmonisée pour les véhicules légers (Worldwide Harmonised Light Vehicles Test Procedure, WLTP) est une norme permettant de mesurer la consommation de carburant ou d'électricité d'un véhicule de catégorie M1 et N1.
+
+### Velis : le WMTC comme référence
+
+Le WMTC révisé est aujourd’hui le cycle de référence pour tous les nouveaux véhicules de catégorie L, et ce depuis la norme euro5.
 
 La documentation technique est disponible ici :  [https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs](https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs)
 
@@ -20,13 +26,40 @@ Le cycle comporte 3 phases, applicable ou non selon la vitesse maximale du véhi
 
 <figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
-### Energie musculaire par pédalage
+#### Cas particulier des velis actif ou équipés de panneaux photovoltaïques
 
-L’énergie musculaire apportée au vélo serait de l’ordre de 100W. C’est ce qui est retenu dans la thèse suivante par exemple : [2014LIMO4007.pdf](https://aurore.unilim.fr/theses/nxfile/default/e64bb679-1855-427d-93c0-36b85f2dbe69/blobholder:0/2014LIMO4007.pdf). A ce stade aucune étude plus détaillée n’a été identifiée, indiquant les niveaux de puissance en fonction du profil de cycliste et du motif de déplacement par exemple.
+La consommation électrique est calculée comme suit :&#x20;
 
-Cette valeur de 100W a été présentée au groupe de travail et validée à titre provisoire. Elle pourra être revue une fois davantage de données collectées sur ce sujet.
+$$
+C_r = max (0;Cwmtc-Ep-Epv.m)
+$$
 
-Il est donc retenu comme hypothèse que les véhicules équipés de pédales permettent de réduire la puissance moteur de 100W sur les phases d’accélération et de maintien de vitesse du cycle WMTC.
+Avec :&#x20;
+
+* C\_r : la consommation l'électricité par recharge sur le réseau électrique, exprimée en kWh pour 100km
+* Cwmtc : La consommation du véhicule selon le cycle WMTC, exprimée en kWh pour 100km
+* Ep : l'énergie apportée par pédalage, pour les véhicules actifs, établie par la classe WMTC, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la page dédiée
+* Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
+
+### Correction spécifique pour les véhicules hybrides rechargeables
+
+Au regard des [écarts constatés par la commission européenne](https://climate.ec.europa.eu/news-your-voice/news/first-commission-report-real-world-co2-emissions-cars-and-vans-using-data-board-fuel-consumption-2024-03-18_en) entre les consommations réelles et les consommations WLTP des véhicules hybrides rechargeables, leurs consommations normées de diesel ou essence sont multipliées par Eobalyse par 2.&#x20;
+
+## Durée de vie des véhicules
+
+La durée de vie en kilomètres s'exprime de la façon suivante :&#x20;
+
+$$
+D.vie=D.an*T.vie
+$$
+
+Avec :&#x20;
+
+* D.vie : la durée de vie, en km
+* D.an : le kilométrage annuel, en km\
+  Cette donnée est modifiable par l'utilisateur dans Ecobalyse.
+* T.vie : la durée de vie par défaut du véhicule, en années\
+  Cette donnée est  modifiable par l'utilisateur dans Ecobalyse.
 
 ## Modélisation Ecobalyse
 
@@ -34,8 +67,7 @@ Il est donc retenu comme hypothèse que les véhicules équipés de pédales per
 
 L'utilisateur renseigne les informations suivantes :
 
-* Consommation du véhicule selon le cycle WMTC (kWh/100km ou L/100km)\
-  Des informations supplémentaires sur ce cycle sont fournies sur cette page
+* Consommation du véhicule selon le cycle WMTC ou WLTC (kWh/100km ou L/100km)
 * Apport d'énergie par pédalage (Oui/Non)
 * Durée de vie du véhicule (en années)
 * Kilométrage annuel (en km/an)
@@ -57,83 +89,6 @@ Avec&#x20;
 
 ### Procédés utilisés pour chaque énergie
 
-Diesel : market group for diesel, low-sulfur RER
+<table><thead><tr><th width="260">Energie</th><th width="420">Procédé</th><th>unité</th></tr></thead><tbody><tr><td>Diesel</td><td>Procédé créé par Ecobalyse à préciser</td><td>Litre</td></tr><tr><td>Essence</td><td>Procédé créé par Ecobalyse à préciser</td><td>Litre</td></tr><tr><td>Électricité du réseau</td><td>market for electricity, low voltage FR</td><td>kWh</td></tr><tr><td>Hydrogène</td><td></td><td>kg</td></tr><tr><td>GNV</td><td></td><td>kg</td></tr></tbody></table>
 
-<table><thead><tr><th width="148">Energie</th><th width="327">Procédé</th><th>unité (densité)</th></tr></thead><tbody><tr><td>Diesel</td><td>market group for diesel, low-sulfur RER</td><td>Litre (42.8 MJ/kg)</td></tr><tr><td>Essence</td><td><mark style="color:red;">market for petrol, low-sulfur Europe without Switzerland</mark></td><td></td></tr><tr><td>Electricité</td><td>market for electricity, low voltage FR</td><td>kWh</td></tr></tbody></table>
-
-
-
-<mark style="color:red;">Hydrogène : market for hydrogen, gaseous, medium pressure, merchant RER</mark>
-
-Reconstruire Hydrogène + convertir kg essence diesel en litres
-
-### Durée de vie des véhicules
-
-#### Formule de calcul
-
-La durée de vie en kilomètre s'exprime de la façon suivante :&#x20;
-
-$$
-D.vie=D.an*T.vie
-$$
-
-Avec :&#x20;
-
-* D.vie : la durée de vie, en km
-* D.an : le kilométrage annuel, en km\
-  Les valeurs par défaut sont définies par véhicule dans le tableau ci-dessous. Elles sont modifiables par l'utilisateur dans Ecobalyse.
-* T.vie : la durée de vie par défaut du véhicule, en années\
-  Les valeurs par défaut sont définies par véhicule dans le tableau ci-dessous. Elles sont modifiables par l'utilisateur dans Ecobalyse.
-
-#### Données par défaut
-
-<table><thead><tr><th width="166">Catégories</th><th width="316">D.an par défaut (km/an)</th><th>T.vie par défaut (ans)</th></tr></thead><tbody><tr><td>VAE</td><td>2 000</td><td>30</td></tr><tr><td>L1e-A</td><td>2 000</td><td>30</td></tr><tr><td>L1e-B</td><td>5 000</td><td>30</td></tr><tr><td>L2e</td><td>5 000</td><td>30</td></tr><tr><td>L3e</td><td>5 000</td><td>30</td></tr><tr><td>L4e</td><td>5 000</td><td>30</td></tr><tr><td>L5e</td><td>5 000</td><td>30</td></tr><tr><td>L6e</td><td>5 000</td><td>30</td></tr><tr><td>L7e</td><td>10 000</td><td>30</td></tr><tr><td>Autre</td><td>15000</td><td>20</td></tr></tbody></table>
-
-### Consommation électrique par km
-
-#### Formule de calcul
-
-La consommation électrique est définit comme suit :&#x20;
-
-$$
-C_r = max (0;Cwmtc-Ep-Epv.m)
-$$
-
-Avec :&#x20;
-
-* C\_r : la consommation l'électricité par recharge sur le réseau électrique
-* Cwmtc : La consommation du véhicule selon le cycle WMTC, retenu comme référence pour la consommation des VeLI. Cela signifie que les constructeurs indiquent la consommation de leurs véhicules lorsque celui-ci suit ce cycle, selon la classe du cycle qui correspond au véhicule.
-* Ep : l'énergie apportée par pédalage, pour les véhicules à pédale, établie par la classe WMTC. Les données par catégorie de véhicules sont fournies dans le tableau ci-dessous
-* Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
-
-Tous ces paramètres s'expriment en kWh pour 100km.
-
-#### Consommation du véhicule par défaut
-
-La consommation des véhicules électriques s'exprime en kWh pour 100km. Une consommation par défaut est proposé pour chaque catégorie de véhicule (tableau ci-dessous). La consommation peut être modifiée par l'utilisateur.
-
-| Catégories | Consommation par défaut (kWh/100km) |
-| ---------- | ----------------------------------- |
-| VAE        | 3,0                                 |
-| L1e-A      | 4,0                                 |
-| L1e-B      | 4,0                                 |
-| L2e        | 5,0                                 |
-| L3e        | 8,0                                 |
-| L4e        | 10,0                                |
-| L5e        | 10,0                                |
-| L6e        | 9,0                                 |
-| L7e        | 12,0                                |
-| Autre      | 20,0                                |
-
-#### Energie apportée par pédalage par catégorie de véhicule
-
-L'énergie apportée par pédalage est calculée pour chaque catégorie de véhicule à partir de :
-
-* la vitesse moyenne (km/h) sur le cycle WMTC&#x20;
-* la part (%) de maintien de vitesse ou d'accélération sur le cycle
-* l'énergie apportée par pédalage (100Wh/h dans les phases de maintien de vitesse ou d'accélération sur le cycle)
-
-Les résultats sont détaillés dans le tableau suivant :
-
-<table><thead><tr><th width="140">Catégories</th><th width="138">Classe WMTC</th><th>Vitesse moyenne WMTC (km/h</th><th>% maintien de vitesse ou accélération WMTC</th><th>Energie par pédalage (kWh/100km)</th></tr></thead><tbody><tr><td>VAE</td><td>Class1-25</td><td>17.6</td><td>70%</td><td>0.4</td></tr><tr><td>L1e-A</td><td>Class1-25</td><td>17.6</td><td>70%</td><td>0.4</td></tr><tr><td>L1e-B</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>0.22</td></tr><tr><td>L2e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>0.22</td></tr><tr><td>L3e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.09</td></tr><tr><td>L4e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.09</td></tr><tr><td>L5e</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.09</td></tr><tr><td>L6e</td><td>Class1-45</td><td>22.8</td><td>50%</td><td>0.22</td></tr><tr><td>L7e</td><td>Class2-2-90</td><td>39.4</td><td>50%</td><td>0.13</td></tr><tr><td>Autre</td><td>class3-2</td><td>57.8</td><td>54%</td><td>0.09</td></tr></tbody></table>
-
+Voir la page dédiée relative à la construction de ces procédés.

@@ -30,5 +30,9 @@ Le procédé est donc construit de la façon suivante :&#x20;
 
 </details>
 
+<mark style="color:red;">Hydrogène : market for hydrogen, gaseous, medium pressure, merchant RER</mark>
+
+Reconstruire Hydrogène + convertir kg essence diesel en litres
+
 
 
