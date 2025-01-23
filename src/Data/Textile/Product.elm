@@ -10,6 +10,7 @@ module Data.Textile.Product exposing
     , idToString
     )
 
+import Data.Component as Component
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -62,6 +63,7 @@ type alias Product =
     , making : MakingOptions
     , name : String
     , surfaceMass : Unit.SurfaceMass
+    , trims : List Component.Item
     , use : UseOptions
     , yarnSize : Unit.YarnSize
     }
@@ -133,6 +135,7 @@ decode processes =
         |> Pipe.required "making" decodeMakingOptions
         |> Pipe.required "name" Decode.string
         |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
+        |> Pipe.required "trims" (Decode.list Component.decodeItem)
         |> Pipe.required "use" (decodeUseOptions processes)
         |> Pipe.required "yarnSize" Unit.decodeYarnSize
 
@@ -176,6 +179,7 @@ encode v =
         , ( "name", Encode.string v.name )
         , ( "fabric", Fabric.encode v.fabric )
         , ( "making", encodeMakingOptions v.making )
+        , ( "trims", Encode.list Component.encodeItem v.trims )
         , ( "use", encodeUseOptions v.use )
         , ( "endOfLife", encodeEndOfLifeOptions v.endOfLife )
         ]
