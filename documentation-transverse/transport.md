@@ -4,7 +4,7 @@
 
 Les étapes de transport prisent en compte dans le coût environnemental du produit sont de trois types : &#x20;
 
-* Le transport des matières premières (ex : coton, blé), des matériaux (ex : mine de fer, lingot d'aluminium)  et composants (ex :  boulon) de la source jusqu'au dernier site industriel de fabrication (Confection textile, assemblage, usine agroalimentaire ...)&#x20;
+* Le transport des matières premières (ex : coton, blé), des matériaux (ex : mine de fer, lingot d'aluminium)  et composants (ex :  boulon, rouleau de tissu) de la source jusqu'au dernier site industriel de fabrication (Confection textile, assemblage, usine agroalimentaire ...)&#x20;
 * Le transport du produit fini entre l'usine (en France ou import) et les entrepôts
 * La distribution du produit en France.
 
