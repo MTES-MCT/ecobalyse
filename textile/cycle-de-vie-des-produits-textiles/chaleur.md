@@ -29,7 +29,7 @@ La base de données Ecoinvent ne propose pas de mix chaleur industrielle par zon
 
 Deux régions sont proposées dans Ecobalyse :&#x20;
 
-<table><thead><tr><th width="122">Zone</th><th width="277">Procédé chaleur</th><th>Sources de chaleur</th></tr></thead><tbody><tr><td>Europe</td><td>Heat mix (Europe) </td><td><a data-footnote-ref href="#user-content-fn-1">44% gaz naturel / 56% autres</a></td></tr><tr><td>Rest of the world</td><td>Heat mix (World) </td><td><a data-footnote-ref href="#user-content-fn-2">23% gaz naturel / 77% autres</a></td></tr></tbody></table>
+<table><thead><tr><th width="122">Zone</th><th width="355">Procédé chaleur</th><th>Sources de chaleur</th></tr></thead><tbody><tr><td>Europe</td><td>Heat mix (Europe) </td><td><a data-footnote-ref href="#user-content-fn-1">44% gaz naturel / 56% autres</a></td></tr><tr><td>Rest of the world</td><td>Heat mix (World) </td><td><a data-footnote-ref href="#user-content-fn-2">23% gaz naturel / 77% autres</a></td></tr></tbody></table>
 
 En compilant pour chaque zone (Europe et Monde) les sources de chaleur (gaz naturel vs autres sources) et leurs contributions au mix régional (ex : 44% gaz naturel vs 56% autres sources pour l'Europe), nous pouvons reconstituer l'impact de la consommation de chaleur industrielle au sein de chacune de ces zones.&#x20;
 

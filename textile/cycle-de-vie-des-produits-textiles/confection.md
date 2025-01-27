@@ -75,9 +75,7 @@ Dès lors, l'impact de cette étape se limite finalement à l'électricité néc
 
 Le **procédé externe (électricité)** devant être ajouté est le suivant :
 
-| Flux externe | UUID du flux                           | unité |
-| ------------ | -------------------------------------- | ----- |
-| Électricité  | `de442ef0-d725-4c3a-a5e2-b29f51a1186c` | MJ    |
+<table><thead><tr><th>Flux externe</th><th width="197.33333333333331">UUID du flux</th><th>unité</th></tr></thead><tbody><tr><td>Électricité</td><td><code>de442ef0-d725-4c3a-a5e2-b29f51a1186c</code></td><td>MJ</td></tr></tbody></table>
 
 ### Hypothèses par défaut&#x20;
 

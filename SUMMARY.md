@@ -155,6 +155,7 @@
     * [💺 Assise](vehicules/cycle-de-vie/fabrication-des-composants/assise.md)
     * [💠 Système photovoltaïques](vehicules/cycle-de-vie/fabrication-des-composants/systeme-photovoltaiques.md)
     * [⛓️ Autres composants](vehicules/cycle-de-vie/fabrication-des-composants/autres-composants.md)
+  * [🪛 Assemblage](vehicules/cycle-de-vie/assemblage.md)
   * [🚚 Transport des véhicules](vehicules/cycle-de-vie/transport-des-vehicules.md)
   * [⚡ Consommation d'énergie](vehicules/cycle-de-vie/consommation-denergie/README.md)
     * [🚴 Energie apportée par pédalage](vehicules/cycle-de-vie/consommation-denergie/energie-apportee-par-pedalage.md)
@@ -171,4 +172,4 @@
 ## 📄 Documentation transverse
 
 * [🚚 Transport](documentation-transverse/transport.md)
-* [Page 1](documentation-transverse/page-1.md)
+* [⚡ Energies des étapes de transformation](documentation-transverse/energies-des-etapes-de-transformation.md)
