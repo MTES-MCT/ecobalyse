@@ -184,7 +184,7 @@ init trigram maybeUrlQuery session =
       , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
       , activeTab =
-            if Query.isAdvancedQuery initialQuery then
+            if Query.isAdvancedQuery session.db.textile.products initialQuery then
                 ExploratoryTab
 
             else
@@ -238,7 +238,7 @@ initFromExample session uuid =
       , impact = Definition.get Definition.Ecs session.db.definitions
       , modal = NoModal
       , activeTab =
-            if Query.isAdvancedQuery exampleQuery then
+            if Query.isAdvancedQuery session.db.textile.products exampleQuery then
                 ExploratoryTab
 
             else
@@ -310,7 +310,7 @@ update ({ queries, navKey } as session) msg model =
 
         ( ConfirmSwitchToRegulatory, _ ) ->
             ( { model | modal = NoModal, activeTab = RegulatoryTab }, session, Cmd.none )
-                |> updateQuery (Query.regulatory query)
+                |> updateQuery (Query.regulatory session.db.textile.products query)
 
         ( CopyToClipBoard shareableLink, _ ) ->
             ( model, session, Ports.copyToClipboard shareableLink )
@@ -539,7 +539,7 @@ update ({ queries, navKey } as session) msg model =
             )
 
         ( SwitchTab RegulatoryTab, _ ) ->
-            if Query.isAdvancedQuery query then
+            if Query.isAdvancedQuery session.db.textile.products query then
                 ( { model | modal = ConfirmSwitchToRegulatoryModal }, session, Cmd.none )
 
             else
