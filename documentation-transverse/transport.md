@@ -1,5 +1,11 @@
 # 🚚 Transport
 
+{% hint style="info" %}
+Cette page décrit les principes communs aux différents types de produits susceptibles d'être modélisés dans Ecobalyse.&#x20;
+
+Le cas échéant, les spécificités relatives à chaque produit sont décrites dans la documentation métier correspondante.
+{% endhint %}
+
 ## Principales étapes de transport <a href="#distribution" id="distribution"></a>
 
 Les étapes de transport prisent en compte dans le coût environnemental du produit sont de trois types : &#x20;
