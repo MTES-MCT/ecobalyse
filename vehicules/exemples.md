@@ -8,7 +8,7 @@ Le premier champ proposé sur le simulateur Ecobalyse propose de sélectionner u
 
 <figure><img src="../.gitbook/assets/image (295).png" alt=""><figcaption><p>Capture d'écran (01/04/2024)</p></figcaption></figure>
 
-Les différents exemples proposés permettent d'initier la modélisation d'un véhicule à partir d'un exemple similaire. **Ce choix initial permet de faciliter les modélisation mais ne remplace ensuite pas le paramétrage de chacun des champs proposés**. La page de documentation "[Paramétrage](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/887/textile/parametrage)" précise les paramètres qui peuvent ou doivent être renseignés suivant l'utilisation qui est faite de l'outil.
+Les différents exemples proposés permettent d'initier la modélisation d'un véhicule à partir d'un exemple similaire. **Ce choix initial permet de faciliter les modélisation mais ne remplace ensuite pas le paramétrage de chacun des champs proposés**. La page de documentation "[Paramétrage](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/887/textile/parametrage)" précise les paramètres qui peuvent ou doivent être renseignés suivant l'utilisation qui est faite de l'outil.
 
 Deux types d'exemples sont proposés en première approche :
 
@@ -62,22 +62,4 @@ Les exemples de paramètres suivants sont considérés :&#x20;
 <figure><img src="../.gitbook/assets/image (331).png" alt=""><figcaption><p>CC : Châssis Carrosserie, quantités exprimées en kg, sauf la capacité des batteries, quantités pour les jantes et pneumatiques exprimées par roue.</p></figcaption></figure>
 
 Pour la catégorie "Autre", les paramètres correspondent aux données du modèle GREET pour un véhicule de 1.6t.
-
-### Nombre de roues R par catégorie de véhicule
-
-Un nombre de roues est fixé par défaut pour la plupart des catégories de véhicules :
-
-| Catégories | Nb de roues |
-| ---------- | ----------- |
-| VAE        | 3\*         |
-| L1e        | 2           |
-| L1e-A      | 2           |
-| L1e-B      | 2           |
-| L2e        | 3           |
-| L3e        | 2           |
-| L4e        | 3           |
-| L5e        | 3           |
-| L6e        | 4           |
-| L7e        | 4           |
-| Autre      | 4\*         |
 

@@ -26,7 +26,11 @@ Le cycle comporte 3 phases, applicable ou non selon la vitesse maximale du véhi
 
 <figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
-#### Cas particulier des velis actif ou équipés de panneaux photovoltaïques
+### Correction spécifique pour les véhicules hybrides rechargeables
+
+Au regard des [écarts constatés par la commission européenne](https://climate.ec.europa.eu/news-your-voice/news/first-commission-report-real-world-co2-emissions-cars-and-vans-using-data-board-fuel-consumption-2024-03-18_en) entre les consommations réelles et les consommations WLTP des véhicules hybrides rechargeables, leurs consommations normées de diesel ou essence sont multipliées par Eobalyse par 2.&#x20;
+
+### Cas particulier des véhicules électriques actif ou équipés de panneaux photovoltaïques
 
 La consommation électrique est calculée comme suit :&#x20;
 
@@ -41,9 +45,11 @@ Avec :&#x20;
 * Ep : l'énergie apportée par pédalage, pour les véhicules actifs, établie par la classe WMTC, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la page dédiée
 * Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
 
-### Correction spécifique pour les véhicules hybrides rechargeables
+_A des fins de simplification, ces dispositions ne s'appliquent qu'aux véhicules électriques :_
 
-Au regard des [écarts constatés par la commission européenne](https://climate.ec.europa.eu/news-your-voice/news/first-commission-report-real-world-co2-emissions-cars-and-vans-using-data-board-fuel-consumption-2024-03-18_en) entre les consommations réelles et les consommations WLTP des véhicules hybrides rechargeables, leurs consommations normées de diesel ou essence sont multipliées par Eobalyse par 2.&#x20;
+* _L'impact sur la consommation est jugé non significatif pour des véhicules non-électriques_
+* _La quantification de l'impact implique une conversion en termes de réduction de consommation de carburant, qui est ainsi évitée ici_
+* _Ces dispositions sont peu pertinentes (impact peu significatif) pour des voitures électriques, mais y sont appliquées pour éviter de différencier le calcul d'un type de véhicule à un autre._
 
 ## Durée de vie des véhicules
 
@@ -67,7 +73,7 @@ Avec :&#x20;
 
 L'utilisateur renseigne les informations suivantes :
 
-* Consommation du véhicule selon le cycle WMTC ou WLTC (kWh/100km ou L/100km)
+* Consommation du véhicule selon le cycle WMTC ou la procédure WLTP (kWh/100km ou L/100km)
 * Apport d'énergie par pédalage (Oui/Non)
 * Durée de vie du véhicule (en années)
 * Kilométrage annuel (en km/an)
