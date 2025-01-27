@@ -1,5 +1,6 @@
 [
   {
+    "alias": "egg-bleublanccoeur",
     "categories": ["animal_product", "bleublanccoeur"],
     "default": "AGRIBALU000000003105149",
     "default_origin": "France",
@@ -22,6 +23,7 @@
     "visible": true
   },
   {
+    "alias": "milk",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003104145",
     "default_origin": "France",
@@ -44,6 +46,7 @@
     "visible": true
   },
   {
+    "alias": "milk-organic",
     "categories": ["dairy_product", "organic"],
     "default": "843986b19b3ea959b8817afda669dead",
     "default_origin": "France",
@@ -66,6 +69,7 @@
     "visible": true
   },
   {
+    "alias": "carrot-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
@@ -87,6 +91,7 @@
     "visible": true
   },
   {
+    "alias": "flour",
     "categories": ["grain_processed"],
     "crop_group": "BLE TENDRE",
     "default": "AGRIBALU000000003116999",
@@ -108,6 +113,7 @@
     "visible": true
   },
   {
+    "alias": "flour-organic",
     "categories": ["grain_processed", "organic"],
     "crop_group": "BLE TENDRE",
     "default": "4a9ea0a29fbde60e2d1fc5c33d8a4f3a",
@@ -129,6 +135,7 @@
     "visible": true
   },
   {
+    "alias": "sunflower-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "TOURNESOL",
     "default": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
@@ -150,6 +157,7 @@
     "visible": true
   },
   {
+    "alias": "sunflower-feed-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115221",
@@ -171,6 +179,7 @@
     "visible": false
   },
   {
+    "alias": "rapeseed-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "COLZA",
     "default": "AGRIBALU000024985200196",
@@ -192,6 +201,7 @@
     "visible": true
   },
   {
+    "alias": "ground-beef",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003107081",
     "default_origin": "France",
@@ -214,6 +224,7 @@
     "visible": true
   },
   {
+    "alias": "ground-beef-organic",
     "categories": ["animal_product", "organic"],
     "default": "67f1a99d8093f1b2b3e4e7f8b292953c",
     "default_origin": "France",
@@ -236,6 +247,7 @@
     "visible": true
   },
   {
+    "alias": "ground-beef-feedlot",
     "categories": ["animal_product"],
     "default": "6fcaacd84b90aec94cf924041ff09fc9",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -258,6 +270,7 @@
     "visible": true
   },
   {
+    "alias": "ground-beef-grass-fed",
     "categories": ["animal_product", "organic"],
     "default": "51c8f8e74c9ade89850e7b4b8a4efc59",
     "default_origin": "France",
@@ -280,6 +293,7 @@
     "visible": true
   },
   {
+    "alias": "cooked-ham",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003103910",
     "default_origin": "France",
@@ -302,6 +316,7 @@
     "visible": true
   },
   {
+    "alias": "cooked-ham-organic",
     "categories": ["animal_product", "organic"],
     "default": "3fc68b77b276cfc781ed546ec32b84f5",
     "default_origin": "France",
@@ -324,6 +339,7 @@
     "visible": true
   },
   {
+    "alias": "cooked-ham-fr",
     "categories": ["animal_product"],
     "default": "bbbce945e38218c05c671aa17bcedbe2",
     "default_origin": "France",
@@ -346,6 +362,7 @@
     "visible": true
   },
   {
+    "alias": "chicken-breast",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003109221",
     "default_origin": "France",
@@ -368,6 +385,7 @@
     "visible": true
   },
   {
+    "alias": "chicken-breast-organic",
     "categories": ["animal_product", "organic"],
     "default": "d41682caea2d55a3b95173f276b9d903",
     "default_origin": "France",
@@ -390,6 +408,7 @@
     "visible": true
   },
   {
+    "alias": "chicken-breast-fr-organic",
     "categories": ["animal_product", "organic"],
     "default": "fc9b8a819a1ba51b4fbca210d0771198",
     "default_origin": "France",
@@ -412,6 +431,7 @@
     "visible": false
   },
   {
+    "alias": "rapeseed-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "COLZA",
     "default": "AGRIBALU000000003112448",
@@ -433,6 +453,7 @@
     "visible": true
   },
   {
+    "alias": "rapeseed-oil-organic",
     "categories": ["nut_oilseed_processed", "organic"],
     "crop_group": "COLZA",
     "default": "425b95709f7882fa60c6b42f3add1873",
@@ -454,6 +475,7 @@
     "visible": true
   },
   {
+    "alias": "sunflower-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115182",
@@ -475,6 +497,7 @@
     "visible": true
   },
   {
+    "alias": "sunflower-oil-organic",
     "categories": ["nut_oilseed_processed", "organic"],
     "crop_group": "TOURNESOL",
     "default": "2735a9eb9848c97f9e70fd94f051fb2a",
@@ -496,6 +519,7 @@
     "visible": true
   },
   {
+    "alias": "zucchini-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200219",
@@ -517,6 +541,7 @@
     "visible": true
   },
   {
+    "alias": "peach-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110947",
@@ -538,6 +563,7 @@
     "visible": true
   },
   {
+    "alias": "melon-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200102",
@@ -559,6 +585,7 @@
     "visible": true
   },
   {
+    "alias": "butter",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003102321",
     "default_origin": "France",
@@ -574,6 +601,7 @@
     "visible": true
   },
   {
+    "alias": "butter-organic",
     "categories": ["dairy_product", "organic"],
     "default": "4ada2b1db5db813770f5ec73a5b1c109",
     "default_origin": "France",
@@ -589,6 +617,7 @@
     "visible": true
   },
   {
+    "alias": "tap-water",
     "categories": [],
     "default": "AGRIBALU000000003115449",
     "default_origin": "EuropeAndMaghreb",
@@ -604,6 +633,7 @@
     "visible": true
   },
   {
+    "alias": "comte-aop",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003103732",
     "default_origin": "France",
@@ -619,6 +649,7 @@
     "visible": true
   },
   {
+    "alias": "emmental",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003105529",
     "default_origin": "France",
@@ -634,6 +665,7 @@
     "visible": true
   },
   {
+    "alias": "mozzarella",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003110032",
     "default_origin": "France",
@@ -649,6 +681,7 @@
     "visible": true
   },
   {
+    "alias": "beetroot-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
@@ -670,6 +703,7 @@
     "visible": true
   },
   {
+    "alias": "celeriac-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
@@ -691,6 +725,7 @@
     "visible": true
   },
   {
+    "alias": "turnip-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102611",
@@ -712,6 +747,7 @@
     "visible": true
   },
   {
+    "alias": "chickpea-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "AGRIBALU000024985200193",
@@ -733,6 +769,7 @@
     "visible": true
   },
   {
+    "alias": "soybean-humanconsumption",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000024985200128",
@@ -754,6 +791,7 @@
     "visible": true
   },
   {
+    "alias": "soybean-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000000003114674",
@@ -775,6 +813,7 @@
     "visible": true
   },
   {
+    "alias": "soybean-br-no-deforestation",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000024985200001",
@@ -796,6 +835,7 @@
     "visible": true
   },
   {
+    "alias": "soybean-br-deforestation",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000024985200302",
@@ -817,6 +857,7 @@
     "visible": true
   },
   {
+    "alias": "soybean-feed",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000000003114580",
@@ -838,6 +879,7 @@
     "visible": false
   },
   {
+    "alias": "sausage-meat",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003113461",
     "default_origin": "France",
@@ -853,6 +895,7 @@
     "visible": true
   },
   {
+    "alias": "sausage-toulouse",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003115859",
     "default_origin": "France",
@@ -868,6 +911,7 @@
     "visible": true
   },
   {
+    "alias": "sausage-toulouse-cooked",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003115854",
     "default_origin": "France",
@@ -883,6 +927,7 @@
     "visible": true
   },
   {
+    "alias": "sausage-tofu",
     "categories": [],
     "default": "AGRIBALU000000003111467",
     "default_origin": "France",
@@ -898,6 +943,7 @@
     "visible": true
   },
   {
+    "alias": "tomato-paste",
     "categories": ["vegetable_processed"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115655",
@@ -919,6 +965,7 @@
     "visible": true
   },
   {
+    "alias": "tomato-concentrated",
     "categories": ["vegetable_processed"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115656",
@@ -940,6 +987,7 @@
     "visible": true
   },
   {
+    "alias": "beef-with-bone",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003109214",
     "default_origin": "France",
@@ -962,6 +1010,7 @@
     "visible": true
   },
   {
+    "alias": "beef-without-bone",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003109219",
     "default_origin": "France",
@@ -984,6 +1033,7 @@
     "visible": true
   },
   {
+    "alias": "beef-without-bone-organic",
     "categories": ["animal_product"],
     "default": "f66ba18359adc61e5988ed8a7cf24b3e",
     "default_origin": "EuropeAndMaghreb",
@@ -1006,6 +1056,7 @@
     "visible": true
   },
   {
+    "alias": "durum-wheat-semolina",
     "categories": ["grain_processed"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105079",
@@ -1027,6 +1078,7 @@
     "visible": true
   },
   {
+    "alias": "sugar",
     "categories": ["vegetable_processed"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003109942",
@@ -1048,6 +1100,7 @@
     "visible": true
   },
   {
+    "alias": "dark-chocolate",
     "categories": ["vegetable_processed"],
     "default": "AGRIBALU000000003104661",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -1064,6 +1117,7 @@
     "visible": true
   },
   {
+    "alias": "chicken-breast-br-max",
     "categories": ["animal_product"],
     "default": "b9f380cbd26fef2f30b16cbe06edd732",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -1086,6 +1140,7 @@
     "visible": true
   },
   {
+    "alias": "chicken-breast-fr",
     "categories": ["animal_product"],
     "default": "862a53ceeeaf072c8528a71d2fa6a027",
     "default_origin": "France",
@@ -1108,6 +1163,7 @@
     "visible": false
   },
   {
+    "alias": "cane-sugar",
     "categories": ["vegetable_processed"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003102182",
@@ -1129,6 +1185,7 @@
     "visible": true
   },
   {
+    "alias": "tea-dried",
     "categories": ["misc"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003115509",
@@ -1150,6 +1207,7 @@
     "visible": true
   },
   {
+    "alias": "coffee-ground",
     "categories": ["misc"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003103623",
@@ -1171,6 +1229,7 @@
     "visible": true
   },
   {
+    "alias": "black-pepper",
     "categories": ["spice_condiment_additive"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003101545",
@@ -1192,6 +1251,7 @@
     "visible": true
   },
   {
+    "alias": "milk-powder",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003109401",
     "default_origin": "France",
@@ -1207,6 +1267,7 @@
     "visible": true
   },
   {
+    "alias": "red-wine",
     "categories": ["misc"],
     "crop_group": "VIGNES",
     "default": "AGRIBALU000000003112590",
@@ -1228,6 +1289,7 @@
     "visible": true
   },
   {
+    "alias": "fresh-shrimps",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003106282",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -1243,6 +1305,7 @@
     "visible": true
   },
   {
+    "alias": "large-trout",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003108470",
     "default_origin": "France",
@@ -1258,6 +1321,7 @@
     "visible": true
   },
   {
+    "alias": "egg-indoor-code2",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003105152",
     "default_origin": "France",
@@ -1280,6 +1344,7 @@
     "visible": true
   },
   {
+    "alias": "egg-indoor-code3",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003105151",
     "default_origin": "France",
@@ -1302,6 +1367,7 @@
     "visible": true
   },
   {
+    "alias": "egg-outdoor-code1",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003105153",
     "default_origin": "France",
@@ -1324,6 +1390,7 @@
     "visible": true
   },
   {
+    "alias": "egg-organic-code0",
     "categories": ["animal_product", "organic"],
     "default": "AGRIBALU000000003105163",
     "default_origin": "France",
@@ -1346,6 +1413,7 @@
     "visible": true
   },
   {
+    "alias": "wine-grape-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VIGNES",
     "default": "e05934df-fd40-4110-a610-0bd686911f2e",
@@ -1367,6 +1435,7 @@
     "visible": true
   },
   {
+    "alias": "lamb-meat-without-bone",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003109223",
     "default_origin": "France",
@@ -1389,6 +1458,7 @@
     "visible": true
   },
   {
+    "alias": "lamb-meat-without-bone-organic",
     "categories": ["animal_product"],
     "default": "f025b4a41c45eabdb2510795b3353ca4",
     "default_origin": "France",
@@ -1411,6 +1481,7 @@
     "visible": true
   },
   {
+    "alias": "pear-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "57c2fff4-6ad8-4524-a81a-dacdae11deed",
@@ -1432,6 +1503,7 @@
     "visible": true
   },
   {
+    "alias": "carrot-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102592",
@@ -1453,6 +1525,7 @@
     "visible": true
   },
   {
+    "alias": "carrot-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102563",
@@ -1474,6 +1547,7 @@
     "visible": true
   },
   {
+    "alias": "carrot-non-ue",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102564",
@@ -1495,6 +1569,7 @@
     "visible": true
   },
   {
+    "alias": "zucchini-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200218",
@@ -1516,6 +1591,7 @@
     "visible": true
   },
   {
+    "alias": "zucchini-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003117541",
@@ -1537,6 +1613,7 @@
     "visible": true
   },
   {
+    "alias": "pear-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003111019",
@@ -1558,6 +1635,7 @@
     "visible": true
   },
   {
+    "alias": "pear-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003111005",
@@ -1579,6 +1657,7 @@
     "visible": true
   },
   {
+    "alias": "peach-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110952",
@@ -1600,6 +1679,7 @@
     "visible": true
   },
   {
+    "alias": "peach-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110917",
@@ -1621,6 +1701,7 @@
     "visible": true
   },
   {
+    "alias": "melon-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003109266",
@@ -1642,6 +1723,7 @@
     "visible": true
   },
   {
+    "alias": "melon-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003109266",
@@ -1663,6 +1745,7 @@
     "visible": true
   },
   {
+    "alias": "potato-industry-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200170",
@@ -1684,6 +1767,7 @@
     "visible": true
   },
   {
+    "alias": "potato-table-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200169",
@@ -1705,6 +1789,7 @@
     "visible": true
   },
   {
+    "alias": "potato-starch",
     "categories": ["vegetable_processed"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003111897",
@@ -1726,6 +1811,7 @@
     "visible": true
   },
   {
+    "alias": "onion-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110467",
@@ -1747,6 +1833,7 @@
     "visible": true
   },
   {
+    "alias": "onion-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110441",
@@ -1768,6 +1855,7 @@
     "visible": true
   },
   {
+    "alias": "onion-non-ue",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110442",
@@ -1789,6 +1877,7 @@
     "visible": true
   },
   {
+    "alias": "eggplant-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200218",
@@ -1810,6 +1899,7 @@
     "visible": true
   },
   {
+    "alias": "eggplant-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200218",
@@ -1831,6 +1921,7 @@
     "visible": true
   },
   {
+    "alias": "french-bean-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200072",
@@ -1852,6 +1943,7 @@
     "visible": true
   },
   {
+    "alias": "french-bean-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200072",
@@ -1873,6 +1965,7 @@
     "visible": true
   },
   {
+    "alias": "french-bean-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200072",
@@ -1894,6 +1987,7 @@
     "visible": true
   },
   {
+    "alias": "lettuce-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108668",
@@ -1915,6 +2009,7 @@
     "visible": true
   },
   {
+    "alias": "lettuce-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
@@ -1936,6 +2031,7 @@
     "visible": true
   },
   {
+    "alias": "lettuce-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
@@ -1957,6 +2053,7 @@
     "visible": true
   },
   {
+    "alias": "garden-peas-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200024",
@@ -1978,6 +2075,7 @@
     "visible": true
   },
   {
+    "alias": "garden-peas-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200024",
@@ -1999,6 +2097,7 @@
     "visible": true
   },
   {
+    "alias": "cherry-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003102916",
@@ -2020,6 +2119,7 @@
     "visible": true
   },
   {
+    "alias": "lemon-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003108561",
@@ -2041,6 +2141,7 @@
     "visible": true
   },
   {
+    "alias": "plum-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003102916",
@@ -2062,6 +2163,7 @@
     "visible": true
   },
   {
+    "alias": "squash-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200218",
@@ -2083,6 +2185,7 @@
     "visible": true
   },
   {
+    "alias": "squash-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003117541",
@@ -2104,6 +2207,7 @@
     "visible": true
   },
   {
+    "alias": "squash-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200219",
@@ -2125,6 +2229,7 @@
     "visible": true
   },
   {
+    "alias": "tomato-heated-greenhouse-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115752",
@@ -2146,6 +2251,7 @@
     "visible": true
   },
   {
+    "alias": "tomato-greenhouse-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115753",
@@ -2167,6 +2273,7 @@
     "visible": true
   },
   {
+    "alias": "tomato-greenhouse-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115743",
@@ -2188,6 +2295,7 @@
     "visible": true
   },
   {
+    "alias": "apricot-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100510",
@@ -2209,6 +2317,7 @@
     "visible": true
   },
   {
+    "alias": "apricot-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100510",
@@ -2230,6 +2339,7 @@
     "visible": true
   },
   {
+    "alias": "hazelnut-non-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107313",
@@ -2251,6 +2361,7 @@
     "visible": true
   },
   {
+    "alias": "hazelnut-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107312",
@@ -2272,6 +2383,7 @@
     "visible": true
   },
   {
+    "alias": "hazelnut-unshelled-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107318",
@@ -2293,6 +2405,7 @@
     "visible": true
   },
   {
+    "alias": "hazelnut-unshelled-non-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107319",
@@ -2314,6 +2427,7 @@
     "visible": true
   },
   {
+    "alias": "artichoke-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102661",
@@ -2335,6 +2449,7 @@
     "visible": true
   },
   {
+    "alias": "artichoke-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "d7630e82-2b60-46cc-b50d-451a32e0887e",
@@ -2356,6 +2471,7 @@
     "visible": true
   },
   {
+    "alias": "cauliflower-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200052",
@@ -2377,6 +2493,7 @@
     "visible": true
   },
   {
+    "alias": "cauliflower-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
@@ -2398,6 +2515,7 @@
     "visible": true
   },
   {
+    "alias": "leek-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108547",
@@ -2419,6 +2537,7 @@
     "visible": true
   },
   {
+    "alias": "beetroot-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003102592",
@@ -2440,6 +2559,7 @@
     "visible": true
   },
   {
+    "alias": "turnip-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102592",
@@ -2461,6 +2581,7 @@
     "visible": true
   },
   {
+    "alias": "turnip-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102563",
@@ -2482,6 +2603,7 @@
     "visible": true
   },
   {
+    "alias": "turnip-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102564",
@@ -2503,6 +2625,7 @@
     "visible": true
   },
   {
+    "alias": "chinese-cabbage-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
@@ -2524,6 +2647,7 @@
     "visible": true
   },
   {
+    "alias": "chinese-cabbage-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
@@ -2545,6 +2669,7 @@
     "visible": true
   },
   {
+    "alias": "white-cabbage-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102347",
@@ -2566,6 +2691,7 @@
     "visible": true
   },
   {
+    "alias": "green-cabbage-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
@@ -2587,6 +2713,7 @@
     "visible": true
   },
   {
+    "alias": "green-cabbage-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200052",
@@ -2608,6 +2735,7 @@
     "visible": true
   },
   {
+    "alias": "red-cabbage-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102346",
@@ -2629,6 +2757,7 @@
     "visible": true
   },
   {
+    "alias": "shallot-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110467",
@@ -2650,6 +2779,7 @@
     "visible": true
   },
   {
+    "alias": "orange-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110507",
@@ -2671,6 +2801,7 @@
     "visible": true
   },
   {
+    "alias": "orange-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003110506",
@@ -2692,6 +2823,7 @@
     "visible": true
   },
   {
+    "alias": "olive-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "OLIVIERS",
     "default": "AGRIBALU000000003110400",
@@ -2713,6 +2845,7 @@
     "visible": true
   },
   {
+    "alias": "rapeseed-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "COLZA",
     "default": "AGRIBALU000000003112430",
@@ -2734,6 +2867,7 @@
     "visible": true
   },
   {
+    "alias": "rapeseed-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "COLZA",
     "default": "AGRIBALU000000003112456",
@@ -2755,6 +2889,7 @@
     "visible": true
   },
   {
+    "alias": "rapeseed-non-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "COLZA",
     "default": "AGRIBALU000000003112455",
@@ -2776,6 +2911,7 @@
     "visible": true
   },
   {
+    "alias": "pistachio-non-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003110959",
@@ -2797,6 +2933,7 @@
     "visible": true
   },
   {
+    "alias": "peanut-non-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003110960",
@@ -2818,6 +2955,7 @@
     "visible": true
   },
   {
+    "alias": "olive-oil-eu",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "OLIVIERS",
     "default": "AGRIBALU000000003105719",
@@ -2839,6 +2977,7 @@
     "visible": true
   },
   {
+    "alias": "avocado-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100748",
@@ -2860,6 +2999,7 @@
     "visible": true
   },
   {
+    "alias": "chickpea-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "AGRIBALU000024985200192",
@@ -2881,6 +3021,7 @@
     "visible": true
   },
   {
+    "alias": "sunflower-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115216",
@@ -2902,6 +3043,7 @@
     "visible": true
   },
   {
+    "alias": "sunflower-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115218",
@@ -2923,6 +3065,7 @@
     "visible": true
   },
   {
+    "alias": "sunflower-non-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115217",
@@ -2944,6 +3087,7 @@
     "visible": true
   },
   {
+    "alias": "kiwi-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003108090",
@@ -2965,6 +3109,7 @@
     "visible": true
   },
   {
+    "alias": "kiwi-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003108089",
@@ -2986,6 +3131,7 @@
     "visible": true
   },
   {
+    "alias": "kiwi-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003108089",
@@ -3007,6 +3153,7 @@
     "visible": true
   },
   {
+    "alias": "mango-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003109086",
@@ -3028,6 +3175,7 @@
     "visible": true
   },
   {
+    "alias": "spinach-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003114717",
@@ -3049,6 +3197,7 @@
     "visible": true
   },
   {
+    "alias": "fennel-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003105790",
@@ -3070,6 +3219,7 @@
     "visible": true
   },
   {
+    "alias": "fennel-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003105790",
@@ -3091,6 +3241,7 @@
     "visible": true
   },
   {
+    "alias": "broccoli-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102101",
@@ -3112,6 +3263,7 @@
     "visible": true
   },
   {
+    "alias": "blueberry-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101680",
@@ -3133,6 +3285,7 @@
     "visible": true
   },
   {
+    "alias": "raspberry-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003112470",
@@ -3154,6 +3307,7 @@
     "visible": true
   },
   {
+    "alias": "strawberry-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200014",
@@ -3175,6 +3329,7 @@
     "visible": true
   },
   {
+    "alias": "strawberry-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200015",
@@ -3196,6 +3351,7 @@
     "visible": true
   },
   {
+    "alias": "banana-wi",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100930",
@@ -3217,6 +3373,7 @@
     "visible": true
   },
   {
+    "alias": "banana-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100924",
@@ -3238,6 +3395,7 @@
     "visible": true
   },
   {
+    "alias": "cucumber-fr-inseason",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115753",
@@ -3259,6 +3417,7 @@
     "visible": true
   },
   {
+    "alias": "cucumber-fr-offseason",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003104392",
@@ -3280,6 +3439,7 @@
     "visible": true
   },
   {
+    "alias": "cucumber-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003104392",
@@ -3301,6 +3461,7 @@
     "visible": true
   },
   {
+    "alias": "strawberry-fr-inseason",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200146",
@@ -3322,6 +3483,7 @@
     "visible": true
   },
   {
+    "alias": "strawberry-fr-offseason",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115025",
@@ -3343,6 +3505,7 @@
     "visible": true
   },
   {
+    "alias": "celery-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102720",
@@ -3364,6 +3527,7 @@
     "visible": true
   },
   {
+    "alias": "celery-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102720",
@@ -3385,6 +3549,7 @@
     "visible": true
   },
   {
+    "alias": "celeriac-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102592",
@@ -3406,6 +3571,7 @@
     "visible": true
   },
   {
+    "alias": "celeriac-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102563",
@@ -3427,6 +3593,7 @@
     "visible": true
   },
   {
+    "alias": "celeriac-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102564",
@@ -3448,6 +3615,7 @@
     "visible": true
   },
   {
+    "alias": "walnut-inshell-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003116663",
@@ -3469,6 +3637,7 @@
     "visible": true
   },
   {
+    "alias": "walnut-husked-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003116668",
@@ -3490,6 +3659,7 @@
     "visible": true
   },
   {
+    "alias": "chestnut-husked-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003116668",
@@ -3511,6 +3681,7 @@
     "visible": true
   },
   {
+    "alias": "chestnut-inshell-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003116662",
@@ -3532,6 +3703,7 @@
     "visible": true
   },
   {
+    "alias": "mandarin-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003109060",
@@ -3553,6 +3725,7 @@
     "visible": true
   },
   {
+    "alias": "mushroom-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003100184",
@@ -3574,6 +3747,7 @@
     "visible": true
   },
   {
+    "alias": "brussels-sprout-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
@@ -3595,6 +3769,7 @@
     "visible": true
   },
   {
+    "alias": "brussels-sprout-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200052",
@@ -3616,6 +3791,7 @@
     "visible": true
   },
   {
+    "alias": "lentils-uncooked-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "WFLDBQUA000001234501500",
@@ -3637,6 +3813,7 @@
     "visible": true
   },
   {
+    "alias": "curly-kale-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
@@ -3658,6 +3835,7 @@
     "visible": true
   },
   {
+    "alias": "curly-kale-organic",
     "categories": ["organic", "vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200052",
@@ -3679,6 +3857,7 @@
     "visible": true
   },
   {
+    "alias": "pumpkin-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003117541",
@@ -3700,6 +3879,7 @@
     "visible": true
   },
   {
+    "alias": "clementine-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003103409",
@@ -3721,6 +3901,7 @@
     "visible": true
   },
   {
+    "alias": "endive-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108668",
@@ -3742,6 +3923,7 @@
     "visible": true
   },
   {
+    "alias": "endive-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
@@ -3763,6 +3945,7 @@
     "visible": true
   },
   {
+    "alias": "wine-grape-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "VIGNES",
     "default": "AGRIBALU000000003106864",
@@ -3784,6 +3967,7 @@
     "visible": true
   },
   {
+    "alias": "lambs-lettuce-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108668",
@@ -3805,6 +3989,7 @@
     "visible": true
   },
   {
+    "alias": "lambs-lettuce-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
@@ -3826,6 +4011,7 @@
     "visible": true
   },
   {
+    "alias": "sweet-corn-fr",
     "categories": ["grain_raw"],
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000024985200100",
@@ -3847,6 +4033,7 @@
     "visible": true
   },
   {
+    "alias": "sweet-corn-organic-fr",
     "categories": ["grain_raw"],
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000000003106825",
@@ -3868,6 +4055,7 @@
     "visible": true
   },
   {
+    "alias": "sweet-corn-br",
     "categories": ["grain_raw"],
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000000003109026",
@@ -3889,6 +4077,7 @@
     "visible": true
   },
   {
+    "alias": "pineapple-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003111283",
@@ -3910,6 +4099,7 @@
     "visible": true
   },
   {
+    "alias": "broad-beans-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003105780",
@@ -3931,6 +4121,7 @@
     "visible": true
   },
   {
+    "alias": "broad-beans-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003105780",
@@ -3952,6 +4143,7 @@
     "visible": true
   },
   {
+    "alias": "swiss-chard-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003114717",
@@ -3973,6 +4165,7 @@
     "visible": true
   },
   {
+    "alias": "swiss-chard-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003114717",
@@ -3994,6 +4187,7 @@
     "visible": true
   },
   {
+    "alias": "flageolet-bean-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003105780",
@@ -4015,6 +4209,7 @@
     "visible": true
   },
   {
+    "alias": "flageolet-bean-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003105780",
@@ -4036,6 +4231,7 @@
     "visible": true
   },
   {
+    "alias": "rice-basmati-non-eu",
     "categories": ["grain_raw"],
     "crop_group": "RIZ",
     "default": "AGRIBALU000000003112687",
@@ -4057,6 +4253,7 @@
     "visible": true
   },
   {
+    "alias": "soft-wheat-organic",
     "categories": ["grain_raw", "organic"],
     "crop_group": "BLE TENDRE",
     "default": "bdd14c2017eaf0cda1e207e74012c391",
@@ -4078,6 +4275,7 @@
     "visible": true
   },
   {
+    "alias": "soft-wheat-fr",
     "categories": ["grain_raw"],
     "crop_group": "BLE TENDRE",
     "default": "AGRIBALU000024985200247",
@@ -4099,6 +4297,7 @@
     "visible": true
   },
   {
+    "alias": "soft-wheat-non-eu",
     "categories": ["grain_raw"],
     "crop_group": "BLE TENDRE",
     "default": "AGRIBALU000000003117044",
@@ -4120,6 +4319,7 @@
     "visible": true
   },
   {
+    "alias": "durum-wheat-fr",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000024985200066",
@@ -4141,6 +4341,7 @@
     "visible": true
   },
   {
+    "alias": "durum-wheat-eu",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105055",
@@ -4162,6 +4363,7 @@
     "visible": true
   },
   {
+    "alias": "durum-wheat-non-eu",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105051",
@@ -4183,6 +4385,7 @@
     "visible": true
   },
   {
+    "alias": "apple-organic",
     "categories": ["organic", "vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
@@ -4204,6 +4407,7 @@
     "visible": true
   },
   {
+    "alias": "apple-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100459",
@@ -4225,6 +4429,7 @@
     "visible": true
   },
   {
+    "alias": "potato-table-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
@@ -4246,6 +4451,7 @@
     "visible": true
   },
   {
+    "alias": "potato-industry-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "f839b523-b133-430f-9533-419b862e69e9",
@@ -4267,6 +4473,7 @@
     "visible": true
   },
   {
+    "alias": "kiwi-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
@@ -4288,6 +4495,7 @@
     "visible": true
   },
   {
+    "alias": "red-cabbage-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
@@ -4309,6 +4517,7 @@
     "visible": true
   },
   {
+    "alias": "sugar-beet-organic",
     "categories": ["vegetable_processed", "organic"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "83ef3fba-9359-4f51-9f10-234c0e940b88",
@@ -4330,6 +4539,7 @@
     "visible": true
   },
   {
+    "alias": "papaya-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
@@ -4351,6 +4561,7 @@
     "visible": true
   },
   {
+    "alias": "tomato-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "b43ae38e-a9f6-4272-b258-14faea6ec795",
@@ -4372,6 +4583,7 @@
     "visible": true
   },
   {
+    "alias": "pineapple-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
@@ -4393,6 +4605,7 @@
     "visible": true
   },
   {
+    "alias": "garden-peas-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "74a016ae-d486-4766-adfd-e44697b7be2f",
@@ -4414,6 +4627,7 @@
     "visible": true
   },
   {
+    "alias": "almond-inshell-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "FRUITS A COQUES",
     "default": "b97e29ab-81b0-478e-b73b-4113aaf68470",
@@ -4435,6 +4649,7 @@
     "visible": true
   },
   {
+    "alias": "lettuce-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
@@ -4456,6 +4671,7 @@
     "visible": true
   },
   {
+    "alias": "mango-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
@@ -4477,6 +4693,7 @@
     "visible": true
   },
   {
+    "alias": "lychee-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
@@ -4498,6 +4715,7 @@
     "visible": true
   },
   {
+    "alias": "lychee-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003109086",
@@ -4519,6 +4737,7 @@
     "visible": true
   },
   {
+    "alias": "oats-glo",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003110378",
@@ -4540,6 +4759,7 @@
     "visible": false
   },
   {
+    "alias": "oats-organic",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003114832",
@@ -4561,6 +4781,7 @@
     "visible": false
   },
   {
+    "alias": "barley",
     "categories": ["grain_raw"],
     "crop_group": "ORGE",
     "default": "AGRIBALU000000003100974",
@@ -4582,6 +4803,7 @@
     "visible": false
   },
   {
+    "alias": "barley-organic",
     "categories": ["grain_raw"],
     "crop_group": "ORGE",
     "default": "AGRIBALU000000003100976",
@@ -4603,6 +4825,7 @@
     "visible": false
   },
   {
+    "alias": "banana-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
@@ -4624,6 +4847,7 @@
     "visible": true
   },
   {
+    "alias": "orange-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "1716c0e6-7a04-4649-a71f-08a495eb094e",
@@ -4645,6 +4869,7 @@
     "visible": true
   },
   {
+    "alias": "lemon-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
@@ -4666,6 +4891,7 @@
     "visible": true
   },
   {
+    "alias": "celery-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
@@ -4687,6 +4913,7 @@
     "visible": true
   },
   {
+    "alias": "olive-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "OLIVIERS",
     "default": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
@@ -4708,6 +4935,7 @@
     "visible": true
   },
   {
+    "alias": "peanut-organic",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
@@ -4729,6 +4957,7 @@
     "visible": true
   },
   {
+    "alias": "raspberry-organic",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
@@ -4750,6 +4979,7 @@
     "visible": true
   },
   {
+    "alias": "lambs-lettuce-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
@@ -4771,6 +5001,7 @@
     "visible": true
   },
   {
+    "alias": "endive-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "6842d570-6b53-49f3-ba9c-984b55e40171",
@@ -4792,6 +5023,7 @@
     "visible": true
   },
   {
+    "alias": "durum-wheat-organic",
     "categories": ["grain_raw", "organic"],
     "crop_group": "AUTRES CEREALES",
     "default": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
@@ -4813,6 +5045,7 @@
     "visible": true
   },
   {
+    "alias": "onion-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
@@ -4834,6 +5067,7 @@
     "visible": true
   },
   {
+    "alias": "rice-basmati-organic",
     "categories": ["grain_raw", "organic"],
     "crop_group": "RIZ",
     "default": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
@@ -4855,6 +5089,7 @@
     "visible": true
   },
   {
+    "alias": "triticale-organic",
     "categories": ["grain_raw", "organic"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003116024",
@@ -4876,6 +5111,7 @@
     "visible": false
   },
   {
+    "alias": "bean-organic",
     "categories": ["grain_raw", "organic"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003110915",
@@ -4897,6 +5133,7 @@
     "visible": false
   },
   {
+    "alias": "alfalfa-organic",
     "categories": ["grain_raw", "organic"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003100242",
@@ -4918,6 +5155,7 @@
     "visible": false
   },
   {
+    "alias": "radish-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "076b3d53-fc81-454b-9c90-e19767de8b0b",
@@ -4939,6 +5177,7 @@
     "visible": true
   },
   {
+    "alias": "lentils-uncooked-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "02b2ed63-6246-446c-8cf3-224dbe698821",
@@ -4960,6 +5199,7 @@
     "visible": true
   },
   {
+    "alias": "apricot-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "36158ea6-066c-4fd6-9e28-6477c7297b37",
@@ -4981,6 +5221,7 @@
     "visible": true
   },
   {
+    "alias": "leek-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
@@ -5002,6 +5243,7 @@
     "visible": true
   },
   {
+    "alias": "cherry-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "b4e8febc-6588-4599-8c58-c019144597c6",
@@ -5023,6 +5265,7 @@
     "visible": true
   },
   {
+    "alias": "plum-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "10af6fa1-e374-4748-b8a8-f735d2813489",
@@ -5044,6 +5287,7 @@
     "visible": true
   },
   {
+    "alias": "shallot-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "c224d640-c347-41c4-9754-a4cea77de16f",
@@ -5065,6 +5309,7 @@
     "visible": true
   },
   {
+    "alias": "blueberry-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
@@ -5086,6 +5331,7 @@
     "visible": true
   },
   {
+    "alias": "spinach-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "49ad2a72-d196-4379-8f23-212b27d44917",
@@ -5107,6 +5353,7 @@
     "visible": true
   },
   {
+    "alias": "watermelon-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
@@ -5128,6 +5375,7 @@
     "visible": true
   },
   {
+    "alias": "silage-maize-fr",
     "categories": ["grain_raw"],
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000024985200246",
@@ -5149,6 +5397,7 @@
     "visible": true
   },
   {
+    "alias": "silage-maize-organic",
     "categories": ["grain_raw"],
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "AGRIBALU000024985200246",
@@ -5170,6 +5419,7 @@
     "visible": true
   },
   {
+    "alias": "oilseed-feed",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES OLEAGINEUX",
     "default": "AGRIBALU000000003110393",
@@ -5191,6 +5441,7 @@
     "visible": false
   },
   {
+    "alias": "grazed-grass-temporary",
     "categories": [],
     "crop_group": "PRAIRIES TEMPORAIRES",
     "default": "AGRIBALU000024985200276",
@@ -5212,6 +5463,7 @@
     "visible": false
   },
   {
+    "alias": "grazed-grass-permanent",
     "categories": [],
     "crop_group": "PRAIRIES PERMANENTES",
     "default": "AGRIBALU000000003106967",
@@ -5233,6 +5485,7 @@
     "visible": false
   },
   {
+    "alias": "cherry-tr",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500334",
@@ -5254,6 +5507,7 @@
     "visible": true
   },
   {
+    "alias": "refined-palm-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003105775",
@@ -5275,6 +5529,7 @@
     "visible": true
   },
   {
+    "alias": "refined-linseed-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "PLANTES A FIBRES",
     "default": "AGRIBALU000000003108737",
@@ -5296,6 +5551,7 @@
     "visible": true
   },
   {
+    "alias": "refined-grapeseed-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "VIGNES",
     "default": "AGRIBALU000000003106915",
@@ -5317,6 +5573,7 @@
     "visible": true
   },
   {
+    "alias": "refined-soybean-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003114609",
@@ -5338,6 +5595,7 @@
     "visible": true
   },
   {
+    "alias": "virgin-hazelnut-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107299",
@@ -5359,6 +5617,7 @@
     "visible": true
   },
   {
+    "alias": "refined-peanut-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003110968",
@@ -5380,6 +5639,7 @@
     "visible": true
   },
   {
+    "alias": "refined-sunflower-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115161",
@@ -5401,6 +5661,7 @@
     "visible": true
   },
   {
+    "alias": "refined-rapeseed-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "COLZA",
     "default": "AGRIBALU000000003112440",
@@ -5422,6 +5683,7 @@
     "visible": true
   },
   {
+    "alias": "extra-virgin-olive-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "OLIVIERS",
     "default": "AGRIBALU000000003105717",
@@ -5443,6 +5705,7 @@
     "visible": true
   },
   {
+    "alias": "fresh-cream-cheese",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003106208",
     "default_origin": "France",
@@ -5459,6 +5722,7 @@
     "visible": true
   },
   {
+    "alias": "egg-without-shell-fr",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003103004",
     "default_origin": "France",
@@ -5475,6 +5739,7 @@
     "visible": true
   },
   {
+    "alias": "egg-yolk-powder-fr",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003105140",
     "default_origin": "France",
@@ -5491,6 +5756,7 @@
     "visible": true
   },
   {
+    "alias": "egg-white-powder-fr",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003105126",
     "default_origin": "France",
@@ -5507,6 +5773,7 @@
     "visible": true
   },
   {
+    "alias": "emmental-grated-fr",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003105535",
     "default_origin": "France",
@@ -5523,6 +5790,7 @@
     "visible": true
   },
   {
+    "alias": "cocoa-powder-non-ue",
     "categories": ["vegetable_processed"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003103498",
@@ -5544,6 +5812,7 @@
     "visible": true
   },
   {
+    "alias": "salt",
     "categories": ["spice_condiment_additive"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003113226",
@@ -5565,6 +5834,7 @@
     "visible": true
   },
   {
+    "alias": "bacon-fr",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003100806",
     "default_origin": "France",
@@ -5581,6 +5851,7 @@
     "visible": true
   },
   {
+    "alias": "glucose-syrup",
     "categories": ["spice_condiment_additive"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003104007",
@@ -5602,6 +5873,7 @@
     "visible": true
   },
   {
+    "alias": "apple-compote-fr",
     "categories": ["vegetable_processed"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100412",
@@ -5623,6 +5895,7 @@
     "visible": true
   },
   {
+    "alias": "goat-milk",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003106737",
     "default_origin": "France",
@@ -5639,6 +5912,7 @@
     "visible": true
   },
   {
+    "alias": "breakfast-cereals",
     "categories": ["grain_processed"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003101952",
@@ -5660,6 +5934,7 @@
     "visible": true
   },
   {
+    "alias": "pasta",
     "categories": ["grain_processed"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003110855",
@@ -5681,6 +5956,7 @@
     "visible": true
   },
   {
+    "alias": "garlic",
     "categories": ["vegetable_fresh"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003106611",
@@ -5702,6 +5978,7 @@
     "visible": true
   },
   {
+    "alias": "vegetable-mix",
     "categories": ["vegetable_processed"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003104758",
@@ -5723,6 +6000,7 @@
     "visible": true
   },
   {
+    "alias": "bolognese",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003115699",
     "default_origin": "France",
@@ -5739,6 +6017,7 @@
     "visible": true
   },
   {
+    "alias": "honey",
     "categories": ["misc"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003107501",
@@ -5760,6 +6039,7 @@
     "visible": true
   },
   {
+    "alias": "turkey",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003116135",
     "default_origin": "France",
@@ -5776,6 +6056,7 @@
     "visible": true
   },
   {
+    "alias": "pork-liver",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003108830",
     "default_origin": "France",
@@ -5792,6 +6073,7 @@
     "visible": true
   },
   {
+    "alias": "whey",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003102827",
     "default_origin": "France",
@@ -5808,6 +6090,7 @@
     "visible": true
   },
   {
+    "alias": "strawberry-coulis",
     "categories": ["vegetable_processed"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115001",
@@ -5829,6 +6112,7 @@
     "visible": true
   },
   {
+    "alias": "yogurt",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003117491",
     "default_origin": "France",
@@ -5845,6 +6129,7 @@
     "visible": true
   },
   {
+    "alias": "goat-cheese",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003102850",
     "default_origin": "France",
@@ -5861,6 +6146,7 @@
     "visible": true
   },
   {
+    "alias": "cocoa-butter",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003103480",
@@ -5882,6 +6168,7 @@
     "visible": true
   },
   {
+    "alias": "soy-protein",
     "categories": ["grain_processed"],
     "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003114529",
@@ -5903,6 +6190,7 @@
     "visible": true
   },
   {
+    "alias": "vinegar-alcohol",
     "categories": ["misc"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003116588",
@@ -5924,6 +6212,7 @@
     "visible": true
   },
   {
+    "alias": "veal-meat",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003109225",
     "default_origin": "France",
@@ -5940,6 +6229,7 @@
     "visible": true
   },
   {
+    "alias": "french-fries",
     "categories": ["vegetable_processed"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003106169",
@@ -5961,6 +6251,7 @@
     "visible": true
   },
   {
+    "alias": "tomato-sauce",
     "categories": ["vegetable_processed"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115694",
@@ -5982,6 +6273,7 @@
     "visible": true
   },
   {
+    "alias": "mustard",
     "categories": ["spice_condiment_additive"],
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "AGRIBALU000000003110176",
@@ -6003,6 +6295,7 @@
     "visible": true
   },
   {
+    "alias": "rice-flour",
     "categories": ["grain_processed"],
     "crop_group": "RIZ",
     "default": "AGRIBALU000000003112648",
@@ -6024,6 +6317,7 @@
     "visible": true
   },
   {
+    "alias": "brie-cheese",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003102004",
     "default_origin": "France",
@@ -6040,6 +6334,7 @@
     "visible": true
   },
   {
+    "alias": "turmeric",
     "categories": ["spice_condiment_additive"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003116177",
@@ -6061,6 +6356,7 @@
     "visible": true
   },
   {
+    "alias": "candied-fruits",
     "categories": ["vegetable_processed"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003102428",
@@ -6082,6 +6378,7 @@
     "visible": true
   },
   {
+    "alias": "reblochon",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003112516",
     "default_origin": "France",
@@ -6098,6 +6395,7 @@
     "visible": true
   },
   {
+    "alias": "fruit-puree",
     "categories": ["vegetable_processed"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003106522",
@@ -6119,6 +6417,7 @@
     "visible": true
   },
   {
+    "alias": "apple-juice",
     "categories": ["vegetable_processed"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100427",
@@ -6140,6 +6439,7 @@
     "visible": true
   },
   {
+    "alias": "orange-juice",
     "categories": ["vegetable_processed"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003110499",
@@ -6161,6 +6461,7 @@
     "visible": true
   },
   {
+    "alias": "soy-milk",
     "categories": ["vegetable_processed"],
     "crop_group": "PROTEAGINEUX",
     "default": "AGRIBALU000000003114503",
@@ -6182,6 +6483,7 @@
     "visible": true
   },
   {
+    "alias": "lemon-juice",
     "categories": ["vegetable_processed"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003108567",
@@ -6203,6 +6505,7 @@
     "visible": true
   },
   {
+    "alias": "tomato-juice",
     "categories": ["vegetable_processed"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115649",
@@ -6224,6 +6527,7 @@
     "visible": true
   },
   {
+    "alias": "balsamic-vinegar",
     "categories": ["vegetable_processed"],
     "crop_group": "DIVERS",
     "default": "AGRIBALU000000003116590",
@@ -6245,6 +6549,7 @@
     "visible": true
   },
   {
+    "alias": "apricot-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "WFLDBQUA000001234500074",
@@ -6266,6 +6571,7 @@
     "visible": true
   },
   {
+    "alias": "lamb-meat-without-bone-eu",
     "categories": ["animal_product"],
     "default": "WFLDBQUA000001234501199",
     "default_origin": "EuropeAndMaghreb",
@@ -6282,6 +6588,7 @@
     "visible": true
   },
   {
+    "alias": "lamb-meat-without-bone-non-eu",
     "categories": ["animal_product"],
     "default": "WFLDBQUA000001234501200",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -6298,6 +6605,7 @@
     "visible": true
   },
   {
+    "alias": "almond-inshell-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003100271",
@@ -6319,6 +6627,7 @@
     "visible": true
   },
   {
+    "alias": "almond-inshell-ue",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003100271",
@@ -6340,6 +6649,7 @@
     "visible": true
   },
   {
+    "alias": "almond-inshell-non-ue",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003100271",
@@ -6361,6 +6671,7 @@
     "visible": true
   },
   {
+    "alias": "artichoke-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102661",
@@ -6382,6 +6693,7 @@
     "visible": true
   },
   {
+    "alias": "artichoke-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102661",
@@ -6403,6 +6715,7 @@
     "visible": true
   },
   {
+    "alias": "avocado-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100760",
@@ -6424,6 +6737,7 @@
     "visible": true
   },
   {
+    "alias": "avocado-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003100748",
@@ -6445,6 +6759,7 @@
     "visible": true
   },
   {
+    "alias": "oats-ue",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003110378",
@@ -6466,6 +6781,7 @@
     "visible": false
   },
   {
+    "alias": "chard-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
@@ -6487,6 +6803,7 @@
     "visible": true
   },
   {
+    "alias": "swiss-chard-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003114717",
@@ -6508,6 +6825,7 @@
     "visible": true
   },
   {
+    "alias": "broccoli-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "d1155206-18fc-41f1-8509-2f52e7614f2d",
@@ -6529,6 +6847,7 @@
     "visible": true
   },
   {
+    "alias": "broccoli-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102102",
@@ -6550,6 +6869,7 @@
     "visible": true
   },
   {
+    "alias": "broccoli-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102101",
@@ -6571,6 +6891,7 @@
     "visible": true
   },
   {
+    "alias": "celery-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102720",
@@ -6592,6 +6913,7 @@
     "visible": true
   },
   {
+    "alias": "cherry-ue",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500332",
@@ -6613,6 +6935,7 @@
     "visible": true
   },
   {
+    "alias": "mushroom-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003100184",
@@ -6634,6 +6957,7 @@
     "visible": true
   },
   {
+    "alias": "walnut-inshell-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "FRUITS A COQUES",
     "default": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
@@ -6655,6 +6979,7 @@
     "visible": true
   },
   {
+    "alias": "white-cabbage-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102347",
@@ -6676,6 +7001,7 @@
     "visible": true
   },
   {
+    "alias": "white-cabbage-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003102347",
@@ -6697,6 +7023,7 @@
     "visible": true
   },
   {
+    "alias": "white-cabbage-organic",
     "categories": ["vegetable_fresh", "organic"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
@@ -6718,6 +7045,7 @@
     "visible": true
   },
   {
+    "alias": "chinese-cabbage-ue",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
@@ -6739,6 +7067,7 @@
     "visible": true
   },
   {
+    "alias": "chinese-cabbage-non-ue",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
@@ -6760,6 +7089,7 @@
     "visible": true
   },
   {
+    "alias": "brussels-sprout-ue",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
@@ -6781,6 +7111,7 @@
     "visible": true
   },
   {
+    "alias": "brussels-sprout-non-ue",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000024985200045",
@@ -6802,6 +7133,7 @@
     "visible": true
   },
   {
+    "alias": "refined-palm-oil-non-ue",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default": "AGRIBALU000000003110758",
@@ -6823,6 +7155,7 @@
     "visible": true
   },
   {
+    "alias": "sunflower-oil-eu",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115190",
@@ -6844,6 +7177,7 @@
     "visible": true
   },
   {
+    "alias": "milk-eu",
     "categories": ["dairy_product"],
     "default": "WFLDBQUA000001234500298",
     "default_origin": "EuropeAndMaghreb",
@@ -6860,6 +7194,7 @@
     "visible": true
   },
   {
+    "alias": "milk-non-eu",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003104136",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -6876,6 +7211,7 @@
     "visible": true
   },
   {
+    "alias": "lentils-uncooked-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "WFLDBQUA000001234501500",
@@ -6897,6 +7233,7 @@
     "visible": true
   },
   {
+    "alias": "lentils-uncooked-non-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "WFLDBQUA000001234501500",
@@ -6918,6 +7255,7 @@
     "visible": true
   },
   {
+    "alias": "lambs-lettuce-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003107604",
@@ -6939,6 +7277,7 @@
     "visible": true
   },
   {
+    "alias": "sweet-corn-eu",
     "categories": ["grain_raw"],
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default": "WFLDBQUA000001234502277",
@@ -6960,6 +7299,7 @@
     "visible": true
   },
   {
+    "alias": "unknown-cereals-and-grain-products",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115218",
@@ -6981,6 +7321,7 @@
     "visible": true
   },
   {
+    "alias": "unknown-dairy-product",
     "categories": ["dairy_product"],
     "default": "AGRIBALU000000003102321",
     "default_origin": "France",
@@ -6997,6 +7338,7 @@
     "visible": true
   },
   {
+    "alias": "unknown-fruit-vegetable",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003103409",
@@ -7018,6 +7360,7 @@
     "visible": true
   },
   {
+    "alias": "unknown-red-meat",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003109219",
     "default_origin": "France",
@@ -7034,6 +7377,7 @@
     "visible": true
   },
   {
+    "alias": "unknown-groceries",
     "categories": ["misc"],
     "crop_group": "VERGERS",
     "default": "AGRIBALU000000003115509",
@@ -7055,6 +7399,7 @@
     "visible": true
   },
   {
+    "alias": "unknown-drink",
     "categories": [],
     "default": "AGRIBALU000000003115449",
     "default_origin": "EuropeAndMaghreb",
@@ -7071,6 +7416,7 @@
     "visible": true
   },
   {
+    "alias": "unknown-white-meat",
     "categories": ["animal_product"],
     "default": "b9f380cbd26fef2f30b16cbe06edd732",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -7087,6 +7433,7 @@
     "visible": true
   },
   {
+    "alias": "unknwon-fishery-products",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003106282",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -7103,6 +7450,7 @@
     "visible": true
   },
   {
+    "alias": "unknown-dried-fruits",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107319",
@@ -7124,6 +7472,7 @@
     "visible": true
   },
   {
+    "alias": "unknown-oil",
     "categories": ["nut_oilseed_processed"],
     "crop_group": "TOURNESOL",
     "default": "AGRIBALU000000003115182",
@@ -7145,6 +7494,7 @@
     "visible": true
   },
   {
+    "alias": "anchovy-fr",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003100373",
     "default_origin": "France",
@@ -7161,6 +7511,7 @@
     "visible": true
   },
   {
+    "alias": "anchovy-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003100373",
     "default_origin": "EuropeAndMaghreb",
@@ -7177,6 +7528,7 @@
     "visible": true
   },
   {
+    "alias": "anchovy-non-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003100373",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -7193,6 +7545,7 @@
     "visible": true
   },
   {
+    "alias": "sardine-fr",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003105683",
     "default_origin": "France",
@@ -7209,6 +7562,7 @@
     "visible": true
   },
   {
+    "alias": "sardine-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003105655",
     "default_origin": "EuropeAndMaghreb",
@@ -7225,6 +7579,7 @@
     "visible": true
   },
   {
+    "alias": "sardine-non-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003105655",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -7241,6 +7596,7 @@
     "visible": true
   },
   {
+    "alias": "cod-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003103557",
     "default_origin": "EuropeAndMaghreb",
@@ -7257,6 +7613,7 @@
     "visible": true
   },
   {
+    "alias": "crab-fr",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003102169",
     "default_origin": "France",
@@ -7273,6 +7630,7 @@
     "visible": true
   },
   {
+    "alias": "crab-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003102170",
     "default_origin": "EuropeAndMaghreb",
@@ -7289,6 +7647,7 @@
     "visible": true
   },
   {
+    "alias": "hake-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003107161",
     "default_origin": "EuropeAndMaghreb",
@@ -7305,6 +7664,7 @@
     "visible": true
   },
   {
+    "alias": "lobster-fr",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003102173",
     "default_origin": "France",
@@ -7321,6 +7681,7 @@
     "visible": true
   },
   {
+    "alias": "lobster-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003102174",
     "default_origin": "EuropeAndMaghreb",
@@ -7337,6 +7698,7 @@
     "visible": true
   },
   {
+    "alias": "lobster-non-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003108859",
     "default_origin": "OutOfEuropeAndMaghreb",
@@ -7353,6 +7715,7 @@
     "visible": true
   },
   {
+    "alias": "salmon-raw-eu",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003113162",
     "default_origin": "EuropeAndMaghreb",
@@ -7369,6 +7732,7 @@
     "visible": true
   },
   {
+    "alias": "squid-fr",
     "categories": ["animal_product"],
     "default": "AGRIBALU000000003114896",
     "default_origin": "France",
@@ -7385,6 +7749,7 @@
     "visible": true
   },
   {
+    "alias": "mandarin-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234501557",
@@ -7406,6 +7771,7 @@
     "visible": true
   },
   {
+    "alias": "melon-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "EI3ARUNI000011519604743",
@@ -7427,6 +7793,7 @@
     "visible": true
   },
   {
+    "alias": "blueberry-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101680",
@@ -7448,6 +7815,7 @@
     "visible": true
   },
   {
+    "alias": "blueberry-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101680",
@@ -7469,6 +7837,7 @@
     "visible": true
   },
   {
+    "alias": "hazelnut-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "FRUITS A COQUES",
     "default": "df64fdd7-1900-402c-86b9-e766e22c27ed",
@@ -7490,6 +7859,7 @@
     "visible": true
   },
   {
+    "alias": "hazelnut-unshelled-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "FRUITS A COQUES",
     "default": "4531bf0a-7910-4166-b3b1-e94027a10426",
@@ -7511,6 +7881,7 @@
     "visible": true
   },
   {
+    "alias": "hazelnut-unshelled-fr",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "AGRIBALU000000003107320",
@@ -7532,6 +7903,7 @@
     "visible": true
   },
   {
+    "alias": "chesnut-inshell-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "crop_group": "FRUITS A COQUES",
     "default": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
@@ -7553,6 +7925,7 @@
     "visible": true
   },
   {
+    "alias": "walnut-inshell-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "WFLDBQUA000001234502444",
@@ -7574,6 +7947,7 @@
     "visible": true
   },
   {
+    "alias": "walnut-inshell-non-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "WFLDBQUA000001234502444",
@@ -7595,6 +7969,7 @@
     "visible": true
   },
   {
+    "alias": "barley-eu",
     "categories": ["grain_raw"],
     "crop_group": "ORGE",
     "default": "AGRIBALU000000003100967",
@@ -7616,6 +7991,7 @@
     "visible": false
   },
   {
+    "alias": "barley-non-eu",
     "categories": ["grain_raw"],
     "crop_group": "ORGE",
     "default": "AGRIBALU000000003100967",
@@ -7637,6 +8013,7 @@
     "visible": true
   },
   {
+    "alias": "pistachio-organic",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "FRUITS A COQUES",
     "default": "115a010d-270f-43f8-9827-b27348a08d13",
@@ -7658,6 +8035,7 @@
     "visible": true
   },
   {
+    "alias": "leek-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108534",
@@ -7679,6 +8057,7 @@
     "visible": true
   },
   {
+    "alias": "leek-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003108534",
@@ -7700,6 +8079,7 @@
     "visible": true
   },
   {
+    "alias": "bean-non-eu",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES CEREALES",
     "default": "EI3ARUNI000011519600047",
@@ -7721,6 +8101,7 @@
     "visible": true
   },
   {
+    "alias": "bean-eu",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES CEREALES",
     "default": "EI3ARUNI000011519600047",
@@ -7742,6 +8123,7 @@
     "visible": true
   },
   {
+    "alias": "bean-fr",
     "categories": ["grain_raw"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000024985200250",
@@ -7763,6 +8145,7 @@
     "visible": true
   },
   {
+    "alias": "chickpea-non-eu",
     "categories": ["nut_oilseed_raw"],
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default": "EI3ARUNI000011519617720",
@@ -7784,6 +8167,7 @@
     "visible": true
   },
   {
+    "alias": "bellpepper-unheated-greenhouse-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101321",
@@ -7805,6 +8189,7 @@
     "visible": true
   },
   {
+    "alias": "bellpepper-unheated-greenhouse-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101321",
@@ -7826,6 +8211,7 @@
     "visible": true
   },
   {
+    "alias": "bellpepper-unheated-greenhouse-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003101321",
@@ -7847,6 +8233,7 @@
     "visible": true
   },
   {
+    "alias": "apple-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500066",
@@ -7868,6 +8255,7 @@
     "visible": true
   },
   {
+    "alias": "potato-table-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "WFLDBQUA000001234501989",
@@ -7889,6 +8277,7 @@
     "visible": true
   },
   {
+    "alias": "potato-table-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "WFLDBQUA000001234501984",
@@ -7910,6 +8299,7 @@
     "visible": true
   },
   {
+    "alias": "chicken-breast-eu",
     "categories": ["animal_product"],
     "default": "WFLDBQUA000001234500349",
     "default_origin": "EuropeAndMaghreb",
@@ -7926,6 +8316,7 @@
     "visible": true
   },
   {
+    "alias": "tomato-paste-fr",
     "categories": ["vegetable_processed"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003115672",
@@ -7947,6 +8338,7 @@
     "visible": true
   },
   {
+    "alias": "radish-fr",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003112396",
@@ -7968,6 +8360,7 @@
     "visible": true
   },
   {
+    "alias": "radish-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003112391",
@@ -7989,6 +8382,7 @@
     "visible": true
   },
   {
+    "alias": "rice-basmati-eu",
     "categories": ["grain_raw"],
     "crop_group": "RIZ",
     "default": "AGRIBALU000000003100993",
@@ -8010,6 +8404,7 @@
     "visible": true
   },
   {
+    "alias": "durum-wheat-semolina-non-eu",
     "categories": ["grain_processed"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105072",
@@ -8031,6 +8426,7 @@
     "visible": true
   },
   {
+    "alias": "durum-wheat-semolina-eu",
     "categories": ["grain_processed"],
     "crop_group": "AUTRES CEREALES",
     "default": "AGRIBALU000000003105072",
@@ -8052,6 +8448,7 @@
     "visible": true
   },
   {
+    "alias": "plum-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500332",
@@ -8073,6 +8470,7 @@
     "visible": true
   },
   {
+    "alias": "plum-non-eu",
     "categories": ["vegetable_fresh"],
     "crop_group": "VERGERS",
     "default": "WFLDBQUA000001234500332",
@@ -8094,6 +8492,7 @@
     "visible": true
   },
   {
+    "alias": "soft-wheat-eu",
     "categories": ["grain_raw"],
     "crop_group": "BLE TENDRE",
     "default": "AGRIBALU000000003117044",
@@ -8115,6 +8514,7 @@
     "visible": true
   },
   {
+    "alias": "onion-dried",
     "categories": ["vegetable_processed"],
     "crop_group": "LEGUMES-FLEURS",
     "default": "AGRIBALU000000003110475",
