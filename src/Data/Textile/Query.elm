@@ -266,8 +266,8 @@ handleUpcycling query =
         query
 
 
-isAdvancedQuery : Query -> Bool
-isAdvancedQuery query =
+isAdvancedQuery : List Product -> Query -> Bool
+isAdvancedQuery products query =
     List.any identity
         [ query.dyeingMedium /= Nothing
         , query.fabricProcess /= Nothing
@@ -277,6 +277,10 @@ isAdvancedQuery query =
         , query.materials |> List.any (.spinning >> (/=) Nothing)
         , query.physicalDurability /= Nothing
         , query.surfaceMass /= Nothing
+        , products
+            |> Product.findById query.product
+            |> Result.map (.trims >> (/=) query.trims)
+            |> Result.withDefault False
         , not query.upcycled && List.length query.disabledSteps > 0
         , query.yarnSize /= Nothing
         ]
@@ -284,8 +288,8 @@ isAdvancedQuery query =
 
 {-| Resets a query to use only regulatory-level fields.
 -}
-regulatory : Query -> Query
-regulatory query =
+regulatory : List Product -> Query -> Query
+regulatory products query =
     { query
         | disabledSteps = []
         , dyeingMedium = Nothing
@@ -296,6 +300,11 @@ regulatory query =
         , materials = query.materials |> List.map (\m -> { m | spinning = Nothing })
         , physicalDurability = Nothing
         , surfaceMass = Nothing
+        , trims =
+            products
+                |> Product.findById query.product
+                |> Result.map .trims
+                |> Result.withDefault []
         , yarnSize = Nothing
     }
 
@@ -365,6 +374,7 @@ updateProduct product query =
             , printing = Nothing
             , product = product.id
             , surfaceMass = Nothing
+            , trims = product.trims
             , yarnSize = Nothing
         }
 
