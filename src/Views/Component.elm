@@ -15,6 +15,7 @@ import Json.Encode as Encode
 import List.Extra as LE
 import Route
 import Views.Alert as Alert
+import Views.Button as Button
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
@@ -25,6 +26,7 @@ type alias Config db msg =
     , allowExpandDetails : Bool
     , db : Component.DataContainer db
     , detailed : List Component.Id
+    , docsUrl : Maybe String
     , impact : Definition
     , items : List Item
     , noOp : msg
@@ -152,7 +154,7 @@ viewDebug results =
 
 
 editorView : Config db msg -> Html msg
-editorView ({ db, items, results, scope, title } as config) =
+editorView ({ db, docsUrl, items, results, scope, title } as config) =
     div [ class "card shadow-sm mb-3" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -164,9 +166,19 @@ editorView ({ db, items, results, scope, title } as config) =
                     ]
                     [ Icon.search ]
                 ]
-            , results
-                |> Component.extractImpacts
-                |> Format.formatImpact config.impact
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ results
+                    |> Component.extractImpacts
+                    |> Format.formatImpact config.impact
+                , case docsUrl of
+                    Just url ->
+                        Button.docsPillLink
+                            [ href url, target "_blank", style "height" "24px" ]
+                            [ Icon.question ]
+
+                    Nothing ->
+                        text ""
+                ]
             ]
         , if List.isEmpty items then
             div [ class "card-body" ] [ text "Aucun élément." ]

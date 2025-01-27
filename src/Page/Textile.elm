@@ -1018,6 +1018,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , allowExpandDetails = True
         , db = session.db
         , detailed = model.detailedTrims
+        , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , impact = model.impact
         , items = session.queries.textile.trims
         , noOp = NoOp
