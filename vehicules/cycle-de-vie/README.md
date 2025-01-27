@@ -32,7 +32,7 @@ L’ensemble des étapes du cycle de vie sont modélisées dans le calculateur.
 
 La profondeur d’analyse est fonction de sa contribution à l’impact environnemental global du produit et de la maîtrise des paramètres métier sous-jacents (ex : type de matériaux utilisés) par le metteur sur le marché.
 
-Cette approche permet de se concentrer sur ce qui compte d’un point de vue écoconception et affichage environnemental.
+Cette approche permet de se concentrer sur ce qui est le plus significatif.
 
 ## Périmètre de calcul
 
@@ -41,33 +41,18 @@ Ecobalyse intègre les étapes suivantes de la vie du véhicule :&#x20;
 * La fabrication du véhicule, en quantifiant le châssis et la carrosserie, la batterie, le moteur, les jantes, les pneumatiques et l'assise
 * Le remplacement des pneumatiques
 * Le transport des composants et du véhicule
-* La consommation d'électricité du véhicule
+* La consommation d'énergie du véhicule
+* Les infrastructures routières sur lesquelles circulent les véhicules
+* L'usure des pneus et freins
 
 Les étapes et analyses suivantes ne sont à ce stade pas prises en compte :
 
 * La maintenance et le remplacement d'autres composants que les pneumatiques
 * La fin de vie des véhicules
 * Le processus d'assemblage
-* Les infrastructures routières sur lesquelles circulent les véhicules
-
-Seuls les véhicules fonctionnant à l'énergie électrique et/ou musculaire peuvent être évalués.
-
-##
-
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
-{% endcontent-ref %}
-
-{% content-ref url="../parametrage/caracteristiques-du-vehicule.md" %}
-[caracteristiques-du-vehicule.md](../parametrage/caracteristiques-du-vehicule.md)
-{% endcontent-ref %}
 
 {% content-ref url="fabrication-des-composants/" %}
 [fabrication-des-composants](fabrication-des-composants/)
-{% endcontent-ref %}
-
-{% content-ref url="../../documentation-transverse/transport.md" %}
-[transport.md](../../documentation-transverse/transport.md)
 {% endcontent-ref %}
 
 {% content-ref url="transport-des-vehicules.md" %}
@@ -76,5 +61,17 @@ Seuls les véhicules fonctionnant à l'énergie électrique et/ou musculaire peu
 
 {% content-ref url="consommation-denergie/" %}
 [consommation-denergie](consommation-denergie/)
+{% endcontent-ref %}
+
+{% content-ref url="utilisation-des-infrastructures.md" %}
+[utilisation-des-infrastructures.md](utilisation-des-infrastructures.md)
+{% endcontent-ref %}
+
+{% content-ref url="usures-des-pneus-et-freins.md" %}
+[usures-des-pneus-et-freins.md](usures-des-pneus-et-freins.md)
+{% endcontent-ref %}
+
+{% content-ref url="maintenance-et-remplacement-de-pieces.md" %}
+[maintenance-et-remplacement-de-pieces.md](maintenance-et-remplacement-de-pieces.md)
 {% endcontent-ref %}
 
