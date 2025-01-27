@@ -16,17 +16,8 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 getEcsImpact : Component.Results -> Float
 getEcsImpact =
-    Component.extractImpacts >> (Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
-
-
-sampleJsonItems : String
-sampleJsonItems =
-    """
-    [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-    , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-    , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-    ]
-    """
+    Component.extractImpacts
+        >> (Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
 
 
 suite : Test
@@ -93,7 +84,7 @@ suite =
                                         |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                               }
                             ]
-                            |> Expect.within (Expect.Absolute 1) 198
+                            |> Expect.within (Expect.Absolute 1) 391
                         )
                     , asTest "should add impacts when multiple transforms are passed (no elec, no heat)"
                         (getTestEcsImpact
@@ -107,7 +98,7 @@ suite =
                             [ fading |> setProcessEcsImpact (Unit.impact 10)
                             , fading |> setProcessEcsImpact (Unit.impact 20)
                             ]
-                            |> Expect.within (Expect.Absolute 1) 406
+                            |> Expect.within (Expect.Absolute 1) 793
                         )
                     ]
                 , let
@@ -170,7 +161,7 @@ suite =
                                 |> Component.extractImpacts
                                 |> Impact.getImpact Definition.Ecs
                                 |> Unit.impactToFloat
-                                |> Expect.within (Expect.Absolute 1) 402
+                                |> Expect.within (Expect.Absolute 1) 692
                             )
                         , asTest "should handle impacts+waste when applying transforms: mass"
                             (withElecAndHeat
@@ -183,7 +174,10 @@ suite =
                 ]
             , describe "compute"
                 [ asTest "should compute results from decoded component items"
-                    (sampleJsonItems
+                    (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                         , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                         , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                         ]"""
                         |> Decode.decodeString (Decode.list Component.decodeItem)
                         |> Result.mapError Decode.errorToString
                         |> Result.andThen (Component.compute db)
@@ -192,28 +186,39 @@ suite =
                     )
                 ]
             , describe "computeElementResults"
-                [ asTest "should compute a material-only element results"
-                    (case Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
-                        Ok cottonId ->
-                            -- 1kg of cotton, weaved then faded
-                            { amount = Component.Amount 1
-                            , material = cottonId
-                            , transforms = [ weaving.id, fading.id ]
-                            }
-                                |> Component.computeElementResults db.processes
+                (case Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
+                    Ok cottonId ->
+                        let
+                            elementResults =
+                                Component.computeElementResults db.processes
+                                    { amount = Component.Amount 1
+                                    , material = cottonId
+                                    , transforms = [ weaving.id, fading.id ]
+                                    }
+                        in
+                        [ asTest "should compute element impacts"
+                            (elementResults
                                 |> Result.map
-                                    (\res ->
-                                        ( Component.extractImpacts res |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat |> round
-                                        , Component.extractMass res |> Mass.inKilograms
-                                        )
+                                    (Component.extractImpacts
+                                        >> Impact.getImpact Definition.Ecs
+                                        >> Unit.impactToFloat
                                     )
-                                |> Result.withDefault ( 0, 0 )
-                                |> Expect.equal ( 1830, 0.93747 )
+                                |> Result.withDefault 0
+                                |> Expect.within (Expect.Absolute 1) 2012
+                            )
+                        , asTest "should compute element mass"
+                            (elementResults
+                                |> Result.map (Component.extractMass >> Mass.inKilograms)
+                                |> Result.withDefault 0
+                                |> Expect.within (Expect.Absolute 0.01) 0.94
+                            )
+                        ]
 
-                        Err err ->
-                            Expect.fail err
-                    )
-                ]
+                    Err err ->
+                        [ Expect.fail err
+                            |> asTest "should load cotton data"
+                        ]
+                )
             ]
         )
 

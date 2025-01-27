@@ -1,6 +1,35 @@
 # Changelog
 
 
+## [3.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v3.0.0..v3.1.0) (2025-01-23)
+
+
+
+### 🚀 Features
+
+- Show heat, elec, waste, density in process explorer. ([#901](https://github.com/MTES-MCT/ecobalyse/issues/901))
+- Handle component process transforms ([#897](https://github.com/MTES-MCT/ecobalyse/issues/897))
+- Render component transforms ([#907](https://github.com/MTES-MCT/ecobalyse/issues/907))
+
+### 🪲 Bug Fixes
+
+- Avoid empty process aliases. ([#899](https://github.com/MTES-MCT/ecobalyse/issues/899))
+- *(security)* Upgrade django to 5.1.5. ([#900](https://github.com/MTES-MCT/ecobalyse/issues/900))
+- Hide link to food from the homepage. ([#904](https://github.com/MTES-MCT/ecobalyse/issues/904))
+- Restrict selectable components to scoped ones. ([#905](https://github.com/MTES-MCT/ecobalyse/issues/905))
+
+### 🚜 Refactor
+
+- Improve YAML gh action legibility. ([#896](https://github.com/MTES-MCT/ecobalyse/issues/896))
+- Merge component and process dbs in-memory. ([#903](https://github.com/MTES-MCT/ecobalyse/issues/903))
+
+### ⚙️ Miscellaneous Tasks
+
+- Add python build libs to .gitignore. ([#895](https://github.com/MTES-MCT/ecobalyse/issues/895))
+- Update data files ([#889](https://github.com/MTES-MCT/ecobalyse/issues/889))
+- Rely on process UUID instead of alias in code. ([#902](https://github.com/MTES-MCT/ecobalyse/issues/902))
+
+
 ## [3.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v2.7.0..v3.0.0) (2025-01-13)
 
 
@@ -30,6 +59,7 @@
 - Warn on session data decoding error. ([#884](https://github.com/MTES-MCT/ecobalyse/issues/884))
 - *(textile)* Apply durability to trims impacts. ([#886](https://github.com/MTES-MCT/ecobalyse/issues/886))
 - Update PEF score label. ([#887](https://github.com/MTES-MCT/ecobalyse/issues/887))
+- Add missing env and allow workflow dispatch for release creation ([#892](https://github.com/MTES-MCT/ecobalyse/issues/892))
 
 ### 🚜 Refactor
 

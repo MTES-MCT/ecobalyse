@@ -4,12 +4,14 @@ import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Component as Component exposing (Component, ExpandedElement, Item)
 import Data.Dataset as Dataset
-import Data.Impact.Definition exposing (Definition)
+import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
+import Data.Split as Split exposing (Split)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import List.Extra as LE
 import Route
 import Views.Alert as Alert
@@ -34,6 +36,11 @@ type alias Config db msg =
     , title : String
     , updateItem : Item -> msg
     }
+
+
+debug : Bool
+debug =
+    False
 
 
 addButton : Config db msg -> Html msg
@@ -66,7 +73,7 @@ componentView :
     -> ( Component.Quantity, Component, List ExpandedElement )
     -> Component.Results
     -> List (Html msg)
-componentView config ( quantity, component, processAmounts ) itemResults =
+componentView config ( quantity, component, expandedElements ) itemResults =
     let
         collapsed =
             config.detailed
@@ -74,70 +81,74 @@ componentView config ( quantity, component, processAmounts ) itemResults =
                 |> not
     in
     List.concat
-        [ [ tr []
-                [ th [ class "ps-3 align-middle", scope "col" ]
-                    [ if config.allowExpandDetails then
-                        button
-                            [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
-                            , onClick <|
-                                config.setDetailed <|
-                                    if collapsed && not (List.member component.id config.detailed) then
-                                        LE.unique <| component.id :: config.detailed
+        [ [ tbody []
+                [ tr []
+                    [ th [ class "ps-3 align-middle", scope "col" ]
+                        [ if config.allowExpandDetails then
+                            button
+                                [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
+                                , onClick <|
+                                    config.setDetailed <|
+                                        if collapsed && not (List.member component.id config.detailed) then
+                                            LE.unique <| component.id :: config.detailed
 
-                                    else
-                                        List.filter ((/=) component.id) config.detailed
-                            ]
-                            [ if collapsed then
-                                text "▶"
+                                        else
+                                            List.filter ((/=) component.id) config.detailed
+                                ]
+                                [ if collapsed then
+                                    text "▶"
 
-                              else
-                                text "▼"
-                            ]
+                                  else
+                                    text "▼"
+                                ]
 
-                      else
-                        text ""
-                    ]
-                , td [ class "ps-0 align-middle" ]
-                    [ quantity |> quantityInput config component.id ]
-                , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
-                    [ text component.name ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Component.extractMass itemResults
-                        |> Format.kg
-                    ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Component.extractImpacts itemResults
-                        |> Format.formatImpact config.impact
-                    ]
-                , td [ class "pe-3 align-middle text-nowrap" ]
-                    [ button
-                        [ class "btn btn-outline-secondary"
-                        , onClick (config.removeItem component.id)
+                          else
+                            text ""
                         ]
-                        [ Icon.trash ]
+                    , td [ class "ps-0 align-middle" ]
+                        [ quantity |> quantityInput config component.id ]
+                    , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
+                        [ text component.name ]
+                    , td [ class "text-end align-middle text-nowrap" ]
+                        [ Component.extractMass itemResults
+                            |> Format.kg
+                        ]
+                    , td [ class "text-end align-middle text-nowrap" ]
+                        [ Component.extractImpacts itemResults
+                            |> Format.formatImpact config.impact
+                        ]
+                    , td [ class "pe-3 align-middle text-nowrap" ]
+                        [ button
+                            [ class "btn btn-outline-secondary"
+                            , onClick (config.removeItem component.id)
+                            ]
+                            [ Icon.trash ]
+                        ]
                     ]
                 ]
-          , if not collapsed then
-                tr [ class "fs-7 text-muted" ]
-                    [ th [] []
-                    , th [ class "text-end", scope "col" ] [ text "Quantité" ]
-                    , th [ scope "col" ] [ text "Procédé" ]
-                    , th [ scope "col" ] [ text "Densité" ]
-                    , th [ scope "col" ] [ text "Masse" ]
-                    , th [ scope "col" ] [ text "Impact" ]
-                    , th [ scope "col" ] [ text "" ]
-                    ]
-
-            else
-                text ""
           ]
         , if not collapsed then
-            Component.extractItems itemResults
-                |> List.map2 (processView config.impact) processAmounts
+            List.map2 (elementView config.impact)
+                expandedElements
+                (Component.extractItems itemResults)
 
           else
             []
         ]
+
+
+viewDebug : Component.Results -> Html msg
+viewDebug results =
+    if debug then
+        pre [ class "p-2 bg-light" ]
+            [ results
+                |> Component.encodeResults (Just Definition.Ecs)
+                |> Encode.encode 2
+                |> text
+            ]
+
+    else
+        text ""
 
 
 editorView : Config db msg -> Html msg
@@ -173,7 +184,7 @@ editorView ({ db, items, results, scope, title } as config) =
                 Ok expandedItems ->
                     div [ class "table-responsive" ]
                         [ table [ class "table mb-0" ]
-                            [ thead []
+                            (thead []
                                 [ tr [ class "fs-7 text-muted" ]
                                     [ th [] []
                                     , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
@@ -183,35 +194,85 @@ editorView ({ db, items, results, scope, title } as config) =
                                     , th [ Attr.scope "col" ] []
                                     ]
                                 ]
-                            , Component.extractItems results
-                                |> List.map2 (componentView config) expandedItems
-                                |> List.concat
-                                |> tbody []
-                            ]
+                                :: (Component.extractItems results
+                                        |> List.map2 (componentView config) expandedItems
+                                        |> List.concat
+                                   )
+                            )
                         ]
         , addButton config
+        , viewDebug results
         ]
 
 
-processView : Definition -> ExpandedElement -> Component.Results -> Html msg
-processView selectedImpact { amount, material } itemResults =
-    tr [ class "fs-7" ]
-        [ td [] []
-        , td [ class "text-end text-nowrap" ]
-            [ Format.amount material amount ]
-        , td [ class "align-middle text-truncate w-100" ]
-            [ text <| Process.getDisplayName material ]
-        , td [ class "align-middle text-end text-nowrap" ]
-            [ Format.density material ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.kg <| Component.extractMass itemResults ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.extractImpacts itemResults
-                |> Format.formatImpact selectedImpact
+elementView : Definition -> ExpandedElement -> Component.Results -> Html msg
+elementView selectedImpact { amount, material, transforms } elementResults =
+    let
+        ( materialResults, transformResults ) =
+            case Component.extractItems elementResults of
+                [] ->
+                    ( Component.emptyResults, [] )
+
+                materialResults_ :: transformResults_ ->
+                    ( materialResults_, transformResults_ )
+    in
+    tbody []
+        (tr [ class "fs-7 text-muted" ]
+            [ th [] []
+            , th [ class "text-end", scope "col" ] [ text "Quantité" ]
+            , th [ scope "col" ] [ text "Procédé" ]
+            , th [ scope "col" ] [ text "Pertes" ]
+            , th [ class "text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
+            , th [ scope "col" ] [ text "Impact" ]
+            , th [ scope "col" ] [ text "" ]
             ]
-        , td [ class "pe-3 align-middle text-nowrap" ]
-            []
-        ]
+            :: tr [ class "fs-7" ]
+                [ td [] []
+                , td [ class "text-end text-nowrap" ]
+                    [ Format.amount material amount ]
+                , td [ class "align-middle text-truncate w-100" ]
+                    [ text <| Process.getDisplayName material
+                    , viewDebug materialResults
+                    ]
+                , td [ class "align-middle text-end text-nowrap" ]
+                    -- Note: waste is never taken into account at ther material step
+                    []
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Format.kg <| Component.extractMass materialResults ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Component.extractImpacts materialResults
+                        |> Format.formatImpact selectedImpact
+                    ]
+                , td [ class "pe-3 align-middle text-nowrap" ]
+                    []
+                ]
+            :: List.map3
+                (\transform transformResult previousResult ->
+                    tr [ class "fs-7" ]
+                        [ td [] []
+                        , td [ class "text-end text-nowrap" ]
+                            [ Format.kg <| Component.extractMass previousResult
+                            ]
+                        , td [ class "align-middle text-truncate w-100" ]
+                            [ text <| Process.getDisplayName transform
+                            , viewDebug transformResult
+                            ]
+                        , td [ class "align-middle text-end text-nowrap" ]
+                            [ formatWaste transform.waste ]
+                        , td [ class "text-end align-middle text-nowrap" ]
+                            [ Format.kg <| Component.extractMass transformResult ]
+                        , td [ class "text-end align-middle text-nowrap" ]
+                            [ Component.extractImpacts transformResult
+                                |> Format.formatImpact selectedImpact
+                            ]
+                        , td [ class "pe-3 align-middle text-nowrap" ]
+                            []
+                        ]
+                )
+                transforms
+                transformResults
+                (Component.extractItems elementResults)
+        )
 
 
 quantityInput : Config db msg -> Component.Id -> Component.Quantity -> Html msg
@@ -245,3 +306,12 @@ quantityInput config id quantity =
             ]
             []
         ]
+
+
+formatWaste : Split -> Html msg
+formatWaste waste =
+    if Split.toPercent waste == 0 then
+        text ""
+
+    else
+        Format.splitAsPercentage 3 waste
