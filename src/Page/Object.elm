@@ -452,6 +452,7 @@ simulatorView session model =
                 , allowExpandDetails = True
                 , db = session.db
                 , detailed = model.detailedComponents
+                , docsUrl = Nothing
                 , impact = model.impact
                 , items =
                     session
