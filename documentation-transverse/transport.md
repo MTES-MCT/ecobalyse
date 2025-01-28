@@ -10,9 +10,10 @@ Le cas échéant, les spécificités relatives à chaque produit sont décrites 
 
 Les étapes de transport prisent en compte dans le coût environnemental du produit sont de trois types : &#x20;
 
-* Le transport des matières premières (ex : coton, blé), des matériaux (ex : mine de fer, lingot d'aluminium)  et composants (ex :  boulon, rouleau de tissu) de la source jusqu'au dernier site industriel de fabrication (Confection textile, assemblage, usine agroalimentaire ...)&#x20;
-* Le transport du produit fini entre l'usine (en France ou import) et les entrepôts
-* La distribution du produit en France.
+* Transport des matières premières (ex : coton, blé, bois)
+* Transport des produits intermédiaires (ex : tissu textile)  et composants (ex : pied de chaise, pneu) entre les sites de transformation,
+* Transport du produit fini entre une usine hors France et un entrepôt centralisé en France,
+* Transport entre un site centralisé en France et un magasin ou le consommateur final.
 
 ## Voies et modes de transports proposés
 
@@ -20,20 +21,20 @@ Les étapes de transport prisent en compte dans le coût environnemental du prod
 
 * Voie Terrestre\
   Mode de transport : camion
-* Maritime (+ terrestre)\
+* Maritime (transport international uniquement)\
   Modes de transport : bateau + camion\
   &#xNAN;_&#x44;ans le cas d'un transport par voie maritime, le transport est réalisé en trois étapes : transport par la route vers le port de départ, transport par la mer de port à port, transport par la route depuis le port d'arrivée._
-* Aérienne\
+* Aérienne (transport international uniquement)\
   Modes de transport : avion + camion\
   &#xNAN;_&#x44;ans le cas d'un transport par voie aérienne, le transport est réalisé en trois étapes : transport par la route vers l'aéroport de départ, transport par avion d'aéroport à aéroport, transport par la route depuis l'aéroport d'arrivée._&#x20;
-* Ferroviaire\
+* Ferroviaire (transport international uniquement)\
   Modes de transport : train
 
 A des fins de simplification, ces 4 voies ne sont pas toujours proposés pour toutes les étapes de transport.
 
 ## Calcul du coût environnemental par voie
 
-### Distances et mode de transport
+### Distances et mode de transport - transport international
 
 La distance et le mode de transport sont calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.&#x20;
 
@@ -126,7 +127,7 @@ Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence ave
 
 </details>
 
-#### Cas de la distribution
+### Distances et mode de transport - Cas de la distribution
 
 Pour la distribution, il est considéré une distance par défaut de 500 km, effectuée en camion entre un entrepôt situé quelque part en France et un magasin ou point de retrait plus proche du consommateur.
 
@@ -167,9 +168,9 @@ En pratique, pour une même chaine d'approvisionnement, plusieurs voies de trans
 * Les marques de textile fast-fashion privilégient l'avion pour distribuer plus rapidement leurs produits aux consommateurs
 * Certains industriels font le choix du ferroviaire pour son faible impact environnemental, ou parce qu'ils ont une voie ferrée desservant directement le site de production ou de stockage.
 
-### Transport jusqu'au dernier site industriel de fabrication : pas de choix de voie de transport
+### Modélisation du transport avec voie de transport non modifiable
 
-Pour ces étapes de transport, l'utilisateur ne peut pas choisir la voie de transport des ingrédients, matériaux ou composants. Sauf mention explicite dans la documentation spécifique métier, un mix de transports par voies terrestre et maritime est considéré.
+Pour les étapes de transport utilisant cette modélisation, l'utilisateur ne peut pas choisir la voie de transport des ingrédients, matériaux ou composants. Sauf mention explicite dans la documentation spécifique métier, un mix de transports par voies terrestre et maritime est considéré.
 
 La part du **transport terrestre (t)**, par rapport au transport "terrestre + maritime", est alors établie comme suit :
 
