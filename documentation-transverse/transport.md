@@ -161,7 +161,11 @@ Il est résulte les coûts environnementaux par mode de transport suivant (corre
 
 ## Mix des voies de transport
 
-En pratique, pour une même chaine d'approvisionnement, plusieurs voies de transports sont utilisées, dans des proportions qui dépendent du type de produit, de la distance et de choix industriels. <mark style="color:purple;">(je comprends pas trop, besoin d'un exemple)</mark>
+En pratique, pour une même chaine d'approvisionnement, plusieurs voies de transports sont utilisées, dans des proportions qui dépendent du type de produit, de la distance et de choix industriels.&#x20;
+
+* Plus la distance est faible, plus le transport se fait en 100% routier
+* Les marques de textile fast-fashion privilégient l'avion pour distribuer plus rapidement leurs produits aux consommateurs
+* Certains industriels font le choix du ferroviaire pour son faible impact environnemental, ou parce qu'ils ont une voie ferrée desservant directement le site de production ou de stockage.
 
 ### Transport jusqu'au dernier site industriel de fabrication : pas de choix de voie de transport
 
