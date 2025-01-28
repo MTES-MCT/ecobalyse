@@ -127,11 +127,11 @@ Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence ave
 
 </details>
 
-### Distances et mode de transport - Cas de la distribution
+### Distances et mode de transport - entre un site centralisé en France et le consommateur
 
-Pour la distribution, il est considéré une distance par défaut de 500 km, effectuée en camion entre un entrepôt situé quelque part en France et un magasin ou point de retrait plus proche du consommateur.
+Pour le transport entre le site de production du produit fini en France ou un entrepôt logistique centralisé en France et le consommateur final, il est considéré une distance par défaut de 500 km, effectuée en camion. Aucune distinction de scénario d'achat n'est faite, le déplacement du consommateur final ou la livraison du dernier kilomètre n'est pas prise en compte.
 
-Cette hypothèse est conforme à la méthodologie ADEME pour le textile (cf. méthodologie d'évaluation des idmpacts environnementaux des articles d'habillement - section A.2.b.2 p30).&#x20;
+Cette hypothèse est conforme à la méthodologie ADEME pour le textile (cf. méthodologie d'évaluation des impacts environnementaux des articles d'habillement - section A.2.b.2 p30).&#x20;
 
 ### Coût environnemental pour une voie de transport
 
