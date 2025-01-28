@@ -176,8 +176,6 @@ La part du **transport terrestre (t)**, par rapport au transport "terrestre + ma
 
 <table data-header-hidden><thead><tr><th width="297"></th><th></th></tr></thead><tbody><tr><td><strong>Distance terrestre</strong></td><td><strong>t</strong></td></tr><tr><td>&#x3C;=500 km</td><td>100%</td></tr><tr><td>500 km &#x3C;= 1000 km</td><td>90%</td></tr><tr><td>1000 km &#x3C;= 2000 km</td><td>50%</td></tr><tr><td>2000 km &#x3C;= 3000 km</td><td>25%</td></tr><tr><td>> 3000 km</td><td>0%</td></tr></tbody></table>
 
-<mark style="color:purple;">Idem, pas bien clair. Dans tous les cas si il y a du maritimme > 3000 km ya besoin d'un camion puor aller au port ... ?</mark>
-
 Le coût environnemental est calculé selon la formule suivante :
 
 $$
@@ -189,13 +187,16 @@ Avec :&#x20;
 * CEtransport : le coût environnemental de l'étape de transport considérée, exprimé en points d'impact Pts
 * t : la part de voie terrestre considérée, établie selon le tableau ci-dessus
 * CEterrestre : le coût environnemental par voie terrestre, exprimé en points d'impact Pts (voir calcul ci-dessus)
-* CEmaritime : le coût environnemental par voie maritime, exprimé en points d'impact Pts (voir calcul ci-dessus)
+* CEmaritime : le coût environnemental par voie maritime, exprimé en points d'impact Pts (voir calcul ci-dessus). Ceci inclut donc à la fois le transport par bateau et le transport par camion vers et depuis les ports.
 
-### Transport du produit fini  : choix de la part d'aérien ou de ferroviaire
+#### Cas d'application
 
-Ce cas n'est proposé que pour le transport de produits finis vers la France.
+* Transports de produits textile intermédiaires et d'accessoires
+* Transport de composants&#x20;
 
-Pour cette étape les options disponibles dépendent de chaque secteur : un ratio de transport aérien (textiles), ferroviaire (meubles, véhicules) ou une option "aérien" (fruits).
+### Modélisation du transport avec part d'aérien ou de ferroviaire modifiable&#x20;
+
+#### Modélisation
 
 L'impact du transport sur chaque étape se calcule comme une pondération des trois types de transport considérés.
 
@@ -222,5 +223,10 @@ Avec :&#x20;
 * CEterrestre : le coût environnemental par voie terrestre, exprimé en points d'impact Pts (voir calcul ci-dessus)
 * CEmaritime : le coût environnemental par voie maritime, exprimé en points d'impact Pts (voir calcul ci-dessus)
 
-**Ces hypothèses relatives aux transport relèvent d'une orientation spécifique à l'outil Ecobalyse, visant à représenter les pratiques courantes observées dans l'industrie**.
+#### Cas d'application et déclinaison de la modélisation
+
+* Transport d'ingrédients depuis un pays étrangers vers la France : option "aérien"
+* Transports de produits finis textile depuis un pays étrangers vers la France : ratio a "aérien"
+* Transport de véhicules depuis un pays étrangers vers la France : ratio f "ferroviaire"
+* Transport de meubles depuis un pays étrangers vers la France : ratio f "ferroviaire"
 
