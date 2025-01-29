@@ -37,6 +37,7 @@ type Path
     | TextileMaterial -- Matière textile
     | TextileSpinning -- Filature textile
     | TextileTransport -- Transport textile
+    | TextileTrims -- Accessoires textiles
     | TextileUse -- Utilisation textile
 
 
@@ -132,6 +133,9 @@ pathToString path =
 
         TextileTransport ->
             "textile/parametres-transverses/transport"
+
+        TextileTrims ->
+            "textile/cycle-de-vie-des-produits-textiles/accessoires"
 
         TextileUse ->
             "textile/etapes-du-cycle-de-vie/etape-6-utilisation"

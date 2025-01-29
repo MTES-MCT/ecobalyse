@@ -6,11 +6,12 @@ import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Economics as Economics
 import Data.Textile.LifeCycle as LifeCycle
-import Data.Textile.Query exposing (Query, tShirtCotonFrance)
+import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Simulator as Simulator
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Expect exposing (Expectation)
+import Json.Decode as Decode
 import Static.Db exposing (Db)
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
@@ -158,6 +159,76 @@ suite =
                     |> Result.withDefault 0
                     |> Expect.greaterThan 0
                     |> asTest "should compute total impacts without complements"
+                ]
+            , describe "Simulator.getTotalImpactsWithoutDurability" <|
+                let
+                    testCalc expectation jsonQuery =
+                        case
+                            jsonQuery
+                                |> Decode.decodeString Query.decode
+                                |> Result.mapError Decode.errorToString
+                                |> Result.andThen (Simulator.compute db)
+                                |> Result.map
+                                    (\simulator ->
+                                        ( simulator.impacts |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat
+                                        , Simulator.getTotalImpactsWithoutDurability simulator |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat
+                                        )
+                                    )
+                        of
+                            Err err ->
+                                Expect.fail err
+
+                            Ok ( withDurability, withoutDurability ) ->
+                                expectation (Expect.Absolute 0.001) withDurability withoutDurability
+                in
+                [ -- This example gives a durability index different from 1, ecoscores should differ
+                  """ {
+                          "business": "small-business",
+                          "countrySpinning": "MA",
+                          "mass": 0.3,
+                          "materials": [
+                              {
+                                  "id": "ei-laine-par-defaut",
+                                  "share": 1
+                              }
+                          ],
+                          "numberOfReferences": 10000000,
+                          "physicalDurability": 1,
+                          "price": 2,
+                          "product": "pull",
+                          "trims": [],
+                          "upcycled": false
+                      }
+                    """
+                    |> testCalc Expect.notWithin
+                    |> asTest "should compute impacts without durability when durability isn't 1"
+                , -- This example gives a durability index of 1, so ecoscores with and without
+                  -- durability should be strictly equivalent
+                  """ {
+                          "business": "small-business",
+                          "countrySpinning": "MA",
+                          "mass": 0.3,
+                          "materials": [
+                              {
+                                  "id": "ei-laine-par-defaut",
+                                  "share": 1
+                              }
+                          ],
+                          "numberOfReferences": 10054,
+                          "physicalDurability": 1,
+                          "price": 37,
+                          "product": "pull",
+                          "trims": [
+                              {
+                                  "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
+                                  "quantity": 10
+                              }
+                          ],
+                          "upcycled": false
+                      }
+                    """
+                    |> testCalc Expect.within
+                    |> asTest "should compute impacts without durability when durability is 1"
                 ]
             ]
         )

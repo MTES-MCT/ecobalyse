@@ -1018,6 +1018,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , allowExpandDetails = True
         , db = session.db
         , detailed = model.detailedTrims
+        , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , impact = model.impact
         , items = session.queries.textile.trims
         , noOp = NoOp
@@ -1204,7 +1205,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                         )
                 , productMass = inputs.mass
                 , totalImpacts = impacts
-                , totalImpactsWithoutDurability = Just <| Simulator.getTotalImpactsWithoutDurability simulator.lifeCycle
+                , totalImpactsWithoutDurability = Just <| Simulator.getTotalImpactsWithoutDurability simulator
 
                 -- Impacts tabs
                 , impactTabsConfig =
