@@ -1370,7 +1370,7 @@
   },
   {
     "categories": ["processing"],
-    "comment": "Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
+    "comment": "Bien que `elec_MJ` = 0, ce procédé consomme de l'électricité mais dans une autre unité (kWh/pick.m). Voir weavingElecPPPM. Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
     "density": 0,
     "displayName": "Tissage (habillement)",
     "elec_MJ": 0,
@@ -2739,16 +2739,16 @@
   },
   {
     "categories": ["processing"],
-    "comment": "Ancien identifiant (12/2024): 63baddae-e05d-404b-a73f-371044a24fe9.",
+    "comment": "corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
-    "displayName": "Apprêt anti-tache, procédé représentatif, traitement moyen des eaux usées",
-    "elec_MJ": 1.61,
-    "heat_MJ": 10.74,
+    "displayName": "Apprêts chimiques",
+    "elec_MJ": 2.16,
+    "heat_MJ": 13.5,
     "id": "63baddae-e05d-404b-a73f-371044a24fe9",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 305.514,
+      "ecs": 0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2762,14 +2762,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 353.941,
+      "pef": 0,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apprêt anti-tache, procédé représentatif, traitement moyen des eaux usées",
-    "source": "Base Impacts 2.01",
+    "name": "Apprêts chimiques",
+    "source": "Ecobalyse",
     "sourceId": null,
     "unit": "kg",
     "waste": 0
@@ -2873,7 +2873,7 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 42.9927,
+      "pef": 0,
       "pma": 0,
       "swe": 0,
       "tre": 0,
@@ -3034,7 +3034,6 @@
     "waste": 0
   },
   {
-    "alias": "desizing",
     "categories": ["processing"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
@@ -3072,7 +3071,6 @@
     "waste": 0
   },
   {
-    "alias": "scouring",
     "categories": ["processing"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
@@ -3110,7 +3108,6 @@
     "waste": 0
   },
   {
-    "alias": "washing-synthetic-fiber",
     "categories": ["processing"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
@@ -3148,7 +3145,6 @@
     "waste": 0
   },
   {
-    "alias": "mercerization",
     "categories": ["processing"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
