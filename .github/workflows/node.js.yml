@@ -63,6 +63,9 @@ jobs:
     - name: Check JSON db formating
       run: npm run db:validate
 
+    - name: Check synchronization with ecobalyse-data for generated JSON
+      run: ./scripts/check-ecobalyse-data-sync.sh
+
     - name: Install Python dependencies
       run: pip install pipenv && pipenv install -d
 
