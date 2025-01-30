@@ -1,6 +1,27 @@
 # Changelog
 
 
+## [3.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v3.1.0..v3.2.0) (2025-01-30)
+
+
+
+### 🚀 Features
+
+- Add pre-treatments and update bleaching process ([#898](https://github.com/MTES-MCT/ecobalyse/issues/898))
+- *(textile,ui)* Apply default trims on product category change ([#910](https://github.com/MTES-MCT/ecobalyse/issues/910))
+- Add link to docs in trims section. ([#911](https://github.com/MTES-MCT/ecobalyse/issues/911))
+- Update finishing ([#906](https://github.com/MTES-MCT/ecobalyse/issues/906))
+
+### 🪲 Bug Fixes
+
+- Include trims impacts to score without durability. ([#912](https://github.com/MTES-MCT/ecobalyse/issues/912))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(data)* Update fast fashion examples nb of references. ([#908](https://github.com/MTES-MCT/ecobalyse/issues/908))
+- For bleaching set etf to 0 ([#914](https://github.com/MTES-MCT/ecobalyse/issues/914))
+
+
 ## [3.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v3.0.0..v3.1.0) (2025-01-23)
 
 
