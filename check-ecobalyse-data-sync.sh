@@ -12,7 +12,6 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# Clone ecobalyse-data repository
 echo "Cloning ecobalyse-data repository (branch: ${ECOBALYSE_DATA_BRANCH})..."
 git clone -q -b "${ECOBALYSE_DATA_BRANCH}" "$ECOBALYSE_DATA_REPO" "$TEMP_DIR"
 
@@ -25,7 +24,6 @@ FILES=(
     "public/data/object/processes.json"
 )
 
-# Compare specified JSON files
 echo "Comparing JSON files between ecobalyse-data and ecobalyse repositories..."
 DIFFERENCES_FOUND=0
 

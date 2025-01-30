@@ -63,9 +63,6 @@ jobs:
     - name: Check JSON db formating
       run: npm run db:validate
 
-    - name: Check synchronization with ecobalyse-data for generated JSON
-      run: ./scripts/check-ecobalyse-data-sync.sh
-
     - name: Install Python dependencies
       run: pip install pipenv && pipenv install -d
 
@@ -88,3 +85,12 @@ jobs:
 
     - name: Run server tests
       run: pipenv run backend/update.sh && npm run test:server-ci && npm run test:backend
+
+  check-ecobalyse-data-sync:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Check synchronization with ecobalyse-data for generated JSON
+      run: ./scripts/check-ecobalyse-data-sync.sh
