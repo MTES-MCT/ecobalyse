@@ -93,4 +93,4 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Check synchronization with ecobalyse-data for generated JSON
-      run: ./scripts/check-ecobalyse-data-sync.sh
+      run: ./check-ecobalyse-data-sync.sh
