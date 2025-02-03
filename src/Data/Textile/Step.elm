@@ -1,8 +1,10 @@
 module Data.Textile.Step exposing
-    ( Step
+    ( Details
+    , Step
     , airTransportDisabled
     , airTransportRatioToString
     , computeMaterialTransportAndImpact
+    , computePreTreatments
     , computeTransports
     , create
     , encode
@@ -31,6 +33,7 @@ import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
+import Data.Textile.Material.Origin as Origin
 import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
@@ -64,6 +67,7 @@ type alias Step =
     , makingWaste : Maybe Split
     , outputMass : Mass
     , picking : Maybe Unit.PickPerMeter
+    , preTreatments : Details
     , printing : Maybe Printing
     , processInfo : ProcessInfo
     , surfaceMass : Maybe Unit.SurfaceMass
@@ -71,6 +75,14 @@ type alias Step =
     , transport : Transport
     , waste : Mass
     , yarnSize : Maybe Unit.YarnSize
+    }
+
+
+type alias Details =
+    -- TODO: refactor to generalize usage of this data structure for impacts+elec+heat
+    { heat : Energy
+    , impacts : Impacts
+    , kwh : Energy
     }
 
 
@@ -118,6 +130,7 @@ create { country, editable, enabled, label } =
     , makingWaste = Nothing
     , outputMass = Quantity.zero
     , picking = Nothing
+    , preTreatments = emptyPreTreatments
     , printing = Nothing
     , processInfo = defaultProcessInfo
     , surfaceMass = Nothing
@@ -126,6 +139,11 @@ create { country, editable, enabled, label } =
     , waste = Quantity.zero
     , yarnSize = Nothing
     }
+
+
+emptyPreTreatments : Details
+emptyPreTreatments =
+    { heat = Quantity.zero, impacts = Impact.empty, kwh = Quantity.zero }
 
 
 defaultProcessInfo : ProcessInfo
@@ -160,6 +178,49 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
         |> Inputs.computeMaterialTransport distances country.code
         |> Formula.transportRatio Split.zero
         |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
+
+
+computePreTreatments : WellKnown -> Inputs -> Step -> Details
+computePreTreatments wellKnown inputs { country, inputMass } =
+    inputs.materials
+        |> List.concatMap
+            (\{ material, share } ->
+                -- FIXME: unique that list as assembled materials should never be pre-treated twice
+                material.origin
+                    |> Origin.getPreTreatments wellKnown
+                    |> List.map
+                        (\preTreatmentProcess ->
+                            let
+                                massInKg =
+                                    share
+                                        |> Split.applyToQuantity inputMass
+                                        |> Mass.inKilograms
+
+                                ( kwh_, heat_ ) =
+                                    ( preTreatmentProcess.elec |> Quantity.multiplyBy massInKg
+                                    , preTreatmentProcess.heat |> Quantity.multiplyBy massInKg
+                                    )
+                            in
+                            { heat = heat_
+                            , impacts =
+                                Impact.sumImpacts
+                                    [ preTreatmentProcess.impacts |> Impact.multiplyBy massInKg
+                                    , country.electricityProcess.impacts |> Impact.multiplyBy (Energy.inKilowattHours kwh_)
+                                    , country.heatProcess.impacts |> Impact.multiplyBy (Energy.inMegajoules heat_)
+                                    ]
+                            , kwh = kwh_
+                            }
+                        )
+            )
+        |> List.foldl
+            (\new acc ->
+                { acc
+                    | heat = acc.heat |> Quantity.plus new.heat
+                    , impacts = Impact.sumImpacts [ acc.impacts, new.impacts ]
+                    , kwh = acc.kwh |> Quantity.plus new.kwh
+                }
+            )
+            emptyPreTreatments
 
 
 {-| Computes step transport distances and impact regarding next step.
