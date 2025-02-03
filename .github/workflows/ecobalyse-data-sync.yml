@@ -1,0 +1,20 @@
+name: ecobalyse-data sync
+
+on:
+  pull_request:
+    branches: [ master, staging ]
+  workflow_dispatch:
+
+jobs:
+  check-ecobalyse-data-sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install wget
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget
+
+    - name: Check synchronization with ecobalyse-data for generated JSON
+      run: ./check-ecobalyse-data-sync.sh
