@@ -1089,9 +1089,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                     (\line -> li [ class "list-group-item fs-7" ] [ line ])
                     (case current.label of
                         Label.Ennobling ->
-                            [ div [ class "mb-2" ]
-                                [ viewPreTreatments current.preTreatments
-                                ]
+                            [ viewPreTreatments current.preTreatments
                             , ennoblingGenericFields config
                             , div [ class "mt-2" ]
                                 [ text "Finition\u{00A0}: apprêt chimique" ]
@@ -1186,10 +1184,14 @@ viewPreTreatments { operations } =
                         ""
                    )
                 ++ "\u{00A0}: "
-        , operations
-            |> List.map Process.getDisplayName
-            |> String.join ", "
-            |> text
+        , if List.length operations == 0 then
+            text "Aucun"
+
+          else
+            operations
+                |> List.map Process.getDisplayName
+                |> String.join ", "
+                |> text
         ]
 
 
