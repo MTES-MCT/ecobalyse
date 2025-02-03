@@ -130,7 +130,7 @@ create { country, editable, enabled, label } =
     , makingWaste = Nothing
     , outputMass = Quantity.zero
     , picking = Nothing
-    , preTreatments = emptyPreTreatments
+    , preTreatments = emptyPreDetails
     , printing = Nothing
     , processInfo = defaultProcessInfo
     , surfaceMass = Nothing
@@ -141,8 +141,8 @@ create { country, editable, enabled, label } =
     }
 
 
-emptyPreTreatments : Details
-emptyPreTreatments =
+emptyPreDetails : Details
+emptyPreDetails =
     { heat = Quantity.zero, impacts = Impact.empty, kwh = Quantity.zero }
 
 
@@ -185,7 +185,6 @@ computePreTreatments wellKnown inputs { country, inputMass } =
     inputs.materials
         |> List.concatMap
             (\{ material, share } ->
-                -- FIXME: unique that list as assembled materials should never be pre-treated twice
                 material.origin
                     |> Origin.getPreTreatments wellKnown
                     |> List.map
@@ -196,19 +195,19 @@ computePreTreatments wellKnown inputs { country, inputMass } =
                                         |> Split.applyToQuantity inputMass
                                         |> Mass.inKilograms
 
-                                ( kwh_, heat_ ) =
+                                ( consumedElec, consumedHeat ) =
                                     ( preTreatmentProcess.elec |> Quantity.multiplyBy massInKg
                                     , preTreatmentProcess.heat |> Quantity.multiplyBy massInKg
                                     )
                             in
-                            { heat = heat_
+                            { heat = consumedHeat
                             , impacts =
                                 Impact.sumImpacts
                                     [ preTreatmentProcess.impacts |> Impact.multiplyBy massInKg
-                                    , country.electricityProcess.impacts |> Impact.multiplyBy (Energy.inKilowattHours kwh_)
-                                    , country.heatProcess.impacts |> Impact.multiplyBy (Energy.inMegajoules heat_)
+                                    , country.electricityProcess.impacts |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
+                                    , country.heatProcess.impacts |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
                                     ]
-                            , kwh = kwh_
+                            , kwh = consumedElec
                             }
                         )
             )
@@ -220,7 +219,7 @@ computePreTreatments wellKnown inputs { country, inputMass } =
                     , kwh = acc.kwh |> Quantity.plus new.kwh
                 }
             )
-            emptyPreTreatments
+            emptyPreDetails
 
 
 {-| Computes step transport distances and impact regarding next step.
