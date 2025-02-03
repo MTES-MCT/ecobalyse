@@ -201,16 +201,21 @@ computePreTreatments wellKnown inputs { country, inputMass } =
                                         |> Mass.inKilograms
 
                                 ( consumedElec, consumedHeat ) =
-                                    ( preTreatmentProcess.elec |> Quantity.multiplyBy massInKg
-                                    , preTreatmentProcess.heat |> Quantity.multiplyBy massInKg
+                                    ( preTreatmentProcess.elec
+                                        |> Quantity.multiplyBy massInKg
+                                    , preTreatmentProcess.heat
+                                        |> Quantity.multiplyBy massInKg
                                     )
                             in
                             { heat = consumedHeat
                             , impacts =
                                 Impact.sumImpacts
-                                    [ preTreatmentProcess.impacts |> Impact.multiplyBy massInKg
-                                    , country.electricityProcess.impacts |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
-                                    , country.heatProcess.impacts |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
+                                    [ preTreatmentProcess.impacts
+                                        |> Impact.multiplyBy massInKg
+                                    , country.electricityProcess.impacts
+                                        |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
+                                    , country.heatProcess.impacts
+                                        |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
                                     ]
                             , kwh = consumedElec
                             , operations = [ preTreatmentProcess ]
