@@ -2,6 +2,7 @@ module Data.Textile.WellKnown exposing
     ( WellKnown
     , getDyeingProcess
     , getEnnoblingHeatProcess
+    , getEnnoblingPreTreatments
     , getPrintingProcess
     , load
     , weavingElecPPPM
@@ -10,6 +11,7 @@ module Data.Textile.WellKnown exposing
 import Data.Country exposing (Country)
 import Data.Process as Process exposing (Process)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Material.Origin as Origin exposing (Origin)
 import Data.Textile.Printing as Printing
 import Data.Zone as Zone
 import Result.Extra as RE
@@ -72,6 +74,22 @@ getEnnoblingHeatProcess wk country =
 
         _ ->
             wk.heatRoW
+
+
+getEnnoblingPreTreatments : Origin -> WellKnown -> List Process
+getEnnoblingPreTreatments origin { bleaching, degreasing, washingSyntheticFibers } =
+    case origin of
+        Origin.NaturalFromAnimal ->
+            [ bleaching, degreasing ]
+
+        Origin.NaturalFromVegetal ->
+            [ bleaching, degreasing ]
+
+        Origin.Synthetic ->
+            [ washingSyntheticFibers ]
+
+        _ ->
+            []
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, printingToxicityProcess : Process }

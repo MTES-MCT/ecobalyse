@@ -1,7 +1,6 @@
 module Data.Textile.Material.Origin exposing
     ( Origin(..)
     , decode
-    , getPreTreatments
     , isSynthetic
     , threadProcess
     , toLabel
@@ -9,8 +8,6 @@ module Data.Textile.Material.Origin exposing
     , toString
     )
 
-import Data.Process exposing (Process)
-import Data.Textile.WellKnown exposing (WellKnown)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -55,22 +52,6 @@ fromString origin =
 isSynthetic : Origin -> Bool
 isSynthetic origin =
     origin == Synthetic
-
-
-getPreTreatments : WellKnown -> Origin -> List Process
-getPreTreatments { bleaching, degreasing, washingSyntheticFibers } origin =
-    case origin of
-        NaturalFromAnimal ->
-            [ bleaching, degreasing ]
-
-        NaturalFromVegetal ->
-            [ bleaching, degreasing ]
-
-        Synthetic ->
-            [ washingSyntheticFibers ]
-
-        _ ->
-            []
 
 
 toMicrofibersComplement : Origin -> Unit.Impact
