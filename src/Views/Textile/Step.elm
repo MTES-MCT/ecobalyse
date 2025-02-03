@@ -820,7 +820,7 @@ ennoblingPreTreatmentsView { selectedImpact } { label, preTreatments } =
     showIf (label == Label.Ennobling) <|
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             [ span [] [ text <| "Dont pré-traitements\u{00A0}:" ]
-            , span [ class "text-end ImpactDisplay text-black-50 fs-7" ]
+            , span [ class "text-end ImpactDisplay fs-7" ]
                 [ preTreatments.impacts
                     |> Format.formatImpact selectedImpact
                 ]
@@ -1090,8 +1090,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                     (case current.label of
                         Label.Ennobling ->
                             [ div [ class "mb-2" ]
-                                [ text "Pré-traitement\u{00A0}: "
-                                , viewPreTreatments current.preTreatments
+                                [ viewPreTreatments current.preTreatments
                                 ]
                             , ennoblingGenericFields config
                             , div [ class "mt-2" ]
@@ -1140,8 +1139,8 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                             ]
                         ]
                 , surfaceInfoView inputs current
-                , ennoblingToxicityView db config current
                 , ennoblingPreTreatmentsView config current
+                , ennoblingToxicityView db config current
                 , pickingView current.picking
                 , threadDensityView current.threadDensity
                 , wasteView config current.waste
@@ -1176,11 +1175,22 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
 
 
 viewPreTreatments : PreTreatments -> Html msg
-viewPreTreatments =
-    .operations
-        >> List.map Process.getDisplayName
-        >> String.join ", "
-        >> text
+viewPreTreatments { operations } =
+    span []
+        [ text <|
+            "Pré-traitement"
+                ++ (if List.length operations > 1 then
+                        "s"
+
+                    else
+                        ""
+                   )
+                ++ "\u{00A0}: "
+        , operations
+            |> List.map Process.getDisplayName
+            |> String.join ", "
+            |> text
+        ]
 
 
 view : Config msg modal -> ViewWithTransport msg
