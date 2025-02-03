@@ -364,7 +364,8 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                             |> Impact.sumImpacts
 
                     preTreatments =
-                        step |> Step.computePreTreatments textile.wellKnown inputs
+                        step.inputMass
+                            |> Step.computePreTreatments textile.wellKnown inputs.materials step.country
 
                     { heat, impacts, kwh } =
                         step.outputMass

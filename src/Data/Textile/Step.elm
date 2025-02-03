@@ -31,7 +31,7 @@ import Data.Textile.Db as Textile
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
-import Data.Textile.Inputs as Inputs exposing (Inputs)
+import Data.Textile.Inputs as Inputs exposing (Inputs, MaterialInput)
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material.Origin as Origin
 import Data.Textile.Printing exposing (Printing)
@@ -185,9 +185,9 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
         |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
-computePreTreatments : WellKnown -> Inputs -> Step -> PreTreatments
-computePreTreatments wellKnown inputs { country, inputMass } =
-    inputs.materials
+computePreTreatments : WellKnown -> List MaterialInput -> Country -> Mass -> PreTreatments
+computePreTreatments wellKnown materials country inputMass =
+    materials
         |> List.concatMap
             (\{ material, share } ->
                 material.origin
@@ -223,12 +223,12 @@ computePreTreatments wellKnown inputs { country, inputMass } =
                         )
             )
         |> List.foldl
-            (\new acc ->
+            (\{ heat, impacts, kwh, operations } acc ->
                 { acc
-                    | heat = acc.heat |> Quantity.plus new.heat
-                    , impacts = Impact.sumImpacts [ acc.impacts, new.impacts ]
-                    , kwh = acc.kwh |> Quantity.plus new.kwh
-                    , operations = LE.unique (acc.operations ++ new.operations)
+                    | heat = acc.heat |> Quantity.plus heat
+                    , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
+                    , kwh = acc.kwh |> Quantity.plus kwh
+                    , operations = LE.unique <| acc.operations ++ operations
                 }
             )
             emptyPreTreatments
