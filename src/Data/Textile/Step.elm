@@ -553,12 +553,23 @@ encode v =
         , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "preTreatments", encodePreTreatments v.preTreatments )
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "threadDensity", v.threadDensity |> Maybe.map Unit.encodeThreadDensity |> Maybe.withDefault Encode.null )
         , ( "transport", Transport.encode v.transport )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "yarnSize", v.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
+        ]
+
+
+encodePreTreatments : PreTreatments -> Encode.Value
+encodePreTreatments v =
+    Encode.object
+        [ ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
+        , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
+        , ( "impacts", Impact.encode v.impacts )
+        , ( "operations", v.operations |> List.map Process.getDisplayName |> Encode.list Encode.string )
         ]
 
 
