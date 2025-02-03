@@ -1,19 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 
-# Directory where ecobalyse-data will be cloned
+# Directory where files will be downloaded
 TEMP_DIR=$(mktemp -d)
-ECOBALYSE_DATA_REPO="https://github.com/MTES-MCT/ecobalyse-data.git"
 ECOBALYSE_DATA_BRANCH="${ECOBALYSE_DATA_BRANCH:-main}"
+RAW_GITHUB_URL="https://raw.githubusercontent.com/MTES-MCT/ecobalyse-data/${ECOBALYSE_DATA_BRANCH}"
 
 # Cleanup function
 cleanup() {
     rm -rf "$TEMP_DIR"
 }
 trap cleanup EXIT
-
-echo "Cloning ecobalyse-data repository (branch: ${ECOBALYSE_DATA_BRANCH})..."
-git clone -q -b "${ECOBALYSE_DATA_BRANCH}" "$ECOBALYSE_DATA_REPO" "$TEMP_DIR"
 
 # Files to check
 FILES=(
@@ -23,6 +20,22 @@ FILES=(
     "public/data/textile/processes.json"
     "public/data/object/processes.json"
 )
+
+echo "Downloading files from ecobalyse-data repository (branch: ${ECOBALYSE_DATA_BRANCH})..."
+
+# Create necessary directories in TEMP_DIR
+for file in "${FILES[@]}"; do
+    mkdir -p "$TEMP_DIR/$(dirname "$file")"
+done
+
+# Download each file
+for file in "${FILES[@]}"; do
+    wget -q "$RAW_GITHUB_URL/$file" -O "$TEMP_DIR/$file" || {
+        echo "--⚠️  Failed to download $file from ecobalyse-data repository"
+        DIFFERENCES_FOUND=1
+        continue
+    }
+done
 
 echo "Comparing JSON files between ecobalyse-data and ecobalyse repositories..."
 DIFFERENCES_FOUND=0
