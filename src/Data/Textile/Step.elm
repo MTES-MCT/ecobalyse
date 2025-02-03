@@ -1,5 +1,5 @@
 module Data.Textile.Step exposing
-    ( Details
+    ( PreTreatments
     , Step
     , airTransportDisabled
     , airTransportRatioToString
@@ -42,6 +42,7 @@ import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Length
+import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Static.Db exposing (Db)
@@ -67,7 +68,7 @@ type alias Step =
     , makingWaste : Maybe Split
     , outputMass : Mass
     , picking : Maybe Unit.PickPerMeter
-    , preTreatments : Details
+    , preTreatments : PreTreatments
     , printing : Maybe Printing
     , processInfo : ProcessInfo
     , surfaceMass : Maybe Unit.SurfaceMass
@@ -78,11 +79,11 @@ type alias Step =
     }
 
 
-type alias Details =
-    -- TODO: refactor to generalize usage of this data structure for impacts+elec+heat
+type alias PreTreatments =
     { heat : Energy
     , impacts : Impacts
     , kwh : Energy
+    , operations : List Process
     }
 
 
@@ -130,7 +131,7 @@ create { country, editable, enabled, label } =
     , makingWaste = Nothing
     , outputMass = Quantity.zero
     , picking = Nothing
-    , preTreatments = emptyPreDetails
+    , preTreatments = emptyPreTreatments
     , printing = Nothing
     , processInfo = defaultProcessInfo
     , surfaceMass = Nothing
@@ -141,9 +142,13 @@ create { country, editable, enabled, label } =
     }
 
 
-emptyPreDetails : Details
-emptyPreDetails =
-    { heat = Quantity.zero, impacts = Impact.empty, kwh = Quantity.zero }
+emptyPreTreatments : PreTreatments
+emptyPreTreatments =
+    { heat = Quantity.zero
+    , impacts = Impact.empty
+    , kwh = Quantity.zero
+    , operations = []
+    }
 
 
 defaultProcessInfo : ProcessInfo
@@ -180,7 +185,7 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
         |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
-computePreTreatments : WellKnown -> Inputs -> Step -> Details
+computePreTreatments : WellKnown -> Inputs -> Step -> PreTreatments
 computePreTreatments wellKnown inputs { country, inputMass } =
     inputs.materials
         |> List.concatMap
@@ -208,6 +213,7 @@ computePreTreatments wellKnown inputs { country, inputMass } =
                                     , country.heatProcess.impacts |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
                                     ]
                             , kwh = consumedElec
+                            , operations = [ preTreatmentProcess ]
                             }
                         )
             )
@@ -217,9 +223,10 @@ computePreTreatments wellKnown inputs { country, inputMass } =
                     | heat = acc.heat |> Quantity.plus new.heat
                     , impacts = Impact.sumImpacts [ acc.impacts, new.impacts ]
                     , kwh = acc.kwh |> Quantity.plus new.kwh
+                    , operations = LE.unique (acc.operations ++ new.operations)
                 }
             )
-            emptyPreDetails
+            emptyPreTreatments
 
 
 {-| Computes step transport distances and impact regarding next step.

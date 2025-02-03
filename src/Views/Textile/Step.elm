@@ -22,9 +22,9 @@ import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Query exposing (MaterialQuery)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
-import Data.Textile.Step as Step exposing (Step)
+import Data.Textile.Step as Step exposing (PreTreatments, Step)
 import Data.Textile.Step.Label as Label exposing (Label)
-import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
+import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -32,7 +32,6 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Route
@@ -1092,8 +1091,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                         Label.Ennobling ->
                             [ div [ class "mb-2" ]
                                 [ text "Pré-traitement\u{00A0}: "
-                                , inputs.materials
-                                    |> viewPreTreatments db.textile.wellKnown
+                                , viewPreTreatments current.preTreatments
                                 ]
                             , ennoblingGenericFields config
                             , div [ class "mt-2" ]
@@ -1177,15 +1175,10 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
         ]
 
 
-viewPreTreatments : WellKnown -> List Inputs.MaterialInput -> Html msg
-viewPreTreatments wellKnown =
-    List.concatMap
-        (.material
-            >> .origin
-            >> Origin.getPreTreatments wellKnown
-            >> List.map Process.getDisplayName
-        )
-        >> LE.unique
+viewPreTreatments : PreTreatments -> Html msg
+viewPreTreatments =
+    .operations
+        >> List.map Process.getDisplayName
         >> String.join ", "
         >> text
 
