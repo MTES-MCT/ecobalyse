@@ -8,6 +8,7 @@ import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (noComplementsImpacts)
 import Data.Impact.Definition as Definition exposing (Definition)
+import Data.Process as Process
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -21,7 +22,7 @@ import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Query exposing (MaterialQuery)
 import Data.Textile.Simulator exposing (stepMaterialImpacts)
-import Data.Textile.Step as Step exposing (Step)
+import Data.Textile.Step as Step exposing (PreTreatments, Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport
@@ -814,6 +815,18 @@ surfaceInfoView inputs current =
             text ""
 
 
+ennoblingPreTreatmentsView : Config msg modal -> Step -> Html msg
+ennoblingPreTreatmentsView { selectedImpact } { label, preTreatments } =
+    showIf (label == Label.Ennobling) <|
+        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+            [ span [] [ text <| "Dont pré-traitements\u{00A0}:" ]
+            , span [ class "text-end ImpactDisplay fs-7" ]
+                [ preTreatments.impacts
+                    |> Format.formatImpact selectedImpact
+                ]
+            ]
+
+
 ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
 ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
     showIf (current.label == Label.Ennobling) <|
@@ -1076,8 +1089,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                     (\line -> li [ class "list-group-item fs-7" ] [ line ])
                     (case current.label of
                         Label.Ennobling ->
-                            [ div [ class "mb-2" ]
-                                [ text "Pré-traitement\u{00A0}: non applicable" ]
+                            [ viewPreTreatments current.preTreatments
                             , ennoblingGenericFields config
                             , div [ class "mt-2" ]
                                 [ text "Finition\u{00A0}: apprêt chimique" ]
@@ -1125,6 +1137,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                             ]
                         ]
                 , surfaceInfoView inputs current
+                , ennoblingPreTreatmentsView config current
                 , ennoblingToxicityView db config current
                 , pickingView current.picking
                 , threadDensityView current.threadDensity
@@ -1156,6 +1169,29 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                         ]
                 ]
             ]
+        ]
+
+
+viewPreTreatments : PreTreatments -> Html msg
+viewPreTreatments { operations } =
+    span []
+        [ text <|
+            "Pré-traitement"
+                ++ (if List.length operations > 1 then
+                        "s"
+
+                    else
+                        ""
+                   )
+                ++ "\u{00A0}: "
+        , if List.length operations == 0 then
+            text "Aucun"
+
+          else
+            operations
+                |> List.map Process.getDisplayName
+                |> String.join ", "
+                |> text
         ]
 
 

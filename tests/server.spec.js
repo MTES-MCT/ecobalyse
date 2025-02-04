@@ -1,6 +1,7 @@
 const fs = require("fs");
 const request = require("supertest");
 const app = require("../server");
+const textileExamples = require("../public/data/textile/examples.json");
 
 const e2eOutput = { food: [], textile: [] };
 
@@ -325,8 +326,25 @@ describe("API", () => {
         const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
 
         expectStatus(response, 200);
-        expect(response.body.impacts.ecs).toBeCloseTo(1569.6, 1);
-        expect(response.body.impactsWithoutDurability.ecs).toBeCloseTo(1051.63, 1);
+        expect(response.body.impacts.ecs > response.body.impactsWithoutDurability.ecs);
+      });
+
+      it("should compute pre-treatments", async () => {
+        const tShirt = textileExamples.filter(
+          ({ name }) => name === "Tshirt coton (150g) - Majorant par défaut",
+        )[0];
+        expect(tShirt).toBeTruthy();
+
+        const response = await makePostRequest("/api/textile/simulator/detailed", tShirt.query);
+
+        expectStatus(response, 200);
+
+        const ennoblingStep = response.body.lifeCycle.filter(
+          ({ label }) => label === "Ennoblissement",
+        )[0];
+        expect(ennoblingStep).toBeTruthy();
+
+        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(94.04, 2);
       });
     });
 

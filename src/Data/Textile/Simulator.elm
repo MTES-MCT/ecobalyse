@@ -363,6 +363,9 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                                 )
                             |> Impact.sumImpacts
 
+                    preTreatments =
+                        step |> Step.computePreTreatments textile.wellKnown inputs.materials
+
                     { heat, impacts, kwh } =
                         step.outputMass
                             |> Formula.dyeingImpacts step.impacts
@@ -371,9 +374,10 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                                 country.electricityProcess
                 in
                 { step
-                    | heat = step.heat |> Quantity.plus heat
-                    , impacts = Impact.sumImpacts [ step.impacts, impacts, dyeingToxicity ]
-                    , kwh = step.kwh |> Quantity.plus kwh
+                    | heat = Quantity.sum [ step.heat, heat, preTreatments.heat ]
+                    , impacts = Impact.sumImpacts [ step.impacts, impacts, dyeingToxicity, preTreatments.impacts ]
+                    , kwh = Quantity.sum [ step.kwh, kwh, preTreatments.kwh ]
+                    , preTreatments = preTreatments
                 }
             )
 

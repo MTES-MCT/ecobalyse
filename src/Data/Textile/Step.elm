@@ -1,8 +1,10 @@
 module Data.Textile.Step exposing
-    ( Step
+    ( PreTreatments
+    , Step
     , airTransportDisabled
     , airTransportRatioToString
     , computeMaterialTransportAndImpact
+    , computePreTreatments
     , computeTransports
     , create
     , encode
@@ -39,6 +41,7 @@ import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Encode as Encode
 import Length
+import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Static.Db exposing (Db)
@@ -64,6 +67,7 @@ type alias Step =
     , makingWaste : Maybe Split
     , outputMass : Mass
     , picking : Maybe Unit.PickPerMeter
+    , preTreatments : PreTreatments
     , printing : Maybe Printing
     , processInfo : ProcessInfo
     , surfaceMass : Maybe Unit.SurfaceMass
@@ -71,6 +75,14 @@ type alias Step =
     , transport : Transport
     , waste : Mass
     , yarnSize : Maybe Unit.YarnSize
+    }
+
+
+type alias PreTreatments =
+    { heat : Energy
+    , impacts : Impacts
+    , kwh : Energy
+    , operations : List Process
     }
 
 
@@ -118,6 +130,7 @@ create { country, editable, enabled, label } =
     , makingWaste = Nothing
     , outputMass = Quantity.zero
     , picking = Nothing
+    , preTreatments = emptyPreTreatments
     , printing = Nothing
     , processInfo = defaultProcessInfo
     , surfaceMass = Nothing
@@ -125,6 +138,15 @@ create { country, editable, enabled, label } =
     , transport = Transport.default defaultImpacts
     , waste = Quantity.zero
     , yarnSize = Nothing
+    }
+
+
+emptyPreTreatments : PreTreatments
+emptyPreTreatments =
+    { heat = Quantity.zero
+    , impacts = Impact.empty
+    , kwh = Quantity.zero
+    , operations = []
     }
 
 
@@ -160,6 +182,59 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
         |> Inputs.computeMaterialTransport distances country.code
         |> Formula.transportRatio Split.zero
         |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
+
+
+computePreTreatment : Country -> Mass -> Process -> PreTreatments
+computePreTreatment country mass process =
+    let
+        massInKg =
+            Mass.inKilograms mass
+
+        ( consumedElec, consumedHeat ) =
+            ( process.elec
+                |> Quantity.multiplyBy massInKg
+            , process.heat
+                |> Quantity.multiplyBy massInKg
+            )
+    in
+    { heat = consumedHeat
+    , impacts =
+        Impact.sumImpacts
+            [ process.impacts
+                |> Impact.multiplyBy massInKg
+            , country.electricityProcess.impacts
+                |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
+            , country.heatProcess.impacts
+                |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
+            ]
+    , kwh = consumedElec
+    , operations = List.singleton process
+    }
+
+
+computePreTreatments : WellKnown -> List Inputs.MaterialInput -> Step -> PreTreatments
+computePreTreatments wellKnown materials { country, inputMass } =
+    materials
+        |> List.concatMap
+            (\{ material, share } ->
+                wellKnown
+                    |> WellKnown.getEnnoblingPreTreatments material.origin
+                    |> List.map
+                        (share
+                            |> Split.applyToQuantity inputMass
+                            |> computePreTreatment country
+                        )
+            )
+        |> List.foldl
+            (\{ heat, impacts, kwh, operations } acc ->
+                { acc
+                    | heat = acc.heat |> Quantity.plus heat
+                    , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
+                    , kwh = acc.kwh |> Quantity.plus kwh
+                    , operations = LE.unique <| acc.operations ++ operations
+                }
+            )
+            emptyPreTreatments
 
 
 {-| Computes step transport distances and impact regarding next step.
@@ -481,12 +556,23 @@ encode v =
         , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "preTreatments", encodePreTreatments v.preTreatments )
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "threadDensity", v.threadDensity |> Maybe.map Unit.encodeThreadDensity |> Maybe.withDefault Encode.null )
         , ( "transport", Transport.encode v.transport )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "yarnSize", v.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
+        ]
+
+
+encodePreTreatments : PreTreatments -> Encode.Value
+encodePreTreatments v =
+    Encode.object
+        [ ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
+        , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
+        , ( "impacts", Impact.encode v.impacts )
+        , ( "operations", v.operations |> List.map Process.getDisplayName |> Encode.list Encode.string )
         ]
 
 
