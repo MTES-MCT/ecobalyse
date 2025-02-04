@@ -4,7 +4,9 @@ set -euo pipefail
 # Directory where files will be downloaded
 TEMP_DIR=$(mktemp -d)
 ECOBALYSE_DATA_BRANCH="${ECOBALYSE_DATA_BRANCH:-main}"
-RAW_GITHUB_URL="https://raw.githubusercontent.com/MTES-MCT/ecobalyse-data/${ECOBALYSE_DATA_BRANCH}"
+ECOBALYSE_DATA_REPO="${ECOBALYSE_DATA_REPO:-MTES-MCT/ecobalyse-data}"
+RAW_GITHUB_URL="https://raw.githubusercontent.com/${ECOBALYSE_DATA_REPO}/${ECOBALYSE_DATA_BRANCH}"
+DIFFERENCES_FOUND=0
 
 # Cleanup function
 cleanup() {
@@ -30,15 +32,13 @@ done
 
 # Download each file
 for file in "${FILES[@]}"; do
-    wget -q "$RAW_GITHUB_URL/$file" -O "$TEMP_DIR/$file" || {
+    curl -s "$RAW_GITHUB_URL/$file" -o "$TEMP_DIR/$file" || {
         echo "--⚠️  Failed to download $file from ecobalyse-data repository"
-        DIFFERENCES_FOUND=1
         continue
     }
 done
 
 echo "Comparing JSON files between ecobalyse-data and ecobalyse repositories..."
-DIFFERENCES_FOUND=0
 
 for file in "${FILES[@]}"; do
     if [ -f "$file" ]; then
