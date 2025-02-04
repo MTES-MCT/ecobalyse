@@ -1,0 +1,15 @@
+name: ecobalyse-data sync
+
+on:
+  pull_request:
+    branches: [ master, staging ]
+  workflow_dispatch:
+
+jobs:
+  check-ecobalyse-data-sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Check synchronization with ecobalyse-data for generated JSON
+      run: ./bin/check-ecobalyse-data-sync.sh
