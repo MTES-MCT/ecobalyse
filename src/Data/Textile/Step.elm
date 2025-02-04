@@ -184,43 +184,46 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
         |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
+computePreTreatment : Country -> Mass -> Process -> PreTreatments
+computePreTreatment country mass process =
+    let
+        massInKg =
+            Mass.inKilograms mass
+
+        ( consumedElec, consumedHeat ) =
+            ( process.elec
+                |> Quantity.multiplyBy massInKg
+            , process.heat
+                |> Quantity.multiplyBy massInKg
+            )
+    in
+    { heat = consumedHeat
+    , impacts =
+        Impact.sumImpacts
+            [ process.impacts
+                |> Impact.multiplyBy massInKg
+            , country.electricityProcess.impacts
+                |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
+            , country.heatProcess.impacts
+                |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
+            ]
+    , kwh = consumedElec
+    , operations = List.singleton process
+    }
+
+
 computePreTreatments : WellKnown -> List Inputs.MaterialInput -> Step -> PreTreatments
 computePreTreatments wellKnown materials { country, inputMass } =
-    let
-        computePreTreatment share process =
-            let
-                massInKg =
-                    share
-                        |> Split.applyToQuantity inputMass
-                        |> Mass.inKilograms
-
-                ( consumedElec, consumedHeat ) =
-                    ( process.elec
-                        |> Quantity.multiplyBy massInKg
-                    , process.heat
-                        |> Quantity.multiplyBy massInKg
-                    )
-            in
-            { heat = consumedHeat
-            , impacts =
-                Impact.sumImpacts
-                    [ process.impacts
-                        |> Impact.multiplyBy massInKg
-                    , country.electricityProcess.impacts
-                        |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
-                    , country.heatProcess.impacts
-                        |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
-                    ]
-            , kwh = consumedElec
-            , operations = List.singleton process
-            }
-    in
     materials
         |> List.concatMap
             (\{ material, share } ->
                 wellKnown
                     |> WellKnown.getEnnoblingPreTreatments material.origin
-                    |> List.map (computePreTreatment share)
+                    |> List.map
+                        (share
+                            |> Split.applyToQuantity inputMass
+                            |> computePreTreatment country
+                        )
             )
         |> List.foldl
             (\{ heat, impacts, kwh, operations } acc ->
