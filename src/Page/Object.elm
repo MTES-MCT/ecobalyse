@@ -460,6 +460,8 @@ simulatorView session model =
                         |> .components
                 , noOp = NoOp
                 , openSelectModal = AddComponentModal >> SetModal
+                , removeElement = \_ _ -> NoOp
+                , removeElementTransform = \_ _ _ -> NoOp
                 , removeItem = RemoveComponentItem
                 , results = model.results
                 , scope = model.scope

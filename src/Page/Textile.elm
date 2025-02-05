@@ -1023,6 +1023,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         , items = session.queries.textile.trims
         , noOp = NoOp
         , openSelectModal = AddTrimModal >> SetModal
+        , removeElement = \_ _ -> NoOp
+        , removeElementTransform = \_ _ _ -> NoOp
         , removeItem = RemoveTrim
         , results =
             session.queries.textile.trims
