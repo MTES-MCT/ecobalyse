@@ -124,13 +124,13 @@ idToString (Id uuid) =
 
 decodeIngredients : List Process -> Decoder (List Ingredient)
 decodeIngredients processes =
-    processes
-        |> List.filterMap
-            (\process ->
-                process.sourceId
-                    |> Maybe.map (\sourceId -> ( Process.sourceIdToString sourceId, process ))
-            )
-        |> Dict.fromList
+            processes
+                |> List.filterMap
+                    (\process ->
+                        process.sourceId
+                            |> Maybe.map (\sourceId -> ( Process.sourceIdToString sourceId, process ))
+                    )
+                |> Dict.fromList
         |> decodeIngredient
         |> Decode.list
         -- Don't use ingredients that aren't visible.
@@ -141,7 +141,7 @@ decodeIngredient : Dict String Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
-        |> Pipe.required "default" (linkProcess processes)
+        |> Pipe.required "processSourceId" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
         |> Pipe.required "density" (Decode.float |> Decode.map gramsPerCubicCentimeter)
         |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
