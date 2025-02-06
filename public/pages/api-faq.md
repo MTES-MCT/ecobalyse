@@ -41,3 +41,9 @@ Oui, c'est même tout l'objectif. Et si d'aventure une version particulière dev
 ## Comment puis-je remonter un bug ou obtenir du support technique sur l'API ?
 
 Le plus simple est de nous contacter à ce sujet sur [la plateforme d'échange Ecobalyse](https://fabrique-numerique.gitbook.io/ecobalyse/communaute).
+
+## Les données que je mobilise pour effectuer mes calculs sur l'API sont confidentielles, quelles garanties me sont offertes sur leur protection ?
+
+Nous ne stockons ni les paramètres passés ni les résultats fournis par l'API dans aucune base de données : le risque de fuite est inexistant. De plus, le protocole de communication avec l'API est chiffré (HTTPS) et limite quasi totalement le risque d'interception du trafic par un tiers malintentionné.
+
+Si vous souhaitez contrôler totalement l'environnement d'exécution du serveur d'API et le projet étant [open source](https://github.com/MTES-MCT/ecobalyse), vous pouvez opter pour l'auto-hébergement du service sur votre propre infrastructure. N'hésitez pas à [prendre contact avec la communauté](https://fabrique-numerique.gitbook.io/ecobalyse/communaute) pour être aiguillé et accompagné dans cette démarche.
