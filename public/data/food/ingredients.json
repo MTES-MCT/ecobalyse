@@ -2,7 +2,6 @@
   {
     "alias": "egg-bleublanccoeur",
     "categories": ["animal_product", "bleublanccoeur"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -27,7 +26,6 @@
   {
     "alias": "milk",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -52,7 +50,6 @@
   {
     "alias": "milk-organic",
     "categories": ["dairy_product", "organic"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -77,7 +74,6 @@
   {
     "alias": "carrot-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -101,7 +97,6 @@
   {
     "alias": "flour",
     "categories": ["grain_processed"],
-    "comment": "",
     "crop_group": "BLE TENDRE",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -125,7 +120,6 @@
   {
     "alias": "flour-organic",
     "categories": ["grain_processed", "organic"],
-    "comment": "",
     "crop_group": "BLE TENDRE",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -149,7 +143,6 @@
   {
     "alias": "sunflower-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "icv bio : consumption mix bio Gingko",
     "crop_group": "TOURNESOL",
     "default_origin": "France",
     "density": 1.0,
@@ -173,7 +166,6 @@
   {
     "alias": "sunflower-feed-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "",
     "crop_group": "TOURNESOL",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -197,7 +189,6 @@
   {
     "alias": "rapeseed-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "",
     "crop_group": "COLZA",
     "default_origin": "France",
     "density": 1.0,
@@ -221,7 +212,6 @@
   {
     "alias": "ground-beef",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -246,7 +236,6 @@
   {
     "alias": "ground-beef-organic",
     "categories": ["animal_product", "organic"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -271,7 +260,6 @@
   {
     "alias": "ground-beef-feedlot",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
@@ -296,7 +284,6 @@
   {
     "alias": "ground-beef-grass-fed",
     "categories": ["animal_product", "organic"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -321,7 +308,6 @@
   {
     "alias": "cooked-ham",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -346,7 +332,6 @@
   {
     "alias": "cooked-ham-organic",
     "categories": ["animal_product", "organic"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -371,7 +356,6 @@
   {
     "alias": "cooked-ham-fr",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -396,7 +380,6 @@
   {
     "alias": "chicken-breast",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -421,7 +404,6 @@
   {
     "alias": "chicken-breast-organic",
     "categories": ["animal_product", "organic"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -446,7 +428,6 @@
   {
     "alias": "chicken-breast-fr-organic",
     "categories": ["animal_product", "organic"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -471,7 +452,6 @@
   {
     "alias": "rapeseed-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "",
     "crop_group": "COLZA",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -495,7 +475,6 @@
   {
     "alias": "rapeseed-oil-organic",
     "categories": ["nut_oilseed_processed", "organic"],
-    "comment": "",
     "crop_group": "COLZA",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -519,7 +498,6 @@
   {
     "alias": "sunflower-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "",
     "crop_group": "TOURNESOL",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -543,7 +521,6 @@
   {
     "alias": "sunflower-oil-organic",
     "categories": ["nut_oilseed_processed", "organic"],
-    "comment": "",
     "crop_group": "TOURNESOL",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -567,7 +544,6 @@
   {
     "alias": "zucchini-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -591,7 +567,6 @@
   {
     "alias": "peach-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -615,7 +590,6 @@
   {
     "alias": "melon-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -639,7 +613,6 @@
   {
     "alias": "butter",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -657,7 +630,6 @@
   {
     "alias": "butter-organic",
     "categories": ["dairy_product", "organic"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -675,7 +647,6 @@
   {
     "alias": "tap-water",
     "categories": [],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -693,7 +664,6 @@
   {
     "alias": "comte-aop",
     "categories": ["dairy_product"],
-    "comment": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -711,7 +681,6 @@
   {
     "alias": "emmental",
     "categories": ["dairy_product"],
-    "comment": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges.",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -729,7 +698,6 @@
   {
     "alias": "mozzarella",
     "categories": ["dairy_product"],
-    "comment": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -747,7 +715,6 @@
   {
     "alias": "beetroot-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv bio = icv carotte bio ginko",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "France",
     "density": 0.6375,
@@ -771,7 +738,6 @@
   {
     "alias": "celeriac-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "Procédé de la carotte bio (donc Basse-Normandie)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -795,7 +761,6 @@
   {
     "alias": "turnip-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -819,7 +784,6 @@
   {
     "alias": "chickpea-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default_origin": "France",
     "density": 0.24,
@@ -843,7 +807,6 @@
   {
     "alias": "soybean-humanconsumption",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "AUTRES OLEAGINEUX",
     "default_origin": "France",
     "density": 0.24,
@@ -867,7 +830,6 @@
   {
     "alias": "soybean-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "",
     "crop_group": "AUTRES OLEAGINEUX",
     "default_origin": "France",
     "density": 0.24,
@@ -891,7 +853,6 @@
   {
     "alias": "soybean-br-no-deforestation",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "AUTRES OLEAGINEUX",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -915,7 +876,6 @@
   {
     "alias": "soybean-br-deforestation",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "AUTRES OLEAGINEUX",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -939,7 +899,6 @@
   {
     "alias": "soybean-feed",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "AUTRES OLEAGINEUX",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -963,7 +922,6 @@
   {
     "alias": "sausage-meat",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -981,7 +939,6 @@
   {
     "alias": "sausage-toulouse",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -999,7 +956,6 @@
   {
     "alias": "sausage-toulouse-cooked",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -1017,7 +973,6 @@
   {
     "alias": "sausage-tofu",
     "categories": [],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -1035,7 +990,6 @@
   {
     "alias": "tomato-paste",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -1059,7 +1013,6 @@
   {
     "alias": "tomato-concentrated",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -1083,7 +1036,6 @@
   {
     "alias": "beef-with-bone",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1108,7 +1060,6 @@
   {
     "alias": "beef-without-bone",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1133,7 +1084,6 @@
   {
     "alias": "beef-without-bone-organic",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1158,7 +1108,6 @@
   {
     "alias": "durum-wheat-semolina",
     "categories": ["grain_processed"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "France",
     "density": 0.24,
@@ -1182,7 +1131,6 @@
   {
     "alias": "sugar",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "France",
     "density": 1.0,
@@ -1206,7 +1154,6 @@
   {
     "alias": "dark-chocolate",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -1225,7 +1172,6 @@
   {
     "alias": "chicken-breast-br-max",
     "categories": ["animal_product"],
-    "comment": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1250,7 +1196,6 @@
   {
     "alias": "chicken-breast-fr",
     "categories": ["animal_product"],
-    "comment": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1275,7 +1220,6 @@
   {
     "alias": "cane-sugar",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -1299,7 +1243,6 @@
   {
     "alias": "tea-dried",
     "categories": ["misc"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -1323,7 +1266,6 @@
   {
     "alias": "coffee-ground",
     "categories": ["misc"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -1347,7 +1289,6 @@
   {
     "alias": "black-pepper",
     "categories": ["spice_condiment_additive"],
-    "comment": "\"Consumption mix\" exceptionnellement car on se situe au niveau \"at plant\"",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -1371,7 +1312,6 @@
   {
     "alias": "milk-powder",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -1389,7 +1329,6 @@
   {
     "alias": "red-wine",
     "categories": ["misc"],
-    "comment": "",
     "crop_group": "VIGNES",
     "default_origin": "France",
     "density": 1.0,
@@ -1413,7 +1352,6 @@
   {
     "alias": "fresh-shrimps",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -1431,7 +1369,6 @@
   {
     "alias": "large-trout",
     "categories": ["animal_product"],
-    "comment": "On considère que la part non comestible des poissons est la même que celle des viandes avec os (pas de valeur spécifique aux poissons)",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -1449,7 +1386,6 @@
   {
     "alias": "egg-indoor-code2",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1474,7 +1410,6 @@
   {
     "alias": "egg-indoor-code3",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1499,7 +1434,6 @@
   {
     "alias": "egg-outdoor-code1",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1524,7 +1458,6 @@
   {
     "alias": "egg-organic-code0",
     "categories": ["animal_product", "organic"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1549,7 +1482,6 @@
   {
     "alias": "wine-grape-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "VIGNES",
     "default_origin": "France",
     "density": 0.447,
@@ -1573,7 +1505,6 @@
   {
     "alias": "lamb-meat-without-bone",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1598,7 +1529,6 @@
   {
     "alias": "lamb-meat-without-bone-organic",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1623,7 +1553,6 @@
   {
     "alias": "pear-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv bio = icv mix gingko",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -1647,7 +1576,6 @@
   {
     "alias": "carrot-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -1671,7 +1599,6 @@
   {
     "alias": "carrot-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
@@ -1695,7 +1622,6 @@
   {
     "alias": "carrot-non-ue",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
@@ -1719,7 +1645,6 @@
   {
     "alias": "zucchini-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -1743,7 +1668,6 @@
   {
     "alias": "zucchini-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -1767,7 +1691,6 @@
   {
     "alias": "pear-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -1791,7 +1714,6 @@
   {
     "alias": "pear-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -1815,7 +1737,6 @@
   {
     "alias": "peach-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -1839,7 +1760,6 @@
   {
     "alias": "peach-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -1863,7 +1783,6 @@
   {
     "alias": "melon-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -1887,7 +1806,6 @@
   {
     "alias": "melon-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV UE = ICV FR",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -1911,7 +1829,6 @@
   {
     "alias": "potato-industry-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -1935,7 +1852,6 @@
   {
     "alias": "potato-table-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -1959,7 +1875,6 @@
   {
     "alias": "potato-starch",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -1983,7 +1898,6 @@
   {
     "alias": "onion-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6195,
@@ -2007,7 +1921,6 @@
   {
     "alias": "onion-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "UE= pays bas",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6195,
@@ -2031,7 +1944,6 @@
   {
     "alias": "onion-non-ue",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6195,
@@ -2055,7 +1967,6 @@
   {
     "alias": "eggplant-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.398,
@@ -2079,7 +1990,6 @@
   {
     "alias": "eggplant-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "UE = FR",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.398,
@@ -2103,7 +2013,6 @@
   {
     "alias": "french-bean-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.271,
@@ -2127,7 +2036,6 @@
   {
     "alias": "french-bean-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV UE=FR",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.271,
@@ -2151,7 +2059,6 @@
   {
     "alias": "french-bean-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV hors UE = FR",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.271,
@@ -2175,7 +2082,6 @@
   {
     "alias": "lettuce-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -2199,7 +2105,6 @@
   {
     "alias": "lettuce-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV UE = ICV glo",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
@@ -2223,7 +2128,6 @@
   {
     "alias": "lettuce-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV hors UE = ICV glo",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.118,
@@ -2247,7 +2151,6 @@
   {
     "alias": "garden-peas-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.24,
@@ -2271,7 +2174,6 @@
   {
     "alias": "garden-peas-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV UE = ICV FR",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -2295,7 +2197,6 @@
   {
     "alias": "cherry-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -2319,7 +2220,6 @@
   {
     "alias": "lemon-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV UE = icv ES",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
@@ -2343,7 +2243,6 @@
   {
     "alias": "plum-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -2367,7 +2266,6 @@
   {
     "alias": "squash-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -2391,7 +2289,6 @@
   {
     "alias": "squash-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
@@ -2415,7 +2312,6 @@
   {
     "alias": "squash-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -2439,7 +2335,6 @@
   {
     "alias": "tomato-heated-greenhouse-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -2463,7 +2358,6 @@
   {
     "alias": "tomato-greenhouse-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -2487,7 +2381,6 @@
   {
     "alias": "tomato-greenhouse-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV UE = ICV ES",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -2511,7 +2404,6 @@
   {
     "alias": "apricot-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -2535,7 +2427,6 @@
   {
     "alias": "apricot-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV UE = ICV FR",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -2559,7 +2450,6 @@
   {
     "alias": "hazelnut-non-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv hors ue = icv TR",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -2583,7 +2473,6 @@
   {
     "alias": "hazelnut-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv ue = icv IT",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -2607,7 +2496,6 @@
   {
     "alias": "hazelnut-unshelled-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "ICV UE = ICV IT",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -2631,7 +2519,6 @@
   {
     "alias": "hazelnut-unshelled-non-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv hors UE = ICV TR",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -2655,7 +2542,6 @@
   {
     "alias": "artichoke-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -2679,7 +2565,6 @@
   {
     "alias": "artichoke-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -2703,7 +2588,6 @@
   {
     "alias": "cauliflower-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.2355,
@@ -2727,7 +2611,6 @@
   {
     "alias": "cauliflower-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.2355,
@@ -2751,7 +2634,6 @@
   {
     "alias": "leek-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6195,
@@ -2775,7 +2657,6 @@
   {
     "alias": "beetroot-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "France",
     "density": 0.6375,
@@ -2799,7 +2680,6 @@
   {
     "alias": "turnip-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -2823,7 +2703,6 @@
   {
     "alias": "turnip-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
@@ -2847,7 +2726,6 @@
   {
     "alias": "turnip-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV hors UE = ICV row",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
@@ -2871,7 +2749,6 @@
   {
     "alias": "chinese-cabbage-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -2895,7 +2772,6 @@
   {
     "alias": "chinese-cabbage-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "icv bio = icv mix ginko (attention incohérence du coup avec le conventionnel qui appelle l'ICV cauliflower)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -2919,7 +2795,6 @@
   {
     "alias": "white-cabbage-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV hors UE = ICV row",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
@@ -2943,7 +2818,6 @@
   {
     "alias": "green-cabbage-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "On prend pour le cauliflower (et tous les proxy utilisant cauliflower), le \"winter conventional\" pour garantir la comparabilité avec l'ICV bio",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -2967,7 +2841,6 @@
   {
     "alias": "green-cabbage-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -2991,7 +2864,6 @@
   {
     "alias": "red-cabbage-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv glo",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
@@ -3015,7 +2887,6 @@
   {
     "alias": "shallot-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6195,
@@ -3039,7 +2910,6 @@
   {
     "alias": "orange-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV UE = ICV ES",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
@@ -3063,7 +2933,6 @@
   {
     "alias": "orange-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV hors UE = ICV ZA",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
@@ -3087,7 +2956,6 @@
   {
     "alias": "olive-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV UE = ICV ES (car 70% de la conso FR)",
     "crop_group": "OLIVIERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -3111,7 +2979,6 @@
   {
     "alias": "rapeseed-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "COLZA",
     "default_origin": "France",
     "density": 1.0,
@@ -3135,7 +3002,6 @@
   {
     "alias": "rapeseed-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv UE = icv Glo",
     "crop_group": "COLZA",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -3159,7 +3025,6 @@
   {
     "alias": "rapeseed-non-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv hors ue = icv CA ",
     "crop_group": "COLZA",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -3183,7 +3048,6 @@
   {
     "alias": "pistachio-non-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv hors UE = icv CN (pays producteur majorant)",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -3207,7 +3071,6 @@
   {
     "alias": "peanut-non-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv hors UE = icv IN (pays producteur majorant)",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -3231,7 +3094,6 @@
   {
     "alias": "olive-oil-eu",
     "categories": ["nut_oilseed_processed"],
-    "comment": "",
     "crop_group": "OLIVIERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -3255,7 +3117,6 @@
   {
     "alias": "avocado-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "1 seul ICV dispo (glo)",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
@@ -3279,7 +3140,6 @@
   {
     "alias": "chickpea-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default_origin": "France",
     "density": 0.24,
@@ -3303,7 +3163,6 @@
   {
     "alias": "sunflower-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "part non comestible des noix",
     "crop_group": "TOURNESOL",
     "default_origin": "France",
     "density": 1.0,
@@ -3327,7 +3186,6 @@
   {
     "alias": "sunflower-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "part non comestible des noix\nicv ue = icv HU",
     "crop_group": "TOURNESOL",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -3351,7 +3209,6 @@
   {
     "alias": "sunflower-non-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv hors ue = icv glo",
     "crop_group": "TOURNESOL",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -3375,7 +3232,6 @@
   {
     "alias": "kiwi-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -3399,7 +3255,6 @@
   {
     "alias": "kiwi-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -3423,7 +3278,6 @@
   {
     "alias": "kiwi-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv glo",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -3447,7 +3301,6 @@
   {
     "alias": "mango-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.447,
@@ -3471,7 +3324,6 @@
   {
     "alias": "spinach-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors UE = icv glo",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.118,
@@ -3495,7 +3347,6 @@
   {
     "alias": "fennel-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "icv FR = icv glo (reprise hyp mix agb)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -3519,7 +3370,6 @@
   {
     "alias": "fennel-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv UE = icv glo = icv FR (imp majoritairement d'italie)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
@@ -3543,7 +3393,6 @@
   {
     "alias": "broccoli-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv eu = icv glo (hyp AGB)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.2355,
@@ -3567,7 +3416,6 @@
   {
     "alias": "blueberry-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv CA",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -3591,7 +3439,6 @@
   {
     "alias": "raspberry-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv ue = icv RS (seul dispo dans agb)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -3615,7 +3462,6 @@
   {
     "alias": "strawberry-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv ue = icv ES (car majorité des importations). ICV plein champ (donc différence de modes de production avec ICV FR qui est une moy nationale de plusieurs modes de production)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -3639,7 +3485,6 @@
   {
     "alias": "strawberry-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv MA",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -3663,7 +3508,6 @@
   {
     "alias": "banana-wi",
     "categories": ["vegetable_fresh"],
-    "comment": "cas particulier : icv antilles + transport par défaut hors UE + SE France",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -3687,7 +3531,6 @@
   {
     "alias": "banana-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv glo",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -3711,7 +3554,6 @@
   {
     "alias": "cucumber-fr-inseason",
     "categories": ["vegetable_fresh"],
-    "comment": "icv fr de saison = icv fr tomate serre non chauffée.",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -3735,7 +3577,6 @@
   {
     "alias": "cucumber-fr-offseason",
     "categories": ["vegetable_fresh"],
-    "comment": "icv fr hors saison = icv glo concombre serre chauffée.",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -3759,7 +3600,6 @@
   {
     "alias": "cucumber-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv ue = icv glo disponible (donc concombre glo serre chauffée)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -3783,7 +3623,6 @@
   {
     "alias": "strawberry-fr-inseason",
     "categories": ["vegetable_fresh"],
-    "comment": "à vérifier avec Vincent : icv FR de saison = icv fraise FR plein champ (pourrait être Strawberry, soilless protected crops, non-heated, conventional, at farm gate {FR} par symétrie avec la fraise FR hors saison qui prend l'icv serre chauffée)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -3807,7 +3646,6 @@
   {
     "alias": "strawberry-fr-offseason",
     "categories": ["vegetable_fresh"],
-    "comment": "à vérifier avec Vincent : icv FR hors saison = icv fraise FR serre chauffée",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -3831,7 +3669,6 @@
   {
     "alias": "celery-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "icv fr = icv glo (seul dispo et utilisé pour le mix agb)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -3855,7 +3692,6 @@
   {
     "alias": "celery-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv ue = icv glo (idem que icv fr, seul dispo et utilisé pour le mix agb)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -3879,7 +3715,6 @@
   {
     "alias": "celeriac-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "icv celeri-rave fr = icv carotte fr",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -3903,7 +3738,6 @@
   {
     "alias": "celeriac-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv celeri-rave eu = icv carotte nl (même hyp que pour la carotte, et cohérent avec importation de celeri rave d'UE)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
@@ -3927,7 +3761,6 @@
   {
     "alias": "celeriac-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv celeri-rave hors eu = icv carotte row (même hyp que pour la carotte)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
@@ -3951,7 +3784,6 @@
   {
     "alias": "walnut-inshell-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 0.24,
@@ -3975,7 +3807,6 @@
   {
     "alias": "walnut-husked-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv à vérifier avec Vincent",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 0.24,
@@ -3999,7 +3830,6 @@
   {
     "alias": "chestnut-husked-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "même icv que noix",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 0.24,
@@ -4023,7 +3853,6 @@
   {
     "alias": "chestnut-inshell-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 0.24,
@@ -4047,7 +3876,6 @@
   {
     "alias": "mandarin-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv ue = icv ES",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
@@ -4071,7 +3899,6 @@
   {
     "alias": "mushroom-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "Procédé champignon produit en usine (at plant) aux Pays-Bas",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
@@ -4095,7 +3922,6 @@
   {
     "alias": "brussels-sprout-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -4119,7 +3945,6 @@
   {
     "alias": "brussels-sprout-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -4143,7 +3968,6 @@
   {
     "alias": "lentils-uncooked-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default_origin": "France",
     "density": 0.24,
@@ -4167,7 +3991,6 @@
   {
     "alias": "curly-kale-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "Procédé du chou frisé approximé par le procédé du chou-fleur",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -4191,7 +4014,6 @@
   {
     "alias": "curly-kale-organic",
     "categories": ["organic", "vegetable_fresh"],
-    "comment": "Procédé du chou frisé bio approximé par le procédé du chou-fleur bio",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -4215,7 +4037,6 @@
   {
     "alias": "pumpkin-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "procédé citrouille approximé par la courgette (hyp AGB)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -4239,7 +4060,6 @@
   {
     "alias": "clementine-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv MA",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
@@ -4263,7 +4083,6 @@
   {
     "alias": "endive-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "icv endive = icv laitue",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -4287,7 +4106,6 @@
   {
     "alias": "endive-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "mêmes hypothèses que laitue",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
@@ -4311,7 +4129,6 @@
   {
     "alias": "wine-grape-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VIGNES",
     "default_origin": "France",
     "density": 0.447,
@@ -4335,7 +4152,6 @@
   {
     "alias": "lambs-lettuce-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -4359,7 +4175,6 @@
   {
     "alias": "lambs-lettuce-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
@@ -4383,7 +4198,6 @@
   {
     "alias": "sweet-corn-fr",
     "categories": ["grain_raw"],
-    "comment": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default_origin": "France",
     "density": 0.24,
@@ -4407,7 +4221,6 @@
   {
     "alias": "sweet-corn-organic-fr",
     "categories": ["grain_raw"],
-    "comment": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default_origin": "France",
     "density": 0.24,
@@ -4431,7 +4244,6 @@
   {
     "alias": "sweet-corn-br",
     "categories": ["grain_raw"],
-    "comment": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -4455,7 +4267,6 @@
   {
     "alias": "pineapple-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv CR (principal pays d'importation et valeur majorante)",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
@@ -4479,7 +4290,6 @@
   {
     "alias": "broad-beans-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "Procédé suisse (seul dispo dans AGB)\nRatios : reprise des hypothèses des petit-pois",
     "crop_group": "PROTEAGINEUX",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -4503,7 +4313,6 @@
   {
     "alias": "broad-beans-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "Procédé suisse (seul dispo dans AGB, meme hyp que agb)\nRatios : reprise des hypothèses des petit-pois",
     "crop_group": "PROTEAGINEUX",
     "default_origin": "France",
     "density": 0.24,
@@ -4527,7 +4336,6 @@
   {
     "alias": "swiss-chard-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv blette = icv épinard",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.118,
@@ -4551,7 +4359,6 @@
   {
     "alias": "swiss-chard-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "icv blette = icv épinard",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "France",
     "density": 0.118,
@@ -4575,7 +4382,6 @@
   {
     "alias": "flageolet-bean-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "Densité : même hyp que petit pois",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -4599,7 +4405,6 @@
   {
     "alias": "flageolet-bean-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "Densité : même hyp que petit pois",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.24,
@@ -4623,7 +4428,6 @@
   {
     "alias": "rice-basmati-non-eu",
     "categories": ["grain_raw"],
-    "comment": "icv hors ue = icv IN",
     "crop_group": "RIZ",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -4647,7 +4451,6 @@
   {
     "alias": "soft-wheat-organic",
     "categories": ["grain_raw", "organic"],
-    "comment": "",
     "crop_group": "BLE TENDRE",
     "default_origin": "France",
     "density": 1.0,
@@ -4671,7 +4474,6 @@
   {
     "alias": "soft-wheat-fr",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "BLE TENDRE",
     "default_origin": "France",
     "density": 1.0,
@@ -4695,7 +4497,6 @@
   {
     "alias": "soft-wheat-non-eu",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "BLE TENDRE",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -4719,7 +4520,6 @@
   {
     "alias": "durum-wheat-fr",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "France",
     "density": 0.24,
@@ -4743,7 +4543,6 @@
   {
     "alias": "durum-wheat-eu",
     "categories": ["grain_raw"],
-    "comment": "blé dur UE majorant (GR)",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -4767,7 +4566,6 @@
   {
     "alias": "durum-wheat-non-eu",
     "categories": ["grain_raw"],
-    "comment": "blé dur hors UE majorant (AU)",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -4791,7 +4589,6 @@
   {
     "alias": "apple-organic",
     "categories": ["organic", "vegetable_fresh"],
-    "comment": "icv bio = icv mix gingko",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -4815,7 +4612,6 @@
   {
     "alias": "apple-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -4839,7 +4635,6 @@
   {
     "alias": "potato-table-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv bio = icv ginko",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -4863,7 +4658,6 @@
   {
     "alias": "potato-industry-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -4887,7 +4681,6 @@
   {
     "alias": "kiwi-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "ocv bio = icv mix ginko",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -4911,7 +4704,6 @@
   {
     "alias": "red-cabbage-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv bio = icv mix ginko",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -4935,7 +4727,6 @@
   {
     "alias": "sugar-beet-organic",
     "categories": ["vegetable_processed", "organic"],
-    "comment": "",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "France",
     "density": 1.0,
@@ -4959,7 +4750,6 @@
   {
     "alias": "papaya-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv bio = icv mix ginko",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -4983,7 +4773,6 @@
   {
     "alias": "tomato-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv bio = icv mix ginko",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -5007,7 +4796,6 @@
   {
     "alias": "pineapple-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "icv bio Ginko + compléments bio + transport par défaut hors UE",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
@@ -5031,7 +4819,6 @@
   {
     "alias": "garden-peas-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.24,
@@ -5055,7 +4842,6 @@
   {
     "alias": "almond-inshell-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "icv bio = icv bio CN ginko (utilisé pour le mix bio Ginko)",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 1.0,
@@ -5079,7 +4865,6 @@
   {
     "alias": "lettuce-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv bio = icv bio fr ginko (utilisé pour mix ginko)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -5103,7 +4888,6 @@
   {
     "alias": "mango-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv bio ginko + transport hors ue + compléments bio",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.447,
@@ -5127,7 +4911,6 @@
   {
     "alias": "lychee-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv bio ginko + transport hors ue + compléments bio",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -5151,7 +4934,6 @@
   {
     "alias": "lychee-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv mangue (reprise hyp Ginko) sans transport en avion",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -5175,7 +4957,6 @@
   {
     "alias": "oats-glo",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -5199,7 +4980,6 @@
   {
     "alias": "oats-organic",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -5223,7 +5003,6 @@
   {
     "alias": "barley",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "ORGE",
     "default_origin": "France",
     "density": 1.0,
@@ -5247,7 +5026,6 @@
   {
     "alias": "barley-organic",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "ORGE",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -5271,7 +5049,6 @@
   {
     "alias": "banana-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "icv bio = icv mix Ginko + transport hors ue + compléments bio",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -5295,7 +5072,6 @@
   {
     "alias": "orange-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "ICV bio = icv ES bio ginko car constitue 86% du mix bio ginko",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
@@ -5319,7 +5095,6 @@
   {
     "alias": "lemon-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "ICV bio = icv ES car icv utilisé dans le mix ginko",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.575,
@@ -5343,7 +5118,6 @@
   {
     "alias": "celery-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -5367,7 +5141,6 @@
   {
     "alias": "olive-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "pas d'olive conv FR donc transport bio = transport ue",
     "crop_group": "OLIVIERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -5391,7 +5164,6 @@
   {
     "alias": "peanut-organic",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv bio ginko + compléments bio + transports hors ue",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -5415,7 +5187,6 @@
   {
     "alias": "raspberry-organic",
     "categories": ["vegetable_fresh"],
-    "comment": "icv bio = icv RS Gingko",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -5439,7 +5210,6 @@
   {
     "alias": "lambs-lettuce-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "idem que laitue",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -5463,7 +5233,6 @@
   {
     "alias": "endive-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv endive = icv laitue",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -5487,7 +5256,6 @@
   {
     "alias": "durum-wheat-organic",
     "categories": ["grain_raw", "organic"],
-    "comment": "icv bio = icv fr bio ginko (utilisé pour mix ginko)",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "France",
     "density": 0.24,
@@ -5511,7 +5279,6 @@
   {
     "alias": "onion-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6195,
@@ -5535,7 +5302,6 @@
   {
     "alias": "rice-basmati-organic",
     "categories": ["grain_raw", "organic"],
-    "comment": "icv bio glo ginko + SE bio + transport hors ue",
     "crop_group": "RIZ",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -5559,7 +5325,6 @@
   {
     "alias": "triticale-organic",
     "categories": ["grain_raw", "organic"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -5583,7 +5348,6 @@
   {
     "alias": "bean-organic",
     "categories": ["grain_raw", "organic"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -5607,7 +5371,6 @@
   {
     "alias": "alfalfa-organic",
     "categories": ["grain_raw", "organic"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -5631,7 +5394,6 @@
   {
     "alias": "radish-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "radis bio = radio bio glo ginko",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -5655,7 +5417,6 @@
   {
     "alias": "lentils-uncooked-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "icv bio = icv CA bio ginko",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default_origin": "France",
     "density": 0.24,
@@ -5679,7 +5440,6 @@
   {
     "alias": "apricot-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv utilisé dans mix ginko",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -5703,7 +5463,6 @@
   {
     "alias": "leek-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv utilisé dans mix ginko",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6195,
@@ -5727,7 +5486,6 @@
   {
     "alias": "cherry-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv utilisé dans mix ginko",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -5751,7 +5509,6 @@
   {
     "alias": "plum-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv utilisé dans mix ginko",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -5775,7 +5532,6 @@
   {
     "alias": "shallot-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv utilisé dans mix ginko",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6195,
@@ -5799,7 +5555,6 @@
   {
     "alias": "blueberry-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv hors ue = icv CA",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -5823,7 +5578,6 @@
   {
     "alias": "spinach-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv hors UE = icv glo",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -5847,7 +5601,6 @@
   {
     "alias": "watermelon-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "icv melon",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -5871,7 +5624,6 @@
   {
     "alias": "silage-maize-fr",
     "categories": ["grain_raw"],
-    "comment": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default_origin": "France",
     "density": 0.24,
@@ -5895,7 +5647,6 @@
   {
     "alias": "silage-maize-organic",
     "categories": ["grain_raw"],
-    "comment": "Part non comestible : chataigne, olive",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default_origin": "France",
     "density": 0.24,
@@ -5919,7 +5670,6 @@
   {
     "alias": "oilseed-feed",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "AUTRES OLEAGINEUX",
     "default_origin": "France",
     "density": 0.24,
@@ -5943,7 +5693,6 @@
   {
     "alias": "grazed-grass-temporary",
     "categories": [],
-    "comment": "Hypothèse : 1 kg = 1 m2a pour simplifier les calculs",
     "crop_group": "PRAIRIES TEMPORAIRES",
     "default_origin": "France",
     "density": 1.0,
@@ -5967,7 +5716,6 @@
   {
     "alias": "grazed-grass-permanent",
     "categories": [],
-    "comment": "Hypothèse : 1 kg = 1 m2a pour simplifier les calculs",
     "crop_group": "PRAIRIES PERMANENTES",
     "default_origin": "France",
     "density": 1.0,
@@ -5991,7 +5739,6 @@
   {
     "alias": "cherry-tr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -6015,7 +5762,6 @@
   {
     "alias": "refined-palm-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "Cet ICV correspond à la production de l'huile de palme, de la culture jusqu'aux portes de l'usine. Un mix d'importation de l'huile de palme brute est considéré (origines Indonésie, Thailande, Malaysie et transport jusqu'en europe inclus). L'étape de raffinage de l'huile de palme est représentative du raffinage Européen. Le transport en aval de l'huile de palme raffinée n'est pas inclus dans cet ICV. \nCet ICV est appelé dans des ICV de produits alimentaires de la base Agribalyse tels que margarines, bouillon, muesli...\nL'origine par défaut devrait être Europe car le transport en amont du raffinage (ayant lieu en Europe) est déjà comptabilisé. \nLa densité de l'huile de palme est de 0,895. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0,
@@ -6039,7 +5785,6 @@
   {
     "alias": "refined-linseed-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "Cet ICV correspond à la production de l'huile de lin, de la culture jusqu'aux portes de l'usine. Un mix d'importation des graines de lin est considéré (origines France, Belgique et Royamme-Uni et transport inclus). La trituration et le raffinage sont représentatifs de la production en France. Le transport aval de l'huile de lin n'est pas inclus dans cet ICV.\nSelon le mix de consommation français de l'huile de lin, l'origine par défaut devrait être Europe. \nLa densité de l'huile de lin est de 0,930. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
     "crop_group": "PLANTES A FIBRES",
     "default_origin": "France",
     "density": 0,
@@ -6063,7 +5808,6 @@
   {
     "alias": "refined-grapeseed-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "Cet ICV correspond à la production de l'huile de pépins de raisin, de la collecte jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production en France. Le transport des pépins et de l'huile brute est inclus dans cet ICV. Le transport aval de l'huile de pépins de raisin raffinée n'est pas inclus dans cet ICV. \nLa densité de l'huile de pépins de raisin est de 0,923.\nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
     "crop_group": "VIGNES",
     "default_origin": "France",
     "density": 0,
@@ -6087,7 +5831,6 @@
   {
     "alias": "refined-soybean-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "Cet ICV correspond à la production de l'huile de soja, de la culture jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production en France. Un mix d'importation des graines de soja est considéré (origines France, Brésil, Etats-Unis, Canada, et transport inclus). Le transport aval de l'huile de soja n'est pas inclus dans cet ICV.\nSelon le mix de consommation français de l'huile de soja, l'origine par défaut devrait être Hors Europe. \nLa densité de l'huile de soja est de 0,922.  \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
     "crop_group": "PROTEAGINEUX",
     "default_origin": "France",
     "density": 0,
@@ -6111,7 +5854,6 @@
   {
     "alias": "virgin-hazelnut-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "Cet ICV correspond à production de l'huile vierge de noisette, de la culture jusqu'aux portes de l'usine. La trituration est représentative de la production d'huile vierge de noisette en France. Un mix d'importation des noisettes est considéré (origines Turquie, Italie et transport inclus). Le transport aval de l'huile de noisette n'est pas inclus dans cet ICV. \nL'origine par défaut Europe est proposée à partir de l'origine des noisettes (Turquie plus grand producteur). \nLa densité de l'huile de noisette est de 0,904. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 0,
@@ -6135,7 +5877,6 @@
   {
     "alias": "refined-peanut-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "Cet ICV correspond à la production de l'huile d'arachide, de la culture jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production au Sénégal. Cet ICV est l'ICV majoritaire du mix de consommation d'huile d'arachide en France. Le transport des arachides est inclus mais le transport aval de l'huile d'arachide n'est pas inclus dans cet ICV. \nSelon le mix de consommation français de l'huile d'arachide, l'origine par défaut devrait être Hors Europe. \nLa densité de l'huile d'arachide est de 0,915. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
     "crop_group": "PROTEAGINEUX",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0,
@@ -6159,7 +5900,6 @@
   {
     "alias": "refined-sunflower-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "Cet ICV correspond à la production de l'huile de tournesol, de la culture jusqu'aux portes de l'usine. Un mix d'importation des graines de tournesol est considéré (origines France,  Roumanie, Bulgarie, Argentine et transport inclus). La trituration et le raffinage sont représentatifs de la production en France. Cet ICV est l'ICV majoritaire du mix de consommation d'huile de tournesol en France. Le transport aval de l'huile de tournesol n'est pas inclus dans cet ICV. \nCet ICV se retrouve dans de nombreux autres produits Agribalyse contenant de l'huile de tournesol. \nSelon le mix de consommation français de l'huile de tournesol, l'origine par défaut devrait être Europe. \nLa densité de l'huile de tournesol est de 0,920. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.\n\nRemarque : l'ICV \"\"Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U\"\" correspond à la donnée huile de tournesol de Agribalyse 3.0. Cette donnée n'est pas spécifique à la  production française. Cet ICV n'est pas utilisé dans les autres produits Agribalyse.",
     "crop_group": "TOURNESOL",
     "default_origin": "France",
     "density": 0,
@@ -6183,7 +5923,6 @@
   {
     "alias": "refined-rapeseed-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "Cet ICV correspond à la production de l'huile de colza, de la culture jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production en France pour un usage alimentaire. Le transport des graines de colza est inclus mais le transport aval de l'huile de colza n'est pas inclus dans cet ICV. \nCet ICV se retrouve dans de nombreux autres produits Agribalyse contenant de l'huile de colza. \nSelon le mix de consommation français de l'huile de colza, l'origine par défaut devrait être Europe. \nLa densité de l'huile de colza est de 0,915. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.\n\nRemarque : l'ICV \"\"Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U\"\" correspond à la donnée huile de colza de Agribalyse 3.0. Cette donnée n'est pas spécifique à la production française. Cet ICV n'est pas utilisé dans les autres produits Agribalyse.",
     "crop_group": "COLZA",
     "default_origin": "France",
     "density": 0,
@@ -6207,7 +5946,6 @@
   {
     "alias": "extra-virgin-olive-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "Cet ICV correspond à la production de l'huile d'olive extra vierge, de la culture jusqu'aux portes de l'usine. La trituration est représentative de la production en Espagne. Cet ICV est l'ICV majoritaire du mix de consommation d'huile d'olive en France. Le transport aval de l'huile d'olive n'est pas inclus dans cet ICV.\nSelon le mix de consommation français de l'huile d'olive, l'origine par défaut devrait être Europe ou Maghreb. \nLa densité de l'huile d'olive est de 0,914. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
     "crop_group": "OLIVIERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0,
@@ -6231,7 +5969,6 @@
   {
     "alias": "fresh-cream-cheese",
     "categories": ["dairy_product"],
-    "comment": "Crème fraiche 8% de mat. grasse représente la française conventionnelle : choix entre 8, 3, 0.",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6250,7 +5987,6 @@
   {
     "alias": "egg-without-shell-fr",
     "categories": ["animal_product"],
-    "comment": "les oeufs correspondent à la moyenne nationale :\n- 0.83 kilogram of Egg, conventional, indoor system, cage, at farm gate {FR} U {FR}\n- 0.045 kilogram of Egg, conventional, indoor system, non-cage, at farm gate {FR}\n-0.095 kilogram of Egg, conventional, outdoor system, at farm gate {FR}\n-0.03 kilogram of Egg, organic, at farm gate {FR}",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6269,7 +6005,6 @@
   {
     "alias": "egg-yolk-powder-fr",
     "categories": ["animal_product"],
-    "comment": "mélange de jaune d'oeuf et de poudre de lactoserum",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6288,7 +6023,6 @@
   {
     "alias": "egg-white-powder-fr",
     "categories": ["animal_product"],
-    "comment": "From chicken egg, raw, consumption mix",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6307,7 +6041,6 @@
   {
     "alias": "emmental-grated-fr",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6326,7 +6059,6 @@
   {
     "alias": "cocoa-powder-non-ue",
     "categories": ["vegetable_processed"],
-    "comment": "avion à vérifier",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.24,
@@ -6350,7 +6082,6 @@
   {
     "alias": "salt",
     "categories": ["spice_condiment_additive"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "France",
     "density": 1.0,
@@ -6374,7 +6105,6 @@
   {
     "alias": "bacon-fr",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6393,7 +6123,6 @@
   {
     "alias": "glucose-syrup",
     "categories": ["spice_condiment_additive"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -6417,7 +6146,6 @@
   {
     "alias": "apple-compote-fr",
     "categories": ["vegetable_processed"],
-    "comment": "In a jar, no need to refrigerate.",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -6441,7 +6169,6 @@
   {
     "alias": "goat-milk",
     "categories": ["dairy_product"],
-    "comment": "Refrigerated before the transformation",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6460,7 +6187,6 @@
   {
     "alias": "breakfast-cereals",
     "categories": ["grain_processed"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "France",
     "density": 1.0,
@@ -6484,7 +6210,6 @@
   {
     "alias": "pasta",
     "categories": ["grain_processed"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "France",
     "density": 1.0,
@@ -6508,7 +6233,6 @@
   {
     "alias": "garlic",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "France",
     "density": 0.6195,
@@ -6532,7 +6256,6 @@
   {
     "alias": "vegetable-mix",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.24,
@@ -6556,7 +6279,6 @@
   {
     "alias": "bolognese",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6575,7 +6297,6 @@
   {
     "alias": "honey",
     "categories": ["misc"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "France",
     "density": 1.0,
@@ -6599,7 +6320,6 @@
   {
     "alias": "turkey",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6618,7 +6338,6 @@
   {
     "alias": "pork-liver",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6637,7 +6356,6 @@
   {
     "alias": "whey",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6656,7 +6374,6 @@
   {
     "alias": "strawberry-coulis",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -6680,7 +6397,6 @@
   {
     "alias": "yogurt",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6699,7 +6415,6 @@
   {
     "alias": "goat-cheese",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6718,7 +6433,6 @@
   {
     "alias": "cocoa-butter",
     "categories": ["nut_oilseed_processed"],
-    "comment": "",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -6742,7 +6456,6 @@
   {
     "alias": "soy-protein",
     "categories": ["grain_processed"],
-    "comment": "",
     "crop_group": "PROTEAGINEUX",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -6766,7 +6479,6 @@
   {
     "alias": "vinegar-alcohol",
     "categories": ["misc"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "France",
     "density": 0.447,
@@ -6790,7 +6502,6 @@
   {
     "alias": "veal-meat",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6809,7 +6520,6 @@
   {
     "alias": "french-fries",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "France",
     "density": 0.6375,
@@ -6833,7 +6543,6 @@
   {
     "alias": "tomato-sauce",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 1.0,
@@ -6857,7 +6566,6 @@
   {
     "alias": "mustard",
     "categories": ["spice_condiment_additive"],
-    "comment": "",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default_origin": "France",
     "density": 0.24,
@@ -6881,7 +6589,6 @@
   {
     "alias": "rice-flour",
     "categories": ["grain_processed"],
-    "comment": "",
     "crop_group": "RIZ",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -6905,7 +6612,6 @@
   {
     "alias": "brie-cheese",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6924,7 +6630,6 @@
   {
     "alias": "turmeric",
     "categories": ["spice_condiment_additive"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -6948,7 +6653,6 @@
   {
     "alias": "candied-fruits",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "France",
     "density": 0.447,
@@ -6972,7 +6676,6 @@
   {
     "alias": "reblochon",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -6991,7 +6694,6 @@
   {
     "alias": "fruit-puree",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -7015,7 +6717,6 @@
   {
     "alias": "apple-juice",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "France",
     "density": 0.447,
@@ -7039,7 +6740,6 @@
   {
     "alias": "orange-juice",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -7063,7 +6763,6 @@
   {
     "alias": "soy-milk",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "PROTEAGINEUX",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -7087,7 +6786,6 @@
   {
     "alias": "lemon-juice",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -7111,7 +6809,6 @@
   {
     "alias": "tomato-juice",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -7135,7 +6832,6 @@
   {
     "alias": "balsamic-vinegar",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "DIVERS",
     "default_origin": "France",
     "density": 0.447,
@@ -7159,7 +6855,6 @@
   {
     "alias": "apricot-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -7183,7 +6878,6 @@
   {
     "alias": "lamb-meat-without-bone-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -7202,7 +6896,6 @@
   {
     "alias": "lamb-meat-without-bone-non-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -7221,7 +6914,6 @@
   {
     "alias": "almond-inshell-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv bio = icv bio CN ginko (utilisé pour le mix bio Ginko)",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 1.0,
@@ -7245,7 +6937,6 @@
   {
     "alias": "almond-inshell-ue",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv bio = icv bio CN ginko (utilisé pour le mix bio Ginko)",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -7269,7 +6960,6 @@
   {
     "alias": "almond-inshell-non-ue",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv bio = icv bio CN ginko (utilisé pour le mix bio Ginko)",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -7293,7 +6983,6 @@
   {
     "alias": "artichoke-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
@@ -7317,7 +7006,6 @@
   {
     "alias": "artichoke-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
@@ -7341,7 +7029,6 @@
   {
     "alias": "avocado-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
@@ -7365,7 +7052,6 @@
   {
     "alias": "avocado-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "1 seul ICV dispo (glo)",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
@@ -7389,7 +7075,6 @@
   {
     "alias": "oats-ue",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -7413,7 +7098,6 @@
   {
     "alias": "chard-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -7437,7 +7121,6 @@
   {
     "alias": "swiss-chard-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv blette = icv épinard",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.118,
@@ -7461,7 +7144,6 @@
   {
     "alias": "broccoli-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.2355,
@@ -7485,7 +7167,6 @@
   {
     "alias": "broccoli-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.2355,
@@ -7509,7 +7190,6 @@
   {
     "alias": "broccoli-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv eu = icv glo (hyp AGB)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.2355,
@@ -7533,7 +7213,6 @@
   {
     "alias": "celery-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv glo (idem que icv fr, seul dispo et utilisé pour le mix agb)",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -7557,7 +7236,6 @@
   {
     "alias": "cherry-ue",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -7581,7 +7259,6 @@
   {
     "alias": "mushroom-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.118,
@@ -7605,7 +7282,6 @@
   {
     "alias": "walnut-inshell-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 0.24,
@@ -7629,7 +7305,6 @@
   {
     "alias": "white-cabbage-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
@@ -7653,7 +7328,6 @@
   {
     "alias": "white-cabbage-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -7677,7 +7351,6 @@
   {
     "alias": "white-cabbage-organic",
     "categories": ["vegetable_fresh", "organic"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.362,
@@ -7701,7 +7374,6 @@
   {
     "alias": "chinese-cabbage-ue",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
@@ -7725,7 +7397,6 @@
   {
     "alias": "chinese-cabbage-non-ue",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
@@ -7749,7 +7420,6 @@
   {
     "alias": "brussels-sprout-ue",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.362,
@@ -7773,7 +7443,6 @@
   {
     "alias": "brussels-sprout-non-ue",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.362,
@@ -7797,7 +7466,6 @@
   {
     "alias": "refined-palm-oil-non-ue",
     "categories": ["nut_oilseed_processed"],
-    "comment": "",
     "crop_group": "AUTRES CULTURES INDUSTRIELLES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0,
@@ -7821,7 +7489,6 @@
   {
     "alias": "sunflower-oil-eu",
     "categories": ["nut_oilseed_processed"],
-    "comment": "",
     "crop_group": "TOURNESOL",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -7845,7 +7512,6 @@
   {
     "alias": "milk-eu",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -7864,7 +7530,6 @@
   {
     "alias": "milk-non-eu",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -7883,7 +7548,6 @@
   {
     "alias": "lentils-uncooked-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -7907,7 +7571,6 @@
   {
     "alias": "lentils-uncooked-non-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -7931,7 +7594,6 @@
   {
     "alias": "lambs-lettuce-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.118,
@@ -7955,7 +7617,6 @@
   {
     "alias": "sweet-corn-eu",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "MAIS GRAIN ET ENSILAGE",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -7979,7 +7640,6 @@
   {
     "alias": "unknown-cereals-and-grain-products",
     "categories": ["nut_oilseed_raw"],
-    "comment": "part non comestible des noix\nicv ue = icv HU",
     "crop_group": "TOURNESOL",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -8003,7 +7663,6 @@
   {
     "alias": "unknown-dairy-product",
     "categories": ["dairy_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8022,7 +7681,6 @@
   {
     "alias": "unknown-fruit-vegetable",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv MA",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
@@ -8046,7 +7704,6 @@
   {
     "alias": "unknown-red-meat",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8065,7 +7722,6 @@
   {
     "alias": "unknown-groceries",
     "categories": ["misc"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -8089,7 +7745,6 @@
   {
     "alias": "unknown-drink",
     "categories": [],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8108,7 +7763,6 @@
   {
     "alias": "unknown-white-meat",
     "categories": ["animal_product"],
-    "comment": "Poulet élevé au Brésil dont toute l'alimentation (mais, blé, soja) vient du Brésil)",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8127,7 +7781,6 @@
   {
     "alias": "unknwon-fishery-products",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8146,7 +7799,6 @@
   {
     "alias": "unknown-dried-fruits",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv hors UE = ICV TR",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -8170,7 +7822,6 @@
   {
     "alias": "unknown-oil",
     "categories": ["nut_oilseed_processed"],
-    "comment": "",
     "crop_group": "TOURNESOL",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -8194,7 +7845,6 @@
   {
     "alias": "anchovy-fr",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8213,7 +7863,6 @@
   {
     "alias": "anchovy-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8232,7 +7881,6 @@
   {
     "alias": "anchovy-non-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8251,7 +7899,6 @@
   {
     "alias": "sardine-fr",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8270,7 +7917,6 @@
   {
     "alias": "sardine-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8289,7 +7935,6 @@
   {
     "alias": "sardine-non-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8308,7 +7953,6 @@
   {
     "alias": "cod-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8327,7 +7971,6 @@
   {
     "alias": "crab-fr",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8346,7 +7989,6 @@
   {
     "alias": "crab-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8365,7 +8007,6 @@
   {
     "alias": "hake-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8384,7 +8025,6 @@
   {
     "alias": "lobster-fr",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8403,7 +8043,6 @@
   {
     "alias": "lobster-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8422,7 +8061,6 @@
   {
     "alias": "lobster-non-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8441,7 +8079,6 @@
   {
     "alias": "salmon-raw-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8460,7 +8097,6 @@
   {
     "alias": "squid-fr",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -8479,7 +8115,6 @@
   {
     "alias": "mandarin-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
@@ -8503,7 +8138,6 @@
   {
     "alias": "melon-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -8527,7 +8161,6 @@
   {
     "alias": "blueberry-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv CA",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -8551,7 +8184,6 @@
   {
     "alias": "blueberry-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "icv hors ue = icv CA",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.447,
@@ -8575,7 +8207,6 @@
   {
     "alias": "hazelnut-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "icv ue = icv IT",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -8599,7 +8230,6 @@
   {
     "alias": "hazelnut-unshelled-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "icv ue = icv IT",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -8623,7 +8253,6 @@
   {
     "alias": "hazelnut-unshelled-fr",
     "categories": ["nut_oilseed_raw"],
-    "comment": "ICV UE = ICV IT",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 0.24,
@@ -8647,7 +8276,6 @@
   {
     "alias": "chesnut-inshell-organic",
     "categories": ["nut_oilseed_raw", "organic"],
-    "comment": "",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "France",
     "density": 0.24,
@@ -8671,7 +8299,6 @@
   {
     "alias": "walnut-inshell-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -8695,7 +8322,6 @@
   {
     "alias": "walnut-inshell-non-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -8719,7 +8345,6 @@
   {
     "alias": "barley-eu",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "ORGE",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -8743,7 +8368,6 @@
   {
     "alias": "barley-non-eu",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "ORGE",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -8767,7 +8391,6 @@
   {
     "alias": "pistachio-organic",
     "categories": ["nut_oilseed_raw"],
-    "comment": "icv hors UE = icv CN (pays producteur majorant)",
     "crop_group": "FRUITS A COQUES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -8791,7 +8414,6 @@
   {
     "alias": "leek-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6195,
@@ -8815,7 +8437,6 @@
   {
     "alias": "leek-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6195,
@@ -8839,7 +8460,6 @@
   {
     "alias": "bean-non-eu",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
@@ -8863,7 +8483,6 @@
   {
     "alias": "bean-eu",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -8887,7 +8506,6 @@
   {
     "alias": "bean-fr",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "France",
     "density": 1.0,
@@ -8911,7 +8529,6 @@
   {
     "alias": "chickpea-non-eu",
     "categories": ["nut_oilseed_raw"],
-    "comment": "",
     "crop_group": "LEGUMINEUSES A GRAIN",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -8935,7 +8552,6 @@
   {
     "alias": "bellpepper-unheated-greenhouse-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.295,
@@ -8959,7 +8575,6 @@
   {
     "alias": "bellpepper-unheated-greenhouse-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.295,
@@ -8983,7 +8598,6 @@
   {
     "alias": "bellpepper-unheated-greenhouse-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.295,
@@ -9007,7 +8621,6 @@
   {
     "alias": "apple-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -9031,7 +8644,6 @@
   {
     "alias": "potato-table-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
@@ -9055,7 +8667,6 @@
   {
     "alias": "potato-table-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.6375,
@@ -9079,7 +8690,6 @@
   {
     "alias": "chicken-breast-eu",
     "categories": ["animal_product"],
-    "comment": "",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {},
@@ -9098,7 +8708,6 @@
   {
     "alias": "tomato-paste-fr",
     "categories": ["vegetable_processed"],
-    "comment": "",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 1.0,
@@ -9122,7 +8731,6 @@
   {
     "alias": "radish-fr",
     "categories": ["vegetable_fresh"],
-    "comment": "radis bio = radio bio glo ginko",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6375,
@@ -9146,7 +8754,6 @@
   {
     "alias": "radish-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "radis bio = radio bio glo ginko",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.6375,
@@ -9170,7 +8777,6 @@
   {
     "alias": "rice-basmati-eu",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "RIZ",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -9194,7 +8800,6 @@
   {
     "alias": "durum-wheat-semolina-non-eu",
     "categories": ["grain_processed"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.24,
@@ -9218,7 +8823,6 @@
   {
     "alias": "durum-wheat-semolina-eu",
     "categories": ["grain_processed"],
-    "comment": "",
     "crop_group": "AUTRES CEREALES",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.24,
@@ -9242,7 +8846,6 @@
   {
     "alias": "plum-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -9266,7 +8869,6 @@
   {
     "alias": "plum-non-eu",
     "categories": ["vegetable_fresh"],
-    "comment": "",
     "crop_group": "VERGERS",
     "default_origin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -9290,7 +8892,6 @@
   {
     "alias": "soft-wheat-eu",
     "categories": ["grain_raw"],
-    "comment": "",
     "crop_group": "BLE TENDRE",
     "default_origin": "EuropeAndMaghreb",
     "density": 1.0,
@@ -9314,7 +8915,6 @@
   {
     "alias": "onion-dried",
     "categories": ["vegetable_processed"],
-    "comment": "This process describes the average consumption dried onions, supposed to be the same as the mix of Onions in France.Included activities are : production in country of origin and transport. The consumption mix was evaluated using data extracted from FAOstat\nOrigine : 7kg FR, 1Kg NL",
     "crop_group": "LEGUMES-FLEURS",
     "default_origin": "France",
     "density": 0.6195,
