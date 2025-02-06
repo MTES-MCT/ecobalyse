@@ -48,7 +48,7 @@
   {
     "alias": "milk-organic",
     "categories": ["dairy_product", "organic"],
-    "default": "843986b19b3ea959b8817afda669dead",
+    "default": "c5782d4d0e582e15f7d4acd7012d1082",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -1300,7 +1300,7 @@
     "land_occupation": 1.85501,
     "name": "Crevettes fraîches Hors UE Conv.",
     "raw_to_cooked_ratio": 0.819,
-    "search": "Fresh shrimps, China production/FR U :",
+    "search": "Fresh shrimps, China production FR U",
     "transport_cooling": "always",
     "visible": true
   },
@@ -1316,7 +1316,7 @@
     "land_occupation": 1.55082,
     "name": "Truite d'élevage FR Conv.",
     "raw_to_cooked_ratio": 0.819,
-    "search": "Large trout, 2-4kg, conventional, at farm gate/FR U :",
+    "search": "Large trout, 2-4kg, conventional, at farm gate FR U",
     "transport_cooling": "always",
     "visible": true
   },
@@ -1339,7 +1339,7 @@
     "name": "Oeuf FR Conv.",
     "raw_to_cooked_ratio": 0.974,
     "scenario": "reference",
-    "search": "Egg, conventional, indoor system, non-cage, at farm gate/FR U :",
+    "search": "Egg, conventional, indoor system, non-cage, at farm gate FR U",
     "transport_cooling": "none",
     "visible": true
   },
@@ -1385,7 +1385,7 @@
     "name": "Oeuf (code 1) FR Conv.",
     "raw_to_cooked_ratio": 0.974,
     "scenario": "reference",
-    "search": "Egg, conventional, outdoor system, at farm gate/FR U :",
+    "search": "Egg, conventional, outdoor system, at farm gate FR U",
     "transport_cooling": "none",
     "visible": true
   },
@@ -4256,7 +4256,7 @@
     "alias": "soft-wheat-organic",
     "categories": ["grain_raw", "organic"],
     "crop_group": "BLE TENDRE",
-    "default": "bdd14c2017eaf0cda1e207e74012c391",
+    "default": "5ba8e179b3a213489d4286f2a6e06e7d",
     "default_origin": "France",
     "density": 1.0,
     "ecosystemicServices": {
@@ -4270,7 +4270,7 @@
     "name": "Blé tendre FR ou UE ou Hors UE Bio",
     "raw_to_cooked_ratio": 2.259,
     "scenario": "organic",
-    "search": "Wheat, organic, national average, at farm gate/FR U constructed by Ecobalyse",
+    "search": "Wheat, organic, national average, at farm gate FR U constructed by Ecobalyse",
     "transport_cooling": "none",
     "visible": true
   },
@@ -5502,7 +5502,7 @@
     "name": "Cerise Hors UE Conv.",
     "raw_to_cooked_ratio": 0.856,
     "scenario": "import",
-    "search": "Cherry, at farm (WFLDB)/TR",
+    "search": "Cherry, at farm (WFLDB) TR",
     "transport_cooling": "always",
     "visible": true
   },
@@ -7445,7 +7445,7 @@
     "name": "Autres produits issus de la pêche (non encore répertoriés)",
     "raw_to_cooked_ratio": 0.819,
     "scenario": null,
-    "search": "Fresh shrimps, China production/FR U :",
+    "search": "Fresh shrimps, China production FR U",
     "transport_cooling": "always",
     "visible": true
   },
