@@ -138,7 +138,8 @@
     * [Etape 3 : Utilisation](ameublement/cycle-de-vie/etape-3-utilisation.md)
     * [Etape 4 : Fin de vie](ameublement/cycle-de-vie/etape-4-fin-de-vie.md)
   * [Durabilité](ameublement/durabilite.md)
-  * [Complément hors ACV](ameublement/complement-hors-acv.md)
+  * [Complément hors ACV](ameublement/complement-hors-acv/README.md)
+    * [🌍 Origine du bois (biodiversité)](ameublement/complement-hors-acv/export-hors-europe.md)
   * [🚚 Transport](ameublement/transport.md)
 
 ## 🛺 Autres travaux en cours <a href="#vehicules" id="vehicules"></a>
