@@ -4,52 +4,108 @@ icon: bin-recycle
 
 # Etape 4 : Fin de vie
 
-La fin de vie d'un meuble dépend de 3 paramètres clés :&#x20;
+La fin de vie d'un meuble dépend de plusieurs paramètres:&#x20;
 
-* la présence de perturbateur(s) de recyclage,
-* la composition,
-* le taux de collecte.
+1\) la capacité du meuble à être collécté par la filière (taux de collecte),
 
-### Présence de perturbateur de recyclage
+2\) l'existence d'une filière de fin de vie (schéma opérationnel),
 
-Si un meuble propose au moins un perturbateur de recyclage, alors le meuble ne peut pas suivre les débouchés spécifiques de la filière REP des éléments d'ameublement.&#x20;
+3\) la capacité du meuble à être démonté (démontabilité),
 
-Dès lors, le meuble est considéré comme "non recyclable" et le scénario par défaut ci-dessous s'applique.
+4\) la présente de perturbateurs de recyclage (perturbateur de recyclage),&#x20;
+
+5\) la composition du meuble (composition).
+
+### 1) Taux de collecte (capacité du meuble à être collecté)
+
+Un taux de collecte de 70% est appliqué par défaut pour l'ensemble des meubles.
+
+Ce taux de collecte caractérise la capacité du meuble à rejoindre sa filière de fin de vie (via par exemple le dépôt du meuble dans une benne dédiée en déchetterie ou chez un distributeur).&#x20;
+
+<details>
+
+<summary>Détails</summary>
+
+Le taux de collecte de 70% correspond au ratio entre les tonnes collectées (1,2m) et celles mises sur le marché pour renouveler le parx existant (1,8m) :&#x20;
+
+* 1,8 millions de tonnes de meubles mises sur le marché afin de renouveler le parc existant,
+* 1,2 millions de tonnes collectées par la filière en fin de vie. &#x20;
+
+_**Focus : Mises sur le marché**_
+
+Les rapports annuels de la filière proposent des mises sur le marché annuelles incluant les meubles destinés à renouveller le parc existant (renouvellement) ainsi que les meubles destinés à de nouveaux usages/périmètres. Ces nouveaux usages sont triples : construction neuve, solde démographique en hausse, taux d'équipement en hausse).&#x20;
+
+En 2022, 3 millions de tonnes ont été mises sur le marché (source : Filière des éléments d'ameublement _Données 2023_ Bilan annuel). Suite à des entretiens avec la filière, nous estimons que 40% (1,2 millions de tonnes) des mises sur le marché correspondent à des nouveaux usages.&#x20;
+
+![](<../../.gitbook/assets/Mises sur le marché 2022.png>)
+
+_**Focus : Tonnes collectées**_
+
+En 2022, 1,2 millions de tonnes ont été collectées par la filière; que ce soit via des déchetteries gérées opérationnellement par la filière ou des déchetteries soutenues financièrement (source : Filière des éléments d'ameublement _Données 2023_ Bilan annuel).&#x20;
+
+</details>
+
+### 2) Schéma opérationnel (existence d'une filière de fin de vie)
+
+Certains meubles, bien que collectés par la filière, ne peuvent pas être recyclés car la filière ne dispose pas d'un schéma opérationnel.&#x20;
+
+Dans ce cas, ces meubles sont considérés comme terminant leur fin de vie en décharge avec l'application du scénario par défaut "meuble non recyclable" (cf. ci-dessous).&#x20;
+
+Voici la liste des meubles pour lesquels il n'existe pas, fin 2024, de schéma opérationnel en fin de vie :&#x20;
+
+* canapé,
+* <mark style="color:red;">à compléter</mark>
 
 {% hint style="info" %}
-Déchets d'éléments d'ameublement (scénario par défaut)
-
-Lorsqu'un meuble n'est pas recyclable ou qu'une matière ne dispose pas de filière spécifique en fin de vie, un scénario par défaut est appliqué.
-
-Ce scénario se base sur la fin de vie moyenne des déchets en sortie de déchèterie en France en 2021 :&#x20;
+**Scénario par défaut (applicable à :&#x20;**_**Meuble non recyclables**_**&#x20;et&#x20;**_**Autres matières**_**) :**&#x20;
 
 * 75% incinération
 * 25% enfouissement
 
-Source : rapport "La collecte des déchets par le service public en France en 2021" / p. 38/50).&#x20;
+Ce scénario se base sur la fin de vie moyenne des déchets en sortie de déchèterie en France en 2021.&#x20;
+
+Source ⇒ : "La collecte des déchets par le service public en France en 2021" (p. 38/50)&#x20;
 {% endhint %}
+
+### 3) Démontabilité (capacité du meuble à être démonté)
+
+La possibilité de séparer les différents composants d'un meuble participe à accroître la capacité du meuble à être valorisé.&#x20;
+
+{% hint style="info" %}
+**Démontabilité :** capacité d’un produit à être démonté, avec des outils classiques, conventionnels et disponibles sur le marché, sans endommagement.\
+[_Source_](#user-content-fn-1)[^1]
+{% endhint %}
+
+### 4) Présence de perturbateur de recyclage
+
+La présence de perturbateur(s) de recyclage limite la capacité d'un meuble à être valorisé en fin de vie car il est plus difficile pour ses composants/matières de rejoindre leurs filières spécifiques (ex : le recyclage pour les éléments métalliques).&#x20;
 
 &#x20;:eyes: La liste des perturbateurs de recyclage est proposée par les organismes de la filière REP. &#x20;
 
-:bulb: L'utilisateur a la possibilité de préciser si son produit est "recyclable" ou "non recyclable". Lorsqu'au moins un perturbateur de recyclage est présent dans le meuble, ce dernier est considéré comme "non recyclable".&#x20;
+### 5) Composition
 
-### Composition
+Lorsqu'un meuble est en capacité d'être orienté vers les filières de fin de vie spécifiques à chacune de ses matières , les scénarios ci-dessous s'appliquent. &#x20;
 
-Lorsqu'un meuble est collecté par la filière et est recyclable (c'est à dire que le meuble ne présente pas d'éléments perturbateur de recyclage), les scénarios de fin de vie sont spécifiques aux matières entrant dans la composition du produit.&#x20;
+4 grandes familles de matière (bois, métal, rembourré/matelas/mousse, plastique) proposent des scénarios spécifiques.&#x20;
 
-4 grandes familles de matière (bois, métal, rembourré/matelas/mousse, plastique) proposent des scénarios spécifiques. Les autres matières proposent le scénario par défaut "Autres" qui reprend la fin de vie des déchets d'éléments d'ameublement.&#x20;
+<table><thead><tr><th width="267">Matière</th><th>% recyclage</th><th>% incinération</th><th>% enfouissement</th></tr></thead><tbody><tr><td>Bois d'oeuvre*</td><td>69%</td><td>31</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>2%</td><td>91%</td><td>7%</td></tr><tr><td>Plastique*</td><td>90%</td><td>10%</td><td>1%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr></tbody></table>
 
-<table><thead><tr><th width="264">Matière</th><th>% recyclage</th><th>% incinération</th><th>% enfouissement</th></tr></thead><tbody><tr><td>Bois</td><td>71%</td><td>29%</td><td>0%</td></tr><tr><td>Métal</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Rembourré/Matelas/Mousse</td><td>3%</td><td>97%</td><td>0%</td></tr><tr><td>Plastique</td><td>92%</td><td>9%</td><td>1%</td></tr><tr><td><a data-footnote-ref href="#user-content-fn-1">Autres</a></td><td>0%</td><td>75%</td><td>25%</td></tr></tbody></table>
+\*Source : Filière des éléments d'ameublement \_ données 2021 (Bilan annuel 2022)\
+\*\*Source : Référentiel Meubles meublants révisé en 2023 (FCBA-ADEME)
 
-Source : Filière des éléments d'ameublement \_ données 2022 (Bilan annuel 2023)
+{% hint style="info" %}
+Les autres matières non inclues dans le tableau ci-dessus sont considérées comme non recyclées et terminant leur fin de vie en déchetterie.
 
-### Taux de collecte
+Cf. scénario par défaut présenté précedemment.&#x20;
+{% endhint %}
 
-Un taux de collecte de 40% est appliqué par défaut pour l'ensemble des meubles.
 
-Ce taux de collecte correspond à la moyenne des éléments d'ameublement collectés séparément par la filière REP (ex : bennes d'éléments d'ameublement en déchetterie, dépôt de meubles chez un distributeur, etc.).&#x20;
 
-Les meubles non collectés (60% des cas) sont considérés comme terminant leur vie en décheterie sous la forme d'encombrants sans tri spécifique à chaque matière. Dès lors, le scénario par défaut des déchets d'éléments d'ameublement est proposé (75% incinération / 25% enfouissement).
+## Filières de recyclage
+
+
+
+
 
 ### Illustration de la fin de vie d'un meuble&#x20;
 
@@ -73,4 +129,4 @@ Une chaise de salon de 2kg, recyclable, et composée à 80% de bois et à 20% de
 
 &#x20;
 
-[^1]: Application du scénario par défaut des déchets d'éléments d'ameublement
+[^1]: Activer l'écoconception dans le secteur de l'ameublement (décembre 2024)
