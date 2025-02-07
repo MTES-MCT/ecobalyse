@@ -8,12 +8,12 @@ Le cas échéant, les spécificités relatives à chaque produit sont décrites 
 
 ## Principales étapes de transport <a href="#distribution" id="distribution"></a>
 
-Les étapes de transport prisent en compte dans le coût environnemental sont les suivantes : &#x20;
+Le transport est modélisé en prenant en compte les étapes suivantes : &#x20;
 
 * Transport des matières premières (ex : coton, blé, bois) du champs ou de la foret vers le site de transformation
 * Transport des produits intermédiaires (ex : tissu textile)  et composants (ex : pied de chaise, pneu) entre les sites de transformation,
-* Le cas échéant, transport du produit fini entre une usine hors France et un entrepôt centralisé en France
-* Transport entre l'usine de production du produit fini en France (ou un site centralisé de stockage en France si produit étranger) et un magasin ou centre de distribution ou client final s'il est livré directement.
+* Transport du produit fini entre l'usine de production et un entrepôt de stockage en France
+* Transport entre un site de stockage en France et un magasin ou centre de distribution ou client final s'il est livré directement.
 
 A des fins de simplification, le transport entre un magasin ou un centre de distribution et le client final n'est pas pris en compte à ce jour dans Ecobalyse.
 
@@ -36,11 +36,7 @@ A des fins de simplification, ces 4 voies ne sont pas toujours proposés pour to
 
 ## Calcul du coût environnemental par voie
 
-### Distances et mode de transport - transport en France
-
-Pour les étapes de transport en France, il est considéré une distance par défaut de 500 km, effectuée en camion. Cela s'applique en particulier pour le transport entre le site de production du produit fini en France ou un entrepôt logistique centralisé en France et le consommateur final. Aucune distinction de scénario d'achat n'est faite, le déplacement du consommateur final ou la livraison du dernier kilomètre n'est pas prise en compte.
-
-### Distances et mode de transport - transport international
+### Distances et mode de transport
 
 La distance et le mode de transport sont calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.&#x20;
 
@@ -133,6 +129,12 @@ Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence ave
 
 </details>
 
+### Transport entrepôt de stockage - client final (en France)
+
+Pour le transport du produit fini entre l'entrepôt en France et le client final, il est considéré une distance par défaut de 500 km, effectuée en camion.
+
+Aucune distinction de scénario d'achat n'est faite, le déplacement du consommateur final ou la livraison du dernier kilomètre n'est pas prise en compte de façon spécifique.
+
 ### Coût environnemental pour une voie de transport
 
 À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
@@ -160,7 +162,7 @@ Il est résulte les coûts environnementaux par mode de transport suivant (corre
 
 <figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 
-## Mix des voies de transport
+## Transport international : mix des voies de transport
 
 En pratique, pour une même chaine d'approvisionnement, plusieurs voies de transports sont utilisées, dans des proportions qui dépendent du type de produit, de la distance et de choix industriels.&#x20;
 
