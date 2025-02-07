@@ -8,12 +8,14 @@ Le cas échéant, les spécificités relatives à chaque produit sont décrites 
 
 ## Principales étapes de transport <a href="#distribution" id="distribution"></a>
 
-Les étapes de transport prisent en compte dans le coût environnemental du produit sont de trois types : &#x20;
+Les étapes de transport prisent en compte dans le coût environnemental sont les suivantes : &#x20;
 
-* Transport des matières premières (ex : coton, blé, bois)
+* Transport des matières premières (ex : coton, blé, bois) du champs ou de la foret vers le site de transformation
 * Transport des produits intermédiaires (ex : tissu textile)  et composants (ex : pied de chaise, pneu) entre les sites de transformation,
-* Transport du produit fini entre une usine hors France et un entrepôt centralisé en France,
-* Transport entre un site centralisé en France et un magasin ou le consommateur final.
+* Le cas échéant, transport du produit fini entre une usine hors France et un entrepôt centralisé en France
+* Transport entre l'usine de production du produit fini en France (ou un site centralisé de stockage en France si produit étranger) et un magasin ou centre de distribution ou client final s'il est livré directement.
+
+A des fins de simplification, le transport entre un magasin ou un centre de distribution et le client final n'est pas pris en compte à ce jour dans Ecobalyse.
 
 ## Voies et modes de transports proposés
 
@@ -33,6 +35,10 @@ Les étapes de transport prisent en compte dans le coût environnemental du prod
 A des fins de simplification, ces 4 voies ne sont pas toujours proposés pour toutes les étapes de transport.
 
 ## Calcul du coût environnemental par voie
+
+### Distances et mode de transport - transport en France
+
+Pour les étapes de transport en France, il est considéré une distance par défaut de 500 km, effectuée en camion. Cela s'applique en particulier pour le transport entre le site de production du produit fini en France ou un entrepôt logistique centralisé en France et le consommateur final. Aucune distinction de scénario d'achat n'est faite, le déplacement du consommateur final ou la livraison du dernier kilomètre n'est pas prise en compte.
 
 ### Distances et mode de transport - transport international
 
@@ -127,12 +133,6 @@ Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence ave
 
 </details>
 
-### Distances et mode de transport - entre un site centralisé en France et le consommateur
-
-Pour le transport entre le site de production du produit fini en France ou un entrepôt logistique centralisé en France et le consommateur final, il est considéré une distance par défaut de 500 km, effectuée en camion. Aucune distinction de scénario d'achat n'est faite, le déplacement du consommateur final ou la livraison du dernier kilomètre n'est pas prise en compte.
-
-Cette hypothèse est conforme à la méthodologie ADEME pour le textile (cf. méthodologie d'évaluation des impacts environnementaux des articles d'habillement - section A.2.b.2 p30).&#x20;
-
 ### Coût environnemental pour une voie de transport
 
 À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
@@ -154,7 +154,7 @@ Avec :&#x20;
 
 Sauf indication contraire spécifique, les modes de transport sont modélisés par les procédés suivants :
 
-<table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Routier, hors distribution</td><td>market group for transport, freight, lorry, unspecified, GLO (Ecoinvent)</td></tr><tr><td>Routier, distribution</td><td>Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR<br>UUID = f49b27fa-f22e-c6e1-ab4b-e9f873e2e648 (Base Impact) <mark style="color:orange;">à remplacer par donnée ecoivnent</mark></td></tr><tr><td>Bateau</td><td>market for transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Avion</td><td>market for transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr><tr><td>Train</td><td>market group for transport, freight train, GLO (Ecoinvent)</td></tr></tbody></table>
+<table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Camion</td><td>market group for transport, freight, lorry, unspecified, GLO (Ecoinvent)</td></tr><tr><td>Camion frigorifique</td><td></td></tr><tr><td>Bateau</td><td>market for transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Bateau frigorifique</td><td></td></tr><tr><td>Avion</td><td>market for transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr><tr><td>Train</td><td>market group for transport, freight train, GLO (Ecoinvent)</td></tr></tbody></table>
 
 Il est résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs CE\[m1] ou CE\[m2] ci-dessus) :&#x20;
 
@@ -192,7 +192,8 @@ Avec :&#x20;
 #### Cas d'application
 
 * Transports de produits textile intermédiaires et d'accessoires
-* Transport de composants&#x20;
+* Transport de composants
+* Transport de certains ingrédients alimentaires
 
 ### Modélisation du transport avec part d'aérien ou de ferroviaire modifiable&#x20;
 
