@@ -61,8 +61,8 @@ type SourceId
 
 decodeFromId : List Process -> Decoder Process
 decodeFromId processes =
-    Uuid.decoder
-        |> Decode.andThen (Id >> (\id -> findById id processes) >> DE.fromResult)
+    decodeId
+        |> Decode.andThen ((\id -> findById id processes) >> DE.fromResult)
 
 
 getImpact : Definition.Trigram -> Process -> Unit.Impact
