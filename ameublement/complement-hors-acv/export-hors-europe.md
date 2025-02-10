@@ -14,25 +14,61 @@ Le cadre ACV ne permet pas, à date, de différencier l'impact sur la biodiversi
 * gérées de manière intensive,
 * participant à la déforestation.
 
-Dans l'Ameublement, le bois est la principale matière utilisée sur le marché français.
+Or, selon son origine, une même essence de bois peut être considérée à risque selon qu'elle provient d'une forêt participant à la déforestation et/ou gérée de manière intensive.
+
+
+
+## Etat des lieux
+
+Le bois est la principale matière utilisée sur le marché français de l'ameublement.
 
 <figure><img src="../../.gitbook/assets/EA par matériau majoritaire (données 2022).png" alt=""><figcaption><p>Source : ADEME _ étude "REP Filière ameublement <em>Bilan annuel</em> 2022"</p></figcaption></figure>
 
 Cette consommation français de bois d'ameublement se répartit ainsi ([unité ](#user-content-fn-1)[^1]/ source[^2]) :&#x20;
 
-<table data-view="cards"><thead><tr><th></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><p>La majorité du bois d'ameublement consommé en France en 2019  (48%) sert à la fabrication de panneaux (bois d'industrie). </p><p>Dans un tiers des cas (32%) , le bois consommé n'est pas précisé car des meubles en bois sont importés sans nécessiter de transformation sur place.</p><p>Enfin, le bois d'oeuvre représente le reste (20%).</p></td><td><a href="../../.gitbook/assets/Consommation de bois _ secteur Ameublement (2019) (2).png">Consommation de bois _ secteur Ameublement (2019) (2).png</a></td></tr><tr><td><ul><li>Les deux tiers du bois d'oeuvre (66%) sont importés,</li><li>Les feuillus représentent 88% du bois d'oeuvre consommé,.</li></ul></td><td><a href="../../.gitbook/assets/Consommation de bois d&#x27;oeuvre _ secteur Ameublement (2019).png">Consommation de bois d'oeuvre _ secteur Ameublement (2019).png</a></td></tr><tr><td></td><td></td></tr></tbody></table>
-
-
-
-* 48% panneaux de bois (bois d'industrie),&#x20;
-* 20% bois d'oeuvre (dont 15% de résineux et 85% de feuillus),
-* 32% inconnu (achats/imports directs de meubles en bois).&#x20;
-
+{% tabs %}
+{% tab title="Vision simple" %}
 <figure><img src="../../.gitbook/assets/Consommation de bois _ secteur Ameublement (2019) (2).png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+La majorité du bois d'ameublement consommé en France en 2019  (48%) sert à la fabrication de panneaux (bois d'industrie).&#x20;
+
+Dans un tiers des cas (32%) , des meubles en bois sont directement importés sans précision sur l'origine/type/essence de bois.&#x20;
+
+Enfin, le bois d'oeuvre représente le reste (20%).
+{% endhint %}
+{% endtab %}
+
+{% tab title="Focus bois d'oeuvre" %}
+<figure><img src="../../.gitbook/assets/Focus bois d&#x27;oeuvre.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+Focus bois d'oeuvre transformé en France :&#x20;
+
+* Les deux tiers du bois d'oeuvre (66%) sont importés,
+* Les feuillus sont les essences les plus utilisées (88%).
+{% endhint %}
+{% endtab %}
+
+{% tab title="Focus panneaux" %}
+<figure><img src="../../.gitbook/assets/Origine des panneaux d&#x27;ameublement consommés en France.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/Composition des panneaux.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+* une part significative des panneaux sont importés (c. 45% du volume),
+* les panneaux sont majoritairement constitués de bois d'industrie (bois de petite dimension inutilisable en bois d'oeuvre) (c. 75% du volume).
+{% endhint %}
+{% endtab %}
+
+{% tab title="Vision détaillée" %}
+<figure><img src="../../.gitbook/assets/Consommation de bois _ secteur Ameublement (2019) (3).png" alt=""><figcaption></figcaption></figure>
+{% endtab %}
+{% endtabs %}
 
 
-<figure><img src="../../.gitbook/assets/Consommation de bois _ secteur Ameublement (2019).png" alt=""><figcaption></figcaption></figure>
+
+
 
 <details>
 
