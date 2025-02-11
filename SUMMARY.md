@@ -172,5 +172,6 @@
 
 ## 📄 Documentation transverse
 
+* [Méthode de caractérisation](documentation-transverse/methode-de-caracterisation.md)
 * [🚚 Transport](documentation-transverse/transport.md)
 * [⚡ Energies des étapes de transformation](documentation-transverse/energies-des-etapes-de-transformation.md)
