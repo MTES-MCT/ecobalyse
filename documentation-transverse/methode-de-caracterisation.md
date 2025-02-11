@@ -12,7 +12,7 @@ Une émission est classée comme "à long terme" **si elle est rejetée dans l'e
 
 Concrètement, il s'agit des émissions provenant généralement des déchets en décharges, qui sont libérées dans l'air ou s'infiltrent dans les eaux souterraines plus de 100 ans après la mise en décharge. Elles concernent notamment les déchets nucléaires.
 
-Dans ecoinvent, ces émissions à long terme sont déclarées séparément dans deux sous-compartiments explicitement désignés comme "à long terme", à savoir "air, faible densité de population, à long terme" et "eau, souterraine, à long terme". Ces échanges sont exclusivement présents dans les ICV sur le traitement des déchets, où l'on suppose que l'entretien actif de la décharge prend fin après 100 ans.
+Dans ecoinvent, ces émissions à long terme sont déclarées séparément dans deux catégories d'émissions vers la biosphère explicitement désignés comme "à long terme", à savoir "air, faible densité de population, à long terme" et "eau, souterraine, à long terme". Ces échanges sont exclusivement présents dans les ICV sur le traitement des déchets, où l'on suppose que l'entretien actif de la décharge prend fin après 100 ans.
 
 #### Possibilités de prise en compte des émissions "à long terme"
 
