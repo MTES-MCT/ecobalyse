@@ -6,7 +6,7 @@ La méthode de caractérisation EF 3.1 est utilisée, avec suppression des émis
 
 #### Définition des émissions "à long terme"
 
-Ecoinvent propose pour chaque méthode de caractérisation des impacts une déclinaison avec et une déclinaison sans les impacts de long terme.
+Ecoinvent propose pour chaque méthode de caractérisation des impacts une déclinaison avec et une déclinaison sans les impacts des émissions à long terme.
 
 Une émission est classée comme "à long terme" **si elle est rejetée dans l'environnement plus de 100 ans après que les activités considérées dans le cycle de vie ont eu lieu**. Ce qui est déterminant pour la classification « à long terme », c'est donc le moment où une émission est rejetée dans l'environnement et non le moment où elle produit son impact. Elle diffère donc des impacts à long terme qui seraient causés, par exemple, par la bioaccumulation d'un pesticide dans la chaîne alimentaire.
 
