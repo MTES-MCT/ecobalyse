@@ -4,9 +4,15 @@
 
 La méthode de caractérisation EF 3.1 est utilisée, avec suppression des émissions à long terme lorsque c'est possible.
 
-#### Définition des émissions "à long terme"
+### Caractérisation des émissions à long terme
 
 Ecoinvent propose pour chaque méthode de caractérisation des impacts une déclinaison avec et une déclinaison sans les impacts des émissions à long terme.
+
+Ceci est transcrit par dans le logiciel SimaPro par exemple, qui propose l'option d'exclure ses émissions des analyses.
+
+_SIMAPRO : There are two ways in which long-term emissions can influence your results. The first one is by not taking the inventoried long-term emissions into account. Practically that is a cut-off for emissions labeled as long-term. The “Exclude long-term emissions” checkbox in the calculation setup (see Figure 3.5) can be used for this. The second way, that long-term emissions can influence your results, is when the SimaPro Tutorial 53 characterization factors in your method are different for long-term emissions. If there are no separate characterization factors for long-term emissions present in the method, all emissions will be treated equally_
+
+#### Définition des émissions "à long terme"
 
 Une émission est classée comme "à long terme" **si elle est rejetée dans l'environnement plus de 100 ans après que les activités considérées dans le cycle de vie ont eu lieu**. Ce qui est déterminant pour la classification « à long terme », c'est donc le moment où une émission est rejetée dans l'environnement et non le moment où elle produit son impact. Elle diffère donc des impacts à long terme qui seraient causés, par exemple, par la bioaccumulation d'un pesticide dans la chaîne alimentaire.
 
