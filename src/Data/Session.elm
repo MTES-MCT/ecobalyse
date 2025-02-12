@@ -175,7 +175,7 @@ checkComparedSimulations =
         (\({ bookmarks, comparedSimulations } as store) ->
             { store
                 | comparedSimulations =
-                    if Set.size comparedSimulations == 0 then
+                    if Set.isEmpty comparedSimulations then
                         -- Add max bookmarks to compared sims
                         bookmarks
                             |> Bookmark.sort
