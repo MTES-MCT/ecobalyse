@@ -1,9 +1,11 @@
 name: Deploy Review App
 
 on:
-  workflow_run:
-    workflows: ["Node.js CI"]
-    types: [completed]
+  push:
+    branches: [ master, staging ]
+  pull_request:
+    branches: [ master, staging ]
+  workflow_dispatch:
 
 jobs:
   deploy-review-app:
