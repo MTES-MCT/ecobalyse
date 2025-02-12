@@ -36,12 +36,4 @@ jobs:
           SCALINGO_APP: ecobalyse
           SCALINGO_REGION: ${{ secrets.SCALINGO_REGION }}
         run: |
-          # Get PR number from the branch name
-          PR_NUMBER=$(echo ${{ github.event.workflow_run.head_branch }} | grep -o '[0-9]\+' || echo '')
-          if [ -n "$PR_NUMBER" ]; then
-            # Create/deploy review app using Scalingo CLI
-            scalingo --app $SCALINGO_APP review-app create $PR_NUMBER
-          else
-            echo "Could not determine PR number from branch name"
-            exit 1
-          fi
+          scalingo --app $SCALINGO_APP review-app create
