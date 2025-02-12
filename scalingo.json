@@ -3,5 +3,6 @@
     "IS_REVIEW_APP": {
       "value": "true"
     }
-  }
+  },
+  "stack": "scalingo-22"
 }
