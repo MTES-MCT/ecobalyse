@@ -1184,7 +1184,7 @@ viewPreTreatments { operations } =
                         ""
                    )
                 ++ "\u{00A0}: "
-        , if List.length operations == 0 then
+        , if List.isEmpty operations then
             text "Aucun"
 
           else

@@ -62,7 +62,7 @@ addButton { addLabel, db, items, openSelectModal, scope } =
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
         , id "add-new-element"
-        , disabled <| List.length availableComponents == 0
+        , disabled <| List.isEmpty availableComponents
         , onClick <| openSelectModal autocompleteState
         ]
         [ i [ class "icon icon-plus" ] []
