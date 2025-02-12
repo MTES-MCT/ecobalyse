@@ -1,16 +1,12 @@
 name: Deploy Review App
 
 on:
-  push:
-    branches: [ master, staging ]
   pull_request:
-    branches: [ master, staging ]
-  workflow_dispatch:
+    types: [opened, synchronize, reopened]
 
 jobs:
   deploy-review-app:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/scalingo-cli
