@@ -1,15 +1,17 @@
 name: Deploy Review App
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_run:
+    workflows: ["Node.js CI"]
+    types:
+      - completed
 
 jobs:
   deploy-review-app:
     name: Deploy Review App
     runs-on: ubuntu-latest
-    # We want this to run even if other jobs fail
-    if: always()
+    # We want this to run if Node.js CI passes, regardless of ecobalyse-data-sync
+    if: github.event.workflow_run.conclusion == 'success'
 
     steps:
       - uses: actions/checkout@v4
