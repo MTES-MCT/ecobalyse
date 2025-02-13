@@ -200,9 +200,12 @@ computePreTreatment country mass process =
     { heat = consumedHeat
     , impacts =
         Impact.sumImpacts
-            [ process.impacts
-                |> Impact.multiplyBy massInKg
-            , country.electricityProcess.impacts
+            [ -- NOTE: don't take pre-treatment process own impacts as they've
+              --       already been added at the global ennobling step
+              -- FIXME: this should be refactored to do everything at once
+              -- process.impacts
+              --  |> Impact.multiplyBy massInKg
+              country.electricityProcess.impacts
                 |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
             , country.heatProcess.impacts
                 |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
