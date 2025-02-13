@@ -700,7 +700,7 @@
     "source": "Custom",
     "sourceId": null,
     "unit": "kg",
-    "waste": 0.21292
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -737,7 +737,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182219845",
     "unit": "kg",
-    "waste": 0.21292
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -774,7 +774,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182217971",
     "unit": "kg",
-    "waste": 0.21292
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -811,7 +811,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182219848",
     "unit": "kg",
-    "waste": 0.03097
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -848,7 +848,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182219837",
     "unit": "kg",
-    "waste": 0.03097
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -885,7 +885,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182219838",
     "unit": "kg",
-    "waste": 0.03097
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -922,7 +922,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182219585",
     "unit": "kg",
-    "waste": 0.03097
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -959,7 +959,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182217969",
     "unit": "kg",
-    "waste": 0.07115
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -996,7 +996,7 @@
     "source": "Woolmark",
     "sourceId": null,
     "unit": "kg",
-    "waste": 0.35
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -1033,7 +1033,7 @@
     "source": "Custom",
     "sourceId": null,
     "unit": "kg",
-    "waste": 0.35
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -1070,7 +1070,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182217966",
     "unit": "kg",
-    "waste": 0.1675
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -1107,7 +1107,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182217968",
     "unit": "kg",
-    "waste": 0.09511
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -1144,7 +1144,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182220283",
     "unit": "kg",
-    "waste": 0.18106
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -1181,7 +1181,7 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "MTE00149000081182200991",
     "unit": "kg",
-    "waste": 0.055
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -1218,7 +1218,7 @@
     "source": "Custom",
     "sourceId": null,
     "unit": "kg",
-    "waste": 0.38696
+    "waste": 0
   },
   {
     "categories": ["material"],
@@ -1255,7 +1255,7 @@
     "source": "Custom",
     "sourceId": null,
     "unit": "kg",
-    "waste": 0.17842
+    "waste": 0
   },
   {
     "categories": ["processing"],
