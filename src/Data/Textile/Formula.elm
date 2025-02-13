@@ -242,23 +242,6 @@ finishingImpacts impacts { elecProcess, finishingProcess, heatProcess } baseMass
     }
 
 
-getAquaticPollutionRealRatio : Country.AquaticPollutionScenario -> Float
-getAquaticPollutionRealRatio scenario =
-    -- The toxicity impacts in the "enriched" ennobling processes
-    -- "bleaching", "printing-dyes" and "printing-paste",  are based
-    -- on the "average" value.
-    -- To have the real ratio, we need to do:
-    -- ratio / average
-    let
-        countryRatio =
-            Country.getAquaticPollutionRatio scenario |> Split.toFloat
-
-        averageRatio =
-            Country.getAquaticPollutionRatio Country.Average |> Split.toFloat
-    in
-    countryRatio / averageRatio
-
-
 bleachingImpacts :
     Impacts
     ->
@@ -273,7 +256,11 @@ bleachingImpacts impacts { aquaticPollutionScenario, bleachingProcess } baseMass
             (\trigram _ ->
                 baseMass
                     |> Unit.forKg (Process.getImpact trigram bleachingProcess)
-                    |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
+                    |> Quantity.multiplyBy
+                        (aquaticPollutionScenario
+                            |> Country.getAquaticPollutionRatio
+                            |> Split.toFloat
+                        )
             )
 
 
@@ -292,7 +279,11 @@ materialDyeingToxicityImpacts impacts { aquaticPollutionScenario, dyeingToxicity
             (\trigram _ ->
                 baseMass
                     |> Unit.forKg (Process.getImpact trigram dyeingToxicityProcess)
-                    |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
+                    |> Quantity.multiplyBy
+                        (aquaticPollutionScenario
+                            |> Country.getAquaticPollutionRatio
+                            |> Split.toFloat
+                        )
                     |> (\impact -> Split.applyToQuantity impact split)
             )
 
@@ -312,7 +303,11 @@ materialPrintingToxicityImpacts impacts { aquaticPollutionScenario, printingToxi
             (\trigram _ ->
                 baseMass
                     |> Unit.forKg (Process.getImpact trigram printingToxicityProcess)
-                    |> Quantity.multiplyBy (getAquaticPollutionRealRatio aquaticPollutionScenario)
+                    |> Quantity.multiplyBy
+                        (aquaticPollutionScenario
+                            |> Country.getAquaticPollutionRatio
+                            |> Split.toFloat
+                        )
                     |> (\impact -> Split.applyToQuantity impact split)
             )
 
