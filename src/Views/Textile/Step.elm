@@ -815,18 +815,6 @@ surfaceInfoView inputs current =
             text ""
 
 
-ennoblingPreTreatmentsView : Config msg modal -> Step -> Html msg
-ennoblingPreTreatmentsView { selectedImpact } { label, preTreatments } =
-    showIf (label == Label.Ennobling) <|
-        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-            [ span [] [ text <| "Dont pré-traitements\u{00A0}:" ]
-            , span [ class "text-end ImpactDisplay fs-7" ]
-                [ preTreatments.impacts
-                    |> Format.formatImpact selectedImpact
-                ]
-            ]
-
-
 ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
 ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
     showIf (current.label == Label.Ennobling) <|
@@ -1137,7 +1125,6 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                             ]
                         ]
                 , surfaceInfoView inputs current
-                , ennoblingPreTreatmentsView config current
                 , ennoblingToxicityView db config current
                 , pickingView current.picking
                 , threadDensityView current.threadDensity
