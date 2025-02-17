@@ -1256,6 +1256,13 @@ components:
           description: Part de transport aérien
           minimum: 0
           maximum: 1
+        dyeingProcessType:
+          type: string
+          description: Type de teinture
+          enum:
+            - average
+            - continuous
+            - discontinuous
         makingWaste:
           type: number
           description: Taux de perte en confection
