@@ -269,7 +269,7 @@ handleUpcycling query =
 isAdvancedQuery : List Product -> Query -> Bool
 isAdvancedQuery products query =
     List.any identity
-        [ query.dyeingProcessType /= Nothing
+        [ query.dyeingProcessType /= Nothing || query.dyeingProcessType /= Just Dyeing.Average
         , query.fabricProcess /= Nothing
         , query.makingComplexity /= Nothing
         , query.makingDeadStock /= Nothing
