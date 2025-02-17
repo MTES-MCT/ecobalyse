@@ -130,7 +130,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
 dyeingProcessTypeField : Config msg modal -> Html msg
 dyeingProcessTypeField { current, db, inputs, updateDyeingProcessType } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
-        [ label [ class "text-truncate w-25", for "dyeing-process-type", title "Teinture sur" ]
+        [ label [ class "text-truncate w-33", for "dyeing-process-type", title "Type de teinture" ]
             [ text "Type de teinture" ]
         , [ Dyeing.Discontinuous, Dyeing.Continuous, Dyeing.Average ]
             |> List.map
@@ -240,7 +240,7 @@ fabricProcessField { current, inputs, updateFabricProcess } =
 printingFields : Config msg modal -> Html msg
 printingFields { current, inputs, updatePrinting } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
-        [ label [ class "text-truncate w-25", for "ennobling-printing", title "Impression" ]
+        [ label [ class "text-truncate w-33", for "ennobling-printing", title "Impression" ]
             [ text "Impression" ]
         , div [ class "d-flex justify-content-between align-items-center gap-1 w-75" ]
             [ [ Printing.Pigment, Printing.Substantive ]
