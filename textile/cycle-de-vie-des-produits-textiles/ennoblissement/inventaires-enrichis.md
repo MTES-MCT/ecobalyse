@@ -119,9 +119,9 @@ $$
 
 * Blanchiment (bleaching)\
   Appliqué par défaut pour les matières autres que celles synthétiques.&#x20;
-* Teinture de fibres cellulosiques (continu)\
+* Teinture de fibres cellulosiques \
   Appliqué par défaut pour les matières autres que celles synthétiques.&#x20;
-* Teinture de fibres synthétiques (discontinu)\
+* Teinture de fibres synthétiques\
   Appliqué par défaut pour les matières synthétiques.
 * Impression pigmentaire\
   Optionnel (lorsque l'utilisateur ajoute ce procédé d'impression)

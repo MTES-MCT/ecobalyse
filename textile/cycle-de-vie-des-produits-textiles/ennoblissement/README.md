@@ -77,7 +77,7 @@ Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebu
 
 #### Etape 2 =  Ajout des inventaires enrichis (impacts Ecotox/Tox)
 
-Lorsque des procédés mobilisés dans la modélisation d'un vêtement font l'objet d'inventaires enrichis (ex : Blanchiment), l'impact de ces inventaires enrichis sont intégrés (plus d'info [ici](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/774/textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis)).&#x20;
+Lorsque des procédés mobilisés dans la modélisation d'un vêtement font l'objet d'inventaires enrichis (ex : Blanchiment), l'impact de ces inventaires enrichis sont intégrés (plus d'info [ici](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/774/textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis)).&#x20;
 
 {% hint style="info" %}
 La modélisation des substances chimiques mobilisées sur les étapes d'ennoblissement (ainsi que leurs impacts) est aujourd'hui très difficile via la méthode ACV[^1] pour diverses raisons.
@@ -89,29 +89,38 @@ Ecobalyse propose de premiers scénarios afin de permettre aux acteurs Textile (
 
 <details>
 
-<summary>Pré-traitement (5 procédés)</summary>
+<summary>Pré-traitement (3 procédés mobilisés)</summary>
 
 * Dégraissage ou Débouillissage (scouring)\
   Consiste à éliminer les impuretés naturelles et graisses des fibres naturelles afin de rendre les fibres perméables au processus aval (blanchiment, teinture, etc.).&#x20;
 * Blanchiment (bleaching)\
   Consiste à éliminer les colorants naturels des fibres pour les rendre plus blanches et hydrophiles.
+
+- Lavage (washing)\
+  Consiste à éliminer les agents de préparation présentes sur le fil synthétique.&#x20;
+
+
+
+Les deux procédés suivants ne sont pas mobilisés dans la méthode de calcul&#x20;
+
 * Désencollage (desizing)\
   Consiste à apprêter les fibres avec des produits appropriés (amidon, agents mouillants et lubrifiants) avant l'étape de tissage, puis à les retirer après la réalisation du tissu.
-* Mercerisage (mercerising)\
+
+- Mercerisage (mercerising)\
   Consiste à améliorer la résistance à la traction, la stabilité dimensionnelle et la brillance du coton. Permet aussi d'améliorer la montée du colorant lors de la teinture.
-* Lavage (washing)\
-  Consiste à éliminer les agents de préparation présentes sur le fil synthétique.&#x20;
 
 </details>
 
 <details>
 
-<summary>Teinture (2 procédés)</summary>
+<summary>Teinture (3 procédés)</summary>
 
 * teinture en discontinu (batch dyeing)\
   Egalement appelée teinture par épuisement ce procédé consiste à tremper la matière dans une solution aqueuse contenant des colorants et produits auxiliaires (bain de teinture) pendant une période allant de quelques minutes à quelques heures.
 * teinture en continu (continuous dyeing)\
   Consiste à appliquer le bain de teinture soit par imprégnation (au moyen de foulards) soit en utilisant d'autres systèmes d'application. Permet d'obtenir des hauts rendements.&#x20;
+* teinture moyenne (average dyeing)\
+  Cette teinture résulte de la moyenne entre les deux ci-dessus. Elle est mobilisée par défaut dans la calculette.
 
 Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus sur l'ennoblissement.
 
@@ -136,33 +145,26 @@ Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus su
 
 ### Hypothèses par défaut&#x20;
 
-{% hint style="danger" %}
-La version actuelle de l'outil Ecobalyse n'intègre pas encore les pré-traitements mentionnés ci-dessous.&#x20;
-{% endhint %}
-
 #### Procédés de Pré-traitements <=> Type de fibres (synthétique, naturelle origine animale, etc.)
 
 * Blanchiment (bleaching)\
   Appliqué par défaut pour les matières autres que celles synthétiques.&#x20;
 * Dégraissage/Débouillissage  (scouring)\
   Appliqué par défaut pour les matières naturelles.&#x20;
-* Mercerisage (mercerising)\
-  Appliqué par défaut pour le coton.
 * Lavage (washing)\
   Appliqué par défaut pour les matières synthétiques.
-* Désencollage (desizing)\
-  Appliqué par défaut pour toutes les étoffes tissées.&#x20;
 
 **Procédés de Teinture / Impression**
 
-* Teinture en discontinue (Batch dyeing) => Appliquée par défaut
+* Teinture moyenne (average dyeing) ⇒ Appliquée par défaut
+* Teinture en discontinue (Batch dyeing) => Mobilisable en Niveau 2
 * Teinture en continue (Continuous dyeing) => Mobilisable en _Niveau 2_
 * Impression pigmentaire => Optionnelle (à ajouter par l'utilisateur)
 * Impression fixé-lavé => Optionnelle (ajouter par l'utilisateur)
 
 #### Consommations d'énergie (électricité et chaleur)
 
-<table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,1</td><td>3,2</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,3</td><td>13,5</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,2</td><td>5,4</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>0,2</td><td>10,8</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,1</td><td>2,7</td></tr><tr><td>Teinture</td><td>Continu</td><td>0,8</td><td>16,2</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>1,2</td><td>32,4</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>1,27</td><td>7,25</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>1,45</td><td>8,72</td></tr><tr><td>Finition</td><td>Apprêts chimiques (en continu)</td><td>0,6</td><td>13,5</td></tr></tbody></table>
+<table><thead><tr><th>Sous-étape</th><th width="138">Procédé</th><th>kWh / kg (électricité)</th><th>MJ / kg (chaleur)</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,1</td><td>3,2</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,3</td><td>13,5</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,2</td><td>5,4</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>0,2</td><td>10,8</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,1</td><td>2,7</td></tr><tr><td>Teinture</td><td>Continu</td><td>0,8</td><td>16,2</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>1,2</td><td>32,4</td></tr><tr><td>Teinture</td><td>Moyenne</td><td>1</td><td>24,3</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>1,27</td><td>7,25</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>1,45</td><td>8,72</td></tr><tr><td>Finition</td><td>Apprêts chimiques (en continu)</td><td>0,6</td><td>13,5</td></tr></tbody></table>
 
 {% hint style="info" %}
 Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-2)[^2]\*.&#x20;
@@ -177,15 +179,7 @@ Les valeurs retenues par Ecobalyse ont été calculées ainsi : \
 &#x20;\* Les consommations d'énergie des deux procédés d'impression sont reprises des _procédés représentatifs_ de la Base Impacts  (ADEME).
 {% endhint %}
 
-<div>
-
-<figure><img src="../../../.gitbook/assets/Consommation de chaleur (MJ _ kg)  (5).png" alt=""><figcaption></figcaption></figure>
-
- 
-
-<figure><img src="../../../.gitbook/assets/Consommation d&#x27;électricité (kWh _ kg)  (3).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div><figure><img src="../../../.gitbook/assets/Consommation de chaleur (MJ _ kg)  (5).png" alt=""><figcaption></figcaption></figure> <figure><img src="../../../.gitbook/assets/Consommation d&#x27;électricité (kWh _ kg)  (3).png" alt=""><figcaption></figcaption></figure></div>
 
 {% hint style="warning" %}
 Après une série d'interviews auprès d'industriels et experts de l'ennoblissement, nous avons constaté que la consommation d'énergie n'est pas un paramètre maîtrisé par les industriels aujourd'hui. De plus, les premières estimations se basent généralement sur des consommations annuelles au niveau de l'usine ramenées à un produit sur la base de règles d'allocation grossières.&#x20;
@@ -261,7 +255,7 @@ Fibres synthétiques => dispersés / acides
 
 
 
-Les fibres mélangées peuvent être teintres en une seule étape dans le même bain lorsque les colorants sont compatibles (ou en deux bains/phases successives si nécessaire).&#x20;
+Les fibres mélangées peuvent être teintes en une seule étape dans le même bain lorsque les colorants sont compatibles (ou en deux bains/phases successives si nécessaire).&#x20;
 
 </details>
 

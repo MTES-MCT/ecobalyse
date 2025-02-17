@@ -11,6 +11,6 @@ Deux bases de travail ont été utilisées  :
 
 ## Que fait ce correctif ?
 
-<table><thead><tr><th width="273">Résultats (Ecotoxicité = CTU / kg)</th><th width="96"></th></tr></thead><tbody><tr><td>Unité</td><td>CTUe</td></tr><tr><td>Teinture synthétique (discontinue)</td><td>104</td></tr><tr><td>Teinture naturelle (continue)</td><td>273</td></tr><tr><td>Blanchiment</td><td>127</td></tr><tr><td>Impression (pigmentaire)</td><td>340</td></tr><tr><td>Impression fixé-lavé (colorants)</td><td>132</td></tr></tbody></table>
+<table><thead><tr><th width="273">Résultats (Ecotoxicité = CTU / kg)</th><th width="96"></th></tr></thead><tbody><tr><td>Unité</td><td>CTUe</td></tr><tr><td>Teinture sur fibres synthétiques</td><td>289</td></tr><tr><td>Teinture sur fibres cellulosiques</td><td>758</td></tr><tr><td>Blanchiment</td><td>353</td></tr><tr><td>Impression (pigmentaire)</td><td>944</td></tr><tr><td>Impression fixé-lavé (colorants)</td><td>367</td></tr></tbody></table>
 
 Un procédé est crée pour chaque traitement avec seulement une valeur d'Ecotox
