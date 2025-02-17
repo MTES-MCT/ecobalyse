@@ -293,12 +293,11 @@ stepsToStrings wellKnown inputs =
         , inputs.countryFabric.name
         ]
     , ifStepEnabled Label.Ennobling
-        [ case inputs.dyeingProcessType of
-            Just dyeingProcessType ->
-                "ennoblissement\u{00A0}: " ++ (dyeingProcessType |> Dyeing.toProcess wellKnown |> Process.getDisplayName)
-
-            Nothing ->
-                "ennoblissement"
+        [ "ennoblissement\u{00A0}: "
+            ++ (inputs.dyeingProcessType
+                    |> Dyeing.toProcess wellKnown
+                    |> Process.getDisplayName
+               )
         , inputs.countryDyeing.name
         ]
     , ifStepEnabled Label.Ennobling

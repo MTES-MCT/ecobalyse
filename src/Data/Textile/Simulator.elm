@@ -15,6 +15,7 @@ import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Split as Split
+import Data.Textile.Dyeing as Dyeing
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
@@ -337,12 +338,8 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                     heatProcess =
                         WellKnown.getEnnoblingHeatProcess textile.wellKnown country
 
-                    productDefaultMedium =
-                        dyeingProcessType
-
                     dyeingProcess =
-                        -- FIXME
-                        textile.wellKnown.dyeingProcessAverage
+                        Dyeing.toProcess textile.wellKnown dyeingProcessType
 
                     dyeingToxicity =
                         inputs.materials

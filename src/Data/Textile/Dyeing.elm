@@ -47,17 +47,17 @@ fromString string =
             Err <| "Type de teinture inconnu: " ++ string
 
 
-toProcess : WellKnown -> ProcessType -> Process
+toProcess : WellKnown -> Maybe ProcessType -> Process
 toProcess { dyeingProcessAverage, dyeingProcessContinuous, dyeingProcessDiscontinuous } processType =
     case processType of
-        Average ->
-            dyeingProcessAverage
-
-        Continuous ->
+        Just Continuous ->
             dyeingProcessContinuous
 
-        Discontinuous ->
+        Just Discontinuous ->
             dyeingProcessDiscontinuous
+
+        _ ->
+            dyeingProcessAverage
 
 
 toString : ProcessType -> String

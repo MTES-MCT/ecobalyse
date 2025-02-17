@@ -131,7 +131,7 @@ dyeingProcessTypeField : Config msg modal -> Html msg
 dyeingProcessTypeField { current, db, inputs, updateDyeingMedium } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
-            [ text "Teinture sur" ]
+            [ text "Type de teinture" ]
         , [ DyeingMedium.Discontinuous, DyeingMedium.Continuous, DyeingMedium.Average ]
             |> List.map
                 (\medium ->
@@ -139,7 +139,7 @@ dyeingProcessTypeField { current, db, inputs, updateDyeingMedium } =
                         [ value <| DyeingMedium.toString medium
                         , selected <| inputs.dyeingProcessType == Just medium || inputs.product.dyeing.defaultMedium == medium
                         ]
-                        [ medium
+                        [ Just medium
                             |> DyeingMedium.toProcess db.textile.wellKnown
                             |> Process.getDisplayName
                             |> text
