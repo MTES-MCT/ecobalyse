@@ -433,7 +433,7 @@ textileEndpoints db =
                     , ( "product", "Produit non trouvé id=notAProductID." )
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
                     , ( "fading", "La valeur ne peut être que true ou false." )
-                    , ( "dyeingProcessType", "Type de support de teinture inconnu: yolo" )
+                    , ( "dyeingProcessType", "Type de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
                     , ( "yarnSize", "Le titrage (yarnSize) doit être compris entre 9 et 200 Nm (entre 50 et 1111 Dtex)" )
                     , ( "trims", "Format d'accessoire invalide : invalid." )
