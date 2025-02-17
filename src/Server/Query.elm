@@ -16,7 +16,7 @@ import Data.Food.Retail as Retail exposing (Distribution)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
-import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Dyeing as DyeingMedium exposing (ProcessType)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
@@ -654,7 +654,7 @@ maybeTextileCountryParser key countries =
             )
 
 
-maybeDyeingMedium : String -> Parser (ParseResult (Maybe DyeingMedium))
+maybeDyeingMedium : String -> Parser (ParseResult (Maybe ProcessType))
 maybeDyeingMedium key =
     Query.string key
         |> Query.map

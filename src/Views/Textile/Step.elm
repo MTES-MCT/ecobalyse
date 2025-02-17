@@ -11,7 +11,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Dyeing as DyeingMedium exposing (ProcessType)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
@@ -66,7 +66,7 @@ type alias Config msg modal =
     , toggleStep : Label -> msg
     , updateAirTransportRatio : Maybe Split -> msg
     , updateCountry : Label -> Country.Code -> msg
-    , updateDyeingMedium : DyeingMedium -> msg
+    , updateDyeingMedium : ProcessType -> msg
     , updateFabricProcess : Fabric -> msg
     , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingDeadStock : Maybe Split -> msg
@@ -127,19 +127,23 @@ airTransportRatioField { current, updateAirTransportRatio } =
         ]
 
 
-dyeingMediumField : Config msg modal -> Html msg
-dyeingMediumField { current, inputs, updateDyeingMedium } =
+dyeingProcessTypeField : Config msg modal -> Html msg
+dyeingProcessTypeField { current, db, inputs, updateDyeingMedium } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
         [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
             [ text "Teinture sur" ]
-        , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
+        , [ DyeingMedium.Discontinuous, DyeingMedium.Continuous, DyeingMedium.Average ]
             |> List.map
                 (\medium ->
                     option
                         [ value <| DyeingMedium.toString medium
-                        , selected <| inputs.dyeingMedium == Just medium || inputs.product.dyeing.defaultMedium == medium
+                        , selected <| inputs.dyeingProcessType == Just medium || inputs.product.dyeing.defaultMedium == medium
                         ]
-                        [ text <| DyeingMedium.toLabel medium ]
+                        [ medium
+                            |> DyeingMedium.toProcess db.textile.wellKnown
+                            |> Process.getDisplayName
+                            |> text
+                        ]
                 )
             |> select
                 [ id "dyeing-medium"
@@ -786,7 +790,7 @@ ennoblingGenericFields config =
     -- Note: this fieldset is rendered in both simple and detailed step views
     div [ class "d-flex flex-column gap-1" ]
         [ showIf config.showAdvancedFields <|
-            dyeingMediumField config
+            dyeingProcessTypeField config
         , printingFields config
         ]
 

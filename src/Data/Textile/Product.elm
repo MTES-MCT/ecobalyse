@@ -13,7 +13,7 @@ module Data.Textile.Product exposing
 import Data.Component as Component
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
-import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Dyeing as DyeingMedium exposing (ProcessType)
 import Data.Textile.Economics as Economics exposing (Economics)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
@@ -27,7 +27,7 @@ import Volume exposing (Volume)
 
 
 type alias DyeingOptions =
-    { defaultMedium : DyeingMedium
+    { defaultMedium : ProcessType
     }
 
 

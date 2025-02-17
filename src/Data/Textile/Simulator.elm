@@ -332,18 +332,17 @@ computeDyeingImpacts : Db -> Simulator -> Simulator
 computeDyeingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
-            (\({ country, dyeingMedium } as step) ->
+            (\({ country, dyeingProcessType } as step) ->
                 let
                     heatProcess =
                         WellKnown.getEnnoblingHeatProcess textile.wellKnown country
 
                     productDefaultMedium =
-                        dyeingMedium
-                            |> Maybe.withDefault inputs.product.dyeing.defaultMedium
+                        dyeingProcessType
 
                     dyeingProcess =
-                        textile.wellKnown
-                            |> WellKnown.getDyeingProcess productDefaultMedium
+                        -- FIXME
+                        textile.wellKnown.dyeingProcessAverage
 
                     dyeingToxicity =
                         inputs.materials
