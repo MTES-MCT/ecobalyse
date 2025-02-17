@@ -11,7 +11,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Data.Textile.Dyeing as DyeingMedium exposing (ProcessType)
+import Data.Textile.Dyeing as Dyeing exposing (ProcessType)
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
@@ -66,7 +66,7 @@ type alias Config msg modal =
     , toggleStep : Label -> msg
     , updateAirTransportRatio : Maybe Split -> msg
     , updateCountry : Label -> Country.Code -> msg
-    , updateDyeingMedium : ProcessType -> msg
+    , updateDyeingProcessType : ProcessType -> msg
     , updateFabricProcess : Fabric -> msg
     , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingDeadStock : Maybe Split -> msg
@@ -128,31 +128,34 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 
 dyeingProcessTypeField : Config msg modal -> Html msg
-dyeingProcessTypeField { current, db, inputs, updateDyeingMedium } =
+dyeingProcessTypeField { current, db, inputs, updateDyeingProcessType } =
     div [ class "d-flex justify-content-between align-items-center fs-7" ]
-        [ label [ class "text-truncate w-25", for "dyeing-medium", title "Teinture sur" ]
+        [ label [ class "text-truncate w-25", for "dyeing-process-type", title "Teinture sur" ]
             [ text "Type de teinture" ]
-        , [ DyeingMedium.Discontinuous, DyeingMedium.Continuous, DyeingMedium.Average ]
+        , [ Dyeing.Discontinuous, Dyeing.Continuous, Dyeing.Average ]
             |> List.map
                 (\medium ->
                     option
-                        [ value <| DyeingMedium.toString medium
-                        , selected <| inputs.dyeingProcessType == Just medium || inputs.product.dyeing.defaultMedium == medium
+                        [ value <| Dyeing.toString medium
+                        , inputs.dyeingProcessType
+                            |> Maybe.withDefault Dyeing.Average
+                            |> (==) medium
+                            |> selected
                         ]
                         [ Just medium
-                            |> DyeingMedium.toProcess db.textile.wellKnown
+                            |> Dyeing.toProcess db.textile.wellKnown
                             |> Process.getDisplayName
                             |> text
                         ]
                 )
             |> select
-                [ id "dyeing-medium"
+                [ id "dyeing-process-type"
                 , class "form-select form-select-sm w-75"
                 , disabled <| not current.enabled
                 , onInput
-                    (DyeingMedium.fromString
-                        >> Result.withDefault inputs.product.dyeing.defaultMedium
-                        >> updateDyeingMedium
+                    (Dyeing.fromString
+                        >> Result.withDefault Dyeing.Average
+                        >> updateDyeingProcessType
                     )
                 ]
         ]
