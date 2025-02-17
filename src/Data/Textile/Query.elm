@@ -31,7 +31,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Component as Component exposing (Item)
 import Data.Country as Country
 import Data.Split as Split exposing (Split)
-import Data.Textile.Dyeing as DyeingMedium exposing (ProcessType)
+import Data.Textile.Dyeing as Dyeing exposing (ProcessType)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
@@ -155,7 +155,7 @@ decode =
         |> DU.strictOptional "countryMaking" Country.decodeCode
         |> DU.strictOptional "countrySpinning" Country.decodeCode
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> DU.strictOptional "dyeingProcessType" DyeingMedium.decode
+        |> DU.strictOptional "dyeingProcessType" Dyeing.decode
         |> DU.strictOptional "fabricProcess" Fabric.decode
         |> DU.strictOptional "fading" Decode.bool
         |> DU.strictOptional "makingComplexity" MakingComplexity.decode
@@ -200,7 +200,7 @@ encode query =
             list ->
                 Encode.list Label.encode list |> Just
       )
-    , ( "dyeingProcessType", query.dyeingProcessType |> Maybe.map DyeingMedium.encode )
+    , ( "dyeingProcessType", query.dyeingProcessType |> Maybe.map Dyeing.encode )
     , ( "fabricProcess", query.fabricProcess |> Maybe.map Fabric.encode )
     , ( "fading", query.fading |> Maybe.map Encode.bool )
     , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )

@@ -27,7 +27,7 @@ import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb
-import Data.Textile.Dyeing exposing (ProcessType)
+import Data.Textile.Dyeing as Dyeing
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric exposing (Fabric)
 import Data.Textile.Inputs as Inputs
@@ -137,7 +137,7 @@ type Msg
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
-    | UpdateDyeingMedium ProcessType
+    | UpdateDyeingProcessType Dyeing.ProcessType
     | UpdateFabricProcess Fabric
     | UpdateMakingComplexity MakingComplexity
     | UpdateMakingDeadStock (Maybe Split)
@@ -576,7 +576,7 @@ update ({ queries, navKey } as session) msg model =
         ( UpdateBusiness (Err error), _ ) ->
             ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
 
-        ( UpdateDyeingMedium dyeingProcessType, _ ) ->
+        ( UpdateDyeingProcessType dyeingProcessType, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingProcessType = Just dyeingProcessType }
 
@@ -950,7 +950,7 @@ lifeCycleStepsView db { activeTab, impact } simulator =
                     , toggleStep = ToggleStep
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
-                    , updateDyeingProcessType = UpdateDyeingMedium
+                    , updateDyeingProcessType = UpdateDyeingProcessType
                     , updateMaterial = UpdateMaterial
                     , updateMaterialSpinning = UpdateMaterialSpinning
                     , updateFabricProcess = UpdateFabricProcess
