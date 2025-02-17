@@ -1410,7 +1410,7 @@
     "comment": "",
     "density": 0,
     "displayName": "Teinture en continu",
-    "elec_MJ": 0.8,
+    "elec_MJ": 2.88,
     "heat_MJ": 16.2,
     "id": "27cd9eb5-85e8-4fda-8fa1-ccb9a2ae118c",
     "impacts": {
@@ -1447,7 +1447,7 @@
     "comment": "",
     "density": 0,
     "displayName": "Teinture en discontinu",
-    "elec_MJ": 1.2,
+    "elec_MJ": 4.32,
     "heat_MJ": 32.4,
     "id": "057eadfc-36a6-4bc7-b691-7075694360ec",
     "impacts": {
@@ -1484,7 +1484,7 @@
     "comment": "",
     "density": 0,
     "displayName": "Teinture moyenne",
-    "elec_MJ": 1.0,
+    "elec_MJ": 3.6,
     "heat_MJ": 24.3,
     "id": "55bf2578-3195-4ee9-aa5a-03ab2d4738e9",
     "impacts": {
