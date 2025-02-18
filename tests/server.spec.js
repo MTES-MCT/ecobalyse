@@ -155,7 +155,7 @@ describe("API", () => {
           expectFieldErrorMessage(
             await makeRequest("/api/textile/simulator", ["dyeingProcessType=xxx"]),
             "dyeingProcessType",
-            /type de teinture inconnu: xxx/i,
+            /Type de teinture inconnu : xxx/i,
           );
         });
 
