@@ -388,16 +388,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , countryHeat = Just country.heatProcess.name
-                        , dyeing =
-                            -- FIXME
-                            -- wellKnown
-                            --     |> WellKnown.getDyeingProcess
-                            --         (dyeingProcessType
-                            --             |> Maybe.withDefault inputs.product.dyeing.defaultMedium
-                            --         )
-                            --     |> .name
-                            --     |> Just
-                            Nothing
+                        , dyeing = Nothing
                         , printing =
                             printing
                                 |> Maybe.map
