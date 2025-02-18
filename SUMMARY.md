@@ -47,6 +47,7 @@
   * [corr1 : Coton recyclé](textile/correctifs-donnees/corr1-coton-recycle.md)
   * [corr2: Inventaires enrichis](textile/correctifs-donnees/corr2-inventaires-enrichis.md)
   * [corr3: Pré-traitements, Teinture, Impressions et Finition](textile/correctifs-donnees/corr3-pre-traitements-teinture-impressions-et-finition.md)
+  * [corr4: Laine nouvelle filière](textile/correctifs-donnees/corr4-laine-nouvelle-filiere.md)
 * [Aide API](textile/aide-api.md)
 
 ## 🍕 Alimentaire -EN CONSTRUCTION
