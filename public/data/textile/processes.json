@@ -1000,7 +1000,7 @@
   },
   {
     "categories": ["material"],
-    "comment": "Ancien identifiant (12/2024): wool-new.",
+    "comment": "corr4: Impacts de la laine par défaut multiplié par le coefficient 4%/37%=0.108. Cela vient d'une différence de taux d'allocation : 4% pour cette laine et 37% pour la laine par défaut.",
     "density": 0,
     "displayName": "Laine nouvelle filière",
     "elec_MJ": 0,
@@ -1009,7 +1009,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 460.876,
+      "ecs": 300.53,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1023,7 +1023,7 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 502.362,
+      "pef": 316.667,
       "pma": 0,
       "swe": 0,
       "tre": 0,
