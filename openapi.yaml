@@ -913,17 +913,14 @@ components:
         type: string
       examples:
         default:
-          summary: "par défaut, sur tissu"
+          summary: "Teinture moyenne (par défault)"
           value: ""
-        surArticle:
-          summary: "sur article"
-          value: "article"
-        surTissu:
-          summary: "sur tissu"
-          value: "fabric"
-        surFil:
-          summary: "sur fil"
-          value: "yarn"
+        continuous:
+          summary: "Teinture en continu"
+          value: "continuous"
+        discontinuous:
+          summary: "Teinture discontinue"
+          value: "discontinuous"
     printingParam:
       name: printing
       in: query
