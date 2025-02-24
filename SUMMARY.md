@@ -173,6 +173,8 @@
 
 ## 📄 Documentation transverse
 
-* [Méthode de caractérisation](documentation-transverse/methode-de-caracterisation.md)
+* [📝 Le coût environnemental : approche méthodologique globale](documentation-transverse/impacts-consideres/README.md)
+  * [Exclusion des émissions à long terme](documentation-transverse/impacts-consideres/exclusion-des-emissions-a-long-terme.md)
+  * [Correction du FRU](documentation-transverse/impacts-consideres/correction-du-fru.md)
 * [🚚 Transport](documentation-transverse/transport.md)
 * [⚡ Energies des étapes de transformation](documentation-transverse/energies-des-etapes-de-transformation.md)

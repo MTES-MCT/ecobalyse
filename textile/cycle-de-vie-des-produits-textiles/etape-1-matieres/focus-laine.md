@@ -83,8 +83,8 @@ Selon une étude parue en 2015 et comparant différents systèmes/géographiques
 
 Autres sources : \
 :flag\_au:Australie (52 fermes / 5 ans / 2 régions / laine merinos) : 47% (source[^6]) \
-:flag\_nz:Nouvelle-Zélande (laine merinos) : 48% laine (source[^7])\
-:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 16% laine (source[^8])
+:flag\_nz:Nouvelle-Zélande (laine merinos) : 48% laine (source[^4])\
+:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 16% laine (source[^5])
 {% endtab %}
 
 {% tab title="Allocation massique" %}
@@ -96,9 +96,9 @@ Selon une étude parue en 2015 et comparant différents systèmes/géographiques
 :flag\_au:Australie (3 fermes / laine merinos région méridionale) => 40% laine &#x20;
 
 Autres sources : \
-:flag\_nz:Nouvelle-Zélande : 20% laine (source[^9])\
-:flag\_nz:Nouvelle-Zélande : 25% laine (source[^10])\
-:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 39% laine (source[^11])
+:flag\_nz:Nouvelle-Zélande : 20% laine (source[^4])\
+:flag\_nz:Nouvelle-Zélande : 25% laine (source[^7])\
+:flag\_nz:Nouvelle-Zélande (moutons de race Romney) : 39% laine (source[^5])
 {% endtab %}
 {% endtabs %}
 
@@ -108,14 +108,14 @@ Selon les races de mouton (Romney, Merino, Lleyn, Cheviot, etc.) et les zones (A
 
 Voici différents scénarios proposés par [Wiedemann et al (2015)](https://link.springer.com/article/10.1007/s11367-015-0849-z) :&#x20;
 
-<table><thead><tr><th width="232"></th><th>Scenario 1</th><th>Scenario 2</th><th>Scenario 3</th><th>Scenario 4</th></tr></thead><tbody><tr><td>Zone</td><td>UK</td><td>Nouvelle-Zelande</td><td>Australie</td><td>Australie</td></tr><tr><td>Race</td><td>Lleyn  et Cheviot</td><td>Romney</td><td>Merino</td><td>Merino</td></tr><tr><td><a data-footnote-ref href="#user-content-fn-12">Laine vs Viande</a> (kg)</td><td>x0,06</td><td>x0,17</td><td>x0,21</td><td>x0,17</td></tr><tr><td>Type d'élevage (% extensif/paturages)</td><td>95%</td><td>87%</td><td>100%</td><td>93%</td></tr><tr><td>Laine vs Viande ($ / kg) </td><td>x0,7</td><td>x1,4</td><td>x4,2</td><td>x6,2</td></tr></tbody></table>
+<table><thead><tr><th width="232"></th><th>Scenario 1</th><th>Scenario 2</th><th>Scenario 3</th><th>Scenario 4</th></tr></thead><tbody><tr><td>Zone</td><td>UK</td><td>Nouvelle-Zelande</td><td>Australie</td><td>Australie</td></tr><tr><td>Race</td><td>Lleyn  et Cheviot</td><td>Romney</td><td>Merino</td><td>Merino</td></tr><tr><td><a data-footnote-ref href="#user-content-fn-8">Laine vs Viande</a> (kg)</td><td>x0,06</td><td>x0,17</td><td>x0,21</td><td>x0,17</td></tr><tr><td>Type d'élevage (% extensif/paturages)</td><td>95%</td><td>87%</td><td>100%</td><td>93%</td></tr><tr><td>Laine vs Viande ($ / kg) </td><td>x0,7</td><td>x1,4</td><td>x4,2</td><td>x6,2</td></tr></tbody></table>
 
-De manière générale et sur la base d'une revue bibliographique, la majorité des scénarios retenus par les ACV de produits lainiers sont basés sur des systèmes basés sur des paturages, et pour les élevages les plus extensifs un usage du sol pouvant etre qualifié de "semi-naturel" (cf. notamment cette [étude ](#user-content-fn-13)[^13]à ce sujet).&#x20;
+De manière générale et sur la base d'une revue bibliographique, la majorité des scénarios retenus par les ACV de produits lainiers sont basés sur des systèmes basés sur des paturages, et pour les élevages les plus extensifs un usage du sol pouvant etre qualifié de "semi-naturel" (cf. notamment cette [étude ](#user-content-fn-9)[^9]à ce sujet).&#x20;
 
 {% hint style="info" %}
 **Services écosystémiques et autres enjeux environnementaux**
 
-L'élevage extensif peut produire en plus de la laine ou la viande des services, en particulier en Europe dans un contexte général de haute densité de population. Les services rendus par les élevages extensifs peuvent être la lutte contre les feux de forêts, le maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, la limitation de la prolifération d'espèces végétales invasives,   etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-14)[^14], pour le cas de l'élevage extensif ovin en Espagne par exemple).
+L'élevage extensif peut produire en plus de la laine ou la viande des services, en particulier en Europe dans un contexte général de haute densité de population. Les services rendus par les élevages extensifs peuvent être la lutte contre les feux de forêts, le maintien de milieux ouverts favorables à la biodiversité grâce à l'entretien des prairies, la limitation de la prolifération d'espèces végétales invasives,   etc. (étude [Ripoll-Bosch et al, 2013](#user-content-fn-10)[^10], pour le cas de l'élevage extensif ovin en Espagne par exemple).
 
 Ces aspects ne sont pas pris en compte dans les indicateurs ACV actuels.  Comme cela a été fait pour l'alimentaire, des compléments au cadre ACV relatifs au pâturage extensif pourraient à terme être ajoutés pour le calcul du coût environnemental.&#x20;
 
@@ -156,7 +156,7 @@ L'ICV laine reflète la laine de mouton australienne issue de l'élevage extensi
 
 Cette laine représente les marchés où la laine n'est aujourd'hui pas/peu valorisée (ex : filière laine française en 2022/2023).
 
-Le procédé ["Laine (par défaut)"](focus-laine.md#laine-par-defaut) est alors utilisé avec comme unique modification l'application d'un taux d'allocation de **4%**.  (mise à jour en cours, l'ancienne donnée "laine ecoinvent" est utilisée en source actuellement, mais cela a peu d'impact sur le résultat le coefficiant d'allocation étant le paramètre déterminant).&#x20;
+Le procédé ["Laine (par défaut)"](focus-laine.md#laine-par-defaut) est alors utilisé avec comme unique modification l'application d'un taux d'allocation de **4%**.&#x20;
 
 </details>
 
@@ -176,22 +176,10 @@ _L'inventaire Woolmark détaillé est public sous condition d'avoir une licence 
 
 [^6]: Etude parue en 2020 : _Environmental impacts associated with the production, use, and end-of-life of a woollen garment_
 
-[^7]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
+[^7]: Etude parue en 2006 et commissionnée par la New-Zealand Merino Company => "LCA : New Zealand Merino Industry"
 
-[^8]: Data from Ledgard et al. (2009, 2011)\
-    \
-    Extrait du rapport de la FAO (ONU) => "Greenhouse gas emissions and fossil energy use from small ruminant supply chains"
+[^8]: Rapport entre la quantité annuelle de laine produite (greasy wool) et de viande vendue (live weight).
 
-[^9]: Etude parue en 2015 et commissionnée par la New-Zealand Merino Company => "LCA of wool apparel"
+[^9]: "Wool Production Systematic review of Life Cycle Assessment studies" (Author : C. Devaux, Sweden, 2019).
 
-[^10]: Etude parue en 2006 et commissionnée par la New-Zealand Merino Company => "LCA : New Zealand Merino Industry"
-
-[^11]: Data from Ledgard et al. (2009, 2011)\
-    \
-    Extrait du rapport de la FAO (ONU) => "Greenhouse gas emissions and fossil energy use from small ruminant supply chains"
-
-[^12]: Rapport entre la quantité annuelle de laine produite (greasy wool) et de viande vendue (live weight).
-
-[^13]: "Wool Production Systematic review of Life Cycle Assessment studies" (Author : C. Devaux, Sweden, 2019).
-
-[^14]: [https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618](https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618)
+[^10]: [https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618](https://www.sciencedirect.com/science/article/abs/pii/S0308521X12001618)
