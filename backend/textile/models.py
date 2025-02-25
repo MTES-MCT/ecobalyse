@@ -149,9 +149,9 @@ class Process(Model):
                         "ecs": process.ecs,
                         "pef": process.pef,
                     },
-                    "heat_MJ": process.heat_MJ,
+                    "heatMJ": process.heat_MJ,
                     "elec_pppm": process.elec_pppm,
-                    "elec_MJ": process.elec_MJ,
+                    "elecMJ": process.elec_MJ,
                     "waste": process.waste,
                     "alias": process.alias,
                 }
