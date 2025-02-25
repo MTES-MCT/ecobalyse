@@ -2,7 +2,7 @@
 
 Cette page porte sur les spécificités du transport du véhicule (produit fini) depuis le site d'assemblage vers le site de distribution en France (le cas échéant), puis vers le consommateur final.
 
-Les informations relatives au transport de manière générale sont détaillées dans la [documentation transverse d'Ecobalyse](../../documentation-transverse/transport.md).
+Les informations relatives au transport de manière générale sont détaillées dans la [documentation transverse d'Ecobalyse](../../documentation-transverse/transport/).
 
 ## Généralités
 

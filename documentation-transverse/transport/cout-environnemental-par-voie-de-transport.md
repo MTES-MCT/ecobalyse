@@ -1,42 +1,6 @@
-# 🚚 Transport
+# 🚚 Coût environnemental par voie de transport
 
-{% hint style="info" %}
-Cette page décrit les principes communs aux différents types de produits susceptibles d'être modélisés dans Ecobalyse.&#x20;
-
-Le cas échéant, les spécificités relatives à chaque produit sont décrites dans la documentation métier correspondante.
-{% endhint %}
-
-## Principales étapes de transport <a href="#distribution" id="distribution"></a>
-
-Le transport est modélisé en prenant en compte les étapes suivantes : &#x20;
-
-* Transport des matières premières (ex : coton, blé, bois) du champs ou de la foret vers le site de transformation
-* Transport des produits intermédiaires (ex : tissu textile)  et composants (ex : pied de chaise, pneu) entre les sites de transformation,
-* Transport du produit fini entre l'usine de production et un entrepôt de stockage en France
-* Transport entre un site de stockage en France et un magasin ou centre de distribution ou client final s'il est livré directement.
-
-A des fins de simplification, le transport entre un magasin ou un centre de distribution et le client final n'est pas pris en compte à ce jour dans Ecobalyse.
-
-## Voies et modes de transports proposés
-
-4 voies sont considérés, faisant appel à un ou deux modes de transport chacune :
-
-* Voie Terrestre\
-  Mode de transport : camion
-* Maritime (transport international uniquement)\
-  Modes de transport : bateau + camion\
-  &#xNAN;_&#x44;ans le cas d'un transport par voie maritime, le transport est réalisé en trois étapes : transport par la route vers le port de départ, transport par la mer de port à port, transport par la route depuis le port d'arrivée._
-* Aérienne (transport international uniquement)\
-  Modes de transport : avion + camion\
-  &#xNAN;_&#x44;ans le cas d'un transport par voie aérienne, le transport est réalisé en trois étapes : transport par la route vers l'aéroport de départ, transport par avion d'aéroport à aéroport, transport par la route depuis l'aéroport d'arrivée._&#x20;
-* Ferroviaire (transport international uniquement)\
-  Modes de transport : train
-
-A des fins de simplification, ces 4 voies ne sont pas toujours proposés pour toutes les étapes de transport.
-
-## Calcul du coût environnemental par voie
-
-### Distances et mode de transport
+## Distances et mode de transport
 
 La distance et le mode de transport sont calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.&#x20;
 
@@ -129,13 +93,13 @@ Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence ave
 
 </details>
 
-### Transport entrepôt de stockage - client final (en France)
+## Transport entrepôt de stockage - client final (en France)
 
 Pour le transport du produit fini entre l'entrepôt en France et le client final, il est considéré une distance par défaut de 500 km, effectuée en camion.
 
 Aucune distinction de scénario d'achat n'est faite, le déplacement du consommateur final ou la livraison du dernier kilomètre n'est pas prise en compte de façon spécifique.
 
-### Coût environnemental pour une voie de transport
+## Coût environnemental pour une voie de transport
 
 À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
 
@@ -145,12 +109,16 @@ $$
 
 Avec :&#x20;
 
-* CEvoie\_i : le coût environnemental par voie, exprimé en points d'impact Pts
-* Masse : la masse transportée, en tonnes. La masse transportée s'exprime en tonnes. Une conversion est donc à prendre en compte par rapport à la masse, considérée en kg dans les autres parties des calculs.
-* Di\_1 : la distance parcourue par le mode de transport 1 pour la voie i, exprimée en km
-* CE\[m1] : le coût environnemental du mode 1, exprimé en Pts/t.km
-* Le cas échéant, Di\_2 : la distance parcourue par le mode de transport 2 pour la voie i, exprimée en km
-* Le cas échéant, CE\[m2] : le coût environnemental du mode 2, exprimé en Pts/t.km
+* `CEvoie_i` : le coût environnemental par voie, exprimé en points d'impact Pts
+* `Masse` : la masse transportée, en tonnes. La masse transportée s'exprime en tonnes. Une conversion est donc à prendre en compte par rapport à la masse, considérée en kg dans les autres parties des calculs.
+* `Di_1` : la distance parcourue par le mode de transport 1 pour la voie i, exprimée en km
+* `CE[m1]` : le coût environnemental du mode 1, exprimé en Pts/t.km
+* Le cas échéant, `Di_2` : la distance parcourue par le mode de transport 2 pour la voie i, exprimée en km
+* Le cas échéant, `CE[m2]` : le coût environnemental du mode 2, exprimé en Pts/t.km
+
+## Paramètres retenus pour l'affichage environnemental
+
+
 
 ## Procédés utilisés
 
@@ -160,11 +128,11 @@ Sauf indication contraire spécifique, les modes de transport sont modélisés p
 
 Il est résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs CE\[m1] ou CE\[m2] ci-dessus) :&#x20;
 
-<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 
 ## Transport international : mix des voies de transport
 
-En pratique, pour une même chaine d'approvisionnement, plusieurs voies de transports sont utilisées, dans des proportions qui dépendent du type de produit, de la distance et de choix industriels.&#x20;
+En pratique, pour une même chaine d'approvisionnement, plusieurs voies de transports sont utilisées, dans des proportions qui dépendent du type de produit, de la distance et de choix industriels :
 
 * Plus la distance est faible, plus le transport se fait en 100% routier
 * Les marques de textile fast-fashion privilégient l'avion pour distribuer plus rapidement leurs produits aux consommateurs
