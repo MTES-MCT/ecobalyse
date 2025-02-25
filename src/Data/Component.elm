@@ -34,6 +34,7 @@ module Data.Component exposing
     , validateItem
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
@@ -64,11 +65,19 @@ type alias Component =
     }
 
 
-{-| A compact representation of a component and a quantity of it, typically used for queries
+{-| A compact reference to a component, a quantity of it, and optionally some overrides,
+typically used for queries
 -}
 type alias Item =
-    { id : Id
+    { custom : Maybe Custom
+    , id : Id
     , quantity : Quantity
+    }
+
+
+type alias Custom =
+    { elements : List Element
+    , name : Maybe String
     }
 
 
@@ -226,10 +235,17 @@ computeImpacts processes =
 
 
 computeItemResults : DataContainer db -> Item -> Result String Results
-computeItemResults { components, processes } { id, quantity } =
+computeItemResults { components, processes } { custom, id, quantity } =
     components
         |> findById id
-        |> Result.andThen (.elements >> List.map (computeElementResults processes) >> RE.combine)
+        |> Result.andThen
+            (\component ->
+                custom
+                    |> Maybe.map .elements
+                    |> Maybe.withDefault component.elements
+                    |> List.map (computeElementResults processes)
+                    |> RE.combine
+            )
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
             (\(Results { impacts, mass, items }) ->
@@ -283,9 +299,11 @@ decode scopes =
         |> Decode.optional "scopes" (Decode.list Scope.decode) scopes
 
 
-decodeList : List Scope -> Decoder (List Component)
-decodeList scopes =
-    Decode.list (decode scopes)
+decodeCustom : Decoder Custom
+decodeCustom =
+    Decode.succeed Custom
+        |> Decode.required "elements" (Decode.list decodeElement)
+        |> DU.strictOptional "name" Decode.string
 
 
 decodeElement : Decoder Element
@@ -299,8 +317,14 @@ decodeElement =
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
+        |> DU.strictOptional "custom" decodeCustom
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" (Decode.map Quantity Decode.int)
+
+
+decodeList : List Scope -> Decoder (List Component)
+decodeList scopes =
+    Decode.list (decode scopes)
 
 
 decodeListFromJsonString : List Scope -> String -> Result String (List Component)
@@ -347,11 +371,13 @@ expandElements processes =
 expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
 expandItems { components, processes } =
     List.map
-        (\{ id, quantity } ->
+        (\{ custom, id, quantity } ->
             findById id components
                 |> Result.andThen
                     (\component ->
-                        component.elements
+                        custom
+                            |> Maybe.map .elements
+                            |> Maybe.withDefault component.elements
                             |> expandElements processes
                             |> Result.map (\expandedElements -> ( quantity, component, expandedElements ))
                     )
