@@ -7,7 +7,6 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Gitbook as Gitbook
-import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Unit as Unit
