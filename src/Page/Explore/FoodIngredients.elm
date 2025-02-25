@@ -82,10 +82,7 @@ table _ { detailed, scope } =
           , toCell =
                 \{ default } ->
                     div []
-                        [ default.sourceId
-                            |> Maybe.map (Process.sourceIdToString >> text >> List.singleton >> code [])
-                            |> Maybe.withDefault (text "")
-                        , div [ class "cursor-help", title default.name ]
+                        [ div [ class "cursor-help", title default.name ]
                             [ text default.name ]
                         , em [ class "cursor-help", title default.comment ]
                             [ text default.comment ]
