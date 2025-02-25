@@ -107,7 +107,7 @@ addTrim id query =
     { query
         | trims =
             query.trims
-                ++ [ { id = id, quantity = Component.quantityFromInt 1 } ]
+                ++ [ { custom = Nothing, id = id, quantity = Component.quantityFromInt 1 } ]
     }
 
 

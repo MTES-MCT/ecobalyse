@@ -211,7 +211,7 @@ textileEndpoints db =
                 Just nonExistentId ->
                     TextileQuery.encode
                         { tShirtCotonFrance
-                            | trims = [ { id = nonExistentId, quantity = Component.quantityFromInt 1 } ]
+                            | trims = [ { custom = Nothing, id = nonExistentId, quantity = Component.quantityFromInt 1 } ]
                         }
                         |> testTextileEndpoint db
                         |> expectTextileValidationError "trims" "Aucun composant avec id=ed3db03c-f56e-48a8-879c-df522c74d410"
@@ -223,7 +223,7 @@ textileEndpoints db =
                 Just id ->
                     TextileQuery.encode
                         { tShirtCotonFrance
-                            | trims = [ { id = id, quantity = Component.quantityFromInt -1 } ]
+                            | trims = [ { custom = Nothing, id = id, quantity = Component.quantityFromInt -1 } ]
                         }
                         |> testTextileEndpoint db
                         |> expectTextileValidationError "trims" "La quantité doit être un nombre entier positif"

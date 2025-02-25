@@ -326,7 +326,9 @@ quantityInput config id quantity =
                         |> Maybe.map
                             (\nonNullInt ->
                                 config.updateItem
-                                    { id = id
+                                    -- FIXME: customization
+                                    { custom = Nothing
+                                    , id = id
                                     , quantity = Component.quantityFromInt nonNullInt
                                     }
                             )

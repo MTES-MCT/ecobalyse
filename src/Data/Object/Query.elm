@@ -65,7 +65,7 @@ addComponentItem id query =
     { query
         | components =
             query.components
-                ++ [ { id = id, quantity = Component.quantityFromInt 1 } ]
+                ++ [ { custom = Nothing, id = id, quantity = Component.quantityFromInt 1 } ]
     }
 
 
