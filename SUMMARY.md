@@ -175,7 +175,7 @@
 
 * [📝 Le coût environnemental : approche méthodologique globale](documentation-transverse/impacts-consideres/README.md)
   * [Exclusion des émissions à long terme](documentation-transverse/impacts-consideres/exclusion-des-emissions-a-long-terme.md)
-  * [Correction du FRU](documentation-transverse/impacts-consideres/correction-du-fru.md)
+  * [Correction du Fossil Ressource Use](documentation-transverse/impacts-consideres/correction-du-fossil-ressource-use.md)
 * [🚚 Transport](documentation-transverse/transport/README.md)
   * [🚚 Coût environnemental par voie de transport](documentation-transverse/transport/cout-environnemental-par-voie-de-transport.md)
   * [🚚 Choix des voies de transport](documentation-transverse/transport/choix-des-voies-de-transport.md)
