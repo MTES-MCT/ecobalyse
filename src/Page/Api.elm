@@ -58,7 +58,7 @@ changelog =
     [  { date = "26 février 2025"
       , level = "major"
       , domains = [ "Textile" ]
-      , md = """[**breaking**] Standardisation des noms de champs dans les réponses API :
+      , md = """Standardisation des noms de champs dans les réponses API :
 - `elec_kWh` devient `elecKWh`
 - `heat_MJ` devient `heatMJ`"""
       },
