@@ -1,6 +1,11 @@
-# 🛺 Transport Véhicules
+---
+description: >-
+  Cette page porte sur les spécificités du transport du véhicules. Les
+  informations relatives au transport de manière générale sont détaillées dans
+  la documentation transverse d'Ecobalyse.
+---
 
-Cette page porte sur les spécificités du transport du véhicules. Les informations relatives au transport de manière générale sont détaillées dans la [documentation transverse d'Ecobalyse](./).
+# 🛺 Transport Véhicules
 
 ## Déclinaison des étapes de transport sur ce secteur
 

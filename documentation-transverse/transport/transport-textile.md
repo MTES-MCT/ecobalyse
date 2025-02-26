@@ -1,3 +1,10 @@
+---
+description: >-
+  Cette page porte sur les spécificités du transport des produits textiles. Les
+  informations relatives au transport de manière générale sont détaillées dans
+  la documentation transverse d'Ecobalyse.
+---
+
 # 👕 Transport Textile
 
 ## Déclinaison des étapes de transport sur ce secteur
@@ -9,7 +16,7 @@ Les étapes de transport se déclinent de la façon suivante :
 3. Transport du produit fini entre l'usine de confection et un entrepôt de stockage en France,
 4. Transport entre un site de stockage en France et un magasin ou centre de distribution ou client final s'il est livré directement.
 
-## 1-2. Transport des produits intermédiaires&#x20;
+## 1-2. Transport des matières premières et produits intermédiaires&#x20;
 
 Le transport des matières premières et produits intermédiaire (étapes 1 et 2) est modélisé avec une combinaison de voies (maritime et terrestre) non modifiable.
 
