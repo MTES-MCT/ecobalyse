@@ -18,10 +18,10 @@ description: >-
 
 Le transports des matières première est modélisé par un transport par camion, avec une distance fixée à 160 km.
 
-Pour chaque ingrédient, ce transport de matière première peut se faire par un mode de transport frigorifique ou non (camion et bateau, non applicable pour l'avion). Ceci est défini par le paramètre ""transport\_cooling" de chaque ingrédient dans le [fichier listant les ingrédients](https://github.com/MTES-MCT/ecobalyse/blob/master/public/data/food/ingredients.json), avec les caractéristiques suivantes :&#x20;
+Pour chaque ingrédient, ce transport de matière première peut se faire par un mode de transport frigorifique ou non (camion et bateau, non applicable pour l'avion). Ceci est défini par le paramètre "Transport frigorifique" de chaque ingrédient, identifié dans l'<mark style="color:red;">Explorateur Alimentaire</mark>, avec les caractéristiques suivantes :&#x20;
 
-* "always" : transport frigorifique à cette étape
-* "once\_transformed" ou "none": transport non frigorifique à cette étape
+* "Toujours frigorifique" : transport frigorifique à cette étape
+* "Frigorifique après transformation" ou "Non frigorifique": transport non frigorifique à cette étape
 
 {% hint style="info" %}
 En pratique, l'impact de ce transport est également inclut de façon dans le procédé utilisé pour modéliser l'ingrédient (impact peu significatif). Il est volontairement comptabilisé en supplément de façon spécifique de façon à rendre visible la part du transport dans le coût environnemental du produit
@@ -33,10 +33,10 @@ Le transport se modélise avec une part de voie aérienne `a` modifiable égale 
 
 Pour les autres ingrédients, le transport est modélisé avec une combinaison de voies (maritime et terrestre) non modifiable, et aucun sélecteur n'est proposé.
 
-Pour chaque ingrédient, ce transport d'ingrédient peut se faire par un mode de transport frigorifique ou non (camion et bateau, non applicable pour l'avion). Ceci est défini dans le [fichier listant les ingrédients](https://github.com/MTES-MCT/ecobalyse/blob/master/public/data/food/ingredients.json), avec les caractéristiques suivantes :&#x20;
+Pour chaque ingrédient, ce transport d'ingrédient peut se faire par un mode de transport frigorifique ou non (camion et bateau, non applicable pour l'avion). Ceci est défini par le paramètre "Transport frigorifique" de chaque ingrédient, identifié dans l'<mark style="color:red;">Explorateur Alimentaire</mark>, avec les caractéristiques suivantes :&#x20;
 
-* "always" ou "once\_transformed" : transport frigorifique à cette étape
-* "none": transport non frigorifique à cette étape
+* "Toujours frigorifique" ou "Frigorifique après transformation" : transport frigorifique à cette étape
+* "Non frigorifique": transport non frigorifique à cette étape
 
 {% hint style="info" %}
 En pratique, l'impact de ce transport est également inclut de façon dans le procédé utilisé pour modéliser l'ingrédient, sans prise en compte d'un pays d'origine spécifique (impact peu significatif). Il est volontairement comptabilisé en supplément de façon spécifique, de façon à rendre visible la part du transport dans le coût environnemental du produit, et à faire varier cette part en fonction du pays d'origine et de la voie de transport utilisée.
