@@ -13,6 +13,7 @@ module Data.Food.Ingredient exposing
     , getDefaultOriginTransport
     , idFromString
     , idToString
+    , transportCoolingToString
     )
 
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
@@ -215,3 +216,16 @@ linkProcess processes =
                             |> Result.fromMaybe ("Procédé introuvable par code : " ++ processCode)
                    )
             )
+
+
+transportCoolingToString : TransportCooling -> String
+transportCoolingToString v =
+    case v of
+        AlwaysCool ->
+            "Toujours réfrigéré"
+
+        CoolOnceTransformed ->
+            "Réfrigéré après transformation"
+
+        NoCooling ->
+            "Non régrigéré"

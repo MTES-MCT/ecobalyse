@@ -76,6 +76,10 @@ table _ { detailed, scope } =
                             [ Icon.question ]
                         ]
           }
+        , { label = "Transport réfrigéré"
+          , toValue = Table.StringValue <| .transportCooling >> Ingredient.transportCoolingToString
+          , toCell = .transportCooling >> Ingredient.transportCoolingToString >> text
+          }
         , { label = "Procédé"
           , toValue = Table.StringValue <| .default >> .name
           , toCell =
