@@ -7,7 +7,6 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Gitbook as Gitbook
-import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Unit as Unit
@@ -82,10 +81,7 @@ table _ { detailed, scope } =
           , toCell =
                 \{ default } ->
                     div []
-                        [ default.sourceId
-                            |> Maybe.map (Process.sourceIdToString >> text >> List.singleton >> code [])
-                            |> Maybe.withDefault (text "")
-                        , div [ class "cursor-help", title default.name ]
+                        [ div [ class "cursor-help", title default.name ]
                             [ text default.name ]
                         , em [ class "cursor-help", title default.comment ]
                             [ text default.comment ]
