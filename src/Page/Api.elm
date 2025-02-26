@@ -55,14 +55,14 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "26 février 2025"
+    [  { date = "26 février 2025"
       , level = "major"
       , domains = [ "Textile" ]
       , md = """[**breaking**] Standardisation des noms de champs dans les réponses API :
 - `elec_kWh` devient `elecKWh`
 - `heat_MJ` devient `heatMJ`"""
-      }
-    , { date = "17 février 2025"
+      },
+      { date = "17 février 2025"
       , level = "major"
       , domains = [ "Textile" ]
       , md = """Le paramètre `dyeingMedium`, qui permettait de sélectionner le support de teinture,
@@ -345,7 +345,7 @@ changelog =
             l'étape de tissage, exprimé en *numéro métrique* (`Nm`).
 
             Le numéro métrique indique un nombre de kilomètres de fil correspondant
-            à un poids d'un kilogramme (ex\u{00A0}: 50Nm = 50km de ce fil pèsent 1 kg).
+            à un poids d’un kilogramme (ex\u{00A0}: 50Nm = 50km de ce fil pèsent 1 kg).
 """
       }
     , { date = "12 avril 2023"
@@ -558,9 +558,9 @@ view session _ =
                         , close = Nothing
                         , title = Just "Avertissement"
                         , content =
-                            [ """Cette API est **expérimentale** et n'offre à ce stade **aucune garantie de disponibilité ni de
-             stabilité** du service, le contrat d'interface restant susceptible de changer à tout moment en
-             fonction des retours et demandes d'évolutions. **Il est vivement déconseillé de vous reposer sur
+                            [ """Cette API est **expérimentale** et n’offre à ce stade **aucune garantie de disponibilité ni de
+             stabilité** du service, le contrat d’interface restant susceptible de changer à tout moment en
+             fonction des retours et demandes d’évolutions. **Il est vivement déconseillé de vous reposer sur
              cette API en production et/ou pour des missions critiques.**"""
                                 |> Markdown.simple [ class "fs-7" ]
                             , p [ class "fs-8 mb-0 text-end" ]
