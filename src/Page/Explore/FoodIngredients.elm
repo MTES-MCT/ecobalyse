@@ -76,7 +76,7 @@ table _ { detailed, scope } =
                             [ Icon.question ]
                         ]
           }
-        , { label = "Transport réfrigéré"
+        , { label = "Transport frigorifique"
           , toValue = Table.StringValue <| .transportCooling >> Ingredient.transportCoolingToString
           , toCell = .transportCooling >> Ingredient.transportCoolingToString >> text
           }

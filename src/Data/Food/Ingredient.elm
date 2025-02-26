@@ -222,10 +222,10 @@ transportCoolingToString : TransportCooling -> String
 transportCoolingToString v =
     case v of
         AlwaysCool ->
-            "Toujours réfrigéré"
+            "Toujours frigorifique"
 
         CoolOnceTransformed ->
-            "Réfrigéré après transformation"
+            "Frigorifique après transformation"
 
         NoCooling ->
-            "Non régrigéré"
+            "Non frigorifique"
