@@ -196,6 +196,12 @@ textileEndpoints db =
         ]
     , describe "materials param checks"
         [ Query.encode
+            { tShirtCotonFrance | materials = [] }
+            |> testTextileEndpoint db
+            |> Maybe.andThen extractTextileError
+            |> Expect.equal (Just "La liste de matières ne peut être vide")
+            |> asTest "should validate empty material list"
+        , Query.encode
             { tShirtCotonFrance
                 | materials =
                     [ { country = Nothing
@@ -247,7 +253,7 @@ textileEndpoints db =
                             | trims = [ { id = nonExistentId, quantity = Component.quantityFromInt 1 } ]
                         }
                         |> testTextileEndpoint db
-                        |> expectTextileErrorContains ""
+                        |> expectTextileErrorContains "ed3db03c-f56e-48a8-879c-df522c74d410"
 
                 Nothing ->
                     Expect.fail "Invalid component id"

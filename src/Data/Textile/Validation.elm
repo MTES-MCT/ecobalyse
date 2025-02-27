@@ -5,6 +5,7 @@ import Data.Country as Country
 import Data.Env as Env
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
+import Data.Textile.Economics as Economics
 import Data.Textile.Query exposing (Query)
 import Mass exposing (Mass)
 import Result.Extra as RE
@@ -35,11 +36,16 @@ validate db query =
         |> RE.andMap (query.makingDeadStock |> validateMaybe validateMakingDeadStock)
         |> RE.andMap (query.makingWaste |> validateMaybe validateMakingWaste)
         |> RE.andMap (validateMass query.mass)
-        -- FIXME: validate nonempty materials list here
-        |> RE.andMap (Ok query.materials)
-        |> RE.andMap (Ok query.numberOfReferences)
+        |> RE.andMap
+            (if List.isEmpty query.materials then
+                Err "La liste de matières ne peut être vide"
+
+             else
+                Ok query.materials
+            )
+        |> RE.andMap (query.numberOfReferences |> validateMaybe validateNumberOfReferences)
         |> RE.andMap (Ok query.physicalDurability)
-        |> RE.andMap (Ok query.price)
+        |> RE.andMap (query.price |> validateMaybe validatePrice)
         |> RE.andMap (Ok query.printing)
         |> RE.andMap (Ok query.product)
         |> RE.andMap (Ok query.surfaceMass)
@@ -49,31 +55,24 @@ validate db query =
         |> RE.andMap (Ok query.yarnSize)
 
 
-validateSplitWithin : String -> { max : Split, min : Split } -> Split -> Result String Split
-validateSplitWithin what { max, min } split =
-    if Split.toFloat split < Split.toFloat min || Split.toFloat split > Split.toFloat max then
-        Err <|
-            what
-                ++ " doit être compris entre "
-                ++ Split.toFloatString Env.minMakingDeadStockRatio
-                ++ " et "
-                ++ Split.toFloatString Env.maxMakingDeadStockRatio
-                ++ "."
-
-    else
-        Ok split
-
-
 validateMakingDeadStock : Split -> Result String Split
 validateMakingDeadStock =
-    validateSplitWithin "Le taux de stocks dormants en confection"
-        { max = Env.maxMakingDeadStockRatio, min = Env.minMakingDeadStockRatio }
+    validateWithin "Le taux de stocks dormants en confection"
+        { max = Env.maxMakingDeadStockRatio
+        , min = Env.minMakingDeadStockRatio
+        , toNumber = Split.toFloat
+        , toString = Split.toFloatString
+        }
 
 
 validateMakingWaste : Split -> Result String Split
 validateMakingWaste =
-    validateSplitWithin "Le taux de perte en confection"
-        { max = Env.maxMakingWasteRatio, min = Env.minMakingWasteRatio }
+    validateWithin "Le taux de perte en confection"
+        { max = Env.maxMakingWasteRatio
+        , min = Env.minMakingWasteRatio
+        , toNumber = Split.toFloat
+        , toString = Split.toFloatString
+        }
 
 
 validateMass : Mass -> Result String Mass
@@ -83,3 +82,38 @@ validateMass mass =
 
     else
         Ok mass
+
+
+validateNumberOfReferences : Int -> Result String Int
+validateNumberOfReferences =
+    validateWithin "Le nombre de références"
+        { max = Economics.maxNumberOfReferences
+        , min = Economics.minNumberOfReferences
+        , toNumber = identity
+        , toString = String.fromInt
+        }
+
+
+validatePrice : Economics.Price -> Result String Economics.Price
+validatePrice =
+    validateWithin "Le prix unitaire"
+        { max = Economics.maxPrice
+        , min = Economics.minPrice
+        , toNumber = Economics.priceToFloat
+        , toString = Economics.priceToFloat >> String.fromFloat
+        }
+
+
+validateWithin : String -> { max : a, min : a, toNumber : a -> number, toString : a -> String } -> a -> Result String a
+validateWithin what { max, min, toNumber, toString } value =
+    if toNumber value < toNumber min || toNumber value > toNumber max then
+        Err <|
+            what
+                ++ " doit être compris entre "
+                ++ toString min
+                ++ " et "
+                ++ toString max
+                ++ "."
+
+    else
+        Ok value
