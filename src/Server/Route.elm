@@ -48,12 +48,6 @@ type Route
     | TextileGetMaterialList
       --     Textile Product list
     | TextileGetProductList
-      --     Textile Simple version of all impacts (GET, query string)
-    | TextileGetSimulator (Result Query.Errors TextileQuery.Query)
-      --     Textile Detailed version for all impacts (GET, query string)
-    | TextileGetSimulatorDetailed (Result Query.Errors TextileQuery.Query)
-      --     Textile Simple version for one specific impact (GET, query string)
-    | TextileGetSimulatorSingle Definition.Trigram (Result Query.Errors TextileQuery.Query)
       --     Textile Trims list
     | TextileGetTrimList
       --   POST
@@ -92,12 +86,6 @@ parser db body =
             |> Parser.map TextileGetProductList
         , (s "GET" </> s "textile" </> s "trims")
             |> Parser.map TextileGetTrimList
-        , (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery db)
-            |> Parser.map TextileGetSimulator
-        , (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery db)
-            |> Parser.map TextileGetSimulatorDetailed
-        , (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery db)
-            |> Parser.map TextileGetSimulatorSingle
         , (s "POST" </> s "textile" </> s "simulator")
             |> Parser.map (TextilePostSimulator (decodeTextileQueryBody db body))
         , (s "POST" </> s "textile" </> s "simulator" </> s "detailed")

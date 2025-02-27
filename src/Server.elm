@@ -262,30 +262,6 @@ handleRequest db request =
                 |> Encode.list encodeProduct
                 |> respondWith 200
 
-        Just (Route.TextileGetSimulator (Ok query)) ->
-            query
-                |> executeTextileQuery db (toAllImpactsSimple db.textile.wellKnown)
-
-        Just (Route.TextileGetSimulator (Err errors)) ->
-            Query.encodeErrors errors
-                |> respondWith 400
-
-        Just (Route.TextileGetSimulatorDetailed (Ok query)) ->
-            query
-                |> executeTextileQuery db Simulator.encode
-
-        Just (Route.TextileGetSimulatorDetailed (Err errors)) ->
-            Query.encodeErrors errors
-                |> respondWith 400
-
-        Just (Route.TextileGetSimulatorSingle trigram (Ok query)) ->
-            query
-                |> executeTextileQuery db (toSingleImpactSimple db.textile.wellKnown trigram)
-
-        Just (Route.TextileGetSimulatorSingle _ (Err errors)) ->
-            Query.encodeErrors errors
-                |> respondWith 400
-
         Just Route.TextileGetTrimList ->
             db.components
                 |> Scope.anyOf [ Scope.Textile ]
