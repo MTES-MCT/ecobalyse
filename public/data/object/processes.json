@@ -78,8 +78,8 @@
     "comment": "",
     "density": 0,
     "displayName": "Moulage par injection",
-    "elec_MJ": 0,
-    "heat_MJ": 0,
+    "elecMJ": 0,
+    "heatMJ": 0,
     "id": "b1177e7f-e14e-415c-9077-c7063e1ab8cd",
     "impacts": {
       "acd": 0,
