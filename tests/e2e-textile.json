@@ -1,14 +1,16 @@
 [
   {
     "name": "T-shirt 100% coton France",
-    "query": [
-      "mass=0.17",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR"
-    ],
+    "query": {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "mass": 0.17,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "product": "tshirt"
+    },
     "impacts": {
       "acd": 0.0391289,
       "cch": 4.78797,
@@ -34,16 +36,18 @@
     }
   },
   {
-    "name": "T-shirt 100% coton France, Filature au Turquie",
-    "query": [
-      "mass=0.17",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countrySpinning=TR",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR"
-    ],
+    "name": "T-shirt 100% coton France, Filature en Turquie",
+    "query": {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "countrySpinning": "TR",
+      "mass": 0.17,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "product": "tshirt"
+    },
     "impacts": {
       "acd": 0.0382638,
       "cch": 4.36751,
@@ -70,15 +74,17 @@
   },
   {
     "name": "Jupe 100% acrylique, France",
-    "query": [
-      "mass=0.3",
-      "product=jupe",
-      "fabricProcess=weaving",
-      "materials[]=ei-acrylique;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR"
-    ],
+    "query": {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "fabricProcess": "weaving",
+      "mass": 0.3,
+      "materials": [
+        { "id": "ei-acrylique", "share": 1 }
+      ],
+      "product": "jupe"
+    },
     "impacts": {
       "acd": 0.0523574,
       "cch": 8.99673,
@@ -105,16 +111,19 @@
   },
   {
     "name": "T-shirt 50% coton, 45% PET, 5% PU, France",
-    "query": [
-      "mass=0.17",
-      "product=tshirt",
-      "materials[]=ei-coton;0.5",
-      "materials[]=ei-pet;0.45",
-      "materials[]=elasthane;0.05",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR"
-    ],
+    "query":
+    {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "mass": 0.17,
+      "materials": [
+        { "id": "ei-coton", "share": 0.5 },
+        { "id": "ei-pet", "share": 0.45 },
+        { "id": "elasthane", "share": 0.05 }
+      ],
+      "product": "tshirt"
+    },
     "impacts": {
       "acd": 0.02877,
       "cch": 4.38876,
@@ -141,15 +150,18 @@
   },
   {
     "name": "T-shirt 100% coton France, pas d'ennoblissement",
-    "query": [
-      "mass=0.17",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR",
-      "disabledSteps=ennobling"
-    ],
+    "query":
+    {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "disabledSteps": ["ennobling"],
+      "mass": 0.17,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "product": "tshirt"
+    },
     "impacts": {
       "acd": 0.0323477,
       "cch": 3.43787,
@@ -176,17 +188,20 @@
   },
   {
     "name": "Pantalon 90% coton, 10% PU, aérien 100%, Chine",
-    "query": [
-      "mass=0.45",
-      "product=pantalon",
-      "fabricProcess=weaving",
-      "materials[]=ei-coton;0.9",
-      "materials[]=elasthane;0.1",
-      "countryFabric=CN",
-      "countryDyeing=CN",
-      "countryMaking=CN",
-      "airTransportRatio=1"
-    ],
+    "query":
+    {
+      "airTransportRatio": 1,
+      "countryFabric": "CN",
+      "countryDyeing": "CN",
+      "countryMaking": "CN",
+      "fabricProcess": "weaving",
+      "mass": 0.45,
+      "materials": [
+        { "id": "ei-coton", "share": 0.9 },
+        { "id": "elasthane", "share": 0.1 }
+      ],
+      "product": "pantalon"
+    },
     "impacts": {
       "acd": 0.171603,
       "cch": 25.3776,
@@ -213,16 +228,18 @@
   },
   {
     "name": "Jean 100% coton naturel, Turquie",
-    "query": [
-      "mass=0.45",
-      "product=jean",
-      "fabricProcess=weaving",
-      "materials[]=ei-coton;1",
-      "countryFabric=TR",
-      "countryDyeing=TR",
-      "countryMaking=TR",
-      "fading=true"
-    ],
+    "query": {
+      "countryFabric": "TR",
+      "countryDyeing": "TR",
+      "countryMaking": "TR",
+      "fabricProcess": "weaving",
+      "fading": true,
+      "mass": 0.45,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "product": "jean"
+    },
     "impacts": {
       "acd": 0.187598,
       "cch": 22.4756,
@@ -249,16 +266,18 @@
   },
   {
     "name": "Jean 100% coton naturel, Turquie, non-délavé",
-    "query": [
-      "mass=0.45",
-      "product=jean",
-      "fabricProcess=weaving",
-      "materials[]=ei-coton;1",
-      "countryFabric=TR",
-      "countryDyeing=TR",
-      "countryMaking=TR",
-      "fading=false"
-    ],
+    "query": {
+      "countryFabric": "TR",
+      "countryDyeing": "TR",
+      "countryMaking": "TR",
+      "fabricProcess": "weaving",
+      "fading": false,
+      "mass": 0.45,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "product": "jean"
+    },
     "impacts": {
       "acd": 0.15909,
       "cch": 18.5951,
@@ -285,18 +304,23 @@
   },
   {
     "name": "Jean 100% coton naturel, Turquie, 1 zip et 4 boutons en métal",
-    "query": [
-      "mass=0.45",
-      "product=jean",
-      "fabricProcess=weaving",
-      "materials[]=ei-coton;1",
-      "countryFabric=TR",
-      "countryDyeing=TR",
-      "countryMaking=TR",
-      "fading=true",
-      "trims[]=0c903fc7-279b-4375-8cfa-ca8133b8e973;1",
-      "trims[]=0e8ea799-9b06-490c-a925-37564746c454;1"
-    ],
+    "query":
+    {
+      "countryFabric": "TR",
+      "countryDyeing": "TR",
+      "countryMaking": "TR",
+      "fabricProcess": "weaving",
+      "fading": true,
+      "mass": 0.45,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "product": "jean",
+      "trims": [
+        {"id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1},
+        {"id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1}
+      ]
+    },
     "impacts": {
       "acd": 0.194984,
       "cch": 22.5819,
@@ -322,52 +346,18 @@
     }
   },
   {
-    "name": "T-Shirt France, Q=0.9, R=1.15",
-    "query": [
-      "mass=0.17",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR",
-      "quality=0.9",
-      "reparability=1.15"
-    ],
-    "impacts": {
-      "acd": 0.0391289,
-      "cch": 4.78797,
-      "etf": 136.581,
-      "etf-c": 277.206,
-      "fru": 107.143,
-      "fwe": 0.00160403,
-      "htc": 3.82288e-9,
-      "htc-c": 1.48123e-9,
-      "htn": 3.35798e-8,
-      "htn-c": 3.40374e-8,
-      "ior": 13.2506,
-      "ldu": 106.543,
-      "mru": 0.0000127409,
-      "ozd": 1.34031e-7,
-      "pco": 0.0180222,
-      "pma": 3.47666e-7,
-      "swe": 0.023536,
-      "tre": 0.127338,
-      "wtu": 2.40622,
-      "ecs": 1286.16,
-      "pef": 734.536
-    }
-  },
-  {
     "name": "T-Shirt France, makingWaste=0",
-    "query": [
-      "mass=0.17",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR",
-      "makingWaste=0"
-    ],
+    "query": {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "makingWaste": 0,
+      "mass": 0.17,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "product": "tshirt"
+    },
     "impacts": {
       "acd": 0.0336079,
       "cch": 4.20508,
@@ -394,15 +384,17 @@
   },
   {
     "name": "T-Shirt France, makingWaste=0.25",
-    "query": [
-      "mass=0.17",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR",
-      "makingWaste=0.25"
-    ],
+    "query": {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "makingWaste": 0.25,
+      "mass": 0.17,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "product": "tshirt"
+    },
     "impacts": {
       "acd": 0.0440365,
       "cch": 5.30609,
@@ -428,53 +420,19 @@
     }
   },
   {
-    "name": "Robe coton 9kppm, 300g/m² France",
-    "query": [
-      "mass=0.3",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR",
-      "picking=9000",
-      "surfaceMass=300"
-    ],
-    "impacts": {
-      "acd": 0.0685898,
-      "cch": 8.34124,
-      "etf": 240.508,
-      "etf-c": 488.498,
-      "fru": 173.002,
-      "fwe": 0.00280937,
-      "htc": 6.66122e-9,
-      "htc-c": 2.55008e-9,
-      "htn": 5.78593e-8,
-      "htn-c": 5.9946e-8,
-      "ior": 22.6531,
-      "ldu": 187.533,
-      "mru": 0.0000216099,
-      "ozd": 2.32171e-7,
-      "pco": 0.0314483,
-      "pma": 6.07286e-7,
-      "swe": 0.0413973,
-      "tre": 0.223702,
-      "wtu": 4.2159,
-      "ecs": 2238.89,
-      "pef": 1259.53
-    }
-  },
-  {
     "name": "Tshirt coton, 300g/m² France, Pigment printing",
-    "query": [
-      "mass=0.3",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR",
-      "surfaceMass=300",
-      "printing=pigment"
-    ],
+    "query": {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "mass": 0.3,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "printing": { "kind": "pigment" },
+      "product": "tshirt",
+      "surfaceMass": 300
+    },
     "impacts": {
       "acd": 0.0698593,
       "cch": 8.6109,
@@ -501,16 +459,18 @@
   },
   {
     "name": "Tshirt coton, 300g/m² France, Substantive printing",
-    "query": [
-      "mass=0.3",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR",
-      "surfaceMass=300",
-      "printing=substantive"
-    ],
+    "query": {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "mass": 0.3,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "printing": { "kind": "substantive", "ratio": 0.2 },
+      "product": "tshirt",
+      "surfaceMass": 300
+    },
     "impacts": {
       "acd": 0.0703779,
       "cch": 8.64033,
@@ -537,16 +497,18 @@
   },
   {
     "name": "Tshirt coton, 300g/m² France, Pigment printing at 50%",
-    "query": [
-      "mass=0.3",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR",
-      "surfaceMass=300",
-      "printing=pigment;0.5"
-    ],
+    "query": {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "mass": 0.3,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "printing": { "kind": "pigment", "ratio": 0.5 },
+      "product": "tshirt",
+      "surfaceMass": 300
+    },
     "impacts": {
       "acd": 0.0715665,
       "cch": 8.9577,
@@ -573,15 +535,17 @@
   },
   {
     "name": "T-shirt 100% coton France, remanufacturé",
-    "query": [
-      "mass=0.17",
-      "product=tshirt",
-      "materials[]=ei-coton;1",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR",
-      "upcycled=true"
-    ],
+    "query": {
+      "countryFabric": "FR",
+      "countryDyeing": "FR",
+      "countryMaking": "FR",
+      "mass": 0.17,
+      "materials": [
+        { "id": "ei-coton", "share": 1 }
+      ],
+      "product": "tshirt",
+      "upcycled": true
+    },
     "impacts": {
       "acd": 0.00296844,
       "cch": 1.05335,
