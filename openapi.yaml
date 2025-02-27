@@ -77,6 +77,7 @@ paths:
                 $ref: "#/components/schemas/ProductListResponse"
   /textile/simulator:
     get:
+      deprecated: true
       tags:
         - Textile
       summary: Calcul des impacts environnementaux d'un produit textile
@@ -150,6 +151,7 @@ paths:
                 $ref: "#/components/schemas/InvalidParametersError"
   /textile/simulator/{impact}:
     get:
+      deprecated: true
       tags:
         - Textile
       summary: Calcul d'un impact environnemental spécifique d'un produit textile
@@ -226,6 +228,7 @@ paths:
                 $ref: "#/components/schemas/InvalidParametersError"
   /textile/simulator/detailed:
     get:
+      deprecated: true
       tags:
         - Textile
       summary: Calcul exhaustif des impacts environnementaux d'un produit textile
