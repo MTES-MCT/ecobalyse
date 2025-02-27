@@ -3,7 +3,6 @@ module Data.Textile.Step.Label exposing
     , all
     , decodeFromCode
     , encode
-    , fromCodeString
     , toColor
     , toGitbookPath
     , toId
