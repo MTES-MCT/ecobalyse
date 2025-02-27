@@ -1,5 +1,6 @@
 module Data.Textile.Validation exposing (validate)
 
+import Data.Component as Component
 import Data.Country as Country
 import Data.Scope exposing (Scope)
 import Data.Textile.Query exposing (Query)
@@ -37,6 +38,6 @@ validate db scope query =
         |> RE.andMap (Ok query.product)
         |> RE.andMap (Ok query.surfaceMass)
         |> RE.andMap (Ok query.traceability)
-        |> RE.andMap (Ok query.trims)
+        |> RE.andMap (Component.validateItems db.components query.trims)
         |> RE.andMap (Ok query.upcycled)
         |> RE.andMap (Ok query.yarnSize)
