@@ -1,13 +1,12 @@
 module Server.RouteTest exposing (..)
 
+import Data.Component as Component
 import Data.Country as Country
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Split as Split
 import Data.Textile.Material as Material
-import Data.Textile.Material.Origin as Origin
-import Data.Textile.Material.Spinning as Spinning
-import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
+import Data.Textile.Query as Query exposing (tShirtCotonFrance)
 import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
@@ -239,19 +238,31 @@ textileEndpoints db =
             |> testTextileEndpoint db
             |> expectTextileErrorContains "Le coefficient de durabilité spécifié (99) doit être compris entre 0.67 et 1.45."
             |> asTest "should validate that the physical durability param is invalid"
+        , asTest "should validate that a trim item id is valid" <|
+            -- Note: this component UUID doesn't exist
+            case Component.idFromString "ed3db03c-f56e-48a8-879c-df522c74d410" of
+                Just nonExistentId ->
+                    Query.encode
+                        { tShirtCotonFrance
+                            | trims = [ { id = nonExistentId, quantity = Component.quantityFromInt 1 } ]
+                        }
+                        |> testTextileEndpoint db
+                        |> expectTextileErrorContains ""
 
-        -- , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=invalid"
-        --     |> Maybe.andThen extractTextileError
-        --     |> Expect.equal (Just "Format d'accessoire invalide : invalid.")
-        --     |> asTest "should validate trims parameter format"
-        -- , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=invalid;1"
-        --     |> Maybe.andThen extractTextileError
-        --     |> Expect.equal (Just "Identifiant de composant invalide : invalid")
-        --     |> asTest "should validate trims parameter identifier format"
-        -- , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=0e8ea799-9b06-490c-a925-37564746c454;-1"
-        --     |> Maybe.andThen extractTextileError
-        --     |> Expect.equal (Just "La quantité doit être un nombre entier positif")
-        --     |> asTest "should validate that a trim item quantity is a positive integer"
+                Nothing ->
+                    Expect.fail "Invalid component id"
+        , asTest "should validate that a trim item quantity is a positive integer" <|
+            case Component.idFromString "0e8ea799-9b06-490c-a925-37564746c454" of
+                Just id ->
+                    Query.encode
+                        { tShirtCotonFrance
+                            | trims = [ { id = id, quantity = Component.quantityFromInt -1 } ]
+                        }
+                        |> testTextileEndpoint db
+                        |> expectTextileErrorContains "La quantité doit être un nombre entier positif"
+
+                Nothing ->
+                    Expect.fail "Invalid component id"
         ]
     ]
 
@@ -273,16 +284,6 @@ testTextileEndpoint : StaticDb.Db -> Encode.Value -> Maybe Route.Route
 testTextileEndpoint dbs body =
     "/textile/simulator"
         |> testEndpoint dbs "POST" body
-
-
-extractQuery : Route.Route -> Maybe Query
-extractQuery route =
-    case route of
-        Route.TextilePostSimulator (Ok query) ->
-            Just query
-
-        _ ->
-            Nothing
 
 
 extractFoodErrors : Route.Route -> Maybe (Dict String String)
