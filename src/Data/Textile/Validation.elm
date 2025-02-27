@@ -3,7 +3,7 @@ module Data.Textile.Validation exposing (validate)
 import Data.Component as Component
 import Data.Country as Country
 import Data.Env as Env
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Query exposing (Query)
 import Mass exposing (Mass)
@@ -11,8 +11,11 @@ import Result.Extra as RE
 import Static.Db exposing (Db)
 
 
-validate : Db -> Scope -> Query -> Result String Query
-validate db scope query =
+{-| Validate a Textile Query.
+Note: many fields are inherently validated by their types and/or at decoding time.
+-}
+validate : Db -> Query -> Result String Query
+validate db query =
     let
         validateMaybe fn =
             Maybe.map (fn >> Result.map Just)
@@ -21,16 +24,16 @@ validate db scope query =
     Ok Query
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.business)
-        |> RE.andMap (query.countryDyeing |> validateMaybe (Country.validateForScope scope db.countries))
-        |> RE.andMap (query.countryFabric |> validateMaybe (Country.validateForScope scope db.countries))
-        |> RE.andMap (query.countryMaking |> validateMaybe (Country.validateForScope scope db.countries))
-        |> RE.andMap (query.countrySpinning |> validateMaybe (Country.validateForScope scope db.countries))
+        |> RE.andMap (query.countryDyeing |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
+        |> RE.andMap (query.countryFabric |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
+        |> RE.andMap (query.countryMaking |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
+        |> RE.andMap (query.countrySpinning |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
         |> RE.andMap (Ok query.disabledSteps)
         |> RE.andMap (Ok query.dyeingProcessType)
         |> RE.andMap (Ok query.fabricProcess)
         |> RE.andMap (Ok query.fading)
         |> RE.andMap (Ok query.makingComplexity)
-        |> RE.andMap (Ok query.makingDeadStock)
+        |> RE.andMap (query.makingDeadStock |> validateMaybe validateMakingDeadStock)
         |> RE.andMap (query.makingWaste |> validateMaybe validateMakingWaste)
         |> RE.andMap (validateMass query.mass)
         |> RE.andMap (Ok query.materials)
@@ -46,21 +49,31 @@ validate db scope query =
         |> RE.andMap (Ok query.yarnSize)
 
 
-validateMakingWaste : Split -> Result String Split
-validateMakingWaste waste =
-    if
-        (Split.toFloat waste < Split.toFloat Env.minMakingWasteRatio)
-            || (Split.toFloat waste > Split.toFloat Env.maxMakingWasteRatio)
-    then
+validateSplitWithin : String -> { max : Split, min : Split } -> Split -> Result String Split
+validateSplitWithin what { max, min } split =
+    if Split.toFloat split < Split.toFloat min || Split.toFloat split > Split.toFloat max then
         Err <|
-            "Le taux de perte en confection doit être compris entre "
-                ++ Split.toFloatString Env.minMakingWasteRatio
+            what
+                ++ " doit être compris entre "
+                ++ Split.toFloatString Env.minMakingDeadStockRatio
                 ++ " et "
-                ++ Split.toFloatString Env.maxMakingWasteRatio
+                ++ Split.toFloatString Env.maxMakingDeadStockRatio
                 ++ "."
 
     else
-        Ok waste
+        Ok split
+
+
+validateMakingDeadStock : Split -> Result String Split
+validateMakingDeadStock =
+    validateSplitWithin "Le taux de stocks dormants en confection"
+        { max = Env.maxMakingDeadStockRatio, min = Env.minMakingDeadStockRatio }
+
+
+validateMakingWaste : Split -> Result String Split
+validateMakingWaste =
+    validateSplitWithin "Le taux de perte en confection"
+        { max = Env.minMakingWasteRatio, min = Env.minMakingWasteRatio }
 
 
 validateMass : Mass -> Result String Mass

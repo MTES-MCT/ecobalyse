@@ -191,105 +191,79 @@ describe("API", () => {
         );
       });
 
-      // it("should validate the makingDeadStock param", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["makingDeadStock=0.9"]),
-      //     "makingDeadStock",
-      //     /doit être compris entre/,
-      //   );
-      // });
+      it("should validate the makingDeadStock param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            makingDeadStock: 0.9,
+          }),
+          /taux de stocks dormants(.*)doit être compris entre/,
+        );
+      });
 
-      // it("should validate the makingComplexity param", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["makingComplexity=bad-complexity"]),
-      //     "makingComplexity",
-      //     /Type de complexité de fabrication inconnu : bad-complexity/,
-      //   );
-      // });
+      it("should validate the makingComplexity param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            makingComplexity: "bad-complexity",
+          }),
+          /Type de complexité de fabrication inconnu : bad-complexity/,
+        );
+      });
 
-      // it("should validate the yarnSize param", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["yarnSize=0"]),
-      //     "yarnSize",
-      //     /doit être compris entre/,
-      //   );
-      // });
+      it("should validate the yarnSize param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", { ...successQuery, yarnSize: 0 }),
+          /titrage(.*)doit être compris entre/,
+        );
+      });
 
-      // it("should validate the yarnSize param in Nm", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["yarnSize=0Nm"]),
-      //     "yarnSize",
-      //     /doit être compris entre/,
-      //   );
-      // });
+      it("should validate the physicalDurability param range", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            physicalDurability: 2,
+          }),
+          /coefficient de durabilité(.*)doit être compris entre/,
+        );
+      });
 
-      // it("should validate the yarnSize param in Dtex", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["yarnSize=0Dtex"]),
-      //     "yarnSize",
-      //     /doit être compris entre/,
-      //   );
-      // });
+      it("should validate the fabricProcess param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            fabricProcess: "notAFabricProcess",
+          }),
+          /Procédé de tissage\/tricotage inconnu: notAFabricProcess/,
+        );
+      });
 
-      // it("should validate the yarnSize param unit", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["yarnSize=0BadUnit"]),
-      //     "yarnSize",
-      //     /Le format ne correspond pas au titrage \(yarnSize\) attendu : soit un entier simple \(ie : `40`\), ou avec l'unité `Nm` \(ie : `40Nm`\) ou `Dtex` \(ie : `250Dtex`\)/,
-      //   );
-      // });
+      it("should validate the surfaceMass param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", { ...successQuery, surfaceMass: 10 }),
+          /masse surfacique(.*)doit être comprise entre/,
+        );
+      });
 
-      // it("should validate the physicalDurability param range", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["physicalDurability=2"]),
-      //     "physicalDurability",
-      //     /doit être comprise entre/,
-      //   );
-      // });
+      it("should validate the printing param kind", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            printing: { kind: "bonk", ratio: 1 },
+          }),
+          /Type d'impression inconnu: bonk/,
+        );
+      });
 
-      // it("should accept the yarnSize param without any unit", async () => {
-      //   const response = await makePostRequest("/api/textile/simulator", ["yarnSize=9"]);
-      // });
-
-      // it("should accept the yarnSize param in Nm", async () => {
-      //   const response = await makePostRequest("/api/textile/simulator", ["yarnSize=9Nm"]);
-      // });
-
-      // it("should accept the yarnSize param in Dtex", async () => {
-      //   const response = await makePostRequest("/api/textile/simulator", ["yarnSize=9Dtex"]);
-      // });
-
-      // it("should validate the fabricProcess param", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["fabricProcess=notAFabricProcess"]),
-      //     "fabricProcess",
-      //     /Procédé de tissage\/tricotage inconnu: notAFabricProcess/,
-      //   );
-      // });
-
-      // it("should validate the surfaceMass param", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["surfaceMass=10"]),
-      //     "surfaceMass",
-      //     /doit être compris entre/,
-      //   );
-      // });
-
-      // it("should validate the fading param", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["fading=untrue"]),
-      //     "fading",
-      //     /ne peut être que true ou false/,
-      //   );
-      // });
-
-      // it("should validate the printing param", async () => {
-      //   expectTextileFieldErrorMessage(
-      //     await makePostRequest("/api/textile/simulator", ["printing=bonk"]),
-      //     "printing",
-      //     /Format de type et surface d'impression invalide: bonk/,
-      //   );
-      // });
+      it("should validate the printing param ratio", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            printing: { kind: "pigment", ratio: 2 },
+          }),
+          /Une part(.*)doit être comprise entre 0 et 1/,
+        );
+      });
     });
 
     // describe("/simulator/ecs", () => {
