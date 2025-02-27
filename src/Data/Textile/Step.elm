@@ -542,9 +542,9 @@ encode v =
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
         , ( "editable", Encode.bool v.editable )
-        , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
+        , ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "enabled", Encode.bool v.enabled )
-        , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
+        , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "impacts", v.impacts |> Impact.applyComplements (Impact.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "label", Encode.string (Label.toString v.label) )
@@ -565,8 +565,8 @@ encode v =
 encodePreTreatments : PreTreatments -> Encode.Value
 encodePreTreatments v =
     Encode.object
-        [ ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
-        , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
+        [ ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
+        , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "impacts", Impact.encode v.impacts )
         , ( "operations", v.operations |> List.map Process.getDisplayName |> Encode.list Encode.string )
         ]

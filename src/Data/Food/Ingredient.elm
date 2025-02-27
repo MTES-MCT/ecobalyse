@@ -142,14 +142,14 @@ decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
         |> Pipe.required "default" (linkProcess processes)
-        |> Pipe.required "default_origin" Origin.decode
+        |> Pipe.required "defaultOrigin" Origin.decode
         |> Pipe.required "density" (Decode.float |> Decode.map gramsPerCubicCentimeter)
         |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
         |> Pipe.required "id" decodeId
-        |> Pipe.required "inedible_part" Split.decodeFloat
+        |> Pipe.required "inediblePart" Split.decodeFloat
         |> Pipe.required "name" Decode.string
-        |> Pipe.required "raw_to_cooked_ratio" Unit.decodeRatio
-        |> Pipe.required "transport_cooling" decodeTransportCooling
+        |> Pipe.required "rawToCookedRatio" Unit.decodeRatio
+        |> Pipe.required "transportCooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
 
 

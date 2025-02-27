@@ -87,8 +87,8 @@ decodeProcess scopes impactsDecoder =
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "density" Decode.float
         |> DU.strictOptional "displayName" Decode.string
-        |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "elecMJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "name" Decode.string
@@ -106,8 +106,8 @@ encode process =
         , ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "elec_MJ", Encode.float (Energy.inMegajoules process.elec) )
-        , ( "heat_MJ", Encode.float (Energy.inMegajoules process.heat) )
+        , ( "elecMJ", Encode.float (Energy.inMegajoules process.elec) )
+        , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )
         , ( "name", Encode.string process.name )
