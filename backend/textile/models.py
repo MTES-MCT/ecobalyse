@@ -96,9 +96,9 @@ class Process(Model):
     wtu = FloatField(_("Water use"))
     pef = FloatField(_("PEF Score"))
     ecs = FloatField(_("Environmental Cost"))
-    heat_MJ = FloatField(_("Heat MJ"), default=0)
+    heatMJ = FloatField(_("Heat MJ"), default=0)
     elec_pppm = FloatField(_("Elec pppm"))
-    elec_MJ = FloatField(_("Elec MJ"))
+    elecMJ = FloatField(_("Elec MJ"))
     waste = FloatField(_("Waste"))
     alias = CharField(_("Alias"), max_length=50, null=True)
     step_usage = CharField(_("Step Usage"), max_length=50, choices=STEPUSAGES)
@@ -149,9 +149,9 @@ class Process(Model):
                         "ecs": process.ecs,
                         "pef": process.pef,
                     },
-                    "heat_MJ": process.heat_MJ,
+                    "heatMJ": process.heatMJ,
                     "elec_pppm": process.elec_pppm,
-                    "elec_MJ": process.elec_MJ,
+                    "elecMJ": process.elecMJ,
                     "waste": process.waste,
                     "alias": process.alias,
                 }
