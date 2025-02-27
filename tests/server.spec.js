@@ -15,6 +15,18 @@ describe("Web", () => {
 });
 
 describe("API", () => {
+  const successQuery = {
+    countryFabric: "CN",
+    countryDyeing: "CN",
+    countryMaking: "CN",
+    mass: 0.17,
+    materials: [
+      { id: "ei-coton", share: 0.5 },
+      { id: "ei-pet", share: 0.5 },
+    ],
+    product: "tshirt",
+  };
+
   describe("Not found", () => {
     it("should render a 404 response", async () => {
       const response = await request(app).get("/xxx");
@@ -61,18 +73,6 @@ describe("API", () => {
     });
 
     describe("/simulator", () => {
-      const successQuery = {
-        countryFabric: "CN",
-        countryDyeing: "CN",
-        countryMaking: "CN",
-        mass: 0.17,
-        materials: [
-          { id: "ei-coton", share: 0.5 },
-          { id: "ei-pet", share: 0.5 },
-        ],
-        product: "tshirt",
-      };
-
       it("should accept a valid query", async () => {
         const response = await makePostRequest("/api/textile/simulator", successQuery);
 
@@ -266,48 +266,48 @@ describe("API", () => {
       });
     });
 
-    // describe("/simulator/ecs", () => {
-    //   it("should accept a valid query", async () => {
-    //     const response = await makeRequest("/api/textile/simulator/ecs", successQuery);
+    describe("/simulator/ecs", () => {
+      it("should accept a valid query", async () => {
+        const response = await makePostRequest("/api/textile/simulator/ecs", successQuery);
 
-    //     expectStatus(response, 200);
-    //     expect(response.body.impacts.ecs).toBeGreaterThan(0);
-    //   });
-    // });
+        expectStatus(response, 200);
+        expect(response.body.impacts.ecs).toBeGreaterThan(0);
+      });
+    });
 
-    // describe("/simulator/detailed", () => {
-    //   it("should accept a valid query", async () => {
-    //     const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
+    describe("/simulator/detailed", () => {
+      it("should accept a valid query", async () => {
+        const response = await makePostRequest("/api/textile/simulator/detailed", successQuery);
 
-    //     expectStatus(response, 200);
-    //     expect(response.body.lifeCycle).toHaveLength(8);
-    //   });
+        expectStatus(response, 200);
+        expect(response.body.lifeCycle).toHaveLength(8);
+      });
 
-    //   it("should expose impacts without durability", async () => {
-    //     const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
+      it("should expose impacts without durability", async () => {
+        const response = await makePostRequest("/api/textile/simulator/detailed", successQuery);
 
-    //     expectStatus(response, 200);
-    //     expect(response.body.impacts.ecs > response.body.impactsWithoutDurability.ecs);
-    //   });
+        expectStatus(response, 200);
+        expect(response.body.impacts.ecs > response.body.impactsWithoutDurability.ecs);
+      });
 
-    //   it("should compute pre-treatments", async () => {
-    //     const tShirt = textileExamples.filter(
-    //       ({ name }) => name === "Tshirt coton (150g) - Majorant par défaut",
-    //     )[0];
-    //     expect(tShirt).toBeTruthy();
+      it("should compute pre-treatments", async () => {
+        const tShirt = textileExamples.filter(
+          ({ name }) => name === "Tshirt coton (150g) - Majorant par défaut",
+        )[0];
+        expect(tShirt).toBeTruthy();
 
-    //     const response = await makePostRequest("/api/textile/simulator/detailed", tShirt.query);
+        const response = await makePostRequest("/api/textile/simulator/detailed", tShirt.query);
 
-    //     expectStatus(response, 200);
+        expectStatus(response, 200);
 
-    //     const ennoblingStep = response.body.lifeCycle.filter(
-    //       ({ label }) => label === "Ennoblissement",
-    //     )[0];
-    //     expect(ennoblingStep).toBeTruthy();
+        const ennoblingStep = response.body.lifeCycle.filter(
+          ({ label }) => label === "Ennoblissement",
+        )[0];
+        expect(ennoblingStep).toBeTruthy();
 
-    //     expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(37.45, 2);
-    //   });
-    // });
+        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(37.45, 2);
+      });
+    });
 
     // describe("End to end textile simulations", () => {
     //   const e2eTextile = require(`${__dirname}/e2e-textile.json`);
@@ -326,46 +326,45 @@ describe("API", () => {
     //   }
     // });
 
-    // describe("Changing the fabric process", () => {
-    //   const jeanQuery = [
-    //     "mass=0.45",
-    //     "product=jean",
-    //     "fabricProcess=weaving",
-    //     "materials[]=ei-coton;1",
-    //     "countryFabric=TR",
-    //     "countryDyeing=TR",
-    //     "countryMaking=TR",
-    //     "fading=true",
-    //   ];
+    describe("Changing the fabric process", () => {
+      const jeanQuery = {
+        mass: 0.45,
+        product: "jean",
+        fabricProcess: "weaving",
+        materials: [{ id: "ei-coton", share: 1 }],
+        countryFabric: "TR",
+        countryDyeing: "TR",
+        countryMaking: "TR",
+        fading: true,
+      };
 
-    //   it("should change the waste", async () => {
-    //     let response = await makeRequest("/api/textile/simulator/detailed", jeanQuery);
-    //     expectStatus(response, 200);
-    //     fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
-    //     weavingWaste = fabricLifeCycle.waste;
+      it("should change the waste", async () => {
+        let response = await makePostRequest("/api/textile/simulator/detailed", jeanQuery);
+        expectStatus(response, 200);
+        let fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
+        const weavingWaste = fabricLifeCycle.waste;
 
-    //     const jeanQueryKnittingMix = jeanQuery.map((input) =>
-    //       input == "fabricProcess=weaving" ? "fabricProcess=knitting-mix" : input,
-    //     );
+        response = await makePostRequest("/api/textile/simulator/detailed", {
+          ...jeanQuery,
+          fabricProcess: "knitting-mix",
+        });
+        expectStatus(response, 200);
+        fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
+        expect(fabricLifeCycle.waste).toBeLessThan(weavingWaste);
+      });
+    });
 
-    //     response = await makeRequest("/api/textile/simulator/detailed", jeanQueryKnittingMix);
-    //     expectStatus(response, 200);
-    //     fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
-    //     expect(fabricLifeCycle.waste).toBeLessThan(weavingWaste);
-    //   });
-    // });
+    describe("Textile product examples checks", () => {
+      const textileExamples = require(`${__dirname}/../public/data/textile/examples.json`);
 
-    // describe("Textile product examples checks", () => {
-    //   const textileExamples = require(`${__dirname}/../public/data/textile/examples.json`);
-
-    //   for (const { name, query } of textileExamples) {
-    //     it(name, async () => {
-    //       const response = await makePostRequest("/api/textile/simulator", query);
-    //       expect(response.body.error).toBeUndefined();
-    //       expectStatus(response, 200);
-    //     });
-    //   }
-    // });
+      for (const { name, query } of textileExamples) {
+        it(name, async () => {
+          const response = await makePostRequest("/api/textile/simulator", query);
+          expect(response.body.error).toBeUndefined();
+          expectStatus(response, 200);
+        });
+      }
+    });
   });
 
   describe("Food", () => {
