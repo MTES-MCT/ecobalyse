@@ -51,10 +51,6 @@ baseColumns detailed scope =
       , toValue = Table.StringValue <| .source
       , toCell = .source >> text
       }
-    , { label = "Identifiant dans la source"
-      , toValue = Table.StringValue <| .sourceId >> Maybe.map Process.sourceIdToString >> Maybe.withDefault ""
-      , toCell = .sourceId >> Maybe.map (Process.sourceIdToString >> text >> List.singleton >> code []) >> Maybe.withDefault (text "")
-      }
     , { label = "Catégories"
       , toValue =
             Table.StringValue <|
