@@ -13,6 +13,7 @@ module Data.Textile.Printing exposing
 import Data.Split as Split exposing (Split)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
+import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 
 
@@ -29,9 +30,9 @@ type alias Printing =
 
 decode : Decoder Printing
 decode =
-    Decode.map2 Printing
-        (Decode.field "kind" decodeKind)
-        (Decode.field "ratio" Split.decodeFloat)
+    Decode.succeed Printing
+        |> JDP.required "kind" decodeKind
+        |> JDP.optional "ratio" Split.decodeFloat defaultRatio
 
 
 decodeKind : Decoder Kind

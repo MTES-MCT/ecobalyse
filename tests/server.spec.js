@@ -309,22 +309,22 @@ describe("API", () => {
       });
     });
 
-    // describe("End to end textile simulations", () => {
-    //   const e2eTextile = require(`${__dirname}/e2e-textile.json`);
+    describe("End to end textile simulations", () => {
+      const e2eTextile = require(`${__dirname}/e2e-textile.json`);
 
-    //   for (const { name, query, impacts } of e2eTextile) {
-    //     it(name, async () => {
-    //       const response = await makeRequest("/api/textile/simulator", query);
-    //       e2eOutput.textile.push({
-    //         name,
-    //         query,
-    //         impacts: response.status === 200 ? response.body.impacts : {},
-    //       });
-    //       expectStatus(response, 200);
-    //       expect(response.body.impacts).toEqual(impacts);
-    //     });
-    //   }
-    // });
+      for (const { name, query, impacts } of e2eTextile) {
+        it(name, async () => {
+          const response = await makePostRequest("/api/textile/simulator/detailed", query);
+          e2eOutput.textile.push({
+            name,
+            query,
+            impacts: response.status === 200 ? response.body.impacts : {},
+          });
+          expectStatus(response, 200);
+          expect(response.body.impacts).toEqual(impacts);
+        });
+      }
+    });
 
     describe("Changing the fabric process", () => {
       const jeanQuery = {

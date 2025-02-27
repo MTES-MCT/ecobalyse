@@ -11,8 +11,7 @@ import Result.Extra as RE
 import Static.Db exposing (Db)
 
 
-{-| Validate a Textile Query.
-Note: many fields are inherently validated by their types and/or at decoding time.
+{-| Validate values not fully qualified by their type or applied JSON decoders.
 -}
 validate : Db -> Query -> Result String Query
 validate db query =
@@ -36,6 +35,7 @@ validate db query =
         |> RE.andMap (query.makingDeadStock |> validateMaybe validateMakingDeadStock)
         |> RE.andMap (query.makingWaste |> validateMaybe validateMakingWaste)
         |> RE.andMap (validateMass query.mass)
+        -- FIXME: validate nonempty materials list here
         |> RE.andMap (Ok query.materials)
         |> RE.andMap (Ok query.numberOfReferences)
         |> RE.andMap (Ok query.physicalDurability)
@@ -73,7 +73,7 @@ validateMakingDeadStock =
 validateMakingWaste : Split -> Result String Split
 validateMakingWaste =
     validateSplitWithin "Le taux de perte en confection"
-        { max = Env.minMakingWasteRatio, min = Env.minMakingWasteRatio }
+        { max = Env.maxMakingWasteRatio, min = Env.minMakingWasteRatio }
 
 
 validateMass : Mass -> Result String Mass

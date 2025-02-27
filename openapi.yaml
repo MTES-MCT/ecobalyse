@@ -815,17 +815,26 @@ components:
           minimum: 1
           maximum: 1000
         printing:
-          type: string
+          type: object
           description: |
-            Ce paramètre permet de préciser le type d'impression effectuée sur le produit, suivi du pourcentage de
-            surface teinte. Par exemple, `pigment;0.1` signifie impression pigmentaire sur 10% de la superficie du
-            vêtement. L'identifiant de procédé d'impression peut prendre les valeurs suivantes :
-
-            - `pigment` pour une impression pigmentaire ;
-            - `substantive` pour une impression fixé/lavé ;
-          enum:
-          - pigment
-          - substantive
+            Ce paramètre permet de préciser le type d'impression effectuée sur le produit.
+            Par exemple, `{"kind": "pigment", "ratio": 0.1}` signifie impression pigmentaire sur 10%
+            de la superficie du vêtement.
+          required: ["kind"]
+          properties:
+            kind:
+              type: string
+              description: |
+                Type de procédé d'impression pouvant prendre les valeurs suivantes :
+                - `pigment` pour une impression pigmentaire ;
+                - `substantive` pour une impression fixé/lavé ;
+              enum:
+              - pigment
+              - substantive
+            ratio:
+              type: number
+              description: |
+                Pourcentage de surface teinte, exprimé entre `0` et `1`
         product:
           type: string
           description: |
