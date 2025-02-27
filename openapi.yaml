@@ -872,11 +872,6 @@ components:
           type: number
           description: |
             Titrage du fil exprimé en **numéro métrique** (`Nm`).
-            Il est aussi possible de l'exprimer en décitex (`Dtex`) en spécifiant l'unité.
-            Exemples de saisie :
-              - `40` : 40Nm
-              - `40Nm` : 40Nm
-              - `250Dtex` : 250Dtex, équivalent à 40Nm
           minimum: 9
           maximum: 200
     TextileQueryMaterial:
