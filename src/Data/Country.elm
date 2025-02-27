@@ -12,6 +12,7 @@ module Data.Country exposing
     , getAquaticPollutionRatio
     , isEuropeOrTurkey
     , unknownCountryCode
+    , validateForScope
     )
 
 import Data.Process as Process exposing (Process)
@@ -159,3 +160,22 @@ isEuropeOrTurkey country =
 unknownCountryCode : Code
 unknownCountryCode =
     Code "---"
+
+
+validateForScope : Scope -> List Country -> Code -> Result String Code
+validateForScope scope countries countryCode =
+    countries
+        |> findByCode countryCode
+        |> Result.andThen
+            (\{ code, scopes } ->
+                if List.member scope scopes then
+                    Ok code
+
+                else
+                    "Le code pays "
+                        ++ codeToString countryCode
+                        ++ " n'est pas utilisable dans un contexte "
+                        ++ Scope.toLabel scope
+                        ++ "."
+                        |> Err
+            )
