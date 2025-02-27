@@ -224,11 +224,6 @@ textileEndpoints db =
             |> Maybe.andThen extractTextileError
             |> Expect.equal (Just "Code pays invalide: NotACountryCode.")
             |> asTest "should validate a material country code"
-
-        -- , testEndpoint db "GET" Encode.null "/textile/simulator?printing=substantive;1.2"
-        --     |> Maybe.andThen extractTextileError
-        --     |> Expect.equal (Just "Le ratio de surface d'impression doit être supérieur à zéro et inférieur à 1.")
-        --     |> asTest "should validate invalid printing ratio"
         , Query.encode
             { tShirtCotonFrance
                 | countryDyeing = Just <| Country.Code "US"
@@ -237,11 +232,14 @@ textileEndpoints db =
             |> Maybe.andThen extractTextileError
             |> Expect.equal (Just "Le code pays US n'est pas utilisable dans un contexte Textile.")
             |> asTest "should validate that an ingredient country scope is valid"
+        , Query.encode
+            { tShirtCotonFrance
+                | physicalDurability = Just <| Unit.physicalDurability 99
+            }
+            |> testTextileEndpoint db
+            |> expectTextileErrorContains "Le coefficient de durabilité spécifié (99) doit être compris entre 0.67 et 1.45."
+            |> asTest "should validate that the physical durability param is invalid"
 
-        -- , testEndpoint db "GET" Encode.null "/textile/simulator?physicalDurability=99"
-        --     |> Maybe.andThen extractTextileError
-        --     |> Expect.equal (Just "La durabilité doit être comprise entre 0.67 et 1.45.")
-        --     |> asTest "should validate that the physical durability param is invalid"
         -- , testEndpoint db "GET" Encode.null "/textile/simulator?trims[]=invalid"
         --     |> Maybe.andThen extractTextileError
         --     |> Expect.equal (Just "Format d'accessoire invalide : invalid.")
@@ -256,6 +254,13 @@ textileEndpoints db =
         --     |> asTest "should validate that a trim item quantity is a positive integer"
         ]
     ]
+
+
+expectTextileErrorContains : String -> Maybe Route.Route -> Expect.Expectation
+expectTextileErrorContains testString =
+    Maybe.andThen extractTextileError
+        >> Maybe.map (String.contains testString)
+        >> Expect.equal (Just True)
 
 
 testEndpoint : StaticDb.Db -> String -> Encode.Value -> String -> Maybe Route.Route
