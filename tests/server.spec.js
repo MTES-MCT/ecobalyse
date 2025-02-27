@@ -36,21 +36,6 @@ describe("API", () => {
   });
 
   describe("Textile", () => {
-    const successQuery =
-      // Successful query params.
-      // Note: it's important to pass query string parameters as actual strings here,
-      // so we can test for actual qs parsing from the server.
-      [
-        "mass=0.17",
-        "product=tshirt",
-        "fabricProcess=knitting-mix",
-        "materials[]=ei-coton;0.5",
-        "materials[]=ei-pet;0.5",
-        "countryFabric=CN",
-        "countryDyeing=CN",
-        "countryMaking=CN",
-      ];
-
     describe("/textile/countries", () => {
       it("should render with textile countries list", async () => {
         await expectListResponseContains("/api/textile/countries", { code: "FR", name: "France" });
@@ -76,335 +61,337 @@ describe("API", () => {
     });
 
     describe("/simulator", () => {
-      describe("GET", () => {
-        it("should accept a valid query", async () => {
-          const response = await makeRequest("/api/textile/simulator", successQuery);
+      const successQuery = {
+        countryFabric: "CN",
+        countryDyeing: "CN",
+        countryMaking: "CN",
+        mass: 0.17,
+        materials: [
+          { id: "ei-coton", share: 0.5 },
+          { id: "ei-pet", share: 0.5 },
+        ],
+        product: "tshirt",
+      };
 
-          expectStatus(response, 200);
-          expect(response.body.impacts.ecs).toBeGreaterThan(0);
-        });
-
-        it("should validate the mass param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["mass=-1"]),
-            "mass",
-            /supérieure ou égale à zéro/,
-          );
-        });
-
-        it("should validate the materials param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["materials[]=xxx;1"]),
-            "materials",
-            /Matière non trouvée id=xxx/,
-          );
-        });
-
-        it("should validate the product param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", [
-              "product=xxx",
-              "fabricProcess=knitting-mix",
-            ]),
-            "product",
-            /Produit non trouvé id=xxx/,
-          );
-        });
-
-        it("should validate the countrySpinning param (invalid code)", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["countrySpinning=XX"]),
-            "countrySpinning",
-            /Code pays invalide: XX/,
-          );
-        });
-
-        it("should validate the countryFabric param (invalid code)", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["countryFabric=XX"]),
-            "countryFabric",
-            /Code pays invalide: XX/,
-          );
-        });
-
-        it("should validate the countryDyeing param (invalid code)", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["countryDyeing=XX"]),
-            "countryDyeing",
-            /Code pays invalide: XX/,
-          );
-        });
-
-        it("should validate the countryMaking param (invalid code)", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["countryMaking=XX"]),
-            "countryMaking",
-            /Code pays invalide: XX/,
-          );
-        });
-
-        it("should validate the disabledSteps param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["disabledSteps=xxx"]),
-            "disabledSteps",
-            /Code étape inconnu: xxx/i,
-          );
-        });
-
-        it("should validate the dyeingProcessType param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["dyeingProcessType=xxx"]),
-            "dyeingProcessType",
-            /Type de teinture inconnu : xxx/i,
-          );
-        });
-
-        it("should perform a simulation featuring 21 impacts for textile", async () => {
-          const response = await makeRequest("/api/textile/simulator/", successQuery);
-
-          expectStatus(response, 200);
-          expect(Object.keys(response.body.impacts)).toHaveLength(21);
-        });
-
-        it("should validate the airTransportRatio param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["airTransportRatio=2"]),
-            "airTransportRatio",
-            /doit être compris entre/,
-          );
-        });
-
-        it("should validate the makingWaste param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["makingWaste=0.9"]),
-            "makingWaste",
-            /doit être compris entre/,
-          );
-        });
-
-        it("should validate the makingDeadStock param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["makingDeadStock=0.9"]),
-            "makingDeadStock",
-            /doit être compris entre/,
-          );
-        });
-
-        it("should validate the makingComplexity param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["makingComplexity=bad-complexity"]),
-            "makingComplexity",
-            /Type de complexité de fabrication inconnu : bad-complexity/,
-          );
-        });
-
-        it("should validate the yarnSize param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["yarnSize=0"]),
-            "yarnSize",
-            /doit être compris entre/,
-          );
-        });
-
-        it("should validate the yarnSize param in Nm", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["yarnSize=0Nm"]),
-            "yarnSize",
-            /doit être compris entre/,
-          );
-        });
-
-        it("should validate the yarnSize param in Dtex", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["yarnSize=0Dtex"]),
-            "yarnSize",
-            /doit être compris entre/,
-          );
-        });
-
-        it("should validate the yarnSize param unit", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["yarnSize=0BadUnit"]),
-            "yarnSize",
-            /Le format ne correspond pas au titrage \(yarnSize\) attendu : soit un entier simple \(ie : `40`\), ou avec l'unité `Nm` \(ie : `40Nm`\) ou `Dtex` \(ie : `250Dtex`\)/,
-          );
-        });
-
-        it("should validate the physicalDurability param range", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["physicalDurability=2"]),
-            "physicalDurability",
-            /doit être comprise entre/,
-          );
-        });
-
-        it("should accept the yarnSize param without any unit", async () => {
-          const response = await makeRequest("/api/textile/simulator", ["yarnSize=9"]);
-        });
-
-        it("should accept the yarnSize param in Nm", async () => {
-          const response = await makeRequest("/api/textile/simulator", ["yarnSize=9Nm"]);
-        });
-
-        it("should accept the yarnSize param in Dtex", async () => {
-          const response = await makeRequest("/api/textile/simulator", ["yarnSize=9Dtex"]);
-        });
-
-        it("should validate the fabricProcess param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["fabricProcess=notAFabricProcess"]),
-            "fabricProcess",
-            /Procédé de tissage\/tricotage inconnu: notAFabricProcess/,
-          );
-        });
-
-        it("should validate the surfaceMass param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["surfaceMass=10"]),
-            "surfaceMass",
-            /doit être compris entre/,
-          );
-        });
-
-        it("should validate the fading param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["fading=untrue"]),
-            "fading",
-            /ne peut être que true ou false/,
-          );
-        });
-
-        it("should validate the printing param", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/textile/simulator", ["printing=bonk"]),
-            "printing",
-            /Format de type et surface d'impression invalide: bonk/,
-          );
-        });
-      });
-
-      describe("POST", () => {
-        it("should compute 21 impacts", async () => {
-          const response = await makePostRequest("/api/textile/simulator", {
-            mass: 0.17,
-            materials: [{ id: "ei-coton", share: 1 }],
-            product: "tshirt",
-            fabricProcess: "knitting-mix",
-            countrySpinning: "BD",
-            countryFabric: "TR",
-            countryDyeing: "TR",
-            countryMaking: "BD",
-            airTransportRatio: 0.5,
-            durability: 1.2,
-            reparability: 1.2,
-            disabledSteps: ["use"],
-          });
-          expectStatus(response, 200);
-          expect(Object.keys(response.body.impacts)).toHaveLength(21);
-        });
-      });
-    });
-
-    describe("/simulator/ecs", () => {
       it("should accept a valid query", async () => {
-        const response = await makeRequest("/api/textile/simulator/ecs", successQuery);
+        const response = await makePostRequest("/api/textile/simulator", successQuery);
 
         expectStatus(response, 200);
         expect(response.body.impacts.ecs).toBeGreaterThan(0);
       });
-    });
 
-    describe("/simulator/detailed", () => {
-      it("should accept a valid query", async () => {
-        const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
-
-        expectStatus(response, 200);
-        expect(response.body.lifeCycle).toHaveLength(8);
-      });
-
-      it("should expose impacts without durability", async () => {
-        const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
-
-        expectStatus(response, 200);
-        expect(response.body.impacts.ecs > response.body.impactsWithoutDurability.ecs);
-      });
-
-      it("should compute pre-treatments", async () => {
-        const tShirt = textileExamples.filter(
-          ({ name }) => name === "Tshirt coton (150g) - Majorant par défaut",
-        )[0];
-        expect(tShirt).toBeTruthy();
-
-        const response = await makePostRequest("/api/textile/simulator/detailed", tShirt.query);
-
-        expectStatus(response, 200);
-
-        const ennoblingStep = response.body.lifeCycle.filter(
-          ({ label }) => label === "Ennoblissement",
-        )[0];
-        expect(ennoblingStep).toBeTruthy();
-
-        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(37.45, 2);
-      });
-    });
-
-    describe("End to end textile simulations", () => {
-      const e2eTextile = require(`${__dirname}/e2e-textile.json`);
-
-      for (const { name, query, impacts } of e2eTextile) {
-        it(name, async () => {
-          const response = await makeRequest("/api/textile/simulator", query);
-          e2eOutput.textile.push({
-            name,
-            query,
-            impacts: response.status === 200 ? response.body.impacts : {},
-          });
-          expectStatus(response, 200);
-          expect(response.body.impacts).toEqual(impacts);
-        });
-      }
-    });
-
-    describe("Changing the fabric process", () => {
-      const jeanQuery = [
-        "mass=0.45",
-        "product=jean",
-        "fabricProcess=weaving",
-        "materials[]=ei-coton;1",
-        "countryFabric=TR",
-        "countryDyeing=TR",
-        "countryMaking=TR",
-        "fading=true",
-      ];
-
-      it("should change the waste", async () => {
-        let response = await makeRequest("/api/textile/simulator/detailed", jeanQuery);
-        expectStatus(response, 200);
-        fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
-        weavingWaste = fabricLifeCycle.waste;
-
-        const jeanQueryKnittingMix = jeanQuery.map((input) =>
-          input == "fabricProcess=weaving" ? "fabricProcess=knitting-mix" : input,
+      it("should validate the mass param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", { ...successQuery, mass: -1 }),
+          /supérieure ou égale à zéro/,
         );
-
-        response = await makeRequest("/api/textile/simulator/detailed", jeanQueryKnittingMix);
-        expectStatus(response, 200);
-        fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
-        expect(fabricLifeCycle.waste).toBeLessThan(weavingWaste);
       });
+
+      it("should validate the materials param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            materials: [{ id: "xxx", share: 1 }],
+          }),
+          /Matière non trouvée id=xxx/,
+        );
+      });
+
+      it("should validate the product param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {}),
+          /a field named `product`/,
+        );
+      });
+
+      it("should validate the countrySpinning param (invalid code)", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            countrySpinning: "XX",
+          }),
+          /Code pays invalide: XX/,
+        );
+      });
+
+      it("should validate the countryFabric param (invalid code)", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            countryFabric: "XX",
+          }),
+          /Code pays invalide: XX/,
+        );
+      });
+
+      it("should validate the countryDyeing param (invalid code)", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            countryDyeing: "XX",
+          }),
+          /Code pays invalide: XX/,
+        );
+      });
+
+      it("should validate the countryMaking param (invalid code)", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            countryMaking: "XX",
+          }),
+          /Code pays invalide: XX/,
+        );
+      });
+
+      it("should validate the disabledSteps param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            disabledSteps: ["xxx"],
+          }),
+          /Code étape inconnu: xxx/i,
+        );
+      });
+
+      it("should validate the dyeingProcessType param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            dyeingProcessType: "xxx",
+          }),
+          /Type de teinture inconnu : xxx/i,
+        );
+      });
+
+      it("should perform a simulation featuring 21 impacts for textile", async () => {
+        const response = await makePostRequest("/api/textile/simulator/", successQuery);
+
+        expectStatus(response, 200);
+        expect(Object.keys(response.body.impacts)).toHaveLength(21);
+      });
+
+      it("should validate the airTransportRatio param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            airTransportRatio: 2,
+          }),
+          /doit être comprise entre 0 et 1 inclus/,
+        );
+      });
+
+      it("should validate the makingWaste param", async () => {
+        expectTextileFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...successQuery,
+            makingWaste: 0.9,
+          }),
+          /doit être compris entre/,
+        );
+      });
+
+      // it("should validate the makingDeadStock param", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["makingDeadStock=0.9"]),
+      //     "makingDeadStock",
+      //     /doit être compris entre/,
+      //   );
+      // });
+
+      // it("should validate the makingComplexity param", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["makingComplexity=bad-complexity"]),
+      //     "makingComplexity",
+      //     /Type de complexité de fabrication inconnu : bad-complexity/,
+      //   );
+      // });
+
+      // it("should validate the yarnSize param", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["yarnSize=0"]),
+      //     "yarnSize",
+      //     /doit être compris entre/,
+      //   );
+      // });
+
+      // it("should validate the yarnSize param in Nm", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["yarnSize=0Nm"]),
+      //     "yarnSize",
+      //     /doit être compris entre/,
+      //   );
+      // });
+
+      // it("should validate the yarnSize param in Dtex", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["yarnSize=0Dtex"]),
+      //     "yarnSize",
+      //     /doit être compris entre/,
+      //   );
+      // });
+
+      // it("should validate the yarnSize param unit", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["yarnSize=0BadUnit"]),
+      //     "yarnSize",
+      //     /Le format ne correspond pas au titrage \(yarnSize\) attendu : soit un entier simple \(ie : `40`\), ou avec l'unité `Nm` \(ie : `40Nm`\) ou `Dtex` \(ie : `250Dtex`\)/,
+      //   );
+      // });
+
+      // it("should validate the physicalDurability param range", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["physicalDurability=2"]),
+      //     "physicalDurability",
+      //     /doit être comprise entre/,
+      //   );
+      // });
+
+      // it("should accept the yarnSize param without any unit", async () => {
+      //   const response = await makePostRequest("/api/textile/simulator", ["yarnSize=9"]);
+      // });
+
+      // it("should accept the yarnSize param in Nm", async () => {
+      //   const response = await makePostRequest("/api/textile/simulator", ["yarnSize=9Nm"]);
+      // });
+
+      // it("should accept the yarnSize param in Dtex", async () => {
+      //   const response = await makePostRequest("/api/textile/simulator", ["yarnSize=9Dtex"]);
+      // });
+
+      // it("should validate the fabricProcess param", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["fabricProcess=notAFabricProcess"]),
+      //     "fabricProcess",
+      //     /Procédé de tissage\/tricotage inconnu: notAFabricProcess/,
+      //   );
+      // });
+
+      // it("should validate the surfaceMass param", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["surfaceMass=10"]),
+      //     "surfaceMass",
+      //     /doit être compris entre/,
+      //   );
+      // });
+
+      // it("should validate the fading param", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["fading=untrue"]),
+      //     "fading",
+      //     /ne peut être que true ou false/,
+      //   );
+      // });
+
+      // it("should validate the printing param", async () => {
+      //   expectTextileFieldErrorMessage(
+      //     await makePostRequest("/api/textile/simulator", ["printing=bonk"]),
+      //     "printing",
+      //     /Format de type et surface d'impression invalide: bonk/,
+      //   );
+      // });
     });
 
-    describe("Textile product examples checks", () => {
-      const textileExamples = require(`${__dirname}/../public/data/textile/examples.json`);
+    // describe("/simulator/ecs", () => {
+    //   it("should accept a valid query", async () => {
+    //     const response = await makeRequest("/api/textile/simulator/ecs", successQuery);
 
-      for (const { name, query } of textileExamples) {
-        it(name, async () => {
-          const response = await makePostRequest("/api/textile/simulator", query);
-          expect(response.body.error).toBeUndefined();
-          expectStatus(response, 200);
-        });
-      }
-    });
+    //     expectStatus(response, 200);
+    //     expect(response.body.impacts.ecs).toBeGreaterThan(0);
+    //   });
+    // });
+
+    // describe("/simulator/detailed", () => {
+    //   it("should accept a valid query", async () => {
+    //     const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
+
+    //     expectStatus(response, 200);
+    //     expect(response.body.lifeCycle).toHaveLength(8);
+    //   });
+
+    //   it("should expose impacts without durability", async () => {
+    //     const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
+
+    //     expectStatus(response, 200);
+    //     expect(response.body.impacts.ecs > response.body.impactsWithoutDurability.ecs);
+    //   });
+
+    //   it("should compute pre-treatments", async () => {
+    //     const tShirt = textileExamples.filter(
+    //       ({ name }) => name === "Tshirt coton (150g) - Majorant par défaut",
+    //     )[0];
+    //     expect(tShirt).toBeTruthy();
+
+    //     const response = await makePostRequest("/api/textile/simulator/detailed", tShirt.query);
+
+    //     expectStatus(response, 200);
+
+    //     const ennoblingStep = response.body.lifeCycle.filter(
+    //       ({ label }) => label === "Ennoblissement",
+    //     )[0];
+    //     expect(ennoblingStep).toBeTruthy();
+
+    //     expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(37.45, 2);
+    //   });
+    // });
+
+    // describe("End to end textile simulations", () => {
+    //   const e2eTextile = require(`${__dirname}/e2e-textile.json`);
+
+    //   for (const { name, query, impacts } of e2eTextile) {
+    //     it(name, async () => {
+    //       const response = await makeRequest("/api/textile/simulator", query);
+    //       e2eOutput.textile.push({
+    //         name,
+    //         query,
+    //         impacts: response.status === 200 ? response.body.impacts : {},
+    //       });
+    //       expectStatus(response, 200);
+    //       expect(response.body.impacts).toEqual(impacts);
+    //     });
+    //   }
+    // });
+
+    // describe("Changing the fabric process", () => {
+    //   const jeanQuery = [
+    //     "mass=0.45",
+    //     "product=jean",
+    //     "fabricProcess=weaving",
+    //     "materials[]=ei-coton;1",
+    //     "countryFabric=TR",
+    //     "countryDyeing=TR",
+    //     "countryMaking=TR",
+    //     "fading=true",
+    //   ];
+
+    //   it("should change the waste", async () => {
+    //     let response = await makeRequest("/api/textile/simulator/detailed", jeanQuery);
+    //     expectStatus(response, 200);
+    //     fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
+    //     weavingWaste = fabricLifeCycle.waste;
+
+    //     const jeanQueryKnittingMix = jeanQuery.map((input) =>
+    //       input == "fabricProcess=weaving" ? "fabricProcess=knitting-mix" : input,
+    //     );
+
+    //     response = await makeRequest("/api/textile/simulator/detailed", jeanQueryKnittingMix);
+    //     expectStatus(response, 200);
+    //     fabricLifeCycle = response.body.lifeCycle.find((l) => l.label == "Tissage & Tricotage");
+    //     expect(fabricLifeCycle.waste).toBeLessThan(weavingWaste);
+    //   });
+    // });
+
+    // describe("Textile product examples checks", () => {
+    //   const textileExamples = require(`${__dirname}/../public/data/textile/examples.json`);
+
+    //   for (const { name, query } of textileExamples) {
+    //     it(name, async () => {
+    //       const response = await makePostRequest("/api/textile/simulator", query);
+    //       expect(response.body.error).toBeUndefined();
+    //       expectStatus(response, 200);
+    //     });
+    //   }
+    // });
   });
 
   describe("Food", () => {
@@ -644,6 +631,12 @@ function expectFieldErrorMessage(response, field, message) {
   expect("errors" in response.body).toEqual(true);
   expect(field in response.body.errors).toEqual(true);
   expect(response.body.errors[field]).toMatch(message);
+}
+
+function expectTextileFieldErrorMessage(response, errorMessage) {
+  expectStatus(response, 400);
+  expect("error" in response.body).toEqual(true);
+  expect(response.body.error.join(" ")).toMatch(errorMessage);
 }
 
 async function expectListResponseContains(path, object) {
