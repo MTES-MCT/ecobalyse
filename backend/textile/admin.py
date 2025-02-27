@@ -99,7 +99,7 @@ class ProcessAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        (_("Energy"), {"fields": ("heat_MJ", "elec_pppm", "elec_MJ")}),
+        (_("Energy"), {"fields": ("heatMJ", "elec_pppm", "elecMJ")}),
         (_("Scores"), {"fields": ("pef", "ecs")}),
         (
             _("Impacts"),

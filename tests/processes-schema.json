@@ -23,11 +23,11 @@
       "displayName": {
         "type": ["string", "null"]
       },
-      "elec_MJ": {
+      "elecMJ": {
         "type": "number",
         "minimum": 0
       },
-      "heat_MJ": {
+      "heatMJ": {
         "type": "number",
         "minimum": 0
       },
@@ -107,8 +107,8 @@
       "categories",
       "comment",
       "density",
-      "elec_MJ",
-      "heat_MJ",
+      "elecMJ",
+      "heatMJ",
       "id",
       "impacts",
       "name",
