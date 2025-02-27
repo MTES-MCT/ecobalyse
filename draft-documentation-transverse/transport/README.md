@@ -48,7 +48,7 @@ A des fins de simplification, ces quatre voies ne sont pas toujours proposés po
 
 * La page _Coût environnemental par voie de transport_ détaille le calcul du coût environnemental pour chacune des voies de transport, en fonction des situations.
 * La page Choix des voies modes de transport détaille la façon dont une ou plusieurs voies de transport sont combinées pour une étape de transport donnée.
-* Des pages dédiées par type de produit décrivent les voies de transport proposées à chaque étape, et les éventuels paramètres spécifiques métier
+* Des pages dédiées par secteur décrivent les voies de transport proposées à chaque étape, et les éventuels paramètres spécifiques au secteur :
   * Textile
   * Alimentaire
 
