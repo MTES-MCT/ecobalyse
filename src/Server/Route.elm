@@ -3,6 +3,7 @@ module Server.Route exposing
     , endpoint
     )
 
+import Data.Common.DecodeUtils as DecodeUtils
 import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -105,7 +106,7 @@ decodeFoodQueryBody =
 decodeTextileQueryBody : Db -> Encode.Value -> Result String TextileQuery.Query
 decodeTextileQueryBody db =
     Decode.decodeValue TextileQuery.decode
-        >> Result.mapError Decode.errorToString
+        >> Result.mapError DecodeUtils.betterErrorToString
         >> Result.andThen (Validation.validate db)
         -- Note: Using inputs mapping to act as query validation
         >> Result.andThen (Inputs.fromQuery db)

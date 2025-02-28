@@ -163,7 +163,7 @@ textileEndpoints db =
             |> asTest "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
         , Encode.null
             |> testTextileEndpoint db
-            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the given value:\n\nnull\n\nExpecting an OBJECT with a field named `product`")))
+            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the given value: null Expecting an OBJECT with a field named `product`")))
             |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
         , Query.encode
             { tShirtCotonFrance
@@ -171,7 +171,7 @@ textileEndpoints db =
                     Just <| Unit.physicalDurability 9900000
             }
             |> testTextileEndpoint db
-            |> expectTextileSingleErrorContains "physicalDurability"
+            |> expectTextileErrorContains "physicalDurability"
             |> asTest "should reject invalid physicalDurability"
         , Query.encode
             { tShirtCotonFrance
@@ -198,8 +198,7 @@ textileEndpoints db =
         [ Query.encode
             { tShirtCotonFrance | materials = [] }
             |> testTextileEndpoint db
-            |> Maybe.andThen extractTextileError
-            |> Expect.equal (Just "La liste de matières ne peut être vide")
+            |> expectTextileErrorContains "La liste de matières ne peut être vide"
             |> asTest "should validate empty material list"
         , Query.encode
             { tShirtCotonFrance
@@ -212,8 +211,7 @@ textileEndpoints db =
                     ]
             }
             |> testTextileEndpoint db
-            |> Maybe.andThen extractTextileError
-            |> Expect.equal (Just "Matière non trouvée id=notAnID.")
+            |> expectTextileErrorContains "Matière non trouvée id=notAnID."
             |> asTest "should validate invalid material format"
         , Query.encode
             { tShirtCotonFrance
@@ -226,16 +224,14 @@ textileEndpoints db =
                     ]
             }
             |> testTextileEndpoint db
-            |> Maybe.andThen extractTextileError
-            |> Expect.equal (Just "Code pays invalide: NotACountryCode.")
+            |> expectTextileErrorContains "Code pays invalide: NotACountryCode."
             |> asTest "should validate a material country code"
         , Query.encode
             { tShirtCotonFrance
                 | countryDyeing = Just <| Country.Code "US"
             }
             |> testTextileEndpoint db
-            |> Maybe.andThen extractTextileError
-            |> Expect.equal (Just "Le code pays US n'est pas utilisable dans un contexte Textile.")
+            |> expectTextileErrorContains "Le code pays US n'est pas utilisable dans un contexte Textile."
             |> asTest "should validate that an ingredient country scope is valid"
         , Query.encode
             { tShirtCotonFrance
@@ -273,13 +269,6 @@ textileEndpoints db =
     ]
 
 
-expectTextileErrorContains : String -> Maybe Route.Route -> Expect.Expectation
-expectTextileErrorContains testString =
-    Maybe.andThen extractTextileError
-        >> Maybe.map (String.contains testString)
-        >> Expect.equal (Just True)
-
-
 testEndpoint : StaticDb.Db -> String -> Encode.Value -> String -> Maybe Route.Route
 testEndpoint dbs method body =
     createServerRequest dbs method body
@@ -302,16 +291,6 @@ extractFoodErrors route =
             Nothing
 
 
-extractTextileError : Route.Route -> Maybe String
-extractTextileError route =
-    case route of
-        Route.TextilePostSimulator (Err error) ->
-            Just error
-
-        _ ->
-            Nothing
-
-
 expectFoodSingleErrorContains : String -> Maybe Route.Route -> Expect.Expectation
 expectFoodSingleErrorContains str route =
     case route of
@@ -322,8 +301,8 @@ expectFoodSingleErrorContains str route =
             Expect.fail "No matching error found"
 
 
-expectTextileSingleErrorContains : String -> Maybe Route.Route -> Expect.Expectation
-expectTextileSingleErrorContains str route =
+expectTextileErrorContains : String -> Maybe Route.Route -> Expect.Expectation
+expectTextileErrorContains str route =
     case route of
         Just (Route.TextilePostSimulator (Err err)) ->
             Expect.equal (String.contains str err) True
