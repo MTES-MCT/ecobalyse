@@ -2,7 +2,7 @@
 
 Ecobalyse s'appuie principalement sur les bases de données suivantes :
 
-* Ecoinvent 3.9.1
+* Ecoinvent 3.9.1, modélisation "Allocation, cut-off by classification"
 * Agribalyse 3.1.1 (secteur alimentaire)
 
 De plus, Ecobalyse construit des procédés à partir de ces bases de données et de données sectorielles.
