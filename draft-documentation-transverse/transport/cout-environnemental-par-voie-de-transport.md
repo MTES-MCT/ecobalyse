@@ -60,12 +60,17 @@ Le transport est ensuite calculé de la même façon que si ce pays était direc
 
 <summary>Situation 3 : je ne connais pas le pays de départ et/ou celui d'arrivée pour l'étape considérée</summary>
 
-Je sélectionne "Inconnu (par défaut)"
+Je sélectionne "Inconnu" ou "Inconnu (par défaut)"
 
 Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence avec la méthode PEF ([Product Environmental Footprint Category Rules Guidance](https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf), 7.14.3 From factory to final client) :&#x20;
 
-* 1000 km de transport routier, correspondant au transport de l'usine au port ou aéroport de départ et au transport du port ou aéroport d'arrivée à l'usine ou lieu de stockage d'arrivée
-* 18 000 km de transport maritime ou 10 000 km de transport aérien (pas de transport par train)
+* D\_mer, bateau = 18 000 km
+* D\_mer, camion = D\_mer, camion, défaut
+* D\_air, air = 10 000 km
+* D\_air, camion = D\_air, camion, défaut
+* D\_fer, fer = 10 000 km
+* D\_fer, camion = D\_fer, camion, défaut
+  * En pratique, le transport par train n'est modélisé par défaut pour aucun produit à ce jour et n'est donc pas utilisé pour le transport depuis ou vers un pays inconnu.
 
 </details>
 
