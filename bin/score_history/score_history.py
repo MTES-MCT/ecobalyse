@@ -5,7 +5,6 @@ import logging
 import os
 import pathlib
 import sys
-import uuid
 from contextlib import contextmanager
 from datetime import datetime
 from enum import StrEnum
@@ -544,8 +543,8 @@ def add_all_ingredients_as_examples(examples_input):
     for ingredient in visible_ingredients:
         ingredient_id = ingredient["id"]
         new_example = {
-            "id": str(uuid.uuid5(uuid.NAMESPACE_DNS, ingredient_id)),
-            "name": f"{ingredient_id}",
+            "id": ingredient_id,
+            "name": f"{ingredient['alias']}",
             "category": "raw_ingredient",
             "query": {"ingredients": [{"id": ingredient_id, "mass": 1000}]},
         }
