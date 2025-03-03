@@ -37,7 +37,7 @@ type alias Errors =
 
 
 type alias ParseResult a =
-    Result ( FieldName, String ) a
+    Result ( FieldName, ErrorMessage ) a
 
 
 succeed : a -> Parser a

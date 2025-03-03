@@ -7,9 +7,78 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Textile.Query exposing (Query)
+import Dict exposing (Dict)
 import Mass exposing (Mass)
 import Result.Extra as RE
 import Static.Db exposing (Db)
+
+
+type alias FieldName =
+    String
+
+
+type alias ErrorMessage =
+    String
+
+
+type alias Errors =
+    Dict FieldName ErrorMessage
+
+
+type alias Validation a =
+    Result ( FieldName, ErrorMessage ) a
+
+
+
+-- toErrors : Validation a -> Result Errors a
+-- toErrors =
+--     Result.mapError
+--         (\( key, errorMessage ) ->
+--             Dict.singleton key errorMessage
+--         )
+-- builder :
+--     Result (Dict comparable v) a
+--     -> Result (Dict comparable v) (a -> b)
+--     -> Result (Dict comparable v) b
+-- builder result accumulator =
+--     case ( result, accumulator ) of
+--         ( Err a, Err b ) ->
+--             -- Merge the error dicts
+--             Err <| Dict.union a b
+--         ( Ok _, Err b ) ->
+--             -- No error in "result", but the accumulator is errored: return the errored accumulator
+--             Err b
+--         ( valueOrError, Ok fn ) ->
+--             Result.map fn valueOrError
+-- apply : Parser (ParseResult a) -> Parser (Result Errors (a -> b)) -> Parser (Result Errors b)
+-- apply argParser funcParser =
+--     -- Adapted from https://package.elm-lang.org/packages/elm/url/latest/Url-Parser-Query#map8
+--     -- with the full list of errors returned, instead of just the first one encountered.
+--     Query.map2
+--         builder
+--         (Query.map toErrors argParser)
+--         funcParser
+
+
+type alias Foo =
+    { x : Int, y : Int }
+
+
+apply : String -> Result e a -> Result e (a -> b) -> Result e b
+apply key ra rb =
+    case ( ra, rb ) of
+        ( _, Err x ) ->
+            Err x
+
+        ( o, Ok fn ) ->
+            Result.map fn o
+
+
+validate_ : Foo -> Result Errors Foo
+validate_ _ =
+    Ok Foo
+        |> apply "x" (Ok 1)
+        |> apply "y" (Ok 2)
 
 
 {-| Validate values not fully qualified by their type or applied JSON decoders.
