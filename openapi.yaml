@@ -363,6 +363,7 @@ paths:
                 $ref: "#/components/schemas/PackagingListResponse"
   /food:
     get:
+      deprecated: true
       tags:
         - Alimentaire
       summary: Calcul des impacts environnementaux d'une recette alimentaire
