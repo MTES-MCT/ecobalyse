@@ -83,6 +83,7 @@ describe("API", () => {
       it("should validate the mass param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...successQuery, mass: -1 }),
+          "mass",
           /supérieure ou égale à zéro/,
         );
       });
@@ -93,6 +94,7 @@ describe("API", () => {
             ...successQuery,
             materials: [{ id: "xxx", share: 1 }],
           }),
+          "materials",
           /Matière non trouvée id=xxx/,
         );
       });
@@ -100,6 +102,7 @@ describe("API", () => {
       it("should validate the product param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {}),
+          "decoding",
           /a field named `product`/,
         );
       });
@@ -110,6 +113,7 @@ describe("API", () => {
             ...successQuery,
             countrySpinning: "XX",
           }),
+          "countrySpinning",
           /Code pays invalide: XX/,
         );
       });
@@ -120,6 +124,7 @@ describe("API", () => {
             ...successQuery,
             countryFabric: "XX",
           }),
+          "countryFabric",
           /Code pays invalide: XX/,
         );
       });
@@ -130,6 +135,7 @@ describe("API", () => {
             ...successQuery,
             countryDyeing: "XX",
           }),
+          "countryDyeing",
           /Code pays invalide: XX/,
         );
       });
@@ -140,6 +146,7 @@ describe("API", () => {
             ...successQuery,
             countryMaking: "XX",
           }),
+          "countryMaking",
           /Code pays invalide: XX/,
         );
       });
@@ -150,6 +157,7 @@ describe("API", () => {
             ...successQuery,
             disabledSteps: ["xxx"],
           }),
+          "decoding",
           /Code étape inconnu: xxx/i,
         );
       });
@@ -160,6 +168,7 @@ describe("API", () => {
             ...successQuery,
             dyeingProcessType: "xxx",
           }),
+          "decoding",
           /Type de teinture inconnu : xxx/i,
         );
       });
@@ -177,6 +186,7 @@ describe("API", () => {
             ...successQuery,
             airTransportRatio: 2,
           }),
+          "decoding",
           /doit être comprise entre 0 et 1 inclus/,
         );
       });
@@ -187,6 +197,7 @@ describe("API", () => {
             ...successQuery,
             makingWaste: 0.9,
           }),
+          "makingWaste",
           /doit être compris entre/,
         );
       });
@@ -197,6 +208,7 @@ describe("API", () => {
             ...successQuery,
             makingDeadStock: 0.9,
           }),
+          "makingDeadStock",
           /taux de stocks dormants(.*)doit être compris entre/,
         );
       });
@@ -207,6 +219,7 @@ describe("API", () => {
             ...successQuery,
             makingComplexity: "bad-complexity",
           }),
+          "decoding",
           /Type de complexité de fabrication inconnu : bad-complexity/,
         );
       });
@@ -214,6 +227,7 @@ describe("API", () => {
       it("should validate the yarnSize param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...successQuery, yarnSize: 0 }),
+          "decoding",
           /titrage(.*)doit être compris entre/,
         );
       });
@@ -224,6 +238,7 @@ describe("API", () => {
             ...successQuery,
             physicalDurability: 2,
           }),
+          "physicalDurability",
           /coefficient de durabilité(.*)doit être compris entre/,
         );
       });
@@ -234,6 +249,7 @@ describe("API", () => {
             ...successQuery,
             fabricProcess: "notAFabricProcess",
           }),
+          "decoding",
           /Procédé de tissage\/tricotage inconnu: notAFabricProcess/,
         );
       });
@@ -241,7 +257,8 @@ describe("API", () => {
       it("should validate the surfaceMass param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...successQuery, surfaceMass: 10 }),
-          /masse surfacique(.*)doit être comprise entre/,
+          "surfaceMass",
+          /masse surfacique doit être compris entre/,
         );
       });
 
@@ -251,6 +268,7 @@ describe("API", () => {
             ...successQuery,
             printing: { kind: "bonk", ratio: 1 },
           }),
+          "decoding",
           /Type d'impression inconnu: bonk/,
         );
       });
@@ -261,6 +279,7 @@ describe("API", () => {
             ...successQuery,
             printing: { kind: "pigment", ratio: 2 },
           }),
+          "decoding",
           /Une part(.*)doit être comprise entre 0 et 1/,
         );
       });
@@ -606,10 +625,11 @@ function expectFieldErrorMessage(response, field, message) {
   expect(response.body.errors[field]).toMatch(message);
 }
 
-function expectTextileFieldErrorMessage(response, errorMessage) {
+function expectTextileFieldErrorMessage(response, key, message) {
   expectStatus(response, 400);
-  expect("error" in response.body).toEqual(true);
-  expect(response.body.error.join(" ")).toMatch(errorMessage);
+  expect(response.body).toHaveProperty("error");
+  expect(response.body.error).toHaveProperty(key);
+  expect(response.body.error[key]).toMatch(message);
 }
 
 async function expectListResponseContains(path, object) {
