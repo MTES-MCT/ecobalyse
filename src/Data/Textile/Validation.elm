@@ -17,46 +17,41 @@ import Static.Db exposing (Db)
 -}
 validate : Db -> Query -> Result Validation.Errors Query
 validate db query =
-    let
-        validateMaybe fn maybe =
-            maybe
-                |> Maybe.map (fn >> Result.map Just)
-                |> Maybe.withDefault (Ok Nothing)
-    in
     -- FIXME: import validations from Input.fromQuery
     Ok Query
-        |> Validation.with "airTransportRatio" (Ok query.airTransportRatio)
-        |> Validation.with "business" (Ok query.business)
-        |> Validation.with "countryDyeing" (query.countryDyeing |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
-        |> Validation.with "countryFabric" (query.countryFabric |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
-        |> Validation.with "countryMaking" (query.countryMaking |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
-        |> Validation.with "countrySpinning" (query.countrySpinning |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
-        |> Validation.with "disabledSteps" (Ok query.disabledSteps)
-        |> Validation.with "dyeingProcessType" (Ok query.dyeingProcessType)
-        |> Validation.with "fabricProcess" (Ok query.fabricProcess)
-        |> Validation.with "fading" (Ok query.fading)
-        |> Validation.with "makingComplexity" (Ok query.makingComplexity)
-        |> Validation.with "makingDeadStock" (query.makingDeadStock |> validateMaybe validateMakingDeadStock)
-        |> Validation.with "makingWaste" (query.makingWaste |> validateMaybe validateMakingWaste)
-        |> Validation.with "mass" (validateMass query.mass)
-        |> Validation.with "materials"
+        |> Validation.required "airTransportRatio" (Ok query.airTransportRatio)
+        |> Validation.required "business" (Ok query.business)
+        |> Validation.optional "countryDyeing" query.countryDyeing (Country.validateForScope Scope.Textile db.countries)
+        |> Validation.optional "countryFabric" query.countryFabric (Country.validateForScope Scope.Textile db.countries)
+        |> Validation.optional "countryMaking" query.countryMaking (Country.validateForScope Scope.Textile db.countries)
+        |> Validation.optional "countrySpinning" query.countrySpinning (Country.validateForScope Scope.Textile db.countries)
+        |> Validation.required "disabledSteps" (Ok query.disabledSteps)
+        |> Validation.required "dyeingProcessType" (Ok query.dyeingProcessType)
+        |> Validation.required "fabricProcess" (Ok query.fabricProcess)
+        |> Validation.required "fading" (Ok query.fading)
+        |> Validation.required "makingComplexity" (Ok query.makingComplexity)
+        |> Validation.optional "makingDeadStock" query.makingDeadStock validateMakingDeadStock
+        |> Validation.optional "makingWaste" query.makingWaste validateMakingWaste
+        |> Validation.required "mass" (validateMass query.mass)
+        -- FIXME: nested validation in here
+        |> Validation.required "materials"
             (if List.isEmpty query.materials then
                 Err "La liste de matières ne peut être vide"
 
              else
                 Ok query.materials
             )
-        |> Validation.with "numberOfReferences" (query.numberOfReferences |> validateMaybe validateNumberOfReferences)
-        |> Validation.with "physicalDurability" (query.physicalDurability |> validateMaybe validatePhysicalDurability)
-        |> Validation.with "price" (query.price |> validateMaybe validatePrice)
-        |> Validation.with "printing" (Ok query.printing)
-        |> Validation.with "product" (Ok query.product)
-        -- FIXME: validate surface mass
-        |> Validation.with "surfaceMass" (query.surfaceMass |> validateMaybe validateSurfaceMass)
-        |> Validation.with "traceability" (Ok query.traceability)
-        |> Validation.with "trims" (Component.validateItems db.components query.trims)
-        |> Validation.with "upcycled" (Ok query.upcycled)
-        |> Validation.with "yarnSize" (Ok query.yarnSize)
+        |> Validation.optional "numberOfReferences" query.numberOfReferences validateNumberOfReferences
+        |> Validation.optional "physicalDurability" query.physicalDurability validatePhysicalDurability
+        |> Validation.optional "price" query.price validatePrice
+        |> Validation.required "printing" (Ok query.printing)
+        |> Validation.required "product" (Ok query.product)
+        |> Validation.optional "surfaceMass" query.surfaceMass validateSurfaceMass
+        |> Validation.required "traceability" (Ok query.traceability)
+        |> Validation.required "trims" (Component.validateItems db.components query.trims)
+        |> Validation.required "upcycled" (Ok query.upcycled)
+        -- FIXME: validate yarn size here
+        |> Validation.required "yarnSize" (Ok query.yarnSize)
 
 
 validateMakingDeadStock : Split -> Result String Split
