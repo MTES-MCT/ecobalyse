@@ -1,6 +1,49 @@
 # Changelog
 
 
+## [4.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v3.1.0..v4.0.0) (2025-03-03)
+
+
+
+### 🚀 Features
+
+- Add pre-treatments and update bleaching process ([#898](https://github.com/MTES-MCT/ecobalyse/issues/898))
+- *(textile,ui)* Apply default trims on product category change ([#910](https://github.com/MTES-MCT/ecobalyse/issues/910))
+- Add link to docs in trims section. ([#911](https://github.com/MTES-MCT/ecobalyse/issues/911))
+- Update finishing ([#906](https://github.com/MTES-MCT/ecobalyse/issues/906))
+- *(textile)* Add pre-treatments at the ennobling step. ([#916](https://github.com/MTES-MCT/ecobalyse/issues/916))
+- Update aquatic pollution and pre-treatments computations ([#928](https://github.com/MTES-MCT/ecobalyse/issues/928))
+- [**breaking**] Replace dyeing medium parameter with dyeing process type. ([#941](https://github.com/MTES-MCT/ecobalyse/issues/941))
+- *(food)* Add transport cooling column to ingredients explorer. ([#950](https://github.com/MTES-MCT/ecobalyse/issues/950))
+
+### 🪲 Bug Fixes
+
+- Include trims impacts to score without durability. ([#912](https://github.com/MTES-MCT/ecobalyse/issues/912))
+- *(security)* Upgrade sentry libs to v8.49.0 ([#918](https://github.com/MTES-MCT/ecobalyse/issues/918))
+- Remove the sourceId from the explorer ([#947](https://github.com/MTES-MCT/ecobalyse/issues/947))
+
+### 📚 Documentation
+
+- Add FAQ entry about security & self-hosting. ([#919](https://github.com/MTES-MCT/ecobalyse/issues/919))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(data)* Update fast fashion examples nb of references. ([#908](https://github.com/MTES-MCT/ecobalyse/issues/908))
+- For bleaching set etf to 0 ([#914](https://github.com/MTES-MCT/ecobalyse/issues/914))
+- Check ecobalyse-data sync for PR ([#915](https://github.com/MTES-MCT/ecobalyse/issues/915))
+- Sync ecobalyse-data after bw update ([#920](https://github.com/MTES-MCT/ecobalyse/issues/920))
+- Doubts on the lamb, hide it for now ([#927](https://github.com/MTES-MCT/ecobalyse/issues/927))
+- Upgrade dependencies, 2025, Feb 12. ([#938](https://github.com/MTES-MCT/ecobalyse/issues/938))
+- *(textile)* Remove obsolete waste for material ([#940](https://github.com/MTES-MCT/ecobalyse/issues/940))
+- Use new deployment stack `scalingo-22` ([#939](https://github.com/MTES-MCT/ecobalyse/issues/939))
+- WFLDB export from simapro ([#942](https://github.com/MTES-MCT/ecobalyse/issues/942))
+- Sync from ecobalyse-data#48 ([#944](https://github.com/MTES-MCT/ecobalyse/issues/944))
+- Update wool "nouvelle filière" with new impacts ([#943](https://github.com/MTES-MCT/ecobalyse/issues/943))
+- Convert to camelCase json keys ([#946](https://github.com/MTES-MCT/ecobalyse/issues/946))
+- Enable all verticals in review apps ([#953](https://github.com/MTES-MCT/ecobalyse/issues/953))
+- Update ingredient name in score history ([#948](https://github.com/MTES-MCT/ecobalyse/issues/948))
+
+
 ## [3.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v3.0.0..v3.1.0) (2025-01-23)
 
 
