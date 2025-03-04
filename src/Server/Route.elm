@@ -3,13 +3,12 @@ module Server.Route exposing
     , endpoint
     )
 
-import Data.Common.DecodeUtils as DecodeUtils
 import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Validation as Validation
+import Data.Validation as Validation
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Server.Query as Query
@@ -54,11 +53,11 @@ type Route
     | TextileGetTrimList
       --   POST
       --     Textile Simple version of all impacts (POST, JSON body)
-    | TextilePostSimulator (Result String TextileQuery.Query)
+    | TextilePostSimulator (Result Validation.Errors TextileQuery.Query)
       --     Textile Detailed version for all impacts (POST, JSON body)
-    | TextilePostSimulatorDetailed (Result String TextileQuery.Query)
+    | TextilePostSimulatorDetailed (Result Validation.Errors TextileQuery.Query)
       --     Textile Simple version for one specific impact (POST, JSON body)
-    | TextilePostSimulatorSingle (Result String TextileQuery.Query) Definition.Trigram
+    | TextilePostSimulatorSingle (Result Validation.Errors TextileQuery.Query) Definition.Trigram
 
 
 parser : Db -> Encode.Value -> Parser (Route -> a) a
@@ -103,14 +102,11 @@ decodeFoodQueryBody =
         >> Result.mapError Decode.errorToString
 
 
-decodeTextileQueryBody : Db -> Encode.Value -> Result String TextileQuery.Query
+decodeTextileQueryBody : Db -> Encode.Value -> Result Validation.Errors TextileQuery.Query
 decodeTextileQueryBody db =
     Decode.decodeValue TextileQuery.decode
-        >> Result.mapError DecodeUtils.betterErrorToString
+        >> Result.mapError Validation.fromDecodingError
         >> Result.andThen (Validation.validate db)
-        -- Note: Using inputs mapping to act as query validation
-        >> Result.andThen (Inputs.fromQuery db)
-        >> Result.map Inputs.toQuery
 
 
 endpoint : Db -> Request -> Maybe Route

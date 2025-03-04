@@ -163,7 +163,7 @@ textileEndpoints db =
             |> asTest "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
         , Encode.null
             |> testTextileEndpoint db
-            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Problem with the given value: null Expecting an OBJECT with a field named `product`")))
+            |> expectValidationError "decoding" "Problem with the given value: null Expecting an OBJECT with a field named `product`"
             |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
         , Query.encode
             { tShirtCotonFrance
@@ -171,14 +171,14 @@ textileEndpoints db =
                     Just <| Unit.physicalDurability 9900000
             }
             |> testTextileEndpoint db
-            |> expectTextileErrorContains "physicalDurability"
+            |> expectValidationError "physicalDurability" "x"
             |> asTest "should reject invalid physicalDurability"
         , Query.encode
             { tShirtCotonFrance
                 | countrySpinning = Just (Country.Code "invalid")
             }
             |> testTextileEndpoint db
-            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Code pays invalide: invalid.")))
+            |> expectValidationError "countrySpinning" "Code pays invalide: invalid."
             |> asTest "should reject invalid spinning country"
         , Query.encode
             { tShirtCotonFrance
@@ -191,14 +191,14 @@ textileEndpoints db =
                     ]
             }
             |> testTextileEndpoint db
-            |> Expect.equal (Just (Route.TextilePostSimulator (Err "Code pays invalide: invalid.")))
+            |> expectValidationError "materials" "Code pays invalide: invalid."
             |> asTest "should reject invalid materials country"
         ]
     , describe "materials param checks"
         [ Query.encode
             { tShirtCotonFrance | materials = [] }
             |> testTextileEndpoint db
-            |> expectTextileErrorContains "La liste de matières ne peut être vide"
+            |> expectValidationError "materials" "La liste de matières ne peut être vide"
             |> asTest "should validate empty material list"
         , Query.encode
             { tShirtCotonFrance
@@ -211,7 +211,7 @@ textileEndpoints db =
                     ]
             }
             |> testTextileEndpoint db
-            |> expectTextileErrorContains "Matière non trouvée id=notAnID."
+            |> expectValidationError "materials" "Matière non trouvée id=notAnID."
             |> asTest "should validate invalid material format"
         , Query.encode
             { tShirtCotonFrance
@@ -224,21 +224,22 @@ textileEndpoints db =
                     ]
             }
             |> testTextileEndpoint db
-            |> expectTextileErrorContains "Code pays invalide: NotACountryCode."
+            |> expectValidationError "materials" "Code pays invalide: NotACountryCode."
             |> asTest "should validate a material country code"
         , Query.encode
             { tShirtCotonFrance
                 | countryDyeing = Just <| Country.Code "US"
             }
             |> testTextileEndpoint db
-            |> expectTextileErrorContains "Le code pays US n'est pas utilisable dans un contexte Textile."
+            |> expectValidationError "countryDyeing" "Le code pays US n'est pas utilisable dans un contexte Textile."
             |> asTest "should validate that an ingredient country scope is valid"
         , Query.encode
             { tShirtCotonFrance
                 | physicalDurability = Just <| Unit.physicalDurability 99
             }
             |> testTextileEndpoint db
-            |> expectTextileErrorContains "Le coefficient de durabilité spécifié (99) doit être compris entre 0.67 et 1.45."
+            -- FIXME: these shouldn't be handled at decoding time!!
+            |> expectValidationError "physicalDurability" "Le coefficient de durabilité spécifié (99) doit être compris entre 0.67 et 1.45."
             |> asTest "should validate that the physical durability param is invalid"
         , asTest "should validate that a trim item id is valid" <|
             -- Note: this component UUID doesn't exist
@@ -249,7 +250,7 @@ textileEndpoints db =
                             | trims = [ { id = nonExistentId, quantity = Component.quantityFromInt 1 } ]
                         }
                         |> testTextileEndpoint db
-                        |> expectTextileErrorContains "ed3db03c-f56e-48a8-879c-df522c74d410"
+                        |> expectValidationError "trims" "Aucun composant avec id=ed3db03c-f56e-48a8-879c-df522c74d410"
 
                 Nothing ->
                     Expect.fail "Invalid component id"
@@ -261,7 +262,7 @@ textileEndpoints db =
                             | trims = [ { id = id, quantity = Component.quantityFromInt -1 } ]
                         }
                         |> testTextileEndpoint db
-                        |> expectTextileErrorContains "La quantité doit être un nombre entier positif"
+                        |> expectValidationError "trims" "La quantité doit être un nombre entier positif"
 
                 Nothing ->
                     Expect.fail "Invalid component id"
@@ -301,11 +302,16 @@ expectFoodSingleErrorContains str route =
             Expect.fail "No matching error found"
 
 
-expectTextileErrorContains : String -> Maybe Route.Route -> Expect.Expectation
-expectTextileErrorContains str route =
+expectValidationError : String -> String -> Maybe Route.Route -> Expect.Expectation
+expectValidationError key message route =
     case route of
-        Just (Route.TextilePostSimulator (Err err)) ->
-            Expect.equal (String.contains str err) True
+        Just (Route.TextilePostSimulator (Err dict)) ->
+            case Dict.get key (Debug.log "plop" dict) of
+                Just val ->
+                    Expect.equal val message
+
+                Nothing ->
+                    Expect.fail <| "key " ++ key ++ " missing from errors dict"
 
         _ ->
             Expect.fail "No matching error found"
