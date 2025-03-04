@@ -1,7 +1,16 @@
 # Changelog
 
 
-## [4.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v3.1.0..v4.0.0) (2025-03-03)
+## [4.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.0..v4.0.1) (2025-03-04)
+
+
+
+### ⚙️ Miscellaneous Tasks
+
+- Deprecate textile simulator API GET endpoints. ([#954](https://github.com/MTES-MCT/ecobalyse/issues/954))
+
+
+## [4.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v3.1.0..v4.0.0) (2025-03-04)
 
 
 
