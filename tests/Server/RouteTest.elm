@@ -6,6 +6,7 @@ import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Split as Split
 import Data.Textile.Material as Material
+import Data.Textile.Product as Product
 import Data.Textile.Query as Query exposing (tShirtCotonFrance)
 import Data.Unit as Unit
 import Dict exposing (Dict)
@@ -167,6 +168,13 @@ textileEndpoints db =
             |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
         , Query.encode
             { tShirtCotonFrance
+                | product = Product.idFromString "invalid"
+            }
+            |> testTextileEndpoint db
+            |> expectValidationError "product" "Produit non trouvé id=invalid."
+            |> asTest "should reject invalid product"
+        , Query.encode
+            { tShirtCotonFrance
                 | surfaceMass =
                     Just <| Unit.gramsPerSquareMeter 999
             }
@@ -204,7 +212,9 @@ textileEndpoints db =
         ]
     , describe "materials param checks"
         [ Query.encode
-            { tShirtCotonFrance | materials = [] }
+            { tShirtCotonFrance
+                | materials = []
+            }
             |> testTextileEndpoint db
             |> expectValidationError "materials" "La liste de matières ne peut être vide"
             |> asTest "should validate empty material list"
@@ -314,4 +324,4 @@ expectValidationError key message route =
                     Expect.fail <| "key " ++ key ++ " is missing from errors dict: " ++ Debug.toString dict
 
         _ ->
-            Expect.fail "No matching error found"
+            Expect.fail <| "No matching error found: " ++ Debug.toString route

@@ -6,10 +6,13 @@ import Data.Env as Env
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
-import Data.Textile.Query exposing (Query)
+import Data.Textile.Material as Material
+import Data.Textile.Product as Product
+import Data.Textile.Query exposing (MaterialQuery, Query)
 import Data.Unit as Unit
 import Data.Validation as Validation
 import Mass exposing (Mass)
+import Result.Extra as RE
 import Static.Db exposing (Db)
 
 
@@ -33,19 +36,12 @@ validate db query =
         |> Validation.optional "makingDeadStock" query.makingDeadStock validateMakingDeadStock
         |> Validation.optional "makingWaste" query.makingWaste validateMakingWaste
         |> Validation.required "mass" (validateMass query.mass)
-        -- FIXME: nested validation in here
-        |> Validation.required "materials"
-            (if List.isEmpty query.materials then
-                Err "La liste de matières ne peut être vide"
-
-             else
-                Ok query.materials
-            )
+        |> Validation.required "materials" (validateMaterials db query.materials)
         |> Validation.optional "numberOfReferences" query.numberOfReferences validateNumberOfReferences
         |> Validation.optional "physicalDurability" query.physicalDurability validatePhysicalDurability
         |> Validation.optional "price" query.price validatePrice
         |> Validation.required "printing" (Ok query.printing)
-        |> Validation.required "product" (Ok query.product)
+        |> Validation.required "product" (validateProduct db query.product)
         |> Validation.optional "surfaceMass" query.surfaceMass validateSurfaceMass
         |> Validation.required "traceability" (Ok query.traceability)
         |> Validation.required "trims" (Component.validateItems db.components query.trims)
@@ -83,6 +79,30 @@ validateMass mass =
         Ok mass
 
 
+validateMaterials : Db -> List MaterialQuery -> Result String (List MaterialQuery)
+validateMaterials db materials =
+    if List.isEmpty materials then
+        Err "La liste de matières ne peut être vide"
+
+    else
+        materials
+            |> List.map
+                (\materialQuery ->
+                    Ok MaterialQuery
+                        |> RE.andMap (materialQuery.country |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
+                        |> RE.andMap (db.textile.materials |> Material.findById materialQuery.id |> Result.map .id)
+                        |> RE.andMap (Ok materialQuery.share)
+                        |> RE.andMap (Ok materialQuery.spinning)
+                )
+            |> RE.combine
+
+
+validateMaybe : (a -> Result error a) -> Maybe a -> Result error (Maybe a)
+validateMaybe fn =
+    Maybe.map (fn >> Result.map Just)
+        >> Maybe.withDefault (Ok Nothing)
+
+
 validateNumberOfReferences : Int -> Result String Int
 validateNumberOfReferences =
     validateWithin "Le nombre de références"
@@ -111,6 +131,13 @@ validatePrice =
         , toNumber = Economics.priceToFloat
         , toString = Economics.priceToFloat >> String.fromFloat
         }
+
+
+validateProduct : Db -> Product.Id -> Result String Product.Id
+validateProduct db id =
+    db.textile.products
+        |> Product.findById id
+        |> Result.map .id
 
 
 validateSurfaceMass : Unit.SurfaceMass -> Result String Unit.SurfaceMass

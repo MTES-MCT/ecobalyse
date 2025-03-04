@@ -7,6 +7,7 @@ module Data.Textile.Product exposing
     , encodeId
     , findById
     , getMakingDurationInMinutes
+    , idFromString
     , idToString
     )
 
@@ -78,6 +79,11 @@ findById id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Produit non trouvé id=" ++ idToString id ++ ".")
+
+
+idFromString : String -> Id
+idFromString =
+    Id
 
 
 idToString : Id -> String
