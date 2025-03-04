@@ -171,7 +171,7 @@ textileEndpoints db =
                     Just <| Unit.physicalDurability 9900000
             }
             |> testTextileEndpoint db
-            |> expectValidationError "physicalDurability" "x"
+            |> expectValidationError "physicalDurability" "Le coefficient de durabilité physique doit être compris entre 0.67 et 1.45."
             |> asTest "should reject invalid physicalDurability"
         , Query.encode
             { tShirtCotonFrance
@@ -233,14 +233,6 @@ textileEndpoints db =
             |> testTextileEndpoint db
             |> expectValidationError "countryDyeing" "Le code pays US n'est pas utilisable dans un contexte Textile."
             |> asTest "should validate that an ingredient country scope is valid"
-        , Query.encode
-            { tShirtCotonFrance
-                | physicalDurability = Just <| Unit.physicalDurability 99
-            }
-            |> testTextileEndpoint db
-            -- FIXME: these shouldn't be handled at decoding time!!
-            |> expectValidationError "physicalDurability" "Le coefficient de durabilité spécifié (99) doit être compris entre 0.67 et 1.45."
-            |> asTest "should validate that the physical durability param is invalid"
         , asTest "should validate that a trim item id is valid" <|
             -- Note: this component UUID doesn't exist
             case Component.idFromString "ed3db03c-f56e-48a8-879c-df522c74d410" of
@@ -306,12 +298,12 @@ expectValidationError : String -> String -> Maybe Route.Route -> Expect.Expectat
 expectValidationError key message route =
     case route of
         Just (Route.TextilePostSimulator (Err dict)) ->
-            case Dict.get key (Debug.log "plop" dict) of
+            case Dict.get key dict of
                 Just val ->
                     Expect.equal val message
 
                 Nothing ->
-                    Expect.fail <| "key " ++ key ++ " missing from errors dict"
+                    Expect.fail <| "key " ++ key ++ " is missing from errors dict"
 
         _ ->
             Expect.fail "No matching error found"

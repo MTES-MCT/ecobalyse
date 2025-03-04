@@ -156,22 +156,7 @@ nonPhysicalDurabilityToFloat (NonPhysicalDurability float) =
 decodePhysicalDurability : Decoder PhysicalDurability
 decodePhysicalDurability =
     Decode.float
-        |> Decode.andThen
-            (\float ->
-                if float < physicalDurabilityToFloat (minDurability PhysicalDurability) || float > physicalDurabilityToFloat (maxDurability PhysicalDurability) then
-                    Decode.fail
-                        ("Le coefficient de durabilité spécifié ("
-                            ++ String.fromFloat float
-                            ++ ") doit être compris entre "
-                            ++ String.fromFloat (physicalDurabilityToFloat (minDurability PhysicalDurability))
-                            ++ " et "
-                            ++ String.fromFloat (physicalDurabilityToFloat (maxDurability PhysicalDurability))
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed (physicalDurability float)
-            )
+        |> Decode.map physicalDurability
 
 
 encodePhysicalDurability : PhysicalDurability -> Encode.Value
