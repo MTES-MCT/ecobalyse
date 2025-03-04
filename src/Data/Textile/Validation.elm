@@ -7,6 +7,7 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Textile.Query exposing (Query)
+import Data.Unit as Unit
 import Data.Validation as Validation
 import Mass exposing (Mass)
 import Static.Db exposing (Db)
@@ -46,7 +47,7 @@ validate db query =
                 Ok query.materials
             )
         |> Validation.with "numberOfReferences" (query.numberOfReferences |> validateMaybe validateNumberOfReferences)
-        |> Validation.with "physicalDurability" (Ok query.physicalDurability)
+        |> Validation.with "physicalDurability" (query.physicalDurability |> validateMaybe validatePhysicalDurability)
         |> Validation.with "price" (query.price |> validateMaybe validatePrice)
         |> Validation.with "printing" (Ok query.printing)
         |> Validation.with "product" (Ok query.product)
@@ -93,6 +94,16 @@ validateNumberOfReferences =
         , min = Economics.minNumberOfReferences
         , toNumber = identity
         , toString = String.fromInt
+        }
+
+
+validatePhysicalDurability : Unit.PhysicalDurability -> Result String Unit.PhysicalDurability
+validatePhysicalDurability =
+    validateWithin "Le coefficient de durabilité physique"
+        { max = Unit.maxDurability Unit.PhysicalDurability
+        , min = Unit.minDurability Unit.PhysicalDurability
+        , toNumber = Unit.physicalDurabilityToFloat
+        , toString = Unit.physicalDurabilityToFloat >> String.fromFloat
         }
 
 
