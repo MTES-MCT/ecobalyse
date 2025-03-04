@@ -167,6 +167,14 @@ textileEndpoints db =
             |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
         , Query.encode
             { tShirtCotonFrance
+                | surfaceMass =
+                    Just <| Unit.gramsPerSquareMeter 999
+            }
+            |> testTextileEndpoint db
+            |> expectValidationError "surfaceMass" "La masse surfacique doit être compris entre 80 et 500."
+            |> asTest "should reject invalid surfaceMass"
+        , Query.encode
+            { tShirtCotonFrance
                 | physicalDurability =
                     Just <| Unit.physicalDurability 9900000
             }
@@ -303,7 +311,7 @@ expectValidationError key message route =
                     Expect.equal val message
 
                 Nothing ->
-                    Expect.fail <| "key " ++ key ++ " is missing from errors dict"
+                    Expect.fail <| "key " ++ key ++ " is missing from errors dict: " ++ Debug.toString dict
 
         _ ->
             Expect.fail "No matching error found"
