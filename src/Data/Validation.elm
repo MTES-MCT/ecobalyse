@@ -3,7 +3,8 @@ module Data.Validation exposing
     , encodeErrors
     , fromDecodingError
     , fromErrorString
-    , with
+    , optional
+    , required
     )
 
 import Data.Common.DecodeUtils as DecodeUtils
@@ -39,8 +40,20 @@ fromErrorString =
     Dict.singleton "general"
 
 
-with : String -> Result String a -> Result Errors (a -> b) -> Result Errors b
-with key result accumulator =
+{-| Denote that validation should only be performed if a value is actually provided
+-}
+optional : String -> Maybe a -> (a -> Result String a) -> Result Errors (Maybe a -> b) -> Result Errors b
+optional key maybeValue validator =
+    maybeValue
+        |> Maybe.map (validator >> Result.map Just)
+        |> Maybe.withDefault (Ok Nothing)
+        |> required key
+
+
+{-| Denote a required value to validate
+-}
+required : String -> Result String a -> Result Errors (a -> b) -> Result Errors b
+required key result accumulator =
     case ( result, accumulator ) of
         ( Ok _, Err accFn ) ->
             Err accFn
