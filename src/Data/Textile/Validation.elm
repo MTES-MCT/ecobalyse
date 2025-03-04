@@ -51,7 +51,8 @@ validate db query =
         |> Validation.with "price" (query.price |> validateMaybe validatePrice)
         |> Validation.with "printing" (Ok query.printing)
         |> Validation.with "product" (Ok query.product)
-        |> Validation.with "surfaceMass" (Ok query.surfaceMass)
+        -- FIXME: validate surface mass
+        |> Validation.with "surfaceMass" (query.surfaceMass |> validateMaybe validateSurfaceMass)
         |> Validation.with "traceability" (Ok query.traceability)
         |> Validation.with "trims" (Component.validateItems db.components query.trims)
         |> Validation.with "upcycled" (Ok query.upcycled)
@@ -114,6 +115,16 @@ validatePrice =
         , min = Economics.minPrice
         , toNumber = Economics.priceToFloat
         , toString = Economics.priceToFloat >> String.fromFloat
+        }
+
+
+validateSurfaceMass : Unit.SurfaceMass -> Result String Unit.SurfaceMass
+validateSurfaceMass =
+    validateWithin "La masse surfacique"
+        { max = Unit.maxSurfaceMass
+        , min = Unit.minSurfaceMass
+        , toNumber = Unit.surfaceMassInGramsPerSquareMeters
+        , toString = Unit.surfaceMassInGramsPerSquareMeters >> String.fromInt
         }
 
 

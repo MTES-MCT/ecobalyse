@@ -338,26 +338,6 @@ maxSurfaceMass =
 decodeSurfaceMass : Decoder SurfaceMass
 decodeSurfaceMass =
     Decode.int
-        |> Decode.andThen
-            (\int ->
-                let
-                    surfaceMass =
-                        gramsPerSquareMeter int
-                in
-                if (surfaceMass |> Quantity.lessThan minSurfaceMass) || (surfaceMass |> Quantity.greaterThan maxSurfaceMass) then
-                    Decode.fail
-                        ("La masse surfacique spécifiée ("
-                            ++ String.fromInt int
-                            ++ ") doit être comprise entre "
-                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters minSurfaceMass)
-                            ++ " et "
-                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters maxSurfaceMass)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed int
-            )
         |> Decode.map gramsPerSquareMeter
 
 
