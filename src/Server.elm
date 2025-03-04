@@ -22,6 +22,7 @@ import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.WellKnown exposing (WellKnown)
+import Data.Validation as Validation
 import Json.Encode as Encode
 import Route as WebRoute
 import Server.Query as Query
@@ -60,19 +61,19 @@ sendResponse httpStatus { jsResponseHandler, method, url } body =
         |> output
 
 
-encodeStringError : String -> Encode.Value
-encodeStringError error =
+encodeValidationErrors : Validation.Errors -> Encode.Value
+encodeValidationErrors errors =
     Encode.object
-        [ ( "error", error |> String.lines |> List.filter ((/=) "") |> Encode.list Encode.string )
+        [ ( "error", Validation.encodeErrors errors )
         , ( "documentation", Encode.string apiDocUrl )
         ]
 
 
-toResponse : Result String Encode.Value -> JsonResponse
+toResponse : Result Validation.Errors Encode.Value -> JsonResponse
 toResponse encodedResult =
     case encodedResult of
-        Err error ->
-            ( 400, encodeStringError error )
+        Err errors ->
+            ( 400, encodeValidationErrors errors )
 
         Ok encoded ->
             ( 200, encoded )
@@ -127,6 +128,7 @@ toFoodResults query results =
 executeFoodQuery : Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
 executeFoodQuery db encoder =
     BuilderRecipe.compute db
+        >> Result.mapError Validation.fromErrorString
         >> Result.map (Tuple.second >> encoder)
         >> toResponse
 
@@ -134,6 +136,7 @@ executeFoodQuery db encoder =
 executeTextileQuery : Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
 executeTextileQuery db encoder =
     Simulator.compute db
+        >> Result.mapError Validation.fromErrorString
         >> Result.map encoder
         >> toResponse
 
@@ -273,7 +276,9 @@ handleRequest db request =
             executeFoodQuery db (toFoodResults foodQuery) foodQuery
 
         Just (Route.FoodPostRecipe (Err error)) ->
-            encodeStringError error
+            error
+                |> Validation.fromErrorString
+                |> encodeValidationErrors
                 |> respondWith 400
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
@@ -281,7 +286,7 @@ handleRequest db request =
                 |> executeTextileQuery db (toAllImpactsSimple db.textile.wellKnown)
 
         Just (Route.TextilePostSimulator (Err error)) ->
-            encodeStringError error
+            encodeValidationErrors error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
@@ -289,7 +294,7 @@ handleRequest db request =
                 |> executeTextileQuery db Simulator.encode
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
-            encodeStringError error
+            encodeValidationErrors error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
@@ -297,11 +302,13 @@ handleRequest db request =
                 |> executeTextileQuery db (toSingleImpactSimple db.textile.wellKnown trigram)
 
         Just (Route.TextilePostSimulatorSingle (Err error) _) ->
-            encodeStringError error
+            encodeValidationErrors error
                 |> respondWith 400
 
         Nothing ->
-            encodeStringError "Endpoint doesn't exist"
+            "Endpoint doesn't exist"
+                |> Validation.fromErrorString
+                |> encodeValidationErrors
                 |> respondWith 404
 
 
@@ -311,7 +318,10 @@ update msg =
         Received request ->
             case db request.processes of
                 Err error ->
-                    encodeStringError error |> sendResponse 503 request
+                    error
+                        |> Validation.fromErrorString
+                        |> encodeValidationErrors
+                        |> sendResponse 503 request
 
                 Ok db ->
                     cmdRequest db request

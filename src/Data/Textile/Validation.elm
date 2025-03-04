@@ -7,52 +7,54 @@ import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Textile.Query exposing (Query)
+import Data.Validation as Validation
 import Mass exposing (Mass)
-import Result.Extra as RE
 import Static.Db exposing (Db)
 
 
 {-| Validate values not fully qualified by their type or applied JSON decoders.
 -}
-validate : Db -> Query -> Result String Query
+validate : Db -> Query -> Result Validation.Errors Query
 validate db query =
     let
-        validateMaybe fn =
-            Maybe.map (fn >> Result.map Just)
-                >> Maybe.withDefault (Ok Nothing)
+        validateMaybe fn maybe =
+            maybe
+                |> Maybe.map (fn >> Result.map Just)
+                |> Maybe.withDefault (Ok Nothing)
     in
+    -- FIXME: import validations from Input.fromQuery
     Ok Query
-        |> RE.andMap (Ok query.airTransportRatio)
-        |> RE.andMap (Ok query.business)
-        |> RE.andMap (query.countryDyeing |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
-        |> RE.andMap (query.countryFabric |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
-        |> RE.andMap (query.countryMaking |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
-        |> RE.andMap (query.countrySpinning |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
-        |> RE.andMap (Ok query.disabledSteps)
-        |> RE.andMap (Ok query.dyeingProcessType)
-        |> RE.andMap (Ok query.fabricProcess)
-        |> RE.andMap (Ok query.fading)
-        |> RE.andMap (Ok query.makingComplexity)
-        |> RE.andMap (query.makingDeadStock |> validateMaybe validateMakingDeadStock)
-        |> RE.andMap (query.makingWaste |> validateMaybe validateMakingWaste)
-        |> RE.andMap (validateMass query.mass)
-        |> RE.andMap
+        |> Validation.with "airTransportRatio" (Ok query.airTransportRatio)
+        |> Validation.with "business" (Ok query.business)
+        |> Validation.with "countryDyeing" (query.countryDyeing |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
+        |> Validation.with "countryFabric" (query.countryFabric |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
+        |> Validation.with "countryMaking" (query.countryMaking |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
+        |> Validation.with "countrySpinning" (query.countrySpinning |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
+        |> Validation.with "disabledSteps" (Ok query.disabledSteps)
+        |> Validation.with "dyeingProcessType" (Ok query.dyeingProcessType)
+        |> Validation.with "fabricProcess" (Ok query.fabricProcess)
+        |> Validation.with "fading" (Ok query.fading)
+        |> Validation.with "makingComplexity" (Ok query.makingComplexity)
+        |> Validation.with "makingDeadStock" (query.makingDeadStock |> validateMaybe validateMakingDeadStock)
+        |> Validation.with "makingWaste" (query.makingWaste |> validateMaybe validateMakingWaste)
+        |> Validation.with "mass" (validateMass query.mass)
+        |> Validation.with "materials"
             (if List.isEmpty query.materials then
                 Err "La liste de matières ne peut être vide"
 
              else
                 Ok query.materials
             )
-        |> RE.andMap (query.numberOfReferences |> validateMaybe validateNumberOfReferences)
-        |> RE.andMap (Ok query.physicalDurability)
-        |> RE.andMap (query.price |> validateMaybe validatePrice)
-        |> RE.andMap (Ok query.printing)
-        |> RE.andMap (Ok query.product)
-        |> RE.andMap (Ok query.surfaceMass)
-        |> RE.andMap (Ok query.traceability)
-        |> RE.andMap (Component.validateItems db.components query.trims)
-        |> RE.andMap (Ok query.upcycled)
-        |> RE.andMap (Ok query.yarnSize)
+        |> Validation.with "numberOfReferences" (query.numberOfReferences |> validateMaybe validateNumberOfReferences)
+        |> Validation.with "physicalDurability" (Ok query.physicalDurability)
+        |> Validation.with "price" (query.price |> validateMaybe validatePrice)
+        |> Validation.with "printing" (Ok query.printing)
+        |> Validation.with "product" (Ok query.product)
+        |> Validation.with "surfaceMass" (Ok query.surfaceMass)
+        |> Validation.with "traceability" (Ok query.traceability)
+        |> Validation.with "trims" (Component.validateItems db.components query.trims)
+        |> Validation.with "upcycled" (Ok query.upcycled)
+        |> Validation.with "yarnSize" (Ok query.yarnSize)
 
 
 validateMakingDeadStock : Split -> Result String Split
