@@ -6,8 +6,9 @@ module Server.Route exposing
 import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
+import Data.Textile.Validation as TextileValidation
+import Data.Validation as Validation
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Server.Query as Query
@@ -48,21 +49,15 @@ type Route
     | TextileGetMaterialList
       --     Textile Product list
     | TextileGetProductList
-      --     Textile Simple version of all impacts (GET, query string)
-    | TextileGetSimulator (Result Query.Errors TextileQuery.Query)
-      --     Textile Detailed version for all impacts (GET, query string)
-    | TextileGetSimulatorDetailed (Result Query.Errors TextileQuery.Query)
-      --     Textile Simple version for one specific impact (GET, query string)
-    | TextileGetSimulatorSingle Definition.Trigram (Result Query.Errors TextileQuery.Query)
       --     Textile Trims list
     | TextileGetTrimList
       --   POST
       --     Textile Simple version of all impacts (POST, JSON body)
-    | TextilePostSimulator (Result String TextileQuery.Query)
+    | TextilePostSimulator (Result Validation.Errors TextileQuery.Query)
       --     Textile Detailed version for all impacts (POST, JSON body)
-    | TextilePostSimulatorDetailed (Result String TextileQuery.Query)
+    | TextilePostSimulatorDetailed (Result Validation.Errors TextileQuery.Query)
       --     Textile Simple version for one specific impact (POST, JSON body)
-    | TextilePostSimulatorSingle (Result String TextileQuery.Query) Definition.Trigram
+    | TextilePostSimulatorSingle (Result Validation.Errors TextileQuery.Query) Definition.Trigram
 
 
 parser : Db -> Encode.Value -> Parser (Route -> a) a
@@ -92,12 +87,6 @@ parser db body =
             |> Parser.map TextileGetProductList
         , (s "GET" </> s "textile" </> s "trims")
             |> Parser.map TextileGetTrimList
-        , (s "GET" </> s "textile" </> s "simulator" <?> Query.parseTextileQuery db)
-            |> Parser.map TextileGetSimulator
-        , (s "GET" </> s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery db)
-            |> Parser.map TextileGetSimulatorDetailed
-        , (s "GET" </> s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery db)
-            |> Parser.map TextileGetSimulatorSingle
         , (s "POST" </> s "textile" </> s "simulator")
             |> Parser.map (TextilePostSimulator (decodeTextileQueryBody db body))
         , (s "POST" </> s "textile" </> s "simulator" </> s "detailed")
@@ -113,13 +102,11 @@ decodeFoodQueryBody =
         >> Result.mapError Decode.errorToString
 
 
-decodeTextileQueryBody : Db -> Encode.Value -> Result String TextileQuery.Query
+decodeTextileQueryBody : Db -> Encode.Value -> Result Validation.Errors TextileQuery.Query
 decodeTextileQueryBody db =
     Decode.decodeValue TextileQuery.decode
-        >> Result.mapError Decode.errorToString
-        -- Note: Using inputs mapping to act as query validation
-        >> Result.andThen (Inputs.fromQuery db)
-        >> Result.map Inputs.toQuery
+        >> Result.mapError Validation.fromDecodingError
+        >> Result.andThen (TextileValidation.validate db)
 
 
 endpoint : Db -> Request -> Maybe Route

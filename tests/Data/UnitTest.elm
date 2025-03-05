@@ -19,19 +19,7 @@ expectImpactFloat value =
 suite : Test
 suite =
     describe "Data.Unit"
-        [ describe "Decoder validation"
-            [ "-7"
-                |> Decode.decodeString Unit.decodePhysicalDurability
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
-                |> asTest "should discard erroneous Durability value"
-            , "8868687687"
-                |> Decode.decodeString Unit.decodeSurfaceMass
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
-                |> asTest "should discard erroneous SurfaceMass value"
-            ]
-        , describe "Impact"
+        [ describe "Impact"
             [ describe "Unit.impactFromFloat"
                 [ Unit.impact 1
                     |> Unit.impactToFloat

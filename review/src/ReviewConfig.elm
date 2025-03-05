@@ -29,6 +29,7 @@ config =
 
     -- NoDebug
     , NoDebug.TodoOrToString.rule
+        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
         |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
 
     -- Common

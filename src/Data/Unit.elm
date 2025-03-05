@@ -56,7 +56,6 @@ module Data.Unit exposing
     , threadDensityLow
     , threadDensityToFloat
     , threadDensityToInt
-    , yarnSizeGramsPer10km
     , yarnSizeInGrams
     , yarnSizeInKilometers
     , yarnSizeKilometersPerKg
@@ -157,22 +156,7 @@ nonPhysicalDurabilityToFloat (NonPhysicalDurability float) =
 decodePhysicalDurability : Decoder PhysicalDurability
 decodePhysicalDurability =
     Decode.float
-        |> Decode.andThen
-            (\float ->
-                if float < physicalDurabilityToFloat (minDurability PhysicalDurability) || float > physicalDurabilityToFloat (maxDurability PhysicalDurability) then
-                    Decode.fail
-                        ("Le coefficient de durabilité spécifié ("
-                            ++ String.fromFloat float
-                            ++ ") doit être compris entre "
-                            ++ String.fromFloat (physicalDurabilityToFloat (minDurability PhysicalDurability))
-                            ++ " et "
-                            ++ String.fromFloat (physicalDurabilityToFloat (maxDurability PhysicalDurability))
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed (physicalDurability float)
-            )
+        |> Decode.map physicalDurability
 
 
 encodePhysicalDurability : PhysicalDurability -> Encode.Value
@@ -199,12 +183,6 @@ yarnSizeKilometersPerKg kilometers =
     Quantity.rate (Length.kilometers kilometers) Mass.kilogram
 
 
-yarnSizeGramsPer10km : Float -> YarnSize
-yarnSizeGramsPer10km weight =
-    -- The Dtex unit is the weight in grams of 10000 meters
-    Quantity.rate (Length.meters 10000) (Mass.grams weight)
-
-
 minYarnSize : YarnSize
 minYarnSize =
     yarnSizeKilometersPerKg 9
@@ -218,14 +196,16 @@ maxYarnSize =
 yarnSizeInKilometers : YarnSize -> Float
 yarnSizeInKilometers yarnSize =
     -- Used to display the value using the Nm unit
-    Quantity.at yarnSize Mass.kilogram
+    Mass.kilogram
+        |> Quantity.at yarnSize
         |> Length.inKilometers
 
 
 yarnSizeInGrams : YarnSize -> Float
 yarnSizeInGrams yarnSize =
     -- Used to display the value using the Dtex unit
-    Quantity.at_ yarnSize (Length.meters 10000)
+    Length.meters 10000
+        |> Quantity.at_ yarnSize
         |> Mass.inGrams
 
 
@@ -237,26 +217,6 @@ encodeYarnSize =
 decodeYarnSize : Decoder YarnSize
 decodeYarnSize =
     Decode.float
-        |> Decode.andThen
-            (\float ->
-                let
-                    yarnSize =
-                        yarnSizeKilometersPerKg float
-                in
-                if (yarnSize |> Quantity.lessThan minYarnSize) || (yarnSize |> Quantity.greaterThan maxYarnSize) then
-                    Decode.fail
-                        ("Le titrage spécifié ("
-                            ++ String.fromFloat float
-                            ++ ") doit être compris entre "
-                            ++ String.fromFloat (yarnSizeInKilometers minYarnSize)
-                            ++ " et "
-                            ++ String.fromFloat (yarnSizeInKilometers maxYarnSize)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed float
-            )
         |> Decode.map yarnSizeKilometersPerKg
 
 
@@ -360,26 +320,6 @@ maxSurfaceMass =
 decodeSurfaceMass : Decoder SurfaceMass
 decodeSurfaceMass =
     Decode.int
-        |> Decode.andThen
-            (\int ->
-                let
-                    surfaceMass =
-                        gramsPerSquareMeter int
-                in
-                if (surfaceMass |> Quantity.lessThan minSurfaceMass) || (surfaceMass |> Quantity.greaterThan maxSurfaceMass) then
-                    Decode.fail
-                        ("La masse surfacique spécifiée ("
-                            ++ String.fromInt int
-                            ++ ") doit être comprise entre "
-                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters minSurfaceMass)
-                            ++ " et "
-                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters maxSurfaceMass)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed int
-            )
         |> Decode.map gramsPerSquareMeter
 
 

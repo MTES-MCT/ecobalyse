@@ -5,7 +5,6 @@ module Data.Textile.Printing exposing
     , defaultRatio
     , encode
     , fromString
-    , fromStringParam
     , kindLabel
     , toFullLabel
     , toString
@@ -14,6 +13,7 @@ module Data.Textile.Printing exposing
 import Data.Split as Split exposing (Split)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
+import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 
 
@@ -30,9 +30,9 @@ type alias Printing =
 
 decode : Decoder Printing
 decode =
-    Decode.map2 Printing
-        (Decode.field "kind" decodeKind)
-        (Decode.field "ratio" Split.decodeFloat)
+    Decode.succeed Printing
+        |> JDP.required "kind" decodeKind
+        |> JDP.optional "ratio" Split.decodeFloat defaultRatio
 
 
 decodeKind : Decoder Kind
@@ -57,38 +57,6 @@ encode v =
 encodeKind : Kind -> Encode.Value
 encodeKind =
     toString >> Encode.string
-
-
-fromStringParam : String -> Result String Printing
-fromStringParam string =
-    let
-        toRatio s =
-            case String.toFloat s of
-                Just float ->
-                    if float > 0 && float <= 1 then
-                        Split.fromFloat float
-
-                    else
-                        Err "Le ratio de surface d'impression doit être supérieur à zéro et inférieur à 1."
-
-                Nothing ->
-                    Err <| "Ratio de surface teinte invalide: " ++ s
-    in
-    case String.split ";" string of
-        [ "pigment" ] ->
-            Ok { kind = Pigment, ratio = defaultRatio }
-
-        [ "substantive" ] ->
-            Ok { kind = Substantive, ratio = defaultRatio }
-
-        [ "pigment", str ] ->
-            str |> toRatio |> Result.map (Printing Pigment)
-
-        [ "substantive", str ] ->
-            str |> toRatio |> Result.map (Printing Substantive)
-
-        _ ->
-            Err <| "Format de type et surface d'impression invalide: " ++ string
 
 
 fromString : String -> Result String Kind
