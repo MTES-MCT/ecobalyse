@@ -227,7 +227,7 @@ describe("API", () => {
       it("should validate the yarnSize param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...successQuery, yarnSize: 0 }),
-          "decoding",
+          "yarnSize",
           /titrage(.*)doit être compris entre/,
         );
       });

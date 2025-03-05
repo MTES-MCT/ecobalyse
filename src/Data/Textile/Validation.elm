@@ -47,7 +47,7 @@ validate db query =
         |> Validation.list "trims" query.trims (Component.validateItem db.components)
         |> Validation.accept "upcycled" query.upcycled
         -- FIXME: validate yarn size here
-        |> Validation.validate "yarnSize" (Ok query.yarnSize)
+        |> Validation.maybe "yarnSize" query.yarnSize validateYarnSize
 
 
 validateMakingDeadStock : Split -> Result String Split
@@ -145,4 +145,14 @@ validateSurfaceMass =
         , min = Unit.minSurfaceMass
         , toNumber = Unit.surfaceMassInGramsPerSquareMeters
         , toString = Unit.surfaceMassInGramsPerSquareMeters >> String.fromInt
+        }
+
+
+validateYarnSize : Unit.YarnSize -> Result String Unit.YarnSize
+validateYarnSize =
+    Validation.validateWithin "Le titrage"
+        { max = Unit.maxYarnSize
+        , min = Unit.minYarnSize
+        , toNumber = Unit.yarnSizeInKilometers
+        , toString = Unit.yarnSizeInKilometers >> String.fromFloat
         }
