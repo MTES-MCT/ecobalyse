@@ -22,37 +22,37 @@ validate : Db -> Query -> Result Validation.Errors Query
 validate db query =
     -- FIXME: import validations from Input.fromQuery
     Ok Query
-        |> Validation.required "airTransportRatio" (Ok query.airTransportRatio)
-        |> Validation.required "business" (Ok query.business)
-        |> Validation.optional "countryDyeing" query.countryDyeing (Country.validateForScope Scope.Textile db.countries)
-        |> Validation.optional "countryFabric" query.countryFabric (Country.validateForScope Scope.Textile db.countries)
-        |> Validation.optional "countryMaking" query.countryMaking (Country.validateForScope Scope.Textile db.countries)
-        |> Validation.optional "countrySpinning" query.countrySpinning (Country.validateForScope Scope.Textile db.countries)
-        |> Validation.required "disabledSteps" (Ok query.disabledSteps)
-        |> Validation.required "dyeingProcessType" (Ok query.dyeingProcessType)
-        |> Validation.required "fabricProcess" (Ok query.fabricProcess)
-        |> Validation.required "fading" (Ok query.fading)
-        |> Validation.required "makingComplexity" (Ok query.makingComplexity)
-        |> Validation.optional "makingDeadStock" query.makingDeadStock validateMakingDeadStock
-        |> Validation.optional "makingWaste" query.makingWaste validateMakingWaste
-        |> Validation.required "mass" (validateMass query.mass)
-        |> Validation.required "materials" (validateMaterials db query.materials)
-        |> Validation.optional "numberOfReferences" query.numberOfReferences validateNumberOfReferences
-        |> Validation.optional "physicalDurability" query.physicalDurability validatePhysicalDurability
-        |> Validation.optional "price" query.price validatePrice
-        |> Validation.required "printing" (Ok query.printing)
-        |> Validation.required "product" (validateProduct db query.product)
-        |> Validation.optional "surfaceMass" query.surfaceMass validateSurfaceMass
-        |> Validation.required "traceability" (Ok query.traceability)
-        |> Validation.required "trims" (Component.validateItems db.components query.trims)
-        |> Validation.required "upcycled" (Ok query.upcycled)
+        |> Validation.maybe "airTransportRatio" query.airTransportRatio Ok
+        |> Validation.maybe "business" query.business Ok
+        |> Validation.maybe "countryDyeing" query.countryDyeing (Country.validateForScope Scope.Textile db.countries)
+        |> Validation.maybe "countryFabric" query.countryFabric (Country.validateForScope Scope.Textile db.countries)
+        |> Validation.maybe "countryMaking" query.countryMaking (Country.validateForScope Scope.Textile db.countries)
+        |> Validation.maybe "countrySpinning" query.countrySpinning (Country.validateForScope Scope.Textile db.countries)
+        |> Validation.list "disabledSteps" query.disabledSteps Ok
+        |> Validation.validate "dyeingProcessType" (Ok query.dyeingProcessType)
+        |> Validation.validate "fabricProcess" (Ok query.fabricProcess)
+        |> Validation.validate "fading" (Ok query.fading)
+        |> Validation.validate "makingComplexity" (Ok query.makingComplexity)
+        |> Validation.maybe "makingDeadStock" query.makingDeadStock validateMakingDeadStock
+        |> Validation.maybe "makingWaste" query.makingWaste validateMakingWaste
+        |> Validation.validate "mass" (validateMass query.mass)
+        |> Validation.nonEmptyList "materials" query.materials (validateMaterialQuery db)
+        |> Validation.maybe "numberOfReferences" query.numberOfReferences validateNumberOfReferences
+        |> Validation.maybe "physicalDurability" query.physicalDurability validatePhysicalDurability
+        |> Validation.maybe "price" query.price validatePrice
+        |> Validation.validate "printing" (Ok query.printing)
+        |> Validation.validate "product" (validateProduct db query.product)
+        |> Validation.maybe "surfaceMass" query.surfaceMass validateSurfaceMass
+        |> Validation.validate "traceability" (Ok query.traceability)
+        |> Validation.list "trims" query.trims (Component.validateItem db.components)
+        |> Validation.validate "upcycled" (Ok query.upcycled)
         -- FIXME: validate yarn size here
-        |> Validation.required "yarnSize" (Ok query.yarnSize)
+        |> Validation.validate "yarnSize" (Ok query.yarnSize)
 
 
 validateMakingDeadStock : Split -> Result String Split
 validateMakingDeadStock =
-    validateWithin "Le taux de stocks dormants en confection"
+    Validation.validateWithin "Le taux de stocks dormants en confection"
         { max = Env.maxMakingDeadStockRatio
         , min = Env.minMakingDeadStockRatio
         , toNumber = Split.toFloat
@@ -62,7 +62,7 @@ validateMakingDeadStock =
 
 validateMakingWaste : Split -> Result String Split
 validateMakingWaste =
-    validateWithin "Le taux de perte en confection"
+    Validation.validateWithin "Le taux de perte en confection"
         { max = Env.maxMakingWasteRatio
         , min = Env.minMakingWasteRatio
         , toNumber = Split.toFloat
@@ -79,22 +79,20 @@ validateMass mass =
         Ok mass
 
 
-validateMaterials : Db -> List MaterialQuery -> Result String (List MaterialQuery)
-validateMaterials db materials =
-    if List.isEmpty materials then
-        Err "La liste de matières ne peut être vide"
-
-    else
-        materials
-            |> List.map
-                (\materialQuery ->
-                    Ok MaterialQuery
-                        |> RE.andMap (materialQuery.country |> validateMaybe (Country.validateForScope Scope.Textile db.countries))
-                        |> RE.andMap (db.textile.materials |> Material.findById materialQuery.id |> Result.map .id)
-                        |> RE.andMap (Ok materialQuery.share)
-                        |> RE.andMap (Ok materialQuery.spinning)
-                )
-            |> RE.combine
+validateMaterialQuery : Db -> MaterialQuery -> Result String MaterialQuery
+validateMaterialQuery db materialQuery =
+    Ok MaterialQuery
+        |> RE.andMap
+            (materialQuery.country
+                |> validateMaybe (Country.validateForScope Scope.Textile db.countries)
+            )
+        |> RE.andMap
+            (db.textile.materials
+                |> Material.findById materialQuery.id
+                |> Result.map .id
+            )
+        |> RE.andMap (Ok materialQuery.share)
+        |> RE.andMap (Ok materialQuery.spinning)
 
 
 validateMaybe : (a -> Result error a) -> Maybe a -> Result error (Maybe a)
@@ -105,7 +103,7 @@ validateMaybe fn =
 
 validateNumberOfReferences : Int -> Result String Int
 validateNumberOfReferences =
-    validateWithin "Le nombre de références"
+    Validation.validateWithin "Le nombre de références"
         { max = Economics.maxNumberOfReferences
         , min = Economics.minNumberOfReferences
         , toNumber = identity
@@ -115,7 +113,7 @@ validateNumberOfReferences =
 
 validatePhysicalDurability : Unit.PhysicalDurability -> Result String Unit.PhysicalDurability
 validatePhysicalDurability =
-    validateWithin "Le coefficient de durabilité physique"
+    Validation.validateWithin "Le coefficient de durabilité physique"
         { max = Unit.maxDurability Unit.PhysicalDurability
         , min = Unit.minDurability Unit.PhysicalDurability
         , toNumber = Unit.physicalDurabilityToFloat
@@ -125,7 +123,7 @@ validatePhysicalDurability =
 
 validatePrice : Economics.Price -> Result String Economics.Price
 validatePrice =
-    validateWithin "Le prix unitaire"
+    Validation.validateWithin "Le prix unitaire"
         { max = Economics.maxPrice
         , min = Economics.minPrice
         , toNumber = Economics.priceToFloat
@@ -142,24 +140,9 @@ validateProduct db id =
 
 validateSurfaceMass : Unit.SurfaceMass -> Result String Unit.SurfaceMass
 validateSurfaceMass =
-    validateWithin "La masse surfacique"
+    Validation.validateWithin "La masse surfacique"
         { max = Unit.maxSurfaceMass
         , min = Unit.minSurfaceMass
         , toNumber = Unit.surfaceMassInGramsPerSquareMeters
         , toString = Unit.surfaceMassInGramsPerSquareMeters >> String.fromInt
         }
-
-
-validateWithin : String -> { max : a, min : a, toNumber : a -> number, toString : a -> String } -> a -> Result String a
-validateWithin what { max, min, toNumber, toString } value =
-    if toNumber value < toNumber min || toNumber value > toNumber max then
-        Err <|
-            what
-                ++ " doit être compris entre "
-                ++ toString min
-                ++ " et "
-                ++ toString max
-                ++ "."
-
-    else
-        Ok value

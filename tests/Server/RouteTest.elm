@@ -216,7 +216,7 @@ textileEndpoints db =
                 | materials = []
             }
             |> testTextileEndpoint db
-            |> expectValidationError "materials" "La liste de matières ne peut être vide"
+            |> expectValidationError "materials" "La liste 'materials' ne peut pas être vide."
             |> asTest "should validate empty material list"
         , Query.encode
             { tShirtCotonFrance
