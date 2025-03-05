@@ -196,14 +196,16 @@ maxYarnSize =
 yarnSizeInKilometers : YarnSize -> Float
 yarnSizeInKilometers yarnSize =
     -- Used to display the value using the Nm unit
-    Quantity.at yarnSize Mass.kilogram
+    Mass.kilogram
+        |> Quantity.at yarnSize
         |> Length.inKilometers
 
 
 yarnSizeInGrams : YarnSize -> Float
 yarnSizeInGrams yarnSize =
     -- Used to display the value using the Dtex unit
-    Quantity.at_ yarnSize (Length.meters 10000)
+    Length.meters 10000
+        |> Quantity.at_ yarnSize
         |> Mass.inGrams
 
 
@@ -215,26 +217,6 @@ encodeYarnSize =
 decodeYarnSize : Decoder YarnSize
 decodeYarnSize =
     Decode.float
-        |> Decode.andThen
-            (\float ->
-                let
-                    yarnSize =
-                        yarnSizeKilometersPerKg float
-                in
-                if (yarnSize |> Quantity.lessThan minYarnSize) || (yarnSize |> Quantity.greaterThan maxYarnSize) then
-                    Decode.fail
-                        ("Le titrage spécifié ("
-                            ++ String.fromFloat float
-                            ++ ") doit être compris entre "
-                            ++ String.fromFloat (yarnSizeInKilometers minYarnSize)
-                            ++ " et "
-                            ++ String.fromFloat (yarnSizeInKilometers maxYarnSize)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed float
-            )
         |> Decode.map yarnSizeKilometersPerKg
 
 
