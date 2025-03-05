@@ -1,5 +1,6 @@
 module Data.Validation exposing
     ( Errors
+    , accept
     , encodeErrors
     , fromDecodingError
     , fromErrorString
@@ -27,6 +28,14 @@ type alias ErrorMessage =
 
 type alias Errors =
     Dict FieldName ErrorMessage
+
+
+{-| Skip validation for this value. This is useful when a value is supposed to have already
+been validated, eg. by a JSON decoder.
+-}
+accept : String -> a -> Result Errors (a -> b) -> Result Errors b
+accept key value =
+    validate key (Ok value)
 
 
 encodeErrors : Errors -> Encode.Value

@@ -22,7 +22,14 @@ type alias TestList =
 suite : Test
 suite =
     describe "Validation"
-        [ describe "list"
+        [ describe "accept"
+            [ Ok TestSimple
+                |> Validation.accept "x" 1
+                |> Validation.accept "y" 2
+                |> Expect.equal (Ok { x = 1, y = 2 })
+                |> asTest "should accept direct values"
+            ]
+        , describe "list"
             [ Ok TestList
                 |> Validation.list "list" [ 1 ] Ok
                 |> Expect.equal (Ok { list = [ 1 ] })
