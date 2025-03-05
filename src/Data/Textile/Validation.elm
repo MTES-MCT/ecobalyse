@@ -22,17 +22,17 @@ validate : Db -> Query -> Result Validation.Errors Query
 validate db query =
     -- FIXME: import validations from Input.fromQuery
     Ok Query
-        |> Validation.maybe "airTransportRatio" query.airTransportRatio Ok
-        |> Validation.maybe "business" query.business Ok
+        |> Validation.accept "airTransportRatio" query.airTransportRatio
+        |> Validation.accept "business" query.business
         |> Validation.maybe "countryDyeing" query.countryDyeing (Country.validateForScope Scope.Textile db.countries)
         |> Validation.maybe "countryFabric" query.countryFabric (Country.validateForScope Scope.Textile db.countries)
         |> Validation.maybe "countryMaking" query.countryMaking (Country.validateForScope Scope.Textile db.countries)
         |> Validation.maybe "countrySpinning" query.countrySpinning (Country.validateForScope Scope.Textile db.countries)
-        |> Validation.list "disabledSteps" query.disabledSteps Ok
-        |> Validation.validate "dyeingProcessType" (Ok query.dyeingProcessType)
-        |> Validation.validate "fabricProcess" (Ok query.fabricProcess)
-        |> Validation.validate "fading" (Ok query.fading)
-        |> Validation.validate "makingComplexity" (Ok query.makingComplexity)
+        |> Validation.accept "disabledSteps" query.disabledSteps
+        |> Validation.accept "dyeingProcessType" query.dyeingProcessType
+        |> Validation.accept "fabricProcess" query.fabricProcess
+        |> Validation.accept "fading" query.fading
+        |> Validation.accept "makingComplexity" query.makingComplexity
         |> Validation.maybe "makingDeadStock" query.makingDeadStock validateMakingDeadStock
         |> Validation.maybe "makingWaste" query.makingWaste validateMakingWaste
         |> Validation.validate "mass" (validateMass query.mass)
@@ -40,12 +40,12 @@ validate db query =
         |> Validation.maybe "numberOfReferences" query.numberOfReferences validateNumberOfReferences
         |> Validation.maybe "physicalDurability" query.physicalDurability validatePhysicalDurability
         |> Validation.maybe "price" query.price validatePrice
-        |> Validation.validate "printing" (Ok query.printing)
+        |> Validation.accept "printing" query.printing
         |> Validation.validate "product" (validateProduct db query.product)
         |> Validation.maybe "surfaceMass" query.surfaceMass validateSurfaceMass
         |> Validation.validate "traceability" (Ok query.traceability)
         |> Validation.list "trims" query.trims (Component.validateItem db.components)
-        |> Validation.validate "upcycled" (Ok query.upcycled)
+        |> Validation.accept "upcycled" query.upcycled
         -- FIXME: validate yarn size here
         |> Validation.validate "yarnSize" (Ok query.yarnSize)
 
