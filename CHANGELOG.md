@@ -1,6 +1,19 @@
 # Changelog
 
 
+## [4.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.1..v4.1.0) (2025-03-05)
+
+
+
+### 🚀 Features
+
+- *(object)* Add plastic transformation process ([#949](https://github.com/MTES-MCT/ecobalyse/issues/949))
+
+### 🪲 Bug Fixes
+
+- Explicit strategies and htc/htn fixes ([#952](https://github.com/MTES-MCT/ecobalyse/issues/952))
+
+
 ## [4.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.0..v4.0.1) (2025-03-04)
 
 
