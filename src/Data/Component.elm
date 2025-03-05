@@ -31,7 +31,7 @@ module Data.Component exposing
     , itemToString
     , quantityFromInt
     , quantityToInt
-    , validateItems
+    , validateItem
     )
 
 import Data.Impact as Impact exposing (Impacts)
@@ -477,18 +477,14 @@ extractMass (Results { mass }) =
     mass
 
 
-validateItems : List Component -> List Item -> Result String (List Item)
-validateItems components =
-    List.map
-        (\item ->
-            findById item.id components
-                |> Result.andThen
-                    (always <|
-                        if quantityToInt item.quantity < 1 then
-                            Err "La quantité doit être un nombre entier positif"
+validateItem : List Component -> Item -> Result String Item
+validateItem components item =
+    findById item.id components
+        |> Result.andThen
+            (always <|
+                if quantityToInt item.quantity < 1 then
+                    Err "La quantité doit être un nombre entier positif"
 
-                        else
-                            Ok item
-                    )
-        )
-        >> RE.combine
+                else
+                    Ok item
+            )

@@ -7,7 +7,7 @@ import Data.Food.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Textile.Query as TextileQuery
-import Data.Textile.Validation as Validation
+import Data.Textile.Validation as TextileValidation
 import Data.Validation as Validation
 import Json.Decode as Decode
 import Json.Encode as Encode
@@ -106,7 +106,7 @@ decodeTextileQueryBody : Db -> Encode.Value -> Result Validation.Errors TextileQ
 decodeTextileQueryBody db =
     Decode.decodeValue TextileQuery.decode
         >> Result.mapError Validation.fromDecodingError
-        >> Result.andThen (Validation.validate db)
+        >> Result.andThen (TextileValidation.validate db)
 
 
 endpoint : Db -> Request -> Maybe Route
