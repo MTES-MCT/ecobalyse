@@ -55,14 +55,24 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [  { date = "26 février 2025"
+    [ { date = "26 février 2025"
       , level = "major"
-      , domains = [ "Textile" ]
-      , md = """Standardisation des noms de champs dans les réponses API :
+      , domains = [ "Alimentaire", "Textile" ]
+      , md = """Les points d'entrée utilisant les paramètres passés en query string pour effectuer des calculs
+      sont dépréciés, leur équivalent `POST`/`JSON` leur étant désormais préférés\u{00A0}:
+- `GET /food` est déprécié
+- `GET /textile/simulator` est déprécié
+- `GET /textile/simulator/{impact}` est déprécié
+- `GET /textile/simulator/detailed` est déprécié
+
+                **Note: ces points d'entrée seront supprimés dans la prochaine version majeure de l'application.**
+
+                D'autre part et par souci de cohérence et de consistance, certains noms de champs utilisent
+                désormais le `camelCase` dans les réponses API\u{00A0}:
 - `elec_kWh` devient `elecKWh`
 - `heat_MJ` devient `heatMJ`"""
-      },
-      { date = "17 février 2025"
+      }
+    , { date = "17 février 2025"
       , level = "major"
       , domains = [ "Textile" ]
       , md = """Le paramètre `dyeingMedium`, qui permettait de sélectionner le support de teinture,
