@@ -104,7 +104,7 @@ validateWithin what { max, min, toNumber, toString } value =
     if toNumber value < toNumber min || toNumber value > toNumber max then
         Err <|
             what
-                ++ " doit être compris entre "
+                ++ " doit être compris(e) entre "
                 ++ toString min
                 ++ " et "
                 ++ toString max
