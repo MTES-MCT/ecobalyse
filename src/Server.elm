@@ -9,8 +9,8 @@ import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
-import Data.Food.Query as BuilderQuery
-import Data.Food.Recipe as BuilderRecipe
+import Data.Food.Query as FoodQuery
+import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -25,7 +25,6 @@ import Data.Textile.WellKnown exposing (WellKnown)
 import Data.Validation as Validation
 import Json.Encode as Encode
 import Route as WebRoute
-import Server.Query as Query
 import Server.Request exposing (Request)
 import Server.Route as Route
 import Static.Db exposing (Db, db)
@@ -89,7 +88,7 @@ toAllImpactsSimple wellKnown { impacts, inputs } =
         ]
 
 
-toFoodWebUrl : Definition.Trigram -> BuilderQuery.Query -> String
+toFoodWebUrl : Definition.Trigram -> FoodQuery.Query -> String
 toFoodWebUrl trigram foodQuery =
     Just foodQuery
         |> WebRoute.FoodBuilder trigram
@@ -115,19 +114,19 @@ toSingleImpactSimple wellKnown trigram { impacts, inputs } =
         ]
 
 
-toFoodResults : BuilderQuery.Query -> BuilderRecipe.Results -> Encode.Value
+toFoodResults : FoodQuery.Query -> Recipe.Results -> Encode.Value
 toFoodResults query results =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Impact.default query |> Encode.string )
-        , ( "results", BuilderRecipe.encodeResults results )
+        , ( "results", Recipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
-        , ( "query", BuilderQuery.encode query )
+        , ( "query", FoodQuery.encode query )
         ]
 
 
-executeFoodQuery : Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
+executeFoodQuery : Db -> (Recipe.Results -> Encode.Value) -> FoodQuery.Query -> JsonResponse
 executeFoodQuery db encoder =
-    BuilderRecipe.compute db
+    Recipe.compute db
         >> Result.mapError Validation.fromErrorString
         >> Result.map (Tuple.second >> encoder)
         >> toResponse
@@ -241,14 +240,6 @@ handleRequest db request =
                 |> encodeProcessList
                 |> respondWith 200
 
-        Just (Route.FoodGetRecipe (Ok query)) ->
-            query
-                |> executeFoodQuery db (toFoodResults query)
-
-        Just (Route.FoodGetRecipe (Err errors)) ->
-            Query.encodeErrors errors
-                |> respondWith 400
-
         Just Route.TextileGetCountryList ->
             db.countries
                 |> Scope.anyOf [ Scope.Textile ]
@@ -276,9 +267,7 @@ handleRequest db request =
             executeFoodQuery db (toFoodResults foodQuery) foodQuery
 
         Just (Route.FoodPostRecipe (Err error)) ->
-            error
-                |> Validation.fromErrorString
-                |> encodeValidationErrors
+            encodeValidationErrors error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
