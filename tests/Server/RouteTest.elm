@@ -179,7 +179,7 @@ textileEndpoints db =
                     Just <| Unit.gramsPerSquareMeter 999
             }
             |> testTextileEndpoint db
-            |> expectValidationError "surfaceMass" "La masse surfacique doit être compris entre 80 et 500."
+            |> expectValidationError "surfaceMass" "La masse surfacique doit être compris(e) entre 80 et 500."
             |> asTest "should reject invalid surfaceMass"
         , Query.encode
             { tShirtCotonFrance
@@ -187,7 +187,7 @@ textileEndpoints db =
                     Just <| Unit.physicalDurability 9900000
             }
             |> testTextileEndpoint db
-            |> expectValidationError "physicalDurability" "Le coefficient de durabilité physique doit être compris entre 0.67 et 1.45."
+            |> expectValidationError "physicalDurability" "Le coefficient de durabilité physique doit être compris(e) entre 0.67 et 1.45."
             |> asTest "should reject invalid physicalDurability"
         , Query.encode
             { tShirtCotonFrance

@@ -187,7 +187,7 @@ describe("API", () => {
             airTransportRatio: 2,
           }),
           "decoding",
-          /doit être comprise entre 0 et 1 inclus/,
+          /doit être compris(e) entre 0 et 1 inclus/,
         );
       });
 
@@ -198,7 +198,7 @@ describe("API", () => {
             makingWaste: 0.9,
           }),
           "makingWaste",
-          /doit être compris entre/,
+          /doit être compris\(e\) entre/,
         );
       });
 
@@ -209,7 +209,7 @@ describe("API", () => {
             makingDeadStock: 0.9,
           }),
           "makingDeadStock",
-          /taux de stocks dormants(.*)doit être compris entre/,
+          /taux de stocks dormants(.*)doit être compris\(e\) entre/,
         );
       });
 
@@ -228,7 +228,7 @@ describe("API", () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...successQuery, yarnSize: 0 }),
           "yarnSize",
-          /titrage(.*)doit être compris entre/,
+          /titrage(.*)doit être compris\(e\) entre/,
         );
       });
 
@@ -239,7 +239,7 @@ describe("API", () => {
             physicalDurability: 2,
           }),
           "physicalDurability",
-          /coefficient de durabilité(.*)doit être compris entre/,
+          /coefficient de durabilité(.*)doit être compris\(e\) entre/,
         );
       });
 
@@ -258,7 +258,7 @@ describe("API", () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...successQuery, surfaceMass: 10 }),
           "surfaceMass",
-          /masse surfacique doit être compris entre/,
+          /masse surfacique doit être compris\(e\) entre/,
         );
       });
 
@@ -280,7 +280,7 @@ describe("API", () => {
             printing: { kind: "pigment", ratio: 2 },
           }),
           "decoding",
-          /Une part(.*)doit être comprise entre 0 et 1/,
+          /Une part(.*)doit être compris(e) entre 0 et 1/,
         );
       });
     });
