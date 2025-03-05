@@ -15,7 +15,7 @@ describe("Web", () => {
 });
 
 describe("API", () => {
-  const successQuery = {
+  const textileQuery = {
     countryFabric: "CN",
     countryDyeing: "CN",
     countryMaking: "CN",
@@ -74,7 +74,7 @@ describe("API", () => {
 
     describe("/simulator", () => {
       it("should accept a valid query", async () => {
-        const response = await makePostRequest("/api/textile/simulator", successQuery);
+        const response = await makePostRequest("/api/textile/simulator", textileQuery);
 
         expectStatus(response, 200);
         expect(response.body.impacts.ecs).toBeGreaterThan(0);
@@ -82,7 +82,7 @@ describe("API", () => {
 
       it("should validate the mass param", async () => {
         expectTextileFieldErrorMessage(
-          await makePostRequest("/api/textile/simulator", { ...successQuery, mass: -1 }),
+          await makePostRequest("/api/textile/simulator", { ...textileQuery, mass: -1 }),
           "mass",
           /supérieure ou égale à zéro/,
         );
@@ -91,7 +91,7 @@ describe("API", () => {
       it("should validate the materials param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             materials: [{ id: "xxx", share: 1 }],
           }),
           "materials",
@@ -110,7 +110,7 @@ describe("API", () => {
       it("should validate the countrySpinning param (invalid code)", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             countrySpinning: "XX",
           }),
           "countrySpinning",
@@ -121,7 +121,7 @@ describe("API", () => {
       it("should validate the countryFabric param (invalid code)", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             countryFabric: "XX",
           }),
           "countryFabric",
@@ -132,7 +132,7 @@ describe("API", () => {
       it("should validate the countryDyeing param (invalid code)", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             countryDyeing: "XX",
           }),
           "countryDyeing",
@@ -143,7 +143,7 @@ describe("API", () => {
       it("should validate the countryMaking param (invalid code)", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             countryMaking: "XX",
           }),
           "countryMaking",
@@ -154,7 +154,7 @@ describe("API", () => {
       it("should validate the disabledSteps param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             disabledSteps: ["xxx"],
           }),
           "decoding",
@@ -165,7 +165,7 @@ describe("API", () => {
       it("should validate the dyeingProcessType param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             dyeingProcessType: "xxx",
           }),
           "decoding",
@@ -174,7 +174,7 @@ describe("API", () => {
       });
 
       it("should perform a simulation featuring 21 impacts for textile", async () => {
-        const response = await makePostRequest("/api/textile/simulator/", successQuery);
+        const response = await makePostRequest("/api/textile/simulator/", textileQuery);
 
         expectStatus(response, 200);
         expect(Object.keys(response.body.impacts)).toHaveLength(21);
@@ -183,7 +183,7 @@ describe("API", () => {
       it("should validate the airTransportRatio param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             airTransportRatio: 2,
           }),
           "decoding",
@@ -194,7 +194,7 @@ describe("API", () => {
       it("should validate the makingWaste param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             makingWaste: 0.9,
           }),
           "makingWaste",
@@ -205,7 +205,7 @@ describe("API", () => {
       it("should validate the makingDeadStock param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             makingDeadStock: 0.9,
           }),
           "makingDeadStock",
@@ -216,7 +216,7 @@ describe("API", () => {
       it("should validate the makingComplexity param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             makingComplexity: "bad-complexity",
           }),
           "decoding",
@@ -226,7 +226,7 @@ describe("API", () => {
 
       it("should validate the yarnSize param", async () => {
         expectTextileFieldErrorMessage(
-          await makePostRequest("/api/textile/simulator", { ...successQuery, yarnSize: 0 }),
+          await makePostRequest("/api/textile/simulator", { ...textileQuery, yarnSize: 0 }),
           "yarnSize",
           /titrage(.*)doit être compris\(e\) entre/,
         );
@@ -235,7 +235,7 @@ describe("API", () => {
       it("should validate the physicalDurability param range", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             physicalDurability: 2,
           }),
           "physicalDurability",
@@ -246,7 +246,7 @@ describe("API", () => {
       it("should validate the fabricProcess param", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             fabricProcess: "notAFabricProcess",
           }),
           "decoding",
@@ -256,7 +256,7 @@ describe("API", () => {
 
       it("should validate the surfaceMass param", async () => {
         expectTextileFieldErrorMessage(
-          await makePostRequest("/api/textile/simulator", { ...successQuery, surfaceMass: 10 }),
+          await makePostRequest("/api/textile/simulator", { ...textileQuery, surfaceMass: 10 }),
           "surfaceMass",
           /masse surfacique doit être compris\(e\) entre/,
         );
@@ -265,7 +265,7 @@ describe("API", () => {
       it("should validate the printing param kind", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             printing: { kind: "bonk", ratio: 1 },
           }),
           "decoding",
@@ -276,18 +276,28 @@ describe("API", () => {
       it("should validate the printing param ratio", async () => {
         expectTextileFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
-            ...successQuery,
+            ...textileQuery,
             printing: { kind: "pigment", ratio: 2 },
           }),
           "decoding",
           /Une part(.*)doit être compris(e) entre 0 et 1/,
         );
       });
+
+      it("should validate multiple errored parameters", async () => {
+        const response = await makePostRequest("/api/textile/simulator", {
+          ...textileQuery,
+          countryDyeing: "BadDyeingCode",
+          countrySpinning: "BadSpinningCode",
+        });
+
+        expect(Object.keys(response.body.error)).toEqual(["countryDyeing", "countrySpinning"]);
+      });
     });
 
     describe("/simulator/ecs", () => {
       it("should accept a valid query", async () => {
-        const response = await makePostRequest("/api/textile/simulator/ecs", successQuery);
+        const response = await makePostRequest("/api/textile/simulator/ecs", textileQuery);
 
         expectStatus(response, 200);
         expect(response.body.impacts.ecs).toBeGreaterThan(0);
@@ -296,14 +306,14 @@ describe("API", () => {
 
     describe("/simulator/detailed", () => {
       it("should accept a valid query", async () => {
-        const response = await makePostRequest("/api/textile/simulator/detailed", successQuery);
+        const response = await makePostRequest("/api/textile/simulator/detailed", textileQuery);
 
         expectStatus(response, 200);
         expect(response.body.lifeCycle).toHaveLength(8);
       });
 
       it("should expose impacts without durability", async () => {
-        const response = await makePostRequest("/api/textile/simulator/detailed", successQuery);
+        const response = await makePostRequest("/api/textile/simulator/detailed", textileQuery);
 
         expectStatus(response, 200);
         expect(response.body.impacts.ecs > response.body.impactsWithoutDurability.ecs);
