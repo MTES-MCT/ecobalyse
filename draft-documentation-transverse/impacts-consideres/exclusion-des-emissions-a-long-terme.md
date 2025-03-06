@@ -36,8 +36,10 @@ Deux possibilité subsistent donc :
 
 Le document suivant liste les arguments pour et contre les deux approches : [Implementation of Life Cycle Impact Assessment Methods](exclusion-des-emissions-a-long-terme.md#https-esu-services.ch-fileadmin-download-publiclci-03_lcia-implementation.pdf), 2007, ecoinvent, partie II.2.1.3, pages 5 à 10.
 
-Ecobalyse fait le choix d'exclure les émissions de long terme, principalement pour les raisons suivantes :&#x20;
+Ecobalyse fait le choix d'exclure les émissions à long terme, principalement pour les raisons suivantes :&#x20;
 
+* Les ICV EF3.1 pour l'électricité n'incluent pas les émissions à long terme
 * Souhait de privilégier des technologies permettant de répondre aux enjeux de l'urgence environnementale actuelle, déjà évalués comme critiques à l'échelle de ce siècle (effondrement de la biodiversité, changements climatiques, raréfaction des énergies fossiles)&#x20;
 * Très forte incertitude sur ces émissions, avec certaines hypothèses qui sont de nature conservatrices. Par exemple, l'impact des radiations ionisantes à faible intensité est évalué comme deux à dix fois plus faible que les radiations de forte intensité, et c'est l'hypothèse d'un impact deux fois plus faible qui est retenu (méthode de caractérisation du FRU, [Human health damages due to ionising radiation in life cycle impact assessment](https://esu-services.ch/fileadmin/download/frischknecht-2000-HumanHealth.pdf), page 10-11)
+* Il s'agit d'une pratique déjà courante chez les praticiens ACV
 
