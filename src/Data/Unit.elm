@@ -65,10 +65,12 @@ import Area exposing (Area)
 import Data.Split as Split exposing (Split)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
+import Regex
 
 
 
@@ -183,6 +185,12 @@ yarnSizeKilometersPerKg kilometers =
     Quantity.rate (Length.kilometers kilometers) Mass.kilogram
 
 
+yarnSizeGramsPer10km : Float -> YarnSize
+yarnSizeGramsPer10km weight =
+    -- The Dtex unit is the weight in grams of 10000 meters
+    Quantity.rate (Length.meters 10000) (Mass.grams weight)
+
+
 minYarnSize : YarnSize
 minYarnSize =
     yarnSizeKilometersPerKg 9
@@ -214,10 +222,51 @@ encodeYarnSize =
     yarnSizeInKilometers >> Encode.float
 
 
+parseYarnSize : String -> Maybe YarnSize
+parseYarnSize str =
+    let
+        withUnitRegex =
+            -- Match either an int or a int and a unit `Nm` or `Dtex`
+            Regex.fromString "(\\d+)(Nm|Dtex)"
+                |> Maybe.withDefault Regex.never
+
+        subMatches =
+            -- If it matches, returns [ <the value>, <the unit> ]
+            str
+                |> Regex.find withUnitRegex
+                |> List.map .submatches
+    in
+    case String.toFloat str of
+        Just float ->
+            Just <| yarnSizeKilometersPerKg float
+
+        Nothing ->
+            case subMatches of
+                [ [ Just floatStr, Just "Nm" ] ] ->
+                    String.toFloat floatStr
+                        |> Maybe.map yarnSizeKilometersPerKg
+
+                [ [ Just floatStr, Just "Dtex" ] ] ->
+                    String.toFloat floatStr
+                        |> Maybe.map yarnSizeGramsPer10km
+
+                _ ->
+                    Nothing
+
+
 decodeYarnSize : Decoder YarnSize
 decodeYarnSize =
-    Decode.float
-        |> Decode.map yarnSizeKilometersPerKg
+    Decode.oneOf
+        [ Decode.float
+            |> Decode.map yarnSizeKilometersPerKg
+        , Decode.string
+            |> Decode.andThen
+                (\str ->
+                    parseYarnSize str
+                        |> Result.fromMaybe ("Titrage invalide: " ++ str)
+                        |> DE.fromResult
+                )
+        ]
 
 
 
