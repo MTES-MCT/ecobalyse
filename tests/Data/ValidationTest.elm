@@ -39,12 +39,12 @@ suite =
                     [ 1, 2 ]
                     (\int ->
                         if int > 1 then
-                            Err "too high"
+                            Err <| String.fromInt int ++ " is too high"
 
                         else
                             Ok int
                     )
-                |> Expect.equal (Err (Dict.fromList [ ( "list", "too high" ) ]))
+                |> Expect.equal (Err (Dict.fromList [ ( "list", "2 is too high" ) ]))
                 |> asTest "should reject an invalid list"
             ]
         , describe "maybe"
