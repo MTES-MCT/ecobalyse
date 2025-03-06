@@ -1,6 +1,7 @@
 module Data.Validation exposing
     ( Errors
     , accept
+    , boundedList
     , encodeErrors
     , fromDecodingError
     , fromErrorString
@@ -38,6 +39,40 @@ accept key value =
     validate key (Ok value)
 
 
+boundedList : Int -> Maybe Int -> String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
+boundedList min maybeMax key list_ validator accumulator =
+    let
+        max =
+            Maybe.withDefault infinity maybeMax
+    in
+    if min > max then
+        Err <| Dict.singleton key "Le minimum ne peut pas être supérieur au maxium"
+
+    else if List.length list_ < min || List.length list_ > max then
+        Err <|
+            Dict.singleton key
+                ("La liste '"
+                    ++ key
+                    ++ "' doit contenir "
+                    ++ (if max /= infinity then
+                            (if min /= 0 then
+                                "entre " ++ String.fromInt min ++ " et "
+
+                             else
+                                ""
+                            )
+                                ++ String.fromInt max
+                                ++ " élément(s) maximum."
+
+                        else
+                            String.fromInt min ++ " élément(s) minimum."
+                       )
+                )
+
+    else
+        list key list_ validator accumulator
+
+
 encodeErrors : Errors -> Encode.Value
 encodeErrors =
     Encode.dict identity Encode.string
@@ -51,6 +86,11 @@ fromDecodingError =
 fromErrorString : String -> Errors
 fromErrorString =
     Dict.singleton "general"
+
+
+infinity : Int
+infinity =
+    round (1 / 0)
 
 
 list : String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
