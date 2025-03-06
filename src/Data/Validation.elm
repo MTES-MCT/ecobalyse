@@ -85,11 +85,11 @@ maybe key maybeValue validator =
 validate : String -> Result String a -> Result Errors (a -> b) -> Result Errors b
 validate key result accumulator =
     case ( result, accumulator ) of
-        ( Ok _, Err accFn ) ->
-            Err accFn
+        ( Ok _, Err errors ) ->
+            Err errors
 
-        ( Err error, Err accFn ) ->
-            accFn
+        ( Err error, Err errors ) ->
+            errors
                 |> Dict.union (Dict.singleton key error)
                 |> Err
 
