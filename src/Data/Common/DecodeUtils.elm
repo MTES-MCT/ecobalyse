@@ -1,6 +1,7 @@
 module Data.Common.DecodeUtils exposing
     ( betterErrorToString
     , strictOptional
+    , strictOptionalWithDefault
     )
 
 import Json.Decode as Decode exposing (Decoder, Error)
@@ -14,6 +15,16 @@ as an acepted value.
 strictOptional : String -> Decoder a -> Decoder (Maybe a -> b) -> Decoder b
 strictOptional field decoder =
     DE.andMap (DE.optionalNullableField field decoder)
+
+
+{-| Same as `strictOptional` but accepting a default value
+-}
+strictOptionalWithDefault : String -> Decoder a -> a -> Decoder (a -> b) -> Decoder b
+strictOptionalWithDefault field decoder default =
+    DE.andMap
+        (DE.optionalNullableField field decoder
+            |> Decode.map (Maybe.withDefault default)
+        )
 
 
 {-| Prettify Json.Decode error strings

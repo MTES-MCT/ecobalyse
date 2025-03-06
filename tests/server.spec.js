@@ -81,7 +81,7 @@ describe("API", () => {
       });
 
       it("should validate the mass param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...textileQuery, mass: -1 }),
           "mass",
           /supérieure ou égale à zéro/,
@@ -89,7 +89,7 @@ describe("API", () => {
       });
 
       it("should validate the materials param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             materials: [{ id: "xxx", share: 1 }],
@@ -100,7 +100,7 @@ describe("API", () => {
       });
 
       it("should validate the product param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {}),
           "decoding",
           /a field named `product`/,
@@ -108,7 +108,7 @@ describe("API", () => {
       });
 
       it("should validate the countrySpinning param (invalid code)", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             countrySpinning: "XX",
@@ -119,7 +119,7 @@ describe("API", () => {
       });
 
       it("should validate the countryFabric param (invalid code)", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             countryFabric: "XX",
@@ -130,7 +130,7 @@ describe("API", () => {
       });
 
       it("should validate the countryDyeing param (invalid code)", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             countryDyeing: "XX",
@@ -141,7 +141,7 @@ describe("API", () => {
       });
 
       it("should validate the countryMaking param (invalid code)", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             countryMaking: "XX",
@@ -152,7 +152,7 @@ describe("API", () => {
       });
 
       it("should validate the disabledSteps param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             disabledSteps: ["xxx"],
@@ -163,7 +163,7 @@ describe("API", () => {
       });
 
       it("should validate the dyeingProcessType param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             dyeingProcessType: "xxx",
@@ -181,7 +181,7 @@ describe("API", () => {
       });
 
       it("should validate the airTransportRatio param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             airTransportRatio: 2,
@@ -192,7 +192,7 @@ describe("API", () => {
       });
 
       it("should validate the makingWaste param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             makingWaste: 0.9,
@@ -203,7 +203,7 @@ describe("API", () => {
       });
 
       it("should validate the makingDeadStock param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             makingDeadStock: 0.9,
@@ -214,7 +214,7 @@ describe("API", () => {
       });
 
       it("should validate the makingComplexity param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             makingComplexity: "bad-complexity",
@@ -225,7 +225,7 @@ describe("API", () => {
       });
 
       it("should validate the yarnSize param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...textileQuery, yarnSize: 0 }),
           "yarnSize",
           /titrage(.*)doit être compris\(e\) entre/,
@@ -233,7 +233,7 @@ describe("API", () => {
       });
 
       it("should validate the physicalDurability param range", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             physicalDurability: 2,
@@ -244,7 +244,7 @@ describe("API", () => {
       });
 
       it("should validate the fabricProcess param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             fabricProcess: "notAFabricProcess",
@@ -255,7 +255,7 @@ describe("API", () => {
       });
 
       it("should validate the surfaceMass param", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...textileQuery, surfaceMass: 10 }),
           "surfaceMass",
           /masse surfacique doit être compris\(e\) entre/,
@@ -263,7 +263,7 @@ describe("API", () => {
       });
 
       it("should validate the printing param kind", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             printing: { kind: "bonk", ratio: 1 },
@@ -274,7 +274,7 @@ describe("API", () => {
       });
 
       it("should validate the printing param ratio", async () => {
-        expectTextileFieldErrorMessage(
+        expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
             printing: { kind: "pigment", ratio: 2 },
@@ -423,132 +423,23 @@ describe("API", () => {
     });
 
     describe("/food", () => {
-      describe("GET", () => {
-        it("should compute 21 impacts for food", async () => {
-          const response = await makeRequest("/api/food", [
-            "ingredients[]=4d5198e7-413a-4ae2-8448-535aa3b302ae;268",
-            "transform=7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;1050",
-            "distribution=ambient",
-          ]);
-
-          expectStatus(response, 200);
-          expect(Object.keys(response.body.results.total)).toHaveLength(21);
-        });
-
-        it("should validate an ingredient id", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", ["ingredients[]=invalid;268"]),
-            "ingredients",
-            /Identifiant d’ingrédient invalide : invalid. Un `uuid` est attendu./,
-          );
-        });
-
-        it("should validate an ingredient mass", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", [
-              "ingredients[]=4d5198e7-413a-4ae2-8448-535aa3b302ae;-1",
-            ]),
-            "ingredients",
-            /masse doit être supérieure ou égale à zéro/,
-          );
-        });
-
-        it("should validate an ingredient country code", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", [
-              "ingredients[]=4d5198e7-413a-4ae2-8448-535aa3b302ae;123;BadCountryCode",
-            ]),
-            "ingredients",
-            /Code pays invalide: BadCountryCode/,
-          );
-        });
-
-        it("should validate an ingredient transport by plane value", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", [
-              "ingredients[]=db0e5f44-34b4-4160-b003-77c828d75e60;123;BR;badValue",
-            ]),
-            "ingredients",
-            /La valeur ne peut être que parmi les choix suivants: '', 'byPlane', 'noPlane'./,
-          );
-        });
-
-        it("should validate an ingredient transport by plane", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", [
-              "ingredients[]=4d5198e7-413a-4ae2-8448-535aa3b302ae;123;BR;byPlane",
-            ]),
-            "ingredients",
-            /Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas./,
-          );
-        });
-
-        it("should validate a transform code", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", ["transform=invalid;268"]),
-            "transform",
-            /Identifiant invalide: invalid/,
-          );
-        });
-
-        it("should validate a transform mass", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", ["transform=7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;-1"]),
-            "transform",
-            /masse doit être supérieure ou égale à zéro/,
-          );
-        });
-
-        it("should validate a packaging code", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", ["packaging[]=invalid;268"]),
-            "packaging",
-            /Identifiant invalide: invalid/,
-          );
-        });
-
-        it("should validate a packaging mass", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", ["packaging[]=c352add7-8037-464e-bff2-7da517419f88;-1"]),
-            "packaging",
-            /masse doit être supérieure ou égale à zéro/,
-          );
-        });
-
-        it("should validate a distribution storage type", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", ["distribution=invalid"]),
-            "distribution",
-            /Choix invalide pour la distribution : invalid/,
-          );
-        });
-
-        it("should validate a consumption preparation technique id", async () => {
-          expectFieldErrorMessage(
-            await makeRequest("/api/food", ["preparation[]=invalid"]),
-            "preparation",
-            /Préparation inconnue: invalid/,
-          );
-        });
-      });
-
       describe("POST", () => {
         it("should compute 21 impacts", async () => {
           const response = await makePostRequest("/api/food", {
             ingredients: [
-              { id: "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69", mass: 0.12 },
-              { id: "38788025-a65e-4edf-a92f-aab0b89b0d61", mass: 0.14 },
-              { id: "8f3863e7-f981-4367-90a2-e1aaa096a6e0", mass: 0.06 },
-              { id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 0.225 },
+              { id: "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69", mass: 120 },
+              { id: "38788025-a65e-4edf-a92f-aab0b89b0d61", mass: 140 },
+              { id: "8f3863e7-f981-4367-90a2-e1aaa096a6e0", mass: 60 },
+              { id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 225 },
             ],
             transform: {
               id: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
-              mass: 0.545,
+              mass: 545,
             },
             packaging: [
               {
                 id: "c352add7-8037-464e-bff2-7da517419f88",
-                mass: 0.105,
+                mass: 105,
               },
             ],
             distribution: "ambient",
@@ -559,6 +450,142 @@ describe("API", () => {
           expect(Object.keys(response.body.results.total)).toHaveLength(21);
         });
       });
+
+      it("should validate an ingredient id", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [{ id: "invalid", mass: 268 }],
+          }),
+          "decoding",
+          /Not a valid UUID/,
+        );
+      });
+
+      it("should validate an ingredient mass", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: -1 }],
+          }),
+          "ingredients",
+          /masse doit être supérieure ou égale à zéro/,
+        );
+      });
+
+      it("should validate an ingredient country code", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [
+              {
+                country: "BadCountryCode",
+                id: "4d5198e7-413a-4ae2-8448-535aa3b302ae",
+                mass: 123,
+              },
+            ],
+          }),
+          "ingredients",
+          /Code pays invalide: BadCountryCode/,
+        );
+      });
+
+      it("should validate an ingredient transport by plane value", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [
+              {
+                byPlane: "badValue",
+                country: "BR",
+                id: "db0e5f44-34b4-4160-b003-77c828d75e60",
+                mass: 123,
+              },
+            ],
+          }),
+          "decoding",
+          /Transport par avion inconnu: badValue/,
+        );
+      });
+
+      it("should validate an ingredient transport by plane", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [
+              {
+                byPlane: "byPlane",
+                country: "BR",
+                id: "4d5198e7-413a-4ae2-8448-535aa3b302ae",
+                mass: 123,
+              },
+            ],
+          }),
+          "general",
+          /Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas/,
+        );
+      });
+
+      it("should validate a transform code", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
+            transform: { id: "invalid", mass: 268 },
+          }),
+          "decoding",
+          /\"invalid\" Not a valid UUID/,
+        );
+      });
+
+      it("should validate a transform mass", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
+            transform: { id: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569", mass: -1 },
+          }),
+          "transform",
+          /masse doit être supérieure ou égale à zéro/,
+        );
+      });
+
+      it("should validate a packaging code", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
+            packaging: [{ id: "invalid", mass: 10 }],
+          }),
+          "decoding",
+          /\"invalid\" Not a valid UUID/,
+        );
+      });
+
+      it("should validate a packaging mass", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
+            packaging: [{ id: "c352add7-8037-464e-bff2-7da517419f88", mass: -1 }],
+          }),
+          "packaging",
+          /masse doit être supérieure ou égale à zéro/,
+        );
+      });
+
+      it("should validate a distribution storage type", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
+            distribution: "invalid",
+          }),
+          "decoding",
+          /Choix invalide pour la distribution : invalid/,
+        );
+      });
+
+      it("should validate a consumption preparation technique id", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/food", {
+            ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
+            preparation: ["invalid"],
+          }),
+          "decoding",
+          /Préparation inconnue: invalid/,
+        );
+      });
     });
 
     describe("End to end food simulations", () => {
@@ -566,7 +593,7 @@ describe("API", () => {
 
       for (const { name, query, impacts, scoring } of e2eFood) {
         it(name, async () => {
-          const response = await makeRequest("/api/food", query);
+          const response = await makePostRequest("/api/food", query);
           e2eOutput.food.push({
             name,
             query,
@@ -620,22 +647,11 @@ afterAll(() => {
 
 // Test helpers
 
-async function makeRequest(path, query = []) {
-  return await request(app).get(path).query(query.join("&"));
-}
-
 async function makePostRequest(path, body) {
   return await request(app).post(path).send(body);
 }
 
-function expectFieldErrorMessage(response, field, message) {
-  expectStatus(response, 400);
-  expect("errors" in response.body).toEqual(true);
-  expect(field in response.body.errors).toEqual(true);
-  expect(response.body.errors[field]).toMatch(message);
-}
-
-function expectTextileFieldErrorMessage(response, key, message) {
+function expectFieldErrorMessage(response, key, message) {
   expectStatus(response, 400);
   expect(response.body).toHaveProperty("error");
   expect(response.body.error).toHaveProperty(key);

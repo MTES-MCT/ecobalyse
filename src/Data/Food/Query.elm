@@ -112,22 +112,19 @@ decode =
 
 decodePlaneTransport : Decoder Ingredient.PlaneTransport
 decodePlaneTransport =
-    Decode.maybe
-        (Decode.string
-            |> Decode.map
-                (\str ->
-                    case str of
-                        "byPlane" ->
-                            Ingredient.ByPlane
+    Decode.string
+        |> Decode.andThen
+            (\str ->
+                case str of
+                    "byPlane" ->
+                        Decode.succeed Ingredient.ByPlane
 
-                        "noPlane" ->
-                            Ingredient.NoPlane
+                    "noPlane" ->
+                        Decode.succeed Ingredient.NoPlane
 
-                        _ ->
-                            Ingredient.PlaneNotApplicable
-                )
-        )
-        |> Decode.map (Maybe.withDefault Ingredient.PlaneNotApplicable)
+                    _ ->
+                        Decode.fail <| "Transport par avion inconnu: " ++ str
+            )
 
 
 decodeMassInGrams : Decoder Mass
@@ -149,7 +146,7 @@ decodeIngredient =
         |> DU.strictOptional "country" Country.decodeCode
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMassInGrams
-        |> Pipe.optional "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
+        |> DU.strictOptionalWithDefault "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
 
 
 deletePreparation : Preparation.Id -> Query -> Query

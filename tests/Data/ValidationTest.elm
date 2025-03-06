@@ -84,7 +84,7 @@ suite =
                 |> asTest "should accept a non-empty list"
             , Ok TestList
                 |> Validation.nonEmptyList "x" [] Ok
-                |> Expect.equal (Err (Dict.fromList [ ( "x", "La liste 'x' ne peut pas être vide." ) ]))
+                |> Expect.equal (Err (Dict.fromList [ ( "x", "La liste 'x' doit contenir 1 élément(s) minimum." ) ]))
                 |> asTest "should reject an empty list"
             ]
         , describe "validate"

@@ -45,10 +45,7 @@ boundedList min maybeMax key list_ validator accumulator =
         max =
             Maybe.withDefault infinity maybeMax
     in
-    if min > max then
-        Err <| Dict.singleton key "Le minimum ne peut pas être supérieur au maxium"
-
-    else if List.length list_ < min || List.length list_ > max then
+    if List.length list_ < min || List.length list_ > max then
         Err <|
             Dict.singleton key
                 ("La liste '"
@@ -102,12 +99,8 @@ list key list_ validator =
 
 
 nonEmptyList : String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
-nonEmptyList key list_ validator accumulator =
-    if List.isEmpty list_ then
-        Err <| Dict.singleton key ("La liste '" ++ key ++ "' ne peut pas être vide.")
-
-    else
-        list key list_ validator accumulator
+nonEmptyList =
+    boundedList 1 Nothing
 
 
 {-| Denote that validation should only be performed if a value is actually provided
