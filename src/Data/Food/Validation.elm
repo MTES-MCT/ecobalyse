@@ -19,8 +19,8 @@ validate db query =
     Ok Query
         |> Validation.accept "distribution" query.distribution
         |> Validation.list "ingredients" query.ingredients (validateIngredient db)
-        |> Validation.boundedList 0 (Just 2) "packaging" query.packaging (validateProcess db)
-        |> Validation.list "preparation" query.preparation validatePreparation
+        |> Validation.list "packaging" query.packaging (validateProcess db)
+        |> Validation.boundedList 0 (Just 2) "preparation" query.preparation validatePreparation
         |> Validation.maybe "transform" query.transform (validateProcess db)
 
 

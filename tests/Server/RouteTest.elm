@@ -3,6 +3,7 @@ module Server.RouteTest exposing (..)
 import Data.Component as Component
 import Data.Country as Country
 import Data.Example as Example
+import Data.Food.Preparation as Preparation
 import Data.Food.Query as FoodQuery
 import Data.Split as Split
 import Data.Textile.Material as Material
@@ -12,6 +13,7 @@ import Data.Unit as Unit
 import Dict
 import Expect
 import Json.Encode as Encode
+import Mass
 import Server.Route as Route
 import Static.Db as StaticDb
 import Test exposing (..)
@@ -57,73 +59,53 @@ foodEndpoints db =
                     |> Expect.equal (Just (Route.FoodPostRecipe (Ok royalPizza)))
                     |> asTest "should map the POST /food endpoint with the body parsed as a valid query"
                 ]
-
-            -- , describe "validation"
-            --     [-- FoodQuery.encode { royalPizza | ingredients = [] }
-            --      -- |> testFoodEndpoint db
-            --      -- |> expectFoodValidationError "ingredients" "La liste 'ingredients' ne peut pas être vide."
-            --      -- |> asTest "should validate an empty ingredients list"
-            --      -- , testEndpoint db "GET" Encode.null "/food?ingredients[]=invalid;100"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "ingredients")
-            --      --     |> Expect.equal (Just "Identifiant d’ingrédient invalide\u{202F}: invalid. Un `uuid` est attendu.")
-            --      --     |> asTest "should validate that an ingredient id is valid"
-            --      -- , testEndpoint db "GET" Encode.null "/food?ingredients[]=9cbc31e9-80a4-4b87-ac4b-ddc051c47f69;-1"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "ingredients")
-            --      --     |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
-            --      --     |> asTest "should validate that an ingredient mass is greater than zero"
-            --      -- , testEndpoint db "GET" Encode.null "/food?ingredients[]=9cbc31e9-80a4-4b87-ac4b-ddc051c47f69;1;invalidCountry"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "ingredients")
-            --      --     |> Expect.equal (Just "Code pays invalide: invalidCountry.")
-            --      --     |> asTest "should validate that an ingredient country is valid"
-            --      -- , testEndpoint db "GET" Encode.null "/food?ingredients[]=9cbc31e9-80a4-4b87-ac4b-ddc051c47f69;1;FR;byPlane"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "ingredients")
-            --      --     |> Expect.equal (Just "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas.")
-            --      --     |> asTest "should validate that an ingredient can be transported by plane"
-            --      -- , testEndpoint db "GET" Encode.null "/food?ingredients[]=9cbc31e9-80a4-4b87-ac4b-ddc051c47f69;1;BD"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "ingredients")
-            --      --     |> Expect.equal (Just "Le code pays BD n'est pas utilisable dans un contexte Alimentaire.")
-            --      --     |> asTest "should validate that an ingredient country scope is valid"
-            --      -- , testEndpoint db "GET" Encode.null "/food?transform=7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;-1"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "transform")
-            --      --     |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
-            --      --     |> asTest "should validate that a transform mass is greater than zero"
-            --      -- , testEndpoint db "GET" Encode.null "/food?transform=invalid;100"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "transform")
-            --      --     |> Expect.equal (Just "Identifiant invalide: invalid")
-            --      --     |> asTest "should validate that a transform code is valid"
-            --      -- , testEndpoint db "GET" Encode.null "/food?packaging[]=c352add7-8037-464e-bff2-7da517419f88;-1"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "packaging")
-            --      --     |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
-            --      --     |> asTest "should validate that a packaging mass is greater than zero"
-            --      -- , testEndpoint db "GET" Encode.null "/food?packaging[]=invalid;100"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "packaging")
-            --      --     |> Expect.equal (Just "Identifiant invalide: invalid")
-            --      --     |> asTest "should validate that a packaging code is valid"
-            --      -- , testEndpoint db "GET" Encode.null "/food?distribution=invalid"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "distribution")
-            --      --     |> Expect.equal (Just "Choix invalide pour la distribution : invalid")
-            --      --     |> asTest "should validate that a distribution is valid"
-            --      -- , testEndpoint db "GET" Encode.null "/food?preparation[]=invalid"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "preparation")
-            --      --     |> Expect.equal (Just "Préparation inconnue: invalid")
-            --      --     |> asTest "should validate that a preparation list entry is valid"
-            --      -- , testEndpoint db "GET" Encode.null "/food?preparation[]=freezing&preparation[]=frying&preparation[]=oven"
-            --      --     |> Maybe.andThen extractFoodErrors
-            --      --     |> Maybe.andThen (Dict.get "preparation")
-            --      --     |> Expect.equal (Just "Deux techniques de préparation maximum.")
-            --      --     |> asTest "should validate preparation list length"
-            --     ]
+            , describe "validation"
+                [ FoodQuery.encode
+                    { royalPizza
+                        | ingredients =
+                            royalPizza.ingredients |> List.map (\i -> { i | mass = Mass.grams -1 })
+                    }
+                    |> testFoodEndpoint db
+                    |> expectFoodValidationError "ingredients" "La masse doit être supérieure ou égale à zéro"
+                    |> asTest "should validate an ingredient invalid mass"
+                , FoodQuery.encode
+                    { royalPizza
+                        | ingredients =
+                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| Country.Code "XX" })
+                    }
+                    |> testFoodEndpoint db
+                    |> expectFoodValidationError "ingredients" "Code pays invalide: XX."
+                    |> asTest "should validate an ingredient invalid country code"
+                , FoodQuery.encode
+                    { royalPizza
+                        | ingredients =
+                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| Country.Code "BD" })
+                    }
+                    |> testFoodEndpoint db
+                    |> expectFoodValidationError "ingredients" "Le code pays BD n'est pas utilisable dans un contexte Alimentaire."
+                    |> asTest "should validate an ingredient incompatible country code"
+                , FoodQuery.encode
+                    { royalPizza
+                        | transform = royalPizza.transform |> Maybe.map (\t -> { t | mass = Mass.grams -1 })
+                    }
+                    |> testFoodEndpoint db
+                    |> expectFoodValidationError "transform" "La masse doit être supérieure ou égale à zéro"
+                    |> asTest "should validate a transform mass"
+                , FoodQuery.encode
+                    { royalPizza
+                        | packaging = royalPizza.packaging |> List.map (\p -> { p | mass = Mass.grams -1 })
+                    }
+                    |> testFoodEndpoint db
+                    |> expectFoodValidationError "packaging" "La masse doit être supérieure ou égale à zéro"
+                    |> asTest "should validate a packaging mass"
+                , FoodQuery.encode
+                    { royalPizza
+                        | preparation = Preparation.all |> List.map .id
+                    }
+                    |> testFoodEndpoint db
+                    |> expectFoodValidationError "preparation" "La liste 'preparation' doit contenir 2 élément(s) maximum."
+                    |> asTest "should validate a preparation list length"
+                ]
             ]
 
 
