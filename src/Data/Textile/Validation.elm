@@ -20,7 +20,6 @@ import Static.Db exposing (Db)
 -}
 validate : Db -> Query -> Result Validation.Errors Query
 validate db query =
-    -- FIXME: import validations from Input.fromQuery
     Ok Query
         |> Validation.accept "airTransportRatio" query.airTransportRatio
         |> Validation.accept "business" query.business
@@ -46,7 +45,6 @@ validate db query =
         |> Validation.validate "traceability" (Ok query.traceability)
         |> Validation.list "trims" query.trims (Component.validateItem db.components)
         |> Validation.accept "upcycled" query.upcycled
-        -- FIXME: validate yarn size here
         |> Validation.maybe "yarnSize" query.yarnSize validateYarnSize
 
 
