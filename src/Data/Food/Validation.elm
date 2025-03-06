@@ -18,7 +18,7 @@ validate : Db -> Query -> Result Validation.Errors Query
 validate db query =
     Ok Query
         |> Validation.accept "distribution" query.distribution
-        |> Validation.list "ingredients" query.ingredients (validateIngredient db)
+        |> Validation.nonEmptyList "ingredients" query.ingredients (validateIngredient db)
         |> Validation.list "packaging" query.packaging (validateProcess db)
         |> Validation.list "preparation" query.preparation validatePreparation
         |> Validation.maybe "transform" query.transform (validateProcess db)
