@@ -76,50 +76,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/ProductListResponse"
   /textile/simulator:
-    get:
-      deprecated: true
-      tags:
-        - Textile
-      summary: Calcul des impacts environnementaux d'un produit textile
-      parameters:
-        - $ref: "#/components/parameters/massParam"
-        - $ref: "#/components/parameters/materialsParam"
-        - $ref: "#/components/parameters/productParam"
-        - $ref: "#/components/parameters/countrySpinningParam"
-        - $ref: "#/components/parameters/countryFabricParam"
-        - $ref: "#/components/parameters/countryDyeingParam"
-        - $ref: "#/components/parameters/countryMakingParam"
-        - $ref: "#/components/parameters/fabricProcessParam"
-        - $ref: "#/components/parameters/airTransportRatioParam"
-        - $ref: "#/components/parameters/makingWasteParam"
-        - $ref: "#/components/parameters/makingDeadStockParam"
-        - $ref: "#/components/parameters/makingComplexityParam"
-        - $ref: "#/components/parameters/yarnSizeParam"
-        - $ref: "#/components/parameters/surfaceMassParam"
-        - $ref: "#/components/parameters/fadingParam"
-        - $ref: "#/components/parameters/disabledStepsParam"
-        - $ref: "#/components/parameters/dyeingProcessTypeParam"
-        - $ref: "#/components/parameters/printingParam"
-        - $ref: "#/components/parameters/businessParam"
-        - $ref: "#/components/parameters/numberOfReferencesParam"
-        - $ref: "#/components/parameters/priceParam"
-        - $ref: "#/components/parameters/traceabilityParam"
-        - $ref: "#/components/parameters/upcycledParam"
-        - $ref: "#/components/parameters/physicalDurabilityParam"
-        - $ref: "#/components/parameters/trimsParam"
-      responses:
-        200:
-          description: Opération réussie
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GenericImpactsResponse"
-        400:
-          description: Paramètres invalides
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidParametersError"
     post:
       tags:
         - Textile
@@ -150,51 +106,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
   /textile/simulator/{impact}:
-    get:
-      deprecated: true
-      tags:
-        - Textile
-      summary: Calcul d'un impact environnemental spécifique d'un produit textile
-      parameters:
-        - $ref: "#/components/parameters/impactUrlParam"
-        - $ref: "#/components/parameters/massParam"
-        - $ref: "#/components/parameters/materialsParam"
-        - $ref: "#/components/parameters/productParam"
-        - $ref: "#/components/parameters/countrySpinningParam"
-        - $ref: "#/components/parameters/countryFabricParam"
-        - $ref: "#/components/parameters/countryDyeingParam"
-        - $ref: "#/components/parameters/countryMakingParam"
-        - $ref: "#/components/parameters/fabricProcessParam"
-        - $ref: "#/components/parameters/airTransportRatioParam"
-        - $ref: "#/components/parameters/makingWasteParam"
-        - $ref: "#/components/parameters/makingDeadStockParam"
-        - $ref: "#/components/parameters/makingComplexityParam"
-        - $ref: "#/components/parameters/yarnSizeParam"
-        - $ref: "#/components/parameters/surfaceMassParam"
-        - $ref: "#/components/parameters/fadingParam"
-        - $ref: "#/components/parameters/disabledStepsParam"
-        - $ref: "#/components/parameters/dyeingProcessTypeParam"
-        - $ref: "#/components/parameters/printingParam"
-        - $ref: "#/components/parameters/businessParam"
-        - $ref: "#/components/parameters/numberOfReferencesParam"
-        - $ref: "#/components/parameters/priceParam"
-        - $ref: "#/components/parameters/traceabilityParam"
-        - $ref: "#/components/parameters/upcycledParam"
-        - $ref: "#/components/parameters/physicalDurabilityParam"
-        - $ref: "#/components/parameters/trimsParam"
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SingleImpactResponse"
-        400:
-          description: Paramètres invalides
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidParametersError"
     post:
       tags:
         - Textile
@@ -227,51 +138,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
   /textile/simulator/detailed:
-    get:
-      deprecated: true
-      tags:
-        - Textile
-      summary: Calcul exhaustif des impacts environnementaux d'un produit textile
-      description: L'intégralité des calculs intermédiaires sont présentés dans une réponse détaillée
-      parameters:
-        - $ref: "#/components/parameters/massParam"
-        - $ref: "#/components/parameters/materialsParam"
-        - $ref: "#/components/parameters/productParam"
-        - $ref: "#/components/parameters/countrySpinningParam"
-        - $ref: "#/components/parameters/countryFabricParam"
-        - $ref: "#/components/parameters/countryDyeingParam"
-        - $ref: "#/components/parameters/countryMakingParam"
-        - $ref: "#/components/parameters/fabricProcessParam"
-        - $ref: "#/components/parameters/airTransportRatioParam"
-        - $ref: "#/components/parameters/makingWasteParam"
-        - $ref: "#/components/parameters/makingDeadStockParam"
-        - $ref: "#/components/parameters/makingComplexityParam"
-        - $ref: "#/components/parameters/yarnSizeParam"
-        - $ref: "#/components/parameters/surfaceMassParam"
-        - $ref: "#/components/parameters/fadingParam"
-        - $ref: "#/components/parameters/disabledStepsParam"
-        - $ref: "#/components/parameters/dyeingProcessTypeParam"
-        - $ref: "#/components/parameters/printingParam"
-        - $ref: "#/components/parameters/businessParam"
-        - $ref: "#/components/parameters/numberOfReferencesParam"
-        - $ref: "#/components/parameters/priceParam"
-        - $ref: "#/components/parameters/traceabilityParam"
-        - $ref: "#/components/parameters/upcycledParam"
-        - $ref: "#/components/parameters/physicalDurabilityParam"
-        - $ref: "#/components/parameters/trimsParam"
-      responses:
-        200:
-          description: Opération réussie
-          content:
-            application/json:
-              schema:
-                type: object
-        400:
-          description: Paramètres invalides
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidParametersError"
     post:
       tags:
         - Textile
@@ -546,409 +412,6 @@ components:
           - "swe"
           - "tre"
           - "wtu"
-    massParam:
-      name: mass
-      in: query
-      description: Masse du produit fini, **exprimée en kilogrammes**
-      required: true
-      style: form
-      schema:
-        type: number
-        minimum: 0.01
-      example: 0.17
-    materialsParam:
-      name: "materials[]"
-      in: query
-      description: |
-        Liste des matières composant le produit (liste disponible sur le point d'entrée `/textile/materials`).
-        Le format de chaque entrée est composé de l'identifiant de la matière et de la part du produit
-        qu'elle représente, optionnellement du [procédé de filature ou filage pour la matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil-new-draft#hypotheses-par-defaut), et optionnellement du code du pays d'origine de la matière :
-
-        - `ei-coton;0.3` signifie *30% coton*;
-        - `ei-coton-rdp;0.7` signifie *70% coton recyclé (déchets de production)*;
-        - `ei-coton;0.3;UnconventionalSpinning` signifie *30% coton avec un procédé de filature non conventionel*
-        - `ei-coton;0.3;UnconventionalSpinning;FR` signifie *30% coton avec un procédé de filature non conventionel en provenance de France*
-        - `ei-coton;0.3;;FR` signifie *30% coton avec un procédé de filature par défaut en provenance de France*
-
-        > Par exemple, les paramètres à passer pour un t-shirt 30% coton, 30% coton recyclé et 40% acrylique sont :
-        >
-        > ```js
-        > materials[]=ei-coton;0.3&materials[]=coton-rdp;0.3&materials[]=acrylique;0.4
-        > ```
-
-        Le procédé de filature ou filage est à choisir entre :
-        - `ConventionalSpinning` : filature conventionnelle (à anneaux : ring spun) pour les matières naturelles ou artificielles
-        - `UnconventionalSpinning` : filature non conventionnelle (à bouts libérées : open-end) pour les matières naturelles ou artificielles
-        - `SyntheticSpinning` : filage pour les matières synthétiques
-      required: true
-      style: form
-      schema:
-        type: array
-        items:
-          type: string
-      examples:
-        coton:
-          value: ["ei-coton;1"]
-        acrylique:
-          value: ["ei-coton;0.7", "ei-pet;0.3"]
-        mixed:
-          value: ["ei-coton;0.3", "coton-rdp;0.3", "ei-pet;0.4"]
-        spinning:
-          value: ["ei-coton;0.96;UnconventionalSpinning"]
-    productParam:
-      name: product
-      in: query
-      description: Identifiant du produit (liste disponible sur le point d'entrée `/textile/products`)
-      required: true
-      style: form
-      schema:
-        type: string
-      examples:
-        tshirt:
-          value: "tshirt"
-        pantalon:
-          value: "pantalon"
-    countrySpinningParam:
-      name: countrySpinning
-      in: query
-      description: |
-        Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée `textile/countries`).
-        Si non spécifié, le pays de filature pris en considération est celui de production de
-        la matière la plus représentée dans le mix.
-      required: false
-      style: form
-      schema:
-        type: string
-        minLength: 2
-        maxLength: 2
-      examples:
-        Default:
-          value: ""
-        Chine:
-          value: "CN"
-        France:
-          value: "FR"
-    countryFabricParam:
-      name: countryFabric
-      in: query
-      description: |
-        Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/countries`)
-      required: false
-      style: form
-      schema:
-        type: string
-        minLength: 2
-        maxLength: 2
-      examples:
-        Chine:
-          value: "CN"
-        France:
-          value: "FR"
-    countryDyeingParam:
-      name: countryDyeing
-      in: query
-      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/countries`)"
-      required: false
-      style: form
-      schema:
-        type: string
-        minLength: 2
-        maxLength: 2
-      examples:
-        Chine:
-          value: "CN"
-        France:
-          value: "FR"
-    countryMakingParam:
-      name: countryMaking
-      in: query
-      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/countries`)"
-      required: false
-      style: form
-      schema:
-        type: string
-        minLength: 2
-        maxLength: 2
-      examples:
-        Chine:
-          value: "CN"
-        France:
-          value: "FR"
-    airTransportRatioParam:
-      name: airTransportRatio
-      in: query
-      description: |
-        Part de **transport aérien** entre l'étape de **Confection** et l'étape de **Distribution**, entre `0` et `1`
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0
-        maximum: 1
-    businessParam:
-      name: business
-      in: query
-      description: |
-        Type d'entreprise et d'offre de services :
-
-        - `small-business`: PME/TPE
-        - `large-business-with-services`: Grande entreprise avec service de réparation
-        - `large-business-without-services` (par défaut): Grande entreprise sans service de réparation
-      required: false
-      style: form
-      schema:
-        type: string
-        enum:
-          - small-business
-          - large-business-with-services
-          - large-business-without-services
-    numberOfReferencesParam:
-      name: numberOfReferences
-      in: query
-      description: |
-        Nombre de références au catalogue de la marque.
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 1
-        maximum: 999999
-    priceParam:
-      name: price
-      in: query
-      description: |
-        Prix du produit, en Euros (€).
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 1
-        maximum: 1000
-    traceabilityParam:
-      name: traceability
-      in: query
-      description: |
-        Traçabilité renforcée
-      required: false
-      style: form
-      schema:
-        type: string
-        enum: ["true", "false"]
-    upcycledParam:
-      name: upcycled
-      in: query
-      description: |
-        Produit remanufacturé
-      required: false
-      style: form
-      schema:
-        type: string
-        enum: ["true", "false"]
-    makingWasteParam:
-      name: makingWaste
-      in: query
-      description: |
-        Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
-
-        **⚠️ Sur les produits tricotés en "fully fashioned / seamless", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
-
-        **⚠️ Sur les produits tricotés en "integral / whole garment", ce paramètre n'a aucun impact (valeur fixe: 0).**
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0
-        maximum: 0.4
-    makingDeadStockParam:
-      name: makingDeadStock
-      in: query
-      description: |
-        Taux de stocks dormants lors de la confection, entre `0` et `0.3`.
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0
-        maximum: 0.3
-    makingComplexityParam:
-      name: makingComplexity
-      in: query
-      description: |
-        Complexité de la confection, parmi la liste de choix suivants :
-          - `very-high` : très élevée
-          - `high` : élevée
-          - `medium` : moyenne
-          - `low` : faible
-          - `very-low` : très faible
-
-        **⚠️ Sur les produits tricotés en "fully fashioned / seamless", ce paramètre n'a aucun impact (valeur fixe: very-low).**
-
-        **⚠️ Sur les produits tricotés en "integral / whole garment", ce paramètre n'a aucun impact (valeur fixe: vide, non applicable).**
-      required: false
-      style: form
-      schema:
-        type: string
-        enum: ["very-high", "high", "medium", "low", "very-low"]
-    yarnSizeParam:
-      name: yarnSize
-      in: query
-      description: |
-        Titrage du fil exprimé en **numéro métrique** (`Nm`).
-        Il est aussi possible de l'exprimer en décitex (`Dtex`) en spécifiant l'unité.
-        Exemples de saisie :
-          - `40` : 40Nm
-          - `40Nm` : 40Nm
-          - `250Dtex` : 250Dtex, équivalent à 40Nm
-      required: false
-      style: form
-      schema:
-        type: string
-        minimum: 9
-        maximum: 200
-    fabricProcessParam:
-      name: fabricProcess
-      in: query
-      description: |
-        Le processus utilisé pour tisser ou tricoter le tissu, parmi la liste de choix suivants :
-          - `knitting-mix` : Tricotage moyen (mix de métiers circulaire & rectiligne)
-          - `knitting-fully-fashioned` : Tricotage fully-fashioned / seamless
-          - `knitting-integral` : Tricotage intégral / whole garment
-          - `knitting-circular` : Tricotage circulaire, inventaire désagrégé
-          - `knitting-straight` : Tricotage rectiligne, inventaire désagrégé
-          - `weaving`  : Tissage
-      required: false
-      style: form
-      schema:
-        type: string
-        enum:
-          - knitting-mix
-          - knitting-fully-fashioned
-          - knitting-integral
-          - knitting-circular
-          - knitting-straight
-          - weaving
-      examples:
-        knitting-mix:
-          value: "knitting-mix"
-        knitting-fully-fashioned:
-          value: "knitting-fully-fashioned"
-        knitting-integral:
-          value: "knitting-integral"
-        knitting-circular:
-          value: "knitting-circular"
-        knitting-straight:
-          value: "knitting-straight"
-        weaving:
-          value: "weaving"
-    surfaceMassParam:
-      name: surfaceMass
-      in: query
-      description: |
-        Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique.
-
-        **⚠️ Sur les produits tricotés, ce paramètre n'impacte que l'impression.**
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 80
-        maximum: 500
-    fadingParam:
-      name: fading
-      in: query
-      description: |
-        Active l'application du **procédé de délavage** pour l'étape de confection d'un produit.
-      required: false
-      style: form
-      schema:
-        type: string
-        enum: ["true", "false"]
-      examples:
-        default:
-          value: ""
-        enabled:
-          value: "true"
-        disabled:
-          value: "false"
-    disabledStepsParam:
-      name: disabledSteps
-      in: query
-      description: |
-        Liste des étapes du cycle de vie à désactiver, séparée par des virgules. Chaque étape est identifiée par un code :
-
-        - `material`: Matière
-        - `spinning`: Filature
-        - `fabric`: Tissage ou Tricotage
-        - `ennobling`: Ennoblissement (incluant le pré-traitement, la teinture et la finition)
-        - `making`: Confection
-        - `distribution`: Distribution
-        - `use`: Utilisation
-        - `eol`: Fin de vie
-
-        Par exemple, pour désactiver l'étape de filature ainsi que celle d'ennoblissement, on peut passer `disabledSteps=spinning,ennobling`.
-      required: false
-      style: form
-      schema:
-        type: string
-      examples:
-        default:
-          summary: "Aucune étape désactivée"
-          value: ""
-        making:
-          summary: "Confection desactivée"
-          value: "making"
-        spinningDyeing:
-          summary: "Filature et ennoblissement désactivés"
-          value: "spinning,ennobling"
-    dyeingProcessTypeParam:
-      name: dyeingProcessType
-      in: query
-      description: |
-        Ce paramètre permet de préciser le type de procédé avec lequel est teint le produit; il peut prendre les valeurs suivantes :
-
-        - `average`: Teinture moyenne
-        - `continuous`: Teinture en continu
-        - `discontinuous`: Teinture discontinue
-
-        ⚠️ En l’absence d’utilisation explicite du paramètre, le type de teinture utilisé sera teinture moyenne.
-      required: false
-      style: form
-      schema:
-        type: string
-      examples:
-        default:
-          summary: "Teinture moyenne (par défault)"
-          value: ""
-        continuous:
-          summary: "Teinture en continu"
-          value: "continuous"
-        discontinuous:
-          summary: "Teinture discontinue"
-          value: "discontinuous"
-    printingParam:
-      name: printing
-      in: query
-      description: |
-        Ce paramètre permet de préciser le type d'impression effectuée sur le produit, suivi du pourcentage de
-        surface teinte. Par exemple, `pigment;0.1` signifie impression pigmentaire sur 10% de la superficie du
-        vêtement. L'identifiant de procédé d'impression peut prendre les valeurs suivantes :
-
-        - `pigment` pour une impression pigmentaire ;
-        - `substantive` pour une impression fixé/lavé ;
-      required: false
-      style: form
-      schema:
-        type: string
-      examples:
-        default:
-          summary: "Aucune impression"
-          value: ""
-        pigment:
-          summary: "Pigmentaire sur 50% de la surface"
-          value: "pigment;0.5"
-        substantive:
-          summary: "Fixé/Lavé sur 20% de la surface"
-          value: "substantive;0.2"
     ingredientsParam:
       name: "ingredients[]"
       in: query
@@ -1116,43 +579,6 @@ components:
         freezingAndOven:
           summary: Congélation et cuisson au four
           value: ["freezing", "oven"]
-    physicalDurabilityParam:
-      name: physicalDurability
-      in: query
-      description: La durabilité physique du produit.
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0.67
-        maximum: 1.45
-    trimsParam:
-      name: "trims[]"
-      in: query
-      description: |
-        Liste des accessoires du vêtement (boutons, zip, etc). La chaîne est composée d'un identifiant
-        d'accessoire et d'une quantité, séparés par un point-virgule (`;`). Par exemple:
-
-        - `0e8ea799-9b06-490c-a925-37564746c454;1` pour une fermeture éclair
-        - `0c903fc7-279b-4375-8cfa-ca8133b8e973;4` pour quatre boutons en acier
-
-        La liste des accessoires disponibles est accessible sur le point d'entrée `/textile/trims`.
-      required: false
-      style: form
-      schema:
-        type: array
-        items:
-          type: string
-      examples:
-        zip:
-          summary: "Une fermeture éclair"
-          value: ["0e8ea799-9b06-490c-a925-37564746c454;1"]
-        fourButtons:
-          summary: "4 boutons en métal"
-          value: ["0c903fc7-279b-4375-8cfa-ca8133b8e973;4"]
-        oneButtonAndOneZip:
-          summary: "Un bouton en métal et une fermeture éclair"
-          value: ["0c903fc7-279b-4375-8cfa-ca8133b8e973;1", "0e8ea799-9b06-490c-a925-37564746c454;1"]
   schemas:
     Impacts:
       type: object
@@ -1220,98 +646,12 @@ components:
       required:
       - materials
       properties:
-        mass:
-          type: number
-          description: Masse du produit fini
-        materials:
-          type: array
-          description: Liste des matières composant le vêtement
-          items:
-            "$ref": "#/components/schemas/TextileQueryMaterial"
-          minItems: 1
-        product:
-          type: string
-          description: Le type de produit
-          enum:
-          - chemise
-          - jean
-          - jupe
-          - manteau
-          - pantalon
-          - pull
-          - tshirt
-        countrySpinning:
-          type: string
-          description: Pays de filature
-        countryFabric:
-          type: string
-          description: Pays de tissage ou de tricotage
-        countryDyeing:
-          type: string
-          description: Pays de teinture ou d'ennoblissement
-        countryMaking:
-          type: string
-          description: Pays de confection
         airTransportRatio:
           type: number
-          description: Part de transport aérien
+          description: |
+            Part de **transport aérien** entre l'étape de **Confection** et l'étape de **Distribution**, entre `0` et `1`
           minimum: 0
           maximum: 1
-        dyeingProcessType:
-          type: string
-          description: Type de teinture
-          enum:
-            - average
-            - continuous
-            - discontinuous
-        makingWaste:
-          type: number
-          description: Taux de perte en confection
-          minimum: 0
-          maximum: 0.4
-        makingDeadStock:
-          type: number
-          description: Taux de stocks dormants lors de la confection
-          minimum: 0
-          maximum: 0.3
-        makingComplexity:
-          type: string
-          description: Complexité de la confection
-          enum:
-          - very-high
-          - high
-          - medium
-          - low
-          - very-low
-          - not-applicable
-        yarnSize:
-          type: number
-          description: Titrage du fil, exprimé en numéro métrique (Nm)
-        surfaceMass:
-          type: number
-          description: Le grammage de l'étoffe, exprimé en gr/m²
-          minimum: 80
-          maximum: 500
-        fabricProcess:
-          type: string
-          enum:
-            - knitting-mix
-            - knitting-fully-fashioned
-            - knitting-integral
-            - knitting-circular
-            - knitting-straight
-            - weaving
-        disabledSteps:
-          type: array
-          enum:
-          - material
-          - spinning
-          - fabric
-          - making
-          - ennobling
-          - distribution
-          - use
-          - eol
         business:
           type: string
           description: |
@@ -1324,31 +664,201 @@ components:
             - small-business
             - large-business-with-services
             - large-business-without-services
+        countryDyeing:
+          type: string
+          description: |
+            Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/countries`)
+          minLength: 2
+          maxLength: 2
+        countryFabric:
+          type: string
+          description: |
+            Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/countries`)
+          minLength: 2
+          maxLength: 2
+        countryMaking:
+          type: string
+          description: |
+            Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/countries`)
+          minLength: 2
+          maxLength: 2
+        countrySpinning:
+          type: string
+          description: |
+            Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée `textile/countries`).
+            Si non spécifié, le pays de filature pris en considération est celui de production de
+            la matière la plus représentée dans le mix.
+          minLength: 2
+          maxLength: 2
+        disabledSteps:
+          type: array
+          description: |
+            Liste des étapes du cycle de vie à désactiver, séparée par des virgules. Chaque étape est identifiée par un code :
+
+            - `material`: Matière
+            - `spinning`: Filature
+            - `fabric`: Tissage ou Tricotage
+            - `ennobling`: Ennoblissement (incluant le pré-traitement, la teinture et la finition)
+            - `making`: Confection
+            - `distribution`: Distribution
+            - `use`: Utilisation
+            - `eol`: Fin de vie
+
+            Par exemple, pour désactiver l'étape de filature ainsi que celle d'ennoblissement, on peut passer `disabledSteps=spinning,ennobling`.
+          enum:
+          - material
+          - spinning
+          - fabric
+          - making
+          - ennobling
+          - distribution
+          - use
+          - eol
+        dyeingProcessType:
+          type: string
+          description: |
+            Ce paramètre permet de préciser le type de procédé avec lequel est teint le produit; il peut prendre les valeurs suivantes :
+
+            - `average`: Teinture moyenne
+            - `continuous`: Teinture en continu
+            - `discontinuous`: Teinture discontinue
+
+            ⚠️ En l’absence d’utilisation explicite du paramètre, le type de teinture utilisé sera teinture moyenne.
+          enum:
+            - average
+            - continuous
+            - discontinuous
+        fabricProcess:
+          type: string
+          description: |
+            Le processus utilisé pour tisser ou tricoter le tissu, parmi la liste de choix suivants :
+            - `knitting-mix` : Tricotage moyen (mix de métiers circulaire & rectiligne)
+            - `knitting-fully-fashioned` : Tricotage fully-fashioned / seamless
+            - `knitting-integral` : Tricotage intégral / whole garment
+            - `knitting-circular` : Tricotage circulaire, inventaire désagrégé
+            - `knitting-straight` : Tricotage rectiligne, inventaire désagrégé
+            - `weaving`  : Tissage
+          enum:
+            - knitting-mix
+            - knitting-fully-fashioned
+            - knitting-integral
+            - knitting-circular
+            - knitting-straight
+            - weaving
+        fading:
+          type: boolean
+          description: |
+            Active l'application du **procédé de délavage** pour l'étape de confection d'un produit.
+        makingComplexity:
+          type: string
+          description: |
+            Complexité de la confection, parmi la liste de choix suivants :
+
+            - `very-high` : très élevée
+            - `high` : élevée
+            - `medium` : moyenne
+            - `low` : faible
+            - `very-low` : très faible
+
+            **⚠️ Sur les produits tricotés en "fully fashioned / seamless", ce paramètre n'a aucun impact (valeur fixe: very-low).**
+
+            **⚠️ Sur les produits tricotés en "integral / whole garment", ce paramètre n'a aucun impact (valeur fixe: vide, non applicable).**
+          enum:
+          - very-high
+          - high
+          - medium
+          - low
+          - very-low
+          - not-applicable
+        makingDeadStock:
+          type: number
+          description: |
+            Taux de stocks dormants lors de la confection, entre `0` et `0.3`.
+          minimum: 0
+          maximum: 0.3
+        makingWaste:
+          type: number
+          description: |
+            Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
+
+            **⚠️ Sur les produits tricotés en "fully fashioned / seamless", ce paramètre n'a aucun impact (valeur fixe: 0.02).**
+
+            **⚠️ Sur les produits tricotés en "integral / whole garment", ce paramètre n'a aucun impact (valeur fixe: 0).**
+          minimum: 0
+          maximum: 0.4
+        materials:
+          type: array
+          description: Liste des matières composant le vêtement
+          items:
+            "$ref": "#/components/schemas/TextileQueryMaterial"
+          minItems: 1
+        mass:
+          type: number
+          description: Masse du produit fini, en kilogrammes
+          minimum: 0.01
+          example: 0.17
         numberOfReferences:
           description: |
             Nombre de références au catalogue de la marque.
           type: number
           minimum: 1
           maximum: 999999
-        price:
-          description: |
-            Prix du produit.
-          type: number
-          minimum: 1
-          maximum: 1000
-        traceability:
-          description: |
-            Traçabilité renforcée
-          type: boolean
-        upcycled:
-          description: |
-            Produit remanufacturé
-          type: boolean
         physicalDurability:
           description: La durabilité physique du produit.
           type: number
           minimum: 0.67
           maximum: 1.45
+        price:
+          description: |
+            Prix du produit, en Euros (€).
+          type: number
+          minimum: 1
+          maximum: 1000
+        printing:
+          type: object
+          description: |
+            Ce paramètre permet de préciser le type d'impression effectuée sur le produit.
+            Par exemple, `{"kind": "pigment", "ratio": 0.1}` signifie impression pigmentaire sur 10%
+            de la superficie du vêtement.
+          required: ["kind"]
+          properties:
+            kind:
+              type: string
+              description: |
+                Type de procédé d'impression pouvant prendre les valeurs suivantes :
+                - `pigment` pour une impression pigmentaire ;
+                - `substantive` pour une impression fixé/lavé ;
+              enum:
+              - pigment
+              - substantive
+            ratio:
+              type: number
+              description: |
+                Pourcentage de surface teinte, exprimé entre `0` et `1`
+        product:
+          type: string
+          description: |
+            Identifiant du produit (liste disponible sur le point d'entrée `/textile/products`)
+          enum:
+          - chemise
+          - jean
+          - jupe
+          - manteau
+          - pantalon
+          - pull
+          - tshirt
+        surfaceMass:
+          type: number
+          description: |
+            Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique.
+
+            **⚠️ Sur les produits tricotés, ce paramètre n'impacte que l'impression.**
+          minimum: 80
+          maximum: 500
+        traceability:
+          description: |
+            Traçabilité renforcée
+          type: boolean
         trims:
           description: |
             Liste des accessoires du vêtement (boutons, zip, etc).
@@ -1363,8 +873,27 @@ components:
               quantity:
                 type: integer
                 minimum: 0
+        upcycled:
+          description: |
+            Produit remanufacturé
+          type: boolean
+        yarnSize:
+          oneOf:
+          - type: string
+          - type: integer
+          description: |
+            Titrage du fil exprimé en **numéro métrique** (`Nm`).
+            Il est aussi possible de l'exprimer en décitex (`Dtex`) en spécifiant l'unité.
+            Exemples de saisie :
+              - `40` : 40Nm
+              - `"40Nm"` : 40Nm
+              - `"250Dtex"` : 250Dtex, équivalent à 40Nm
+          minimum: 9
+          maximum: 200
     TextileQueryMaterial:
       type: object
+      description: |
+        Liste des matières composant le produit
       additionalProperties: false
       required:
       - id
@@ -1372,18 +901,29 @@ components:
       properties:
         id:
           type: string
+          description: |
+            Identifiant de la matière, la liste des matières disponibles est accessible sur le
+            point d'entrée `/textile/materials`
         share:
           type: number
+          description: |
+            Part du produit que cette matière représente (entre `0` et `1`)
           minimum: 0.01
           maximum: 1
         spinning:
           type: string
+          description: |
+            Procédé de filature ou de filage pour la matière, dont la valeur peut être :
+            - `ConventionalSpinning` : filature conventionnelle (à anneaux : ring spun) pour les matières naturelles ou artificielles
+            - `UnconventionalSpinning` : filature non conventionnelle (à bouts libérées : open-end) pour les matières naturelles ou artificielles
+            - `SyntheticSpinning` : filage pour les matières synthétiques
           enum:
           - ConventionalSpinning
           - UnconventionalSpinning
           - SyntheticSpinning
         country:
           type: string
+          description: Code du pays d'origine de la matière
           minLength: 2
           maxLength: 2
     FoodQuery:
@@ -1470,13 +1010,23 @@ components:
       type: object
       properties:
         error:
-          type: array
-          description: Description de l'erreur de validation des paramètres fournis
-          items:
+          type: object
+          description: |
+            Un dictionnaire dont la clé est le nom d'un champ en erreur et la valeur le message d'erreur.
+          properties:
+            decoding:
+              type: string
+              description: Une erreur de décodage JSON
+            general:
+              type: string
+              description: Une erreur d'ordre général
+          additionalProperties:
             type: string
+            description: Une erreur particulière pour un champ spécifique
         documentation:
           type: string
-          description: "Lien hypertexte vers la documentation de l'API"
+          description: |
+            Lien hypertexte vers la documentation de l'API
     CountryListResponse:
       type: array
       description: Liste des pays.

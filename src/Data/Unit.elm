@@ -56,7 +56,6 @@ module Data.Unit exposing
     , threadDensityLow
     , threadDensityToFloat
     , threadDensityToInt
-    , yarnSizeGramsPer10km
     , yarnSizeInGrams
     , yarnSizeInKilometers
     , yarnSizeKilometersPerKg
@@ -66,10 +65,12 @@ import Area exposing (Area)
 import Data.Split as Split exposing (Split)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
+import Regex
 
 
 
@@ -157,22 +158,7 @@ nonPhysicalDurabilityToFloat (NonPhysicalDurability float) =
 decodePhysicalDurability : Decoder PhysicalDurability
 decodePhysicalDurability =
     Decode.float
-        |> Decode.andThen
-            (\float ->
-                if float < physicalDurabilityToFloat (minDurability PhysicalDurability) || float > physicalDurabilityToFloat (maxDurability PhysicalDurability) then
-                    Decode.fail
-                        ("Le coefficient de durabilité spécifié ("
-                            ++ String.fromFloat float
-                            ++ ") doit être compris entre "
-                            ++ String.fromFloat (physicalDurabilityToFloat (minDurability PhysicalDurability))
-                            ++ " et "
-                            ++ String.fromFloat (physicalDurabilityToFloat (maxDurability PhysicalDurability))
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed (physicalDurability float)
-            )
+        |> Decode.map physicalDurability
 
 
 encodePhysicalDurability : PhysicalDurability -> Encode.Value
@@ -218,14 +204,16 @@ maxYarnSize =
 yarnSizeInKilometers : YarnSize -> Float
 yarnSizeInKilometers yarnSize =
     -- Used to display the value using the Nm unit
-    Quantity.at yarnSize Mass.kilogram
+    Mass.kilogram
+        |> Quantity.at yarnSize
         |> Length.inKilometers
 
 
 yarnSizeInGrams : YarnSize -> Float
 yarnSizeInGrams yarnSize =
     -- Used to display the value using the Dtex unit
-    Quantity.at_ yarnSize (Length.meters 10000)
+    Length.meters 10000
+        |> Quantity.at_ yarnSize
         |> Mass.inGrams
 
 
@@ -234,30 +222,51 @@ encodeYarnSize =
     yarnSizeInKilometers >> Encode.float
 
 
+parseYarnSize : String -> Maybe YarnSize
+parseYarnSize str =
+    let
+        withUnitRegex =
+            -- Match either an int or a int and a unit `Nm` or `Dtex`
+            Regex.fromString "(\\d+)(Nm|Dtex)"
+                |> Maybe.withDefault Regex.never
+
+        subMatches =
+            -- If it matches, returns [ <the value>, <the unit> ]
+            str
+                |> Regex.find withUnitRegex
+                |> List.map .submatches
+    in
+    case String.toFloat str of
+        Just float ->
+            Just <| yarnSizeKilometersPerKg float
+
+        Nothing ->
+            case subMatches of
+                [ [ Just floatStr, Just "Nm" ] ] ->
+                    String.toFloat floatStr
+                        |> Maybe.map yarnSizeKilometersPerKg
+
+                [ [ Just floatStr, Just "Dtex" ] ] ->
+                    String.toFloat floatStr
+                        |> Maybe.map yarnSizeGramsPer10km
+
+                _ ->
+                    Nothing
+
+
 decodeYarnSize : Decoder YarnSize
 decodeYarnSize =
-    Decode.float
-        |> Decode.andThen
-            (\float ->
-                let
-                    yarnSize =
-                        yarnSizeKilometersPerKg float
-                in
-                if (yarnSize |> Quantity.lessThan minYarnSize) || (yarnSize |> Quantity.greaterThan maxYarnSize) then
-                    Decode.fail
-                        ("Le titrage spécifié ("
-                            ++ String.fromFloat float
-                            ++ ") doit être compris entre "
-                            ++ String.fromFloat (yarnSizeInKilometers minYarnSize)
-                            ++ " et "
-                            ++ String.fromFloat (yarnSizeInKilometers maxYarnSize)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed float
-            )
-        |> Decode.map yarnSizeKilometersPerKg
+    Decode.oneOf
+        [ Decode.float
+            |> Decode.map yarnSizeKilometersPerKg
+        , Decode.string
+            |> Decode.andThen
+                (\str ->
+                    parseYarnSize str
+                        |> Result.fromMaybe ("Titrage invalide: " ++ str)
+                        |> DE.fromResult
+                )
+        ]
 
 
 
@@ -360,26 +369,6 @@ maxSurfaceMass =
 decodeSurfaceMass : Decoder SurfaceMass
 decodeSurfaceMass =
     Decode.int
-        |> Decode.andThen
-            (\int ->
-                let
-                    surfaceMass =
-                        gramsPerSquareMeter int
-                in
-                if (surfaceMass |> Quantity.lessThan minSurfaceMass) || (surfaceMass |> Quantity.greaterThan maxSurfaceMass) then
-                    Decode.fail
-                        ("La masse surfacique spécifiée ("
-                            ++ String.fromInt int
-                            ++ ") doit être comprise entre "
-                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters minSurfaceMass)
-                            ++ " et "
-                            ++ String.fromInt (surfaceMassInGramsPerSquareMeters maxSurfaceMass)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed int
-            )
         |> Decode.map gramsPerSquareMeter
 
 

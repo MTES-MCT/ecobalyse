@@ -9,8 +9,8 @@ import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
-import Data.Food.Query as BuilderQuery
-import Data.Food.Recipe as BuilderRecipe
+import Data.Food.Query as FoodQuery
+import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -22,9 +22,9 @@ import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.WellKnown exposing (WellKnown)
+import Data.Validation as Validation
 import Json.Encode as Encode
 import Route as WebRoute
-import Server.Query as Query
 import Server.Request exposing (Request)
 import Server.Route as Route
 import Static.Db exposing (Db, db)
@@ -60,19 +60,19 @@ sendResponse httpStatus { jsResponseHandler, method, url } body =
         |> output
 
 
-encodeStringError : String -> Encode.Value
-encodeStringError error =
+encodeValidationErrors : Validation.Errors -> Encode.Value
+encodeValidationErrors errors =
     Encode.object
-        [ ( "error", error |> String.lines |> List.filter ((/=) "") |> Encode.list Encode.string )
+        [ ( "error", Validation.encodeErrors errors )
         , ( "documentation", Encode.string apiDocUrl )
         ]
 
 
-toResponse : Result String Encode.Value -> JsonResponse
+toResponse : Result Validation.Errors Encode.Value -> JsonResponse
 toResponse encodedResult =
     case encodedResult of
-        Err error ->
-            ( 400, encodeStringError error )
+        Err errors ->
+            ( 400, encodeValidationErrors errors )
 
         Ok encoded ->
             ( 200, encoded )
@@ -88,7 +88,7 @@ toAllImpactsSimple wellKnown { impacts, inputs } =
         ]
 
 
-toFoodWebUrl : Definition.Trigram -> BuilderQuery.Query -> String
+toFoodWebUrl : Definition.Trigram -> FoodQuery.Query -> String
 toFoodWebUrl trigram foodQuery =
     Just foodQuery
         |> WebRoute.FoodBuilder trigram
@@ -114,19 +114,20 @@ toSingleImpactSimple wellKnown trigram { impacts, inputs } =
         ]
 
 
-toFoodResults : BuilderQuery.Query -> BuilderRecipe.Results -> Encode.Value
+toFoodResults : FoodQuery.Query -> Recipe.Results -> Encode.Value
 toFoodResults query results =
     Encode.object
         [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Impact.default query |> Encode.string )
-        , ( "results", BuilderRecipe.encodeResults results )
+        , ( "results", Recipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
-        , ( "query", BuilderQuery.encode query )
+        , ( "query", FoodQuery.encode query )
         ]
 
 
-executeFoodQuery : Db -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> JsonResponse
+executeFoodQuery : Db -> (Recipe.Results -> Encode.Value) -> FoodQuery.Query -> JsonResponse
 executeFoodQuery db encoder =
-    BuilderRecipe.compute db
+    Recipe.compute db
+        >> Result.mapError Validation.fromErrorString
         >> Result.map (Tuple.second >> encoder)
         >> toResponse
 
@@ -134,6 +135,7 @@ executeFoodQuery db encoder =
 executeTextileQuery : Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
 executeTextileQuery db encoder =
     Simulator.compute db
+        >> Result.mapError Validation.fromErrorString
         >> Result.map encoder
         >> toResponse
 
@@ -238,14 +240,6 @@ handleRequest db request =
                 |> encodeProcessList
                 |> respondWith 200
 
-        Just (Route.FoodGetRecipe (Ok query)) ->
-            query
-                |> executeFoodQuery db (toFoodResults query)
-
-        Just (Route.FoodGetRecipe (Err errors)) ->
-            Query.encodeErrors errors
-                |> respondWith 400
-
         Just Route.TextileGetCountryList ->
             db.countries
                 |> Scope.anyOf [ Scope.Textile ]
@@ -262,30 +256,6 @@ handleRequest db request =
                 |> Encode.list encodeProduct
                 |> respondWith 200
 
-        Just (Route.TextileGetSimulator (Ok query)) ->
-            query
-                |> executeTextileQuery db (toAllImpactsSimple db.textile.wellKnown)
-
-        Just (Route.TextileGetSimulator (Err errors)) ->
-            Query.encodeErrors errors
-                |> respondWith 400
-
-        Just (Route.TextileGetSimulatorDetailed (Ok query)) ->
-            query
-                |> executeTextileQuery db Simulator.encode
-
-        Just (Route.TextileGetSimulatorDetailed (Err errors)) ->
-            Query.encodeErrors errors
-                |> respondWith 400
-
-        Just (Route.TextileGetSimulatorSingle trigram (Ok query)) ->
-            query
-                |> executeTextileQuery db (toSingleImpactSimple db.textile.wellKnown trigram)
-
-        Just (Route.TextileGetSimulatorSingle _ (Err errors)) ->
-            Query.encodeErrors errors
-                |> respondWith 400
-
         Just Route.TextileGetTrimList ->
             db.components
                 |> Scope.anyOf [ Scope.Textile ]
@@ -297,7 +267,7 @@ handleRequest db request =
             executeFoodQuery db (toFoodResults foodQuery) foodQuery
 
         Just (Route.FoodPostRecipe (Err error)) ->
-            encodeStringError error
+            encodeValidationErrors error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
@@ -305,7 +275,7 @@ handleRequest db request =
                 |> executeTextileQuery db (toAllImpactsSimple db.textile.wellKnown)
 
         Just (Route.TextilePostSimulator (Err error)) ->
-            encodeStringError error
+            encodeValidationErrors error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
@@ -313,7 +283,7 @@ handleRequest db request =
                 |> executeTextileQuery db Simulator.encode
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
-            encodeStringError error
+            encodeValidationErrors error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
@@ -321,11 +291,13 @@ handleRequest db request =
                 |> executeTextileQuery db (toSingleImpactSimple db.textile.wellKnown trigram)
 
         Just (Route.TextilePostSimulatorSingle (Err error) _) ->
-            encodeStringError error
+            encodeValidationErrors error
                 |> respondWith 400
 
         Nothing ->
-            encodeStringError "Endpoint doesn't exist"
+            "Endpoint doesn't exist"
+                |> Validation.fromErrorString
+                |> encodeValidationErrors
                 |> respondWith 404
 
 
@@ -335,7 +307,10 @@ update msg =
         Received request ->
             case db request.processes of
                 Err error ->
-                    encodeStringError error |> sendResponse 503 request
+                    error
+                        |> Validation.fromErrorString
+                        |> encodeValidationErrors
+                        |> sendResponse 503 request
 
                 Ok db ->
                     cmdRequest db request

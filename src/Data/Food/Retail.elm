@@ -23,10 +23,10 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Joules, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Encode as Encode
 import Length exposing (Length)
 import Quantity exposing (Quantity, Rate, rate, ratio)
-import Result.Extra as RE
 import Volume exposing (CubicMeters, Volume, cubicMeters, liters)
 
 
@@ -157,7 +157,7 @@ encode =
 decode : Decoder Distribution
 decode =
     Decode.string
-        |> Decode.andThen (fromString >> RE.unpack Decode.fail Decode.succeed)
+        |> Decode.andThen (fromString >> DE.fromResult)
 
 
 waterImpact : Float -> Volume -> Process -> Impacts
