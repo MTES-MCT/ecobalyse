@@ -112,8 +112,7 @@ infinity =
 list : String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
 list key list_ validator =
     list_
-        |> List.map validator
-        |> RE.combine
+        |> RE.combineMap validator
         |> check key
 
 
