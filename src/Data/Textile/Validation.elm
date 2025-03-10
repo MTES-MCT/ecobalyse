@@ -34,15 +34,15 @@ validate db query =
         |> Validation.accept "makingComplexity" query.makingComplexity
         |> Validation.maybe "makingDeadStock" query.makingDeadStock validateMakingDeadStock
         |> Validation.maybe "makingWaste" query.makingWaste validateMakingWaste
-        |> Validation.validate "mass" (validateMass query.mass)
+        |> Validation.check "mass" (validateMass query.mass)
         |> Validation.nonEmptyList "materials" query.materials (validateMaterialQuery db)
         |> Validation.maybe "numberOfReferences" query.numberOfReferences validateNumberOfReferences
         |> Validation.maybe "physicalDurability" query.physicalDurability validatePhysicalDurability
         |> Validation.maybe "price" query.price validatePrice
         |> Validation.accept "printing" query.printing
-        |> Validation.validate "product" (validateProduct db query.product)
+        |> Validation.check "product" (validateProduct db query.product)
         |> Validation.maybe "surfaceMass" query.surfaceMass validateSurfaceMass
-        |> Validation.validate "traceability" (Ok query.traceability)
+        |> Validation.check "traceability" (Ok query.traceability)
         |> Validation.list "trims" query.trims (Component.validateItem db.components)
         |> Validation.accept "upcycled" query.upcycled
         |> Validation.maybe "yarnSize" query.yarnSize validateYarnSize

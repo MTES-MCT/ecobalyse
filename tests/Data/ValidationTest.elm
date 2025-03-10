@@ -67,12 +67,12 @@ suite =
             ]
         , describe "maybe"
             [ Ok TestMaybe
-                |> Validation.validate "x" (Ok 1)
+                |> Validation.check "x" (Ok 1)
                 |> Validation.maybe "y" (Just 2) Ok
                 |> Expect.equal (Ok { x = 1, y = Just 2 })
                 |> asTest "should accept an optional value"
             , Ok TestMaybe
-                |> Validation.validate "x" (Ok 1)
+                |> Validation.check "x" (Ok 1)
                 |> Validation.maybe "y" Nothing (always <| Err "y is bad")
                 |> Expect.equal (Ok { x = 1, y = Nothing })
                 |> asTest "should reject an invalid optional value"
@@ -89,23 +89,23 @@ suite =
             ]
         , describe "validate"
             [ Ok TestSimple
-                |> Validation.validate "x" (Ok 1)
-                |> Validation.validate "y" (Ok 2)
+                |> Validation.check "x" (Ok 1)
+                |> Validation.check "y" (Ok 2)
                 |> Expect.equal (Ok { x = 1, y = 2 })
                 |> asTest "should accept an Ok result"
             , Ok TestSimple
-                |> Validation.validate "x" (Ok 1)
-                |> Validation.validate "y" (Err "y is bad")
+                |> Validation.check "x" (Ok 1)
+                |> Validation.check "y" (Err "y is bad")
                 |> Expect.equal (Err (Dict.fromList [ ( "y", "y is bad" ) ]))
                 |> asTest "should reject with a single error"
             , Ok TestSimple
-                |> Validation.validate "x" (Err "x is bad")
-                |> Validation.validate "y" (Ok 2)
+                |> Validation.check "x" (Err "x is bad")
+                |> Validation.check "y" (Ok 2)
                 |> Expect.equal (Err (Dict.fromList [ ( "x", "x is bad" ) ]))
                 |> asTest "should reject with a single error, whatever the failure order is"
             , Ok TestSimple
-                |> Validation.validate "x" (Err "x is bad")
-                |> Validation.validate "y" (Err "y is bad")
+                |> Validation.check "x" (Err "x is bad")
+                |> Validation.check "y" (Err "y is bad")
                 |> Expect.equal (Err (Dict.fromList [ ( "x", "x is bad" ), ( "y", "y is bad" ) ]))
                 |> asTest "should reject with multiple errors"
             ]

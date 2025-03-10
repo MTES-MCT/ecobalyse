@@ -2,13 +2,13 @@ module Data.Validation exposing
     ( Errors
     , accept
     , boundedList
+    , check
     , encodeErrors
     , fromDecodingError
     , fromErrorString
     , list
     , maybe
     , nonEmptyList
-    , validate
     , validateWithin
     )
 
@@ -36,7 +36,7 @@ been validated, eg. by a JSON decoder.
 -}
 accept : String -> a -> Result Errors (a -> b) -> Result Errors b
 accept key value =
-    validate key (Ok value)
+    check key (Ok value)
 
 
 boundedList : Int -> Maybe Int -> String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
@@ -70,6 +70,25 @@ boundedList min maybeMax key list_ validator accumulator =
         list key list_ validator accumulator
 
 
+{-| Denote a required value to validate
+-}
+check : String -> Result String a -> Result Errors (a -> b) -> Result Errors b
+check key result accumulator =
+    case ( result, accumulator ) of
+        ( Ok _, Err errors ) ->
+            Err errors
+
+        ( Err error, Err errors ) ->
+            errors
+                |> Dict.union (Dict.singleton key error)
+                |> Err
+
+        ( valueOrError, Ok accFn ) ->
+            valueOrError
+                |> Result.mapError (Dict.singleton key)
+                |> Result.map accFn
+
+
 encodeErrors : Errors -> Encode.Value
 encodeErrors =
     Encode.dict identity Encode.string
@@ -95,7 +114,7 @@ list key list_ validator =
     list_
         |> List.map validator
         |> RE.combine
-        |> validate key
+        |> check key
 
 
 nonEmptyList : String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
@@ -110,26 +129,7 @@ maybe key maybeValue validator =
     maybeValue
         |> Maybe.map (validator >> Result.map Just)
         |> Maybe.withDefault (Ok Nothing)
-        |> validate key
-
-
-{-| Denote a required value to validate
--}
-validate : String -> Result String a -> Result Errors (a -> b) -> Result Errors b
-validate key result accumulator =
-    case ( result, accumulator ) of
-        ( Ok _, Err errors ) ->
-            Err errors
-
-        ( Err error, Err errors ) ->
-            errors
-                |> Dict.union (Dict.singleton key error)
-                |> Err
-
-        ( valueOrError, Ok accFn ) ->
-            valueOrError
-                |> Result.mapError (Dict.singleton key)
-                |> Result.map accFn
+        |> check key
 
 
 validateWithin : String -> { max : a, min : a, toNumber : a -> number, toString : a -> String } -> a -> Result String a
