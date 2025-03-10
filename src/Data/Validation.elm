@@ -39,6 +39,8 @@ accept key value =
     check key (Ok value)
 
 
+{-| Validate the size of a list, with a required minimum and an optional maximum length.
+-}
 boundedList : Int -> Maybe Int -> String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
 boundedList min maybeMax key list_ validator accumulator =
     let
@@ -70,7 +72,7 @@ boundedList min maybeMax key list_ validator accumulator =
         list key list_ validator accumulator
 
 
-{-| Denote a required value to validate
+{-| Validate a value for a given key, accumulating errors for that key.
 -}
 check : String -> Result String a -> Result Errors (a -> b) -> Result Errors b
 check key result accumulator =
@@ -106,9 +108,12 @@ fromErrorString =
 
 infinity : Int
 infinity =
+    -- yes, this should be built-in Elm
     round (1 / 0)
 
 
+{-| Validate a list, reporting the first encountered element validation error.
+-}
 list : String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
 list key list_ validator =
     list_
@@ -116,12 +121,7 @@ list key list_ validator =
         |> check key
 
 
-nonEmptyList : String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
-nonEmptyList =
-    boundedList 1 Nothing
-
-
-{-| Denote that validation should only be performed if a value is actually provided
+{-| Validate a value if one's actually provided
 -}
 maybe : String -> Maybe a -> (a -> Result String a) -> Result Errors (Maybe a -> b) -> Result Errors b
 maybe key maybeValue validator =
@@ -131,6 +131,15 @@ maybe key maybeValue validator =
         |> check key
 
 
+{-| Validate a non-empty list
+-}
+nonEmptyList : String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
+nonEmptyList =
+    boundedList 1 Nothing
+
+
+{-| Generic helper for validating a bounded range
+-}
 validateWithin : String -> { max : a, min : a, toNumber : a -> number, toString : a -> String } -> a -> Result String a
 validateWithin what { max, min, toNumber, toString } value =
     if toNumber value < toNumber min || toNumber value > toNumber max then
