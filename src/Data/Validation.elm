@@ -41,7 +41,7 @@ accept key value =
 
 {-| Validate the size of a list, with a required minimum and an optional maximum length.
 -}
-boundedList : Int -> Maybe Int -> String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
+boundedList : Int -> Maybe Int -> FieldName -> List a -> (a -> Result ErrorMessage a) -> Result Errors (List a -> b) -> Result Errors b
 boundedList min maybeMax key list_ validator accumulator =
     let
         max =
@@ -74,7 +74,7 @@ boundedList min maybeMax key list_ validator accumulator =
 
 {-| Validate a value for a given key, accumulating errors for that key.
 -}
-check : String -> Result String a -> Result Errors (a -> b) -> Result Errors b
+check : FieldName -> Result ErrorMessage a -> Result Errors (a -> b) -> Result Errors b
 check key result accumulator =
     case ( result, accumulator ) of
         ( Ok _, Err errors ) ->
@@ -114,7 +114,7 @@ infinity =
 
 {-| Validate a list, reporting the first encountered element validation error.
 -}
-list : String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
+list : FieldName -> List a -> (a -> Result ErrorMessage a) -> Result Errors (List a -> b) -> Result Errors b
 list key list_ validator =
     list_
         |> RE.combineMap validator
@@ -123,7 +123,7 @@ list key list_ validator =
 
 {-| Validate a value if one's actually provided
 -}
-maybe : String -> Maybe a -> (a -> Result String a) -> Result Errors (Maybe a -> b) -> Result Errors b
+maybe : FieldName -> Maybe a -> (a -> Result ErrorMessage a) -> Result Errors (Maybe a -> b) -> Result Errors b
 maybe key maybeValue validator =
     maybeValue
         |> Maybe.map (validator >> Result.map Just)
@@ -133,14 +133,14 @@ maybe key maybeValue validator =
 
 {-| Validate a non-empty list
 -}
-nonEmptyList : String -> List a -> (a -> Result String a) -> Result Errors (List a -> b) -> Result Errors b
+nonEmptyList : FieldName -> List a -> (a -> Result ErrorMessage a) -> Result Errors (List a -> b) -> Result Errors b
 nonEmptyList =
     boundedList 1 Nothing
 
 
 {-| Generic helper for validating a bounded range
 -}
-validateWithin : String -> { max : a, min : a, toNumber : a -> number, toString : a -> String } -> a -> Result String a
+validateWithin : String -> { max : a, min : a, toNumber : a -> number, toString : a -> String } -> a -> Result ErrorMessage a
 validateWithin what { max, min, toNumber, toString } value =
     if toNumber value < toNumber min || toNumber value > toNumber max then
         Err <|
