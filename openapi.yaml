@@ -1010,13 +1010,23 @@ components:
       type: object
       properties:
         error:
-          type: array
-          description: Description de l'erreur de validation des paramètres fournis
-          items:
+          type: object
+          description: |
+            Un dictionnaire dont la clé est le nom d'un champ en erreur et la valeur le message d'erreur.
+          properties:
+            decoding:
+              type: string
+              description: Une erreur de décodage JSON
+            general:
+              type: string
+              description: Une erreur d'ordre général
+          additionalProperties:
             type: string
+            description: Une erreur particulière pour un champ spécifique
         documentation:
           type: string
-          description: "Lien hypertexte vers la documentation de l'API"
+          description: |
+            Lien hypertexte vers la documentation de l'API
     CountryListResponse:
       type: array
       description: Liste des pays.
