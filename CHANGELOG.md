@@ -1,6 +1,25 @@
 # Changelog
 
 
+## [5.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.1..v5.0.0) (2025-03-10)
+
+
+
+### 🚀 Features
+
+- *(object)* Add plastic transformation process ([#949](https://github.com/MTES-MCT/ecobalyse/issues/949))
+
+### 🪲 Bug Fixes
+
+- Explicit strategies and htc/htn fixes ([#952](https://github.com/MTES-MCT/ecobalyse/issues/952))
+- Memory leak in node 20.16 and 20.17 ([#958](https://github.com/MTES-MCT/ecobalyse/issues/958))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(food,textile,api)* [**breaking**] Remove deprecated API endpoints. ([#951](https://github.com/MTES-MCT/ecobalyse/issues/951))
+- Rename ingredients ([#957](https://github.com/MTES-MCT/ecobalyse/issues/957))
+
+
 ## [4.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.0..v4.0.1) (2025-03-04)
 
 
