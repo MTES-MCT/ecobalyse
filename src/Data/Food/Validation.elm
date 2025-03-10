@@ -20,7 +20,7 @@ validate db query =
         |> Validation.accept "distribution" query.distribution
         |> Validation.list "ingredients" query.ingredients (validateIngredient db)
         |> Validation.list "packaging" query.packaging (validateProcess db)
-        |> Validation.boundedList 0 (Just 2) "preparation" query.preparation validatePreparation
+        |> Validation.boundedList { max = Just 2, min = 0 } "preparation" query.preparation validatePreparation
         |> Validation.maybe "transform" query.transform (validateProcess db)
 
 

@@ -41,13 +41,19 @@ accept key value =
 
 {-| Validate the size of a list, with a required minimum and an optional maximum length.
 -}
-boundedList : Int -> Maybe Int -> FieldName -> List a -> (a -> Result ErrorMessage a) -> Result Errors (List a -> b) -> Result Errors b
-boundedList min maybeMax key list_ validator accumulator =
+boundedList :
+    { max : Maybe Int, min : Int }
+    -> FieldName
+    -> List a
+    -> (a -> Result ErrorMessage a)
+    -> Result Errors (List a -> b)
+    -> Result Errors b
+boundedList ({ min } as bounds) key items validator accumulator =
     let
         max =
-            Maybe.withDefault infinity maybeMax
+            Maybe.withDefault infinity bounds.max
     in
-    if List.length list_ < min || List.length list_ > max then
+    if List.length items < min || List.length items > max then
         Err <|
             Dict.singleton key
                 ("La liste '"
@@ -69,7 +75,7 @@ boundedList min maybeMax key list_ validator accumulator =
                 )
 
     else
-        list key list_ validator accumulator
+        list key items validator accumulator
 
 
 {-| Validate a value for a given key, accumulating errors for that key.
@@ -135,7 +141,7 @@ maybe key maybeValue validator =
 -}
 nonEmptyList : FieldName -> List a -> (a -> Result ErrorMessage a) -> Result Errors (List a -> b) -> Result Errors b
 nonEmptyList =
-    boundedList 1 Nothing
+    boundedList { max = Nothing, min = 1 }
 
 
 {-| Generic helper for validating a bounded range

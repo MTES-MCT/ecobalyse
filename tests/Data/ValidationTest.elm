@@ -31,19 +31,19 @@ suite =
             ]
         , describe "boundedList"
             [ Ok TestList
-                |> Validation.boundedList 2 Nothing "list" [ 1 ] Ok
+                |> Validation.boundedList { min = 2, max = Nothing } "list" [ 1 ] Ok
                 |> Expect.equal (Err (Dict.fromList [ ( "list", "La liste 'list' doit contenir 2 élément(s) minimum." ) ]))
                 |> asTest "should reject a list with a required minimum number of elements"
             , Ok TestList
-                |> Validation.boundedList 0 (Just 2) "list" [ 1, 2, 3 ] Ok
+                |> Validation.boundedList { min = 0, max = Just 2 } "list" [ 1, 2, 3 ] Ok
                 |> Expect.equal (Err (Dict.fromList [ ( "list", "La liste 'list' doit contenir 2 élément(s) maximum." ) ]))
                 |> asTest "should reject a list with a required maximum number of elements"
             , Ok TestList
-                |> Validation.boundedList 1 (Just 2) "list" [ 1, 2, 3 ] Ok
+                |> Validation.boundedList { min = 1, max = Just 2 } "list" [ 1, 2, 3 ] Ok
                 |> Expect.equal (Err (Dict.fromList [ ( "list", "La liste 'list' doit contenir entre 1 et 2 élément(s) maximum." ) ]))
                 |> asTest "should reject a list with a required minimum and maximum number of elements"
             , Ok TestList
-                |> Validation.boundedList 1 (Just 2) "list" [ 1, 2 ] Ok
+                |> Validation.boundedList { min = 1, max = Just 2 } "list" [ 1, 2 ] Ok
                 |> Expect.equal (Ok { list = [ 1, 2 ] })
                 |> asTest "should accept a list matching size requirements"
             ]
