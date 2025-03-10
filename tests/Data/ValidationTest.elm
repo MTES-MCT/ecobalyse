@@ -24,8 +24,8 @@ suite =
     describe "Validation"
         [ describe "accept"
             [ Ok TestSimple
-                |> Validation.accept "x" 1
-                |> Validation.accept "y" 2
+                |> Validation.ok "x" 1
+                |> Validation.ok "y" 2
                 |> Expect.equal (Ok { x = 1, y = 2 })
                 |> asTest "should accept direct values"
             ]

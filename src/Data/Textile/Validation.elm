@@ -21,17 +21,17 @@ import Static.Db exposing (Db)
 validate : Db -> Query -> Result Validation.Errors Query
 validate db query =
     Ok Query
-        |> Validation.accept "airTransportRatio" query.airTransportRatio
-        |> Validation.accept "business" query.business
+        |> Validation.ok "airTransportRatio" query.airTransportRatio
+        |> Validation.ok "business" query.business
         |> Validation.maybe "countryDyeing" query.countryDyeing (Country.validateForScope Scope.Textile db.countries)
         |> Validation.maybe "countryFabric" query.countryFabric (Country.validateForScope Scope.Textile db.countries)
         |> Validation.maybe "countryMaking" query.countryMaking (Country.validateForScope Scope.Textile db.countries)
         |> Validation.maybe "countrySpinning" query.countrySpinning (Country.validateForScope Scope.Textile db.countries)
-        |> Validation.accept "disabledSteps" query.disabledSteps
-        |> Validation.accept "dyeingProcessType" query.dyeingProcessType
-        |> Validation.accept "fabricProcess" query.fabricProcess
-        |> Validation.accept "fading" query.fading
-        |> Validation.accept "makingComplexity" query.makingComplexity
+        |> Validation.ok "disabledSteps" query.disabledSteps
+        |> Validation.ok "dyeingProcessType" query.dyeingProcessType
+        |> Validation.ok "fabricProcess" query.fabricProcess
+        |> Validation.ok "fading" query.fading
+        |> Validation.ok "makingComplexity" query.makingComplexity
         |> Validation.maybe "makingDeadStock" query.makingDeadStock validateMakingDeadStock
         |> Validation.maybe "makingWaste" query.makingWaste validateMakingWaste
         |> Validation.check "mass" (validateMass query.mass)
@@ -39,12 +39,12 @@ validate db query =
         |> Validation.maybe "numberOfReferences" query.numberOfReferences validateNumberOfReferences
         |> Validation.maybe "physicalDurability" query.physicalDurability validatePhysicalDurability
         |> Validation.maybe "price" query.price validatePrice
-        |> Validation.accept "printing" query.printing
+        |> Validation.ok "printing" query.printing
         |> Validation.check "product" (validateProduct db query.product)
         |> Validation.maybe "surfaceMass" query.surfaceMass validateSurfaceMass
         |> Validation.check "traceability" (Ok query.traceability)
         |> Validation.list "trims" query.trims (Component.validateItem db.components)
-        |> Validation.accept "upcycled" query.upcycled
+        |> Validation.ok "upcycled" query.upcycled
         |> Validation.maybe "yarnSize" query.yarnSize validateYarnSize
 
 

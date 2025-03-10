@@ -123,7 +123,7 @@ decodePlaneTransport =
                         Decode.succeed Ingredient.NoPlane
 
                     _ ->
-                        Decode.fail <| "Transport par avion inconnu: " ++ str
+                        Decode.fail <| "Transport par avion inconnu\u{00A0}: " ++ str
             )
 
 

@@ -17,7 +17,7 @@ import Static.Db exposing (Db)
 validate : Db -> Query -> Result Validation.Errors Query
 validate db query =
     Ok Query
-        |> Validation.accept "distribution" query.distribution
+        |> Validation.ok "distribution" query.distribution
         |> Validation.list "ingredients" query.ingredients (validateIngredient db)
         |> Validation.list "packaging" query.packaging (validateProcess db)
         |> Validation.boundedList { max = Just 2, min = 0 } "preparation" query.preparation validatePreparation

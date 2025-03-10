@@ -1,6 +1,5 @@
 module Data.Validation exposing
     ( Errors
-    , accept
     , boundedList
     , check
     , encodeErrors
@@ -9,6 +8,7 @@ module Data.Validation exposing
     , list
     , maybe
     , nonEmptyList
+    , ok
     , validateWithin
     )
 
@@ -29,14 +29,6 @@ type alias ErrorMessage =
 
 type alias Errors =
     Dict FieldName ErrorMessage
-
-
-{-| Skip validation for this value. This is useful when a value is supposed to have already
-been validated, eg. by a JSON decoder.
--}
-accept : String -> a -> Result Errors (a -> b) -> Result Errors b
-accept key value =
-    check key (Ok value)
 
 
 {-| Validate the size of a list, with a required minimum and an optional maximum length.
@@ -142,6 +134,14 @@ maybe key maybeValue validator =
 nonEmptyList : FieldName -> List a -> (a -> Result ErrorMessage a) -> Result Errors (List a -> b) -> Result Errors b
 nonEmptyList =
     boundedList { max = Nothing, min = 1 }
+
+
+{-| Skip validation for this value. This is useful when a value is supposed to have already
+been validated, eg. by a JSON decoder.
+-}
+ok : String -> a -> Result Errors (a -> b) -> Result Errors b
+ok key =
+    Ok >> check key
 
 
 {-| Generic helper for validating a bounded range
