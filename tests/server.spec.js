@@ -500,7 +500,7 @@ describe("API", () => {
             ],
           }),
           "decoding",
-          /Transport par avion inconnu: badValue/,
+          /Transport par avion inconnu : badValue/,
         );
       });
 
