@@ -30,7 +30,7 @@ Avec :&#x20;
 * `Masse` : la masse de produit transportée, exprimée en tonnes. Une conversion est donc à prendre en compte par rapport à la masse en kg dans les autres parties des calculs. La masse transportée est celle du produit fini, à laquelle s'ajoutent les éventuelles pertes liées aux étapes de transformation aval
 * `D_i,j` : la distance parcourue par le mode de transport j pour la voie i, exprimée en km
   * `D_mer,bateau` , `D_terre,camion`,`D_air,avion` , `D_fer,train` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnement"
-  * Le calcul de `D_terre,camion` est précisé dans la section suivante
+  * Le calcul de `D_i,camion` est précisé dans la section suivante (hors voie terre)
   * Les autres distances ne sont pas applicables
 * `CEm_j` : le coût environnemental du mode j, exprimé en Pts/t.km
 
