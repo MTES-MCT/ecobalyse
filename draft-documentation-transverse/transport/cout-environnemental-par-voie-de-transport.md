@@ -14,24 +14,67 @@ Dans cette page, les définitions et paramètres suivants sont utilisés :
 * `D_i,j` la distance effectuée par la voie i avec le mode de transport j
 {% endhint %}
 
-## Distances et mode de transport
+## Méthodes de calcul
+
+### Méthode générale
+
+À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
+
+$$
+CEv_i=Masse*(D_{i,1}∗CE_1+D_{i, 2}∗CE_2)
+$$
+
+Avec :&#x20;
+
+* `CEv_i` : le coût environnemental par voie, exprimé en points d'impact Pts
+* `Masse` : la masse de produit transportée, exprimée en tonnes. Une conversion est donc à prendre en compte par rapport à la masse en kg dans les autres parties des calculs. La masse transportée est celle du produit fini, à laquelle s'ajoutent les éventuelles pertes liées aux étapes de transformation aval
+* `D_i,j` : la distance parcourue par le mode de transport j pour la voie i, exprimée en km
+  * `D_mer,bateau` , `D_terre,camion`,`D_air,avion` , `D_fer,train` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnement"
+  * Le calcul de `D_terre,camion` est précisé dans la section suivante
+  * Les autres distances ne sont pas applicables
+* `CEm_j` : le coût environnemental du mode j, exprimé en Pts/t.km
+
+### Calcul de la distance en camion sur les voies hors route
+
+$$
+D_{i, camion}=min(D_{i,camion,défaut};D_{terre,camion}/2)
+$$
+
+Avec :&#x20;
+
+* `D_i,camion` : la distance parcourue en camion pour la voie i (mer, air, ou fer), exprimée en km
+* `D_i,camion,défaut` = la distance par défaut parcourue par camion pour la voie i (mer, air, ou fer), exprimée en km
+* `D_terre,camion` = distance parcourue par camion pour la voie terrestre, exprimée en km
+
+### Transport au sein d'un même pays
+
+Lorsque deux étapes successives sont réalisées dans un même pays, les distances concernées sont calculées comme suit :&#x20;
+
+$$
+D_{terre, camion}=D_{terre, camion,interne}
+$$
+
+$$
+D_{air, avion}=D_{air, avion,interne} ;D_{air,camion}=(D_{terre, camion,interne})/2
+$$
+
+$$
+D_{fer,train}=D_{fer,train,interne}
+$$
+
+Les distances non mentionnées ici ne s'appliquent pas pour le transport interne à un pays.
+
+## Paramètres retenus pour l’affichage environnemental
+
+### Distances entre pays
 
 La distance pour chaque voie et mode de transport est calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.
 
 Le tableau suivant décrit les sources de données et le mode de calcul des distances pour dans la situation où l'utilisateur connais les pays d'origine et de destination, et ceux-ci sont proposés dans Ecobalyse (Situation 1).
 
-<table><thead><tr><th width="170">Distances</th><th>Source</th></tr></thead><tbody><tr><td>D_terre</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par le PEF, <a href="https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf">Product Environmental Footprint Category Rules Guidance</a>, 7.14.3 From factory to final client)</td></tr><tr><td>D_mer, bateau</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr><tr><td>D_mer, camion</td><td><code>=min(D_mer,camion,défaut;D_terre/2)</code></td></tr><tr><td>D_air, avion</td><td>Distance à vol d'oiseau calculée avec geopy.distance, entre le centre de chaque pays.</td></tr><tr><td>D_air, camion</td><td><code>=min(D_air,camion,défaut;D_terre/2)</code></td></tr><tr><td>D_fer, train</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr><tr><td>D_fer, camion</td><td>défini comme nul</td></tr></tbody></table>
+<table><thead><tr><th width="170">Distances</th><th>Source</th></tr></thead><tbody><tr><td>D_terre,camion</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par le PEF, <a href="https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf">Product Environmental Footprint Category Rules Guidance</a>, 7.14.3 From factory to final client)</td></tr><tr><td>D_mer, bateau</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr><tr><td>D_air, avion</td><td>Distance à vol d'oiseau calculée avec geopy.distance, entre le centre de chaque pays.</td></tr><tr><td>D_fer, train</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr></tbody></table>
 
 [Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json) (hors istances vers et depuis les ports et aéroports).
-
-### Transport au sein d'un même pays
-
-Lorsque deux étapes successives sont réalisées dans un même pays, des distances par défaut sont considérées :
-
-* Distance par voie terrestre : `D_terre,interne`
-* Distance par voie aérienne : `D_air,avion,interne + D_terre,interne/2`
-* Distance par voie ferroviaire : `D_fer,train,interne`
-* Le transport maritime est exclu.
 
 ### Situations où l'un des pays n'est pas connu ou pas proposé dans Ecobalyse
 
@@ -74,32 +117,19 @@ Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence ave
 
 </details>
 
-## Coût environnemental pour une voie de transport
-
-À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
-
-$$
-CE_i=Masse*(D_{i,1}∗CE_1+D_{i, 2}∗CE_2)
-$$
-
-Avec :&#x20;
-
-* `CEv_i` : le coût environnemental par voie, exprimé en points d'impact Pts
-* `Masse` : la masse de produit transportée, exprimée en tonnes. Une conversion est donc à prendre en compte par rapport à la masse en kg dans les autres parties des calculs. La masse transportée est celle du produit fini, à laquelle s'ajoutent les pertes liées aux étapes de transformation aval
-* `D_i,j` : la distance parcourue par le mode de transport j pour la voie i, exprimée en km
-* `CEm_j` : le coût environnemental du mode j, exprimé en Pts/t.km
-
-## Paramètres retenus pour l'affichage environnemental
+### Distances `D_i,camion` par défaut
 
 Les autres distances sont paramétrées comme suit pour l'affichage environnemental :
 
-* D\_mer, camion, défaut = 1000 km
-* D\_air, camion, défaut = 1000 km
-* D\_fer, camion, défaut = 0 km
+* D\_mer,camion,défaut = 1000 km
+* D\_air,camion,défaut = 1000 km
+* D\_fer,camion,défaut = 0 km
+
+### Distances de transport au sein d'un même pays
+
 * D\_terre,interne = 500 km
 * D\_air,avion,interne = 500 km
 * D\_fer,train,interne = 500 km
-* D\_terre,distriFR = 500km
 
 ## Procédés utilisés
 
