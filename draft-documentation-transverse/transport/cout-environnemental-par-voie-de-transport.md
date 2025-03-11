@@ -37,7 +37,7 @@ Avec :&#x20;
 ### Calcul de la distance en camion sur les voies hors route
 
 $$
-D_{i, camion}=min(D_{i,camion,défaut};D_{terre,camion}/2)
+D_{i, camion}=min(D_{i,camion,défaut};\frac {D_{terre,camion}}{2})
 $$
 
 Avec :&#x20;
