@@ -9,7 +9,7 @@ module Data.Object.Query exposing
     , parseBase64Query
     , removeComponent
     , toString
-    , updateComponentItem
+    , updateComponentItemQuantity
     )
 
 import Base64
@@ -78,15 +78,15 @@ removeComponent id ({ components } as query) =
     }
 
 
-updateComponentItem : Component.Item -> Query -> Query
-updateComponentItem newItem query =
+updateComponentItemQuantity : Component.Id -> Component.Quantity -> Query -> Query
+updateComponentItemQuantity id quantity query =
     { query
         | components =
             query.components
                 |> List.map
                     (\item ->
-                        if item.id == newItem.id then
-                            newItem
+                        if item.id == id then
+                            { item | quantity = quantity }
 
                         else
                             item
