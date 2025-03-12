@@ -13,7 +13,7 @@ import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Component exposing (Component, Item)
+import Data.Component as Component exposing (Component)
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -85,7 +85,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateComponentItem Item
+    | UpdateComponentItemQuantity Component.Id Component.Quantity
 
 
 init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
@@ -386,9 +386,9 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        ( UpdateComponentItem component, _ ) ->
+        ( UpdateComponentItemQuantity id quantity, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateComponentItem component query)
+                |> updateQuery (Query.updateComponentItemQuantity id quantity query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -467,7 +467,7 @@ simulatorView session model =
                 , scope = model.scope
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
-                , updateItem = UpdateComponentItem
+                , updateItemQuantity = UpdateComponentItemQuantity
                 }
             ]
         , div [ class "col-lg-4 bg-white" ]

@@ -152,7 +152,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
-    | UpdateTrim Trim.Item
+    | UpdateTrimQuantity Trim.Id Trim.Quantity
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
@@ -641,9 +641,9 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | traceability = Just traceability }
 
-        ( UpdateTrim trim, _ ) ->
+        ( UpdateTrimQuantity id quantity, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateTrim trim query)
+                |> updateQuery (Query.updateTrimQuantity id quantity query)
 
         ( UpdateUpcycled upcycled, _ ) ->
             ( model, session, Cmd.none )
@@ -1033,7 +1033,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , scope = Scope.Textile
         , setDetailed = SetDetailedTrims
         , title = "Accessoires"
-        , updateItem = UpdateTrim
+        , updateItemQuantity = UpdateTrimQuantity
         }
     , div [ class "card shadow-sm pb-2 mb-3" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]

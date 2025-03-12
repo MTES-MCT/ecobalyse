@@ -40,7 +40,7 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Component.Id -> msg
     , title : String
-    , updateItem : Item -> msg
+    , updateItemQuantity : Component.Id -> Component.Quantity -> msg
     }
 
 
@@ -323,15 +323,7 @@ quantityInput config id quantity =
                                 else
                                     Nothing
                             )
-                        |> Maybe.map
-                            (\nonNullInt ->
-                                config.updateItem
-                                    -- FIXME: customization
-                                    { custom = Nothing
-                                    , id = id
-                                    , quantity = Component.quantityFromInt nonNullInt
-                                    }
-                            )
+                        |> Maybe.map (Component.quantityFromInt >> config.updateItemQuantity id)
                         |> Maybe.withDefault config.noOp
             ]
             []
