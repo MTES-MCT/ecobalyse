@@ -16,6 +16,7 @@ import List.Extra as LE
 import Route
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Component.MassInput as MassInput
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
@@ -218,7 +219,7 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
 
 
 elementView : Config db msg -> Component -> ExpandedElement -> Component.Results -> Html msg
-elementView { impact } _ { amount, material, transforms } elementResults =
+elementView config _ { amount, material, transforms } elementResults =
     let
         ( materialResults, transformResults ) =
             case Component.extractItems elementResults of
@@ -253,7 +254,7 @@ elementView { impact } _ { amount, material, transforms } elementResults =
                     [ Format.kg <| Component.extractMass materialResults ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Component.extractImpacts materialResults
-                        |> Format.formatImpact impact
+                        |> Format.formatImpact config.impact
                     ]
                 , td [ class "pe-3 align-middle text-nowrap" ]
                     []
@@ -262,20 +263,31 @@ elementView { impact } _ { amount, material, transforms } elementResults =
                 (\elementIndex transform transformResult ->
                     tr [ class "fs-7" ]
                         [ td [] []
-                        , td [ class "text-end align-middle text-nowrap" ]
-                            [ text <| String.fromInt elementIndex
-                            ]
+                        , td [ class "text-end align-middle text-nowrap" ] []
                         , td [ class "align-middle text-truncate w-100" ]
                             [ text <| Process.getDisplayName transform
                             , viewDebug transformResult
                             ]
                         , td [ class "align-middle text-end text-nowrap" ]
                             [ formatWaste transform.waste ]
-                        , td [ class "text-end align-middle text-nowrap" ]
-                            [ Format.kg <| Component.extractMass transformResult ]
+                        , td [ class "text-end align-middle text-nowrap", style "min-width" "120px" ]
+                            [ if elementIndex == List.length transforms - 1 then
+                                -- TODO: upgrade JSON format to have amount as the final mass (after
+                                --       transforms, so compute initial mass in reverse as in textile)
+                                --       this should be transparent for trims are no transforms are involved
+                                MassInput.kilograms
+                                    { attrs = [ class "form-control-sm" ]
+                                    , disabled = False
+                                    , mass = Component.extractMass transformResult
+                                    , onChange = always config.noOp
+                                    }
+
+                              else
+                                Format.kg <| Component.extractMass transformResult
+                            ]
                         , td [ class "text-end align-middle text-nowrap" ]
                             [ Component.extractImpacts transformResult
-                                |> Format.formatImpact impact
+                                |> Format.formatImpact config.impact
                             ]
                         ]
                 )
