@@ -28,13 +28,9 @@ type alias Config db msg =
     , detailed : List Component.Id
     , docsUrl : Maybe String
     , impact : Definition
-
-    -- TODO: this should carry either an item or a full component description in case of modifications
     , items : List Item
     , noOp : msg
     , openSelectModal : Autocomplete Component -> msg
-    , removeElement : Component.Id -> Process.Id -> msg
-    , removeElementTransform : Component.Id -> Process.Id -> Int -> msg
     , removeItem : Component.Id -> msg
     , results : Component.Results
     , scope : Scope
@@ -222,7 +218,7 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
 
 
 elementView : Config db msg -> Component -> ExpandedElement -> Component.Results -> Html msg
-elementView ({ impact } as config) component { amount, material, transforms } elementResults =
+elementView { impact } _ { amount, material, transforms } elementResults =
     let
         ( materialResults, transformResults ) =
             case Component.extractItems elementResults of
@@ -251,7 +247,7 @@ elementView ({ impact } as config) component { amount, material, transforms } el
                     , viewDebug materialResults
                     ]
                 , td [ class "align-middle text-end text-nowrap" ]
-                    -- Note: waste is never taken into account at ther material step
+                    -- Note: waste is never taken into account at the material step
                     []
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Format.kg <| Component.extractMass materialResults ]
@@ -259,14 +255,8 @@ elementView ({ impact } as config) component { amount, material, transforms } el
                     [ Component.extractImpacts materialResults
                         |> Format.formatImpact impact
                     ]
-                , td [ class "pe-3 text-end align-middle text-nowrap" ]
-                    [ -- FIXME: check if this is editable
-                      button
-                        [ class "btn btn-sm btn-outline-secondary"
-                        , onClick <| config.removeElement component.id material.id
-                        ]
-                        [ Icon.trash ]
-                    ]
+                , td [ class "pe-3 align-middle text-nowrap" ]
+                    []
                 ]
             :: List.map3
                 (\elementIndex transform transformResult ->
@@ -286,14 +276,6 @@ elementView ({ impact } as config) component { amount, material, transforms } el
                         , td [ class "text-end align-middle text-nowrap" ]
                             [ Component.extractImpacts transformResult
                                 |> Format.formatImpact impact
-                            ]
-                        , td [ class "pe-3 text-end align-middle text-nowrap" ]
-                            [ -- FIXME: check if this is editable
-                              button
-                                [ class "btn btn-sm btn-outline-secondary"
-                                , onClick <| config.removeElementTransform component.id material.id elementIndex
-                                ]
-                                [ Icon.trash ]
                             ]
                         ]
                 )
