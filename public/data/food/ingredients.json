@@ -277,10 +277,10 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 39.5367,
+      "hedges": 38.8947,
       "livestockDensity": -0.00267,
-      "permanentPasture": 51.73,
-      "plotSize": 32.3312
+      "permanentPasture": 50.89,
+      "plotSize": 31.8062
     },
     "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
     "inediblePart": 0,
@@ -1010,12 +1010,18 @@
     "visible": true
   },
   {
-    "alias": "beef-with-bone-default",
+    "alias": "beef-with-bone-feedlot",
     "categories": ["animal_product"],
     "default": "922f65cfe23a1975fb27d4f448012614",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": -0.006,
+      "permanentPasture": 0,
+      "plotSize": 0
+    },
     "id": "131354de-e269-4bc7-a21a-b55658b8e3fb",
     "inediblePart": 0.2,
     "landOccupation": 34.2527,
@@ -1027,12 +1033,18 @@
     "visible": true
   },
   {
-    "alias": "beef-with-bone-grassfed",
+    "alias": "beef-with-bone-grass-fed",
     "categories": ["animal_product"],
     "default": "aec402c6aeb6992aad42c261a00de7ef",
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 25.4203,
+      "livestockDensity": -0.00255,
+      "permanentPasture": 33.26,
+      "plotSize": 20.7875
+    },
     "id": "f38271f1-bdba-40cd-a296-2bc741fbf915",
     "inediblePart": 0.2,
     "landOccupation": 36.4628,
@@ -1049,7 +1061,13 @@
     "default": "2e17b5df1c957d159dfe1b0e22fa4b06",
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "cropDiversity": 9.82245,
+      "hedges": 25.9424,
+      "livestockDensity": -0.00267,
+      "permanentPasture": 22.67,
+      "plotSize": 23.054
+    },
     "id": "6912db61-530f-4630-956a-b94a6ded0134",
     "inediblePart": 0.2,
     "landOccupation": 35.8645,
@@ -1061,17 +1079,17 @@
     "visible": true
   },
   {
-    "alias": "beef-without-bone-default",
+    "alias": "beef-without-bone-feedlot",
     "categories": ["animal_product"],
     "default": "c1796440875c06ade3fd00606703e821",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 28.3285,
+      "hedges": 0,
       "livestockDensity": -0.006,
-      "permanentPasture": 30.63,
-      "plotSize": 23.9515
+      "permanentPasture": 0,
+      "plotSize": 0
     },
     "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
     "inediblePart": 0,
@@ -1089,7 +1107,13 @@
     "default": "279fed3dbf75d5821e27351b3549785b",
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {},
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 31.7792,
+      "livestockDensity": -0.00255,
+      "permanentPasture": 41.58,
+      "plotSize": 25.9875
+    },
     "id": "67db7c6c-a8f8-4285-b1dd-b0b3efe2d668",
     "inediblePart": 0,
     "landOccupation": 45.5798,
