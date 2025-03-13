@@ -247,9 +247,17 @@ suite =
             , describe "computeInitialAmount"
                 [ Component.Amount 100
                     |> Component.computeInitialAmount [ Split.twenty, Split.half ]
-                    -- 100 / (1 - 0.5) / (1 - 0.2) = 250
-                    |> Expect.equal (Component.Amount 250)
-                    |> asTest "should compute initial required mass"
+                    -- 100 / (1 - 0.2) / (1 - 0.5) = 250
+                    |> Expect.equal (Ok <| Component.Amount 250)
+                    |> asTest "should sequentially apply splits"
+                , Component.Amount 100
+                    |> Component.computeInitialAmount []
+                    |> Expect.equal (Ok <| Component.Amount 100)
+                    |> asTest "should succeed with initial amount when no transforms is applied"
+                , Component.Amount 100
+                    |> Component.computeInitialAmount [ Split.full ]
+                    |> Expect.equal (Err "Un taux de perte ne peut pas être de 100%")
+                    |> asTest "should error when a passed waste ratio is 100%"
                 ]
             ]
         )

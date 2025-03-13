@@ -221,26 +221,32 @@ computeElementResults processes =
     expandElement processes
         >> Result.andThen
             (\{ amount, material, transforms } ->
-                let
-                    initialAmount =
-                        amount |> computeInitialAmount (List.map .waste transforms)
-                in
-                material
-                    |> computeMaterialResults initialAmount
-                    |> applyTransforms processes transforms
+                amount
+                    |> computeInitialAmount (List.map .waste transforms)
+                    |> Result.andThen
+                        (\initialAmount ->
+                            material
+                                |> computeMaterialResults initialAmount
+                                |> applyTransforms processes transforms
+                        )
             )
 
 
-{-| Compute initial required material mass from sequentially applied transform waste ratios
+{-| Compute an initially required amount from sequentially applied waste ratios
 -}
-computeInitialAmount : List Split -> Amount -> Amount
+computeInitialAmount : List Split -> Amount -> Result String Amount
 computeInitialAmount wastes amount =
-    wastes
-        |> List.foldr
-            (\waste (Amount float) ->
-                Amount <| float / (1 - Split.toFloat waste)
-            )
-            amount
+    if List.member Split.full wastes then
+        Err "Un taux de perte ne peut pas être de 100%"
+
+    else
+        wastes
+            |> List.foldr
+                (\waste (Amount float) ->
+                    Amount <| float / (1 - Split.toFloat waste)
+                )
+                amount
+            |> Ok
 
 
 computeImpacts : List Process -> Component -> Result String Results
