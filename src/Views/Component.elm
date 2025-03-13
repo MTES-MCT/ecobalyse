@@ -261,7 +261,7 @@ elementView config component { amount, material, transforms } elementResults =
     tbody []
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
-            , th [ class "text-end", scope "col" ] [ text "Quantité" ]
+            , th [ class "text-end", scope "col" ] [ text "Quantité finale" ]
             , th [ scope "col" ] [ text "Procédé" ]
             , th [ scope "col" ] [ text "Pertes" ]
             , th [ class "text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
@@ -270,7 +270,7 @@ elementView config component { amount, material, transforms } elementResults =
             ]
             :: tr [ class "fs-7" ]
                 [ td [] []
-                , td [ class "text-end align-middle text-nowrap", style "min-width" "120px" ]
+                , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
                     [ amountInput config component material amount
                     ]
                 , td [ class "align-middle text-truncate w-100" ]
