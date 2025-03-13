@@ -5,7 +5,7 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity)
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Process as Process
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Html exposing (..)
@@ -13,11 +13,9 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
-import Mass
 import Route
 import Views.Alert as Alert
 import Views.Button as Button
-import Views.Component.MassInput as MassInput
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
@@ -226,6 +224,29 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
         ]
 
 
+amountInput : Config db msg -> Component -> Process -> Amount -> Html msg
+amountInput config component material amount =
+    div [ class "input-group" ]
+        [ input
+            [ type_ "number"
+            , class "form-control form-control-sm text-end incdec-arrows-left"
+            , amount
+                |> Component.amountToFloat
+                |> String.fromFloat
+                |> value
+            , Attr.min "0"
+            , step "0.01"
+            , onInput <|
+                String.toFloat
+                    >> Maybe.map Component.Amount
+                    >> config.updateElementAmount component material.id
+            ]
+            []
+        , small [ class "input-group-text fs-8" ]
+            [ text material.unit ]
+        ]
+
+
 elementView : Config db msg -> Component -> ExpandedElement -> Component.Results -> Html msg
 elementView config component { amount, material, transforms } elementResults =
     let
@@ -249,8 +270,9 @@ elementView config component { amount, material, transforms } elementResults =
             ]
             :: tr [ class "fs-7" ]
                 [ td [] []
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Format.amount material amount ]
+                , td [ class "text-end align-middle text-nowrap", style "min-width" "120px" ]
+                    [ amountInput config component material amount
+                    ]
                 , td [ class "align-middle text-truncate w-100" ]
                     [ text <| Process.getDisplayName material
                     , viewDebug materialResults
@@ -268,7 +290,7 @@ elementView config component { amount, material, transforms } elementResults =
                     []
                 ]
             :: List.map3
-                (\elementIndex transform transformResult ->
+                (\_ transform transformResult ->
                     tr [ class "fs-7" ]
                         [ td [] []
                         , td [ class "text-end align-middle text-nowrap" ] []
@@ -278,20 +300,8 @@ elementView config component { amount, material, transforms } elementResults =
                             ]
                         , td [ class "align-middle text-end text-nowrap" ]
                             [ formatWaste transform.waste ]
-                        , td [ class "text-end align-middle text-nowrap", style "min-width" "120px" ]
-                            [ if elementIndex == List.length transforms - 1 then
-                                -- FIXME: how about amount is not a mass, buxt eg. a volume?
-                                MassInput.kilograms
-                                    { attrs = [ class "form-control-sm" ]
-                                    , disabled = False
-                                    , mass = Component.extractMass transformResult
-                                    , onChange =
-                                        Maybe.map (Mass.inKilograms >> Component.Amount)
-                                            >> config.updateElementAmount component material.id
-                                    }
-
-                              else
-                                Format.kg <| Component.extractMass transformResult
+                        , td [ class "text-end align-middle text-nowrap" ]
+                            [ Format.kg <| Component.extractMass transformResult
                             ]
                         , td [ class "text-end align-middle text-nowrap" ]
                             [ Component.extractImpacts transformResult

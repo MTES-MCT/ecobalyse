@@ -638,9 +638,8 @@ updateProcessFormView : UpdateProcessConfig -> Html Msg
 updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
     li [ class "ElementFormWrapper list-group-item" ]
         [ span [ class "QuantityInputWrapper" ]
-            [ MassInput.grams
-                { attrs = []
-                , mass = processQuery.mass
+            [ MassInput.view
+                { mass = processQuery.mass
                 , onChange =
                     \maybeMass ->
                         case maybeMass of
@@ -700,7 +699,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
     , openExplorerDetails = ExplorerDetailsModal >> SetModal
     , quantityView =
         \{ quantity, onChange } ->
-            MassInput.grams { attrs = [], disabled = False, mass = quantity, onChange = onChange }
+            MassInput.view { disabled = False, mass = quantity, onChange = onChange }
     , selectedImpact = selectedImpact
     , selectElement =
         \_ autocompleteState ->
