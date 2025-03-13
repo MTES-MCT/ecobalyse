@@ -2,7 +2,7 @@ module Views.Component exposing (editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity)
+import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity, Results)
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -39,11 +39,6 @@ type alias Config db msg =
     , updateElementAmount : Component -> Process.Id -> Maybe Amount -> msg
     , updateItemQuantity : Id -> Quantity -> msg
     }
-
-
-debug : Bool
-debug =
-    False
 
 
 addButton : Config db msg -> Html msg
@@ -140,18 +135,31 @@ componentView config ( quantity, component, expandedElements ) itemResults =
         ]
 
 
-viewDebug : Component.Results -> Html msg
-viewDebug results =
-    if debug then
-        pre [ class "p-2 bg-light" ]
-            [ results
-                |> Component.encodeResults (Just Definition.Ecs)
-                |> Encode.encode 2
-                |> text
+viewDebug : List Item -> Results -> Html msg
+viewDebug items results =
+    details [ class "card-body py-2" ]
+        [ summary [] [ text "Debug" ]
+        , div [ class "row g-2" ]
+            [ div [ class "col-6" ]
+                [ h5 [] [ text "Query" ]
+                , pre [ class "bg-light p-2 mb-0" ]
+                    [ items
+                        |> Encode.list Component.encodeItem
+                        |> Encode.encode 2
+                        |> text
+                    ]
+                ]
+            , div [ class "col-6" ]
+                [ h5 [] [ text "Results" ]
+                , pre [ class "p-2 bg-light" ]
+                    [ results
+                        |> Component.encodeResults (Just Definition.Ecs)
+                        |> Encode.encode 2
+                        |> text
+                    ]
+                ]
             ]
-
-    else
-        text ""
+        ]
 
 
 editorView : Config db msg -> Html msg
@@ -214,13 +222,7 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
                             )
                         ]
         , addButton config
-        , viewDebug results
-        , pre [ class "bg-light p-2 mb-0" ]
-            [ items
-                |> Encode.list Component.encodeItem
-                |> Encode.encode 2
-                |> text
-            ]
+        , viewDebug items results
         ]
 
 
@@ -275,7 +277,6 @@ elementView config component { amount, material, transforms } elementResults =
                     ]
                 , td [ class "align-middle text-truncate w-100" ]
                     [ text <| Process.getDisplayName material
-                    , viewDebug materialResults
                     ]
                 , td [ class "align-middle text-end text-nowrap" ]
                     -- Note: waste is never taken into account at the material step
@@ -296,7 +297,6 @@ elementView config component { amount, material, transforms } elementResults =
                         , td [ class "text-end align-middle text-nowrap" ] []
                         , td [ class "align-middle text-truncate w-100" ]
                             [ text <| Process.getDisplayName transform
-                            , viewDebug transformResult
                             ]
                         , td [ class "align-middle text-end text-nowrap" ]
                             [ formatWaste transform.waste ]
