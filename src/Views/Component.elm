@@ -272,9 +272,7 @@ elementView config _ { amount, material, transforms } elementResults =
                             [ formatWaste transform.waste ]
                         , td [ class "text-end align-middle text-nowrap", style "min-width" "120px" ]
                             [ if elementIndex == List.length transforms - 1 then
-                                -- TODO: upgrade JSON format to have amount as the final mass (after
-                                --       transforms, so compute initial mass in reverse as in textile)
-                                --       this should be transparent for trims are no transforms are involved
+                                -- FIXME: send updated mass
                                 MassInput.kilograms
                                     { attrs = [ class "form-control-sm" ]
                                     , disabled = False

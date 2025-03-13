@@ -216,6 +216,8 @@ suite =
                                 Component.computeElementResults db.processes
                                     { amount = Component.Amount 1
                                     , material = cottonId
+
+                                    -- Note: weaving: 0.06253, fading: 0
                                     , transforms = [ weaving.id, fading.id ]
                                     }
                         in
@@ -227,13 +229,13 @@ suite =
                                         >> Unit.impactToFloat
                                     )
                                 |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 1) 2012
+                                |> Expect.within (Expect.Absolute 1) 2146
                             )
                         , asTest "should compute element mass"
                             (elementResults
                                 |> Result.map (Component.extractMass >> Mass.inKilograms)
                                 |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 0.01) 0.94
+                                |> Expect.within (Expect.Absolute 0.000001) 1
                             )
                         ]
 
@@ -242,6 +244,13 @@ suite =
                             |> asTest "should load cotton data"
                         ]
                 )
+            , describe "computeInitialAmount"
+                [ Component.Amount 100
+                    |> Component.computeInitialAmount [ Split.twenty, Split.half ]
+                    -- 100 / (1 - 0.5) / (1 - 0.2) = 250
+                    |> Expect.equal (Component.Amount 250)
+                    |> asTest "should compute initial required mass"
+                ]
             ]
         )
 
