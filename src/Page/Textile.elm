@@ -1031,6 +1031,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , scope = Scope.Textile
         , setDetailed = SetDetailedTrims
         , title = "Accessoires"
+        , updateElementAmount = \_ _ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }
     , div [ class "card shadow-sm pb-2 mb-3" ]
