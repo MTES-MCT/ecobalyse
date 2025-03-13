@@ -184,6 +184,29 @@ suite =
                         |> Result.map getEcsImpact
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 422
                     )
+                , asTest "should compute results from decoded component items with custom component elements"
+                    (""" [ {
+                             "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                             "quantity": 4,
+                             "custom": {
+                               "elements": [
+                                 {
+                                   "amount": 0.00044,
+                                   "material": "07e9e916-e02b-45e2-a298-2b5084de6242",
+                                   "transforms": []
+                                 }
+                               ]
+                             }
+                           }
+                         , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                         , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                         ]"""
+                        |> Decode.decodeString (Decode.list Component.decodeItem)
+                        |> Result.mapError Decode.errorToString
+                        |> Result.andThen (Component.compute db)
+                        |> Result.map getEcsImpact
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 443
+                    )
                 ]
             , describe "computeElementResults"
                 (case Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
