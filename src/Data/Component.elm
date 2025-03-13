@@ -14,6 +14,7 @@ module Data.Component exposing
     , compute
     , computeElementResults
     , computeImpacts
+    , computeInitialAmount
     , decodeItem
     , decodeListFromJsonString
     , emptyResults
@@ -39,7 +40,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
-import Data.Split as Split
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Energy
@@ -220,10 +221,26 @@ computeElementResults processes =
     expandElement processes
         >> Result.andThen
             (\{ amount, material, transforms } ->
+                let
+                    initialAmount =
+                        amount |> computeInitialAmount (List.map .waste transforms)
+                in
                 material
-                    |> computeMaterialResults amount
+                    |> computeMaterialResults initialAmount
                     |> applyTransforms processes transforms
             )
+
+
+{-| Compute initial required material mass from sequentially applied transform waste ratios
+-}
+computeInitialAmount : List Split -> Amount -> Amount
+computeInitialAmount wastes amount =
+    wastes
+        |> List.foldr
+            (\waste (Amount float) ->
+                Amount <| float / (1 - Split.toFloat waste)
+            )
+            amount
 
 
 computeImpacts : List Process -> Component -> Result String Results
