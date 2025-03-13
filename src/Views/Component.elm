@@ -2,7 +2,7 @@ module Views.Component exposing (editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Component as Component exposing (Component, ExpandedElement, Item)
+import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity)
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
@@ -13,6 +13,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
+import Mass
 import Route
 import Views.Alert as Alert
 import Views.Button as Button
@@ -26,18 +27,19 @@ type alias Config db msg =
     { addLabel : String
     , allowExpandDetails : Bool
     , db : Component.DataContainer db
-    , detailed : List Component.Id
+    , detailed : List Id
     , docsUrl : Maybe String
     , impact : Definition
     , items : List Item
     , noOp : msg
     , openSelectModal : Autocomplete Component -> msg
-    , removeItem : Component.Id -> msg
+    , removeItem : Id -> msg
     , results : Component.Results
     , scope : Scope
-    , setDetailed : List Component.Id -> msg
+    , setDetailed : List Id -> msg
     , title : String
-    , updateItemQuantity : Component.Id -> Component.Quantity -> msg
+    , updateElementAmount : Component -> Process.Id -> Maybe Amount -> msg
+    , updateItemQuantity : Id -> Quantity -> msg
     }
 
 
@@ -215,11 +217,17 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
                         ]
         , addButton config
         , viewDebug results
+        , pre [ class "bg-light p-2 mb-0" ]
+            [ items
+                |> Encode.list Component.encodeItem
+                |> Encode.encode 2
+                |> text
+            ]
         ]
 
 
 elementView : Config db msg -> Component -> ExpandedElement -> Component.Results -> Html msg
-elementView config _ { amount, material, transforms } elementResults =
+elementView config component { amount, material, transforms } elementResults =
     let
         ( materialResults, transformResults ) =
             case Component.extractItems elementResults of
@@ -272,12 +280,14 @@ elementView config _ { amount, material, transforms } elementResults =
                             [ formatWaste transform.waste ]
                         , td [ class "text-end align-middle text-nowrap", style "min-width" "120px" ]
                             [ if elementIndex == List.length transforms - 1 then
-                                -- FIXME: send updated mass
+                                -- FIXME: how about amount is not a mass, buxt eg. a volume?
                                 MassInput.kilograms
                                     { attrs = [ class "form-control-sm" ]
                                     , disabled = False
                                     , mass = Component.extractMass transformResult
-                                    , onChange = always config.noOp
+                                    , onChange =
+                                        Maybe.map (Mass.inKilograms >> Component.Amount)
+                                            >> config.updateElementAmount component material.id
                                     }
 
                               else
@@ -295,7 +305,7 @@ elementView config _ { amount, material, transforms } elementResults =
         )
 
 
-quantityInput : Config db msg -> Component.Id -> Component.Quantity -> Html msg
+quantityInput : Config db msg -> Id -> Component.Quantity -> Html msg
 quantityInput config id quantity =
     div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
         [ input

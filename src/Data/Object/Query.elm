@@ -10,11 +10,12 @@ module Data.Object.Query exposing
     , removeComponent
     , toString
     , updateComponentItemQuantity
+    , updateElementAmount
     )
 
 import Base64
 import Data.Component as Component exposing (Component)
-import Data.Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -87,6 +88,41 @@ updateComponentItemQuantity id quantity query =
                     (\item ->
                         if item.id == id then
                             { item | quantity = quantity }
+
+                        else
+                            item
+                    )
+    }
+
+
+updateElementAmount : Component -> Process.Id -> Component.Amount -> Query -> Query
+updateElementAmount component materialProcessId amount query =
+    let
+        updateElements =
+            List.map
+                (\element ->
+                    if element.material == materialProcessId then
+                        { element | amount = amount }
+
+                    else
+                        element
+                )
+    in
+    { query
+        | components =
+            query.components
+                |> List.map
+                    (\item ->
+                        if item.id == component.id then
+                            { item
+                                | custom =
+                                    case item.custom of
+                                        Just custom ->
+                                            Just { custom | elements = updateElements custom.elements }
+
+                                        Nothing ->
+                                            Just { elements = updateElements component.elements, name = Nothing }
+                            }
 
                         else
                             item

@@ -402,12 +402,32 @@ expandItems { components, processes } =
         >> RE.combine
 
 
+encodeCustom : Custom -> Encode.Value
+encodeCustom custom =
+    [ ( "name", custom.name |> Maybe.map Encode.string )
+    , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
+    ]
+        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
+        |> Encode.object
+
+
+encodeElement : Element -> Encode.Value
+encodeElement element =
+    Encode.object
+        [ ( "amount", element.amount |> amountToFloat |> Encode.float )
+        , ( "material", Process.encodeId element.material )
+        , ( "transforms", element.transforms |> Encode.list Process.encodeId )
+        ]
+
+
 encodeItem : Item -> Encode.Value
 encodeItem item =
-    Encode.object
-        [ ( "id", item.id |> idToString |> Encode.string )
-        , ( "quantity", item.quantity |> quantityToInt |> Encode.int )
-        ]
+    [ ( "id", item.id |> idToString |> Encode.string |> Just )
+    , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+    , ( "custom", item.custom |> Maybe.map encodeCustom )
+    ]
+        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
+        |> Encode.object
 
 
 encodeId : Id -> Encode.Value
