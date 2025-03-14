@@ -15,7 +15,7 @@ module Data.Object.Query exposing
 
 import Base64
 import Data.Component as Component exposing (Component, Item)
-import Data.Process as Process exposing (Process)
+import Data.Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -100,17 +100,13 @@ updateComponentItemQuantity id quantity query =
     }
 
 
-updateElementAmount : Component -> Process.Id -> Component.Amount -> Query -> Query
-updateElementAmount component materialProcessId amount query =
+updateElementAmount : Component -> Int -> Component.Amount -> Query -> Query
+updateElementAmount component index amount query =
     let
         updateElements =
-            List.map
-                (\element ->
-                    -- FIXME: a component element is identified by its material
-                    --        process id, so we can't leverage a same material
-                    --        twice and we should fix this
-                    -- TODO: move from process id to index in the elements list
-                    if element.material == materialProcessId then
+            List.indexedMap
+                (\i element ->
+                    if i == index then
                         { element | amount = amount }
 
                     else

@@ -5,7 +5,7 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity, Results)
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Process as Process exposing (Process)
+import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Html exposing (..)
@@ -36,7 +36,7 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Id -> msg
     , title : String
-    , updateElementAmount : Component -> Process.Id -> Maybe Amount -> msg
+    , updateElementAmount : Component -> Int -> Maybe Amount -> msg
     , updateItemQuantity : Id -> Quantity -> msg
     }
 
@@ -126,7 +126,9 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                 ]
           ]
         , if not collapsed then
-            List.map2 (elementView config component)
+            List.map3
+                (elementView config component)
+                (List.range 0 (List.length expandedElements - 1))
                 expandedElements
                 (Component.extractItems itemResults)
 
@@ -228,8 +230,8 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
         ]
 
 
-amountInput : Config db msg -> Component -> Process -> Amount -> Html msg
-amountInput config component material amount =
+amountInput : Config db msg -> Component -> String -> Int -> Amount -> Html msg
+amountInput config component unit index amount =
     div [ class "input-group" ]
         [ input
             [ type_ "number"
@@ -243,16 +245,16 @@ amountInput config component material amount =
             , onInput <|
                 String.toFloat
                     >> Maybe.map Component.Amount
-                    >> config.updateElementAmount component material.id
+                    >> config.updateElementAmount component index
             ]
             []
         , small [ class "input-group-text fs-8" ]
-            [ text material.unit ]
+            [ text unit ]
         ]
 
 
-elementView : Config db msg -> Component -> ExpandedElement -> Component.Results -> Html msg
-elementView config component { amount, material, transforms } elementResults =
+elementView : Config db msg -> Component -> Int -> ExpandedElement -> Component.Results -> Html msg
+elementView config component index { amount, material, transforms } elementResults =
     let
         ( materialResults, transformResults ) =
             case Component.extractItems elementResults of
@@ -275,7 +277,7 @@ elementView config component { amount, material, transforms } elementResults =
             :: tr [ class "fs-7" ]
                 [ td [] []
                 , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-                    [ amountInput config component material amount
+                    [ amountInput config component material.unit index amount
                     ]
                 , td [ class "align-middle text-truncate w-100" ]
                     [ text <| Process.getDisplayName material

@@ -20,7 +20,6 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
-import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -87,7 +86,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateComponentItemQuantity Component.Id Component.Quantity
-    | UpdateElementAmount Component Process.Id (Maybe Component.Amount)
+    | UpdateElementAmount Component Int (Maybe Component.Amount)
 
 
 init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
@@ -395,9 +394,9 @@ update ({ navKey } as session) msg model =
         ( UpdateElementAmount _ _ Nothing, _ ) ->
             ( model, session, Cmd.none )
 
-        ( UpdateElementAmount component processId (Just amount), _ ) ->
+        ( UpdateElementAmount component index (Just amount), _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateElementAmount component processId amount query)
+                |> updateQuery (Query.updateElementAmount component index amount query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
