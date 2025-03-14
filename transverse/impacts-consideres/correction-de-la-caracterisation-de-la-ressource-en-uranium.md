@@ -29,19 +29,20 @@ Le choix de caractériser l'Uranium comme une ressource fossile tend donc à dé
 
 Pour ces différentes raisons, il apparait pertinent de corriger la caractérisation du FRU de l'Uranium. En l'absence d'élément quantitatif faisant référence, et la suppression de cet impact semblant inappropriée, **Ecobalyse retient une réduction de la caractérisation de l'Uranium de telle sorte que le FRU d'1 kWh d'électricité d'origine nucléaire est égal à celui d'1kWh d'électricité d'une centrale gaz à cycle combiné**.
 
-### Eléments chiffrés sur l'impact de l'électricité en matière de raréfaction des ressources énergétique
+### Eléments chiffrés sur l'impact de l'électricité en matière de raréfaction des ressources énergétiques
 
 La méthode EF 3.1 donne les impacts suivants pour l'électricité :&#x20;
 
 * Electricité produite à partir du nucléaire : 13.2 MJ/kWh pour la plupart des pays du monde
-  * jeu de données de référence : electricity production, nuclear, pressure water reactor, ecoinvent
+  * 1.22e-7 kg Sb-Eq
+  * jeu de données de référence : _electricity production, nuclear, pressure water reactor_, ecoinvent
 * Electricité produite à partir de gaz, centrale à cycle combiné : forte variabilité en fonction de l'origine du gaz et de l'efficacité des centrales
   * moins de 7 MJ/kWh pour les pays producteurs de gaz
   * 7 à 8 MJ/kWh pour la plupart des pays occidentaux dont le gaz est une source significative de production d'électricité
   * plus de 10MJ/kWh pour le cas de pays où le parc est particulièrement de faible efficacité
-  * donnée de référence : electricity production, natural gas, combined cycle power plant, ecoinvent
+  * donnée de référence : _electricity production, natural gas, combined cycle power plant_, ecoinvent
 
-Il y a donc un impact de l'ordre de 40% plus faible pour l'électricité produite à partir de gaz.
+Il y a donc un impact de l'ordre de 40% plus faible pour l'électricité produite à partir de gaz sur le FRU.
 
 ## Modification apportée
 
@@ -49,4 +50,19 @@ Ecobalyse réduit le facteur de caractérisation de l’Uranium de 40% pour plac
 
 * facteur de caractérisation actuel : 560 000 MJ/kg d'Uranium naturel
 * facteur corrigé : 336 000 MJ/kg d'Uranium naturel
+
+## Exemple : incidence sur l'électricité française
+
+Illustration du cumul en points d'impact des catégories d'impact raréfaction des ressources énergétiques et raréfaction des ressources minérales et métalliques :&#x20;
+
+<figure><img src="../../.gitbook/assets/image (334).png" alt=""><figcaption></figcaption></figure>
+
+Données sources :&#x20;
+
+* _electricity production, nuclear, pressure water reactor, FR_, ecoinvent 3.9.1
+* _electricity production, natural gas, combined cycle power plant, FR_ ecoinvent 3.9.1
+
+<figure><img src="../../.gitbook/assets/image (335).png" alt=""><figcaption></figcaption></figure>
+
+
 
