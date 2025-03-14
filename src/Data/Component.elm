@@ -29,6 +29,7 @@ module Data.Component exposing
     , findById
     , idFromString
     , idToString
+    , isCustomized
     , itemToString
     , quantityFromInt
     , quantityToInt
@@ -477,6 +478,14 @@ idFromString str =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
+
+
+isCustomized : Component -> Custom -> Bool
+isCustomized component custom =
+    List.any identity
+        [ custom.elements /= component.elements
+        , custom.name /= Nothing && custom.name /= Just component.name
+        ]
 
 
 itemToString : DataContainer db -> Item -> Result String String
