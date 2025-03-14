@@ -164,64 +164,66 @@ viewDebug items results =
 
 editorView : Config db msg -> Html msg
 editorView ({ db, docsUrl, items, results, scope, title } as config) =
-    div [ class "card shadow-sm mb-3" ]
-        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-            [ h2 [ class "h5 mb-0" ]
-                [ text title
-                , Link.smallPillExternal
-                    [ Route.href (Route.Explore scope (Dataset.Components scope Nothing))
-                    , Attr.title "Explorer"
-                    , attribute "aria-label" "Explorer"
-                    ]
-                    [ Icon.search ]
-                ]
-            , div [ class "d-flex align-items-center gap-2" ]
-                [ results
-                    |> Component.extractImpacts
-                    |> Format.formatImpact config.impact
-                , case docsUrl of
-                    Just url ->
-                        Button.docsPillLink
-                            [ href url, target "_blank", style "height" "24px" ]
-                            [ Icon.question ]
-
-                    Nothing ->
-                        text ""
-                ]
-            ]
-        , if List.isEmpty items then
-            div [ class "card-body" ] [ text "Aucun élément." ]
-
-          else
-            case Component.expandItems db items of
-                Err error ->
-                    Alert.simple
-                        { close = Nothing
-                        , content = [ text error ]
-                        , level = Alert.Danger
-                        , title = Just "Erreur"
-                        }
-
-                Ok expandedItems ->
-                    div [ class "table-responsive" ]
-                        [ table [ class "table mb-0" ]
-                            (thead []
-                                [ tr [ class "fs-7 text-muted" ]
-                                    [ th [] []
-                                    , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                    , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
-                                    , th [ Attr.scope "col" ] [ text "Masse" ]
-                                    , th [ Attr.scope "col" ] [ text "Impact" ]
-                                    , th [ Attr.scope "col" ] []
-                                    ]
-                                ]
-                                :: (Component.extractItems results
-                                        |> List.map2 (componentView config) expandedItems
-                                        |> List.concat
-                                   )
-                            )
+    div []
+        [ div [ class "card shadow-sm mb-3" ]
+            [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+                [ h2 [ class "h5 mb-0" ]
+                    [ text title
+                    , Link.smallPillExternal
+                        [ Route.href (Route.Explore scope (Dataset.Components scope Nothing))
+                        , Attr.title "Explorer"
+                        , attribute "aria-label" "Explorer"
                         ]
-        , addButton config
+                        [ Icon.search ]
+                    ]
+                , div [ class "d-flex align-items-center gap-2" ]
+                    [ results
+                        |> Component.extractImpacts
+                        |> Format.formatImpact config.impact
+                    , case docsUrl of
+                        Just url ->
+                            Button.docsPillLink
+                                [ href url, target "_blank", style "height" "24px" ]
+                                [ Icon.question ]
+
+                        Nothing ->
+                            text ""
+                    ]
+                ]
+            , if List.isEmpty items then
+                div [ class "card-body" ] [ text "Aucun élément." ]
+
+              else
+                case Component.expandItems db items of
+                    Err error ->
+                        Alert.simple
+                            { close = Nothing
+                            , content = [ text error ]
+                            , level = Alert.Danger
+                            , title = Just "Erreur"
+                            }
+
+                    Ok expandedItems ->
+                        div [ class "table-responsive" ]
+                            [ table [ class "table mb-0" ]
+                                (thead []
+                                    [ tr [ class "fs-7 text-muted" ]
+                                        [ th [] []
+                                        , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
+                                        , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
+                                        , th [ Attr.scope "col" ] [ text "Masse" ]
+                                        , th [ Attr.scope "col" ] [ text "Impact" ]
+                                        , th [ Attr.scope "col" ] []
+                                        ]
+                                    ]
+                                    :: (Component.extractItems results
+                                            |> List.map2 (componentView config) expandedItems
+                                            |> List.concat
+                                       )
+                                )
+                            ]
+            , addButton config
+            ]
         , viewDebug items results
         ]
 
