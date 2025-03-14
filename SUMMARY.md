@@ -22,6 +22,8 @@
   * [🪢 Etape 3 - Fabrication de l'étoffe](textile/cycle-de-vie-des-produits-textiles/tricotage-tissage.md)
   * [🌈 Etape 4 - Ennoblissement](textile/cycle-de-vie-des-produits-textiles/ennoblissement/README.md)
     * [💦 Inventaires enrichis](textile/cycle-de-vie-des-produits-textiles/ennoblissement/inventaires-enrichis.md)
+  * [🌈 Etape 4 - Ennoblissement V.NP](textile/cycle-de-vie-des-produits-textiles/ennoblissement-1/README.md)
+    * [💦 Inventaires enrichis](textile/cycle-de-vie-des-produits-textiles/ennoblissement-1/inventaires-enrichis.md)
   * [👗 Etape 5 - Confection](textile/cycle-de-vie-des-produits-textiles/confection.md)
   * [🚚 Etape 6 - Distribution](textile/cycle-de-vie-des-produits-textiles/distribution.md)
   * [🌀 Etape 7 - Utilisation](textile/cycle-de-vie-des-produits-textiles/etape-6-utilisation.md)
