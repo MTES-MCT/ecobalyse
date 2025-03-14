@@ -14,7 +14,7 @@ module Data.Object.Query exposing
     )
 
 import Base64
-import Data.Component as Component exposing (Component)
+import Data.Component as Component exposing (Component, Item)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
@@ -79,19 +79,24 @@ removeComponent id ({ components } as query) =
     }
 
 
+updateComponentItem : Component.Id -> (Item -> Item) -> List Item -> List Item
+updateComponentItem componentId fn =
+    List.map
+        (\item ->
+            if item.id == componentId then
+                fn item
+
+            else
+                item
+        )
+
+
 updateComponentItemQuantity : Component.Id -> Component.Quantity -> Query -> Query
 updateComponentItemQuantity id quantity query =
     { query
         | components =
             query.components
-                |> List.map
-                    (\item ->
-                        if item.id == id then
-                            { item | quantity = quantity }
-
-                        else
-                            item
-                    )
+                |> updateComponentItem id (\item -> { item | quantity = quantity })
     }
 
 
@@ -101,6 +106,10 @@ updateElementAmount component materialProcessId amount query =
         updateElements =
             List.map
                 (\element ->
+                    -- FIXME: a component element is identified by its material
+                    --        process id, so we can't leverage a same material
+                    --        twice and we should fix this
+                    -- TODO: move from process id to index in the elements list
                     if element.material == materialProcessId then
                         { element | amount = amount }
 
@@ -111,21 +120,28 @@ updateElementAmount component materialProcessId amount query =
     { query
         | components =
             query.components
-                |> List.map
+                |> updateComponentItem component.id
                     (\item ->
-                        if item.id == component.id then
-                            { item
-                                | custom =
-                                    case item.custom of
-                                        Just custom ->
-                                            Just { custom | elements = updateElements custom.elements }
+                        { item
+                            | custom =
+                                case item.custom of
+                                    Just custom ->
+                                        let
+                                            updatedCustom =
+                                                { custom | elements = updateElements custom.elements }
+                                        in
+                                        if Component.isCustomized component updatedCustom then
+                                            Just updatedCustom
 
-                                        Nothing ->
-                                            Just { elements = updateElements component.elements, name = Nothing }
-                            }
+                                        else
+                                            Nothing
 
-                        else
-                            item
+                                    Nothing ->
+                                        Just
+                                            { elements = updateElements component.elements
+                                            , name = Nothing
+                                            }
+                        }
                     )
     }
 
