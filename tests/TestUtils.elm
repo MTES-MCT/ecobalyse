@@ -2,6 +2,7 @@ module TestUtils exposing
     ( asTest
     , createServerRequest
     , expectImpactsEqual
+    , expectResultErrorContains
     , expectResultWithin
     , suiteWithDb
     )
@@ -46,6 +47,20 @@ expectImpactsEqual impacts subject =
         |> (\expectations ->
                 Expect.all expectations subject
            )
+
+
+expectResultErrorContains : String -> Result String a -> Expectation
+expectResultErrorContains str result =
+    case result of
+        Ok _ ->
+            Expect.fail "result is not an error"
+
+        Err err ->
+            if String.contains str err then
+                Expect.pass
+
+            else
+                Expect.fail <| "result string error\n\n" ++ err ++ "\n\ndoes not contain `" ++ str ++ "`"
 
 
 expectResultWithin : FloatingPointTolerance -> Float -> Result String Float -> Expectation
