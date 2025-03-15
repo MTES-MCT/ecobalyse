@@ -9,11 +9,12 @@ module Data.Object.Query exposing
     , parseBase64Query
     , removeComponent
     , toString
-    , updateComponentItem
+    , updateComponentItemQuantity
+    , updateElementAmount
     )
 
 import Base64
-import Data.Component as Component exposing (Component)
+import Data.Component as Component exposing (Component, Item)
 import Data.Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
@@ -65,7 +66,7 @@ addComponentItem id query =
     { query
         | components =
             query.components
-                ++ [ { id = id, quantity = Component.quantityFromInt 1 } ]
+                ++ [ { custom = Nothing, id = id, quantity = Component.quantityFromInt 1 } ]
     }
 
 
@@ -78,18 +79,65 @@ removeComponent id ({ components } as query) =
     }
 
 
-updateComponentItem : Component.Item -> Query -> Query
-updateComponentItem newItem query =
+updateComponentItem : Component.Id -> (Item -> Item) -> List Item -> List Item
+updateComponentItem componentId fn =
+    List.map
+        (\item ->
+            if item.id == componentId then
+                fn item
+
+            else
+                item
+        )
+
+
+updateComponentItemQuantity : Component.Id -> Component.Quantity -> Query -> Query
+updateComponentItemQuantity id quantity query =
     { query
         | components =
             query.components
-                |> List.map
-                    (\item ->
-                        if item.id == newItem.id then
-                            newItem
+                |> updateComponentItem id (\item -> { item | quantity = quantity })
+    }
 
-                        else
-                            item
+
+updateElementAmount : Component -> Int -> Component.Amount -> Query -> Query
+updateElementAmount component index amount query =
+    let
+        updateElements =
+            List.indexedMap
+                (\i element ->
+                    if i == index then
+                        { element | amount = amount }
+
+                    else
+                        element
+                )
+    in
+    { query
+        | components =
+            query.components
+                |> updateComponentItem component.id
+                    (\item ->
+                        { item
+                            | custom =
+                                case item.custom of
+                                    Just custom ->
+                                        let
+                                            updatedCustom =
+                                                { custom | elements = updateElements custom.elements }
+                                        in
+                                        if Component.isCustomized component updatedCustom then
+                                            Just updatedCustom
+
+                                        else
+                                            Nothing
+
+                                    Nothing ->
+                                        Just
+                                            { elements = updateElements component.elements
+                                            , name = Nothing
+                                            }
+                        }
                     )
     }
 

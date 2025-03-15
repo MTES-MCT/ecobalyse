@@ -59,6 +59,34 @@
   },
   {
     "category": "",
+    "id": "7a83ef4f-5c97-47fe-8627-20bf5a30ce10",
+    "name": "Exemple de table custom",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.01,
+                "material": "07e9e916-e02b-45e2-a298-2b5084de6242",
+                "transforms": []
+              }
+            ],
+            "name": "Grosse table"
+          },
+          "id": "6f8d1621-324a-4c00-abe3-f90813d878d2",
+          "quantity": 4
+        },
+        {
+          "id": "3d1ba21f-a139-4e1f-8192-082327ad855e",
+          "quantity": 1
+        }
+      ]
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
     "id": "b5aeadf6-95f2-4ee2-b528-899b54f62a20",
     "name": "VAE",
     "query": {
