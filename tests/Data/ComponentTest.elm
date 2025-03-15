@@ -7,11 +7,12 @@ import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Expect
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Decoder)
 import Mass
 import Quantity
+import Result.Extra as RE
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithDb)
+import TestUtils exposing (asTest, expectResultErrorContains, suiteWithDb)
 
 
 getEcsImpact : Component.Results -> Float
@@ -178,9 +179,7 @@ suite =
                          , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
-                        |> Decode.decodeString (Decode.list Component.decodeItem)
-                        |> Result.mapError Decode.errorToString
-                        |> Result.andThen (Component.compute db)
+                        |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map getEcsImpact
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 422
                     )
@@ -201,9 +200,7 @@ suite =
                          , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
-                        |> Decode.decodeString (Decode.list Component.decodeItem)
-                        |> Result.mapError Decode.errorToString
-                        |> Result.andThen (Component.compute db)
+                        |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map getEcsImpact
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 443
                     )
@@ -256,11 +253,77 @@ suite =
                     |> asTest "should succeed with initial amount when no transforms is applied"
                 , Component.Amount 100
                     |> Component.computeInitialAmount [ Split.full ]
-                    |> Expect.equal (Err "Un taux de perte ne peut pas être de 100%")
+                    |> expectResultErrorContains "Un taux de perte ne peut pas être de 100%"
                     |> asTest "should error when a passed waste ratio is 100%"
                 ]
+            , describe "computeItemResults"
+                (let
+                    toComputedResults =
+                        decodeJsonThen Component.decodeItem (Component.computeItemResults db)
+
+                    combineMapBoth_ fn =
+                        -- RE.combineMapBoth with fn applied to the two tuple members
+                        RE.combineMapBoth fn fn
+                 in
+                 [ """{"id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1}"""
+                    |> toComputedResults
+                    |> Expect.ok
+                    |> asTest "should compute item results from a valid input"
+                 , """{"id": "invalid", "quantity": 1}"""
+                    |> toComputedResults
+                    |> expectResultErrorContains "Not a valid UUID"
+                    |> asTest "should reject an invalid component id"
+                 , """{"id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": -1}"""
+                    |> toComputedResults
+                    |> expectResultErrorContains "La quantité doit être un nombre entier positif"
+                    |> asTest "should reject an invalid quantity"
+                 , """{"id": "b28ff7a0-017c-44b1-b84a-3c7dc1f4fe66", "quantity": 1}"""
+                    -- Note: b28ff7a0-017c-44b1-b84a-3c7dc1f4fe66 doesn't exist
+                    |> toComputedResults
+                    |> expectResultErrorContains "Aucun composant avec id=b28ff7a0-017c-44b1-b84a-3c7dc1f4fe66"
+                    |> asTest "should reject an non-existent component id"
+                 , ( -- Original amount (0.00022)
+                     """{"id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1}"""
+                     -- Doubling amount (0.00044)
+                   , """{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                          "quantity": 1,
+                          "custom": {
+                            "elements": [
+                              {
+                                "amount": 0.00044,
+                                "material": "07e9e916-e02b-45e2-a298-2b5084de6242",
+                                "transforms": []
+                              }
+                            ]
+                          }
+                        }"""
+                   )
+                    |> combineMapBoth_ (toComputedResults >> Result.map getEcsImpact)
+                    |> (\result ->
+                            case result of
+                                Ok ( a, b ) ->
+                                    Expect.within (Expect.Absolute 0.00001) b (a * 2)
+
+                                Err err ->
+                                    Expect.fail err
+                       )
+                    |> asTest "should compute expected custom result impacts"
+                 ]
+                )
             ]
         )
+
+
+decodeJson : Decoder a -> String -> Result String a
+decodeJson decoder =
+    Decode.decodeString decoder
+        >> Result.mapError Decode.errorToString
+
+
+decodeJsonThen : Decoder a -> (a -> Result String b) -> String -> Result String b
+decodeJsonThen decoder fn =
+    decodeJson decoder
+        >> Result.andThen fn
 
 
 resetProcessElecAndHeat : Process -> Process

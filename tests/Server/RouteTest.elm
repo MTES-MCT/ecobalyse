@@ -226,7 +226,7 @@ textileEndpoints db =
                             | trims = [ { custom = Nothing, id = id, quantity = Component.quantityFromInt -1 } ]
                         }
                         |> testTextileEndpoint db
-                        |> expectTextileValidationError "trims" "La quantité doit être un nombre entier positif"
+                        |> expectTextileValidationError "decoding" "The Json.Decode.oneOf at json.trims failed in the following 2 ways: (1) Problem with the value at json[0].quantity: -1 La quantité doit être un nombre entier positif (2) Problem with the given value: [ { \"id\": \"0e8ea799-9b06-490c-a925-37564746c454\", \"quantity\": -1 } ] Expecting null"
 
                 Nothing ->
                     Expect.fail "Invalid component id"
@@ -255,13 +255,8 @@ testTextileEndpoint dbs body =
 expectFoodValidationError : String -> String -> Maybe Route.Route -> Expect.Expectation
 expectFoodValidationError key message route =
     case route of
-        Just (Route.FoodPostRecipe (Err dict)) ->
-            case Dict.get key dict of
-                Just val ->
-                    Expect.equal val message
-
-                Nothing ->
-                    Expect.fail <| "key " ++ key ++ " is missing from errors dict: " ++ Debug.toString dict
+        Just (Route.FoodPostRecipe (Err errors)) ->
+            errors |> expectValidationError key message
 
         _ ->
             Expect.fail <| "No matching error found: " ++ Debug.toString route
@@ -270,13 +265,22 @@ expectFoodValidationError key message route =
 expectTextileValidationError : String -> String -> Maybe Route.Route -> Expect.Expectation
 expectTextileValidationError key message route =
     case route of
-        Just (Route.TextilePostSimulator (Err dict)) ->
-            case Dict.get key dict of
-                Just val ->
-                    Expect.equal val message
-
-                Nothing ->
-                    Expect.fail <| "key " ++ key ++ " is missing from errors dict: " ++ Debug.toString dict
+        Just (Route.TextilePostSimulator (Err errors)) ->
+            errors |> expectValidationError key message
 
         _ ->
             Expect.fail <| "No matching error found: " ++ Debug.toString route
+
+
+expectValidationError : String -> String -> Dict.Dict String String -> Expect.Expectation
+expectValidationError key message errors =
+    case Dict.get key errors of
+        Just error ->
+            if String.contains message error then
+                Expect.pass
+
+            else
+                Expect.fail <| "String `" ++ message ++ "` not found in `" ++ error ++ "`"
+
+        Nothing ->
+            Expect.fail <| "Key `key` " ++ key ++ " is missing from errors dict: " ++ Debug.toString errors

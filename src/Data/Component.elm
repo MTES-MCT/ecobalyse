@@ -15,6 +15,7 @@ module Data.Component exposing
     , computeElementResults
     , computeImpacts
     , computeInitialAmount
+    , computeItemResults
     , decodeItem
     , decodeListFromJsonString
     , emptyResults
@@ -343,7 +344,7 @@ decodeItem =
     Decode.succeed Item
         |> DU.strictOptional "custom" decodeCustom
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
-        |> Decode.required "quantity" (Decode.map Quantity Decode.int)
+        |> Decode.required "quantity" decodeQuantity
 
 
 decodeList : List Scope -> Decoder (List Component)
@@ -355,6 +356,20 @@ decodeListFromJsonString : List Scope -> String -> Result String (List Component
 decodeListFromJsonString scopes =
     Decode.decodeString (decodeList scopes)
         >> Result.mapError Decode.errorToString
+
+
+decodeQuantity : Decoder Quantity
+decodeQuantity =
+    Decode.int
+        |> Decode.andThen
+            (\int ->
+                if int < 1 then
+                    Decode.fail "La quantité doit être un nombre entier positif"
+
+                else
+                    Decode.succeed int
+            )
+        |> Decode.map Quantity
 
 
 elementToString : List Process -> Element -> Result String String
