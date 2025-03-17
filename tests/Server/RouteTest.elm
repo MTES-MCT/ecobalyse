@@ -52,7 +52,7 @@ foodEndpoints db =
                     |> asTest "should map the POST /food endpoint"
                 , Encode.null
                     |> testFoodEndpoint db
-                    |> expectFoodValidationError "decoding" "Problem with the given value: null Expecting an OBJECT with a field named `ingredients`"
+                    |> expectFoodValidationError "decoding" "Expecting an OBJECT with a field named `ingredients`"
                     |> asTest "should fail on invalid query passed"
                 , FoodQuery.encode royalPizza
                     |> testFoodEndpoint db
@@ -118,7 +118,7 @@ textileEndpoints db =
             |> asTest "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
         , Encode.null
             |> testTextileEndpoint db
-            |> expectTextileValidationError "decoding" "Problem with the given value: null Expecting an OBJECT with a field named `product`"
+            |> expectTextileValidationError "decoding" "Expecting an OBJECT with a field named `product`"
             |> asTest "should map the POST /textile/simulator endpoint with an error when json body is invalid"
         , TextileQuery.encode
             { tShirtCotonFrance
@@ -226,7 +226,7 @@ textileEndpoints db =
                             | trims = [ { custom = Nothing, id = id, quantity = Component.quantityFromInt -1 } ]
                         }
                         |> testTextileEndpoint db
-                        |> expectTextileValidationError "decoding" "The Json.Decode.oneOf at json.trims failed in the following 2 ways: (1) Problem with the value at json[0].quantity: -1 La quantité doit être un nombre entier positif (2) Problem with the given value: [ { \"id\": \"0e8ea799-9b06-490c-a925-37564746c454\", \"quantity\": -1 } ] Expecting null"
+                        |> expectTextileValidationError "decoding" "La quantité doit être un nombre entier positif"
 
                 Nothing ->
                     Expect.fail "Invalid component id"
