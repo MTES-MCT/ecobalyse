@@ -29,7 +29,6 @@ import Views.Spinner as Spinner
 type ActivePage
     = Api
     | Auth
-    | Changelog
     | Editorial String
     | Explore
     | FoodBuilder
@@ -162,7 +161,7 @@ mainMenuLinks { enabledSections } =
 
 secondaryMenuLinks : List MenuLink
 secondaryMenuLinks =
-    [ Internal "Versions" Route.Changelog Changelog
+    [ Internal "Versions" (Route.Editorial "changelog") (Editorial "changelog")
     , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.communityUrl
@@ -290,7 +289,7 @@ pageFooter session =
             , div [ class "d-flex align-items-center gap-1 fs-9 mb-2" ]
                 [ versionLink session.currentVersion
                 , text "("
-                , Link.internal [ Route.href Route.Changelog ] [ text "changelog" ]
+                , Link.internal [ Route.href (Route.Editorial "changelog") ] [ text "changelog" ]
                 , text ")"
                 ]
             ]
