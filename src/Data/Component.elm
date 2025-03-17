@@ -336,7 +336,7 @@ decodeElement =
     Decode.succeed Element
         |> Decode.required "amount" (Decode.map Amount Decode.float)
         |> Decode.required "material" Process.decodeId
-        |> Decode.required "transforms" (Decode.list Process.decodeId)
+        |> Decode.optional "transforms" (Decode.list Process.decodeId) []
 
 
 decodeItem : Decoder Item

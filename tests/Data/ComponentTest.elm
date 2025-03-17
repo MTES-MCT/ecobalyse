@@ -291,8 +291,7 @@ suite =
                             "elements": [
                               {
                                 "amount": 0.00044,
-                                "material": "07e9e916-e02b-45e2-a298-2b5084de6242",
-                                "transforms": []
+                                "material": "07e9e916-e02b-45e2-a298-2b5084de6242"
                               }
                             ]
                           }
