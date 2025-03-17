@@ -9,12 +9,12 @@ Ce champs peut faire référence a des bases de données reconnues telles que :&
 * Base Impacts 2.01
 * D'autres bases de données d'inventaires de cycle de vie (ICV)
 
-Outre les bases de données standard, certaines sources particulières peuvent apparaître :
+Outre les bases de données standards, certaines sources particulières peuvent apparaître :
 
 ### `Ecobalyse`
 
 Lorsque la source indique "Ecobalyse", cela signifie que le procédé a été construit par l'équipe Ecobalyse. Cette création intervient lorsqu'il n'existe pas d'ICV existante satisfaisante dans les bases de données standard.\
-La création correspond soit à faire une moyenne d'ICV existantes, soit à effectuer des remplacements d'ICV à l'intérieur d'une ICV. Par exemple créé une farine bio à partir d'une farine conventionnel en remplaçant l'ICV blé conventionnel de la farine conventionnel par du blé bio.
+La création correspond soit à faire une moyenne d'ICV existantes, soit à effectuer des remplacements d'ICV à l'intérieur d'une ICV. Par exemple, créer une farine bio à partir d'une farine conventionnelle en remplaçant l'ICV "_blé conventionnel_" de la farine conventionnelle par du "_blé bio_".
 
 Ces procédés construits sont spécifiés dans le fichier `activities_to_create.json` visible dans le repo [ecobalyse-data](https://github.com/MTES-MCT/ecobalyse-data/tree/main). Exemple de fichier [activities\_to\_create.json](https://github.com/MTES-MCT/ecobalyse-data/blob/main/food/activities_to_create.json) pour food.
 

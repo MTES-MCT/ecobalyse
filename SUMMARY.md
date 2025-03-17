@@ -178,7 +178,6 @@
   * [Correction WTU](transverse/impacts-consideres/correction-wtu.md)
   * [Exclusion des émissions à long terme](draft-documentation-transverse/impacts-consideres/exclusion-des-emissions-a-long-terme.md)
   * [Correction de la caractérisation de la ressource en Uranium](transverse/impacts-consideres/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
-  * [Bases de données utilisées](transverse/impacts-consideres/bases-de-donnees-utilisees.md)
 * [🚚 Transport](draft-documentation-transverse/transport/README.md)
   * [Coût environnemental par voie de transport](draft-documentation-transverse/transport/cout-environnemental-par-voie-de-transport.md)
   * [Choix des voies de transport](draft-documentation-transverse/transport/choix-des-voies-de-transport.md)
