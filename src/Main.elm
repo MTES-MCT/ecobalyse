@@ -13,7 +13,6 @@ import Html
 import Http
 import Page.Api as Api
 import Page.Auth as Auth
-import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food as FoodBuilder
@@ -45,7 +44,6 @@ type alias Flags =
 type Page
     = ApiPage Api.Model
     | AuthPage Auth.Model
-    | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
@@ -75,7 +73,6 @@ type alias Model =
 type Msg
     = ApiMsg Api.Msg
     | AuthMsg Auth.Msg
-    | ChangelogMsg Changelog.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
     | DetailedProcessesReceived Url (Result Http.Error RawJsonProcesses)
@@ -197,10 +194,6 @@ setRoute url ( { state } as model, cmds ) =
                     Auth.init session data
                         |> toPage AuthPage AuthMsg
 
-                Just Route.Changelog ->
-                    Changelog.init session
-                        |> toPage ChangelogPage ChangelogMsg
-
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
                         |> toPage EditorialPage EditorialMsg
@@ -289,10 +282,6 @@ update rawMsg ({ state } as model) =
                 ( AuthMsg authMsg, AuthPage authModel ) ->
                     Auth.update session authMsg authModel
                         |> toPage AuthPage AuthMsg
-
-                ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
-                    Changelog.update session changelogMsg changelogModel
-                        |> toPage ChangelogPage ChangelogMsg
 
                 ( DetailedProcessesReceived url (Ok rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
@@ -503,11 +492,6 @@ view { mobileNavigationOpened, state } =
                     Auth.view session authModel
                         |> mapMsg AuthMsg
                         |> Page.frame (pageConfig Page.Auth)
-
-                ChangelogPage changelogModel ->
-                    Changelog.view session changelogModel
-                        |> mapMsg ChangelogMsg
-                        |> Page.frame (pageConfig Page.Changelog)
 
                 EditorialPage editorialModel ->
                     Editorial.view session editorialModel
