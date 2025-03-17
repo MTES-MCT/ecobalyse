@@ -1079,6 +1079,29 @@
     "visible": true
   },
   {
+    "alias": "beef-without-bone",
+    "categories": ["animal_product"],
+    "default": "AGRIBALU000000003109219",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 28.3285,
+      "livestockDensity": -0.00255,
+      "permanentPasture": 30.63,
+      "plotSize": 23.9515
+    },
+    "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
+    "inediblePart": 0,
+    "landOccupation": 43.4211,
+    "name": "Viande de boeuf sans os FR",
+    "rawToCookedRatio": 0.792,
+    "scenario": "reference",
+    "search": "Meat without bone, beef, for direct consumption",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "alias": "beef-without-bone-feedlot",
     "categories": ["animal_product"],
     "default": "c1796440875c06ade3fd00606703e821",
@@ -1091,7 +1114,7 @@
       "permanentPasture": 0,
       "plotSize": 0
     },
-    "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
+    "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8",
     "inediblePart": 0,
     "landOccupation": 42.8171,
     "name": "Viande de boeuf sans os par défaut",
