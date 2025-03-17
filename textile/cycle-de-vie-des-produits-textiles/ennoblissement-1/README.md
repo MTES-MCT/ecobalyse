@@ -103,13 +103,13 @@ Certains apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy
 ### <mark style="color:red;">Procédés mobilisés</mark>
 
 {% hint style="danger" %}
-Partie redondante avec le "en savoir plus"⇒ A fusionner.
+Partie redondante avec le "en savoir plus"⇒ A fusionner, en identifiant bien chaque procédé listé dans les tableau "paramètre"
 
 Dans la partie "méthode de calcul", j'ai précisé les processus utilisés dans le calcul, sans répéter ce à quoi ils font référence.
 {% endhint %}
 
 {% hint style="danger" %}
-Je recommande d'éviter autant que possible le terme "procédé", qui peut faire référence au processus de fabrication ou aux ICV utilisés.
+Je recommanderais d'éviter autant que possible le terme "procédé", qui peut faire référence au processus de fabrication ou aux ICV utilisés.
 {% endhint %}
 
 <details>
@@ -174,26 +174,24 @@ L'impact global de l''étape Ennoblissement se comprend comme la somme des impac
 
 #### Etape 1 =  Modélisation des flux externes des procédés
 
-L'impact des procédés d'ennoblissement est calculé comme suit pour chaque catégorie d'impact :
+Pour chaque catégorie d'impact, l'impact des procédés d'ennoblissement est calculé comme la somme de l'impact de chacun des procédés pris indépendamment :
 
 $$
-CEennoblissement = m*\Big(\sum_{i} (e_i*t_i)*CE_{elec}+\sum_{i} (c_i*t_i)*CE_{chaleur}\Big)
+I_{ennoblissement} = m*\Big(\sum_{i} (e_i*t_i)*I_{elec}+\sum_{i} (c_i*t_i)*I_{chaleur}\Big)
 $$
 
 Avec :
 
-* `CEennoblissement` : l'impact environnemental de l'ennoblissement, en Pts de cout environnemental
-* `m` la masse de tissu, exprimée en kg
+* `I_ennoblissement` : l'impact environnemental de l'ennoblissement, dans l'unité de la catégorie d'impact analysée
+* `m` la masse de tissu, exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../pertes-et-rebus.md).
 * `e_i` : la quantité d'électricité nécessaire au procédé i pour 1 kg de tissu, en kWh/kg
-* `t_i` : Le taux d'application du procédé i pour le vêtement évalué, sans unité
+* `a_i` : Le taux d'application du procédé i pour le vêtement évalué, sans unité
   * Egal à 1 si le procédé est mobilisé pour ce vêtement
   * Egal à 0 si le procédé n'est pas mobilisé
   * Situé entre 0 et 1 pour l'impression (voir paragraphe dédié)
-* `CE_elec` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement
+* `I_elec` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée
 * `c_i` : la quantité de chaleur nécessaire au procédé i pour 1 kg de tissu, en MJ/kg
-* `CE_chaleur` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement.
-
-Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../pertes-et-rebus.md).
+* `I_chaleur` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée.
 
 #### Etape 2 =  Ajout des inventaires enrichis (impacts Ecotox/Tox)
 
@@ -282,9 +280,9 @@ Pour rappel, des inventaires enrichis ont été construits et intégrés dans le
 Deux types d'impression sont proposées (fixé-lavé et pigmentaire). \
 La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la surface d'étoffe entrante). Cette donnée n'étant généralement pas maîtrisée par les metteurs sur le marché, cinq scénarios sont proposés (1%, 5%, 20%, 50% et 100%).&#x20;
 
-#### Synthèse valeur : t\_i
+#### Tableau des valeurs `a_i`
 
-<table><thead><tr><th>Sous-étape</th><th width="215">Procédé i</th><th>t</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>1</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>1 si matière naturelle, 0 sinon</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0 si synthétique, 1 sinon</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>1 si synthétique, 0 sinon</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,1</td></tr><tr><td>Teinture</td><td>Continu</td><td>0 par défaut, 1 si procédé sélectionné par l'utilisateur pour la teinture</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>0 par défaut, 1 si procédé sélectionné par l'utilisateur pour la teinture</td></tr><tr><td>Teinture</td><td>Moyenne</td><td>1 par défaut, 0 si un autre procédé est sélectionné par l'utilisateur pour la teinture</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>0 par défaut, en 0.01 et 1 si procédé sélectionné par l'utilisateur pour la teinture, selon le taux retenu</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>0 par défaut, en 0.01 et 1 si procédé sélectionné par l'utilisateur pour la teinture, selon le taux retenu</td></tr><tr><td>Finition</td><td>Apprêts chimiques (en continu)</td><td>1</td></tr></tbody></table>
+<table><thead><tr><th>Sous-étape</th><th width="215">Procédé i</th><th>a_i</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>1</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>1 si matière naturelle, 0 sinon</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0 si synthétique, 1 sinon</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>1 si synthétique, 0 sinon</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,1</td></tr><tr><td>Teinture</td><td>Continu</td><td>0 par défaut, 1 si procédé sélectionné par l'utilisateur pour la teinture</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>0 par défaut, 1 si procédé sélectionné par l'utilisateur pour la teinture</td></tr><tr><td>Teinture</td><td>Moyenne</td><td>1 par défaut, 0 si un autre procédé est sélectionné par l'utilisateur pour la teinture</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>0 par défaut, en 0.01 et 1 si procédé sélectionné par l'utilisateur pour la teinture, selon le taux retenu</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>0 par défaut, en 0.01 et 1 si procédé sélectionné par l'utilisateur pour la teinture, selon le taux retenu</td></tr><tr><td>Finition</td><td>Apprêts chimiques (en continu)</td><td>1</td></tr></tbody></table>
 
 ### Consommations d'énergie (électricité et chaleur)
 
