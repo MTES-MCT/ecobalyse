@@ -4,6 +4,7 @@ module TestUtils exposing
     , expectImpactsEqual
     , expectResultErrorContains
     , expectResultWithin
+    , it
     , suiteWithDb
     )
 
@@ -20,7 +21,12 @@ import Test exposing (..)
 
 
 asTest : String -> Expectation -> Test
-asTest label =
+asTest =
+    it
+
+
+it : String -> Expectation -> Test
+it label =
     always >> test label
 
 
