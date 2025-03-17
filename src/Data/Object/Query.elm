@@ -20,6 +20,7 @@ import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import List.Extra as LE
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
@@ -104,41 +105,33 @@ updateElementAmount : Component -> Int -> Component.Amount -> Query -> Query
 updateElementAmount component index amount query =
     let
         updateElements =
-            List.indexedMap
-                (\i element ->
-                    if i == index then
-                        { element | amount = amount }
+            LE.updateAt index (\el -> { el | amount = amount })
+
+        updateCustom =
+            Maybe.map
+                (\custom ->
+                    let
+                        updated =
+                            { custom | elements = updateElements custom.elements }
+                    in
+                    if Component.isCustomized component updated then
+                        Just updated
 
                     else
-                        element
+                        Nothing
                 )
+                >> Maybe.withDefault
+                    (Just
+                        { elements = updateElements component.elements
+                        , name = Nothing
+                        }
+                    )
     in
     { query
         | components =
             query.components
                 |> updateComponentItem component.id
-                    (\item ->
-                        { item
-                            | custom =
-                                case item.custom of
-                                    Just custom ->
-                                        let
-                                            updatedCustom =
-                                                { custom | elements = updateElements custom.elements }
-                                        in
-                                        if Component.isCustomized component updatedCustom then
-                                            Just updatedCustom
-
-                                        else
-                                            Nothing
-
-                                    Nothing ->
-                                        Just
-                                            { elements = updateElements component.elements
-                                            , name = Nothing
-                                            }
-                        }
-                    )
+                    (\item -> { item | custom = updateCustom item.custom })
     }
 
 
