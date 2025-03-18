@@ -22,7 +22,7 @@ module Data.Textile.Query exposing
     , updateMaterialSpinning
     , updateProduct
     , updateStepCountry
-    , updateTrim
+    , updateTrimQuantity
     , validateMaterials
     )
 
@@ -107,7 +107,7 @@ addTrim id query =
     { query
         | trims =
             query.trims
-                ++ [ { id = id, quantity = Component.quantityFromInt 1 } ]
+                ++ [ { custom = Nothing, id = id, quantity = Component.quantityFromInt 1 } ]
     }
 
 
@@ -118,15 +118,15 @@ removeTrim id ({ trims } as query) =
     }
 
 
-updateTrim : Item -> Query -> Query
-updateTrim newItem query =
+updateTrimQuantity : Component.Id -> Component.Quantity -> Query -> Query
+updateTrimQuantity id quantity query =
     { query
         | trims =
             query.trims
                 |> List.map
                     (\item ->
-                        if item.id == newItem.id then
-                            newItem
+                        if item.id == id then
+                            { item | quantity = quantity }
 
                         else
                             item

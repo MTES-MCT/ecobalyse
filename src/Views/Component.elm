@@ -2,7 +2,7 @@ module Views.Component exposing (editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Component as Component exposing (Component, ExpandedElement, Item)
+import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity, Results)
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
@@ -25,24 +25,20 @@ type alias Config db msg =
     { addLabel : String
     , allowExpandDetails : Bool
     , db : Component.DataContainer db
-    , detailed : List Component.Id
+    , detailed : List Id
     , docsUrl : Maybe String
     , impact : Definition
     , items : List Item
     , noOp : msg
     , openSelectModal : Autocomplete Component -> msg
-    , removeItem : Component.Id -> msg
+    , removeItem : Id -> msg
     , results : Component.Results
     , scope : Scope
-    , setDetailed : List Component.Id -> msg
+    , setDetailed : List Id -> msg
     , title : String
-    , updateItem : Item -> msg
+    , updateElementAmount : Component -> Int -> Maybe Amount -> msg
+    , updateItemQuantity : Id -> Quantity -> msg
     }
-
-
-debug : Bool
-debug =
-    False
 
 
 addButton : Config db msg -> Html msg
@@ -119,7 +115,7 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                         [ Component.extractImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
-                    , td [ class "pe-3 align-middle text-nowrap" ]
+                    , td [ class "pe-3 text-end align-middle text-nowrap" ]
                         [ button
                             [ class "btn btn-outline-secondary"
                             , onClick (config.removeItem component.id)
@@ -130,7 +126,9 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                 ]
           ]
         , if not collapsed then
-            List.map2 (elementView config.impact)
+            List.map3
+                (elementView config component)
+                (List.range 0 (List.length expandedElements - 1))
                 expandedElements
                 (Component.extractItems itemResults)
 
@@ -139,86 +137,124 @@ componentView config ( quantity, component, expandedElements ) itemResults =
         ]
 
 
-viewDebug : Component.Results -> Html msg
-viewDebug results =
-    if debug then
-        pre [ class "p-2 bg-light" ]
-            [ results
-                |> Component.encodeResults (Just Definition.Ecs)
-                |> Encode.encode 2
-                |> text
+viewDebug : List Item -> Results -> Html msg
+viewDebug items results =
+    details [ class "card-body py-2" ]
+        [ summary [] [ text "Debug" ]
+        , div [ class "row g-2" ]
+            [ div [ class "col-6" ]
+                [ h5 [] [ text "Query" ]
+                , pre [ class "bg-light p-2 mb-0" ]
+                    [ items
+                        |> Encode.list Component.encodeItem
+                        |> Encode.encode 2
+                        |> text
+                    ]
+                ]
+            , div [ class "col-6" ]
+                [ h5 [] [ text "Results" ]
+                , pre [ class "p-2 bg-light" ]
+                    [ results
+                        |> Component.encodeResults (Just Definition.Ecs)
+                        |> Encode.encode 2
+                        |> text
+                    ]
+                ]
             ]
-
-    else
-        text ""
+        ]
 
 
 editorView : Config db msg -> Html msg
 editorView ({ db, docsUrl, items, results, scope, title } as config) =
-    div [ class "card shadow-sm mb-3" ]
-        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-            [ h2 [ class "h5 mb-0" ]
-                [ text title
-                , Link.smallPillExternal
-                    [ Route.href (Route.Explore scope (Dataset.Components scope Nothing))
-                    , Attr.title "Explorer"
-                    , attribute "aria-label" "Explorer"
-                    ]
-                    [ Icon.search ]
-                ]
-            , div [ class "d-flex align-items-center gap-2" ]
-                [ results
-                    |> Component.extractImpacts
-                    |> Format.formatImpact config.impact
-                , case docsUrl of
-                    Just url ->
-                        Button.docsPillLink
-                            [ href url, target "_blank", style "height" "24px" ]
-                            [ Icon.question ]
-
-                    Nothing ->
-                        text ""
-                ]
-            ]
-        , if List.isEmpty items then
-            div [ class "card-body" ] [ text "Aucun élément." ]
-
-          else
-            case Component.expandItems db items of
-                Err error ->
-                    Alert.simple
-                        { close = Nothing
-                        , content = [ text error ]
-                        , level = Alert.Danger
-                        , title = Just "Erreur"
-                        }
-
-                Ok expandedItems ->
-                    div [ class "table-responsive" ]
-                        [ table [ class "table mb-0" ]
-                            (thead []
-                                [ tr [ class "fs-7 text-muted" ]
-                                    [ th [] []
-                                    , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                    , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
-                                    , th [ Attr.scope "col" ] [ text "Masse" ]
-                                    , th [ Attr.scope "col" ] [ text "Impact" ]
-                                    , th [ Attr.scope "col" ] []
-                                    ]
-                                ]
-                                :: (Component.extractItems results
-                                        |> List.map2 (componentView config) expandedItems
-                                        |> List.concat
-                                   )
-                            )
+    div []
+        [ div [ class "card shadow-sm mb-3" ]
+            [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+                [ h2 [ class "h5 mb-0" ]
+                    [ text title
+                    , Link.smallPillExternal
+                        [ Route.href (Route.Explore scope (Dataset.Components scope Nothing))
+                        , Attr.title "Explorer"
+                        , attribute "aria-label" "Explorer"
                         ]
-        , addButton config
-        , viewDebug results
+                        [ Icon.search ]
+                    ]
+                , div [ class "d-flex align-items-center gap-2" ]
+                    [ results
+                        |> Component.extractImpacts
+                        |> Format.formatImpact config.impact
+                    , case docsUrl of
+                        Just url ->
+                            Button.docsPillLink
+                                [ href url, target "_blank", style "height" "24px" ]
+                                [ Icon.question ]
+
+                        Nothing ->
+                            text ""
+                    ]
+                ]
+            , if List.isEmpty items then
+                div [ class "card-body" ] [ text "Aucun élément." ]
+
+              else
+                case Component.expandItems db items of
+                    Err error ->
+                        Alert.simple
+                            { close = Nothing
+                            , content = [ text error ]
+                            , level = Alert.Danger
+                            , title = Just "Erreur"
+                            }
+
+                    Ok expandedItems ->
+                        div [ class "table-responsive" ]
+                            [ table [ class "table mb-0" ]
+                                (thead []
+                                    [ tr [ class "fs-7 text-muted" ]
+                                        [ th [] []
+                                        , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
+                                        , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
+                                        , th [ Attr.scope "col" ] [ text "Masse" ]
+                                        , th [ Attr.scope "col" ] [ text "Impact" ]
+                                        , th [ Attr.scope "col" ] []
+                                        ]
+                                    ]
+                                    :: (Component.extractItems results
+                                            |> List.map2 (componentView config) expandedItems
+                                            |> List.concat
+                                       )
+                                )
+                            ]
+            , addButton config
+            ]
+        , viewDebug items results
         ]
 
 
-elementView : Definition -> ExpandedElement -> Component.Results -> Html msg
-elementView selectedImpact { amount, material, transforms } elementResults =
+amountInput : Config db msg -> Component -> String -> Int -> Amount -> Html msg
+amountInput config component unit index amount =
+    div [ class "input-group" ]
+        [ input
+            [ type_ "number"
+            , class "form-control form-control-sm text-end incdec-arrows-left"
+            , amount
+                |> Component.amountToFloat
+                |> String.fromFloat
+                |> value
+            , Attr.min "0"
+            , step "0.01"
+            , onInput <|
+                String.toFloat
+                    >> Maybe.map Component.Amount
+                    >> config.updateElementAmount component index
+            ]
+            []
+        , small [ class "input-group-text fs-8" ]
+            [ text unit ]
+        ]
+
+
+elementView : Config db msg -> Component -> Int -> ExpandedElement -> Component.Results -> Html msg
+elementView config component index { amount, material, transforms } elementResults =
     let
         ( materialResults, transformResults ) =
             case Component.extractItems elementResults of
@@ -231,7 +267,7 @@ elementView selectedImpact { amount, material, transforms } elementResults =
     tbody []
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
-            , th [ class "text-end", scope "col" ] [ text "Quantité" ]
+            , th [ class "text-end", scope "col" ] [ text "Quantité finale" ]
             , th [ scope "col" ] [ text "Procédé" ]
             , th [ scope "col" ] [ text "Pertes" ]
             , th [ class "text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
@@ -240,54 +276,57 @@ elementView selectedImpact { amount, material, transforms } elementResults =
             ]
             :: tr [ class "fs-7" ]
                 [ td [] []
-                , td [ class "text-end text-nowrap" ]
-                    [ Format.amount material amount ]
+                , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
+                    [ -- FIXME: not for textile
+                      if config.scope == Scope.Textile then
+                        amount
+                            |> Component.amountToFloat
+                            |> Format.formatRichFloat 3 material.unit
+
+                      else
+                        amountInput config component material.unit index amount
+                    ]
                 , td [ class "align-middle text-truncate w-100" ]
                     [ text <| Process.getDisplayName material
-                    , viewDebug materialResults
                     ]
                 , td [ class "align-middle text-end text-nowrap" ]
-                    -- Note: waste is never taken into account at ther material step
+                    -- Note: waste is never taken into account at the material step
                     []
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Format.kg <| Component.extractMass materialResults ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Component.extractImpacts materialResults
-                        |> Format.formatImpact selectedImpact
+                        |> Format.formatImpact config.impact
                     ]
                 , td [ class "pe-3 align-middle text-nowrap" ]
                     []
                 ]
             :: List.map3
-                (\transform transformResult previousResult ->
+                (\_ transform transformResult ->
                     tr [ class "fs-7" ]
                         [ td [] []
-                        , td [ class "text-end text-nowrap" ]
-                            [ Format.kg <| Component.extractMass previousResult
-                            ]
+                        , td [ class "text-end align-middle text-nowrap" ] []
                         , td [ class "align-middle text-truncate w-100" ]
                             [ text <| Process.getDisplayName transform
-                            , viewDebug transformResult
                             ]
                         , td [ class "align-middle text-end text-nowrap" ]
                             [ formatWaste transform.waste ]
                         , td [ class "text-end align-middle text-nowrap" ]
-                            [ Format.kg <| Component.extractMass transformResult ]
+                            [ Format.kg <| Component.extractMass transformResult
+                            ]
                         , td [ class "text-end align-middle text-nowrap" ]
                             [ Component.extractImpacts transformResult
-                                |> Format.formatImpact selectedImpact
+                                |> Format.formatImpact config.impact
                             ]
-                        , td [ class "pe-3 align-middle text-nowrap" ]
-                            []
                         ]
                 )
+                (List.range 0 (List.length transforms))
                 transforms
                 transformResults
-                (Component.extractItems elementResults)
         )
 
 
-quantityInput : Config db msg -> Component.Id -> Component.Quantity -> Html msg
+quantityInput : Config db msg -> Id -> Component.Quantity -> Html msg
 quantityInput config id quantity =
     div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
         [ input
@@ -307,13 +346,7 @@ quantityInput config id quantity =
                                 else
                                     Nothing
                             )
-                        |> Maybe.map
-                            (\nonNullInt ->
-                                config.updateItem
-                                    { id = id
-                                    , quantity = Component.quantityFromInt nonNullInt
-                                    }
-                            )
+                        |> Maybe.map (Component.quantityFromInt >> config.updateItemQuantity id)
                         |> Maybe.withDefault config.noOp
             ]
             []
