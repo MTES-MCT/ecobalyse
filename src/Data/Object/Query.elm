@@ -1,6 +1,7 @@
 module Data.Object.Query exposing
     ( Query
     , addComponentItem
+    , addElementTransform
     , b64encode
     , buildApiQuery
     , decode
@@ -15,7 +16,7 @@ module Data.Object.Query exposing
 
 import Base64
 import Data.Component as Component exposing (Component, Item)
-import Data.Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -106,6 +107,40 @@ updateElementAmount component index amount query =
     let
         updateElements =
             LE.updateAt index (\el -> { el | amount = amount })
+
+        updateCustom =
+            Maybe.map
+                (\custom ->
+                    let
+                        updated =
+                            { custom | elements = updateElements custom.elements }
+                    in
+                    if Component.isCustomized component updated then
+                        Just updated
+
+                    else
+                        Nothing
+                )
+                >> Maybe.withDefault
+                    (Just
+                        { elements = updateElements component.elements
+                        , name = Nothing
+                        }
+                    )
+    in
+    { query
+        | components =
+            query.components
+                |> updateComponentItem component.id
+                    (\item -> { item | custom = updateCustom item.custom })
+    }
+
+
+addElementTransform : Component -> Int -> Process.Id -> Query -> Query
+addElementTransform component index transformId query =
+    let
+        updateElements =
+            LE.updateAt index (\el -> { el | transforms = [ transformId ] })
 
         updateCustom =
             Maybe.map
