@@ -14,6 +14,8 @@ module Data.Component exposing
     , compute
     , computeElementResults
     , computeImpacts
+    , computeInitialAmount
+    , computeItemResults
     , decodeItem
     , decodeListFromJsonString
     , emptyResults
@@ -28,17 +30,19 @@ module Data.Component exposing
     , findById
     , idFromString
     , idToString
+    , isCustomized
     , itemToString
     , quantityFromInt
     , quantityToInt
     , validateItem
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
-import Data.Split as Split
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Energy
@@ -64,11 +68,19 @@ type alias Component =
     }
 
 
-{-| A compact representation of a component and a quantity of it, typically used for queries
+{-| A compact reference to a component, a quantity of it, and optionally some overrides,
+typically used for queries
 -}
 type alias Item =
-    { id : Id
+    { custom : Maybe Custom
+    , id : Id
     , quantity : Quantity
+    }
+
+
+type alias Custom =
+    { elements : List Element
+    , name : Maybe String
     }
 
 
@@ -211,10 +223,32 @@ computeElementResults processes =
     expandElement processes
         >> Result.andThen
             (\{ amount, material, transforms } ->
-                material
-                    |> computeMaterialResults amount
-                    |> applyTransforms processes transforms
+                amount
+                    |> computeInitialAmount (List.map .waste transforms)
+                    |> Result.andThen
+                        (\initialAmount ->
+                            material
+                                |> computeMaterialResults initialAmount
+                                |> applyTransforms processes transforms
+                        )
             )
+
+
+{-| Compute an initially required amount from sequentially applied waste ratios
+-}
+computeInitialAmount : List Split -> Amount -> Result String Amount
+computeInitialAmount wastes amount =
+    if List.member Split.full wastes then
+        Err "Un taux de perte ne peut pas être de 100%"
+
+    else
+        wastes
+            |> List.foldr
+                (\waste (Amount float) ->
+                    Amount <| float / (1 - Split.toFloat waste)
+                )
+                amount
+            |> Ok
 
 
 computeImpacts : List Process -> Component -> Result String Results
@@ -226,10 +260,17 @@ computeImpacts processes =
 
 
 computeItemResults : DataContainer db -> Item -> Result String Results
-computeItemResults { components, processes } { id, quantity } =
+computeItemResults { components, processes } { custom, id, quantity } =
     components
         |> findById id
-        |> Result.andThen (.elements >> List.map (computeElementResults processes) >> RE.combine)
+        |> Result.andThen
+            (\component ->
+                custom
+                    |> Maybe.map .elements
+                    |> Maybe.withDefault component.elements
+                    |> List.map (computeElementResults processes)
+                    |> RE.combine
+            )
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
             (\(Results { impacts, mass, items }) ->
@@ -283,9 +324,11 @@ decode scopes =
         |> Decode.optional "scopes" (Decode.list Scope.decode) scopes
 
 
-decodeList : List Scope -> Decoder (List Component)
-decodeList scopes =
-    Decode.list (decode scopes)
+decodeCustom : Decoder Custom
+decodeCustom =
+    Decode.succeed Custom
+        |> Decode.required "elements" (Decode.list decodeElement)
+        |> DU.strictOptional "name" Decode.string
 
 
 decodeElement : Decoder Element
@@ -293,20 +336,40 @@ decodeElement =
     Decode.succeed Element
         |> Decode.required "amount" (Decode.map Amount Decode.float)
         |> Decode.required "material" Process.decodeId
-        |> Decode.required "transforms" (Decode.list Process.decodeId)
+        |> Decode.optional "transforms" (Decode.list Process.decodeId) []
 
 
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
+        |> DU.strictOptional "custom" decodeCustom
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
-        |> Decode.required "quantity" (Decode.map Quantity Decode.int)
+        |> Decode.required "quantity" decodeQuantity
+
+
+decodeList : List Scope -> Decoder (List Component)
+decodeList scopes =
+    Decode.list (decode scopes)
 
 
 decodeListFromJsonString : List Scope -> String -> Result String (List Component)
 decodeListFromJsonString scopes =
     Decode.decodeString (decodeList scopes)
         >> Result.mapError Decode.errorToString
+
+
+decodeQuantity : Decoder Quantity
+decodeQuantity =
+    Decode.int
+        |> Decode.andThen
+            (\int ->
+                if int < 1 then
+                    Decode.fail "La quantité doit être un nombre entier positif"
+
+                else
+                    Decode.succeed int
+            )
+        |> Decode.map Quantity
 
 
 elementToString : List Process -> Element -> Result String String
@@ -347,11 +410,13 @@ expandElements processes =
 expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
 expandItems { components, processes } =
     List.map
-        (\{ id, quantity } ->
+        (\{ custom, id, quantity } ->
             findById id components
                 |> Result.andThen
                     (\component ->
-                        component.elements
+                        custom
+                            |> Maybe.map .elements
+                            |> Maybe.withDefault component.elements
                             |> expandElements processes
                             |> Result.map (\expandedElements -> ( quantity, component, expandedElements ))
                     )
@@ -359,12 +424,32 @@ expandItems { components, processes } =
         >> RE.combine
 
 
+encodeCustom : Custom -> Encode.Value
+encodeCustom custom =
+    [ ( "name", custom.name |> Maybe.map Encode.string )
+    , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
+    ]
+        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
+        |> Encode.object
+
+
+encodeElement : Element -> Encode.Value
+encodeElement element =
+    Encode.object
+        [ ( "amount", element.amount |> amountToFloat |> Encode.float )
+        , ( "material", Process.encodeId element.material )
+        , ( "transforms", element.transforms |> Encode.list Process.encodeId )
+        ]
+
+
 encodeItem : Item -> Encode.Value
 encodeItem item =
-    Encode.object
-        [ ( "id", item.id |> idToString |> Encode.string )
-        , ( "quantity", item.quantity |> quantityToInt |> Encode.int )
-        ]
+    [ ( "id", item.id |> idToString |> Encode.string |> Just )
+    , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+    , ( "custom", item.custom |> Maybe.map encodeCustom )
+    ]
+        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
+        |> Encode.object
 
 
 encodeId : Id -> Encode.Value
@@ -408,6 +493,14 @@ idFromString str =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
+
+
+isCustomized : Component -> Custom -> Bool
+isCustomized component custom =
+    List.any identity
+        [ custom.elements /= component.elements
+        , custom.name /= Nothing && custom.name /= Just component.name
+        ]
 
 
 itemToString : DataContainer db -> Item -> Result String String
