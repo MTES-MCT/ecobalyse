@@ -277,7 +277,14 @@ elementView config component index { amount, material, transforms } elementResul
             :: tr [ class "fs-7" ]
                 [ td [] []
                 , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-                    [ amountInput config component material.unit index amount
+                    [ -- FIXME: not for textile
+                      if config.scope == Scope.Textile then
+                        amount
+                            |> Component.amountToFloat
+                            |> Format.formatRichFloat 3 material.unit
+
+                      else
+                        amountInput config component material.unit index amount
                     ]
                 , td [ class "align-middle text-truncate w-100" ]
                     [ text <| Process.getDisplayName material
