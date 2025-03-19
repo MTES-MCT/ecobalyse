@@ -66,11 +66,7 @@ encode query =
 
 addComponentItem : Component.Id -> Query -> Query
 addComponentItem id query =
-    { query
-        | components =
-            query.components
-                ++ [ { custom = Nothing, id = id, quantity = Component.quantityFromInt 1 } ]
-    }
+    { query | components = query.components |> Component.addItem id }
 
 
 addElementTransform : Component -> Int -> Process.Id -> Query -> Query
@@ -78,11 +74,7 @@ addElementTransform component index transformId query =
     { query
         | components =
             query.components
-                |> Component.updateElement component
-                    index
-                    (\el ->
-                        { el | transforms = el.transforms ++ [ transformId ] }
-                    )
+                |> Component.addElementTransform component index transformId
     }
 
 
@@ -113,7 +105,7 @@ updateComponentItemQuantity id quantity query =
     { query
         | components =
             query.components
-                |> Component.updateComponentItem id (\item -> { item | quantity = quantity })
+                |> Component.updateItem id (\item -> { item | quantity = quantity })
     }
 
 

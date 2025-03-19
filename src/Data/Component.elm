@@ -9,6 +9,8 @@ module Data.Component exposing
     , Item
     , Quantity
     , Results(..)
+    , addElementTransform
+    , addItem
     , amountToFloat
     , applyTransforms
     , available
@@ -34,8 +36,8 @@ module Data.Component exposing
     , itemToString
     , quantityFromInt
     , quantityToInt
-    , updateComponentItem
     , updateElement
+    , updateItem
     , validateItem
     )
 
@@ -134,6 +136,17 @@ type Results
         , items : List Results
         , mass : Mass
         }
+
+
+addElementTransform : Component -> Int -> Process.Id -> List Item -> List Item
+addElementTransform component index transformId =
+    updateElement component index <|
+        \el -> { el | transforms = el.transforms ++ [ transformId ] }
+
+
+addItem : Id -> List Item -> List Item
+addItem id =
+    (++) [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
 
 
 {-| Add two results together
@@ -573,21 +586,9 @@ extractMass (Results { mass }) =
     mass
 
 
-updateComponentItem : Id -> (Item -> Item) -> List Item -> List Item
-updateComponentItem componentId fn =
-    List.map
-        (\item ->
-            if item.id == componentId then
-                fn item
-
-            else
-                item
-        )
-
-
 updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item
 updateElement component elementIndex update =
-    updateComponentItem component.id
+    updateItem component.id
         (\item ->
             { item
                 | custom =
@@ -621,6 +622,11 @@ updateElementCustom component index update =
                 , name = Nothing
                 }
             )
+
+
+updateItem : Id -> (Item -> Item) -> List Item -> List Item
+updateItem componentId =
+    LE.updateIf (.id >> (==) componentId)
 
 
 validateItem : List Component -> Item -> Result String Item
