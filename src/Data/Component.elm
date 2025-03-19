@@ -31,10 +31,11 @@ module Data.Component exposing
     , findById
     , idFromString
     , idToString
-    , isCustomized
     , itemToString
     , quantityFromInt
     , quantityToInt
+    , updateComponentItem
+    , updateElement
     , validateItem
     )
 
@@ -50,6 +51,7 @@ import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 import Json.Encode as Encode
+import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
@@ -569,6 +571,56 @@ extractItems (Results { items }) =
 extractMass : Results -> Mass
 extractMass (Results { mass }) =
     mass
+
+
+updateComponentItem : Id -> (Item -> Item) -> List Item -> List Item
+updateComponentItem componentId fn =
+    List.map
+        (\item ->
+            if item.id == componentId then
+                fn item
+
+            else
+                item
+        )
+
+
+updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item
+updateElement component elementIndex update =
+    updateComponentItem component.id
+        (\item ->
+            { item
+                | custom =
+                    item.custom
+                        |> updateElementCustom component elementIndex update
+            }
+        )
+
+
+updateElementCustom : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
+updateElementCustom component index update =
+    let
+        updateElements =
+            LE.updateAt index update
+    in
+    Maybe.map
+        (\custom ->
+            let
+                updated =
+                    { custom | elements = updateElements custom.elements }
+            in
+            if isCustomized component updated then
+                Just updated
+
+            else
+                Nothing
+        )
+        >> Maybe.withDefault
+            (Just
+                { elements = updateElements component.elements
+                , name = Nothing
+                }
+            )
 
 
 validateItem : List Component -> Item -> Result String Item
