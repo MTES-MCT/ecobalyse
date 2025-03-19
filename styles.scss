@@ -664,6 +664,17 @@ q {
   text-indent: 11px;
 }
 
+.Component {
+  &Element {
+    &Icon {
+      color: $text-muted;
+      font-size: 12px;
+      margin-right: 5px;
+      margin-top: 3px;
+    }
+  }
+}
+
 .DatasetTable {
   .table {
     &.view-list {

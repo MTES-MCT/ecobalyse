@@ -305,7 +305,7 @@ elementView config component index { amount, material, transforms } elementResul
             ]
             :: tr [ class "fs-7" ]
                 [ td [] []
-                , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
+                , td [ class "text-end align-middle text-nowrap p-0", style "min-width" "130px" ]
                     [ if config.scope == Scope.Textile then
                         amount
                             |> Component.amountToFloat
@@ -314,18 +314,19 @@ elementView config component index { amount, material, transforms } elementResul
                       else
                         amountInput config component material.unit index amount
                     ]
-                , td [ class "align-middle text-truncate w-100" ]
-                    [ text <| Process.getDisplayName material
+                , td [ class "text-truncate w-100", title <| Process.getDisplayName material ]
+                    [ span [ class "ComponentElementIcon" ] [ Icon.material ]
+                    , text <| Process.getDisplayName material
                     ]
-                , td [ class "align-middle text-end text-nowrap" ]
+                , td [ class " text-end text-nowrap" ]
                     [ text "-" ]
-                , td [ class "text-end align-middle text-nowrap" ]
+                , td [ class "text-end  text-nowrap" ]
                     [ Format.kg <| Component.extractMass materialResults ]
-                , td [ class "text-end align-middle text-nowrap" ]
+                , td [ class "text-end  text-nowrap" ]
                     [ Component.extractImpacts materialResults
                         |> Format.formatImpact config.impact
                     ]
-                , td [ class "pe-3 align-middle text-nowrap" ]
+                , td [ class "pe-3  text-nowrap" ]
                     []
                 ]
             :: List.map3
@@ -333,8 +334,15 @@ elementView config component index { amount, material, transforms } elementResul
                     tr [ class "fs-7" ]
                         [ td [] []
                         , td [ class "text-end align-middle text-nowrap" ] []
-                        , td [ class "align-middle text-truncate w-100" ]
-                            [ text <| Process.getDisplayName transform
+                        , td
+                            [ class "text-truncate w-100"
+
+                            -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
+                            , style "max-width" "0"
+                            , title <| Process.getDisplayName transform
+                            ]
+                            [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
+                            , text <| Process.getDisplayName transform
                             ]
                         , td [ class "align-middle text-end text-nowrap" ]
                             [ Format.splitAsPercentage 2 transform.waste ]
@@ -351,13 +359,18 @@ elementView config component index { amount, material, transforms } elementResul
                 (List.range 0 (List.length transforms))
                 transforms
                 transformResults
-            ++ [ tr []
-                    [ td [ colspan 2 ] []
-                    , td [ colspan 5 ]
-                        [ addElementTransformButton config component index
+            ++ (if List.member config.scope [ Scope.Object, Scope.Veli ] then
+                    [ tr []
+                        [ td [ colspan 2 ] []
+                        , td [ colspan 5 ]
+                            [ addElementTransformButton config component index
+                            ]
                         ]
                     ]
-               ]
+
+                else
+                    []
+               )
         )
 
 

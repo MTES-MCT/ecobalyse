@@ -61,6 +61,11 @@ lock =
     icon "lock"
 
 
+material : Html msg
+material =
+    icon "material"
+
+
 plane : Html msg
 plane =
     icon "plane"
@@ -94,6 +99,11 @@ stats =
 trash : Html msg
 trash =
     icon "trash"
+
+
+transform : Html msg
+transform =
+    icon "transform"
 
 
 warning : Html msg
