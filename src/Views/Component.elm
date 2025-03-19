@@ -8,7 +8,6 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
 import Data.Scope as Scope exposing (Scope)
-import Data.Split as Split exposing (Split)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -51,7 +50,6 @@ addComponentButton { addLabel, db, items, openSelectComponentModal, scope } =
                 |> Scope.anyOf [ scope ]
                 |> Component.available (List.map .id items)
 
-        -- FIXME: this should rather be initiated in page update
         autocompleteState =
             AutocompleteSelector.init .name availableComponents
     in
@@ -69,10 +67,8 @@ addComponentButton { addLabel, db, items, openSelectComponentModal, scope } =
 
 
 addElementTransformButton : Config db msg -> Component -> Int -> Html msg
-addElementTransformButton { db, items, openSelectTransformModal, scope } component index =
+addElementTransformButton { db, openSelectTransformModal } component index =
     let
-        -- FIXME: we should probably work from items, not component
-        -- FIXME: also check for custom
         availableTransformProcesses =
             db.processes
                 |> Process.listByCategory Category.Transform
@@ -83,7 +79,6 @@ addElementTransformButton { db, items, openSelectTransformModal, scope } compone
                         |> Maybe.withDefault []
                     )
 
-        -- FIXME: this should rather be initiated in page update
         autocompleteState =
             AutocompleteSelector.init .name availableTransformProcesses
     in
@@ -323,8 +318,7 @@ elementView config component index { amount, material, transforms } elementResul
                     [ text <| Process.getDisplayName material
                     ]
                 , td [ class "align-middle text-end text-nowrap" ]
-                    -- Note: waste is never taken into account at the material step
-                    []
+                    [ text "-" ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Format.kg <| Component.extractMass materialResults ]
                 , td [ class "text-end align-middle text-nowrap" ]
@@ -343,7 +337,7 @@ elementView config component index { amount, material, transforms } elementResul
                             [ text <| Process.getDisplayName transform
                             ]
                         , td [ class "align-middle text-end text-nowrap" ]
-                            [ formatWaste transform.waste ]
+                            [ Format.splitAsPercentage 2 transform.waste ]
                         , td [ class "text-end align-middle text-nowrap" ]
                             [ Format.kg <| Component.extractMass transformResult
                             ]
@@ -392,12 +386,3 @@ quantityInput config id quantity =
             ]
             []
         ]
-
-
-formatWaste : Split -> Html msg
-formatWaste waste =
-    if Split.toPercent waste == 0 then
-        text ""
-
-    else
-        Format.splitAsPercentage 3 waste
