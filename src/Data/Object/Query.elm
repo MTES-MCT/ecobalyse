@@ -15,7 +15,7 @@ module Data.Object.Query exposing
     )
 
 import Base64
-import Data.Component as Component exposing (Component, Item)
+import Data.Component as Component exposing (Component, Custom, Element, Item)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
@@ -72,6 +72,12 @@ addComponentItem id query =
     }
 
 
+addElementTransform : Component -> Int -> Process.Id -> Query -> Query
+addElementTransform component index transformId =
+    updateElement component index <|
+        \el -> { el | transforms = el.transforms ++ [ transformId ] }
+
+
 removeComponent : Component.Id -> Query -> Query
 removeComponent id ({ components } as query) =
     { query
@@ -102,72 +108,52 @@ updateComponentItemQuantity id quantity query =
     }
 
 
+updateElementCustom : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
+updateElementCustom component index update =
+    let
+        updateElements =
+            LE.updateAt index update
+    in
+    Maybe.map
+        (\custom ->
+            let
+                updated =
+                    { custom | elements = updateElements custom.elements }
+            in
+            if Component.isCustomized component updated then
+                Just updated
+
+            else
+                Nothing
+        )
+        >> Maybe.withDefault
+            (Just
+                { elements = updateElements component.elements
+                , name = Nothing
+                }
+            )
+
+
+updateElement : Component -> Int -> (Element -> Element) -> Query -> Query
+updateElement component index update query =
+    { query
+        | components =
+            query.components
+                |> updateComponentItem component.id
+                    (\item ->
+                        { item
+                            | custom =
+                                item.custom
+                                    |> updateElementCustom component index update
+                        }
+                    )
+    }
+
+
 updateElementAmount : Component -> Int -> Component.Amount -> Query -> Query
-updateElementAmount component index amount query =
-    let
-        updateElements =
-            LE.updateAt index (\el -> { el | amount = amount })
-
-        updateCustom =
-            Maybe.map
-                (\custom ->
-                    let
-                        updated =
-                            { custom | elements = updateElements custom.elements }
-                    in
-                    if Component.isCustomized component updated then
-                        Just updated
-
-                    else
-                        Nothing
-                )
-                >> Maybe.withDefault
-                    (Just
-                        { elements = updateElements component.elements
-                        , name = Nothing
-                        }
-                    )
-    in
-    { query
-        | components =
-            query.components
-                |> updateComponentItem component.id
-                    (\item -> { item | custom = updateCustom item.custom })
-    }
-
-
-addElementTransform : Component -> Int -> Process.Id -> Query -> Query
-addElementTransform component index transformId query =
-    let
-        updateElements =
-            LE.updateAt index (\el -> { el | transforms = [ transformId ] })
-
-        updateCustom =
-            Maybe.map
-                (\custom ->
-                    let
-                        updated =
-                            { custom | elements = updateElements custom.elements }
-                    in
-                    if Component.isCustomized component updated then
-                        Just updated
-
-                    else
-                        Nothing
-                )
-                >> Maybe.withDefault
-                    (Just
-                        { elements = updateElements component.elements
-                        , name = Nothing
-                        }
-                    )
-    in
-    { query
-        | components =
-            query.components
-                |> updateComponentItem component.id
-                    (\item -> { item | custom = updateCustom item.custom })
-    }
+updateElementAmount component index amount =
+    updateElement component index <|
+        \el -> { el | amount = amount }
 
 
 toString : List Component -> List Process -> Query -> Result String String

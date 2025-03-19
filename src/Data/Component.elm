@@ -1,6 +1,7 @@
 module Data.Component exposing
     ( Amount(..)
     , Component
+    , Custom
     , DataContainer
     , Element
     , ExpandedElement
