@@ -32,6 +32,7 @@ type alias Config db msg =
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectTransformModal : Component -> Int -> Autocomplete Process -> msg
+    , removeElementTransform : Component -> Int -> Int -> msg
     , removeItem : Id -> msg
     , results : Component.Results
     , scope : Scope
@@ -330,7 +331,7 @@ elementView config component index { amount, material, transforms } elementResul
                     []
                 ]
             :: List.map3
-                (\_ transform transformResult ->
+                (\transformIndex transform transformResult ->
                     tr [ class "fs-7" ]
                         [ td [] []
                         , td [ class "text-end align-middle text-nowrap" ] []
@@ -353,7 +354,15 @@ elementView config component index { amount, material, transforms } elementResul
                             [ Component.extractImpacts transformResult
                                 |> Format.formatImpact config.impact
                             ]
-                        , td [] [ text "del" ]
+                        , td []
+                            [ button
+                                [ class "btn btn-sm btn-outline-secondary"
+                                , transformIndex
+                                    |> config.removeElementTransform component index
+                                    |> onClick
+                                ]
+                                [ Icon.trash ]
+                            ]
                         ]
                 )
                 (List.range 0 (List.length transforms))

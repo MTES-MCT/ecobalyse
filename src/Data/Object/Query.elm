@@ -9,6 +9,7 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , removeComponent
+    , removeElementTransform
     , toString
     , updateComponentItemQuantity
     , updateElementAmount
@@ -85,6 +86,12 @@ removeComponent id ({ components } as query) =
             components
                 |> List.filter (.id >> (/=) id)
     }
+
+
+removeElementTransform : Component -> Int -> Int -> Query -> Query
+removeElementTransform component index transformIndex =
+    updateElement component index <|
+        \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
 updateComponentItem : Component.Id -> (Item -> Item) -> List Item -> List Item
