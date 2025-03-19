@@ -330,15 +330,15 @@ elementMaterialView config component index materialResults material amount =
               else
                 amountInput config component material.unit index amount
             ]
-        , td [ class "text-truncate w-100", title <| Process.getDisplayName material ]
+        , td [ class "align-middle text-truncate w-100", title <| Process.getDisplayName material ]
             [ span [ class "ComponentElementIcon" ] [ Icon.material ]
             , text <| Process.getDisplayName material
             ]
-        , td [ class " text-end text-nowrap" ]
+        , td [ class "text-end align-middle text-nowrap" ]
             [ text "-" ]
-        , td [ class "text-end  text-nowrap" ]
+        , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Component.extractMass materialResults ]
-        , td [ class "text-end  text-nowrap" ]
+        , td [ class "text-end align-middle text-nowrap" ]
             [ Component.extractImpacts materialResults
                 |> Format.formatImpact config.impact
             ]
@@ -355,7 +355,7 @@ elementTransformsView config component index transformsResults transforms =
                 [ td [] []
                 , td [ class "text-end align-middle text-nowrap" ] []
                 , td
-                    [ class "text-truncate w-100"
+                    [ class "text-truncate align-middle w-100"
 
                     -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
                     , style "max-width" "0"
