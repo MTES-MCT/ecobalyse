@@ -34,7 +34,7 @@ type alias Config db msg =
     , openSelectTransformModal : Component -> Int -> Autocomplete Process -> msg
     , removeElementTransform : Component -> Int -> Int -> msg
     , removeItem : Id -> msg
-    , results : Component.Results
+    , results : Results
     , scope : Scope
     , setDetailed : List Id -> msg
     , title : String
@@ -96,11 +96,7 @@ addElementTransformButton { db, openSelectTransformModal } component index =
         ]
 
 
-componentView :
-    Config db msg
-    -> ( Component.Quantity, Component, List ExpandedElement )
-    -> Component.Results
-    -> List (Html msg)
+componentView : Config db msg -> ( Quantity, Component, List ExpandedElement ) -> Results -> List (Html msg)
 componentView config ( quantity, component, expandedElements ) itemResults =
     let
         collapsed =
@@ -283,16 +279,16 @@ amountInput config component unit index amount =
         ]
 
 
-elementView : Config db msg -> Component -> Int -> ExpandedElement -> Component.Results -> Html msg
+elementView : Config db msg -> Component -> Int -> ExpandedElement -> Results -> Html msg
 elementView config component index { amount, material, transforms } elementResults =
     let
-        ( materialResults, transformResults ) =
+        ( materialResults, transformsResults ) =
             case Component.extractItems elementResults of
                 [] ->
                     ( Component.emptyResults, [] )
 
-                materialResults_ :: transformResults_ ->
-                    ( materialResults_, transformResults_ )
+                materialResults_ :: transformsResults_ ->
+                    ( materialResults_, transformsResults_ )
     in
     tbody []
         (tr [ class "fs-7 text-muted" ]
@@ -304,70 +300,8 @@ elementView config component index { amount, material, transforms } elementResul
             , th [ scope "col" ] [ text "Impact" ]
             , th [ scope "col" ] [ text "" ]
             ]
-            :: tr [ class "fs-7" ]
-                [ td [] []
-                , td [ class "text-end align-middle text-nowrap p-0", style "min-width" "130px" ]
-                    [ if config.scope == Scope.Textile then
-                        amount
-                            |> Component.amountToFloat
-                            |> Format.formatRichFloat 3 material.unit
-
-                      else
-                        amountInput config component material.unit index amount
-                    ]
-                , td [ class "text-truncate w-100", title <| Process.getDisplayName material ]
-                    [ span [ class "ComponentElementIcon" ] [ Icon.material ]
-                    , text <| Process.getDisplayName material
-                    ]
-                , td [ class " text-end text-nowrap" ]
-                    [ text "-" ]
-                , td [ class "text-end  text-nowrap" ]
-                    [ Format.kg <| Component.extractMass materialResults ]
-                , td [ class "text-end  text-nowrap" ]
-                    [ Component.extractImpacts materialResults
-                        |> Format.formatImpact config.impact
-                    ]
-                , td [ class "pe-3  text-nowrap" ]
-                    []
-                ]
-            :: List.map3
-                (\transformIndex transform transformResult ->
-                    tr [ class "fs-7" ]
-                        [ td [] []
-                        , td [ class "text-end align-middle text-nowrap" ] []
-                        , td
-                            [ class "text-truncate w-100"
-
-                            -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
-                            , style "max-width" "0"
-                            , title <| Process.getDisplayName transform
-                            ]
-                            [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
-                            , text <| Process.getDisplayName transform
-                            ]
-                        , td [ class "align-middle text-end text-nowrap" ]
-                            [ Format.splitAsPercentage 2 transform.waste ]
-                        , td [ class "text-end align-middle text-nowrap" ]
-                            [ Format.kg <| Component.extractMass transformResult
-                            ]
-                        , td [ class "text-end align-middle text-nowrap" ]
-                            [ Component.extractImpacts transformResult
-                                |> Format.formatImpact config.impact
-                            ]
-                        , td []
-                            [ button
-                                [ class "btn btn-sm btn-outline-secondary"
-                                , transformIndex
-                                    |> config.removeElementTransform component index
-                                    |> onClick
-                                ]
-                                [ Icon.trash ]
-                            ]
-                        ]
-                )
-                (List.range 0 (List.length transforms))
-                transforms
-                transformResults
+            :: elementMaterialView config component index materialResults material amount
+            :: elementTransformsView config component index transformsResults transforms
             ++ (if List.member config.scope [ Scope.Object, Scope.Veli ] then
                     [ tr []
                         [ td [ colspan 2 ] []
@@ -383,7 +317,79 @@ elementView config component index { amount, material, transforms } elementResul
         )
 
 
-quantityInput : Config db msg -> Id -> Component.Quantity -> Html msg
+elementMaterialView : Config db msg -> Component -> Int -> Results -> Process -> Amount -> Html msg
+elementMaterialView config component index materialResults material amount =
+    tr [ class "fs-7" ]
+        [ td [] []
+        , td [ class "text-end align-middle text-nowrap p-0", style "min-width" "130px" ]
+            [ if config.scope == Scope.Textile then
+                amount
+                    |> Component.amountToFloat
+                    |> Format.formatRichFloat 3 material.unit
+
+              else
+                amountInput config component material.unit index amount
+            ]
+        , td [ class "text-truncate w-100", title <| Process.getDisplayName material ]
+            [ span [ class "ComponentElementIcon" ] [ Icon.material ]
+            , text <| Process.getDisplayName material
+            ]
+        , td [ class " text-end text-nowrap" ]
+            [ text "-" ]
+        , td [ class "text-end  text-nowrap" ]
+            [ Format.kg <| Component.extractMass materialResults ]
+        , td [ class "text-end  text-nowrap" ]
+            [ Component.extractImpacts materialResults
+                |> Format.formatImpact config.impact
+            ]
+        , td [ class "pe-3  text-nowrap" ]
+            []
+        ]
+
+
+elementTransformsView : Config db msg -> Component -> Int -> List Results -> List Process -> List (Html msg)
+elementTransformsView config component index transformsResults transforms =
+    List.map3
+        (\transformIndex transformResult transform ->
+            tr [ class "fs-7" ]
+                [ td [] []
+                , td [ class "text-end align-middle text-nowrap" ] []
+                , td
+                    [ class "text-truncate w-100"
+
+                    -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
+                    , style "max-width" "0"
+                    , title <| Process.getDisplayName transform
+                    ]
+                    [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
+                    , text <| Process.getDisplayName transform
+                    ]
+                , td [ class "align-middle text-end text-nowrap" ]
+                    [ Format.splitAsPercentage 2 transform.waste ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Format.kg <| Component.extractMass transformResult
+                    ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Component.extractImpacts transformResult
+                        |> Format.formatImpact config.impact
+                    ]
+                , td []
+                    [ button
+                        [ class "btn btn-sm btn-outline-secondary"
+                        , transformIndex
+                            |> config.removeElementTransform component index
+                            |> onClick
+                        ]
+                        [ Icon.trash ]
+                    ]
+                ]
+        )
+        (List.range 0 (List.length transforms))
+        transformsResults
+        transforms
+
+
+quantityInput : Config db msg -> Id -> Quantity -> Html msg
 quantityInput config id quantity =
     div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
         [ input
