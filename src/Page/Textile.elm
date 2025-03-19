@@ -1022,7 +1022,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         , impact = model.impact
         , items = session.queries.textile.trims
         , noOp = NoOp
-        , openSelectModal = AddTrimModal >> SetModal
+        , openSelectComponentModal = AddTrimModal >> SetModal
+        , openSelectTransformModal = \_ _ _ -> SetModal NoModal
         , removeItem = RemoveTrim
         , results =
             session.queries.textile.trims

@@ -70,7 +70,7 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
-    | OnAutocompleteAddTransform (Autocomplete.Msg Process)
+    | OnAutocompleteAddTransform Component Int (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
@@ -252,17 +252,17 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddComponent _, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteAddTransform autocompleteMsg, AddTransformModal component index autocompleteState ) ->
+        ( OnAutocompleteAddTransform component index autocompleteMsg, AddTransformModal _ _ autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
             ( { model | modal = AddTransformModal component index newAutocompleteState }
             , session
-            , Cmd.map OnAutocompleteAddTransform autoCompleteCmd
+            , Cmd.map (OnAutocompleteAddTransform component index) autoCompleteCmd
             )
 
-        ( OnAutocompleteAddTransform _, _ ) ->
+        ( OnAutocompleteAddTransform _ _ _, _ ) ->
             ( model, session, Cmd.none )
 
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
@@ -508,9 +508,8 @@ simulatorView session model =
                         |> Session.objectQueryFromScope model.scope
                         |> .components
                 , noOp = NoOp
-                , openSelectModal = AddComponentModal >> SetModal
-
-                -- FIXME: openTransformModal
+                , openSelectComponentModal = AddComponentModal >> SetModal
+                , openSelectTransformModal = \c i s -> AddTransformModal c i s |> SetModal
                 , removeItem = RemoveComponentItem
                 , results = model.results
                 , scope = model.scope
@@ -582,7 +581,7 @@ view session model =
                         , closeModal = SetModal NoModal
                         , footer = []
                         , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteAddTransform
+                        , onAutocomplete = OnAutocompleteAddTransform component index
                         , onAutocompleteSelect = OnAutocompleteSelectTransform component index
                         , placeholderText = "tapez ici le nom d'un procédé de transformation pour le rechercher"
                         , title = "Sélectionnez un procédé de transformation"

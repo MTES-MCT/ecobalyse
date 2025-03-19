@@ -5,7 +5,8 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity, Results)
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Process as Process
+import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Html exposing (..)
@@ -30,7 +31,8 @@ type alias Config db msg =
     , impact : Definition
     , items : List Item
     , noOp : msg
-    , openSelectModal : Autocomplete Component -> msg
+    , openSelectComponentModal : Autocomplete Component -> msg
+    , openSelectTransformModal : Component -> Int -> Autocomplete Process -> msg
     , removeItem : Id -> msg
     , results : Component.Results
     , scope : Scope
@@ -41,8 +43,8 @@ type alias Config db msg =
     }
 
 
-addButton : Config db msg -> Html msg
-addButton { addLabel, db, items, openSelectModal, scope } =
+addComponentButton : Config db msg -> Html msg
+addComponentButton { addLabel, db, items, openSelectComponentModal, scope } =
     let
         availableComponents =
             db.components
@@ -59,10 +61,42 @@ addButton { addLabel, db, items, openSelectModal, scope } =
         , class "gap-1 w-100"
         , id "add-new-element"
         , disabled <| List.isEmpty availableComponents
-        , onClick <| openSelectModal autocompleteState
+        , onClick <| openSelectComponentModal autocompleteState
         ]
         [ i [ class "icon icon-plus" ] []
         , text addLabel
+        ]
+
+
+addElementTransformButton : Config db msg -> Component -> Int -> Html msg
+addElementTransformButton { db, items, openSelectTransformModal, scope } component index =
+    let
+        -- FIXME: we should probably work from items, not component
+        -- FIXME: also check for custom
+        availableTransformProcesses =
+            db.processes
+                |> Process.listByCategory Category.Transform
+                |> Process.available
+                    (component.elements
+                        |> LE.getAt index
+                        |> Maybe.map .transforms
+                        |> Maybe.withDefault []
+                    )
+
+        -- FIXME: this should rather be initiated in page update
+        autocompleteState =
+            AutocompleteSelector.init .name availableTransformProcesses
+    in
+    button
+        [ class "btn btn-link btn-sm w-100 text-decoration-none"
+        , class "d-flex justify-content-start align-items-center"
+        , class "gap-1 w-100 p-0"
+        , id "add-new-element"
+        , disabled <| List.isEmpty availableTransformProcesses
+        , onClick <| openSelectTransformModal component index autocompleteState
+        ]
+        [ i [ class "icon icon-plus" ] []
+        , text "Ajouter une transformation"
         ]
 
 
@@ -224,7 +258,7 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
                                        )
                                 )
                             ]
-            , addButton config
+            , addComponentButton config
             ]
         , viewDebug items results
         ]
@@ -277,8 +311,7 @@ elementView config component index { amount, material, transforms } elementResul
             :: tr [ class "fs-7" ]
                 [ td [] []
                 , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-                    [ -- FIXME: not for textile
-                      if config.scope == Scope.Textile then
+                    [ if config.scope == Scope.Textile then
                         amount
                             |> Component.amountToFloat
                             |> Format.formatRichFloat 3 material.unit
@@ -318,11 +351,19 @@ elementView config component index { amount, material, transforms } elementResul
                             [ Component.extractImpacts transformResult
                                 |> Format.formatImpact config.impact
                             ]
+                        , td [] [ text "del" ]
                         ]
                 )
                 (List.range 0 (List.length transforms))
                 transforms
                 transformResults
+            ++ [ tr []
+                    [ td [ colspan 2 ] []
+                    , td [ colspan 5 ]
+                        [ addElementTransformButton config component index
+                        ]
+                    ]
+               ]
         )
 
 

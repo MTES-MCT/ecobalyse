@@ -1,6 +1,7 @@
 module Data.Process exposing
     ( Id
     , Process
+    , available
     , decodeFromId
     , decodeId
     , decodeList
@@ -57,6 +58,14 @@ type alias Process =
 
 type SourceId
     = SourceId String
+
+
+{-| List processes which ids are not part of the provided list of ids
+-}
+available : List Id -> List Process -> List Process
+available alreadyUsedIds =
+    List.filter (\{ id } -> not <| List.member id alreadyUsedIds)
+        >> List.sortBy .name
 
 
 decodeFromId : List Process -> Decoder Process
