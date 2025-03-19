@@ -501,9 +501,12 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-idFromString : String -> Maybe Id
+idFromString : String -> Result String Id
 idFromString str =
-    Uuid.fromString str |> Maybe.map Id
+    str
+        |> Uuid.fromString
+        |> Result.fromMaybe ("Identifiant invalide: " ++ str)
+        |> Result.map Id
 
 
 idToString : Id -> String
