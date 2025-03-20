@@ -1,6 +1,33 @@
 # Changelog
 
 
+## [5.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.1..v5.0.0) (2025-03-20)
+
+
+
+### 🚀 Features
+
+- *(object)* Add plastic transformation process ([#949](https://github.com/MTES-MCT/ecobalyse/issues/949))
+- Allow customize component element final mass ([#959](https://github.com/MTES-MCT/ecobalyse/issues/959))
+- *(object,ui)* Allow adding component element transforms ([#967](https://github.com/MTES-MCT/ecobalyse/issues/967))
+
+### 🪲 Bug Fixes
+
+- Explicit strategies and htc/htn fixes ([#952](https://github.com/MTES-MCT/ecobalyse/issues/952))
+- Memory leak in node 20.16 and 20.17 ([#958](https://github.com/MTES-MCT/ecobalyse/issues/958))
+- *(security)* Upgrade django to 5.1.7. ([#966](https://github.com/MTES-MCT/ecobalyse/issues/966))
+
+### 🚜 Refactor
+
+- Read changelog from local file ([#964](https://github.com/MTES-MCT/ecobalyse/issues/964))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(food,textile,api)* [**breaking**] Remove deprecated API endpoints. ([#951](https://github.com/MTES-MCT/ecobalyse/issues/951))
+- Rename ingredients ([#957](https://github.com/MTES-MCT/ecobalyse/issues/957))
+- Upgrade node dependencies, 2025-03 ([#965](https://github.com/MTES-MCT/ecobalyse/issues/965))
+
+
 ## [4.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.0..v4.0.1) (2025-03-04)
 
 
