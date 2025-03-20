@@ -20,7 +20,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
-import Data.Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -591,7 +591,7 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelectTransform component index
                         , placeholderText = "tapez ici le nom d'un procédé de transformation pour le rechercher"
                         , title = "Sélectionnez un procédé de transformation"
-                        , toLabel = .name
+                        , toLabel = Process.getDisplayName
                         , toCategory = \_ -> ""
                         }
 

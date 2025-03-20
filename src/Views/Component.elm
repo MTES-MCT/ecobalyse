@@ -73,6 +73,7 @@ addElementTransformButton { db, openSelectTransformModal } component index =
         availableTransformProcesses =
             db.processes
                 |> Process.listByCategory Category.Transform
+                |> List.sortBy Process.getDisplayName
                 |> Process.available
                     (component.elements
                         |> LE.getAt index
