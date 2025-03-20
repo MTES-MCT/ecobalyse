@@ -20,6 +20,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
+import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -58,6 +59,7 @@ type alias Model =
 
 type Modal
     = AddComponentModal (Autocomplete Component)
+    | AddTransformModal Component Int (Autocomplete Process)
     | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
@@ -68,11 +70,14 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
+    | OnAutocompleteAddTransform Component Int (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
+    | OnAutocompleteSelectTransform Component Int
     | OpenComparator
     | RemoveComponentItem Component.Id
+    | RemoveElementTransform Component Int Int
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
@@ -248,6 +253,19 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddComponent _, _ ) ->
             ( model, session, Cmd.none )
 
+        ( OnAutocompleteAddTransform component index autocompleteMsg, AddTransformModal _ _ autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = AddTransformModal component index newAutocompleteState }
+            , session
+            , Cmd.map (OnAutocompleteAddTransform component index) autoCompleteCmd
+            )
+
+        ( OnAutocompleteAddTransform _ _ _, _ ) ->
+            ( model, session, Cmd.none )
+
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
@@ -275,6 +293,13 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteSelectComponent, _ ) ->
             ( model, session, Cmd.none )
 
+        ( OnAutocompleteSelectTransform component index, AddTransformModal _ _ autocompleteState ) ->
+            ( model, session, Cmd.none )
+                |> selectTransform component index query autocompleteState
+
+        ( OnAutocompleteSelectTransform _ _, _ ) ->
+            ( model, session, Cmd.none )
+
         ( OpenComparator, _ ) ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
@@ -284,6 +309,10 @@ update ({ navKey } as session) msg model =
         ( RemoveComponentItem id, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeComponent id query)
+
+        ( RemoveElementTransform component elementIndex transformIndex, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.removeElementTransform component elementIndex transformIndex query)
 
         ( SaveBookmark, _ ) ->
             ( model
@@ -326,6 +355,12 @@ update ({ navKey } as session) msg model =
 
         ( SetModal (AddComponentModal autocomplete), _ ) ->
             ( { model | modal = AddComponentModal autocomplete }
+            , session
+            , Ports.addBodyClass "prevent-scrolling"
+            )
+
+        ( SetModal (AddTransformModal component index autocomplete), _ ) ->
+            ( { model | modal = AddTransformModal component index autocomplete }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
@@ -435,6 +470,17 @@ selectComponent query autocompleteState ( model, session, _ ) =
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
 
 
+selectTransform : Component -> Int -> Query -> Autocomplete Process -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectTransform component elementIndex query autocompleteState ( model, session, _ ) =
+    case Autocomplete.selectedValue autocompleteState of
+        Just transform ->
+            update session (SetModal NoModal) model
+                |> updateQuery (Query.addElementTransform component elementIndex transform.id query)
+
+        Nothing ->
+            ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
+
+
 simulatorView : Session -> Model -> Html Msg
 simulatorView session model =
     div [ class "row" ]
@@ -467,7 +513,9 @@ simulatorView session model =
                         |> Session.objectQueryFromScope model.scope
                         |> .components
                 , noOp = NoOp
-                , openSelectModal = AddComponentModal >> SetModal
+                , openSelectComponentModal = AddComponentModal >> SetModal
+                , openSelectTransformModal = \c i s -> AddTransformModal c i s |> SetModal
+                , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
                 , results = model.results
                 , scope = model.scope
@@ -530,6 +578,20 @@ view session model =
                         , placeholderText = "tapez ici le nom du composant pour le rechercher"
                         , title = "Sélectionnez un composant"
                         , toLabel = .name
+                        , toCategory = \_ -> ""
+                        }
+
+                AddTransformModal component index autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , footer = []
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompleteAddTransform component index
+                        , onAutocompleteSelect = OnAutocompleteSelectTransform component index
+                        , placeholderText = "tapez ici le nom d'un procédé de transformation pour le rechercher"
+                        , title = "Sélectionnez un procédé de transformation"
+                        , toLabel = Process.getDisplayName
                         , toCategory = \_ -> ""
                         }
 

@@ -1,6 +1,7 @@
 module Data.Component exposing
     ( Amount(..)
     , Component
+    , Custom
     , DataContainer
     , Element
     , ExpandedElement
@@ -8,6 +9,8 @@ module Data.Component exposing
     , Item
     , Quantity
     , Results(..)
+    , addElementTransform
+    , addItem
     , amountToFloat
     , applyTransforms
     , available
@@ -30,10 +33,11 @@ module Data.Component exposing
     , findById
     , idFromString
     , idToString
-    , isCustomized
     , itemToString
     , quantityFromInt
     , quantityToInt
+    , updateElement
+    , updateItem
     , validateItem
     )
 
@@ -49,6 +53,7 @@ import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 import Json.Encode as Encode
+import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
@@ -131,6 +136,17 @@ type Results
         , items : List Results
         , mass : Mass
         }
+
+
+addElementTransform : Component -> Int -> Process.Id -> List Item -> List Item
+addElementTransform component index transformId =
+    updateElement component index <|
+        \el -> { el | transforms = el.transforms ++ [ transformId ] }
+
+
+addItem : Id -> List Item -> List Item
+addItem id =
+    (++) [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
 
 
 {-| Add two results together
@@ -485,9 +501,12 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-idFromString : String -> Maybe Id
+idFromString : String -> Result String Id
 idFromString str =
-    Uuid.fromString str |> Maybe.map Id
+    str
+        |> Uuid.fromString
+        |> Result.fromMaybe ("Identifiant invalide: " ++ str)
+        |> Result.map Id
 
 
 idToString : Id -> String
@@ -568,6 +587,49 @@ extractItems (Results { items }) =
 extractMass : Results -> Mass
 extractMass (Results { mass }) =
     mass
+
+
+updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item
+updateElement component elementIndex update =
+    updateItem component.id
+        (\item ->
+            { item
+                | custom =
+                    item.custom
+                        |> updateElementCustom component elementIndex update
+            }
+        )
+
+
+updateElementCustom : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
+updateElementCustom component index update =
+    let
+        updateElements =
+            LE.updateAt index update
+    in
+    Maybe.map
+        (\custom ->
+            let
+                updated =
+                    { custom | elements = updateElements custom.elements }
+            in
+            if isCustomized component updated then
+                Just updated
+
+            else
+                Nothing
+        )
+        >> Maybe.withDefault
+            (Just
+                { elements = updateElements component.elements
+                , name = Nothing
+                }
+            )
+
+
+updateItem : Id -> (Item -> Item) -> List Item -> List Item
+updateItem componentId =
+    LE.updateIf (.id >> (==) componentId)
 
 
 validateItem : List Component -> Item -> Result String Item
