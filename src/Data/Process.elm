@@ -65,7 +65,7 @@ type SourceId
 available : List Id -> List Process -> List Process
 available alreadyUsedIds =
     List.filter (\{ id } -> not <| List.member id alreadyUsedIds)
-        >> List.sortBy .name
+        >> List.sortBy getDisplayName
 
 
 decodeFromId : List Process -> Decoder Process
@@ -158,7 +158,7 @@ idFromString : String -> Result String Id
 idFromString str =
     str
         |> Uuid.fromString
-        |> Result.fromMaybe ("Identifiant invalide: " ++ str)
+        |> Result.fromMaybe ("Identifiant invalide : " ++ str)
         |> Result.map Id
 
 
