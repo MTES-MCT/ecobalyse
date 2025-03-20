@@ -1,7 +1,4 @@
-module Views.Component exposing
-    ( ProcessType(..)
-    , editorView
-    )
+module Views.Component exposing (editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -9,7 +6,7 @@ import Data.Component as Component exposing (Amount, Component, ExpandedElement,
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
-import Data.Process.Category as Category
+import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -34,7 +31,7 @@ type alias Config db msg =
     , items : List Item
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
-    , openSelectTransformModal : ProcessType -> Component -> Int -> Autocomplete Process -> msg
+    , openSelectTransformModal : Category -> Component -> Int -> Autocomplete Process -> msg
     , removeElementTransform : Component -> Int -> Int -> msg
     , removeItem : Id -> msg
     , results : Results
@@ -44,11 +41,6 @@ type alias Config db msg =
     , updateElementAmount : Component -> Int -> Maybe Amount -> msg
     , updateItemQuantity : Id -> Quantity -> msg
     }
-
-
-type ProcessType
-    = Material
-    | Transform
 
 
 addComponentButton : Config db msg -> Html msg
@@ -98,7 +90,7 @@ addElementTransformButton { db, openSelectTransformModal } component index =
         , class "gap-1 w-100 p-0"
         , id "add-new-element"
         , disabled <| List.isEmpty availableTransformProcesses
-        , onClick <| openSelectTransformModal Transform component index autocompleteState
+        , onClick <| openSelectTransformModal Category.Transform component index autocompleteState
         ]
         [ i [ class "icon icon-plus" ] []
         , text "Ajouter une transformation"
@@ -339,7 +331,7 @@ selectMaterialButton { db, openSelectTransformModal } component index material =
     in
     button
         [ class "btn btn-sm btn-link text-decoration-none p-0"
-        , onClick <| openSelectTransformModal Material component index autocompleteState
+        , onClick <| openSelectTransformModal Category.Material component index autocompleteState
         ]
         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
         , text <| Process.getDisplayName material

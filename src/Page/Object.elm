@@ -21,6 +21,7 @@ import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -34,7 +35,7 @@ import Time exposing (Posix)
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
-import Views.Component as ComponentView exposing (ProcessType)
+import Views.Component as ComponentView
 import Views.Container as Container
 import Views.Example as ExampleView
 import Views.ImpactTabs as ImpactTabs
@@ -62,7 +63,7 @@ type Modal
     | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
-    | SelectProcessModal ProcessType Component Int (Autocomplete Process)
+    | SelectProcessModal Category Component Int (Autocomplete Process)
 
 
 type Msg
@@ -70,11 +71,11 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
-    | OnAutocompleteAddProcess ProcessType Component Int (Autocomplete.Msg Process)
+    | OnAutocompleteAddProcess Category Component Int (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
-    | OnAutocompleteSelectProcess ProcessType Component Int
+    | OnAutocompleteSelectProcess Category Component Int
     | OpenComparator
     | RemoveComponentItem Component.Id
     | RemoveElementTransform Component Int Int
@@ -470,18 +471,21 @@ selectComponent query autocompleteState ( model, session, _ ) =
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
 
 
-selectProcess : ProcessType -> Component -> Int -> Query -> Autocomplete Process -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectProcess : Category -> Component -> Int -> Query -> Autocomplete Process -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectProcess processType component elementIndex query autocompleteState ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             let
                 queryUpdate =
                     case processType of
-                        ComponentView.Material ->
+                        Category.Material ->
                             Query.setElementMaterial
 
-                        ComponentView.Transform ->
+                        Category.Transform ->
                             Query.addElementTransform
+
+                        _ ->
+                            \_ _ _ _ -> query
             in
             update session (SetModal NoModal) model
                 |> updateQuery (queryUpdate component elementIndex process.id query)
@@ -630,6 +634,24 @@ view session model =
                         }
 
                 SelectProcessModal processType component index autocompleteState ->
+                    let
+                        ( placeholderText, title ) =
+                            case processType of
+                                Category.Material ->
+                                    ( "tapez ici le nom d'une matière pour la rechercher"
+                                    , "Sélectionnez une matière première"
+                                    )
+
+                                Category.Transform ->
+                                    ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
+                                    , "Sélectionnez un procédé de transformation"
+                                    )
+
+                                _ ->
+                                    ( "tapez ici le nom d'un procédé pour le rechercher"
+                                    , "Sélectionnez un procédé"
+                                    )
+                    in
                     AutocompleteSelectorView.view
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
@@ -637,8 +659,8 @@ view session model =
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteAddProcess processType component index
                         , onAutocompleteSelect = OnAutocompleteSelectProcess processType component index
-                        , placeholderText = "tapez ici le nom d'un procédé de transformation pour le rechercher"
-                        , title = "Sélectionnez un procédé de transformation"
+                        , placeholderText = placeholderText
+                        , title = title
                         , toLabel = Process.getDisplayName
                         , toCategory = \_ -> ""
                         }
