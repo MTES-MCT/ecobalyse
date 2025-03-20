@@ -10,6 +10,7 @@ module Data.Object.Query exposing
     , parseBase64Query
     , removeComponent
     , removeElementTransform
+    , setElementMaterial
     , toString
     , updateComponentItemQuantity
     , updateElementAmount
@@ -97,6 +98,15 @@ removeElementTransform component index transformIndex query =
                     (\el ->
                         { el | transforms = el.transforms |> LE.removeAt transformIndex }
                     )
+    }
+
+
+setElementMaterial : Component -> Int -> Process.Id -> Query -> Query
+setElementMaterial component index materialId query =
+    { query
+        | components =
+            query.components
+                |> Component.setElementMaterial component index materialId
     }
 
 

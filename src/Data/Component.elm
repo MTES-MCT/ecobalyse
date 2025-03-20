@@ -36,6 +36,7 @@ module Data.Component exposing
     , itemToString
     , quantityFromInt
     , quantityToInt
+    , setElementMaterial
     , updateElement
     , updateItem
     , validateItem
@@ -142,6 +143,12 @@ addElementTransform : Component -> Int -> Process.Id -> List Item -> List Item
 addElementTransform component index transformId =
     updateElement component index <|
         \el -> { el | transforms = el.transforms ++ [ transformId ] }
+
+
+setElementMaterial : Component -> Int -> Process.Id -> List Item -> List Item
+setElementMaterial component index materialId =
+    updateElement component index <|
+        \el -> { el | material = materialId }
 
 
 addItem : Id -> List Item -> List Item

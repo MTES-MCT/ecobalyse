@@ -1,4 +1,7 @@
-module Views.Component exposing (editorView)
+module Views.Component exposing
+    ( ProcessType(..)
+    , editorView
+    )
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -31,7 +34,7 @@ type alias Config db msg =
     , items : List Item
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
-    , openSelectTransformModal : Component -> Int -> Autocomplete Process -> msg
+    , openSelectTransformModal : ProcessType -> Component -> Int -> Autocomplete Process -> msg
     , removeElementTransform : Component -> Int -> Int -> msg
     , removeItem : Id -> msg
     , results : Results
@@ -41,6 +44,11 @@ type alias Config db msg =
     , updateElementAmount : Component -> Int -> Maybe Amount -> msg
     , updateItemQuantity : Id -> Quantity -> msg
     }
+
+
+type ProcessType
+    = Material
+    | Transform
 
 
 addComponentButton : Config db msg -> Html msg
@@ -90,7 +98,7 @@ addElementTransformButton { db, openSelectTransformModal } component index =
         , class "gap-1 w-100 p-0"
         , id "add-new-element"
         , disabled <| List.isEmpty availableTransformProcesses
-        , onClick <| openSelectTransformModal component index autocompleteState
+        , onClick <| openSelectTransformModal Transform component index autocompleteState
         ]
         [ i [ class "icon icon-plus" ] []
         , text "Ajouter une transformation"
@@ -318,6 +326,26 @@ elementView config component index { amount, material, transforms } elementResul
         )
 
 
+selectMaterialButton : Config db msg -> Component -> Int -> Process -> Html msg
+selectMaterialButton { db, openSelectTransformModal } component index material =
+    let
+        availableMaterialProcesses =
+            db.processes
+                |> Process.listByCategory Category.Material
+                |> List.sortBy Process.getDisplayName
+
+        autocompleteState =
+            AutocompleteSelector.init .name availableMaterialProcesses
+    in
+    button
+        [ class "btn btn-sm btn-link text-decoration-none p-0"
+        , onClick <| openSelectTransformModal Material component index autocompleteState
+        ]
+        [ span [ class "ComponentElementIcon" ] [ Icon.material ]
+        , text <| Process.getDisplayName material
+        ]
+
+
 elementMaterialView : Config db msg -> Component -> Int -> Results -> Process -> Amount -> Html msg
 elementMaterialView config component index materialResults material amount =
     tr [ class "fs-7" ]
@@ -331,9 +359,8 @@ elementMaterialView config component index materialResults material amount =
               else
                 amountInput config component material.unit index amount
             ]
-        , td [ class "align-middle text-truncate w-100", title <| Process.getDisplayName material ]
-            [ span [ class "ComponentElementIcon" ] [ Icon.material ]
-            , text <| Process.getDisplayName material
+        , td [ class "align-middle text-truncate w-100", title material.name ]
+            [ selectMaterialButton config component index material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ text "-" ]
@@ -360,7 +387,7 @@ elementTransformsView config component index transformsResults transforms =
 
                     -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
                     , style "max-width" "0"
-                    , title <| Process.getDisplayName transform
+                    , title transform.name
                     ]
                     [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
                     , text <| Process.getDisplayName transform

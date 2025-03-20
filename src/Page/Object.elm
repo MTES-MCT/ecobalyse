@@ -34,7 +34,7 @@ import Time exposing (Posix)
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
-import Views.Component as ComponentView
+import Views.Component as ComponentView exposing (ProcessType)
 import Views.Container as Container
 import Views.Example as ExampleView
 import Views.ImpactTabs as ImpactTabs
@@ -59,10 +59,10 @@ type alias Model =
 
 type Modal
     = AddComponentModal (Autocomplete Component)
-    | AddTransformModal Component Int (Autocomplete Process)
     | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
+    | SelectProcessModal ProcessType Component Int (Autocomplete Process)
 
 
 type Msg
@@ -70,11 +70,11 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
-    | OnAutocompleteAddTransform Component Int (Autocomplete.Msg Process)
+    | OnAutocompleteAddProcess ProcessType Component Int (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
-    | OnAutocompleteSelectTransform Component Int
+    | OnAutocompleteSelectProcess ProcessType Component Int
     | OpenComparator
     | RemoveComponentItem Component.Id
     | RemoveElementTransform Component Int Int
@@ -253,17 +253,17 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddComponent _, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteAddTransform component index autocompleteMsg, AddTransformModal _ _ autocompleteState ) ->
+        ( OnAutocompleteAddProcess processType component index autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = AddTransformModal component index newAutocompleteState }
+            ( { model | modal = SelectProcessModal processType component index newAutocompleteState }
             , session
-            , Cmd.map (OnAutocompleteAddTransform component index) autoCompleteCmd
+            , Cmd.map (OnAutocompleteAddProcess processType component index) autoCompleteCmd
             )
 
-        ( OnAutocompleteAddTransform _ _ _, _ ) ->
+        ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
             ( model, session, Cmd.none )
 
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
@@ -293,11 +293,11 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteSelectComponent, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteSelectTransform component index, AddTransformModal _ _ autocompleteState ) ->
+        ( OnAutocompleteSelectProcess processType component index, SelectProcessModal _ _ _ autocompleteState ) ->
             ( model, session, Cmd.none )
-                |> selectTransform component index query autocompleteState
+                |> selectProcess processType component index query autocompleteState
 
-        ( OnAutocompleteSelectTransform _ _, _ ) ->
+        ( OnAutocompleteSelectProcess _ _ _, _ ) ->
             ( model, session, Cmd.none )
 
         ( OpenComparator, _ ) ->
@@ -359,8 +359,8 @@ update ({ navKey } as session) msg model =
             , Ports.addBodyClass "prevent-scrolling"
             )
 
-        ( SetModal (AddTransformModal component index autocomplete), _ ) ->
-            ( { model | modal = AddTransformModal component index autocomplete }
+        ( SetModal (SelectProcessModal processType component index autocomplete), _ ) ->
+            ( { model | modal = SelectProcessModal processType component index autocomplete }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
@@ -470,12 +470,21 @@ selectComponent query autocompleteState ( model, session, _ ) =
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
 
 
-selectTransform : Component -> Int -> Query -> Autocomplete Process -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectTransform component elementIndex query autocompleteState ( model, session, _ ) =
+selectProcess : ProcessType -> Component -> Int -> Query -> Autocomplete Process -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectProcess processType component elementIndex query autocompleteState ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
-        Just transform ->
+        Just process ->
+            let
+                queryUpdate =
+                    case processType of
+                        ComponentView.Material ->
+                            Query.setElementMaterial
+
+                        ComponentView.Transform ->
+                            Query.addElementTransform
+            in
             update session (SetModal NoModal) model
-                |> updateQuery (Query.addElementTransform component elementIndex transform.id query)
+                |> updateQuery (queryUpdate component elementIndex process.id query)
 
         Nothing ->
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
@@ -514,7 +523,7 @@ simulatorView session model =
                         |> .components
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
-                , openSelectTransformModal = \c i s -> AddTransformModal c i s |> SetModal
+                , openSelectTransformModal = \p c i s -> SelectProcessModal p c i s |> SetModal
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
                 , results = model.results
@@ -581,20 +590,6 @@ view session model =
                         , toCategory = \_ -> ""
                         }
 
-                AddTransformModal component index autocompleteState ->
-                    AutocompleteSelectorView.view
-                        { autocompleteState = autocompleteState
-                        , closeModal = SetModal NoModal
-                        , footer = []
-                        , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteAddTransform component index
-                        , onAutocompleteSelect = OnAutocompleteSelectTransform component index
-                        , placeholderText = "tapez ici le nom d'un procédé de transformation pour le rechercher"
-                        , title = "Sélectionnez un procédé de transformation"
-                        , toLabel = Process.getDisplayName
-                        , toCategory = \_ -> ""
-                        }
-
                 ComparatorModal ->
                     ModalView.view
                         { size = ModalView.ExtraLarge
@@ -632,6 +627,20 @@ view session model =
                         , title = "Sélectionnez un produit"
                         , toLabel = Example.toName model.examples
                         , toCategory = Example.toCategory model.examples
+                        }
+
+                SelectProcessModal processType component index autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , footer = []
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompleteAddProcess processType component index
+                        , onAutocompleteSelect = OnAutocompleteSelectProcess processType component index
+                        , placeholderText = "tapez ici le nom d'un procédé de transformation pour le rechercher"
+                        , title = "Sélectionnez un procédé de transformation"
+                        , toLabel = Process.getDisplayName
+                        , toCategory = \_ -> ""
                         }
             ]
       ]
