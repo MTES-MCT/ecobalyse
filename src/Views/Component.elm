@@ -322,7 +322,7 @@ elementMaterialView : Config db msg -> Component -> Int -> Results -> Process ->
 elementMaterialView config component index materialResults material amount =
     tr [ class "fs-7" ]
         [ td [] []
-        , td [ class "text-end align-middle text-nowrap p-0", style "min-width" "130px" ]
+        , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
             [ if config.scope == Scope.Textile then
                 amount
                     |> Component.amountToFloat
