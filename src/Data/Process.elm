@@ -176,8 +176,21 @@ findById id processes =
 
 
 getDisplayName : Process -> String
-getDisplayName { displayName, name } =
-    Maybe.withDefault name displayName
+getDisplayName { displayName, id, name } =
+    case displayName of
+        Just str ->
+            if String.trim str == "" then
+                name
+
+            else
+                str
+
+        Nothing ->
+            if String.trim name == "" then
+                idToString id
+
+            else
+                name
 
 
 listByCategory : Category -> List Process -> List Process
