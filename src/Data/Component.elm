@@ -145,12 +145,6 @@ addElementTransform component index transformId =
         \el -> { el | transforms = el.transforms ++ [ transformId ] }
 
 
-setElementMaterial : Component -> Int -> Process.Id -> List Item -> List Item
-setElementMaterial component index materialId =
-    updateElement component index <|
-        \el -> { el | material = materialId }
-
-
 addItem : Id -> List Item -> List Item
 addItem id =
     (++) [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
@@ -594,6 +588,12 @@ extractItems (Results { items }) =
 extractMass : Results -> Mass
 extractMass (Results { mass }) =
     mass
+
+
+setElementMaterial : Component -> Int -> Process.Id -> List Item -> List Item
+setElementMaterial component index materialId =
+    updateElement component index <|
+        \el -> { el | material = materialId }
 
 
 updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item

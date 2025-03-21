@@ -1,6 +1,6 @@
 module Data.ComponentTest exposing (..)
 
-import Data.Component as Component
+import Data.Component as Component exposing (Component)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -8,9 +8,11 @@ import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Expect
 import Json.Decode as Decode exposing (Decoder)
+import List.Extra as LE
 import Mass
 import Quantity
 import Result.Extra as RE
+import Static.Db exposing (Db)
 import Test exposing (..)
 import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
 
@@ -32,7 +34,42 @@ suite =
                     , db.textile.wellKnown.weaving
                     )
             in
-            [ describe "applyTransforms"
+            [ describe "addElementTransform"
+                [ it "should add a transformation process to a component element"
+                    (case
+                        Result.map2 Tuple.pair
+                            -- Dossier plastique (PP)
+                            (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                            -- Injection moulding
+                            (Process.idFromString "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                     of
+                        Ok ( testComponent, testProcessId ) ->
+                            """ [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                                , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                                , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                ]"""
+                                |> decodeJsonThen (Decode.list Component.decodeItem)
+                                    (Component.addElementTransform testComponent 0 testProcessId >> Ok)
+                                |> Result.map
+                                    (\items ->
+                                        items
+                                            -- get second component item
+                                            |> LE.getAt 1
+                                            -- access its custom property
+                                            |> Maybe.andThen .custom
+                                            -- access the first element
+                                            |> Maybe.andThen (.elements >> LE.getAt 0)
+                                            -- and its transforms list
+                                            |> Maybe.map .transforms
+                                    )
+                                -- it should contain the one we added
+                                |> Expect.equal (Ok (Just [ testProcessId ]))
+
+                        Err err ->
+                            Expect.fail err
+                    )
+                ]
+            , describe "applyTransforms"
                 [ let
                     getTestMass transforms =
                         Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram }
@@ -317,8 +354,49 @@ suite =
                     )
                  ]
                 )
+            , describe "setElementMaterial"
+                [ it "should set an element material"
+                    (case
+                        Result.map2 Tuple.pair
+                            -- Dossier plastique (PP)
+                            (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                            -- Steel
+                            (Process.idFromString "8b91651b-9651-46fc-8bc2-37a141494086")
+                     of
+                        Ok ( testComponent, testProcessId ) ->
+                            """ [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                                , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                                , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                ]"""
+                                |> decodeJsonThen (Decode.list Component.decodeItem)
+                                    (Component.setElementMaterial testComponent 0 testProcessId >> Ok)
+                                |> Result.map
+                                    (\items ->
+                                        items
+                                            -- get second component item
+                                            |> LE.getAt 1
+                                            -- access its custom property
+                                            |> Maybe.andThen .custom
+                                            -- access the first element
+                                            |> Maybe.andThen (.elements >> LE.getAt 0)
+                                            -- and its material process id
+                                            |> Maybe.map .material
+                                    )
+                                -- it should be equal to the one we swapped in
+                                |> Expect.equal (Ok (Just testProcessId))
+
+                        Err err ->
+                            Expect.fail err
+                    )
+                ]
             ]
         )
+
+
+getComponentByStringId : Db -> String -> Result String Component
+getComponentByStringId db =
+    Component.idFromString
+        >> Result.andThen (\id -> Component.findById id db.components)
 
 
 decodeJson : Decoder a -> String -> Result String a
