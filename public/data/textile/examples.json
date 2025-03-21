@@ -342,6 +342,7 @@
     "id": "307b3586-41f4-4d93-833a-e03b5be137cc",
     "name": "Jupe coton (300g) - Majorant par défaut",
     "query": {
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.3,
       "materials": [
@@ -365,6 +366,7 @@
     "id": "536e3785-039a-49d6-a119-3cfce485420c",
     "name": "Chemise coton (250g) - Majorant par défaut",
     "query": {
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.25,
       "materials": [
@@ -385,6 +387,7 @@
     "id": "bf24fd40-9a2a-4489-935b-d82c339e5abe",
     "name": "Jean coton (450g) - Majorant par défaut",
     "query": {
+      "countrySpinning": "CN",
       "fading": true,
       "marketingDuration": 65,
       "mass": 0.45,
@@ -409,6 +412,7 @@
     "id": "f86835d3-7018-40fa-8144-2d1f6aa264b9",
     "name": "Pantalon coton (450g) - Majorant par défaut",
     "query": {
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.45,
       "materials": [
@@ -432,6 +436,7 @@
     "id": "32c8973b-864f-4060-977d-a0738f6414c4",
     "name": "Manteau coton (950g) - Majorant par défaut",
     "query": {
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.95,
       "materials": [
@@ -456,6 +461,7 @@
     "name": "Tshirt coton (150g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.15,
       "materials": [
@@ -503,6 +509,7 @@
     "name": "Pull coton (550g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.55,
       "materials": [
@@ -524,6 +531,7 @@
     "name": "Chaussettes coton (40g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.04,
       "materials": [
@@ -545,6 +553,7 @@
     "name": "Caleçon coton (40g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.04,
       "materials": [
@@ -566,6 +575,7 @@
     "name": "Slip coton (30g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.03,
       "materials": [
@@ -587,6 +597,7 @@
     "name": "Maillot de bain polyester (100g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
+      "countrySpinning": "CN",
       "marketingDuration": 65,
       "mass": 0.1,
       "materials": [
