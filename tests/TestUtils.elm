@@ -5,6 +5,7 @@ module TestUtils exposing
     , expectResultErrorContains
     , expectResultWithin
     , it
+    , suiteFromResult
     , suiteWithDb
     )
 
@@ -28,6 +29,19 @@ asTest =
 it : String -> Expectation -> Test
 it label =
     always >> test label
+
+
+suiteFromResult : String -> (a -> List Test) -> Result String a -> Test
+suiteFromResult testName fn res =
+    describe testName <|
+        case res of
+            Ok val ->
+                fn val
+
+            Err err ->
+                Expect.fail err
+                    |> it (testName ++ " setup result failure")
+                    |> List.singleton
 
 
 suiteWithDb : String -> (Db -> List Test) -> Test

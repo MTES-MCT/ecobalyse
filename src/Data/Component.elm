@@ -33,6 +33,7 @@ module Data.Component exposing
     , findById
     , idFromString
     , idToString
+    , itemToComponent
     , itemToString
     , quantityFromInt
     , quantityToInt
@@ -403,45 +404,6 @@ elementToString processes element =
             )
 
 
-{-| Turn an Element to an ExpandedElement
--}
-expandElement : List Process -> Element -> Result String ExpandedElement
-expandElement processes { amount, material, transforms } =
-    Ok (ExpandedElement amount)
-        |> RE.andMap (Process.findById material processes)
-        |> RE.andMap
-            (transforms
-                |> List.map (\id -> Process.findById id processes)
-                |> RE.combine
-            )
-
-
-{-| Take a list of elements and resolve them with fully qualified processes
--}
-expandElements : List Process -> List Element -> Result String (List ExpandedElement)
-expandElements processes =
-    RE.combineMap (expandElement processes)
-
-
-{-| Take a list of component items and resolve them with actual components and processes
--}
-expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
-expandItems { components, processes } =
-    List.map
-        (\{ custom, id, quantity } ->
-            findById id components
-                |> Result.andThen
-                    (\component ->
-                        custom
-                            |> Maybe.map .elements
-                            |> Maybe.withDefault component.elements
-                            |> expandElements processes
-                            |> Result.map (\expandedElements -> ( quantity, component, expandedElements ))
-                    )
-        )
-        >> RE.combine
-
-
 encodeCustom : Custom -> Encode.Value
 encodeCustom custom =
     [ ( "name", custom.name |> Maybe.map Encode.string )
@@ -473,6 +435,46 @@ encodeItem item =
 encodeId : Id -> Encode.Value
 encodeId =
     idToString >> Encode.string
+
+
+{-| Turn an Element to an ExpandedElement
+-}
+expandElement : List Process -> Element -> Result String ExpandedElement
+expandElement processes { amount, material, transforms } =
+    Ok (ExpandedElement amount)
+        |> RE.andMap (Process.findById material processes)
+        |> RE.andMap
+            (transforms
+                |> List.map (\id -> Process.findById id processes)
+                |> RE.combine
+            )
+
+
+{-| Take a list of elements and resolve them with fully qualified processes
+-}
+expandElements : List Process -> List Element -> Result String (List ExpandedElement)
+expandElements processes =
+    RE.combineMap (expandElement processes)
+
+
+expandItem : DataContainer a -> Item -> Result String ( Quantity, Component, List ExpandedElement )
+expandItem { components, processes } { custom, id, quantity } =
+    findById id components
+        |> Result.andThen
+            (\component ->
+                custom
+                    |> Maybe.map .elements
+                    |> Maybe.withDefault component.elements
+                    |> expandElements processes
+                    |> Result.map (\expandedElements -> ( quantity, component, expandedElements ))
+            )
+
+
+{-| Take a list of component items and resolve them with actual components and processes
+-}
+expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
+expandItems db =
+    List.map (expandItem db) >> RE.combine
 
 
 encodeResults : Maybe Trigram -> Results -> Encode.Value
@@ -522,6 +524,23 @@ isCustomized component custom =
         [ custom.elements /= component.elements
         , custom.name /= Nothing && custom.name /= Just component.name
         ]
+
+
+itemToComponent : DataContainer db -> Item -> Result String Component
+itemToComponent { components } { custom, id } =
+    findById id components
+        |> Result.map
+            (\component ->
+                case custom of
+                    Just { elements, name } ->
+                        { component
+                            | elements = elements
+                            , name = name |> Maybe.withDefault component.name
+                        }
+
+                    Nothing ->
+                        component
+            )
 
 
 itemToString : DataContainer db -> Item -> Result String String
