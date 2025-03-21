@@ -34,32 +34,38 @@ suite =
                     , db.textile.wellKnown.weaving
                     )
             in
-            [ describe "addElementTransform"
-                [ it "should add a transformation process to a component element"
-                    (case
-                        Result.map2 Tuple.pair
-                            -- Dossier plastique (PP)
-                            (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                            -- Injection moulding
-                            (Process.idFromString "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
-                     of
-                        Ok ( testComponent, testProcessId ) ->
-                            """ [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                                , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                                , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                                ]"""
-                                |> decodeJsonThen (Decode.list Component.decodeItem)
-                                    (Component.addElementTransform testComponent 0 testProcessId
-                                        >> Component.removeElementTransform testComponent 0 0
-                                        >> Ok
-                                    )
-                                |> Result.map (LE.getAt 1)
-                                |> Expect.equal (Ok <| Just { custom = Nothing, id = testComponent.id, quantity = Component.quantityFromInt 1 })
-
-                        Err err ->
-                            Expect.fail err
-                    )
-                ]
+            [ TestUtils.suiteFromResult "addElementTransform"
+                -- setup
+                (Result.map2 Tuple.pair
+                    -- Dossier plastique (PP)
+                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                    -- Injection moulding
+                    (Process.idFromString "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                )
+                -- tests
+                (\( testComponent, testProcessId ) ->
+                    [ it "should add a transformation process to a component element"
+                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.addElementTransform testComponent 0 testProcessId
+                                    >> Component.removeElementTransform testComponent 0 0
+                                    >> Ok
+                                )
+                            |> Result.map (LE.getAt 1)
+                            |> Expect.equal
+                                (Ok <|
+                                    Just
+                                        { custom = Nothing
+                                        , id = testComponent.id
+                                        , quantity = Component.quantityFromInt 1
+                                        }
+                                )
+                        )
+                    ]
+                )
             , describe "applyTransforms"
                 [ let
                     getTestMass transforms =
@@ -233,41 +239,36 @@ suite =
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 443
                     )
                 ]
-            , describe "computeElementResults"
-                (case Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
-                    Ok cottonId ->
-                        let
-                            elementResults =
-                                Component.computeElementResults db.processes
-                                    { amount = Component.Amount 1
-                                    , material = cottonId
+            , TestUtils.suiteFromResult "computeElementResults"
+                -- setup
+                (Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
+                    |> Result.andThen
+                        (\cottonId ->
+                            Component.computeElementResults db.processes
+                                { amount = Component.Amount 1
+                                , material = cottonId
 
-                                    -- Note: weaving: 0.06253, fading: 0
-                                    , transforms = [ weaving.id, fading.id ]
-                                    }
-                        in
-                        [ it "should compute element impacts"
-                            (elementResults
-                                |> Result.map
-                                    (Component.extractImpacts
-                                        >> Impact.getImpact Definition.Ecs
-                                        >> Unit.impactToFloat
-                                    )
-                                |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 1) 2146
-                            )
-                        , it "should compute element mass"
-                            (elementResults
-                                |> Result.map (Component.extractMass >> Mass.inKilograms)
-                                |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 0.000001) 1
-                            )
-                        ]
-
-                    Err err ->
-                        [ Expect.fail err
-                            |> it "should load cotton data"
-                        ]
+                                -- Note: weaving: 0.06253, fading: 0
+                                , transforms = [ weaving.id, fading.id ]
+                                }
+                        )
+                )
+                -- tests
+                (\elementResults ->
+                    [ it "should compute element impacts"
+                        (elementResults
+                            |> Component.extractImpacts
+                            |> Impact.getImpact Definition.Ecs
+                            |> Unit.impactToFloat
+                            |> Expect.within (Expect.Absolute 1) 2146
+                        )
+                    , it "should compute element mass"
+                        (elementResults
+                            |> Component.extractMass
+                            |> Mass.inKilograms
+                            |> Expect.within (Expect.Absolute 0.000001) 1
+                        )
+                    ]
                 )
             , describe "computeInitialAmount"
                 [ it "should sequentially apply splits"
@@ -345,108 +346,109 @@ suite =
                     )
                  ]
                 )
-            , """{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                   "quantity": 1,
-                   "custom": {
-                     "name": "custom name",
-                     "elements": [
-                       {
-                         "amount": 0.00044,
-                         "material": "07e9e916-e02b-45e2-a298-2b5084de6242"
-                       }
-                     ]
-                   }
-                 }"""
-                |> decodeJson Component.decodeItem
-                |> Result.andThen
-                    (\item ->
-                        item
-                            |> Component.itemToComponent db
-                            |> Result.map (\component -> ( item.custom, component ))
-                    )
-                |> TestUtils.suiteFromResult "itemToComponent"
-                    (\( maybeCustom, component ) ->
-                        [ it "should merge custom item elements into a final component"
-                            (Expect.equal component.elements
-                                (maybeCustom
-                                    |> Maybe.map .elements
-                                    |> Maybe.withDefault []
-                                )
-                            )
-                        , it "should merge custom item name into a final component"
-                            (Expect.equal component.name "custom name")
+            , TestUtils.suiteFromResult "itemToComponent"
+                -- setup
+                ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                      "quantity": 1,
+                      "custom": {
+                        "name": "custom name",
+                        "elements": [
+                          {
+                            "amount": 0.00044,
+                            "material": "07e9e916-e02b-45e2-a298-2b5084de6242"
+                          }
                         ]
-                    )
-            , describe "removeElementTransform"
-                [ it "should remove an element transform"
-                    (case
-                        Result.map2 Tuple.pair
-                            -- Dossier plastique (PP)
-                            (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                            -- Steel
-                            (Process.idFromString "8b91651b-9651-46fc-8bc2-37a141494086")
-                     of
-                        Ok ( testComponent, testProcessId ) ->
-                            """ [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                                , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                                , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                                ]"""
-                                |> decodeJsonThen (Decode.list Component.decodeItem)
-                                    (Component.setElementMaterial testComponent 0 testProcessId >> Ok)
-                                |> Result.map
-                                    (\items ->
-                                        items
-                                            -- get second component item
-                                            |> LE.getAt 1
-                                            -- access its custom property
-                                            |> Maybe.andThen .custom
-                                            -- access the first element
-                                            |> Maybe.andThen (.elements >> LE.getAt 0)
-                                            -- and its material process id
-                                            |> Maybe.map .material
-                                    )
-                                -- it should be equal to the one we swapped in
-                                |> Expect.equal (Ok (Just testProcessId))
-
-                        Err err ->
-                            Expect.fail err
-                    )
-                ]
-            , describe "setElementMaterial"
-                [ it "should set an element material"
-                    (case
-                        Result.map2 Tuple.pair
-                            -- Dossier plastique (PP)
-                            (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                            -- Steel
-                            (Process.idFromString "8b91651b-9651-46fc-8bc2-37a141494086")
-                     of
-                        Ok ( testComponent, testProcessId ) ->
-                            """ [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                                , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                                , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                                ]"""
-                                |> decodeJsonThen (Decode.list Component.decodeItem)
-                                    (Component.setElementMaterial testComponent 0 testProcessId >> Ok)
-                                |> Result.map
-                                    (\items ->
-                                        items
-                                            -- get second component item
-                                            |> LE.getAt 1
-                                            -- access its custom property
-                                            |> Maybe.andThen .custom
-                                            -- access the first element
-                                            |> Maybe.andThen (.elements >> LE.getAt 0)
-                                            -- and its material process id
-                                            |> Maybe.map .material
-                                    )
-                                -- it should be equal to the one we swapped in
-                                |> Expect.equal (Ok (Just testProcessId))
-
-                        Err err ->
-                            Expect.fail err
-                    )
-                ]
+                      }
+                    }"""
+                    |> decodeJson Component.decodeItem
+                    |> Result.andThen
+                        (\item ->
+                            item
+                                |> Component.itemToComponent db
+                                |> Result.map (\component -> ( item.custom, component ))
+                        )
+                )
+                -- tests
+                (\( maybeCustom, component ) ->
+                    [ it "should merge custom item elements into a final component"
+                        (Expect.equal component.elements
+                            (maybeCustom
+                                |> Maybe.map .elements
+                                |> Maybe.withDefault []
+                            )
+                        )
+                    , it "should merge custom item name into a final component"
+                        (Expect.equal component.name "custom name")
+                    ]
+                )
+            , TestUtils.suiteFromResult "removeElementTransform"
+                -- setup
+                (Result.map2 Tuple.pair
+                    -- Dossier plastique (PP)
+                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                    -- Steel
+                    (Process.idFromString "8b91651b-9651-46fc-8bc2-37a141494086")
+                )
+                -- tests
+                (\( testComponent, testProcessId ) ->
+                    [ it "should remove an element transform"
+                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.setElementMaterial testComponent 0 testProcessId >> Ok)
+                            |> Result.map
+                                (\items ->
+                                    items
+                                        -- get second component item
+                                        |> LE.getAt 1
+                                        -- access its custom property
+                                        |> Maybe.andThen .custom
+                                        -- access the first element
+                                        |> Maybe.andThen (.elements >> LE.getAt 0)
+                                        -- and its material process id
+                                        |> Maybe.map .material
+                                )
+                            -- it should be equal to the one we swapped in
+                            |> Expect.equal (Ok (Just testProcessId))
+                        )
+                    ]
+                )
+            , TestUtils.suiteFromResult "setElementMaterial"
+                -- setup
+                (Result.map2 Tuple.pair
+                    -- Dossier plastique (PP)
+                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                    -- Steel
+                    (Process.idFromString "8b91651b-9651-46fc-8bc2-37a141494086")
+                )
+                -- tests
+                (\( testComponent, testProcessId ) ->
+                    [ it "should set an element material"
+                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.setElementMaterial testComponent 0 testProcessId >> Ok)
+                            |> Result.map
+                                (\items ->
+                                    items
+                                        -- get second component item
+                                        |> LE.getAt 1
+                                        -- access its custom property
+                                        |> Maybe.andThen .custom
+                                        -- access the first element
+                                        |> Maybe.andThen (.elements >> LE.getAt 0)
+                                        -- and its material process id
+                                        |> Maybe.map .material
+                                )
+                            -- it should be equal to the one we swapped in
+                            |> Expect.equal (Ok (Just testProcessId))
+                        )
+                    ]
+                )
             ]
         )
 

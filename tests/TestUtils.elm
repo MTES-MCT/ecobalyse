@@ -31,8 +31,8 @@ it label =
     always >> test label
 
 
-suiteFromResult : String -> (a -> List Test) -> Result String a -> Test
-suiteFromResult testName fn res =
+suiteFromResult : String -> Result String a -> (a -> List Test) -> Test
+suiteFromResult testName res fn =
     describe testName <|
         case res of
             Ok val ->
