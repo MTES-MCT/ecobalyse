@@ -23,7 +23,6 @@ import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import List.Extra as LE
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
@@ -93,11 +92,7 @@ removeElementTransform component index transformIndex query =
     { query
         | components =
             query.components
-                |> Component.updateElement component
-                    index
-                    (\el ->
-                        { el | transforms = el.transforms |> LE.removeAt transformIndex }
-                    )
+                |> Component.removeElementTransform component index transformIndex
     }
 
 

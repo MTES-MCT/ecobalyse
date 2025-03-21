@@ -36,6 +36,7 @@ module Data.Component exposing
     , itemToString
     , quantityFromInt
     , quantityToInt
+    , removeElementTransform
     , setElementMaterial
     , updateElement
     , updateItem
@@ -588,6 +589,12 @@ extractItems (Results { items }) =
 extractMass : Results -> Mass
 extractMass (Results { mass }) =
     mass
+
+
+removeElementTransform : Component -> Int -> Int -> List Item -> List Item
+removeElementTransform component index transformIndex =
+    updateElement component index <|
+        \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
 setElementMaterial : Component -> Int -> Process.Id -> List Item -> List Item
