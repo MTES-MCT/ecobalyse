@@ -9,7 +9,7 @@ python_version = "3.12"
 [packages]
 django = ">=5.1.7,<6"
 django-mail-auth = ">=3.2,<3.3"
-gunicorn = ">=22,<23"
+gunicorn = ">=22,<24"
 psycopg2-binary = "2.9.9"
 python-decouple = ">=3,<4"
 GitPython = "3.1.43"
