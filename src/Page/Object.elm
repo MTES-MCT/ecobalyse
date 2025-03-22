@@ -485,10 +485,15 @@ selectProcess processType component elementIndex query autocompleteState ( model
                             Query.addElementTransform
 
                         _ ->
-                            \_ _ _ _ -> query
+                            \_ _ _ _ -> Ok query
             in
-            update session (SetModal NoModal) model
-                |> updateQuery (queryUpdate component elementIndex process.id query)
+            case queryUpdate component elementIndex process query of
+                Err err ->
+                    ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
+
+                Ok okQuery ->
+                    update session (SetModal NoModal) model
+                        |> updateQuery okQuery
 
         Nothing ->
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )

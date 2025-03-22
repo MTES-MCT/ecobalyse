@@ -36,33 +36,45 @@ suite =
             in
             [ TestUtils.suiteFromResult "addElementTransform"
                 -- setup
-                (Result.map2 Tuple.pair
+                (Result.map3 (\a b c -> ( a, b, c ))
                     -- Dossier plastique (PP)
                     (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Injection moulding
-                    (Process.idFromString "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                    -- Injection moulding (valid tansformation process)
+                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                    -- Planche de bois (invalid as not a transformation process)
+                    (getProcessByStringId db "07e9e916-e02b-45e2-a298-2b5084de6242")
                 )
                 -- tests
-                (\( testComponent, testProcessId ) ->
-                    [ it "should add a transformation process to a component element"
+                (\( testComponent, validTransformProcess, invalidTransformProcess ) ->
+                    [ it "should add a valid transformation process to a component element"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElementTransform testComponent 0 testProcessId
-                                    >> Component.removeElementTransform testComponent 0 0
-                                    >> Ok
+                                (Component.addElementTransform testComponent 0 validTransformProcess)
+                            |> Result.map
+                                (\items ->
+                                    items
+                                        -- get second component item
+                                        |> LE.getAt 1
+                                        -- access its custom property
+                                        |> Maybe.andThen .custom
+                                        -- access the first element
+                                        |> Maybe.andThen (.elements >> LE.getAt 0)
+                                        -- and its material process id
+                                        |> Maybe.map .transforms
                                 )
-                            |> Result.map (LE.getAt 1)
-                            |> Expect.equal
-                                (Ok <|
-                                    Just
-                                        { custom = Nothing
-                                        , id = testComponent.id
-                                        , quantity = Component.quantityFromInt 1
-                                        }
-                                )
+                            |> Expect.equal (Ok (Just [ validTransformProcess.id ]))
+                        )
+                    , it "should reject an invalid transformation process"
+                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.addElementTransform testComponent 0 invalidTransformProcess)
+                            |> expectResultErrorContains "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
                         )
                     ]
                 )
@@ -386,52 +398,51 @@ suite =
                 (Result.map2 Tuple.pair
                     -- Dossier plastique (PP)
                     (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Steel
-                    (Process.idFromString "8b91651b-9651-46fc-8bc2-37a141494086")
+                    -- Injection moulding
+                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
                 )
                 -- tests
-                (\( testComponent, testProcessId ) ->
+                (\( testComponent, testProcess ) ->
                     [ it "should remove an element transform"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.setElementMaterial testComponent 0 testProcessId >> Ok)
-                            |> Result.map
-                                (\items ->
-                                    items
-                                        -- get second component item
-                                        |> LE.getAt 1
-                                        -- access its custom property
-                                        |> Maybe.andThen .custom
-                                        -- access the first element
-                                        |> Maybe.andThen (.elements >> LE.getAt 0)
-                                        -- and its material process id
-                                        |> Maybe.map .material
+                                (Component.addElementTransform testComponent 0 testProcess
+                                    >> Result.map (Component.removeElementTransform testComponent 0 0)
                                 )
-                            -- it should be equal to the one we swapped in
-                            |> Expect.equal (Ok (Just testProcessId))
+                            |> Result.map (LE.getAt 1)
+                            |> Expect.equal
+                                (Ok <|
+                                    Just
+                                        { custom = Nothing
+                                        , id = testComponent.id
+                                        , quantity = Component.quantityFromInt 1
+                                        }
+                                )
                         )
                     ]
                 )
             , TestUtils.suiteFromResult "setElementMaterial"
                 -- setup
-                (Result.map2 Tuple.pair
+                (Result.map3 (\a b c -> ( a, b, c ))
                     -- Dossier plastique (PP)
                     (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Steel
-                    (Process.idFromString "8b91651b-9651-46fc-8bc2-37a141494086")
+                    -- Steel (valid as a material)
+                    (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
+                    -- Injection moulding (invalid as a material)
+                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
                 )
                 -- tests
-                (\( testComponent, testProcessId ) ->
-                    [ it "should set an element material"
+                (\( testComponent, validTestProcess, invalidTestProcess ) ->
+                    [ it "should set a valid element material"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.setElementMaterial testComponent 0 testProcessId >> Ok)
+                                (Component.setElementMaterial testComponent 0 validTestProcess)
                             |> Result.map
                                 (\items ->
                                     items
@@ -445,7 +456,16 @@ suite =
                                         |> Maybe.map .material
                                 )
                             -- it should be equal to the one we swapped in
-                            |> Expect.equal (Ok (Just testProcessId))
+                            |> Expect.equal (Ok (Just validTestProcess.id))
+                        )
+                    , it "should reject an invalid element material"
+                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.setElementMaterial testComponent 0 invalidTestProcess)
+                            |> expectResultErrorContains "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
                         )
                     ]
                 )
@@ -457,6 +477,12 @@ getComponentByStringId : Db -> String -> Result String Component
 getComponentByStringId db =
     Component.idFromString
         >> Result.andThen (\id -> Component.findById id db.components)
+
+
+getProcessByStringId : Db -> String -> Result String Process
+getProcessByStringId db =
+    Process.idFromString
+        >> Result.andThen (\id -> Process.findById id db.processes)
 
 
 decodeJson : Decoder a -> String -> Result String a

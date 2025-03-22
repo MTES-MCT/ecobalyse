@@ -48,6 +48,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -141,10 +142,15 @@ type Results
         }
 
 
-addElementTransform : Component -> Int -> Process.Id -> List Item -> List Item
-addElementTransform component index transformId =
-    updateElement component index <|
-        \el -> { el | transforms = el.transforms ++ [ transformId ] }
+addElementTransform : Component -> Int -> Process -> List Item -> Result String (List Item)
+addElementTransform component index transform items =
+    if not <| List.member Category.Transform transform.categories then
+        Err "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
+
+    else
+        items
+            |> updateElement component index (\el -> { el | transforms = el.transforms ++ [ transform.id ] })
+            |> Ok
 
 
 addItem : Id -> List Item -> List Item
@@ -616,10 +622,15 @@ removeElementTransform component index transformIndex =
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
-setElementMaterial : Component -> Int -> Process.Id -> List Item -> List Item
-setElementMaterial component index materialId =
-    updateElement component index <|
-        \el -> { el | material = materialId }
+setElementMaterial : Component -> Int -> Process -> List Item -> Result String (List Item)
+setElementMaterial component index material items =
+    if not <| List.member Category.Material material.categories then
+        Err "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
+
+    else
+        items
+            |> updateElement component index (\el -> { el | material = material.id })
+            |> Ok
 
 
 updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item

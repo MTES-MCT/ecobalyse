@@ -18,7 +18,7 @@ module Data.Object.Query exposing
 
 import Base64
 import Data.Component as Component exposing (Component)
-import Data.Process as Process exposing (Process)
+import Data.Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -69,13 +69,11 @@ addComponentItem id query =
     { query | components = query.components |> Component.addItem id }
 
 
-addElementTransform : Component -> Int -> Process.Id -> Query -> Query
-addElementTransform component index transformId query =
-    { query
-        | components =
-            query.components
-                |> Component.addElementTransform component index transformId
-    }
+addElementTransform : Component -> Int -> Process -> Query -> Result String Query
+addElementTransform component index transform query =
+    query.components
+        |> Component.addElementTransform component index transform
+        |> Result.map (\components -> { query | components = components })
 
 
 removeComponent : Component.Id -> Query -> Query
@@ -96,13 +94,11 @@ removeElementTransform component index transformIndex query =
     }
 
 
-setElementMaterial : Component -> Int -> Process.Id -> Query -> Query
-setElementMaterial component index materialId query =
-    { query
-        | components =
-            query.components
-                |> Component.setElementMaterial component index materialId
-    }
+setElementMaterial : Component -> Int -> Process -> Query -> Result String Query
+setElementMaterial component index material query =
+    query.components
+        |> Component.setElementMaterial component index material
+        |> Result.map (\components -> { query | components = components })
 
 
 updateComponentItemQuantity : Component.Id -> Component.Quantity -> Query -> Query
