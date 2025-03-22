@@ -476,24 +476,24 @@ selectProcess processType component elementIndex query autocompleteState ( model
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             let
-                queryUpdate =
+                updateResult =
                     case processType of
                         Category.Material ->
-                            Query.setElementMaterial
+                            query |> Query.setElementMaterial component elementIndex process
 
                         Category.Transform ->
-                            Query.addElementTransform
+                            query |> Query.addElementTransform component elementIndex process
 
                         _ ->
-                            \_ _ _ _ -> Ok query
+                            Err <| "Catégorie de procédé non supportée\u{00A0}: " ++ Category.toLabel processType
             in
-            case queryUpdate component elementIndex process query of
+            case updateResult of
                 Err err ->
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 
-                Ok okQuery ->
+                Ok validQuery ->
                     update session (SetModal NoModal) model
-                        |> updateQuery okQuery
+                        |> updateQuery validQuery
 
         Nothing ->
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
