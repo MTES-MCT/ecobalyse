@@ -37,6 +37,7 @@ module Data.Component exposing
     , itemToString
     , quantityFromInt
     , quantityToInt
+    , removeElement
     , removeElementTransform
     , setElementMaterial
     , updateElement
@@ -621,6 +622,23 @@ extractItems (Results { items }) =
 extractMass : Results -> Mass
 extractMass (Results { mass }) =
     mass
+
+
+removeElement : Component -> Int -> List Item -> List Item
+removeElement component elementIndex =
+    updateItem component.id
+        -- FIXME: error on empty resulting list
+        (\item ->
+            { item
+                | custom =
+                    case item.custom of
+                        Just custom ->
+                            Just { custom | elements = custom.elements |> LE.removeAt elementIndex }
+
+                        Nothing ->
+                            Just { elements = component.elements |> LE.removeAt elementIndex, name = Nothing }
+            }
+        )
 
 
 removeElementTransform : Component -> Int -> Int -> List Item -> List Item

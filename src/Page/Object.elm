@@ -78,6 +78,7 @@ type Msg
     | OnAutocompleteSelectProcess Category Component Int
     | OpenComparator
     | RemoveComponentItem Component.Id
+    | RemoveElement Component Int
     | RemoveElementTransform Component Int Int
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -311,6 +312,10 @@ update ({ navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeComponent id query)
 
+        ( RemoveElement component index, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.removeElement component index query)
+
         ( RemoveElementTransform component elementIndex transformIndex, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeElementTransform component elementIndex transformIndex query)
@@ -533,6 +538,7 @@ simulatorView session model =
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
                 , openSelectTransformModal = \p c i s -> SelectProcessModal p c i s |> SetModal
+                , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
                 , results = model.results

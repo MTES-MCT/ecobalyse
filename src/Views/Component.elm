@@ -32,6 +32,7 @@ type alias Config db msg =
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectTransformModal : Category -> Component -> Int -> Autocomplete Process -> msg
+    , removeElement : Component -> Int -> msg
     , removeElementTransform : Component -> Int -> Int -> msg
     , removeItem : Id -> msg
     , results : Results
@@ -295,12 +296,12 @@ elementView config component index { amount, material, transforms } elementResul
     tbody [ style "border-bottom" "1px solid #fff" ]
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
-            , th [ class "text-end", scope "col" ] [ text "Quantité finale" ]
-            , th [ scope "col" ] [ text <| "Élément #" ++ String.fromInt (index + 1) ]
-            , th [ scope "col" ] [ text "Pertes" ]
-            , th [ class "text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
-            , th [ scope "col" ] [ text "Impact" ]
-            , th [ scope "col" ] [ text "" ]
+            , th [ class "align-middle text-end", scope "col" ] [ text "Quantité finale" ]
+            , th [ class "align-middle", scope "col" ] [ text <| "Élément #" ++ String.fromInt (index + 1) ]
+            , th [ class "align-middle", scope "col" ] [ text "Pertes" ]
+            , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
+            , th [ class "align-middle", scope "col" ] [ text "Impact" ]
+            , th [ class "align-middle", scope "col" ] []
             ]
             :: elementMaterialView config component index materialResults material amount
             :: elementTransformsView config component index transformsResults transforms
@@ -364,7 +365,12 @@ elementMaterialView config component index materialResults material amount =
                 |> Format.formatImpact config.impact
             ]
         , td [ class "pe-3  text-nowrap" ]
-            []
+            [ button
+                [ class "btn btn-sm btn-outline-secondary"
+                , onClick (config.removeElement component index)
+                ]
+                [ Icon.trash ]
+            ]
         ]
 
 

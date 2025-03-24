@@ -9,6 +9,7 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , removeComponent
+    , removeElement
     , removeElementTransform
     , setElementMaterial
     , toString
@@ -82,6 +83,15 @@ removeComponent id ({ components } as query) =
         | components =
             components
                 |> List.filter (.id >> (/=) id)
+    }
+
+
+removeElement : Component -> Int -> Query -> Query
+removeElement component index query =
+    { query
+        | components =
+            query.components
+                |> Component.removeElement component index
     }
 
 

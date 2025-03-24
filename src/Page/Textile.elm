@@ -1024,6 +1024,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
         , openSelectTransformModal = \_ _ _ _ -> SetModal NoModal
+        , removeElement = \_ _ -> NoOp
         , removeElementTransform = \_ _ _ -> NoOp
         , removeItem = RemoveTrim
         , results =
