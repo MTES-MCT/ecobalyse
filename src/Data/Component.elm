@@ -468,11 +468,18 @@ expandItem { components, processes } { custom, id, quantity } =
     findById id components
         |> Result.andThen
             (\component ->
-                custom
-                    |> Maybe.map .elements
-                    |> Maybe.withDefault component.elements
+                let
+                    ( elements, name ) =
+                        case custom of
+                            Just custom_ ->
+                                ( custom_.elements, custom_.name |> Maybe.withDefault component.name )
+
+                            Nothing ->
+                                ( component.elements, component.name )
+                in
+                elements
                     |> expandElements processes
-                    |> Result.map (\expandedElements -> ( quantity, component, expandedElements ))
+                    |> Result.map (\expanded -> ( quantity, { component | name = name }, expanded ))
             )
 
 
