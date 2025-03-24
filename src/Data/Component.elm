@@ -154,8 +154,8 @@ addElementTransform component index transform items =
 
 
 addItem : Id -> List Item -> List Item
-addItem id =
-    (++) [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
+addItem id items =
+    items ++ [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
 
 
 {-| Add two results together
