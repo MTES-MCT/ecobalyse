@@ -1,0 +1,51 @@
+name: Bug Report/Rapport de bug
+description: |
+  File a bug report/Remonter un bug
+
+  Note:
+  - For feature requests and support questions, please use [Mattermost](https://chat.ecobalyse.fr/)
+  - Pour suggérer des fonctionnalités ou obtenir de l'aide, veuillez utiliser [Mattermost](https://chat.ecobalyse.fr/)
+labels: ["bug"]
+projects: ["MTES-MCT/53"]
+body:
+- type: textarea
+  attributes:
+    label: Current Behavior/Comportement actuel
+    description: A concise description of what you're experiencing/Une brève description du comportement problématique observé
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Expected Behavior/Comportement attendu
+    description: A concise description of what you expected to happen/Une brève description du comportement normal attendu
+  validations:
+    required: false
+- type: input
+  attributes:
+    label: URL/Adresse
+    description: URL where the bug occurs/Adresse à laquelle le bug apparait
+    placeholder: "https://"
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Steps To Reproduce/Étapes de reproduction
+    description: Steps to reproduce the behavior/Étapes permettant de reproduirele problème
+    placeholder: |
+      1. In this environment/Dans cet environnement…
+      1. With this config/Dans cette configuration…
+      1. Run/Exécuter…
+      1. See error/Erreur obtenue…
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Environment/Environnement
+    description: |
+      Examples/Exemples:
+        - Safari/iOS 18.2
+        - Firefox/Windows 11
+        - cURL/API v4.0.0
+    render: markdown
+  validations:
+    required: false
