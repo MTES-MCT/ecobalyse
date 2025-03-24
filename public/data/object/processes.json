@@ -1,6 +1,6 @@
 [
   {
-    "categories": [],
+    "categories": ["material"],
     "comment": "",
     "density": 600.0,
     "displayName": "Planche (bois de feuillus)",
@@ -37,7 +37,7 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["material"],
     "comment": "modélisation d'un composant générique (voir documentation)",
     "density": 900.0,
     "displayName": "Composant en plastique (PP)",
