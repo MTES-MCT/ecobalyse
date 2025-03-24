@@ -1,7 +1,7 @@
 ---
 name: Task
 about: A technical task
-title: "A short description of the task"
+title: A short summary of the problem the task should solve
 ---
 
 ## :wrench: Problem
