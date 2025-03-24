@@ -109,10 +109,10 @@ componentView config ( quantity, component, expandedElements ) itemResults =
     List.concat
         [ [ tbody []
                 [ tr [ class "border-top border-bottom" ]
-                    [ th [ class "ps-3 align-middle", scope "col" ]
+                    [ th [ class "ps-2 align-middle", scope "col" ]
                         [ if config.allowExpandDetails then
                             button
-                                [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
+                                [ class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
                                 , onClick <|
                                     config.setDetailed <|
                                         if collapsed && not (List.member component.id config.detailed) then
@@ -160,6 +160,30 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                 expandedElements
                 (Component.extractItems itemResults)
                 |> List.intersperse (tbody [ class "m-0 p-0 border" ] [ td [ colspan 7 ] [] ])
+
+          else
+            []
+        , if not collapsed then
+            [ tbody []
+                [ tr [ class "border-top" ]
+                    [ td [ colspan 2 ] []
+                    , td [ colspan 5 ]
+                        [ button
+                            [ class "btn btn-link w-100 text-decoration-none"
+                            , class "d-flex justify-content-start align-items-center"
+                            , class "gap-1 w-100 p-0 pb-1"
+                            , id "add-new-element"
+
+                            -- FIXME: select material to create new element
+                            -- , onClick <| openSelectProcessModal Category.Material component index autocompleteState
+                            ]
+                            [ i [ class "icon icon-plus" ] []
+                            , text "Ajouter un élément"
+                            ]
+                        ]
+                    ]
+                ]
+            ]
 
           else
             []
@@ -296,17 +320,18 @@ elementView config component index { amount, material, transforms } elementResul
     tbody [ style "border-bottom" "1px solid #fff" ]
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
-            , th [ class "align-middle text-end", scope "col" ] [ text "Quantité finale" ]
+            , th [ class "align-middle", scope "col" ]
+                [ if material.unit == "kg" then
+                    text "Masse finale"
+
+                  else
+                    text "Quantité finale"
+                ]
             , th [ class "align-middle", scope "col" ] [ text <| "Élément #" ++ String.fromInt (index + 1) ]
             , th [ class "align-middle", scope "col" ] [ text "Pertes" ]
             , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
             , th [ class "align-middle", scope "col" ] [ text "Impact" ]
-            , th [ class "align-middle", scope "col" ]
-                [ button
-                    [ class "btn btn-sm btn-outline-secondary"
-                    ]
-                    [ Icon.plus ]
-                ]
+            , th [ class "align-middle", scope "col" ] []
             ]
             :: elementMaterialView config component index materialResults material amount
             :: elementTransformsView config component index transformsResults transforms
@@ -362,7 +387,7 @@ elementMaterialView config component index materialResults material amount =
             [ selectMaterialButton config component index material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ text "-" ]
+            []
         , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Component.extractMass materialResults ]
         , td [ class "text-end align-middle text-nowrap" ]
@@ -423,7 +448,7 @@ elementTransformsView config component index transformsResults transforms =
 
 quantityInput : Config db msg -> Id -> Quantity -> Html msg
 quantityInput config id quantity =
-    div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
+    div [ class "input-group", style "width" "130px" ]
         [ input
             [ type_ "number"
             , class "form-control text-end"
