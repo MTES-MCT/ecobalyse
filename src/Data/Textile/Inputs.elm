@@ -181,9 +181,7 @@ fromQuery { countries, textile } query =
         |> RE.andMap (getCountryResult unknownCountryResult query.countryMaking)
         -- Material country is constrained to be the first material's default country
         |> RE.andMap mainMaterialCountry
-        -- Spinning country is either provided by query or fallbacks to material's default
-        -- country, making the parameter optional
-        |> RE.andMap (getCountryResult mainMaterialCountry query.countrySpinning)
+        |> RE.andMap (getCountryResult unknownCountryResult query.countrySpinning)
         -- The use country is always France
         |> RE.andMap franceResult
         |> RE.andMap (Ok query.disabledSteps)
