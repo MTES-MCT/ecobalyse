@@ -87,7 +87,7 @@ addElementTransformButton { db, openSelectTransformModal } component index =
     button
         [ class "btn btn-link btn-sm w-100 text-decoration-none"
         , class "d-flex justify-content-start align-items-center"
-        , class "gap-1 w-100 p-0"
+        , class "gap-1 w-100 p-0 pb-1"
         , id "add-new-element"
         , disabled <| List.isEmpty availableTransformProcesses
         , onClick <| openSelectTransformModal Category.Transform component index autocompleteState
@@ -107,7 +107,7 @@ componentView config ( quantity, component, expandedElements ) itemResults =
     in
     List.concat
         [ [ tbody []
-                [ tr []
+                [ tr [ class "border-top border-bottom" ]
                     [ th [ class "ps-3 align-middle", scope "col" ]
                         [ if config.allowExpandDetails then
                             button
@@ -130,7 +130,7 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                           else
                             text ""
                         ]
-                    , td [ class "ps-0 align-middle" ]
+                    , td [ class "ps-0 py-2 align-middle" ]
                         [ quantity |> quantityInput config component.id ]
                     , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
                         [ text component.name ]
@@ -158,6 +158,7 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                 (List.range 0 (List.length expandedElements - 1))
                 expandedElements
                 (Component.extractItems itemResults)
+                |> List.intersperse (tbody [ class "m-0 p-0 border" ] [ td [ colspan 7 ] [] ])
 
           else
             []
@@ -234,7 +235,7 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
 
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
-                            [ table [ class "table mb-0" ]
+                            [ table [ class "table table-sm table-borderless mb-0" ]
                                 (thead []
                                     [ tr [ class "fs-7 text-muted" ]
                                         [ th [] []
@@ -291,11 +292,11 @@ elementView config component index { amount, material, transforms } elementResul
                 materialResults_ :: transformsResults_ ->
                     ( materialResults_, transformsResults_ )
     in
-    tbody []
+    tbody [ style "border-bottom" "1px solid #fff" ]
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
             , th [ class "text-end", scope "col" ] [ text "Quantité finale" ]
-            , th [ scope "col" ] [ text "Procédé" ]
+            , th [ scope "col" ] [ text <| "Élément #" ++ String.fromInt (index + 1) ]
             , th [ scope "col" ] [ text "Pertes" ]
             , th [ class "text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
             , th [ scope "col" ] [ text "Impact" ]
