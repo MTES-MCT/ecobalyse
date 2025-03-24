@@ -627,7 +627,6 @@ extractMass (Results { mass }) =
 removeElement : Component -> Int -> List Item -> List Item
 removeElement component elementIndex =
     updateItem component.id
-        -- FIXME: error on empty resulting list
         (\item ->
             { item
                 | custom =

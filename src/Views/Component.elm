@@ -31,7 +31,7 @@ type alias Config db msg =
     , items : List Item
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
-    , openSelectTransformModal : Category -> Component -> Int -> Autocomplete Process -> msg
+    , openSelectProcessModal : Category -> Component -> Int -> Autocomplete Process -> msg
     , removeElement : Component -> Int -> msg
     , removeElementTransform : Component -> Int -> Int -> msg
     , removeItem : Id -> msg
@@ -69,7 +69,7 @@ addComponentButton { addLabel, db, items, openSelectComponentModal, scope } =
 
 
 addElementTransformButton : Config db msg -> Component -> Int -> Html msg
-addElementTransformButton { db, openSelectTransformModal } component index =
+addElementTransformButton { db, openSelectProcessModal } component index =
     let
         availableTransformProcesses =
             db.processes
@@ -91,7 +91,7 @@ addElementTransformButton { db, openSelectTransformModal } component index =
         , class "gap-1 w-100 p-0 pb-1"
         , id "add-new-element"
         , disabled <| List.isEmpty availableTransformProcesses
-        , onClick <| openSelectTransformModal Category.Transform component index autocompleteState
+        , onClick <| openSelectProcessModal Category.Transform component index autocompleteState
         ]
         [ i [ class "icon icon-plus" ] []
         , text "Ajouter une transformation"
@@ -301,7 +301,12 @@ elementView config component index { amount, material, transforms } elementResul
             , th [ class "align-middle", scope "col" ] [ text "Pertes" ]
             , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
             , th [ class "align-middle", scope "col" ] [ text "Impact" ]
-            , th [ class "align-middle", scope "col" ] []
+            , th [ class "align-middle", scope "col" ]
+                [ button
+                    [ class "btn btn-sm btn-outline-secondary"
+                    ]
+                    [ Icon.plus ]
+                ]
             ]
             :: elementMaterialView config component index materialResults material amount
             :: elementTransformsView config component index transformsResults transforms
@@ -321,7 +326,7 @@ elementView config component index { amount, material, transforms } elementResul
 
 
 selectMaterialButton : Config db msg -> Component -> Int -> Process -> Html msg
-selectMaterialButton { db, openSelectTransformModal } component index material =
+selectMaterialButton { db, openSelectProcessModal } component index material =
     let
         availableMaterialProcesses =
             db.processes
@@ -333,7 +338,7 @@ selectMaterialButton { db, openSelectTransformModal } component index material =
     in
     button
         [ class "btn btn-sm btn-link text-decoration-none p-0"
-        , onClick <| openSelectTransformModal Category.Material component index autocompleteState
+        , onClick <| openSelectProcessModal Category.Material component index autocompleteState
         ]
         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
         , text <| Process.getDisplayName material

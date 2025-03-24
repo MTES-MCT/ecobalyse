@@ -359,32 +359,14 @@ update ({ navKey } as session) msg model =
             , Cmd.none
             )
 
-        ( SetModal (AddComponentModal autocomplete), _ ) ->
-            ( { model | modal = AddComponentModal autocomplete }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
-        ( SetModal (SelectProcessModal processType component index autocomplete), _ ) ->
-            ( { model | modal = SelectProcessModal processType component index autocomplete }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
-        ( SetModal ComparatorModal, _ ) ->
-            ( { model | modal = ComparatorModal }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
         ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
             , session
             , commandsForNoModal model.modal
             )
 
-        ( SetModal (SelectExampleModal autocomplete), _ ) ->
-            ( { model | modal = SelectExampleModal autocomplete }
+        ( SetModal modal, _ ) ->
+            ( { model | modal = modal }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
@@ -537,7 +519,7 @@ simulatorView session model =
                         |> .components
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
-                , openSelectTransformModal = \p c i s -> SelectProcessModal p c i s |> SetModal
+                , openSelectProcessModal = \p c i s -> SelectProcessModal p c i s |> SetModal
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
