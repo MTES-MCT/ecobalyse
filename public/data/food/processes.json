@@ -30,9 +30,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105149",
+    "sourceId": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -67,9 +66,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cow milk, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003104145",
+    "sourceId": "Cow milk, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -104,9 +102,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cow milk, organic, national average, at farm gate FR U constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "c5782d4d0e582e15f7d4acd7012d1082",
+    "sourceId": "Cow milk, organic, national average, at farm gate FR U constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -141,9 +138,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
+    "sourceId": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -178,9 +174,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Wheat flour, at industrial mill {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116999",
+    "sourceId": "Wheat flour, at industrial mill {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -215,9 +210,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Wheat flour, at industrial mill {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "4a9ea0a29fbde60e2d1fc5c33d8a4f3a",
+    "sourceId": "Wheat flour, at industrial mill {FR} U [organic], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -252,9 +246,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower grain, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
+    "sourceId": "Sunflower grain, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -289,9 +282,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115221",
+    "sourceId": "Sunflower, organic, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -326,9 +318,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Winter rapeseed, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200196",
+    "sourceId": "Winter rapeseed, organic, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -363,9 +354,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107081",
+    "sourceId": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -400,9 +390,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "67f1a99d8093f1b2b3e4e7f8b292953c",
+    "sourceId": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [organic], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -437,9 +426,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003104412",
+    "sourceId": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -474,9 +462,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [feedlot], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "6fcaacd84b90aec94cf924041ff09fc9",
+    "sourceId": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [feedlot], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -511,9 +498,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [grass-fed], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "51c8f8e74c9ade89850e7b4b8a4efc59",
+    "sourceId": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U [grass-fed], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -548,9 +534,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cooked ham, case ready, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103910",
+    "sourceId": "Cooked ham, case ready, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -585,9 +570,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cooked ham, case ready, at plant {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "3fc68b77b276cfc781ed546ec32b84f5",
+    "sourceId": "Cooked ham, case ready, at plant {FR} U [organic], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -622,9 +606,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "bbbce945e38218c05c671aa17bcedbe2",
+    "sourceId": "Cooked ham, case ready, at plant {FR} U [fr], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -659,9 +642,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, chicken, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109221",
+    "sourceId": "Meat without bone, chicken, for direct consumption {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -696,9 +678,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "d41682caea2d55a3b95173f276b9d903",
+    "sourceId": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -733,9 +714,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse [fr-organic]",
     "source": "Ecobalyse",
-    "sourceId": "fc9b8a819a1ba51b4fbca210d0771198",
+    "sourceId": "Meat without bone, chicken, for direct consumption {FR} U [organic], constructed by Ecobalyse [fr-organic]",
     "unit": "kg",
     "waste": 0
   },
@@ -770,9 +750,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112448",
+    "sourceId": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -807,9 +786,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "425b95709f7882fa60c6b42f3add1873",
+    "sourceId": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -844,9 +822,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115182",
+    "sourceId": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -881,9 +858,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "2735a9eb9848c97f9e70fd94f051fb2a",
+    "sourceId": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U [organic], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -918,9 +894,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200219",
+    "sourceId": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -955,9 +930,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Peach, organic, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110947",
+    "sourceId": "Peach, organic, national average, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -992,9 +966,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Melon, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200102",
+    "sourceId": "Melon, organic, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -1029,9 +1002,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102321",
+    "sourceId": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -1066,9 +1038,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Butter, 82% fat, unsalted, at dairy {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "4ada2b1db5db813770f5ec73a5b1c109",
+    "sourceId": "Butter, 82% fat, unsalted, at dairy {FR} U [organic], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -1103,9 +1074,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114927",
+    "sourceId": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1140,9 +1110,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110698",
+    "sourceId": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1177,9 +1146,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111575",
+    "sourceId": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1214,9 +1182,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110706",
+    "sourceId": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1251,9 +1218,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111571",
+    "sourceId": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1288,9 +1254,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003104019",
+    "sourceId": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1325,9 +1290,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108113",
+    "sourceId": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1362,9 +1326,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111586",
+    "sourceId": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1399,9 +1362,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111562",
+    "sourceId": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1436,9 +1398,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111564",
+    "sourceId": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1473,9 +1434,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100294",
+    "sourceId": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1510,9 +1470,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Canning fruits or vegetables, industrial, 1kg of canned product {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102449",
+    "sourceId": "Canning fruits or vegetables, industrial, 1kg of canned product {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -1547,9 +1506,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "[Dummy] Mixing, processing, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100079",
+    "sourceId": "[Dummy] Mixing, processing, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -1584,9 +1542,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cooking, industrial, 1kg of cooked product {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103966",
+    "sourceId": "Cooking, industrial, 1kg of cooked product {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -1621,9 +1578,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115929",
+    "sourceId": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1658,9 +1614,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115957",
+    "sourceId": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1695,9 +1650,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Transport, freight, aircraft, unspecified {GLO}| market for transport, freight, aircraft, unspecified | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115903",
+    "sourceId": "Transport, freight, aircraft, unspecified {GLO}| market for transport, freight, aircraft, unspecified | Cut-off, S - Copied from Ecoinvent U",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1732,9 +1686,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115959",
+    "sourceId": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1769,9 +1722,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115944",
+    "sourceId": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1806,9 +1758,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105270",
+    "sourceId": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kWh",
     "waste": 0
   },
@@ -1843,9 +1794,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115449",
+    "sourceId": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -1880,9 +1830,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107383",
+    "sourceId": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
     "unit": "MJ",
     "waste": 0
   },
@@ -1917,9 +1866,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Comte cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103732",
+    "sourceId": "Comte cheese, from cow's milk, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -1954,9 +1902,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Emmental cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105529",
+    "sourceId": "Emmental cheese, from cow's milk, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -1991,9 +1938,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mozzarella cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110032",
+    "sourceId": "Mozzarella cheese, from cow's milk, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2028,9 +1974,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
+    "sourceId": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2065,9 +2010,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
+    "sourceId": "Carrot, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2102,9 +2046,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102611",
+    "sourceId": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2139,9 +2082,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200193",
+    "sourceId": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2176,9 +2118,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Soybean, national average, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200128",
+    "sourceId": "Soybean, national average, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2213,9 +2154,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Soybean, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114674",
+    "sourceId": "Soybean, organic, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2250,9 +2190,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200001",
+    "sourceId": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
     "unit": "kg",
     "waste": 0
   },
@@ -2287,9 +2226,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200302",
+    "sourceId": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -2324,9 +2262,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Soybean grain dried, stored and transported, processing {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114580",
+    "sourceId": "Soybean grain dried, stored and transported, processing {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2361,9 +2298,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sausage meat, raw, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003113461",
+    "sourceId": "Sausage meat, raw, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2398,9 +2334,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Toulouse sausage, raw, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115859",
+    "sourceId": "Toulouse sausage, raw, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2435,9 +2370,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Toulouse sausage, cooked, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115854",
+    "sourceId": "Toulouse sausage, cooked, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2472,9 +2406,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Plant-based sausage with tofu (vegan), at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111467",
+    "sourceId": "Plant-based sausage with tofu (vegan), at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2509,9 +2442,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115655",
+    "sourceId": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -2546,9 +2478,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115656",
+    "sourceId": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -2583,9 +2514,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat with bone, beef, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109214",
+    "sourceId": "Meat with bone, beef, for direct consumption {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2620,9 +2550,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, beef, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109219",
+    "sourceId": "Meat without bone, beef, for direct consumption {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2657,9 +2586,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, beef, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "f66ba18359adc61e5988ed8a7cf24b3e",
+    "sourceId": "Meat without bone, beef, for direct consumption {FR} U [organic], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -2694,9 +2622,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Durum wheat, semolina, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105079",
+    "sourceId": "Durum wheat, semolina, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2731,9 +2658,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109942",
+    "sourceId": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -2768,9 +2694,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Dark chocolate, at plant {RER} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003104661",
+    "sourceId": "Dark chocolate, at plant {RER} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -2805,9 +2730,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, chicken, for direct consumption {FR} U [br-max], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "b9f380cbd26fef2f30b16cbe06edd732",
+    "sourceId": "Meat without bone, chicken, for direct consumption {FR} U [br-max], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -2842,9 +2766,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "862a53ceeeaf072c8528a71d2fa6a027",
+    "sourceId": "Meat without bone, chicken, for direct consumption {FR} U [fr], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -2879,9 +2802,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Brown sugar, production, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102182",
+    "sourceId": "Brown sugar, production, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2916,9 +2838,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115509",
+    "sourceId": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -2953,9 +2874,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Coffee, roast and ground, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103623",
+    "sourceId": "Coffee, roast and ground, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -2990,9 +2910,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Black pepper, dried, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003101545",
+    "sourceId": "Black pepper, dried, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3027,9 +2946,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Milk, powder, skimmed, non rehydrated, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109401",
+    "sourceId": "Milk, powder, skimmed, non rehydrated, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3064,9 +2982,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112590",
+    "sourceId": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
     "unit": "L",
     "waste": 0
   },
@@ -3101,9 +3018,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fresh shrimps, China production {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106282",
+    "sourceId": "Fresh shrimps, China production {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3138,9 +3054,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Large trout, 2-4kg, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108470",
+    "sourceId": "Large trout, 2-4kg, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3175,9 +3090,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105152",
+    "sourceId": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3212,9 +3126,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105151",
+    "sourceId": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3249,9 +3162,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Egg, conventional, outdoor system, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105153",
+    "sourceId": "Egg, conventional, outdoor system, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3286,9 +3198,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Egg, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105163",
+    "sourceId": "Egg, organic, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3323,9 +3234,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "e05934df-fd40-4110-a610-0bd686911f2e",
+    "sourceId": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3360,9 +3270,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, lamb {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109223",
+    "sourceId": "Meat without bone, lamb {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3397,9 +3306,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, lamb {FR} U [organic], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "f025b4a41c45eabdb2510795b3353ca4",
+    "sourceId": "Meat without bone, lamb {FR} U [organic], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -3434,9 +3342,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Pear, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "57c2fff4-6ad8-4524-a81a-dacdae11deed",
+    "sourceId": "Pear, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3471,9 +3378,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102592",
+    "sourceId": "Carrot, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3508,9 +3414,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102563",
+    "sourceId": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -3545,9 +3450,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102564",
+    "sourceId": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -3582,9 +3486,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200218",
+    "sourceId": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3619,9 +3522,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003117541",
+    "sourceId": "Zucchini, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3656,9 +3558,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Pear, conventional, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111019",
+    "sourceId": "Pear, conventional, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3693,9 +3594,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111005",
+    "sourceId": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -3730,9 +3630,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Peach, production mix, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110952",
+    "sourceId": "Peach, production mix, national average, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3767,9 +3666,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110917",
+    "sourceId": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -3804,9 +3702,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Melon, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109266",
+    "sourceId": "Melon, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3841,9 +3738,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Melon, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109266",
+    "sourceId": "Melon, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3878,9 +3774,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200170",
+    "sourceId": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3915,9 +3810,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200169",
+    "sourceId": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -3952,9 +3846,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111897",
+    "sourceId": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -3989,9 +3882,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Onion, national average, at farm {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110467",
+    "sourceId": "Onion, national average, at farm {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4026,9 +3918,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110441",
+    "sourceId": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -4063,9 +3954,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110442",
+    "sourceId": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -4100,9 +3990,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200218",
+    "sourceId": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4137,9 +4026,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200218",
+    "sourceId": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4174,9 +4062,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "French bean, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200072",
+    "sourceId": "French bean, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4211,9 +4098,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "French bean, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200072",
+    "sourceId": "French bean, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4248,9 +4134,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "French bean, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200072",
+    "sourceId": "French bean, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4285,9 +4170,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108668",
+    "sourceId": "Lettuce, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4322,9 +4206,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107604",
+    "sourceId": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -4359,9 +4242,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107604",
+    "sourceId": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -4396,9 +4278,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200024",
+    "sourceId": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4433,9 +4314,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200024",
+    "sourceId": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4470,9 +4350,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cherry, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102916",
+    "sourceId": "Cherry, conventional, national average, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4507,9 +4386,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108561",
+    "sourceId": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -4544,9 +4422,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cherry, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102916",
+    "sourceId": "Cherry, conventional, national average, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4581,9 +4458,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200218",
+    "sourceId": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4618,9 +4494,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003117541",
+    "sourceId": "Zucchini, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4655,9 +4530,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200219",
+    "sourceId": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4692,9 +4566,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115752",
+    "sourceId": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4729,9 +4602,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115753",
+    "sourceId": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4766,9 +4638,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115743",
+    "sourceId": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -4803,9 +4674,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100510",
+    "sourceId": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -4840,9 +4710,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100510",
+    "sourceId": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -4877,9 +4746,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107313",
+    "sourceId": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -4914,9 +4782,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107312",
+    "sourceId": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -4951,9 +4818,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hazelnut, unshelled, at plant {IT} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107318",
+    "sourceId": "Hazelnut, unshelled, at plant {IT} U",
     "unit": "kg",
     "waste": 0
   },
@@ -4988,9 +4854,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hazelnut, unshelled, at plant {TR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107319",
+    "sourceId": "Hazelnut, unshelled, at plant {TR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5025,9 +4890,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102661",
+    "sourceId": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5062,9 +4926,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "d7630e82-2b60-46cc-b50d-451a32e0887e",
+    "sourceId": "Cauliflower, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5099,9 +4962,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200052",
+    "sourceId": "Cauliflower, winter, organic, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5136,9 +4998,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200045",
+    "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5173,9 +5034,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Leek, national average, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108547",
+    "sourceId": "Leek, national average, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5210,9 +5070,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102592",
+    "sourceId": "Carrot, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5247,9 +5106,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102592",
+    "sourceId": "Carrot, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5284,9 +5142,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102563",
+    "sourceId": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5321,9 +5178,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102564",
+    "sourceId": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5358,9 +5214,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200045",
+    "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5395,9 +5250,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
+    "sourceId": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5432,9 +5286,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102347",
+    "sourceId": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5469,9 +5322,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200045",
+    "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5506,9 +5358,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200052",
+    "sourceId": "Cauliflower, winter, organic, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5543,9 +5394,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102346",
+    "sourceId": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5580,9 +5430,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Onion, national average, at farm {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110467",
+    "sourceId": "Onion, national average, at farm {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5617,9 +5466,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110507",
+    "sourceId": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -5654,9 +5502,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110506",
+    "sourceId": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5691,9 +5538,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110400",
+    "sourceId": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5728,9 +5574,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112430",
+    "sourceId": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5765,9 +5610,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112456",
+    "sourceId": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -5802,9 +5646,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Rapeseed, at farm {CA} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112455",
+    "sourceId": "Rapeseed, at farm {CA} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -5839,9 +5682,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110959",
+    "sourceId": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5876,9 +5718,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110960",
+    "sourceId": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5913,9 +5754,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Extra Virgin Olive Oil, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105719",
+    "sourceId": "Extra Virgin Olive Oil, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -5950,9 +5790,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100748",
+    "sourceId": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -5987,9 +5826,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200192",
+    "sourceId": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6024,9 +5862,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115216",
+    "sourceId": "Sunflower, at farm {FR} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -6061,9 +5898,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower, at farm {HU} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115218",
+    "sourceId": "Sunflower, at farm {HU} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -6098,9 +5934,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115217",
+    "sourceId": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -6135,9 +5970,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Kiwi FR, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108090",
+    "sourceId": "Kiwi FR, conventional, national average, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6172,9 +6006,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108089",
+    "sourceId": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6209,9 +6042,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108089",
+    "sourceId": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6246,9 +6078,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109086",
+    "sourceId": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6283,9 +6114,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114717",
+    "sourceId": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6320,9 +6150,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105790",
+    "sourceId": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6357,9 +6186,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105790",
+    "sourceId": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6394,9 +6222,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102101",
+    "sourceId": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6431,9 +6258,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003101680",
+    "sourceId": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -6468,9 +6294,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112470",
+    "sourceId": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -6505,9 +6330,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Strawberry for processing, open field, conventional, at farm gate {ES} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200014",
+    "sourceId": "Strawberry for processing, open field, conventional, at farm gate {ES} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6542,9 +6366,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200015",
+    "sourceId": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6579,9 +6402,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Banana, mixed production, West Indies, at farm gate {WI} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100930",
+    "sourceId": "Banana, mixed production, West Indies, at farm gate {WI} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6616,9 +6438,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Banana, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100924",
+    "sourceId": "Banana, at farm {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -6653,9 +6474,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115753",
+    "sourceId": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6690,9 +6510,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003104392",
+    "sourceId": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6727,9 +6546,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003104392",
+    "sourceId": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6764,9 +6582,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Strawberry, open field, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200146",
+    "sourceId": "Strawberry, open field, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6801,9 +6618,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115025",
+    "sourceId": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6838,9 +6654,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102720",
+    "sourceId": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6875,9 +6690,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102720",
+    "sourceId": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6912,9 +6726,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102592",
+    "sourceId": "Carrot, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -6949,9 +6762,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102563",
+    "sourceId": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -6986,9 +6798,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102564",
+    "sourceId": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -7023,9 +6834,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116663",
+    "sourceId": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7060,9 +6870,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116668",
+    "sourceId": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7097,9 +6906,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116668",
+    "sourceId": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7134,9 +6942,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116662",
+    "sourceId": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7171,9 +6978,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109060",
+    "sourceId": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -7208,9 +7014,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100184",
+    "sourceId": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -7245,9 +7050,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200045",
+    "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7282,9 +7086,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200052",
+    "sourceId": "Cauliflower, winter, organic, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7319,9 +7122,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lentils, dry, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234501500",
+    "sourceId": "Lentils, dry, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -7356,9 +7158,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200045",
+    "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7393,9 +7194,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, organic, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200052",
+    "sourceId": "Cauliflower, winter, organic, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7430,9 +7230,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Zucchini, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003117541",
+    "sourceId": "Zucchini, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7467,9 +7266,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Clementine, export quality, Souss, at orchard {MA} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103409",
+    "sourceId": "Clementine, export quality, Souss, at orchard {MA} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7504,9 +7302,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108668",
+    "sourceId": "Lettuce, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7541,9 +7338,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107604",
+    "sourceId": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -7578,9 +7374,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106864",
+    "sourceId": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7615,9 +7410,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lettuce, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108668",
+    "sourceId": "Lettuce, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7652,9 +7446,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107604",
+    "sourceId": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -7689,9 +7482,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200100",
+    "sourceId": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7726,9 +7518,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Grain maize, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106825",
+    "sourceId": "Grain maize, organic, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -7763,9 +7554,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109026",
+    "sourceId": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -7800,9 +7590,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Pineapple {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003111283",
+    "sourceId": "Pineapple {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -7837,9 +7626,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105780",
+    "sourceId": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -7874,9 +7662,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105780",
+    "sourceId": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -7911,9 +7698,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114717",
+    "sourceId": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -7948,9 +7734,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114717",
+    "sourceId": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -7985,9 +7770,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105780",
+    "sourceId": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -8022,9 +7806,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105780",
+    "sourceId": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -8059,9 +7842,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112687",
+    "sourceId": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -8096,9 +7878,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Wheat, organic, national average, at farm gate FR U constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "5ba8e179b3a213489d4286f2a6e06e7d",
+    "sourceId": "Wheat, organic, national average, at farm gate FR U constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -8133,9 +7914,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200247",
+    "sourceId": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8170,9 +7950,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003117044",
+    "sourceId": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -8207,9 +7986,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200066",
+    "sourceId": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8244,9 +8022,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105055",
+    "sourceId": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -8281,9 +8058,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105051",
+    "sourceId": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -8318,9 +8094,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Table apple, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
+    "sourceId": "Table apple, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8355,9 +8130,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apple, conventional, national average, at orchard {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100459",
+    "sourceId": "Apple, conventional, national average, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8392,9 +8166,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
+    "sourceId": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8429,9 +8202,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Ware potato, organic 2023, for industrial use, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "f839b523-b133-430f-9533-419b862e69e9",
+    "sourceId": "Ware potato, organic 2023, for industrial use, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8466,9 +8238,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Kiwi, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
+    "sourceId": "Kiwi, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8503,9 +8274,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Red Cabbage, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
+    "sourceId": "Red Cabbage, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8540,9 +8310,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sugar beet, organic 2023 {FR}| sugar beet production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "83ef3fba-9359-4f51-9f10-234c0e940b88",
+    "sourceId": "Sugar beet, organic 2023 {FR}| sugar beet production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -8577,9 +8346,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Papaya, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
+    "sourceId": "Papaya, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8614,9 +8382,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fresh tomato, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "b43ae38e-a9f6-4272-b258-14faea6ec795",
+    "sourceId": "Fresh tomato, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8651,9 +8418,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Pineapple, organic 2023 {GLO}| production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
+    "sourceId": "Pineapple, organic 2023 {GLO}| production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -8688,9 +8454,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Garden peas, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "74a016ae-d486-4766-adfd-e44697b7be2f",
+    "sourceId": "Garden peas, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8725,9 +8490,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Almonds, in shell, at farm, organic 2023 {CN}",
     "source": "Ginko",
-    "sourceId": "b97e29ab-81b0-478e-b73b-4113aaf68470",
+    "sourceId": "Almonds, in shell, at farm, organic 2023 {CN}",
     "unit": "kg",
     "waste": 0
   },
@@ -8762,9 +8526,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
+    "sourceId": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8799,9 +8562,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "source": "Ginko",
-    "sourceId": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
+    "sourceId": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8836,9 +8598,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "source": "Ginko",
-    "sourceId": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
+    "sourceId": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8873,9 +8634,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109086",
+    "sourceId": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8910,9 +8670,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110378",
+    "sourceId": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -8947,9 +8706,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Spring oats, organic, national average, at feed plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114832",
+    "sourceId": "Spring oats, organic, national average, at feed plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -8984,9 +8742,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100974",
+    "sourceId": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9021,9 +8778,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Barley, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100976",
+    "sourceId": "Barley, organic, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9058,9 +8814,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Banana, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
+    "sourceId": "Banana, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9095,9 +8850,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Orange, fresh grade, at farm, organic 2023 {ES}",
     "source": "Ginko",
-    "sourceId": "1716c0e6-7a04-4649-a71f-08a495eb094e",
+    "sourceId": "Orange, fresh grade, at farm, organic 2023 {ES}",
     "unit": "kg",
     "waste": 0
   },
@@ -9132,9 +8886,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lemon, organic 2023 {ES}| lemon production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
+    "sourceId": "Lemon, organic 2023 {ES}| lemon production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -9169,9 +8922,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Celery, organic 2023 {GLO}| 675 production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
+    "sourceId": "Celery, organic 2023 {GLO}| 675 production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -9206,9 +8958,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Olive, organic 2023 {ES}| olive production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
+    "sourceId": "Olive, organic 2023 {ES}| olive production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -9243,9 +8994,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Peanut, organic 2023 {RoW}| peanut production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
+    "sourceId": "Peanut, organic 2023 {RoW}| peanut production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -9280,9 +9030,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Raspberry, at farm, organic 2023 {RS}",
     "source": "Ginko",
-    "sourceId": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
+    "sourceId": "Raspberry, at farm, organic 2023 {RS}",
     "unit": "kg",
     "waste": 0
   },
@@ -9317,9 +9066,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
+    "sourceId": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9354,9 +9102,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "6842d570-6b53-49f3-ba9c-984b55e40171",
+    "sourceId": "Lettuce, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9391,9 +9138,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Durum wheat grain, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
+    "sourceId": "Durum wheat grain, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9428,9 +9174,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Onion, national average, at farm, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
+    "sourceId": "Onion, national average, at farm, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9465,9 +9210,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
+    "sourceId": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -9502,9 +9246,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Triticale, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116024",
+    "sourceId": "Triticale, organic, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9539,9 +9282,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Pea, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110915",
+    "sourceId": "Pea, organic, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9576,9 +9318,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100242",
+    "sourceId": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9613,9 +9354,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "076b3d53-fc81-454b-9c90-e19767de8b0b",
+    "sourceId": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -9650,9 +9390,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lentil, organic 2023 {RoW}| lentil production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "02b2ed63-6246-446c-8cf3-224dbe698821",
+    "sourceId": "Lentil, organic 2023 {RoW}| lentil production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -9687,9 +9426,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apricot, organic 2023 {FR}| apricot production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "36158ea6-066c-4fd6-9e28-6477c7297b37",
+    "sourceId": "Apricot, organic 2023 {FR}| apricot production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -9724,9 +9462,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Leek, national average, at plant, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
+    "sourceId": "Leek, national average, at plant, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9761,9 +9498,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cherry, organic 2023, national average, at orchard {FR} U",
     "source": "Ginko",
-    "sourceId": "b4e8febc-6588-4599-8c58-c019144597c6",
+    "sourceId": "Cherry, organic 2023, national average, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9798,9 +9534,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cherry, organic 2023, national average, at orchard {FR} U",
     "source": "Ginko",
-    "sourceId": "10af6fa1-e374-4748-b8a8-f735d2813489",
+    "sourceId": "Cherry, organic 2023, national average, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9835,9 +9570,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Onion, national average, at farm, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "c224d640-c347-41c4-9754-a4cea77de16f",
+    "sourceId": "Onion, national average, at farm, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9872,9 +9606,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Blueberry, at farm, organic 2023 {CA}",
     "source": "Ginko",
-    "sourceId": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
+    "sourceId": "Blueberry, at farm, organic 2023 {CA}",
     "unit": "kg",
     "waste": 0
   },
@@ -9909,9 +9642,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Spinach, organic 2023 {GLO}| production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "49ad2a72-d196-4379-8f23-212b27d44917",
+    "sourceId": "Spinach, organic 2023 {GLO}| production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -9946,9 +9678,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Melon, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
+    "sourceId": "Melon, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -9983,9 +9714,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200246",
+    "sourceId": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10020,9 +9750,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200246",
+    "sourceId": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10057,9 +9786,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110393",
+    "sourceId": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -10094,9 +9822,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200276",
+    "sourceId": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10131,9 +9858,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106967",
+    "sourceId": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10168,9 +9894,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cherry, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234500334",
+    "sourceId": "Cherry, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -10205,9 +9930,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Palm oil, refined, processed in EU, at plant {RER} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105775",
+    "sourceId": "Palm oil, refined, processed in EU, at plant {RER} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10242,9 +9966,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Linseed oil, refined, at oil mill { FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108737",
+    "sourceId": "Linseed oil, refined, at oil mill { FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10279,9 +10002,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Grapeseed oil, refined at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106915",
+    "sourceId": "Grapeseed oil, refined at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10316,9 +10038,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Soybean oil, refined, at plant  {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114609",
+    "sourceId": "Soybean oil, refined, at plant  {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10353,9 +10074,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hazelnut oil, crude, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107299",
+    "sourceId": "Hazelnut oil, crude, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10390,9 +10110,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Peanut oil, at oil mill {SN} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110968",
+    "sourceId": "Peanut oil, at oil mill {SN} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10427,9 +10146,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower oil, refined, low dehulling at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115161",
+    "sourceId": "Sunflower oil, refined, low dehulling at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10464,9 +10182,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Rapeseed oil, refined, at oil mill {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112440",
+    "sourceId": "Rapeseed oil, refined, at oil mill {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10501,9 +10218,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Extra Virgin Olive Oil, at plant {ES} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105717",
+    "sourceId": "Extra Virgin Olive Oil, at plant {ES} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10538,9 +10254,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fresh cream cheese, plain, creamy, around 8% fat, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106208",
+    "sourceId": "Fresh cream cheese, plain, creamy, around 8% fat, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10575,9 +10290,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Chicken egg, raw, without shell, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103004",
+    "sourceId": "Chicken egg, raw, without shell, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10612,9 +10326,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Egg yolk, powder, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105140",
+    "sourceId": "Egg yolk, powder, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10649,9 +10362,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Egg white, powder, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105126",
+    "sourceId": "Egg white, powder, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10686,9 +10398,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105535",
+    "sourceId": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10723,9 +10434,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cocoa powder, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103498",
+    "sourceId": "Cocoa powder, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10760,9 +10470,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Salt {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003113226",
+    "sourceId": "Salt {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10797,9 +10506,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Bacon, back, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100806",
+    "sourceId": "Bacon, back, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10834,9 +10542,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Corn glucose syrup, at plant {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003104007",
+    "sourceId": "Corn glucose syrup, at plant {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -10871,9 +10578,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apple compote, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100412",
+    "sourceId": "Apple compote, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10908,9 +10614,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Goat milk, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106737",
+    "sourceId": "Goat milk, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10945,9 +10650,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Breakfast cereals, rich in fibre, with chocolate, fortified with vitamins and chemical elements, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003101952",
+    "sourceId": "Breakfast cereals, rich in fibre, with chocolate, fortified with vitamins and chemical elements, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -10982,9 +10686,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Pasta, dried, from durum wheat, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110855",
+    "sourceId": "Pasta, dried, from durum wheat, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11019,9 +10722,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Garlic, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106611",
+    "sourceId": "Garlic, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11056,9 +10758,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Diced mixed vegetables, canned, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003104758",
+    "sourceId": "Diced mixed vegetables, canned, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11093,9 +10794,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato sauce, with meat or Bolognese sauce, prepacked, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115699",
+    "sourceId": "Tomato sauce, with meat or Bolognese sauce, prepacked, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11130,9 +10830,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Honey, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107501",
+    "sourceId": "Honey, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11167,9 +10866,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Turkey, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116135",
+    "sourceId": "Turkey, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11204,9 +10902,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Liver, pork, raw, processed in FR | Chilled | PS | at distribution {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108830",
+    "sourceId": "Liver, pork, raw, processed in FR | Chilled | PS | at distribution {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11241,9 +10938,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Whey, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102827",
+    "sourceId": "Whey, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11278,9 +10974,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Strawberry, coulis, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115001",
+    "sourceId": "Strawberry, coulis, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11315,9 +11010,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Yogurt, from cow milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003117491",
+    "sourceId": "Yogurt, from cow milk, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11352,9 +11046,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cheese, from goat's milk, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102850",
+    "sourceId": "Cheese, from goat's milk, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11389,9 +11082,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cocoa butter at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103480",
+    "sourceId": "Cocoa butter at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11426,9 +11118,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Soy protein, textured, dehydrated, from soy flour, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114529",
+    "sourceId": "Soy protein, textured, dehydrated, from soy flour, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11463,9 +11154,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Vinegar alcohol, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116588",
+    "sourceId": "Vinegar alcohol, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11500,9 +11190,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, veal {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109225",
+    "sourceId": "Meat without bone, veal {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11537,9 +11226,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "French fries or chips, frozen, at processing {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106169",
+    "sourceId": "French fries or chips, frozen, at processing {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11574,9 +11262,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato sauce, w vegetables, prepacked, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115694",
+    "sourceId": "Tomato sauce, w vegetables, prepacked, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11611,9 +11298,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mustard, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110176",
+    "sourceId": "Mustard, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11648,9 +11334,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Rice flour, at industrial mill {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112648",
+    "sourceId": "Rice flour, at industrial mill {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11685,9 +11370,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Brie cheese, from cow's milk, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102004",
+    "sourceId": "Brie cheese, from cow's milk, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11722,9 +11406,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Turmeric, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116177",
+    "sourceId": "Turmeric, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11759,9 +11442,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Candied fruits, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102428",
+    "sourceId": "Candied fruits, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11796,9 +11478,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Reblochon cheese, from cow's milk, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112516",
+    "sourceId": "Reblochon cheese, from cow's milk, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11833,9 +11514,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fruits puree, without sugar added, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106522",
+    "sourceId": "Fruits puree, without sugar added, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11870,9 +11550,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apple juice, reconstituted from a concentrate, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100427",
+    "sourceId": "Apple juice, reconstituted from a concentrate, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11907,9 +11586,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Orange nectar, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110499",
+    "sourceId": "Orange nectar, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11944,9 +11622,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Soy drink, plain, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114503",
+    "sourceId": "Soy drink, plain, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -11981,9 +11658,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lemon juice, pure juice, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108567",
+    "sourceId": "Lemon juice, pure juice, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12018,9 +11694,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato juice, pure juice, at plant {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115649",
+    "sourceId": "Tomato juice, pure juice, at plant {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12055,9 +11730,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Vinegar, balsamic, processed in FR | Ambient (long) | Already packed - Glass | at packaging {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003116590",
+    "sourceId": "Vinegar, balsamic, processed in FR | Ambient (long) | Already packed - Glass | at packaging {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12092,9 +11766,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apricot, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234500074",
+    "sourceId": "Apricot, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -12129,9 +11802,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234501199",
+    "sourceId": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -12166,9 +11838,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234501200",
+    "sourceId": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -12203,9 +11874,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Almond, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100271",
+    "sourceId": "Almond, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12240,9 +11910,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Almond, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100271",
+    "sourceId": "Almond, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12277,9 +11946,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Almond, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100271",
+    "sourceId": "Almond, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12314,9 +11982,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102661",
+    "sourceId": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12351,9 +12018,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102661",
+    "sourceId": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12388,9 +12054,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Avocado, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100760",
+    "sourceId": "Avocado, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12425,9 +12090,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100748",
+    "sourceId": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -12462,9 +12126,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110378",
+    "sourceId": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -12499,9 +12162,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Spinach, organic 2023 {GLO}| production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
+    "sourceId": "Spinach, organic 2023 {GLO}| production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -12536,9 +12198,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114717",
+    "sourceId": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -12573,9 +12234,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Broccoli, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "d1155206-18fc-41f1-8509-2f52e7614f2d",
+    "sourceId": "Broccoli, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12610,9 +12270,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Broccoli, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102102",
+    "sourceId": "Broccoli, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12647,9 +12306,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102101",
+    "sourceId": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -12684,9 +12342,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102720",
+    "sourceId": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -12721,9 +12378,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cherry, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234500332",
+    "sourceId": "Cherry, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -12758,9 +12414,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100184",
+    "sourceId": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -12795,9 +12450,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Walnut, dried inshell, organic 2023, national average, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
+    "sourceId": "Walnut, dried inshell, organic 2023, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12832,9 +12486,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102347",
+    "sourceId": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -12869,9 +12522,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102347",
+    "sourceId": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -12906,9 +12558,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cabbage white, organic 2023 {RoW}| cabbage white production | Cut-off, U",
     "source": "Ginko",
-    "sourceId": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
+    "sourceId": "Cabbage white, organic 2023 {RoW}| cabbage white production | Cut-off, U",
     "unit": "kg",
     "waste": 0
   },
@@ -12943,9 +12594,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200045",
+    "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -12980,9 +12630,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200045",
+    "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13017,9 +12666,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200045",
+    "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13054,9 +12702,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200045",
+    "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13091,9 +12738,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Palm oil, refined, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110758",
+    "sourceId": "Palm oil, refined, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13128,9 +12774,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower oil, at plant {IT} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115190",
+    "sourceId": "Sunflower oil, at plant {IT} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13165,9 +12810,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234500298",
+    "sourceId": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -13202,9 +12846,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cow milk {CA-QC}| milk production, from cow | Cut-off, U - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003104136",
+    "sourceId": "Cow milk {CA-QC}| milk production, from cow | Cut-off, U - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -13239,9 +12882,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lentils, dry, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234501500",
+    "sourceId": "Lentils, dry, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -13276,9 +12918,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lentils, dry, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234501500",
+    "sourceId": "Lentils, dry, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -13313,9 +12954,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107604",
+    "sourceId": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -13350,9 +12990,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sweet corn, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234502277",
+    "sourceId": "Sweet corn, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -13387,9 +13026,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower, at farm {HU} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115218",
+    "sourceId": "Sunflower, at farm {HU} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -13424,9 +13062,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102321",
+    "sourceId": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13461,9 +13098,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Clementine, export quality, Souss, at orchard {MA} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103409",
+    "sourceId": "Clementine, export quality, Souss, at orchard {MA} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13498,9 +13134,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, beef, for direct consumption {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109219",
+    "sourceId": "Meat without bone, beef, for direct consumption {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13535,9 +13170,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115509",
+    "sourceId": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -13572,9 +13206,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115449",
+    "sourceId": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -13609,9 +13242,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Meat without bone, chicken, for direct consumption {FR} U [br-max], constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": "b9f380cbd26fef2f30b16cbe06edd732",
+    "sourceId": "Meat without bone, chicken, for direct consumption {FR} U [br-max], constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -13646,9 +13278,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fresh shrimps, China production {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003106282",
+    "sourceId": "Fresh shrimps, China production {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13683,9 +13314,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hazelnut, unshelled, at plant {TR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107319",
+    "sourceId": "Hazelnut, unshelled, at plant {TR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13720,9 +13350,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115182",
+    "sourceId": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -13757,9 +13386,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Anchovy, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100373",
+    "sourceId": "Anchovy, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13794,9 +13422,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Anchovy, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100373",
+    "sourceId": "Anchovy, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13831,9 +13458,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Anchovy, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100373",
+    "sourceId": "Anchovy, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13868,9 +13494,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "European Pilchard, BBiscay, Seine, average, at landing {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105683",
+    "sourceId": "European Pilchard, BBiscay, Seine, average, at landing {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13905,9 +13530,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "European pilchard or sardine, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105655",
+    "sourceId": "European pilchard or sardine, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13942,9 +13566,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "European pilchard or sardine, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105655",
+    "sourceId": "European pilchard or sardine, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -13979,9 +13602,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cod, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003103557",
+    "sourceId": "Cod, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14016,9 +13638,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Brown crab, 1 kg of product, at landing {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102169",
+    "sourceId": "Brown crab, 1 kg of product, at landing {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14053,9 +13674,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Brown crab, 1 kg of product, at landing {GB} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102170",
+    "sourceId": "Brown crab, 1 kg of product, at landing {GB} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14090,9 +13710,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hake, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107161",
+    "sourceId": "Hake, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14127,9 +13746,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lobster, 1 kg of product, at landing {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102173",
+    "sourceId": "Lobster, 1 kg of product, at landing {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14164,9 +13782,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lobster, 1 kg of product, at landing {GB} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003102174",
+    "sourceId": "Lobster, 1 kg of product, at landing {GB} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14201,9 +13818,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lobster, 1 kg of product, at landing {US} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108859",
+    "sourceId": "Lobster, 1 kg of product, at landing {US} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14238,9 +13854,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Salmon, fillet, raw, at processing {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003113162",
+    "sourceId": "Salmon, fillet, raw, at processing {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14275,9 +13890,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Squid, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003114896",
+    "sourceId": "Squid, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14312,9 +13926,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mandarin, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234501557",
+    "sourceId": "Mandarin, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -14349,9 +13962,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Melon, conventional, national average, at farm gate {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003109266",
+    "sourceId": "Melon, conventional, national average, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14386,9 +13998,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003101680",
+    "sourceId": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -14423,9 +14034,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003101680",
+    "sourceId": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -14460,9 +14070,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hazelnut, in shell, at farm, organic 2023 {IT}",
     "source": "Ginko",
-    "sourceId": "df64fdd7-1900-402c-86b9-e766e22c27ed",
+    "sourceId": "Hazelnut, in shell, at farm, organic 2023 {IT}",
     "unit": "kg",
     "waste": 0
   },
@@ -14497,9 +14106,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hazelnut, unshelled, consumption mix, organic 2023 {FR} U",
     "source": "Ginko",
-    "sourceId": "4531bf0a-7910-4166-b3b1-e94027a10426",
+    "sourceId": "Hazelnut, unshelled, consumption mix, organic 2023 {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14534,9 +14142,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Hazelnut, unshelled, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003107320",
+    "sourceId": "Hazelnut, unshelled, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14571,9 +14178,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Walnut, dried inshell, traditional varieties, organic 2023, at farm gate {FR} U",
     "source": "Ginko",
-    "sourceId": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
+    "sourceId": "Walnut, dried inshell, traditional varieties, organic 2023, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14608,9 +14214,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Walnut, in shell, dried, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234502444",
+    "sourceId": "Walnut, in shell, dried, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -14645,9 +14250,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Walnut, in shell, dried, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234502444",
+    "sourceId": "Walnut, in shell, dried, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -14682,9 +14286,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100967",
+    "sourceId": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -14719,9 +14322,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100967",
+    "sourceId": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -14756,9 +14358,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Peanut, in shell, at farm, organic 2023 {GLO}",
     "source": "Ginko",
-    "sourceId": "115a010d-270f-43f8-9827-b27348a08d13",
+    "sourceId": "Peanut, in shell, at farm, organic 2023 {GLO}",
     "unit": "kg",
     "waste": 0
   },
@@ -14793,9 +14394,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Leek, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108534",
+    "sourceId": "Leek, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14830,9 +14430,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Leek, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003108534",
+    "sourceId": "Leek, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14867,9 +14466,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "protein pea//[GLO] market for protein pea",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": "MTE00149000081182211003",
+    "sourceId": "protein pea//[GLO] market for protein pea",
     "unit": "kg",
     "waste": 0
   },
@@ -14904,9 +14502,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "protein pea//[FR] protein pea production",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": "MTE00149000081182209249",
+    "sourceId": "protein pea//[FR] protein pea production",
     "unit": "kg",
     "waste": 0
   },
@@ -14941,9 +14538,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000024985200250",
+    "sourceId": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -14978,9 +14574,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "chickpea//[RoW] chickpea production",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": "MTE00149000081182217498",
+    "sourceId": "chickpea//[RoW] chickpea production",
     "unit": "kg",
     "waste": 0
   },
@@ -15015,9 +14610,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003101321",
+    "sourceId": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -15052,9 +14646,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003101321",
+    "sourceId": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -15089,9 +14682,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003101321",
+    "sourceId": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -15126,9 +14718,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apple, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234500066",
+    "sourceId": "Apple, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -15163,9 +14754,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Potato, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234501989",
+    "sourceId": "Potato, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -15200,9 +14790,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Potato, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234501984",
+    "sourceId": "Potato, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -15237,9 +14826,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Chicken, fresh meat, at slaughterhouse (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234500349",
+    "sourceId": "Chicken, fresh meat, at slaughterhouse (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -15274,9 +14862,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tomato puree, canned, processed in FR | Ambient (long) | Steel | at packaging {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003115672",
+    "sourceId": "Tomato puree, canned, processed in FR | Ambient (long) | Steel | at packaging {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -15311,9 +14898,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Radish, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112396",
+    "sourceId": "Radish, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -15348,9 +14934,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Radish {GLO}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003112391",
+    "sourceId": "Radish {GLO}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "unit": "kg",
     "waste": 0
   },
@@ -15385,9 +14970,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Basmati rice, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003100993",
+    "sourceId": "Basmati rice, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   },
@@ -15422,9 +15006,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105072",
+    "sourceId": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -15459,9 +15042,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003105072",
+    "sourceId": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -15496,9 +15078,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cherry, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234500332",
+    "sourceId": "Cherry, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -15533,9 +15114,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Cherry, at farm (WFLDB)",
     "source": "WFLDB",
-    "sourceId": "WFLDBQUA000001234500332",
+    "sourceId": "Cherry, at farm (WFLDB)",
     "unit": "kg",
     "waste": 0
   },
@@ -15570,9 +15150,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003117044",
+    "sourceId": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "unit": "kg",
     "waste": 0
   },
@@ -15607,9 +15186,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Onions, dried, consumption mix {FR} U",
     "source": "Agribalyse 3.1.1",
-    "sourceId": "AGRIBALU000000003110475",
+    "sourceId": "Onions, dried, consumption mix {FR} U",
     "unit": "kg",
     "waste": 0
   }

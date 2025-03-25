@@ -30,9 +30,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
     "unit": "m3",
     "waste": 0
   },
@@ -67,9 +66,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "polypropylene product/RER constructed by Ecobalyse",
     "source": "Ecobalyse",
-    "sourceId": null,
+    "sourceId": "polypropylene product/RER constructed by Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -104,9 +102,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "injection moulding//[RER] injection moulding",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "injection moulding//[RER] injection moulding",
     "unit": "kg",
     "waste": 0.006
   }
