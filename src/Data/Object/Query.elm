@@ -1,6 +1,7 @@
 module Data.Object.Query exposing
     ( Query
     , addComponentItem
+    , addElement
     , addElementTransform
     , b64encode
     , buildApiQuery
@@ -68,6 +69,13 @@ encode query =
 addComponentItem : Component.Id -> Query -> Query
 addComponentItem id query =
     { query | components = query.components |> Component.addItem id }
+
+
+addElement : Component -> Process -> Query -> Result String Query
+addElement component material query =
+    query.components
+        |> Component.addElement component material
+        |> Result.map (\components -> { query | components = components })
 
 
 addElementTransform : Component -> Int -> Process -> Query -> Result String Query

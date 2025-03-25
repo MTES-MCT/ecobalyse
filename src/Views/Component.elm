@@ -31,7 +31,7 @@ type alias Config db msg =
     , items : List Item
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
-    , openSelectProcessModal : Category -> Component -> Int -> Autocomplete Process -> msg
+    , openSelectProcessModal : Category -> Component -> Maybe Int -> Autocomplete Process -> msg
     , removeElement : Component -> Int -> msg
     , removeElementTransform : Component -> Int -> Int -> msg
     , removeItem : Id -> msg
@@ -59,12 +59,29 @@ addComponentButton { addLabel, db, items, openSelectComponentModal, scope } =
         [ class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
-        , id "add-new-element"
         , disabled <| List.isEmpty availableComponents
         , onClick <| openSelectComponentModal autocompleteState
         ]
-        [ i [ class "icon icon-plus" ] []
+        [ Icon.plus
         , text addLabel
+        ]
+
+
+addElementButton : Config db msg -> Component -> Html msg
+addElementButton { db, openSelectProcessModal } component =
+    button
+        [ class "btn btn-link text-decoration-none"
+        , class "d-flex justify-content-end align-items-center"
+        , class "gap-2 w-100 p-0 pb-1 text-end"
+        , db.processes
+            |> Process.listByCategory Category.Material
+            |> List.sortBy Process.getDisplayName
+            |> AutocompleteSelector.init .name
+            |> openSelectProcessModal Category.Material component Nothing
+            |> onClick
+        ]
+        [ Icon.puzzle
+        , text "Ajouter un élément"
         ]
 
 
@@ -89,11 +106,12 @@ addElementTransformButton { db, openSelectProcessModal } component index =
         [ class "btn btn-link btn-sm w-100 text-decoration-none"
         , class "d-flex justify-content-start align-items-center"
         , class "gap-1 w-100 p-0 pb-1"
-        , id "add-new-element"
         , disabled <| List.isEmpty availableTransformProcesses
-        , onClick <| openSelectProcessModal Category.Transform component index autocompleteState
+        , autocompleteState
+            |> openSelectProcessModal Category.Transform component (Just index)
+            |> onClick
         ]
-        [ i [ class "icon icon-plus" ] []
+        [ Icon.plus
         , text "Ajouter une transformation"
         ]
 
@@ -166,20 +184,8 @@ componentView config ( quantity, component, expandedElements ) itemResults =
         , if not collapsed then
             [ tbody []
                 [ tr [ class "border-top" ]
-                    [ td [ colspan 2 ] []
-                    , td [ colspan 5 ]
-                        [ button
-                            [ class "btn btn-link w-100 text-decoration-none"
-                            , class "d-flex justify-content-start align-items-center"
-                            , class "gap-1 w-100 p-0 pb-1"
-                            , id "add-new-element"
-
-                            -- FIXME: select material to create new element
-                            -- , onClick <| openSelectProcessModal Category.Material component index autocompleteState
-                            ]
-                            [ i [ class "icon icon-plus" ] []
-                            , text "Ajouter un élément"
-                            ]
+                    [ td [ colspan 7, class "pe-3" ]
+                        [ addElementButton config component
                         ]
                     ]
                 ]
@@ -363,7 +369,9 @@ selectMaterialButton { db, openSelectProcessModal } component index material =
     in
     button
         [ class "btn btn-sm btn-link text-decoration-none p-0"
-        , onClick <| openSelectProcessModal Category.Material component index autocompleteState
+        , autocompleteState
+            |> openSelectProcessModal Category.Material component (Just index)
+            |> onClick
         ]
         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
         , text <| Process.getDisplayName material

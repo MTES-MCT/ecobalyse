@@ -63,7 +63,7 @@ type Modal
     | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
-    | SelectProcessModal Category Component Int (Autocomplete Process)
+    | SelectProcessModal Category Component (Maybe Int) (Autocomplete Process)
 
 
 type Msg
@@ -71,11 +71,11 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
-    | OnAutocompleteAddProcess Category Component Int (Autocomplete.Msg Process)
+    | OnAutocompleteAddProcess Category Component (Maybe Int) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
-    | OnAutocompleteSelectProcess Category Component Int
+    | OnAutocompleteSelectProcess Category Component (Maybe Int)
     | OpenComparator
     | RemoveComponentItem Component.Id
     | RemoveElement Component Int
@@ -255,14 +255,14 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddComponent _, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteAddProcess processType component index autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
+        ( OnAutocompleteAddProcess processType component maybeIndex autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = SelectProcessModal processType component index newAutocompleteState }
+            ( { model | modal = SelectProcessModal processType component maybeIndex newAutocompleteState }
             , session
-            , Cmd.map (OnAutocompleteAddProcess processType component index) autoCompleteCmd
+            , Cmd.map (OnAutocompleteAddProcess processType component maybeIndex) autoCompleteCmd
             )
 
         ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
@@ -458,7 +458,7 @@ selectComponent query autocompleteState ( model, session, _ ) =
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
 
 
-selectProcess : Category -> Component -> Int -> Query -> Autocomplete Process -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectProcess : Category -> Component -> Maybe Int -> Query -> Autocomplete Process -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 selectProcess processType component elementIndex query autocompleteState ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
@@ -466,10 +466,20 @@ selectProcess processType component elementIndex query autocompleteState ( model
                 updateResult =
                     case processType of
                         Category.Material ->
-                            query |> Query.setElementMaterial component elementIndex process
+                            case elementIndex of
+                                Just index ->
+                                    query |> Query.setElementMaterial component index process
+
+                                Nothing ->
+                                    query |> Query.addElement component process
 
                         Category.Transform ->
-                            query |> Query.addElementTransform component elementIndex process
+                            case elementIndex of
+                                Just index ->
+                                    query |> Query.addElementTransform component index process
+
+                                Nothing ->
+                                    Err <| "Un procédé de transformation de peut être ajouté qu'à un élément existant"
 
                         _ ->
                             Err <| "Catégorie de procédé non supportée\u{00A0}: " ++ Category.toLabel processType
@@ -626,7 +636,7 @@ view session model =
                         , toCategory = Example.toCategory model.examples
                         }
 
-                SelectProcessModal processType component index autocompleteState ->
+                SelectProcessModal processType component maybeIndex autocompleteState ->
                     let
                         ( placeholderText, title ) =
                             case processType of
@@ -650,8 +660,8 @@ view session model =
                         , closeModal = SetModal NoModal
                         , footer = []
                         , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteAddProcess processType component index
-                        , onAutocompleteSelect = OnAutocompleteSelectProcess processType component index
+                        , onAutocomplete = OnAutocompleteAddProcess processType component maybeIndex
+                        , onAutocompleteSelect = OnAutocompleteSelectProcess processType component maybeIndex
                         , placeholderText = placeholderText
                         , title = title
                         , toLabel = Process.getDisplayName

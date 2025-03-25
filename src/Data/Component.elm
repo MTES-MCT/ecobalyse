@@ -9,6 +9,7 @@ module Data.Component exposing
     , Item
     , Quantity
     , Results(..)
+    , addElement
     , addElementTransform
     , addItem
     , amountToFloat
@@ -141,6 +142,27 @@ type Results
         , items : List Results
         , mass : Mass
         }
+
+
+addElement : Component -> Process -> List Item -> Result String (List Item)
+addElement component material =
+    let
+        element =
+            { amount = Amount 1, material = material.id, transforms = [] }
+    in
+    updateItem component.id
+        (\item ->
+            { item
+                | custom =
+                    case item.custom of
+                        Just custom ->
+                            Just { custom | elements = custom.elements ++ [ element ] }
+
+                        Nothing ->
+                            Just { elements = component.elements ++ [ element ], name = Nothing }
+            }
+        )
+        >> Ok
 
 
 addElementTransform : Component -> Int -> Process -> List Item -> Result String (List Item)
