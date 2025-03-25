@@ -94,13 +94,11 @@ removeComponent id ({ components } as query) =
     }
 
 
-removeElement : Component -> Int -> Query -> Query
+removeElement : Component -> Int -> Query -> Result String Query
 removeElement component index query =
-    { query
-        | components =
-            query.components
-                |> Component.removeElement component index
-    }
+    query.components
+        |> Component.removeElement component index
+        |> Result.map (\components -> { query | components = components })
 
 
 removeElementTransform : Component -> Int -> Int -> Query -> Query

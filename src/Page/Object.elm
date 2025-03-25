@@ -313,8 +313,12 @@ update ({ navKey } as session) msg model =
                 |> updateQuery (Query.removeComponent id query)
 
         ( RemoveElement component index, _ ) ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.removeElement component index query)
+            case Query.removeElement component index query of
+                Err err ->
+                    ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
+
+                Ok query_ ->
+                    updateQuery query_ ( model, session, Cmd.none )
 
         ( RemoveElementTransform component elementIndex transformIndex, _ ) ->
             ( model, session, Cmd.none )

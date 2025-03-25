@@ -144,17 +144,24 @@ type Results
         }
 
 
+{-| Add a new element, defined by a required material process, to an item.
+-}
 addElement : Component -> Process -> List Item -> Result String (List Item)
-addElement component material =
-    updateItemCustom component
-        (\custom ->
-            { custom
-                | elements =
-                    custom.elements
-                        ++ [ { amount = Amount 1, material = material.id, transforms = [] } ]
-            }
-        )
-        >> Ok
+addElement component material items =
+    if not <| List.member Category.Material material.categories then
+        Err "L'ajout d'un élément ne peut se faire qu'à partir d'un procédé matière"
+
+    else
+        items
+            |> updateItemCustom component
+                (\custom ->
+                    { custom
+                        | elements =
+                            custom.elements
+                                ++ [ { amount = Amount 1, material = material.id, transforms = [] } ]
+                    }
+                )
+            |> Ok
 
 
 addElementTransform : Component -> Int -> Process -> List Item -> Result String (List Item)
@@ -638,14 +645,18 @@ extractMass (Results { mass }) =
     mass
 
 
-removeElement : Component -> Int -> List Item -> List Item
+{-| Remove an element from an item
+-}
+removeElement : Component -> Int -> List Item -> Result String (List Item)
 removeElement component elementIndex =
-    updateItemCustom component <|
-        \custom ->
+    updateItemCustom component
+        (\custom ->
             { custom
                 | elements =
                     custom.elements |> LE.removeAt elementIndex
             }
+        )
+        >> Ok
 
 
 removeElementTransform : Component -> Int -> Int -> List Item -> List Item
