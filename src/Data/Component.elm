@@ -146,20 +146,12 @@ type Results
 
 addElement : Component -> Process -> List Item -> Result String (List Item)
 addElement component material =
-    let
-        element =
-            { amount = Amount 1, material = material.id, transforms = [] }
-    in
-    updateItem component.id
-        (\item ->
-            { item
-                | custom =
-                    case item.custom of
-                        Just custom ->
-                            Just { custom | elements = custom.elements ++ [ element ] }
-
-                        Nothing ->
-                            Just { elements = component.elements ++ [ element ], name = Nothing }
+    updateItemCustom component
+        (\custom ->
+            { custom
+                | elements =
+                    custom.elements
+                        ++ [ { amount = Amount 1, material = material.id, transforms = [] } ]
             }
         )
         >> Ok
@@ -648,18 +640,12 @@ extractMass (Results { mass }) =
 
 removeElement : Component -> Int -> List Item -> List Item
 removeElement component elementIndex =
-    updateItem component.id
-        (\item ->
-            { item
-                | custom =
-                    case item.custom of
-                        Just custom ->
-                            Just { custom | elements = custom.elements |> LE.removeAt elementIndex }
-
-                        Nothing ->
-                            Just { elements = component.elements |> LE.removeAt elementIndex, name = Nothing }
+    updateItemCustom component <|
+        \custom ->
+            { custom
+                | elements =
+                    custom.elements |> LE.removeAt elementIndex
             }
-        )
 
 
 removeElementTransform : Component -> Int -> Int -> List Item -> List Item
@@ -679,42 +665,55 @@ setElementMaterial component index material items =
             |> Ok
 
 
-updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item
-updateElement component elementIndex update =
-    updateItem component.id
-        (\item ->
-            { item
-                | custom =
-                    item.custom
-                        |> updateElementCustom component elementIndex update
-            }
-        )
-
-
-updateElementCustom : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
-updateElementCustom component index update =
-    let
-        updateElements =
-            LE.updateAt index update
-    in
-    Maybe.map
-        (\custom ->
+updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
+updateCustom component fn maybeCustom =
+    case maybeCustom of
+        Just custom ->
             let
                 updated =
-                    { custom | elements = updateElements custom.elements }
+                    fn custom
             in
             if isCustomized component updated then
                 Just updated
 
             else
                 Nothing
-        )
-        >> Maybe.withDefault
-            (Just
-                { elements = updateElements component.elements
-                , name = Nothing
-                }
-            )
+
+        Nothing ->
+            Just (fn { elements = component.elements, name = Nothing })
+
+
+updateCustomElement : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
+updateCustomElement component index update =
+    updateCustom component <|
+        \custom ->
+            { custom
+                | elements =
+                    custom.elements
+                        |> LE.updateAt index update
+            }
+
+
+updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item
+updateElement component elementIndex update =
+    updateItem component.id <|
+        \item ->
+            { item
+                | custom =
+                    item.custom
+                        |> updateCustomElement component elementIndex update
+            }
+
+
+updateItemCustom : Component -> (Custom -> Custom) -> List Item -> List Item
+updateItemCustom component fn =
+    updateItem component.id <|
+        \item ->
+            { item
+                | custom =
+                    item.custom
+                        |> updateCustom component fn
+            }
 
 
 updateItem : Id -> (Item -> Item) -> List Item -> List Item
