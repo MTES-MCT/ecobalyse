@@ -25,7 +25,7 @@ Les procédés de pré-traitement consistent à traiter et nettoyer le tissu, g�
 
 Mercerisage : Consiste à améliorer la résistance à la traction, la stabilité dimensionnelle et la brillance du coton. Permet aussi d'améliorer la montée du colorant lors de la teinture.
 
-Dégraissage / Débouillissage : Consiste à extraire les impuretés présentes sur la fibre (ex : pectines, graisses et cires, etc.).&#x20;
+Dégraissage / Débouillissage : Consiste à extraire les impuretés présentes sur la fibre (ex : pectines, graisses et cires, etc.)v afin de rendre les fibres perméables au processus aval (blanchiment, teinture).&#x20;
 
 Blanchiment : Consiste à éliminer les colorants naturels de la fibre pour la rentre plus blanche et hydrophyle.&#x20;
 
@@ -200,7 +200,7 @@ Lorsque des procédés mobilisés dans la modélisation d'un vêtement font l'ob
 {% hint style="info" %}
 La modélisation des substances chimiques mobilisées sur les étapes d'ennoblissement (ainsi que leurs impacts) est aujourd'hui très difficile via la méthode ACV[^1] pour diverses raisons.
 
-Ecobalyse propose de premiers scénarios afin de permettre aux acteurs Textile (industriels, fabricants de colorants, etc.)  et scientifiques (écotoxicologues, experts ACV, etc.) de collaborer pour plus de transparence.&#x20;
+Ecobalyse propose des premiers scénarios afin de permettre aux acteurs du secteur textile (industriels, fabricants de colorants, etc.)  et scientifiques (écotoxicologues, experts ACV, etc.) de collaborer pour plus de transparence.&#x20;
 {% endhint %}
 
 #### Taux de perte (%)
