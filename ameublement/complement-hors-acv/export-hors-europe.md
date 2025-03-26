@@ -5,18 +5,88 @@ description: >-
   (déforestation et/ou gestion intensive des forêts).
 ---
 
-# 🌍 Origine du bois (biodiversité)
+# 🌍 Pratiques forestières x Biodiversité
 
 ## Pourquoi introduire ce complément ?
 
-Le cadre ACV ne permet pas, à date, de différencier l'impact sur la biodiversité des forêts :&#x20;
+Pour 3 raisons complémentaires :&#x20;
 
-* gérées de manière intensive,
-* participant à la déforestation.
+<details>
 
-Or, selon son origine, une même essence de bois peut être considérée à risque selon qu'elle provient d'une forêt participant à la déforestation et/ou gérée de manière intensive.
+<summary><strong>1)  Limitations inhérentes au cadre méthodologique ACV</strong></summary>
+
+Le cadre de l'analyse de cycle de vie (ACV) ne permet pas, à date, de différencier l'impact sur la biodiversité de bois issus de forêts dégradées ou participant à la déforestation.&#x20;
+
+De manière plus précise, l'impact sur la biodiversité des pratiques humaines est difficilement quantifiable via les indicateurs existants (cf. les 16 indicateurs PEF) tandis qu'un travail supplémentaire est à mener au niveau des bases de données pour évaluer les différents approvisionnements en bois utilisés dans les filières (ex : bois issus de forêts de plantation vs forêts à couvert continu, bois issus de forêts participant à la déforestation ou non, etc.).&#x20;
+
+</details>
+
+<details>
+
+<summary>2) L'importance des pratiques forestières (déforestation &#x26; dégradation)</summary>
+
+La déforestation et la dégradation des forêts progressent à une vitesse alarmante. L’Organisation des Nations unies pour l’alimentation et l’agriculture (FAO) estime que 420 millions d’hectares de forêts, ce qui représente environ 10 % des forêts qui subsistent dans le monde, soit une superficie plus vaste que l’Union européenne, ont disparu dans le monde entre 1990 et 2020. \
+La déforestation et la dégradation des forêts sont également des facteurs importants du réchauffement climatique et de la perte de biodiversité, les deux défis environnementaux les plus importants de notre époque. &#x20;
+
+_Source : Règlement européen du 31 mai 2023 relatif à la déforestation importée_&#x20;
+
+</details>
+
+<details>
+
+<summary>3) <strong>L'Ameublement : un débouché pour la filière bois</strong> </summary>
+
+Sur la dégradation des forêts, tout bois utilisé dans l'Ameublement peut provenir de forêts participant à leur dégradation ("gestion intensive"),
+
+Sur la déforestation, quelques approvisionnements en bois peuvent participer à la déforestation. Cependant, il est à noter que le secteur de l'ameublement participe peu à la déforestation à l'échelle mondiale (90% de cette dernière provenant de l'expansion de l'agriculture / source[^1]).
+
+{% hint style="info" %}
+Le bois fait partie des quelques produits de base consommés au sein de l'UE et participant à la déforestation. Il se classe 3ème (9% de la déforestation dont l'UE est responsable provient du bois) après l'huile de plame (34%) et le soja (33%)
+
+_Source : Règlement européen du 31 mai 2023 relatif à la déforestation importée_&#x20;
+{% endhint %}
+
+</details>
 
 
+
+Ce complément vise à :&#x20;
+
+* définir les principaux approvisionnements de bois à risque dans le secteur Ameublement,
+* estimer l'impact biodiversité de ces approvisionnements à risque.
+
+Dès lors, ces pratiques néfastes peuvent être intégrées le coût environnemental de meubles utilisant de tels matières à risque.&#x20;
+
+**Quelques définitions** (&#x53;_&#x6F;urce : Règlement européen du 31 mai 2023 relatif à la déforestation importée)_&#x20;
+
+{% tabs %}
+{% tab title="Déforestation" %}
+La conversion, anthropique ou non, de la forêt pour un usage agricole.
+{% endtab %}
+
+{% tab title="Dégradation des forêts" %}
+Les modifications structurelles apportées au couvert forestier, prenant la forme de la conversion :&#x20;
+
+* de forêts primaires ou de forêts naturellement régénérées en forêts de plantation ou en d’autres surfaces boisées,
+* de forêts primaires en forêts plantées.
+{% endtab %}
+
+{% tab title="Forêt primaire" %}
+Une forêt naturellement régénérée d’essences d’arbres indigènes où aucune trace d’activité humaine n’est clairement visible et où les processus écologiques ne sont pas sensiblement perturbés.
+{% endtab %}
+
+{% tab title="Forêt plantée" %}
+Une forêt à prédominance d’arbres établis par plantation et/ou par semis délibéré, et où les arbres plantés ou semés sont censés constituer plus de 50 % du matériel sur pied à maturité; sont inclus les taillis d’arbres originellement plantés ou semés.
+{% endtab %}
+
+{% tab title="Forêt de plantation" %}
+Une forêt plantée soumise à une gestion intensive et qui, au moment de la plantation et de la maturité du peuplement, remplit tous les critères suivants: une ou deux essences, une structure équienne et un espacement régulier; s
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+
+{% endhint %}
 
 ## Etat des lieux
 
@@ -24,7 +94,7 @@ Le bois est la principale matière utilisée sur le marché français de l'ameub
 
 <figure><img src="../../.gitbook/assets/EA par matériau majoritaire (données 2022).png" alt=""><figcaption><p>Source : ADEME _ étude "REP Filière ameublement <em>Bilan annuel</em> 2022"</p></figcaption></figure>
 
-Cette consommation français de bois d'ameublement se répartit ainsi ([unité ](#user-content-fn-1)[^1]/ source[^2]) :&#x20;
+Cette consommation français de bois d'ameublement se répartit ainsi ([unité ](#user-content-fn-2)[^2]/ source[^3]) :&#x20;
 
 {% tabs %}
 {% tab title="Vision simple" %}
@@ -65,10 +135,6 @@ Focus bois d'oeuvre transformé en France :&#x20;
 <figure><img src="../../.gitbook/assets/Consommation de bois _ secteur Ameublement (2019) (3).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
-
-
-
-
 
 <details>
 
@@ -131,6 +197,29 @@ Pour calculer le complément sur un produit réel, il faut estimer sa probabilit
 
 </details>
 
+## Paramètre 1 : gestion intensive des forêts&#x20;
+
+{% tabs %}
+{% tab title="Europe" %}
+* 10% des zones forestières européennes sont classées comme étant soumises à une gestion intensive
+* moins de 5% des zones forestières européennes sont considérées comme non perturbées ou naturelles
+
+Source : _Règlement européen du 31 mai 2023 relatif à la déforestation importée + Agence européenne pour l'Environnement_
+{% endtab %}
+
+{% tab title="Second Tab" %}
+
+{% endtab %}
+{% endtabs %}
+
+
+
+
+
+
+
+
+
 ## Probabilité export hors Europe, valeurs par défaut
 
 A partir des données moyennes compilées dans le cadre de nos travaux, la probabilité qu'un vêtement en fin de vie soit exporté hors Europe puis jeté est de 9%.&#x20;
@@ -138,8 +227,8 @@ A partir des données moyennes compilées dans le cadre de nos travaux, la proba
 {% hint style="info" %}
 Trois hypothèses permettent de comprendre ce chiffre de 9% :&#x20;
 
-* 38% des vêtements utilisés pour la première fois sont collectés et triés (source[^3])
-* 49% des vêtements triés sont exportés hors Europe (source[^4] / ce chiffre de 49% cadre par ailleurs avec les [autres scénarios](#user-content-fn-5)[^5] de fin de vie post-tri),&#x20;
+* 38% des vêtements utilisés pour la première fois sont collectés et triés (source[^4])
+* 49% des vêtements triés sont exportés hors Europe (source[^5] / ce chiffre de 49% cadre par ailleurs avec les [autres scénarios](#user-content-fn-6)[^6] de fin de vie post-tri),&#x20;
 * dans 50% des cas, le vêtement est directement jeté sans avoir été réutilisé (source mentionnée précédemment / fourchette haute retenue par Ecobalyse).
 {% endhint %}
 
@@ -167,7 +256,7 @@ Les valeurs ProbaDéchet par type de fibre sont calculés sur la base de 3 hypot
 
 1\) En moyenne, 50% des vêtements exportés hors Europe ne sont pas réutilisés,
 
-2\) Les vêtements exportés hors Europe se composent à 61% de vêtements composés de fibres synthétiques vs 39% de vêtements composés d'autres matières (Source[^6] = marché mondial des fibres textile),
+2\) Les vêtements exportés hors Europe se composent à 61% de vêtements composés de fibres synthétiques vs 39% de vêtements composés d'autres matières (Source[^7] = marché mondial des fibres textile),
 
 3\) les vêtements composés de matières synthétiques ont 60% de chance de ne pas être réutilisés (donc la probabilité des vêtements composés de matières non synthétiques d'être non réutilisés est de 34% afin de retrouver une probabilité moyenne de 50%). &#x20;
 {% endhint %}
@@ -204,19 +293,21 @@ A l'instar des autres compléments à l'analyse de cycle de vie, le complément 
 
 Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Fin de vie".
 
-[^1]: Mm3 eq. bois rond sur écorce
+[^1]: _Source : Règlement européen du 31 mai 2023 relatif à la déforestation importée_&#x20;
 
-[^2]: Etude Carbone 4 \_ Scénarios de converge de la filière Bois
+[^2]: Mm3 eq. bois rond sur écorce
 
-[^3]: draft PERCR Apparel & Footwear v1.3 (p.90/197) &#x20;
+[^3]: Etude Carbone 4 \_ Scénarios de converge de la filière Bois
 
-[^4]: Rapport 2018 "Avenir Filière REP TLC" /  données 2015 (p. 49/98)&#x20;
+[^4]: draft PERCR Apparel & Footwear v1.3 (p.90/197) &#x20;
+
+[^5]: Rapport 2018 "Avenir Filière REP TLC" /  données 2015 (p. 49/98)&#x20;
 
     \
     \
     &#x20; &#x20;
 
-[^5]: Recyclage (31%) +Réutilisation France = (10%) +  Déchets (2%) + Réutilisation Europe (8%)= 51% => le dernier débouché étant l'Export Hors Europe (1-51%=49%)                                  \
+[^6]: Recyclage (31%) +Réutilisation France = (10%) +  Déchets (2%) + Réutilisation Europe (8%)= 51% => le dernier débouché étant l'Export Hors Europe (1-51%=49%)                                  \
     &#x20;&#x20;
 
-[^6]: Textile Exchange \_ The global fiber market 2021&#x20;
+[^7]: Textile Exchange \_ The global fiber market 2021&#x20;
