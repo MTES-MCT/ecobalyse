@@ -34,18 +34,15 @@ suite =
                     , db.textile.wellKnown.weaving
                     )
             in
-            [ TestUtils.suiteFromResult "addElement"
-                -- setup
-                (Result.map3 (\a b c -> ( a, b, c ))
-                    -- Dossier plastique (PP)
-                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Steel (valid as a material)
-                    (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
-                    -- Injection moulding (invalid as a material)
-                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
-                )
+            [ TestUtils.suiteFromResult3 "addElement"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                -- Steel (valid as a material)
+                (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
+                -- Injection moulding (invalid as a material)
+                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
                 -- tests
-                (\( testComponent, validMaterial, invalidMaterial ) ->
+                (\testComponent validMaterial invalidMaterial ->
                     [ it "should add a new element using a valid material"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
@@ -79,18 +76,15 @@ suite =
                         )
                     ]
                 )
-            , TestUtils.suiteFromResult "addElementTransform"
-                -- setup
-                (Result.map3 (\a b c -> ( a, b, c ))
-                    -- Dossier plastique (PP)
-                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Injection moulding (valid tansformation process)
-                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
-                    -- Planche de bois (invalid as not a transformation process)
-                    (getProcessByStringId db "07e9e916-e02b-45e2-a298-2b5084de6242")
-                )
+            , TestUtils.suiteFromResult3 "addElementTransform"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                -- Injection moulding (valid tansformation process)
+                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                -- Planche de bois (invalid as not a transformation process)
+                (getProcessByStringId db "07e9e916-e02b-45e2-a298-2b5084de6242")
                 -- tests
-                (\( testComponent, validTransformProcess, invalidTransformProcess ) ->
+                (\testComponent validTransformProcess invalidTransformProcess ->
                     [ it "should add a valid transformation process to a component element"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
@@ -438,16 +432,13 @@ suite =
                         (Expect.equal component.name "custom name")
                     ]
                 )
-            , TestUtils.suiteFromResult "removeElement"
-                -- setup
-                (Result.map2 Tuple.pair
-                    -- Tissu pour canapé
-                    (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
-                    -- Steel (valid as a material)
-                    (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
-                )
+            , TestUtils.suiteFromResult2 "removeElement"
+                -- Tissu pour canapé
+                (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
+                -- Steel (valid as a material)
+                (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
                 -- tests
-                (\( testComponent, material ) ->
+                (\testComponent material ->
                     [ it "should remove an item element"
                         (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                              ]"""
@@ -469,16 +460,13 @@ suite =
                         )
                     ]
                 )
-            , TestUtils.suiteFromResult "removeElementTransform"
-                -- setup
-                (Result.map2 Tuple.pair
-                    -- Dossier plastique (PP)
-                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Injection moulding
-                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
-                )
+            , TestUtils.suiteFromResult2 "removeElementTransform"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                -- Injection moulding
+                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
                 -- tests
-                (\( testComponent, testProcess ) ->
+                (\testComponent testProcess ->
                     [ it "should remove an element transform"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
@@ -500,18 +488,15 @@ suite =
                         )
                     ]
                 )
-            , TestUtils.suiteFromResult "setElementMaterial"
-                -- setup
-                (Result.map3 (\a b c -> ( a, b, c ))
-                    -- Dossier plastique (PP)
-                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Steel (valid as a material)
-                    (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
-                    -- Injection moulding (invalid as a material)
-                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
-                )
+            , TestUtils.suiteFromResult3 "setElementMaterial"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                -- Steel (valid as a material)
+                (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
+                -- Injection moulding (invalid as a material)
+                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
                 -- tests
-                (\( testComponent, validTestProcess, invalidTestProcess ) ->
+                (\testComponent validTestProcess invalidTestProcess ->
                     [ it "should set a valid element material"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
