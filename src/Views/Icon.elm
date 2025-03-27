@@ -76,6 +76,11 @@ plus =
     icon "plus"
 
 
+puzzle : Html msg
+puzzle =
+    icon "puzzle"
+
+
 question : Html msg
 question =
     icon "question"

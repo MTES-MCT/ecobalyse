@@ -9,6 +9,7 @@ module Data.Component exposing
     , Item
     , Quantity
     , Results(..)
+    , addElement
     , addElementTransform
     , addItem
     , amountToFloat
@@ -37,6 +38,7 @@ module Data.Component exposing
     , itemToString
     , quantityFromInt
     , quantityToInt
+    , removeElement
     , removeElementTransform
     , setElementMaterial
     , updateElement
@@ -142,6 +144,26 @@ type Results
         }
 
 
+{-| Add a new element, defined by a required material process, to an item.
+-}
+addElement : Component -> Process -> List Item -> Result String (List Item)
+addElement component material items =
+    if not <| List.member Category.Material material.categories then
+        Err "L'ajout d'un élément ne peut se faire qu'à partir d'un procédé matière"
+
+    else
+        items
+            |> updateItemCustom component
+                (\custom ->
+                    { custom
+                        | elements =
+                            custom.elements
+                                ++ [ { amount = Amount 1, material = material.id, transforms = [] } ]
+                    }
+                )
+            |> Ok
+
+
 addElementTransform : Component -> Int -> Process -> List Item -> Result String (List Item)
 addElementTransform component index transform items =
     if not <| List.member Category.Transform transform.categories then
@@ -154,8 +176,8 @@ addElementTransform component index transform items =
 
 
 addItem : Id -> List Item -> List Item
-addItem id =
-    (++) [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
+addItem id items =
+    items ++ [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
 
 
 {-| Add two results together
@@ -468,11 +490,18 @@ expandItem { components, processes } { custom, id, quantity } =
     findById id components
         |> Result.andThen
             (\component ->
-                custom
-                    |> Maybe.map .elements
-                    |> Maybe.withDefault component.elements
+                let
+                    ( elements, name ) =
+                        case custom of
+                            Just custom_ ->
+                                ( custom_.elements, custom_.name |> Maybe.withDefault component.name )
+
+                            Nothing ->
+                                ( component.elements, component.name )
+                in
+                elements
                     |> expandElements processes
-                    |> Result.map (\expandedElements -> ( quantity, component, expandedElements ))
+                    |> Result.map (\expanded -> ( quantity, { component | name = name }, expanded ))
             )
 
 
@@ -616,6 +645,20 @@ extractMass (Results { mass }) =
     mass
 
 
+{-| Remove an element from an item
+-}
+removeElement : Component -> Int -> List Item -> Result String (List Item)
+removeElement component elementIndex =
+    updateItemCustom component
+        (\custom ->
+            { custom
+                | elements =
+                    custom.elements |> LE.removeAt elementIndex
+            }
+        )
+        >> Ok
+
+
 removeElementTransform : Component -> Int -> Int -> List Item -> List Item
 removeElementTransform component index transformIndex =
     updateElement component index <|
@@ -633,42 +676,55 @@ setElementMaterial component index material items =
             |> Ok
 
 
-updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item
-updateElement component elementIndex update =
-    updateItem component.id
-        (\item ->
-            { item
-                | custom =
-                    item.custom
-                        |> updateElementCustom component elementIndex update
-            }
-        )
-
-
-updateElementCustom : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
-updateElementCustom component index update =
-    let
-        updateElements =
-            LE.updateAt index update
-    in
-    Maybe.map
-        (\custom ->
+updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
+updateCustom component fn maybeCustom =
+    case maybeCustom of
+        Just custom ->
             let
                 updated =
-                    { custom | elements = updateElements custom.elements }
+                    fn custom
             in
             if isCustomized component updated then
                 Just updated
 
             else
                 Nothing
-        )
-        >> Maybe.withDefault
-            (Just
-                { elements = updateElements component.elements
-                , name = Nothing
-                }
-            )
+
+        Nothing ->
+            Just (fn { elements = component.elements, name = Nothing })
+
+
+updateCustomElement : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
+updateCustomElement component index update =
+    updateCustom component <|
+        \custom ->
+            { custom
+                | elements =
+                    custom.elements
+                        |> LE.updateAt index update
+            }
+
+
+updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item
+updateElement component elementIndex update =
+    updateItem component.id <|
+        \item ->
+            { item
+                | custom =
+                    item.custom
+                        |> updateCustomElement component elementIndex update
+            }
+
+
+updateItemCustom : Component -> (Custom -> Custom) -> List Item -> List Item
+updateItemCustom component fn =
+    updateItem component.id <|
+        \item ->
+            { item
+                | custom =
+                    item.custom
+                        |> updateCustom component fn
+            }
 
 
 updateItem : Id -> (Item -> Item) -> List Item -> List Item

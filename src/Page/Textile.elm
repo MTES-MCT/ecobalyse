@@ -1015,7 +1015,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , TrimView.editorView
         { addLabel = "Ajouter un accessoire"
-        , allowExpandDetails = True
+        , allowExpandDetails = False
         , db = session.db
         , detailed = model.detailedTrims
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
@@ -1023,7 +1023,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         , items = session.queries.textile.trims
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
-        , openSelectTransformModal = \_ _ _ _ -> SetModal NoModal
+        , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
+        , removeElement = \_ _ -> NoOp
         , removeElementTransform = \_ _ _ -> NoOp
         , removeItem = RemoveTrim
         , results =

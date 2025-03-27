@@ -1,6 +1,7 @@
 module Data.Object.Query exposing
     ( Query
     , addComponentItem
+    , addElement
     , addElementTransform
     , b64encode
     , buildApiQuery
@@ -9,6 +10,7 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , removeComponent
+    , removeElement
     , removeElementTransform
     , setElementMaterial
     , toString
@@ -69,6 +71,13 @@ addComponentItem id query =
     { query | components = query.components |> Component.addItem id }
 
 
+addElement : Component -> Process -> Query -> Result String Query
+addElement component material query =
+    query.components
+        |> Component.addElement component material
+        |> Result.map (\components -> { query | components = components })
+
+
 addElementTransform : Component -> Int -> Process -> Query -> Result String Query
 addElementTransform component index transform query =
     query.components
@@ -83,6 +92,13 @@ removeComponent id ({ components } as query) =
             components
                 |> List.filter (.id >> (/=) id)
     }
+
+
+removeElement : Component -> Int -> Query -> Result String Query
+removeElement component index query =
+    query.components
+        |> Component.removeElement component index
+        |> Result.map (\components -> { query | components = components })
 
 
 removeElementTransform : Component -> Int -> Int -> Query -> Query
