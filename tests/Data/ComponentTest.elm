@@ -530,6 +530,27 @@ suite =
                         )
                     ]
                 )
+            , TestUtils.suiteFromResult "updateItemCustomName"
+                -- Tissu pour canapé
+                (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
+                -- tests
+                (\testComponent ->
+                    [ it "should set a custom name to a component item"
+                        (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.updateItemCustomName testComponent "My custom component" >> Ok)
+                            |> Result.map
+                                (\items ->
+                                    items
+                                        |> LE.getAt 0
+                                        |> Maybe.andThen .custom
+                                        |> Maybe.andThen .name
+                                )
+                            |> Expect.equal (Ok (Just "My custom component"))
+                        )
+                    ]
+                )
             ]
         )
 
