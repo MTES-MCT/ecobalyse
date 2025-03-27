@@ -14,6 +14,7 @@ module Data.Object.Query exposing
     , removeElementTransform
     , setElementMaterial
     , toString
+    , updateComponentItemName
     , updateComponentItemQuantity
     , updateElementAmount
     )
@@ -115,6 +116,15 @@ setElementMaterial component index material query =
     query.components
         |> Component.setElementMaterial component index material
         |> Result.map (\components -> { query | components = components })
+
+
+updateComponentItemName : Component -> String -> Query -> Query
+updateComponentItemName component name query =
+    { query
+        | components =
+            query.components
+                |> Component.updateItemCustomName component name
+    }
 
 
 updateComponentItemQuantity : Component.Id -> Component.Quantity -> Query -> Query
