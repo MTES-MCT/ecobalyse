@@ -8,6 +8,7 @@ import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Expect
 import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 import List.Extra as LE
 import Mass
 import Quantity
@@ -540,6 +541,22 @@ suite =
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
                                 (Component.updateItemCustomName testComponent "My custom component" >> Ok)
+                            |> Result.map
+                                (\items ->
+                                    items
+                                        |> LE.getAt 0
+                                        |> Maybe.andThen .custom
+                                        |> Maybe.andThen .name
+                                )
+                            |> Expect.equal (Ok (Just "My custom component"))
+                        )
+                    , it "should trim a custom item name when serializing it"
+                        (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.updateItemCustomName testComponent " My custom component " >> Ok)
+                            |> Result.map (Encode.list Component.encodeItem >> Encode.encode 0)
+                            |> Result.andThen (decodeJson (Decode.list Component.decodeItem))
                             |> Result.map
                                 (\items ->
                                     items

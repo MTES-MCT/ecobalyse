@@ -437,10 +437,11 @@ encodeCustom : Custom -> Encode.Value
 encodeCustom custom =
     [ ( "name"
       , custom.name
+            |> Maybe.map String.trim
             |> Maybe.andThen
                 (\name ->
                     -- Forbid serializing an empty name
-                    if String.trim name == "" then
+                    if name == "" then
                         Nothing
 
                     else
