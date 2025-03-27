@@ -1015,7 +1015,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , TrimView.editorView
         { addLabel = "Ajouter un accessoire"
-        , allowExpandDetails = True
+        , allowExpandDetails = False
         , db = session.db
         , detailed = model.detailedTrims
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
