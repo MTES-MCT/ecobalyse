@@ -1,8 +1,8 @@
 ---
 description: >-
   La méthode de caractérisation EF 3.1 est utilisée, avec suppression des
-  émissions à long terme lorsque c'est possible. Cette page décrit ce que sont
-  les émissions à long terme et explique ce choix.
+  émissions à long terme. Cette page décrit ce que sont les émissions à long
+  terme et explique ce choix.
 ---
 
 # Exclusion des émissions à long terme
