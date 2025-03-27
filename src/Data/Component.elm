@@ -43,6 +43,7 @@ module Data.Component exposing
     , setElementMaterial
     , updateElement
     , updateItem
+    , updateItemCustomName
     , validateItem
     )
 
@@ -434,7 +435,20 @@ elementToString processes element =
 
 encodeCustom : Custom -> Encode.Value
 encodeCustom custom =
-    [ ( "name", custom.name |> Maybe.map Encode.string )
+    [ ( "name"
+      , custom.name
+            |> Maybe.map String.trim
+            |> Maybe.andThen
+                (\name ->
+                    -- Forbid serializing an empty name
+                    if name == "" then
+                        Nothing
+
+                    else
+                        Just name
+                )
+            |> Maybe.map Encode.string
+      )
     , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
     ]
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
@@ -490,18 +504,11 @@ expandItem { components, processes } { custom, id, quantity } =
     findById id components
         |> Result.andThen
             (\component ->
-                let
-                    ( elements, name ) =
-                        case custom of
-                            Just custom_ ->
-                                ( custom_.elements, custom_.name |> Maybe.withDefault component.name )
-
-                            Nothing ->
-                                ( component.elements, component.name )
-                in
-                elements
+                custom
+                    |> Maybe.map .elements
+                    |> Maybe.withDefault component.elements
                     |> expandElements processes
-                    |> Result.map (\expanded -> ( quantity, { component | name = name }, expanded ))
+                    |> Result.map (\expanded -> ( quantity, component, expanded ))
             )
 
 
@@ -725,6 +732,12 @@ updateItemCustom component fn =
                     item.custom
                         |> updateCustom component fn
             }
+
+
+updateItemCustomName : Component -> String -> List Item -> List Item
+updateItemCustomName component name =
+    updateItemCustom component
+        (\custom -> { custom | name = Just name })
 
 
 updateItem : Id -> (Item -> Item) -> List Item -> List Item

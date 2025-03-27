@@ -92,6 +92,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateComponentItemName Component String
     | UpdateComponentItemQuantity Component.Id Component.Quantity
     | UpdateElementAmount Component Int (Maybe Component.Amount)
 
@@ -414,6 +415,10 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
+        ( UpdateComponentItemName component name, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateComponentItemName component name query)
+
         ( UpdateComponentItemQuantity id quantity, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateComponentItemQuantity id quantity query)
@@ -522,7 +527,7 @@ simulatorView session model =
                 ]
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
-                , allowExpandDetails = True
+                , customizable = True
                 , db = session.db
                 , detailed = model.detailedComponents
                 , docsUrl = Nothing
@@ -542,6 +547,7 @@ simulatorView session model =
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateElementAmount = UpdateElementAmount
+                , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
                 }
             ]

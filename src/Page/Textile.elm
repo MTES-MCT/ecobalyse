@@ -1015,7 +1015,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , TrimView.editorView
         { addLabel = "Ajouter un accessoire"
-        , allowExpandDetails = False
+        , customizable = False
         , db = session.db
         , detailed = model.detailedTrims
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
@@ -1035,6 +1035,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , setDetailed = SetDetailedTrims
         , title = "Accessoires"
         , updateElementAmount = \_ _ _ -> NoOp
+        , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }
     , div [ class "card shadow-sm pb-2 mb-3" ]

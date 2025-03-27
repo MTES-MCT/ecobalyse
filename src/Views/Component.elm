@@ -23,7 +23,7 @@ import Views.Link as Link
 
 type alias Config db msg =
     { addLabel : String
-    , allowExpandDetails : Bool
+    , customizable : Bool
     , db : Component.DataContainer db
     , detailed : List Id
     , docsUrl : Maybe String
@@ -40,6 +40,7 @@ type alias Config db msg =
     , setDetailed : List Id -> msg
     , title : String
     , updateElementAmount : Component -> Int -> Maybe Amount -> msg
+    , updateItemName : Component -> String -> msg
     , updateItemQuantity : Id -> Quantity -> msg
     }
 
@@ -116,8 +117,8 @@ addElementTransformButton { db, openSelectProcessModal } component index =
         ]
 
 
-componentView : Config db msg -> ( Quantity, Component, List ExpandedElement ) -> Results -> List (Html msg)
-componentView config ( quantity, component, expandedElements ) itemResults =
+componentView : Config db msg -> Item -> ( Quantity, Component, List ExpandedElement ) -> Results -> List (Html msg)
+componentView config item ( quantity, component, expandedElements ) itemResults =
     let
         collapsed =
             config.detailed
@@ -128,7 +129,7 @@ componentView config ( quantity, component, expandedElements ) itemResults =
         [ [ tbody []
                 [ tr [ class "border-top border-bottom" ]
                     [ th [ class "ps-2 align-middle", scope "col" ]
-                        [ if config.allowExpandDetails then
+                        [ if config.customizable then
                             button
                                 [ class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
                                 , onClick <|
@@ -151,8 +152,23 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                         ]
                     , td [ class "ps-0 py-2 align-middle" ]
                         [ quantity |> quantityInput config component.id ]
-                    , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
-                        [ text component.name ]
+                    , td [ class "align-middle text-truncate w-100", colspan 2 ]
+                        [ if config.customizable then
+                            input
+                                [ type_ "text"
+                                , class "form-control"
+                                , onInput (config.updateItemName component)
+                                , placeholder "Nom du composant"
+                                , item.custom
+                                    |> Maybe.andThen .name
+                                    |> Maybe.withDefault component.name
+                                    |> value
+                                ]
+                                []
+
+                          else
+                            span [ class "fw-bold" ] [ text component.name ]
+                        ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractMass itemResults
                             |> Format.kg
@@ -277,10 +293,12 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
                                         , th [ Attr.scope "col" ] []
                                         ]
                                     ]
-                                    :: (Component.extractItems results
-                                            |> List.map2 (componentView config) expandedItems
-                                            |> List.concat
-                                       )
+                                    :: List.concat
+                                        (List.map3 (componentView config)
+                                            items
+                                            expandedItems
+                                            (Component.extractItems results)
+                                        )
                                 )
                             ]
             , addComponentButton config
