@@ -23,7 +23,7 @@ import Views.Link as Link
 
 type alias Config db msg =
     { addLabel : String
-    , allowExpandDetails : Bool
+    , customizable : Bool
     , db : Component.DataContainer db
     , detailed : List Id
     , docsUrl : Maybe String
@@ -128,7 +128,7 @@ componentView config ( quantity, component, expandedElements ) itemResults =
         [ [ tbody []
                 [ tr [ class "border-top border-bottom" ]
                     [ th [ class "ps-2 align-middle", scope "col" ]
-                        [ if config.allowExpandDetails then
+                        [ if config.customizable then
                             button
                                 [ class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
                                 , onClick <|

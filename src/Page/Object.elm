@@ -522,7 +522,7 @@ simulatorView session model =
                 ]
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
-                , allowExpandDetails = True
+                , customizable = True
                 , db = session.db
                 , detailed = model.detailedComponents
                 , docsUrl = Nothing
