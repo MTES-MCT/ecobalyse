@@ -175,7 +175,6 @@
 ## 📄 DRAFT - Documentation transverse <a href="#transverse" id="transverse"></a>
 
 * [📝 Le coût environnemental : approche méthodologique globale](draft-documentation-transverse/impacts-consideres/README.md)
-  * [Correction WTU](transverse/impacts-consideres/correction-wtu.md)
   * [Exclusion des émissions à long terme](draft-documentation-transverse/impacts-consideres/exclusion-des-emissions-a-long-terme.md)
   * [Correction de la caractérisation de la ressource en Uranium](transverse/impacts-consideres/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
 * [🚚 Transport](draft-documentation-transverse/transport/README.md)
