@@ -1,31 +1,33 @@
 ---
 description: >-
   Introduction d'un complément à l'analyse de cycle de vie reflétant l'impact
-  sur la biodiversité de différents approvisionnements de bois à risque
-  (déforestation et/ou gestion intensive des forêts).
+  sur la biodiversité de différents approvisionnements bois à risque.
 ---
 
-# 🌍 Pratiques forestières x Biodiversité
+# 🌍 Biodiversité x Bois
 
 ## Pourquoi introduire ce complément ?
 
-Pour 3 raisons complémentaires :&#x20;
+Pour intégrer dans l'évaluation environnementale des meubles en bois les enjeux biodiversité liés aux pratiques forestières ayant permis de fournir le bois.&#x20;
+
+Trois raisons expliquent cela :&#x20;
 
 <details>
 
 <summary><strong>1)  Limitations inhérentes au cadre méthodologique ACV</strong></summary>
 
-Le cadre de l'analyse de cycle de vie (ACV) ne permet pas, à date, de différencier l'impact sur la biodiversité de bois issus de forêts dégradées ou participant à la déforestation.&#x20;
+Le cadre de l'analyse de cycle de vie (ACV) ne permet pas, à date, de différencier l'impact sur la biodiversité de forêts gérées de manière intensive ou participant à la déforestation.&#x20;
 
-De manière plus précise, l'impact sur la biodiversité des pratiques humaines est difficilement quantifiable via les indicateurs existants (cf. les 16 indicateurs PEF) tandis qu'un travail supplémentaire est à mener au niveau des bases de données pour évaluer les différents approvisionnements en bois utilisés dans les filières (ex : bois issus de forêts de plantation vs forêts à couvert continu, bois issus de forêts participant à la déforestation ou non, etc.).&#x20;
+De manière plus précise, l'impact sur la biodiversité des pratiques humaines est difficilement quantifiable via les indicateurs existants (cf. les 16 indicateurs PEF). \
+De plus, un travail supplémentaire est à mener par les filières Bois et Ameublement au niveau des bases de données. Ce travail permettrait de créer/proposer différents scénarios/procédés de production de bois selon différentes pratiques (ex : bois issus de forêts de plantation vs bois issus de forêts naturelles).&#x20;
 
 </details>
 
 <details>
 
-<summary>2) L'importance des pratiques forestières (déforestation &#x26; dégradation)</summary>
+<summary>2) L'importance des pratiques forestières </summary>
 
-La déforestation et la dégradation des forêts progressent à une vitesse alarmante. L’Organisation des Nations unies pour l’alimentation et l’agriculture (FAO) estime que 420 millions d’hectares de forêts, ce qui représente environ 10 % des forêts qui subsistent dans le monde, soit une superficie plus vaste que l’Union européenne, ont disparu dans le monde entre 1990 et 2020. \
+La dégradation et déforestation des forêts progressent à une vitesse alarmante à travers le monde. L’Organisation des Nations unies pour l’alimentation et l’agriculture (FAO) estime que 420 millions d’hectares de forêts (c. 10 % des forêts existantes = superficie plus vaste que l’Union européenne) ont disparu dans le monde entre 1990 et 2020. \
 La déforestation et la dégradation des forêts sont également des facteurs importants du réchauffement climatique et de la perte de biodiversité, les deux défis environnementaux les plus importants de notre époque. &#x20;
 
 _Source : Règlement européen du 31 mai 2023 relatif à la déforestation importée_&#x20;
@@ -34,9 +36,9 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 <details>
 
-<summary>3) <strong>L'Ameublement : un débouché pour la filière bois</strong> </summary>
+<summary>3) <strong>L'Ameublement : un débouché de la filière bois</strong> </summary>
 
-Sur la dégradation des forêts, tout bois utilisé dans l'Ameublement peut provenir de forêts participant à leur dégradation ("gestion intensive"),
+Concernant la dégradation des forêts, tout bois utilisé dans l'Ameublement peut provenir de forêts participant à leur dégradation ("gestion intensive").&#x20;
 
 Sur la déforestation, quelques approvisionnements en bois peuvent participer à la déforestation. Cependant, il est à noter que le secteur de l'ameublement participe peu à la déforestation à l'échelle mondiale (90% de cette dernière provenant de l'expansion de l'agriculture / source[^1]).
 
@@ -48,14 +50,244 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 </details>
 
+## Paramètres mobilisés
+
+<details>
+
+<summary>Indice Corruption _ COR (obligatoire)</summary>
+
+Ce paramètre vise à préciser la probabilité que le bois soit issu de pratiques forestières non durables. Ce paramètre est spécifique à une origine (pays ou une région).
+
+Plus le niveau de corruption est élevée, plus faible est la probabilité que le bois soit issu d'une forêt gérée durablement.&#x20;
+
+3 niveaux de corruption sont proposés :&#x20;
+
+* Elevé (score CPI inférieur à 30)
+
+- Moyen (score CPI entre 30 et 59)
+
+* Faible (score CP au moins égal à 60)
+
+Un **coefficient de corruption (COR)** est affecté à chaque niveau :&#x20;
+
+| Elevé | Moyen | Faible |
+| ----- | ----- | ------ |
+| 100%  | 50%   | 0%     |
 
 
-Ce complément vise à :&#x20;
 
-* définir les principaux approvisionnements de bois à risque dans le secteur Ameublement,
-* estimer l'impact biodiversité de ces approvisionnements à risque.
+**Détails**
 
-Dès lors, ces pratiques néfastes peuvent être intégrées le coût environnemental de meubles utilisant de tels matières à risque.&#x20;
+Cet indice est basé sur le [Corruption Perceptions Index](https://www.transparency.org/en/cpi/2023) (CPI) de l'année 2023.&#x20;
+
+Le CPI vise à mesurer les niveaux de corruption perçus dans le secteur public à travers le monde. Cet indice annuel est publié par Transparency International, une organisation non gouvernementale qui lutte contre la corruption.\
+L'indice est basé sur des enquêtes et des évaluations d'experts qui portent sur divers aspects de la corruption, tels que l'abus de pouvoir public à des fins privées, les pots-de-vin, et la détournement de fonds publics.\
+Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de corruption perçu très élevé et 100 signifie un niveau très faible.
+
+</details>
+
+<details>
+
+<summary>Exploitation Forestière _ EXP (obligatoire)</summary>
+
+Ce paramètre vise aussi à préciser la probabilité que le bois soit issu de pratiques forestières non durables. Ce paramètre est spécifique à une origine (ex : Cameroun, Asie du Sud-Est, etc.) et une essence (ex : bois exotiques, chêne, etc.).&#x20;
+
+3 niveaux d'exploitation forestière sont proposés :&#x20;
+
+* Intensive
+* Mitigée
+* Raisonnée
+
+Un **coefficient d'exploitation forestière (EXP)** est affecté à chaque niveau :&#x20;
+
+| Intensive | Mitigée | Raisonnée |
+| --------- | ------- | --------- |
+| 100%      | 50%     | 0%        |
+
+
+
+**Détails**
+
+Le type d'exploitation forestière est estimé sur la base de deux critères : l'intensité des coupes et la durée de rotation. Les principales sources utilisées pour ce paramètre sont :&#x20;
+
+* des outils d'imagerie satellitaire permettant d'identifier les régions sylvicoles proposant une exploitation intensive des forêts ([carte 1](https://gfw.global/4kZ6RaB) de gains et pertes de couvert forestier entre 2000 et 2020 / [carte 2](https://gfw.global/41N4ujO) présentant les forêts de plantation),
+* des ressources bibliographiques permettant de mieux comprendre les régions sylicoles à risque concernant leur gestion intensive des forêts (
+* des entretiens et ateliers avec les filières Ameublement et Bois/Forêt (ex : atelier Sylvilcutre du 30/01/2025 piloté par Ecobalyse; support accessible [ici](https://miro.com/app/board/uXjVLn9pEjg=/?share_link_id=467200481479))
+
+</details>
+
+<details>
+
+<summary>Certificat / Label (optionnel)</summary>
+
+
+
+</details>
+
+## Matérialité du complément
+
+<mark style="color:red;">A définir lorsque le cyle de vie Ameublement sera modélisé</mark>
+
+Un coefficient (`Coef`), exprimé en micropoints d'impacts par kg de meuble (`microPts/kg`), est défini et reflète l'impact sur la biodiversité d'un meuble 100% bois issu de forêts exploitées de manière intensive.&#x20;
+
+La valeur de ce coefficient est fixée à :&#x20;
+
+$$
+Coef = xxx microPts / kg = 0,001 Pts/kg
+$$
+
+{% hint style="info" %}
+Actuellement, l'indicateur/complément _Microfibres_ ne peut pas être intégré directement&#x20;
+{% endhint %}
+
+Grâce à l'utilisation de scénarios de référence spécifiques à chaque type de bois (`bois`) , ce coefficient (`Coef`) permet de calcul le complément Biodiversité<=>Bois (`Comp`).
+
+## Scénarios de référence
+
+### **Etape 1 = Définition des scénarios** &#x20;
+
+Les principales filières d'approvisionnement du marché français du bois d'ameublement ont été identifiées. Parmi ces dernières, celles à risque d'un point de vue Biodiversité ont été identifiés.&#x20;
+
+1 approvisionnement = 1 bois = 1 essence de bois (ex : chêne) + 1 origine (ex : France). &#x20;
+
+<details>
+
+<summary>Plus d'info sur les approvisonnements</summary>
+
+Les statistiques du marché français de l'ameublement décompose généralement les approvisionnements en bois sous 3 catégories :&#x20;
+
+* bois rond,
+* bois de sciage,
+* Produits du bois (achats directs de meubles ou produits intermédiaires tels que des panneaux)&#x20;
+
+Eclairer l'approvisionnement bois de ces 3 catégories n'est pas toujours facile (notamment pour les imports de _bois de sciage_ & _produits finis ou semi-finis_). En effet, la majorité du bois d'ameublement français est importé sous la forme de _produits du bois_ et de _bois de sciage_.&#x20;
+
+![](<../../.gitbook/assets/Consommation de bois _ secteur Ameublement (2019) (4).png>)
+
+</details>
+
+Ensuite, pour chaque approvisionnement à risque, des valeurs par défaut sont définies pour l'indice de corruption (COR) et le type d'exploitation forestière (EXP). Ces valeurs par défaut reflètent les pratiques auxquelles il faut s'attendre dans ces régions en l'absence de toute stratégie d'écoconception :&#x20;
+
+<div align="left"><figure><img src="../../.gitbook/assets/image (338).png" alt=""><figcaption><p>Scénarios pour les approvisionnements listés et connus par l'utilisateur</p></figcaption></figure></div>
+
+Afin de couvrir toutes les configurations possibles, deux scénarios additionnels sont proposés dans l'interface Ecobalyse :&#x20;
+
+<div align="left"><figure><img src="../../.gitbook/assets/image (339).png" alt=""><figcaption><p>Autres scénarios  (origine Inconnue ou Non listée)</p></figcaption></figure></div>
+
+* **Inconnue** : lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant produit le bois, l'origine "Inconnue" est proposée . Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
+* **Autres** : Lorsque l'origine n'est pas proposée, l'origine "Autre" est proposée. Etant donné que des pratiques forestières intensives peuvent avoir lieu dans n'importe quel pays, il est proposé par défaut un scénario "Mitigée" pour le paramètre EXP (Exploitation forestière).&#x20;
+
+{% hint style="success" %}
+**Vous Bois certifié / labellisé ?**
+
+Lorsqu'un bois bénéficie d'une des certifications/labellisations acceptées par la méthode, le paramètre Exploitation Forestière se voit attribuer la valeur "Raisonnée".&#x20;
+
+Liste des labels/certifications acceptées :&#x20;
+
+<mark style="color:red;">\[A compléter]</mark>
+
+![](<../../.gitbook/assets/image (340).png>)
+{% endhint %}
+
+### **Etape 2 = Pondération des paramètres**
+
+Une pondération des paramètres obligatoires (COR x EXP) est proposée afin de permettre d'attribuer à chaque scénario une valeur de référence.
+
+<table data-full-width="false"><thead><tr><th width="159.22222900390625"></th><th>Indice de corruption (COR)</th><th>Exploitation forestière (EXP)</th></tr></thead><tbody><tr><td>Pondération</td><td>30%</td><td>70%</td></tr></tbody></table>
+
+### **Etape 3 = Définition des valeurs de référence**&#x20;
+
+Dès lors, chaque approvisionnement/bois (`bois`) peut se voit attribuer une valeur de référence (`Ref`) selon la formule suivante :&#x20;
+
+$$
+Ref (bois) = (0,3*COR + 0,7*EXP) / 100
+$$
+
+:bulb: _Plus la valeur de référence (Ref) est élevée, plus élevé sera l'impact Biodiversité du bois._&#x20;
+
+<figure><img src="../../.gitbook/assets/image (342).png" alt=""><figcaption><p>Calcul des valeurs de référence (Ref) selon les différents approvisionnement (bois) proposés dans Ecobalyse</p></figcaption></figure>
+
+## Calcul du complément
+
+$$
+Comp =  \sum Ref(bois) * Compo(f) * masse*Coef
+$$
+
+Avec : \
+\- `Ref(bois)` = % = valeur de référence spécifique à chaque approvisionnement/bois (`appro`),\
+\-  `Compo(bois)` = % = part du bois (`bois`) entrant dans la composition du meuble, \
+\-  `masse` = kg = masse du meuble, \
+\- `Coef` = micro-points = matérialité du complément (<mark style="color:red;">xxx</mark> micro-points)
+
+
+
+## Exemples de calcul&#x20;
+
+<mark style="color:red;">A compléter</mark>
+
+
+
+
+
+## <mark style="color:orange;">Old / Notes / brouillons</mark>
+
+
+
+{% tabs %}
+{% tab title="Bois tropicaux" %}
+* Sont majoritairement exploités dans des forêts naturelles.\
+  Les forêts de plantation restent très minoritaires et sont essentiellement exploitées pour la production de pâte à papier. (source[^2])
+* Sont majoritairement exploités de mannière illégale.\
+  50% à 90% des bois tropicaux seraient produits de manière illégale d'après un rapport datant de 2011 de UNEP et Interpol (source[^2]). L’illégalité prend des formes très diverses et souvent très complexes pour détourner les règles des législations forestières des pays concernés. Elle reste un obstacle majeur à la gestion durable des forêts tropicales, car elle représente une concurrence déloyale et très démotivante pour les exploitants soucieux de respecter la réglementation forestière en  \
+  vigueur.
+* Sont majoritairement exploités dans les régions Afrique-Asie-Brésil.\
+  Principaux pays producteur (74% de la production mondiale  - source[^2] -) : Indonésie, Inde, Vietnam, Brésil, Thaïlande.
+* Sont majoritairement consommés hors-Europe.\
+  L'Europe importe c. 12% de la production mondiale de bois tropicaux (source[^2]). \
+  Les bois tropicaux importés en Europe directemebt sous la forme de meubles ne sont pas inclus dans ce chiffre.
+{% endtab %}
+
+{% tab title="Forêts européennes" %}
+* Proposent la plus grande proportion de forêts de plantation (30% de la superficie forestière, hors Russie)  (source[^2])
+*
+{% endtab %}
+
+{% tab title="Forêts asiatiques" %}
+
+{% endtab %}
+
+{% tab title="Forêts de plantation" %}
+Selon la FAO, les forêts de plantation sont inégalement présentes à travers le monde (% de la superficie forestière de la zone géographique) : &#x20;
+
+Mondial = 7%&#x20;
+
+Europe (hors Russie) = 30%
+
+Afrique = 1%
+
+Asie du Sud-Est et Caraïbes = 11%
+
+Amérique du Sud et Centrale = 2%
+
+&#x20;(source[^2])
+{% endtab %}
+{% endtabs %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 **Quelques définitions** (&#x53;_&#x6F;urce : Règlement européen du 31 mai 2023 relatif à la déforestation importée)_&#x20;
 
@@ -84,17 +316,13 @@ Une forêt plantée soumise à une gestion intensive et qui, au moment de la pla
 {% endtab %}
 {% endtabs %}
 
-{% hint style="info" %}
-
-{% endhint %}
-
 ## Etat des lieux
 
 Le bois est la principale matière utilisée sur le marché français de l'ameublement.
 
 <figure><img src="../../.gitbook/assets/EA par matériau majoritaire (données 2022).png" alt=""><figcaption><p>Source : ADEME _ étude "REP Filière ameublement <em>Bilan annuel</em> 2022"</p></figcaption></figure>
 
-Cette consommation français de bois d'ameublement se répartit ainsi ([unité ](#user-content-fn-2)[^2]/ source[^3]) :&#x20;
+Cette consommation français de bois d'ameublement se répartit ainsi ([unité ](#user-content-fn-3)[^3]/ source[^4]) :&#x20;
 
 {% tabs %}
 {% tab title="Vision simple" %}
@@ -227,8 +455,8 @@ A partir des données moyennes compilées dans le cadre de nos travaux, la proba
 {% hint style="info" %}
 Trois hypothèses permettent de comprendre ce chiffre de 9% :&#x20;
 
-* 38% des vêtements utilisés pour la première fois sont collectés et triés (source[^4])
-* 49% des vêtements triés sont exportés hors Europe (source[^5] / ce chiffre de 49% cadre par ailleurs avec les [autres scénarios](#user-content-fn-6)[^6] de fin de vie post-tri),&#x20;
+* 38% des vêtements utilisés pour la première fois sont collectés et triés (source[^5])
+* 49% des vêtements triés sont exportés hors Europe (source[^6] / ce chiffre de 49% cadre par ailleurs avec les [autres scénarios](#user-content-fn-7)[^7] de fin de vie post-tri),&#x20;
 * dans 50% des cas, le vêtement est directement jeté sans avoir été réutilisé (source mentionnée précédemment / fourchette haute retenue par Ecobalyse).
 {% endhint %}
 
@@ -256,7 +484,7 @@ Les valeurs ProbaDéchet par type de fibre sont calculés sur la base de 3 hypot
 
 1\) En moyenne, 50% des vêtements exportés hors Europe ne sont pas réutilisés,
 
-2\) Les vêtements exportés hors Europe se composent à 61% de vêtements composés de fibres synthétiques vs 39% de vêtements composés d'autres matières (Source[^7] = marché mondial des fibres textile),
+2\) Les vêtements exportés hors Europe se composent à 61% de vêtements composés de fibres synthétiques vs 39% de vêtements composés d'autres matières (Source[^8] = marché mondial des fibres textile),
 
 3\) les vêtements composés de matières synthétiques ont 60% de chance de ne pas être réutilisés (donc la probabilité des vêtements composés de matières non synthétiques d'être non réutilisés est de 34% afin de retrouver une probabilité moyenne de 50%). &#x20;
 {% endhint %}
@@ -295,19 +523,22 @@ Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Fi
 
 [^1]: _Source : Règlement européen du 31 mai 2023 relatif à la déforestation importée_&#x20;
 
-[^2]: Mm3 eq. bois rond sur écorce
+[^2]: Sist P., 2024. Exploiter durablement les forêts tropicales.    \
+    Versailles, éditions Quæ, 100 p.
 
-[^3]: Etude Carbone 4 \_ Scénarios de converge de la filière Bois
+[^3]: Mm3 eq. bois rond sur écorce
 
-[^4]: draft PERCR Apparel & Footwear v1.3 (p.90/197) &#x20;
+[^4]: Etude Carbone 4 \_ Scénarios de converge de la filière Bois
 
-[^5]: Rapport 2018 "Avenir Filière REP TLC" /  données 2015 (p. 49/98)&#x20;
+[^5]: draft PERCR Apparel & Footwear v1.3 (p.90/197) &#x20;
+
+[^6]: Rapport 2018 "Avenir Filière REP TLC" /  données 2015 (p. 49/98)&#x20;
 
     \
     \
     &#x20; &#x20;
 
-[^6]: Recyclage (31%) +Réutilisation France = (10%) +  Déchets (2%) + Réutilisation Europe (8%)= 51% => le dernier débouché étant l'Export Hors Europe (1-51%=49%)                                  \
+[^7]: Recyclage (31%) +Réutilisation France = (10%) +  Déchets (2%) + Réutilisation Europe (8%)= 51% => le dernier débouché étant l'Export Hors Europe (1-51%=49%)                                  \
     &#x20;&#x20;
 
-[^7]: Textile Exchange \_ The global fiber market 2021&#x20;
+[^8]: Textile Exchange \_ The global fiber market 2021&#x20;

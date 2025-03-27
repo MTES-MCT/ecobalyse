@@ -46,7 +46,7 @@ Le complément proposé couvre l'ensemble des émissions de microfibres interven
 
 ## Matérialité du complément
 
-Un coefficient (`Coef`), exprimé en micropoints d'impacts par kg de vêtement (`microPts/kg`), est défini et reflète l'impact d'un vêtement proposant les pires caractéristiques d'un point de vue microfibres : \
+Un coefficient (`Coef`), exprimé en micropoints d'impacts par kg de vêtement (`microPts/kg`), est défini et reflète l'impact microfibre d'un vêtement proposant les pires caractéristiques d'un point de vue microfibres : \
 1\) vêtement composé de fibres persistantes dans l'environnement,\
 2\) vêtement relarguant une quantité élevée de microfibres sur l'ensemble de son cycle de vie.
 
@@ -203,10 +203,10 @@ Pour les vêtements muli-fibres, une somme pondérée des scénarios de référe
 
 Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfibre pèserait à hauteur de :&#x20;
 
-* \+5% pour la version 100% coton\
+* +5% pour la version 100% coton\
   Impact initial = 915 micro-pts\
   Impact final = 915 + (25% \* 100% \* 0,17 \* 1000 ) = 915 + 43= 958 micro-pts
-* &#x20;\+19% pour la version 100% synthétique\
+* &#x20;+19% pour la version 100% synthétique\
   Impact initial = 715 micro-pts\
   Impact final = 715 + (82% \* 100% \* 0,17 \* 1000) = 715 + 139 = 854 micro-pts
 
