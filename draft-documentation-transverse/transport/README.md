@@ -21,9 +21,9 @@ Le transport est modélisé en prenant en compte les étapes suivantes : &#x20;
 
 A des fins de simplification, le transport entre un magasin ou un centre de distribution et le client final n'est pas pris en compte à ce jour dans Ecobalyse.
 
-Pour les étapes 1 à 4, plusieurs voies de transport peuvent être utilisées. La modélisation dépend des pays concernés et des types de produits.
+Pour les étapes 1 à 3, plusieurs voies de transport peuvent être utilisées. La modélisation dépend des pays concernés et des types de produits.
 
-Pour l'étape 5, un transport terrestre est considéré, avec une distance appelée D\_terre,distriFR
+Pour l'étape 4, un transport terrestre est considéré, avec une distance appelée D\_terre,distriFR
 
 ## Voies et modes de transports
 

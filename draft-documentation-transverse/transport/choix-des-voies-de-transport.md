@@ -18,7 +18,7 @@ La part du **transport terrestre (`t`)**, par rapport au transport "terrestre + 
 
 Exemples :&#x20;
 
-<table><thead><tr><th>t</th><th>Turquie</th><th>France</th><th width="120">Espagne</th><th>Portugal</th></tr></thead><tbody><tr><td>Turquie</td><td>100%</td><td></td><td></td><td></td></tr><tr><td>France</td><td>25%</td><td>100%</td><td></td><td></td></tr><tr><td>Espagne</td><td>0%</td><td>90%</td><td>100%</td><td></td></tr><tr><td>Portugal</td><td>0%</td><td>50%</td><td>90%</td><td>100%</td></tr></tbody></table>
+<table><thead><tr><th>% terrestre</th><th>Turquie</th><th>France</th><th width="120">Espagne</th><th>Portugal</th></tr></thead><tbody><tr><td>Turquie</td><td>100%</td><td></td><td></td><td></td></tr><tr><td>France</td><td>25%</td><td>100%</td><td></td><td></td></tr><tr><td>Espagne</td><td>0%</td><td>90%</td><td>100%</td><td></td></tr><tr><td>Portugal</td><td>0%</td><td>50%</td><td>90%</td><td>100%</td></tr></tbody></table>
 
 _"Pour un déplacement "Turquie-France", le transport sera fait de 25% de transport par voie terrestre et de 75% de transport par voie maritime (ce dernier incluant du transport par camion vers et depuis les ports concernés)"_
 
