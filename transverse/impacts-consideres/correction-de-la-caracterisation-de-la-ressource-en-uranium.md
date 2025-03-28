@@ -14,7 +14,7 @@ Il existe deux façons de caractériser la ressource en Uranium :
 
 Lorsque l'Uranium est caractérisé comme ressource énergétique, il en ressort un impact en score unique bien plus élevé pour l'électricité d'origine nucléaire, en comparaison de l'électricité produite à partir d'autres sources d'énergies.
 
-Le cas de l'EF 3.1 est à titre assez spécifique. L'EF 3.1 utilise à l'indicateur Abiotic resource depletion – fossil fuels (ADP-fossil), de la méthode CML v.4.8 (issue de van Oers et al., 2002), mais en modifiant cette méthode pour caractériser l'Uranium de la même manière que les ressources énergétiques fossiles. Ainsi, l'uranium n'est pas caractérisé en tant qu'élément (1.40E-3kg-eSq/kgU dans la méthode CML 4.8), mais comme énergie (560 000 MJ / kg d'uranium naturel). Voir ressources en bas de page pour plus de détails.
+Le cas de l'EF 3.1 est assez spécifique. L'EF 3.1 utilise l'indicateur Abiotic resource depletion – fossil fuels (ADP-fossil), de la méthode CML v.4.8 (issue de van Oers et al., 2002), mais en modifiant cette méthode pour caractériser l'Uranium de la même manière que les ressources énergétiques fossiles. Ainsi, l'uranium n'est pas caractérisé en tant qu'élément (1.40E-3kg-eSq/kgU dans la méthode CML 4.8), mais comme énergie (560 000 MJ / kg d'uranium naturel). Voir ressources en bas de page pour plus de détails.
 
 De plus, parmi les méthodes où l'Uranium est caractérisé comme ressource énergétique, la méthode EF3.1 est la plus défavorable à cette ressource.
 
@@ -78,6 +78,8 @@ Données sources :&#x20;
 * _electricity production, natural gas, combined cycle power plant, FR_ ecoinvent 3.9.1
 
 <figure><img src="../../.gitbook/assets/image (335).png" alt=""><figcaption></figcaption></figure>
+
+Au final, voici les impacts de l'électricité dans ecobalyse. <mark style="color:red;">(graph à ajouter)</mark>
 
 
 

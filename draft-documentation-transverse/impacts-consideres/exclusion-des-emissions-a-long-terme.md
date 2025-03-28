@@ -38,7 +38,7 @@ La méthode de caractérisation EF3.1 fournit cependant des facteurs de caracté
 Deux possibilité subsistent donc :
 
 1. Conserver les impacts des émissions à long terme, ce qui conduit à considérer de manière identique les "impacts avérés" à court terme et des "impacts hypothétiques" à long terme. Ceci a tendance à "sur-estimer" les impacts totaux ;
-2. Exclure les impacts des émissions à long terme, en priorisant les impacts dans les 100 prochaines années au risque d'ignorer les impacts ultérieurs. Ceci qui conduit à une sous-estimation des impacts totaux.
+2. Exclure les impacts des émissions à long terme, en priorisant les impacts dans les 100 prochaines années au risque d'ignorer les impacts ultérieurs. Ceci conduit à une sous-estimation des impacts totaux.
 
 ## Justification du choix Ecobalyse
 
