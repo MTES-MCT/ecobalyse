@@ -21,18 +21,18 @@ Dans cette page, les définitions et paramètres suivants sont utilisés :
 À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
 
 $$
-CEv_i=Masse*(D_{i,1}∗CE_1+D_{i, 2}∗CE_2)
+I_{v_i}=Masse*(D_{i,1}∗I_{m_1}+D_{i, 2}∗I_{m_2})
 $$
 
 Avec :&#x20;
 
-* `CEv_i` : le coût environnemental par voie, exprimé en points d'impact Pts
+* `I_v_i` : le coût environnemental par voie, exprimé en points d'impact Pts
 * `Masse` : la masse de produit transportée, exprimée en tonnes. Une conversion est donc à prendre en compte par rapport à la masse en kg dans les autres parties des calculs. La masse transportée est celle du produit fini, à laquelle s'ajoutent les éventuelles pertes liées aux étapes de transformation aval
 * `D_i,j` : la distance parcourue par le mode de transport j pour la voie i, exprimée en km
   * `D_mer,bateau` , `D_terre,camion`,`D_air,avion` , `D_fer,train` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnement"
   * Le calcul de `D_i,camion` est précisé dans la section suivante (hors voie terre)
   * Les autres distances ne sont pas applicables
-* `CEm_j` : le coût environnemental du mode j, exprimé en Pts/t.km
+* `I_m_j` : le coût environnemental du mode j, exprimé en Pts/t.km
 
 ### Calcul de la distance en camion sur les voies hors route
 
@@ -133,7 +133,7 @@ Les autres distances sont paramétrées comme suit pour l'affichage environnemen
 
 ## Procédés utilisés
 
-Sauf indication contraire spécifique, les modes de transport sont modélisés par les procédés suivants, définissant les coûts environnementaux `CE_i,j` :
+Sauf indication contraire spécifique, les modes de transport sont modélisés par les procédés suivants, définissant les coûts environnementaux `I_m_j` :
 
 <table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Camion</td><td>market group for transport, freight, lorry, unspecified, GLO (Ecoinvent)</td></tr><tr><td>Camion frigorifique</td><td>market for transport, freight, lorry with refrigeration machine, 7.5-16 ton, diesel, EURO 5, R134a refrigerant, cooling</td></tr><tr><td>Bateau</td><td>market for transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Bateau frigorifique</td><td>market for transport, freight, sea, container ship with reefer, cooling, GLO (Ecoinvent)</td></tr><tr><td>Avion</td><td>market for transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr><tr><td>Train</td><td>market group for transport, freight train, GLO (Ecoinvent)</td></tr></tbody></table>
 
@@ -141,7 +141,7 @@ Sauf indication contraire spécifique, les modes de transport sont modélisés p
 Le choix est fait de ne pas différencier les procédés en fonction de la géographie ou du type de produit, à des fins de simplification, et au regard de l'impact sur le coût environnemental global des produits. A titre d'exemple, le procédé Ecoinvent "transport, freight, lorry 16-32 metric ton, EURO5, RER" a un coût environnemental presque égale à celui du procédé "market group for transport, freight, lorry, unspecified" (différence inférieure à 1%), alors que le transport par camion représente en général une faible part du coût environnemental d'un produit.
 {% endhint %}
 
-Il en résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs CE\_i,j ci-dessus) :&#x20;
+Il en résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs `I_m_j` ci-dessus) :&#x20;
 
 <figure><img src="../../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 

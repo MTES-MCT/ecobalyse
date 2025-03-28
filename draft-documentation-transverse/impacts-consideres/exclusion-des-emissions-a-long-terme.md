@@ -7,7 +7,7 @@ description: >-
 
 # Exclusion des émissions à long terme
 
-Les bases de données ICV comme ecoinvent distinguent des émissions de polluants "présentes" et des émissions "à long terme".   Les méthodes de caractérisation sont ensuite en mesure de calculer les impacts en déclinant les indicateurs avec ou sans les émissions à long terme.
+Les bases de données ICV comme ecoinvent distinguent des émissions de polluants "présentes" et des émissions "à long terme". Les méthodes de caractérisation sont ensuite en mesure de calculer les impacts en déclinant les indicateurs avec ou sans les émissions à long terme.
 
 Ceci est transcrit dans le logiciel SimaPro par exemple, qui propose l'option d'exclure ces émissions à long terme des analyses.
 
@@ -37,15 +37,15 @@ La méthode de caractérisation EF3.1 fournit cependant des facteurs de caracté
 
 Deux possibilité subsistent donc :
 
-1. Conserver les impacts des émissions à long terme, ce qui conduit à considérer de manière identique les "impacts avérés" à court terme et des "impacts hypothétiques" à long terme. Ceci a tendance à "sur-estimer" les impacts totaux.&#x20;
+1. Conserver les impacts des émissions à long terme, ce qui conduit à considérer de manière identique les "impacts avérés" à court terme et des "impacts hypothétiques" à long terme. Ceci a tendance à "sur-estimer" les impacts totaux ;
 2. Exclure les impacts des émissions à long terme, en priorisant les impacts dans les 100 prochaines années au risque d'ignorer les impacts ultérieurs. Ceci qui conduit à une sous-estimation des impacts totaux.
 
 ## Justification du choix Ecobalyse
 
 Ecobalyse fait le choix d'exclure les émissions à long terme, principalement pour les raisons suivantes :&#x20;
 
-* Les ICV EF3.1 pour l'électricité n'incluent pas les émissions à long terme. Nous privilégions la cohérence avec le cadre européen.&#x20;
-* Souhait de privilégier des technologies permettant de répondre aux enjeux de l'urgence environnementale actuelle, déjà évalués comme critiques à l'échelle de ce siècle (effondrement de la biodiversité, changements climatiques, raréfaction des énergies fossiles)&#x20;
-* Très forte incertitude sur ces émissions, avec certaines hypothèses qui sont de nature conservatrices. Par exemple, l'impact des radiations ionisantes à faible intensité est évalué comme deux à dix fois plus faible que les radiations de forte intensité, et c'est l'hypothèse d'un impact deux fois plus faible qui est retenu (méthode de caractérisation, [Human health damages due to ionising radiation in life cycle impact assessment](https://esu-services.ch/fileadmin/download/frischknecht-2000-HumanHealth.pdf), page 10-11)
-* Il s'agit d'une pratique déjà courante chez les praticiens ACV
+* Les ICV EF3.1 pour l'électricité n'incluent pas les émissions à long terme. Nous privilégions la cohérence avec le cadre européen ;
+* Souhait de privilégier des technologies permettant de répondre aux enjeux de l'urgence environnementale actuelle, déjà évalués comme critiques à l'échelle de ce siècle (effondrement de la biodiversité, changements climatiques, raréfaction des énergies fossiles) ;
+* Très forte incertitude sur ces émissions, avec certaines hypothèses qui sont de nature conservatrices. Par exemple, l'impact des radiations ionisantes à faible intensité est évalué comme deux à dix fois plus faible que les radiations de forte intensité, et c'est l'hypothèse d'un impact deux fois plus faible qui est retenu (méthode de caractérisation, [Human health damages due to ionising radiation in life cycle impact assessment](https://esu-services.ch/fileadmin/download/frischknecht-2000-HumanHealth.pdf), page 10-11) ;
+* Il s'agit d'une pratique déjà courante chez les praticiens ACV.
 
