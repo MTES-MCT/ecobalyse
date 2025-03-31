@@ -28,7 +28,7 @@ type alias VersionData =
 
 
 type Version
-    = NewerVersion
+    = NewerVersion VersionData VersionData
     | Unknown
     | Version VersionData
 
@@ -36,20 +36,20 @@ type Version
 updateVersion : Version -> WebData VersionData -> Version
 updateVersion currentVersion webData =
     case webData of
-        RemoteData.Success v ->
+        RemoteData.Success freshest ->
             case currentVersion of
-                NewerVersion ->
+                NewerVersion _ _ ->
                     currentVersion
 
-                Version currentV ->
-                    if currentV.hash /= v.hash || currentV.tag /= v.tag then
-                        NewerVersion
+                Version current ->
+                    if current.hash /= freshest.hash || current.tag /= freshest.tag then
+                        NewerVersion current freshest
 
                     else
                         currentVersion
 
                 _ ->
-                    Version v
+                    Version freshest
 
         _ ->
             currentVersion
@@ -103,6 +103,9 @@ pollVersion event =
 toMaybe : Version -> Maybe VersionData
 toMaybe version =
     case version of
+        NewerVersion data _ ->
+            Just data
+
         Version data ->
             Just data
 
