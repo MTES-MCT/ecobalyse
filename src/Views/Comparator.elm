@@ -21,6 +21,7 @@ import Result.Extra as RE
 import Set
 import Views.Alert as Alert
 import Views.Container as Container
+import Views.Version as VersionView
 
 
 type alias Config msg =
@@ -92,8 +93,9 @@ sidebarView { selectAll, selectNone, session, toggle } =
                         , checked isCompared
                         ]
                         []
-                    , span [ class "ps-2" ]
-                        [ span [ class "me-2 fw-500" ] [ text bookmark.name ]
+                    , span [ class "d-inline-flex align-middle gap-2 ps-2" ]
+                        [ VersionView.view bookmark.version
+                        , span [ class "me-2 fw-500" ] [ text bookmark.name ]
                         , if description /= bookmark.name then
                             span [ class "text-muted fs-7" ] [ text description ]
 
