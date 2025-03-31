@@ -1,14 +1,14 @@
 module Request.Version exposing
     ( Version(..)
     , VersionData
-    , decodeVersionData
-    , encodeVersionData
+    , decodeData
+    , encodeData
     , getTag
     , is
     , loadVersion
     , pollVersion
     , toMaybe
-    , updateVersion
+    , update
     )
 
 import Data.Common.DecodeUtils as DU
@@ -21,63 +21,39 @@ import RemoteData.Http as Http
 import Time
 
 
+type alias CurrentData =
+    VersionData
+
+
+type alias NewData =
+    VersionData
+
+
+type Version
+    = NewerVersion CurrentData NewData
+    | Unknown
+    | Version VersionData
+
+
 type alias VersionData =
     { hash : String
     , tag : Maybe String
     }
 
 
-type Version
-    = NewerVersion VersionData VersionData
-    | Unknown
-    | Version VersionData
-
-
-updateVersion : Version -> WebData VersionData -> Version
-updateVersion currentVersion webData =
-    case webData of
-        RemoteData.Success freshest ->
-            case currentVersion of
-                NewerVersion _ _ ->
-                    currentVersion
-
-                Version current ->
-                    if current.hash /= freshest.hash || current.tag /= freshest.tag then
-                        NewerVersion current freshest
-
-                    else
-                        currentVersion
-
-                _ ->
-                    Version freshest
-
-        _ ->
-            currentVersion
-
-
-decodeVersionData : Decode.Decoder VersionData
-decodeVersionData =
+decodeData : Decode.Decoder VersionData
+decodeData =
     Decode.succeed VersionData
         |> Pipe.required "hash" Decode.string
         |> DU.strictOptional "tag" Decode.string
 
 
-encodeVersionData : VersionData -> Encode.Value
-encodeVersionData v =
+encodeData : VersionData -> Encode.Value
+encodeData v =
     Encode.object
         [ ( "hash", Encode.string v.hash )
         , ( "tag", v.tag |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         ]
-
-
-is : Github.Release -> Version -> Bool
-is release version =
-    case version of
-        Version { hash, tag } ->
-            hash == release.hash || tag == Just release.tag
-
-        _ ->
-            False
 
 
 getTag : Version -> Maybe String
@@ -90,9 +66,19 @@ getTag version =
             Nothing
 
 
+is : Github.Release -> Version -> Bool
+is release version =
+    case version of
+        Version { hash, tag } ->
+            hash == release.hash || tag == Just release.tag
+
+        _ ->
+            False
+
+
 loadVersion : (WebData VersionData -> msg) -> Cmd msg
 loadVersion event =
-    Http.get "version.json" event decodeVersionData
+    Http.get "version.json" event decodeData
 
 
 pollVersion : msg -> Sub msg
@@ -111,3 +97,25 @@ toMaybe version =
 
         _ ->
             Nothing
+
+
+update : Version -> WebData VersionData -> Version
+update currentVersion webData =
+    case webData of
+        RemoteData.Success freshest ->
+            case currentVersion of
+                NewerVersion _ _ ->
+                    currentVersion
+
+                Unknown ->
+                    Version freshest
+
+                Version current ->
+                    if current.hash /= freshest.hash || current.tag /= freshest.tag then
+                        NewerVersion current freshest
+
+                    else
+                        currentVersion
+
+        _ ->
+            currentVersion

@@ -53,7 +53,7 @@ decode =
         |> JDP.required "name" Decode.string
         |> JDP.required "query" decodeQuery
         |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decode) Nothing
-        |> DU.strictOptionalWithDefault "version" (Decode.maybe Version.decodeVersionData) Nothing
+        |> DU.strictOptionalWithDefault "version" (Decode.maybe Version.decodeData) Nothing
         |> Decode.map
             (\bookmark ->
                 case ( bookmark.query, bookmark.subScope ) of
@@ -93,7 +93,7 @@ encode v =
           )
         , ( "version"
           , v.version
-                |> Maybe.map Version.encodeVersionData
+                |> Maybe.map Version.encodeData
                 |> Maybe.withDefault Encode.null
           )
         ]
