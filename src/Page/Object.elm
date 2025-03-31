@@ -29,6 +29,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import List.Extra as LE
 import Ports
+import Request.Version as Version
 import Route
 import Task
 import Time exposing (Posix)
@@ -348,6 +349,7 @@ update ({ navKey } as session) msg model =
                     , query = objectQuery
                     , created = now
                     , subScope = Just model.scope
+                    , version = Version.toMaybe session.currentVersion
                     }
             , Cmd.none
             )

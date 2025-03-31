@@ -15,6 +15,7 @@ module Data.Bookmark exposing
     , toQueryDescription
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Object.Query as ObjectQuery
@@ -24,6 +25,7 @@ import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import Request.Version as Version exposing (VersionData)
 import Static.Db exposing (Db)
 import Time exposing (Posix)
 
@@ -33,6 +35,7 @@ type alias Bookmark =
     , name : String
     , query : Query
     , subScope : Maybe Scope
+    , version : Maybe VersionData
     }
 
 
@@ -49,7 +52,8 @@ decode =
         |> JDP.required "created" (Decode.map Time.millisToPosix Decode.int)
         |> JDP.required "name" Decode.string
         |> JDP.required "query" decodeQuery
-        |> JDP.optional "subScope" (Decode.maybe Scope.decode) Nothing
+        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decode) Nothing
+        |> DU.strictOptionalWithDefault "version" (Decode.maybe Version.decodeVersionData) Nothing
         |> Decode.map
             (\bookmark ->
                 case ( bookmark.query, bookmark.subScope ) of
@@ -86,6 +90,11 @@ encode v =
 
                 _ ->
                     Encode.null
+          )
+        , ( "version"
+          , v.version
+                |> Maybe.map Version.encodeVersionData
+                |> Maybe.withDefault Encode.null
           )
         ]
 

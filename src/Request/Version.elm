@@ -1,16 +1,21 @@
 module Request.Version exposing
     ( Version(..)
     , VersionData
+    , decodeVersionData
+    , encodeVersionData
     , getTag
     , is
     , loadVersion
     , pollVersion
+    , toMaybe
     , updateVersion
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Github as Github
 import Json.Decode as Decode
 import Json.Decode.Pipeline as Pipe
+import Json.Encode as Encode
 import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Time
@@ -50,11 +55,19 @@ updateVersion currentVersion webData =
             currentVersion
 
 
-versionDataDecoder : Decode.Decoder VersionData
-versionDataDecoder =
+decodeVersionData : Decode.Decoder VersionData
+decodeVersionData =
     Decode.succeed VersionData
         |> Pipe.required "hash" Decode.string
-        |> Pipe.optional "tag" (Decode.nullable Decode.string) Nothing
+        |> DU.strictOptional "tag" Decode.string
+
+
+encodeVersionData : VersionData -> Encode.Value
+encodeVersionData v =
+    Encode.object
+        [ ( "hash", Encode.string v.hash )
+        , ( "tag", v.tag |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
+        ]
 
 
 is : Github.Release -> Version -> Bool
@@ -79,9 +92,19 @@ getTag version =
 
 loadVersion : (WebData VersionData -> msg) -> Cmd msg
 loadVersion event =
-    Http.get "version.json" event versionDataDecoder
+    Http.get "version.json" event decodeVersionData
 
 
 pollVersion : msg -> Sub msg
 pollVersion event =
     Time.every (60 * 1000) (always event)
+
+
+toMaybe : Version -> Maybe VersionData
+toMaybe version =
+    case version of
+        Version data ->
+            Just data
+
+        _ ->
+            Nothing

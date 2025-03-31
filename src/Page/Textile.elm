@@ -50,6 +50,7 @@ import List.Extra as LE
 import Mass
 import Page.Explore as Explore
 import Ports
+import Request.Version as Version
 import Route
 import Static.Db exposing (Db)
 import Task
@@ -436,6 +437,7 @@ update ({ queries, navKey } as session) msg model =
                     , query = foodQuery
                     , created = now
                     , subScope = Nothing
+                    , version = Version.toMaybe session.currentVersion
                     }
             , Cmd.none
             )
