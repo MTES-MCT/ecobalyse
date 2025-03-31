@@ -118,9 +118,14 @@ stagingAlert { session, loadUrl } =
 newVersionAlert : Config msg -> Html msg
 newVersionAlert { session, reloadPage } =
     case session.currentVersion of
-        Version.NewerVersion ->
+        Version.NewerVersion _ { tag } ->
             div [ class "NewVersionAlert d-block align-items-center" ]
-                [ text "Une nouvelle version de l'application est disponible."
+                [ case tag of
+                    Just version ->
+                        text <| "La nouvelle version " ++ version ++ " de l'application est disponible."
+
+                    Nothing ->
+                        text "Une nouvelle version de l'application est disponible."
                 , button
                     [ type_ "button"
                     , class "btn btn-outline-primary"

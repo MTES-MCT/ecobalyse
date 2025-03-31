@@ -42,6 +42,7 @@ import Mass exposing (Mass)
 import Page.Explore as Explore
 import Ports
 import Quantity
+import Request.Version as Version
 import Route
 import Static.Db exposing (Db)
 import Task
@@ -357,6 +358,7 @@ update ({ db, queries } as session) msg model =
                     , query = foodQuery
                     , created = now
                     , subScope = Nothing
+                    , version = Version.toMaybe session.currentVersion
                     }
             , Cmd.none
             )
@@ -1377,6 +1379,7 @@ processSelectorView selectedId event excluded processes =
         , onInput (Process.idFromString >> Result.map event >> Result.withDefault NoOp)
         ]
         (processes
+            |> Scope.anyOf [ Scope.Food ]
             |> List.sortBy (\process -> Process.getDisplayName process)
             |> List.map
                 (\process ->

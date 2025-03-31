@@ -241,7 +241,7 @@ setIdFromString : String -> Dataset -> Dataset
 setIdFromString idString dataset =
     case dataset of
         Components scope _ ->
-            Components scope (Component.idFromString idString)
+            Components scope (Component.idFromString idString |> Result.toMaybe)
 
         Countries _ ->
             Countries (Just (Country.codeFromString idString))

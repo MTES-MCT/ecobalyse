@@ -1,6 +1,7 @@
 module Data.Process exposing
     ( Id
     , Process
+    , available
     , decodeFromId
     , decodeId
     , decodeList
@@ -57,6 +58,14 @@ type alias Process =
 
 type SourceId
     = SourceId String
+
+
+{-| List processes which ids are not part of the provided list of ids
+-}
+available : List Id -> List Process -> List Process
+available alreadyUsedIds =
+    List.filter (\{ id } -> not <| List.member id alreadyUsedIds)
+        >> List.sortBy getDisplayName
 
 
 decodeFromId : List Process -> Decoder Process
@@ -149,7 +158,7 @@ idFromString : String -> Result String Id
 idFromString str =
     str
         |> Uuid.fromString
-        |> Result.fromMaybe ("Identifiant invalide: " ++ str)
+        |> Result.fromMaybe ("Identifiant invalide : " ++ str)
         |> Result.map Id
 
 
@@ -167,8 +176,21 @@ findById id processes =
 
 
 getDisplayName : Process -> String
-getDisplayName { displayName, name } =
-    Maybe.withDefault name displayName
+getDisplayName { displayName, id, name } =
+    case displayName of
+        Just str ->
+            if String.trim str == "" then
+                name
+
+            else
+                str
+
+        Nothing ->
+            if String.trim name == "" then
+                idToString id
+
+            else
+                name
 
 
 listByCategory : Category -> List Process -> List Process

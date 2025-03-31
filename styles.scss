@@ -439,6 +439,12 @@ q {
   }
 }
 
+.modal-xl {
+  @media (width >= 1200px) {
+    --bs-modal-width: 1300px;
+  }
+}
+
 .no {
   &-outline {
     &:focus, &:active {
@@ -662,6 +668,17 @@ q {
 .ComplementsTable {
   margin-top: -1.5em;
   text-indent: 11px;
+}
+
+.Component {
+  &Element {
+    &Icon {
+      color: $text-muted;
+      font-size: 12px;
+      margin-right: 5px;
+      margin-top: 3px;
+    }
+  }
 }
 
 .DatasetTable {

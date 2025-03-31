@@ -50,6 +50,7 @@ import List.Extra as LE
 import Mass
 import Page.Explore as Explore
 import Ports
+import Request.Version as Version
 import Route
 import Static.Db exposing (Db)
 import Task
@@ -436,6 +437,7 @@ update ({ queries, navKey } as session) msg model =
                     , query = foodQuery
                     , created = now
                     , subScope = Nothing
+                    , version = Version.toMaybe session.currentVersion
                     }
             , Cmd.none
             )
@@ -1015,14 +1017,17 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , TrimView.editorView
         { addLabel = "Ajouter un accessoire"
-        , allowExpandDetails = True
+        , customizable = False
         , db = session.db
         , detailed = model.detailedTrims
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , impact = model.impact
         , items = session.queries.textile.trims
         , noOp = NoOp
-        , openSelectModal = AddTrimModal >> SetModal
+        , openSelectComponentModal = AddTrimModal >> SetModal
+        , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
+        , removeElement = \_ _ -> NoOp
+        , removeElementTransform = \_ _ _ -> NoOp
         , removeItem = RemoveTrim
         , results =
             session.queries.textile.trims
@@ -1032,6 +1037,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , setDetailed = SetDetailedTrims
         , title = "Accessoires"
         , updateElementAmount = \_ _ _ -> NoOp
+        , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }
     , div [ class "card shadow-sm pb-2 mb-3" ]

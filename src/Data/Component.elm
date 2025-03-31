@@ -1,6 +1,7 @@
 module Data.Component exposing
     ( Amount(..)
     , Component
+    , Custom
     , DataContainer
     , Element
     , ExpandedElement
@@ -8,6 +9,9 @@ module Data.Component exposing
     , Item
     , Quantity
     , Results(..)
+    , addElement
+    , addElementTransform
+    , addItem
     , amountToFloat
     , applyTransforms
     , available
@@ -30,10 +34,16 @@ module Data.Component exposing
     , findById
     , idFromString
     , idToString
-    , isCustomized
+    , itemToComponent
     , itemToString
     , quantityFromInt
     , quantityToInt
+    , removeElement
+    , removeElementTransform
+    , setElementMaterial
+    , updateElement
+    , updateItem
+    , updateItemCustomName
     , validateItem
     )
 
@@ -41,6 +51,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -49,6 +60,7 @@ import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 import Json.Encode as Encode
+import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
@@ -131,6 +143,42 @@ type Results
         , items : List Results
         , mass : Mass
         }
+
+
+{-| Add a new element, defined by a required material process, to an item.
+-}
+addElement : Component -> Process -> List Item -> Result String (List Item)
+addElement component material items =
+    if not <| List.member Category.Material material.categories then
+        Err "L'ajout d'un élément ne peut se faire qu'à partir d'un procédé matière"
+
+    else
+        items
+            |> updateItemCustom component
+                (\custom ->
+                    { custom
+                        | elements =
+                            custom.elements
+                                ++ [ { amount = Amount 1, material = material.id, transforms = [] } ]
+                    }
+                )
+            |> Ok
+
+
+addElementTransform : Component -> Int -> Process -> List Item -> Result String (List Item)
+addElementTransform component index transform items =
+    if not <| List.member Category.Transform transform.categories then
+        Err "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
+
+    else
+        items
+            |> updateElement component index (\el -> { el | transforms = el.transforms ++ [ transform.id ] })
+            |> Ok
+
+
+addItem : Id -> List Item -> List Item
+addItem id items =
+    items ++ [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
 
 
 {-| Add two results together
@@ -385,48 +433,22 @@ elementToString processes element =
             )
 
 
-{-| Turn an Element to an ExpandedElement
--}
-expandElement : List Process -> Element -> Result String ExpandedElement
-expandElement processes { amount, material, transforms } =
-    Ok (ExpandedElement amount)
-        |> RE.andMap (Process.findById material processes)
-        |> RE.andMap
-            (transforms
-                |> List.map (\id -> Process.findById id processes)
-                |> RE.combine
-            )
-
-
-{-| Take a list of elements and resolve them with fully qualified processes
--}
-expandElements : List Process -> List Element -> Result String (List ExpandedElement)
-expandElements processes =
-    RE.combineMap (expandElement processes)
-
-
-{-| Take a list of component items and resolve them with actual components and processes
--}
-expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
-expandItems { components, processes } =
-    List.map
-        (\{ custom, id, quantity } ->
-            findById id components
-                |> Result.andThen
-                    (\component ->
-                        custom
-                            |> Maybe.map .elements
-                            |> Maybe.withDefault component.elements
-                            |> expandElements processes
-                            |> Result.map (\expandedElements -> ( quantity, component, expandedElements ))
-                    )
-        )
-        >> RE.combine
-
-
 encodeCustom : Custom -> Encode.Value
 encodeCustom custom =
-    [ ( "name", custom.name |> Maybe.map Encode.string )
+    [ ( "name"
+      , custom.name
+            |> Maybe.map String.trim
+            |> Maybe.andThen
+                (\name ->
+                    -- Forbid serializing an empty name
+                    if name == "" then
+                        Nothing
+
+                    else
+                        Just name
+                )
+            |> Maybe.map Encode.string
+      )
     , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
     ]
         |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
@@ -457,6 +479,46 @@ encodeId =
     idToString >> Encode.string
 
 
+{-| Turn an Element to an ExpandedElement
+-}
+expandElement : List Process -> Element -> Result String ExpandedElement
+expandElement processes { amount, material, transforms } =
+    Ok (ExpandedElement amount)
+        |> RE.andMap (Process.findById material processes)
+        |> RE.andMap
+            (transforms
+                |> List.map (\id -> Process.findById id processes)
+                |> RE.combine
+            )
+
+
+{-| Take a list of elements and resolve them with fully qualified processes
+-}
+expandElements : List Process -> List Element -> Result String (List ExpandedElement)
+expandElements processes =
+    RE.combineMap (expandElement processes)
+
+
+expandItem : DataContainer a -> Item -> Result String ( Quantity, Component, List ExpandedElement )
+expandItem { components, processes } { custom, id, quantity } =
+    findById id components
+        |> Result.andThen
+            (\component ->
+                custom
+                    |> Maybe.map .elements
+                    |> Maybe.withDefault component.elements
+                    |> expandElements processes
+                    |> Result.map (\expanded -> ( quantity, component, expanded ))
+            )
+
+
+{-| Take a list of component items and resolve them with actual components and processes
+-}
+expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
+expandItems db =
+    List.map (expandItem db) >> RE.combine
+
+
 encodeResults : Maybe Trigram -> Results -> Encode.Value
 encodeResults maybeTrigram (Results results) =
     Encode.object
@@ -485,9 +547,12 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-idFromString : String -> Maybe Id
+idFromString : String -> Result String Id
 idFromString str =
-    Uuid.fromString str |> Maybe.map Id
+    str
+        |> Uuid.fromString
+        |> Result.fromMaybe ("Identifiant invalide: " ++ str)
+        |> Result.map Id
 
 
 idToString : Id -> String
@@ -501,6 +566,23 @@ isCustomized component custom =
         [ custom.elements /= component.elements
         , custom.name /= Nothing && custom.name /= Just component.name
         ]
+
+
+itemToComponent : DataContainer db -> Item -> Result String Component
+itemToComponent { components } { custom, id } =
+    findById id components
+        |> Result.map
+            (\component ->
+                case custom of
+                    Just { elements, name } ->
+                        { component
+                            | elements = elements
+                            , name = name |> Maybe.withDefault component.name
+                        }
+
+                    Nothing ->
+                        component
+            )
 
 
 itemToString : DataContainer db -> Item -> Result String String
@@ -568,6 +650,99 @@ extractItems (Results { items }) =
 extractMass : Results -> Mass
 extractMass (Results { mass }) =
     mass
+
+
+{-| Remove an element from an item
+-}
+removeElement : Component -> Int -> List Item -> Result String (List Item)
+removeElement component elementIndex =
+    updateItemCustom component
+        (\custom ->
+            { custom
+                | elements =
+                    custom.elements |> LE.removeAt elementIndex
+            }
+        )
+        >> Ok
+
+
+removeElementTransform : Component -> Int -> Int -> List Item -> List Item
+removeElementTransform component index transformIndex =
+    updateElement component index <|
+        \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
+
+
+setElementMaterial : Component -> Int -> Process -> List Item -> Result String (List Item)
+setElementMaterial component index material items =
+    if not <| List.member Category.Material material.categories then
+        Err "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
+
+    else
+        items
+            |> updateElement component index (\el -> { el | material = material.id })
+            |> Ok
+
+
+updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
+updateCustom component fn maybeCustom =
+    case maybeCustom of
+        Just custom ->
+            let
+                updated =
+                    fn custom
+            in
+            if isCustomized component updated then
+                Just updated
+
+            else
+                Nothing
+
+        Nothing ->
+            Just (fn { elements = component.elements, name = Nothing })
+
+
+updateCustomElement : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
+updateCustomElement component index update =
+    updateCustom component <|
+        \custom ->
+            { custom
+                | elements =
+                    custom.elements
+                        |> LE.updateAt index update
+            }
+
+
+updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item
+updateElement component elementIndex update =
+    updateItem component.id <|
+        \item ->
+            { item
+                | custom =
+                    item.custom
+                        |> updateCustomElement component elementIndex update
+            }
+
+
+updateItemCustom : Component -> (Custom -> Custom) -> List Item -> List Item
+updateItemCustom component fn =
+    updateItem component.id <|
+        \item ->
+            { item
+                | custom =
+                    item.custom
+                        |> updateCustom component fn
+            }
+
+
+updateItemCustomName : Component -> String -> List Item -> List Item
+updateItemCustomName component name =
+    updateItemCustom component
+        (\custom -> { custom | name = Just name })
+
+
+updateItem : Id -> (Item -> Item) -> List Item -> List Item
+updateItem componentId =
+    LE.updateIf (.id >> (==) componentId)
 
 
 validateItem : List Component -> Item -> Result String Item

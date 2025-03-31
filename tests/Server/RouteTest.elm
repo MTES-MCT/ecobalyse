@@ -208,7 +208,7 @@ textileEndpoints db =
         , asTest "should validate that a trim item id is valid" <|
             -- Note: this component UUID doesn't exist
             case Component.idFromString "ed3db03c-f56e-48a8-879c-df522c74d410" of
-                Just nonExistentId ->
+                Ok nonExistentId ->
                     TextileQuery.encode
                         { tShirtCotonFrance
                             | trims = [ { custom = Nothing, id = nonExistentId, quantity = Component.quantityFromInt 1 } ]
@@ -216,11 +216,11 @@ textileEndpoints db =
                         |> testTextileEndpoint db
                         |> expectTextileValidationError "trims" "Aucun composant avec id=ed3db03c-f56e-48a8-879c-df522c74d410"
 
-                Nothing ->
-                    Expect.fail "Invalid component id"
+                Err err ->
+                    Expect.fail err
         , asTest "should validate that a trim item quantity is a positive integer" <|
             case Component.idFromString "0e8ea799-9b06-490c-a925-37564746c454" of
-                Just id ->
+                Ok id ->
                     TextileQuery.encode
                         { tShirtCotonFrance
                             | trims = [ { custom = Nothing, id = id, quantity = Component.quantityFromInt -1 } ]
@@ -228,8 +228,8 @@ textileEndpoints db =
                         |> testTextileEndpoint db
                         |> expectTextileValidationError "decoding" "La quantité doit être un nombre entier positif"
 
-                Nothing ->
-                    Expect.fail "Invalid component id"
+                Err err ->
+                    Expect.fail err
         ]
     ]
 

@@ -104,11 +104,7 @@ addMaterial material query =
 
 addTrim : Component.Id -> Query -> Query
 addTrim id query =
-    { query
-        | trims =
-            query.trims
-                ++ [ { custom = Nothing, id = id, quantity = Component.quantityFromInt 1 } ]
-    }
+    { query | trims = query.trims |> Component.addItem id }
 
 
 removeTrim : Component.Id -> Query -> Query
@@ -123,14 +119,7 @@ updateTrimQuantity id quantity query =
     { query
         | trims =
             query.trims
-                |> List.map
-                    (\item ->
-                        if item.id == id then
-                            { item | quantity = quantity }
-
-                        else
-                            item
-                    )
+                |> Component.updateItem id (\item -> { item | quantity = quantity })
     }
 
 

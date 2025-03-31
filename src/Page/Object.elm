@@ -20,6 +20,8 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
+import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
@@ -27,6 +29,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import List.Extra as LE
 import Ports
+import Request.Version as Version
 import Route
 import Task
 import Time exposing (Posix)
@@ -61,6 +64,7 @@ type Modal
     | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
+    | SelectProcessModal Category Component (Maybe Int) (Autocomplete Process)
 
 
 type Msg
@@ -68,11 +72,15 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
+    | OnAutocompleteAddProcess Category Component (Maybe Int) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
+    | OnAutocompleteSelectProcess Category Component (Maybe Int)
     | OpenComparator
     | RemoveComponentItem Component.Id
+    | RemoveElement Component Int
+    | RemoveElementTransform Component Int Int
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
@@ -85,6 +93,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateComponentItemName Component String
     | UpdateComponentItemQuantity Component.Id Component.Quantity
     | UpdateElementAmount Component Int (Maybe Component.Amount)
 
@@ -248,6 +257,19 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddComponent _, _ ) ->
             ( model, session, Cmd.none )
 
+        ( OnAutocompleteAddProcess processType component maybeIndex autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            ( { model | modal = SelectProcessModal processType component maybeIndex newAutocompleteState }
+            , session
+            , Cmd.map (OnAutocompleteAddProcess processType component maybeIndex) autoCompleteCmd
+            )
+
+        ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
+            ( model, session, Cmd.none )
+
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
@@ -275,6 +297,13 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteSelectComponent, _ ) ->
             ( model, session, Cmd.none )
 
+        ( OnAutocompleteSelectProcess processType component index, SelectProcessModal _ _ _ autocompleteState ) ->
+            ( model, session, Cmd.none )
+                |> selectProcess processType component index query autocompleteState
+
+        ( OnAutocompleteSelectProcess _ _ _, _ ) ->
+            ( model, session, Cmd.none )
+
         ( OpenComparator, _ ) ->
             ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
@@ -284,6 +313,18 @@ update ({ navKey } as session) msg model =
         ( RemoveComponentItem id, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeComponent id query)
+
+        ( RemoveElement component index, _ ) ->
+            case Query.removeElement component index query of
+                Err err ->
+                    ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
+
+                Ok query_ ->
+                    updateQuery query_ ( model, session, Cmd.none )
+
+        ( RemoveElementTransform component elementIndex transformIndex, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.removeElementTransform component elementIndex transformIndex query)
 
         ( SaveBookmark, _ ) ->
             ( model
@@ -308,6 +349,7 @@ update ({ navKey } as session) msg model =
                     , query = objectQuery
                     , created = now
                     , subScope = Just model.scope
+                    , version = Version.toMaybe session.currentVersion
                     }
             , Cmd.none
             )
@@ -324,26 +366,14 @@ update ({ navKey } as session) msg model =
             , Cmd.none
             )
 
-        ( SetModal (AddComponentModal autocomplete), _ ) ->
-            ( { model | modal = AddComponentModal autocomplete }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
-        ( SetModal ComparatorModal, _ ) ->
-            ( { model | modal = ComparatorModal }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
         ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
             , session
             , commandsForNoModal model.modal
             )
 
-        ( SetModal (SelectExampleModal autocomplete), _ ) ->
-            ( { model | modal = SelectExampleModal autocomplete }
+        ( SetModal modal, _ ) ->
+            ( { model | modal = modal }
             , session
             , Ports.addBodyClass "prevent-scrolling"
             )
@@ -386,6 +416,10 @@ update ({ navKey } as session) msg model =
 
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
+
+        ( UpdateComponentItemName component name, _ ) ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateComponentItemName component name query)
 
         ( UpdateComponentItemQuantity id quantity, _ ) ->
             ( model, session, Cmd.none )
@@ -435,6 +469,44 @@ selectComponent query autocompleteState ( model, session, _ ) =
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
 
 
+selectProcess : Category -> Component -> Maybe Int -> Query -> Autocomplete Process -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectProcess processType component elementIndex query autocompleteState ( model, session, _ ) =
+    case Autocomplete.selectedValue autocompleteState of
+        Just process ->
+            let
+                updateResult =
+                    case processType of
+                        Category.Material ->
+                            case elementIndex of
+                                Just index ->
+                                    query |> Query.setElementMaterial component index process
+
+                                Nothing ->
+                                    query |> Query.addElement component process
+
+                        Category.Transform ->
+                            case elementIndex of
+                                Just index ->
+                                    query |> Query.addElementTransform component index process
+
+                                Nothing ->
+                                    Err <| "Un procédé de transformation de peut être ajouté qu'à un élément existant"
+
+                        _ ->
+                            Err <| "Catégorie de procédé non supportée\u{00A0}: " ++ Category.toLabel processType
+            in
+            case updateResult of
+                Err err ->
+                    ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
+
+                Ok validQuery ->
+                    update session (SetModal NoModal) model
+                        |> updateQuery validQuery
+
+        Nothing ->
+            ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
+
+
 simulatorView : Session -> Model -> Html Msg
 simulatorView session model =
     div [ class "row" ]
@@ -457,7 +529,7 @@ simulatorView session model =
                 ]
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
-                , allowExpandDetails = True
+                , customizable = True
                 , db = session.db
                 , detailed = model.detailedComponents
                 , docsUrl = Nothing
@@ -467,13 +539,17 @@ simulatorView session model =
                         |> Session.objectQueryFromScope model.scope
                         |> .components
                 , noOp = NoOp
-                , openSelectModal = AddComponentModal >> SetModal
+                , openSelectComponentModal = AddComponentModal >> SetModal
+                , openSelectProcessModal = \p c i s -> SelectProcessModal p c i s |> SetModal
+                , removeElement = RemoveElement
+                , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
                 , results = model.results
                 , scope = model.scope
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateElementAmount = UpdateElementAmount
+                , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
                 }
             ]
@@ -570,6 +646,38 @@ view session model =
                         , title = "Sélectionnez un produit"
                         , toLabel = Example.toName model.examples
                         , toCategory = Example.toCategory model.examples
+                        }
+
+                SelectProcessModal processType component maybeIndex autocompleteState ->
+                    let
+                        ( placeholderText, title ) =
+                            case processType of
+                                Category.Material ->
+                                    ( "tapez ici le nom d'une matière pour la rechercher"
+                                    , "Sélectionnez une matière première"
+                                    )
+
+                                Category.Transform ->
+                                    ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
+                                    , "Sélectionnez un procédé de transformation"
+                                    )
+
+                                _ ->
+                                    ( "tapez ici le nom d'un procédé pour le rechercher"
+                                    , "Sélectionnez un procédé"
+                                    )
+                    in
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , footer = []
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompleteAddProcess processType component maybeIndex
+                        , onAutocompleteSelect = OnAutocompleteSelectProcess processType component maybeIndex
+                        , placeholderText = placeholderText
+                        , title = title
+                        , toLabel = Process.getDisplayName
+                        , toCategory = \_ -> ""
                         }
             ]
       ]

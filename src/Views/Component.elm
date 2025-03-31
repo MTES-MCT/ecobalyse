@@ -5,9 +5,9 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity, Results)
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Process as Process
+import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
-import Data.Split as Split exposing (Split)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -23,33 +23,36 @@ import Views.Link as Link
 
 type alias Config db msg =
     { addLabel : String
-    , allowExpandDetails : Bool
+    , customizable : Bool
     , db : Component.DataContainer db
     , detailed : List Id
     , docsUrl : Maybe String
     , impact : Definition
     , items : List Item
     , noOp : msg
-    , openSelectModal : Autocomplete Component -> msg
+    , openSelectComponentModal : Autocomplete Component -> msg
+    , openSelectProcessModal : Category -> Component -> Maybe Int -> Autocomplete Process -> msg
+    , removeElement : Component -> Int -> msg
+    , removeElementTransform : Component -> Int -> Int -> msg
     , removeItem : Id -> msg
-    , results : Component.Results
+    , results : Results
     , scope : Scope
     , setDetailed : List Id -> msg
     , title : String
     , updateElementAmount : Component -> Int -> Maybe Amount -> msg
+    , updateItemName : Component -> String -> msg
     , updateItemQuantity : Id -> Quantity -> msg
     }
 
 
-addButton : Config db msg -> Html msg
-addButton { addLabel, db, items, openSelectModal, scope } =
+addComponentButton : Config db msg -> Html msg
+addComponentButton { addLabel, db, items, openSelectComponentModal, scope } =
     let
         availableComponents =
             db.components
                 |> Scope.anyOf [ scope ]
                 |> Component.available (List.map .id items)
 
-        -- FIXME: this should rather be initiated in page update
         autocompleteState =
             AutocompleteSelector.init .name availableComponents
     in
@@ -57,21 +60,65 @@ addButton { addLabel, db, items, openSelectModal, scope } =
         [ class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
-        , id "add-new-element"
         , disabled <| List.isEmpty availableComponents
-        , onClick <| openSelectModal autocompleteState
+        , onClick <| openSelectComponentModal autocompleteState
         ]
-        [ i [ class "icon icon-plus" ] []
+        [ Icon.plus
         , text addLabel
         ]
 
 
-componentView :
-    Config db msg
-    -> ( Component.Quantity, Component, List ExpandedElement )
-    -> Component.Results
-    -> List (Html msg)
-componentView config ( quantity, component, expandedElements ) itemResults =
+addElementButton : Config db msg -> Component -> Html msg
+addElementButton { db, openSelectProcessModal } component =
+    button
+        [ class "btn btn-link text-decoration-none"
+        , class "d-flex justify-content-end align-items-center"
+        , class "gap-2 w-100 p-0 pb-1 text-end"
+        , db.processes
+            |> Process.listByCategory Category.Material
+            |> List.sortBy Process.getDisplayName
+            |> AutocompleteSelector.init .name
+            |> openSelectProcessModal Category.Material component Nothing
+            |> onClick
+        ]
+        [ Icon.puzzle
+        , text "Ajouter un élément"
+        ]
+
+
+addElementTransformButton : Config db msg -> Component -> Int -> Html msg
+addElementTransformButton { db, openSelectProcessModal } component index =
+    let
+        availableTransformProcesses =
+            db.processes
+                |> Process.listByCategory Category.Transform
+                |> List.sortBy Process.getDisplayName
+                |> Process.available
+                    (component.elements
+                        |> LE.getAt index
+                        |> Maybe.map .transforms
+                        |> Maybe.withDefault []
+                    )
+
+        autocompleteState =
+            AutocompleteSelector.init .name availableTransformProcesses
+    in
+    button
+        [ class "btn btn-link btn-sm w-100 text-decoration-none"
+        , class "d-flex justify-content-start align-items-center"
+        , class "gap-1 w-100 p-0 pb-1"
+        , disabled <| List.isEmpty availableTransformProcesses
+        , autocompleteState
+            |> openSelectProcessModal Category.Transform component (Just index)
+            |> onClick
+        ]
+        [ Icon.plus
+        , text "Ajouter une transformation"
+        ]
+
+
+componentView : Config db msg -> Item -> ( Quantity, Component, List ExpandedElement ) -> Results -> List (Html msg)
+componentView config item ( quantity, component, expandedElements ) itemResults =
     let
         collapsed =
             config.detailed
@@ -80,11 +127,11 @@ componentView config ( quantity, component, expandedElements ) itemResults =
     in
     List.concat
         [ [ tbody []
-                [ tr []
-                    [ th [ class "ps-3 align-middle", scope "col" ]
-                        [ if config.allowExpandDetails then
+                [ tr [ class "border-top border-bottom" ]
+                    [ th [ class "ps-2 align-middle", scope "col" ]
+                        [ if config.customizable then
                             button
-                                [ class "btn btn-link text-dark text-decoration-none font-monospace fs-5  p-0 m-0"
+                                [ class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
                                 , onClick <|
                                     config.setDetailed <|
                                         if collapsed && not (List.member component.id config.detailed) then
@@ -103,10 +150,25 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                           else
                             text ""
                         ]
-                    , td [ class "ps-0 align-middle" ]
+                    , td [ class "ps-0 py-2 align-middle" ]
                         [ quantity |> quantityInput config component.id ]
-                    , td [ class "align-middle text-truncate w-100 fw-bold", colspan 2 ]
-                        [ text component.name ]
+                    , td [ class "align-middle text-truncate w-100", colspan 2 ]
+                        [ if config.customizable then
+                            input
+                                [ type_ "text"
+                                , class "form-control"
+                                , onInput (config.updateItemName component)
+                                , placeholder "Nom du composant"
+                                , item.custom
+                                    |> Maybe.andThen .name
+                                    |> Maybe.withDefault component.name
+                                    |> value
+                                ]
+                                []
+
+                          else
+                            span [ class "fw-bold" ] [ text component.name ]
+                        ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractMass itemResults
                             |> Format.kg
@@ -131,6 +193,19 @@ componentView config ( quantity, component, expandedElements ) itemResults =
                 (List.range 0 (List.length expandedElements - 1))
                 expandedElements
                 (Component.extractItems itemResults)
+                |> List.intersperse (tbody [ class "m-0 p-0 border" ] [ td [ colspan 7 ] [] ])
+
+          else
+            []
+        , if not collapsed then
+            [ tbody []
+                [ tr [ class "border-top" ]
+                    [ td [ colspan 7, class "pe-3" ]
+                        [ addElementButton config component
+                        ]
+                    ]
+                ]
+            ]
 
           else
             []
@@ -207,7 +282,7 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
 
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
-                            [ table [ class "table mb-0" ]
+                            [ table [ class "table table-sm table-borderless mb-0" ]
                                 (thead []
                                     [ tr [ class "fs-7 text-muted" ]
                                         [ th [] []
@@ -218,13 +293,15 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
                                         , th [ Attr.scope "col" ] []
                                         ]
                                     ]
-                                    :: (Component.extractItems results
-                                            |> List.map2 (componentView config) expandedItems
-                                            |> List.concat
-                                       )
+                                    :: List.concat
+                                        (List.map3 (componentView config)
+                                            items
+                                            expandedItems
+                                            (Component.extractItems results)
+                                        )
                                 )
                             ]
-            , addButton config
+            , addComponentButton config
             ]
         , viewDebug items results
         ]
@@ -253,82 +330,151 @@ amountInput config component unit index amount =
         ]
 
 
-elementView : Config db msg -> Component -> Int -> ExpandedElement -> Component.Results -> Html msg
+elementView : Config db msg -> Component -> Int -> ExpandedElement -> Results -> Html msg
 elementView config component index { amount, material, transforms } elementResults =
     let
-        ( materialResults, transformResults ) =
+        ( materialResults, transformsResults ) =
             case Component.extractItems elementResults of
                 [] ->
                     ( Component.emptyResults, [] )
 
-                materialResults_ :: transformResults_ ->
-                    ( materialResults_, transformResults_ )
+                materialResults_ :: transformsResults_ ->
+                    ( materialResults_, transformsResults_ )
     in
-    tbody []
+    tbody [ style "border-bottom" "1px solid #fff" ]
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
-            , th [ class "text-end", scope "col" ] [ text "Quantité finale" ]
-            , th [ scope "col" ] [ text "Procédé" ]
-            , th [ scope "col" ] [ text "Pertes" ]
-            , th [ class "text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
-            , th [ scope "col" ] [ text "Impact" ]
-            , th [ scope "col" ] [ text "" ]
-            ]
-            :: tr [ class "fs-7" ]
-                [ td [] []
-                , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-                    [ -- FIXME: not for textile
-                      if config.scope == Scope.Textile then
-                        amount
-                            |> Component.amountToFloat
-                            |> Format.formatRichFloat 3 material.unit
+            , th [ class "align-middle", scope "col" ]
+                [ if material.unit == "kg" then
+                    text "Masse finale"
 
-                      else
-                        amountInput config component material.unit index amount
-                    ]
-                , td [ class "align-middle text-truncate w-100" ]
-                    [ text <| Process.getDisplayName material
-                    ]
-                , td [ class "align-middle text-end text-nowrap" ]
-                    -- Note: waste is never taken into account at the material step
-                    []
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Format.kg <| Component.extractMass materialResults ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Component.extractImpacts materialResults
-                        |> Format.formatImpact config.impact
-                    ]
-                , td [ class "pe-3 align-middle text-nowrap" ]
-                    []
+                  else
+                    text "Quantité finale"
                 ]
-            :: List.map3
-                (\_ transform transformResult ->
-                    tr [ class "fs-7" ]
-                        [ td [] []
-                        , td [ class "text-end align-middle text-nowrap" ] []
-                        , td [ class "align-middle text-truncate w-100" ]
-                            [ text <| Process.getDisplayName transform
-                            ]
-                        , td [ class "align-middle text-end text-nowrap" ]
-                            [ formatWaste transform.waste ]
-                        , td [ class "text-end align-middle text-nowrap" ]
-                            [ Format.kg <| Component.extractMass transformResult
-                            ]
-                        , td [ class "text-end align-middle text-nowrap" ]
-                            [ Component.extractImpacts transformResult
-                                |> Format.formatImpact config.impact
+            , th [ class "align-middle", scope "col" ] [ text <| "Élément #" ++ String.fromInt (index + 1) ]
+            , th [ class "align-middle", scope "col" ] [ text "Pertes" ]
+            , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
+            , th [ class "align-middle", scope "col" ] [ text "Impact" ]
+            , th [ class "align-middle", scope "col" ] []
+            ]
+            :: elementMaterialView config component index materialResults material amount
+            :: elementTransformsView config component index transformsResults transforms
+            ++ (if List.member config.scope [ Scope.Object, Scope.Veli ] then
+                    [ tr []
+                        [ td [ colspan 2 ] []
+                        , td [ colspan 5 ]
+                            [ addElementTransformButton config component index
                             ]
                         ]
-                )
-                (List.range 0 (List.length transforms))
-                transforms
-                transformResults
+                    ]
+
+                else
+                    []
+               )
         )
 
 
-quantityInput : Config db msg -> Id -> Component.Quantity -> Html msg
+selectMaterialButton : Config db msg -> Component -> Int -> Process -> Html msg
+selectMaterialButton { db, openSelectProcessModal } component index material =
+    let
+        availableMaterialProcesses =
+            db.processes
+                |> Process.listByCategory Category.Material
+                |> List.sortBy Process.getDisplayName
+
+        autocompleteState =
+            AutocompleteSelector.init .name availableMaterialProcesses
+    in
+    button
+        [ class "btn btn-sm btn-link text-decoration-none p-0"
+        , autocompleteState
+            |> openSelectProcessModal Category.Material component (Just index)
+            |> onClick
+        ]
+        [ span [ class "ComponentElementIcon" ] [ Icon.material ]
+        , text <| Process.getDisplayName material
+        ]
+
+
+elementMaterialView : Config db msg -> Component -> Int -> Results -> Process -> Amount -> Html msg
+elementMaterialView config component index materialResults material amount =
+    tr [ class "fs-7" ]
+        [ td [] []
+        , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
+            [ if config.scope == Scope.Textile then
+                amount
+                    |> Component.amountToFloat
+                    |> Format.formatRichFloat 3 material.unit
+
+              else
+                amountInput config component material.unit index amount
+            ]
+        , td [ class "align-middle text-truncate w-100", title material.name ]
+            [ selectMaterialButton config component index material
+            ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            []
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ Format.kg <| Component.extractMass materialResults ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ Component.extractImpacts materialResults
+                |> Format.formatImpact config.impact
+            ]
+        , td [ class "pe-3  text-nowrap" ]
+            [ button
+                [ class "btn btn-sm btn-outline-secondary"
+                , onClick (config.removeElement component index)
+                ]
+                [ Icon.trash ]
+            ]
+        ]
+
+
+elementTransformsView : Config db msg -> Component -> Int -> List Results -> List Process -> List (Html msg)
+elementTransformsView config component index transformsResults transforms =
+    List.map3
+        (\transformIndex transformResult transform ->
+            tr [ class "fs-7" ]
+                [ td [] []
+                , td [ class "text-end align-middle text-nowrap" ] []
+                , td
+                    [ class "text-truncate align-middle w-100"
+
+                    -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
+                    , style "max-width" "0"
+                    , title transform.name
+                    ]
+                    [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
+                    , text <| Process.getDisplayName transform
+                    ]
+                , td [ class "align-middle text-end text-nowrap" ]
+                    [ Format.splitAsPercentage 2 transform.waste ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Format.kg <| Component.extractMass transformResult
+                    ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ Component.extractImpacts transformResult
+                        |> Format.formatImpact config.impact
+                    ]
+                , td []
+                    [ button
+                        [ class "btn btn-sm btn-outline-secondary"
+                        , transformIndex
+                            |> config.removeElementTransform component index
+                            |> onClick
+                        ]
+                        [ Icon.trash ]
+                    ]
+                ]
+        )
+        (List.range 0 (List.length transforms))
+        transformsResults
+        transforms
+
+
+quantityInput : Config db msg -> Id -> Quantity -> Html msg
 quantityInput config id quantity =
-    div [ class "input-group", style "min-width" "90px", style "max-width" "120px" ]
+    div [ class "input-group", style "width" "130px" ]
         [ input
             [ type_ "number"
             , class "form-control text-end"
@@ -351,12 +497,3 @@ quantityInput config id quantity =
             ]
             []
         ]
-
-
-formatWaste : Split -> Html msg
-formatWaste waste =
-    if Split.toPercent waste == 0 then
-        text ""
-
-    else
-        Format.splitAsPercentage 3 waste
