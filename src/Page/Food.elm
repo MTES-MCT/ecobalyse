@@ -1377,6 +1377,7 @@ processSelectorView selectedId event excluded processes =
         , onInput (Process.idFromString >> Result.map event >> Result.withDefault NoOp)
         ]
         (processes
+            |> Scope.anyOf [ Scope.Food ]
             |> List.sortBy (\process -> Process.getDisplayName process)
             |> List.map
                 (\process ->
