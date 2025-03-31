@@ -52,9 +52,9 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 <summary>Indice Corruption (COR) </summary>
 
-Ce paramètre vise à préciser la probabilité que le bois soit issu de pratiques forestières non durables. Ce paramètre est spécifique à une origine (pays ou une région).
+Ce paramètre vise à préciser la probabilité que le bois soit issu de pratiques forestières non durables. Ce paramètre est spécifique à une origine (pays ou région).
 
-Plus le niveau de corruption est élevée, plus faible est la probabilité que le bois soit issu d'une forêt gérée durablement.&#x20;
+Plus le niveau de corruption est élevée, plus faible est la probabilité que le bois soit issu d'une forêt gérée durablement. Le niveau de corruption est estimé grâce au _Corruption Perception Index (score CPI)_ développé par Transparency International (cf. ci-dessous).
 
 3 niveaux de corruption sont proposés :&#x20;
 
@@ -64,7 +64,7 @@ Plus le niveau de corruption est élevée, plus faible est la probabilité que l
 
 * Faible (score CP au moins égal à 60)
 
-Un **coefficient de corruption (COR)** est affecté à chaque niveau :&#x20;
+Pour chaque niveau, un **coefficient de corruption (COR)** est utilisé dans la méthode :&#x20;
 
 | Elevé | Moyen | Faible |
 | ----- | ----- | ------ |
@@ -88,11 +88,16 @@ Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de c
 
 Ce paramètre vise aussi à préciser la probabilité que le bois soit issu de pratiques forestières non durables. Ce paramètre est spécifique à une origine (ex : Cameroun, Asie du Sud-Est, etc.) et une essence (ex : bois exotiques, chêne, etc.).&#x20;
 
-3 niveaux d'exploitation forestière sont proposés :&#x20;
+3 modes d'exploitation forestière sont proposés :&#x20;
 
 * Intensive
 * Mitigée
 * Raisonnée
+
+Le niveau d'exploitation forestière est estimé sur la base de deux critères :&#x20;
+
+* l'intensité des coupes (ex : 80 m3 / ha),
+* la durée de rotation (ex : 20 années).
 
 Un **coefficient d'exploitation forestière (EXP)** est affecté à chaque niveau :&#x20;
 
@@ -100,28 +105,13 @@ Un **coefficient d'exploitation forestière (EXP)** est affecté à chaque nivea
 | --------- | ------- | --------- |
 | 100%      | 50%     | 0%        |
 
-
-
-**Détails**
-
-Le type d'exploitation forestière est estimé sur la base de deux critères :&#x20;
-
-* l'intensité des coupes (ex : 80 m3 / ha) ,
-* la durée de rotation (ex : 20 années).
-
-Les principales sources utilisées pour ce paramètre sont :&#x20;
-
-* des outils d'imagerie satellitaire permettant d'identifier les régions sylvicoles proposant une exploitation intensive des forêts ([carte 1](https://gfw.global/4kZ6RaB) de gains et pertes de couvert forestier entre 2000 et 2020 / [carte 2](https://gfw.global/41N4ujO) présentant les forêts de plantation),
-* des ressources bibliographiques permettant de mieux comprendre les régions sylicoles à risque concernant leur gestion intensive des forêts (
-* des entretiens et ateliers avec les filières Ameublement et Bois/Forêt (ex : atelier Sylvilcutre du 30/01/2025 piloté par Ecobalyse; support accessible [ici](https://miro.com/app/board/uXjVLn9pEjg=/?share_link_id=467200481479))
-
 </details>
 
 <details>
 
-<summary>Certificat / Label (optionnel)</summary>
+<summary>Certifications / Label (optionnel)</summary>
 
-
+Les certifications FSC et PEFC permettent de préciser le paramètre EXP (Exploitation Forestière).&#x20;
 
 </details>
 
@@ -170,7 +160,26 @@ La majorité du bois d'ameublement français est importé (principalement sous l
 
 </details>
 
-Ensuite, pour chaque approvisionnement à risque, des valeurs par défaut sont définies pour l'indice de corruption (COR) et le type d'exploitation forestière (EXP). Ces valeurs par défaut reflètent les pratiques auxquelles il faut s'attendre dans ces régions en l'absence de toute stratégie d'écoconception :&#x20;
+Ensuite, pour chaque approvisionnement à risque, des valeurs par défaut sont définies pour :&#x20;
+
+* le coefficient de corruption (COR),
+* le coefficient d'exploitation forestière (EXP).
+
+<details>
+
+<summary>Précisions sur ces valeurs par défaut</summary>
+
+* COR ⇒ basées sur le score CPI 2023 de chaque pays. \
+  Lorsqu'une région est disponible (ex : Asie du Sud-Est), définition par Ecobalyse d'une valeur majorante.
+* EXP ⇒ basées sur l'état de l'art des informations collectées dans le cadre des travaux sur l'affichage environnemental. \
+  Les principales sources utilisées pour estimer paramètre sont :&#x20;
+  * des outils d'imagerie satellitaire permettant d'identifier les régions sylvicoles proposant une exploitation intensive des forêts ([carte 1](https://gfw.global/4kZ6RaB) de gains et pertes de couvert forestier entre 2000 et 2020 / [carte 2](https://gfw.global/41N4ujO) présentant les forêts de plantation),
+  * des ressources bibliographiques permettant de mieux comprendre les régions sylicoles à risque concernant leur gestion intensive des forêts,
+  * des entretiens et ateliers avec les filières Ameublement et Bois/Forêt (ex : atelier Sylvilcutre du 30/01/2025 piloté par Ecobalyse; support accessible [ici](https://miro.com/app/board/uXjVLn9pEjg=/?share_link_id=467200481479)).
+
+</details>
+
+Ces valeurs par défaut reflètent les pratiques auxquelles il faut s'attendre dans ces régions en l'absence de toute stratégie d'écoconception :&#x20;
 
 <div align="left"><figure><img src="../../.gitbook/assets/image (338).png" alt=""><figcaption><p>Scénarios pour les approvisionnements listés et connus par l'utilisateur</p></figcaption></figure></div>
 
@@ -182,13 +191,9 @@ Afin de couvrir toutes les configurations possibles, deux scénarios additionnel
 * **Autres** : Lorsque l'origine n'est pas proposée, l'origine "Autre" est proposée. Etant donné que des pratiques forestières intensives peuvent avoir lieu dans n'importe quel pays, il est proposé par défaut un scénario "Mitigée" pour le paramètre EXP (Exploitation forestière).&#x20;
 
 {% hint style="success" %}
-**Votre bois est certifié / labellisé ?**
+**Votre bois est certifié FSC ou PEFC ?**
 
-Si le bois bénéficie d'une certification faisant partie de la liste ci-dessous,  le paramètre Exploitation Forestière se voit attribuer la valeur "Raisonnée".  Ce scénario permet de refléter les démarches d'écoconception dans la méthode.
-
-Liste des labels/certifications acceptées :&#x20;
-
-<mark style="color:red;">\[A compléter]</mark>
+Si le bois bénéficie d'une certification faisant partie de la liste ci-dessous,  le paramètre Exploitation Forestière se voit attribuer la valeur "Raisonnée". &#x20;
 
 ![](<../../.gitbook/assets/image (340).png>)
 {% endhint %}
