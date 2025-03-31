@@ -439,6 +439,12 @@ q {
   }
 }
 
+.modal-xl {
+  @media (width >= 1200px) {
+    --bs-modal-width: 1300px;
+  }
+}
+
 .no {
   &-outline {
     &:focus, &:active {

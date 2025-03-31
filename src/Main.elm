@@ -405,7 +405,7 @@ update rawMsg ({ state } as model) =
                     ( { model
                         | state =
                             currentPage
-                                |> Loaded { session | currentVersion = Request.Version.updateVersion session.currentVersion webData }
+                                |> Loaded { session | currentVersion = Request.Version.update session.currentVersion webData }
                       }
                     , Cmd.none
                     )
