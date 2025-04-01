@@ -586,19 +586,24 @@ itemToComponent { components } { custom, id } =
 
 
 itemToString : DataContainer db -> Item -> Result String String
-itemToString db { id, quantity } =
+itemToString db { custom, id, quantity } =
     db.components
         |> findById id
         |> Result.andThen
             (\component ->
-                component.elements
+                custom
+                    |> Maybe.map .elements
+                    |> Maybe.withDefault component.elements
                     |> RE.combineMap (elementToString db.processes)
                     |> Result.map (String.join " | ")
                     |> Result.map
                         (\processesString ->
                             String.fromInt (quantityToInt quantity)
                                 ++ " "
-                                ++ component.name
+                                ++ (custom
+                                        |> Maybe.andThen .name
+                                        |> Maybe.withDefault component.name
+                                   )
                                 ++ " [ "
                                 ++ processesString
                                 ++ " ]"
