@@ -39,9 +39,9 @@ Lavage : Consiste à éliminer les agents de préparation présents sur le fil s
 
 Les procédés de teinture et impression consistent tous les deux à appliquer un colorant sur le tissu. Toutefois, le procédé d’impression, au lieu de colorer l'ensemble du support, se concentre sur des zones définies afin d'obtenir le motif désiré.
 
-Le calculateur permet de modéliser cette étape directement après la fabrication du tissu.&#x20;
+Le calculateur permet de modéliser cette étape directement après la fabrication de l'étoffe.&#x20;
 
-Dans certains cas, la teinture peut être effectuée en amont (sur fil) ou en aval (sur article). Ecobalyse permet aussi de modéliser ces configurations dans cette sous-étape “Teinture et Impression” afin de faciliter les comparaisons.
+Dans certains cas, la teinture peut être effectuée en continu et en discontinu. Ecobalyse permet aussi de modéliser ces configurations dans cette sous-étape “Teinture et Impression” afin de faciliter les comparaisons.
 
 Deux procédés d'impression (pigmentaire et fixé-lavé) sont proposés. L'impression pigmentaire consiste à déposer des pigments colorés à la surface de l'étoffe et s'applique généralement aux fibres cellulosiques. L'impression fixé-lavé consiste à fixer des colorants sur la fibre comme une teinture (à l'inverse des pigments qui pénètrent moins dans la fibre). \
 Les deux procédés sont basés sur une moyenne de trois techniques : impression à cadre plat, impression à cadre rotatif, impression au jet d'encre (digitale). &#x20;
@@ -275,10 +275,10 @@ Pour rappel, des inventaires enrichis ont été construits et intégrés dans le
 * Impression pigmentaire => Optionnelle (à ajouter par l'utilisateur)
 * Impression fixé-lavé => Optionnelle (ajouter par l'utilisateur)
 
-#### Impression <=> % étoffe &#x20;
+#### Impression <=> % masse&#x20;
 
 Deux types d'impression sont proposées (fixé-lavé et pigmentaire). \
-La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la surface d'étoffe entrante). Cette donnée n'étant généralement pas maîtrisée par les metteurs sur le marché, cinq scénarios sont proposés (1%, 5%, 20%, 50% et 100%).&#x20;
+La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la masse). Cette donnée n'étant généralement pas maîtrisée par les metteurs sur le marché, cinq scénarios sont proposés (1%, 5%, 20%, 50% et 100%).&#x20;
 
 #### Tableau des valeurs `a_i`
 
