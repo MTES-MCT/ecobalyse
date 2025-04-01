@@ -211,15 +211,11 @@ Aucune perte n'est appliquée lors de l'étape Ennoblissement.
 
 ### <mark style="color:red;">Paramètres mobilisés</mark>
 
-{% hint style="danger" %}
-Cette section ne me semble pas utile, déjà indiqué dans les paramètres.&#x20;
-{% endhint %}
-
 Un paramètre transverse et plusieurs paramètres spécifiques aux 3 sous-étapes (pré-traitements, teinture/impression et finition) constituant l'étape Ennoblissement sont mobilisés :&#x20;
 
 **Paramètre transverse**&#x20;
 
-* **Pays** (origine) où ont lieu les étapes d'ennoblissement
+* **Pays** (origine) où ont lieu les étapes d'ennoblissement pour modéliser les consommations [d'électricité et de chaleur](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/energies-des-etapes-de-transformation)
 
 **Paramètres spécifiques**&#x20;
 
@@ -286,7 +282,7 @@ La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la 
 
 ### Consommations d'énergie (électricité et chaleur)
 
-<table><thead><tr><th>Sous-étape</th><th width="138">Procédé i</th><th>électricité e_i, kWh/kg</th><th>chaleur c_i, MJ/kg</th></tr></thead><tbody><tr><td>Pre-traitement</td><td>Désencollage</td><td>0,1</td><td>3,2</td></tr><tr><td>Pre-traitement</td><td>Dégraissage</td><td>0,3</td><td>13,5</td></tr><tr><td>Pre-traitement</td><td>Blanchiment</td><td>0,2</td><td>5,4</td></tr><tr><td>Pre-traitement</td><td>Lavage (fibres synt.)</td><td>0,2</td><td>10,8</td></tr><tr><td>Pre-traitement</td><td>Mercerisage</td><td>0,1</td><td>2,7</td></tr><tr><td>Teinture</td><td>Continu</td><td>0,8</td><td>16,2</td></tr><tr><td>Teinture</td><td>Discontinu</td><td>1,2</td><td>32,4</td></tr><tr><td>Teinture</td><td>Moyenne</td><td>1</td><td>24,3</td></tr><tr><td>Impression*</td><td>Pigmentaire</td><td>1,27</td><td>7,25</td></tr><tr><td>Impression*</td><td>Fixé-lavé</td><td>1,45</td><td>8,72</td></tr><tr><td>Finition</td><td>Apprêts chimiques (en continu)</td><td>0,6</td><td>13,5</td></tr></tbody></table>
+Les consommations d'énergie (électricité et chaleur) sont renseignées dans l'Explorateur de procédés, avec le nom de ceux utilisés dans cette page.
 
 {% hint style="info" %}
 Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-2)[^2]\*.&#x20;
@@ -311,11 +307,7 @@ Nous ne permettons donc pas de modifier la quantité d'énergie afin d'assurer u
 
 ## Procédés utilisés pour l’affichage environnemental
 
-Les procédés utilisés pour chaque procédé d'ennoblissement sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), avec les noms que ceux utilisés dans cette page.
-
-{% hint style="danger" %}
-Attention usage du terme "procédé" avec deux sens différents
-{% endhint %}
+Les procédés utilisés pour chaque procédé d'ennoblissement sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), avec les noms de ceux utilisés dans cette page.
 
 [^1]: Analyse du Cycle de Vie
 
