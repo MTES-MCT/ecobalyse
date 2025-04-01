@@ -14,6 +14,7 @@ import Json.Encode as Encode
 import Route
 import Views.CardTabs as CardTabs
 import Views.Icon as Icon
+import Views.Version as VersionView
 
 
 type alias ManagerConfig msg =
@@ -268,7 +269,7 @@ bookmarksView ({ compare, scope, session } as cfg) =
 
 
 bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
-bookmarkView cfg ({ name, query } as bookmark) =
+bookmarkView cfg ({ name, query, version } as bookmark) =
     let
         currentQuery =
             queryFromScope cfg.session cfg.scope
@@ -295,8 +296,9 @@ bookmarkView cfg ({ name, query } as bookmark) =
         [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"
         , classList [ ( "active", query == currentQuery ) ]
         ]
-        [ a
-            [ class "text-truncate"
+        [ VersionView.view version
+        , a
+            [ class "flex-fill text-truncate"
             , classList [ ( "active text-white", query == currentQuery ) ]
             , bookmark
                 |> Bookmark.toQueryDescription cfg.session.db
@@ -306,7 +308,8 @@ bookmarkView cfg ({ name, query } as bookmark) =
                 |> (++) cfg.session.clientUrl
                 |> href
             ]
-            [ text name ]
+            [ text name
+            ]
         , button
             [ type_ "button"
             , class "btn btn-sm btn-danger"
