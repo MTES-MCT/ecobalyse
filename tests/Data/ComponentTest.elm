@@ -433,6 +433,34 @@ suite =
                         (Expect.equal component.name "custom name")
                     ]
                 )
+            , TestUtils.suiteFromResult "itemToString"
+                -- setup
+                ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                      "quantity": 1,
+                      "custom": {
+                        "name": "Custom piece",
+                        "elements": [
+                          {
+                            "amount": 0.00044,
+                            "material": "07e9e916-e02b-45e2-a298-2b5084de6242"
+                          },
+                          {
+                            "amount": 0.00088,
+                            "material": "3295b2a5-328a-4c00-b046-e2ddeb0da823"
+                          }
+                        ]
+                      }
+                    }"""
+                    |> decodeJsonThen Component.decodeItem (Component.itemToString db)
+                )
+                -- tests
+                (\string ->
+                    [ it "should serialise an item as a human readable string representation"
+                        (Expect.equal string
+                            "1 Custom piece [ 0.00044m3 Planche (bois de feuillus) | 0.00088kg Composant en plastique (PP) ]"
+                        )
+                    ]
+                )
             , TestUtils.suiteFromResult2 "removeElement"
                 -- Tissu pour canapé
                 (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
