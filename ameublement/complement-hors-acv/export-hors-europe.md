@@ -32,11 +32,11 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 <details>
 
-<summary>3) <strong>Le secteur de l'ameublement constitue un débouché des filières bois</strong> </summary>
+<summary>3) <strong>Le marché français : un débouché clé pour les filières bois</strong> </summary>
 
-Concernant la dégradation des forêts, tout bois utilisé dans l'Ameublement peut provenir de forêts participant à leur dégradation ("gestion intensive").&#x20;
+Plusieurs secteurs d'activité français (ameublement, construction, jouets, etc.) constituent un débouché pour les filières bois à travers le monde.&#x20;
 
-Sur la déforestation, quelques approvisionnements en bois peuvent participer à la déforestation. Cependant, il est à noter que le secteur de l'ameublement participe peu à la déforestation à l'échelle mondiale (90% de cette dernière provenant de l'expansion de l'agriculture / source[^2]).
+Le secteur Ameublement constitue une filière nationale de premier plan dans la consommation de bois. Tout bois utilisé sur ce secteur peut provenir de forêts participant à leur dégradation ("gestion intensive"). Concernant la déforestation, quelques approvisionnements en bois d'ameublement peuvent être concernés. Cependant, il est à noter que le secteur de l'ameublement participe peu à la déforestation à l'échelle mondiale (90% de cette dernière provenant de l'expansion de l'agriculture / source[^2]).
 
 {% hint style="info" %}
 Le bois fait partie des quelques produits de base consommés au sein de l'UE et participant à la déforestation. Il se classe 3ème (9% de la déforestation dont l'UE est responsable provient du bois) après l'huile de plame (34%) et le soja (33%)
@@ -50,9 +50,34 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 <details>
 
+<summary>Impact Biodiversité (BIO)</summary>
+
+Ce paramètre vise aussi à préciser la probabilité que le bois soit issu de pratiques forestières non durables. Ce paramètre est spécifique à une origine (ex : Cameroun, Asie du Sud-Est, etc.) et une essence (ex : bois exotiques, chêne, etc.).&#x20;
+
+3 modes d'exploitation forestière sont proposés :&#x20;
+
+* Intensive
+* Mitigée
+* Raisonnée
+
+Le niveau d'exploitation forestière est estimé sur la base de deux critères :&#x20;
+
+* l'intensité des coupes (ex : 80 m3 / ha),
+* la durée de rotation (ex : 20 années).
+
+Un **coefficient d'exploitation forestière (EXP)** , exprimé en Pts d'impact / kg de bois, est affecté à chaque niveau :&#x20;
+
+| Intensive                           | Mitigée                             | Raisonnée                         |
+| ----------------------------------- | ----------------------------------- | --------------------------------- |
+| <mark style="color:red;">100</mark> | <mark style="color:red;">50</mark>  | <mark style="color:red;">0</mark> |
+
+</details>
+
+<details>
+
 <summary>Indice Corruption (COR) </summary>
 
-Ce paramètre vise à préciser la probabilité que le bois soit issu de pratiques forestières non durables. Ce paramètre est spécifique à une origine (pays ou région).
+Ce paramètre vise pénaliser les pratiques forestières considérées pour chaque bois selon le niveau de corruption du pays. Ce paramètre est donc spécifique à une origine (pays ou région).
 
 Plus le niveau de corruption est élevée, plus faible est la probabilité que le bois soit issu d'une forêt gérée durablement. Le niveau de corruption est estimé grâce au _Corruption Perception Index (score CPI)_ développé par Transparency International (cf. ci-dessous).
 
@@ -64,11 +89,11 @@ Plus le niveau de corruption est élevée, plus faible est la probabilité que l
 
 * Faible (score CP au moins égal à 60)
 
-Pour chaque niveau, un **coefficient de corruption (COR)** est utilisé dans la méthode :&#x20;
+Pour chaque niveau, un **coefficient de corruption (COR)** est appliqué; ce dernier vient préciser l'impact Biodiversité (BIO) du bois :&#x20;
 
-| Elevé | Moyen | Faible |
-| ----- | ----- | ------ |
-| 100%  | 50%   | 0%     |
+| Elevé                                | Moyen                                | Faible                             |
+| ------------------------------------ | ------------------------------------ | ---------------------------------- |
+| <mark style="color:red;">+50%</mark> | <mark style="color:red;">+25%</mark> | <mark style="color:red;">0%</mark> |
 
 
 
@@ -84,55 +109,11 @@ Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de c
 
 <details>
 
-<summary>Exploitation Forestière (EXP)</summary>
-
-Ce paramètre vise aussi à préciser la probabilité que le bois soit issu de pratiques forestières non durables. Ce paramètre est spécifique à une origine (ex : Cameroun, Asie du Sud-Est, etc.) et une essence (ex : bois exotiques, chêne, etc.).&#x20;
-
-3 modes d'exploitation forestière sont proposés :&#x20;
-
-* Intensive
-* Mitigée
-* Raisonnée
-
-Le niveau d'exploitation forestière est estimé sur la base de deux critères :&#x20;
-
-* l'intensité des coupes (ex : 80 m3 / ha),
-* la durée de rotation (ex : 20 années).
-
-Un **coefficient d'exploitation forestière (EXP)** est affecté à chaque niveau :&#x20;
-
-| Intensive | Mitigée | Raisonnée |
-| --------- | ------- | --------- |
-| 100%      | 50%     | 0%        |
-
-</details>
-
-<details>
-
 <summary>Certifications / Label (optionnel)</summary>
 
-Les certifications FSC et PEFC permettent de préciser le paramètre EXP (Exploitation Forestière).&#x20;
+Les certifications FSC et PEFC permettent de préciser/réduire l'impact Biodiversité (BIO) du bois de <mark style="color:red;">-50%</mark>.&#x20;
 
 </details>
-
-## Matérialité du complément
-
-<mark style="color:red;">A définir lorsque le cyle de vie Ameublement sera modélisé</mark>
-
-Un coefficient (`Coef`), exprimé en micropoints d'impacts par kg de bois (`microPts/kg`).
-
-Ce coefficient reflète l'impact sur la biodiversité d'un bois issu d'un pays où :&#x20;
-
-* la corruption est élevée (CPI < 30),
-* les pratiques forestières sont majoritarirement intensives (c'est à dire ne permettant pas à la forêt de reconstituer naturellement le volume de bois prélevé). &#x20;
-
-La valeur de ce coefficient est fixée à :&#x20;
-
-$$
-Coef = xxx microPts / kg = 0,001 Pts/kg
-$$
-
-Grâce à l'utilisation de scénarios de référence spécifiques à chaque type de bois (`bois`) , ce coefficient (`Coef`) permet de calcul le complément Biodiversité<=>Bois (`Comp`).
 
 ## Scénarios de référence
 
@@ -181,11 +162,11 @@ Ensuite, pour chaque approvisionnement à risque, des valeurs par défaut sont d
 
 Ces valeurs par défaut reflètent les pratiques auxquelles il faut s'attendre dans ces régions en l'absence de toute stratégie d'écoconception :&#x20;
 
-<div align="left"><figure><img src="../../.gitbook/assets/image (338).png" alt=""><figcaption><p>Scénarios pour les approvisionnements listés et connus par l'utilisateur</p></figcaption></figure></div>
+<figure><img src="../../.gitbook/assets/image (349).png" alt=""><figcaption></figcaption></figure>
 
 Afin de couvrir toutes les configurations possibles, deux scénarios additionnels sont proposés dans l'interface Ecobalyse :&#x20;
 
-<div align="left"><figure><img src="../../.gitbook/assets/image (339).png" alt=""><figcaption><p>Autres scénarios  (origine Inconnue ou Non listée)</p></figcaption></figure></div>
+<figure><img src="../../.gitbook/assets/image (348).png" alt=""><figcaption></figcaption></figure>
 
 * **Inconnue** : lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant produit le bois, l'origine "Inconnue" est proposée . Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
 * **Autres** : Lorsque l'origine n'est pas proposée, l'origine "Autre" est proposée. Etant donné que des pratiques forestières intensives peuvent avoir lieu dans n'importe quel pays, il est proposé par défaut un scénario "Mitigée" pour le paramètre EXP (Exploitation forestière).&#x20;
@@ -193,40 +174,19 @@ Afin de couvrir toutes les configurations possibles, deux scénarios additionnel
 {% hint style="success" %}
 **Votre bois est certifié FSC ou PEFC ?**
 
-Si le bois bénéficie d'une certification faisant partie de la liste ci-dessous,  le paramètre Exploitation Forestière se voit attribuer la valeur "Raisonnée". &#x20;
-
-![](<../../.gitbook/assets/image (340).png>)
+Si le bois bénéficie d'une certification faisant partie de la liste ci-dessous,  l'impact Biodiversité est réduit de -25%. &#x20;
 {% endhint %}
-
-### **Etape 2 = Pondération des paramètres**
-
-Une pondération des paramètres (COR et EXP) est proposée.
-
-<table data-full-width="false"><thead><tr><th width="159.22222900390625"></th><th>Indice de corruption (COR)</th><th>Exploitation forestière (EXP)</th></tr></thead><tbody><tr><td>Pondération</td><td>30%</td><td>70%</td></tr></tbody></table>
-
-### **Etape 3 = Définition des valeurs de référence**&#x20;
-
-Dès lors, chaque approvisionnement/bois (`bois`) peut se voit attribuer une valeur de référence (`Ref`) grâce aux coefficients COR (Indice de corruption) et EXP (Exploitation forestière) selon la formule suivante :&#x20;
-
-$$
-Ref (bois) = (0,3*COR + 0,7*EXP) / 100
-$$
-
-:bulb: _Plus la valeur de référence (Ref) est élevée, plus élevé sera l'impact Biodiversité du bois._&#x20;
-
-<figure><img src="../../.gitbook/assets/image (342).png" alt=""><figcaption><p>Calcul des valeurs de référence (Ref) selon les différents approvisionnement (bois) proposés dans Ecobalyse</p></figcaption></figure>
 
 ## Calcul du complément
 
 $$
-Comp =  \sum Ref(bois) * Compo(f) * masse*Coef
+Comp =  \sum Ref(bois) * Compo(f) * masse
 $$
 
 Avec : \
-\- `Ref(bois)` = % = valeur de référence spécifique à chaque approvisionnement/bois (`appro`),\
-\-  `Compo(bois)` = % = part du bois (`bois`) entrant dans la composition du meuble, \
-\-  `masse` = kg = masse du meuble, \
-\- `Coef` = micro-points = matérialité du complément (<mark style="color:red;">xxx</mark> micro-points)
+\- `Ref(bois)` = Pt d'impacts / kg de bois = impact biodiversité de chaque bois/approvisionnement (`bois`),\
+\-  `Compo(bois)` = % = Part du bois (`bois`) entrant dans la composition du meuble, \
+\-  `masse` = kg = masse du meuble,&#x20;
 
 
 
