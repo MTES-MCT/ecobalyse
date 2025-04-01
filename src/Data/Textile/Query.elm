@@ -108,11 +108,11 @@ addTrim id query =
 
 
 removeTrim : Int -> Query -> Query
-removeTrim componentIndex ({ trims } as query) =
+removeTrim itemIndex ({ trims } as query) =
     { query
         | trims =
             trims
-                |> LE.removeAt componentIndex
+                |> LE.removeAt itemIndex
     }
 
 

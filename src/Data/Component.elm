@@ -147,14 +147,14 @@ type Results
 {-| Add a new element, defined by a required material process, to an item.
 -}
 addElement : Component -> Int -> Process -> List Item -> Result String (List Item)
-addElement component componentIndex material items =
+addElement component itemIndex material items =
     if not <| List.member Category.Material material.categories then
         Err "L'ajout d'un élément ne peut se faire qu'à partir d'un procédé matière"
 
     else
         items
             |> updateItemCustom component
-                componentIndex
+                itemIndex
                 (\custom ->
                     { custom
                         | elements =
@@ -166,14 +166,14 @@ addElement component componentIndex material items =
 
 
 addElementTransform : Component -> Int -> Int -> Process -> List Item -> Result String (List Item)
-addElementTransform component componentIndex elementIndex transform items =
+addElementTransform component itemIndex elementIndex transform items =
     if not <| List.member Category.Transform transform.categories then
         Err "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
 
     else
         items
             |> updateElement component
-                componentIndex
+                itemIndex
                 elementIndex
                 (\el -> { el | transforms = el.transforms ++ [ transform.id ] })
             |> Ok
@@ -655,9 +655,9 @@ extractMass (Results { mass }) =
 {-| Remove an element from an item
 -}
 removeElement : Component -> Int -> Int -> List Item -> Result String (List Item)
-removeElement component componentIndex elementIndex =
+removeElement component itemIndex elementIndex =
     updateItemCustom component
-        componentIndex
+        itemIndex
         (\custom ->
             { custom
                 | elements =
@@ -668,20 +668,20 @@ removeElement component componentIndex elementIndex =
 
 
 removeElementTransform : Component -> Int -> Int -> Int -> List Item -> List Item
-removeElementTransform component componentIndex elementIndex transformIndex =
-    updateElement component componentIndex elementIndex <|
+removeElementTransform component itemIndex elementIndex transformIndex =
+    updateElement component itemIndex elementIndex <|
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
 setElementMaterial : Component -> Int -> Int -> Process -> List Item -> Result String (List Item)
-setElementMaterial component componentIndex elementIndex material items =
+setElementMaterial component itemIndex elementIndex material items =
     if not <| List.member Category.Material material.categories then
         Err "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
 
     else
         items
             |> updateElement component
-                componentIndex
+                itemIndex
                 elementIndex
                 (\el -> { el | material = material.id })
             |> Ok
@@ -717,8 +717,8 @@ updateCustomElement component index update =
 
 
 updateElement : Component -> Int -> Int -> (Element -> Element) -> List Item -> List Item
-updateElement component componentIndex elementIndex update =
-    updateItem componentIndex <|
+updateElement component itemIndex elementIndex update =
+    updateItem itemIndex <|
         \item ->
             { item
                 | custom =
@@ -728,8 +728,8 @@ updateElement component componentIndex elementIndex update =
 
 
 updateItemCustom : Component -> Int -> (Custom -> Custom) -> List Item -> List Item
-updateItemCustom component componentIndex fn =
-    updateItem componentIndex <|
+updateItemCustom component itemIndex fn =
+    updateItem itemIndex <|
         \item ->
             { item
                 | custom =
@@ -739,14 +739,14 @@ updateItemCustom component componentIndex fn =
 
 
 updateItemCustomName : Component -> Int -> String -> List Item -> List Item
-updateItemCustomName component componentIndex name =
-    updateItemCustom component componentIndex <|
+updateItemCustomName component itemIndex name =
+    updateItemCustom component itemIndex <|
         \custom -> { custom | name = Just name }
 
 
 updateItem : Int -> (Item -> Item) -> List Item -> List Item
-updateItem componentIndex =
-    LE.updateAt componentIndex
+updateItem itemIndex =
+    LE.updateAt itemIndex
 
 
 validateItem : List Component -> Item -> Result String Item

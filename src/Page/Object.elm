@@ -257,14 +257,14 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddComponent _, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteAddProcess processType component componentIndex maybeIndex autocompleteMsg, SelectProcessModal _ _ _ _ autocompleteState ) ->
+        ( OnAutocompleteAddProcess processType component itemIndex maybeIndex autocompleteMsg, SelectProcessModal _ _ _ _ autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = SelectProcessModal processType component componentIndex maybeIndex newAutocompleteState }
+            ( { model | modal = SelectProcessModal processType component itemIndex maybeIndex newAutocompleteState }
             , session
-            , Cmd.map (OnAutocompleteAddProcess processType component componentIndex maybeIndex) autoCompleteCmd
+            , Cmd.map (OnAutocompleteAddProcess processType component itemIndex maybeIndex) autoCompleteCmd
             )
 
         ( OnAutocompleteAddProcess _ _ _ _ _, _ ) ->
@@ -297,9 +297,9 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteSelectComponent, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteSelectProcess processType component componentIndex elementIndex, SelectProcessModal _ _ _ _ autocompleteState ) ->
+        ( OnAutocompleteSelectProcess processType component itemIndex elementIndex, SelectProcessModal _ _ _ _ autocompleteState ) ->
             ( model, session, Cmd.none )
-                |> selectProcess processType component componentIndex elementIndex autocompleteState query
+                |> selectProcess processType component itemIndex elementIndex autocompleteState query
 
         ( OnAutocompleteSelectProcess _ _ _ _, _ ) ->
             ( model, session, Cmd.none )
@@ -310,21 +310,21 @@ update ({ navKey } as session) msg model =
             , Cmd.none
             )
 
-        ( RemoveComponentItem componentIndex, _ ) ->
+        ( RemoveComponentItem itemIndex, _ ) ->
             ( { model | detailedComponents = [] }, session, Cmd.none )
-                |> updateQuery (Query.removeComponent componentIndex query)
+                |> updateQuery (Query.removeComponent itemIndex query)
 
-        ( RemoveElement component componentIndex elementIndex, _ ) ->
-            case Query.removeElement component componentIndex elementIndex query of
+        ( RemoveElement component itemIndex elementIndex, _ ) ->
+            case Query.removeElement component itemIndex elementIndex query of
                 Err err ->
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 
                 Ok query_ ->
                     updateQuery query_ ( model, session, Cmd.none )
 
-        ( RemoveElementTransform component componentIndex elementIndex transformIndex, _ ) ->
+        ( RemoveElementTransform component itemIndex elementIndex transformIndex, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.removeElementTransform component componentIndex elementIndex transformIndex query)
+                |> updateQuery (Query.removeElementTransform component itemIndex elementIndex transformIndex query)
 
         ( SaveBookmark, _ ) ->
             ( model
@@ -417,20 +417,20 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        ( UpdateComponentItemName component componentIndex name, _ ) ->
+        ( UpdateComponentItemName component itemIndex name, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateComponentItemName component componentIndex name query)
+                |> updateQuery (Query.updateComponentItemName component itemIndex name query)
 
-        ( UpdateComponentItemQuantity componentIndex quantity, _ ) ->
+        ( UpdateComponentItemQuantity itemIndex quantity, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateComponentItemQuantity componentIndex quantity query)
+                |> updateQuery (Query.updateComponentItemQuantity itemIndex quantity query)
 
         ( UpdateElementAmount _ _ _ Nothing, _ ) ->
             ( model, session, Cmd.none )
 
-        ( UpdateElementAmount component componentIndex elementIndex (Just amount), _ ) ->
+        ( UpdateElementAmount component itemIndex elementIndex (Just amount), _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateElementAmount component componentIndex elementIndex amount query)
+                |> updateQuery (Query.updateElementAmount component itemIndex elementIndex amount query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -470,7 +470,7 @@ selectComponent query autocompleteState ( model, session, _ ) =
 
 
 selectProcess : Category -> Component -> Int -> Maybe Int -> Autocomplete Process -> Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectProcess processType component componentIndex maybeElementIndex autocompleteState query ( model, session, _ ) =
+selectProcess processType component itemIndex maybeElementIndex autocompleteState query ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             let
@@ -479,15 +479,15 @@ selectProcess processType component componentIndex maybeElementIndex autocomplet
                         Category.Material ->
                             case maybeElementIndex of
                                 Just elementIndex ->
-                                    query |> Query.setElementMaterial component componentIndex elementIndex process
+                                    query |> Query.setElementMaterial component itemIndex elementIndex process
 
                                 Nothing ->
-                                    query |> Query.addElement component componentIndex process
+                                    query |> Query.addElement component itemIndex process
 
                         Category.Transform ->
                             case maybeElementIndex of
                                 Just elementIndex ->
-                                    query |> Query.addElementTransform component componentIndex elementIndex process
+                                    query |> Query.addElementTransform component itemIndex elementIndex process
 
                                 Nothing ->
                                     Err <| "Un procédé de transformation de peut être ajouté qu'à un élément existant"
@@ -651,7 +651,7 @@ view session model =
                         , toCategory = Example.toCategory model.examples
                         }
 
-                SelectProcessModal processType component componentIndex maybeElementIndex autocompleteState ->
+                SelectProcessModal processType component itemIndex maybeElementIndex autocompleteState ->
                     let
                         ( placeholderText, title ) =
                             case processType of
@@ -675,8 +675,8 @@ view session model =
                         , closeModal = SetModal NoModal
                         , footer = []
                         , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteAddProcess processType component componentIndex maybeElementIndex
-                        , onAutocompleteSelect = OnAutocompleteSelectProcess processType component componentIndex maybeElementIndex
+                        , onAutocomplete = OnAutocompleteAddProcess processType component itemIndex maybeElementIndex
+                        , onAutocompleteSelect = OnAutocompleteSelectProcess processType component itemIndex maybeElementIndex
                         , placeholderText = placeholderText
                         , title = title
                         , toLabel = Process.getDisplayName

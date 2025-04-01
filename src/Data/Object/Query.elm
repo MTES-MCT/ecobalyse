@@ -74,76 +74,76 @@ addComponentItem id query =
 
 
 addElement : Component -> Int -> Process -> Query -> Result String Query
-addElement component componentIndex material query =
+addElement component itemIndex material query =
     query.components
-        |> Component.addElement component componentIndex material
+        |> Component.addElement component itemIndex material
         |> Result.map (\components -> { query | components = components })
 
 
 addElementTransform : Component -> Int -> Int -> Process -> Query -> Result String Query
-addElementTransform component componentIndex elementIndex transform query =
+addElementTransform component itemIndex elementIndex transform query =
     query.components
-        |> Component.addElementTransform component componentIndex elementIndex transform
+        |> Component.addElementTransform component itemIndex elementIndex transform
         |> Result.map (\components -> { query | components = components })
 
 
 removeComponent : Int -> Query -> Query
-removeComponent componentIndex ({ components } as query) =
+removeComponent itemIndex ({ components } as query) =
     { query
         | components =
             components
-                |> LE.removeAt componentIndex
+                |> LE.removeAt itemIndex
     }
 
 
 removeElement : Component -> Int -> Int -> Query -> Result String Query
-removeElement component componentIndex elementIndex query =
+removeElement component itemIndex elementIndex query =
     query.components
-        |> Component.removeElement component componentIndex elementIndex
+        |> Component.removeElement component itemIndex elementIndex
         |> Result.map (\components -> { query | components = components })
 
 
 removeElementTransform : Component -> Int -> Int -> Int -> Query -> Query
-removeElementTransform component componentIndex elementIndex transformIndex query =
+removeElementTransform component itemIndex elementIndex transformIndex query =
     { query
         | components =
             query.components
-                |> Component.removeElementTransform component componentIndex elementIndex transformIndex
+                |> Component.removeElementTransform component itemIndex elementIndex transformIndex
     }
 
 
 setElementMaterial : Component -> Int -> Int -> Process -> Query -> Result String Query
-setElementMaterial component componentIndex elementIndex material query =
+setElementMaterial component itemIndex elementIndex material query =
     query.components
-        |> Component.setElementMaterial component componentIndex elementIndex material
+        |> Component.setElementMaterial component itemIndex elementIndex material
         |> Result.map (\components -> { query | components = components })
 
 
 updateComponentItemName : Component -> Int -> String -> Query -> Query
-updateComponentItemName component componentIndex name query =
+updateComponentItemName component itemIndex name query =
     { query
         | components =
             query.components
-                |> Component.updateItemCustomName component componentIndex name
+                |> Component.updateItemCustomName component itemIndex name
     }
 
 
 updateComponentItemQuantity : Int -> Component.Quantity -> Query -> Query
-updateComponentItemQuantity componentIndex quantity query =
+updateComponentItemQuantity itemIndex quantity query =
     { query
         | components =
             query.components
-                |> Component.updateItem componentIndex (\item -> { item | quantity = quantity })
+                |> Component.updateItem itemIndex (\item -> { item | quantity = quantity })
     }
 
 
 updateElementAmount : Component -> Int -> Int -> Component.Amount -> Query -> Query
-updateElementAmount component componentIndex elementIndex amount query =
+updateElementAmount component itemIndex elementIndex amount query =
     { query
         | components =
             query.components
                 |> Component.updateElement component
-                    componentIndex
+                    itemIndex
                     elementIndex
                     (\el -> { el | amount = amount })
     }

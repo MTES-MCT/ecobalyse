@@ -68,7 +68,7 @@ addComponentButton { addLabel, db, openSelectComponentModal, scope } =
 
 
 addElementButton : Config db msg -> Component -> Int -> Html msg
-addElementButton { db, openSelectProcessModal } component componentIndex =
+addElementButton { db, openSelectProcessModal } component itemIndex =
     button
         [ class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
@@ -77,8 +77,8 @@ addElementButton { db, openSelectProcessModal } component componentIndex =
             |> Process.listByCategory Category.Material
             |> List.sortBy Process.getDisplayName
             |> AutocompleteSelector.init .name
-            -- FIXME: not 0 for componentIndex
-            |> openSelectProcessModal Category.Material component componentIndex Nothing
+            -- FIXME: not 0 for itemIndex
+            |> openSelectProcessModal Category.Material component itemIndex Nothing
             |> onClick
         ]
         [ Icon.puzzle
@@ -87,7 +87,7 @@ addElementButton { db, openSelectProcessModal } component componentIndex =
 
 
 addElementTransformButton : Config db msg -> Component -> Int -> Int -> Html msg
-addElementTransformButton { db, openSelectProcessModal } component componentIndex index =
+addElementTransformButton { db, openSelectProcessModal } component itemIndex index =
     let
         availableTransformProcesses =
             db.processes
@@ -109,7 +109,7 @@ addElementTransformButton { db, openSelectProcessModal } component componentInde
         , class "gap-1 w-100 p-0 pb-1"
         , disabled <| List.isEmpty availableTransformProcesses
         , autocompleteState
-            |> openSelectProcessModal Category.Transform component componentIndex (Just index)
+            |> openSelectProcessModal Category.Transform component itemIndex (Just index)
             |> onClick
         ]
         [ Icon.plus
@@ -118,11 +118,11 @@ addElementTransformButton { db, openSelectProcessModal } component componentInde
 
 
 componentView : Config db msg -> Int -> Item -> ( Quantity, Component, List ExpandedElement ) -> Results -> List (Html msg)
-componentView config componentIndex item ( quantity, component, expandedElements ) itemResults =
+componentView config itemIndex item ( quantity, component, expandedElements ) itemResults =
     let
         collapsed =
             config.detailed
-                |> List.member componentIndex
+                |> List.member itemIndex
                 |> not
     in
     List.concat
@@ -134,11 +134,11 @@ componentView config componentIndex item ( quantity, component, expandedElements
                                 [ class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
                                 , onClick <|
                                     config.setDetailed <|
-                                        if collapsed && not (List.member componentIndex config.detailed) then
-                                            LE.unique <| componentIndex :: config.detailed
+                                        if collapsed && not (List.member itemIndex config.detailed) then
+                                            LE.unique <| itemIndex :: config.detailed
 
                                         else
-                                            List.filter ((/=) componentIndex) config.detailed
+                                            List.filter ((/=) itemIndex) config.detailed
                                 ]
                                 [ if collapsed then
                                     text "▶"
@@ -151,13 +151,13 @@ componentView config componentIndex item ( quantity, component, expandedElements
                             text ""
                         ]
                     , td [ class "ps-0 py-2 align-middle" ]
-                        [ quantity |> quantityInput config componentIndex ]
+                        [ quantity |> quantityInput config itemIndex ]
                     , td [ class "align-middle text-truncate w-100", colspan 2 ]
                         [ if config.customizable then
                             input
                                 [ type_ "text"
                                 , class "form-control"
-                                , onInput (config.updateItemName component componentIndex)
+                                , onInput (config.updateItemName component itemIndex)
                                 , placeholder "Nom du composant"
                                 , item.custom
                                     |> Maybe.andThen .name
@@ -180,7 +180,7 @@ componentView config componentIndex item ( quantity, component, expandedElements
                     , td [ class "pe-3 text-end align-middle text-nowrap" ]
                         [ button
                             [ class "btn btn-outline-secondary"
-                            , onClick (config.removeItem componentIndex)
+                            , onClick (config.removeItem itemIndex)
                             ]
                             [ Icon.trash ]
                         ]
@@ -189,7 +189,7 @@ componentView config componentIndex item ( quantity, component, expandedElements
           ]
         , if not collapsed then
             List.map3
-                (elementView config component componentIndex)
+                (elementView config component itemIndex)
                 (List.range 0 (List.length expandedElements - 1))
                 expandedElements
                 (Component.extractItems itemResults)
@@ -201,7 +201,7 @@ componentView config componentIndex item ( quantity, component, expandedElements
             [ tbody []
                 [ tr [ class "border-top" ]
                     [ td [ colspan 7, class "pe-3" ]
-                        [ addElementButton config component componentIndex
+                        [ addElementButton config component itemIndex
                         ]
                     ]
                 ]
@@ -309,7 +309,7 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
 
 
 amountInput : Config db msg -> Component -> Int -> Int -> String -> Amount -> Html msg
-amountInput config component componentIndex elementIndex unit amount =
+amountInput config component itemIndex elementIndex unit amount =
     div [ class "input-group" ]
         [ input
             [ type_ "number"
@@ -323,7 +323,7 @@ amountInput config component componentIndex elementIndex unit amount =
             , onInput <|
                 String.toFloat
                     >> Maybe.map Component.Amount
-                    >> config.updateElementAmount component componentIndex elementIndex
+                    >> config.updateElementAmount component itemIndex elementIndex
             ]
             []
         , small [ class "input-group-text fs-8" ]
@@ -332,7 +332,7 @@ amountInput config component componentIndex elementIndex unit amount =
 
 
 elementView : Config db msg -> Component -> Int -> Int -> ExpandedElement -> Results -> Html msg
-elementView config component componentIndex elementIndex { amount, material, transforms } elementResults =
+elementView config component itemIndex elementIndex { amount, material, transforms } elementResults =
     let
         ( materialResults, transformsResults ) =
             case Component.extractItems elementResults of
@@ -358,13 +358,13 @@ elementView config component componentIndex elementIndex { amount, material, tra
             , th [ class "align-middle", scope "col" ] [ text "Impact" ]
             , th [ class "align-middle", scope "col" ] []
             ]
-            :: elementMaterialView config component componentIndex elementIndex materialResults material amount
-            :: elementTransformsView config component componentIndex elementIndex transformsResults transforms
+            :: elementMaterialView config component itemIndex elementIndex materialResults material amount
+            :: elementTransformsView config component itemIndex elementIndex transformsResults transforms
             ++ (if List.member config.scope [ Scope.Object, Scope.Veli ] then
                     [ tr []
                         [ td [ colspan 2 ] []
                         , td [ colspan 5 ]
-                            [ addElementTransformButton config component componentIndex elementIndex
+                            [ addElementTransformButton config component itemIndex elementIndex
                             ]
                         ]
                     ]
@@ -376,7 +376,7 @@ elementView config component componentIndex elementIndex { amount, material, tra
 
 
 selectMaterialButton : Config db msg -> Component -> Int -> Int -> Process -> Html msg
-selectMaterialButton { db, openSelectProcessModal } component componentIndex elementIndex material =
+selectMaterialButton { db, openSelectProcessModal } component itemIndex elementIndex material =
     let
         availableMaterialProcesses =
             db.processes
@@ -389,7 +389,7 @@ selectMaterialButton { db, openSelectProcessModal } component componentIndex ele
     button
         [ class "btn btn-sm btn-link text-decoration-none p-0"
         , autocompleteState
-            |> openSelectProcessModal Category.Material component componentIndex (Just elementIndex)
+            |> openSelectProcessModal Category.Material component itemIndex (Just elementIndex)
             |> onClick
         ]
         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
@@ -398,7 +398,7 @@ selectMaterialButton { db, openSelectProcessModal } component componentIndex ele
 
 
 elementMaterialView : Config db msg -> Component -> Int -> Int -> Results -> Process -> Amount -> Html msg
-elementMaterialView config component componentIndex elementIndex materialResults material amount =
+elementMaterialView config component itemIndex elementIndex materialResults material amount =
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
@@ -408,10 +408,10 @@ elementMaterialView config component componentIndex elementIndex materialResults
                     |> Format.formatRichFloat 3 material.unit
 
               else
-                amountInput config component componentIndex elementIndex material.unit amount
+                amountInput config component itemIndex elementIndex material.unit amount
             ]
         , td [ class "align-middle text-truncate w-100", title material.name ]
-            [ selectMaterialButton config component componentIndex elementIndex material
+            [ selectMaterialButton config component itemIndex elementIndex material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
             []
@@ -424,7 +424,7 @@ elementMaterialView config component componentIndex elementIndex materialResults
         , td [ class "pe-3  text-nowrap" ]
             [ button
                 [ class "btn btn-sm btn-outline-secondary"
-                , onClick (config.removeElement component componentIndex elementIndex)
+                , onClick (config.removeElement component itemIndex elementIndex)
                 ]
                 [ Icon.trash ]
             ]
@@ -432,7 +432,7 @@ elementMaterialView config component componentIndex elementIndex materialResults
 
 
 elementTransformsView : Config db msg -> Component -> Int -> Int -> List Results -> List Process -> List (Html msg)
-elementTransformsView config component componentIndex elementIndex transformsResults transforms =
+elementTransformsView config component itemIndex elementIndex transformsResults transforms =
     List.map3
         (\transformIndex transformResult transform ->
             tr [ class "fs-7" ]
@@ -461,7 +461,7 @@ elementTransformsView config component componentIndex elementIndex transformsRes
                     [ button
                         [ class "btn btn-sm btn-outline-secondary"
                         , transformIndex
-                            |> config.removeElementTransform component componentIndex elementIndex
+                            |> config.removeElementTransform component itemIndex elementIndex
                             |> onClick
                         ]
                         [ Icon.trash ]
@@ -474,7 +474,7 @@ elementTransformsView config component componentIndex elementIndex transformsRes
 
 
 quantityInput : Config db msg -> Int -> Quantity -> Html msg
-quantityInput config componentIndex quantity =
+quantityInput config itemIndex quantity =
     div [ class "input-group", style "width" "130px" ]
         [ input
             [ type_ "number"
@@ -493,7 +493,7 @@ quantityInput config componentIndex quantity =
                                 else
                                     Nothing
                             )
-                        |> Maybe.map (Component.quantityFromInt >> config.updateItemQuantity componentIndex)
+                        |> Maybe.map (Component.quantityFromInt >> config.updateItemQuantity itemIndex)
                         |> Maybe.withDefault config.noOp
             ]
             []
