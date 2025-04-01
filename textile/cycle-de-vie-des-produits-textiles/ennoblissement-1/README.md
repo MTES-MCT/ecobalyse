@@ -100,73 +100,7 @@ Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimique
 
 Certains apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy care_ pour le coton) tandis que d'autres ont une application plus générale (ex : les adoucissants).
 
-### <mark style="color:red;">Procédés mobilisés</mark>
-
-{% hint style="danger" %}
-Partie redondante avec le "en savoir plus"⇒ A fusionner, en identifiant bien chaque procédé listé dans les tableau "paramètre"
-
-Dans la partie "méthode de calcul", j'ai précisé les processus utilisés dans le calcul, sans répéter ce à quoi ils font référence.
-{% endhint %}
-
-{% hint style="danger" %}
-Je recommanderais d'éviter autant que possible le terme "procédé", qui peut faire référence au processus de fabrication ou aux ICV utilisés.
-{% endhint %}
-
-<details>
-
-<summary>Pré-traitement (3 procédés mobilisés)</summary>
-
-* Dégraissage ou Débouillissage (scouring)\
-  Consiste à éliminer les impuretés naturelles et graisses des fibres naturelles afin de rendre les fibres perméables au processus aval (blanchiment, teinture, etc.).&#x20;
-* Blanchiment (bleaching)\
-  Consiste à éliminer les colorants naturels des fibres pour les rendre plus blanches et hydrophiles.
-
-- Lavage (washing)\
-  Consiste à éliminer les agents de préparation présentes sur le fil synthétique.&#x20;
-
-
-
-Les deux procédés suivants ne sont pas mobilisés dans la méthode de calcul&#x20;
-
-* Désencollage (desizing)\
-  Consiste à apprêter les fibres avec des produits appropriés (amidon, agents mouillants et lubrifiants) avant l'étape de tissage, puis à les retirer après la réalisation du tissu.
-
-- Mercerisage (mercerising)\
-  Consiste à améliorer la résistance à la traction, la stabilité dimensionnelle et la brillance du coton. Permet aussi d'améliorer la montée du colorant lors de la teinture.
-
-</details>
-
-<details>
-
-<summary>Teinture (3 procédés)</summary>
-
-* teinture en discontinu (batch dyeing)\
-  Egalement appelée teinture par épuisement ce procédé consiste à tremper la matière dans une solution aqueuse contenant des colorants et produits auxiliaires (bain de teinture) pendant une période allant de quelques minutes à quelques heures.
-* teinture en continu (continuous dyeing)\
-  Consiste à appliquer le bain de teinture soit par imprégnation (au moyen de foulards) soit en utilisant d'autres systèmes d'application. Permet d'obtenir des hauts rendements.&#x20;
-* teinture moyenne (average dyeing)\
-  Cette teinture résulte de la moyenne entre les deux ci-dessus. Elle est mobilisée par défaut dans la calculette.
-
-Pour plus d'info sur ces procédés, cf. la section ci-dessous En savoir plus sur l'ennoblissement.
-
-</details>
-
-<details>
-
-<summary>Finition (1 procédé par défaut)</summary>
-
-* Finition (apprêts chimiques, en continue)&#x20;
-
-</details>
-
-<details>
-
-<summary>Impression</summary>
-
-* Impression pigmentaire,
-* Impression fixé-lavé.
-
-</details>
+###
 
 ## Méthodologie de calcul
 
@@ -282,7 +216,7 @@ La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la 
 
 ### Consommations d'énergie (électricité et chaleur)
 
-Les consommations d'énergie (électricité et chaleur) sont renseignées dans l'Explorateur de procédés, avec le nom de ceux utilisés dans cette page.
+Les consommations d'énergie (électricité et chaleur) sont renseignées dans l'[Explorateur de procédés](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), avec le nom de ceux utilisés dans cette page.
 
 {% hint style="info" %}
 Les valeurs retenues sont issues du rapport [BAT 2023](#user-content-fn-2)[^2]\*.&#x20;
