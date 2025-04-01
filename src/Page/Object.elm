@@ -64,7 +64,7 @@ type Modal
     | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
-    | SelectProcessModal Category Component (Maybe Int) (Autocomplete Process)
+    | SelectProcessModal Category Component Int (Maybe Int) (Autocomplete Process)
 
 
 type Msg
@@ -72,15 +72,15 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
-    | OnAutocompleteAddProcess Category Component (Maybe Int) (Autocomplete.Msg Process)
+    | OnAutocompleteAddProcess Category Component Int (Maybe Int) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
-    | OnAutocompleteSelectProcess Category Component (Maybe Int)
+    | OnAutocompleteSelectProcess Category Component Int (Maybe Int)
     | OpenComparator
     | RemoveComponentItem Component.Id
-    | RemoveElement Component Int
-    | RemoveElementTransform Component Int Int
+    | RemoveElement Component Int Int
+    | RemoveElementTransform Component Int Int Int
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
@@ -93,9 +93,9 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
-    | UpdateComponentItemName Component String
-    | UpdateComponentItemQuantity Component.Id Component.Quantity
-    | UpdateElementAmount Component Int (Maybe Component.Amount)
+    | UpdateComponentItemName Component Int String
+    | UpdateComponentItemQuantity Int Component.Quantity
+    | UpdateElementAmount Component Int Int (Maybe Component.Amount)
 
 
 init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
@@ -257,17 +257,17 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddComponent _, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteAddProcess processType component maybeIndex autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
+        ( OnAutocompleteAddProcess processType component componentIndex maybeIndex autocompleteMsg, SelectProcessModal _ _ _ _ autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = SelectProcessModal processType component maybeIndex newAutocompleteState }
+            ( { model | modal = SelectProcessModal processType component componentIndex maybeIndex newAutocompleteState }
             , session
-            , Cmd.map (OnAutocompleteAddProcess processType component maybeIndex) autoCompleteCmd
+            , Cmd.map (OnAutocompleteAddProcess processType component componentIndex maybeIndex) autoCompleteCmd
             )
 
-        ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
+        ( OnAutocompleteAddProcess _ _ _ _ _, _ ) ->
             ( model, session, Cmd.none )
 
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
@@ -297,11 +297,11 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteSelectComponent, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteSelectProcess processType component index, SelectProcessModal _ _ _ autocompleteState ) ->
+        ( OnAutocompleteSelectProcess processType component componentIndex elementIndex, SelectProcessModal _ _ _ _ autocompleteState ) ->
             ( model, session, Cmd.none )
-                |> selectProcess processType component index query autocompleteState
+                |> selectProcess processType component componentIndex elementIndex autocompleteState query
 
-        ( OnAutocompleteSelectProcess _ _ _, _ ) ->
+        ( OnAutocompleteSelectProcess _ _ _ _, _ ) ->
             ( model, session, Cmd.none )
 
         ( OpenComparator, _ ) ->
@@ -314,17 +314,17 @@ update ({ navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeComponent id query)
 
-        ( RemoveElement component index, _ ) ->
-            case Query.removeElement component index query of
+        ( RemoveElement component componentIndex elementIndex, _ ) ->
+            case Query.removeElement component componentIndex elementIndex query of
                 Err err ->
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 
                 Ok query_ ->
                     updateQuery query_ ( model, session, Cmd.none )
 
-        ( RemoveElementTransform component elementIndex transformIndex, _ ) ->
+        ( RemoveElementTransform component componentIndex elementIndex transformIndex, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.removeElementTransform component elementIndex transformIndex query)
+                |> updateQuery (Query.removeElementTransform component componentIndex elementIndex transformIndex query)
 
         ( SaveBookmark, _ ) ->
             ( model
@@ -417,20 +417,20 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             ( { model | bookmarkName = newName }, session, Cmd.none )
 
-        ( UpdateComponentItemName component name, _ ) ->
+        ( UpdateComponentItemName component componentIndex name, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateComponentItemName component name query)
+                |> updateQuery (Query.updateComponentItemName component componentIndex name query)
 
-        ( UpdateComponentItemQuantity id quantity, _ ) ->
+        ( UpdateComponentItemQuantity componentIndex quantity, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateComponentItemQuantity id quantity query)
+                |> updateQuery (Query.updateComponentItemQuantity componentIndex quantity query)
 
-        ( UpdateElementAmount _ _ Nothing, _ ) ->
+        ( UpdateElementAmount _ _ _ Nothing, _ ) ->
             ( model, session, Cmd.none )
 
-        ( UpdateElementAmount component index (Just amount), _ ) ->
+        ( UpdateElementAmount component componentIndex elementIndex (Just amount), _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateElementAmount component index amount query)
+                |> updateQuery (Query.updateElementAmount component componentIndex elementIndex amount query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -469,25 +469,25 @@ selectComponent query autocompleteState ( model, session, _ ) =
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
 
 
-selectProcess : Category -> Component -> Maybe Int -> Query -> Autocomplete Process -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectProcess processType component elementIndex query autocompleteState ( model, session, _ ) =
+selectProcess : Category -> Component -> Int -> Maybe Int -> Autocomplete Process -> Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectProcess processType component componentIndex maybeElementIndex autocompleteState query ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             let
                 updateResult =
                     case processType of
                         Category.Material ->
-                            case elementIndex of
-                                Just index ->
-                                    query |> Query.setElementMaterial component index process
+                            case maybeElementIndex of
+                                Just elementIndex ->
+                                    query |> Query.setElementMaterial component componentIndex elementIndex process
 
                                 Nothing ->
-                                    query |> Query.addElement component process
+                                    query |> Query.addElement component componentIndex process
 
                         Category.Transform ->
-                            case elementIndex of
-                                Just index ->
-                                    query |> Query.addElementTransform component index process
+                            case maybeElementIndex of
+                                Just elementIndex ->
+                                    query |> Query.addElementTransform component componentIndex elementIndex process
 
                                 Nothing ->
                                     Err <| "Un procédé de transformation de peut être ajouté qu'à un élément existant"
@@ -540,7 +540,10 @@ simulatorView session model =
                         |> .components
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
-                , openSelectProcessModal = \p c i s -> SelectProcessModal p c i s |> SetModal
+                , openSelectProcessModal =
+                    \p c ci ei s ->
+                        SelectProcessModal p c ci ei s
+                            |> SetModal
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
@@ -648,7 +651,7 @@ view session model =
                         , toCategory = Example.toCategory model.examples
                         }
 
-                SelectProcessModal processType component maybeIndex autocompleteState ->
+                SelectProcessModal processType component componentIndex maybeElementIndex autocompleteState ->
                     let
                         ( placeholderText, title ) =
                             case processType of
@@ -672,8 +675,8 @@ view session model =
                         , closeModal = SetModal NoModal
                         , footer = []
                         , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteAddProcess processType component maybeIndex
-                        , onAutocompleteSelect = OnAutocompleteSelectProcess processType component maybeIndex
+                        , onAutocomplete = OnAutocompleteAddProcess processType component componentIndex maybeElementIndex
+                        , onAutocompleteSelect = OnAutocompleteSelectProcess processType component componentIndex maybeElementIndex
                         , placeholderText = placeholderText
                         , title = title
                         , toLabel = Process.getDisplayName

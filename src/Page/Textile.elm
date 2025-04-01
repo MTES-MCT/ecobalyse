@@ -153,7 +153,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
-    | UpdateTrimQuantity Trim.Id Trim.Quantity
+    | UpdateTrimQuantity Int Trim.Quantity
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
@@ -643,9 +643,9 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | traceability = Just traceability }
 
-        ( UpdateTrimQuantity id quantity, _ ) ->
+        ( UpdateTrimQuantity trimIndex quantity, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateTrimQuantity id quantity query)
+                |> updateQuery (Query.updateTrimQuantity trimIndex quantity query)
 
         ( UpdateUpcycled upcycled, _ ) ->
             ( model, session, Cmd.none )
@@ -1025,9 +1025,9 @@ simulatorFormView session model ({ inputs } as simulator) =
         , items = session.queries.textile.trims
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
-        , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
-        , removeElement = \_ _ -> NoOp
-        , removeElementTransform = \_ _ _ -> NoOp
+        , openSelectProcessModal = \_ _ _ _ _ -> SetModal NoModal
+        , removeElement = \_ _ _ -> NoOp
+        , removeElementTransform = \_ _ _ _ -> NoOp
         , removeItem = RemoveTrim
         , results =
             session.queries.textile.trims
@@ -1036,8 +1036,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         , scope = Scope.Textile
         , setDetailed = SetDetailedTrims
         , title = "Accessoires"
-        , updateElementAmount = \_ _ _ -> NoOp
-        , updateItemName = \_ _ -> NoOp
+        , updateElementAmount = \_ _ _ _ -> NoOp
+        , updateItemName = \_ _ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }
     , div [ class "card shadow-sm pb-2 mb-3" ]

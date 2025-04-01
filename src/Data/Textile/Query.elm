@@ -114,12 +114,12 @@ removeTrim id ({ trims } as query) =
     }
 
 
-updateTrimQuantity : Component.Id -> Component.Quantity -> Query -> Query
-updateTrimQuantity id quantity query =
+updateTrimQuantity : Int -> Component.Quantity -> Query -> Query
+updateTrimQuantity trimIndex quantity query =
     { query
         | trims =
             query.trims
-                |> Component.updateItem id (\item -> { item | quantity = quantity })
+                |> Component.updateItem trimIndex (\item -> { item | quantity = quantity })
     }
 
 

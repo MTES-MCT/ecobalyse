@@ -72,17 +72,17 @@ addComponentItem id query =
     { query | components = query.components |> Component.addItem id }
 
 
-addElement : Component -> Process -> Query -> Result String Query
-addElement component material query =
+addElement : Component -> Int -> Process -> Query -> Result String Query
+addElement component componentIndex material query =
     query.components
-        |> Component.addElement component material
+        |> Component.addElement component componentIndex material
         |> Result.map (\components -> { query | components = components })
 
 
-addElementTransform : Component -> Int -> Process -> Query -> Result String Query
-addElementTransform component index transform query =
+addElementTransform : Component -> Int -> Int -> Process -> Query -> Result String Query
+addElementTransform component componentIndex elementIndex transform query =
     query.components
-        |> Component.addElementTransform component index transform
+        |> Component.addElementTransform component componentIndex elementIndex transform
         |> Result.map (\components -> { query | components = components })
 
 
@@ -95,53 +95,56 @@ removeComponent id ({ components } as query) =
     }
 
 
-removeElement : Component -> Int -> Query -> Result String Query
-removeElement component index query =
+removeElement : Component -> Int -> Int -> Query -> Result String Query
+removeElement component componentIndex elementIndex query =
     query.components
-        |> Component.removeElement component index
+        |> Component.removeElement component componentIndex elementIndex
         |> Result.map (\components -> { query | components = components })
 
 
-removeElementTransform : Component -> Int -> Int -> Query -> Query
-removeElementTransform component index transformIndex query =
+removeElementTransform : Component -> Int -> Int -> Int -> Query -> Query
+removeElementTransform component componentIndex elementIndex transformIndex query =
     { query
         | components =
             query.components
-                |> Component.removeElementTransform component index transformIndex
+                |> Component.removeElementTransform component componentIndex elementIndex transformIndex
     }
 
 
-setElementMaterial : Component -> Int -> Process -> Query -> Result String Query
-setElementMaterial component index material query =
+setElementMaterial : Component -> Int -> Int -> Process -> Query -> Result String Query
+setElementMaterial component componentIndex elementIndex material query =
     query.components
-        |> Component.setElementMaterial component index material
+        |> Component.setElementMaterial component componentIndex elementIndex material
         |> Result.map (\components -> { query | components = components })
 
 
-updateComponentItemName : Component -> String -> Query -> Query
-updateComponentItemName component name query =
+updateComponentItemName : Component -> Int -> String -> Query -> Query
+updateComponentItemName component componentIndex name query =
     { query
         | components =
             query.components
-                |> Component.updateItemCustomName component name
+                |> Component.updateItemCustomName component componentIndex name
     }
 
 
-updateComponentItemQuantity : Component.Id -> Component.Quantity -> Query -> Query
-updateComponentItemQuantity id quantity query =
+updateComponentItemQuantity : Int -> Component.Quantity -> Query -> Query
+updateComponentItemQuantity componentIndex quantity query =
     { query
         | components =
             query.components
-                |> Component.updateItem id (\item -> { item | quantity = quantity })
+                |> Component.updateItem componentIndex (\item -> { item | quantity = quantity })
     }
 
 
-updateElementAmount : Component -> Int -> Component.Amount -> Query -> Query
-updateElementAmount component index amount query =
+updateElementAmount : Component -> Int -> Int -> Component.Amount -> Query -> Query
+updateElementAmount component componentIndex elementIndex amount query =
     { query
         | components =
             query.components
-                |> Component.updateElement component index (\el -> { el | amount = amount })
+                |> Component.updateElement component
+                    componentIndex
+                    elementIndex
+                    (\el -> { el | amount = amount })
     }
 
 
