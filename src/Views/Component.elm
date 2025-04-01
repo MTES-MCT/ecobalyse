@@ -25,7 +25,7 @@ type alias Config db msg =
     { addLabel : String
     , customizable : Bool
     , db : Component.DataContainer db
-    , detailed : List Id
+    , detailed : List Int
     , docsUrl : Maybe String
     , impact : Definition
     , items : List Item
@@ -37,7 +37,7 @@ type alias Config db msg =
     , removeItem : Id -> msg
     , results : Results
     , scope : Scope
-    , setDetailed : List Id -> msg
+    , setDetailed : List Int -> msg
     , title : String
     , updateElementAmount : Component -> Int -> Int -> Maybe Amount -> msg
     , updateItemName : Component -> Int -> String -> msg
@@ -122,7 +122,7 @@ componentView config componentIndex item ( quantity, component, expandedElements
     let
         collapsed =
             config.detailed
-                |> List.member component.id
+                |> List.member componentIndex
                 |> not
     in
     List.concat
@@ -134,11 +134,11 @@ componentView config componentIndex item ( quantity, component, expandedElements
                                 [ class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
                                 , onClick <|
                                     config.setDetailed <|
-                                        if collapsed && not (List.member component.id config.detailed) then
-                                            LE.unique <| component.id :: config.detailed
+                                        if collapsed && not (List.member componentIndex config.detailed) then
+                                            LE.unique <| componentIndex :: config.detailed
 
                                         else
-                                            List.filter ((/=) component.id) config.detailed
+                                            List.filter ((/=) componentIndex) config.detailed
                                 ]
                                 [ if collapsed then
                                     text "▶"

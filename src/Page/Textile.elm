@@ -80,7 +80,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , detailedTrims : List Trim.Id
+    , detailedTrims : List Int
     , initialQuery : Query
     , impact : Definition
     , modal : Modal
@@ -125,7 +125,7 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
-    | SetDetailedTrims (List Trim.Id)
+    | SetDetailedTrims (List Int)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType

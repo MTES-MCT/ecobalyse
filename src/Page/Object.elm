@@ -49,7 +49,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , detailedComponents : List Component.Id
+    , detailedComponents : List Int
     , examples : List (Example Query)
     , impact : Definition
     , initialQuery : Query
@@ -85,7 +85,7 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
-    | SetDetailedComponents (List Component.Id)
+    | SetDetailedComponents (List Int)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
