@@ -9,6 +9,8 @@ module Data.Component exposing
     , Item
     , Quantity
     , Results(..)
+    , TargetElement
+    , TargetItem
     , addElement
     , addElementTransform
     , addItem
@@ -122,6 +124,18 @@ type alias ExpandedElement =
     }
 
 
+{-| Index of an item element and associated source component
+-}
+type alias TargetElement =
+    ( Component, Int, Int )
+
+
+{-| Index of an item and associated source component
+-}
+type alias TargetItem =
+    ( Component, Int )
+
+
 {-| An amount of some element
 -}
 type Amount
@@ -146,15 +160,14 @@ type Results
 
 {-| Add a new element, defined by a required material process, to an item.
 -}
-addElement : Component -> Int -> Process -> List Item -> Result String (List Item)
-addElement component itemIndex material items =
+addElement : TargetItem -> Process -> List Item -> Result String (List Item)
+addElement targetItem material items =
     if not <| List.member Category.Material material.categories then
         Err "L'ajout d'un élément ne peut se faire qu'à partir d'un procédé matière"
 
     else
         items
-            |> updateItemCustom component
-                itemIndex
+            |> updateItemCustom targetItem
                 (\custom ->
                     { custom
                         | elements =
@@ -165,16 +178,14 @@ addElement component itemIndex material items =
             |> Ok
 
 
-addElementTransform : Component -> Int -> Int -> Process -> List Item -> Result String (List Item)
-addElementTransform component itemIndex elementIndex transform items =
+addElementTransform : TargetElement -> Process -> List Item -> Result String (List Item)
+addElementTransform targetElement transform items =
     if not <| List.member Category.Transform transform.categories then
         Err "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
 
     else
         items
-            |> updateElement component
-                itemIndex
-                elementIndex
+            |> updateElement targetElement
                 (\el -> { el | transforms = el.transforms ++ [ transform.id ] })
             |> Ok
 
@@ -654,10 +665,9 @@ extractMass (Results { mass }) =
 
 {-| Remove an element from an item
 -}
-removeElement : Component -> Int -> Int -> List Item -> Result String (List Item)
-removeElement component itemIndex elementIndex =
-    updateItemCustom component
-        itemIndex
+removeElement : TargetElement -> List Item -> Result String (List Item)
+removeElement ( component, itemIndex, elementIndex ) =
+    updateItemCustom ( component, itemIndex )
         (\custom ->
             { custom
                 | elements =
@@ -667,23 +677,20 @@ removeElement component itemIndex elementIndex =
         >> Ok
 
 
-removeElementTransform : Component -> Int -> Int -> Int -> List Item -> List Item
-removeElementTransform component itemIndex elementIndex transformIndex =
-    updateElement component itemIndex elementIndex <|
+removeElementTransform : TargetElement -> Int -> List Item -> List Item
+removeElementTransform targetElement transformIndex =
+    updateElement targetElement <|
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
-setElementMaterial : Component -> Int -> Int -> Process -> List Item -> Result String (List Item)
-setElementMaterial component itemIndex elementIndex material items =
+setElementMaterial : TargetElement -> Process -> List Item -> Result String (List Item)
+setElementMaterial targetElement material items =
     if not <| List.member Category.Material material.categories then
         Err "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
 
     else
         items
-            |> updateElement component
-                itemIndex
-                elementIndex
-                (\el -> { el | material = material.id })
+            |> updateElement targetElement (\el -> { el | material = material.id })
             |> Ok
 
 
@@ -705,30 +712,30 @@ updateCustom component fn maybeCustom =
             Just (fn { elements = component.elements, name = Nothing })
 
 
-updateCustomElement : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
-updateCustomElement component index update =
+updateCustomElement : TargetItem -> (Element -> Element) -> Maybe Custom -> Maybe Custom
+updateCustomElement ( component, elementIndex ) update =
     updateCustom component <|
         \custom ->
             { custom
                 | elements =
                     custom.elements
-                        |> LE.updateAt index update
+                        |> LE.updateAt elementIndex update
             }
 
 
-updateElement : Component -> Int -> Int -> (Element -> Element) -> List Item -> List Item
-updateElement component itemIndex elementIndex update =
+updateElement : TargetElement -> (Element -> Element) -> List Item -> List Item
+updateElement ( component, itemIndex, elementIndex ) update =
     updateItem itemIndex <|
         \item ->
             { item
                 | custom =
                     item.custom
-                        |> updateCustomElement component elementIndex update
+                        |> updateCustomElement ( component, elementIndex ) update
             }
 
 
-updateItemCustom : Component -> Int -> (Custom -> Custom) -> List Item -> List Item
-updateItemCustom component itemIndex fn =
+updateItemCustom : TargetItem -> (Custom -> Custom) -> List Item -> List Item
+updateItemCustom ( component, itemIndex ) fn =
     updateItem itemIndex <|
         \item ->
             { item
@@ -738,9 +745,9 @@ updateItemCustom component itemIndex fn =
             }
 
 
-updateItemCustomName : Component -> Int -> String -> List Item -> List Item
-updateItemCustomName component itemIndex name =
-    updateItemCustom component itemIndex <|
+updateItemCustomName : TargetItem -> String -> List Item -> List Item
+updateItemCustomName targetItem name =
+    updateItemCustom targetItem <|
         \custom -> { custom | name = Just name }
 
 
