@@ -2,7 +2,7 @@ module Views.Component exposing (editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity, Results)
+import Data.Component as Component exposing (Amount, Component, ExpandedElement, Item, Quantity, Results)
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -34,7 +34,7 @@ type alias Config db msg =
     , openSelectProcessModal : Category -> Component -> Int -> Maybe Int -> Autocomplete Process -> msg
     , removeElement : Component -> Int -> Int -> msg
     , removeElementTransform : Component -> Int -> Int -> Int -> msg
-    , removeItem : Id -> msg
+    , removeItem : Int -> msg
     , results : Results
     , scope : Scope
     , setDetailed : List Int -> msg
@@ -180,7 +180,7 @@ componentView config componentIndex item ( quantity, component, expandedElements
                     , td [ class "pe-3 text-end align-middle text-nowrap" ]
                         [ button
                             [ class "btn btn-outline-secondary"
-                            , onClick (config.removeItem component.id)
+                            , onClick (config.removeItem componentIndex)
                             ]
                             [ Icon.trash ]
                         ]

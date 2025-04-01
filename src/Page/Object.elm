@@ -78,7 +78,7 @@ type Msg
     | OnAutocompleteSelectComponent
     | OnAutocompleteSelectProcess Category Component Int (Maybe Int)
     | OpenComparator
-    | RemoveComponentItem Component.Id
+    | RemoveComponentItem Int
     | RemoveElement Component Int Int
     | RemoveElementTransform Component Int Int Int
     | SaveBookmark
@@ -310,9 +310,9 @@ update ({ navKey } as session) msg model =
             , Cmd.none
             )
 
-        ( RemoveComponentItem id, _ ) ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.removeComponent id query)
+        ( RemoveComponentItem componentIndex, _ ) ->
+            ( { model | detailedComponents = [] }, session, Cmd.none )
+                |> updateQuery (Query.removeComponent componentIndex query)
 
         ( RemoveElement component componentIndex elementIndex, _ ) ->
             case Query.removeElement component componentIndex elementIndex query of

@@ -107,10 +107,12 @@ addTrim id query =
     { query | trims = query.trims |> Component.addItem id }
 
 
-removeTrim : Component.Id -> Query -> Query
-removeTrim id ({ trims } as query) =
+removeTrim : Int -> Query -> Query
+removeTrim componentIndex ({ trims } as query) =
     { query
-        | trims = trims |> List.filter (.id >> (/=) id)
+        | trims =
+            trims
+                |> LE.removeAt componentIndex
     }
 
 

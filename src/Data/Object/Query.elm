@@ -26,6 +26,7 @@ import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import List.Extra as LE
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
@@ -86,12 +87,12 @@ addElementTransform component componentIndex elementIndex transform query =
         |> Result.map (\components -> { query | components = components })
 
 
-removeComponent : Component.Id -> Query -> Query
-removeComponent id ({ components } as query) =
+removeComponent : Int -> Query -> Query
+removeComponent componentIndex ({ components } as query) =
     { query
         | components =
             components
-                |> List.filter (.id >> (/=) id)
+                |> LE.removeAt componentIndex
     }
 
 

@@ -119,7 +119,7 @@ type Msg
     | OnStepClick String
     | OpenComparator
     | RemoveMaterial Material.Id
-    | RemoveTrim Trim.Id
+    | RemoveTrim Int
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -411,9 +411,9 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeMaterial materialId query)
 
-        ( RemoveTrim id, _ ) ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.removeTrim id query)
+        ( RemoveTrim trimIndex, _ ) ->
+            ( { model | detailedTrims = [] }, session, Cmd.none )
+                |> updateQuery (Query.removeTrim trimIndex query)
 
         ( Reset, _ ) ->
             ( model, session, Cmd.none )
