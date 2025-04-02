@@ -315,7 +315,7 @@ update ({ navKey } as session) msg model =
                 |> updateQuery (Query.removeComponent itemIndex query)
 
         ( RemoveElement component itemIndex elementIndex, _ ) ->
-            case Query.removeElement component itemIndex elementIndex query of
+            case Query.removeElement ( ( component, itemIndex ), elementIndex ) query of
                 Err err ->
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 
@@ -324,7 +324,7 @@ update ({ navKey } as session) msg model =
 
         ( RemoveElementTransform component itemIndex elementIndex transformIndex, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.removeElementTransform component itemIndex elementIndex transformIndex query)
+                |> updateQuery (Query.removeElementTransform ( ( component, itemIndex ), elementIndex ) transformIndex query)
 
         ( SaveBookmark, _ ) ->
             ( model
@@ -419,7 +419,7 @@ update ({ navKey } as session) msg model =
 
         ( UpdateComponentItemName component itemIndex name, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateComponentItemName component itemIndex name query)
+                |> updateQuery (Query.updateComponentItemName ( component, itemIndex ) name query)
 
         ( UpdateComponentItemQuantity itemIndex quantity, _ ) ->
             ( model, session, Cmd.none )
@@ -430,7 +430,7 @@ update ({ navKey } as session) msg model =
 
         ( UpdateElementAmount component itemIndex elementIndex (Just amount), _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateElementAmount component itemIndex elementIndex amount query)
+                |> updateQuery (Query.updateElementAmount ( ( component, itemIndex ), elementIndex ) amount query)
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -479,15 +479,15 @@ selectProcess processType component itemIndex maybeElementIndex autocompleteStat
                         Category.Material ->
                             case maybeElementIndex of
                                 Just elementIndex ->
-                                    query |> Query.setElementMaterial component itemIndex elementIndex process
+                                    query |> Query.setElementMaterial ( ( component, itemIndex ), elementIndex ) process
 
                                 Nothing ->
-                                    query |> Query.addElement component itemIndex process
+                                    query |> Query.addElement ( component, itemIndex ) process
 
                         Category.Transform ->
                             case maybeElementIndex of
                                 Just elementIndex ->
-                                    query |> Query.addElementTransform component itemIndex elementIndex process
+                                    query |> Query.addElementTransform ( ( component, itemIndex ), elementIndex ) process
 
                                 Nothing ->
                                     Err <| "Un procédé de transformation de peut être ajouté qu'à un élément existant"

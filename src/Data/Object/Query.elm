@@ -20,7 +20,7 @@ module Data.Object.Query exposing
     )
 
 import Base64
-import Data.Component as Component exposing (Component)
+import Data.Component as Component exposing (Component, TargetElement, TargetItem)
 import Data.Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
@@ -73,15 +73,15 @@ addComponentItem id query =
     { query | components = query.components |> Component.addItem id }
 
 
-addElement : Component -> Int -> Process -> Query -> Result String Query
-addElement component itemIndex material query =
+addElement : TargetItem -> Process -> Query -> Result String Query
+addElement ( component, itemIndex ) material query =
     query.components
         |> Component.addElement ( component, itemIndex ) material
         |> Result.map (\components -> { query | components = components })
 
 
-addElementTransform : Component -> Int -> Int -> Process -> Query -> Result String Query
-addElementTransform component itemIndex elementIndex transform query =
+addElementTransform : TargetElement -> Process -> Query -> Result String Query
+addElementTransform ( ( component, itemIndex ), elementIndex ) transform query =
     query.components
         |> Component.addElementTransform ( ( component, itemIndex ), elementIndex ) transform
         |> Result.map (\components -> { query | components = components })
@@ -96,15 +96,15 @@ removeComponent itemIndex ({ components } as query) =
     }
 
 
-removeElement : Component -> Int -> Int -> Query -> Result String Query
-removeElement component itemIndex elementIndex query =
+removeElement : TargetElement -> Query -> Result String Query
+removeElement ( ( component, itemIndex ), elementIndex ) query =
     query.components
         |> Component.removeElement ( ( component, itemIndex ), elementIndex )
         |> Result.map (\components -> { query | components = components })
 
 
-removeElementTransform : Component -> Int -> Int -> Int -> Query -> Query
-removeElementTransform component itemIndex elementIndex transformIndex query =
+removeElementTransform : TargetElement -> Int -> Query -> Query
+removeElementTransform ( ( component, itemIndex ), elementIndex ) transformIndex query =
     { query
         | components =
             query.components
@@ -112,19 +112,19 @@ removeElementTransform component itemIndex elementIndex transformIndex query =
     }
 
 
-setElementMaterial : Component -> Int -> Int -> Process -> Query -> Result String Query
-setElementMaterial component itemIndex elementIndex material query =
+setElementMaterial : TargetElement -> Process -> Query -> Result String Query
+setElementMaterial ( ( component, itemIndex ), elementIndex ) material query =
     query.components
         |> Component.setElementMaterial ( ( component, itemIndex ), elementIndex ) material
         |> Result.map (\components -> { query | components = components })
 
 
-updateComponentItemName : Component -> Int -> String -> Query -> Query
-updateComponentItemName component itemIndex name query =
+updateComponentItemName : TargetItem -> String -> Query -> Query
+updateComponentItemName targetItem name query =
     { query
         | components =
             query.components
-                |> Component.updateItemCustomName ( component, itemIndex ) name
+                |> Component.updateItemCustomName targetItem name
     }
 
 
@@ -137,12 +137,13 @@ updateComponentItemQuantity itemIndex quantity query =
     }
 
 
-updateElementAmount : Component -> Int -> Int -> Component.Amount -> Query -> Query
-updateElementAmount component itemIndex elementIndex amount query =
+updateElementAmount : TargetElement -> Component.Amount -> Query -> Query
+updateElementAmount targetElement amount query =
     { query
         | components =
             query.components
-                |> Component.updateElement ( ( component, itemIndex ), elementIndex )
+                -- FIXME: move to Data.Component
+                |> Component.updateElement targetElement
                     (\el -> { el | amount = amount })
     }
 
