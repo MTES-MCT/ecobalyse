@@ -124,16 +124,20 @@ type alias ExpandedElement =
     }
 
 
+type alias Index =
+    Int
+
+
 {-| Index of an item element and associated source component
 -}
 type alias TargetElement =
-    ( Component, Int, Int )
+    ( TargetItem, Index )
 
 
 {-| Index of an item and associated source component
 -}
 type alias TargetItem =
-    ( Component, Int )
+    ( Component, Index )
 
 
 {-| An amount of some element
@@ -666,7 +670,7 @@ extractMass (Results { mass }) =
 {-| Remove an element from an item
 -}
 removeElement : TargetElement -> List Item -> Result String (List Item)
-removeElement ( component, itemIndex, elementIndex ) =
+removeElement ( ( component, itemIndex ), elementIndex ) =
     updateItemCustom ( component, itemIndex )
         (\custom ->
             { custom
@@ -724,7 +728,7 @@ updateCustomElement ( component, elementIndex ) update =
 
 
 updateElement : TargetElement -> (Element -> Element) -> List Item -> List Item
-updateElement ( component, itemIndex, elementIndex ) update =
+updateElement ( ( component, itemIndex ), elementIndex ) update =
     updateItem itemIndex <|
         \item ->
             { item

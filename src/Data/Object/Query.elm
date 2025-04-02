@@ -83,7 +83,7 @@ addElement component itemIndex material query =
 addElementTransform : Component -> Int -> Int -> Process -> Query -> Result String Query
 addElementTransform component itemIndex elementIndex transform query =
     query.components
-        |> Component.addElementTransform ( component, itemIndex, elementIndex ) transform
+        |> Component.addElementTransform ( ( component, itemIndex ), elementIndex ) transform
         |> Result.map (\components -> { query | components = components })
 
 
@@ -99,7 +99,7 @@ removeComponent itemIndex ({ components } as query) =
 removeElement : Component -> Int -> Int -> Query -> Result String Query
 removeElement component itemIndex elementIndex query =
     query.components
-        |> Component.removeElement ( component, itemIndex, elementIndex )
+        |> Component.removeElement ( ( component, itemIndex ), elementIndex )
         |> Result.map (\components -> { query | components = components })
 
 
@@ -108,14 +108,14 @@ removeElementTransform component itemIndex elementIndex transformIndex query =
     { query
         | components =
             query.components
-                |> Component.removeElementTransform ( component, itemIndex, elementIndex ) transformIndex
+                |> Component.removeElementTransform ( ( component, itemIndex ), elementIndex ) transformIndex
     }
 
 
 setElementMaterial : Component -> Int -> Int -> Process -> Query -> Result String Query
 setElementMaterial component itemIndex elementIndex material query =
     query.components
-        |> Component.setElementMaterial ( component, itemIndex, elementIndex ) material
+        |> Component.setElementMaterial ( ( component, itemIndex ), elementIndex ) material
         |> Result.map (\components -> { query | components = components })
 
 
@@ -142,7 +142,7 @@ updateElementAmount component itemIndex elementIndex amount query =
     { query
         | components =
             query.components
-                |> Component.updateElement ( component, itemIndex, elementIndex )
+                |> Component.updateElement ( ( component, itemIndex ), elementIndex )
                     (\el -> { el | amount = amount })
     }
 
