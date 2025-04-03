@@ -142,9 +142,7 @@ updateElementAmount targetElement amount query =
     { query
         | components =
             query.components
-                -- FIXME: move to Data.Component
-                |> Component.updateElement targetElement
-                    (\el -> { el | amount = amount })
+                |> Component.updateElement targetElement (\el -> { el | amount = amount })
     }
 
 

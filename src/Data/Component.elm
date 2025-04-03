@@ -670,8 +670,8 @@ extractMass (Results { mass }) =
 {-| Remove an element from an item
 -}
 removeElement : TargetElement -> List Item -> Result String (List Item)
-removeElement ( ( component, itemIndex ), elementIndex ) =
-    updateItemCustom ( component, itemIndex )
+removeElement ( targetItem, elementIndex ) =
+    updateItemCustom targetItem
         (\custom ->
             { custom
                 | elements =
@@ -716,17 +716,6 @@ updateCustom component fn maybeCustom =
             Just (fn { elements = component.elements, name = Nothing })
 
 
-updateCustomElement : TargetItem -> (Element -> Element) -> Maybe Custom -> Maybe Custom
-updateCustomElement ( component, elementIndex ) update =
-    updateCustom component <|
-        \custom ->
-            { custom
-                | elements =
-                    custom.elements
-                        |> LE.updateAt elementIndex update
-            }
-
-
 updateElement : TargetElement -> (Element -> Element) -> List Item -> List Item
 updateElement ( ( component, itemIndex ), elementIndex ) update =
     updateItem itemIndex <|
@@ -734,7 +723,14 @@ updateElement ( ( component, itemIndex ), elementIndex ) update =
             { item
                 | custom =
                     item.custom
-                        |> updateCustomElement ( component, elementIndex ) update
+                        |> updateCustom component
+                            (\custom ->
+                                { custom
+                                    | elements =
+                                        custom.elements
+                                            |> LE.updateAt elementIndex update
+                                }
+                            )
             }
 
 

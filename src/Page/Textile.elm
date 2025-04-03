@@ -1025,9 +1025,9 @@ simulatorFormView session model ({ inputs } as simulator) =
         , items = session.queries.textile.trims
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
-        , openSelectProcessModal = \_ _ _ _ _ -> SetModal NoModal
-        , removeElement = \_ _ _ -> NoOp
-        , removeElementTransform = \_ _ _ _ -> NoOp
+        , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
+        , removeElement = \_ -> NoOp
+        , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
         , results =
             session.queries.textile.trims
@@ -1036,8 +1036,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         , scope = Scope.Textile
         , setDetailed = SetDetailedTrims
         , title = "Accessoires"
-        , updateElementAmount = \_ _ _ _ -> NoOp
-        , updateItemName = \_ _ _ -> NoOp
+        , updateElementAmount = \_ _ -> NoOp
+        , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }
     , div [ class "card shadow-sm pb-2 mb-3" ]
