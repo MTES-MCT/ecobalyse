@@ -74,16 +74,16 @@ addComponentItem id query =
 
 
 addElement : TargetItem -> Process -> Query -> Result String Query
-addElement ( component, itemIndex ) material query =
+addElement targetItem material query =
     query.components
-        |> Component.addElement ( component, itemIndex ) material
+        |> Component.addElement targetItem material
         |> Result.map (\components -> { query | components = components })
 
 
 addElementTransform : TargetElement -> Process -> Query -> Result String Query
-addElementTransform ( ( component, itemIndex ), elementIndex ) transform query =
+addElementTransform targetElement transform query =
     query.components
-        |> Component.addElementTransform ( ( component, itemIndex ), elementIndex ) transform
+        |> Component.addElementTransform targetElement transform
         |> Result.map (\components -> { query | components = components })
 
 
@@ -97,25 +97,25 @@ removeComponent itemIndex ({ components } as query) =
 
 
 removeElement : TargetElement -> Query -> Result String Query
-removeElement ( ( component, itemIndex ), elementIndex ) query =
+removeElement targetElement query =
     query.components
-        |> Component.removeElement ( ( component, itemIndex ), elementIndex )
+        |> Component.removeElement targetElement
         |> Result.map (\components -> { query | components = components })
 
 
 removeElementTransform : TargetElement -> Int -> Query -> Query
-removeElementTransform ( ( component, itemIndex ), elementIndex ) transformIndex query =
+removeElementTransform targetElement transformIndex query =
     { query
         | components =
             query.components
-                |> Component.removeElementTransform ( ( component, itemIndex ), elementIndex ) transformIndex
+                |> Component.removeElementTransform targetElement transformIndex
     }
 
 
 setElementMaterial : TargetElement -> Process -> Query -> Result String Query
-setElementMaterial ( ( component, itemIndex ), elementIndex ) material query =
+setElementMaterial targetElement material query =
     query.components
-        |> Component.setElementMaterial ( ( component, itemIndex ), elementIndex ) material
+        |> Component.setElementMaterial targetElement material
         |> Result.map (\components -> { query | components = components })
 
 
