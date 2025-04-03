@@ -118,6 +118,19 @@ suite =
                         )
                     ]
                 )
+            , TestUtils.suiteFromResult "addItem"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                (\testComponent ->
+                    [ it "should allow adding the same component twice"
+                        ([]
+                            |> Component.addItem testComponent.id
+                            |> Component.addItem testComponent.id
+                            |> List.length
+                            |> Expect.equal 2
+                        )
+                    ]
+                )
             , describe "applyTransforms"
                 [ let
                     getTestMass transforms =
