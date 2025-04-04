@@ -6,6 +6,7 @@ module Data.Component exposing
     , Element
     , ExpandedElement
     , Id
+    , Index
     , Item
     , Quantity
     , Results(..)
@@ -14,6 +15,7 @@ module Data.Component exposing
     , addElement
     , addElementTransform
     , addItem
+    , addOrSetProcess
     , amountToFloat
     , applyTransforms
     , compute
@@ -52,7 +54,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
-import Data.Process.Category as Category
+import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -197,6 +199,29 @@ addElementTransform targetElement transform items =
 addItem : Id -> List Item -> List Item
 addItem id items =
     items ++ [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
+
+
+addOrSetProcess : Category -> TargetItem -> Maybe Index -> Process -> List Item -> Result String (List Item)
+addOrSetProcess category targetItem maybeElementIndex process items =
+    case category of
+        Category.Material ->
+            case maybeElementIndex of
+                Just elementIndex ->
+                    items |> setElementMaterial ( targetItem, elementIndex ) process
+
+                Nothing ->
+                    items |> addElement targetItem process
+
+        Category.Transform ->
+            case maybeElementIndex of
+                Just elementIndex ->
+                    items |> addElementTransform ( targetItem, elementIndex ) process
+
+                Nothing ->
+                    Err <| "Un procédé de transformation de peut être ajouté qu'à un élément existant"
+
+        _ ->
+            Err <| "Catégorie de procédé non supportée\u{00A0}: " ++ Category.toLabel category
 
 
 {-| Add two results together

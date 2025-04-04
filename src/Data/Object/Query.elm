@@ -1,8 +1,7 @@
 module Data.Object.Query exposing
     ( Query
     , addComponentItem
-    , addElement
-    , addElementTransform
+    , addOrSetProcess
     , b64encode
     , buildApiQuery
     , decode
@@ -12,7 +11,6 @@ module Data.Object.Query exposing
     , removeComponent
     , removeElement
     , removeElementTransform
-    , setElementMaterial
     , toString
     , updateComponentItemName
     , updateComponentItemQuantity
@@ -20,8 +18,9 @@ module Data.Object.Query exposing
     )
 
 import Base64
-import Data.Component as Component exposing (Component, TargetElement, TargetItem)
+import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Process exposing (Process)
+import Data.Process.Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -73,17 +72,10 @@ addComponentItem id query =
     { query | components = query.components |> Component.addItem id }
 
 
-addElement : TargetItem -> Process -> Query -> Result String Query
-addElement targetItem material query =
+addOrSetProcess : Category -> TargetItem -> Maybe Index -> Process -> Query -> Result String Query
+addOrSetProcess category targetItem maybeElementIndex process query =
     query.components
-        |> Component.addElement targetItem material
-        |> Result.map (\components -> { query | components = components })
-
-
-addElementTransform : TargetElement -> Process -> Query -> Result String Query
-addElementTransform targetElement transform query =
-    query.components
-        |> Component.addElementTransform targetElement transform
+        |> Component.addOrSetProcess category targetItem maybeElementIndex process
         |> Result.map (\components -> { query | components = components })
 
 
@@ -110,13 +102,6 @@ removeElementTransform targetElement transformIndex query =
             query.components
                 |> Component.removeElementTransform targetElement transformIndex
     }
-
-
-setElementMaterial : TargetElement -> Process -> Query -> Result String Query
-setElementMaterial targetElement material query =
-    query.components
-        |> Component.setElementMaterial targetElement material
-        |> Result.map (\components -> { query | components = components })
 
 
 updateComponentItemName : TargetItem -> String -> Query -> Query

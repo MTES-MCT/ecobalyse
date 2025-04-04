@@ -470,32 +470,10 @@ selectComponent query autocompleteState ( model, session, _ ) =
 
 
 selectProcess : Category -> TargetItem -> Maybe Int -> Autocomplete Process -> Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectProcess processType targetItem maybeElementIndex autocompleteState query ( model, session, _ ) =
+selectProcess category targetItem maybeElementIndex autocompleteState query ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
-            let
-                updateResult =
-                    case processType of
-                        Category.Material ->
-                            case maybeElementIndex of
-                                Just elementIndex ->
-                                    query |> Query.setElementMaterial ( targetItem, elementIndex ) process
-
-                                Nothing ->
-                                    query |> Query.addElement targetItem process
-
-                        Category.Transform ->
-                            case maybeElementIndex of
-                                Just elementIndex ->
-                                    query |> Query.addElementTransform ( targetItem, elementIndex ) process
-
-                                Nothing ->
-                                    Err <| "Un procédé de transformation de peut être ajouté qu'à un élément existant"
-
-                        _ ->
-                            Err <| "Catégorie de procédé non supportée\u{00A0}: " ++ Category.toLabel processType
-            in
-            case updateResult of
+            case Query.addOrSetProcess category targetItem maybeElementIndex process query of
                 Err err ->
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 
