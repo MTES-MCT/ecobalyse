@@ -411,9 +411,17 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeMaterial materialId query)
 
-        ( RemoveTrim trimIndex, _ ) ->
-            ( { model | detailedTrims = [] }, session, Cmd.none )
-                |> updateQuery (query |> Query.updateTrims (LE.removeAt trimIndex))
+        ( RemoveTrim itemIndex, _ ) ->
+            ( { model
+                | detailedTrims =
+                    model.detailedTrims
+                        |> LE.remove itemIndex
+                        |> LE.updateIf (\x -> x > itemIndex) (\x -> x - 1)
+              }
+            , session
+            , Cmd.none
+            )
+                |> updateQuery (query |> Query.updateTrims (LE.removeAt itemIndex))
 
         ( Reset, _ ) ->
             ( model, session, Cmd.none )
@@ -449,7 +457,7 @@ update ({ queries, navKey } as session) msg model =
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
         ( SetDetailedTrims detailedTrims, _ ) ->
-            ( { model | detailedTrims = LE.unique detailedTrims }
+            ( { model | detailedTrims = detailedTrims }
             , session
             , Cmd.none
             )

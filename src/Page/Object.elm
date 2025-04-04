@@ -312,18 +312,21 @@ update ({ navKey } as session) msg model =
             )
 
         ( RemoveComponentItem itemIndex, _ ) ->
-            ( { model | detailedComponents = [] }, session, Cmd.none )
+            ( { model
+                | detailedComponents =
+                    model.detailedComponents
+                        |> LE.remove itemIndex
+                        |> LE.updateIf (\x -> x > itemIndex) (\x -> x - 1)
+              }
+            , session
+            , Cmd.none
+            )
                 |> updateQuery
-                    (query
-                        |> Query.updateComponents (LE.removeAt itemIndex)
-                    )
+                    (query |> Query.updateComponents (LE.removeAt itemIndex))
 
         ( RemoveElement targetElement, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery
-                    (query
-                        |> Query.updateComponents (Component.removeElement targetElement)
-                    )
+                |> updateQuery (query |> Query.updateComponents (Component.removeElement targetElement))
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             ( model, session, Cmd.none )
@@ -367,7 +370,7 @@ update ({ navKey } as session) msg model =
             ( model, Session.selectNoBookmarks session, Cmd.none )
 
         ( SetDetailedComponents detailedComponents, _ ) ->
-            ( { model | detailedComponents = LE.unique detailedComponents }
+            ( { model | detailedComponents = detailedComponents }
             , session
             , Cmd.none
             )
@@ -592,7 +595,8 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
-            [ simulatorView session model
+            [ pre [] [ model.detailedComponents |> Debug.toString |> text ]
+            , simulatorView session model
             , case model.modal of
                 AddComponentModal autocompleteState ->
                     AutocompleteSelectorView.view
