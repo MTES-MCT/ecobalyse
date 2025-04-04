@@ -313,22 +313,23 @@ update ({ navKey } as session) msg model =
 
         ( RemoveComponentItem itemIndex, _ ) ->
             ( { model | detailedComponents = [] }, session, Cmd.none )
-                |> updateQuery (query |> Query.updateComponents (LE.removeAt itemIndex))
+                |> updateQuery
+                    (query
+                        |> Query.updateComponents (LE.removeAt itemIndex)
+                    )
 
         ( RemoveElement targetElement, _ ) ->
-            case query |> Query.updateFromResults (Component.removeElement targetElement) of
-                Err err ->
-                    ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
-
-                Ok query_ ->
-                    updateQuery query_ ( model, session, Cmd.none )
+            ( model, session, Cmd.none )
+                |> updateQuery
+                    (query
+                        |> Query.updateComponents (Component.removeElement targetElement)
+                    )
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             ( model, session, Cmd.none )
                 |> updateQuery
                     (query
-                        |> Query.updateComponents
-                            (Component.removeElementTransform targetElement transformIndex)
+                        |> Query.updateComponents (Component.removeElementTransform targetElement transformIndex)
                     )
 
         ( SaveBookmark, _ ) ->
@@ -490,7 +491,7 @@ selectProcess : Category -> TargetItem -> Maybe Int -> Autocomplete Process -> Q
 selectProcess category targetItem maybeElementIndex autocompleteState query ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
-            case query |> Query.updateFromResults (Component.addOrSetProcess category targetItem maybeElementIndex process) of
+            case query |> Query.updateComponentsFromResults (Component.addOrSetProcess category targetItem maybeElementIndex process) of
                 Err err ->
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 

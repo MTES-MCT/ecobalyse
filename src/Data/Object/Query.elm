@@ -7,7 +7,7 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , updateComponents
-    , updateFromResults
+    , updateComponentsFromResults
     )
 
 import Base64
@@ -61,8 +61,8 @@ updateComponents fn query =
     { query | components = fn query.components }
 
 
-updateFromResults : (List Item -> Result String (List Item)) -> Query -> Result String Query
-updateFromResults fn query =
+updateComponentsFromResults : (List Item -> Result String (List Item)) -> Query -> Result String Query
+updateComponentsFromResults fn query =
     fn query.components
         |> Result.map (\components -> { query | components = components })
 

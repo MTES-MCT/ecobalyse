@@ -648,8 +648,8 @@ itemToString db { custom, id, quantity } =
 
 
 itemsToString : DataContainer db -> List Item -> Result String String
-itemsToString { components, processes } =
-    RE.combineMap (itemToString { components = components, processes = processes })
+itemsToString db =
+    RE.combineMap (itemToString db)
         >> Result.map (String.join ", ")
 
 
@@ -701,7 +701,7 @@ extractMass (Results { mass }) =
 
 {-| Remove an element from an item
 -}
-removeElement : TargetElement -> List Item -> Result String (List Item)
+removeElement : TargetElement -> List Item -> List Item
 removeElement ( targetItem, elementIndex ) =
     updateItemCustom targetItem
         (\custom ->
@@ -710,7 +710,6 @@ removeElement ( targetItem, elementIndex ) =
                     custom.elements |> LE.removeAt elementIndex
             }
         )
-        >> Ok
 
 
 removeElementTransform : TargetElement -> Int -> List Item -> List Item

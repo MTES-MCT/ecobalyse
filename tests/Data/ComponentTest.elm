@@ -486,7 +486,7 @@ suite =
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
                                 (Component.addElement ( testComponent, 0 ) material
-                                    >> Result.andThen (Component.removeElement ( ( testComponent, 0 ), 1 ))
+                                    >> Result.map (Component.removeElement ( ( testComponent, 0 ), 1 ))
                                 )
                             |> Result.map
                                 (\items ->
