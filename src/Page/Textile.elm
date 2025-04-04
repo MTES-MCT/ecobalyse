@@ -15,7 +15,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Trim exposing (Component)
+import Data.Component as Component exposing (Component)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Example as Example
@@ -61,7 +61,7 @@ import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
-import Views.Component as TrimView
+import Views.Component as ComponentView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Example as ExampleView
@@ -153,7 +153,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
-    | UpdateTrimQuantity Int Trim.Quantity
+    | UpdateTrimQuantity Int Component.Quantity
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
@@ -413,7 +413,7 @@ update ({ queries, navKey } as session) msg model =
 
         ( RemoveTrim trimIndex, _ ) ->
             ( { model | detailedTrims = [] }, session, Cmd.none )
-                |> updateQuery (Query.removeTrim trimIndex query)
+                |> updateQuery (query |> Query.updateTrims (LE.removeAt trimIndex))
 
         ( Reset, _ ) ->
             ( model, session, Cmd.none )
@@ -645,7 +645,11 @@ update ({ queries, navKey } as session) msg model =
 
         ( UpdateTrimQuantity trimIndex quantity, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateTrimQuantity trimIndex quantity query)
+                |> updateQuery
+                    (query
+                        |> Query.updateTrims
+                            (Component.updateItem trimIndex (\item -> { item | quantity = quantity }))
+                    )
 
         ( UpdateUpcycled upcycled, _ ) ->
             ( model, session, Cmd.none )
@@ -760,7 +764,7 @@ selectTrim autocompleteState ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just trim ->
             update session (SetModal NoModal) model
-                |> updateQuery (Query.addTrim trim.id session.queries.textile)
+                |> updateQuery (session.queries.textile |> Query.updateTrims (Component.addItem trim.id))
 
         Nothing ->
             ( model, session |> Session.notifyError "Erreur" "Aucun accessoire sélectionné", Cmd.none )
@@ -1015,7 +1019,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                 ]
             ]
         ]
-    , TrimView.editorView
+    , ComponentView.editorView
         { addLabel = "Ajouter un accessoire"
         , customizable = False
         , db = session.db
@@ -1031,8 +1035,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         , removeItem = RemoveTrim
         , results =
             session.queries.textile.trims
-                |> Trim.compute session.db
-                |> Result.withDefault Trim.emptyResults
+                |> Component.compute session.db
+                |> Result.withDefault Component.emptyResults
         , scope = Scope.Textile
         , setDetailed = SetDetailedTrims
         , title = "Accessoires"

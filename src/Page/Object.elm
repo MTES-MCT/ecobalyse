@@ -203,7 +203,8 @@ suggestBookmarkName { db, store } examples query =
             name
 
         _ ->
-            Query.toString db.components db.processes query
+            query.components
+                |> Component.itemsToString db
                 |> Result.withDefault "N/A"
 
 
@@ -312,10 +313,10 @@ update ({ navKey } as session) msg model =
 
         ( RemoveComponentItem itemIndex, _ ) ->
             ( { model | detailedComponents = [] }, session, Cmd.none )
-                |> updateQuery (Query.removeComponent itemIndex query)
+                |> updateQuery (query |> Query.updateComponents (LE.removeAt itemIndex))
 
         ( RemoveElement targetElement, _ ) ->
-            case Query.removeElement targetElement query of
+            case query |> Query.updateFromResults (Component.removeElement targetElement) of
                 Err err ->
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 
@@ -324,7 +325,11 @@ update ({ navKey } as session) msg model =
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.removeElementTransform targetElement transformIndex query)
+                |> updateQuery
+                    (query
+                        |> Query.updateComponents
+                            (Component.removeElementTransform targetElement transformIndex)
+                    )
 
         ( SaveBookmark, _ ) ->
             ( model
@@ -419,18 +424,30 @@ update ({ navKey } as session) msg model =
 
         ( UpdateComponentItemName targetItem name, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateComponentItemName targetItem name query)
+                |> updateQuery
+                    (query
+                        |> Query.updateComponents
+                            (Component.updateItemCustomName targetItem name)
+                    )
 
         ( UpdateComponentItemQuantity itemIndex quantity, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateComponentItemQuantity itemIndex quantity query)
+                |> updateQuery
+                    (query
+                        |> Query.updateComponents
+                            (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
+                    )
 
         ( UpdateElementAmount _ Nothing, _ ) ->
             ( model, session, Cmd.none )
 
         ( UpdateElementAmount targetElement (Just amount), _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateElementAmount targetElement amount query)
+                |> updateQuery
+                    (query
+                        |> Query.updateComponents
+                            (Component.updateElement targetElement (\el -> { el | amount = amount }))
+                    )
 
 
 commandsForNoModal : Modal -> Cmd Msg
@@ -463,7 +480,7 @@ selectComponent query autocompleteState ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just component ->
             update session (SetModal NoModal) model
-                |> updateQuery (Query.addComponentItem component.id query)
+                |> updateQuery (query |> Query.updateComponents (Component.addItem component.id))
 
         Nothing ->
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
@@ -473,7 +490,7 @@ selectProcess : Category -> TargetItem -> Maybe Int -> Autocomplete Process -> Q
 selectProcess category targetItem maybeElementIndex autocompleteState query ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
-            case Query.addOrSetProcess category targetItem maybeElementIndex process query of
+            case query |> Query.updateFromResults (Component.addOrSetProcess category targetItem maybeElementIndex process) of
                 Err err ->
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 

@@ -2,7 +2,6 @@ module Data.Textile.Query exposing
     ( MaterialQuery
     , Query
     , addMaterial
-    , addTrim
     , b64decode
     , b64encode
     , buildApiQuery
@@ -15,14 +14,13 @@ module Data.Textile.Query exposing
     , parseBase64Query
     , regulatory
     , removeMaterial
-    , removeTrim
     , tShirtCotonFrance
     , toggleStep
     , updateMaterial
     , updateMaterialSpinning
     , updateProduct
     , updateStepCountry
-    , updateTrimQuantity
+    , updateTrims
     , validateMaterials
     )
 
@@ -102,27 +100,9 @@ addMaterial material query =
     }
 
 
-addTrim : Component.Id -> Query -> Query
-addTrim id query =
-    { query | trims = query.trims |> Component.addItem id }
-
-
-removeTrim : Int -> Query -> Query
-removeTrim itemIndex ({ trims } as query) =
-    { query
-        | trims =
-            trims
-                |> LE.removeAt itemIndex
-    }
-
-
-updateTrimQuantity : Int -> Component.Quantity -> Query -> Query
-updateTrimQuantity trimIndex quantity query =
-    { query
-        | trims =
-            query.trims
-                |> Component.updateItem trimIndex (\item -> { item | quantity = quantity })
-    }
+updateTrims : (List Item -> List Item) -> Query -> Query
+updateTrims fn query =
+    { query | trims = fn query.trims }
 
 
 buildApiQuery : String -> Query -> String

@@ -1,37 +1,26 @@
 module Data.Object.Query exposing
     ( Query
-    , addComponentItem
-    , addOrSetProcess
     , b64encode
     , buildApiQuery
     , decode
     , default
     , encode
     , parseBase64Query
-    , removeComponent
-    , removeElement
-    , removeElementTransform
-    , toString
-    , updateComponentItemName
-    , updateComponentItemQuantity
-    , updateElementAmount
+    , updateComponents
+    , updateFromResults
     )
 
 import Base64
-import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
-import Data.Process exposing (Process)
-import Data.Process.Category exposing (Category)
+import Data.Component as Component exposing (Item)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import List.Extra as LE
-import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
 
 type alias Query =
-    { components : List Component.Item
+    { components : List Item
     }
 
 
@@ -67,75 +56,15 @@ encode query =
         ]
 
 
-addComponentItem : Component.Id -> Query -> Query
-addComponentItem id query =
-    { query | components = query.components |> Component.addItem id }
+updateComponents : (List Item -> List Item) -> Query -> Query
+updateComponents fn query =
+    { query | components = fn query.components }
 
 
-addOrSetProcess : Category -> TargetItem -> Maybe Index -> Process -> Query -> Result String Query
-addOrSetProcess category targetItem maybeElementIndex process query =
-    query.components
-        |> Component.addOrSetProcess category targetItem maybeElementIndex process
+updateFromResults : (List Item -> Result String (List Item)) -> Query -> Result String Query
+updateFromResults fn query =
+    fn query.components
         |> Result.map (\components -> { query | components = components })
-
-
-removeComponent : Int -> Query -> Query
-removeComponent itemIndex ({ components } as query) =
-    { query
-        | components =
-            components
-                |> LE.removeAt itemIndex
-    }
-
-
-removeElement : TargetElement -> Query -> Result String Query
-removeElement targetElement query =
-    query.components
-        |> Component.removeElement targetElement
-        |> Result.map (\components -> { query | components = components })
-
-
-removeElementTransform : TargetElement -> Int -> Query -> Query
-removeElementTransform targetElement transformIndex query =
-    { query
-        | components =
-            query.components
-                |> Component.removeElementTransform targetElement transformIndex
-    }
-
-
-updateComponentItemName : TargetItem -> String -> Query -> Query
-updateComponentItemName targetItem name query =
-    { query
-        | components =
-            query.components
-                |> Component.updateItemCustomName targetItem name
-    }
-
-
-updateComponentItemQuantity : Int -> Component.Quantity -> Query -> Query
-updateComponentItemQuantity itemIndex quantity query =
-    { query
-        | components =
-            query.components
-                |> Component.updateItem itemIndex (\item -> { item | quantity = quantity })
-    }
-
-
-updateElementAmount : TargetElement -> Component.Amount -> Query -> Query
-updateElementAmount targetElement amount query =
-    { query
-        | components =
-            query.components
-                |> Component.updateElement targetElement (\el -> { el | amount = amount })
-    }
-
-
-toString : List Component -> List Process -> Query -> Result String String
-toString components processes query =
-    query.components
-        |> RE.combineMap (Component.itemToString { components = components, processes = processes })
-        |> Result.map (String.join ", ")
 
 
 

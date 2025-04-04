@@ -39,6 +39,7 @@ module Data.Component exposing
     , idToString
     , itemToComponent
     , itemToString
+    , itemsToString
     , quantityFromInt
     , quantityToInt
     , removeElement
@@ -644,6 +645,12 @@ itemToString db { custom, id, quantity } =
                                 ++ " ]"
                         )
             )
+
+
+itemsToString : DataContainer db -> List Item -> Result String String
+itemsToString { components, processes } =
+    RE.combineMap (itemToString { components = components, processes = processes })
+        >> Result.map (String.join ", ")
 
 
 loadDefaultEnergyMixes : List Process -> Result String { elec : Process, heat : Process }
