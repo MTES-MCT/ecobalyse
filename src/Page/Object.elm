@@ -595,8 +595,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
-            [ pre [] [ model.detailedComponents |> Debug.toString |> text ]
-            , simulatorView session model
+            [ simulatorView session model
             , case model.modal of
                 AddComponentModal autocompleteState ->
                     AutocompleteSelectorView.view

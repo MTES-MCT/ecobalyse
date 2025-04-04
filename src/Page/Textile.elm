@@ -80,7 +80,6 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , detailedTrims : List Int
     , initialQuery : Query
     , impact : Definition
     , modal : Modal
@@ -125,7 +124,6 @@ type Msg
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
-    | SetDetailedTrims (List Int)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -180,7 +178,6 @@ init trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
-      , detailedTrims = []
       , initialQuery = initialQuery
       , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
@@ -234,7 +231,6 @@ initFromExample session uuid =
       , bookmarkName = exampleQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
-      , detailedTrims = []
       , initialQuery = exampleQuery
       , impact = Definition.get Definition.Ecs session.db.definitions
       , modal = NoModal
@@ -412,15 +408,7 @@ update ({ queries, navKey } as session) msg model =
                 |> updateQuery (Query.removeMaterial materialId query)
 
         ( RemoveTrim itemIndex, _ ) ->
-            ( { model
-                | detailedTrims =
-                    model.detailedTrims
-                        |> LE.remove itemIndex
-                        |> LE.updateIf (\x -> x > itemIndex) (\x -> x - 1)
-              }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
                 |> updateQuery (query |> Query.updateTrims (LE.removeAt itemIndex))
 
         ( Reset, _ ) ->
@@ -455,12 +443,6 @@ update ({ queries, navKey } as session) msg model =
 
         ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
-
-        ( SetDetailedTrims detailedTrims, _ ) ->
-            ( { model | detailedTrims = detailedTrims }
-            , session
-            , Cmd.none
-            )
 
         ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
@@ -1031,7 +1013,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         { addLabel = "Ajouter un accessoire"
         , customizable = False
         , db = session.db
-        , detailed = model.detailedTrims
+        , detailed = []
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , impact = model.impact
         , items = session.queries.textile.trims
@@ -1046,7 +1028,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                 |> Component.compute session.db
                 |> Result.withDefault Component.emptyResults
         , scope = Scope.Textile
-        , setDetailed = SetDetailedTrims
+        , setDetailed = \_ -> NoOp
         , title = "Accessoires"
         , updateElementAmount = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
