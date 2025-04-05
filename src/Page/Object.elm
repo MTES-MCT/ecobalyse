@@ -258,14 +258,14 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddComponent _, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteAddProcess processType targetItem maybeIndex autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
+        ( OnAutocompleteAddProcess category targetItem maybeIndex autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = SelectProcessModal processType targetItem maybeIndex newAutocompleteState }
+            ( { model | modal = SelectProcessModal category targetItem maybeIndex newAutocompleteState }
             , session
-            , Cmd.map (OnAutocompleteAddProcess processType targetItem maybeIndex) autoCompleteCmd
+            , Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd
             )
 
         ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
@@ -298,9 +298,9 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteSelectComponent, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteSelectProcess processType targetItem elementIndex, SelectProcessModal _ _ _ autocompleteState ) ->
+        ( OnAutocompleteSelectProcess category targetItem elementIndex, SelectProcessModal _ _ _ autocompleteState ) ->
             ( model, session, Cmd.none )
-                |> selectProcess processType targetItem elementIndex autocompleteState query
+                |> selectProcess category targetItem elementIndex autocompleteState query
 
         ( OnAutocompleteSelectProcess _ _ _, _ ) ->
             ( model, session, Cmd.none )
@@ -490,11 +490,22 @@ selectComponent query autocompleteState ( model, session, _ ) =
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
 
 
-selectProcess : Category -> TargetItem -> Maybe Int -> Autocomplete Process -> Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+selectProcess :
+    Category
+    -> TargetItem
+    -> Maybe Int
+    -> Autocomplete Process
+    -> Query
+    -> ( Model, Session, Cmd Msg )
+    -> ( Model, Session, Cmd Msg )
 selectProcess category targetItem maybeElementIndex autocompleteState query ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
-            case query |> Query.updateComponentsFromResults (Component.addOrSetProcess category targetItem maybeElementIndex process) of
+            case
+                query
+                    |> Query.attemptUpdateComponents
+                        (Component.addOrSetProcess category targetItem maybeElementIndex process)
+            of
                 Err err ->
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 
@@ -650,10 +661,10 @@ view session model =
                         , toCategory = Example.toCategory model.examples
                         }
 
-                SelectProcessModal processType targetItem maybeElementIndex autocompleteState ->
+                SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
                     let
                         ( placeholderText, title ) =
-                            case processType of
+                            case category of
                                 Category.Material ->
                                     ( "tapez ici le nom d'une matière pour la rechercher"
                                     , "Sélectionnez une matière première"
@@ -674,8 +685,8 @@ view session model =
                         , closeModal = SetModal NoModal
                         , footer = []
                         , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteAddProcess processType targetItem maybeElementIndex
-                        , onAutocompleteSelect = OnAutocompleteSelectProcess processType targetItem maybeElementIndex
+                        , onAutocomplete = OnAutocompleteAddProcess category targetItem maybeElementIndex
+                        , onAutocompleteSelect = OnAutocompleteSelectProcess category targetItem maybeElementIndex
                         , placeholderText = placeholderText
                         , title = title
                         , toLabel = Process.getDisplayName

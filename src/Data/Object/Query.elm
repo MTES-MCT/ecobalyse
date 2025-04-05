@@ -1,5 +1,6 @@
 module Data.Object.Query exposing
     ( Query
+    , attemptUpdateComponents
     , b64encode
     , buildApiQuery
     , decode
@@ -7,7 +8,6 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , updateComponents
-    , updateComponentsFromResults
     )
 
 import Base64
@@ -22,6 +22,14 @@ import Url.Parser as Parser exposing (Parser)
 type alias Query =
     { components : List Item
     }
+
+
+{-| Update a list of component items that may fail
+-}
+attemptUpdateComponents : (List Item -> Result String (List Item)) -> Query -> Result String Query
+attemptUpdateComponents fn query =
+    fn query.components
+        |> Result.map (\components -> { query | components = components })
 
 
 buildApiQuery : Scope -> String -> Query -> String
@@ -59,12 +67,6 @@ encode query =
 updateComponents : (List Item -> List Item) -> Query -> Query
 updateComponents fn query =
     { query | components = fn query.components }
-
-
-updateComponentsFromResults : (List Item -> Result String (List Item)) -> Query -> Result String Query
-updateComponentsFromResults fn query =
-    fn query.components
-        |> Result.map (\components -> { query | components = components })
 
 
 
