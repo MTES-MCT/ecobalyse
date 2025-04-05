@@ -50,7 +50,7 @@ suite =
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElement testComponent validMaterial)
+                                (Component.addElement ( testComponent, 1 ) validMaterial)
                             |> Result.map
                                 (\items ->
                                     items
@@ -72,7 +72,7 @@ suite =
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElement testComponent invalidMaterial)
+                                (Component.addElement ( testComponent, 1 ) invalidMaterial)
                             |> expectResultErrorContains "L'ajout d'un élément ne peut se faire qu'à partir d'un procédé matière"
                         )
                     ]
@@ -92,7 +92,7 @@ suite =
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElementTransform testComponent 0 validTransformProcess)
+                                (Component.addElementTransform ( ( testComponent, 1 ), 0 ) validTransformProcess)
                             |> Result.map
                                 (\items ->
                                     items
@@ -113,8 +113,21 @@ suite =
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElementTransform testComponent 0 invalidTransformProcess)
+                                (Component.addElementTransform ( ( testComponent, 1 ), 0 ) invalidTransformProcess)
                             |> expectResultErrorContains "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
+                        )
+                    ]
+                )
+            , TestUtils.suiteFromResult "addItem"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                (\testComponent ->
+                    [ it "should allow adding the same component twice"
+                        ([]
+                            |> Component.addItem testComponent.id
+                            |> Component.addItem testComponent.id
+                            |> List.length
+                            |> Expect.equal 2
                         )
                     ]
                 )
@@ -472,8 +485,8 @@ suite =
                         (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElement testComponent material
-                                    >> Result.andThen (Component.removeElement testComponent 1)
+                                (Component.addElement ( testComponent, 0 ) material
+                                    >> Result.map (Component.removeElement ( ( testComponent, 0 ), 1 ))
                                 )
                             |> Result.map
                                 (\items ->
@@ -502,8 +515,8 @@ suite =
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElementTransform testComponent 0 testProcess
-                                    >> Result.map (Component.removeElementTransform testComponent 0 0)
+                                (Component.addElementTransform ( ( testComponent, 1 ), 0 ) testProcess
+                                    >> Result.map (Component.removeElementTransform ( ( testComponent, 1 ), 0 ) 0)
                                 )
                             |> Result.map (LE.getAt 1)
                             |> Expect.equal
@@ -532,7 +545,7 @@ suite =
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.setElementMaterial testComponent 0 validTestProcess)
+                                (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) validTestProcess)
                             |> Result.map
                                 (\items ->
                                     items
@@ -554,7 +567,7 @@ suite =
                              , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.setElementMaterial testComponent 0 invalidTestProcess)
+                                (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) invalidTestProcess)
                             |> expectResultErrorContains "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
                         )
                     ]
@@ -568,7 +581,7 @@ suite =
                         (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.updateItemCustomName testComponent "My custom component" >> Ok)
+                                (Component.updateItemCustomName ( testComponent, 0 ) "My custom component" >> Ok)
                             |> Result.map
                                 (\items ->
                                     items
@@ -582,7 +595,7 @@ suite =
                         (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                              ]"""
                             |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.updateItemCustomName testComponent " My custom component " >> Ok)
+                                (Component.updateItemCustomName ( testComponent, 0 ) " My custom component " >> Ok)
                             |> Result.map (Encode.list Component.encodeItem >> Encode.encode 0)
                             |> Result.andThen (decodeJson (Decode.list Component.decodeItem))
                             |> Result.map

@@ -16,6 +16,7 @@ module Data.Bookmark exposing
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Object.Query as ObjectQuery
@@ -212,8 +213,8 @@ toQueryDescription db bookmark =
                 |> Result.withDefault bookmark.name
 
         Object objectQuery ->
-            objectQuery
-                |> ObjectQuery.toString db.components db.processes
+            objectQuery.components
+                |> Component.itemsToString db
                 |> Result.withDefault "N/A"
 
         Textile textileQuery ->
@@ -223,6 +224,6 @@ toQueryDescription db bookmark =
                 |> Result.withDefault bookmark.name
 
         Veli objectQuery ->
-            objectQuery
-                |> ObjectQuery.toString db.components db.processes
+            objectQuery.components
+                |> Component.itemsToString db
                 |> Result.withDefault "N/A"
