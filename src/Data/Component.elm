@@ -204,22 +204,18 @@ addItem id items =
 
 addOrSetProcess : Category -> TargetItem -> Maybe Index -> Process -> List Item -> Result String (List Item)
 addOrSetProcess category targetItem maybeElementIndex process items =
-    case category of
-        Category.Material ->
-            case maybeElementIndex of
-                Just elementIndex ->
-                    items |> setElementMaterial ( targetItem, elementIndex ) process
+    case ( category, maybeElementIndex ) of
+        ( Category.Material, Just elementIndex ) ->
+            items |> setElementMaterial ( targetItem, elementIndex ) process
 
-                Nothing ->
-                    items |> addElement targetItem process
+        ( Category.Material, Nothing ) ->
+            items |> addElement targetItem process
 
-        Category.Transform ->
-            case maybeElementIndex of
-                Just elementIndex ->
-                    items |> addElementTransform ( targetItem, elementIndex ) process
+        ( Category.Transform, Just elementIndex ) ->
+            items |> addElementTransform ( targetItem, elementIndex ) process
 
-                Nothing ->
-                    Err <| "Un procédé de transformation de peut être ajouté qu'à un élément existant"
+        ( Category.Transform, Nothing ) ->
+            Err "Un procédé de transformation de peut être ajouté qu'à un élément existant"
 
         _ ->
             Err <| "Catégorie de procédé non supportée\u{00A0}: " ++ Category.toLabel category
