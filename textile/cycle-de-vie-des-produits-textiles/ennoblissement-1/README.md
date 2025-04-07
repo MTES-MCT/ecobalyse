@@ -1,8 +1,4 @@
----
-hidden: true
----
-
-# 🌈 Etape 4 - Ennoblissement V.NP
+# 🌈 Etape 4 - Ennoblissement
 
 ## Contexte
 

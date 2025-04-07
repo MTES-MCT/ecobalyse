@@ -1,4 +1,8 @@
-# 🌈 Etape 4 - Ennoblissement
+---
+hidden: true
+---
+
+# 🌈 Etape 4 - Ennoblissement - ancienne page
 
 L’ennoblissement consiste à donner aux tissus l'aspect visuel et les propriétés physiques et esthétiques exigées par les consommateurs. Il peut s'agir d'opérations mécaniques ou chimiques.
 
