@@ -8,6 +8,7 @@ import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Expect
 import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 import List.Extra as LE
 import Mass
 import Quantity
@@ -34,18 +35,57 @@ suite =
                     , db.textile.wellKnown.weaving
                     )
             in
-            [ TestUtils.suiteFromResult "addElementTransform"
-                -- setup
-                (Result.map3 (\a b c -> ( a, b, c ))
-                    -- Dossier plastique (PP)
-                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Injection moulding (valid tansformation process)
-                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
-                    -- Planche de bois (invalid as not a transformation process)
-                    (getProcessByStringId db "07e9e916-e02b-45e2-a298-2b5084de6242")
-                )
+            [ TestUtils.suiteFromResult3 "addElement"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                -- Steel (valid as a material)
+                (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
+                -- Injection moulding (invalid as a material)
+                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
                 -- tests
-                (\( testComponent, validTransformProcess, invalidTransformProcess ) ->
+                (\testComponent validMaterial invalidMaterial ->
+                    [ it "should add a new element using a valid material"
+                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.addElement testComponent validMaterial)
+                            |> Result.map
+                                (\items ->
+                                    items
+                                        -- get second component item
+                                        |> LE.getAt 1
+                                        -- access its custom property
+                                        |> Maybe.andThen .custom
+                                        -- access the second element
+                                        |> Maybe.andThen (.elements >> LE.getAt 1)
+                                        -- and its material process id
+                                        |> Maybe.map .material
+                                )
+                            -- it should be equal to the one we swapped in
+                            |> Expect.equal (Ok (Just validMaterial.id))
+                        )
+                    , it "should reject an invalid element material"
+                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.addElement testComponent invalidMaterial)
+                            |> expectResultErrorContains "L'ajout d'un élément ne peut se faire qu'à partir d'un procédé matière"
+                        )
+                    ]
+                )
+            , TestUtils.suiteFromResult3 "addElementTransform"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                -- Injection moulding (valid tansformation process)
+                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                -- Planche de bois (invalid as not a transformation process)
+                (getProcessByStringId db "07e9e916-e02b-45e2-a298-2b5084de6242")
+                -- tests
+                (\testComponent validTransformProcess invalidTransformProcess ->
                     [ it "should add a valid transformation process to a component element"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
@@ -393,16 +433,69 @@ suite =
                         (Expect.equal component.name "custom name")
                     ]
                 )
-            , TestUtils.suiteFromResult "removeElementTransform"
+            , TestUtils.suiteFromResult "itemToString"
                 -- setup
-                (Result.map2 Tuple.pair
-                    -- Dossier plastique (PP)
-                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Injection moulding
-                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                      "quantity": 1,
+                      "custom": {
+                        "name": "Custom piece",
+                        "elements": [
+                          {
+                            "amount": 0.00044,
+                            "material": "07e9e916-e02b-45e2-a298-2b5084de6242"
+                          },
+                          {
+                            "amount": 0.00088,
+                            "material": "3295b2a5-328a-4c00-b046-e2ddeb0da823"
+                          }
+                        ]
+                      }
+                    }"""
+                    |> decodeJsonThen Component.decodeItem (Component.itemToString db)
                 )
                 -- tests
-                (\( testComponent, testProcess ) ->
+                (\string ->
+                    [ it "should serialise an item as a human readable string representation"
+                        (Expect.equal string
+                            "1 Custom piece [ 0.00044m3 Planche (bois de feuillus) | 0.00088kg Composant en plastique (PP) ]"
+                        )
+                    ]
+                )
+            , TestUtils.suiteFromResult2 "removeElement"
+                -- Tissu pour canapé
+                (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
+                -- Steel (valid as a material)
+                (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
+                -- tests
+                (\testComponent material ->
+                    [ it "should remove an item element"
+                        (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.addElement testComponent material
+                                    >> Result.andThen (Component.removeElement testComponent 1)
+                                )
+                            |> Result.map
+                                (\items ->
+                                    items
+                                        -- get the first component item
+                                        |> LE.getAt 0
+                                        -- access its custom property
+                                        |> Maybe.andThen .custom
+                                        -- get custom elements length
+                                        |> Maybe.map (.elements >> List.length)
+                                )
+                            |> Expect.equal (Ok (Just 2))
+                        )
+                    ]
+                )
+            , TestUtils.suiteFromResult2 "removeElementTransform"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                -- Injection moulding
+                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                -- tests
+                (\testComponent testProcess ->
                     [ it "should remove an element transform"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
@@ -424,18 +517,15 @@ suite =
                         )
                     ]
                 )
-            , TestUtils.suiteFromResult "setElementMaterial"
-                -- setup
-                (Result.map3 (\a b c -> ( a, b, c ))
-                    -- Dossier plastique (PP)
-                    (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                    -- Steel (valid as a material)
-                    (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
-                    -- Injection moulding (invalid as a material)
-                    (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
-                )
+            , TestUtils.suiteFromResult3 "setElementMaterial"
+                -- Dossier plastique (PP)
+                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                -- Steel (valid as a material)
+                (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
+                -- Injection moulding (invalid as a material)
+                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
                 -- tests
-                (\( testComponent, validTestProcess, invalidTestProcess ) ->
+                (\testComponent validTestProcess invalidTestProcess ->
                     [ it "should set a valid element material"
                         (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
                              , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
@@ -466,6 +556,43 @@ suite =
                             |> decodeJsonThen (Decode.list Component.decodeItem)
                                 (Component.setElementMaterial testComponent 0 invalidTestProcess)
                             |> expectResultErrorContains "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
+                        )
+                    ]
+                )
+            , TestUtils.suiteFromResult "updateItemCustomName"
+                -- Tissu pour canapé
+                (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
+                -- tests
+                (\testComponent ->
+                    [ it "should set a custom name to a component item"
+                        (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.updateItemCustomName testComponent "My custom component" >> Ok)
+                            |> Result.map
+                                (\items ->
+                                    items
+                                        |> LE.getAt 0
+                                        |> Maybe.andThen .custom
+                                        |> Maybe.andThen .name
+                                )
+                            |> Expect.equal (Ok (Just "My custom component"))
+                        )
+                    , it "should trim a custom item name when serializing it"
+                        (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                             ]"""
+                            |> decodeJsonThen (Decode.list Component.decodeItem)
+                                (Component.updateItemCustomName testComponent " My custom component " >> Ok)
+                            |> Result.map (Encode.list Component.encodeItem >> Encode.encode 0)
+                            |> Result.andThen (decodeJson (Decode.list Component.decodeItem))
+                            |> Result.map
+                                (\items ->
+                                    items
+                                        |> LE.getAt 0
+                                        |> Maybe.andThen .custom
+                                        |> Maybe.andThen .name
+                                )
+                            |> Expect.equal (Ok (Just "My custom component"))
                         )
                     ]
                 )

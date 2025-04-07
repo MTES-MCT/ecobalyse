@@ -1,6 +1,7 @@
 module Data.Object.Query exposing
     ( Query
     , addComponentItem
+    , addElement
     , addElementTransform
     , b64encode
     , buildApiQuery
@@ -9,9 +10,11 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , removeComponent
+    , removeElement
     , removeElementTransform
     , setElementMaterial
     , toString
+    , updateComponentItemName
     , updateComponentItemQuantity
     , updateElementAmount
     )
@@ -69,6 +72,13 @@ addComponentItem id query =
     { query | components = query.components |> Component.addItem id }
 
 
+addElement : Component -> Process -> Query -> Result String Query
+addElement component material query =
+    query.components
+        |> Component.addElement component material
+        |> Result.map (\components -> { query | components = components })
+
+
 addElementTransform : Component -> Int -> Process -> Query -> Result String Query
 addElementTransform component index transform query =
     query.components
@@ -85,6 +95,13 @@ removeComponent id ({ components } as query) =
     }
 
 
+removeElement : Component -> Int -> Query -> Result String Query
+removeElement component index query =
+    query.components
+        |> Component.removeElement component index
+        |> Result.map (\components -> { query | components = components })
+
+
 removeElementTransform : Component -> Int -> Int -> Query -> Query
 removeElementTransform component index transformIndex query =
     { query
@@ -99,6 +116,15 @@ setElementMaterial component index material query =
     query.components
         |> Component.setElementMaterial component index material
         |> Result.map (\components -> { query | components = components })
+
+
+updateComponentItemName : Component -> String -> Query -> Query
+updateComponentItemName component name query =
+    { query
+        | components =
+            query.components
+                |> Component.updateItemCustomName component name
+    }
 
 
 updateComponentItemQuantity : Component.Id -> Component.Quantity -> Query -> Query
