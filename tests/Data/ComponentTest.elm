@@ -132,7 +132,7 @@ suite =
                             { impacts = Impact.empty
                             , items = []
                             , mass = Mass.kilogram
-                            , stage = Component.AnyStage
+                            , stage = Nothing
                             }
                             |> Component.applyTransforms db.processes transforms
                             |> Result.withDefault Component.emptyResults
@@ -159,7 +159,7 @@ suite =
                             { impacts = Impact.empty
                             , items = []
                             , mass = Mass.kilogram
-                            , stage = Component.AnyStage
+                            , stage = Nothing
                             }
                             |> Component.applyTransforms db.processes transforms
                             |> Result.withDefault Component.emptyResults
@@ -209,7 +209,7 @@ suite =
                             { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                             , items = []
                             , mass = Mass.kilogram
-                            , stage = Component.AnyStage
+                            , stage = Nothing
                             }
                             |> Component.applyTransforms db.processes transforms
                             |> Result.withDefault Component.emptyResults

@@ -164,13 +164,12 @@ type Results
         { impacts : Impacts
         , items : List Results
         , mass : Mass
-        , stage : Stage
+        , stage : Maybe Stage
         }
 
 
 type Stage
-    = AnyStage
-    | MaterialStage
+    = MaterialStage
     | TransformStage
 
 
@@ -245,7 +244,7 @@ addResults (Results results) (Results acc) =
             | impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
             , items = Results results :: acc.items
             , mass = Quantity.sum [ results.mass, acc.mass ]
-            , stage = AnyStage
+            , stage = Nothing
         }
 
 
@@ -296,11 +295,11 @@ applyTransforms allProcesses transforms materialResults =
                                                 { impacts = transformImpacts
                                                 , items = []
                                                 , mass = outputMass
-                                                , stage = TransformStage
+                                                , stage = Just TransformStage
                                                 }
                                            ]
                                 , mass = outputMass
-                                , stage = AnyStage
+                                , stage = Nothing
                                 }
                         )
                         materialResults
@@ -382,7 +381,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
                         mass
                             |> List.repeat (quantityToInt quantity)
                             |> Quantity.sum
-                    , stage = AnyStage
+                    , stage = Nothing
                     }
             )
 
@@ -412,11 +411,11 @@ computeMaterialResults amount process =
                 { impacts = impacts
                 , items = []
                 , mass = mass
-                , stage = MaterialStage
+                , stage = Just MaterialStage
                 }
             ]
         , mass = mass
-        , stage = MaterialStage
+        , stage = Nothing
         }
 
 
@@ -496,7 +495,7 @@ emptyResults =
         { impacts = Impact.empty
         , items = []
         , mass = Quantity.zero
-        , stage = AnyStage
+        , stage = Nothing
         }
 
 
@@ -562,7 +561,9 @@ encodeResults maybeTrigram (Results results) =
           )
         , ( "items", Encode.list (encodeResults maybeTrigram) results.items )
         , ( "mass", results.mass |> Mass.inKilograms |> Encode.float )
-        , ( "stage", stageToString results.stage |> Encode.string )
+
+        -- FIXME: filterMap
+        , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -619,11 +620,6 @@ extractItems (Results { items }) =
 extractMass : Results -> Mass
 extractMass (Results { mass }) =
     mass
-
-
-extractStage : Results -> Stage
-extractStage (Results { stage }) =
-    stage
 
 
 {-| Lookup a Component from a provided Id
@@ -764,18 +760,17 @@ stagesImpacts (Results results) =
         |> List.concatMap extractItems
         -- element level
         |> List.concatMap extractItems
-        |> List.filter (extractStage >> (/=) AnyStage)
         |> List.foldl
             (\(Results { impacts, stage }) acc ->
                 case stage of
-                    AnyStage ->
-                        acc
-
-                    MaterialStage ->
+                    Just MaterialStage ->
                         { acc | material = Impact.sumImpacts [ acc.material, impacts ] }
 
-                    TransformStage ->
+                    Just TransformStage ->
                         { acc | transformation = Impact.sumImpacts [ acc.transformation, impacts ] }
+
+                    Nothing ->
+                        acc
             )
             { material = Impact.empty, transformation = Impact.empty }
 
@@ -783,9 +778,6 @@ stagesImpacts (Results results) =
 stageToString : Stage -> String
 stageToString stage =
     case stage of
-        AnyStage ->
-            "any"
-
         MaterialStage ->
             "material"
 
