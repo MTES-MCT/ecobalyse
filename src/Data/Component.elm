@@ -215,7 +215,7 @@ addOrSetProcess category targetItem maybeElementIndex process items =
             items |> addElementTransform ( targetItem, elementIndex ) process
 
         ( Category.Transform, Nothing ) ->
-            Err "Un procédé de transformation de peut être ajouté qu'à un élément existant"
+            Err "Un procédé de transformation ne peut être ajouté qu'à un élément existant"
 
         _ ->
             Err <| "Catégorie de procédé non supportée\u{00A0}: " ++ Category.toLabel category
