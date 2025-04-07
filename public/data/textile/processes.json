@@ -1224,7 +1224,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "Ancien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
     "density": 0,
     "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
@@ -1260,7 +1260,7 @@
     "waste": 0.05446
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
     "density": 0,
     "displayName": "Tricotage fully-fashioned",
@@ -1296,7 +1296,7 @@
     "waste": 0.005
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "Ancien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
     "density": 0,
     "displayName": "Tricotage seamless",
@@ -1332,7 +1332,7 @@
     "waste": 0.005
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "Bien que `elecMJ` = 0, ce procédé consomme de l'électricité mais dans une autre unité (kWh/pick.m). Voir weavingElecPPPM. Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
     "density": 0,
     "displayName": "Tissage (habillement)",
@@ -1368,7 +1368,7 @@
     "waste": 0.06253
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "",
     "density": 0,
     "displayName": "Teinture en continu",
@@ -1404,7 +1404,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "",
     "density": 0,
     "displayName": "Teinture en discontinu",
@@ -1440,7 +1440,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "",
     "density": 0,
     "displayName": "Teinture moyenne",
@@ -2484,7 +2484,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "Ancien identifiant (12/2024): 364298ad-2058-4ec4-b2d0-47f5214abffb.",
     "density": 0,
     "displayName": "Tricotage rectiligne",
@@ -2520,7 +2520,7 @@
     "waste": 0.04003
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "Ancien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
     "density": 0,
     "displayName": "Tricotage circulaire",
@@ -2556,7 +2556,7 @@
     "waste": 0.034
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
     "density": 0,
     "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
@@ -2592,7 +2592,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
     "density": 0,
     "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
@@ -2628,7 +2628,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
     "density": 0,
     "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
@@ -2664,7 +2664,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
     "displayName": "Apprêts chimiques",
@@ -2700,7 +2700,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
     "density": 0,
     "displayName": "Teinture fibres synthétiques",
@@ -2736,7 +2736,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
     "density": 0,
     "displayName": "Teinture fibres cellulosiques",
@@ -2772,7 +2772,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
     "density": 0,
     "displayName": "Blanchiment",
@@ -2808,7 +2808,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
     "density": 0,
     "displayName": "Impression (pigmentaire)",
@@ -2844,7 +2844,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
     "density": 0,
     "displayName": "Impression fixé-lavé (colorants)",
@@ -2952,7 +2952,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
     "displayName": "Désencollage",
@@ -2988,7 +2988,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
     "displayName": "Dégraissage",
@@ -3024,7 +3024,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
     "displayName": "Lavage (fibres synthétiques)",
@@ -3060,7 +3060,7 @@
     "waste": 0
   },
   {
-    "categories": ["processing"],
+    "categories": ["transformation"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
     "displayName": "Mercerisage",
