@@ -157,8 +157,7 @@ Un paramètre transverse et plusieurs paramètres spécifiques aux 3 sous-étape
 
 <summary>Pré-traitements</summary>
 
-* Nature des fibres (synthétique, naturelle d'origine animale, etc.),
-* Type d'étoffe (tissée vs tricotée).
+* Nature des fibres (synthétique, naturelle d'origine animale, etc.)
 
 </details>
 
