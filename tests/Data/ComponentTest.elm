@@ -134,7 +134,12 @@ suite =
             , describe "applyTransforms"
                 [ let
                     getTestMass transforms =
-                        Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram }
+                        Component.Results
+                            { impacts = Impact.empty
+                            , items = []
+                            , mass = Mass.kilogram
+                            , stage = Component.AnyStage
+                            }
                             |> Component.applyTransforms db.processes transforms
                             |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
@@ -156,7 +161,12 @@ suite =
                     ]
                 , let
                     getTestEcsImpact transforms =
-                        Component.Results { impacts = Impact.empty, items = [], mass = Mass.kilogram }
+                        Component.Results
+                            { impacts = Impact.empty
+                            , items = []
+                            , mass = Mass.kilogram
+                            , stage = Component.AnyStage
+                            }
                             |> Component.applyTransforms db.processes transforms
                             |> Result.withDefault Component.emptyResults
                             |> Component.extractImpacts
@@ -207,6 +217,7 @@ suite =
                             { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                             , items = []
                             , mass = Mass.kilogram
+                            , stage = Component.AnyStage
                             }
                             |> Component.applyTransforms db.processes transforms
                             |> Result.withDefault Component.emptyResults

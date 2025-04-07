@@ -10,6 +10,7 @@ module Data.Component exposing
     , Item
     , Quantity
     , Results(..)
+    , Stage(..)
     , TargetElement
     , TargetItem
     , addElement
@@ -45,6 +46,7 @@ module Data.Component exposing
     , removeElement
     , removeElementTransform
     , setElementMaterial
+    , stageStats
     , updateElement
     , updateItem
     , updateItemCustomName
@@ -53,7 +55,7 @@ module Data.Component exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition exposing (Trigram)
+import Data.Impact.Definition as Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
@@ -155,6 +157,12 @@ type Quantity
     = Quantity Int
 
 
+type alias StageStats =
+    { material : Split
+    , transformation : Split
+    }
+
+
 {-| A nested data structure carrying the impacts and mass resulting from a computation
 -}
 type Results
@@ -162,7 +170,14 @@ type Results
         { impacts : Impacts
         , items : List Results
         , mass : Mass
+        , stage : Stage
         }
+
+
+type Stage
+    = AnyStage
+    | MaterialStage
+    | TransformStage
 
 
 {-| Add a new element, defined by a required material process, to an item.
@@ -230,6 +245,7 @@ addResults (Results results) (Results acc) =
             | impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
             , items = Results results :: acc.items
             , mass = Quantity.sum [ results.mass, acc.mass ]
+            , stage = AnyStage
         }
 
 
@@ -280,9 +296,11 @@ applyTransforms allProcesses transforms materialResults =
                                                 { impacts = transformImpacts
                                                 , items = []
                                                 , mass = outputMass
+                                                , stage = TransformStage
                                                 }
                                            ]
                                 , mass = outputMass
+                                , stage = AnyStage
                                 }
                         )
                         materialResults
@@ -364,6 +382,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
                         mass
                             |> List.repeat (quantityToInt quantity)
                             |> Quantity.sum
+                    , stage = AnyStage
                     }
             )
 
@@ -389,9 +408,15 @@ computeMaterialResults amount process =
         { impacts = impacts
         , items =
             [ -- material result
-              Results { impacts = impacts, items = [], mass = mass }
+              Results
+                { impacts = impacts
+                , items = []
+                , mass = mass
+                , stage = MaterialStage
+                }
             ]
         , mass = mass
+        , stage = MaterialStage
         }
 
 
@@ -511,6 +536,26 @@ encodeId =
     idToString >> Encode.string
 
 
+encodeResults : Maybe Trigram -> Results -> Encode.Value
+encodeResults maybeTrigram (Results results) =
+    Encode.object
+        [ ( "impacts"
+          , case maybeTrigram of
+                Just trigram ->
+                    results.impacts
+                        |> Impact.getImpact trigram
+                        |> Unit.impactToFloat
+                        |> Encode.float
+
+                Nothing ->
+                    Impact.encode results.impacts
+          )
+        , ( "items", Encode.list (encodeResults maybeTrigram) results.items )
+        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float )
+        , ( "stage", stageToString results.stage |> Encode.string )
+        ]
+
+
 {-| Turn an Element to an ExpandedElement
 -}
 expandElement : List Process -> Element -> Result String ExpandedElement
@@ -549,25 +594,6 @@ expandItem { components, processes } { custom, id, quantity } =
 expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
 expandItems db =
     List.map (expandItem db) >> RE.combine
-
-
-encodeResults : Maybe Trigram -> Results -> Encode.Value
-encodeResults maybeTrigram (Results results) =
-    Encode.object
-        [ ( "impacts"
-          , case maybeTrigram of
-                Just trigram ->
-                    results.impacts
-                        |> Impact.getImpact trigram
-                        |> Unit.impactToFloat
-                        |> Encode.float
-
-                Nothing ->
-                    Impact.encode results.impacts
-          )
-        , ( "items", Encode.list (encodeResults maybeTrigram) results.items )
-        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float )
-        ]
 
 
 {-| Lookup a Component from a provided Id
@@ -677,6 +703,7 @@ emptyResults =
         { impacts = Impact.empty
         , items = []
         , mass = Quantity.zero
+        , stage = AnyStage
         }
 
 
@@ -688,6 +715,11 @@ extractImpacts (Results { impacts }) =
 extractItems : Results -> List Results
 extractItems (Results { items }) =
     items
+
+
+extractStage : Results -> Stage
+extractStage (Results { stage }) =
+    stage
 
 
 extractMass : Results -> Mass
@@ -723,6 +755,62 @@ setElementMaterial targetElement material items =
         items
             |> updateElement targetElement (\el -> { el | material = material.id })
             |> Ok
+
+
+stageStats : Definition.Trigram -> Results -> StageStats
+stageStats selectedImpact (Results results) =
+    let
+        default =
+            { material = Split.zero, transformation = Split.zero }
+
+        toFloat =
+            Impact.getImpact selectedImpact >> Unit.impactToFloat
+
+        total =
+            toFloat results.impacts
+    in
+    if total == 0 then
+        default
+
+    else
+        results.items
+            -- component level
+            |> List.concatMap extractItems
+            -- element level
+            |> List.concatMap extractItems
+            |> List.filter (extractStage >> (/=) AnyStage)
+            |> List.foldl
+                (\(Results { impacts, stage }) counter ->
+                    case stage of
+                        AnyStage ->
+                            counter
+
+                        MaterialStage ->
+                            { counter | material = counter.material + toFloat impacts }
+
+                        TransformStage ->
+                            { counter | transformation = counter.transformation + toFloat impacts }
+                )
+                { material = 0, transformation = 0 }
+            |> (\{ material, transformation } ->
+                    Ok StageStats
+                        |> RE.andMap (Split.fromPercent <| material / total * 100)
+                        |> RE.andMap (Split.fromPercent <| transformation / total * 100)
+                        |> Result.withDefault default
+               )
+
+
+stageToString : Stage -> String
+stageToString stage =
+    case stage of
+        AnyStage ->
+            "any"
+
+        MaterialStage ->
+            "material"
+
+        TransformStage ->
+            "transformation"
 
 
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
