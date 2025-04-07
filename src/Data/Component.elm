@@ -490,6 +490,16 @@ elementToString processes element =
             )
 
 
+emptyResults : Results
+emptyResults =
+    Results
+        { impacts = Impact.empty
+        , items = []
+        , mass = Quantity.zero
+        , stage = AnyStage
+        }
+
+
 encodeCustom : Custom -> Encode.Value
 encodeCustom custom =
     [ ( "name"
@@ -596,6 +606,26 @@ expandItems db =
     List.map (expandItem db) >> RE.combine
 
 
+extractImpacts : Results -> Impacts
+extractImpacts (Results { impacts }) =
+    impacts
+
+
+extractItems : Results -> List Results
+extractItems (Results { items }) =
+    items
+
+
+extractMass : Results -> Mass
+extractMass (Results { mass }) =
+    mass
+
+
+extractStage : Results -> Stage
+extractStage (Results { stage }) =
+    stage
+
+
 {-| Lookup a Component from a provided Id
 -}
 findById : Id -> List Component -> Result String Component
@@ -695,36 +725,6 @@ quantityFromInt int =
 quantityToInt : Quantity -> Int
 quantityToInt (Quantity int) =
     int
-
-
-emptyResults : Results
-emptyResults =
-    Results
-        { impacts = Impact.empty
-        , items = []
-        , mass = Quantity.zero
-        , stage = AnyStage
-        }
-
-
-extractImpacts : Results -> Impacts
-extractImpacts (Results { impacts }) =
-    impacts
-
-
-extractItems : Results -> List Results
-extractItems (Results { items }) =
-    items
-
-
-extractStage : Results -> Stage
-extractStage (Results { stage }) =
-    stage
-
-
-extractMass : Results -> Mass
-extractMass (Results { mass }) =
-    mass
 
 
 {-| Remove an element from an item
