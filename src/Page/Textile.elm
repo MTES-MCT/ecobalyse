@@ -15,7 +15,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Component exposing (Component)
+import Data.Component as Component exposing (Component, Index)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Example as Example
@@ -118,7 +118,7 @@ type Msg
     | OnStepClick String
     | OpenComparator
     | RemoveMaterial Material.Id
-    | RemoveTrim Int
+    | RemoveTrim Index
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -151,7 +151,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
-    | UpdateTrimQuantity Int Component.Quantity
+    | UpdateTrimQuantity Index Component.Quantity
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 

@@ -7,6 +7,7 @@ import Data.Component as Component
         ( Amount
         , Component
         , ExpandedElement
+        , Index
         , Item
         , Quantity
         , Results
@@ -35,23 +36,23 @@ type alias Config db msg =
     { addLabel : String
     , customizable : Bool
     , db : Component.DataContainer db
-    , detailed : List Int
+    , detailed : List Index
     , docsUrl : Maybe String
     , impact : Definition
     , items : List Item
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
-    , openSelectProcessModal : Category -> TargetItem -> Maybe Int -> Autocomplete Process -> msg
+    , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , removeElement : TargetElement -> msg
-    , removeElementTransform : TargetElement -> Int -> msg
-    , removeItem : Int -> msg
+    , removeElementTransform : TargetElement -> Index -> msg
+    , removeItem : Index -> msg
     , results : Results
     , scope : Scope
-    , setDetailed : List Int -> msg
+    , setDetailed : List Index -> msg
     , title : String
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
     , updateItemName : TargetItem -> String -> msg
-    , updateItemQuantity : Int -> Quantity -> msg
+    , updateItemQuantity : Index -> Quantity -> msg
     }
 
 
@@ -128,7 +129,7 @@ addElementTransformButton { db, openSelectProcessModal } ( ( component, itemInde
 
 componentView :
     Config db msg
-    -> Int
+    -> Index
     -> Item
     -> ( Quantity, Component, List ExpandedElement )
     -> Results
@@ -346,7 +347,7 @@ amountInput config targetElement unit amount =
         ]
 
 
-elementView : Config db msg -> TargetItem -> Int -> ExpandedElement -> Results -> Html msg
+elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config targetItem elementIndex { amount, material, transforms } elementResults =
     let
         ( materialResults, transformsResults ) =
@@ -488,7 +489,7 @@ elementTransformsView config targetElement transformsResults transforms =
         transforms
 
 
-quantityInput : Config db msg -> Int -> Quantity -> Html msg
+quantityInput : Config db msg -> Index -> Quantity -> Html msg
 quantityInput config itemIndex quantity =
     div [ class "input-group", style "width" "130px" ]
         [ input

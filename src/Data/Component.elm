@@ -708,7 +708,7 @@ removeElement ( targetItem, elementIndex ) =
         )
 
 
-removeElementTransform : TargetElement -> Int -> List Item -> List Item
+removeElementTransform : TargetElement -> Index -> List Item -> List Item
 removeElementTransform targetElement transformIndex =
     updateElement targetElement <|
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
@@ -778,7 +778,7 @@ updateItemCustomName targetItem name =
         \custom -> { custom | name = Just name }
 
 
-updateItem : Int -> (Item -> Item) -> List Item -> List Item
+updateItem : Index -> (Item -> Item) -> List Item -> List Item
 updateItem itemIndex =
     LE.updateAt itemIndex
 

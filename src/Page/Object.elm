@@ -13,7 +13,7 @@ import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Component exposing (Component, TargetElement, TargetItem)
+import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -49,7 +49,7 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , detailedComponents : List Int
+    , detailedComponents : List Index
     , examples : List (Example Query)
     , impact : Definition
     , initialQuery : Query
@@ -64,7 +64,7 @@ type Modal
     | ComparatorModal
     | NoModal
     | SelectExampleModal (Autocomplete Query)
-    | SelectProcessModal Category TargetItem (Maybe Int) (Autocomplete Process)
+    | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
 type Msg
@@ -72,20 +72,20 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
-    | OnAutocompleteAddProcess Category TargetItem (Maybe Int) (Autocomplete.Msg Process)
+    | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
-    | OnAutocompleteSelectProcess Category TargetItem (Maybe Int)
+    | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | OpenComparator
     | RemoveComponentItem Int
     | RemoveElement TargetElement
-    | RemoveElementTransform TargetElement Int
+    | RemoveElementTransform TargetElement Index
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
-    | SetDetailedComponents (List Int)
+    | SetDetailedComponents (List Index)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -94,7 +94,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateComponentItemName TargetItem String
-    | UpdateComponentItemQuantity Int Component.Quantity
+    | UpdateComponentItemQuantity Index Component.Quantity
     | UpdateElementAmount TargetElement (Maybe Component.Amount)
 
 
@@ -493,7 +493,7 @@ selectComponent query autocompleteState ( model, session, _ ) =
 selectProcess :
     Category
     -> TargetItem
-    -> Maybe Int
+    -> Maybe Index
     -> Autocomplete Process
     -> Query
     -> ( Model, Session, Cmd Msg )
