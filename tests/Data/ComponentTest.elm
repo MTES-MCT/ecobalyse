@@ -1,7 +1,7 @@
 module Data.ComponentTest exposing (..)
 
 import Data.Component as Component exposing (Component)
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -16,12 +16,6 @@ import Result.Extra as RE
 import Static.Db exposing (Db)
 import Test exposing (..)
 import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
-
-
-getEcsImpact : Component.Results -> Float
-getEcsImpact =
-    Component.extractImpacts
-        >> (Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
 
 
 suite : Test
@@ -169,9 +163,7 @@ suite =
                             }
                             |> Component.applyTransforms db.processes transforms
                             |> Result.withDefault Component.emptyResults
-                            |> Component.extractImpacts
-                            |> Impact.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
+                            |> extractEcsImpact
                   in
                   describe "impacts"
                     [ it "should not add impacts when no transforms are passed"
@@ -241,9 +233,7 @@ suite =
                           -- 100 + (1kg * 10) + (0.5kg * 20) = 120
                           it "should handle impacts+waste when applying transforms: impacts"
                             (noElecAndNoHeat
-                                |> Component.extractImpacts
-                                |> Impact.getImpact Definition.Ecs
-                                |> Unit.impactToFloat
+                                |> extractEcsImpact
                                 |> Expect.within (Expect.Absolute 1) 120
                             )
 
@@ -269,9 +259,7 @@ suite =
                       describe "including elec and heat"
                         [ it "should handle impacts+waste when applying transforms: impacts"
                             (withElecAndHeat
-                                |> Component.extractImpacts
-                                |> Impact.getImpact Definition.Ecs
-                                |> Unit.impactToFloat
+                                |> extractEcsImpact
                                 |> Expect.within (Expect.Absolute 1) 692
                             )
                         , it "should handle impacts+waste when applying transforms: mass"
@@ -290,7 +278,7 @@ suite =
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
-                        |> Result.map getEcsImpact
+                        |> Result.map extractEcsImpact
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 422
                     )
                 , it "should compute results from decoded component items with custom component elements"
@@ -311,7 +299,7 @@ suite =
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
-                        |> Result.map getEcsImpact
+                        |> Result.map extractEcsImpact
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 443
                     )
                 ]
@@ -333,9 +321,7 @@ suite =
                 (\elementResults ->
                     [ it "should compute element impacts"
                         (elementResults
-                            |> Component.extractImpacts
-                            |> Impact.getImpact Definition.Ecs
-                            |> Unit.impactToFloat
+                            |> extractEcsImpact
                             |> Expect.within (Expect.Absolute 1) 2146
                         )
                     , it "should compute element mass"
@@ -410,7 +396,7 @@ suite =
                             }
                           }"""
                      )
-                        |> combineMapBoth_ (toComputedResults >> Result.map getEcsImpact)
+                        |> combineMapBoth_ (toComputedResults >> Result.map extractEcsImpact)
                         |> (\result ->
                                 case result of
                                     Ok ( a, b ) ->
@@ -583,6 +569,31 @@ suite =
                         )
                     ]
                 )
+            , TestUtils.suiteFromResult "stagesImpacts"
+                (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                     ]"""
+                    |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
+                    |> Result.map (\results -> ( results, Component.stagesImpacts results ))
+                )
+                (\( results, stagesImpacts ) ->
+                    [ it "should compute material stage impacts"
+                        (stagesImpacts.material
+                            |> getEcsImpact
+                            |> Expect.greaterThan 0
+                        )
+                    , it "should compute transformation stage impacts"
+                        (stagesImpacts.transformation
+                            |> getEcsImpact
+                            |> Expect.greaterThan 0
+                        )
+                    , it "should have total stages impacts equal total impacts"
+                        ([ stagesImpacts.material, stagesImpacts.transformation ]
+                            |> Impact.sumImpacts
+                            |> getEcsImpact
+                            |> Expect.within (Expect.Absolute 1) (extractEcsImpact results)
+                        )
+                    ]
+                )
             , TestUtils.suiteFromResult "updateItemCustomName"
                 -- Tissu pour canapé
                 (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
@@ -622,6 +633,16 @@ suite =
                 )
             ]
         )
+
+
+extractEcsImpact : Component.Results -> Float
+extractEcsImpact =
+    Component.extractImpacts >> getEcsImpact
+
+
+getEcsImpact : Impacts -> Float
+getEcsImpact =
+    Impact.getImpact Definition.Ecs >> Unit.impactToFloat
 
 
 getComponentByStringId : Db -> String -> Result String Component
