@@ -46,7 +46,7 @@ module Data.Component exposing
     , removeElement
     , removeElementTransform
     , setElementMaterial
-    , stageStats
+    , stagesImpacts
     , updateElement
     , updateItem
     , updateItemCustomName
@@ -55,7 +55,7 @@ module Data.Component exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition as Definition exposing (Trigram)
+import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
@@ -157,12 +157,6 @@ type Quantity
     = Quantity Int
 
 
-type alias StageStats =
-    { material : Split
-    , transformation : Split
-    }
-
-
 {-| A nested data structure carrying the impacts and mass resulting from a computation
 -}
 type Results
@@ -178,6 +172,12 @@ type Stage
     = AnyStage
     | MaterialStage
     | TransformStage
+
+
+type alias StagesImpacts =
+    { material : Impacts
+    , transformation : Impacts
+    }
 
 
 {-| Add a new element, defined by a required material process, to an item.
@@ -757,47 +757,27 @@ setElementMaterial targetElement material items =
             |> Ok
 
 
-stageStats : Definition.Trigram -> Results -> StageStats
-stageStats selectedImpact (Results results) =
-    let
-        default =
-            { material = Split.zero, transformation = Split.zero }
+stagesImpacts : Results -> StagesImpacts
+stagesImpacts (Results results) =
+    results.items
+        -- component level
+        |> List.concatMap extractItems
+        -- element level
+        |> List.concatMap extractItems
+        |> List.filter (extractStage >> (/=) AnyStage)
+        |> List.foldl
+            (\(Results { impacts, stage }) acc ->
+                case stage of
+                    AnyStage ->
+                        acc
 
-        toFloat =
-            Impact.getImpact selectedImpact >> Unit.impactToFloat
+                    MaterialStage ->
+                        { acc | material = Impact.sumImpacts [ acc.material, impacts ] }
 
-        total =
-            toFloat results.impacts
-    in
-    if total == 0 then
-        default
-
-    else
-        results.items
-            -- component level
-            |> List.concatMap extractItems
-            -- element level
-            |> List.concatMap extractItems
-            |> List.filter (extractStage >> (/=) AnyStage)
-            |> List.foldl
-                (\(Results { impacts, stage }) counter ->
-                    case stage of
-                        AnyStage ->
-                            counter
-
-                        MaterialStage ->
-                            { counter | material = counter.material + toFloat impacts }
-
-                        TransformStage ->
-                            { counter | transformation = counter.transformation + toFloat impacts }
-                )
-                { material = 0, transformation = 0 }
-            |> (\{ material, transformation } ->
-                    Ok StageStats
-                        |> RE.andMap (Split.fromPercent <| material / total * 100)
-                        |> RE.andMap (Split.fromPercent <| transformation / total * 100)
-                        |> Result.withDefault default
-               )
+                    TransformStage ->
+                        { acc | transformation = Impact.sumImpacts [ acc.transformation, impacts ] }
+            )
+            { material = Impact.empty, transformation = Impact.empty }
 
 
 stageToString : Stage -> String
