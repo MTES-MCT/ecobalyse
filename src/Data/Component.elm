@@ -54,6 +54,7 @@ module Data.Component exposing
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Common.EncodeUtils as EU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
@@ -501,24 +502,23 @@ emptyResults =
 
 encodeCustom : Custom -> Encode.Value
 encodeCustom custom =
-    [ ( "name"
-      , custom.name
-            |> Maybe.map String.trim
-            |> Maybe.andThen
-                (\name ->
-                    -- Forbid serializing an empty name
-                    if name == "" then
-                        Nothing
+    EU.optionalPropertiesObject
+        [ ( "name"
+          , custom.name
+                |> Maybe.map String.trim
+                |> Maybe.andThen
+                    (\name ->
+                        -- Forbid serializing an empty name
+                        if name == "" then
+                            Nothing
 
-                    else
-                        Just name
-                )
-            |> Maybe.map Encode.string
-      )
-    , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
-    ]
-        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
-        |> Encode.object
+                        else
+                            Just name
+                    )
+                |> Maybe.map Encode.string
+          )
+        , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
+        ]
 
 
 encodeElement : Element -> Encode.Value
@@ -532,12 +532,11 @@ encodeElement element =
 
 encodeItem : Item -> Encode.Value
 encodeItem item =
-    [ ( "id", item.id |> idToString |> Encode.string |> Just )
-    , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
-    , ( "custom", item.custom |> Maybe.map encodeCustom )
-    ]
-        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
-        |> Encode.object
+    EU.optionalPropertiesObject
+        [ ( "id", item.id |> idToString |> Encode.string |> Just )
+        , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+        , ( "custom", item.custom |> Maybe.map encodeCustom )
+        ]
 
 
 encodeId : Id -> Encode.Value
@@ -547,23 +546,24 @@ encodeId =
 
 encodeResults : Maybe Trigram -> Results -> Encode.Value
 encodeResults maybeTrigram (Results results) =
-    Encode.object
+    EU.optionalPropertiesObject
         [ ( "impacts"
-          , case maybeTrigram of
-                Just trigram ->
-                    results.impacts
-                        |> Impact.getImpact trigram
-                        |> Unit.impactToFloat
-                        |> Encode.float
+          , Just
+                -- Note: even with no trigram provided, we always want impacts here
+                (case maybeTrigram of
+                    Just trigram ->
+                        results.impacts
+                            |> Impact.getImpact trigram
+                            |> Unit.impactToFloat
+                            |> Encode.float
 
-                Nothing ->
-                    Impact.encode results.impacts
+                    Nothing ->
+                        Impact.encode results.impacts
+                )
           )
-        , ( "items", Encode.list (encodeResults maybeTrigram) results.items )
-        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float )
-
-        -- FIXME: filterMap
-        , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) |> Maybe.withDefault Encode.null )
+        , ( "items", results.items |> Encode.list (encodeResults maybeTrigram) |> Just )
+        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
+        , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) )
         ]
 
 

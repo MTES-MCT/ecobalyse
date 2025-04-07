@@ -14,6 +14,7 @@ module Data.Textile.Inputs exposing
     , toString
     )
 
+import Data.Common.EncodeUtils as EU
 import Data.Component exposing (Item)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
@@ -523,10 +524,9 @@ encode inputs =
 
 encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
-    [ ( "country", v.country |> Maybe.map (.code >> Country.encodeCode) )
-    , ( "material", Material.encode v.material |> Just )
-    , ( "share", Split.encodeFloat v.share |> Just )
-    , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
-    ]
-        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
-        |> Encode.object
+    EU.optionalPropertiesObject
+        [ ( "country", v.country |> Maybe.map (.code >> Country.encodeCode) )
+        , ( "material", Material.encode v.material |> Just )
+        , ( "share", Split.encodeFloat v.share |> Just )
+        , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
+        ]
