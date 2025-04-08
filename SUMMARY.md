@@ -190,3 +190,5 @@
 ***
 
 * [Source des procédés](source-des-procedes.md)
+* [📌 Modèle de page](modele-de-page.md)
+* [♻️ Fin de vie](fin-de-vie.md)
