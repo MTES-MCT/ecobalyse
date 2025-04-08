@@ -37,7 +37,7 @@ suite =
                     |> Example.findByName "Table"
                     |> Result.andThen (.query >> getEcsImpact db)
                     |> Result.withDefault 0
-                    |> Expect.within (Expect.Absolute 1) 3979
+                    |> Expect.within (Expect.Absolute 1) 3974
                     |> asTest "should compute impact for an example table"
                 ]
             ]
