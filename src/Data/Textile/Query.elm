@@ -26,6 +26,7 @@ module Data.Textile.Query exposing
 
 import Base64
 import Data.Common.DecodeUtils as DU
+import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Item)
 import Data.Country as Country
 import Data.Split as Split exposing (Split)
@@ -157,53 +158,50 @@ decodeMaterialQuery =
 
 encode : Query -> Encode.Value
 encode query =
-    [ ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
-    , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
-    , ( "countryDyeing", query.countryDyeing |> Maybe.map Country.encodeCode )
-    , ( "countryFabric", query.countryFabric |> Maybe.map Country.encodeCode )
-    , ( "countryMaking", query.countryMaking |> Maybe.map Country.encodeCode )
-    , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode )
-    , ( "disabledSteps"
-      , case query.disabledSteps of
-            [] ->
-                Nothing
+    EU.optionalPropertiesObject
+        [ ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
+        , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
+        , ( "countryDyeing", query.countryDyeing |> Maybe.map Country.encodeCode )
+        , ( "countryFabric", query.countryFabric |> Maybe.map Country.encodeCode )
+        , ( "countryMaking", query.countryMaking |> Maybe.map Country.encodeCode )
+        , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode )
+        , ( "disabledSteps"
+          , case query.disabledSteps of
+                [] ->
+                    Nothing
 
-            list ->
-                Encode.list Label.encode list |> Just
-      )
-    , ( "dyeingProcessType", query.dyeingProcessType |> Maybe.map Dyeing.encode )
-    , ( "fabricProcess", query.fabricProcess |> Maybe.map Fabric.encode )
-    , ( "fading", query.fading |> Maybe.map Encode.bool )
-    , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
-    , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
-    , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
-    , ( "mass", query.mass |> Mass.inKilograms |> Encode.float |> Just )
-    , ( "materials", query.materials |> Encode.list encodeMaterialQuery |> Just )
-    , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
-    , ( "physicalDurability", query.physicalDurability |> Maybe.map Unit.encodePhysicalDurability )
-    , ( "price", query.price |> Maybe.map Economics.encodePrice )
-    , ( "printing", query.printing |> Maybe.map Printing.encode )
-    , ( "product", query.product |> Product.idToString |> Encode.string |> Just )
-    , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
-    , ( "traceability", query.traceability |> Maybe.map Encode.bool )
-    , ( "trims", query.trims |> Encode.list Component.encodeItem |> Just )
-    , ( "upcycled", Encode.bool query.upcycled |> Just )
-    , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
-    ]
-        -- For concision, drop keys where no param is defined
-        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
-        |> Encode.object
+                list ->
+                    Encode.list Label.encode list |> Just
+          )
+        , ( "dyeingProcessType", query.dyeingProcessType |> Maybe.map Dyeing.encode )
+        , ( "fabricProcess", query.fabricProcess |> Maybe.map Fabric.encode )
+        , ( "fading", query.fading |> Maybe.map Encode.bool )
+        , ( "makingComplexity", query.makingComplexity |> Maybe.map (MakingComplexity.toString >> Encode.string) )
+        , ( "makingDeadStock", query.makingDeadStock |> Maybe.map Split.encodeFloat )
+        , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat )
+        , ( "mass", query.mass |> Mass.inKilograms |> Encode.float |> Just )
+        , ( "materials", query.materials |> Encode.list encodeMaterialQuery |> Just )
+        , ( "numberOfReferences", query.numberOfReferences |> Maybe.map Encode.int )
+        , ( "physicalDurability", query.physicalDurability |> Maybe.map Unit.encodePhysicalDurability )
+        , ( "price", query.price |> Maybe.map Economics.encodePrice )
+        , ( "printing", query.printing |> Maybe.map Printing.encode )
+        , ( "product", query.product |> Product.idToString |> Encode.string |> Just )
+        , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
+        , ( "traceability", query.traceability |> Maybe.map Encode.bool )
+        , ( "trims", query.trims |> Encode.list Component.encodeItem |> Just )
+        , ( "upcycled", Encode.bool query.upcycled |> Just )
+        , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
+        ]
 
 
 encodeMaterialQuery : MaterialQuery -> Encode.Value
 encodeMaterialQuery v =
-    [ ( "country", v.country |> Maybe.map Country.encodeCode )
-    , ( "id", Material.encodeId v.id |> Just )
-    , ( "share", Split.encodeFloat v.share |> Just )
-    , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
-    ]
-        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
-        |> Encode.object
+    EU.optionalPropertiesObject
+        [ ( "country", v.country |> Maybe.map Country.encodeCode )
+        , ( "id", Material.encodeId v.id |> Just )
+        , ( "share", Split.encodeFloat v.share |> Just )
+        , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
+        ]
 
 
 removeMaterial : Material.Id -> Query -> Query

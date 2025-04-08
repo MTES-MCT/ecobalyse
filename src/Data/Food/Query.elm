@@ -25,6 +25,7 @@ module Data.Food.Query exposing
 
 import Base64
 import Data.Common.DecodeUtils as DU
+import Data.Common.EncodeUtils as EU
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
@@ -179,41 +180,41 @@ empty =
 
 encode : Query -> Encode.Value
 encode v =
-    [ ( "ingredients", Encode.list encodeIngredient v.ingredients |> Just )
-    , ( "transform", v.transform |> Maybe.map encodeProcess )
-    , ( "packaging"
-      , case v.packaging of
-            [] ->
-                Nothing
+    EU.optionalPropertiesObject
+        [ ( "ingredients", Encode.list encodeIngredient v.ingredients |> Just )
+        , ( "transform", v.transform |> Maybe.map encodeProcess )
+        , ( "packaging"
+          , case v.packaging of
+                [] ->
+                    Nothing
 
-            list ->
-                Encode.list encodeProcess list |> Just
-      )
-    , ( "distribution", v.distribution |> Maybe.map Retail.encode )
-    , ( "preparation"
-      , case v.preparation of
-            [] ->
-                Nothing
+                list ->
+                    Encode.list encodeProcess list |> Just
+          )
+        , ( "distribution", v.distribution |> Maybe.map Retail.encode )
+        , ( "preparation"
+          , case v.preparation of
+                [] ->
+                    Nothing
 
-            list ->
-                Encode.list Preparation.encodeId list |> Just
-      )
-    ]
-        -- For concision, drop keys where no param is defined
-        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
-        |> Encode.object
+                list ->
+                    Encode.list Preparation.encodeId list |> Just
+          )
+        ]
+
+
+
+-- For concision, drop keys where no param is defined
 
 
 encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient v =
-    [ ( "id", Ingredient.encodeId v.id |> Just )
-    , ( "mass", encodeMassAsGrams v.mass |> Just )
-    , ( "country", v.country |> Maybe.map Country.encodeCode )
-    , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
-    ]
-        -- For concision, drop keys where no param is defined
-        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
-        |> Encode.object
+    EU.optionalPropertiesObject
+        [ ( "id", Ingredient.encodeId v.id |> Just )
+        , ( "mass", encodeMassAsGrams v.mass |> Just )
+        , ( "country", v.country |> Maybe.map Country.encodeCode )
+        , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
+        ]
 
 
 encodeMassAsGrams : Mass -> Encode.Value

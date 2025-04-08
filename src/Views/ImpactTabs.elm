@@ -197,21 +197,25 @@ forFood results config =
     }
 
 
-{-| Note: for now, object simulation impacts are only the impacts of its components, but
-this will change as soon as we add more steps to the life cycle.
--}
 forObject : Component.Results -> Config msg -> Config msg
 forObject results config =
+    let
+        stageStats =
+            Component.stagesImpacts results
+    in
     { config
         | stepsImpacts =
             { distribution = Nothing
             , endOfLife = Nothing
             , materials =
-                Component.extractImpacts results
+                stageStats.material
                     |> Impact.getImpact config.impactDefinition.trigram
                     |> Just
             , packaging = Nothing
-            , transform = Nothing
+            , transform =
+                stageStats.transformation
+                    |> Impact.getImpact config.impactDefinition.trigram
+                    |> Just
             , transports = Nothing
             , trims = Nothing
             , usage = Nothing
