@@ -139,7 +139,7 @@ Aucune perte n'est appliquée lors de l'étape Ennoblissement.
 
 ## Paramètres retenus pour l’affichage environnemental
 
-### <mark style="color:red;">Paramètres mobilisés</mark>
+### Paramètres mobilisés
 
 Un paramètre transverse et plusieurs paramètres spécifiques aux 3 sous-étapes (pré-traitements, teinture/impression et finition) constituant l'étape Ennoblissement sont mobilisés :&#x20;
 
