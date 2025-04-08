@@ -18,12 +18,8 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 expectImpactEqual : Unit.Impact -> Unit.Impact -> Expect.Expectation
 expectImpactEqual expectedImpactUnit =
-    let
-        expectedImpact =
-            Unit.impactToFloat expectedImpactUnit
-    in
     Unit.impactToFloat
-        >> Expect.within (Expect.Relative 0.000000001) expectedImpact
+        >> Expect.within (Expect.Relative 0.000000001) (Unit.impactToFloat expectedImpactUnit)
 
 
 suite : Test
