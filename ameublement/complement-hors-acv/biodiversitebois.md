@@ -6,7 +6,7 @@ description: Présentation de la méthode de calcul du complément Biodiversité
 
 ## Pourquoi introduire ce complément ?
 
-Afin d'intégrer dans l'évaluation environnementale des meubles les enjeux biodiversité liés à certaines pratiques forestières participant à la dégradation des forêts et/ou à la déforestation.&#x20;
+Afin d'intégrer dans le coût environnemental des meubles l'impact sur la biodiversité des pratiques forestières participant à la dégradation des forêts.&#x20;
 
 De manière plus précise, trois raisons expliquent la nécessité de proposer ce complément :&#x20;
 
@@ -52,24 +52,21 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 <summary>Gestion Forestière (GF)</summary>
 
-Ce paramètre vise à caractériser le mode de gestion forestière du bois utilisé dans la modélisation. Un bois se caractérise par une essence (ex : bois exotiques, chêne, etc.) et une origine  (ex : Asie du Sud-Est, France, etc.).&#x20;
+Ce paramètre caractérise le mode de gestion forestière de chaque bois entrant dans la composition du meuble.&#x20;
 
-3 modes de gestion forestière sont proposés :&#x20;
+Un bois se caractérise par une essence (ex : bois exotiques, chêne, etc.) et une origine  (ex : Asie du Sud-Est, France, etc.).&#x20;
+
+3 pratiques de gestion forestière sont proposées :&#x20;
 
 * Intensive
 * Mitigée
 * Raisonnée
 
-Pour chaque niveau, un **c**oefficient de gestion forestière (GF) , exprimé en Pts d'impact / kg de bois, est affecté à chaque niveau :&#x20;
+Pour chaque niveau, un **c**oefficient de gestion forestière (GF) est défini (exprimé en Pts d'impact / kg de bois) :&#x20;
 
-| Intensive                           | Mitigée                             | Raisonnée                         |
-| ----------------------------------- | ----------------------------------- | --------------------------------- |
-| <mark style="color:red;">100</mark> | <mark style="color:red;">50</mark>  | <mark style="color:red;">0</mark> |
-
-Le niveau d'exploitation forestière est estimé sur la base de deux critères :&#x20;
-
-* l'intensité des coupes (ex : 80 m3 / ha),
-* la durée de rotation (ex : 20 années).
+| Intensive                          | Mitigée                           | Raisonnée                         |
+| ---------------------------------- | --------------------------------- | --------------------------------- |
+| <mark style="color:red;">10</mark> | <mark style="color:red;">5</mark> | <mark style="color:red;">0</mark> |
 
 </details>
 
@@ -155,23 +152,23 @@ Chacune de ces filières se voit attribuer deux valeurs par défaut :&#x20;
 {% hint style="info" %}
 **Focus \_ Gestion Forestière (GF)**
 
-Le mode de gestion forestière (Intensive / Mitigée / Raisonnée) appliqué par défaut  pour chaque filière d'approvisionnement (ex : Résineux <⇒ Suède) est _majorant._ L'utilisation d'une telle hypothèse majorante/pénalisante couplée à la possibilité de préciser ce scénario permet de prendre en compte les pratiques vertueuses (ex : traçabilité jusqu'à la parcelle, utilisation de label, etc.)  tout en incitant à plus de traçabilité.&#x20;
+Pour chaque filière d'approvisionnement proposée (ex : Bois tropical \_ Asie du Sud-Est), le mode de gestion forestière (Intensive / Mitigée / Raisonnée) appliqué par défaut est basé sur une hypothèse majorant&#x65;_._ L'utilisation d'une telle hypothèse pénalisante, couplée à la possibilité de préciser ce scénario, permet de prendre en compte les pratiques vertueuses (ex : traçabilité jusqu'à la parcelle, utilisation de label, etc.)  tout en incitant à plus de traçabilité.&#x20;
 
-Les valeurs par défaut se basent sur l'état de l'art compilé par Ecobalyse dans le cadre des travaux menés sur le premier semestre 2025.
+Les valeurs par défaut se basent sur l'état de l'art compilé par Ecobalyse dans le cadre des travaux menés sur le premier semestre 2025. Deux critères clés ont été utilisés pour identifier les pratiques forestière intensives/dégradantes : (i) l'intensité des coupes (ex : 80 m3 / ha), (ii) la durée de rotation (ex : 20 années).
 
-Les principales sources utilisées pour estimer paramètre sont :&#x20;
+Les principales sources utilisées pour estimer ces paramètre par origine sont :&#x20;
 
 * des outils d'imagerie satellitaire permettant d'identifier les régions sylvicoles proposant une exploitation intensive des forêts ([carte 1](https://gfw.global/4kZ6RaB) de gains et pertes de couvert forestier entre 2000 et 2020 / [carte 2](https://gfw.global/41N4ujO) présentant les forêts de plantation),
-* des ressources bibliographiques permettant de mieux comprendre les régions sylicoles à risque concernant leur gestion intensive des forêts,
-* des entretiens et ateliers avec les filières Ameublement et Bois/Forêt (ex : atelier Sylvilcutre du 30/01/2025 piloté par Ecobalyse; support accessible [ici](https://miro.com/app/board/uXjVLn9pEjg=/?share_link_id=467200481479)).
+* des ressources bibliographiques permettant de mieux comprendre les régions sylvicoles à risque concernant leur gestion des forêts,
+* des entretiens et ateliers avec les filières Ameublement et Bois/Forêt (ex : atelier Sylviculture du 30/01/2025; support accessible [ici](https://miro.com/app/board/uXjVLn9pEjg=/?share_link_id=467200481479)).
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/image (351).png" alt=""><figcaption></figcaption></figure>
 
-Afin de couvrir toutes les configurations possibles, deux scénarios additionnels sont proposés dans l'interface Ecobalyse :&#x20;
+Afin de couvrir toutes les configurations possibles, deux scénarios non spécifiques à une origine ont été intégrés dans la méthode :&#x20;
 
-* **Inconnue** : lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant produit le bois, l'origine "Inconnue" est proposée . Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
-* **Autres** : Lorsque l'origine du bois à modéliser n'est pas proposée, le scénario "Autre" est à utiliser. Ce scénario reflète le fait qu'un bois ne serait pas concerné par une filière d'approvisionnement à risque d'un point de vue biodiversité (car les filières à risque sont listées dans les scénarios par défaut). Dès lors, seul le mode de gestion forestière (GF) se voit attribué une valeur moyenne (Mitigée) car des pratiques forestières intensives peuvent avoir lieu dans n'importe quel pays.
+* **Origine inconnue** : lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant produit le bois, l'origine "Inconnue" est proposée . Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
+* **Autre origine** : Lorsque l'origine du bois à modéliser n'est pas proposée, le scénario "Autre" est à utiliser. Ce scénario reflète le fait qu'un bois ne serait pas concerné par une filière d'approvisionnement à risque d'un point de vue biodiversité (car les filières à risque sont listées dans les scénarios par défaut). Dès lors, seul le mode de gestion forestière (GF) se voit attribué une valeur moyenne (Mitigée) car des pratiques forestières intensives peuvent avoir lieu dans n'importe quel pays.
 
 ### **Etape 3 = Introduction de certifications (optionnel)** &#x20;
 
@@ -249,20 +246,6 @@ Amérique du Sud et Centrale = 2%
 &#x20;(source[^4])
 {% endtab %}
 {% endtabs %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -417,87 +400,6 @@ Source : _Règlement européen du 31 mai 2023 relatif à la déforestation impor
 {% endtab %}
 {% endtabs %}
 
-
-
-
-
-
-
-
-
-## Probabilité export hors Europe, valeurs par défaut
-
-A partir des données moyennes compilées dans le cadre de nos travaux, la probabilité qu'un vêtement en fin de vie soit exporté hors Europe puis jeté est de 9%.&#x20;
-
-{% hint style="info" %}
-Trois hypothèses permettent de comprendre ce chiffre de 9% :&#x20;
-
-* 38% des vêtements utilisés pour la première fois sont collectés et triés (source[^7])
-* 49% des vêtements triés sont exportés hors Europe (source[^8] / ce chiffre de 49% cadre par ailleurs avec les [autres scénarios](#user-content-fn-9)[^9] de fin de vie post-tri),&#x20;
-* dans 50% des cas, le vêtement est directement jeté sans avoir été réutilisé (source mentionnée précédemment / fourchette haute retenue par Ecobalyse).
-{% endhint %}
-
-<details>
-
-<summary>Pourquoi les vêtements synthétiques seraient moins réutilisés ?  </summary>
-
-Lorsqu'ils arrivent à destination, par exemple en Afrique, les vêtements sont généralement triés une seconde fois. Des observations, rapportées par différents échanges avec des spécialistes de la fin de vie et une revue de la bibliographie à ce sujet, font état d'une valeur perçue plus importante pour les vêtements en matières naturelles. Comparativement aux vêtements en matières synthétiques, ceux-ci ont plus de chance d'être revendus, repris, rapiécés, upcyclés. Ils ont donc moins de chances d'être directement jetés. \
-\
-Ce constat est notamment appuyé par :&#x20;
-
-* les [travaux ](https://www.ifmparis.fr/en/faculty/andree-anne-lemieux)et différents échanges avec Andrée-Anne Lemieux (chaire Sustainability IFM-Kering),
-* l'initiative [Fashion For Good](https://fashionforgood.com/) dans son rapport [Sorting For Circularity Europe](https://fashionforgood.com/our_news/sorting-for-circularity-europe-project-findings/). L'hypothèse que la perception des vêtements synthétiques par le consommateur pourrait être moindre (cf. extrait du rapport ci-dessous) est effectivement partagée : \
-  "_The difference in fibre composition found could also reflect a preference from consumers in the focus countries for cotton products over polyester, or could be an effect of consumer disposal behaviour as they might regard polyester products as lower value and therefore, choose to dispose of them in household waste rather than giving it to charity for reuse_.",
-* le retour d'expérience du principal marché secondaire de vêtements au Ghana (marché de Katamanto à Accra) via des échanges avec [_En Mode Climat_](https://www.enmodeclimat.fr/) et [_The Or Foundation_](https://theor.org/).&#x20;
-
-</details>
-
-On considère donc les probabilités suivantes (&#x50;_&#x72;obaDéchet_) pour la réutilisation des vêtements exportés hors Europe :&#x20;
-
-<table><thead><tr><th width="233">Scénario</th><th width="199">Export hors Europe</th><th>Déchets</th><th>ProbaDéchet</th></tr></thead><tbody><tr><td>Moyenne</td><td>19% <br>(= 38% * 49%)</td><td>50%</td><td>9%</td></tr><tr><td>Vêtements synthétiques</td><td>cf. ci-dessus</td><td>65%</td><td>12%</td></tr><tr><td>Autres vêtements</td><td>cf. ci-dessus</td><td>27%</td><td>5%</td></tr></tbody></table>
-
-{% hint style="info" %}
-Les valeurs ProbaDéchet par type de fibre sont calculés sur la base de 3 hypothèses :&#x20;
-
-1\) En moyenne, 50% des vêtements exportés hors Europe ne sont pas réutilisés,
-
-2\) Les vêtements exportés hors Europe se composent à 61% de vêtements composés de fibres synthétiques vs 39% de vêtements composés d'autres matières (Source[^10] = marché mondial des fibres textile),
-
-3\) les vêtements composés de matières synthétiques ont 60% de chance de ne pas être réutilisés (donc la probabilité des vêtements composés de matières non synthétiques d'être non réutilisés est de 34% afin de retrouver une probabilité moyenne de 50%). &#x20;
-{% endhint %}
-
-## Calcul du complément "Export hors Europe"
-
-2 paramètres sont considérés pour calculer le complément :&#x20;
-
-* la masse du vêtement (produit fini),
-* sa probabilité de terminer sa fin de vie hors Europe sous forme de déchets, dont la valeur par défaut dépend de la classification du produit (matières synthétiques ou naturelles)&#x20;
-
-{% hint style="warning" %}
-On considère que le vêtement rentre dans la catégorie "matières synthétiques" dès lors que les matières synthétiques représentent plus de 50% de sa composition.\
-Initialement, un seuil de 10% était appliqué dans la première version de la méthodologie mise en ligne au printemps 2024. Le seuil de 50% a été proposé pendant la concertation, en soulignant qu'il fait écho au seuil réglementaire à partir duquel une information sur la présence de microfibres plastiques doit être présentée. [décret n° 2022-748 du 29 avril 2022 relatif à l'information du consommateur sur les qualités et caractéristiques des produits générateurs de déchets](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045726094)&#x20;
-{% endhint %}
-
-$$
-ComplémentFDVHE (Pts) = ProbaDechet * Masse (kg) * CoefDechet (Pts/kg)
-$$
-
-<details>
-
-<summary>Illustration</summary>
-
-Dans le cas théorique d'un jean (poids 450g, fabrication Inde), l'impact de la fin de vie passerait de 0% (avant introduction du complément Fin de vie Hors Europe) à 4% ou 12% selon la composition du vêtement.&#x20;
-
-<img src="../../.gitbook/assets/Comparaison - Jean 100% synthétique (450g).png" alt="" data-size="original"><img src="../../.gitbook/assets/Comparaison - Jean 100% cotton (450g).png" alt="" data-size="original">
-
-</details>
-
-## Affichage du complément "Export hors Europe"
-
-A l'instar des autres compléments à l'analyse de cycle de vie, le complément "Export hors Europe" vient s'ajouter directement au score d'impacts exprimé en points.
-
-Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Fin de vie".
-
 [^1]: L’Organisation des Nations unies pour l’alimentation et l’agriculture
 
 [^2]: _Source : Règlement européen du 31 mai 2023 relatif à la déforestation importée_&#x20;
@@ -510,16 +412,3 @@ Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Fi
 [^5]: Mm3 eq. bois rond sur écorce
 
 [^6]: Etude Carbone 4 \_ Scénarios de converge de la filière Bois
-
-[^7]: draft PERCR Apparel & Footwear v1.3 (p.90/197) &#x20;
-
-[^8]: Rapport 2018 "Avenir Filière REP TLC" /  données 2015 (p. 49/98)&#x20;
-
-    \
-    \
-    &#x20; &#x20;
-
-[^9]: Recyclage (31%) +Réutilisation France = (10%) +  Déchets (2%) + Réutilisation Europe (8%)= 51% => le dernier débouché étant l'Export Hors Europe (1-51%=49%)                                  \
-    &#x20;&#x20;
-
-[^10]: Textile Exchange \_ The global fiber market 2021&#x20;
