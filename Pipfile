@@ -7,7 +7,7 @@ name = "pypi"
 python_version = "3.12"
 
 [packages]
-django = ">=5.1.7,<6"
+django = ">=5.1.8,<6"
 django-mail-auth = ">=3.2,<3.3"
 gunicorn = ">=22,<24"
 psycopg2-binary = "2.9.9"
