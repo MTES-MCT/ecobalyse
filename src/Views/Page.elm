@@ -27,7 +27,8 @@ import Views.Spinner as Spinner
 
 
 type ActivePage
-    = Api
+    = Admin
+    | Api
     | Auth
     | Editorial String
     | Explore

@@ -11,6 +11,7 @@ import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
 import Http
+import Page.Admin as Admin
 import Page.Api as Api
 import Page.Auth as Auth
 import Page.Editorial as Editorial
@@ -42,7 +43,8 @@ type alias Flags =
 
 
 type Page
-    = ApiPage Api.Model
+    = AdminPage Admin.Model
+    | ApiPage Api.Model
     | AuthPage Auth.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
@@ -71,7 +73,8 @@ type alias Model =
 
 
 type Msg
-    = ApiMsg Api.Msg
+    = AdminMsg Admin.Msg
+    | ApiMsg Api.Msg
     | AuthMsg Auth.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
@@ -186,6 +189,10 @@ setRoute url ( { state } as model, cmds ) =
                     )
             in
             case Route.fromUrl url of
+                Just Route.Admin ->
+                    Admin.init session
+                        |> toPage AdminPage AdminMsg
+
                 Just Route.Api ->
                     Api.init session
                         |> toPage ApiPage ApiMsg
@@ -483,6 +490,11 @@ view { mobileNavigationOpened, state } =
                     ( title, content |> List.map (Html.map msg) )
             in
             case page of
+                AdminPage examplesModel ->
+                    Admin.view session examplesModel
+                        |> mapMsg AdminMsg
+                        |> Page.frame (pageConfig Page.Admin)
+
                 ApiPage examplesModel ->
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
