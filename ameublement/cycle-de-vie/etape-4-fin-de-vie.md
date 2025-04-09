@@ -10,7 +10,7 @@ Définir les scénarios de fin de vie d'un meuble consiste à définir les débo
 
 Illustration de la modélisation des scénarios de fin de vie d'un meuble&#x20;
 
-<mark style="color:red;">Intégrer Sankey Graphe afin d'illustrer.</mark>
+<mark style="color:red;">(Intégrer Sankey Graphe afin d'illustrer)</mark>
 
 3 débouchés sont proposés dans la méthode :&#x20;
 
@@ -57,12 +57,12 @@ Certains meubles, bien que collectés par la filière, ne peuvent pas être recy
 
 Dans ce cas, ces meubles sont considérés comme terminant leur fin de vie en décharge avec l'application du scénario par défaut "meuble non recyclable" (cf. ci-dessous).&#x20;
 
-La liste des éléments d'ameublement de disposant pas de schéma opérationnel est maintenue à jour par l'OCABJ (l'organisme coordinateur de la filière de Responsabilité Elargie du Producteur des Eléments d'Ameublement).  <mark style="color:red;">Liste exacte en attente de confirmation par l'OCABJ.</mark>
+La liste des éléments d'ameublement de disposant pas de schéma opérationnel est maintenue à jour par l'OCABJ (l'organisme coordinateur de la filière de Responsabilité Elargie du Producteur des Eléments d'Ameublement).&#x20;
 
 Eléments d'ameublement non recycables faute de schéma opérationnel existant :&#x20;
 
 * canapé,
-* <mark style="color:red;">à compléter</mark>
+* <mark style="color:red;">à compléter (attente retour OCABJ)</mark>
 
 ### 3) Présence de perturbateur de tri ou de recyclage
 
@@ -75,6 +75,8 @@ Si au moins un perturbateur de recyclage est présent, le meuble est considéré
 {% hint style="info" %}
 La liste des pertubateurs de recyclage est mise à jour par OCABJ[^1]. Cet organisme tient à disposition de la filière des outils permettant d'identifier les perturbateurs de recyclage spécifiques à chaque meuble.
 
+<mark style="color:red;">Demander à OCABJ s'ils souhaitent intégrer un lien vers un outil/calculateur pour aider l'utilisateur à identifier les perturbateurs</mark>
+
 Par défaut, le meuble est considéré avec un perturbateur de recyclage (meuble non recyclable).
 
 L'utilisateur a la possibilité de modifier ce paramètre.
@@ -84,9 +86,7 @@ L'utilisateur a la possibilité de modifier ce paramètre.
 
 Lorsqu'un meuble dispose d'un schéma opérationnel et ne présente pas de perturbateur, un dernier paramètre spécifique au matériau majoritaire est à considérer.&#x20;
 
-En effet, certains meubles ne sont pas recyclables si certains types de matières (ex : bois massif) ne sont pas présents dans une concentration suffisante (exprimée en % de la masse du meuble).
-
-<table data-full-width="false"><thead><tr><th width="405">Plastique / Bois massif / Panneaux</th><th>Autres cas</th></tr></thead><tbody><tr><td>Meuble recyclable si la concentration d'un de ces types de matériaux ≥ 70% </td><td>Meuble non recyclable </td></tr></tbody></table>
+En effet, seuls les meubles majoritairement constitués de plastique ou bois massif ou panneaux à plus de 70% <mark style="color:red;">(seuil à discuter/préciser)</mark> sont recyclables.
 
 {% hint style="danger" %}
 **Exception "Métal"**
@@ -94,25 +94,47 @@ En effet, certains meubles ne sont pas recyclables si certains types de matière
 Qu'un meuble soit recyclable ou non, les composants métalliques sont dans tous les cas triés et recyclés à 100%.
 {% endhint %}
 
-## Scénarios par défaut
+### 5) Performance de recyclage des matèriaux d'ameublement
 
-### Meuble non recyclable
+Lorsqu'un meuble est recyclable, les matériaux rejoignent leurs débouchés en fin de vie et proposent les performances suivantes :&#x20;
 
-Lorsqu'un meuble est non recyclable, ce dernier est incinéré à 82% et enfoui à 18%.&#x20;
-
-{% hint style="info" %}
-Ce scénario se base sur le référentiel _Meubles Meublants \_ FCBA (Novembre 2023)._
-{% endhint %}
-
-### Meuble recyclable&#x20;
-
-Lorsqu'un meuble est recyclable, c'est à dire qu'il est en capacité d'être orienté vers les filières de fin de vie spécifiques à chacune de ses matières, la fin de vie de ce dernier dépend des matières entrant dans sa composition.&#x20;
-
-<table><thead><tr><th width="267">Matière</th><th>% recyclage</th><th>% incinération</th><th>% enfouissement</th></tr></thead><tbody><tr><td>Bois d'oeuvre*</td><td>69%</td><td>31</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td><mark style="color:red;">Latex</mark></td><td><mark style="color:red;">A intégrer ?</mark></td><td><mark style="color:red;">A intégrer ?</mark></td><td><mark style="color:red;">A intégrer ?</mark></td></tr><tr><td><mark style="color:red;">Mousse PU</mark> </td><td><mark style="color:red;">A intégrer ?</mark></td><td><mark style="color:red;">A intégrer ?</mark></td><td><mark style="color:red;">A intégrer ?</mark></td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>2%</td><td>91%</td><td>7%</td></tr><tr><td>Plastique*</td><td>90%</td><td>10%</td><td>1%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr><tr><td>Autres matières***</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
+<table><thead><tr><th width="267">Matière</th><th>% recyclage</th><th>% incinération</th><th>% enfouissement</th></tr></thead><tbody><tr><td>Bois d'oeuvre*</td><td>69%</td><td>31</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>2%</td><td>91%</td><td>7%</td></tr><tr><td>Plastique*</td><td>90%</td><td>10%</td><td>1%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr><tr><td>Autres matières***</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td><mark style="color:red;">Matières à ajouter/préciser ? (ex : latex, Mousse PU, etc.)</mark></td><td><mark style="color:red;">xx</mark></td><td><mark style="color:red;">xx</mark></td><td><mark style="color:red;">xx</mark></td></tr></tbody></table>
 
 &#x20;   \*Source : Filière des éléments d'ameublement \_ données 2021 (Bilan annuel 2022)\
 &#x20; \*\*Source : Référentiel Meubles meublants révisé en 2023 (FCBA-ADEME)\
 \*\*\*Application du scénario par défaut "Meuble non recyclable"
+
+## Scénarios&#x20;
+
+### Meuble non recyclable (par défaut)
+
+Lorsqu'un meuble est non recyclable, ce dernier est incinéré à 82% et enfoui à 18% (ce scénario se base sur le référentiel _Meubles Meublants \_ FCBA (Novembre 2023)._
+
+{% hint style="info" %}
+Par défaut, tout meuble modélisé dans Ecobalyse se voit attribuer un pertubateur de recyclage. L'utilisateur a la possibilité de préciser ce scénario.
+{% endhint %}
+
+<details>
+
+<summary>Meuble non recyclable = 3 scénarios possibles</summary>
+
+En reprenant les paramètres susmentionnés, un meuble n'est pas reycycable pour l'une des raisons suivantes :&#x20;
+
+* le meuble ne dispose pas de schéma opérationnel,
+* le meuble présente au moins un pertubateur de tri/recyclage,
+* le matériau majoritaire ne respecte pas les exigences susmentionnées.&#x20;
+
+</details>
+
+### Meuble recyclable&#x20;
+
+Lorsqu'un meuble est recyclable, c'est à dire qu'il est en capacité d'être orienté vers les filières de fin de vie spécifiques à chacune de ses matières, la fin de vie de ce dernier dépend des matières entrant dans sa composition (cf. tableau ci-dessus "Performance de recyclage des matèriaux d'ameublement").&#x20;
+
+### Synthèse
+
+4 scénarios sont possibles concernant le caractère recyclable d'un meuble :&#x20;
+
+<table><thead><tr><th width="125.99993896484375">Scénario</th><th>Description</th></tr></thead><tbody><tr><td>Scénario 1</td><td>Non recyclable (absence de schéma opérationnel)</td></tr><tr><td>Scénario 2</td><td>Non recyclable (pertubateur)</td></tr><tr><td>Scénario 3</td><td>Recyclable (meuble avec un schéma opérationnel + sans pertubateur + constitué d'au moins 70% d'un matériau majoritaire)</td></tr><tr><td>Scénario 4</td><td>Non recyclable (autres scénarios)</td></tr></tbody></table>
 
 ## Données Ecoinvent mobilisées&#x20;
 
@@ -139,9 +161,76 @@ Pour certains types de matière (ex : plastique), des procédés spécifiques so
 
 ## Illustration&#x20;
 
-<mark style="color:red;">Trouver outil pour générer Sankey Graphe.</mark>
+**Voici différentes configurations du coût environnemental de la fin de vie d'un meuble de 10kg  :**&#x20;
 
+<figure><img src="../../.gitbook/assets/chart.png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="info" %}
+<mark style="color:orange;">Les ordres de grandeur sont à prendre avec du recul à ce stade car :</mark>&#x20;
+
+* <mark style="color:orange;">l'impact d'un meuble peut se chiffre en plusieurs dizaines de milliers de points d'impacts (les impacts de fin de vie pouvant être considérés comme "non significatifs"),</mark>
+* <mark style="color:orange;">des enrichissements vont être apportés à la méthode et aux procédés Ecoinvent mobilisés.</mark>
+{% endhint %}
+
+<details>
+
+<summary>Cas 1 ⇒ 100% bois massif _ recyclable (15 pt d'impacts)</summary>
+
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+<details>
+
+<summary>Cas 2 = 60% bois massif + 40% plastique _ non recyclable  (242 pt d'impact)</summary>
+
+<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+<details>
+
+<summary>Cas 3 = 100% acier _ recyclable (278 pt d'impact)</summary>
+
+<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+<details>
+
+<summary>Cas 4 = 100% panneau de particules _ recyclable (15 pt d'impact)</summary>
+
+<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+<details>
+
+<summary>Cas 5 = 100% plastique _ recyclable (436 pt d'impact)</summary>
+
+<figure><img src="../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+<details>
+
+<summary>Cas 6 = 80% bois massif + 20% métal _ recyclable (67 pt d'impact)</summary>
+
+<figure><img src="../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+
+</details>
 
 
 

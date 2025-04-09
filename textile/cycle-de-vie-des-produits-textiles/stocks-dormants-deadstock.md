@@ -10,7 +10,7 @@ Cependant, cette définition est trop restrictive car elle n'inclut pas les stoc
 
 Différents paramètres expliquent la génération de stocks dormants :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption><p>Source : Etude "A la chasse aux tissus dormants" (La Textilerie)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (15) (1).png" alt=""><figcaption><p>Source : Etude "A la chasse aux tissus dormants" (La Textilerie)</p></figcaption></figure>
 
 <details>
 

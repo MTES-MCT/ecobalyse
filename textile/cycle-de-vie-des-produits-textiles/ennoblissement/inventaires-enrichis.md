@@ -446,9 +446,9 @@ Impression avec des colorants dispersés.
 
 L'introduction d'inventaires enrichis (scénario **moyen/average**) impacte peu l'impact environnemental global de différents t-shirts : entre +3% et +5% selon les configurations (cf. ci-dessous).&#x20;
 
-![](<../../../.gitbook/assets/image (18).png>)
+![](<../../../.gitbook/assets/image (18) (1).png>)
 
-![](<../../../.gitbook/assets/image (17).png>)
+![](<../../../.gitbook/assets/image (17) (1).png>)
 
 
 

@@ -8,7 +8,7 @@ La fibre de laine représente 1,1% de la production mondiale de fibres textile e
 
 <summary>Production mondiale par pays</summary>
 
-![](<../../../.gitbook/assets/image (12).png>)
+![](<../../../.gitbook/assets/image (12) (1).png>)
 
 </details>
 
