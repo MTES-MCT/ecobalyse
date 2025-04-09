@@ -8,7 +8,7 @@ module Page.Admin exposing
     )
 
 import Browser.Events
-import Data.Component as Component exposing (Component)
+import Data.Component exposing (Component)
 import Data.Key as Key
 import Data.Session exposing (Session)
 import Html exposing (..)
@@ -37,7 +37,9 @@ type Modal
 type Msg
     = ComponentListResponse (WebData (List Component))
     | NoOp
+    | SaveComponent
     | SetModal (Maybe Modal)
+    | UpdateComponent Component
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -59,8 +61,25 @@ update session msg model =
         NoOp ->
             ( model, session, Cmd.none )
 
+        SaveComponent ->
+            case model.modal of
+                Just (EditComponentModal component) ->
+                    -- FIXME: save component
+                    ( { model | modal = Nothing }, session, Cmd.none )
+
+                Nothing ->
+                    ( model, session, Cmd.none )
+
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
+
+        UpdateComponent newComponent ->
+            case model.modal of
+                Just (EditComponentModal _) ->
+                    ( { model | modal = Just (EditComponentModal newComponent) }, session, Cmd.none )
+
+                Nothing ->
+                    ( model, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -106,13 +125,24 @@ modalView modal =
         EditComponentModal component ->
             Modal.view
                 { close = SetModal Nothing
-                , content = []
-                , footer = []
-                , formAction = Nothing
+                , content =
+                    [ div [ class "card-body p-3" ]
+                        [ label [] [ text "Nom du composant" ]
+                        , input
+                            [ type_ "text"
+                            , class "form-control"
+                            , value component.name
+                            , onInput <| \name -> UpdateComponent { component | name = name }
+                            ]
+                            []
+                        ]
+                    ]
+                , footer = [ button [ class "btn btn-primary" ] [ text "Sauvegarder" ] ]
+                , formAction = Just SaveComponent
                 , noOp = NoOp
-                , size = Modal.ExtraLarge
+                , size = Modal.Large
                 , subTitle = Nothing
-                , title = "Modifier " ++ component.name
+                , title = "Modifier le composant"
                 }
 
 
