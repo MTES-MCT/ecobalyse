@@ -25,6 +25,7 @@ module Data.Component exposing
     , computeInitialAmount
     , computeItemResults
     , decodeItem
+    , decodeList
     , decodeListFromJsonString
     , emptyResults
     , encodeId
