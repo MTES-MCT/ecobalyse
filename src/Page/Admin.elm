@@ -2,11 +2,14 @@ module Page.Admin exposing
     ( Model
     , Msg(..)
     , init
+    , subscriptions
     , update
     , view
     )
 
+import Browser.Events
 import Data.Component as Component exposing (Component)
+import Data.Key as Key
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -16,22 +19,32 @@ import Request.Component as ComponentApi
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
+import Views.Modal as Modal
 import Views.Spinner as Spinner
 import Views.Table as Table
 
 
 type alias Model =
-    { components : WebData (List Component) }
+    { components : WebData (List Component)
+    , modal : Maybe Modal
+    }
+
+
+type Modal
+    = EditComponentModal Component
 
 
 type Msg
     = ComponentListResponse (WebData (List Component))
-    | EditComponent Component
+    | NoOp
+    | SetModal (Maybe Modal)
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { components = RemoteData.NotAsked }
+    ( { components = RemoteData.NotAsked
+      , modal = Nothing
+      }
     , session
     , ComponentApi.getComponents session ComponentListResponse
     )
@@ -43,8 +56,11 @@ update session msg model =
         ComponentListResponse response ->
             ( { model | components = response }, session, Cmd.none )
 
-        EditComponent component ->
+        NoOp ->
             ( model, session, Cmd.none )
+
+        SetModal modal ->
+            ( { model | modal = modal }, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -55,6 +71,9 @@ view _ model =
             , warning
             , model.components
                 |> mapRemoteData componentListView
+            , model.modal
+                |> Maybe.map modalView
+                |> Maybe.withDefault (text "")
             ]
       ]
     )
@@ -71,7 +90,7 @@ componentListView components =
                         , td []
                             [ button
                                 [ class "btn btn-sm btn-outline-primary"
-                                , onClick (EditComponent component)
+                                , onClick <| SetModal (Just (EditComponentModal component))
                                 ]
                                 [ Icon.pencil ]
                             ]
@@ -79,6 +98,22 @@ componentListView components =
                 )
             |> tbody []
         ]
+
+
+modalView : Modal -> Html Msg
+modalView modal =
+    case modal of
+        EditComponentModal component ->
+            Modal.view
+                { close = SetModal Nothing
+                , content = []
+                , footer = []
+                , formAction = Nothing
+                , noOp = NoOp
+                , size = Modal.ExtraLarge
+                , subTitle = Nothing
+                , title = "Modifier " ++ component.name
+                }
 
 
 warning : Html msg
@@ -110,3 +145,13 @@ mapRemoteData fn webData =
 
         RemoteData.Success data ->
             fn data
+
+
+subscriptions : Model -> Sub Msg
+subscriptions { modal } =
+    case modal of
+        Nothing ->
+            Sub.none
+
+        _ ->
+            Browser.Events.onKeyDown (Key.escape (SetModal Nothing))

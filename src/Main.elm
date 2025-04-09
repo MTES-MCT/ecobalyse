@@ -459,6 +459,10 @@ subscriptions { state } =
                 Home.subscriptions subModel
                     |> Sub.map HomeMsg
 
+            Loaded _ (AdminPage subModel) ->
+                Admin.subscriptions subModel
+                    |> Sub.map AdminMsg
+
             Loaded _ (ExplorePage subModel) ->
                 Explore.subscriptions subModel
                     |> Sub.map ExploreMsg
