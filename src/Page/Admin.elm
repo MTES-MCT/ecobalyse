@@ -32,11 +32,13 @@ type alias Model =
 
 
 type Modal
-    = EditComponentModal Component
+    = DeleteComponentModal Component
+    | EditComponentModal Component
 
 
 type Msg
-    = ComponentListResponse (WebData (List Component))
+    = ComponentDeleted (WebData String)
+    | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
     | NoOp
     | SaveComponent
@@ -57,26 +59,41 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
+        -- DELETE
+        ComponentDeleted (RemoteData.Failure err) ->
+            ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
+
+        ComponentDeleted (RemoteData.Success _) ->
+            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+
+        ComponentDeleted _ ->
+            ( model, session, Cmd.none )
+
+        -- GET
         ComponentListResponse response ->
             ( { model | components = response }, session, Cmd.none )
 
+        -- PATCH
         ComponentUpdated (RemoteData.Failure err) ->
             ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
 
-        ComponentUpdated RemoteData.Loading ->
-            ( model, session, Cmd.none )
-
-        ComponentUpdated RemoteData.NotAsked ->
-            ( model, session, Cmd.none )
-
         ComponentUpdated (RemoteData.Success _) ->
             ( model, session, ComponentApi.getComponents session ComponentListResponse )
+
+        ComponentUpdated _ ->
+            ( model, session, Cmd.none )
 
         NoOp ->
             ( model, session, Cmd.none )
 
         SaveComponent ->
             case model.modal of
+                Just (DeleteComponentModal component) ->
+                    ( { model | modal = Nothing }
+                    , session
+                    , ComponentApi.deleteComponent session ComponentDeleted component
+                    )
+
                 Just (EditComponentModal component) ->
                     ( { model | modal = Nothing }
                     , session
@@ -94,7 +111,7 @@ update session msg model =
                 Just (EditComponentModal _) ->
                     ( { model | modal = Just (EditComponentModal newComponent) }, session, Cmd.none )
 
-                Nothing ->
+                _ ->
                     ( model, session, Cmd.none )
 
 
@@ -129,6 +146,13 @@ componentListView components =
                                 ]
                                 [ Icon.pencil ]
                             ]
+                        , td []
+                            [ button
+                                [ class "btn btn-sm btn-outline-danger"
+                                , onClick <| SetModal (Just (DeleteComponentModal component))
+                                ]
+                                [ Icon.trash ]
+                            ]
                         ]
                 )
             |> tbody []
@@ -137,12 +161,18 @@ componentListView components =
 
 modalView : Modal -> Html Msg
 modalView modal =
-    case modal of
-        EditComponentModal component ->
-            Modal.view
-                { close = SetModal Nothing
-                , content =
-                    [ div [ class "card-body p-3" ]
+    Modal.view
+        { close = SetModal Nothing
+        , content =
+            [ div [ class "card-body p-3" ] <|
+                case modal of
+                    DeleteComponentModal component ->
+                        [ text "Êtes-vous sûr de vouloir supprimer le composant "
+                        , strong [] [ text component.name ]
+                        , text "\u{00A0}?"
+                        ]
+
+                    EditComponentModal component ->
                         [ label [] [ text "Nom du composant" ]
                         , input
                             [ type_ "text"
@@ -152,14 +182,27 @@ modalView modal =
                             ]
                             []
                         ]
-                    ]
-                , footer = [ button [ class "btn btn-primary" ] [ text "Sauvegarder" ] ]
-                , formAction = Just SaveComponent
-                , noOp = NoOp
-                , size = Modal.Large
-                , subTitle = Nothing
-                , title = "Modifier le composant"
-                }
+            ]
+        , footer =
+            [ case modal of
+                DeleteComponentModal _ ->
+                    button [ class "btn btn-danger" ] [ text "Supprimer" ]
+
+                EditComponentModal _ ->
+                    button [ class "btn btn-primary" ] [ text "Sauvegarder" ]
+            ]
+        , formAction = Just SaveComponent
+        , noOp = NoOp
+        , size = Modal.Large
+        , subTitle = Nothing
+        , title =
+            case modal of
+                DeleteComponentModal _ ->
+                    "Supprimer le composant"
+
+                EditComponentModal _ ->
+                    "Modifier le composant"
+        }
 
 
 warning : Html msg
