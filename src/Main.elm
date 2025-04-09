@@ -294,6 +294,10 @@ update rawMsg ({ state } as model) =
                     Home.update session homeMsg homeModel
                         |> toPage HomePage HomeMsg
 
+                ( AdminMsg adminMsg, AdminPage adminModel ) ->
+                    Admin.update session adminMsg adminModel
+                        |> toPage AdminPage AdminMsg
+
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
@@ -524,6 +528,10 @@ view { mobileNavigationOpened, state } =
                         |> mapMsg EditorialMsg
                         |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
 
+                ErrorPage title message ->
+                    ( title, [ Page.errorPage title message ] )
+                        |> Page.frame (pageConfig Page.Other)
+
                 ExplorePage examplesModel ->
                     Explore.view session examplesModel
                         |> mapMsg ExploreMsg
@@ -541,10 +549,6 @@ view { mobileNavigationOpened, state } =
 
                 LoadingPage ->
                     ( "Chargement…", [ Page.loading ] )
-                        |> Page.frame (pageConfig Page.Other)
-
-                ErrorPage title message ->
-                    ( title, [ Page.errorPage title message ] )
                         |> Page.frame (pageConfig Page.Other)
 
                 ObjectSimulatorPage simulatorModel ->
