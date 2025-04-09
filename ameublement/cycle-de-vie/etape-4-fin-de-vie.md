@@ -89,7 +89,7 @@ En effet, certains meubles ne sont pas recyclables si certains types de matière
 <table data-full-width="false"><thead><tr><th width="405">Plastique / Bois massif / Panneaux</th><th>Autres cas</th></tr></thead><tbody><tr><td>Meuble recyclable si la concentration d'un de ces types de matériaux ≥ 70% </td><td>Meuble non recyclable </td></tr></tbody></table>
 
 {% hint style="danger" %}
-E**xception "Métal"**
+**Exception "Métal"**
 
 Qu'un meuble soit recyclable ou non, les composants métalliques sont dans tous les cas triés et recyclés à 100%.
 {% endhint %}
@@ -98,7 +98,7 @@ Qu'un meuble soit recyclable ou non, les composants métalliques sont dans tous 
 
 ### Meuble non recyclable
 
-Lorsqu'un meuble est non recyclable, ce dernier est incinéré à 82%) et enfoui à 18%.&#x20;
+Lorsqu'un meuble est non recyclable, ce dernier est incinéré à 82% et enfoui à 18%.&#x20;
 
 {% hint style="info" %}
 Ce scénario se base sur le référentiel _Meubles Meublants \_ FCBA (Novembre 2023)._
