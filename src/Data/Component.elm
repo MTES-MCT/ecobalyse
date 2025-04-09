@@ -24,10 +24,12 @@ module Data.Component exposing
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
+    , decode
     , decodeItem
     , decodeList
     , decodeListFromJsonString
     , emptyResults
+    , encode
     , encodeId
     , encodeItem
     , encodeResults
@@ -499,6 +501,15 @@ emptyResults =
         , mass = Quantity.zero
         , stage = Nothing
         }
+
+
+encode : Component -> Encode.Value
+encode v =
+    EU.optionalPropertiesObject
+        [ ( "elements", v.elements |> Encode.list encodeElement |> Just )
+        , ( "id", v.id |> encodeId |> Just )
+        , ( "name", v.name |> Encode.string |> Just )
+        ]
 
 
 encodeCustom : Custom -> Encode.Value

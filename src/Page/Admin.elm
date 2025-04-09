@@ -10,11 +10,12 @@ module Page.Admin exposing
 import Browser.Events
 import Data.Component exposing (Component)
 import Data.Key as Key
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import RemoteData exposing (WebData)
+import Request.Common
 import Request.Component as ComponentApi
 import Views.Alert as Alert
 import Views.Container as Container
@@ -36,6 +37,7 @@ type Modal
 
 type Msg
     = ComponentListResponse (WebData (List Component))
+    | ComponentUpdated (WebData Component)
     | NoOp
     | SaveComponent
     | SetModal (Maybe Modal)
@@ -58,14 +60,28 @@ update session msg model =
         ComponentListResponse response ->
             ( { model | components = response }, session, Cmd.none )
 
+        ComponentUpdated (RemoteData.Failure err) ->
+            ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
+
+        ComponentUpdated RemoteData.Loading ->
+            ( model, session, Cmd.none )
+
+        ComponentUpdated RemoteData.NotAsked ->
+            ( model, session, Cmd.none )
+
+        ComponentUpdated (RemoteData.Success _) ->
+            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+
         NoOp ->
             ( model, session, Cmd.none )
 
         SaveComponent ->
             case model.modal of
                 Just (EditComponentModal component) ->
-                    -- FIXME: save component
-                    ( { model | modal = Nothing }, session, Cmd.none )
+                    ( { model | modal = Nothing }
+                    , session
+                    , ComponentApi.patchComponent session ComponentUpdated component
+                    )
 
                 Nothing ->
                     ( model, session, Cmd.none )
