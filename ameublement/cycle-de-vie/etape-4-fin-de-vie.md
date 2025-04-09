@@ -4,27 +4,31 @@ icon: bin-recycle
 
 # Etape 4 : Fin de vie
 
-La fin de vie d'un meuble dépend de plusieurs paramètres:&#x20;
+## Eléments de contexte &#x20;
 
-1\) la capacité du meuble à être collécté par la filière (taux de collecte),
+Définir les scénarios de fin de vie d'un meuble consiste à définir les débouchés de l'ensemble des matériaux entrant dans la composition du meuble.&#x20;
 
-2\) l'existence d'une filière de fin de vie (schéma opérationnel),
+<mark style="color:red;">Graphe à modifier lorsqu'un meilleur outil "Sankey Graph" sera trouvé.</mark>
 
-3\) la capacité du meuble à être démonté (démontabilité),
+<figure><img src="../../.gitbook/assets/Sankey Chart (2).png" alt=""><figcaption><p>Illustration des scénarios à définir pour chaque meuble</p></figcaption></figure>
 
-4\) la présente de perturbateurs de recyclage (perturbateur de recyclage),&#x20;
+3 débouchés sont proposés dans la méthode :&#x20;
 
-5\) la composition du meuble (composition).
+* recyclage,
+* incinération,
+* enfouissement.
 
-### 1) Taux de collecte (capacité du meuble à être collecté)
+## Paramètres mobilisés
+
+### 1) Taux de collecte&#x20;
+
+Ce paramètre définit la capacité du meuble à être collécté en fin de vie.
 
 Un taux de collecte de 70% est appliqué par défaut pour l'ensemble des meubles.
 
-Ce taux de collecte caractérise la capacité du meuble à rejoindre sa filière de fin de vie (via par exemple le dépôt du meuble dans une benne dédiée en déchetterie ou chez un distributeur).&#x20;
-
 <details>
 
-<summary>Détails</summary>
+<summary>Comprendre le taux de collecte de 70%</summary>
 
 Le taux de collecte de 70% correspond au ratio entre les tonnes collectées (1,2m) et celles mises sur le marché pour renouveler le parx existant (1,8m) :&#x20;
 
@@ -45,27 +49,114 @@ En 2022, 1,2 millions de tonnes ont été collectées par la filière; que ce so
 
 </details>
 
-### 2) Schéma opérationnel (existence d'une filière de fin de vie)
+### 2) Schéma opérationnel&#x20;
 
-Certains meubles, bien que collectés par la filière, ne peuvent pas être recyclés car la filière ne dispose pas d'un schéma opérationnel.&#x20;
+Ce paramètre reflète l'existence d'une filière de fin de vie.
+
+Certains meubles, bien que collectés par la filière, ne peuvent pas être recyclés car il n'existe pas de schéma opérationnel permettant de collecter, séparer et recycler à l’échelle et en pratique les matières qui composent l’élément d’ameublement.&#x20;
 
 Dans ce cas, ces meubles sont considérés comme terminant leur fin de vie en décharge avec l'application du scénario par défaut "meuble non recyclable" (cf. ci-dessous).&#x20;
 
-Voici la liste des meubles pour lesquels il n'existe pas, fin 2024, de schéma opérationnel en fin de vie :&#x20;
+La liste des éléments d'ameublement de disposant pas de schéma opérationnel est maintenue à jour par l'OCABJ (l'organisme coordinateur de la filière de Responsabilité Elargie du Producteur des Eléments d'Ameublement).  <mark style="color:red;">Liste exacte en attente de confirmation par l'OCABJ.</mark>
+
+Eléments d'ameublement non recycables faute de schéma opérationnel existant :&#x20;
 
 * canapé,
 * <mark style="color:red;">à compléter</mark>
 
+### 3) Présence de perturbateur de tri ou de recyclage
+
+Ce paramètre identifie des caractéristiques du meuble empêchant sa recyclabilité.
+
+Certaines substances, matières ou associations de matériaux peuvent perturber le tri ou le recyclage des éléments d’ameublement. Certains perturbateurs s’appliquent à tous les types d’élément d’ameublement et d’autres perturbateurs sont spécifiques à certains éléments d’ameublement. Il convient donc à cette étape de vérifier l’absence de perturbateurs.&#x20;
+
+Si au moins un perturbateur de recyclage est présent, le meuble est considéré comme "Non Recyclable".&#x20;
+
 {% hint style="info" %}
-**Scénario par défaut (applicable à :&#x20;**_**Meuble non recyclables**_**&#x20;et&#x20;**_**Autres matières**_**) :**&#x20;
+La liste des pertubateurs de recyclage est mise à jour par OCABJ[^1]. Cet organisme tient à disposition de la filière des outils permettant d'identifier les perturbateurs de recyclage spécifiques à chaque meuble.
 
-* 75% incinération
-* 25% enfouissement
+Par défaut, le meuble est considéré avec un perturbateur de recyclage (meuble non recyclable).
 
-Ce scénario se base sur la fin de vie moyenne des déchets en sortie de déchèterie en France en 2021.&#x20;
-
-Source ⇒ : "La collecte des déchets par le service public en France en 2021" (p. 38/50)&#x20;
+L'utilisateur a la possibilité de modifier ce paramètre.
 {% endhint %}
+
+### 4) Matériau majoritaire
+
+Lorsqu'un meuble dispose d'un schéma opérationnel et ne présente pas de perturbateur, un dernier paramètre spécifique au matériau majoritaire est à considérer.&#x20;
+
+En effet, certains meubles ne sont pas recyclables si certains types de matières (ex : bois massif) ne sont pas présents dans une concentration suffisante (exprimée en % de la masse du meuble).
+
+<table data-full-width="false"><thead><tr><th width="405">Plastique / Bois massif / Panneaux</th><th>Autres cas</th></tr></thead><tbody><tr><td>Meuble recyclable si la concentration d'un de ces types de matériaux ≥ 70% </td><td>Meuble non recyclable </td></tr></tbody></table>
+
+{% hint style="danger" %}
+E**xception "Métal"**
+
+Qu'un meuble soit recyclable ou non, les composants métalliques sont dans tous les cas triés et recyclés à 100%.
+{% endhint %}
+
+## Scénarios par défaut
+
+### Meuble non recyclable
+
+Lorsqu'un meuble est non recyclable, ce dernier est incinéré (82%) et enfoui (18%).&#x20;
+
+{% hint style="info" %}
+Ce scénario se base sur le référentiel _Mobilier Meublant (Novembre 2023)._
+
+<mark style="color:red;">Autre source possible ⇒ utiliser la fin de vie moyenne des déchets en sortie de déchèterie en France en 2021 = 75% incinération & 25% enfouissement.</mark>&#x20;
+
+<mark style="color:red;">Source ⇒ : "La collecte des déchets par le service public en France en 2021" (p. 38/50)</mark>&#x20;
+{% endhint %}
+
+### Meuble recyclable&#x20;
+
+Lorsqu'un meuble est recyclable, c'est à dire qu'il est en capacité d'être orienté vers les filières de fin de vie spécifiques à chacune de ses matières, la fin de vie de ce dernier dépend des matières entrant dans sa composition.&#x20;
+
+<table><thead><tr><th width="267">Matière</th><th>% recyclage</th><th>% incinération</th><th>% enfouissement</th></tr></thead><tbody><tr><td>Bois d'oeuvre*</td><td>69%</td><td>31</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td><mark style="color:red;">Latex</mark></td><td><mark style="color:red;">A intégrer ?</mark></td><td><mark style="color:red;">A intégrer ?</mark></td><td><mark style="color:red;">A intégrer ?</mark></td></tr><tr><td><mark style="color:red;">Mousse PU</mark> </td><td><mark style="color:red;">A intégrer ?</mark></td><td><mark style="color:red;">A intégrer ?</mark></td><td><mark style="color:red;">A intégrer ?</mark></td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>2%</td><td>91%</td><td>7%</td></tr><tr><td>Plastique*</td><td>90%</td><td>10%</td><td>1%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr><tr><td>Autres matières***</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
+
+&#x20;   \*Source : Filière des éléments d'ameublement \_ données 2021 (Bilan annuel 2022)\
+&#x20; \*\*Source : Référentiel Meubles meublants révisé en 2023 (FCBA-ADEME)\
+\*\*\*Application du scénario par défaut "Meuble non recyclable"
+
+## Données Ecoinvent mobilisées&#x20;
+
+Pour chaque débouché, au moins un procédé par défaut t est proposé (ex : procédé "Treatment of municipal solid waste, sanitary landfill, RoW" pour le débouché "Enfouissement").&#x20;
+
+Pour certains types de matière (ex : plastique), des procédés spécifiques sont disponibles (ex : procédé "Polyethylene production, high density, granulate, recycled, US" pour le recyclage du plastique).&#x20;
+
+#### Liste des procédés par type de matière
+
+<table data-full-width="false"><thead><tr><th width="113.6666259765625">Type de matière</th><th width="166.66656494140625">Recyclage</th><th>Incinération</th><th>Enfouissement</th></tr></thead><tbody><tr><td>Bois massif</td><td>Treatment of waste wood, post-consumer, sorting and shredding, CH</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>Treatment of waste wood, untreated, sanitary landfill, RoW</td></tr><tr><td>Panneaux</td><td>Treatment of waste wood, post-consumer, sorting and shredding, CH</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>Treatment of waste wood, untreated, sanitary landfill, RoW</td></tr><tr><td>Métal</td><td>Treatment of aluminium scrap, post-consumer, by collecting, sorting, cleaning, pressing, RER</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Rembourré / Matelas</td><td>Ttreatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Plastique</td><td>Polyethylene production, high density, granulate, recycled, US</td><td>Treatment of waste plastic, mixture, municipal incineration, Europe (withou CH)</td><td>Treatment of waste plastic, mixture, sanitary landfill, RoW</td></tr><tr><td>Emballage (carton)</td><td>Containerboard production, fluting medium, recycled</td><td>Treatment of waste paperboard, municipal incineration, Europe (withou CH)</td><td>Treatment of waste paperboard, sanitary landfill, CH</td></tr><tr><td>Emballage (plastique)</td><td>Polyethylene production, high density, granulate, recycled, US</td><td>Treatment of waste plastic, mixture, municipal incineration, Europe (withou CH)</td><td>Treatment of waste plastic, mixture, sanitary landfill, RoW</td></tr><tr><td>Emballage (autre)</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Autres</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr></tbody></table>
+
+#### Coût environnemental (Pt d'impact / kg) des procédés (cf. ci-dessus)
+
+| Type de matière       | Recyclage | Incinération | Enfouissement |
+| --------------------- | --------- | ------------ | ------------- |
+| Bois massif           | 1         | 2            | 2             |
+| Panneaux (hors MDF)   | 1         | 2            | 2             |
+| Métal                 | 27        | 21           | 39            |
+| Rembourré / Matelas   | 96        | 96           | 39            |
+| Plastique             | 63        | 80           | 12            |
+| Emballage (carton)    | 68        | 7            | 46            |
+| Emballage (plastique) | 63        | 80           | 12            |
+| Emballage (autre)     | 21        | 21           | 39            |
+| Autres                | 21        | 21           | 39            |
+
+## Illustration&#x20;
+
+<mark style="color:red;">A mettre en place de manière automatisée dans le Excel (besoin de trouver un outil de génération de Sankey graphes)</mark>
+
+
+
+
+
+
+
+
+
+
+
+<mark style="color:red;">**OLD**</mark>
 
 ### 3) Démontabilité (capacité du meuble à être démonté)
 
@@ -73,60 +164,9 @@ La possibilité de séparer les différents composants d'un meuble participe à 
 
 {% hint style="info" %}
 **Démontabilité :** capacité d’un produit à être démonté, avec des outils classiques, conventionnels et disponibles sur le marché, sans endommagement.\
-[_Source_](#user-content-fn-1)[^1]
+[_Source_](#user-content-fn-2)[^2]
 {% endhint %}
 
-### 4) Présence de perturbateur de recyclage
+[^1]: &#x20;L'organisme coordinateur de la filière de Responsabilité Elargie du Producteur des Eléments d'Ameublement.
 
-La présence de perturbateur(s) de recyclage limite la capacité d'un meuble à être valorisé en fin de vie car il est plus difficile pour ses composants/matières de rejoindre leurs filières spécifiques (ex : le recyclage pour les éléments métalliques).&#x20;
-
-&#x20;:eyes: La liste des perturbateurs de recyclage est proposée par les organismes de la filière REP. &#x20;
-
-### 5) Composition
-
-Lorsqu'un meuble est en capacité d'être orienté vers les filières de fin de vie spécifiques à chacune de ses matières , les scénarios ci-dessous s'appliquent. &#x20;
-
-4 grandes familles de matière (bois, métal, rembourré/matelas/mousse, plastique) proposent des scénarios spécifiques.&#x20;
-
-<table><thead><tr><th width="267">Matière</th><th>% recyclage</th><th>% incinération</th><th>% enfouissement</th></tr></thead><tbody><tr><td>Bois d'oeuvre*</td><td>69%</td><td>31</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>2%</td><td>91%</td><td>7%</td></tr><tr><td>Plastique*</td><td>90%</td><td>10%</td><td>1%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr></tbody></table>
-
-\*Source : Filière des éléments d'ameublement \_ données 2021 (Bilan annuel 2022)\
-\*\*Source : Référentiel Meubles meublants révisé en 2023 (FCBA-ADEME)
-
-{% hint style="info" %}
-Les autres matières non inclues dans le tableau ci-dessus sont considérées comme non recyclées et terminant leur fin de vie en déchetterie.
-
-Cf. scénario par défaut présenté précedemment.&#x20;
-{% endhint %}
-
-
-
-## Filières de recyclage
-
-
-
-
-
-### Illustration de la fin de vie d'un meuble&#x20;
-
-Une chaise de salon de 2kg, recyclable, et composée à 80% de bois et à 20% de textile proposera comme scénarios de fin de vie :&#x20;
-
-* Recyclage bois : 4,4544kg (2kg \* 40% \* 80% \* 71%)\
-  Via le taux de collecte de 40%, il est considéré qu'une telle chaise sera collectée par la filière dans 40% des cas. Dès lors, les scénarios de fin de vie spécifiques au bois (71% de recyclage et 29% d'incinération) sont applicables sur la partie du meuble collectée (\* 40%) et en bois (\*80%).&#x20;
-* Incinération bois : 0,1856 kg (2kg \* 40% \* 80% \* 29%)\
-  Même raisonnement que ci-dessus.
-* Incinération mix matières : 1,02 kg (2kg \* 40% \* 20% \* 75% + 2kg \* 60% \* 75%)\
-  La partie en textile de la chaise (20%) est traitée dans le scénario matière "Autres"; c'est à dire à 75% en incinération et 25% en enfouissement. La première partie de la formule reflète cela.\
-  La seconde partie de la formule (2kg \* 60% \* 75%) se concentre sur la partie du meuble qui n'est pas collectée (1 - 40% = 60%). Le scénario par défaut des déchets d'éléménts d'ameublement s'applique donc (75% en incinération et 25% en enfouissement).&#x20;
-* Enfouissement mix matières : 0,34 kg (2kg \* 40% \* 20% \* 25% + 2kg \* 60% \* 25%)\
-  Même raisonnement que ci-dessus.&#x20;
-
-### Procédés mobilisés pour la fin de vie
-
-<table data-full-width="true"><thead><tr><th width="183">Scénario</th><th>Procédé Ecoinvent</th></tr></thead><tbody><tr><td>Autres déchets (incinération)</td><td>1 kilogram of Municipal solid waste {FR}| treatment of municipal solid waste, municipal incineration | Cut-off, U</td></tr><tr><td>Autres déchets (enfouissement)</td><td>1 kilogram of Municipal solid waste {RoW}| treatment of municipal solid waste, sanitary landfill | Cut-off, U</td></tr><tr><td>Plastique (incinération)</td><td>1 kilogram of Waste plastic, mixture {CH}| treatment of waste plastic, mixture, municipal incineration FAE | Cut-off, U</td></tr><tr><td>Plastique (enfouissement)</td><td>1 kilogram of Waste plastic, mixture {CH}| treatment of waste plastic, mixture, sanitary landfill | Cut-off, U</td></tr><tr><td>Plastique (recyclage)</td><td>1 kilogram of Polyethylene, high density, granulate, recycled {US}| polyethylene production, high density, granulate, recycled | Cut-off, U</td></tr><tr><td>Métal (recyclage)</td><td>1 kilogram of Aluminium scrap, post-consumer, prepared for melting {RER}| treatment of aluminium scrap, post-consumer, by collecting, sorting, cleaning, pressing | Cut-off, U</td></tr><tr><td>Bois (incinération)</td><td>1 kilogram of Waste wood, untreated {CH}| treatment of waste wood, untreated, municipal incineration FAE | Cut-off, U</td></tr><tr><td>Bois (recyclage)</td><td>1 kilogram of Wood chips, from post-consumer wood, measured as dry mass {CH}| treatment of waste wood, post-consumer, sorting and shredding | Cut-off, U</td></tr><tr><td>Rembourré / Matelas / Mousse (incinération)</td><td>1 kilogram of Waste polyurethane {CH}| treatment of waste polyurethane, municipal incineration FAE | Cut-off, U</td></tr></tbody></table>
-
-<figure><img src="../../.gitbook/assets/Coût environnemental des procédés de fin de vie (uPts _ kg) (2).png" alt=""><figcaption></figcaption></figure>
-
-&#x20;
-
-[^1]: Activer l'écoconception dans le secteur de l'ameublement (décembre 2024)
+[^2]: Activer l'écoconception dans le secteur de l'ameublement (décembre 2024)
