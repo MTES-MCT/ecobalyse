@@ -1,9 +1,9 @@
 module Views.Page exposing
     ( ActivePage(..)
     , Config
+    , errorPage
     , frame
     , loading
-    , notFound
     )
 
 import Browser exposing (Document)
@@ -173,6 +173,7 @@ secondaryMenuLinks =
     , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
     , External "CGU" Env.cguUrl
+    , Internal "Admin" Route.Admin Admin
     ]
 
 
@@ -479,11 +480,11 @@ notificationView { closeNotification, resetSessionStore } notification =
                 }
 
 
-notFound : Html msg
-notFound =
+errorPage : String -> String -> Html msg
+errorPage title message =
     Container.centered [ class "pb-5" ]
-        [ h1 [ class "mb-3" ] [ text "Page non trouvée" ]
-        , p [] [ text "La page que vous avez demandé n'existe pas." ]
+        [ h1 [ class "mb-3" ] [ text title ]
+        , p [] [ text message ]
         , a [ Route.href Route.Home ] [ text "Retour à l'accueil" ]
         ]
 

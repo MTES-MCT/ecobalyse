@@ -42,4 +42,10 @@ update session msg model =
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
-    ( "admin", [ text "Hello world" ] )
+    ( "admin"
+    , [ Container.centered [ class "pb-5" ]
+            [ h1 [ class "mb-3" ] [ text "Ecobalyse Admin" ]
+            , text "Hello, World."
+            ]
+      ]
+    )

@@ -47,11 +47,11 @@ type Page
     | ApiPage Api.Model
     | AuthPage Auth.Model
     | EditorialPage Editorial.Model
+    | ErrorPage String String
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
     | HomePage Home.Model
     | LoadingPage
-    | NotFoundPage
     | ObjectSimulatorPage ObjectSimulator.Model
     | StatsPage Stats.Model
     | TextileSimulatorPage TextileSimulator.Model
@@ -190,8 +190,14 @@ setRoute url ( { state } as model, cmds ) =
             in
             case Route.fromUrl url of
                 Just Route.Admin ->
-                    Admin.init session
-                        |> toPage AdminPage AdminMsg
+                    if Session.isStaff session then
+                        Admin.init session
+                            |> toPage AdminPage AdminMsg
+
+                    else
+                        ( { model | state = Loaded session (ErrorPage "Accès refusé" "Statut admin est nécessaire.") }
+                        , Cmd.none
+                        )
 
                 Just Route.Api ->
                     Api.init session
@@ -254,7 +260,13 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 Nothing ->
-                    ( { model | state = Loaded session NotFoundPage }, Cmd.none )
+                    ( { model
+                        | state =
+                            Loaded session
+                                (ErrorPage "Page manquante (404)" "La page demandée n'a pu être trouvée")
+                      }
+                    , Cmd.none
+                    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -421,8 +433,10 @@ update rawMsg ({ state } as model) =
                     ( model, Request.Version.loadVersion VersionReceived )
 
                 -- Catch-all
-                ( _, NotFoundPage ) ->
-                    ( { model | state = Loaded session NotFoundPage }, Cmd.none )
+                ( _, ErrorPage title message ) ->
+                    ( { model | state = Loaded session (ErrorPage title message) }
+                    , Cmd.none
+                    )
 
                 _ ->
                     ( model, Cmd.none )
@@ -467,10 +481,10 @@ view { mobileNavigationOpened, state } =
     case state of
         Errored error ->
             { body =
-                [ Html.p [] [ Html.text <| "Database couldn't be parsed: " ]
-                , Html.pre [] [ Html.text error ]
+                [ Html.h1 [] [ Html.text <| "Erreur" ]
+                , Html.p [] [ Html.text error ]
                 ]
-            , title = "Erreur lors du chargement…"
+            , title = "Erreur"
             }
 
         Loaded session page ->
@@ -529,8 +543,8 @@ view { mobileNavigationOpened, state } =
                     ( "Chargement…", [ Page.loading ] )
                         |> Page.frame (pageConfig Page.Other)
 
-                NotFoundPage ->
-                    ( "Page manquante", [ Page.notFound ] )
+                ErrorPage title message ->
+                    ( title, [ Page.errorPage title message ] )
                         |> Page.frame (pageConfig Page.Other)
 
                 ObjectSimulatorPage simulatorModel ->

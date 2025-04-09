@@ -12,6 +12,7 @@ module Data.Session exposing
     , deleteBookmark
     , getUser
     , isAuthenticated
+    , isStaff
     , logout
     , notifyError
     , notifyInfo
@@ -342,3 +343,10 @@ isAuthenticated { store } =
 
         _ ->
             False
+
+
+isStaff : Session -> Bool
+isStaff =
+    getUser
+        >> Maybe.map .staff
+        >> Maybe.withDefault False
