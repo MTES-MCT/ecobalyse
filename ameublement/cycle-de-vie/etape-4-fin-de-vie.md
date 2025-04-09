@@ -8,9 +8,9 @@ icon: bin-recycle
 
 Définir les scénarios de fin de vie d'un meuble consiste à définir les débouchés de l'ensemble des matériaux entrant dans la composition du meuble.&#x20;
 
-<mark style="color:red;">Graphe à modifier lorsqu'un meilleur outil "Sankey Graph" sera trouvé.</mark>
+Illustration de la modélisation des scénarios de fin de vie d'un meuble&#x20;
 
-<figure><img src="../../.gitbook/assets/Sankey Chart (2).png" alt=""><figcaption><p>Illustration des scénarios à définir pour chaque meuble</p></figcaption></figure>
+<mark style="color:red;">Intégrer Sankey Graphe afin d'illustrer.</mark>
 
 3 débouchés sont proposés dans la méthode :&#x20;
 
@@ -98,14 +98,10 @@ Qu'un meuble soit recyclable ou non, les composants métalliques sont dans tous 
 
 ### Meuble non recyclable
 
-Lorsqu'un meuble est non recyclable, ce dernier est incinéré (82%) et enfoui (18%).&#x20;
+Lorsqu'un meuble est non recyclable, ce dernier est incinéré à 82%) et enfoui à 18%.&#x20;
 
 {% hint style="info" %}
-Ce scénario se base sur le référentiel _Mobilier Meublant (Novembre 2023)._
-
-<mark style="color:red;">Autre source possible ⇒ utiliser la fin de vie moyenne des déchets en sortie de déchèterie en France en 2021 = 75% incinération & 25% enfouissement.</mark>&#x20;
-
-<mark style="color:red;">Source ⇒ : "La collecte des déchets par le service public en France en 2021" (p. 38/50)</mark>&#x20;
+Ce scénario se base sur le référentiel _Meubles Meublants \_ FCBA (Novembre 2023)._
 {% endhint %}
 
 ### Meuble recyclable&#x20;
@@ -126,47 +122,27 @@ Pour certains types de matière (ex : plastique), des procédés spécifiques so
 
 #### Liste des procédés par type de matière
 
-<table data-full-width="false"><thead><tr><th width="113.6666259765625">Type de matière</th><th width="166.66656494140625">Recyclage</th><th>Incinération</th><th>Enfouissement</th></tr></thead><tbody><tr><td>Bois massif</td><td>Treatment of waste wood, post-consumer, sorting and shredding, CH</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>Treatment of waste wood, untreated, sanitary landfill, RoW</td></tr><tr><td>Panneaux</td><td>Treatment of waste wood, post-consumer, sorting and shredding, CH</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>Treatment of waste wood, untreated, sanitary landfill, RoW</td></tr><tr><td>Métal</td><td>Treatment of aluminium scrap, post-consumer, by collecting, sorting, cleaning, pressing, RER</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Rembourré / Matelas</td><td>Ttreatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Plastique</td><td>Polyethylene production, high density, granulate, recycled, US</td><td>Treatment of waste plastic, mixture, municipal incineration, Europe (withou CH)</td><td>Treatment of waste plastic, mixture, sanitary landfill, RoW</td></tr><tr><td>Emballage (carton)</td><td>Containerboard production, fluting medium, recycled</td><td>Treatment of waste paperboard, municipal incineration, Europe (withou CH)</td><td>Treatment of waste paperboard, sanitary landfill, CH</td></tr><tr><td>Emballage (plastique)</td><td>Polyethylene production, high density, granulate, recycled, US</td><td>Treatment of waste plastic, mixture, municipal incineration, Europe (withou CH)</td><td>Treatment of waste plastic, mixture, sanitary landfill, RoW</td></tr><tr><td>Emballage (autre)</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Autres</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr></tbody></table>
+<table data-full-width="false"><thead><tr><th width="113.6666259765625">Type de matière</th><th width="166.66656494140625">Recyclage</th><th>Incinération</th><th>Enfouissement</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)</td><td>Treatment of waste wood, post-consumer, sorting and shredding, CH</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>Treatment of waste wood, untreated, sanitary landfill, RoW</td></tr><tr><td>Métal</td><td>Treatment of aluminium scrap, post-consumer, by collecting, sorting, cleaning, pressing, RER</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Rembourré / Matelas</td><td>Ttreatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Plastique</td><td>Polyethylene production, high density, granulate, recycled, US</td><td>Treatment of waste plastic, mixture, municipal incineration, Europe (withou CH)</td><td>Treatment of waste plastic, mixture, sanitary landfill, RoW</td></tr><tr><td>Emballage (carton)</td><td>Containerboard production, fluting medium, recycled</td><td>Treatment of waste paperboard, municipal incineration, Europe (withou CH)</td><td>Treatment of waste paperboard, sanitary landfill, CH</td></tr><tr><td>Emballage (plastique)</td><td>Polyethylene production, high density, granulate, recycled, US</td><td>Treatment of waste plastic, mixture, municipal incineration, Europe (withou CH)</td><td>Treatment of waste plastic, mixture, sanitary landfill, RoW</td></tr><tr><td>Emballage (autre)</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Autres</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr></tbody></table>
 
 #### Coût environnemental (Pt d'impact / kg) des procédés (cf. ci-dessus)
 
-| Type de matière       | Recyclage | Incinération | Enfouissement |
-| --------------------- | --------- | ------------ | ------------- |
-| Bois massif           | 1         | 2            | 2             |
-| Panneaux (hors MDF)   | 1         | 2            | 2             |
-| Métal                 | 27        | 21           | 39            |
-| Rembourré / Matelas   | 96        | 96           | 39            |
-| Plastique             | 63        | 80           | 12            |
-| Emballage (carton)    | 68        | 7            | 46            |
-| Emballage (plastique) | 63        | 80           | 12            |
-| Emballage (autre)     | 21        | 21           | 39            |
-| Autres                | 21        | 21           | 39            |
+| Type de matière          | Recyclage | Incinération | Enfouissement |
+| ------------------------ | --------- | ------------ | ------------- |
+| Bois (massif & panneaux) | 1         | 2            | 2             |
+| Métal                    | 27        | 21           | 39            |
+| Rembourré / Matelas      | 96        | 96           | 39            |
+| Plastique                | 63        | 80           | 12            |
+| Emballage (carton)       | 68        | 7            | 46            |
+| Emballage (plastique)    | 63        | 80           | 12            |
+| Emballage (autre)        | 21        | 21           | 39            |
+| Autres                   | 21        | 21           | 39            |
 
 ## Illustration&#x20;
 
-<mark style="color:red;">A mettre en place de manière automatisée dans le Excel (besoin de trouver un outil de génération de Sankey graphes)</mark>
+<mark style="color:red;">Trouver outil pour générer Sankey Graphe.</mark>
 
 
 
 
-
-
-
-
-
-
-
-<mark style="color:red;">**OLD**</mark>
-
-### 3) Démontabilité (capacité du meuble à être démonté)
-
-La possibilité de séparer les différents composants d'un meuble participe à accroître la capacité du meuble à être valorisé.&#x20;
-
-{% hint style="info" %}
-**Démontabilité :** capacité d’un produit à être démonté, avec des outils classiques, conventionnels et disponibles sur le marché, sans endommagement.\
-[_Source_](#user-content-fn-2)[^2]
-{% endhint %}
 
 [^1]: &#x20;L'organisme coordinateur de la filière de Responsabilité Elargie du Producteur des Eléments d'Ameublement.
-
-[^2]: Activer l'écoconception dans le secteur de l'ameublement (décembre 2024)
