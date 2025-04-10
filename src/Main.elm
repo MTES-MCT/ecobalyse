@@ -47,12 +47,13 @@ type Page
     | ApiPage Api.Model
     | AuthPage Auth.Model
     | EditorialPage Editorial.Model
-    | ErrorPage String String
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
     | HomePage Home.Model
     | LoadingPage
+    | NotFoundPage
     | ObjectSimulatorPage ObjectSimulator.Model
+    | RestrictedAccessPage Url
     | StatsPage Stats.Model
     | TextileSimulatorPage TextileSimulator.Model
 
@@ -195,7 +196,7 @@ setRoute url ( { state } as model, cmds ) =
                             |> toPage AdminPage AdminMsg
 
                     else
-                        ( { model | state = Loaded session (ErrorPage "Accès refusé" "Statut admin est nécessaire.") }
+                        ( { model | state = Loaded session (RestrictedAccessPage url) }
                         , Cmd.none
                         )
 
@@ -260,11 +261,7 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 Nothing ->
-                    ( { model
-                        | state =
-                            Loaded session
-                                (ErrorPage "Page manquante (404)" "La page demandée n'a pu être trouvée")
-                      }
+                    ( { model | state = Loaded session NotFoundPage }
                     , Cmd.none
                     )
 
@@ -437,8 +434,13 @@ update rawMsg ({ state } as model) =
                     ( model, Request.Version.loadVersion VersionReceived )
 
                 -- Catch-all
-                ( _, ErrorPage title message ) ->
-                    ( { model | state = Loaded session (ErrorPage title message) }
+                ( _, RestrictedAccessPage url ) ->
+                    ( { model | state = Loaded session (RestrictedAccessPage url) }
+                    , Cmd.none
+                    )
+
+                ( _, NotFoundPage ) ->
+                    ( { model | state = Loaded session NotFoundPage }
                     , Cmd.none
                     )
 
@@ -532,10 +534,6 @@ view { mobileNavigationOpened, state } =
                         |> mapMsg EditorialMsg
                         |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
 
-                ErrorPage title message ->
-                    ( title, [ Page.errorPage title message ] )
-                        |> Page.frame (pageConfig Page.Other)
-
                 ExplorePage examplesModel ->
                     Explore.view session examplesModel
                         |> mapMsg ExploreMsg
@@ -555,10 +553,18 @@ view { mobileNavigationOpened, state } =
                     ( "Chargement…", [ Page.loading ] )
                         |> Page.frame (pageConfig Page.Other)
 
+                NotFoundPage ->
+                    ( "404", [ Page.notFound ] )
+                        |> Page.frame (pageConfig Page.Other)
+
                 ObjectSimulatorPage simulatorModel ->
                     ObjectSimulator.view session simulatorModel
                         |> mapMsg ObjectSimulatorMsg
                         |> Page.frame (pageConfig (Page.Object simulatorModel.scope))
+
+                RestrictedAccessPage url ->
+                    ( "Accès restreint", [ Page.restricted session url ] )
+                        |> Page.frame (pageConfig Page.Other)
 
                 StatsPage statsModel ->
                     Stats.view session statsModel

@@ -1,9 +1,10 @@
 module Views.Page exposing
     ( ActivePage(..)
     , Config
-    , errorPage
     , frame
     , loading
+    , notFound
+    , restricted
     )
 
 import Browser exposing (Document)
@@ -19,6 +20,7 @@ import Json.Decode as Decode
 import RemoteData
 import Request.Version as Version exposing (Version(..))
 import Route
+import Url exposing (Url)
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
@@ -180,9 +182,15 @@ secondaryMenuLinks =
 headerMenuLinks : Session -> List MenuLink
 headerMenuLinks session =
     mainMenuLinks session
-        ++ [ External "Documentation" Env.gitbookUrl
-           , External "Communauté" Env.communityUrl
-           ]
+        ++ List.filterMap identity
+            [ Just <| External "Communauté" Env.communityUrl
+            , Just <| External "Documentation" Env.gitbookUrl
+            , if Session.isStaff session then
+                Just <| Internal "Admin" Route.Admin Admin
+
+              else
+                Nothing
+            ]
 
 
 footerMenuLinks : Session -> List MenuLink
@@ -480,12 +488,33 @@ notificationView { closeNotification, resetSessionStore } notification =
                 }
 
 
-errorPage : String -> String -> Html msg
-errorPage title message =
+notFound : Html msg
+notFound =
     Container.centered [ class "pb-5" ]
-        [ h1 [ class "mb-3" ] [ text title ]
-        , p [] [ text message ]
+        [ h1 [ class "mb-3" ] [ text "Page non trouvée" ]
+        , p [] [ text "La page que vous avez demandé n'existe pas." ]
         , a [ Route.href Route.Home ] [ text "Retour à l'accueil" ]
+        ]
+
+
+restricted : Session -> Url -> Html msg
+restricted _ url =
+    Container.centered [ class "pb-5" ]
+        [ h1 [ class "mb-3" ] [ text "Accès refusé" ]
+        , p [] [ text "Cette page n'est accessible qu'à l'équipe Ecobalyse." ]
+        , p [ class "d-flex align-middle" ]
+            [ case Route.fromUrl url of
+                Just _ ->
+                    -- FIXME: ensure redirect after auth
+                    span []
+                        [ a [ Route.href <| Route.Auth { authenticated = False } ] [ text "Connectez-vous" ]
+                        , text "\u{00A0}ou\u{00A0}"
+                        ]
+
+                Nothing ->
+                    text ""
+            , a [ Route.href Route.Home ] [ text "retournez à l'accueil" ]
+            ]
         ]
 
 
