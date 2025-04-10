@@ -14,7 +14,7 @@ import RemoteData.Http as Http exposing (defaultConfig)
 apiBaseUrl : String
 apiBaseUrl =
     -- FIXME: should be configurable
-    "https://ecobalyse-data-pr65.osc-fr1.scalingo.io/api"
+    "https://ecobalyse-data.osc-fr1.scalingo.io/api"
 
 
 deleteComponent : Session -> (WebData String -> msg) -> Component -> Cmd msg
