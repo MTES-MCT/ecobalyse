@@ -22,7 +22,14 @@ const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
-const { ENABLE_FOOD_SECTION, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
+const {
+  BACKEND_API_URL,
+  ENABLE_FOOD_SECTION,
+  MATOMO_HOST,
+  MATOMO_SITE_ID,
+  MATOMO_TOKEN,
+  NODE_ENV,
+} = process.env;
 
 var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -56,7 +63,7 @@ app.use(
         "default-src": [
           "'self'",
           "https://api.github.com",
-          "https://ecobalyse*.osc-fr1.scalingo.io",
+          BACKEND_API_URL,
           "https://raw.githubusercontent.com",
           "https://sentry.incubateur.net",
           "*.gouv.fr",
