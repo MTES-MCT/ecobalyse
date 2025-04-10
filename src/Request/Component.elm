@@ -11,35 +11,29 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http exposing (defaultConfig)
 
 
-apiBaseUrl : String
-apiBaseUrl =
-    -- FIXME: should be configurable
-    "https://ecobalyse-data.osc-fr1.scalingo.io/api"
-
-
 deleteComponent : Session -> (WebData String -> msg) -> Component -> Cmd msg
-deleteComponent _ event component =
+deleteComponent { backendApiUrl } event component =
     -- FIXME: use session token to secure access?
     Http.deleteWithConfig { defaultConfig | headers = [] }
-        (apiBaseUrl ++ "/components/" ++ Component.idToString component.id)
+        (backendApiUrl ++ "/components/" ++ Component.idToString component.id)
         event
         (Component.encode component)
 
 
 getComponents : Session -> (WebData (List Component) -> msg) -> Cmd msg
-getComponents _ event =
+getComponents { backendApiUrl } event =
     -- FIXME: use session token to secure access?
     Component.decodeList Scope.all
         |> Http.getWithConfig { defaultConfig | headers = [] }
-            (apiBaseUrl ++ "/components")
+            (backendApiUrl ++ "/components")
             event
 
 
 patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
-patchComponent _ event component =
+patchComponent { backendApiUrl } event component =
     -- FIXME: use session token to secure access?
     Http.patchWithConfig { defaultConfig | headers = [] }
-        (apiBaseUrl ++ "/components/" ++ Component.idToString component.id)
+        (backendApiUrl ++ "/components/" ++ Component.idToString component.id)
         event
         (Component.decode Scope.all)
         (Component.encode component)

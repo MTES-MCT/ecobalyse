@@ -54,7 +54,8 @@ type alias Queries =
 
 
 type alias Session =
-    { clientUrl : String
+    { backendApiUrl : String
+    , clientUrl : String
     , currentVersion : Version
     , db : Db
     , enabledSections : EnabledSections
