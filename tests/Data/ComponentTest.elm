@@ -279,7 +279,7 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 422
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
                     )
                 , it "should compute results from decoded component items with custom component elements"
                     (""" [ {
@@ -300,7 +300,7 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 443
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
                 ]
             , TestUtils.suiteFromResult "computeElementResults"
@@ -456,7 +456,7 @@ suite =
                           },
                           {
                             "amount": 0.00088,
-                            "material": "3295b2a5-328a-4c00-b046-e2ddeb0da823"
+                            "material": "c470625a-4739-431d-be8c-4cedee17efbb"
                           }
                         ]
                       }
@@ -467,7 +467,7 @@ suite =
                 (\string ->
                     [ it "should serialise an item as a human readable string representation"
                         (Expect.equal string
-                            "1 Custom piece [ 0.00044m3 Planche (bois de feuillus) | 0.00088kg Composant en plastique (PP) ]"
+                            "1 Custom piece [ 0.00044m3 Planche (bois de feuillus) | 0.00088kg Plastique granulé (PP) ]"
                         )
                     ]
                 )
