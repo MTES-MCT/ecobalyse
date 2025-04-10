@@ -15,7 +15,7 @@ deleteComponent : Session -> (WebData String -> msg) -> Component -> Cmd msg
 deleteComponent { backendApiUrl } event component =
     -- FIXME: use session token to secure access?
     Http.deleteWithConfig { defaultConfig | headers = [] }
-        (backendApiUrl ++ "/components/" ++ Component.idToString component.id)
+        (backendApiUrl ++ "/api/components/" ++ Component.idToString component.id)
         event
         (Component.encode component)
 
@@ -25,7 +25,7 @@ getComponents { backendApiUrl } event =
     -- FIXME: use session token to secure access?
     Component.decodeList Scope.all
         |> Http.getWithConfig { defaultConfig | headers = [] }
-            (backendApiUrl ++ "/components")
+            (backendApiUrl ++ "/api/components")
             event
 
 
@@ -33,7 +33,7 @@ patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
 patchComponent { backendApiUrl } event component =
     -- FIXME: use session token to secure access?
     Http.patchWithConfig { defaultConfig | headers = [] }
-        (backendApiUrl ++ "/components/" ++ Component.idToString component.id)
+        (backendApiUrl ++ "/api/components/" ++ Component.idToString component.id)
         event
         (Component.decode Scope.all)
         (Component.encode component)
