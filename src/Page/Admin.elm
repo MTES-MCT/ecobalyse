@@ -8,7 +8,7 @@ module Page.Admin exposing
     )
 
 import Browser.Events
-import Data.Component exposing (Component)
+import Data.Component as Component exposing (Component)
 import Data.Key as Key
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
@@ -17,6 +17,7 @@ import Html.Events exposing (..)
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Component as ComponentApi
+import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
@@ -116,13 +117,13 @@ update session msg model =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+view { db } model =
     ( "admin"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Ecobalyse Admin" ]
             , warning
             , model.components
-                |> mapRemoteData componentListView
+                |> mapRemoteData (componentListView db)
             , model.modal
                 |> Maybe.map modalView
                 |> Maybe.withDefault (text "")
@@ -131,22 +132,39 @@ view _ model =
     )
 
 
-componentListView : List Component -> Html Msg
-componentListView components =
+componentListView : Db -> List Component -> Html Msg
+componentListView db components =
     Table.responsiveDefault []
-        [ components
+        [ thead []
+            [ tr []
+                [ th [] [ text "Identifiant" ]
+                , th [] [ text "Nom" ]
+                , th [] [ text "Description" ]
+                , th [ colspan 2 ] []
+                ]
+            ]
+        , components
             |> List.map
                 (\component ->
                     tr []
-                        [ th [ class "w-100" ] [ text component.name ]
-                        , td []
+                        [ td [ class "align-middle" ] [ code [] [ text <| Component.idToString component.id ] ]
+                        , th [ class "align-middle" ] [ text component.name ]
+                        , td [ class "align-middle" ]
+                            [ case Component.elementsToString db component of
+                                Err error ->
+                                    span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
+
+                                Ok string ->
+                                    text string
+                            ]
+                        , td [ class "align-middle" ]
                             [ button
                                 [ class "btn btn-sm btn-outline-primary"
                                 , onClick <| SetModal (Just (EditComponentModal component))
                                 ]
                                 [ Icon.pencil ]
                             ]
-                        , td []
+                        , td [ class "align-middle" ]
                             [ button
                                 [ class "btn btn-sm btn-outline-danger"
                                 , onClick <| SetModal (Just (DeleteComponentModal component))

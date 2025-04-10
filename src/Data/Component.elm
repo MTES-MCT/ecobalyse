@@ -28,6 +28,7 @@ module Data.Component exposing
     , decodeItem
     , decodeList
     , decodeListFromJsonString
+    , elementsToString
     , emptyResults
     , encode
     , encodeId
@@ -491,6 +492,13 @@ elementToString processes element =
                     ++ " "
                     ++ Process.getDisplayName process
             )
+
+
+elementsToString : DataContainer db -> Component -> Result String String
+elementsToString db component =
+    component.elements
+        |> RE.combineMap (elementToString db.processes)
+        |> Result.map (String.join " | ")
 
 
 emptyResults : Results
