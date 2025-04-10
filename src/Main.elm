@@ -53,7 +53,7 @@ type Page
     | LoadingPage
     | NotFoundPage
     | ObjectSimulatorPage ObjectSimulator.Model
-    | RestrictedAccessPage Url
+    | RestrictedAccessPage
     | StatsPage Stats.Model
     | TextileSimulatorPage TextileSimulator.Model
 
@@ -196,7 +196,7 @@ setRoute url ( { state } as model, cmds ) =
                             |> toPage AdminPage AdminMsg
 
                     else
-                        ( { model | state = Loaded session (RestrictedAccessPage url) }
+                        ( { model | state = Loaded session RestrictedAccessPage }
                         , Cmd.none
                         )
 
@@ -434,8 +434,8 @@ update rawMsg ({ state } as model) =
                     ( model, Request.Version.loadVersion VersionReceived )
 
                 -- Catch-all
-                ( _, RestrictedAccessPage url ) ->
-                    ( { model | state = Loaded session (RestrictedAccessPage url) }
+                ( _, RestrictedAccessPage ) ->
+                    ( { model | state = Loaded session RestrictedAccessPage }
                     , Cmd.none
                     )
 
@@ -562,8 +562,8 @@ view { mobileNavigationOpened, state } =
                         |> mapMsg ObjectSimulatorMsg
                         |> Page.frame (pageConfig (Page.Object simulatorModel.scope))
 
-                RestrictedAccessPage url ->
-                    ( "Accès restreint", [ Page.restricted session url ] )
+                RestrictedAccessPage ->
+                    ( "Accès restreint", [ Page.restricted session ] )
                         |> Page.frame (pageConfig Page.Other)
 
                 StatsPage statsModel ->

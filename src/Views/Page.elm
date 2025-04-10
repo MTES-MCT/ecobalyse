@@ -20,7 +20,6 @@ import Json.Decode as Decode
 import RemoteData
 import Request.Version as Version exposing (Version(..))
 import Route
-import Url exposing (Url)
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
@@ -497,22 +496,20 @@ notFound =
         ]
 
 
-restricted : Session -> Url -> Html msg
-restricted _ url =
+restricted : Session -> Html msg
+restricted session =
     Container.centered [ class "pb-5" ]
         [ h1 [ class "mb-3" ] [ text "Accès refusé" ]
         , p [] [ text "Cette page n'est accessible qu'à l'équipe Ecobalyse." ]
-        , p [ class "d-flex align-middle" ]
-            [ case Route.fromUrl url of
-                Just _ ->
-                    -- FIXME: ensure redirect after auth
-                    span []
-                        [ a [ Route.href <| Route.Auth { authenticated = False } ] [ text "Connectez-vous" ]
-                        , text "\u{00A0}ou\u{00A0}"
-                        ]
+        , p []
+            [ a [ Route.href <| Route.Auth { authenticated = False } ]
+                [ if Session.isAuthenticated session then
+                    text "Authentifiez-vous avec les droits appropriés"
 
-                Nothing ->
-                    text ""
+                  else
+                    text "Connectez-vous"
+                ]
+            , text "\u{00A0}ou\u{00A0}"
             , a [ Route.href Route.Home ] [ text "retournez à l'accueil" ]
             ]
         ]
