@@ -209,7 +209,6 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
                 (List.range 0 (List.length expandedElements - 1))
                 expandedElements
                 (Component.extractItems itemResults)
-                |> List.intersperse (tbody [ class "m-0 p-0 border" ] [ td [ colspan 7 ] [] ])
 
           else
             []

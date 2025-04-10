@@ -24,9 +24,13 @@ module Data.Component exposing
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
+    , decode
     , decodeItem
+    , decodeList
     , decodeListFromJsonString
+    , elementsToString
     , emptyResults
+    , encode
     , encodeId
     , encodeItem
     , encodeResults
@@ -490,6 +494,13 @@ elementToString processes element =
             )
 
 
+elementsToString : DataContainer db -> Component -> Result String String
+elementsToString db component =
+    component.elements
+        |> RE.combineMap (elementToString db.processes)
+        |> Result.map (String.join " | ")
+
+
 emptyResults : Results
 emptyResults =
     Results
@@ -498,6 +509,15 @@ emptyResults =
         , mass = Quantity.zero
         , stage = Nothing
         }
+
+
+encode : Component -> Encode.Value
+encode v =
+    EU.optionalPropertiesObject
+        [ ( "elements", v.elements |> Encode.list encodeElement |> Just )
+        , ( "id", v.id |> encodeId |> Just )
+        , ( "name", v.name |> Encode.string |> Just )
+        ]
 
 
 encodeCustom : Custom -> Encode.Value

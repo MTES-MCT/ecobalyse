@@ -20,6 +20,7 @@ import Route
 import Static.Json exposing (RawJsonProcesses)
 import Views.Alert as Alert
 import Views.Container as Container
+import Views.Icon as Icon
 import Views.Markdown as Markdown
 
 
@@ -254,7 +255,13 @@ viewAccount : User -> Html Msg
 viewAccount user =
     [ Just ( "Email", text user.email )
     , if user.staff then
-        Just ( "Équipe Ecobalyse", strong [] [ text "Oui" ] )
+        Just
+            ( "Équipe Ecobalyse"
+            , span [ class "d-flex justify-content-between align-middle gap-1" ]
+                [ strong [] [ text "Oui" ]
+                , a [ class "btn btn-sm btn-info", Route.href Route.Admin ] [ Icon.lock, text "\u{00A0}Accès à l'admin" ]
+                ]
+            )
 
       else
         Nothing
