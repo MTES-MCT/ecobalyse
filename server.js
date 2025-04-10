@@ -56,6 +56,7 @@ app.use(
         "default-src": [
           "'self'",
           "https://api.github.com",
+          "https://ecobalyse*.osc-fr1.scalingo.io/",
           "https://raw.githubusercontent.com",
           "https://sentry.incubateur.net",
           "*.gouv.fr",
