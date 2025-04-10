@@ -11,6 +11,7 @@ import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
 import Http
+import Page.Admin as Admin
 import Page.Api as Api
 import Page.Auth as Auth
 import Page.Editorial as Editorial
@@ -34,7 +35,8 @@ import Views.Page as Page
 
 
 type alias Flags =
-    { clientUrl : String
+    { backendApiUrl : String
+    , clientUrl : String
     , enabledSections : Session.EnabledSections
     , matomo : { host : String, siteId : String }
     , rawStore : String
@@ -42,7 +44,8 @@ type alias Flags =
 
 
 type Page
-    = ApiPage Api.Model
+    = AdminPage Admin.Model
+    | ApiPage Api.Model
     | AuthPage Auth.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
@@ -51,6 +54,7 @@ type Page
     | LoadingPage
     | NotFoundPage
     | ObjectSimulatorPage ObjectSimulator.Model
+    | RestrictedAccessPage
     | StatsPage Stats.Model
     | TextileSimulatorPage TextileSimulator.Model
 
@@ -71,7 +75,8 @@ type alias Model =
 
 
 type Msg
-    = ApiMsg Api.Msg
+    = AdminMsg Admin.Msg
+    | ApiMsg Api.Msg
     | AuthMsg Auth.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
@@ -136,7 +141,8 @@ init flags requestedUrl navKey =
 setupSession : Nav.Key -> Flags -> Db -> Session
 setupSession navKey flags db =
     Session.decodeRawStore flags.rawStore
-        { clientUrl = flags.clientUrl
+        { backendApiUrl = flags.backendApiUrl
+        , clientUrl = flags.clientUrl
         , currentVersion = Request.Version.Unknown
         , db = db
         , enabledSections = flags.enabledSections
@@ -186,6 +192,16 @@ setRoute url ( { state } as model, cmds ) =
                     )
             in
             case Route.fromUrl url of
+                Just Route.Admin ->
+                    if Session.isStaff session then
+                        Admin.init session
+                            |> toPage AdminPage AdminMsg
+
+                    else
+                        ( { model | state = Loaded session RestrictedAccessPage }
+                        , Cmd.none
+                        )
+
                 Just Route.Api ->
                     Api.init session
                         |> toPage ApiPage ApiMsg
@@ -247,7 +263,9 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage TextileSimulatorPage TextileSimulatorMsg
 
                 Nothing ->
-                    ( { model | state = Loaded session NotFoundPage }, Cmd.none )
+                    ( { model | state = Loaded session NotFoundPage }
+                    , Cmd.none
+                    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -274,6 +292,10 @@ update rawMsg ({ state } as model) =
                 ( HomeMsg homeMsg, HomePage homeModel ) ->
                     Home.update session homeMsg homeModel
                         |> toPage HomePage HomeMsg
+
+                ( AdminMsg adminMsg, AdminPage adminModel ) ->
+                    Admin.update session adminMsg adminModel
+                        |> toPage AdminPage AdminMsg
 
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
@@ -414,8 +436,15 @@ update rawMsg ({ state } as model) =
                     ( model, Request.Version.loadVersion VersionReceived )
 
                 -- Catch-all
+                ( _, RestrictedAccessPage ) ->
+                    ( { model | state = Loaded session RestrictedAccessPage }
+                    , Cmd.none
+                    )
+
                 ( _, NotFoundPage ) ->
-                    ( { model | state = Loaded session NotFoundPage }, Cmd.none )
+                    ( { model | state = Loaded session NotFoundPage }
+                    , Cmd.none
+                    )
 
                 _ ->
                     ( model, Cmd.none )
@@ -433,6 +462,10 @@ subscriptions { state } =
             Loaded _ (HomePage subModel) ->
                 Home.subscriptions subModel
                     |> Sub.map HomeMsg
+
+            Loaded _ (AdminPage subModel) ->
+                Admin.subscriptions subModel
+                    |> Sub.map AdminMsg
 
             Loaded _ (ExplorePage subModel) ->
                 Explore.subscriptions subModel
@@ -460,10 +493,10 @@ view { mobileNavigationOpened, state } =
     case state of
         Errored error ->
             { body =
-                [ Html.p [] [ Html.text <| "Database couldn't be parsed: " ]
-                , Html.pre [] [ Html.text error ]
+                [ Html.h1 [] [ Html.text <| "Erreur" ]
+                , Html.p [] [ Html.text error ]
                 ]
-            , title = "Erreur lors du chargement…"
+            , title = "Erreur"
             }
 
         Loaded session page ->
@@ -483,6 +516,11 @@ view { mobileNavigationOpened, state } =
                     ( title, content |> List.map (Html.map msg) )
             in
             case page of
+                AdminPage examplesModel ->
+                    Admin.view session examplesModel
+                        |> mapMsg AdminMsg
+                        |> Page.frame (pageConfig Page.Admin)
+
                 ApiPage examplesModel ->
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
@@ -518,13 +556,17 @@ view { mobileNavigationOpened, state } =
                         |> Page.frame (pageConfig Page.Other)
 
                 NotFoundPage ->
-                    ( "Page manquante", [ Page.notFound ] )
+                    ( "404", [ Page.notFound ] )
                         |> Page.frame (pageConfig Page.Other)
 
                 ObjectSimulatorPage simulatorModel ->
                     ObjectSimulator.view session simulatorModel
                         |> mapMsg ObjectSimulatorMsg
                         |> Page.frame (pageConfig (Page.Object simulatorModel.scope))
+
+                RestrictedAccessPage ->
+                    ( "Accès restreint", [ Page.restricted session ] )
+                        |> Page.frame (pageConfig Page.Other)
 
                 StatsPage statsModel ->
                     Stats.view session statsModel
