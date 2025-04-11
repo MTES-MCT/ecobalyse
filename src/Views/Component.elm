@@ -1,4 +1,7 @@
-module Views.Component exposing (editorView)
+module Views.Component exposing
+    ( componentEditorView
+    , itemsEditorView
+    )
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -32,7 +35,7 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-type alias Config db msg =
+type alias ItemsEditorConfig db msg =
     { addLabel : String
     , customizable : Bool
     , db : Component.DataContainer db
@@ -56,7 +59,21 @@ type alias Config db msg =
     }
 
 
-addComponentButton : Config db msg -> Html msg
+type alias ComponentEditorConfig db msg =
+    { component : Component
+    , db : Component.DataContainer db
+    , impact : Definition
+    , noOp : msg
+    , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
+    , removeElement : TargetElement -> msg
+    , removeElementTransform : TargetElement -> Index -> msg
+    , removeItem : Index -> msg
+    , scope : Scope
+    , updateElementAmount : TargetElement -> Maybe Amount -> msg
+    }
+
+
+addComponentButton : ItemsEditorConfig db msg -> Html msg
 addComponentButton { addLabel, db, openSelectComponentModal, scope } =
     let
         availableComponents =
@@ -78,7 +95,7 @@ addComponentButton { addLabel, db, openSelectComponentModal, scope } =
         ]
 
 
-addElementButton : Config db msg -> TargetItem -> Html msg
+addElementButton : ItemsEditorConfig db msg -> TargetItem -> Html msg
 addElementButton { db, openSelectProcessModal } targetItem =
     button
         [ class "btn btn-link text-decoration-none"
@@ -96,7 +113,7 @@ addElementButton { db, openSelectProcessModal } targetItem =
         ]
 
 
-addElementTransformButton : Config db msg -> TargetElement -> Html msg
+addElementTransformButton : ItemsEditorConfig db msg -> TargetElement -> Html msg
 addElementTransformButton { db, openSelectProcessModal } ( ( component, itemIndex ), elementIndex ) =
     let
         availableTransformProcesses =
@@ -128,7 +145,7 @@ addElementTransformButton { db, openSelectProcessModal } ( ( component, itemInde
 
 
 componentView :
-    Config db msg
+    ItemsEditorConfig db msg
     -> Index
     -> Item
     -> ( Quantity, Component, List ExpandedElement )
@@ -254,8 +271,8 @@ viewDebug items results =
         ]
 
 
-editorView : Config db msg -> Html msg
-editorView ({ db, docsUrl, items, results, scope, title } as config) =
+itemsEditorView : ItemsEditorConfig db msg -> Html msg
+itemsEditorView ({ db, docsUrl, items, results, scope, title } as config) =
     div []
         [ div [ class "card shadow-sm mb-3" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -323,7 +340,7 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
         ]
 
 
-amountInput : Config db msg -> TargetElement -> String -> Amount -> Html msg
+amountInput : ItemsEditorConfig db msg -> TargetElement -> String -> Amount -> Html msg
 amountInput config targetElement unit amount =
     div [ class "input-group" ]
         [ input
@@ -346,7 +363,7 @@ amountInput config targetElement unit amount =
         ]
 
 
-elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
+elementView : ItemsEditorConfig db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config targetItem elementIndex { amount, material, transforms } elementResults =
     let
         ( materialResults, transformsResults ) =
@@ -390,7 +407,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
         )
 
 
-selectMaterialButton : Config db msg -> TargetElement -> Process -> Html msg
+selectMaterialButton : ItemsEditorConfig db msg -> TargetElement -> Process -> Html msg
 selectMaterialButton { db, openSelectProcessModal } ( targetItem, elementIndex ) material =
     let
         availableMaterialProcesses =
@@ -412,7 +429,7 @@ selectMaterialButton { db, openSelectProcessModal } ( targetItem, elementIndex )
         ]
 
 
-elementMaterialView : Config db msg -> TargetElement -> Results -> Process -> Amount -> Html msg
+elementMaterialView : ItemsEditorConfig db msg -> TargetElement -> Results -> Process -> Amount -> Html msg
 elementMaterialView config targetElement materialResults material amount =
     tr [ class "fs-7" ]
         [ td [] []
@@ -446,7 +463,7 @@ elementMaterialView config targetElement materialResults material amount =
         ]
 
 
-elementTransformsView : Config db msg -> TargetElement -> List Results -> List Process -> List (Html msg)
+elementTransformsView : ItemsEditorConfig db msg -> TargetElement -> List Results -> List Process -> List (Html msg)
 elementTransformsView config targetElement transformsResults transforms =
     List.map3
         (\transformIndex transformResult transform ->
@@ -488,7 +505,7 @@ elementTransformsView config targetElement transformsResults transforms =
         transforms
 
 
-quantityInput : Config db msg -> Index -> Quantity -> Html msg
+quantityInput : ItemsEditorConfig db msg -> Index -> Quantity -> Html msg
 quantityInput config itemIndex quantity =
     div [ class "input-group", style "width" "130px" ]
         [ input
@@ -513,3 +530,9 @@ quantityInput config itemIndex quantity =
             ]
             []
         ]
+
+
+componentEditorView : ComponentEditorConfig db msg -> Html msg
+componentEditorView _ =
+    -- FIXME: implement me
+    text ""

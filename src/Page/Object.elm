@@ -537,7 +537,7 @@ simulatorView session model =
                         }
                     }
                 ]
-            , ComponentView.editorView
+            , ComponentView.itemsEditorView
                 { addLabel = "Ajouter un composant"
                 , customizable = True
                 , db = session.db

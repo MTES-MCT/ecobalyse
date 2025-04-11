@@ -1009,7 +1009,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                 ]
             ]
         ]
-    , ComponentView.editorView
+    , ComponentView.itemsEditorView
         { addLabel = "Ajouter un accessoire"
         , customizable = False
         , db = session.db

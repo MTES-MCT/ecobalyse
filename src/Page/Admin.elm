@@ -9,7 +9,9 @@ module Page.Admin exposing
 
 import Browser.Events
 import Data.Component as Component exposing (Component)
+import Data.Impact.Definition as Definition
 import Data.Key as Key
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -19,6 +21,7 @@ import Request.Common
 import Request.Component as ComponentApi
 import Static.Db exposing (Db)
 import Views.Alert as Alert
+import Views.Component as ComponentView
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Modal as Modal
@@ -125,7 +128,7 @@ view { db } model =
             , model.components
                 |> mapRemoteData (componentListView db)
             , model.modal
-                |> Maybe.map modalView
+                |> Maybe.map (modalView db)
                 |> Maybe.withDefault (text "")
             ]
       ]
@@ -177,8 +180,8 @@ componentListView db components =
         ]
 
 
-modalView : Modal -> Html Msg
-modalView modal =
+modalView : Db -> Modal -> Html Msg
+modalView db modal =
     Modal.view
         { close = SetModal Nothing
         , content =
@@ -191,14 +194,28 @@ modalView modal =
                         ]
 
                     EditComponentModal component ->
-                        [ label [] [ text "Nom du composant" ]
-                        , input
-                            [ type_ "text"
-                            , class "form-control"
-                            , value component.name
-                            , onInput <| \name -> UpdateComponent { component | name = name }
+                        [ div []
+                            [ label [] [ text "Nom du composant" ]
+                            , input
+                                [ type_ "text"
+                                , class "form-control"
+                                , value component.name
+                                , onInput <| \name -> UpdateComponent { component | name = name }
+                                ]
+                                []
                             ]
-                            []
+                        , ComponentView.componentEditorView
+                            { component = component
+                            , db = db
+                            , impact = db.definitions |> Definition.get Definition.Ecs
+                            , noOp = NoOp
+                            , openSelectProcessModal = \_ _ _ _ -> NoOp
+                            , removeElement = \_ -> NoOp
+                            , removeElementTransform = \_ _ -> NoOp
+                            , removeItem = \_ -> NoOp
+                            , scope = Scope.Object
+                            , updateElementAmount = \_ _ -> NoOp
+                            }
                         ]
             ]
         , footer =
