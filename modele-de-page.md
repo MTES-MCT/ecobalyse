@@ -67,3 +67,9 @@ A priori un renvoi vers l'explorateur suffit ici. Si des procédés spécifiques
 
 Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), avec les noms utilisés dans cette page.
 
+## Exemple d'application
+
+{% hint style="info" %}
+\[optionnel mais utile] Application à un exemple, pour permettre une meilleure compréhension au lecteur
+{% endhint %}
+
