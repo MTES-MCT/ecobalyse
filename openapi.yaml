@@ -644,7 +644,9 @@ components:
       type: object
       additionalProperties: false
       required:
+      - mass
       - materials
+      - product
       properties:
         airTransportRatio:
           type: number
