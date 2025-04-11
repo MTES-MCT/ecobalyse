@@ -2,6 +2,7 @@
 description: >-
   Présentation de l'intégration des coefficients de durabilité physique et
   non-physique dans la méthode de calcul.
+hidden: true
 ---
 
 # Durabilité
@@ -61,7 +62,7 @@ Une distinction est faite entre les PME/TPE et les autres entreprises. Il est en
 La définition considérée est la [définition réglementaire du décret n°2008-1353 du 18 décembre 2008](https://www.economie.gouv.fr/cedef/definition-petites-et-moyennes-entreprises) : une **PME** est une entreprise dont l’effectif est inférieur à 250 personnes et dont le chiffre d’affaires annuel n'excède pas 50 millions d'euros ou dont le total de bilan n'excède pas 43 millions d'euros.&#x20;
 {% endhint %}
 
-<table data-full-width="true"><thead><tr><th width="249">Catégorie</th><th width="199">Seuils proposés par le référentiel "Meubles Meublants"</th><th>Coefficients retenus</th></tr></thead><tbody><tr><td><ul><li>Rangement (en linéaire et en volume)</li><li>Rangement (armoire, caissons à usage professionnel)</li><li>Meubles de rangement salle de bain</li><li>Table de repas, table basse et table de bureau à usage domestique (intérieur)</li><li>Table de repas et table basse (extérieur)</li><li>Table de bureau (professionnel)</li><li>Chaise, siège, banc (intérieur)</li><li>Chaise, siège, banc (extérieur)</li><li>Siège opérateur (bureau)</li><li>Siège visiteur (bureau)</li></ul></td><td><p></p><p>10 ans (niveau 1)<br>15 ans (niveau 2)</p></td><td><p></p><ul><li><strong>x0,8</strong><br>Aucun test réalisé par une <a data-footnote-ref href="#user-content-fn-2">GE</a></li><li><strong>x1</strong><br>Aucun test réalisé par une PME/TPE <br>ou <br>Atteinte du Niveau 1 par une <a data-footnote-ref href="#user-content-fn-3">GE </a> </li><li><strong>x1,2</strong><br>Atteinte du Niveau 2</li></ul></td></tr><tr><td>Meubles de rangement cuisine</td><td>20 ans (niveau 1)<br>30 ans (niveau 2)</td><td><p></p><ul><li><strong>x0,8</strong><br>Aucun test réalisé par une <a data-footnote-ref href="#user-content-fn-4">GE</a></li><li><strong>x1</strong><br>Aucun test réalisé par une PME/TPE <br>ou <br>Atteinte du Niveau 1 par une <a data-footnote-ref href="#user-content-fn-5">GE </a> </li><li><strong>x1,2</strong><br>Atteinte du Niveau 2</li></ul></td></tr><tr><td>Façade de placard</td><td>10 ans (niveau 1)<br>15 ans (niveau 2)<br>20 ans (niveau 3)</td><td><ul><li><strong>x0,8</strong><br>Aucun test réalisé par une <a data-footnote-ref href="#user-content-fn-6">GE</a></li><li><strong>x1</strong><br>Aucun test réalisé par une PME/TPE <br>ou <br>Atteinte du Niveau 1 par une <a data-footnote-ref href="#user-content-fn-7">GE </a> </li><li><strong>x1,1</strong><br>Atteinte du Niveau 2</li><li><strong>x1,2</strong><br>Atteinte du Niveau 3</li></ul></td></tr><tr><td>Encadrement de lit</td><td>10 ans (niveau 1)<br>20 ans (niveau 2)</td><td><p></p><ul><li><strong>x0,8</strong><br>Aucun test réalisé par une <a data-footnote-ref href="#user-content-fn-8">GE</a></li><li><strong>x1</strong><br>Aucun test réalisé par une PME/TPE <br>ou <br>Atteinte du Niveau 1 par une <a data-footnote-ref href="#user-content-fn-9">GE </a> </li><li><strong>x1,2</strong></li></ul></td></tr></tbody></table>
+<table data-full-width="true"><thead><tr><th width="249">Catégorie</th><th width="199">Seuils proposés par le référentiel "Meubles Meublants"</th><th>Coefficients retenus</th></tr></thead><tbody><tr><td><ul><li>Rangement (en linéaire et en volume)</li><li>Rangement (armoire, caissons à usage professionnel)</li><li>Meubles de rangement salle de bain</li><li>Table de repas, table basse et table de bureau à usage domestique (intérieur)</li><li>Table de repas et table basse (extérieur)</li><li>Table de bureau (professionnel)</li><li>Chaise, siège, banc (intérieur)</li><li>Chaise, siège, banc (extérieur)</li><li>Siège opérateur (bureau)</li><li>Siège visiteur (bureau)</li></ul></td><td><p></p><p>10 ans (niveau 1)<br>15 ans (niveau 2)</p></td><td><p></p><ul><li><strong>x0,8</strong><br>Aucun test réalisé par une <a data-footnote-ref href="#user-content-fn-2">GE</a></li><li><strong>x1</strong><br>Aucun test réalisé par une PME/TPE <br>ou <br>Atteinte du Niveau 1 par une <a data-footnote-ref href="#user-content-fn-2">GE </a> </li><li><strong>x1,2</strong><br>Atteinte du Niveau 2</li></ul></td></tr><tr><td>Meubles de rangement cuisine</td><td>20 ans (niveau 1)<br>30 ans (niveau 2)</td><td><p></p><ul><li><strong>x0,8</strong><br>Aucun test réalisé par une <a data-footnote-ref href="#user-content-fn-2">GE</a></li><li><strong>x1</strong><br>Aucun test réalisé par une PME/TPE <br>ou <br>Atteinte du Niveau 1 par une <a data-footnote-ref href="#user-content-fn-2">GE </a> </li><li><strong>x1,2</strong><br>Atteinte du Niveau 2</li></ul></td></tr><tr><td>Façade de placard</td><td>10 ans (niveau 1)<br>15 ans (niveau 2)<br>20 ans (niveau 3)</td><td><ul><li><strong>x0,8</strong><br>Aucun test réalisé par une <a data-footnote-ref href="#user-content-fn-2">GE</a></li><li><strong>x1</strong><br>Aucun test réalisé par une PME/TPE <br>ou <br>Atteinte du Niveau 1 par une <a data-footnote-ref href="#user-content-fn-2">GE </a> </li><li><strong>x1,1</strong><br>Atteinte du Niveau 2</li><li><strong>x1,2</strong><br>Atteinte du Niveau 3</li></ul></td></tr><tr><td>Encadrement de lit</td><td>10 ans (niveau 1)<br>20 ans (niveau 2)</td><td><p></p><ul><li><strong>x0,8</strong><br>Aucun test réalisé par une <a data-footnote-ref href="#user-content-fn-2">GE</a></li><li><strong>x1</strong><br>Aucun test réalisé par une PME/TPE <br>ou <br>Atteinte du Niveau 1 par une <a data-footnote-ref href="#user-content-fn-2">GE </a> </li><li><strong>x1,2</strong></li></ul></td></tr></tbody></table>
 
 ## Coefficient de durabilité non-physique $$C_{DurabilitéNonPhysique}$$&#x20;
 
@@ -189,17 +190,3 @@ Précisions :&#x20;
     Principes généraux pour l’affichage environnemental - Partie 4 : Référentiel méthodologique d’évaluation environnementale de meubles meublants. 92 pages.
 
 [^2]: Grande Entreprise
-
-[^3]: Grande Entreprise
-
-[^4]: Grande Entreprise
-
-[^5]: Grande Entreprise
-
-[^6]: Grande Entreprise
-
-[^7]: Grande Entreprise
-
-[^8]: Grande Entreprise
-
-[^9]: Grande Entreprise

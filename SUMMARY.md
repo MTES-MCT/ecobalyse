@@ -131,7 +131,7 @@
 
 ***
 
-* [🪚 AUTRES TRAVAUX EN COURS](ameublement/README.md)
+* [🪚 Ameublement (en construction)](ameublement/README.md)
   * [Cycle de vie](ameublement/cycle-de-vie/README.md)
     * [Etape 1 : Fabrication des composants](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/README.md)
       * [🪵 Composants en bois](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/composants-en-bois.md)

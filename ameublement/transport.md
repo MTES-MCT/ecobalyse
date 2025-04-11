@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # 🚚 Transport
 
 ## Modélisation Ecobalyse
@@ -29,7 +33,7 @@ Chaque mode de transport correspond à un procédé Ecoinvent.&#x20;
 | Aérien            | transport, freight, aircraft, long haul, GLO |
 | Ferroviaire       | transport, freight train, GLO                |
 
-<figure><img src="../../../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 A date et pour les objets/meubles, seulement 2 modes de transport sont intégrés dans les scénarios : Terrestre et Maritime.&#x20;
