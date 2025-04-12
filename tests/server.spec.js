@@ -44,6 +44,15 @@ describe("API", () => {
         expect(response.body.openapi).toEqual("3.0.1");
         expect(response.body.info.title).toEqual("API Ecobalyse");
       });
+
+      it("should respond with an HTTP 400 error on invalid JSON provided", async () => {
+        const response = await request(app).post("/api/textile/simulator").type("json").send("}{");
+
+        expectStatus(response, 400);
+        expect(response.body).toHaveProperty("error");
+        expect(response.body.error).toHaveProperty("decoding");
+        expect(response.body.error.decoding).toMatch("Format JSON invalide");
+      });
     });
   });
 
@@ -667,7 +676,7 @@ async function expectListResponseContains(path, object) {
 
 function expectStatus(response, expectedCode, type = "application/json") {
   if (response.status === 400 && expectedCode != 400) {
-    expect(response.body).toHaveProperty("errors", "");
+    expect(response.body).toHaveProperty("error", "");
   }
   expect(response.type).toBe(type);
   expect(response.statusCode).toBe(expectedCode);
