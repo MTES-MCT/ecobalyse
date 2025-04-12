@@ -648,6 +648,33 @@ components:
       - materials
       - product
       properties:
+        mass:
+          type: number
+          description: Masse du produit fini, en kilogrammes
+          minimum: 0.01
+          example: 0.17
+        product:
+          type: string
+          description: |
+            Identifiant du produit (liste disponible sur le point d'entrée `/textile/products`)
+          enum:
+          - calecon
+          - chaussettes
+          - chemise
+          - jean
+          - jupe
+          - maillot
+          - manteau
+          - pantalon
+          - pull
+          - slip
+          - tshirt
+        materials:
+          type: array
+          description: Liste des matières composant le vêtement
+          items:
+            "$ref": "#/components/schemas/TextileQueryMaterial"
+          minItems: 1
         airTransportRatio:
           type: number
           description: |
@@ -788,17 +815,6 @@ components:
             **⚠️ Sur les produits tricotés en "integral / whole garment", ce paramètre n'a aucun impact (valeur fixe: 0).**
           minimum: 0
           maximum: 0.4
-        materials:
-          type: array
-          description: Liste des matières composant le vêtement
-          items:
-            "$ref": "#/components/schemas/TextileQueryMaterial"
-          minItems: 1
-        mass:
-          type: number
-          description: Masse du produit fini, en kilogrammes
-          minimum: 0.01
-          example: 0.17
         numberOfReferences:
           description: |
             Nombre de références au catalogue de la marque.
@@ -837,18 +853,6 @@ components:
               type: number
               description: |
                 Pourcentage de surface teinte, exprimé entre `0` et `1`
-        product:
-          type: string
-          description: |
-            Identifiant du produit (liste disponible sur le point d'entrée `/textile/products`)
-          enum:
-          - chemise
-          - jean
-          - jupe
-          - manteau
-          - pantalon
-          - pull
-          - tshirt
         surfaceMass:
           type: number
           description: |
