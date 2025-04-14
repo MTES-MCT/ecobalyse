@@ -8,7 +8,7 @@ module Page.Admin exposing
     )
 
 import Browser.Events
-import Data.Component as Component exposing (Component)
+import Data.Component as Component exposing (Component, Item)
 import Data.Impact.Definition as Definition
 import Data.Key as Key
 import Data.Scope as Scope
@@ -37,7 +37,7 @@ type alias Model =
 
 type Modal
     = DeleteComponentModal Component
-    | EditComponentModal Component.Item
+    | EditComponentModal Item
 
 
 type Msg
@@ -47,7 +47,7 @@ type Msg
     | NoOp
     | SaveComponent
     | SetModal (Maybe Modal)
-    | UpdateComponent Component.Item
+    | UpdateComponent Item
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -240,15 +240,22 @@ modalView db modal =
                                         , scopes = Scope.all
                                         , setDetailed = \_ -> NoOp
                                         , title = component.name
-                                        , updateElementAmount = \_ _ -> NoOp
+                                        , updateElementAmount =
+                                            \targetElement ->
+                                                Maybe.map
+                                                    (\amount ->
+                                                        item
+                                                            |> updateSingleItem
+                                                                (Component.updateElement targetElement <|
+                                                                    \el -> { el | amount = amount }
+                                                                )
+                                                    )
+                                                    >> Maybe.withDefault NoOp
                                         , updateItemName =
                                             \targetItem name ->
-                                                UpdateComponent
-                                                    ([ item ]
-                                                        |> Component.updateItemCustomName targetItem name
-                                                        |> List.head
-                                                        |> Maybe.withDefault item
-                                                    )
+                                                item
+                                                    |> updateSingleItem
+                                                        (Component.updateItemCustomName targetItem name)
                                         , updateItemQuantity = \_ _ -> NoOp
                                         }
                                     ]
@@ -274,6 +281,16 @@ modalView db modal =
                 EditComponentModal _ ->
                     "Modifier le composant"
         }
+
+
+updateSingleItem : (List Item -> List Item) -> Item -> Msg
+updateSingleItem fn item =
+    item
+        |> List.singleton
+        |> fn
+        |> List.head
+        |> Maybe.withDefault item
+        |> UpdateComponent
 
 
 warning : Html msg
