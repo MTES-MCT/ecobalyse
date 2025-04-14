@@ -211,55 +211,52 @@ modalView db modal =
                         ]
 
                     EditComponentModal item ->
-                        case Component.itemToComponent db item of
-                            Err error ->
-                                [ span [ class "text-danger" ] [ text error ] ]
+                        [ ComponentView.editorView
+                            { addLabel = "TODO libellé"
+                            , customizable = True
+                            , db = db
+                            , detailed = [ 0 ]
+                            , docsUrl = Nothing
+                            , explorerRoute = Nothing
+                            , impact = db.definitions |> Definition.get Definition.Ecs
+                            , items = [ item ]
+                            , maxItems = Just 1
+                            , noOp = NoOp
+                            , openSelectComponentModal = \_ -> NoOp
 
-                            Ok component ->
-                                [ div [ class "d-flex flex-column gap-3" ]
-                                    [ ComponentView.editorView
-                                        { addLabel = "TODO libellé"
-                                        , customizable = True
-                                        , db = db
-                                        , detailed = [ 0 ]
-                                        , docsUrl = Nothing
-                                        , explorerRoute = Nothing
-                                        , impact = db.definitions |> Definition.get Definition.Ecs
-                                        , items = [ item ]
-                                        , maxItems = Just 1
-                                        , noOp = NoOp
-                                        , openSelectComponentModal = \_ -> NoOp
-                                        , openSelectProcessModal = \_ _ _ _ -> NoOp
-                                        , removeElement = \_ -> NoOp
-                                        , removeElementTransform = \_ _ -> NoOp
-                                        , removeItem = \_ -> NoOp
-                                        , results =
-                                            [ item ]
-                                                |> Component.compute db
-                                                |> Result.withDefault Component.emptyResults
-                                        , scopes = Scope.all
-                                        , setDetailed = \_ -> NoOp
-                                        , title = component.name
-                                        , updateElementAmount =
-                                            \targetElement ->
-                                                Maybe.map
-                                                    (\amount ->
-                                                        item
-                                                            |> updateSingleItem
-                                                                (Component.updateElement targetElement <|
-                                                                    \el -> { el | amount = amount }
-                                                                )
+                            -- TODO
+                            , openSelectProcessModal = \_ _ _ _ -> NoOp
+                            , removeElement =
+                                \targetElement ->
+                                    item |> updateSingleItem (Component.removeElement targetElement)
+                            , removeElementTransform =
+                                \targetElement transformIndex ->
+                                    item |> updateSingleItem (Component.removeElementTransform targetElement transformIndex)
+                            , removeItem = \_ -> NoOp
+                            , results =
+                                [ item ]
+                                    |> Component.compute db
+                                    |> Result.withDefault Component.emptyResults
+                            , scopes = Scope.all
+                            , setDetailed = \_ -> NoOp
+                            , title = ""
+                            , updateElementAmount =
+                                \targetElement ->
+                                    Maybe.map
+                                        (\amount ->
+                                            item
+                                                |> updateSingleItem
+                                                    (Component.updateElement targetElement <|
+                                                        \el -> { el | amount = amount }
                                                     )
-                                                    >> Maybe.withDefault NoOp
-                                        , updateItemName =
-                                            \targetItem name ->
-                                                item
-                                                    |> updateSingleItem
-                                                        (Component.updateItemCustomName targetItem name)
-                                        , updateItemQuantity = \_ _ -> NoOp
-                                        }
-                                    ]
-                                ]
+                                        )
+                                        >> Maybe.withDefault NoOp
+                            , updateItemName =
+                                \targetItem name ->
+                                    item |> updateSingleItem (Component.updateItemCustomName targetItem name)
+                            , updateItemQuantity = \_ _ -> NoOp
+                            }
+                        ]
             ]
         , footer =
             [ case modal of
