@@ -37,7 +37,7 @@ type alias Model =
 
 type Modal
     = DeleteComponentModal Component
-    | EditComponentModal Component
+    | EditComponentModal Component.Item
 
 
 type Msg
@@ -47,7 +47,7 @@ type Msg
     | NoOp
     | SaveComponent
     | SetModal (Maybe Modal)
-    | UpdateComponent Component
+    | UpdateComponent Component.Item
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -98,11 +98,19 @@ update session msg model =
                     , ComponentApi.deleteComponent session ComponentDeleted component
                     )
 
-                Just (EditComponentModal component) ->
-                    ( { model | modal = Nothing }
-                    , session
-                    , ComponentApi.patchComponent session ComponentUpdated component
-                    )
+                Just (EditComponentModal item) ->
+                    case Component.itemToComponent session.db item of
+                        Err error ->
+                            ( { model | modal = Nothing }
+                            , session |> Session.notifyError "Erreur" error
+                            , Cmd.none
+                            )
+
+                        Ok component ->
+                            ( { model | modal = Nothing }
+                            , session |> Session.notifyInfo "Ok" "le composant a été sauvegardé"
+                            , ComponentApi.patchComponent session ComponentUpdated component
+                            )
 
                 Nothing ->
                     ( model, session, Cmd.none )
@@ -110,10 +118,10 @@ update session msg model =
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
 
-        UpdateComponent newComponent ->
+        UpdateComponent customItem ->
             case model.modal of
                 Just (EditComponentModal _) ->
-                    ( { model | modal = Just (EditComponentModal newComponent) }, session, Cmd.none )
+                    ( { model | modal = Just (EditComponentModal customItem) }, session, Cmd.none )
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -163,7 +171,8 @@ componentListView db components =
                         , td [ class "align-middle" ]
                             [ button
                                 [ class "btn btn-sm btn-outline-primary"
-                                , onClick <| SetModal (Just (EditComponentModal component))
+                                , onClick <|
+                                    SetModal (Just (EditComponentModal (Component.createItem component.id)))
                                 ]
                                 [ Icon.pencil ]
                             ]
@@ -193,30 +202,54 @@ modalView db modal =
                         , text "\u{00A0}?"
                         ]
 
-                    EditComponentModal component ->
-                        [ div []
-                            [ label [] [ text "Nom du composant" ]
-                            , input
-                                [ type_ "text"
-                                , class "form-control"
-                                , value component.name
-                                , onInput <| \name -> UpdateComponent { component | name = name }
+                    EditComponentModal item ->
+                        case Component.itemToComponent db item of
+                            Err error ->
+                                [ span [ class "text-danger" ] [ text error ] ]
+
+                            Ok component ->
+                                [ div [ class "d-flex flex-column gap-3" ]
+                                    [ div []
+                                        [ label [] [ text "Nom du composant" ]
+                                        , input
+                                            [ type_ "text"
+                                            , class "form-control"
+                                            , value <| component.name
+                                            , onInput <|
+                                                \name ->
+                                                    UpdateComponent
+                                                        { item
+                                                            | custom =
+                                                                item.custom
+                                                                    |> Component.updateCustom component (\c -> { c | name = Just name })
+                                                        }
+                                            ]
+                                            []
+                                        ]
+                                    , ComponentView.editorView
+                                        { addLabel = "TODO libellé"
+                                        , customizable = True
+                                        , db = db
+                                        , detailed = [ 0 ]
+                                        , docsUrl = Nothing
+                                        , impact = db.definitions |> Definition.get Definition.Ecs
+                                        , items = [ item ]
+                                        , noOp = NoOp
+                                        , openSelectComponentModal = \_ -> NoOp
+                                        , openSelectProcessModal = \_ _ _ _ -> NoOp
+                                        , removeElement = \_ -> NoOp
+                                        , removeElementTransform = \_ _ -> NoOp
+                                        , removeItem = \_ -> NoOp
+                                        , results = Component.compute db [ item ] |> Result.withDefault Component.emptyResults
+                                        , scopes = Scope.all
+                                        , setDetailed = \_ -> NoOp
+                                        , title = "Composant"
+                                        , updateElementAmount = \_ _ -> NoOp
+                                        , updateItemName = \_ _ -> NoOp
+                                        , updateItemQuantity = \_ _ -> NoOp
+                                        }
+                                    ]
                                 ]
-                                []
-                            ]
-                        , ComponentView.componentEditorView
-                            { component = component
-                            , db = db
-                            , impact = db.definitions |> Definition.get Definition.Ecs
-                            , noOp = NoOp
-                            , openSelectProcessModal = \_ _ _ _ -> NoOp
-                            , removeElement = \_ -> NoOp
-                            , removeElementTransform = \_ _ -> NoOp
-                            , removeItem = \_ -> NoOp
-                            , scope = Scope.Object
-                            , updateElementAmount = \_ _ -> NoOp
-                            }
-                        ]
             ]
         , footer =
             [ case modal of

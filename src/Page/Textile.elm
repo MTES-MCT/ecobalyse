@@ -1009,7 +1009,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                 ]
             ]
         ]
-    , ComponentView.itemsEditorView
+    , ComponentView.editorView
         { addLabel = "Ajouter un accessoire"
         , customizable = False
         , db = session.db
@@ -1027,7 +1027,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             session.queries.textile.trims
                 |> Component.compute session.db
                 |> Result.withDefault Component.emptyResults
-        , scope = Scope.Textile
+        , scopes = [ Scope.Textile ]
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
         , updateElementAmount = \_ _ -> NoOp

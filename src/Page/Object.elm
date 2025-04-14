@@ -537,7 +537,7 @@ simulatorView session model =
                         }
                     }
                 ]
-            , ComponentView.itemsEditorView
+            , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
                 , customizable = True
                 , db = session.db
@@ -558,7 +558,7 @@ simulatorView session model =
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
                 , results = model.results
-                , scope = model.scope
+                , scopes = [ model.scope ]
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateElementAmount = UpdateElementAmount
