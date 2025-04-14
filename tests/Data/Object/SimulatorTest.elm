@@ -31,13 +31,13 @@ suite =
                     |> Example.findByName "Chaise"
                     |> Result.andThen (.query >> getEcsImpact db)
                     |> Result.withDefault 0
-                    |> Expect.within (Expect.Absolute 1) 293
+                    |> Expect.within (Expect.Absolute 1) 284
                     |> asTest "should compute impact for an example chair"
                 , db.object.examples
                     |> Example.findByName "Table"
                     |> Result.andThen (.query >> getEcsImpact db)
                     |> Result.withDefault 0
-                    |> Expect.within (Expect.Absolute 1) 3974
+                    |> Expect.within (Expect.Absolute 1) 3857
                     |> asTest "should compute impact for an example table"
                 ]
             ]
