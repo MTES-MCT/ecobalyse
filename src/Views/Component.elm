@@ -14,7 +14,6 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
-import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
@@ -24,7 +23,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
-import Route
+import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
 import Views.Format as Format
@@ -38,8 +37,10 @@ type alias Config db msg =
     , db : Component.DataContainer db
     , detailed : List Index
     , docsUrl : Maybe String
+    , explorerRoute : Maybe Route
     , impact : Definition
     , items : List Item
+    , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
@@ -171,7 +172,9 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
                             text ""
                         ]
                     , td [ class "ps-0 py-2 align-middle" ]
-                        [ quantity |> quantityInput config itemIndex ]
+                        [ -- FIXME: hide when editing from the admin
+                          quantity |> quantityInput config itemIndex
+                        ]
                     , td [ class "align-middle text-truncate w-100", colspan 2 ]
                         [ if config.customizable then
                             input
@@ -198,12 +201,16 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
                             |> Format.formatImpact config.impact
                         ]
                     , td [ class "pe-3 text-end align-middle text-nowrap" ]
-                        [ button
-                            [ type_ "button"
-                            , class "btn btn-outline-secondary"
-                            , onClick (config.removeItem itemIndex)
-                            ]
-                            [ Icon.trash ]
+                        [ if config.maxItems == Just 1 then
+                            text ""
+
+                          else
+                            button
+                                [ type_ "button"
+                                , class "btn btn-outline-secondary"
+                                , onClick (config.removeItem itemIndex)
+                                ]
+                                [ Icon.trash ]
                         ]
                     ]
                 ]
@@ -260,16 +267,16 @@ viewDebug items results =
 
 
 editorView : Config db msg -> Html msg
-editorView ({ db, docsUrl, items, results, title } as config) =
+editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as config) =
     div []
         [ div [ class "card shadow-sm mb-3" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h2 [ class "h5 mb-0" ]
                     [ text title
-                    , case List.head config.scopes of
-                        Just mainScope ->
+                    , case explorerRoute of
+                        Just route ->
                             Link.smallPillExternal
-                                [ Route.href (Route.Explore mainScope (Dataset.Components mainScope Nothing))
+                                [ Route.href route
                                 , Attr.title "Explorer"
                                 , attribute "aria-label" "Explorer"
                                 ]
@@ -308,16 +315,21 @@ editorView ({ db, docsUrl, items, results, title } as config) =
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
                             [ table [ class "table table-sm table-borderless mb-0" ]
-                                (thead []
-                                    [ tr [ class "fs-7 text-muted" ]
-                                        [ th [] []
-                                        , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                        , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
-                                        , th [ Attr.scope "col" ] [ text "Masse" ]
-                                        , th [ Attr.scope "col" ] [ text "Impact" ]
-                                        , th [ Attr.scope "col" ] []
+                                ((if maxItems == Just 1 then
+                                    thead []
+                                        [ tr [ class "fs-7 text-muted" ]
+                                            [ th [] []
+                                            , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
+                                            , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
+                                            , th [ Attr.scope "col" ] [ text "Masse" ]
+                                            , th [ Attr.scope "col" ] [ text "Impact" ]
+                                            , th [ Attr.scope "col" ] []
+                                            ]
                                         ]
-                                    ]
+
+                                  else
+                                    text ""
+                                 )
                                     :: List.concat
                                         (List.map4 (componentView config)
                                             (List.range 0 (List.length items - 1))
@@ -327,7 +339,11 @@ editorView ({ db, docsUrl, items, results, title } as config) =
                                         )
                                 )
                             ]
-            , addComponentButton config
+            , if maxItems == Just 1 then
+                addComponentButton config
+
+              else
+                text ""
             ]
         , viewDebug items results
         ]

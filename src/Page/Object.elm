@@ -543,11 +543,13 @@ simulatorView session model =
                 , db = session.db
                 , detailed = model.detailedComponents
                 , docsUrl = Nothing
+                , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
                 , items =
                     session
                         |> Session.objectQueryFromScope model.scope
                         |> .components
+                , maxItems = Nothing
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
                 , openSelectProcessModal =

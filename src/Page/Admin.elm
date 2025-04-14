@@ -209,41 +209,26 @@ modalView db modal =
 
                             Ok component ->
                                 [ div [ class "d-flex flex-column gap-3" ]
-                                    [ div []
-                                        [ label [] [ text "Nom du composant" ]
-                                        , input
-                                            [ type_ "text"
-                                            , class "form-control"
-                                            , value <| component.name
-                                            , onInput <|
-                                                \name ->
-                                                    UpdateComponent
-                                                        { item
-                                                            | custom =
-                                                                item.custom
-                                                                    |> Component.updateCustom component (\c -> { c | name = Just name })
-                                                        }
-                                            ]
-                                            []
-                                        ]
-                                    , ComponentView.editorView
+                                    [ ComponentView.editorView
                                         { addLabel = "TODO libellé"
                                         , customizable = True
                                         , db = db
                                         , detailed = [ 0 ]
                                         , docsUrl = Nothing
+                                        , explorerRoute = Nothing
                                         , impact = db.definitions |> Definition.get Definition.Ecs
                                         , items = [ item ]
+                                        , maxItems = Just 1
                                         , noOp = NoOp
                                         , openSelectComponentModal = \_ -> NoOp
                                         , openSelectProcessModal = \_ _ _ _ -> NoOp
                                         , removeElement = \_ -> NoOp
                                         , removeElementTransform = \_ _ -> NoOp
                                         , removeItem = \_ -> NoOp
-                                        , results = Component.compute db [ item ] |> Result.withDefault Component.emptyResults
+                                        , results = [ item ] |> Component.compute db |> Result.withDefault Component.emptyResults
                                         , scopes = Scope.all
                                         , setDetailed = \_ -> NoOp
-                                        , title = "Composant"
+                                        , title = component.name
                                         , updateElementAmount = \_ _ -> NoOp
                                         , updateItemName = \_ _ -> NoOp
                                         , updateItemQuantity = \_ _ -> NoOp

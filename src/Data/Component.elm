@@ -52,7 +52,6 @@ module Data.Component exposing
     , removeElementTransform
     , setElementMaterial
     , stagesImpacts
-    , updateCustom
     , updateElement
     , updateItem
     , updateItemCustomName
