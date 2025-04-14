@@ -3,6 +3,7 @@ const { monitorExpressApp } = require("./lib/instrument");
 const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
+const bodyParserErrorHandler = require("express-body-parser-error-handler");
 const cors = require("cors");
 const yaml = require("js-yaml");
 const helmet = require("helmet");
@@ -47,6 +48,16 @@ if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
 
 // Sentry monitoring
 monitorExpressApp(app);
+
+// Middleware
+const jsonErrorHandler = bodyParserErrorHandler({
+  onError: (err, req, res, next) => {
+    res.status(400).send({
+      error: { decoding: `Format JSON invalide : ${err.message}` },
+      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+    });
+  },
+});
 
 // Web
 
@@ -233,7 +244,7 @@ const respondWithFormattedJSON = (res, status, body) => {
 };
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
-api.all(/(.*)/, bodyParser.json(), async (req, res) => {
+api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
   const processes = await getProcesses(req.headers.token);
 
   elmApp.ports.input.send({
@@ -274,33 +285,39 @@ version.get("/:versionNumber/api", checkVersionAndPath, (req, res) => {
   res.status(200).send(openApiContents);
 });
 
-version.all("/:versionNumber/api/*", checkVersionAndPath, bodyParser.json(), async (req, res) => {
-  const versionNumber = req.params.versionNumber;
-  const { processesImpacts, processes } = availableVersions.find(
-    (version) => version.dir === versionNumber,
-  );
-  const versionProcesses = await getProcesses(req.headers.token, processesImpacts, processes);
+version.all(
+  "/:versionNumber/api/*",
+  checkVersionAndPath,
+  bodyParser.json(),
+  jsonErrorHandler,
+  async (req, res) => {
+    const versionNumber = req.params.versionNumber;
+    const { processesImpacts, processes } = availableVersions.find(
+      (version) => version.dir === versionNumber,
+    );
+    const versionProcesses = await getProcesses(req.headers.token, processesImpacts, processes);
 
-  const { Elm } = require(path.join(req.staticDir, "server-app"));
+    const { Elm } = require(path.join(req.staticDir, "server-app"));
 
-  const elmApp = Elm.Server.init();
+    const elmApp = Elm.Server.init();
 
-  elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
-    return jsResponseHandler({ status, body });
-  });
+    elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
+      return jsResponseHandler({ status, body });
+    });
 
-  const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
+    const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
-  elmApp.ports.input.send({
-    method: req.method,
-    url: urlWithoutPrefix,
-    body: req.body,
-    processes: versionProcesses,
-    jsResponseHandler: ({ status, body }) => {
-      respondWithFormattedJSON(res, status, body);
-    },
-  });
-});
+    elmApp.ports.input.send({
+      method: req.method,
+      url: urlWithoutPrefix,
+      body: req.body,
+      processes: versionProcesses,
+      jsResponseHandler: ({ status, body }) => {
+        respondWithFormattedJSON(res, status, body);
+      },
+    });
+  },
+);
 
 version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, async (req, res) => {
   const versionNumber = req.params.versionNumber;
