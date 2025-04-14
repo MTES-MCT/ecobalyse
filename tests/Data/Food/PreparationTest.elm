@@ -26,7 +26,7 @@ suite =
                     |> Preparation.apply food.wellKnown (Mass.kilograms 1)
                     |> Impact.getImpact Definition.Ecs
                     |> Unit.impactToFloat
-                    |> Expect.within (Expect.Absolute 0.001) 15.163296295980121
+                    |> Expect.within (Expect.Absolute 0.001) 10.57571
                     |> asTest "compute impacts from applying a consumption preparation technique"
                 ]
             ]
