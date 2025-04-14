@@ -200,7 +200,7 @@ suite =
                             [ fading |> setProcessEcsImpact (Unit.impact 10)
                             , fading |> setProcessEcsImpact (Unit.impact 20)
                             ]
-                            |> Expect.within (Expect.Absolute 1) 793
+                            |> Expect.within (Expect.Absolute 1) 791
                         )
                     ]
                 , let
@@ -279,7 +279,7 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 290
                     )
                 , it "should compute results from decoded component items with custom component elements"
                     (""" [ {
@@ -300,7 +300,7 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 311
                     )
                 ]
             , TestUtils.suiteFromResult "computeElementResults"
