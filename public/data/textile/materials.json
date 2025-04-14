@@ -8,6 +8,7 @@
     "name": "Elasthane (Lycra)",
     "origin": "Synthetic",
     "primary": false,
+    "processId": "b2340802-bde9-56e4-984f-37110706225e",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Elasthane (Lycra)"
@@ -21,6 +22,7 @@
     "name": "Acrylique",
     "origin": "Synthetic",
     "primary": false,
+    "processId": "89bd29cf-9ae0-5cf0-825d-8a6d4a73a34f",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Acrylique"
@@ -34,6 +36,7 @@
     "name": "Jute",
     "origin": "NaturalFromVegetal",
     "primary": false,
+    "processId": "8782714f-1332-589a-85ca-885c47f5e58b",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Jute"
@@ -47,6 +50,7 @@
     "name": "Polypropylène",
     "origin": "Synthetic",
     "primary": false,
+    "processId": "28a36af2-cca9-5baa-a83e-d01b2e52ced6",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Polypropylène"
@@ -60,6 +64,7 @@
     "name": "Polyester",
     "origin": "Synthetic",
     "primary": true,
+    "processId": "61bab541-9097-5680-9884-254c98f25d80",
     "recycledFrom": null,
     "recycledProcessUuid": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",
     "shortName": "Polyester"
@@ -76,6 +81,7 @@
     "name": "Polyester recyclé",
     "origin": "Synthetic",
     "primary": true,
+    "processId": "994efc14-cc89-526c-b9d0-0d6a99adbd4f",
     "recycledFrom": "ei-pet",
     "recycledProcessUuid": null,
     "shortName": "Polyester recyclé"
@@ -89,6 +95,7 @@
     "name": "Nylon",
     "origin": "Synthetic",
     "primary": true,
+    "processId": "b2318c3f-6d7b-5d95-b201-6b95470db3b7",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Nylon"
@@ -102,6 +109,7 @@
     "name": "Lin",
     "origin": "NaturalFromVegetal",
     "primary": true,
+    "processId": "b4e7353b-7963-5d88-b4bc-84bd925f5a86",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Lin"
@@ -115,6 +123,7 @@
     "name": "Laine par défaut",
     "origin": "NaturalFromAnimal",
     "primary": false,
+    "processId": "3b45f504-83ac-5d0d-ab96-388850f3ef6f",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Laine par défaut"
@@ -128,6 +137,7 @@
     "name": "Laine nouvelle filière",
     "origin": "NaturalFromAnimal",
     "primary": true,
+    "processId": "40ec17ee-6b44-5ee2-8fbc-559aed52764f",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Laine nouvelle filière"
@@ -141,6 +151,7 @@
     "name": "Coton",
     "origin": "NaturalFromVegetal",
     "primary": true,
+    "processId": "f0dbe27b-1e74-55d0-88a2-bda812441744",
     "recycledFrom": null,
     "recycledProcessUuid": "d3d20384-88fb-4c75-ac12-c647365ac6c5",
     "shortName": "Coton"
@@ -154,6 +165,7 @@
     "name": "Coton biologique",
     "origin": "NaturalFromVegetal",
     "primary": true,
+    "processId": "ae34a9bc-36c5-5ffa-8520-150e219569fe",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Coton biologique"
@@ -167,6 +179,7 @@
     "name": "Chanvre",
     "origin": "NaturalFromVegetal",
     "primary": true,
+    "processId": "82aab465-3b46-52d2-9625-a68625a3f9fc",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Chanvre"
@@ -180,6 +193,7 @@
     "name": "Viscose",
     "origin": "ArtificialFromOrganic",
     "primary": true,
+    "processId": "d60beb93-af80-56f5-84bf-71f5c76fd4a8",
     "recycledFrom": null,
     "recycledProcessUuid": null,
     "shortName": "Viscose"
@@ -196,6 +210,7 @@
     "name": "Coton recyclé (déchets post-consommation)",
     "origin": "NaturalFromVegetal",
     "primary": true,
+    "processId": "698746cf-6528-582e-a5e8-df4367bdb9e2",
     "recycledFrom": "ei-coton",
     "recycledProcessUuid": null,
     "shortName": "Coton recyclé (déchets post-consommation)"
@@ -212,6 +227,7 @@
     "name": "Coton recyclé (déchets de production)",
     "origin": "NaturalFromVegetal",
     "primary": true,
+    "processId": "7c1986fd-fb5c-53b9-8a7a-aea3650145eb",
     "recycledFrom": "ei-coton",
     "recycledProcessUuid": null,
     "shortName": "Coton recyclé (déchets de production)"
