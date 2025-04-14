@@ -1,2 +1,2 @@
-# 🪚 Ameublement (en construction)
+# 🪑 AMEUBLEMENT
 

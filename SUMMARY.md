@@ -131,7 +131,7 @@
 
 ***
 
-* [🪚 Ameublement (en construction)](ameublement/README.md)
+* [🪑 AMEUBLEMENT](ameublement/README.md)
   * [Cycle de vie](ameublement/cycle-de-vie/README.md)
     * [Etape 1 : Fabrication des composants](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/README.md)
       * [🪵 Composants en bois](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/composants-en-bois.md)
@@ -140,9 +140,9 @@
     * [🔨 Etape 2 :](ameublement/cycle-de-vie/etape-2.md)
     * [Etape 3 : Utilisation](ameublement/cycle-de-vie/etape-3-utilisation.md)
     * [Etape 4 : Fin de vie](ameublement/cycle-de-vie/etape-4-fin-de-vie.md)
-  * [Durabilité](ameublement/durabilite.md)
   * [Complément hors ACV](ameublement/complement-hors-acv/README.md)
     * [🌍 Biodiversité x Bois](ameublement/complement-hors-acv/biodiversitebois.md)
+  * [Durabilité](ameublement/durabilite.md)
   * [🚚 Transport](ameublement/transport.md)
 
 ## 🛺 Autres travaux en cours <a href="#vehicules" id="vehicules"></a>
