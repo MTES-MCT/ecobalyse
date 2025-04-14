@@ -75,7 +75,15 @@ update session msg model =
 
         -- GET
         ComponentListResponse response ->
-            ( { model | components = response }, session, Cmd.none )
+            ( { model | components = response }
+            , case response of
+                RemoteData.Success components ->
+                    session |> Session.updateDb (\db -> { db | components = components })
+
+                _ ->
+                    session
+            , Cmd.none
+            )
 
         -- PATCH
         ComponentUpdated (RemoteData.Failure err) ->
@@ -108,7 +116,7 @@ update session msg model =
 
                         Ok component ->
                             ( { model | modal = Nothing }
-                            , session |> Session.notifyInfo "Ok" "le composant a été sauvegardé"
+                            , session
                             , ComponentApi.patchComponent session ComponentUpdated component
                             )
 
@@ -225,12 +233,22 @@ modalView db modal =
                                         , removeElement = \_ -> NoOp
                                         , removeElementTransform = \_ _ -> NoOp
                                         , removeItem = \_ -> NoOp
-                                        , results = [ item ] |> Component.compute db |> Result.withDefault Component.emptyResults
+                                        , results =
+                                            [ item ]
+                                                |> Component.compute db
+                                                |> Result.withDefault Component.emptyResults
                                         , scopes = Scope.all
                                         , setDetailed = \_ -> NoOp
                                         , title = component.name
                                         , updateElementAmount = \_ _ -> NoOp
-                                        , updateItemName = \_ _ -> NoOp
+                                        , updateItemName =
+                                            \targetItem name ->
+                                                UpdateComponent
+                                                    ([ item ]
+                                                        |> Component.updateItemCustomName targetItem name
+                                                        |> List.head
+                                                        |> Maybe.withDefault item
+                                                    )
                                         , updateItemQuantity = \_ _ -> NoOp
                                         }
                                     ]

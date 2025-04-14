@@ -340,10 +340,10 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                                 )
                             ]
             , if maxItems == Just 1 then
-                addComponentButton config
+                text ""
 
               else
-                text ""
+                addComponentButton config
             ]
         , viewDebug items results
         ]
