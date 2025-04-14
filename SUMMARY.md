@@ -1,6 +1,7 @@
 # Table of contents
 
-* [🇫🇷 Ecobalyse](README.md)
+* [📌 Modèle de page](README.md)
+* [🇫🇷 Ecobalyse](<README (1).md>)
 * [🤝 Communauté](communaute.md)
 * [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres.md)
 * [Conditions d'utilisation](conditions-dutilisation.md)
@@ -172,11 +173,19 @@
   * [Caractéristiques du véhicule](vehicules/parametrage/caracteristiques-du-vehicule.md)
 * [Draft - Exemples](vehicules/exemples.md)
 
-## 📄 DRAFT - Documentation transverse <a href="#transverse" id="transverse"></a>
+## 💡 BROUILLON - Présentation et informations diverses <a href="#ecobalyse-info" id="ecobalyse-info"></a>
 
-* [📝 Le coût environnemental : approche méthodologique globale](draft-documentation-transverse/impacts-consideres/README.md)
-  * [Exclusion des émissions à long terme](draft-documentation-transverse/impacts-consideres/exclusion-des-emissions-a-long-terme.md)
-  * [Correction de la caractérisation de la ressource en Uranium](transverse/impacts-consideres/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
+* [Page 1](ecobalyse-info/page-1.md)
+
+## 📊 BROUILLON - Le coût environnemental <a href="#def-cout-environnemental" id="def-cout-environnemental"></a>
+
+* [📝 Approche méthodologique globale](def-cout-environnemental/impacts-consideres/README.md)
+  * [Exclusion des émissions à long terme](def-cout-environnemental/impacts-consideres/exclusion-des-emissions-a-long-terme.md)
+  * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/impacts-consideres/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
+* [Source des procédés](def-cout-environnemental/source-des-procedes.md)
+
+## 📄 BROUILLON - Méthodes transverses spécifiques <a href="#transverse" id="transverse"></a>
+
 * [🚚 Transport](draft-documentation-transverse/transport/README.md)
   * [Coût environnemental par voie de transport](draft-documentation-transverse/transport/cout-environnemental-par-voie-de-transport.md)
   * [Choix des voies de transport](draft-documentation-transverse/transport/choix-des-voies-de-transport.md)
@@ -186,9 +195,4 @@
   * [🛺 Transport Véhicules](draft-documentation-transverse/transport/transport-vehicules.md)
   * [🚚 OLD Transport](draft-documentation-transverse/transport/old-transport.md)
 * [⚡ Energies des étapes de transformation](draft-documentation-transverse/energies-des-etapes-de-transformation.md)
-
-***
-
-* [Source des procédés](source-des-procedes.md)
-* [♻️ Fin de vie](fin-de-vie.md)
-* [📌 Modèle de page](modele-de-page.md)
+* [♻️ Fin de vie](transverse/fin-de-vie.md)
