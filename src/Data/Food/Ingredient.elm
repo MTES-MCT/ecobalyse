@@ -35,13 +35,13 @@ import Length
 
 type alias Ingredient =
     { categories : List IngredientCategory.Category
-    , default : Process
     , defaultOrigin : Origin
     , density : Density
     , ecosystemicServices : EcosystemicServices
     , id : Id
     , inediblePart : Split
     , name : String
+    , process : Process
     , rawToCookedRatio : Unit.Ratio
     , transportCooling : TransportCooling
     , visible : Bool
@@ -134,13 +134,13 @@ decodeIngredient : List Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
-        |> Pipe.required "processId" (linkProcess processes)
         |> Pipe.required "defaultOrigin" Origin.decode
         |> Pipe.required "density" (Decode.float |> Decode.map gramsPerCubicCentimeter)
         |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
         |> Pipe.required "id" decodeId
         |> Pipe.required "inediblePart" Split.decodeFloat
         |> Pipe.required "name" Decode.string
+        |> Pipe.required "processId" (linkProcess processes)
         |> Pipe.required "rawToCookedRatio" Unit.decodeRatio
         |> Pipe.required "transportCooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool

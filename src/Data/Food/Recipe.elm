@@ -302,10 +302,8 @@ computeProcessImpacts item =
 
 
 computeIngredientImpacts : RecipeIngredient -> Impacts
-computeIngredientImpacts ({ mass } as recipeIngredient) =
-    recipeIngredient
-        |> getRecipeIngredientProcess
-        |> .impacts
+computeIngredientImpacts { ingredient, mass } =
+    ingredient.process.impacts
         |> Impact.mapImpacts (computeImpact mass)
 
 
@@ -555,12 +553,6 @@ getTransformedIngredientsDensity { ingredients, transform } =
 getTransformedIngredientsVolume : Recipe -> Volume
 getTransformedIngredientsVolume recipe =
     getTransformedIngredientsMass recipe |> Quantity.at_ (getTransformedIngredientsDensity recipe)
-
-
-getRecipeIngredientProcess : RecipeIngredient -> Process
-getRecipeIngredientProcess { ingredient } =
-    -- XXX remove obsolete proxy
-    ingredient.default
 
 
 ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
