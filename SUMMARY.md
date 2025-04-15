@@ -1,7 +1,6 @@
 # Table of contents
 
-* [📌 Modèle de page](README.md)
-* [🇫🇷 Ecobalyse](<README (1).md>)
+* [🇫🇷 Ecobalyse](README.md)
 * [🤝 Communauté](communaute.md)
 * [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres.md)
 * [Conditions d'utilisation](conditions-dutilisation.md)
@@ -175,7 +174,7 @@
 
 ## 💡 BROUILLON - Présentation et informations diverses <a href="#ecobalyse-info" id="ecobalyse-info"></a>
 
-* [Page 1](ecobalyse-info/page-1.md)
+* [📌 Modèle de page](ecobalyse-info/modele-de-page.md)
 
 ## 📊 BROUILLON - Le coût environnemental <a href="#def-cout-environnemental" id="def-cout-environnemental"></a>
 

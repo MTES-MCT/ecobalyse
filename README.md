@@ -1,75 +1,63 @@
 ---
-hidden: true
+description: >-
+  Accélérer la mise en place de l'affichage environnemental autour d'un
+  calculateur pédagogique et collaboratif.
 ---
 
-# 📌 Modèle de page
+# 🇫🇷 Ecobalyse
 
-{% hint style="danger" %}
-Cet encadré rouge et les 4 encadrés en gris doivent être supprimés avant mise en ligne
-{% endhint %}
+## Ce qu’est Ecobalyse
 
-## Contexte
+### Un outil d'évaluation environnementale produit accessible
 
-{% hint style="info" %}
-Il s’agit d’éléments de contexte sectoriels, permettant au lecteur de comprendre le sujet abordé.
+Ecobalyse permet **d’estimer rapidement les impacts environnementaux** d’un produit à partir de quelques critères simples : masse, composition, lieu de confection, ect.
 
-Cette partie n’est pas utile pour le développement du produit. Elle peut permettre d’introduire des choix méthodologiques, mais pas des choix de paramètres.
+Deux secteurs sont actuellement couverts : le **Textile** et l'**Alimentaire**. L'ouverture à de nouveaux secteurs est envisagée.&#x20;
 
-Elle peut se limiter à une phrase d’introduction.
-{% endhint %}
+### Un commun numérique
 
+Le calculateur est développé en **open-source** et son utilisation est gratuite.&#x20;
 
+Ce positionnement a une double vocation :
 
-## Méthodes de calcul
+* Rendre accessible au plus grand nombre les bases de **l'évaluation environnementale** ;
+* Catalyser les débats techniques entre acteurs spécialisés afin de proposer un **référentiel technique sur lequel pourra s'appuyer le cadre réglementaire** à définir en application de l'[article 2 de la loi climat et résilience](https://www.legifrance.gouv.fr/loda/article\_lc/LEGIARTI000043957692?init=true\&page=1\&query=loi+climat+et+r%C3%A9silience\&searchField=ALL\&tab\_selection=all) sur l'affichage environnemental.
 
-{% hint style="info" %}
-Cette partie se compose essentiellement de formules de calcul et de l’introduction des paramètres mobilisés. Elle est très voire exclusivement “mathématique”, sans chiffre.
+Les entreprises souhaitant aller plus loin pourront se tourner vers les acteurs spécialisés (bureaux d'étude, startups, conseils spécialisés, etc.).&#x20;
 
-Ci-dessous un exemple pour l'ennoblissement
-{% endhint %}
+### Un outil **pédagogique**
 
+En décomposant chaque étape du cycle de vie et en calculant leur impact en fonction du paramétrage, Ecobalyse facilite l'appréhension de la modélisation par analyse du cycle de vie, complétée sur certains aspects (services écosystémiques, export hors Europe...).
 
+La méthodologie exposée mobilise les **méthodes de référence pré-existantes** (socle technique ADEME 2018) ou en construction ([PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/)).
 
-$$
-I_{ennoblissement} = m*\Big(\sum_{i} (e_i*t_i)*I_{elec}+\sum_{i} (c_i*t_i)*I_{chaleur}\Big)
-$$
+Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) et à l’[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile) doit en outre permettre d’expliciter et de partager les orientations prises dans le but de simplifier les calculs.
 
-Avec :
+### Un outil **collaboratif**
 
-* <mark style="color:red;">`I_ennoblissement`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'ennoblissement, dans l'unité de la catégorie d'impact analysée</mark>
-* <mark style="color:red;">`m`</mark> <mark style="color:red;"></mark><mark style="color:red;">la masse de tissu, exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section</mark> [<mark style="color:red;">Pertes et rebut</mark>](textile/cycle-de-vie-des-produits-textiles/pertes-et-rebus.md)<mark style="color:red;">.</mark>
-* <mark style="color:red;">`e_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la quantité d'électricité nécessaire au procédé i pour 1 kg de tissu, en kWh/kg</mark>
-* <mark style="color:red;">`a_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: Le taux d'application du procédé i pour le vêtement évalué, sans unité</mark>
-  * <mark style="color:red;">Egal à 1 si le procédé est mobilisé pour ce vêtement</mark>
-  * <mark style="color:red;">Egal à 0 si le procédé n'est pas mobilisé</mark>
-  * <mark style="color:red;">Situé entre 0 et 1 pour l'impression (voir paragraphe dédié)</mark>
-* <mark style="color:red;">`I_elec`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée</mark>
-* <mark style="color:red;">`c_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la quantité de chaleur nécessaire au procédé i pour 1 kg de tissu, en MJ/kg</mark>
-* <mark style="color:red;">`I_chaleur`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée.</mark>
+Simplifier le calcul nécessite de faire des choix (valeurs par défaut, catégorisation des produits, etc.). Plus largement, la mise en place du dispositif d’affichage environnemental suscite de nombreux débats qui peuvent être éclairés par un outil pédagogique.
 
-## Paramètres retenus pour l’affichage environnemental
+Ecobalyse permet de rassembler les différents acteurs de chaque industrie (marques, instituts techniques, industriels, associations, experts ACV, etc.) sur des enjeux communs. Différentes initiatives sont mises en place afin de faciliter ces échanges (Comité Experts, Ateliers thématiques, Expérimentations coordonnées par ADEME, Espace de travail en ligne Mattermost, une [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) riche présentant la méthode en construction,  etc.).&#x20;
 
 {% hint style="info" %}
-Les paramètres retenus pour l’affichage environnemental sont présentés dans une partie séparée des formules de calcul, de façon à identifier facilement ce qui relève de la structure et ce qui relève du paramétrage.\
-Cette distinction devrait être en miroir de ce qui est dans le code.\
-Ne pas hésiter à renvoyer vers des pages de code si le nombre de paramètres est important mais à faible enjeu.
+Vous souhaitez suivre et contribuer de manière active aux travaux méthodologiques ? Rejoignez la [Communauté](https://fabrique-numerique.gitbook.io/ecobalyse/communaute) !&#x20;
 {% endhint %}
 
+## Ce que n’est pas Ecobalyse
 
+### Un **bureau d’études** qui accompagnerait les entreprises
 
+Faire des calculs est une chose. Accompagner les entreprises qui mettent sur le marché les produits en est une autre.&#x20;
 
+Ecobalyse n'a pas vocation à concurrencer les spécialistes de l'évaluation environnementale produit. Son positionnement vis-à-vis de ces acteurs est d'accompagner leurs démarches grâce à : \
+\=> la mise à disposition de valeurs de référence,\
+\=> un [accès en API au calculateur](https://ecobalyse.beta.gouv.fr/#/api),\
+\=> une collaboration sur des sujets spécifiques (enrichissement de la base de données, modification de paramètres, etc.)&#x20;
 
-## Procédés utilisés pour l’affichage environnemental
+### Un outil d'information pour le **grand public**
 
-{% hint style="info" %}
-A priori un renvoi vers l'explorateur suffit ici. Si des procédés spécifiques sont construits, ils peuvent être expliqués ici.
-{% endhint %}
+Ecobalyse n’a pas pour objectif d’informer directement le grand public.
 
-Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), avec les noms utilisés dans cette page.
+En revanche, l’outil est au service de tous ceux qui cherchent à informer le grand public : entreprises, startups, associations, journalistes…
 
-## Exemple d'application
-
-{% hint style="info" %}
-\[optionnel mais utile] Application à un exemple, pour permettre une meilleure compréhension au lecteur
-{% endhint %}
-
+La [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) et l’[accès API](https://ecobalyse.beta.gouv.fr/#/api) peuvent par exemple être mobilisés par les entreprises qui constituent des catalogues de produits dont elles évaluent l’impact pour le présenter aux consommateurs.
