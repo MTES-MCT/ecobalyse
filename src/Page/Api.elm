@@ -55,9 +55,16 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "26 février 2025"
+    [ { date = "15 avril 2025"
       , level = "major"
-      , domains = [ "Alimentaire", "Textile" ]
+      , domains = [ "Alimentaire" ]
+      , md = """Les identifiants des procédés (transformation, emballage, etc.) sont désormais découplés des identifiants des ingrédients/matériaux. Cette modification permet une meilleure gestion des données en évitant les calculs redondants lorsque plusieurs ingrédients utilisent le même procédé.
+
+Seul l'API alimentaire utilisait directement des identifiants de procédés, ceux-ci sont désormais générés de façon déterministe et sont basés sur la clé `database_name:activity_name`."""
+      }
+    , { date = "26 février 2025"
+      , level = "major"
+      , domains = [ "Textile" ]
       , md = """Les points d'entrée utilisant les paramètres passés en query string pour effectuer des calculs
       sont dépréciés, leur équivalent `POST`/`JSON` leur étant désormais préférés\u{00A0}:
 - `GET /food` est déprécié
@@ -355,7 +362,7 @@ changelog =
             l'étape de tissage, exprimé en *numéro métrique* (`Nm`).
 
             Le numéro métrique indique un nombre de kilomètres de fil correspondant
-            à un poids d’un kilogramme (ex\u{00A0}: 50Nm = 50km de ce fil pèsent 1 kg).
+            à un poids d'un kilogramme (ex\u{00A0}: 50Nm = 50km de ce fil pèsent 1 kg).
 """
       }
     , { date = "12 avril 2023"
@@ -568,9 +575,9 @@ view session _ =
                         , close = Nothing
                         , title = Just "Avertissement"
                         , content =
-                            [ """Cette API est **expérimentale** et n’offre à ce stade **aucune garantie de disponibilité ni de
-             stabilité** du service, le contrat d’interface restant susceptible de changer à tout moment en
-             fonction des retours et demandes d’évolutions. **Il est vivement déconseillé de vous reposer sur
+                            [ """Cette API est **expérimentale** et n'offre à ce stade **aucune garantie de disponibilité ni de
+             stabilité** du service, le contrat d'interface restant susceptible de changer à tout moment en
+             fonction des retours et demandes d'évolutions. **Il est vivement déconseillé de vous reposer sur
              cette API en production et/ou pour des missions critiques.**"""
                                 |> Markdown.simple [ class "fs-7" ]
                             , p [ class "fs-8 mb-0 text-end" ]
