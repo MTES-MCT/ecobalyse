@@ -31,7 +31,7 @@ import Views.Table as Table
 
 type alias Model =
     { components : WebData (List Component)
-    , modal : Maybe Modal
+    , modals : List Modal
     }
 
 
@@ -46,14 +46,14 @@ type Msg
     | ComponentUpdated (WebData Component)
     | NoOp
     | SaveComponent
-    | SetModal (Maybe Modal)
+    | SetModal (List Modal)
     | UpdateComponent Item
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { components = RemoteData.NotAsked
-      , modal = Nothing
+      , modals = []
       }
     , session
     , ComponentApi.getComponents session ComponentListResponse
@@ -99,37 +99,37 @@ update session msg model =
             ( model, session, Cmd.none )
 
         SaveComponent ->
-            case model.modal of
-                Just (DeleteComponentModal component) ->
-                    ( { model | modal = Nothing }
+            case model.modals of
+                [ DeleteComponentModal component ] ->
+                    ( { model | modals = [] }
                     , session
                     , ComponentApi.deleteComponent session ComponentDeleted component
                     )
 
-                Just (EditComponentModal item) ->
+                [ EditComponentModal item ] ->
                     case Component.itemToComponent session.db item of
                         Err error ->
-                            ( { model | modal = Nothing }
+                            ( { model | modals = [] }
                             , session |> Session.notifyError "Erreur" error
                             , Cmd.none
                             )
 
                         Ok component ->
-                            ( { model | modal = Nothing }
+                            ( { model | modals = [] }
                             , session
                             , ComponentApi.patchComponent session ComponentUpdated component
                             )
 
-                Nothing ->
+                _ ->
                     ( model, session, Cmd.none )
 
         SetModal modal ->
-            ( { model | modal = modal }, session, Cmd.none )
+            ( { model | modals = modal }, session, Cmd.none )
 
         UpdateComponent customItem ->
-            case model.modal of
-                Just (EditComponentModal _) ->
-                    ( { model | modal = Just (EditComponentModal customItem) }, session, Cmd.none )
+            case model.modals of
+                [ EditComponentModal _ ] ->
+                    ( { model | modals = [ EditComponentModal customItem ] }, session, Cmd.none )
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -143,9 +143,9 @@ view { db } model =
             , warning
             , model.components
                 |> mapRemoteData (componentListView db)
-            , model.modal
-                |> Maybe.map (modalView db)
-                |> Maybe.withDefault (text "")
+            , model.modals
+                |> List.map (modalView db model.modals)
+                |> div []
             ]
       ]
     )
@@ -180,14 +180,14 @@ componentListView db components =
                             [ button
                                 [ class "btn btn-sm btn-outline-primary"
                                 , onClick <|
-                                    SetModal (Just (EditComponentModal (Component.createItem component.id)))
+                                    SetModal [ EditComponentModal (Component.createItem component.id) ]
                                 ]
                                 [ Icon.pencil ]
                             ]
                         , td [ class "align-middle" ]
                             [ button
                                 [ class "btn btn-sm btn-outline-danger"
-                                , onClick <| SetModal (Just (DeleteComponentModal component))
+                                , onClick <| SetModal [ DeleteComponentModal component ]
                                 ]
                                 [ Icon.trash ]
                             ]
@@ -197,10 +197,10 @@ componentListView db components =
         ]
 
 
-modalView : Db -> Modal -> Html Msg
-modalView db modal =
+modalView : Db -> List Modal -> Modal -> Html Msg
+modalView db modals modal =
     Modal.view
-        { close = SetModal Nothing
+        { close = SetModal (closeTopMostModal modals)
         , content =
             [ div [ class "card-body p-3" ] <|
                 case modal of
@@ -321,11 +321,21 @@ mapRemoteData fn webData =
             fn data
 
 
+closeTopMostModal : List Modal -> List Modal
+closeTopMostModal =
+    List.reverse
+        >> List.drop 1
+        >> List.reverse
+
+
 subscriptions : Model -> Sub Msg
-subscriptions { modal } =
-    case modal of
-        Nothing ->
+subscriptions model =
+    case model.modals of
+        [] ->
             Sub.none
 
-        _ ->
-            Browser.Events.onKeyDown (Key.escape (SetModal Nothing))
+        modals ->
+            closeTopMostModal modals
+                |> SetModal
+                |> Key.escape
+                |> Browser.Events.onKeyDown
