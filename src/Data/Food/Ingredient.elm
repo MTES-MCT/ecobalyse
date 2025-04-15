@@ -26,7 +26,6 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Density exposing (Density, gramsPerCubicCentimeter)
-import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -125,24 +124,17 @@ idToString (Id uuid) =
 
 decodeIngredients : List Process -> Decoder (List Ingredient)
 decodeIngredients processes =
-    processes
-        |> List.filterMap
-            (\process ->
-                process.sourceId
-                    |> Maybe.map (\sourceId -> ( Process.sourceIdToString sourceId, process ))
-            )
-        |> Dict.fromList
-        |> decodeIngredient
+    decodeIngredient processes
         |> Decode.list
         -- Don't use ingredients that aren't visible.
         |> Decode.map (List.filter .visible)
 
 
-decodeIngredient : Dict String Process -> Decoder Ingredient
+decodeIngredient : List Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
-        |> Pipe.required "default" (linkProcess processes)
+        |> Pipe.required "processId" (linkProcess processes)
         |> Pipe.required "defaultOrigin" Origin.decode
         |> Pipe.required "density" (Decode.float |> Decode.map gramsPerCubicCentimeter)
         |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
@@ -206,15 +198,13 @@ getDefaultOriginTransport planeTransport origin =
                 { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
 
 
-linkProcess : Dict String Process -> Decoder Process
+linkProcess : List Process -> Decoder Process
 linkProcess processes =
     Decode.string
         |> Decode.andThen
-            (DE.fromResult
-                << (\processCode ->
-                        Dict.get processCode processes
-                            |> Result.fromMaybe ("Procédé introuvable par code : " ++ processCode)
-                   )
+            (Process.idFromString
+                >> Result.andThen (\id -> Process.findById id processes)
+                >> DE.fromResult
             )
 
 
