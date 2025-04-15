@@ -277,10 +277,10 @@ paths:
                   - id: 4d5198e7-413a-4ae2-8448-535aa3b302ae
                     mass: 225
                   transform:
-                    id: 7541cf94-1d4d-4d1c-99e3-a9d5be0e7569
+                    id: 83b897cf-9ed2-5604-83b4-67fab8606d35
                     mass: 545
                   packaging:
-                  - id: c352add7-8037-464e-bff2-7da517419f88
+                  - id: 25595091-35b6-5c62-869f-a29c318c367e
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -302,10 +302,10 @@ paths:
                     mass: 225
                     country: ES
                   transform:
-                    id: 7541cf94-1d4d-4d1c-99e3-a9d5be0e7569
+                    id: 83b897cf-9ed2-5604-83b4-67fab8606d35
                     mass: 545
                   packaging:
-                  - id: c352add7-8037-464e-bff2-7da517419f88
+                  - id: 25595091-35b6-5c62-869f-a29c318c367e
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -482,7 +482,7 @@ components:
       examples:
         onePackaging:
           summary: "105g de Carton"
-          value: ["c352add7-8037-464e-bff2-7da517419f88;105"]
+          value: ["25595091-35b6-5c62-869f-a29c318c367e;105"]
     transformParam:
       name: transform
       in: query
@@ -490,7 +490,7 @@ components:
         Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
 
         Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
-        Par exemple: `7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;1000` pour 1kg de matière à cuire.
+        Par exemple: `83b897cf-9ed2-5604-83b4-67fab8606d35;1000` pour 1kg de matière à cuire.
       required: false
       style: form
       schema:
@@ -503,7 +503,7 @@ components:
           value: ""
         Cuisson:
           summary: Cuisson d'1kg de matière
-          value: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569;1000"
+          value: "83b897cf-9ed2-5604-83b4-67fab8606d35;1000"
     distributionParam:
       name: distribution
       in: query

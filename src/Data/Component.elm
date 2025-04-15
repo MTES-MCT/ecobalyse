@@ -729,8 +729,8 @@ loadDefaultEnergyMixes processes =
                 >> Result.andThen (\id -> Process.findById id processes)
     in
     Result.map2 (\elec heat -> { elec = elec, heat = heat })
-        (fromIdString "9c70a439-ee05-4fc4-9598-7448345f7081")
-        (fromIdString "e70b2dc1-41be-4db6-8267-4e9f4822e8bc")
+        (fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244")
+        (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
 
 
 quantityFromInt : Int -> Quantity
