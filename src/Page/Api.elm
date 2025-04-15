@@ -58,9 +58,7 @@ changelog =
     [ { date = "15 avril 2025"
       , level = "major"
       , domains = [ "Alimentaire" ]
-      , md = """Les identifiants des procédés (transformation, emballage, etc.) sont désormais découplés des identifiants des ingrédients/matériaux. Cette modification permet une meilleure gestion des données en évitant les calculs redondants lorsque plusieurs ingrédients utilisent le même procédé.
-
-Seul l'API alimentaire utilisait directement des identifiants de procédés, ceux-ci sont désormais générés de façon déterministe et sont basés sur la clé `database_name:activity_name`."""
+      , md = """Afin de permettre une meilleure gestion des données et d'éviter des calculs redondants, **Les identifiants des procédés alimentaires (transformation ou emballage) ont été modifiés.** Les anciens identifiants ne sont plus valides et doivent être remplacés par les nouveaux. Les identifiants des ingrédients sont inchangés."""
       }
     , { date = "26 février 2025"
       , level = "major"
