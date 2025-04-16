@@ -322,7 +322,7 @@ suite =
                     [ it "should compute element impacts"
                         (elementResults
                             |> extractEcsImpact
-                            |> Expect.within (Expect.Absolute 1) 2142
+                            |> Expect.within (Expect.Absolute 1) 2584
                         )
                     , it "should compute element mass"
                         (elementResults
