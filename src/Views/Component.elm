@@ -149,7 +149,7 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
         [ [ tbody []
                 [ tr [ class "border-top border-bottom" ]
                     [ th [ class "ps-2 align-middle", scope "col" ]
-                        [ if config.customizable then
+                        [ if config.customizable && config.maxItems /= Just 1 then
                             button
                                 [ type_ "button"
                                 , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
@@ -172,8 +172,7 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
                             text ""
                         ]
                     , td [ class "ps-0 py-2 align-middle" ]
-                        [ -- FIXME: hide when editing from the admin
-                          quantity |> quantityInput config itemIndex
+                        [ quantity |> quantityInput config itemIndex
                         ]
                     , td [ class "align-middle text-truncate w-100", colspan 2 ]
                         [ if config.customizable then
@@ -526,6 +525,7 @@ quantityInput config itemIndex quantity =
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
             , Attr.min "1"
+            , disabled <| config.maxItems == Just 1
             , onInput <|
                 \str ->
                     String.toInt str

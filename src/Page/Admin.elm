@@ -252,7 +252,7 @@ componentListView db components =
                                     )
                                 |> Result.withDefault (text "N/A")
                             ]
-                        , td [ class "align-middle px-1" ]
+                        , td [ class "align-middle px-0" ]
                             [ button
                                 [ class "btn btn-sm btn-outline-primary"
                                 , title "Modifier le composant"
@@ -260,7 +260,7 @@ componentListView db components =
                                 ]
                                 [ Icon.pencil ]
                             ]
-                        , td [ class "align-middle px-1" ]
+                        , td [ class "align-middle px-0" ]
                             [ a
                                 [ class "btn btn-sm btn-outline-primary"
                                 , title "Utiliser dans le simulateur"
@@ -270,7 +270,7 @@ componentListView db components =
                                 ]
                                 [ Icon.puzzle ]
                             ]
-                        , td [ class "align-middle px-1" ]
+                        , td [ class "align-middle px-0" ]
                             [ button
                                 [ class "btn btn-sm btn-outline-danger"
                                 , title "Supprimer le composant"
