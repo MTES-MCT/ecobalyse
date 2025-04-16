@@ -230,8 +230,12 @@ componentListView db components =
             |> List.map
                 (\component ->
                     tr []
-                        [ th [ class "align-middle" ] [ text component.name ]
-                        , td [ class "align-middle text-truncate" ]
+                        [ th [ class "align-middle" ]
+                            [ text component.name
+                            , small [ class "d-block fw-normal" ]
+                                [ code [] [ text (Component.idToString component.id) ] ]
+                            ]
+                        , td [ class "align-middle" ]
                             [ case Component.elementsToString db component of
                                 Err error ->
                                     span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
@@ -239,7 +243,7 @@ componentListView db components =
                                 Ok string ->
                                     text string
                             ]
-                        , td [ class "align-middle text-end" ]
+                        , td [ class "align-middle text-end fw-bold" ]
                             [ component
                                 |> Component.computeImpacts db.processes
                                 |> Result.map
@@ -420,7 +424,7 @@ warning =
         , content =
             [ small [ class "d-flex align-items-center gap-1" ]
                 [ Icon.warning
-                , text "Attention, la modification de ces données ne sera pas immédiatement prise en compte dans le reste de l'application"
+                , text "Attention, la base de données mobilisée peut être réinitialisée à tout moment et vos modifications avec."
                 ]
             ]
         , level = Alert.Warning
