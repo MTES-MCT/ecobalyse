@@ -55,7 +55,7 @@ type Msg
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | SaveComponent
-    | SetModal (List Modal)
+    | SetModals (List Modal)
     | UpdateComponent Item
 
 
@@ -107,7 +107,7 @@ update session msg model =
         NoOp ->
             ( model, session, Cmd.none )
 
-        OnAutocompleteAddProcess category targetItem maybeIndex autocompleteMsg ->
+        OnAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg ->
             case model.modals of
                 [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal item ] ->
                     let
@@ -116,12 +116,12 @@ update session msg model =
                     in
                     ( { model
                         | modals =
-                            [ SelectProcessModal category targetItem maybeIndex newAutocompleteState
+                            [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
                             , EditComponentModal item
                             ]
                       }
                     , session
-                    , Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd
+                    , Cmd.map (OnAutocompleteAddProcess category targetItem maybeElementIndex) autoCompleteCmd
                     )
 
                 _ ->
@@ -161,7 +161,7 @@ update session msg model =
                 _ ->
                     ( model, session, Cmd.none )
 
-        SetModal modals ->
+        SetModals modals ->
             ( { model | modals = modals }, session, Cmd.none )
 
         UpdateComponent customItem ->
@@ -256,8 +256,7 @@ componentListView db components =
                             [ button
                                 [ class "btn btn-sm btn-outline-primary"
                                 , title "Modifier le composant"
-                                , onClick <|
-                                    SetModal [ EditComponentModal (Component.createItem component.id) ]
+                                , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
                                 ]
                                 [ Icon.pencil ]
                             ]
@@ -275,7 +274,7 @@ componentListView db components =
                             [ button
                                 [ class "btn btn-sm btn-outline-danger"
                                 , title "Supprimer le composant"
-                                , onClick <| SetModal [ DeleteComponentModal component ]
+                                , onClick <| SetModals [ DeleteComponentModal component ]
                                 ]
                                 [ Icon.trash ]
                             ]
@@ -287,19 +286,21 @@ componentListView db components =
 
 modalView : Db -> List Modal -> Modal -> Html Msg
 modalView db modals modal =
-    Modal.view
-        { close = SetModal (List.drop 1 modals)
-        , content =
-            [ div [ class "card-body p-3" ] <|
-                case modal of
-                    DeleteComponentModal component ->
-                        [ text "Êtes-vous sûr de vouloir supprimer le composant "
-                        , strong [] [ text component.name ]
-                        , text "\u{00A0}?"
-                        ]
+    let
+        ( title, content, footer ) =
+            case modal of
+                DeleteComponentModal component ->
+                    ( "Supprimer le composant"
+                    , [ text "Êtes-vous sûr de vouloir supprimer le composant "
+                      , strong [] [ text component.name ]
+                      , text "\u{00A0}?"
+                      ]
+                    , button [ class "btn btn-danger" ] [ text "Supprimer" ]
+                    )
 
-                    EditComponentModal item ->
-                        [ ComponentView.editorView
+                EditComponentModal item ->
+                    ( "Modifier le composant"
+                    , [ ComponentView.editorView
                             { addLabel = ""
                             , customizable = True
                             , db = db
@@ -313,7 +314,7 @@ modalView db modals modal =
                             , openSelectComponentModal = \_ -> NoOp
                             , openSelectProcessModal =
                                 \p ti ei s ->
-                                    SetModal (SelectProcessModal p ti ei s :: modals)
+                                    SetModals (SelectProcessModal p ti ei s :: modals)
                             , removeElement =
                                 \targetElement ->
                                     item |> updateSingleItem (Component.removeElement targetElement)
@@ -332,11 +333,7 @@ modalView db modals modal =
                                 \targetElement ->
                                     Maybe.map
                                         (\amount ->
-                                            item
-                                                |> updateSingleItem
-                                                    (Component.updateElement targetElement <|
-                                                        \el -> { el | amount = amount }
-                                                    )
+                                            item |> updateSingleItem (Component.updateElementAmount targetElement amount)
                                         )
                                         >> Maybe.withDefault NoOp
                             , updateItemName =
@@ -344,66 +341,55 @@ modalView db modals modal =
                                     item |> updateSingleItem (Component.updateItemCustomName targetItem name)
                             , updateItemQuantity = \_ _ -> NoOp
                             }
-                        ]
+                      ]
+                    , button [ class "btn btn-primary" ] [ text "Sauvegarder" ]
+                    )
 
-                    SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
-                        let
-                            ( placeholderText, title ) =
-                                case category of
-                                    Category.Material ->
-                                        ( "tapez ici le nom d'une matière pour la rechercher"
-                                        , "Sélectionnez une matière première"
-                                        )
+                SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
+                    ( "Sélectionner un procédé"
+                    , let
+                        ( placeholderText, title_ ) =
+                            case category of
+                                Category.Material ->
+                                    ( "tapez ici le nom d'une matière pour la rechercher"
+                                    , "Sélectionnez une matière première"
+                                    )
 
-                                    Category.Transform ->
-                                        ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
-                                        , "Sélectionnez un procédé de transformation"
-                                        )
+                                Category.Transform ->
+                                    ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
+                                    , "Sélectionnez un procédé de transformation"
+                                    )
 
-                                    _ ->
-                                        ( "tapez ici le nom d'un procédé pour le rechercher"
-                                        , "Sélectionnez un procédé"
-                                        )
-                        in
-                        [ AutocompleteSelectorView.view
+                                _ ->
+                                    ( "tapez ici le nom d'un procédé pour le rechercher"
+                                    , "Sélectionnez un procédé"
+                                    )
+                      in
+                      [ AutocompleteSelectorView.view
                             { autocompleteState = autocompleteState
-                            , closeModal = SetModal (List.drop 1 modals)
+                            , closeModal = SetModals <| List.drop 1 modals
                             , footer = []
                             , noOp = NoOp
                             , onAutocomplete = OnAutocompleteAddProcess category targetItem maybeElementIndex
                             , onAutocompleteSelect = OnAutocompleteSelectProcess category targetItem maybeElementIndex
                             , placeholderText = placeholderText
-                            , title = title
+                            , title = title_
                             , toLabel = Process.getDisplayName
                             , toCategory = \_ -> ""
                             }
-                        ]
-            ]
-        , footer =
-            [ case modal of
-                DeleteComponentModal _ ->
-                    button [ class "btn btn-danger" ] [ text "Supprimer" ]
-
-                EditComponentModal _ ->
-                    button [ class "btn btn-primary" ] [ text "Sauvegarder" ]
-
-                SelectProcessModal _ _ _ _ ->
-                    text ""
-            ]
+                      ]
+                    , text ""
+                    )
+    in
+    Modal.view
+        { close = SetModals <| List.drop 1 modals
+        , content = [ div [ class "card-body p-3" ] content ]
+        , footer = [ footer ]
         , formAction = Just SaveComponent
         , noOp = NoOp
         , size = Modal.Large
         , subTitle = Nothing
-        , title =
-            case modal of
-                DeleteComponentModal _ ->
-                    "Supprimer le composant"
-
-                EditComponentModal _ ->
-                    "Modifier le composant"
-
-                SelectProcessModal _ _ _ _ ->
-                    "XXX TODO libellé"
+        , title = title
         }
 
 
@@ -457,6 +443,6 @@ subscriptions model =
         modals ->
             modals
                 |> List.drop 1
-                |> SetModal
+                |> SetModals
                 |> Key.escape
                 |> Browser.Events.onKeyDown

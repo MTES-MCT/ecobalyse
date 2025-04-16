@@ -53,6 +53,7 @@ module Data.Component exposing
     , setElementMaterial
     , stagesImpacts
     , updateElement
+    , updateElementAmount
     , updateItem
     , updateItemCustomName
     , validateItem
@@ -845,6 +846,12 @@ updateElement ( ( component, itemIndex ), elementIndex ) update =
                                 }
                             )
             }
+
+
+updateElementAmount : TargetElement -> Amount -> List Item -> List Item
+updateElementAmount targetElement amount =
+    updateElement targetElement <|
+        \el -> { el | amount = amount }
 
 
 updateItemCustom : TargetItem -> (Custom -> Custom) -> List Item -> List Item
