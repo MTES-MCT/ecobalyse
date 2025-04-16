@@ -180,9 +180,13 @@ input[type="number"].no-arrows {
   }
 }
 
-.form-select {
+.form-select, .form-control {
   &:disabled {
-    opacity: 0.65;
+    cursor: not-allowed;
+    background-color: #dfdfdf;
+    box-shadow: inset 0 -2px 0 0 #818181;
+    color: #828282;
+    opacity: .9;
   }
 }
 

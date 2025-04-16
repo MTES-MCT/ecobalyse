@@ -22,7 +22,7 @@ smallPillClasses =
 
 smallPill : List (Attribute msg) -> List (Html msg) -> Html msg
 smallPill attrs =
-    button (class smallPillClasses :: attrs)
+    button (type_ "button" :: class smallPillClasses :: attrs)
 
 
 smallPillLink : List (Attribute msg) -> List (Html msg) -> Html msg

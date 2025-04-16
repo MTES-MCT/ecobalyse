@@ -1013,10 +1013,13 @@ simulatorFormView session model ({ inputs } as simulator) =
         { addLabel = "Ajouter un accessoire"
         , customizable = False
         , db = session.db
+        , debug = False
         , detailed = []
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
+        , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
         , items = session.queries.textile.trims
+        , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
@@ -1027,7 +1030,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             session.queries.textile.trims
                 |> Component.compute session.db
                 |> Result.withDefault Component.emptyResults
-        , scope = Scope.Textile
+        , scopes = [ Scope.Textile ]
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
         , updateElementAmount = \_ _ -> NoOp

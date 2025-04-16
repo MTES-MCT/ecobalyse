@@ -22,6 +22,7 @@ module Data.Session exposing
     , selectNoBookmarks
     , serializeStore
     , toggleComparedSimulation
+    , updateDb
     , updateFoodQuery
     , updateObjectQuery
     , updateTextileQuery
@@ -130,6 +131,15 @@ saveBookmark bookmark =
                     bookmark :: store.bookmarks
             }
         )
+
+
+
+-- Db
+
+
+updateDb : (Db -> Db) -> Session -> Session
+updateDb fn session =
+    { session | db = fn session.db }
 
 
 

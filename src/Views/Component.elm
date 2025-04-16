@@ -14,7 +14,6 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
-import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
@@ -24,7 +23,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
-import Route
+import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
 import Views.Format as Format
@@ -36,10 +35,13 @@ type alias Config db msg =
     { addLabel : String
     , customizable : Bool
     , db : Component.DataContainer db
+    , debug : Bool
     , detailed : List Index
     , docsUrl : Maybe String
+    , explorerRoute : Maybe Route
     , impact : Definition
     , items : List Item
+    , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
@@ -47,7 +49,7 @@ type alias Config db msg =
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
     , results : Results
-    , scope : Scope
+    , scopes : List Scope
     , setDetailed : List Index -> msg
     , title : String
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
@@ -57,17 +59,18 @@ type alias Config db msg =
 
 
 addComponentButton : Config db msg -> Html msg
-addComponentButton { addLabel, db, openSelectComponentModal, scope } =
+addComponentButton { addLabel, db, openSelectComponentModal, scopes } =
     let
         availableComponents =
             db.components
-                |> Scope.anyOf [ scope ]
+                |> Scope.anyOf scopes
 
         autocompleteState =
             AutocompleteSelector.init .name availableComponents
     in
     button
-        [ class "btn btn-outline-primary w-100"
+        [ type_ "button"
+        , class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
         , disabled <| List.isEmpty availableComponents
@@ -81,7 +84,8 @@ addComponentButton { addLabel, db, openSelectComponentModal, scope } =
 addElementButton : Config db msg -> TargetItem -> Html msg
 addElementButton { db, openSelectProcessModal } targetItem =
     button
-        [ class "btn btn-link text-decoration-none"
+        [ type_ "button"
+        , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
         , class "gap-2 w-100 p-0 pb-1 text-end"
         , db.processes
@@ -114,7 +118,8 @@ addElementTransformButton { db, openSelectProcessModal } ( ( component, itemInde
             AutocompleteSelector.init .name availableTransformProcesses
     in
     button
-        [ class "btn btn-link btn-sm w-100 text-decoration-none"
+        [ type_ "button"
+        , class "btn btn-link btn-sm w-100 text-decoration-none"
         , class "d-flex justify-content-start align-items-center"
         , class "gap-1 w-100 p-0 pb-1"
         , disabled <| List.isEmpty availableTransformProcesses
@@ -145,9 +150,10 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
         [ [ tbody []
                 [ tr [ class "border-top border-bottom" ]
                     [ th [ class "ps-2 align-middle", scope "col" ]
-                        [ if config.customizable then
+                        [ if config.customizable && config.maxItems /= Just 1 then
                             button
-                                [ class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
+                                [ type_ "button"
+                                , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
                                 , onClick <|
                                     config.setDetailed <|
                                         if collapsed && not (List.member itemIndex config.detailed) then
@@ -167,7 +173,8 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
                             text ""
                         ]
                     , td [ class "ps-0 py-2 align-middle" ]
-                        [ quantity |> quantityInput config itemIndex ]
+                        [ quantity |> quantityInput config itemIndex
+                        ]
                     , td [ class "align-middle text-truncate w-100", colspan 2 ]
                         [ if config.customizable then
                             input
@@ -194,11 +201,16 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
                             |> Format.formatImpact config.impact
                         ]
                     , td [ class "pe-3 text-end align-middle text-nowrap" ]
-                        [ button
-                            [ class "btn btn-outline-secondary"
-                            , onClick (config.removeItem itemIndex)
-                            ]
-                            [ Icon.trash ]
+                        [ if config.maxItems == Just 1 then
+                            text ""
+
+                          else
+                            button
+                                [ type_ "button"
+                                , class "btn btn-outline-secondary"
+                                , onClick (config.removeItem itemIndex)
+                                ]
+                                [ Icon.trash ]
                         ]
                     ]
                 ]
@@ -255,18 +267,23 @@ viewDebug items results =
 
 
 editorView : Config db msg -> Html msg
-editorView ({ db, docsUrl, items, results, scope, title } as config) =
+editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as config) =
     div []
         [ div [ class "card shadow-sm mb-3" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h2 [ class "h5 mb-0" ]
                     [ text title
-                    , Link.smallPillExternal
-                        [ Route.href (Route.Explore scope (Dataset.Components scope Nothing))
-                        , Attr.title "Explorer"
-                        , attribute "aria-label" "Explorer"
-                        ]
-                        [ Icon.search ]
+                    , case explorerRoute of
+                        Just route ->
+                            Link.smallPillExternal
+                                [ Route.href route
+                                , Attr.title "Explorer"
+                                , attribute "aria-label" "Explorer"
+                                ]
+                                [ Icon.search ]
+
+                        Nothing ->
+                            text ""
                     ]
                 , div [ class "d-flex align-items-center gap-2" ]
                     [ results
@@ -298,28 +315,41 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
                             [ table [ class "table table-sm table-borderless mb-0" ]
-                                (thead []
-                                    [ tr [ class "fs-7 text-muted" ]
-                                        [ th [] []
-                                        , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                        , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
-                                        , th [ Attr.scope "col" ] [ text "Masse" ]
-                                        , th [ Attr.scope "col" ] [ text "Impact" ]
-                                        , th [ Attr.scope "col" ] []
+                                ((if maxItems == Just 1 then
+                                    thead []
+                                        [ tr [ class "fs-7 text-muted" ]
+                                            [ th [] []
+                                            , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
+                                            , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
+                                            , th [ Attr.scope "col" ] [ text "Masse" ]
+                                            , th [ Attr.scope "col" ] [ text "Impact" ]
+                                            , th [ Attr.scope "col" ] []
+                                            ]
                                         ]
-                                    ]
+
+                                  else
+                                    text ""
+                                 )
                                     :: List.concat
                                         (List.map4 (componentView config)
-                                            (List.range 0 (List.length items))
+                                            (List.range 0 (List.length items - 1))
                                             items
                                             expandedItems
                                             (Component.extractItems results)
                                         )
                                 )
                             ]
-            , addComponentButton config
+            , if maxItems == Just 1 then
+                text ""
+
+              else
+                addComponentButton config
             ]
-        , viewDebug items results
+        , if config.debug then
+            viewDebug items results
+
+          else
+            text ""
         ]
 
 
@@ -375,7 +405,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
             :: elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
-            ++ (if List.member config.scope [ Scope.Object, Scope.Veli ] then
+            ++ (if config.scopes /= [ Scope.Textile ] then
                     [ tr []
                         [ td [ colspan 2 ] []
                         , td [ colspan 5 ]
@@ -402,7 +432,8 @@ selectMaterialButton { db, openSelectProcessModal } ( targetItem, elementIndex )
             AutocompleteSelector.init .name availableMaterialProcesses
     in
     button
-        [ class "btn btn-sm btn-link text-decoration-none p-0"
+        [ type_ "button"
+        , class "btn btn-sm btn-link text-decoration-none p-0"
         , autocompleteState
             |> openSelectProcessModal Category.Material targetItem (Just elementIndex)
             |> onClick
@@ -417,7 +448,7 @@ elementMaterialView config targetElement materialResults material amount =
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-            [ if config.scope == Scope.Textile then
+            [ if config.scopes == [ Scope.Textile ] then
                 amount
                     |> Component.amountToFloat
                     |> Format.formatRichFloat 3 material.unit
@@ -438,7 +469,8 @@ elementMaterialView config targetElement materialResults material amount =
             ]
         , td [ class "pe-3  text-nowrap" ]
             [ button
-                [ class "btn btn-sm btn-outline-secondary"
+                [ type_ "button"
+                , class "btn btn-sm btn-outline-secondary"
                 , onClick (config.removeElement targetElement)
                 ]
                 [ Icon.trash ]
@@ -474,7 +506,8 @@ elementTransformsView config targetElement transformsResults transforms =
                     ]
                 , td []
                     [ button
-                        [ class "btn btn-sm btn-outline-secondary"
+                        [ type_ "button"
+                        , class "btn btn-sm btn-outline-secondary"
                         , transformIndex
                             |> config.removeElementTransform targetElement
                             |> onClick
@@ -497,6 +530,7 @@ quantityInput config itemIndex quantity =
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
             , Attr.min "1"
+            , disabled <| config.maxItems == Just 1
             , onInput <|
                 \str ->
                     String.toInt str
