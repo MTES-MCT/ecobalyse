@@ -7,10 +7,13 @@ module Page.Admin exposing
     , view
     )
 
+import Autocomplete exposing (Autocomplete)
 import Browser.Events
-import Data.Component as Component exposing (Component, Item)
+import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
 import Data.Key as Key
+import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
@@ -21,6 +24,7 @@ import Request.Common
 import Request.Component as ComponentApi
 import Static.Db exposing (Db)
 import Views.Alert as Alert
+import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Component as ComponentView
 import Views.Container as Container
 import Views.Icon as Icon
@@ -38,6 +42,7 @@ type alias Model =
 type Modal
     = DeleteComponentModal Component
     | EditComponentModal Item
+    | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
 type Msg
@@ -45,6 +50,8 @@ type Msg
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
     | NoOp
+    | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
+    | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | SaveComponent
     | SetModal (List Modal)
     | UpdateComponent Item
@@ -98,6 +105,35 @@ update session msg model =
         NoOp ->
             ( model, session, Cmd.none )
 
+        OnAutocompleteAddProcess category targetItem maybeIndex autocompleteMsg ->
+            case model.modals of
+                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal item ] ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    ( { model
+                        | modals =
+                            [ SelectProcessModal category targetItem maybeIndex newAutocompleteState
+                            , EditComponentModal item
+                            ]
+                      }
+                    , session
+                    , Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd
+                    )
+
+                _ ->
+                    ( model, session, Cmd.none )
+
+        OnAutocompleteSelectProcess category targetItem maybeElementIndex ->
+            case model.modals of
+                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal item ] ->
+                    ( model, session, Cmd.none )
+                        |> selectProcess category targetItem maybeElementIndex autocompleteState item
+
+                _ ->
+                    ( model, session, Cmd.none )
+
         SaveComponent ->
             case model.modals of
                 [ DeleteComponentModal component ] ->
@@ -123,16 +159,42 @@ update session msg model =
                 _ ->
                     ( model, session, Cmd.none )
 
-        SetModal modal ->
-            ( { model | modals = modal }, session, Cmd.none )
+        SetModal modals ->
+            ( { model | modals = modals }, session, Cmd.none )
 
         UpdateComponent customItem ->
             case model.modals of
-                [ EditComponentModal _ ] ->
-                    ( { model | modals = [ EditComponentModal customItem ] }, session, Cmd.none )
+                (EditComponentModal _) :: others ->
+                    ( { model | modals = EditComponentModal customItem :: others }, session, Cmd.none )
 
                 _ ->
                     ( model, session, Cmd.none )
+
+
+selectProcess :
+    Category
+    -> TargetItem
+    -> Maybe Index
+    -> Autocomplete Process
+    -> Item
+    -> ( Model, Session, Cmd Msg )
+    -> ( Model, Session, Cmd Msg )
+selectProcess category targetItem maybeElementIndex autocompleteState item ( model, session, _ ) =
+    case Autocomplete.selectedValue autocompleteState of
+        Just process ->
+            case
+                [ item ]
+                    |> Component.addOrSetProcess category targetItem maybeElementIndex process
+                    |> Result.andThen (List.head >> Result.fromMaybe "Pas d'élément résultant")
+            of
+                Err err ->
+                    ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
+
+                Ok updatedItem ->
+                    ( { model | modals = [ EditComponentModal updatedItem ] }, session, Cmd.none )
+
+        Nothing ->
+            ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -144,6 +206,7 @@ view { db } model =
             , model.components
                 |> mapRemoteData (componentListView db)
             , model.modals
+                |> List.reverse
                 |> List.map (modalView db model.modals)
                 |> div []
             ]
@@ -200,7 +263,7 @@ componentListView db components =
 modalView : Db -> List Modal -> Modal -> Html Msg
 modalView db modals modal =
     Modal.view
-        { close = SetModal (closeTopMostModal modals)
+        { close = SetModal (List.drop 1 modals)
         , content =
             [ div [ class "card-body p-3" ] <|
                 case modal of
@@ -212,7 +275,7 @@ modalView db modals modal =
 
                     EditComponentModal item ->
                         [ ComponentView.editorView
-                            { addLabel = "TODO libellé"
+                            { addLabel = ""
                             , customizable = True
                             , db = db
                             , detailed = [ 0 ]
@@ -223,9 +286,9 @@ modalView db modals modal =
                             , maxItems = Just 1
                             , noOp = NoOp
                             , openSelectComponentModal = \_ -> NoOp
-
-                            -- TODO
-                            , openSelectProcessModal = \_ _ _ _ -> NoOp
+                            , openSelectProcessModal =
+                                \p ti ei s ->
+                                    SetModal (SelectProcessModal p ti ei s :: modals)
                             , removeElement =
                                 \targetElement ->
                                     item |> updateSingleItem (Component.removeElement targetElement)
@@ -257,6 +320,39 @@ modalView db modals modal =
                             , updateItemQuantity = \_ _ -> NoOp
                             }
                         ]
+
+                    SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
+                        let
+                            ( placeholderText, title ) =
+                                case category of
+                                    Category.Material ->
+                                        ( "tapez ici le nom d'une matière pour la rechercher"
+                                        , "Sélectionnez une matière première"
+                                        )
+
+                                    Category.Transform ->
+                                        ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
+                                        , "Sélectionnez un procédé de transformation"
+                                        )
+
+                                    _ ->
+                                        ( "tapez ici le nom d'un procédé pour le rechercher"
+                                        , "Sélectionnez un procédé"
+                                        )
+                        in
+                        [ AutocompleteSelectorView.view
+                            { autocompleteState = autocompleteState
+                            , closeModal = SetModal (List.drop 1 modals)
+                            , footer = []
+                            , noOp = NoOp
+                            , onAutocomplete = OnAutocompleteAddProcess category targetItem maybeElementIndex
+                            , onAutocompleteSelect = OnAutocompleteSelectProcess category targetItem maybeElementIndex
+                            , placeholderText = placeholderText
+                            , title = title
+                            , toLabel = Process.getDisplayName
+                            , toCategory = \_ -> ""
+                            }
+                        ]
             ]
         , footer =
             [ case modal of
@@ -265,6 +361,9 @@ modalView db modals modal =
 
                 EditComponentModal _ ->
                     button [ class "btn btn-primary" ] [ text "Sauvegarder" ]
+
+                SelectProcessModal _ _ _ _ ->
+                    text ""
             ]
         , formAction = Just SaveComponent
         , noOp = NoOp
@@ -277,6 +376,9 @@ modalView db modals modal =
 
                 EditComponentModal _ ->
                     "Modifier le composant"
+
+                SelectProcessModal _ _ _ _ ->
+                    "XXX TODO libellé"
         }
 
 
@@ -321,13 +423,6 @@ mapRemoteData fn webData =
             fn data
 
 
-closeTopMostModal : List Modal -> List Modal
-closeTopMostModal =
-    List.reverse
-        >> List.drop 1
-        >> List.reverse
-
-
 subscriptions : Model -> Sub Msg
 subscriptions model =
     case model.modals of
@@ -335,7 +430,8 @@ subscriptions model =
             Sub.none
 
         modals ->
-            closeTopMostModal modals
+            modals
+                |> List.drop 1
                 |> SetModal
                 |> Key.escape
                 |> Browser.Events.onKeyDown

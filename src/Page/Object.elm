@@ -74,8 +74,8 @@ type Msg
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Query)
-    | OnAutocompleteSelect
     | OnAutocompleteSelectComponent
+    | OnAutocompleteSelectExample
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | OpenComparator
     | RemoveComponentItem Int
@@ -284,18 +284,18 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteExample _, _ ) ->
             ( model, session, Cmd.none )
 
-        ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
-            ( model, session, Cmd.none )
-                |> selectExample autocompleteState
-
-        ( OnAutocompleteSelect, _ ) ->
-            ( model, session, Cmd.none )
-
         ( OnAutocompleteSelectComponent, AddComponentModal autocompleteState ) ->
             ( model, session, Cmd.none )
                 |> selectComponent query autocompleteState
 
         ( OnAutocompleteSelectComponent, _ ) ->
+            ( model, session, Cmd.none )
+
+        ( OnAutocompleteSelectExample, SelectExampleModal autocompleteState ) ->
+            ( model, session, Cmd.none )
+                |> selectExample autocompleteState
+
+        ( OnAutocompleteSelectExample, _ ) ->
             ( model, session, Cmd.none )
 
         ( OnAutocompleteSelectProcess category targetItem elementIndex, SelectProcessModal _ _ _ autocompleteState ) ->
@@ -656,7 +656,7 @@ view session model =
                         , footer = []
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteExample
-                        , onAutocompleteSelect = OnAutocompleteSelect
+                        , onAutocompleteSelect = OnAutocompleteSelectExample
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
                         , toLabel = Example.toName model.examples
