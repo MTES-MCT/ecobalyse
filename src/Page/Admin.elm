@@ -22,11 +22,13 @@ import Html.Events exposing (..)
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Component as ComponentApi
+import Route
 import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Component as ComponentView
 import Views.Container as Container
+import Views.Format as Format
 import Views.Icon as Icon
 import Views.Modal as Modal
 import Views.Spinner as Spinner
@@ -219,19 +221,17 @@ componentListView db components =
     Table.responsiveDefault []
         [ thead []
             [ tr []
-                [ th [] [ text "Identifiant" ]
-                , th [] [ text "Nom" ]
+                [ th [] [ text "Nom" ]
                 , th [] [ text "Description" ]
-                , th [ colspan 2 ] []
+                , th [ colspan 4 ] []
                 ]
             ]
         , components
             |> List.map
                 (\component ->
                     tr []
-                        [ td [ class "align-middle" ] [ code [] [ text <| Component.idToString component.id ] ]
-                        , th [ class "align-middle" ] [ text component.name ]
-                        , td [ class "align-middle" ]
+                        [ th [ class "align-middle" ] [ text component.name ]
+                        , td [ class "align-middle text-truncate" ]
                             [ case Component.elementsToString db component of
                                 Err error ->
                                     span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
@@ -239,17 +239,38 @@ componentListView db components =
                                 Ok string ->
                                     text string
                             ]
-                        , td [ class "align-middle" ]
+                        , td [ class "align-middle text-end" ]
+                            [ component
+                                |> Component.computeImpacts db.processes
+                                |> Result.map
+                                    (Component.extractImpacts
+                                        >> Format.formatImpact (Definition.get Definition.Ecs db.definitions)
+                                    )
+                                |> Result.withDefault (text "N/A")
+                            ]
+                        , td [ class "align-middle px-1" ]
                             [ button
                                 [ class "btn btn-sm btn-outline-primary"
+                                , title "Modifier le composant"
                                 , onClick <|
                                     SetModal [ EditComponentModal (Component.createItem component.id) ]
                                 ]
                                 [ Icon.pencil ]
                             ]
-                        , td [ class "align-middle" ]
+                        , td [ class "align-middle px-1" ]
+                            [ a
+                                [ class "btn btn-sm btn-outline-primary"
+                                , title "Utiliser dans le simulateur"
+                                , Just { components = [ Component.createItem component.id ] }
+                                    |> Route.ObjectSimulator Scope.Object Definition.Ecs
+                                    |> Route.href
+                                ]
+                                [ Icon.puzzle ]
+                            ]
+                        , td [ class "align-middle px-1" ]
                             [ button
                                 [ class "btn btn-sm btn-outline-danger"
+                                , title "Supprimer le composant"
                                 , onClick <| SetModal [ DeleteComponentModal component ]
                                 ]
                                 [ Icon.trash ]
