@@ -142,6 +142,7 @@
     * [Etape 4 : Fin de vie](ameublement/cycle-de-vie/etape-4-fin-de-vie.md)
   * [Complément hors ACV](ameublement/complement-hors-acv/README.md)
     * [🌍 Biodiversité x Bois](ameublement/complement-hors-acv/biodiversitebois.md)
+    * [🌍 Old (complément biodiv)](ameublement/complement-hors-acv/biodiversitebois-1.md)
   * [Durabilité](ameublement/durabilite.md)
   * [🚚 Transport](ameublement/transport.md)
 
