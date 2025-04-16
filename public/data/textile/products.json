@@ -21,12 +21,17 @@
     },
     "name": "Chemise",
     "surfaceMass": 200,
-    "trims": [{ "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 10 }],
+    "trims": [
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 10
+      }
+    ],
     "use": {
       "daysOfWear": 40,
       "defaultNbCycles": 20,
       "ironingElecInMJ": 0.1638,
-      "nonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d",
+      "nonIroningProcessUuid": "163e6de6-9f3f-588c-af3a-7b375438180f",
       "ratioDryer": 0.12,
       "ratioIroning": 0.7,
       "timeIroning": 0.043,
@@ -57,14 +62,20 @@
     "name": "Jean",
     "surfaceMass": 250,
     "trims": [
-      { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
-      { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
+      {
+        "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
+        "quantity": 1
+      },
+      {
+        "id": "0e8ea799-9b06-490c-a925-37564746c454",
+        "quantity": 1
+      }
     ],
     "use": {
       "daysOfWear": 70,
       "defaultNbCycles": 23,
       "ironingElecInMJ": 0.24381,
-      "nonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
+      "nonIroningProcessUuid": "cefc9a3c-1bb2-50a4-a3ce-f56b891f764a",
       "ratioDryer": 0.3,
       "ratioIroning": 0.63,
       "timeIroning": 0.072,
@@ -95,14 +106,20 @@
     "name": "Jupe / Robe",
     "surfaceMass": 200,
     "trims": [
-      { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 },
-      { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 1 }
+      {
+        "id": "0e8ea799-9b06-490c-a925-37564746c454",
+        "quantity": 1
+      },
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 1
+      }
     ],
     "use": {
       "daysOfWear": 70,
       "defaultNbCycles": 23,
       "ironingElecInMJ": 0.0729,
-      "nonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
+      "nonIroningProcessUuid": "5ca66e62-356c-57ea-81e9-82951cb7f473",
       "ratioDryer": 0.12,
       "ratioIroning": 0.18,
       "timeIroning": 0.075,
@@ -133,14 +150,20 @@
     "name": "Manteau / Veste",
     "surfaceMass": 450,
     "trims": [
-      { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 3 },
-      { "id": "86b877ff-0d59-482f-bb34-3ff306b07496", "quantity": 1 }
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 3
+      },
+      {
+        "id": "86b877ff-0d59-482f-bb34-3ff306b07496",
+        "quantity": 1
+      }
     ],
     "use": {
       "daysOfWear": 100,
       "defaultNbCycles": 5,
       "ironingElecInMJ": 0.018,
-      "nonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
+      "nonIroningProcessUuid": "8f3de83a-4545-528e-83d6-e6a065696394",
       "ratioDryer": 0.25,
       "ratioIroning": 0.05,
       "timeIroning": 0.067,
@@ -171,14 +194,20 @@
     "name": "Pantalon / Short",
     "surfaceMass": 250,
     "trims": [
-      { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
-      { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
+      {
+        "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
+        "quantity": 1
+      },
+      {
+        "id": "0e8ea799-9b06-490c-a925-37564746c454",
+        "quantity": 1
+      }
     ],
     "use": {
       "daysOfWear": 70,
       "defaultNbCycles": 23,
       "ironingElecInMJ": 0.24381,
-      "nonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
+      "nonIroningProcessUuid": "f38c0b5f-873c-5d98-b216-4bf66c5bc520",
       "ratioDryer": 0.3,
       "ratioIroning": 0.63,
       "timeIroning": 0.072,
@@ -213,7 +242,7 @@
       "daysOfWear": 85,
       "defaultNbCycles": 17,
       "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
+      "nonIroningProcessUuid": "a9ed30ef-4849-586f-98be-0c356054947e",
       "ratioDryer": 0.3,
       "ratioIroning": 0,
       "timeIroning": 0,
@@ -248,7 +277,7 @@
       "daysOfWear": 45,
       "defaultNbCycles": 45,
       "ironingElecInMJ": 0.0936,
-      "nonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da",
+      "nonIroningProcessUuid": "56a3b3e0-df9f-570b-b656-dab6724ab70c",
       "ratioDryer": 0.3,
       "ratioIroning": 0.4,
       "timeIroning": 0.043,
@@ -283,7 +312,7 @@
       "daysOfWear": 50,
       "defaultNbCycles": 25,
       "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
+      "nonIroningProcessUuid": "a9ed30ef-4849-586f-98be-0c356054947e",
       "ratioDryer": 0.3,
       "ratioIroning": 0,
       "timeIroning": 0,
@@ -318,7 +347,7 @@
       "daysOfWear": 60,
       "defaultNbCycles": 60,
       "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
+      "nonIroningProcessUuid": "a9ed30ef-4849-586f-98be-0c356054947e",
       "ratioDryer": 0.3,
       "ratioIroning": 0,
       "timeIroning": 0,
@@ -353,7 +382,7 @@
       "daysOfWear": 60,
       "defaultNbCycles": 60,
       "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
+      "nonIroningProcessUuid": "a9ed30ef-4849-586f-98be-0c356054947e",
       "ratioDryer": 0.3,
       "ratioIroning": 0,
       "timeIroning": 0,
@@ -388,7 +417,7 @@
       "daysOfWear": 30,
       "defaultNbCycles": 30,
       "ironingElecInMJ": 0,
-      "nonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
+      "nonIroningProcessUuid": "a9ed30ef-4849-586f-98be-0c356054947e",
       "ratioDryer": 0.3,
       "ratioIroning": 0,
       "timeIroning": 0,

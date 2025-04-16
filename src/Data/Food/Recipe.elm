@@ -302,10 +302,8 @@ computeProcessImpacts item =
 
 
 computeIngredientImpacts : RecipeIngredient -> Impacts
-computeIngredientImpacts ({ mass } as recipeIngredient) =
-    recipeIngredient
-        |> getRecipeIngredientProcess
-        |> .impacts
+computeIngredientImpacts { ingredient, mass } =
+    ingredient.process.impacts
         |> Impact.mapImpacts (computeImpact mass)
 
 
@@ -500,7 +498,7 @@ isCookedAtPlant : Maybe Transform -> Bool
 isCookedAtPlant transform =
     case transform |> Maybe.map (.process >> .id >> Process.idToString) of
         -- Check for cooking process
-        Just "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569" ->
+        Just "83b897cf-9ed2-5604-83b4-67fab8606d35" ->
             True
 
         _ ->
@@ -555,12 +553,6 @@ getTransformedIngredientsDensity { ingredients, transform } =
 getTransformedIngredientsVolume : Recipe -> Volume
 getTransformedIngredientsVolume recipe =
     getTransformedIngredientsMass recipe |> Quantity.at_ (getTransformedIngredientsDensity recipe)
-
-
-getRecipeIngredientProcess : RecipeIngredient -> Process
-getRecipeIngredientProcess { ingredient } =
-    -- XXX remove obsolete proxy
-    ingredient.default
 
 
 ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
