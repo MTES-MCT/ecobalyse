@@ -1013,6 +1013,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         { addLabel = "Ajouter un accessoire"
         , customizable = False
         , db = session.db
+        , debug = False
         , detailed = []
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))

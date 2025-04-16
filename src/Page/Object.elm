@@ -541,6 +541,7 @@ simulatorView session model =
                 { addLabel = "Ajouter un composant"
                 , customizable = True
                 , db = session.db
+                , debug = True
                 , detailed = model.detailedComponents
                 , docsUrl = Nothing
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))

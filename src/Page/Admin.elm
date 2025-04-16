@@ -304,6 +304,7 @@ modalView db modals modal =
                             { addLabel = ""
                             , customizable = True
                             , db = db
+                            , debug = False
                             , detailed = [ 0 ]
                             , docsUrl = Nothing
                             , explorerRoute = Nothing

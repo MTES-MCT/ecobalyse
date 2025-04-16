@@ -35,6 +35,7 @@ type alias Config db msg =
     { addLabel : String
     , customizable : Bool
     , db : Component.DataContainer db
+    , debug : Bool
     , detailed : List Index
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
@@ -344,7 +345,11 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
               else
                 addComponentButton config
             ]
-        , viewDebug items results
+        , if config.debug then
+            viewDebug items results
+
+          else
+            text ""
         ]
 
 
