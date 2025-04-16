@@ -66,9 +66,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "polypropylene, granulate//[RER] polypropylene production, granulate",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
     "unit": "kg",
     "waste": 0
   },
