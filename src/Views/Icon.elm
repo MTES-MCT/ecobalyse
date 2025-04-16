@@ -66,6 +66,11 @@ material =
     icon "material"
 
 
+pencil : Html msg
+pencil =
+    icon "pencil"
+
+
 plane : Html msg
 plane =
     icon "plane"

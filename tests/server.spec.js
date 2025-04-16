@@ -44,6 +44,15 @@ describe("API", () => {
         expect(response.body.openapi).toEqual("3.0.1");
         expect(response.body.info.title).toEqual("API Ecobalyse");
       });
+
+      it("should respond with an HTTP 400 error on invalid JSON provided", async () => {
+        const response = await request(app).post("/api/textile/simulator").type("json").send("}{");
+
+        expectStatus(response, 400);
+        expect(response.body).toHaveProperty("error");
+        expect(response.body.error).toHaveProperty("decoding");
+        expect(response.body.error.decoding).toMatch("Format JSON invalide");
+      });
     });
   });
 
@@ -416,7 +425,7 @@ describe("API", () => {
     describe("/food/transforms", () => {
       it("should render with transforms list", async () => {
         await expectListResponseContains("/api/food/transforms", {
-          id: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
+          id: "83b897cf-9ed2-5604-83b4-67fab8606d35",
           name: "Cuisson",
         });
       });
@@ -433,12 +442,12 @@ describe("API", () => {
               { id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 225 },
             ],
             transform: {
-              id: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569",
+              id: "83b897cf-9ed2-5604-83b4-67fab8606d35",
               mass: 545,
             },
             packaging: [
               {
-                id: "c352add7-8037-464e-bff2-7da517419f88",
+                id: "25595091-35b6-5c62-869f-a29c318c367e",
                 mass: 105,
               },
             ],
@@ -536,7 +545,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/food", {
             ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
-            transform: { id: "7541cf94-1d4d-4d1c-99e3-a9d5be0e7569", mass: -1 },
+            transform: { id: "83b897cf-9ed2-5604-83b4-67fab8606d35", mass: -1 },
           }),
           "transform",
           /masse doit être supérieure ou égale à zéro/,
@@ -558,7 +567,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/food", {
             ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
-            packaging: [{ id: "c352add7-8037-464e-bff2-7da517419f88", mass: -1 }],
+            packaging: [{ id: "25595091-35b6-5c62-869f-a29c318c367e", mass: -1 }],
           }),
           "packaging",
           /masse doit être supérieure ou égale à zéro/,
@@ -667,7 +676,7 @@ async function expectListResponseContains(path, object) {
 
 function expectStatus(response, expectedCode, type = "application/json") {
   if (response.status === 400 && expectedCode != 400) {
-    expect(response.body).toHaveProperty("errors", "");
+    expect(response.body).toHaveProperty("error", "");
   }
   expect(response.type).toBe(type);
   expect(response.statusCode).toBe(expectedCode);

@@ -82,19 +82,19 @@ table _ { detailed, scope } =
           , toCell = .transportCooling >> Ingredient.transportCoolingToString >> text
           }
         , { label = "Procédé"
-          , toValue = Table.StringValue <| .default >> Process.getDisplayName
+          , toValue = Table.StringValue <| .process >> .name
           , toCell =
-                \{ default } ->
+                \{ process } ->
                     div []
-                        [ div [ class "cursor-help", title <| Process.getDisplayName default ]
-                            [ text <| Process.getDisplayName default ]
-                        , em [ class "cursor-help", title default.comment ]
-                            [ text default.comment ]
+                        [ div [ class "cursor-help", title process.name ]
+                            [ text process.name ]
+                        , em [ class "cursor-help", title process.comment ]
+                            [ text process.comment ]
                         ]
           }
         , { label = "Source"
-          , toValue = Table.StringValue <| .default >> .source
-          , toCell = .default >> .source >> text
+          , toValue = Table.StringValue <| .process >> .source
+          , toCell = .process >> .source >> text
           }
         , { label = "Services écosystémiques"
           , toValue = Table.StringValue <| always "N/A"
