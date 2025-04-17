@@ -10,10 +10,10 @@ A chaque étape de la production, des pertes et rebut sont pris en compte. Les f
 | -------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
 | Non applicable | Matière        | [Matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-1-matieres)            |
 | Matière        | Fil            | [Filature](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil) |
-| Fil            | Etoffe         | [Tricotage / Tissage](tricotage-tissage.md)                                                                           |
-| Etoffe         | Tissu          | [Teinture](ennoblissement/)                                                                                           |
-| Tissu          | Habit          | [Confection](confection.md)                                                                                           |
-| Habit          | Habit          | [Distribution](distribution.md)                                                                                       |
+| Fil            | Etoffe         | [Tricotage / Tissage](../cycle-de-vie-des-produits-textiles/tricotage-tissage.md)                                     |
+| Etoffe         | Tissu          | [Teinture](../cycle-de-vie-des-produits-textiles/ennoblissement/)                                                     |
+| Tissu          | Habit          | [Confection](../cycle-de-vie-des-produits-textiles/confection.md)                                                     |
+| Habit          | Habit          | [Distribution](../cycle-de-vie-des-produits-textiles/distribution.md)                                                 |
 
 {% hint style="info" %}
 Dans cette documentation le taux de perte $$T$$ vaut :

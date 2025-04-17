@@ -4,7 +4,7 @@ description: >-
   consommateurs.
 ---
 
-# 🚚 Etape 5 - Distribution
+# 🚚 Etape 6 - Distribution
 
 ## Distance et procédé
 
@@ -30,4 +30,4 @@ Procédé Base Impacts&#x20;
 
 </details>
 
-Les modalités de calcul de l'impact environnemental de ce transport sont précisées dans la page [transport](transport.md).
+Les modalités de calcul de l'impact environnemental de ce transport sont précisées dans la page [transport](../precisions-methodologiques/transport.md).

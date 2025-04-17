@@ -77,7 +77,7 @@ Le CoefImpactProcédé correspond à la somme des impacts des flux externes mobi
 * :zap:électricité (exprimé en kWh / kg),
 * :fire: chaleur (exprimé en MJ / kg).
 
-Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../pertes-et-rebus.md).
+Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../precisions-methodologiques/pertes-et-rebus.md).
 
 #### Etape 2 =  Ajout des inventaires enrichis (impacts Ecotox/Tox)
 

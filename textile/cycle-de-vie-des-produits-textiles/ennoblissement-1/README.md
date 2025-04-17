@@ -113,7 +113,7 @@ $$
 Avec :
 
 * `I_ennoblissement` : l'impact environnemental de l'ennoblissement, dans l'unité de la catégorie d'impact analysée
-* `m` la masse de tissu, exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../pertes-et-rebus.md).
+* `m` la masse de tissu, exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../precisions-methodologiques/pertes-et-rebus.md).
 * `e_i` : la quantité d'électricité nécessaire au procédé i pour 1 kg de tissu, en kWh/kg
 * `a_i` : Le taux d'application du procédé i pour le vêtement évalué, sans unité
   * Egal à 1 si le procédé est mobilisé pour ce vêtement
