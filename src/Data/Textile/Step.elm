@@ -266,9 +266,9 @@ computeTransports db inputs next ({ processInfo } as current) =
     { current
         | processInfo =
             { processInfo
-                | airTransport = Just db.textile.wellKnown.airTransport.name
-                , roadTransport = Just db.textile.wellKnown.roadTransport.name
-                , seaTransport = Just db.textile.wellKnown.seaTransport.name
+                | airTransport = Just <| Process.getDisplayName db.textile.wellKnown.airTransport
+                , roadTransport = Just <| Process.getDisplayName db.textile.wellKnown.roadTransport
+                , seaTransport = Just <| Process.getDisplayName db.textile.wellKnown.seaTransport
             }
         , transport = transport
     }
@@ -362,7 +362,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
         Label.Distribution ->
             { step
                 | processInfo =
-                    { defaultProcessInfo | distribution = Just wellKnown.distribution.name }
+                    { defaultProcessInfo | distribution = Just <| Process.getDisplayName wellKnown.distribution }
             }
 
         Label.EndOfLife ->
@@ -373,9 +373,9 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                     }
                 , processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just country.electricityProcess.name
-                        , countryHeat = Just country.heatProcess.name
-                        , endOfLife = Just wellKnown.endOfLife.name
+                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
+                        , countryHeat = Just <| Process.getDisplayName country.heatProcess
+                        , endOfLife = Just <| Process.getDisplayName wellKnown.endOfLife
                         , passengerCar = Just "Transport en voiture vers point de collecte (1km)"
                     }
             }
@@ -386,14 +386,17 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 , printing = printing
                 , processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just country.electricityProcess.name
-                        , countryHeat = Just country.heatProcess.name
+                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
+                        , countryHeat = Just <| Process.getDisplayName country.heatProcess
                         , dyeing = Nothing
                         , printing =
                             printing
                                 |> Maybe.map
                                     (\{ kind } ->
-                                        WellKnown.getPrintingProcess kind wellKnown |> .printingProcess |> .name
+                                        wellKnown
+                                            |> WellKnown.getPrintingProcess kind
+                                            |> .printingProcess
+                                            |> Process.getDisplayName
                                     )
                     }
             }
@@ -402,11 +405,11 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             { step
                 | processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just country.electricityProcess.name
+                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
                         , fabric =
                             inputs.product.fabric
                                 |> Fabric.getProcess wellKnown
-                                |> .name
+                                |> Process.getDisplayName
                                 |> Just
                     }
                 , surfaceMass = surfaceMass
@@ -420,8 +423,8 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 , makingWaste = makingWaste
                 , processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just country.electricityProcess.name
-                        , fading = Just wellKnown.fading.name
+                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
+                        , fading = Just <| Process.getDisplayName wellKnown.fading
                     }
             }
 
@@ -436,7 +439,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
 
         Label.Spinning ->
             { step
-                | processInfo = { defaultProcessInfo | countryElec = Just country.electricityProcess.name }
+                | processInfo = { defaultProcessInfo | countryElec = Just <| Process.getDisplayName country.electricityProcess }
                 , yarnSize = yarnSize
             }
 
@@ -444,7 +447,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             { step
                 | processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just country.electricityProcess.name
+                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
                         , useIroning =
                             -- Note: Much better expressing electricity consumption in kWh than in MJ
                             inputs.product.use.ironingElec
@@ -452,7 +455,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                                 |> Format.formatFloat 4
                                 |> (\x -> "Repassage\u{00A0}: " ++ x ++ "\u{00A0}kWh")
                                 |> Just
-                        , useNonIroning = Just inputs.product.use.nonIroningProcess.name
+                        , useNonIroning = Just <| Process.getDisplayName inputs.product.use.nonIroningProcess
                     }
             }
 

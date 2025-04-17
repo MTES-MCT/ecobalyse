@@ -7,6 +7,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Gitbook as Gitbook
+import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Unit as Unit
@@ -81,12 +82,12 @@ table _ { detailed, scope } =
           , toCell = .transportCooling >> Ingredient.transportCoolingToString >> text
           }
         , { label = "Procédé"
-          , toValue = Table.StringValue <| .process >> .name
+          , toValue = Table.StringValue <| .process >> Process.getDisplayName
           , toCell =
                 \{ process } ->
                     div []
-                        [ div [ class "cursor-help", title process.name ]
-                            [ text process.name ]
+                        [ div [ class "cursor-help", title <| Process.getDisplayName process ]
+                            [ text <| Process.getDisplayName process ]
                         , em [ class "cursor-help", title process.comment ]
                             [ text process.comment ]
                         ]

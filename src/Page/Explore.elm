@@ -396,7 +396,7 @@ processesExplorer session scope tableConfig tableState maybeId =
                 |> Scope.anyOf [ scope ]
     in
     [ scopedProcesses
-        |> List.sortBy .name
+        |> List.sortBy Process.getDisplayName
         |> Table.viewList OpenDetail tableConfig tableState scope (Processes.table session)
     , case maybeId of
         Just id ->

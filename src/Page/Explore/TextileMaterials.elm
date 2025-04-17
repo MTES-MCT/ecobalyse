@@ -3,6 +3,7 @@ module Page.Explore.TextileMaterials exposing (table)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Gitbook as Gitbook
+import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Material as Material exposing (Material)
@@ -55,8 +56,8 @@ table db { detailed, scope } =
           , toCell = .shortName >> text
           }
         , { label = "Procédé"
-          , toValue = Table.StringValue <| .materialProcess >> .name
-          , toCell = .materialProcess >> .name >> text
+          , toValue = Table.StringValue <| .materialProcess >> Process.getDisplayName
+          , toCell = .materialProcess >> Process.getDisplayName >> text
           }
         , { label = "Source"
           , toValue = Table.StringValue <| .materialProcess >> .source
@@ -88,8 +89,8 @@ table db { detailed, scope } =
                     >> withPill Gitbook.TextileSpinning
           }
         , { label = "Procédé de recyclage"
-          , toValue = Table.StringValue <| .recycledProcess >> Maybe.map .name >> Maybe.withDefault "N/A"
-          , toCell = .recycledProcess >> Maybe.map (.name >> text) >> Maybe.withDefault (text "N/A")
+          , toValue = Table.StringValue <| .recycledProcess >> Maybe.map Process.getDisplayName >> Maybe.withDefault "N/A"
+          , toCell = .recycledProcess >> Maybe.map (Process.getDisplayName >> text) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Origine géographique"
           , toValue = Table.StringValue .geographicOrigin

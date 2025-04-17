@@ -46,10 +46,9 @@ type alias Process =
     , heat : Energy
     , id : Id
     , impacts : Impacts
-    , name : String
     , scopes : List Scope
     , source : String
-    , sourceId : Maybe SourceId
+    , sourceId : SourceId
     , unit : String
     , waste : Split
     }
@@ -99,10 +98,9 @@ decodeProcess scopes impactsDecoder =
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
-        |> Pipe.required "name" Decode.string
         |> Pipe.hardcoded scopes
         |> Pipe.required "source" Decode.string
-        |> DU.strictOptional "sourceId" decodeSourceId
+        |> Pipe.required "sourceId" decodeSourceId
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "waste" Split.decodeFloat
 
@@ -118,10 +116,9 @@ encode process =
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )
-        , ( "name", Encode.string process.name )
         , ( "scopes", process.scopes |> Encode.list Scope.encode )
         , ( "source", Encode.string process.source )
-        , ( "sourceId", EncodeExtra.maybe encodeSourceId process.sourceId )
+        , ( "sourceId", encodeSourceId process.sourceId )
         , ( "unit", Encode.string process.unit )
         , ( "waste", Split.encodeFloat process.waste )
         ]
@@ -175,21 +172,21 @@ findById id processes =
 
 
 getDisplayName : Process -> String
-getDisplayName { displayName, id, name } =
+getDisplayName { displayName, id, sourceId } =
     case displayName of
-        Just str ->
-            if String.trim str == "" then
-                name
+        Just name ->
+            if String.trim name == "" then
+                sourceIdToString sourceId
 
             else
-                str
+                name
 
         Nothing ->
-            if String.trim name == "" then
+            if String.trim (sourceIdToString sourceId) == "" then
                 idToString id
 
             else
-                name
+                sourceIdToString sourceId
 
 
 listByCategory : Category -> List Process -> List Process
