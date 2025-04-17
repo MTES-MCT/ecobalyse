@@ -19,7 +19,7 @@ Les principaux pays producteurs sont la Chine, l'Inde et les Etats-Unis. Une vin
 * coton conventionnel (98%\* de la production mondiale)\
   Près de 25% de la production mondiale de coton est engagée dans des [programmes ](#user-content-fn-2)[^2]\(non certifiés) visant à rendre les pratiques plus soutenables.
 * coton biologique certifié (1,4%)\
-  Il n'existe pas de définition claire du coton bio/organique. Le périmètre de ces pratiques est flou et se caractérise par les labels et certifications internationales (ex : GOTS, Oeko-Tex, etc.). \
+  Il n'existe pas de définition claire du coton biologique. Le périmètre de ces pratiques est flou et se caractérise par les labels et certifications internationales (ex : GOTS, Oeko-Tex, etc.). \
   Ces pratiques consistent principalement à ne pas modifier génétiquement les graines de coton tout en utilisant du compost naturel (remplaçant les engrais chimiques) et des pesticides naturels (remplaçant les pesticides de synthèse).
 * coton recyclé (1%\* de la production mondiale)\
   Réutiliser des fibres existantes permet d'économiser les pesticides, engrais et eau nécessaires pour la production de la même quantité de matière vierge. \
@@ -60,7 +60,7 @@ Procédé basé sur une moyenne pondérée des trois principaux pays producteurs
 
 <details>
 
-<summary>Coton organique</summary>
+<summary>Coton biologique</summary>
 
 **Procédé Ecoinvent** \
 &#xNAN;_&#x46;ibre production, cotton, organic, ginning, RoW_
