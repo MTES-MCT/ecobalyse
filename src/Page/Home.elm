@@ -11,6 +11,7 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Env as Env
 import Data.Key as Key
+import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -29,18 +30,13 @@ type alias Model =
 
 
 type Msg
-    = CloseModal
-    | LoadRoute Route
+    = LoadRoute Route
     | NoOp
-    | OpenCalculatorPickerModal
-    | OpenPresentationVideoModal
     | ScrollIntoView String
 
 
 type Modal
-    = CalculatorPickerModal
-    | NoModal
-    | PresentationVideoModal
+    = NoModal
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -54,20 +50,11 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        CloseModal ->
-            ( { model | modal = NoModal }, session, Cmd.none )
-
         LoadRoute route ->
             ( model, session, Nav.load <| Route.toString route )
 
         NoOp ->
             ( model, session, Cmd.none )
-
-        OpenCalculatorPickerModal ->
-            ( { model | modal = CalculatorPickerModal }, session, Cmd.none )
-
-        OpenPresentationVideoModal ->
-            ( { model | modal = PresentationVideoModal }, session, Cmd.none )
 
         ScrollIntoView nodeId ->
             ( model, session, Ports.scrollIntoView nodeId )
@@ -80,115 +67,31 @@ viewHero { enabledSections } modal =
             [ h2 [ class "h1" ]
                 [ text "Calculez le coût environnemental de vos produits" ]
             , div [ class "fs-5 mt-3 mb-5" ]
-                [ """Ecobalyse permet de comprendre et de calculer le coût environnemental des produits
-                     distribués en France. La méthodologie présentée est soumise à [concertation]({url})."""
-                    |> String.replace "{url}" Env.communityUrl
+                [ """Ecobalyse permet de comprendre et d’exprimer les impacts environnementaux des produits distribués en France par le calcul d’un coût en points d’impact\u{202F}: le coût environnemental. Découvrez nos outils et notre périmètre d’action\u{202F}!"""
                     |> Markdown.simple []
                 ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
-                [ if enabledSections.food then
-                    button [ class "btn btn-lg btn-primary", onClick OpenCalculatorPickerModal ]
-                        [ text "Lancer le calculateur" ]
+                [ a [ class "btn btn-lg btn-primary", Route.href Route.TextileSimulatorHome ]
+                    [ text "Calculateur textile" ]
+                , if enabledSections.food then
+                    a [ class "btn btn-lg btn-outline-primary", Route.href Route.FoodBuilderHome ]
+                        [ text "Calculateur alimentaire", br [] [], Html.cite [ class "fw-normal fs-7 d-block" ] [ text "Méthodologie en concertation" ] ]
 
                   else
-                    a [ class "btn btn-lg btn-primary", Route.href Route.TextileSimulatorHome ]
-                        [ text "Lancer le calculateur" ]
-                , button
-                    [ class "btn btn-lg btn-outline-primary"
-                    , onClick OpenPresentationVideoModal
-                    ]
-                    [ text "Découvrir en vidéo" ]
-                , button
-                    [ class "btn btn-lg btn-outline-primary"
-                    , onClick <| ScrollIntoView "decouvrir-ecobalyse"
-                    ]
-                    [ text "En savoir plus" ]
+                    text ""
+                , if enabledSections.objects then
+                    a [ class "btn btn-lg btn-outline-primary", Route.href (Route.ObjectSimulatorHome Scope.Object) ]
+                        [ text "Calculateur objet"
+                        , Html.cite [ class "fw-normal fs-7 d-block" ] [ text "Simulateur en construction" ]
+                        ]
+
+                  else
+                    text ""
                 ]
             ]
         , case modal of
-            CalculatorPickerModal ->
-                ModalView.view
-                    { size = ModalView.Large
-                    , close = CloseModal
-                    , noOp = NoOp
-                    , title = "Sélectionnez le secteur concerné"
-                    , subTitle = Nothing
-                    , formAction = Nothing
-                    , content = [ calculatorPickerModalContent ]
-                    , footer = []
-                    }
-
             NoModal ->
                 text ""
-
-            PresentationVideoModal ->
-                ModalView.view
-                    { size = ModalView.ExtraLarge
-                    , close = CloseModal
-                    , noOp = NoOp
-                    , title = "Présentation de l'outil en vidéo"
-                    , subTitle = Nothing
-                    , formAction = Nothing
-                    , content =
-                        [ div
-                            [ style "position" "relative"
-                            , style "padding-bottom" "38.33333333333333%"
-                            , style "height" "0"
-                            ]
-                            [ iframe
-                                [ src "https://www.loom.com/embed/3370423207d8425f849e5c7089e1095d?sid=55b7c957-21cb-4553-b5cc-ba6b81c5c641"
-                                , attribute "frameborder" "0"
-                                , attribute "webkitallowfullscreen" ""
-                                , attribute "mozallowfullscreen" ""
-                                , attribute "allowfullscreen" ""
-                                , style "position" "absolute"
-                                , style "top" "0"
-                                , style "left" "0"
-                                , style "width" "100%"
-                                , style "height" "100%"
-                                ]
-                                []
-                            ]
-                        ]
-                    , footer = []
-                    }
-        ]
-
-
-calculatorPickerModalContent : Html Msg
-calculatorPickerModalContent =
-    div [ class "p-4" ]
-        [ div [ class "Launcher d-flex flex-wrap justify-content-center justify-content-sm-start gap-3" ]
-            [ a
-                [ class "LauncherLink text-dark fw-bold d-flex flex-column justify-content-center align-items-center text-decoration-none"
-                , Route.href Route.TextileSimulatorHome
-                ]
-                [ img
-                    [ src "img/picto_textile.png"
-                    , alt "Lancer le calculateur du textile"
-                    ]
-                    []
-                , div [] [ text "Textile" ]
-                ]
-            , a
-                [ class "LauncherLink text-dark fw-bold d-flex flex-column justify-content-center align-items-center text-decoration-none"
-                , Route.href Route.FoodBuilderHome
-                ]
-                [ img
-                    [ src "img/picto_alimentaire.png"
-                    , alt "Lancer le calculateur de l'alimentaire"
-                    ]
-                    []
-                , div [] [ text "Alimentaire" ]
-                ]
-            , div [ class "LauncherLink d-flex flex-column justify-content-center align-items-center" ]
-                [ text "Autre secteur,"
-                , br [] []
-                , Link.external
-                    [ href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter" ]
-                    [ text "contactez-nous" ]
-                ]
-            ]
         ]
 
 
@@ -239,14 +142,6 @@ viewTools { enabledSections } =
                 [ div
                     [ class "card d-flex flex-warp align-content-between text-decoration-none h-100"
                     , attribute "role" "button"
-                    , onClick
-                        (if enabledSections.food then
-                            OpenCalculatorPickerModal
-
-                         else
-                            -- Only textile simulator is available for now
-                            LoadRoute Route.TextileSimulatorHome
-                        )
                     ]
                     [ img
                         [ class "w-100"
@@ -384,6 +279,3 @@ subscriptions { modal } =
     case modal of
         NoModal ->
             Sub.none
-
-        _ ->
-            Browser.Events.onKeyDown (Key.escape CloseModal)
