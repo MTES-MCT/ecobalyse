@@ -804,7 +804,7 @@
     "scenario": "organic",
     "search": "soybean organic animal at farm gate {FR}",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "soybean-br-no-deforestation",
@@ -1417,7 +1417,7 @@
     "scenario": "organic",
     "search": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "lamb-meat-without-bone",
@@ -1485,7 +1485,7 @@
     "scenario": "organic",
     "search": "Pear, consumption mix, organic 2023 {FR} U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "carrot-fr",
@@ -1529,7 +1529,7 @@
     "scenario": "import",
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "carrot-non-ue",
@@ -1551,7 +1551,7 @@
     "scenario": "import",
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "zucchini-fr",
@@ -2013,7 +2013,7 @@
     "scenario": "import",
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "lettuce-non-eu",
@@ -2035,7 +2035,7 @@
     "scenario": "import",
     "search": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "garden-peas-fr",
@@ -2409,7 +2409,7 @@
     "scenario": "import",
     "search": "Hazelnut, unshelled, at plant {TR} U",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "artichoke-fr",
@@ -2585,7 +2585,7 @@
     "scenario": "import",
     "search": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "turnip-non-eu",
@@ -2607,7 +2607,7 @@
     "scenario": "import",
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "chinese-cabbage-fr",
@@ -2805,7 +2805,7 @@
     "scenario": "import",
     "search": "Orange, fresh grade {ZA}| orange production, fresh grade",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "olive-eu",
@@ -2871,7 +2871,7 @@
     "scenario": "import",
     "search": "Rapeseed, at farm {GLO}",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "rapeseed-non-eu",
@@ -2893,7 +2893,7 @@
     "scenario": "import",
     "search": "Rapeseed, at farm {CA}",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "pistachio-non-eu",
@@ -3069,7 +3069,7 @@
     "scenario": "import",
     "search": "Sunflower, at farm {Glo}",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "kiwi-fr",
@@ -3993,7 +3993,7 @@
     "scenario": "import",
     "search": "Iceberg lettuce {GLO}| production",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "sweet-corn-fr",
@@ -4477,7 +4477,7 @@
     "scenario": "organic",
     "search": "Kiwi, consumption mix, organic 2023 {FR}",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "red-cabbage-organic",
@@ -4917,7 +4917,7 @@
     "scenario": "organic",
     "search": "Olive, organic 2023 {ES}| olive production",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "peanut-organic",
@@ -5027,7 +5027,7 @@
     "scenario": "organic",
     "search": "Durum wheat grain, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "onion-organic",
@@ -6811,7 +6811,7 @@
     "scenario": "organic",
     "search": "Broccoli, consumption mix, organic 2023 {FR} U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "broccoli-fr",
@@ -7239,7 +7239,7 @@
     "scenario": "import",
     "search": "Iceberg lettuce {GLO}| production",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "sweet-corn-eu",
@@ -7820,7 +7820,7 @@
     "scenario": "organic",
     "search": "Hazelnut, unshelled, consumption mix, organic 2023 {FR} U",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "hazelnut-unshelled-fr",
@@ -8254,7 +8254,7 @@
     "scenario": "import",
     "search": "Chicken meat at slaughterhouse PL",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "tomato-paste-fr",
