@@ -13,7 +13,6 @@ module Data.Process exposing
     , idFromString
     , idToString
     , listByCategory
-    , sourceIdToString
     )
 
 import Data.Common.DecodeUtils as DU

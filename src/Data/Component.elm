@@ -24,9 +24,14 @@ module Data.Component exposing
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
+    , createItem
+    , decode
     , decodeItem
+    , decodeList
     , decodeListFromJsonString
+    , elementsToString
     , emptyResults
+    , encode
     , encodeId
     , encodeItem
     , encodeResults
@@ -48,6 +53,7 @@ module Data.Component exposing
     , setElementMaterial
     , stagesImpacts
     , updateElement
+    , updateElementAmount
     , updateItem
     , updateItemCustomName
     , validateItem
@@ -214,7 +220,7 @@ addElementTransform targetElement transform items =
 
 addItem : Id -> List Item -> List Item
 addItem id items =
-    items ++ [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
+    items ++ [ createItem id ]
 
 
 addOrSetProcess : Category -> TargetItem -> Maybe Index -> Process -> List Item -> Result String (List Item)
@@ -420,6 +426,11 @@ computeMaterialResults amount process =
         }
 
 
+createItem : Id -> Item
+createItem id =
+    { custom = Nothing, id = id, quantity = quantityFromInt 1 }
+
+
 decode : List Scope -> Decoder Component
 decode scopes =
     Decode.succeed Component
@@ -490,6 +501,13 @@ elementToString processes element =
             )
 
 
+elementsToString : DataContainer db -> Component -> Result String String
+elementsToString db component =
+    component.elements
+        |> RE.combineMap (elementToString db.processes)
+        |> Result.map (String.join " | ")
+
+
 emptyResults : Results
 emptyResults =
     Results
@@ -498,6 +516,15 @@ emptyResults =
         , mass = Quantity.zero
         , stage = Nothing
         }
+
+
+encode : Component -> Encode.Value
+encode v =
+    EU.optionalPropertiesObject
+        [ ( "elements", v.elements |> Encode.list encodeElement |> Just )
+        , ( "id", v.id |> encodeId |> Just )
+        , ( "name", v.name |> Encode.string |> Just )
+        ]
 
 
 encodeCustom : Custom -> Encode.Value
@@ -709,8 +736,8 @@ loadDefaultEnergyMixes processes =
                 >> Result.andThen (\id -> Process.findById id processes)
     in
     Result.map2 (\elec heat -> { elec = elec, heat = heat })
-        (fromIdString "9c70a439-ee05-4fc4-9598-7448345f7081")
-        (fromIdString "e70b2dc1-41be-4db6-8267-4e9f4822e8bc")
+        (fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244")
+        (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
 
 
 quantityFromInt : Int -> Quantity
@@ -819,6 +846,12 @@ updateElement ( ( component, itemIndex ), elementIndex ) update =
                                 }
                             )
             }
+
+
+updateElementAmount : TargetElement -> Amount -> List Item -> List Item
+updateElementAmount targetElement amount =
+    updateElement targetElement <|
+        \el -> { el | amount = amount }
 
 
 updateItemCustom : TargetItem -> (Custom -> Custom) -> List Item -> List Item

@@ -33,9 +33,9 @@ suite =
                 -- Dossier plastique (PP)
                 (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
                 -- Steel (valid as a material)
-                (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
+                (getProcessByStringId db "6527710e-2434-5347-9bef-2205e0aa4f66")
                 -- Injection moulding (invalid as a material)
-                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                (getProcessByStringId db "111539de-deea-588a-9581-6f6ceaa2dfa9")
                 -- tests
                 (\testComponent validMaterial invalidMaterial ->
                     [ it "should add a new element using a valid material"
@@ -75,9 +75,9 @@ suite =
                 -- Dossier plastique (PP)
                 (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
                 -- Injection moulding (valid tansformation process)
-                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                (getProcessByStringId db "111539de-deea-588a-9581-6f6ceaa2dfa9")
                 -- Planche de bois (invalid as not a transformation process)
-                (getProcessByStringId db "07e9e916-e02b-45e2-a298-2b5084de6242")
+                (getProcessByStringId db "fe8a97ba-405a-5542-b1be-bd6983537d58")
                 -- tests
                 (\testComponent validTransformProcess invalidTransformProcess ->
                     [ it "should add a valid transformation process to a component element"
@@ -186,7 +186,7 @@ suite =
                                         |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                               }
                             ]
-                            |> Expect.within (Expect.Absolute 1) 383
+                            |> Expect.within (Expect.Absolute 1) 391
                         )
                     , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                         (getTestEcsImpact
@@ -200,7 +200,7 @@ suite =
                             [ fading |> setProcessEcsImpact (Unit.impact 10)
                             , fading |> setProcessEcsImpact (Unit.impact 20)
                             ]
-                            |> Expect.within (Expect.Absolute 1) 776
+                            |> Expect.within (Expect.Absolute 1) 793
                         )
                     ]
                 , let
@@ -260,7 +260,7 @@ suite =
                         [ it "should handle impacts+waste when applying transforms: impacts"
                             (withElecAndHeat
                                 |> extractEcsImpact
-                                |> Expect.within (Expect.Absolute 1) 679
+                                |> Expect.within (Expect.Absolute 1) 692
                             )
                         , it "should handle impacts+waste when applying transforms: mass"
                             (withElecAndHeat
@@ -279,7 +279,7 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 401
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
                     )
                 , it "should compute results from decoded component items with custom component elements"
                     (""" [ {
@@ -289,7 +289,7 @@ suite =
                                "elements": [
                                  {
                                    "amount": 0.00044,
-                                   "material": "07e9e916-e02b-45e2-a298-2b5084de6242",
+                                   "material": "fe8a97ba-405a-5542-b1be-bd6983537d58",
                                    "transforms": []
                                  }
                                ]
@@ -300,12 +300,12 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 421
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
                 ]
             , TestUtils.suiteFromResult "computeElementResults"
                 -- setup
-                (Process.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
+                (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
                     |> Result.andThen
                         (\cottonId ->
                             Component.computeElementResults db.processes
@@ -322,7 +322,7 @@ suite =
                     [ it "should compute element impacts"
                         (elementResults
                             |> extractEcsImpact
-                            |> Expect.within (Expect.Absolute 1) 2006
+                            |> Expect.within (Expect.Absolute 1) 2142
                         )
                     , it "should compute element mass"
                         (elementResults
@@ -390,7 +390,7 @@ suite =
                               "elements": [
                                 {
                                   "amount": 0.00044,
-                                  "material": "07e9e916-e02b-45e2-a298-2b5084de6242"
+                                  "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
                                 }
                               ]
                             }
@@ -417,7 +417,7 @@ suite =
                         "elements": [
                           {
                             "amount": 0.00044,
-                            "material": "07e9e916-e02b-45e2-a298-2b5084de6242"
+                            "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
                           }
                         ]
                       }
@@ -452,11 +452,11 @@ suite =
                         "elements": [
                           {
                             "amount": 0.00044,
-                            "material": "07e9e916-e02b-45e2-a298-2b5084de6242"
+                            "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
                           },
                           {
                             "amount": 0.00088,
-                            "material": "3295b2a5-328a-4c00-b046-e2ddeb0da823"
+                            "material": "59b42284-3e45-5343-8a20-1d7d66137461"
                           }
                         ]
                       }
@@ -467,7 +467,7 @@ suite =
                 (\string ->
                     [ it "should serialise an item as a human readable string representation"
                         (Expect.equal string
-                            "1 Custom piece [ 0.00044m3 Planche (bois de feuillus) | 0.00088kg Composant en plastique (PP) ]"
+                            "1 Custom piece [ 0.00044m3 Planche (bois de feuillus) | 0.00088kg Plastique granulé (PP) ]"
                         )
                     ]
                 )
@@ -475,7 +475,7 @@ suite =
                 -- Tissu pour canapé
                 (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
                 -- Steel (valid as a material)
-                (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
+                (getProcessByStringId db "6527710e-2434-5347-9bef-2205e0aa4f66")
                 -- tests
                 (\testComponent material ->
                     [ it "should remove an item element"
@@ -503,7 +503,7 @@ suite =
                 -- Dossier plastique (PP)
                 (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
                 -- Injection moulding
-                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                (getProcessByStringId db "111539de-deea-588a-9581-6f6ceaa2dfa9")
                 -- tests
                 (\testComponent testProcess ->
                     [ it "should remove an element transform"
@@ -531,9 +531,9 @@ suite =
                 -- Dossier plastique (PP)
                 (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
                 -- Steel (valid as a material)
-                (getProcessByStringId db "8b91651b-9651-46fc-8bc2-37a141494086")
+                (getProcessByStringId db "6527710e-2434-5347-9bef-2205e0aa4f66")
                 -- Injection moulding (invalid as a material)
-                (getProcessByStringId db "b1177e7f-e14e-415c-9077-c7063e1ab8cd")
+                (getProcessByStringId db "111539de-deea-588a-9581-6f6ceaa2dfa9")
                 -- tests
                 (\testComponent validTestProcess invalidTestProcess ->
                     [ it "should set a valid element material"

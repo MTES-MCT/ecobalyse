@@ -21,7 +21,8 @@ import Url.Parser as Parser exposing ((</>), Parser)
 
 
 type Route
-    = Api
+    = Admin
+    | Api
     | Auth { authenticated : Bool }
     | Editorial String
     | Explore Scope Dataset
@@ -45,6 +46,7 @@ parser =
           -- Shared routes
           --
           Parser.map Home Parser.top
+        , Parser.map Admin (Parser.s "admin")
         , Parser.map Api (Parser.s "api")
         , Parser.map (Auth { authenticated = True }) (Parser.s "auth" </> Parser.s "authenticated")
         , Parser.map (Auth { authenticated = False }) (Parser.s "auth")
@@ -208,6 +210,9 @@ toString route =
     let
         pieces =
             case route of
+                Admin ->
+                    [ "admin" ]
+
                 Api ->
                     [ "api" ]
 
