@@ -7,22 +7,17 @@ module Page.Home exposing
     , view
     )
 
-import Browser.Events
-import Browser.Navigation as Nav
-import Data.Dataset as Dataset exposing (Dataset)
+import Data.Dataset as Dataset
 import Data.Env as Env
-import Data.Key as Key
-import Data.Scope as Scope exposing (Scope)
+import Data.Scope as Scope
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import Ports
-import Route exposing (Route)
+import Route
 import Views.Container as Container
 import Views.Link as Link
 import Views.Markdown as Markdown
-import Views.Modal as ModalView
 
 
 type alias Model =
@@ -31,9 +26,7 @@ type alias Model =
 
 
 type Msg
-    = LoadRoute Route
-    | NoOp
-    | ScrollIntoView String
+    = NoOp
 
 
 type Modal
@@ -51,14 +44,8 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        LoadRoute route ->
-            ( model, session, Nav.load <| Route.toString route )
-
         NoOp ->
             ( model, session, Cmd.none )
-
-        ScrollIntoView nodeId ->
-            ( model, session, Ports.scrollIntoView nodeId )
 
 
 viewHero : Session -> Modal -> Html Msg
@@ -114,13 +101,11 @@ viewInfo =
         ]
 
 
-viewTools : Session -> Html Msg
-viewTools { enabledSections } =
+viewTools : Html Msg
+viewTools =
     Container.centered []
         [ h3 [ class "mb-2" ] [ text "Les dessous du coût environnemental" ]
         , """Le coût environnemental s'appuie sur la méthodologie d'analyse du cycle de vie PEF (Product Environmental Footprint) complétée sur les aspects qu'elle ne couvre pas encore. Il est issu du travail des pouvoirs publics (ADEME, Ministère de la transition écologique, ...) en s'appuyant sur des experts et des parties prenantes mobilisées notamment lors de phase de concertation. Ce cadre méthodologique est explicité."""
-            |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
-            |> String.replace "{url_account}" (Route.toString <| Route.Auth { authenticated = False })
             |> Markdown.simple []
         , div [ class "d-flex mt-4 gap-3" ]
             [ Link.external
@@ -173,7 +158,7 @@ view session { modal } =
                 [ viewHero session modal ]
             , viewInfo
             , div [ class "bg-light pt-5 pb-5" ]
-                [ viewTools session ]
+                [ viewTools ]
             , div [ class "pt-5 mb-5" ]
                 [ viewContribution ]
             , div [ class "bg-light pt-5 pb-5" ]
