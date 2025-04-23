@@ -661,22 +661,21 @@ setupTestDb db =
                 , woodenBoard
                 , plastic
                 ]
+
+        replace : List { a | id : id } -> List { a | id : id } -> List { a | id : id }
+        replace replacements =
+            List.filter (\{ id } -> replacements |> List.map .id |> List.member id |> not)
+                >> (++) replacements
     in
-    Result.map2
+    Ok
         (\testComponents testProcesses ->
             { db
-                | components =
-                    db.components
-                        |> List.filter (\{ id } -> testComponents |> List.map .id |> List.member id |> not)
-                        |> (++) testComponents
-                , processes =
-                    db.processes
-                        |> List.filter (\{ id } -> testProcesses |> List.map .id |> List.member id |> not)
-                        |> (++) testProcesses
+                | components = db.components |> replace testComponents
+                , processes = db.processes |> replace testProcesses
             }
         )
-        componentFixtures
-        processFixtures
+        |> RE.andMap componentFixtures
+        |> RE.andMap processFixtures
         |> Result.withDefault db
 
 
@@ -799,9 +798,8 @@ injectionMoulding =
                     "tre": 0,
                     "wtu": 0
                 },
-                "name": "injection moulding//[RER] injection moulding",
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": null,
+                "sourceId": "injection moulding//[RER] injection moulding",
                 "unit": "kg",
                 "waste": 0.006
             }
@@ -842,9 +840,8 @@ plastic =
                     "tre": 0,
                     "wtu": 0
                 },
-                "name": "polypropylene, granulate//[RER] polypropylene production, granulate",
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": null,
+                "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
                 "unit": "kg",
                 "waste": 0
             }
@@ -885,9 +882,8 @@ steel =
                     "tre": 0,
                     "wtu": 0
                 },
-                "name": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": null,
+                "sourceId": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
                 "unit": "kg",
                 "waste": 0
             }
@@ -928,9 +924,8 @@ woodenBoard =
                     "tre": 0,
                     "wtu": 0
                 },
-                "name": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": null,
+                "sourceId": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
                 "unit": "m3",
                 "waste": 0
             }
