@@ -97,65 +97,65 @@ load processes =
     in
     Ok WellKnown
         -- airTransport
-        |> fromIdString "247ab69c-daa5-4f81-879f-fac0d33880f2"
+        |> fromIdString "326369d9-792a-5ab5-8276-c54108c80cb1"
         -- bleaching
-        |> fromIdString "5c92e205-3fc7-4890-839f-a91e2442b7fb"
+        |> fromIdString "b4251621-1747-526a-a54f-e4be7500efff"
         -- degreasing
-        |> fromIdString "e04e2729-2489-47ce-b57c-f06a93f5d03b"
+        |> fromIdString "1746b5e1-1d0d-5858-a968-2ade8d778623"
         -- distribution
-        |> fromIdString "463aa3d1-287e-4d4c-a4ed-78d47600a4b1"
+        |> fromIdString "46e96f29-9ca5-5475-bb3c-6397f43b7a5b"
         -- dyeingCellulosic
-        |> fromIdString "da9d1c32-a166-41ab-bac6-f67aff0cf44a"
+        |> fromIdString "c49a5379-95c4-599a-84da-b5faaa345b97"
         -- dyeingProcessAverage
-        |> fromIdString "55bf2578-3195-4ee9-aa5a-03ab2d4738e9"
+        |> fromIdString "b7fa51fc-0421-57b0-bb0a-e0573e293c7a"
         -- dyeingProcessContinuous
-        |> fromIdString "27cd9eb5-85e8-4fda-8fa1-ccb9a2ae118c"
+        |> fromIdString "c8be445c-ae33-5240-9007-e7973e97fc24"
         -- dyeingProcessDiscontinuous
-        |> fromIdString "057eadfc-36a6-4bc7-b691-7075694360ec"
+        |> fromIdString "7e17b44d-108a-504f-9e0d-0cfe5b5db054"
         -- dyeingSynthetic
-        |> fromIdString "ae9cbbad-7982-4f3c-9220-edf27946d347"
+        |> fromIdString "e5e43c57-bd12-5ab7-8a22-7d12cdcece58"
         -- elecMediumTensionAsia
-        |> fromIdString "9c70a439-ee05-4fc4-9598-7448345f7081"
+        |> fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244"
         -- endOfLife
-        |> fromIdString "266fa378-77c0-11ec-90d6-0242ac120003"
+        |> fromIdString "ab96b73f-8534-59ad-9f34-a579abe3b023"
         -- fading
-        |> fromIdString "49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb"
+        |> fromIdString "24edc372-b238-5426-8ac9-059218936641"
         -- finishing
-        |> fromIdString "63baddae-e05d-404b-a73f-371044a24fe9"
+        |> fromIdString "3c66588d-fffb-55cb-b9d5-c197b7e2e591"
         -- heatEurope
-        |> fromIdString "9ad21879-ce00-4d50-b1d8-c719585e24ca"
+        |> fromIdString "f6ea2983-e024-5de2-b323-273f2436deba"
         -- heatRoW
-        |> fromIdString "e70b2dc1-41be-4db6-8267-4e9f4822e8bc"
+        |> fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4"
         -- knittingCircular
-        |> fromIdString "2e16787c-7a89-4883-acdf-37d3d362bdab"
+        |> fromIdString "ddcf4b23-1283-57d3-854b-be3121452d50"
         -- knittingFullyFashioned
-        |> fromIdString "6524ac1e-cc95-4b5a-b462-2fccad7a0bce"
+        |> fromIdString "66ef36be-7691-5adc-a684-e83d45e53452"
         -- knittingMix
-        |> fromIdString "9c478d79-ff6b-45e1-9396-c3bd897faa1d"
+        |> fromIdString "29dc6c73-8d82-5056-8ac0-faf212bc0367"
         -- knittingSeamless
-        |> fromIdString "11648b33-f117-4eca-bb09-233c0ad0757f"
+        |> fromIdString "b2dba726-83d2-55b2-8107-91c9e47bdca7"
         -- knittingStraight
-        |> fromIdString "364298ad-2058-4ec4-b2d0-47f5214abffb"
+        |> fromIdString "8343adad-0350-5895-a701-4db41a235ba9"
         -- passengerCar
-        |> fromIdString "1ead35dd-fc71-4b0c-9410-7e39da95c7dc"
+        |> fromIdString "2fd6b74f-600a-577c-ba37-b84d8f0482c2"
         -- printingDyes
-        |> fromIdString "859a3065-416a-4506-a667-1de480938ba5"
+        |> fromIdString "cfdc5e31-25fc-56ff-9a54-04670ecad301"
         -- printingPaste
-        |> fromIdString "d66055e3-34eb-4343-8192-fb21be40063b"
+        |> fromIdString "97c209ec-7782-5a29-8c47-af7f17c82d11"
         -- printingPigment
-        |> fromIdString "710987ca-f483-4f1c-9122-38b620f4062b"
+        |> fromIdString "9418bfb4-34e5-5bba-920f-b50e2feff1bd"
         -- printingSubstantive
-        |> fromIdString "0810b8e5-a3d9-4607-bccc-83d112573260"
+        |> fromIdString "5c21e378-b941-57f7-98c9-67345847dbda"
         -- roadTransport
-        |> fromIdString "463aa3d1-287e-4d4c-a4ed-78d47600a4b1"
+        |> fromIdString "46e96f29-9ca5-5475-bb3c-6397f43b7a5b"
         -- seaTransport
-        |> fromIdString "b5ae1d24-51ca-4867-b487-abee44e72858"
+        |> fromIdString "20a62b2c-a543-5076-83aa-c5b7d340206a"
         -- trainTransport
-        |> fromIdString "f3735a48-3438-4523-8263-5cb101597d82"
+        |> fromIdString "cdc841c2-493f-56d6-8fc2-ae5fad2a4917"
         -- washingSyntheticFibers
-        |> fromIdString "47d32919-d66c-47de-8fe8-d4f361bb4af9"
+        |> fromIdString "7cdc9616-7fb4-5a69-9436-78e5b84ebf31"
         -- weaving
-        |> fromIdString "f9686809-f55e-4b96-b1f0-3298959de7d0"
+        |> fromIdString "235b3488-6157-50ed-b74a-45e5d447dd85"
 
 
 weavingElecPPPM : Float

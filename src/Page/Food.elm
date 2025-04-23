@@ -708,7 +708,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
             SetModal (AddIngredientModal (Just recipeIngredient) autocompleteState)
     , toId = .id >> Ingredient.idToString
     , toString = .name
-    , toTooltip = .default >> .name
+    , toTooltip = .process >> .name
     , update =
         \_ newElement ->
             UpdateIngredient
