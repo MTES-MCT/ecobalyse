@@ -1,7 +1,7 @@
 # 📦 Etape 3 : emballage
 
 {% hint style="danger" %}
-La modélisation des emballages dans Ecobalyse sera amenée à évoluer très prochainement avec l'intégration du travail du CTCPA réalisé dans le cadre du projet Pack AGB.&#x20;
+La modélisation des emballages dans Ecobalyse sera amenée à évoluer très prochainement avec l'intégration du travail du CTCPA réalisé dans le cadre du projet Pack AGB (co-financement Ademe/CTCPA).&#x20;
 {% endhint %}
 
 Aujourd'hui, la modélisation de l'étape emballages dans l'outil se fait selon 2 paramètres :&#x20;
