@@ -2,6 +2,7 @@ module Data.Process exposing
     ( Id
     , Process
     , available
+    , decode
     , decodeFromId
     , decodeId
     , decodeList
@@ -87,8 +88,8 @@ sourceIdToString (SourceId string) =
     string
 
 
-decodeProcess : List Scope -> Decoder Impact.Impacts -> Decoder Process
-decodeProcess scopes impactsDecoder =
+decode : List Scope -> Decoder Impact.Impacts -> Decoder Process
+decode scopes impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
@@ -137,7 +138,7 @@ decodeSourceId =
 
 decodeList : List Scope -> Decoder Impact.Impacts -> Decoder (List Process)
 decodeList scopes =
-    decodeProcess scopes >> Decode.list
+    decode scopes >> Decode.list
 
 
 encodeId : Id -> Encode.Value
