@@ -59,17 +59,17 @@ viewHero { enabledSections } modal =
                     |> Markdown.simple []
                 ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
-                [ a [ class "btn btn-lg btn-primary", Route.href Route.TextileSimulatorHome ]
-                    [ text "Calculer l'impact d'un vêtement" ]
+                [ a [ class "btn btn-lg btn-primary d-flex align-items-center justify-content-center", Route.href Route.TextileSimulatorHome ]
+                    [ text "Calculer l’impact d’un vêtement" ]
                 , if enabledSections.food then
                     a [ class "btn btn-lg btn-outline-primary", Route.href Route.FoodBuilderHome ]
-                        [ text "Consulter l'impact de l'alimentation", br [] [], Html.cite [ class "fw-normal fs-7 d-block" ] [ text "Méthodologie en concertation" ] ]
+                        [ text "Calculer l’impact de l’alimentation", br [] [], Html.cite [ class "fw-normal fs-7 d-block" ] [ text "Méthodologie en concertation" ] ]
 
                   else
                     text ""
                 , if enabledSections.objects then
                     a [ class "btn btn-lg btn-outline-primary", Route.href (Route.ObjectSimulatorHome Scope.Object) ]
-                        [ text "Calculateur objets"
+                        [ text "Calculer l’impact d’un objet"
                         , Html.cite [ class "fw-normal fs-7 d-block" ] [ text "Simulateur en construction" ]
                         ]
 
@@ -88,12 +88,12 @@ viewInfo =
     Container.centered [ id "decouvrir-ecobalyse", class "overlappedImage" ]
         [ img
             [ src "img/illustration-score.png"
-            , alt "Une étiquette présentant différents scores d'impact environnemental"
+            , alt "Une étiquette présentant différents scores d’impact environnemental"
             ]
             []
         , div [ class "d-flex flex-column gap-2" ]
             [ h3 [ class "mb-1" ] [ text "En savoir plus sur les données et les impacts\u{202F}?" ]
-            , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l'explorateur\u{202F}]({url_explorer}). Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
+            , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}). Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
                 |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
                 |> String.replace "{url_account}" (Route.toString <| Route.Auth { authenticated = False })
                 |> Markdown.simple []
@@ -105,7 +105,7 @@ viewTools : Html Msg
 viewTools =
     Container.centered []
         [ h3 [ class "mb-2" ] [ text "Les dessous du coût environnemental" ]
-        , """Le coût environnemental s'appuie sur la méthodologie d'analyse du cycle de vie PEF (Product Environmental Footprint) complétée sur les aspects qu'elle ne couvre pas encore. Il est issu du travail des pouvoirs publics (ADEME, Ministère de la transition écologique, ...) en s'appuyant sur des experts et des parties prenantes mobilisées notamment lors de phase de concertation. Ce cadre méthodologique est explicité."""
+        , """Le coût environnemental s’appuie sur la méthodologie d’analyse du cycle de vie PEF (Product Environmental Footprint) complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics (ADEME, Ministère de la transition écologique, ...) en s’appuyant sur des experts et des parties prenantes mobilisées notamment lors de phase de concertation. Ce cadre méthodologique est explicité."""
             |> Markdown.simple []
         , div [ class "d-flex mt-4 gap-3" ]
             [ Link.external
@@ -141,7 +141,7 @@ viewApi : Html Msg
 viewApi =
     Container.centered []
         [ h3 [ class "mb-2" ] [ text "Accéder au coût environnemental à travers notre API" ]
-        , """[L'API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits. Elle est expérimentale et donc ne garantit pas de continuité de service à ce stade."""
+        , """[L’API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits. Elle est expérimentale et donc ne garantit pas de continuité de service à ce stade."""
             |> String.replace "{api_url}" (Route.toString <| Route.Api)
             |> Markdown.simple []
         , """Des questions\u{202F}? Consultez notre [\u{202F}FAQ API Ecobalyse\u{202F}]({api_faq_url})."""
