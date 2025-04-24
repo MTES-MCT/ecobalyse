@@ -186,7 +186,7 @@ suite =
                                         |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                               }
                             ]
-                            |> Expect.within (Expect.Absolute 1) 391
+                            |> Expect.within (Expect.Absolute 1) 383
                         )
                     , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                         (getTestEcsImpact
@@ -200,7 +200,7 @@ suite =
                             [ fading |> setProcessEcsImpact (Unit.impact 10)
                             , fading |> setProcessEcsImpact (Unit.impact 20)
                             ]
-                            |> Expect.within (Expect.Absolute 1) 793
+                            |> Expect.within (Expect.Absolute 1) 776
                         )
                     ]
                 , let
@@ -260,7 +260,7 @@ suite =
                         [ it "should handle impacts+waste when applying transforms: impacts"
                             (withElecAndHeat
                                 |> extractEcsImpact
-                                |> Expect.within (Expect.Absolute 1) 692
+                                |> Expect.within (Expect.Absolute 1) 679
                             )
                         , it "should handle impacts+waste when applying transforms: mass"
                             (withElecAndHeat
@@ -279,7 +279,7 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 287
                     )
                 , it "should compute results from decoded component items with custom component elements"
                     (""" [ {
@@ -300,7 +300,7 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 307
                     )
                 ]
             , TestUtils.suiteFromResult "computeElementResults"
@@ -322,7 +322,7 @@ suite =
                     [ it "should compute element impacts"
                         (elementResults
                             |> extractEcsImpact
-                            |> Expect.within (Expect.Absolute 1) 2142
+                            |> Expect.within (Expect.Absolute 1) 2006
                         )
                     , it "should compute element mass"
                         (elementResults
