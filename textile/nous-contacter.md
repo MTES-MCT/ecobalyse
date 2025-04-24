@@ -17,3 +17,7 @@ Pour toutes questions et/ou contributions sur la base de données => contacter l
 ## :desktop: Calculateur / API
 
 Pour toutes questions concernant l'outil de calcul Ecobalyse => contacter l'équipe Ecobalyse par mail à l'adresse suivante : _ecobalyse@beta.gouv.fr_ .&#x20;
+
+## :flag\_fr: Déploiement de l'affichage environnemental et a**spects réglementaires**
+
+Pour les questions concernant le dispositif d'affichage environnemental dans son ensemble (ex: logo, reglementation etc.), vous pouvez vous référer au site web dédié [https://affichage-environnemental.ademe.fr/](https://affichage-environnemental.ademe.fr/) et nous contacter sur **:** _affichage-environnemental@ademe.fr_
