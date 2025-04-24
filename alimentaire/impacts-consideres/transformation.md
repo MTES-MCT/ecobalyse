@@ -2,14 +2,22 @@
 description: Choix des procédés de transformation du produit alimentaire modélisé
 ---
 
-# 🥧 Paramétrage de la transformation (issu de OLD : à vérifier)
+# 🥧 Etape 2 : transformation
 
-La seconde étape du paramétrage d'un produit alimentaire dans Ecobalyse est le choix des procédés de transformation : cuisson, mise en boîte ...
+{% hint style="info" %}
+La modélisation de l'étape transformation va être amenée à évoluer dans les prochains mois afin de proposer plus de choix à l'utilisateur.
+{% endhint %}
+
+La seconde étape du paramétrage d'un produit alimentaire dans Ecobalyse est le choix des procédés de transformation.
 
 Le paramétrage se fait à travers :&#x20;
 
-* le choix d'un procédé de transformation (optionnel) ==> en première approche, le choix d'un seul procédé est possible
+* le choix d'un procédé de transformation (optionnel) => en première approche, le choix d'un seul procédé est possible
 * pour chaque procédé de transformation, le paramétrage de la masse mobilisée, exprimée en grammes (g)
+
+{% hint style="warning" %}
+Le nombre de procédés de transformation est limité à ce stade. Seuls les procédés correspondant à la **dernière** transformation d'un produit sont proposés : cuisson, mise en conserve et mélange. En effet, il est considéré, en première approche, que les autres transformations peuvent être intégrées à la phase ingrédient.
+{% endhint %}
 
 {% hint style="danger" %}
 Certains produits CIQUAL proposés dans la base Agribalyse mobilisent deux procédés de transformation \[_**préciser combien ?**_]. Il pourra être envisagé, dans un second temps, de rendre possible l'ajout d'un second procédé de transformation.
