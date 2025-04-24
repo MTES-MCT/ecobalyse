@@ -8,7 +8,7 @@ description: >-
 
 ## :bulb: Méthode de calcul
 
-Pour toutes questions et/ou contributions sur la méthode de calcul => rdv sur la plateforme collaborative Mattermost ([ici](https://chat.ecobalyse.fr/)).
+Pour toutes questions et/ou contributions sur la méthode de calcul => rdv sur la plateforme collaborative Mattermost ([ici](https://chat.ecobalyse.fr/)) ou contactez nous via mail sur : _affichage-environnemental@ademe.fr_
 
 ## :mag: Base de données (Base Empreinte)
 
