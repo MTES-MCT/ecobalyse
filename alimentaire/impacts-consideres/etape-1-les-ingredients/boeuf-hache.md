@@ -25,9 +25,9 @@ $$
 
 * Ainsi que de procédés d'abattage et de hachage : &#x20;
 
-<figure><img src="../../../.gitbook/assets/beef (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/beef (1).png" alt=""><figcaption><p>Arborescence SimaPro du procédé <em>Ground beef, fresh, case ready, for direct consumption, at plant</em> </p></figcaption></figure>
 
-On construit différents procédés de boeuf haché **(N)**, sur la base du procédé de référence ('Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None!), en appliquant les opérations d'abattage à différents procédés de boeuf **(N)**.
+On construit différents procédés de boeuf haché **(N)**, sur la base du procédé de référence ('Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None!), en appliquant les opérations d'abattage/hachage à différents procédés de boeuf **(N).**
 
 $$
 ImpactBoeufHache_N = (ImpactBoeufHacheREF - ImpactBoeufREF )+ImpactBoeuf_N
@@ -35,14 +35,9 @@ $$
 
 ### Procédés retenus
 
-| Label / Origine        | France                                                                                                                                                                                  | Autres pays                                                                                                                                                                             |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p><strong>BoeufHacheREF</strong><br>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Boeuf : Beef cattle, national average, at farm gate</p> | <p><strong>BoeufHacheREF</strong><br>'Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None)<br>Boeuf : Beef cattle, national average, at farm gate</p> |
-| Agriculture biologique | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, national average, at farm gate/FR U*</p>                                             | <p><strong>BoeufHacheBio</strong><br>Procédé construit (cf. formule)<br>Boeuf : Cull cow, organic, national average, at farm gate/FR U*</p>                                             |
+<table><thead><tr><th width="453.5">Variante de boeuf haché (BoeufHache(N))</th><th>Procédé sortie de ferme mobilisé</th></tr></thead><tbody><tr><td><p><strong>Boeuf haché FR</strong></p><p><code>BoeufHacheREF</code><br><em>Procédé Agribalyse</em> : 'Ground beef, fresh, case ready, for direct consumption, at plant' </p></td><td><p><code>BoeufREF</code></p><p>Beef cattle, national average, at farm gate</p></td></tr><tr><td><p><strong>Boeuf haché par défaut</strong></p><p><code>BoeufHacheDefaut</code><br><em>Procédé construit</em> : 'Ground beef, fresh, case ready, for direct consumption, at plant, constructed by Ecobalyse' </p></td><td><code>BoeufDefaut</code></td></tr><tr><td><p><strong>Boeuf haché bio</strong></p><p><code>BoeufHacheBio</code><br><em>Procédé construit</em> : 'Ground beef, fresh, case ready, for direct consumption, at plant, constructed by Ecobalyse' </p></td><td><p><code>BoeufBio</code></p><p>Cull cow, organic, national average, at farm gate/FR U, constructed by Ecobalyse*</p></td></tr></tbody></table>
 
-\*Le procédé boeuf bio mobilisé (1kg de **Cull cow, organic, national average, at farm gate/FR U)** est lui même construit (cf. [partie dédiée](broken-reference)). Il correspond à une moyenne pondérée des ICV du tableau suivant.&#x20;
-
-<table><thead><tr><th width="319">ICV constitutifs de l'ICV moyen</th><th>Quantité de l'ICV dans l'ICV moyen</th></tr></thead><tbody><tr><td>Cull cow, organic, milk system n°1, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Cull cow, organic, milk system n°2, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Cull cow, organic, milk system n°3, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Cull cow, organic, milk system n°4, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Cull cow, organic, milk system n°5, at farm gate/FR U</td><td>0,157 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°1, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°2, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°3, at farm gate/FR U</td><td>0,088 kg</td></tr><tr><td>Suckler cull cow, organic, suckler cow system n°4, at farm gate/FR U</td><td>0,088 kg</td></tr></tbody></table>
+\*Le procédé boeuf bio sortie de ferme mobilisé (Cull cow, organic, national average, at farm gate/FR U, constructed by Ecobalyse) est lui même construit (cf. [partie dédiée](impacts-consideres-1.md)). Il correspond à une moyenne pondérée de plusieurs ICV.&#x20;
 
 ## Exemple de la construction de l'ingrédient industrie farine à partir du blé tendre
 
@@ -54,9 +49,9 @@ $$
 FarineREF
 $$
 
-Ce procédé est construit à partir :&#x20;
+Cet ICV est construit à partir des procédés :&#x20;
 
-* d'un [blé tendre](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/ingredients-agricoles/ble-tendre) \[at farm] --> Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate
+* Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate
 
 $$
 BléREF
@@ -64,7 +59,7 @@ $$
 
 * d'opérations industrielles : mouture (milling), réception, prélavage, stockage.&#x20;
 
-<figure><img src="../../../.gitbook/assets/Image collée à 2022-11-9 17-42.png" alt=""><figcaption><p>Arborescence du procédé Wheat flour at industrial mill</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Image collée à 2022-11-9 17-42.png" alt=""><figcaption><p>Arborescence SimaPro du procédé <em>Wheat flour at industrial mill</em></p></figcaption></figure>
 
 On construit différents procédés de farine **(N)**, sur la base du procédé de référence (Wheat flour at industrial mill), en appliquant les opérations industrielles à différents procédés de blé tendre **(N)**.
 
@@ -72,10 +67,8 @@ $$
 ImpactFarine_N = (ImpactFarineREF - ImpactBléREF )+ImpactBlé_N
 $$
 
-## Procédés retenus
+### Procédés retenus
 
-| Label / Origine        | France                                                                                                                                                        | Autres pays                                                                                                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p> | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p> |
-| Agriculture biologique | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : procédé construit pour le <a href="broken-reference">blé tendre bio</a></p>         | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : procédé construit pour le <a href="broken-reference">blé tendre bio</a></p>         |
+<table><thead><tr><th width="453.5">Variante de farine (Farine(N))</th><th>Procédé blé sortie de ferme mobilisé</th></tr></thead><tbody><tr><td><p><strong>Farine FR</strong></p><p><code>FarineREF</code><br><em>Procédé Agribalyse</em> : 'Wheat flour, at industrial mill'</p></td><td><p><code>BléREF</code></p><p>'Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate'</p></td></tr><tr><td><p><strong>Farine par défaut</strong></p><p><code>FarineDefaut</code><br><em>Procédé construit</em> : 'Wheat flour, at industrial mill, constructed by Ecobalyse' </p></td><td><code>BléDefaut</code></td></tr><tr><td><p><strong>Farine bio</strong></p><p><code>FarineBio</code><br><em>Procédé construit</em> : 'Wheat flour, at industrial mill, constructed by Ecobalyse' </p></td><td><p><code>BléBio</code></p><p>'Wheat, organic, national average, at farm gate/FR U, constructed by Ecobalyse*'</p></td></tr></tbody></table>
 
+\*Le procédé blé tendre bio sortie de ferme mobilisé (Wheat, organic, national average, at farm gate/FR U, constructed by Ecobalys&#x65;**)** est lui même construit (cf. [partie dédiée](impacts-consideres-1.md)). Il correspond à une moyenne pondérée de plusieurs ICV.&#x20;
