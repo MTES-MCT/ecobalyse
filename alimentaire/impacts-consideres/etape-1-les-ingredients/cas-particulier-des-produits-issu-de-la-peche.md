@@ -1,5 +1,5 @@
 ---
-description: 'À noter : Cette page ne concerne pas les produits de la pisciculture.'
+description: 'À noter : Cette page ne concerne pas les produits de l''aquaculture.'
 ---
 
 # 🐟 Cas particulier des produits issu de la pêche
@@ -12,9 +12,9 @@ Les produits de la mer portent cependant des enjeux spécifiques en termes de bi
 * l'impact sur les habitats et les fonds marins (ex. : chalut),
 * les captures accessoires involontaires (ex. : tortues, cétacés).
 
-Ces dimensions doivent être intégrées dans le coût environnemental à terme. À ce jour, nous n'avons cependant pas de métrique stabilisée intégrable dans le dispositif, et nous menons encore des travaux de R\&D.
+Ces dimensions doivent être intégrées dans le coût environnemental à terme. À ce jour, nous n'avons cependant pas de métrique stabilisée intégrable dans le dispositif, et nous menons encore des travaux en ce sens.
 
-Au regard de cette situation, il est fortement déconseillé de scorer les produits de la mer "bruts" ainsi que les produits pour lesquels les produits de la mer reflètent une part majoritaire de la composition (ex. : brandade de morue).
+Au regard de cette situation, il est fortement déconseillé de scorer les produits de la mer "bruts" ainsi que les produits composés majoritairement d'ingrédients de la mer (ex. : brandade de morue).
 
 Il est par contre possible de scorer les produits pour lesquels les poissons représentent moins de 30 % en masse du produit final (ex. : pizza aux anchois), tout en ayant conscience de la non-prise en compte de la biodiversité marine à ce stade.
 
