@@ -63,7 +63,7 @@
     * [🐟 Cas particulier des produits issu de la pêche](alimentaire/impacts-consideres/etape-1-les-ingredients/cas-particulier-des-produits-issu-de-la-peche.md)
     * [🐄 Ingrédients - cas des ingrédients transformés construits par Ecobalyse](alimentaire/impacts-consideres/etape-1-les-ingredients/boeuf-hache.md)
   * [🥧 Etape 2 : transformation](alimentaire/impacts-consideres/transformation.md)
-  * [📦 Etape 3 : emballage](alimentaire/impacts-consideres/etape-3-emballage.md)
+  * [📦 Etape 3 : emballages](alimentaire/impacts-consideres/etape-3-emballages.md)
   * [Etape 4 : distribution](alimentaire/impacts-consideres/etape-4-distribution.md)
   * [Etape 5 : consommation](alimentaire/impacts-consideres/etape-5-consommation.md)
   * [🚛 Transport](alimentaire/impacts-consideres/transport.md)
