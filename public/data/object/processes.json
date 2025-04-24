@@ -10,7 +10,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 23486.5,
+      "ecs": 23061.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24,15 +24,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 27164.7,
+      "pef": 26628.7,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
     "unit": "m3",
     "waste": 0
   },
@@ -47,7 +46,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 164.291,
+      "ecs": 162.333,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -61,15 +60,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 190.371,
+      "pef": 187.904,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "polypropylene, granulate//[RER] polypropylene production, granulate",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
     "unit": "kg",
     "waste": 0
   },
@@ -84,7 +82,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 73.455,
+      "ecs": 67.1518,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -98,15 +96,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 78.7193,
+      "pef": 70.771,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "injection moulding//[RER] injection moulding",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "injection moulding//[RER] injection moulding",
     "unit": "kg",
     "waste": 0.006
   }

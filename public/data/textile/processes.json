@@ -10,7 +10,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 62.2786,
+      "ecs": 58.0561,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24,15 +24,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 67.1731,
+      "pef": 61.8477,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[RAS] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[RAS] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -47,7 +46,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 50.8426,
+      "ecs": 47.5021,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -61,15 +60,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 57.1234,
+      "pef": 52.9104,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[RAF] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[RAF] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -84,7 +82,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 51.7525,
+      "ecs": 51.5514,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -98,15 +96,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 53.7659,
+      "pef": 53.5123,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[RME] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[RME] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -121,7 +118,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 24.9513,
+      "ecs": 24.0977,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -135,15 +132,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 26.4868,
+      "pef": 25.4103,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[RLA] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[RLA] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -158,7 +154,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 31.3416,
+      "ecs": 27.8735,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -172,15 +168,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 34.4231,
+      "pef": 30.0497,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[RNA] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[RNA] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -195,7 +190,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 74.8368,
+      "ecs": 55.2631,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -209,15 +204,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 82.5896,
+      "pef": 57.9026,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[AU] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[AU] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -232,7 +226,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 63.9267,
+      "ecs": 61.7867,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -246,15 +240,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 68.7719,
+      "pef": 66.0731,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -269,7 +262,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.2216,
+      "ecs": 8.65992,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -283,15 +276,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 11.7929,
+      "pef": 8.56203,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[AL] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[AL] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -306,7 +298,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 17.3344,
+      "ecs": 17.2146,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -320,15 +312,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 19.0446,
+      "pef": 18.8936,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[PE] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[PE] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -343,7 +334,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.0875,
+      "ecs": 8.65407,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -357,15 +348,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 10.542,
+      "pef": 8.73413,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[NZ] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[NZ] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -380,7 +370,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 61.7583,
+      "ecs": 57.3595,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -394,15 +384,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 67.2229,
+      "pef": 61.675,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[MA] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[MA] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -417,7 +406,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.731,
+      "ecs": 15.5633,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -431,15 +420,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 15.1417,
+      "pef": 14.9301,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[KE] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[KE] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -454,7 +442,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25.3722,
+      "ecs": 24.5954,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -468,15 +456,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 27.3028,
+      "pef": 26.3232,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[IT] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[IT] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -491,7 +478,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 30.1148,
+      "ecs": 26.1578,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -505,15 +492,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 33.3082,
+      "pef": 28.3184,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[RER] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -528,7 +514,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.4803,
+      "ecs": 21.8556,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -542,15 +528,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 24.6387,
+      "pef": 23.8516,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[ES] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[ES] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -565,7 +550,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 17.9125,
+      "ecs": 17.8202,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -579,15 +564,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 21.0297,
+      "pef": 20.9158,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[FR] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[FR] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -602,7 +586,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 23.3549,
+      "ecs": 22.4413,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -616,15 +600,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 25.2851,
+      "pef": 24.1328,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[MM] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[MM] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -639,7 +622,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 92.7685,
+      "ecs": 77.4172,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -653,15 +636,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 101.3,
+      "pef": 81.9383,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[IN] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[IN] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -696,9 +678,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Elasthane (Lycra)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Elasthane (Lycra)",
     "unit": "kg",
     "waste": 0
   },
@@ -713,7 +694,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 490.732,
+      "ecs": 492.401,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -727,15 +708,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 545.821,
+      "pef": 547.929,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
     "unit": "kg",
     "waste": 0
   },
@@ -750,7 +730,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 457.121,
+      "ecs": 447.134,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -764,15 +744,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 249.257,
+      "pef": 236.656,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "fibre, jute//[RoW] fibre production, jute, retting",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "fibre, jute//[RoW] fibre production, jute, retting",
     "unit": "kg",
     "waste": 0
   },
@@ -787,7 +766,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 197.72,
+      "ecs": 193.074,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -801,15 +780,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 220.742,
+      "pef": 214.883,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "polypropylene, granulate//[RoW] polypropylene production, granulate",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "polypropylene, granulate//[RoW] polypropylene production, granulate",
     "unit": "kg",
     "waste": 0
   },
@@ -824,7 +802,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 277.961,
+      "ecs": 270.574,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -838,15 +816,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 306.877,
+      "pef": 297.56,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous",
     "unit": "kg",
     "waste": 0
   },
@@ -861,7 +838,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 132.513,
+      "ecs": 118.545,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -875,15 +852,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 138.246,
+      "pef": 120.624,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled",
     "unit": "kg",
     "waste": 0
   },
@@ -898,7 +874,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 511.462,
+      "ecs": 515.732,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -912,15 +888,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 562.549,
+      "pef": 567.942,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "nylon 6-6//[RoW] nylon 6-6 production",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "nylon 6-6//[RoW] nylon 6-6 production",
     "unit": "kg",
     "waste": 0
   },
@@ -935,7 +910,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 260.846,
+      "ecs": 235.045,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -949,15 +924,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 256.371,
+      "pef": 223.814,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "fibre, flax//[RoW] fibre production, flax, retting",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "fibre, flax//[RoW] fibre production, flax, retting",
     "unit": "kg",
     "waste": 0
   },
@@ -972,7 +946,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2805.12,
+      "ecs": 2800.12,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -986,15 +960,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 2967.42,
+      "pef": 2961.14,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "wool; sheep; production mix; at farm; 1 kg greasy wool",
     "source": "Woolmark",
-    "sourceId": null,
+    "sourceId": "wool; sheep; production mix; at farm; 1 kg greasy wool",
     "unit": "kg",
     "waste": 0
   },
@@ -1029,9 +1002,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Laine nouvelle filière",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Laine nouvelle filière",
     "unit": "kg",
     "waste": 0
   },
@@ -1046,7 +1018,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1633.15,
+      "ecs": 1513.57,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1060,15 +1032,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 571.07,
+      "pef": 424.736,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "fibre, cotton//[RoW] fibre production, cotton, ginning",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "fibre, cotton//[RoW] fibre production, cotton, ginning",
     "unit": "kg",
     "waste": 0
   },
@@ -1083,7 +1054,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 453.448,
+      "ecs": 452.451,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1097,15 +1068,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 533.165,
+      "pef": 531.908,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
     "unit": "kg",
     "waste": 0
   },
@@ -1120,7 +1090,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 294.32,
+      "ecs": 285.718,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1134,15 +1104,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 50.3636,
+      "pef": 39.5088,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "sunn hemp plant, harvested//[RoW] sunn hemp production",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "sunn hemp plant, harvested//[RoW] sunn hemp production",
     "unit": "kg",
     "waste": 0
   },
@@ -1157,7 +1126,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 352.254,
+      "ecs": 337.597,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1171,15 +1140,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 352.059,
+      "pef": 333.575,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "fibre, viscose//[GLO] market for fibre, viscose",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "fibre, viscose//[GLO] market for fibre, viscose",
     "unit": "kg",
     "waste": 0
   },
@@ -1214,9 +1182,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Production de coton recyclé (déchets post-consommation)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Production de coton recyclé (déchets post-consommation)",
     "unit": "kg",
     "waste": 0
   },
@@ -1251,9 +1218,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Production de coton recyclé (déchets de production)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Production de coton recyclé (déchets de production)",
     "unit": "kg",
     "waste": 0
   },
@@ -1288,9 +1254,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
     "unit": "kg",
     "waste": 0.05446
   },
@@ -1325,9 +1290,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tricotage fully-fashioned",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Tricotage fully-fashioned",
     "unit": "kg",
     "waste": 0.005
   },
@@ -1362,9 +1326,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tricotage seamless",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Tricotage seamless",
     "unit": "kg",
     "waste": 0.005
   },
@@ -1399,9 +1362,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tissage (habillement)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Tissage (habillement)",
     "unit": "kg",
     "waste": 0.06253
   },
@@ -1436,9 +1398,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Teinture en continu",
     "source": "Ecobalyse",
-    "sourceId": null,
+    "sourceId": "Teinture en continu",
     "unit": "kg",
     "waste": 0
   },
@@ -1473,9 +1434,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Teinture en discontinu",
     "source": "Ecobalyse",
-    "sourceId": null,
+    "sourceId": "Teinture en discontinu",
     "unit": "kg",
     "waste": 0
   },
@@ -1510,9 +1470,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Teinture moyenne",
     "source": "Ecobalyse",
-    "sourceId": null,
+    "sourceId": "Teinture moyenne",
     "unit": "kg",
     "waste": 0
   },
@@ -1527,7 +1486,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.30435,
+      "ecs": 1.30009,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1541,15 +1500,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 1.42976,
+      "pef": 1.42439,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1564,7 +1522,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 59.3716,
+      "ecs": 59.2426,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1578,15 +1536,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 57.1656,
+      "pef": 57.003,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1601,7 +1558,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.47026,
+      "ecs": 5.34268,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1615,15 +1572,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 5.81384,
+      "pef": 5.65293,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "transport, freight train//[GLO] market group for transport, freight train",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "transport, freight train//[GLO] market group for transport, freight train",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1638,7 +1594,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.5347,
+      "ecs": 15.3755,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1652,15 +1608,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 13.8806,
+      "pef": 13.6798,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "transport, freight, lorry, unspecified//[GLO] market group for transport, freight, lorry, unspecified",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "transport, freight, lorry, unspecified//[GLO] market group for transport, freight, lorry, unspecified",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1695,9 +1650,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
     "source": "Base Impacts 2.01",
-    "sourceId": null,
+    "sourceId": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -1712,7 +1666,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 33.0178,
+      "ecs": 32.8858,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1726,15 +1680,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 36.0808,
+      "pef": 35.9144,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[TN] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[TN] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -1749,7 +1702,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 45.8164,
+      "ecs": 37.4624,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1763,15 +1716,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 50.1749,
+      "pef": 39.6386,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[TR] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[TR] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -1786,7 +1738,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 51.1204,
+      "ecs": 49.2444,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1800,15 +1752,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 54.1096,
+      "pef": 51.7436,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[BD] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[BD] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -1823,7 +1774,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.1982,
+      "ecs": 13.9249,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1837,15 +1788,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 15.2674,
+      "pef": 14.9228,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[BR] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[BR] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -1860,7 +1810,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 56.0984,
+      "ecs": 43.0078,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1874,15 +1824,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 61.5472,
+      "pef": 45.0381,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[CZ] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[CZ] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -1897,7 +1846,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.59423,
+      "ecs": 2.49984,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1911,15 +1860,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 2.41039,
+      "pef": 2.29134,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[ET] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[ET] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -1934,7 +1882,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 57.3467,
+      "ecs": 44.4998,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1948,15 +1896,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 62.2129,
+      "pef": 46.01,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[KH] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[KH] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -1971,7 +1918,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 39.3815,
+      "ecs": 32.7715,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1985,15 +1932,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 44.0966,
+      "pef": 35.7615,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[SK] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[SK] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -2008,7 +1954,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 35.4772,
+      "ecs": 34.6337,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2022,15 +1968,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 37.9128,
+      "pef": 36.8492,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[PK] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[PK] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -2045,7 +1990,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 33.0996,
+      "ecs": 29.4638,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2059,15 +2004,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 36.2986,
+      "pef": 31.7137,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[US] market group for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[US] market group for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -2082,7 +2026,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 44.9525,
+      "ecs": 41.8714,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2096,15 +2040,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 48.9171,
+      "pef": 45.0312,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "electricity, medium voltage//[VN] market for electricity, medium voltage",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "electricity, medium voltage//[VN] market for electricity, medium voltage",
     "unit": "kWh",
     "waste": 0
   },
@@ -2139,9 +2082,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mix chaleur (Europe)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Mix chaleur (Europe)",
     "unit": "MJ",
     "waste": 0
   },
@@ -2176,9 +2118,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mix chaleur (Monde)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Mix chaleur (Monde)",
     "unit": "MJ",
     "waste": 0
   },
@@ -2213,9 +2154,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Utilisation : Impact hors repassage (Chemisier)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Utilisation : Impact hors repassage (Chemisier)",
     "unit": "kg",
     "waste": 0
   },
@@ -2250,9 +2190,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Utilisation : Impact hors repassage (Jean)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Utilisation : Impact hors repassage (Jean)",
     "unit": "kg",
     "waste": 0
   },
@@ -2287,9 +2226,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Utilisation : Impact hors repassage (Jupe)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Utilisation : Impact hors repassage (Jupe)",
     "unit": "kg",
     "waste": 0
   },
@@ -2324,9 +2262,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Utilisation : Impact hors repassage (Manteau)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Utilisation : Impact hors repassage (Manteau)",
     "unit": "kg",
     "waste": 0
   },
@@ -2361,9 +2298,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Utilisation : Impact hors repassage (Pantalon)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Utilisation : Impact hors repassage (Pantalon)",
     "unit": "kg",
     "waste": 0
   },
@@ -2398,9 +2334,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Utilisation : Impact hors repassage (Pull)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Utilisation : Impact hors repassage (Pull)",
     "unit": "kg",
     "waste": 0
   },
@@ -2435,9 +2370,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Utilisation : Impact hors repassage (Robe)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Utilisation : Impact hors repassage (Robe)",
     "unit": "kg",
     "waste": 0
   },
@@ -2472,9 +2406,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Utilisation : Impact hors repassage (T-shirt)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Utilisation : Impact hors repassage (T-shirt)",
     "unit": "kg",
     "waste": 0
   },
@@ -2509,9 +2442,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "source": "Base Impacts 2.01",
-    "sourceId": null,
+    "sourceId": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "unit": "Item(s)",
     "waste": 0
   },
@@ -2546,9 +2478,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "unit": "kg",
     "waste": 0
   },
@@ -2583,9 +2514,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tricotage rectiligne",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Tricotage rectiligne",
     "unit": "kg",
     "waste": 0.04003
   },
@@ -2620,9 +2550,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Tricotage circulaire",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Tricotage circulaire",
     "unit": "kg",
     "waste": 0.034
   },
@@ -2657,9 +2586,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
     "source": "Base Impacts 2.01",
-    "sourceId": null,
+    "sourceId": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
     "unit": "kg",
     "waste": 0
   },
@@ -2694,9 +2622,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
     "source": "Base Impacts 2.01",
-    "sourceId": null,
+    "sourceId": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
     "unit": "m2",
     "waste": 0
   },
@@ -2731,9 +2658,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
     "source": "Base Impacts 2.01",
-    "sourceId": null,
+    "sourceId": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
     "unit": "m2",
     "waste": 0
   },
@@ -2768,9 +2694,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Apprêts chimiques",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Apprêts chimiques",
     "unit": "kg",
     "waste": 0
   },
@@ -2805,9 +2730,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Teinture fibres synthétiques",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Teinture fibres synthétiques",
     "unit": "kg",
     "waste": 0
   },
@@ -2842,9 +2766,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Teinture fibres cellulosiques",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Teinture fibres cellulosiques",
     "unit": "kg",
     "waste": 0
   },
@@ -2879,9 +2802,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Blanchiment",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Blanchiment",
     "unit": "kg",
     "waste": 0
   },
@@ -2916,9 +2838,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Impression (pigmentaire)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Impression (pigmentaire)",
     "unit": "kg",
     "waste": 0
   },
@@ -2953,9 +2874,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Impression fixé-lavé (colorants)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Impression fixé-lavé (colorants)",
     "unit": "kg",
     "waste": 0
   },
@@ -2970,7 +2890,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 172.068,
+      "ecs": 160.265,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2984,15 +2904,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 200.787,
+      "pef": 185.901,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
     "unit": "kg",
     "waste": 0
   },
@@ -3007,7 +2926,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7767.35,
+      "ecs": 7348.22,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3021,15 +2940,14 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 9232.57,
+      "pef": 8703.94,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "name": "brass//[RoW] market for brass",
     "source": "Ecoinvent 3.9.1",
-    "sourceId": null,
+    "sourceId": "brass//[RoW] market for brass",
     "unit": "kg",
     "waste": 0
   },
@@ -3064,9 +2982,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Désencollage",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Désencollage",
     "unit": "kg",
     "waste": 0
   },
@@ -3101,9 +3018,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Dégraissage",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Dégraissage",
     "unit": "kg",
     "waste": 0
   },
@@ -3138,9 +3054,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Lavage (fibres synthétiques)",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Lavage (fibres synthétiques)",
     "unit": "kg",
     "waste": 0
   },
@@ -3175,9 +3090,8 @@
       "tre": 0,
       "wtu": 0
     },
-    "name": "Mercerisage",
     "source": "Custom",
-    "sourceId": null,
+    "sourceId": "Mercerisage",
     "unit": "kg",
     "waste": 0
   }

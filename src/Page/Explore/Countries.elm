@@ -3,6 +3,7 @@ module Page.Explore.Countries exposing (table)
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset
 import Data.Gitbook as Gitbook
+import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split
 import Data.Transport as Transport
@@ -43,13 +44,13 @@ table distances countries { detailed, scope } =
                 }
             , Just
                 { label = "Mix éléctrique"
-                , toValue = Table.StringValue <| .electricityProcess >> .name
-                , toCell = .electricityProcess >> .name >> text
+                , toValue = Table.StringValue <| .electricityProcess >> Process.getDisplayName
+                , toCell = .electricityProcess >> Process.getDisplayName >> text
                 }
             , Just
                 { label = "Chaleur"
-                , toValue = Table.StringValue <| .heatProcess >> .name
-                , toCell = .heatProcess >> .name >> text
+                , toValue = Table.StringValue <| .heatProcess >> Process.getDisplayName
+                , toCell = .heatProcess >> Process.getDisplayName >> text
                 }
             , if scope == Scope.Textile then
                 Just

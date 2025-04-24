@@ -2,6 +2,7 @@ module Page.Explore.TextileProducts exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Env as Env
+import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Textile.Economics as Economics
@@ -178,8 +179,8 @@ table db { detailed, scope } =
           , toCell = .use >> .ironingElec >> Format.kilowattHours
           }
         , { label = "Procédé d'utilisation hors-repassage**"
-          , toValue = Table.StringValue <| .use >> .nonIroningProcess >> .name
-          , toCell = .use >> .nonIroningProcess >> .name >> withTitle
+          , toValue = Table.StringValue <| .use >> .nonIroningProcess >> Process.getDisplayName
+          , toCell = .use >> .nonIroningProcess >> Process.getDisplayName >> withTitle
           }
         , { label = "Séchage électrique*"
           , toValue = Table.FloatValue <| .use >> .ratioDryer >> Split.toPercent
