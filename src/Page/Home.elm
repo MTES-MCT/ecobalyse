@@ -105,7 +105,8 @@ viewTools : Html Msg
 viewTools =
     Container.centered []
         [ h3 [ class "mb-2" ] [ text "Les dessous du coût environnemental" ]
-        , """Le coût environnemental s’appuie sur la méthodologie d’analyse du cycle de vie PEF (Product Environmental Footprint) complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics (ADEME, Ministère de la transition écologique, ...) en s’appuyant sur des experts et des parties prenantes mobilisées notamment lors de phase de concertation. Ce cadre méthodologique est explicité."""
+        , """Le coût environnemental s’appuie sur la méthodologie d’analyse du cycle de vie PEF (Product Environmental Footprint) complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics (ADEME, Ministère de la transition écologique, ...) en s’appuyant sur des experts et des parties prenantes mobilisées notamment lors de phase de concertation. Ce cadre méthodologique est explicité dans [la page de documentation]({url_gitbook})."""
+            |> String.replace "{url_gitbook}" Env.gitbookUrl
             |> Markdown.simple []
         , div [ class "d-flex mt-4 gap-3" ]
             [ Link.external
@@ -121,7 +122,7 @@ viewContribution : Html Msg
 viewContribution =
     Container.centered []
         [ h3 [ class "mb-2" ] [ text "Des questions sur nos outils ou la méthode\u{202F}?" ]
-        , """Ecobalyse est un outil ouvert et gratuit. Vos retours sur notre méthode ou sur notre outil sont riches.""" |> Markdown.simple []
+        , """Ecobalyse est un outil ouvert et gratuit. Vos retours sur la méthode ou sur notre outil nous sont précieux.""" |> Markdown.simple []
         , div [ class "d-flex mt-4 gap-3" ]
             [ Link.external
                 [ class "btn btn-primary"
