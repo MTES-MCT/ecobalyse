@@ -60,10 +60,10 @@ viewHero { enabledSections } modal =
                 ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
                 [ a [ class "btn btn-lg btn-primary", Route.href Route.TextileSimulatorHome ]
-                    [ text "Calculateur textile" ]
+                    [ text "Calculer l'impact d'un vêtement" ]
                 , if enabledSections.food then
                     a [ class "btn btn-lg btn-outline-primary", Route.href Route.FoodBuilderHome ]
-                        [ text "Calculateur alimentaire", br [] [], Html.cite [ class "fw-normal fs-7 d-block" ] [ text "Méthodologie en concertation" ] ]
+                        [ text "Consulter l'impact de l'alimentation", br [] [], Html.cite [ class "fw-normal fs-7 d-block" ] [ text "Méthodologie en concertation" ] ]
 
                   else
                     text ""
@@ -93,7 +93,7 @@ viewInfo =
             []
         , div [ class "d-flex flex-column gap-2" ]
             [ h3 [ class "mb-1" ] [ text "En savoir plus sur les données et les impacts\u{202F}?" ]
-            , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [«\u{202F}l'explorateur\u{202F}»]({url_explorer}). Consultez également le détail des impacts environnementaux de vos simulations en [«\u{202F}créant votre compte Ecobalyse\u{202F}»]({url_account})."""
+            , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l'explorateur\u{202F}]({url_explorer}). Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
                 |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
                 |> String.replace "{url_account}" (Route.toString <| Route.Auth { authenticated = False })
                 |> Markdown.simple []
@@ -144,7 +144,7 @@ viewApi =
         , """[L'API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits. Elle est expérimentale et donc ne garantit pas de continuité de service à ce stade."""
             |> String.replace "{api_url}" (Route.toString <| Route.Api)
             |> Markdown.simple []
-        , """Des questions\u{202F}? Consultez notre [«\u{202F}FAQ API Ecobalyse\u{202F}»]({api_faq_url})."""
+        , """Des questions\u{202F}? Consultez notre [\u{202F}FAQ API Ecobalyse\u{202F}]({api_faq_url})."""
             |> String.replace "{api_faq_url}" (Route.toString <| Route.Editorial "api-faq")
             |> Markdown.simple []
         ]
