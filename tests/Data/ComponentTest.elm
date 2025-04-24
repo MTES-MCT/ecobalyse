@@ -1,9 +1,10 @@
 module Data.ComponentTest exposing (..)
 
-import Data.Component as Component exposing (Component)
+import Data.Component as Component exposing (Component, Item)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
+import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Expect
@@ -21,30 +22,27 @@ import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
 suite : Test
 suite =
     suiteWithDb "Data.Component"
-        (\db ->
+        (\originalDb ->
             let
                 -- these will be adapted and used as test transform processes
                 ( fading, weaving ) =
-                    ( db.textile.wellKnown.fading
-                    , db.textile.wellKnown.weaving
+                    ( originalDb.textile.wellKnown.fading
+                    , originalDb.textile.wellKnown.weaving
                     )
+
+                db =
+                    setupTestDb originalDb
             in
             [ TestUtils.suiteFromResult3 "addElement"
-                -- Dossier plastique (PP)
-                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                -- Steel (valid as a material)
-                (getProcessByStringId db "6527710e-2434-5347-9bef-2205e0aa4f66")
-                -- Injection moulding (invalid as a material)
-                (getProcessByStringId db "111539de-deea-588a-9581-6f6ceaa2dfa9")
+                -- setup
+                chairBack
+                steel
+                injectionMoulding
                 -- tests
                 (\testComponent validMaterial invalidMaterial ->
                     [ it "should add a new element using a valid material"
-                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                             ]"""
-                            |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElement ( testComponent, 1 ) validMaterial)
+                        (chair
+                            |> Result.andThen (Component.addElement ( testComponent, 1 ) validMaterial)
                             |> Result.map
                                 (\items ->
                                     items
@@ -61,32 +59,22 @@ suite =
                             |> Expect.equal (Ok (Just validMaterial.id))
                         )
                     , it "should reject an invalid element material"
-                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                             ]"""
-                            |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElement ( testComponent, 1 ) invalidMaterial)
+                        (chair
+                            |> Result.andThen (Component.addElement ( testComponent, 1 ) invalidMaterial)
                             |> expectResultErrorContains "L'ajout d'un élément ne peut se faire qu'à partir d'un procédé matière"
                         )
                     ]
                 )
             , TestUtils.suiteFromResult3 "addElementTransform"
-                -- Dossier plastique (PP)
-                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                -- Injection moulding (valid tansformation process)
-                (getProcessByStringId db "111539de-deea-588a-9581-6f6ceaa2dfa9")
-                -- Planche de bois (invalid as not a transformation process)
-                (getProcessByStringId db "fe8a97ba-405a-5542-b1be-bd6983537d58")
+                -- setup
+                chairBack
+                injectionMoulding
+                woodenBoard
                 -- tests
                 (\testComponent validTransformProcess invalidTransformProcess ->
                     [ it "should add a valid transformation process to a component element"
-                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                             ]"""
-                            |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElementTransform ( ( testComponent, 1 ), 0 ) validTransformProcess)
+                        (chair
+                            |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) validTransformProcess)
                             |> Result.map
                                 (\items ->
                                     items
@@ -102,19 +90,14 @@ suite =
                             |> Expect.equal (Ok (Just [ validTransformProcess.id ]))
                         )
                     , it "should reject an invalid transformation process"
-                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                             ]"""
-                            |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElementTransform ( ( testComponent, 1 ), 0 ) invalidTransformProcess)
+                        (chair
+                            |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) invalidTransformProcess)
                             |> expectResultErrorContains "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
                         )
                     ]
                 )
             , TestUtils.suiteFromResult "addItem"
-                -- Dossier plastique (PP)
-                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
+                chairBack
                 (\testComponent ->
                     [ it "should allow adding the same component twice"
                         ([]
@@ -273,11 +256,8 @@ suite =
                 ]
             , describe "compute"
                 [ it "should compute results from decoded component items"
-                    (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                         , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                         , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                         ]"""
-                        |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
+                    (chair
+                        |> Result.andThen (Component.compute db)
                         |> Result.map extractEcsImpact
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 287
                     )
@@ -472,10 +452,9 @@ suite =
                     ]
                 )
             , TestUtils.suiteFromResult2 "removeElement"
-                -- Tissu pour canapé
-                (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
-                -- Steel (valid as a material)
-                (getProcessByStringId db "6527710e-2434-5347-9bef-2205e0aa4f66")
+                -- setup
+                sofaFabric
+                steel
                 -- tests
                 (\testComponent material ->
                     [ it "should remove an item element"
@@ -500,21 +479,14 @@ suite =
                     ]
                 )
             , TestUtils.suiteFromResult2 "removeElementTransform"
-                -- Dossier plastique (PP)
-                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                -- Injection moulding
-                (getProcessByStringId db "111539de-deea-588a-9581-6f6ceaa2dfa9")
+                chairBack
+                injectionMoulding
                 -- tests
                 (\testComponent testProcess ->
                     [ it "should remove an element transform"
-                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                             ]"""
-                            |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.addElementTransform ( ( testComponent, 1 ), 0 ) testProcess
-                                    >> Result.map (Component.removeElementTransform ( ( testComponent, 1 ), 0 ) 0)
-                                )
+                        (chair
+                            |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) testProcess)
+                            |> Result.map (Component.removeElementTransform ( ( testComponent, 1 ), 0 ) 0)
                             |> Result.map (LE.getAt 1)
                             |> Expect.equal
                                 (Ok <|
@@ -528,21 +500,15 @@ suite =
                     ]
                 )
             , TestUtils.suiteFromResult3 "setElementMaterial"
-                -- Dossier plastique (PP)
-                (getComponentByStringId db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973")
-                -- Steel (valid as a material)
-                (getProcessByStringId db "6527710e-2434-5347-9bef-2205e0aa4f66")
-                -- Injection moulding (invalid as a material)
-                (getProcessByStringId db "111539de-deea-588a-9581-6f6ceaa2dfa9")
+                -- setup
+                chairBack
+                steel
+                injectionMoulding
                 -- tests
                 (\testComponent validTestProcess invalidTestProcess ->
                     [ it "should set a valid element material"
-                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                             ]"""
-                            |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) validTestProcess)
+                        (chair
+                            |> Result.andThen (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) validTestProcess)
                             |> Result.map
                                 (\items ->
                                     items
@@ -559,12 +525,8 @@ suite =
                             |> Expect.equal (Ok (Just validTestProcess.id))
                         )
                     , it "should reject an invalid element material"
-                        (""" [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
-                             , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                             , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                             ]"""
-                            |> decodeJsonThen (Decode.list Component.decodeItem)
-                                (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) invalidTestProcess)
+                        (chair
+                            |> Result.andThen (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) invalidTestProcess)
                             |> expectResultErrorContains "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
                         )
                     ]
@@ -595,8 +557,8 @@ suite =
                     ]
                 )
             , TestUtils.suiteFromResult "updateItemCustomName"
-                -- Tissu pour canapé
-                (getComponentByStringId db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9")
+                -- setup
+                sofaFabric
                 -- tests
                 (\testComponent ->
                     [ it "should set a custom name to a component item"
@@ -645,18 +607,6 @@ getEcsImpact =
     Impact.getImpact Definition.Ecs >> Unit.impactToFloat
 
 
-getComponentByStringId : Db -> String -> Result String Component
-getComponentByStringId db =
-    Component.idFromString
-        >> Result.andThen (\id -> Component.findById id db.components)
-
-
-getProcessByStringId : Db -> String -> Result String Process
-getProcessByStringId db =
-    Process.idFromString
-        >> Result.andThen (\id -> Process.findById id db.processes)
-
-
 decodeJson : Decoder a -> String -> Result String a
 decodeJson decoder =
     Decode.decodeString decoder
@@ -689,3 +639,308 @@ setProcessEcsImpact ecs process =
 setProcessWaste : Split -> Process -> Process
 setProcessWaste waste process =
     { process | waste = waste }
+
+
+setupTestDb : Db -> Db
+setupTestDb db =
+    -- update db with controled test components and processes; the idea is to decouple
+    -- test data from the production data lifecycle as much as possible
+    let
+        componentFixtures =
+            RE.combine
+                [ chairSeat
+                , chairBack
+                , chairLeg
+                , sofaFabric
+                ]
+
+        processFixtures =
+            RE.combine
+                [ steel
+                , injectionMoulding
+                , woodenBoard
+                , plastic
+                ]
+
+        replace : List { a | id : id } -> List { a | id : id } -> List { a | id : id }
+        replace replacements =
+            List.filter (\{ id } -> replacements |> List.map .id |> List.member id |> not)
+                >> (++) replacements
+    in
+    Ok
+        (\testComponents testProcesses ->
+            { db
+                | components = db.components |> replace testComponents
+                , processes = db.processes |> replace testProcesses
+            }
+        )
+        |> RE.andMap componentFixtures
+        |> RE.andMap processFixtures
+        |> Result.withDefault db
+
+
+
+-- JSON test data
+-- 1. Components
+
+
+chairBack : Result String Component
+chairBack =
+    decodeJson (Component.decode Scope.all) <|
+        """ {
+                "elements": [
+                {
+                    "amount": 0.734063,
+                    "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+                }
+                ],
+                "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
+                "name": "Dossier plastique (PP)"
+            }
+        """
+
+
+chairLeg : Result String Component
+chairLeg =
+    decodeJson (Component.decode Scope.all) <|
+        """ {
+                "elements": [
+                {
+                    "amount": 0.00022,
+                    "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
+                }
+                ],
+                "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                "name": "Pied 70 cm (plein bois)"
+            }
+        """
+
+
+chairSeat : Result String Component
+chairSeat =
+    decodeJson (Component.decode Scope.all) <|
+        """ {
+                "elements": [
+                {
+                    "amount": 0.91125,
+                    "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+                }
+                ],
+                "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
+                "name": "Assise plastique (PP)"
+            }
+        """
+
+
+sofaFabric : Result String Component
+sofaFabric =
+    decodeJson (Component.decode Scope.all) <|
+        """ {
+                "elements": [
+                    {
+                        "amount": 1,
+                        "material": "f0dbe27b-1e74-55d0-88a2-bda812441744",
+                        "transforms": [
+                            "29dc6c73-8d82-5056-8ac0-faf212bc0367",
+                            "c49a5379-95c4-599a-84da-b5faaa345b97"
+                        ]
+                    },
+                    {
+                        "amount": 1,
+                        "material": "61bab541-9097-5680-9884-254c98f25d80",
+                        "transforms": [
+                            "29dc6c73-8d82-5056-8ac0-faf212bc0367",
+                            "e5e43c57-bd12-5ab7-8a22-7d12cdcece58"
+                        ]
+                    }
+                ],
+                "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+                "name": "Tissu pour canapé"
+            }
+        """
+
+
+
+-- 2. Processes
+
+
+injectionMoulding : Result String Process
+injectionMoulding =
+    decodeJson (Process.decode Scope.all Impact.decodeImpacts) <|
+        """ {
+                "categories": ["transformation"],
+                "comment": "",
+                "density": 0,
+                "displayName": "Moulage par injection",
+                "elecMJ": 0,
+                "heatMJ": 0,
+                "id": "111539de-deea-588a-9581-6f6ceaa2dfa9",
+                "impacts": {
+                    "acd": 0,
+                    "cch": 0,
+                    "ecs": 75.9018,
+                    "etf": 0,
+                    "etf-c": 0,
+                    "fru": 0,
+                    "fwe": 0,
+                    "htc": 0,
+                    "htc-c": 0,
+                    "htn": 0,
+                    "htn-c": 0,
+                    "ior": 0,
+                    "ldu": 0,
+                    "mru": 0,
+                    "ozd": 0,
+                    "pco": 0,
+                    "pef": 81.8084,
+                    "pma": 0,
+                    "swe": 0,
+                    "tre": 0,
+                    "wtu": 0
+                },
+                "source": "Ecoinvent 3.9.1",
+                "sourceId": "injection moulding//[RER] injection moulding",
+                "unit": "kg",
+                "waste": 0.006
+            }
+        """
+
+
+plastic : Result String Process
+plastic =
+    decodeJson (Process.decode Scope.all Impact.decodeImpacts) <|
+        """ {
+                "categories": ["material"],
+                "comment": "",
+                "density": 0,
+                "displayName": "Plastique granulé (PP)",
+                "elecMJ": 0,
+                "heatMJ": 0,
+                "id": "59b42284-3e45-5343-8a20-1d7d66137461",
+                "impacts": {
+                    "acd": 0,
+                    "cch": 0,
+                    "ecs": 165.71,
+                    "etf": 0,
+                    "etf-c": 0,
+                    "fru": 0,
+                    "fwe": 0,
+                    "htc": 0,
+                    "htc-c": 0,
+                    "htn": 0,
+                    "htn-c": 0,
+                    "ior": 0,
+                    "ldu": 0,
+                    "mru": 0,
+                    "ozd": 0,
+                    "pco": 0,
+                    "pef": 192.164,
+                    "pma": 0,
+                    "swe": 0,
+                    "tre": 0,
+                    "wtu": 0
+                },
+                "source": "Ecoinvent 3.9.1",
+                "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
+                "unit": "kg",
+                "waste": 0
+            }
+        """
+
+
+steel : Result String Process
+steel =
+    decodeJson (Process.decode Scope.all Impact.decodeImpacts) <|
+        """ {
+                "categories": ["material"],
+                "comment": "",
+                "density": 0,
+                "displayName": "Acier",
+                "elecMJ": 0,
+                "heatMJ": 0,
+                "id": "6527710e-2434-5347-9bef-2205e0aa4f66",
+                "impacts": {
+                    "acd": 0,
+                    "cch": 0,
+                    "ecs": 172.483,
+                    "etf": 0,
+                    "etf-c": 0,
+                    "fru": 0,
+                    "fwe": 0,
+                    "htc": 0,
+                    "htc-c": 0,
+                    "htn": 0,
+                    "htn-c": 0,
+                    "ior": 0,
+                    "ldu": 0,
+                    "mru": 0,
+                    "ozd": 0,
+                    "pco": 0,
+                    "pef": 201.311,
+                    "pma": 0,
+                    "swe": 0,
+                    "tre": 0,
+                    "wtu": 0
+                },
+                "source": "Ecoinvent 3.9.1",
+                "sourceId": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
+                "unit": "kg",
+                "waste": 0
+            }
+        """
+
+
+woodenBoard : Result String Process
+woodenBoard =
+    decodeJson (Process.decode Scope.all Impact.decodeImpacts) <|
+        """ {
+                "categories": ["material"],
+                "comment": "",
+                "density": 600.0,
+                "displayName": "Planche (bois de feuillus)",
+                "elecMJ": 0,
+                "heatMJ": 0,
+                "id": "fe8a97ba-405a-5542-b1be-bd6983537d58",
+                "impacts": {
+                    "acd": 0,
+                    "cch": 0,
+                    "ecs": 23623.4,
+                    "etf": 0,
+                    "etf-c": 0,
+                    "fru": 0,
+                    "fwe": 0,
+                    "htc": 0,
+                    "htc-c": 0,
+                    "htn": 0,
+                    "htn-c": 0,
+                    "ior": 0,
+                    "ldu": 0,
+                    "mru": 0,
+                    "ozd": 0,
+                    "pco": 0,
+                    "pef": 27337.4,
+                    "pma": 0,
+                    "swe": 0,
+                    "tre": 0,
+                    "wtu": 0
+                },
+                "source": "Ecoinvent 3.9.1",
+                "sourceId": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
+                "unit": "m3",
+                "waste": 0
+            }
+        """
+
+
+
+-- 3. Items (example)
+
+
+chair : Result String (List Item)
+chair =
+    decodeJson (Decode.list Component.decodeItem) <|
+        """ [ { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 }
+            , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+            , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+            ]
+        """
