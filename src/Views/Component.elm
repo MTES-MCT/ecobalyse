@@ -91,7 +91,7 @@ addElementButton { db, openSelectProcessModal } targetItem =
         , db.processes
             |> Process.listByCategory Category.Material
             |> List.sortBy Process.getDisplayName
-            |> AutocompleteSelector.init .name
+            |> AutocompleteSelector.init Process.getDisplayName
             |> openSelectProcessModal Category.Material targetItem Nothing
             |> onClick
         ]
@@ -115,7 +115,7 @@ addElementTransformButton { db, openSelectProcessModal } ( ( component, itemInde
                     )
 
         autocompleteState =
-            AutocompleteSelector.init .name availableTransformProcesses
+            AutocompleteSelector.init Process.getDisplayName availableTransformProcesses
     in
     button
         [ type_ "button"
@@ -429,7 +429,7 @@ selectMaterialButton { db, openSelectProcessModal } ( targetItem, elementIndex )
                 |> List.sortBy Process.getDisplayName
 
         autocompleteState =
-            AutocompleteSelector.init .name availableMaterialProcesses
+            AutocompleteSelector.init Process.getDisplayName availableMaterialProcesses
     in
     button
         [ type_ "button"
@@ -456,7 +456,7 @@ elementMaterialView config targetElement materialResults material amount =
               else
                 amountInput config targetElement material.unit amount
             ]
-        , td [ class "align-middle text-truncate w-100", title material.name ]
+        , td [ class "align-middle text-truncate w-100", title <| Process.getDisplayName material ]
             [ selectMaterialButton config targetElement material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
@@ -490,7 +490,7 @@ elementTransformsView config targetElement transformsResults transforms =
 
                     -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
                     , style "max-width" "0"
-                    , title transform.name
+                    , title <| Process.getDisplayName transform
                     ]
                     [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
                     , text <| Process.getDisplayName transform
