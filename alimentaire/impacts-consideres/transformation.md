@@ -16,12 +16,24 @@ Le paramétrage se fait à travers :&#x20;
 * pour chaque procédé de transformation, le paramétrage de la masse mobilisée, exprimée en grammes (g)
 
 {% hint style="warning" %}
-Le nombre de procédés de transformation est limité à ce stade. Seuls les procédés correspondant à la **dernière** transformation d'un produit sont proposés : cuisson, mise en conserve et mélange. En effet, il est considéré, en première approche, que les autres transformations peuvent être intégrées à la phase ingrédient.
+Le nombre de procédés de transformation est limité à ce stade. Seuls les procédés correspondant à la **dernière** **transformation non spécifique** d'un produit sont proposés : cuisson, mise en conserve et mélange. En effet, il est considéré, en première approche, que les autres transformations peuvent être intégrées à la phase ingrédient.
 {% endhint %}
+
+Ecobalyse propose uniquement le paramétrage de la **dernière** **transformation non spécifique** d'un produit : cuisson, mise en conserve et mélange.
+
+Les autres transformations sont spécifiques et il est considéré qu'elles doivent être intégrées à la phase ingrédient, et qu'elles sont ainsi non paramétrables (les hypothèses Agribalyse sont reprises telles quelles).
+
+Exemple :&#x20;
+
+La transformation du lait en mozzarella n'est pas modélisable à ce stade dans l'outil. Le calcul de l'impact de la mozzarella se fait donc en choisissant l'ingrédient mozzarella dans le module ingrédient.&#x20;
+
+A terme, l'outil pourrait permettre de paramétrer les transformations spécifiques (vinification,
 
 {% hint style="danger" %}
 Certains produits CIQUAL proposés dans la base Agribalyse mobilisent deux procédés de transformation \[_**préciser combien ?**_]. Il pourra être envisagé, dans un second temps, de rendre possible l'ajout d'un second procédé de transformation.
 {% endhint %}
+
+
 
 {% hint style="danger" %}
 Dans un second temps, la masse mobilisée pour le procédé de transformation pourrait être automatiquement calculée à partir de la masse des ingrédients mobilisés (cf. [ingredients-agricoles-hors-viande](../etapes-du-cycles-de-vie/ingredients-agricoles-hors-viande/ "mention"))
