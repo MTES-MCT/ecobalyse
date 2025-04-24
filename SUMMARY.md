@@ -56,11 +56,11 @@
 ## 🍕 Alimentaire
 
 * [Cycle de vie des produits alimentaires](alimentaire/impacts-consideres/README.md)
-  * [Etape 1 : ingrédients](alimentaire/impacts-consideres/etape-1-ingredients/README.md)
-    * [📖 La base Agribalyse](alimentaire/impacts-consideres/etape-1-ingredients/impacts-consideres.md)
-    * [🍒 Ingrédients agricoles - inventaires mobilisés (impacts ACV)](alimentaire/impacts-consideres/etape-1-ingredients/impacts-consideres-1.md)
-    * [🐟 Cas particulier des produits issu de la pêche](alimentaire/impacts-consideres/etape-1-ingredients/cas-particulier-des-produits-issu-de-la-peche.md)
-    * [🐄 Ingrédients - cas des inventaires complexes construits par Ecobalyse](alimentaire/impacts-consideres/etape-1-ingredients/boeuf-hache.md)
+  * [Etape 1 : les ingrédients](alimentaire/impacts-consideres/etape-1-les-ingredients/README.md)
+    * [📖 La base Agribalyse](alimentaire/impacts-consideres/etape-1-les-ingredients/impacts-consideres.md)
+    * [🍒 Ingrédients agricoles - inventaires mobilisés (impacts ACV)](alimentaire/impacts-consideres/etape-1-les-ingredients/impacts-consideres-1.md)
+    * [🐟 Cas particulier des produits issu de la pêche](alimentaire/impacts-consideres/etape-1-les-ingredients/cas-particulier-des-produits-issu-de-la-peche.md)
+    * [🐄 Ingrédients - cas des inventaires complexes construits par Ecobalyse](alimentaire/impacts-consideres/etape-1-les-ingredients/boeuf-hache.md)
   * [Etape 3 : emballage](alimentaire/impacts-consideres/etape-3-emballage.md)
   * [Etape 4 : distribution](alimentaire/impacts-consideres/etape-4-distribution.md)
   * [Etape 5 : consommation](alimentaire/impacts-consideres/etape-5-consommation.md)
