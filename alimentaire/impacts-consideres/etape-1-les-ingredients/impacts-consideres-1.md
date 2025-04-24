@@ -37,33 +37,29 @@ _Ex : Tomate UE = Tomato, fresh grade ES, in unheated greenhouse Ecoinvent._ &#x
 
 * **Pour les productions qui ne sont ni françaises, ni européennes**, la variante "par défaut" doit être choisie par l'utilisateur. Elle est basée sur un ICV majorant sélectionné parmi l'ensemble des ICV disponibles dans Agribalyse.
 
-_Ex : Soja par défaut = Soybean, BR (brésil), market for, Ecoinvent_
+_Ex : Colza par défaut = Rapeseed, at farm {CA} - Adapted from WFLDB U_
 
 
 
-* **Pour les ingrédients biologiques.** Dans une logique de simplification et au regard du manque de données sur les produits bio, il est considéré que les conditions de productions biologiques sont similaires quelques soit le pays d'origine. Cet hypothèse se justifie en particulier du fait du cahier des charges AB harmonisé au niveau européen, et avec des équivalences internationales solides.&#x20;
+* **Pour les ingrédients biologiques.** Dans une logique de simplification et au regard du manque de données sur les produits bio, il est considéré que les conditions de productions biologiques sont similaires quelques soit le pays d'origine. Cet hypothèse se justifie en particulier du fait du cahier des charges AB harmonisé au niveau européen, et avec des équivalences internationales solides. Il n'y a donc qu'une variante "bio" proposée dans un premier temps.
 
-Pour définir les ICV bio, nous avons procédé selon cette hiérarchie&#x20;
+Le choix des ICV bio s'est fait parmi :
 
-1. ICV bio directement issus d'Agribalyse (ex : wheat, organic, national average, at farm, agribalyse). Pour les ingrédients AB courants produits en France et les productions animales.
-2. ICV AB issus d'un travail d'adaptation à partir des données conventionnelles menée par le cabinet Ginko pour le compte de l'ADEME. Ceci ne concerne que les productions végétales françaises et importées. Ces ICV seront inclus dans des futurs versions d'Agribalyse.&#x20;
-3. ICV AB résultants de l'agrégation de différents cas type issus d'Agribalyse. Ceci a été nécessaire pour certaines productions animales, en particulier les ruminants, en l'absence d'autres données. Ces combinaisons ont été réalisées directement par l'équipe Ecobalyse.&#x20;
+1. Les ICV bio directement issus d'Agribalyse (ex : wheat, organic, national average, at farm, Agribalyse).
+2. Les ICV bio issus d'un travail d'adaptation à partir des données conventionnelles mené par le cabinet Ginko pour le compte de l'ADEME. Ceci ne concerne que les productions végétales françaises et importées. Ces ICV seront inclus dans des futurs versions d'Agribalyse.&#x20;
+3. Les ICV bio construits par Ecobalyse : en l'absence de données bio moyennes, ces ICV correspondent à des moyennes pondérées d'ICV bio disponibles dans Agribalyse. &#x20;
 
-<mark style="background-color:orange;">Rapport gingko disponible prochainement</mark>
+{% file src="../../../.gitbook/assets/20221215 ICV bio moyen ecobalyse (1).xlsx" %}
 
 * **Autres labels**
 
-Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans écobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../../impacts-consideres.md).&#x20;
-
-{% file src="../../../.gitbook/assets/20221215 ICV bio moyen ecobalyse.xlsx" %}
+Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans Ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans Ecobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../../impacts-consideres.md).&#x20;
 
 
 
-L’ensemble des appariements entre ingrédients et ICV Agribalyse est visible dans l’explorateur, et en surbrillance dans l’interface ecobalyse.
+L’ensemble des appariements entre ingrédients et ICV est visible dans l’explorateur, et via le bouton "?" disponible à côté du nom de l'ingrédient.
 
-<img src="../../../.gitbook/assets/image (4) (1).png" alt="" data-size="original">
-
-
+<figure><img src="../../../.gitbook/assets/image (352).png" alt=""><figcaption></figcaption></figure>
 
 
 
