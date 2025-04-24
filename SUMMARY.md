@@ -2,7 +2,8 @@
 
 * [🇫🇷 Ecobalyse](README.md)
 * [🤝 Communauté](communaute.md)
-* [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres.md)
+* [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres/README.md)
+  * [Source des procédés](impacts-consideres/source-des-procedes.md)
 * [Conditions d'utilisation](conditions-dutilisation.md)
 
 ## 👕 Textile
@@ -260,7 +261,6 @@
 * [📝 Approche méthodologique globale](def-cout-environnemental/impacts-consideres/README.md)
   * [Exclusion des émissions à long terme](def-cout-environnemental/impacts-consideres/exclusion-des-emissions-a-long-terme.md)
   * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/impacts-consideres/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
-* [Source des procédés](def-cout-environnemental/source-des-procedes.md)
 
 ## 📄 BROUILLON - Méthodes transverses spécifiques <a href="#transverse" id="transverse"></a>
 

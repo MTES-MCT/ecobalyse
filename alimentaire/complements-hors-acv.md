@@ -6,7 +6,7 @@ Ces compléments hors ACV visent à prendre en compte les **externalités enviro
 
 Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie".
 
-Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental (cf. [page dédiée](../impacts-consideres.md)) et de chacun des 5 services écosystémiques introduits ci-après :&#x20;
+Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental (cf. [page dédiée](../impacts-consideres/)) et de chacun des 5 services écosystémiques introduits ci-après :&#x20;
 
 $$
 CoûtEnvironnemental = ComposanteACV + \sum_{1}^{5}ServicesEcosystémiques
