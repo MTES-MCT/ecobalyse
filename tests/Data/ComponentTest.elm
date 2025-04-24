@@ -259,7 +259,7 @@ suite =
                     (chair
                         |> Result.andThen (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 284
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
                     )
                 , it "should compute results from decoded component items with custom component elements"
                     (""" [ {
@@ -280,7 +280,7 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                         |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 305
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
                 ]
             , TestUtils.suiteFromResult "computeElementResults"
