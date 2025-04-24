@@ -66,7 +66,7 @@ L'impact global de l''étape Ennoblissement se comprend comme la somme des impac
 
 #### Etape 1 =  Modélisation des flux externes des procédés
 
-L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../../../alimentaire-en-construction/old/pages-textiles-old/impacts-consideres.md)).
+L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../../../alimentaire/old/pages-textiles-old/impacts-consideres.md)).
 
 $$
 ImpactProcédé = MasseSortante(kg) * CoefImpactProcédé

@@ -4,7 +4,7 @@ Le coût environnemental reflète l'ensemble des impacts (consommation d'énergi
 
 Un ICV correspondent à la liste des consommations de ressources et des émissions de polluants associés à une étape de production (ex: combien de nitrate émis dans l'eau pour la production d'1kg de maïs, combien de litre d'eau prélevées, combien de pesticide émis dans le sol etc, ). &#x20;
 
-A noter qu' il est a été parfois nécessaire de compléter Agribalyse, aussi quelques ingrédients ont été [construits directement par l'équipe Ecobalyse](etape-1-ingredients/impacts-consideres-1.md).
+A noter qu' il est a été parfois nécessaire de compléter Agribalyse, aussi quelques ingrédients ont été [construits directement par l'équipe Ecobalyse](../../alimentaire/impacts-consideres/etape-1-ingredients/impacts-consideres-1.md).
 
 {% hint style="info" %}
 [Agribalyse ](../../)est la base de données d'Inventaire de Cycle de Vie pilotée par l'ADEME, en partenariat avec l'INRAE et les Instituts Techniques agricoles et agro-alimentaires, au sein du Groupement d'Intérêt Scientifique Revalim. Elle contient des références sur plus de 2500 produits alimentaires consommés en france. Depuis plus de dix ans, la base est enrichie progressivement et intègre les dernières avancées méthodologiques et scientifiques pour l'évaluation environnementale.&#x20;
