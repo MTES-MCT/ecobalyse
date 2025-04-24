@@ -1,4 +1,4 @@
-# Etape 1 : les ingrédients
+# 🍎 Etape 1 : les ingrédients
 
 La première étape de la modélisation des produits alimentaires est la sélection des ingrédients composant le produit.
 

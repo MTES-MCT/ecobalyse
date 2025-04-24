@@ -3,7 +3,7 @@
 * [🇫🇷 Ecobalyse](README.md)
 * [🤝 Communauté](communaute.md)
 * [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres/README.md)
-  * [Source des procédés](impacts-consideres/source-des-procedes.md)
+  * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
 * [Conditions d'utilisation](conditions-dutilisation.md)
 
 ## 👕 Textile
@@ -57,19 +57,19 @@
 ## 🍕 Alimentaire
 
 * [Cycle de vie des produits alimentaires](alimentaire/impacts-consideres/README.md)
-  * [Etape 1 : les ingrédients](alimentaire/impacts-consideres/etape-1-les-ingredients/README.md)
+  * [🍎 Etape 1 : les ingrédients](alimentaire/impacts-consideres/etape-1-les-ingredients/README.md)
     * [📖 La base Agribalyse](alimentaire/impacts-consideres/etape-1-les-ingredients/impacts-consideres.md)
     * [🍒 Ingrédients agricoles - inventaires mobilisés (impacts ACV)](alimentaire/impacts-consideres/etape-1-les-ingredients/impacts-consideres-1.md)
     * [🐟 Cas particulier des produits issu de la pêche](alimentaire/impacts-consideres/etape-1-les-ingredients/cas-particulier-des-produits-issu-de-la-peche.md)
     * [🐄 Ingrédients - cas des ingrédients transformés construits par Ecobalyse](alimentaire/impacts-consideres/etape-1-les-ingredients/boeuf-hache.md)
-  * [Etape 3 : emballage](alimentaire/impacts-consideres/etape-3-emballage.md)
+  * [🥧 Etape 2 : transformation (issu de OLD : à vérifier)](alimentaire/impacts-consideres/transformation.md)
+  * [📦 Etape 3 : emballage](alimentaire/impacts-consideres/etape-3-emballage.md)
   * [Etape 4 : distribution](alimentaire/impacts-consideres/etape-4-distribution.md)
   * [Etape 5 : consommation](alimentaire/impacts-consideres/etape-5-consommation.md)
   * [🚛 Transport](alimentaire/impacts-consideres/transport.md)
   * [🥑 Part non comestible (draft)](alimentaire/impacts-consideres/part-non-comestible.md)
   * [🚣‍♀️ Densité (draft)](alimentaire/impacts-consideres/densite.md)
   * [🍚 Rapport cru/cuit (draft)](alimentaire/impacts-consideres/rapport-cru-cuit.md)
-  * [🥧 Etape 2 : transformation (issu de OLD : à vérifier)](alimentaire/impacts-consideres/transformation.md)
 * [Compléments hors ACV](alimentaire/complements-hors-acv.md)
 * [Paramétrage](alimentaire/complements-hors-acv-1/README.md)
   * [🧅 Paramétrage des ingrédients](alimentaire/complements-hors-acv-1/complements-hors-acv.md)

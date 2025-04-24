@@ -51,6 +51,10 @@ Le choix des ICV bio s'est fait parmi :
 
 {% file src="../../../.gitbook/assets/20221215 ICV bio moyen ecobalyse (1).xlsx" %}
 
+{% hint style="info" %}
+Les procédés construits par Ecobalyse font l'objet d'une [page dédiée](../../../def-cout-environnemental/source-des-procedes.md) présentant tous les cas de figure nécessitant la construction d'un inventaire, ainsi que le lien vers les détails du code pour la construction de ces inventaires.
+{% endhint %}
+
 * **Autres labels**
 
 Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans Ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans Ecobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../../impacts-consideres/).&#x20;

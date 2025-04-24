@@ -1,4 +1,4 @@
-# Etape 3 : emballage
+# 📦 Etape 3 : emballage
 
 {% hint style="danger" %}
 La modélisation des emballages dans Ecobalyse sera amenée à évoluer très prochainement avec l'intégration du travail du CTCPA réalisé dans le cadre du projet Pack AGB.&#x20;

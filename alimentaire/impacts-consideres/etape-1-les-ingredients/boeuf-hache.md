@@ -5,6 +5,10 @@ Les inventaires mobilisés pour certains ingrédients proposés dans l'outil sou
 * Les différentes variantes d'ingrédients "viandes" (ils ont subi des étapes d'abattage, découpe, hachage...). Ex. : boeuf haché.
 * Les différentes variantes d'ingrédients "industrie" (ils ont subi au moins une transformation industrielle). Ex. : farine.
 
+{% hint style="info" %}
+Les procédés construits par Ecobalyse font l'objet d'une [page dédiée](../../../def-cout-environnemental/source-des-procedes.md) présentant tous les cas de figure nécessitant la construction d'un inventaire, ainsi que le lien vers les détails du code pour la construction de ces inventaires.
+{% endhint %}
+
 ## Exemple de construction de l'ingrédient viande de boeuf hachée à partir du procédé agricole
 
 La viande de bœuf hachée correspond à l'ICV suivant dans Agribalyse :&#x20;
