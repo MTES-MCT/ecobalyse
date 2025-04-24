@@ -1,9 +1,9 @@
-# 🐄 Ingrédients - cas des inventaires complexes construits par Ecobalyse
+# 🐄 Ingrédients - cas des ingrédients transformés construits par Ecobalyse
 
-Les inventaires mobilisés pour certains ingrédients dits "complexes", c'est-à-dire qui interviennent dans des recettes sous une forme différente (transformée) par rapport à leur état en sortie de ferme, sont construits par Ecobalyse : &#x20;
+Les inventaires mobilisés pour certains ingrédients proposés dans l'outil sous une forme transformée sont construits par Ecobalyse : &#x20;
 
-* Les différentes variantes d'ingrédients "viandes" (ils ont subi au moins les étapes d'abattage/découpe). Ex. : boeuf haché.
-* Les différentes variantes d'ingrédients "industrie" (ils ont subi au moins une transformation industrielle). Ex. : oignons déshydratés.
+* Les différentes variantes d'ingrédients "viandes" (ils ont subi des étapes d'abattage, découpe, hachage...). Ex. : boeuf haché.
+* Les différentes variantes d'ingrédients "industrie" (ils ont subi au moins une transformation industrielle). Ex. : farine.
 
 ## Exemple de construction de l'ingrédient viande de boeuf hachée à partir du procédé agricole
 
@@ -15,7 +15,7 @@ $$
 BoeufHacheREF
 $$
 
-Ce procédé est construit à partir du procédé :&#x20;
+Cet ICV est construit à partir des procédés :&#x20;
 
 * Beef cattle, national average, at farm gate
 
@@ -23,7 +23,7 @@ $$
 BoeufREF
 $$
 
-* de procédés d'abattage : &#x20;
+* Ainsi que de procédés d'abattage et de hachage : &#x20;
 
 <figure><img src="../../../.gitbook/assets/beef (1).png" alt=""><figcaption></figcaption></figure>
 
