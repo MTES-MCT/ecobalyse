@@ -1,35 +1,16 @@
-# 🥑 Part non comestible (draft)
+# 🥑 Part non comestible
 
 La part non comestible correspond à une partie d'un produit agricole qui n'est pas destinée à la consommation humaine. Ces pertes peuvent inclure des éléments tels que les coquilles d'œufs, les écorces de fruits et légumes, les os, les cartilages et bien d'autres.
 
-Dans le cadre de notre calcul d'impact pour 1 kg de produit comestible, nous devons prendre en compte ces pertes non comestibles. Pour ce faire, nous appliquons un ratio de perte non comestible à chaque ingrédient. Ce ratio peut être trouvé dans la documentation d'Agribalyse.
+Dans le cadre de notre calcul d'impact pour 1 kg de produit comestible, nous devons prendre en compte ces pertes non comestibles. Pour ce faire, nous appliquons un ratio de perte non comestible à chaque ingrédient. Ce ratio peut être trouvé dans la [documentation d'Agribalyse](https://3613321239-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971).
 
 **Pour simplifier la modélisation, nous considérons le retrait de la part non comestible toujours avant l'étape de transformation.**
 
 ## Hypothèses Agribalyse de parts non comestibles&#x20;
 
-<div>
+<div><figure><img src="../../.gitbook/assets/Screenshot 2023-04-20 at 17.31.27.png" alt=""><figcaption><p><a href="https://3613321239-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1_Alimentation.pdf?alt=media&#x26;token=0da7c4e0-4332-4bc3-9c86-83b7a6325971">Méthodologie AGB 3.1_Alimentation_Annexes.pdf</a> Parts non comestibles des fruits frais et à coque</p></figcaption></figure> <figure><img src="../../.gitbook/assets/Screenshot 2023-04-20 at 17.31.21.png" alt=""><figcaption><p><a href="https://3613321239-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1_Alimentation.pdf?alt=media&#x26;token=0da7c4e0-4332-4bc3-9c86-83b7a6325971">Méthodologie AGB 3.1_Alimentation_Annexes.pdf </a>Parts non comestibles des légumes</p></figcaption></figure> <figure><img src="../../.gitbook/assets/Screenshot 2023-04-20 at 17.28.24 (1).png" alt=""><figcaption><p><a href="https://3613321239-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1_Alimentation.pdf?alt=media&#x26;token=0da7c4e0-4332-4bc3-9c86-83b7a6325971">Méthodologie AGB 3.1_Alimentation.pdf</a> Parts non comestibles des viandes</p></figcaption></figure></div>
 
-<figure><img src="../../.gitbook/assets/Screenshot 2023-04-20 at 17.31.27.png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation_Annexes.pdf</p></figcaption></figure>
-
- 
-
-<figure><img src="../../.gitbook/assets/Screenshot 2023-04-20 at 17.31.21.png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation_Annexes.pdf</p></figcaption></figure>
-
- 
-
-<figure><img src="../../.gitbook/assets/Screenshot 2023-04-20 at 17.28.24 (1).png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation.pdf</p></figcaption></figure>
-
-</div>
-
-## Hypothèses hors Agribalyse
-
-Pour certains produits, il n'existe pas de valeur dans la documentation agribalyse. Dans ce cas nous avons fait les hypothèses suivantes :&#x20;
-
-| Produit   | Perte non comestible |
-| --------- | -------------------- |
-| Courgette | 10%                  |
-|           |                      |
+NB : Agribalyse ne définit pas de valeur de part non comestibles pour la courgette. Ecobalyse lui applique une valeur de 10%.
 
 <details>
 
@@ -53,7 +34,7 @@ Alors on aura en sortie de l'étape d'ingrédients :
 
 Le poids total comestible est donc de : **498.5g**.
 
-Etant donné que l'on cuit notre gateau, il faut ensuite appliquer le ratio cru-cuit (rcc)
+Etant donné que l'on cuit notre gâteau, il faut ensuite appliquer le ratio cru-cuit (rcc) (cf. [page dédiée](rapport-cru-cuit.md)) :
 
 * oeuf,  rcc (ratio cru-cuit) = 0.974,  96g  -> 96 \* 0.974 = 93.5 g d'oeuf&#x20;
 * blé tendre, rcc = 2.259, 140g  -> 140\*2.259 = 316.26 g de blé tendre
