@@ -69,7 +69,7 @@
   * [🚛 Transport](alimentaire/impacts-consideres/transport.md)
   * [🥑 Part non comestible](alimentaire/impacts-consideres/part-non-comestible.md)
   * [🚣‍♀️ Densité](alimentaire/impacts-consideres/densite.md)
-  * [🍚 Rapport cru/cuit (draft)](alimentaire/impacts-consideres/rapport-cru-cuit.md)
+  * [🍚 Rapport cru/cuit](alimentaire/impacts-consideres/rapport-cru-cuit.md)
 * [Compléments hors ACV](alimentaire/complements-hors-acv.md)
 * [Paramétrage](alimentaire/complements-hors-acv-1/README.md)
   * [🧅 Paramétrage des ingrédients](alimentaire/complements-hors-acv-1/complements-hors-acv.md)

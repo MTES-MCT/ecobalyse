@@ -4,7 +4,7 @@ Ces compléments hors ACV visent à prendre en compte les **externalités enviro
 
 ## Introduction et formules de calcul
 
-Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie".
+Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie.
 
 Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental (cf. [page dédiée](../impacts-consideres/)) et de chacun des 5 services écosystémiques introduits ci-après :&#x20;
 
@@ -14,7 +14,7 @@ $$
 
 2 types de services écosystémiques sont à distinguer :&#x20;
 
-* Les services écosystémiques "cultures", qui qualifient les productions végétales. Ces services écosystémiques s'appliquent également aux productions animales, en considérant les végétaux qui ont pu être consommés par les animaux concernés (en intégrant également les prairies).
+* Les services écosystémiques "cultures", qui qualifient les productions végétales. Ces services écosystémiques s'appliquent également aux productions animales via les végétaux composant les rations (en intégrant également les prairies).
 * Les services écosystémiques "élevages" qui ne s'appliquent qu'aux productions animales
 
 | Service écosystémique  | Application                         | Valeur                                   |
@@ -25,44 +25,19 @@ $$
 | Prairies permanentes   | Elevages                            | Valeur toujours positive                 |
 | Chargement territorial | Elevages                            | Valeur pouvant être positive ou négative |
 
+### Rations animales
+
+Les rations animales utilisées pour les calculs des compléments pour les productions animales sont détaillées dans l'onglet "animal-kg" de ce <mark style="color:red;">tableur</mark>.
+
 ### Services écosystémiques "cultures" / Groupes de culture
 
-La modélisation proposée (en "niveau 1") dans l'outil Ecobalyse rend compte des impacts et des services écosystémiques à partir de quelques paramètres simples caractérisant les ingrédients : nature de la culture, pays, label éventuel (Agriculture biologique par exemple).
+La modélisation des compléments hors ACV proposée (en "niveau 1") dans l'outil Ecobalyse rend compte des impacts et des services écosystémiques à partir de quelques paramètres simples caractérisant les ingrédients : nature de la culture, pays, label éventuel (Agriculture biologique par exemple).
 
 Pour caractériser au mieux les différents ingrédients proposés dans Ecobalyse, chacun est rattaché à un **groupe de culture**.
 
-28 groupes de culture sont considérés :&#x20;
+Les 28 groupes de culture considérés sont ceux du [Registre Parcellaire Graphique](https://geoservices.ign.fr/ressource/194788) niveau 1 (parcelles totales, cultures principales par parcelle, France métropolitaine, millésime 2021) :&#x20;
 
-| Groupes de culture                    |
-| ------------------------------------- |
-| BLE TENDRE                            |
-| MAIS GRAIN ET ENSILAGE                |
-| ORGE                                  |
-| AUTRES CEREALES                       |
-| COLZA                                 |
-| TOURNESOL                             |
-| AUTRES OLEAGINEUX                     |
-| PROTEAGINEUX                          |
-| PLANTES A FIBRES                      |
-| SEMENCES                              |
-| GEL (surfaces gelées sans production) |
-| GEL INDUSTRIEL                        |
-| AUTRES GELS                           |
-| RIZ                                   |
-| LEGUMINEUSES A GRAIN                  |
-| FOURRAGE                              |
-| ESTIVES LANDES                        |
-| PRAIRIES PERMANENTES                  |
-| PRAIRIES TEMPORAIRES                  |
-| VERGERS                               |
-| VIGNES                                |
-| FRUITS A COQUES                       |
-| OLIVIERS                              |
-| AUTRES CULTURES INDUSTRIELLES         |
-| LEGUMES-FLEURS                        |
-| CANNE A SUCRE                         |
-| ARBORICULTURE                         |
-| DIVERS                                |
+<table><thead><tr><th width="270">Groupes de culture</th></tr></thead><tbody><tr><td>BLE TENDRE</td></tr><tr><td>MAIS GRAIN ET ENSILAGE</td></tr><tr><td>ORGE</td></tr><tr><td>AUTRES CEREALES</td></tr><tr><td>COLZA</td></tr><tr><td>TOURNESOL</td></tr><tr><td>AUTRES OLEAGINEUX</td></tr><tr><td>PROTEAGINEUX</td></tr><tr><td>PLANTES A FIBRES</td></tr><tr><td>SEMENCES</td></tr><tr><td>GEL (surfaces gelées sans production)</td></tr><tr><td>GEL INDUSTRIEL</td></tr><tr><td>AUTRES GELS</td></tr><tr><td>RIZ</td></tr><tr><td>LEGUMINEUSES A GRAIN</td></tr><tr><td>FOURRAGE</td></tr><tr><td>ESTIVES LANDES</td></tr><tr><td>PRAIRIES PERMANENTES</td></tr><tr><td>PRAIRIES TEMPORAIRES</td></tr><tr><td>VERGERS</td></tr><tr><td>VIGNES</td></tr><tr><td>FRUITS A COQUES</td></tr><tr><td>OLIVIERS</td></tr><tr><td>AUTRES CULTURES INDUSTRIELLES</td></tr><tr><td>LEGUMES-FLEURS</td></tr><tr><td>CANNE A SUCRE</td></tr><tr><td>ARBORICULTURE</td></tr><tr><td>DIVERS</td></tr></tbody></table>
 
 Pour chacun de ces groupes de culture, 3 scénarios sont considérés en première approche
 
