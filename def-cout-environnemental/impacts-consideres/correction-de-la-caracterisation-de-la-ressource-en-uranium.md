@@ -81,7 +81,7 @@ Données sources :&#x20;
 
 Au final, voici le coût environnemental par kWh pour 1 kWh d'électricité en France, en fonction de la source de production :&#x20;
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (353).png" alt=""><figcaption></figcaption></figure>
 
 
 

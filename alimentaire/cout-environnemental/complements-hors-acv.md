@@ -1,4 +1,8 @@
-# Compléments hors ACV
+---
+hidden: true
+---
+
+# Compléments hors ACV - old
 
 Ces compléments hors ACV visent à prendre en compte les **externalités environnementales de certains modes de production** telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000043956979). Ces externalités ne sont aujourd'hui pas intégrées à l'ACV. Pourtant, elles sont essentielles pour appréhender au mieux l'impact systémique de l'agriculture, notamment à l'échelle des territoires. En effet, les pratiques agricoles façonnent grandement les écosystèmes et les paysages, que ce soit en termes de biodiversité (maintien de zones refuges, de corridors écologiques, d'une mosaïque paysagère diversifiée, etc.) ou en termes de résilience face aux aléas divers (préservation contre l'érosion des sols, bouclage des cycles et moindre dépendance à certains nutriments exogènes, régulation naturelle des ravageurs de cultures, etc.). Cinq compléments sont ainsi ajoutés pour prendre en compte ces effets.
 
@@ -6,7 +10,7 @@ Ces compléments hors ACV visent à prendre en compte les **externalités enviro
 
 Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie.
 
-Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental (cf. [page dédiée](../impacts-consideres/)) et de chacun des 5 services écosystémiques introduits ci-après :&#x20;
+Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental (cf. [page dédiée](../../impacts-consideres/)) et de chacun des 5 services écosystémiques introduits ci-après :&#x20;
 
 $$
 CoûtEnvironnemental = ComposanteACV + \sum_{1}^{5}ServicesEcosystémiques

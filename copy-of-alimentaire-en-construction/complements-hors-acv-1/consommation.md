@@ -157,7 +157,7 @@ Suite à l'application des techniques d e préparation, la masse finale du produ
 C'est bien cette masse finale du produit, tel que consommé, qui doit ensuite être considérée dans le calcul de l'impact par kg.
 
 {% hint style="warning" %}
-En théorie, il est possible qu'une étape de cuisson soit appliquée aux étapes de [transformation](../../alimentaire/impacts-consideres/transformation.md) ou de [consommation](../../alimentaire/complements-hors-acv-1/consommation.md).
+En théorie, il est possible qu'une étape de cuisson soit appliquée aux étapes de [transformation](../../alimentaire/impacts-consideres/transformation.md) ou de [consommation](../../alimentaire/complements-hors-acv/consommation.md).
 {% endhint %}
 
 Dès lors :&#x20;
