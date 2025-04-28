@@ -5887,7 +5887,7 @@
     "scenario": "reference",
     "search": "Goat milk, consumption mix {FR} U",
     "transportCooling": "once_transformed",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "breakfast-cereals",
@@ -5953,7 +5953,7 @@
     "scenario": "reference",
     "search": "garlic consumption mix",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "vegetable-mix",
@@ -6591,7 +6591,7 @@
     "scenario": "reference",
     "search": "Almond mix",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "almond-inshell-ue",
@@ -6833,7 +6833,7 @@
     "scenario": "reference",
     "search": "Broccoli, consumption mix {FR} U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "broccoli-non-eu",
@@ -7464,7 +7464,7 @@
     "scenario": "reference",
     "search": "Anchovy, consumption mix {FR} U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "anchovy-eu",
@@ -7842,7 +7842,7 @@
     "scenario": "reference",
     "search": "Hazelnut, unshelled, consumption mix {FR} U",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "chesnut-inshell-organic",
