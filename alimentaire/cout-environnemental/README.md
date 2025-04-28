@@ -1,4 +1,4 @@
-# 🪙 Coût environnemental
+# Coût environnemental
 
 Le coût environnemental est le résultat du calcul d'impacts seront une méthode s'appuie sur le socle européen PEF (Product Environmental Footprint), auxquels s'ajoutent des corrections ou des compléments relatifs aux dimensions aujourd'hui mal couvertes par l'analyse de cycle de vie.
 
