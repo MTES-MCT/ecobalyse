@@ -1,12 +1,15 @@
 # ⚡ Energies des étapes de transformation
 
-## Généralités
+## Contexte
 
 Deux scénarios existent pour modéliser la consommation d'énergie des procédés de transformation mobilisés :&#x20;
 
-**Scénario 1** :  l'énergie est déjà intégrée dans le procédé mobilisé en tant que Flux Interne,
+**Scénario 1** : l'énergie est intégrée dans le procédé mobilisé (voir source et nom technique dans l'explorateur de procédés) en tant que Flux Interne,
 
-**Scénario 2** : l'énergie n'est pas intégrée dans le procédé mobilisé et doit être intégrée en tant que Flux Externe (c'est par exemple le cas pour de nombreux procédés de l'étape Ennoblissement).
+**Scénario 2** : l'énergie est modélisée spécifiquement, avec des quantité et des mix géographiques dédiés.
+
+* ou bien il n'y a pas de procédés source mobilisé (cas des procédés textile dégraissage, désencollage, mercerisage, teinture, tricotage par exemple)
+* ou bien il y a en complément un procédé source mobilisé. Il peut être construit spécifiquement (pour le blanchiment par exemple), ou issu d'une base de données (Base Impacts 2.01 pour le délavage chimique par exemple)
 
 Dans le cas du scénario 2, une quantité d'électricité et/ou de chaleur est indiquée dans les colonnes "Electricité" et "Chaleur" de l'Explorateur du secteur concerné, correspondant à ce Flux externe qui doit être modélisé en supplément du procédé de transformation.
 
@@ -20,25 +23,25 @@ Dans Ecobalyse, la consommation d'électricité s'exprime en kilowatt.heures (kW
 
 Lorsque c'est nécessaire, une conversion entre MJ et kWh est alors appliquée (1 kWh = 3,6 MJ).&#x20;
 
-## Calcul du coût environnemental (Flux Externe)
+## Méthodes de calcul (Scénario 2 : Flux Externe)
 
 $$
-CE_{EnergieTransformation} = M_{Sortante}* E_{Transformation}*CE_{Energie}
+I_{EnergieTransformation} = M_{Sortante}* E_{Transformation}*I_{Energie}
 $$
 
 Avec :
 
-* `CE_EnergieTransformation` : le cout environnemental relatif à la consommation d'énergie en tant que Flux externe pour l'étape de transformation considérée, exprimée en Pts d'impact
+* `I_EnergieTransformation` : le cout environnemental relatif à la consommation d'énergie en tant que Flux externe pour l'étape de transformation considérée, exprimée en Pts d'impact
 * `M_Sortante` : la masse de produit après transformation, exprimée en kg
 * `E_Transformation` : l'énergie pour transformer la matière première en 1 kg de produit transformé, exprimé en kWh/kg pour l'électricité ou en MJ/kg pour la chaleur
-* `CE_Energie` : le coût environnemental d'1 kWh d'électricité ou d'1 MJ de chaleur, exprimé en Pts/kWh ou Pts/MJ, et fonction du procédé retenu pour modéliser cette énergie.
+* `I_Energie` : le coût environnemental d'1 kWh d'électricité ou d'1 MJ de chaleur, exprimé en Pts/kWh ou Pts/MJ, et fonction du procédé retenu pour modéliser cette énergie.
 
 Exemples :&#x20;
 
 * Exemple 1 (Textile) :  0,5 kg d'étoffe en sortie de l'étape Ennoblissement ; 0,1 kWh / kg d'électricité et 3.2 MJ/kg de chaleur pour l'étape de pré-traitement _Désencollage_.&#x20;
 * Exemple 2 (Véhicule) : véhicule de 1400kg ; 1 kWh/kg d'électricité et 3 MJ/kg de chaleur pour l'assemblage
 
-## Choix des procédés mobilisés
+## Procédés utilisés pour le coût environnemental
 
 Le flux externe d'énergie est modélisé avec un procédé correspondant à la zone géographique sélectionnée par l'utilisateur.
 
@@ -49,7 +52,7 @@ Trois scénarios sont possibles :&#x20;
 * Scénario 1 : le pays de transformation n'est pas connu.\
   Lorsque l'utilisateur ne connaît pas le pays, il sélectionne la zone géographique "Inconnu". Dans ce cas, ce sont les procédés retenus pour l'Inde qui sont utilisés, correspondant aujourd'hui à un majorant pertinent à l'échelle internationale :&#x20;
   * Electricité : _market group for electricity, medium voltage, IN_ (Ecoinvent)
-  * Chaleur : _Heat mix (Europe)_ (Ecobalyse)
+  * Chaleur : _Heat mix (World)_ (Ecobalyse)
 * Scénario 2 : le pays de transformation est connu et est dans la liste de pays proposés \
   L'utilisateur sélectionne donc ce pays. Les pays proposés dépendent du secteur (textile, alimentaire...).
 * Scénario 3 : le pays de transformation est connu mais n'est pas dans la liste de pays proposés.\
