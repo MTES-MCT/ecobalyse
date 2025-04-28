@@ -2343,7 +2343,7 @@
     "scenario": "import",
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "hazelnut-eu",
