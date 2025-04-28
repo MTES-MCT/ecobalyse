@@ -27,6 +27,14 @@ type Msg
     = NoOp
 
 
+type alias ButtonParams =
+    { label : String
+    , subLabel : Maybe String
+    , callToAction : Bool
+    , route : Route
+    }
+
+
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( ()
@@ -45,22 +53,15 @@ update session msg model =
 viewHero : Session -> Html Msg
 viewHero { enabledSections } =
     let
-        simulatorButton : String -> Maybe String -> Bool -> Route -> Html Msg
-        simulatorButton label subLabel callToAction route =
+        simulatorButton : ButtonParams -> Html Msg
+        simulatorButton { label, subLabel, callToAction, route } =
             a
                 [ class
-                    ("btn btn-lg d-flex flex-column align-items-center justify-content-center btn-{cta_class}primary"
-                        |> String.replace "{cta_class}"
-                            (if callToAction then
-                                ""
-
-                             else
-                                "outline-"
-                            )
-                    )
+                    "btn btn-lg d-flex flex-column align-items-center justify-content-center"
+                , classList [ ( "btn-primary", callToAction ), ( "btn-outline-primary", not callToAction ) ]
                 , Route.href route
                 ]
-                [ span [] [ text label ]
+                [ text label
                 , case subLabel of
                     Just sub ->
                         Html.cite [ class "fw-normal fs-7 d-block" ] [ text sub ]
@@ -81,25 +82,28 @@ viewHero { enabledSections } =
                 ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
                 [ simulatorButton
-                    "Calculer l’impact d’un vêtement"
-                    Nothing
-                    True
-                    Route.TextileSimulatorHome
+                    { label = "Calculer l’impact d’un vêtement"
+                    , subLabel = Nothing
+                    , callToAction = True
+                    , route = Route.TextileSimulatorHome
+                    }
                 , if enabledSections.food then
                     simulatorButton
-                        "Calculer l’impact de l’alimentation"
-                        (Just "Méthodologie en concertation")
-                        False
-                        Route.FoodBuilderHome
+                        { label = "Calculer l’impact de l’alimentation"
+                        , subLabel = Just "Méthodologie en concertation"
+                        , callToAction = False
+                        , route = Route.FoodBuilderHome
+                        }
 
                   else
                     text ""
                 , if enabledSections.objects then
                     simulatorButton
-                        "Calculer l’impact d’un objet"
-                        (Just "Simulateur en construction")
-                        False
-                        (Route.ObjectSimulatorHome Scope.Object)
+                        { label = "Calculer l’impact d’un objet"
+                        , subLabel = Just "Simulateur en construction"
+                        , callToAction = False
+                        , route = Route.ObjectSimulatorHome Scope.Object
+                        }
 
                   else
                     text ""
