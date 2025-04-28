@@ -331,7 +331,11 @@ versionLink version =
 
 pageHeader : Config msg -> Html msg
 pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion } =
-    header [ class "Header shadow-sm", attribute "role" "banner" ]
+    header
+        [ class "Header shadow-sm"
+        , classList [ ( "mb-2", activePage /= Home ) ]
+        , attribute "role" "banner"
+        ]
         [ div [ class "MobileMenuButton" ]
             [ button
                 [ type_ "button"
