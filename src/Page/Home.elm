@@ -2,7 +2,6 @@ module Page.Home exposing
     ( Model
     , Msg(..)
     , init
-    , subscriptions
     , update
     , view
     )
@@ -14,28 +13,23 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Ports
-import Route
+import Route exposing (Route)
 import Views.Container as Container
 import Views.Link as Link
 import Views.Markdown as Markdown
 
 
 type alias Model =
-    { modal : Modal
-    }
+    ()
 
 
 type Msg
     = NoOp
 
 
-type Modal
-    = NoModal
-
-
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { modal = NoModal }
+    ( ()
     , session
     , Ports.scrollTo { x = 0, y = 0 }
     )
@@ -48,38 +42,69 @@ update session msg model =
             ( model, session, Cmd.none )
 
 
-viewHero : Session -> Modal -> Html Msg
-viewHero { enabledSections } modal =
+viewHero : Session -> Html Msg
+viewHero { enabledSections } =
+    let
+        simulatorButton : String -> Maybe String -> Bool -> Route -> Html Msg
+        simulatorButton label subLabel callToAction route =
+            a
+                [ class
+                    ("btn btn-lg d-flex flex-column align-items-center justify-content-center btn-{cta_class}primary"
+                        |> String.replace "{cta_class}"
+                            (if callToAction then
+                                ""
+
+                             else
+                                "outline-"
+                            )
+                    )
+                , Route.href route
+                ]
+                [ span [] [ text label ]
+                , case subLabel of
+                    Just sub ->
+                        Html.cite [ class "fw-normal fs-7 d-block" ] [ text sub ]
+
+                    Nothing ->
+                        text ""
+                ]
+    in
     Container.centered [ class "pt-4 pb-5" ]
         [ div [ class "px-5" ]
             [ h2 [ class "h1" ]
                 [ text "Calculez le coût environnemental de vos produits" ]
             , div [ class "fs-5 mt-3 mb-5" ]
-                [ """Ecobalyse permet de comprendre et d’exprimer les impacts environnementaux des produits distribués en France par le calcul d’un coût en points d’impact\u{202F}: le coût environnemental. Découvrez nos outils et notre périmètre d’action\u{202F}!"""
+                [ """Ecobalyse permet de comprendre et d’exprimer les impacts environnementaux des produits distribués en France
+                par le calcul d’un coût en points d’impact\u{202F}: **le coût environnemental**.
+                Découvrez nos outils et notre périmètre d’action\u{202F}!"""
                     |> Markdown.simple []
                 ]
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
-                [ a [ class "btn btn-lg btn-primary d-flex align-items-center justify-content-center", Route.href Route.TextileSimulatorHome ]
-                    [ text "Calculer l’impact d’un vêtement" ]
+                [ simulatorButton
+                    "Calculer l’impact d’un vêtement"
+                    Nothing
+                    True
+                    Route.TextileSimulatorHome
                 , if enabledSections.food then
-                    a [ class "btn btn-lg btn-outline-primary", Route.href Route.FoodBuilderHome ]
-                        [ text "Calculer l’impact de l’alimentation", br [] [], Html.cite [ class "fw-normal fs-7 d-block" ] [ text "Méthodologie en concertation" ] ]
+                    simulatorButton
+                        "Calculer l’impact de l’alimentation"
+                        (Just "Méthodologie en concertation")
+                        False
+                        Route.FoodBuilderHome
 
                   else
                     text ""
                 , if enabledSections.objects then
-                    a [ class "btn btn-lg btn-outline-primary", Route.href (Route.ObjectSimulatorHome Scope.Object) ]
-                        [ text "Calculer l’impact d’un objet"
-                        , Html.cite [ class "fw-normal fs-7 d-block" ] [ text "Simulateur en construction" ]
-                        ]
+                    simulatorButton
+                        "Calculer l’impact d’un objet"
+                        (Just "Simulateur en construction")
+                        False
+                        (Route.ObjectSimulatorHome Scope.Object)
 
                   else
                     text ""
                 ]
             ]
-        , case modal of
-            NoModal ->
-                text ""
         ]
 
 
@@ -93,7 +118,8 @@ viewInfo =
             []
         , div [ class "d-flex flex-column gap-2" ]
             [ h3 [ class "mb-1" ] [ text "En savoir plus sur les données et les impacts\u{202F}?" ]
-            , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}). Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
+            , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}).
+            Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
                 |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
                 |> String.replace "{url_account}" (Route.toString <| Route.Auth { authenticated = False })
                 |> Markdown.simple []
@@ -105,7 +131,10 @@ viewTools : Html Msg
 viewTools =
     Container.centered []
         [ h3 [ class "mb-2" ] [ text "Les dessous du coût environnemental" ]
-        , """Le coût environnemental s’appuie sur la méthodologie d’analyse du cycle de vie PEF (Product Environmental Footprint) complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics (ADEME, Ministère de la transition écologique, ...) en s’appuyant sur des experts et des parties prenantes mobilisées notamment lors de phase de concertation. Ce cadre méthodologique est explicité dans [la page de documentation]({url_gitbook})."""
+        , """Le coût environnemental s’appuie sur la méthodologie d’analyse du cycle de vie PEF (Product Environmental Footprint)
+        complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics (ADEME, Ministère de la transition écologique, ...)
+        en s’appuyant sur des experts et des parties prenantes mobilisées notamment lors de phase de concertation.
+        Ce cadre méthodologique est explicité dans [la page de documentation]({url_gitbook})."""
             |> String.replace "{url_gitbook}" Env.gitbookUrl
             |> Markdown.simple []
         , div [ class "d-flex mt-4 gap-3" ]
@@ -151,12 +180,12 @@ viewApi =
         ]
 
 
-view : Session -> Model -> ( String, List (Html Msg) )
-view session { modal } =
+view : Session -> ( String, List (Html Msg) )
+view session =
     ( "Accueil"
     , [ div [ class "d-flex flex-column" ]
             [ div [ class "bg-light pt-5" ]
-                [ viewHero session modal ]
+                [ viewHero session ]
             , viewInfo
             , div [ class "bg-light pt-5 pb-5" ]
                 [ viewTools ]
@@ -167,10 +196,3 @@ view session { modal } =
             ]
       ]
     )
-
-
-subscriptions : Model -> Sub Msg
-subscriptions { modal } =
-    case modal of
-        NoModal ->
-            Sub.none
