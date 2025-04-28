@@ -1,6 +1,59 @@
 # Changelog
 
 
+## [5.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.1..v5.0.0) (2025-04-28)
+
+
+
+### 🚀 Features
+
+- *(object)* Add plastic transformation process ([#949](https://github.com/MTES-MCT/ecobalyse/issues/949))
+- Allow customize component element final mass ([#959](https://github.com/MTES-MCT/ecobalyse/issues/959))
+- *(object,ui)* Allow adding component element transforms ([#967](https://github.com/MTES-MCT/ecobalyse/issues/967))
+- *(object,ui)* Allow updating a component element material. ([#969](https://github.com/MTES-MCT/ecobalyse/issues/969))
+- *(object,ui)* Allow adding a new element to a component ([#979](https://github.com/MTES-MCT/ecobalyse/issues/979))
+- *(object,ui)* Allow set a custom component name ([#981](https://github.com/MTES-MCT/ecobalyse/issues/981))
+- Store and render app version along bookmarks ([#989](https://github.com/MTES-MCT/ecobalyse/issues/989))
+- *(object,ui)* Allow multiple component instances ([#1001](https://github.com/MTES-MCT/ecobalyse/issues/1001))
+- *(object)* Render lifecycle stage impacts data ([#1008](https://github.com/MTES-MCT/ecobalyse/issues/1008))
+- Minimalistic component back-office ([#1016](https://github.com/MTES-MCT/ecobalyse/issues/1016))
+- *(back-office)* Allow admins to update components ([#1034](https://github.com/MTES-MCT/ecobalyse/issues/1034))
+
+### 🪲 Bug Fixes
+
+- Explicit strategies and htc/htn fixes ([#952](https://github.com/MTES-MCT/ecobalyse/issues/952))
+- Memory leak in node 20.16 and 20.17 ([#958](https://github.com/MTES-MCT/ecobalyse/issues/958))
+- *(security)* Upgrade django to 5.1.7. ([#966](https://github.com/MTES-MCT/ecobalyse/issues/966))
+- Re-allow overriding spinning country. ([#917](https://github.com/MTES-MCT/ecobalyse/issues/917))
+- *(food,ui)* Fix food transform processes list not scoped ([#990](https://github.com/MTES-MCT/ecobalyse/issues/990))
+- *(object,ui)* Fix string representation of custom component items ([#996](https://github.com/MTES-MCT/ecobalyse/issues/996))
+- *(api)* Improve API docs and JSON data validation ([#1021](https://github.com/MTES-MCT/ecobalyse/issues/1021))
+
+### 🚜 Refactor
+
+- Read changelog from local file ([#964](https://github.com/MTES-MCT/ecobalyse/issues/964))
+- Decouple ingredient/material id from process id ([#1022](https://github.com/MTES-MCT/ecobalyse/issues/1022))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(food,textile,api)* [**breaking**] Remove deprecated API endpoints. ([#951](https://github.com/MTES-MCT/ecobalyse/issues/951))
+- Rename ingredients ([#957](https://github.com/MTES-MCT/ecobalyse/issues/957))
+- Upgrade node dependencies, 2025-03 ([#965](https://github.com/MTES-MCT/ecobalyse/issues/965))
+- Data JSON export refactor ([#968](https://github.com/MTES-MCT/ecobalyse/issues/968))
+- Add issue template ([#972](https://github.com/MTES-MCT/ecobalyse/issues/972))
+- Rename bug report template file ([#973](https://github.com/MTES-MCT/ecobalyse/issues/973))
+- Upgrade nodejs and python dependencies, 2025-03-31 ([#987](https://github.com/MTES-MCT/ecobalyse/issues/987))
+- Upgrade django to 5.1.8 ([#1007](https://github.com/MTES-MCT/ecobalyse/issues/1007))
+- Impacts from brightway switch ([#993](https://github.com/MTES-MCT/ecobalyse/issues/993))
+- Replace plastic component ([#1017](https://github.com/MTES-MCT/ecobalyse/issues/1017))
+- Update process model to require sourceId ([#1039](https://github.com/MTES-MCT/ecobalyse/issues/1039))
+- Supress long-term impacts (new export from ecobalyse-data#63) ([#1010](https://github.com/MTES-MCT/ecobalyse/issues/1010))
+- Create local test component data ([#1045](https://github.com/MTES-MCT/ecobalyse/issues/1045))
+- Lower Uranium FRU (new export from ecobalyse-data#71) ([#1018](https://github.com/MTES-MCT/ecobalyse/issues/1018))
+- Hide some ingredients ([#1040](https://github.com/MTES-MCT/ecobalyse/issues/1040))
+- Update home page ([#1041](https://github.com/MTES-MCT/ecobalyse/issues/1041))
+
+
 ## [4.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.0..v4.0.1) (2025-03-04)
 
 
