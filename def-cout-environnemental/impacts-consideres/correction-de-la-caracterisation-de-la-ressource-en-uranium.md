@@ -79,7 +79,9 @@ Données sources :&#x20;
 
 <figure><img src="../../.gitbook/assets/image (335).png" alt=""><figcaption></figcaption></figure>
 
-Au final, voici les impacts de l'électricité dans ecobalyse. <mark style="color:red;">(graph à ajouter)</mark>
+Au final, voici le coût environnemental par kWh pour 1 kWh d'électricité en France, en fonction de la source de production :&#x20;
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 
 

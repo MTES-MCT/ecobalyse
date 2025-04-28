@@ -165,7 +165,7 @@ Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de c
 
 </details>
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Impact biodiversité des différents bois proposés dans le Niveau 1 de la méthode ( Ref(i) )</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Impact biodiversité des différents bois proposés dans le Niveau 1 de la méthode ( Ref(i) )</p></figcaption></figure>
 
 {% hint style="info" %}
 Afin de couvrir toutes les configurations possibles, deux scénarios non spécifiques à une origine ont été intégrés dans la méthode :&#x20;
