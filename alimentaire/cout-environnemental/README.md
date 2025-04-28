@@ -8,8 +8,8 @@ $$
 
 Les deux pages suivantes viennent détailler :&#x20;
 
-* la contribution au coût environnemental liée à des catégories d'impact ACV - [**Catégories d'impact**](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/1310/alimentaire/cout-environnemental/categories-dimpact-acv)
-* l'introduction de compléments qui, pour les produits alimentaires, vient valoriser les services écosystémiques liés aux modes de production agricole - [**Compléments hors ACV**](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/1310/alimentaire/cout-environnemental/complement-hors-acv)&#x20;
+* la contribution au coût environnemental liée à des catégories d'impact ACV - [**Catégories d'impact**](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/cout-environnemental/categories-dimpact-acv)
+* l'introduction de compléments qui, pour les produits alimentaires, vient valoriser les services écosystémiques liés aux modes de production agricole - [**Compléments hors ACV**](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/cout-environnemental/complement-hors-acv)&#x20;
 
 {% content-ref url="categories-dimpact-acv.md" %}
 [categories-dimpact-acv.md](categories-dimpact-acv.md)
