@@ -459,10 +459,6 @@ subscriptions { state } =
         [ Ports.storeChanged StoreChanged
         , Request.Version.pollVersion VersionPoll
         , case state of
-            Loaded _ (HomePage subModel) ->
-                Home.subscriptions subModel
-                    |> Sub.map HomeMsg
-
             Loaded _ (AdminPage subModel) ->
                 Admin.subscriptions subModel
                     |> Sub.map AdminMsg
@@ -546,8 +542,8 @@ view { mobileNavigationOpened, state } =
                         |> mapMsg FoodBuilderMsg
                         |> Page.frame (pageConfig Page.FoodBuilder)
 
-                HomePage homeModel ->
-                    Home.view session homeModel
+                HomePage _ ->
+                    Home.view session
                         |> mapMsg HomeMsg
                         |> Page.frame (pageConfig Page.Home)
 
