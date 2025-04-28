@@ -27,9 +27,9 @@ $$
 Avec :&#x20;
 
 * `I_v_i` : le coût environnemental par voie, exprimé en points d'impact Pts
-* `Masse` : la masse de produit transportée, exprimée en tonnes. Une conversion est donc à prendre en compte par rapport à la masse en kg dans les autres parties des calculs. La masse transportée est celle du produit fini, à laquelle s'ajoutent les éventuelles pertes liées aux étapes de transformation aval
+* `Masse` : la masse de produit transporté, exprimée en tonnes. Une conversion est donc à prendre en compte par rapport à la masse en kg dans les autres parties des calculs. La masse transportée dépend de l'étape du cycle de vie à laquelle a lieu le transport.
 * `D_i,j` : la distance parcourue par le mode de transport j pour la voie i, exprimée en km
-  * `D_mer,bateau` , `D_terre,camion`,`D_air,avion` , `D_fer,train` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnement"
+  * `D_mer,bateau` , `D_terre,camion`,`D_air,avion` , `D_fer,train` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental" de la page "Choix des voies de transport".
   * Le calcul de `D_i,camion` est précisé dans la section suivante (hors voie terre)
   * Les autres distances ne sont pas applicables
 * `I_m_j` : le coût environnemental du mode j, exprimé en Pts/t.km
@@ -74,15 +74,16 @@ Le tableau suivant décrit les sources de données et le mode de calcul des dist
 
 <table><thead><tr><th width="170">Distances</th><th>Source</th></tr></thead><tbody><tr><td>D_terre,camion</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par le PEF, <a href="https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf">Product Environmental Footprint Category Rules Guidance</a>, 7.14.3 From factory to final client)</td></tr><tr><td>D_mer, bateau</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr><tr><td>D_air, avion</td><td>Distance à vol d'oiseau calculée avec geopy.distance, entre le centre de chaque pays.</td></tr><tr><td>D_fer, train</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr></tbody></table>
 
-[Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json) (hors istances vers et depuis les ports et aéroports).
+[Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json) (hors distances vers et depuis les ports et aéroports).
 
 ### Situations où l'un des pays n'est pas connu ou pas proposé dans Ecobalyse
 
 <details>
 
-<summary>Situation 2 : je connais les pays d'origine et de destination, mais ou ou les deux pays ne sont proposé dans Ecobalyse</summary>
+<summary>Situation 2 : je connais le pays mais il n'est pas proposé dans Ecobalyse</summary>
 
-Je sélectionne la région (ex : _Europe de l'Ouest_ pour _Allemagne_)
+Dans ce cas, il faut choisir la région du pays.\
+Exemple pour le pays _Allemagne ⇒_ je sélectionne la région _Europe de l'Ouest._
 
 Afin de définir les distances et modes de transport utilisés pour chaque région, un pays est défini en arrière plan :
 
@@ -101,7 +102,7 @@ Le transport est ensuite calculé de la même façon que si ce pays était direc
 
 <details>
 
-<summary>Situation 3 : je ne connais pas le pays de départ et/ou celui d'arrivée pour l'étape considérée</summary>
+<summary>Situation 3 : je ne connais pas le pays </summary>
 
 Je sélectionne "Inconnu" ou "Inconnu (par défaut)"
 
@@ -113,7 +114,7 @@ Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence ave
 * D\_air, camion = D\_air, camion, défaut
 * D\_fer, fer = 10 000 km
 * D\_fer, camion = D\_fer, camion, défaut
-  * En pratique, le transport par train n'est modélisé par défaut pour aucun produit à ce jour et n'est donc pas utilisé pour le transport depuis ou vers un pays inconnu.
+  * En pratique, le transport ferroviaire n'est pas mobilisé dans les scénarios par défaut.&#x20;
 
 </details>
 

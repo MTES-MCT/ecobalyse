@@ -23,7 +23,7 @@ $$
 Avec :&#x20;
 
 * `I_transport` : l'impact environnemental de l'étape de transport considérée, exprimé dans l'unité de la catégorie d'impact analysée
-* `t` : la part de voie terrestre considérée, établie selon le tableau indiqué dans la partie "Paramètres retenus pour l’affichage environnemental
+* `t` : la part de voie terrestre considérée, établie selon le tableau indiqué dans la partie "Paramètres retenus pour l’affichage environnemental"
 * `I_terre` : le coût environnemental par voie terrestre, exprimé dans l'unité de la catégorie d'impact analysée
 * `I_mer` : le coût environnemental par voie maritime, exprimé dans l'unité de la catégorie d'impact analysée. Ceci inclut donc à la fois le transport par bateau et le transport par camion vers et depuis les ports
 

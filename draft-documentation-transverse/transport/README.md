@@ -29,8 +29,8 @@ Pour l'étape 4, un transport terrestre est considéré, avec une distance appel
 
 Afin de bien modéliser les scénarios de transport, Ecobalyse distingue les notions de voie de transport et de mode de transport :&#x20;
 
-* Le mode de transport est le type de véhicule transportant une marchandise (bateau, camion, avion, train...)
-* Quatre voies de transport sont considérées, faisant appel à un ou deux modes de transport chacune :
+* Le mode de transport permettant de transporter une marchandise (bateau, camion, avion, train...)
+* Quatre voies de transport sont considérées, faisant chacune appel à un ou deux modes de transport :
   * Terrestre (terre)\
     Mode de transport : camion
   * Maritime (mer)\
