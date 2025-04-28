@@ -29,7 +29,7 @@ Avec :&#x20;
 * `I_v_i` : le coût environnemental par voie, exprimé en points d'impact Pts
 * `Masse` : la masse de produit transporté, exprimée en tonnes. Une conversion est donc à prendre en compte par rapport à la masse en kg dans les autres parties des calculs. La masse transportée dépend de l'étape du cycle de vie à laquelle a lieu le transport.
 * `D_i,j` : la distance parcourue par le mode de transport j pour la voie i, exprimée en km
-  * `D_mer,bateau` , `D_terre,camion`,`D_air,avion` , `D_fer,train` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental" de la page "Choix des voies de transport".
+  * `D_mer,bateau` , `D_terre,camion`,`D_air,avion` , `D_fer,train` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental".
   * Le calcul de `D_i,camion` est précisé dans la section suivante (hors voie terre)
   * Les autres distances ne sont pas applicables
 * `I_m_j` : le coût environnemental du mode j, exprimé en Pts/t.km
