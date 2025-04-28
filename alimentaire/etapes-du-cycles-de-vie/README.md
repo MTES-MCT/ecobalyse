@@ -1,2 +1,6 @@
-# Etapes du cycles de vie
+---
+hidden: true
+---
+
+# OLD Etapes du cycles de vie
 

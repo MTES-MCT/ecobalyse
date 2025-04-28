@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Paramétrage
 
 Le paramétrage peut se faire "de zéro" (produit personnalisé) ou mobiliser la fonction "exemples" de l'outil qui permet de partir d'un produit pré-paramétré.

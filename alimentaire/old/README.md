@@ -1,2 +1,6 @@
-# Stock - doc ingrédients
+---
+hidden: true
+---
+
+# Old
 
