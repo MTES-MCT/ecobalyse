@@ -44,8 +44,8 @@ baseColumns detailed scope =
       , toCell = Process.getDisplayName >> text
       }
     , { label = "Nom technique"
-      , toValue = Table.StringValue Process.getDisplayName
-      , toCell = Process.getDisplayName >> text
+      , toValue = Table.StringValue Process.getTechnicalName
+      , toCell = Process.getTechnicalName >> text
       }
     , { label = "Source"
       , toValue = Table.StringValue <| .source
