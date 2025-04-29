@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [5.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.0..v5.0.1) (2025-04-29)
+
+
+
+### 🪲 Bug Fixes
+
+- *(food,ui)* Render ingredient technical process name tooltip ([#1059](https://github.com/MTES-MCT/ecobalyse/issues/1059))
+
+
 ## [5.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v4.0.1..v5.0.0) (2025-04-28)
 
 
