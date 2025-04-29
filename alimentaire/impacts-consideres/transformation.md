@@ -5,56 +5,38 @@ description: Choix des procédés de transformation du produit alimentaire modé
 # 🥧 Etape 2 : transformation
 
 {% hint style="info" %}
-La modélisation de l'étape transformation va être amenée à évoluer dans les prochains mois afin de proposer plus de choix à l'utilisateur.
+La modélisation de l'étape transformation va être amenée à évoluer dans les prochains mois afin de proposer plus de choix à l'utilisateur. Un travail va également être conduit pour proposer un paramétrage de cette étape en fonction de pays de transformation.
 {% endhint %}
 
 La seconde étape du paramétrage d'un produit alimentaire dans Ecobalyse est le choix des procédés de transformation.
 
-Le paramétrage se fait à travers :&#x20;
+Le paramétrage se fait actuellement à travers :&#x20;
 
-* le choix d'un procédé de transformation (optionnel) => en première approche, le choix d'un seul procédé est possible
-* pour chaque procédé de transformation, le paramétrage de la masse mobilisée, exprimée en grammes (g)
+* le choix d'un procédé de transformation (optionnel) => en première approche, le choix d'un seul procédé est possible,
+* pour chaque procédé de transformation, le paramétrage de la masse mobilisée, exprimée en grammes (g).
 
 {% hint style="warning" %}
-Le nombre de procédés de transformation est limité à ce stade. Seuls les procédés correspondant à la **dernière** **transformation non spécifique** d'un produit sont proposés : cuisson, mise en conserve et mélange. En effet, il est considéré, en première approche, que les autres transformations peuvent être intégrées à la phase ingrédient.
+Le nombre de procédés de transformation est limité à ce stade. Seuls les procédés correspondant à la **dernière** **transformation non spécifique** d'un produit sont proposés : cuisson, mise en conserve et mélange. En effet, il est considéré, en première approche, que **les transformations spécifiques (vinification, découpe, hachage, affinage...) doivent être intégrées à la phase ingrédient** (les hypothèses Agribalyse sont donc reprises telles quelles).
 {% endhint %}
 
-Ecobalyse propose uniquement le paramétrage de la **dernière** **transformation non spécifique** d'un produit : cuisson, mise en conserve et mélange.
+Exemple : la transformation du lait en mozzarella n'est pas modélisable à ce stade dans l'outil. Le calcul de l'impact de la mozzarella se fait donc en choisissant l'ingrédient mozzarella dans le module ingrédient.&#x20;
 
-Les autres transformations sont spécifiques et il est considéré qu'elles doivent être intégrées à la phase ingrédient, et qu'elles sont ainsi non paramétrables (les hypothèses Agribalyse sont reprises telles quelles).
-
-Exemple :&#x20;
-
-La transformation du lait en mozzarella n'est pas modélisable à ce stade dans l'outil. Le calcul de l'impact de la mozzarella se fait donc en choisissant l'ingrédient mozzarella dans le module ingrédient.&#x20;
-
-A terme, l'outil pourrait permettre de paramétrer les transformations spécifiques (vinification,
-
-{% hint style="danger" %}
-Certains produits CIQUAL proposés dans la base Agribalyse mobilisent deux procédés de transformation \[_**préciser combien ?**_]. Il pourra être envisagé, dans un second temps, de rendre possible l'ajout d'un second procédé de transformation.
-{% endhint %}
-
-
-
-{% hint style="danger" %}
-Dans un second temps, la masse mobilisée pour le procédé de transformation pourrait être automatiquement calculée à partir de la masse des ingrédients mobilisés (cf. [ingredients-agricoles-hors-viande](../etapes-du-cycles-de-vie/ingredients-agricoles-hors-viande/ "mention"))
-{% endhint %}
-
-## Liste des procédés de transformation proposés
-
-
+## Détails sur les ICV des procédés de transformation proposés
 
 Pour établir la liste des procédés de transformation, voilà les critères que l'on utilise :
 
-* process utilisé dans un produit CIQUAL
+* procédé utilisé dans un produit CIQUAL
 * de catégorie `processing`
 * ne produisant pas un ingrédient de base (viande, lait, …). Dans ce cas on part du principe que l’utilisateur utilisera directement l’ingrédient de base (viande, lait, …) dans sa recette
 
 Voilà la liste des procédés de transformation retenus
 
-| Cooking, industrial, 1kg of cooked product/ FR U                      |
-| --------------------------------------------------------------------- |
 | Mixing, processing, at plant \\"dummy process\\                       |
+| --------------------------------------------------------------------- |
 | Canning fruits or vegetables, industrial, 1kg of canned product/ FR U |
+| Cooking, industrial, 1kg of cooked product/FR U                       |
+
+Le détail des procédés mobilisés avec Ecobalyse est accessible via la rubrique "procédés" de l'explorateur : [https://ecobalyse.beta.gouv.fr/#/explore/food/food-processes](https://ecobalyse.beta.gouv.fr/#/explore/food/food-processes)
 
 ## Caractérisation du procédé de transformation
 
