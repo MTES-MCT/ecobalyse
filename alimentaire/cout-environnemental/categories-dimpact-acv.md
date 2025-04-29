@@ -54,7 +54,7 @@ L'illustration ci-après montre les principales évolutions des coefficients de 
 * la pondération présentée, en mars 2023, à l'occasion de la mise en ligne d'une version beta d'Ecobalyse
 * la pondération exposée aujourd'hui dans Ecobalyse pour servir de support à une concertation technique
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 ### Correctifs sur la toxicité et d'écotoxicité
 
