@@ -11,6 +11,7 @@ module Data.Process exposing
     , findById
     , getDisplayName
     , getImpact
+    , getTechnicalName
     , idFromString
     , idToString
     , listByCategory
@@ -188,6 +189,11 @@ getDisplayName { displayName, id, sourceId } =
 
             else
                 sourceIdToString sourceId
+
+
+getTechnicalName : Process -> String
+getTechnicalName { sourceId } =
+    sourceIdToString sourceId
 
 
 listByCategory : Category -> List Process -> List Process
