@@ -40,9 +40,7 @@ Le détail des procédés mobilisés avec Ecobalyse est accessible via la rubriq
 
 ## Caractérisation du procédé de transformation
 
-Chaque procédé de transformation est caractérisé par :&#x20;
-
-* Masse (g)
+Chaque procédé de transformation est caractérisé par sa masse (g).
 
 La masse est considérée en sortie de procédé de transformation.
 
@@ -69,8 +67,3 @@ ImpactTransfo = MasseTransfo (kg) * ImpactMassiqueTransfo
 $$
 
 ​
-
-Les impacts considérés peuvent être indifféremment :&#x20;
-
-* l'un des 16 impact PEF proposés dans la base Agribalyse (cf. [impacts-consideres.md](../old/pages-textiles-old/impacts-consideres.md "mention")) - \[_**TODO : une modif à prévoir sur cette page, voire sur l'explorateur, pour dissocier l'alimentaire et le textile**_]
-* le score PEF calculé comme une somme pondérée des 16 impacts, en application de la méthode PEF (cf. [https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef](https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef) )
