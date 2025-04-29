@@ -29,18 +29,18 @@ load processes =
     in
     Ok WellKnown
         -- boat-cooling
-        |> fromIdString "8f1efc54-b468-4ab8-9ea6-ef533bf74be5"
+        |> fromIdString "c739cf97-d424-5abd-b6ad-4c21d66081bb"
         -- boat
-        |> fromIdString "247b42b9-d629-4006-86a4-4c255f5b8e4b"
+        |> fromIdString "54145f9e-1a8e-5a69-96d9-d3b92f9a1cee"
         -- domestic-gas-heat
-        |> fromIdString "63bb1a62-15d9-4a56-82f3-c42ab92c31ae"
+        |> fromIdString "a21ee9bf-675f-502b-a9a3-395686a429e0"
         -- lorry-cooling
-        |> fromIdString "da60057d-d42c-4892-84fe-a802f294821d"
+        |> fromIdString "a79eb385-fa19-590c-8e3b-16f6048c4303"
         -- lorry
-        |> fromIdString "a938b45f-688d-4265-b6af-c11a9fa91c36"
+        |> fromIdString "1f30553d-df08-5f07-b035-ba3ce5af7cf1"
         -- low-voltage-electricity
-        |> fromIdString "a094f56a-ae26-469a-8639-c2f447919eb6"
+        |> fromIdString "e3f15e98-5560-5674-8e0d-ca4185824029"
         -- plane
-        |> fromIdString "3bb59715-9944-4512-ae71-232109c83794"
+        |> fromIdString "c8bca164-5574-5232-84b9-46c5b734cd0c"
         -- tap-water
-        |> fromIdString "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6"
+        |> fromIdString "d3fc19a4-7ace-5870-aeb3-fe35a8189d94"

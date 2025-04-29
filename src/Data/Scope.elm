@@ -1,5 +1,6 @@
 module Data.Scope exposing
     ( Scope(..)
+    , all
     , anyOf
     , decode
     , encode
@@ -19,6 +20,11 @@ type Scope
     | Object
     | Textile
     | Veli
+
+
+all : List Scope
+all =
+    [ Food, Object, Textile, Veli ]
 
 
 {-| Filter a list of scoped records against any passed allowed scopes

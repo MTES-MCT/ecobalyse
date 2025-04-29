@@ -2,8 +2,18 @@ module Views.Component exposing (editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Component as Component exposing (Amount, Component, ExpandedElement, Id, Item, Quantity, Results)
-import Data.Dataset as Dataset
+import Data.Component as Component
+    exposing
+        ( Amount
+        , Component
+        , ExpandedElement
+        , Index
+        , Item
+        , Quantity
+        , Results
+        , TargetElement
+        , TargetItem
+        )
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
@@ -13,7 +23,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
-import Route
+import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
 import Views.Format as Format
@@ -25,39 +35,42 @@ type alias Config db msg =
     { addLabel : String
     , customizable : Bool
     , db : Component.DataContainer db
-    , detailed : List Id
+    , debug : Bool
+    , detailed : List Index
     , docsUrl : Maybe String
+    , explorerRoute : Maybe Route
     , impact : Definition
     , items : List Item
+    , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
-    , openSelectProcessModal : Category -> Component -> Maybe Int -> Autocomplete Process -> msg
-    , removeElement : Component -> Int -> msg
-    , removeElementTransform : Component -> Int -> Int -> msg
-    , removeItem : Id -> msg
+    , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
+    , removeElement : TargetElement -> msg
+    , removeElementTransform : TargetElement -> Index -> msg
+    , removeItem : Index -> msg
     , results : Results
-    , scope : Scope
-    , setDetailed : List Id -> msg
+    , scopes : List Scope
+    , setDetailed : List Index -> msg
     , title : String
-    , updateElementAmount : Component -> Int -> Maybe Amount -> msg
-    , updateItemName : Component -> String -> msg
-    , updateItemQuantity : Id -> Quantity -> msg
+    , updateElementAmount : TargetElement -> Maybe Amount -> msg
+    , updateItemName : TargetItem -> String -> msg
+    , updateItemQuantity : Index -> Quantity -> msg
     }
 
 
 addComponentButton : Config db msg -> Html msg
-addComponentButton { addLabel, db, items, openSelectComponentModal, scope } =
+addComponentButton { addLabel, db, openSelectComponentModal, scopes } =
     let
         availableComponents =
             db.components
-                |> Scope.anyOf [ scope ]
-                |> Component.available (List.map .id items)
+                |> Scope.anyOf scopes
 
         autocompleteState =
             AutocompleteSelector.init .name availableComponents
     in
     button
-        [ class "btn btn-outline-primary w-100"
+        [ type_ "button"
+        , class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
         , disabled <| List.isEmpty availableComponents
@@ -68,17 +81,18 @@ addComponentButton { addLabel, db, items, openSelectComponentModal, scope } =
         ]
 
 
-addElementButton : Config db msg -> Component -> Html msg
-addElementButton { db, openSelectProcessModal } component =
+addElementButton : Config db msg -> TargetItem -> Html msg
+addElementButton { db, openSelectProcessModal } targetItem =
     button
-        [ class "btn btn-link text-decoration-none"
+        [ type_ "button"
+        , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
         , class "gap-2 w-100 p-0 pb-1 text-end"
         , db.processes
             |> Process.listByCategory Category.Material
             |> List.sortBy Process.getDisplayName
-            |> AutocompleteSelector.init .name
-            |> openSelectProcessModal Category.Material component Nothing
+            |> AutocompleteSelector.init Process.getDisplayName
+            |> openSelectProcessModal Category.Material targetItem Nothing
             |> onClick
         ]
         [ Icon.puzzle
@@ -86,8 +100,8 @@ addElementButton { db, openSelectProcessModal } component =
         ]
 
 
-addElementTransformButton : Config db msg -> Component -> Int -> Html msg
-addElementTransformButton { db, openSelectProcessModal } component index =
+addElementTransformButton : Config db msg -> TargetElement -> Html msg
+addElementTransformButton { db, openSelectProcessModal } ( ( component, itemIndex ), elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
@@ -95,21 +109,22 @@ addElementTransformButton { db, openSelectProcessModal } component index =
                 |> List.sortBy Process.getDisplayName
                 |> Process.available
                     (component.elements
-                        |> LE.getAt index
+                        |> LE.getAt elementIndex
                         |> Maybe.map .transforms
                         |> Maybe.withDefault []
                     )
 
         autocompleteState =
-            AutocompleteSelector.init .name availableTransformProcesses
+            AutocompleteSelector.init Process.getDisplayName availableTransformProcesses
     in
     button
-        [ class "btn btn-link btn-sm w-100 text-decoration-none"
+        [ type_ "button"
+        , class "btn btn-link btn-sm w-100 text-decoration-none"
         , class "d-flex justify-content-start align-items-center"
         , class "gap-1 w-100 p-0 pb-1"
         , disabled <| List.isEmpty availableTransformProcesses
         , autocompleteState
-            |> openSelectProcessModal Category.Transform component (Just index)
+            |> openSelectProcessModal Category.Transform ( component, itemIndex ) (Just elementIndex)
             |> onClick
         ]
         [ Icon.plus
@@ -117,28 +132,35 @@ addElementTransformButton { db, openSelectProcessModal } component index =
         ]
 
 
-componentView : Config db msg -> Item -> ( Quantity, Component, List ExpandedElement ) -> Results -> List (Html msg)
-componentView config item ( quantity, component, expandedElements ) itemResults =
+componentView :
+    Config db msg
+    -> Index
+    -> Item
+    -> ( Quantity, Component, List ExpandedElement )
+    -> Results
+    -> List (Html msg)
+componentView config itemIndex item ( quantity, component, expandedElements ) itemResults =
     let
         collapsed =
             config.detailed
-                |> List.member component.id
+                |> List.member itemIndex
                 |> not
     in
     List.concat
         [ [ tbody []
                 [ tr [ class "border-top border-bottom" ]
                     [ th [ class "ps-2 align-middle", scope "col" ]
-                        [ if config.customizable then
+                        [ if config.customizable && config.maxItems /= Just 1 then
                             button
-                                [ class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
+                                [ type_ "button"
+                                , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
                                 , onClick <|
                                     config.setDetailed <|
-                                        if collapsed && not (List.member component.id config.detailed) then
-                                            LE.unique <| component.id :: config.detailed
+                                        if collapsed && not (List.member itemIndex config.detailed) then
+                                            LE.unique <| itemIndex :: config.detailed
 
                                         else
-                                            List.filter ((/=) component.id) config.detailed
+                                            List.filter ((/=) itemIndex) config.detailed
                                 ]
                                 [ if collapsed then
                                     text "▶"
@@ -151,13 +173,14 @@ componentView config item ( quantity, component, expandedElements ) itemResults 
                             text ""
                         ]
                     , td [ class "ps-0 py-2 align-middle" ]
-                        [ quantity |> quantityInput config component.id ]
+                        [ quantity |> quantityInput config itemIndex
+                        ]
                     , td [ class "align-middle text-truncate w-100", colspan 2 ]
                         [ if config.customizable then
                             input
                                 [ type_ "text"
                                 , class "form-control"
-                                , onInput (config.updateItemName component)
+                                , onInput (config.updateItemName ( component, itemIndex ))
                                 , placeholder "Nom du composant"
                                 , item.custom
                                     |> Maybe.andThen .name
@@ -178,22 +201,26 @@ componentView config item ( quantity, component, expandedElements ) itemResults 
                             |> Format.formatImpact config.impact
                         ]
                     , td [ class "pe-3 text-end align-middle text-nowrap" ]
-                        [ button
-                            [ class "btn btn-outline-secondary"
-                            , onClick (config.removeItem component.id)
-                            ]
-                            [ Icon.trash ]
+                        [ if config.maxItems == Just 1 then
+                            text ""
+
+                          else
+                            button
+                                [ type_ "button"
+                                , class "btn btn-outline-secondary"
+                                , onClick (config.removeItem itemIndex)
+                                ]
+                                [ Icon.trash ]
                         ]
                     ]
                 ]
           ]
         , if not collapsed then
             List.map3
-                (elementView config component)
+                (elementView config ( component, itemIndex ))
                 (List.range 0 (List.length expandedElements - 1))
                 expandedElements
                 (Component.extractItems itemResults)
-                |> List.intersperse (tbody [ class "m-0 p-0 border" ] [ td [ colspan 7 ] [] ])
 
           else
             []
@@ -201,7 +228,7 @@ componentView config item ( quantity, component, expandedElements ) itemResults 
             [ tbody []
                 [ tr [ class "border-top" ]
                     [ td [ colspan 7, class "pe-3" ]
-                        [ addElementButton config component
+                        [ addElementButton config ( component, itemIndex )
                         ]
                     ]
                 ]
@@ -240,18 +267,23 @@ viewDebug items results =
 
 
 editorView : Config db msg -> Html msg
-editorView ({ db, docsUrl, items, results, scope, title } as config) =
+editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as config) =
     div []
         [ div [ class "card shadow-sm mb-3" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h2 [ class "h5 mb-0" ]
                     [ text title
-                    , Link.smallPillExternal
-                        [ Route.href (Route.Explore scope (Dataset.Components scope Nothing))
-                        , Attr.title "Explorer"
-                        , attribute "aria-label" "Explorer"
-                        ]
-                        [ Icon.search ]
+                    , case explorerRoute of
+                        Just route ->
+                            Link.smallPillExternal
+                                [ Route.href route
+                                , Attr.title "Explorer"
+                                , attribute "aria-label" "Explorer"
+                                ]
+                                [ Icon.search ]
+
+                        Nothing ->
+                            text ""
                     ]
                 , div [ class "d-flex align-items-center gap-2" ]
                     [ results
@@ -283,32 +315,46 @@ editorView ({ db, docsUrl, items, results, scope, title } as config) =
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
                             [ table [ class "table table-sm table-borderless mb-0" ]
-                                (thead []
-                                    [ tr [ class "fs-7 text-muted" ]
-                                        [ th [] []
-                                        , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                        , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
-                                        , th [ Attr.scope "col" ] [ text "Masse" ]
-                                        , th [ Attr.scope "col" ] [ text "Impact" ]
-                                        , th [ Attr.scope "col" ] []
+                                ((if maxItems == Just 1 then
+                                    thead []
+                                        [ tr [ class "fs-7 text-muted" ]
+                                            [ th [] []
+                                            , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
+                                            , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
+                                            , th [ Attr.scope "col" ] [ text "Masse" ]
+                                            , th [ Attr.scope "col" ] [ text "Impact" ]
+                                            , th [ Attr.scope "col" ] []
+                                            ]
                                         ]
-                                    ]
+
+                                  else
+                                    text ""
+                                 )
                                     :: List.concat
-                                        (List.map3 (componentView config)
+                                        (List.map4 (componentView config)
+                                            (List.range 0 (List.length items - 1))
                                             items
                                             expandedItems
                                             (Component.extractItems results)
                                         )
                                 )
                             ]
-            , addComponentButton config
+            , if maxItems == Just 1 then
+                text ""
+
+              else
+                addComponentButton config
             ]
-        , viewDebug items results
+        , if config.debug then
+            viewDebug items results
+
+          else
+            text ""
         ]
 
 
-amountInput : Config db msg -> Component -> String -> Int -> Amount -> Html msg
-amountInput config component unit index amount =
+amountInput : Config db msg -> TargetElement -> String -> Amount -> Html msg
+amountInput config targetElement unit amount =
     div [ class "input-group" ]
         [ input
             [ type_ "number"
@@ -322,7 +368,7 @@ amountInput config component unit index amount =
             , onInput <|
                 String.toFloat
                     >> Maybe.map Component.Amount
-                    >> config.updateElementAmount component index
+                    >> config.updateElementAmount targetElement
             ]
             []
         , small [ class "input-group-text fs-8" ]
@@ -330,8 +376,8 @@ amountInput config component unit index amount =
         ]
 
 
-elementView : Config db msg -> Component -> Int -> ExpandedElement -> Results -> Html msg
-elementView config component index { amount, material, transforms } elementResults =
+elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
+elementView config targetItem elementIndex { amount, material, transforms } elementResults =
     let
         ( materialResults, transformsResults ) =
             case Component.extractItems elementResults of
@@ -351,19 +397,19 @@ elementView config component index { amount, material, transforms } elementResul
                   else
                     text "Quantité finale"
                 ]
-            , th [ class "align-middle", scope "col" ] [ text <| "Élément #" ++ String.fromInt (index + 1) ]
+            , th [ class "align-middle", scope "col" ] [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
             , th [ class "align-middle", scope "col" ] [ text "Pertes" ]
             , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
             , th [ class "align-middle", scope "col" ] [ text "Impact" ]
             , th [ class "align-middle", scope "col" ] []
             ]
-            :: elementMaterialView config component index materialResults material amount
-            :: elementTransformsView config component index transformsResults transforms
-            ++ (if List.member config.scope [ Scope.Object, Scope.Veli ] then
+            :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
+            :: elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
+            ++ (if config.scopes /= [ Scope.Textile ] then
                     [ tr []
                         [ td [ colspan 2 ] []
                         , td [ colspan 5 ]
-                            [ addElementTransformButton config component index
+                            [ addElementTransformButton config ( targetItem, elementIndex )
                             ]
                         ]
                     ]
@@ -374,8 +420,8 @@ elementView config component index { amount, material, transforms } elementResul
         )
 
 
-selectMaterialButton : Config db msg -> Component -> Int -> Process -> Html msg
-selectMaterialButton { db, openSelectProcessModal } component index material =
+selectMaterialButton : Config db msg -> TargetElement -> Process -> Html msg
+selectMaterialButton { db, openSelectProcessModal } ( targetItem, elementIndex ) material =
     let
         availableMaterialProcesses =
             db.processes
@@ -383,12 +429,13 @@ selectMaterialButton { db, openSelectProcessModal } component index material =
                 |> List.sortBy Process.getDisplayName
 
         autocompleteState =
-            AutocompleteSelector.init .name availableMaterialProcesses
+            AutocompleteSelector.init Process.getDisplayName availableMaterialProcesses
     in
     button
-        [ class "btn btn-sm btn-link text-decoration-none p-0"
+        [ type_ "button"
+        , class "btn btn-sm btn-link text-decoration-none p-0"
         , autocompleteState
-            |> openSelectProcessModal Category.Material component (Just index)
+            |> openSelectProcessModal Category.Material targetItem (Just elementIndex)
             |> onClick
         ]
         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
@@ -396,21 +443,21 @@ selectMaterialButton { db, openSelectProcessModal } component index material =
         ]
 
 
-elementMaterialView : Config db msg -> Component -> Int -> Results -> Process -> Amount -> Html msg
-elementMaterialView config component index materialResults material amount =
+elementMaterialView : Config db msg -> TargetElement -> Results -> Process -> Amount -> Html msg
+elementMaterialView config targetElement materialResults material amount =
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-            [ if config.scope == Scope.Textile then
+            [ if config.scopes == [ Scope.Textile ] then
                 amount
                     |> Component.amountToFloat
                     |> Format.formatRichFloat 3 material.unit
 
               else
-                amountInput config component material.unit index amount
+                amountInput config targetElement material.unit amount
             ]
-        , td [ class "align-middle text-truncate w-100", title material.name ]
-            [ selectMaterialButton config component index material
+        , td [ class "align-middle text-truncate w-100", title <| Process.getDisplayName material ]
+            [ selectMaterialButton config targetElement material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
             []
@@ -422,16 +469,17 @@ elementMaterialView config component index materialResults material amount =
             ]
         , td [ class "pe-3  text-nowrap" ]
             [ button
-                [ class "btn btn-sm btn-outline-secondary"
-                , onClick (config.removeElement component index)
+                [ type_ "button"
+                , class "btn btn-sm btn-outline-secondary"
+                , onClick (config.removeElement targetElement)
                 ]
                 [ Icon.trash ]
             ]
         ]
 
 
-elementTransformsView : Config db msg -> Component -> Int -> List Results -> List Process -> List (Html msg)
-elementTransformsView config component index transformsResults transforms =
+elementTransformsView : Config db msg -> TargetElement -> List Results -> List Process -> List (Html msg)
+elementTransformsView config targetElement transformsResults transforms =
     List.map3
         (\transformIndex transformResult transform ->
             tr [ class "fs-7" ]
@@ -442,7 +490,7 @@ elementTransformsView config component index transformsResults transforms =
 
                     -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
                     , style "max-width" "0"
-                    , title transform.name
+                    , title <| Process.getDisplayName transform
                     ]
                     [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
                     , text <| Process.getDisplayName transform
@@ -458,9 +506,10 @@ elementTransformsView config component index transformsResults transforms =
                     ]
                 , td []
                     [ button
-                        [ class "btn btn-sm btn-outline-secondary"
+                        [ type_ "button"
+                        , class "btn btn-sm btn-outline-secondary"
                         , transformIndex
-                            |> config.removeElementTransform component index
+                            |> config.removeElementTransform targetElement
                             |> onClick
                         ]
                         [ Icon.trash ]
@@ -472,8 +521,8 @@ elementTransformsView config component index transformsResults transforms =
         transforms
 
 
-quantityInput : Config db msg -> Id -> Quantity -> Html msg
-quantityInput config id quantity =
+quantityInput : Config db msg -> Index -> Quantity -> Html msg
+quantityInput config itemIndex quantity =
     div [ class "input-group", style "width" "130px" ]
         [ input
             [ type_ "number"
@@ -481,6 +530,7 @@ quantityInput config id quantity =
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
             , Attr.min "1"
+            , disabled <| config.maxItems == Just 1
             , onInput <|
                 \str ->
                     String.toInt str
@@ -492,7 +542,7 @@ quantityInput config id quantity =
                                 else
                                     Nothing
                             )
-                        |> Maybe.map (Component.quantityFromInt >> config.updateItemQuantity id)
+                        |> Maybe.map (Component.quantityFromInt >> config.updateItemQuantity itemIndex)
                         |> Maybe.withDefault config.noOp
             ]
             []

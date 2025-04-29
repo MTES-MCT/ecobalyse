@@ -4,6 +4,7 @@ module Views.Page exposing
     , frame
     , loading
     , notFound
+    , restricted
     )
 
 import Browser exposing (Document)
@@ -27,7 +28,8 @@ import Views.Spinner as Spinner
 
 
 type ActivePage
-    = Api
+    = Admin
+    | Api
     | Auth
     | Editorial String
     | Explore
@@ -72,13 +74,7 @@ frame ({ activePage } as config) ( title, content ) =
           else
             text ""
         , main_ [ class "bg-white" ]
-            [ div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0 fs-7" ]
-                [ Container.centered [ class "d-flex align-items-center gap-2 fw-bold" ]
-                    [ span [ class "fs-5" ] [ Icon.info ]
-                    , text """L’outil présente un premier projet de référentiel technique soumis à concertation et non encore stabilisé"""
-                    ]
-                ]
-            , notificationListView config
+            [ notificationListView config
             , div
                 [ if activePage == Home then
                     class ""
@@ -172,15 +168,22 @@ secondaryMenuLinks =
     , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
     , External "CGU" Env.cguUrl
+    , Internal "Admin" Route.Admin Admin
     ]
 
 
 headerMenuLinks : Session -> List MenuLink
 headerMenuLinks session =
     mainMenuLinks session
-        ++ [ External "Documentation" Env.gitbookUrl
-           , External "Communauté" Env.communityUrl
-           ]
+        ++ List.filterMap identity
+            [ Just <| External "Communauté" Env.communityUrl
+            , Just <| External "Documentation" Env.gitbookUrl
+            , if Session.isStaff session then
+                Just <| Internal "Admin" Route.Admin Admin
+
+              else
+                Nothing
+            ]
 
 
 footerMenuLinks : Session -> List MenuLink
@@ -328,7 +331,11 @@ versionLink version =
 
 pageHeader : Config msg -> Html msg
 pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion } =
-    header [ class "Header shadow-sm", attribute "role" "banner" ]
+    header
+        [ class "Header shadow-sm"
+        , classList [ ( "mb-2", activePage /= Home ) ]
+        , attribute "role" "banner"
+        ]
         [ div [ class "MobileMenuButton" ]
             [ button
                 [ type_ "button"
@@ -484,6 +491,25 @@ notFound =
         [ h1 [ class "mb-3" ] [ text "Page non trouvée" ]
         , p [] [ text "La page que vous avez demandé n'existe pas." ]
         , a [ Route.href Route.Home ] [ text "Retour à l'accueil" ]
+        ]
+
+
+restricted : Session -> Html msg
+restricted session =
+    Container.centered [ class "pb-5" ]
+        [ h1 [ class "mb-3" ] [ text "Accès refusé" ]
+        , p [] [ text "Cette page n'est accessible qu'à l'équipe Ecobalyse." ]
+        , p []
+            [ a [ Route.href <| Route.Auth { authenticated = False } ]
+                [ if Session.isAuthenticated session then
+                    text "Authentifiez-vous avec les droits appropriés"
+
+                  else
+                    text "Connectez-vous"
+                ]
+            , text "\u{00A0}ou\u{00A0}"
+            , a [ Route.href Route.Home ] [ text "retournez à l'accueil" ]
+            ]
         ]
 
 

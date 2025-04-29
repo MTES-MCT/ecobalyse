@@ -7,6 +7,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Gitbook as Gitbook
+import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
 import Data.Unit as Unit
@@ -81,19 +82,19 @@ table _ { detailed, scope } =
           , toCell = .transportCooling >> Ingredient.transportCoolingToString >> text
           }
         , { label = "Procédé"
-          , toValue = Table.StringValue <| .default >> .name
+          , toValue = Table.StringValue <| .process >> Process.getDisplayName
           , toCell =
-                \{ default } ->
+                \{ process } ->
                     div []
-                        [ div [ class "cursor-help", title default.name ]
-                            [ text default.name ]
-                        , em [ class "cursor-help", title default.comment ]
-                            [ text default.comment ]
+                        [ div [ class "cursor-help", title <| Process.getDisplayName process ]
+                            [ text <| Process.getDisplayName process ]
+                        , em [ class "cursor-help", title process.comment ]
+                            [ text process.comment ]
                         ]
           }
         , { label = "Source"
-          , toValue = Table.StringValue <| .default >> .source
-          , toCell = .default >> .source >> text
+          , toValue = Table.StringValue <| .process >> .source
+          , toCell = .process >> .source >> text
           }
         , { label = "Services écosystémiques"
           , toValue = Table.StringValue <| always "N/A"

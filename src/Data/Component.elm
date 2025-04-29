@@ -6,23 +6,32 @@ module Data.Component exposing
     , Element
     , ExpandedElement
     , Id
+    , Index
     , Item
     , Quantity
     , Results(..)
+    , Stage(..)
+    , TargetElement
+    , TargetItem
     , addElement
     , addElementTransform
     , addItem
+    , addOrSetProcess
     , amountToFloat
     , applyTransforms
-    , available
     , compute
     , computeElementResults
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
+    , createItem
+    , decode
     , decodeItem
+    , decodeList
     , decodeListFromJsonString
+    , elementsToString
     , emptyResults
+    , encode
     , encodeId
     , encodeItem
     , encodeResults
@@ -36,22 +45,26 @@ module Data.Component exposing
     , idToString
     , itemToComponent
     , itemToString
+    , itemsToString
     , quantityFromInt
     , quantityToInt
     , removeElement
     , removeElementTransform
     , setElementMaterial
+    , stagesImpacts
     , updateElement
+    , updateElementAmount
     , updateItem
     , updateItemCustomName
     , validateItem
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Common.EncodeUtils as EU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
-import Data.Process.Category as Category
+import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -123,6 +136,22 @@ type alias ExpandedElement =
     }
 
 
+type alias Index =
+    Int
+
+
+{-| Index of an item element and associated source component
+-}
+type alias TargetElement =
+    ( TargetItem, Index )
+
+
+{-| Index of an item and associated source component
+-}
+type alias TargetItem =
+    ( Component, Index )
+
+
 {-| An amount of some element
 -}
 type Amount
@@ -142,19 +171,31 @@ type Results
         { impacts : Impacts
         , items : List Results
         , mass : Mass
+        , stage : Maybe Stage
         }
+
+
+type Stage
+    = MaterialStage
+    | TransformStage
+
+
+type alias StagesImpacts =
+    { material : Impacts
+    , transformation : Impacts
+    }
 
 
 {-| Add a new element, defined by a required material process, to an item.
 -}
-addElement : Component -> Process -> List Item -> Result String (List Item)
-addElement component material items =
+addElement : TargetItem -> Process -> List Item -> Result String (List Item)
+addElement targetItem material items =
     if not <| List.member Category.Material material.categories then
         Err "L'ajout d'un élément ne peut se faire qu'à partir d'un procédé matière"
 
     else
         items
-            |> updateItemCustom component
+            |> updateItemCustom targetItem
                 (\custom ->
                     { custom
                         | elements =
@@ -165,20 +206,40 @@ addElement component material items =
             |> Ok
 
 
-addElementTransform : Component -> Int -> Process -> List Item -> Result String (List Item)
-addElementTransform component index transform items =
+addElementTransform : TargetElement -> Process -> List Item -> Result String (List Item)
+addElementTransform targetElement transform items =
     if not <| List.member Category.Transform transform.categories then
         Err "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
 
     else
         items
-            |> updateElement component index (\el -> { el | transforms = el.transforms ++ [ transform.id ] })
+            |> updateElement targetElement
+                (\el -> { el | transforms = el.transforms ++ [ transform.id ] })
             |> Ok
 
 
 addItem : Id -> List Item -> List Item
 addItem id items =
-    items ++ [ { custom = Nothing, id = id, quantity = quantityFromInt 1 } ]
+    items ++ [ createItem id ]
+
+
+addOrSetProcess : Category -> TargetItem -> Maybe Index -> Process -> List Item -> Result String (List Item)
+addOrSetProcess category targetItem maybeElementIndex process items =
+    case ( category, maybeElementIndex ) of
+        ( Category.Material, Just elementIndex ) ->
+            items |> setElementMaterial ( targetItem, elementIndex ) process
+
+        ( Category.Material, Nothing ) ->
+            items |> addElement targetItem process
+
+        ( Category.Transform, Just elementIndex ) ->
+            items |> addElementTransform ( targetItem, elementIndex ) process
+
+        ( Category.Transform, Nothing ) ->
+            Err "Un procédé de transformation ne peut être ajouté qu'à un élément existant"
+
+        _ ->
+            Err <| "Catégorie de procédé non supportée\u{00A0}: " ++ Category.toLabel category
 
 
 {-| Add two results together
@@ -190,6 +251,7 @@ addResults (Results results) (Results acc) =
             | impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
             , items = Results results :: acc.items
             , mass = Quantity.sum [ results.mass, acc.mass ]
+            , stage = Nothing
         }
 
 
@@ -240,21 +302,15 @@ applyTransforms allProcesses transforms materialResults =
                                                 { impacts = transformImpacts
                                                 , items = []
                                                 , mass = outputMass
+                                                , stage = Just TransformStage
                                                 }
                                            ]
                                 , mass = outputMass
+                                , stage = Nothing
                                 }
                         )
                         materialResults
             )
-
-
-{-| List components which ids are not part of the provided list of ids
--}
-available : List Id -> List Component -> List Component
-available alreadyUsedIds =
-    List.filter (\{ id } -> not <| List.member id alreadyUsedIds)
-        >> List.sortBy .name
 
 
 {-| Computes impacts from a list of available components, processes and specified component items
@@ -332,6 +388,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
                         mass
                             |> List.repeat (quantityToInt quantity)
                             |> Quantity.sum
+                    , stage = Nothing
                     }
             )
 
@@ -357,10 +414,21 @@ computeMaterialResults amount process =
         { impacts = impacts
         , items =
             [ -- material result
-              Results { impacts = impacts, items = [], mass = mass }
+              Results
+                { impacts = impacts
+                , items = []
+                , mass = mass
+                , stage = Just MaterialStage
+                }
             ]
         , mass = mass
+        , stage = Nothing
         }
+
+
+createItem : Id -> Item
+createItem id =
+    { custom = Nothing, id = id, quantity = quantityFromInt 1 }
 
 
 decode : List Scope -> Decoder Component
@@ -433,26 +501,51 @@ elementToString processes element =
             )
 
 
+elementsToString : DataContainer db -> Component -> Result String String
+elementsToString db component =
+    component.elements
+        |> RE.combineMap (elementToString db.processes)
+        |> Result.map (String.join " | ")
+
+
+emptyResults : Results
+emptyResults =
+    Results
+        { impacts = Impact.empty
+        , items = []
+        , mass = Quantity.zero
+        , stage = Nothing
+        }
+
+
+encode : Component -> Encode.Value
+encode v =
+    EU.optionalPropertiesObject
+        [ ( "elements", v.elements |> Encode.list encodeElement |> Just )
+        , ( "id", v.id |> encodeId |> Just )
+        , ( "name", v.name |> Encode.string |> Just )
+        ]
+
+
 encodeCustom : Custom -> Encode.Value
 encodeCustom custom =
-    [ ( "name"
-      , custom.name
-            |> Maybe.map String.trim
-            |> Maybe.andThen
-                (\name ->
-                    -- Forbid serializing an empty name
-                    if name == "" then
-                        Nothing
+    EU.optionalPropertiesObject
+        [ ( "name"
+          , custom.name
+                |> Maybe.map String.trim
+                |> Maybe.andThen
+                    (\name ->
+                        -- Forbid serializing an empty name
+                        if name == "" then
+                            Nothing
 
-                    else
-                        Just name
-                )
-            |> Maybe.map Encode.string
-      )
-    , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
-    ]
-        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
-        |> Encode.object
+                        else
+                            Just name
+                    )
+                |> Maybe.map Encode.string
+          )
+        , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
+        ]
 
 
 encodeElement : Element -> Encode.Value
@@ -466,17 +559,39 @@ encodeElement element =
 
 encodeItem : Item -> Encode.Value
 encodeItem item =
-    [ ( "id", item.id |> idToString |> Encode.string |> Just )
-    , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
-    , ( "custom", item.custom |> Maybe.map encodeCustom )
-    ]
-        |> List.filterMap (\( key, maybeVal ) -> maybeVal |> Maybe.map (\val -> ( key, val )))
-        |> Encode.object
+    EU.optionalPropertiesObject
+        [ ( "id", item.id |> idToString |> Encode.string |> Just )
+        , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+        , ( "custom", item.custom |> Maybe.map encodeCustom )
+        ]
 
 
 encodeId : Id -> Encode.Value
 encodeId =
     idToString >> Encode.string
+
+
+encodeResults : Maybe Trigram -> Results -> Encode.Value
+encodeResults maybeTrigram (Results results) =
+    EU.optionalPropertiesObject
+        [ ( "impacts"
+          , Just
+                -- Note: even with no trigram provided, we always want impacts here
+                (case maybeTrigram of
+                    Just trigram ->
+                        results.impacts
+                            |> Impact.getImpact trigram
+                            |> Unit.impactToFloat
+                            |> Encode.float
+
+                    Nothing ->
+                        Impact.encode results.impacts
+                )
+          )
+        , ( "items", results.items |> Encode.list (encodeResults maybeTrigram) |> Just )
+        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
+        , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) )
+        ]
 
 
 {-| Turn an Element to an ExpandedElement
@@ -519,23 +634,19 @@ expandItems db =
     List.map (expandItem db) >> RE.combine
 
 
-encodeResults : Maybe Trigram -> Results -> Encode.Value
-encodeResults maybeTrigram (Results results) =
-    Encode.object
-        [ ( "impacts"
-          , case maybeTrigram of
-                Just trigram ->
-                    results.impacts
-                        |> Impact.getImpact trigram
-                        |> Unit.impactToFloat
-                        |> Encode.float
+extractImpacts : Results -> Impacts
+extractImpacts (Results { impacts }) =
+    impacts
 
-                Nothing ->
-                    Impact.encode results.impacts
-          )
-        , ( "items", Encode.list (encodeResults maybeTrigram) results.items )
-        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float )
-        ]
+
+extractItems : Results -> List Results
+extractItems (Results { items }) =
+    items
+
+
+extractMass : Results -> Mass
+extractMass (Results { mass }) =
+    mass
 
 
 {-| Lookup a Component from a provided Id
@@ -586,24 +697,35 @@ itemToComponent { components } { custom, id } =
 
 
 itemToString : DataContainer db -> Item -> Result String String
-itemToString db { id, quantity } =
+itemToString db { custom, id, quantity } =
     db.components
         |> findById id
         |> Result.andThen
             (\component ->
-                component.elements
+                custom
+                    |> Maybe.map .elements
+                    |> Maybe.withDefault component.elements
                     |> RE.combineMap (elementToString db.processes)
                     |> Result.map (String.join " | ")
                     |> Result.map
                         (\processesString ->
                             String.fromInt (quantityToInt quantity)
                                 ++ " "
-                                ++ component.name
+                                ++ (custom
+                                        |> Maybe.andThen .name
+                                        |> Maybe.withDefault component.name
+                                   )
                                 ++ " [ "
                                 ++ processesString
                                 ++ " ]"
                         )
             )
+
+
+itemsToString : DataContainer db -> List Item -> Result String String
+itemsToString db =
+    RE.combineMap (itemToString db)
+        >> Result.map (String.join ", ")
 
 
 loadDefaultEnergyMixes : List Process -> Result String { elec : Process, heat : Process }
@@ -614,8 +736,8 @@ loadDefaultEnergyMixes processes =
                 >> Result.andThen (\id -> Process.findById id processes)
     in
     Result.map2 (\elec heat -> { elec = elec, heat = heat })
-        (fromIdString "9c70a439-ee05-4fc4-9598-7448345f7081")
-        (fromIdString "e70b2dc1-41be-4db6-8267-4e9f4822e8bc")
+        (fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244")
+        (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
 
 
 quantityFromInt : Int -> Quantity
@@ -628,59 +750,66 @@ quantityToInt (Quantity int) =
     int
 
 
-emptyResults : Results
-emptyResults =
-    Results
-        { impacts = Impact.empty
-        , items = []
-        , mass = Quantity.zero
-        }
-
-
-extractImpacts : Results -> Impacts
-extractImpacts (Results { impacts }) =
-    impacts
-
-
-extractItems : Results -> List Results
-extractItems (Results { items }) =
-    items
-
-
-extractMass : Results -> Mass
-extractMass (Results { mass }) =
-    mass
-
-
 {-| Remove an element from an item
 -}
-removeElement : Component -> Int -> List Item -> Result String (List Item)
-removeElement component elementIndex =
-    updateItemCustom component
+removeElement : TargetElement -> List Item -> List Item
+removeElement ( targetItem, elementIndex ) =
+    updateItemCustom targetItem
         (\custom ->
             { custom
                 | elements =
                     custom.elements |> LE.removeAt elementIndex
             }
         )
-        >> Ok
 
 
-removeElementTransform : Component -> Int -> Int -> List Item -> List Item
-removeElementTransform component index transformIndex =
-    updateElement component index <|
+removeElementTransform : TargetElement -> Index -> List Item -> List Item
+removeElementTransform targetElement transformIndex =
+    updateElement targetElement <|
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
-setElementMaterial : Component -> Int -> Process -> List Item -> Result String (List Item)
-setElementMaterial component index material items =
+setElementMaterial : TargetElement -> Process -> List Item -> Result String (List Item)
+setElementMaterial targetElement material items =
     if not <| List.member Category.Material material.categories then
         Err "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
 
     else
         items
-            |> updateElement component index (\el -> { el | material = material.id })
+            |> updateElement targetElement (\el -> { el | material = material.id })
             |> Ok
+
+
+stagesImpacts : Results -> StagesImpacts
+stagesImpacts (Results results) =
+    results.items
+        -- component level
+        |> List.concatMap extractItems
+        -- element level
+        |> List.concatMap extractItems
+        |> List.foldl
+            (\(Results { impacts, stage }) acc ->
+                case stage of
+                    Just MaterialStage ->
+                        { acc | material = Impact.sumImpacts [ acc.material, impacts ] }
+
+                    Just TransformStage ->
+                        { acc | transformation = Impact.sumImpacts [ acc.transformation, impacts ] }
+
+                    Nothing ->
+                        acc
+            )
+            { material = Impact.empty, transformation = Impact.empty }
+
+
+stageToString : Stage -> String
+stageToString stage =
+    case stage of
+        MaterialStage ->
+            "material"
+
+        TransformStage ->
+            "transformation"
 
 
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
@@ -701,31 +830,33 @@ updateCustom component fn maybeCustom =
             Just (fn { elements = component.elements, name = Nothing })
 
 
-updateCustomElement : Component -> Int -> (Element -> Element) -> Maybe Custom -> Maybe Custom
-updateCustomElement component index update =
-    updateCustom component <|
-        \custom ->
-            { custom
-                | elements =
-                    custom.elements
-                        |> LE.updateAt index update
-            }
-
-
-updateElement : Component -> Int -> (Element -> Element) -> List Item -> List Item
-updateElement component elementIndex update =
-    updateItem component.id <|
+updateElement : TargetElement -> (Element -> Element) -> List Item -> List Item
+updateElement ( ( component, itemIndex ), elementIndex ) update =
+    updateItem itemIndex <|
         \item ->
             { item
                 | custom =
                     item.custom
-                        |> updateCustomElement component elementIndex update
+                        |> updateCustom component
+                            (\custom ->
+                                { custom
+                                    | elements =
+                                        custom.elements
+                                            |> LE.updateAt elementIndex update
+                                }
+                            )
             }
 
 
-updateItemCustom : Component -> (Custom -> Custom) -> List Item -> List Item
-updateItemCustom component fn =
-    updateItem component.id <|
+updateElementAmount : TargetElement -> Amount -> List Item -> List Item
+updateElementAmount targetElement amount =
+    updateElement targetElement <|
+        \el -> { el | amount = amount }
+
+
+updateItemCustom : TargetItem -> (Custom -> Custom) -> List Item -> List Item
+updateItemCustom ( component, itemIndex ) fn =
+    updateItem itemIndex <|
         \item ->
             { item
                 | custom =
@@ -734,15 +865,15 @@ updateItemCustom component fn =
             }
 
 
-updateItemCustomName : Component -> String -> List Item -> List Item
-updateItemCustomName component name =
-    updateItemCustom component
-        (\custom -> { custom | name = Just name })
+updateItemCustomName : TargetItem -> String -> List Item -> List Item
+updateItemCustomName targetItem name =
+    updateItemCustom targetItem <|
+        \custom -> { custom | name = Just name }
 
 
-updateItem : Id -> (Item -> Item) -> List Item -> List Item
-updateItem componentId =
-    LE.updateIf (.id >> (==) componentId)
+updateItem : Index -> (Item -> Item) -> List Item -> List Item
+updateItem itemIndex =
+    LE.updateAt itemIndex
 
 
 validateItem : List Component -> Item -> Result String Item

@@ -1,38 +1,35 @@
 module Data.Object.Query exposing
     ( Query
-    , addComponentItem
-    , addElement
-    , addElementTransform
+    , attemptUpdateComponents
     , b64encode
     , buildApiQuery
     , decode
     , default
     , encode
     , parseBase64Query
-    , removeComponent
-    , removeElement
-    , removeElementTransform
-    , setElementMaterial
-    , toString
-    , updateComponentItemName
-    , updateComponentItemQuantity
-    , updateElementAmount
+    , updateComponents
     )
 
 import Base64
-import Data.Component as Component exposing (Component)
-import Data.Process exposing (Process)
+import Data.Component as Component exposing (Item)
 import Data.Scope as Scope exposing (Scope)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
 
 type alias Query =
-    { components : List Component.Item
+    { components : List Item
     }
+
+
+{-| Update a list of component items that may fail
+-}
+attemptUpdateComponents : (List Item -> Result String (List Item)) -> Query -> Result String Query
+attemptUpdateComponents fn query =
+    fn query.components
+        |> Result.map (\components -> { query | components = components })
 
 
 buildApiQuery : Scope -> String -> Query -> String
@@ -67,89 +64,9 @@ encode query =
         ]
 
 
-addComponentItem : Component.Id -> Query -> Query
-addComponentItem id query =
-    { query | components = query.components |> Component.addItem id }
-
-
-addElement : Component -> Process -> Query -> Result String Query
-addElement component material query =
-    query.components
-        |> Component.addElement component material
-        |> Result.map (\components -> { query | components = components })
-
-
-addElementTransform : Component -> Int -> Process -> Query -> Result String Query
-addElementTransform component index transform query =
-    query.components
-        |> Component.addElementTransform component index transform
-        |> Result.map (\components -> { query | components = components })
-
-
-removeComponent : Component.Id -> Query -> Query
-removeComponent id ({ components } as query) =
-    { query
-        | components =
-            components
-                |> List.filter (.id >> (/=) id)
-    }
-
-
-removeElement : Component -> Int -> Query -> Result String Query
-removeElement component index query =
-    query.components
-        |> Component.removeElement component index
-        |> Result.map (\components -> { query | components = components })
-
-
-removeElementTransform : Component -> Int -> Int -> Query -> Query
-removeElementTransform component index transformIndex query =
-    { query
-        | components =
-            query.components
-                |> Component.removeElementTransform component index transformIndex
-    }
-
-
-setElementMaterial : Component -> Int -> Process -> Query -> Result String Query
-setElementMaterial component index material query =
-    query.components
-        |> Component.setElementMaterial component index material
-        |> Result.map (\components -> { query | components = components })
-
-
-updateComponentItemName : Component -> String -> Query -> Query
-updateComponentItemName component name query =
-    { query
-        | components =
-            query.components
-                |> Component.updateItemCustomName component name
-    }
-
-
-updateComponentItemQuantity : Component.Id -> Component.Quantity -> Query -> Query
-updateComponentItemQuantity id quantity query =
-    { query
-        | components =
-            query.components
-                |> Component.updateItem id (\item -> { item | quantity = quantity })
-    }
-
-
-updateElementAmount : Component -> Int -> Component.Amount -> Query -> Query
-updateElementAmount component index amount query =
-    { query
-        | components =
-            query.components
-                |> Component.updateElement component index (\el -> { el | amount = amount })
-    }
-
-
-toString : List Component -> List Process -> Query -> Result String String
-toString components processes query =
-    query.components
-        |> RE.combineMap (Component.itemToString { components = components, processes = processes })
-        |> Result.map (String.join ", ")
+updateComponents : (List Item -> List Item) -> Query -> Query
+updateComponents fn query =
+    { query | components = fn query.components }
 
 
 

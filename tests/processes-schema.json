@@ -35,9 +35,6 @@
         "type": "string",
         "format": "uuid"
       },
-      "sourceId": {
-        "type": ["string", "null"]
-      },
       "impacts": {
         "type": "object",
         "properties": {
@@ -87,10 +84,10 @@
           "pef"
         ]
       },
-      "name": {
+      "source": {
         "type": "string"
       },
-      "source": {
+      "sourceId": {
         "type": "string"
       },
       "unit": {
@@ -111,8 +108,8 @@
       "heatMJ",
       "id",
       "impacts",
-      "name",
       "source",
+      "sourceId",
       "unit",
       "waste"
     ]

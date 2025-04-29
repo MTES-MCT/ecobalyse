@@ -12,6 +12,7 @@ module Data.Session exposing
     , deleteBookmark
     , getUser
     , isAuthenticated
+    , isStaff
     , logout
     , notifyError
     , notifyInfo
@@ -21,6 +22,7 @@ module Data.Session exposing
     , selectNoBookmarks
     , serializeStore
     , toggleComparedSimulation
+    , updateDb
     , updateFoodQuery
     , updateObjectQuery
     , updateTextileQuery
@@ -53,7 +55,8 @@ type alias Queries =
 
 
 type alias Session =
-    { clientUrl : String
+    { backendApiUrl : String
+    , clientUrl : String
     , currentVersion : Version
     , db : Db
     , enabledSections : EnabledSections
@@ -128,6 +131,15 @@ saveBookmark bookmark =
                     bookmark :: store.bookmarks
             }
         )
+
+
+
+-- Db
+
+
+updateDb : (Db -> Db) -> Session -> Session
+updateDb fn session =
+    { session | db = fn session.db }
 
 
 
@@ -342,3 +354,10 @@ isAuthenticated { store } =
 
         _ ->
             False
+
+
+isStaff : Session -> Bool
+isStaff =
+    getUser
+        >> Maybe.map .staff
+        >> Maybe.withDefault False

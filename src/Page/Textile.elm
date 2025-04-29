@@ -15,7 +15,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Trim exposing (Component)
+import Data.Component as Component exposing (Component, Index)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Example as Example
@@ -61,7 +61,7 @@ import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
-import Views.Component as TrimView
+import Views.Component as ComponentView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Example as ExampleView
@@ -80,7 +80,6 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
-    , detailedTrims : List Trim.Id
     , initialQuery : Query
     , impact : Definition
     , modal : Modal
@@ -119,13 +118,12 @@ type Msg
     | OnStepClick String
     | OpenComparator
     | RemoveMaterial Material.Id
-    | RemoveTrim Trim.Id
+    | RemoveTrim Index
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
     | SelectNoBookmarks
-    | SetDetailedTrims (List Trim.Id)
     | SetModal Modal
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
@@ -153,7 +151,7 @@ type Msg
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTraceability Bool
-    | UpdateTrimQuantity Trim.Id Trim.Quantity
+    | UpdateTrimQuantity Index Component.Quantity
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
@@ -180,7 +178,6 @@ init trigram maybeUrlQuery session =
 
             else
                 ComparatorView.Steps
-      , detailedTrims = []
       , initialQuery = initialQuery
       , impact = Definition.get trigram session.db.definitions
       , modal = NoModal
@@ -234,7 +231,6 @@ initFromExample session uuid =
       , bookmarkName = exampleQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType = ComparatorView.Subscores
-      , detailedTrims = []
       , initialQuery = exampleQuery
       , impact = Definition.get Definition.Ecs session.db.definitions
       , modal = NoModal
@@ -411,9 +407,9 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.removeMaterial materialId query)
 
-        ( RemoveTrim id, _ ) ->
+        ( RemoveTrim itemIndex, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.removeTrim id query)
+                |> updateQuery (query |> Query.updateTrims (LE.removeAt itemIndex))
 
         ( Reset, _ ) ->
             ( model, session, Cmd.none )
@@ -447,12 +443,6 @@ update ({ queries, navKey } as session) msg model =
 
         ( SelectNoBookmarks, _ ) ->
             ( model, Session.selectNoBookmarks session, Cmd.none )
-
-        ( SetDetailedTrims detailedTrims, _ ) ->
-            ( { model | detailedTrims = LE.unique detailedTrims }
-            , session
-            , Cmd.none
-            )
 
         ( SetModal NoModal, _ ) ->
             ( { model | modal = NoModal }
@@ -643,9 +633,13 @@ update ({ queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | traceability = Just traceability }
 
-        ( UpdateTrimQuantity id quantity, _ ) ->
+        ( UpdateTrimQuantity trimIndex quantity, _ ) ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateTrimQuantity id quantity query)
+                |> updateQuery
+                    (query
+                        |> Query.updateTrims
+                            (Component.updateItem trimIndex (\item -> { item | quantity = quantity }))
+                    )
 
         ( UpdateUpcycled upcycled, _ ) ->
             ( model, session, Cmd.none )
@@ -760,7 +754,7 @@ selectTrim autocompleteState ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just trim ->
             update session (SetModal NoModal) model
-                |> updateQuery (Query.addTrim trim.id session.queries.textile)
+                |> updateQuery (session.queries.textile |> Query.updateTrims (Component.addItem trim.id))
 
         Nothing ->
             ( model, session |> Session.notifyError "Erreur" "Aucun accessoire sélectionné", Cmd.none )
@@ -1015,28 +1009,31 @@ simulatorFormView session model ({ inputs } as simulator) =
                 ]
             ]
         ]
-    , TrimView.editorView
+    , ComponentView.editorView
         { addLabel = "Ajouter un accessoire"
         , customizable = False
         , db = session.db
-        , detailed = model.detailedTrims
+        , debug = False
+        , detailed = []
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
+        , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
         , items = session.queries.textile.trims
+        , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
-        , removeElement = \_ _ -> NoOp
-        , removeElementTransform = \_ _ _ -> NoOp
+        , removeElement = \_ -> NoOp
+        , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
         , results =
             session.queries.textile.trims
-                |> Trim.compute session.db
-                |> Result.withDefault Trim.emptyResults
-        , scope = Scope.Textile
-        , setDetailed = SetDetailedTrims
+                |> Component.compute session.db
+                |> Result.withDefault Component.emptyResults
+        , scopes = [ Scope.Textile ]
+        , setDetailed = \_ -> NoOp
         , title = "Accessoires"
-        , updateElementAmount = \_ _ _ -> NoOp
+        , updateElementAmount = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }
