@@ -5,6 +5,7 @@
 * [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres/README.md)
   * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
 * [Conditions d'utilisation](conditions-dutilisation.md)
+* [Nous contacter](nous-contacter.md)
 
 ## 🍕 Alimentaire
 
@@ -126,7 +127,6 @@
 * [Exemples](textile/exemples.md)
 * [Mises à jour](textile/mises-a-jour/README.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
-* [Nous contacter](textile/nous-contacter.md)
 * [Correctifs données](textile/correctifs-donnees/README.md)
   * [corr1 : Coton recyclé](textile/correctifs-donnees/corr1-coton-recycle.md)
   * [corr2: Inventaires enrichis](textile/correctifs-donnees/corr2-inventaires-enrichis.md)
