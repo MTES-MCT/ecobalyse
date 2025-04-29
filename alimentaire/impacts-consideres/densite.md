@@ -10,7 +10,9 @@ Pour calculer le volume `V` d'un produit de masse `m` et de densité `d` , la fo
 
 ## $$V = \frac{m}{d}$$
 
-La densité de chaque ingrédient est renseignée dans la [documentation Agribalyse](https://3613321239-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971), après catégorisation :
+Le détail des densités considérées est accessible dans la rubrique "ingrédients" de l'explorateur d'Ecobalyse : [https://ecobalyse.beta.gouv.fr/#/explore/food/ingredients](https://ecobalyse.beta.gouv.fr/#/explore/food/ingredients)
+
+Elle est également renseignée dans la [documentation Agribalyse](https://3613321239-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971), après catégorisation :
 
 <figure><img src="../../.gitbook/assets/image (142).png" alt=""><figcaption><p><a href="https://3613321239-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1_Alimentation.pdf?alt=media&#x26;token=0da7c4e0-4332-4bc3-9c86-83b7a6325971">Methodology AGB 3.0- 20200528_MAIN-CLEAN-vf2.pdf</a> Catégorisation des ingrédients</p></figcaption></figure>
 

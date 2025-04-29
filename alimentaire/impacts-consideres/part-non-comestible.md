@@ -12,6 +12,8 @@ Dans le cadre de notre calcul d'impact pour 1 kg de produit comestible, nous dev
 
 NB : Agribalyse ne définit pas de valeur de part non comestibles pour la courgette. Ecobalyse lui applique une valeur de 10%.
 
+Le détail des parts non comestibles considérées est accessible dans la rubrique "ingrédients" de l'explorateur d'Ecbalyse : [https://ecobalyse.beta.gouv.fr/#/explore/food/ingredients](https://ecobalyse.beta.gouv.fr/#/explore/food/ingredients)
+
 <details>
 
 <summary>Exemple de calcul</summary>
