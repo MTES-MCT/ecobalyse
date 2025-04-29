@@ -1,11 +1,25 @@
 module Data.Common.DecodeUtils exposing
     ( betterErrorToString
+    , decodeNonEmptyString
     , strictOptional
     , strictOptionalWithDefault
     )
 
 import Json.Decode as Decode exposing (Decoder, Error)
 import Json.Decode.Extra as DE
+
+
+decodeNonEmptyString : Decoder String
+decodeNonEmptyString =
+    Decode.string
+        |> Decode.andThen
+            (\str ->
+                if String.trim str == "" then
+                    Decode.fail "String can't be empty"
+
+                else
+                    Decode.succeed <| String.trim str
+            )
 
 
 {-| A stricter Decode.maybe using Json.Decode.Extra's optionalField here because we want

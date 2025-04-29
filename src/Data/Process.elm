@@ -95,14 +95,14 @@ decode scopes impactsDecoder =
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "density" Decode.float
-        |> DU.strictOptional "displayName" Decode.string
+        |> DU.strictOptional "displayName" DU.decodeNonEmptyString
         |> Pipe.required "elecMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.hardcoded scopes
         |> Pipe.required "source" Decode.string
-        |> Pipe.required "sourceId" decodeSourceId
+        |> Pipe.required "sourceId" (DU.decodeNonEmptyString |> Decode.map sourceIdFromString)
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "waste" Split.decodeFloat
 
@@ -129,12 +129,6 @@ encode process =
 decodeId : Decoder Id
 decodeId =
     Decode.map Id Uuid.decoder
-
-
-decodeSourceId : Decoder SourceId
-decodeSourceId =
-    Decode.string
-        |> Decode.map sourceIdFromString
 
 
 decodeList : List Scope -> Decoder Impact.Impacts -> Decoder (List Process)
@@ -174,21 +168,13 @@ findById id processes =
 
 
 getDisplayName : Process -> String
-getDisplayName { displayName, id, sourceId } =
-    case displayName of
-        Just name ->
-            if String.trim name == "" then
-                sourceIdToString sourceId
-
-            else
-                name
+getDisplayName process =
+    case process.displayName of
+        Just displayName ->
+            displayName
 
         Nothing ->
-            if String.trim (sourceIdToString sourceId) == "" then
-                idToString id
-
-            else
-                sourceIdToString sourceId
+            getTechnicalName process
 
 
 getTechnicalName : Process -> String
