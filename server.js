@@ -286,7 +286,7 @@ version.get("/:versionNumber/api", checkVersionAndPath, (req, res) => {
 });
 
 version.all(
-  "/:versionNumber/api/*",
+  "/:versionNumber/api/*all",
   checkVersionAndPath,
   bodyParser.json(),
   jsonErrorHandler,
