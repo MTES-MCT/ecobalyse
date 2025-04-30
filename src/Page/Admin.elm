@@ -78,8 +78,11 @@ update session msg model =
         ComponentCreated (RemoteData.Failure err) ->
             ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
 
-        ComponentCreated (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+        ComponentCreated (RemoteData.Success component) ->
+            ( { model | modals = [ EditComponentModal (Component.createItem component.id) ] }
+            , session
+            , ComponentApi.getComponents session ComponentListResponse
+            )
 
         ComponentCreated _ ->
             ( model, session, Cmd.none )
