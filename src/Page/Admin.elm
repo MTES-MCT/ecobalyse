@@ -252,7 +252,7 @@ downloadDbButton components =
                 |> Encode.list Component.encode
                 |> Encode.encode 2
                 |> Base64.encode
-                |> (++) "data:applicatio/json;base64,"
+                |> (++) "data:application/json;base64,"
                 |> href
             ]
             [ text "Exporter la base de données de composants" ]
