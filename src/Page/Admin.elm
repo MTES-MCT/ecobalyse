@@ -48,9 +48,11 @@ type Modal
 
 
 type Msg
-    = ComponentDeleted (WebData String)
+    = ComponentCreated (WebData Component)
+    | ComponentDeleted (WebData String)
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
+    | DuplicateComponent Component
     | NoOp
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
@@ -72,6 +74,19 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
+        -- POST
+        ComponentCreated (RemoteData.Failure err) ->
+            ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
+
+        ComponentCreated (RemoteData.Success component) ->
+            ( { model | modals = [ EditComponentModal (Component.createItem component.id) ] }
+            , session
+            , ComponentApi.getComponents session ComponentListResponse
+            )
+
+        ComponentCreated _ ->
+            ( model, session, Cmd.none )
+
         -- DELETE
         ComponentDeleted (RemoteData.Failure err) ->
             ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
@@ -103,6 +118,13 @@ update session msg model =
 
         ComponentUpdated _ ->
             ( model, session, Cmd.none )
+
+        DuplicateComponent component ->
+            ( model
+            , session
+            , { component | name = component.name ++ " (copie)" }
+                |> ComponentApi.createComponent session ComponentCreated
+            )
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -223,7 +245,7 @@ componentListView db components =
             [ tr []
                 [ th [] [ text "Nom" ]
                 , th [] [ text "Description" ]
-                , th [ colspan 4 ] []
+                , th [ colspan 5 ] []
                 ]
             ]
         , components
@@ -259,6 +281,14 @@ componentListView db components =
                                 , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
                                 ]
                                 [ Icon.pencil ]
+                            ]
+                        , td [ class "align-middle px-0" ]
+                            [ button
+                                [ class "btn btn-sm btn-outline-primary"
+                                , title "Dupliquer le composant"
+                                , onClick <| DuplicateComponent component
+                                ]
+                                [ Icon.copy ]
                             ]
                         , td [ class "align-middle px-0" ]
                             [ a
