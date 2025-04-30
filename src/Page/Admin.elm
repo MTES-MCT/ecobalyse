@@ -265,8 +265,7 @@ componentListView db components =
         [ thead []
             [ tr []
                 [ th [] [ text "Nom" ]
-                , th [] [ text "Description" ]
-                , th [ colspan 5 ] []
+                , th [ colspan 3 ] [ text "Description" ]
                 ]
             ]
         , components
@@ -278,7 +277,7 @@ componentListView db components =
                             , small [ class "d-block fw-normal" ]
                                 [ code [] [ text (Component.idToString component.id) ] ]
                             ]
-                        , td [ class "align-middle" ]
+                        , td [ class "align-middle w-100" ]
                             [ case Component.elementsToString db component of
                                 Err error ->
                                     span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
@@ -295,39 +294,35 @@ componentListView db components =
                                     )
                                 |> Result.withDefault (text "N/A")
                             ]
-                        , td [ class "align-middle px-0" ]
-                            [ button
-                                [ class "btn btn-sm btn-outline-primary"
-                                , title "Modifier le composant"
-                                , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
+                        , td [ class "align-middle text-nowrap" ]
+                            [ div [ class "d-flex gap-1" ]
+                                [ button
+                                    [ class "btn btn-sm btn-outline-primary"
+                                    , title "Modifier le composant"
+                                    , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
+                                    ]
+                                    [ Icon.pencil ]
+                                , button
+                                    [ class "btn btn-sm btn-outline-primary"
+                                    , title "Dupliquer le composant"
+                                    , onClick <| DuplicateComponent component
+                                    ]
+                                    [ Icon.copy ]
+                                , a
+                                    [ class "btn btn-sm btn-outline-primary"
+                                    , title "Utiliser dans le simulateur"
+                                    , Just { components = [ Component.createItem component.id ] }
+                                        |> Route.ObjectSimulator Scope.Object Definition.Ecs
+                                        |> Route.href
+                                    ]
+                                    [ Icon.puzzle ]
+                                , button
+                                    [ class "btn btn-sm btn-outline-danger"
+                                    , title "Supprimer le composant"
+                                    , onClick <| SetModals [ DeleteComponentModal component ]
+                                    ]
+                                    [ Icon.trash ]
                                 ]
-                                [ Icon.pencil ]
-                            ]
-                        , td [ class "align-middle px-0" ]
-                            [ button
-                                [ class "btn btn-sm btn-outline-primary"
-                                , title "Dupliquer le composant"
-                                , onClick <| DuplicateComponent component
-                                ]
-                                [ Icon.copy ]
-                            ]
-                        , td [ class "align-middle px-0" ]
-                            [ a
-                                [ class "btn btn-sm btn-outline-primary"
-                                , title "Utiliser dans le simulateur"
-                                , Just { components = [ Component.createItem component.id ] }
-                                    |> Route.ObjectSimulator Scope.Object Definition.Ecs
-                                    |> Route.href
-                                ]
-                                [ Icon.puzzle ]
-                            ]
-                        , td [ class "align-middle px-0" ]
-                            [ button
-                                [ class "btn btn-sm btn-outline-danger"
-                                , title "Supprimer le composant"
-                                , onClick <| SetModals [ DeleteComponentModal component ]
-                                ]
-                                [ Icon.trash ]
                             ]
                         ]
                 )
