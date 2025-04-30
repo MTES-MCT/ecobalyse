@@ -43,7 +43,6 @@ type alias Model =
 
 type Modal
     = DeleteComponentModal Component
-    | DuplicateComponentModal Component
     | EditComponentModal Item
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
@@ -53,6 +52,7 @@ type Msg
     | ComponentDeleted (WebData String)
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
+    | DuplicateComponent Component
     | NoOp
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
@@ -116,6 +116,13 @@ update session msg model =
         ComponentUpdated _ ->
             ( model, session, Cmd.none )
 
+        DuplicateComponent component ->
+            ( model
+            , session
+            , { component | name = component.name ++ " (copie)" }
+                |> ComponentApi.createComponent session ComponentCreated
+            )
+
         NoOp ->
             ( model, session, Cmd.none )
 
@@ -154,12 +161,6 @@ update session msg model =
                     ( { model | modals = [] }
                     , session
                     , ComponentApi.deleteComponent session ComponentDeleted component
-                    )
-
-                [ DuplicateComponentModal component ] ->
-                    ( { model | modals = [] }
-                    , session
-                    , ComponentApi.createComponent session ComponentCreated { component | name = component.name ++ " (copie)" }
                     )
 
                 [ EditComponentModal item ] ->
@@ -282,7 +283,7 @@ componentListView db components =
                             [ button
                                 [ class "btn btn-sm btn-outline-primary"
                                 , title "Dupliquer le composant"
-                                , onClick <| SetModals [ DuplicateComponentModal component ]
+                                , onClick <| DuplicateComponent component
                                 ]
                                 [ Icon.copy ]
                             ]
@@ -322,15 +323,6 @@ modalView db modals modal =
                       , text "\u{00A0}?"
                       ]
                     , button [ class "btn btn-danger" ] [ text "Supprimer" ]
-                    )
-
-                DuplicateComponentModal component ->
-                    ( "Dupliquer le composant"
-                    , [ text "Êtes-vous sûr de vouloir dupliquer le composant "
-                      , strong [] [ text component.name ]
-                      , text "\u{00A0}? Une copie sera créée avec le suffixe \"(copie)\"."
-                      ]
-                    , button [ class "btn btn-primary" ] [ text "Dupliquer" ]
                     )
 
                 EditComponentModal item ->
