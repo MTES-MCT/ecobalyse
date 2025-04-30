@@ -8,6 +8,7 @@ module Page.Admin exposing
     )
 
 import Autocomplete exposing (Autocomplete)
+import Base64
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
@@ -19,6 +20,7 @@ import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Component as ComponentApi
@@ -229,6 +231,8 @@ view { db } model =
             , warning
             , model.components
                 |> mapRemoteData (componentListView db)
+            , model.components
+                |> mapRemoteData downloadDbButton
             , model.modals
                 |> List.reverse
                 |> List.map (modalView db model.modals)
@@ -236,6 +240,23 @@ view { db } model =
             ]
       ]
     )
+
+
+downloadDbButton : List Component -> Html Msg
+downloadDbButton components =
+    p [ class "text-end mt-3" ]
+        [ a
+            [ class "btn btn-primary"
+            , download "components.json"
+            , components
+                |> Encode.list Component.encode
+                |> Encode.encode 2
+                |> Base64.encode
+                |> (++) "data:applicatio/json;base64,"
+                |> href
+            ]
+            [ text "Exporter la base de données de composants" ]
+        ]
 
 
 componentListView : Db -> List Component -> Html Msg
