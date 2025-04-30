@@ -43,12 +43,14 @@ type alias Model =
 
 type Modal
     = DeleteComponentModal Component
+    | DuplicateComponentModal Component
     | EditComponentModal Item
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
 type Msg
-    = ComponentDeleted (WebData String)
+    = ComponentCreated (WebData Component)
+    | ComponentDeleted (WebData String)
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
     | NoOp
@@ -72,6 +74,16 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
+        -- POST
+        ComponentCreated (RemoteData.Failure err) ->
+            ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
+
+        ComponentCreated (RemoteData.Success _) ->
+            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+
+        ComponentCreated _ ->
+            ( model, session, Cmd.none )
+
         -- DELETE
         ComponentDeleted (RemoteData.Failure err) ->
             ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
@@ -142,6 +154,12 @@ update session msg model =
                     ( { model | modals = [] }
                     , session
                     , ComponentApi.deleteComponent session ComponentDeleted component
+                    )
+
+                [ DuplicateComponentModal component ] ->
+                    ( { model | modals = [] }
+                    , session
+                    , ComponentApi.createComponent session ComponentCreated { component | name = component.name ++ " (copie)" }
                     )
 
                 [ EditComponentModal item ] ->
@@ -223,7 +241,7 @@ componentListView db components =
             [ tr []
                 [ th [] [ text "Nom" ]
                 , th [] [ text "Description" ]
-                , th [ colspan 4 ] []
+                , th [ colspan 5 ] []
                 ]
             ]
         , components
@@ -261,6 +279,14 @@ componentListView db components =
                                 [ Icon.pencil ]
                             ]
                         , td [ class "align-middle px-0" ]
+                            [ button
+                                [ class "btn btn-sm btn-outline-primary"
+                                , title "Dupliquer le composant"
+                                , onClick <| SetModals [ DuplicateComponentModal component ]
+                                ]
+                                [ Icon.copy ]
+                            ]
+                        , td [ class "align-middle px-0" ]
                             [ a
                                 [ class "btn btn-sm btn-outline-primary"
                                 , title "Utiliser dans le simulateur"
@@ -296,6 +322,15 @@ modalView db modals modal =
                       , text "\u{00A0}?"
                       ]
                     , button [ class "btn btn-danger" ] [ text "Supprimer" ]
+                    )
+
+                DuplicateComponentModal component ->
+                    ( "Dupliquer le composant"
+                    , [ text "Êtes-vous sûr de vouloir dupliquer le composant "
+                      , strong [] [ text component.name ]
+                      , text "\u{00A0}? Une copie sera créée avec le suffixe \"(copie)\"."
+                      ]
+                    , button [ class "btn btn-primary" ] [ text "Dupliquer" ]
                     )
 
                 EditComponentModal item ->
