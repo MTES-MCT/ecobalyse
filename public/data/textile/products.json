@@ -297,7 +297,7 @@
       "traceability": false
     },
     "endOfLife": {
-      "volume": 0.002
+      "volume": 0.0006
     },
     "fabric": "knitting-fully-fashioned",
     "id": "chaussettes",
@@ -332,7 +332,7 @@
       "traceability": false
     },
     "endOfLife": {
-      "volume": 0.002
+      "volume": 0.0006
     },
     "fabric": "weaving",
     "id": "calecon",
@@ -367,7 +367,7 @@
       "traceability": false
     },
     "endOfLife": {
-      "volume": 0.002
+      "volume": 0.0006
     },
     "fabric": "knitting-mix",
     "id": "slip",
@@ -402,7 +402,7 @@
       "traceability": false
     },
     "endOfLife": {
-      "volume": 0.004
+      "volume": 0.0006
     },
     "fabric": "knitting-mix",
     "id": "maillot-de-bain",
