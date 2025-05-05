@@ -316,6 +316,17 @@ componentListView db components =
                                         |> Route.href
                                     ]
                                     [ Icon.puzzle ]
+                                , a
+                                    [ class "btn btn-sm btn-outline-primary"
+                                    , title "Exporter le composant au format JSON"
+                                    , Component.encode component
+                                        |> Encode.encode 2
+                                        |> Base64.encode
+                                        |> (++) "data:application/json;base64,"
+                                        |> href
+                                    , download <| component.name ++ ".json"
+                                    ]
+                                    [ Icon.fileExport ]
                                 , button
                                     [ class "btn btn-sm btn-outline-danger"
                                     , title "Supprimer le composant"
