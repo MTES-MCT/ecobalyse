@@ -36,7 +36,7 @@ const storeKey = "store";
 
 const app = Elm.Main.init({
   flags: {
-    backendApiUrl: process.env.BACKEND_API_URL,
+    backendApiUrl: process.env.BACKEND_API_URL || "",
     clientUrl: location.origin + location.pathname,
     enabledSections: {
       food: process.env.ENABLE_FOOD_SECTION === "True",
