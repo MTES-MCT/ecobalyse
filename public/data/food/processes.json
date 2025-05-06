@@ -1,8 +1,8 @@
 [
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Pâtes FR (blé FR + elec FR)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -36,9 +36,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Pâtes IT (blé IT + elec IT)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -72,9 +72,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Pâtes ES (blé ES + elec ES)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -108,9 +108,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Pâtes DE (blé GLO + elec DE)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -144,9 +144,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Pâtes BE (blé 48% GLO/52% FR + elec BE)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -180,9 +180,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, prepacked, to be reheated' matches with a recipe from ANSES.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe FR à réchauffer (légumes FR, élec FR)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -216,9 +216,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, prepacked, to be reheated' matches with a recipe from ANSES.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe IT à réchauffer (légumes FR, élec IT)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -252,9 +252,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, prepacked, to be reheated' matches with a recipe from ANSES.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe ES à réchauffer (légumes FR, elec ES)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -288,9 +288,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, prepacked, to be reheated' matches with a recipe from ANSES.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe DE à réchauffer (légumes FR, elec DE)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -324,9 +324,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, prepacked, to be reheated' matches with a recipe from ANSES.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe BE à réchauffer (légumes FR, elec BE)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -360,9 +360,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe FR déhydratée  (légumes FR, élec FR)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -396,9 +396,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe IT déhydratée (légumes FR, elec IT)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -432,9 +432,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe ES déhydratée (légumes FR, élec ES)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -468,9 +468,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe DE déhydratée (légumes FR, élec DE)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -504,9 +504,9 @@
     "waste": 0
   },
   {
-    "categories": [],
+    "categories": ["ingredient"],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 1.0,
+    "density": 0,
     "displayName": "Soupe BE déhydratée (légumes FR, élec BE)",
     "elecMJ": 0,
     "heatMJ": 0,
