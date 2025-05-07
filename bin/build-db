@@ -46,33 +46,19 @@ const elmWithFixtures = elmTemplate
   // Transverse JSON data
   .replace("%countriesJson%", parseAndValidate("public/data/countries.json", "code"))
   .replace("%impactsJson%", parseAndValidate("public/data/impacts.json"))
+  .replace(
+    "%processesJson%",
+    parseAndValidate(NODE_ENV === "test" ? dataFiles.detailed : dataFiles.noDetails, "id"),
+  )
   .replace("%transportsJson%", parseAndValidate("public/data/transports.json"))
   // Food JSON data
   .replace("%foodIngredientsJson%", parseAndValidate("public/data/food/ingredients.json", "id"))
-  .replace(
-    "%foodProcessesJson%",
-    parseAndValidate(NODE_ENV === "test" ? dataFiles.foodDetailed : dataFiles.foodNoDetails, "id"),
-  )
   .replace("%foodProductExamplesJson%", parseAndValidate("public/data/food/examples.json", "id"))
   // Object JSON data
   .replace("%objectComponentsJson%", parseAndValidate("public/data/object/components.json", "id"))
   .replace("%objectExamplesJson%", parseAndValidate("public/data/object/examples.json", "id"))
-  .replace(
-    "%objectProcessesJson%",
-    parseAndValidate(
-      NODE_ENV === "test" ? dataFiles.objectDetailed : dataFiles.objectNoDetails,
-      "id",
-    ),
-  )
   // Textile JSON data
   .replace("%textileMaterialsJson%", parseAndValidate("public/data/textile/materials.json", "id"))
-  .replace(
-    "%textileProcessesJson%",
-    parseAndValidate(
-      NODE_ENV === "test" ? dataFiles.textileDetailed : dataFiles.textileNoDetails,
-      "id",
-    ),
-  )
   .replace("%textileComponentsJson%", parseAndValidate("public/data/textile/components.json", "id"))
   .replace(
     "%textileProductExamplesJson%",

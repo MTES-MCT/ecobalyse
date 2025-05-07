@@ -1,13 +1,10 @@
 port module CheckDb exposing (main)
 
 import Static.Db as StaticDb exposing (Db)
-import Static.Json as StaticJson
 
 
 type alias Flags =
-    { foodProcesses : String
-    , objectProcesses : String
-    , textileProcesses : String
+    { processes : String
     }
 
 
@@ -24,12 +21,12 @@ init flags =
 
 
 checkStaticDatabases : Flags -> Result String ( Db, Db )
-checkStaticDatabases detailedRawJsonProcesses =
+checkStaticDatabases { processes } =
     Result.map2 Tuple.pair
-        (StaticDb.db StaticJson.rawJsonProcesses
+        (StaticDb.db processes
             |> Result.mapError (\err -> "Non-detailed Db is invalid: " ++ err)
         )
-        (StaticDb.db detailedRawJsonProcesses
+        (StaticDb.db processes
             |> Result.mapError (\err -> "Detailed Db is invalid: " ++ err)
         )
 

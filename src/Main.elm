@@ -29,7 +29,7 @@ import Request.Github
 import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
-import Static.Json as StaticJson exposing (RawJsonProcesses)
+import Static.Json as StaticJson
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -80,7 +80,7 @@ type Msg
     | AuthMsg Auth.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
-    | DetailedProcessesReceived Url (Result Http.Error RawJsonProcesses)
+    | DetailedProcessesReceived Url (Result Http.Error String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -104,7 +104,7 @@ type Msg
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
     setRoute requestedUrl <|
-        case StaticDb.db StaticJson.rawJsonProcesses of
+        case StaticDb.db StaticJson.processesJson of
             Err err ->
                 ( { mobileNavigationOpened = False
                   , navKey = navKey
