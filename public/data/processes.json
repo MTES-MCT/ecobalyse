@@ -1103,7 +1103,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "injection moulding//[RER] injection moulding",
     "unit": "kg",
@@ -4988,7 +4988,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
     "unit": "kg",
@@ -15200,7 +15200,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
     "unit": "m3",
