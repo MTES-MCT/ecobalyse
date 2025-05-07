@@ -51,6 +51,11 @@ copy =
     icon "copy"
 
 
+fileExport : Html msg
+fileExport =
+    icon "file-export"
+
+
 ham : Html msg
 ham =
     icon "ham"
