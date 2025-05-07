@@ -766,7 +766,7 @@ sofaFabric =
 
 injectionMoulding : Result String Process
 injectionMoulding =
-    decodeJson (Process.decode Scope.all Impact.decodeImpacts) <|
+    decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "categories": ["transformation"],
                 "comment": "",
@@ -798,6 +798,7 @@ injectionMoulding =
                     "tre": 0,
                     "wtu": 0
                 },
+                "scopes": ["object"],
                 "source": "Ecoinvent 3.9.1",
                 "sourceId": "injection moulding//[RER] injection moulding",
                 "unit": "kg",
@@ -808,7 +809,7 @@ injectionMoulding =
 
 plastic : Result String Process
 plastic =
-    decodeJson (Process.decode Scope.all Impact.decodeImpacts) <|
+    decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "categories": ["material"],
                 "comment": "",
@@ -840,6 +841,7 @@ plastic =
                     "tre": 0,
                     "wtu": 0
                 },
+                "scopes": ["object"],
                 "source": "Ecoinvent 3.9.1",
                 "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
                 "unit": "kg",
@@ -850,7 +852,7 @@ plastic =
 
 steel : Result String Process
 steel =
-    decodeJson (Process.decode Scope.all Impact.decodeImpacts) <|
+    decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "categories": ["material"],
                 "comment": "",
@@ -882,6 +884,7 @@ steel =
                     "tre": 0,
                     "wtu": 0
                 },
+                "scopes": ["object"],
                 "source": "Ecoinvent 3.9.1",
                 "sourceId": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
                 "unit": "kg",
@@ -892,7 +895,7 @@ steel =
 
 woodenBoard : Result String Process
 woodenBoard =
-    decodeJson (Process.decode Scope.all Impact.decodeImpacts) <|
+    decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "categories": ["material"],
                 "comment": "",
@@ -924,6 +927,7 @@ woodenBoard =
                     "tre": 0,
                     "wtu": 0
                 },
+                "scopes": ["object"],
                 "source": "Ecoinvent 3.9.1",
                 "sourceId": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
                 "unit": "m3",
