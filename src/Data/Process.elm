@@ -89,8 +89,8 @@ sourceIdToString (SourceId string) =
     string
 
 
-decode : List Scope -> Decoder Impact.Impacts -> Decoder Process
-decode scopes impactsDecoder =
+decode : Decoder Impact.Impacts -> Decoder Process
+decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
@@ -100,7 +100,7 @@ decode scopes impactsDecoder =
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
-        |> Pipe.hardcoded scopes
+        |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "sourceId" (DU.decodeNonEmptyString |> Decode.map sourceIdFromString)
         |> Pipe.required "unit" Decode.string
@@ -131,9 +131,9 @@ decodeId =
     Decode.map Id Uuid.decoder
 
 
-decodeList : List Scope -> Decoder Impact.Impacts -> Decoder (List Process)
-decodeList scopes =
-    decode scopes >> Decode.list
+decodeList : Decoder Impact.Impacts -> Decoder (List Process)
+decodeList =
+    decode >> Decode.list
 
 
 encodeId : Id -> Encode.Value

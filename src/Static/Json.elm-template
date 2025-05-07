@@ -1,13 +1,12 @@
 module Static.Json exposing
     ( RawJsonComponents
-    , RawJsonProcesses
     , countriesJson
     , foodIngredientsJson
     , foodProductExamplesJson
     , impactsJson
     , objectExamplesJson
+    , processesJson
     , rawJsonComponents
-    , rawJsonProcesses
     , textileMaterialsJson
     , textileProductExamplesJson
     , textileProductsJson
@@ -28,19 +27,9 @@ rawJsonComponents =
     }
 
 
-type alias RawJsonProcesses =
-    { foodProcesses : String
-    , objectProcesses : String
-    , textileProcesses : String
-    }
-
-
-rawJsonProcesses : RawJsonProcesses
-rawJsonProcesses =
-    { foodProcesses = foodProcessesJson
-    , objectProcesses = objectProcessesJson
-    , textileProcesses = textileProcessesJson
-    }
+processesJson : String
+processesJson =
+    """%processesJson%"""
 
 
 impactsJson : String
@@ -58,11 +47,6 @@ textileMaterialsJson =
     """%textileMaterialsJson%"""
 
 
-textileProcessesJson : String
-textileProcessesJson =
-    """%textileProcessesJson%"""
-
-
 textileProductsJson : String
 textileProductsJson =
     """%textileProductsJson%"""
@@ -76,11 +60,6 @@ textileComponentsJson =
 foodProductExamplesJson : String
 foodProductExamplesJson =
     """%foodProductExamplesJson%"""
-
-
-foodProcessesJson : String
-foodProcessesJson =
-    """%foodProcessesJson%"""
 
 
 foodIngredientsJson : String
@@ -106,8 +85,3 @@ objectComponentsJson =
 objectExamplesJson : String
 objectExamplesJson =
    """%objectExamplesJson%"""
-
-
-objectProcessesJson : String
-objectProcessesJson =
-    """%objectProcessesJson%"""

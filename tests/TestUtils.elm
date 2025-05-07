@@ -58,7 +58,7 @@ suiteFromResult3 testName res1 res2 res3 fn =
 
 suiteWithDb : String -> (Db -> List Test) -> Test
 suiteWithDb name suite =
-    case StaticDb.db StaticJson.rawJsonProcesses of
+    case StaticDb.db StaticJson.processesJson of
         Ok db ->
             describe name (suite db)
 
@@ -114,10 +114,6 @@ createServerRequest dbs method body url =
     { body = body
     , jsResponseHandler = Encode.null
     , method = method
-    , processes =
-        { foodProcesses = dbs.processes |> encode Process.encode
-        , objectProcesses = dbs.processes |> encode Process.encode
-        , textileProcesses = dbs.processes |> encode Process.encode
-        }
+    , processes = dbs.processes |> encode Process.encode
     , url = url
     }

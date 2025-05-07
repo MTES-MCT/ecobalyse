@@ -17,7 +17,6 @@ import Http
 import Request.Auth as AuthRequest
 import Request.Common as RequestCommon
 import Route
-import Static.Json exposing (RawJsonProcesses)
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
@@ -34,7 +33,7 @@ type alias Model =
 
 type Msg
     = AskForRegistration
-    | Authenticated User (Result Http.Error RawJsonProcesses)
+    | Authenticated User (Result Http.Error String)
     | ChangeAction Tab
     | GotProfile (Result Http.Error User)
     | LoggedOut

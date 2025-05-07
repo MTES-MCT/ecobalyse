@@ -31,9 +31,10 @@ type alias Db =
     }
 
 
-db : StaticJson.RawJsonProcesses -> Result String Db
+db : String -> Result String Db
 db =
-    decodeRawProcesses
+    Decode.decodeString (Process.decodeList Impact.decodeImpacts)
+        >> Result.mapError Decode.errorToString
         >> Result.andThen
             (\processes ->
                 Ok Db
@@ -69,26 +70,9 @@ decodeRawComponents { objectComponents, textileComponents } =
         |> Result.map List.concat
 
 
-decodeRawProcesses : StaticJson.RawJsonProcesses -> Result String (List Process)
-decodeRawProcesses { foodProcesses, objectProcesses, textileProcesses } =
-    [ ( foodProcesses, [ Scope.Food ] )
-    , ( objectProcesses, [ Scope.Object, Scope.Veli ] )
-    , ( textileProcesses, [ Scope.Textile ] )
-    ]
-        |> List.map (\( json, scopes ) -> decodeScopedProcesses scopes json)
-        |> RE.combine
-        |> Result.map List.concat
-
-
 decodeScopedComponents : List Scope -> String -> Result String (List Component)
 decodeScopedComponents scopes =
     Component.decodeListFromJsonString scopes
-
-
-decodeScopedProcesses : List Scope -> String -> Result String (List Process)
-decodeScopedProcesses scopes =
-    Decode.decodeString (Process.decodeList scopes Impact.decodeImpacts)
-        >> Result.mapError Decode.errorToString
 
 
 impactDefinitions : Result String Definitions
